@@ -1,0 +1,78 @@
+lang to transpile to: Target programming language for transpilation.
+file extention of the file: File extension for transpiled output files.
+commands: List of supported operations or built-in functions.
+keyWordINT: Defines an integer data type.
+keyWordSTR: Defines a string data type.
+keyWordBOOL: Defines a boolean data type.
+keyWordINT8: Defines an 8-bit integer data type.
+keyWordINT16: Defines a 16-bit integer data type.
+keyWordINT32: Defines a 32-bit integer data type.
+keyWordINT64: Defines a 64-bit integer data type.
+keyWordIF: Used for conditional statements.
+keyWordElseIf: Alternative condition in conditional statements.
+keyWordElse: Defines a block of code for when no conditions are met.
+keyWordWhileLoop: Defines a while loop.
+keyWordForLoop: Defines a for loop.
+keyWordLoopInfinite: Defines an infinite loop.
+keyWordLoop: Defines a loop that iterates a specified number of times.
+keyWordLoopParse: Defines a loop that parses through data or text.
+keyWordContinue: Skips to the next iteration of the loop.
+keyWordBreak: Exits a loop prematurely.
+keyWordFunc: Defines a function or subroutine.
+keyWordAwait: Await a func only in js.
+keyWordVariablesAssignmentOperator: Operator for variable assignment.
+keyWordConcatenationAssignmentOperator: Concatenates and assigns to a string variable.
+keyWordAdditionAssignmentOperator: Adds to a numeric variable and assigns.
+keyWordSubtractionAssignmentOperator: Subtracts from a numeric variable and assigns.
+keyWordMultiplicationAssignmentOperator: Multiplies a numeric variable and assigns.
+keyWordDivisionAssignmentOperator: Divides a numeric variable and assigns.
+keyWordAdditionOperator: Adds two values or variables.
+keyWordConcatenationOperator: Concatenates two strings or variables.
+keyWordEqualOperator: Checks if two values or variables are equal.
+keyWordNotOperator: Negates a boolean value or condition.
+keyWordGreaterThanOperator: Checks if one value is greater than another.
+keyWordLessThanOperator: Checks if one value is less than another.
+keyWordGreaterThanOrEqualToOperator: Checks if one value is greater than or equal to another.
+keyWordLessThanOrEqualToOperator: Checks if one value is less than or equal to another.
+keyWordOrOperator: Combines two boolean conditions (true if either is true).
+keyWordAndOperator: Combines two boolean conditions (true if both are true).
+keyWordNotEqualToOperator: Checks if two values or variables are not equal.
+keyWordSwitch: The switch statement is a type of selection control mechanism.
+keyWordSwitchCase: The switch case is a type of selection control mechanism used within the switch statement.
+keyWordSwitchDefault: The default case in a switch statement provides a fallback option when no case matches.
+keyWordThrow: Used to raise an exception, signaling an error or special condition.
+keyWordErrorMsg: Placeholder for a variable or method that stores or retrieves error messages.
+keyWordTry: Block where code that might throw exceptions is placed; used for handling potential errors.
+keyWordCatch: Block that handles exceptions thrown by the try block, allowing for error recovery.
+keyWordFinally: Block that executes after try and catch, regardless of whether an exception was thrown or not. NOT SUPPORTED IN C++
+keyWordArrayAppend: Method to add an element to the end of a collection (e.g., list or array).
+keyWordArrayPop: Method to remove and return the last element of a collection (e.g., stack or list).
+keyWordArraySize: Method that returns the number of elements in a collection (e.g., array, list, or vector).
+keyWordArrayDefinition: Defines an array data structure.
+keyWordArrayOfIntegersDefinition: Defines an array of integers.
+keyWordArrayOfStringsDefinition: Defines an array of strings.
+keyWordArrayOfFloatingPointNumbersDefinition: Defines an array of floating-point numbers.
+keyWordArrayOfBooleansDefinition: Defines an array of booleans.
+keyWordJavaScriptVar: Use var for variable declarations ONLY in javascript.
+keyWordJavaScriptLet: Use let for block-scoped variables ONLY in javascript.
+keyWordJavaScriptConst: Use const for block-scoped, unchangeable variables ONLY in javascript.
+keyWordReturnStatement: Returns a value from a function or exits a subroutine.
+keyWordReturnEndOFaSubroutineFunction: Marks the end of a subroutine or function.
+keyWordEnd: Indicates the end of a code block.
+keyWordGlobal: Global in Python allows variables inside functions to be accessed and modified globally.
+keyWordComment: Starts a single-line comment.
+keyWordCommentOpenMultiLine: Opens a multiline comment.
+keyWordCommentCloseMultiLine: Closes a multiline comment.
+keyWordEscapeChar: Escapes special characters in strings or identifiers.
+useCurlyBraces: Toggle for using curly braces instead of indentation for code blocks.
+useEnd: Enable custom end-of-block keyword (e.g., 'end', 'finish', etc.).
+useSemicolon: Toggle for using semicolons at the end of statements.
+useParentheses: if off, there's no need to use parentheses where necessary, but you still must use them in some places.
+usePythonicColonSyntax: Enables Python-style colon syntax for defining code blocks.
+useTypes: Use static types. If transpiled to C++, this will be on by default, since C++ is statically typed. Otherwise, the types will be stripped and can be used with Python and JavaScript if useInJavaScriptAlwaysUseVar mode is on.
+forLoopLang: Choose the language for the style of the for loop.
+useInJavaScriptAlwaysUseVar: You dont have to declere variables in js now all of them will start whit var varName...
+useJavaScriptInAfullHTMLfile: It wraps the js cdoe in a full index.html file
+useJavaScriptAmainFuncDef: The useJavaScriptAmainFuncDef option controls whether an async function is used as the main function and where it is placed in the code. If this option is set to any value other than "off," you must specify the syntax for the main function. This syntax is simply a label, marking the start of the main function. There’s no need to add {} brackets since it’s just a label. If you enable this option but don't explicitly place the main function label anywhere in the code, it will automatically be defined at the top. This allows you to define other functions at the top of your script or within the main function itself.
+
+Anything else is built-in functions.

@@ -1,0 +1,4430 @@
+; HT++
+; revolution.htpp
+
+; Wellcome the new revolution
+
+; keyWordsCommands rules
+; OUTVAR = the output variable
+; INVAR = the input variable, like the one before the =
+; INOUTVAR = both the output variable and the input variable
+; lineTranspile = the first keyword will be replaced with the third section
+; 'param123... = a parameter with ""
+; param123... = a regular parameter, nothing much, just add as many as needed
+
+
+func str KeyWordsCommands(str theCodeCommands, str mode, str keyWordsCommands, str langToTranspileTo)
+{
+theCodeCommands := StrReplace(theCodeCommands, "%", "")
+if (mode = "check")
+{
+Loop, Parse, keyWordsCommands, "|"
+{
+Loop, Parse, A_LoopField, `,
+{
+if (A_Index = 1)
+{
+
+if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField . ", ")) = StrLower(A_LoopField . ", "))
+{
+;MsgBox, true
+return "true"
+}
+}
+
+if (A_Index = 1)
+{
+if (theCodeCommands = A_LoopField)
+{
+;MsgBox, true
+return "true"
+}
+}
+
+
+}
+
+}
+;MsgBox, false
+return "false"
+}
+
+int AIndex
+if (mode = "transpile")
+{
+
+int keyWordsCommandsNumLine := 1
+Loop, Parse, keyWordsCommands, "|"
+{
+AIndex := A_Index
+Loop, Parse, A_LoopField, `,
+{
+if (A_Index = 1)
+{
+if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField . ", ")) = StrLower(A_LoopField . ", "))
+{
+;MsgBox, true
+keyWordsCommandsNumLine := AIndex
+break
+}
+}
+
+if (A_Index = 1)
+{
+;MsgBox, %theCodeCommands% = %A_LoopField%
+if (theCodeCommands = A_LoopField)
+{
+;MsgBox, true
+keyWordsCommandsNumLine := AIndex
+break
+}
+}
+
+
+}
+
+}
+
+
+
+
+
+str outConstuctTheOutFromTheCommands := ""
+str outConstuctTheOutFromTheCommandsFucnName := ""
+str outConstuctTheOutFromTheCommandsParams := ""
+str outConstuctTheOutFromTheCommandsOutVar := ""
+str outConstuctTheOutFromTheCommandsInVar := ""
+int theCodeCommandNum := 1
+int outConstuctTheOutFromTheCommandsLineTranspile := 0
+str outConstuctTheOutFromTheCommandsLineTranspileText := ""
+
+str semicolon := ""
+if (langToTranspileTo != "py")
+{
+semicolon := ";"
+}
+
+arr str theCodeCommand
+theCodeCommands := Trim(theCodeCommands)
+Loop, Parse, theCodeCommands, `,
+{
+arr theCodeCommand .= Trim(A_LoopField)
+;MsgBox, % A_LoopField
+}
+
+
+Loop, Parse, keyWordsCommands, "|"
+{
+
+
+
+if (keyWordsCommandsNumLine = A_Index)
+{
+
+;MsgBox, % A_LoopField
+
+Loop, Parse, A_LoopField, `,
+{
+
+
+
+
+if (A_Index = 1)
+{
+outConstuctTheOutFromTheCommandsFucnName := A_LoopField
+}
+else if (A_Index = 2)
+{
+
+;MsgBox, % A_LoopField
+if (A_LoopField = "lineTranspile")
+{
+outConstuctTheOutFromTheCommandsLineTranspile := 1
+}
+
+if (A_LoopField = "OUTVAR")
+{
+outConstuctTheOutFromTheCommandsOutVar := theCodeCommand[theCodeCommandNum]
+}
+else if (A_LoopField = "INOUTVAR")
+{
+
+outConstuctTheOutFromTheCommandsOutVar := theCodeCommand[theCodeCommandNum]
+outConstuctTheOutFromTheCommandsInVar := theCodeCommand[theCodeCommandNum]
+}
+else if (A_LoopField = "INVAR")
+{
+outConstuctTheOutFromTheCommandsInVar := theCodeCommand[theCodeCommandNum]
+}
+else
+{
+if (InStr(A_LoopField, Chr(39)))
+{
+outConstuctTheOutFromTheCommandsParams .= Chr(34) . theCodeCommand[theCodeCommandNum] . Chr(34) . ", "
+}
+else
+{
+outConstuctTheOutFromTheCommandsParams .= theCodeCommand[theCodeCommandNum] . ", "
+}
+
+}
+
+
+
+}
+else if (A_Index = 3)
+{
+
+if (outConstuctTheOutFromTheCommandsLineTranspile = 1)
+{
+outConstuctTheOutFromTheCommandsLineTranspileText := A_LoopField
+}
+
+
+if (A_LoopField = "INVAR")
+{
+outConstuctTheOutFromTheCommandsInVar := theCodeCommand[theCodeCommandNum]
+}
+else
+{
+if (InStr(A_LoopField, Chr(39)))
+{
+outConstuctTheOutFromTheCommandsParams .= Chr(34) . theCodeCommand[theCodeCommandNum] . Chr(34) . ", "
+}
+else
+{
+outConstuctTheOutFromTheCommandsParams .= theCodeCommand[theCodeCommandNum] . ", "
+}
+}
+
+}
+else
+{
+
+;MsgBox, % theCodeCommand[theCodeCommandNum]
+if (InStr(A_LoopField, Chr(39)))
+{
+outConstuctTheOutFromTheCommandsParams .= Chr(34) . theCodeCommand[theCodeCommandNum] . Chr(34) . ", "
+}
+else
+{
+outConstuctTheOutFromTheCommandsParams .= theCodeCommand[theCodeCommandNum] . ", "
+}
+}
+theCodeCommandNum++
+}
+break
+}
+
+}
+
+StringTrimRight, outConstuctTheOutFromTheCommandsParams, outConstuctTheOutFromTheCommandsParams, 2
+
+if (outConstuctTheOutFromTheCommandsOutVar != "")
+{
+if (outConstuctTheOutFromTheCommandsParams = "")
+{
+outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsOutVar . " = " . outConstuctTheOutFromTheCommandsFucnName . "(" . outConstuctTheOutFromTheCommandsInVar . ")" . semicolon
+}
+else
+{
+outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsOutVar . " = " . outConstuctTheOutFromTheCommandsFucnName . "(" . outConstuctTheOutFromTheCommandsInVar . ", " . outConstuctTheOutFromTheCommandsParams . ")" . semicolon
+}
+
+}
+
+if (outConstuctTheOutFromTheCommandsOutVar = "")
+{
+if (outConstuctTheOutFromTheCommandsParams = "")
+{
+outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsFucnName . "(" . outConstuctTheOutFromTheCommandsInVar . ")" . semicolon
+}
+else
+{
+outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsFucnName . "(" . outConstuctTheOutFromTheCommandsInVar . ", " . outConstuctTheOutFromTheCommandsParams . ")" . semicolon
+}
+}
+
+if (outConstuctTheOutFromTheCommandsLineTranspile = 1)
+{
+outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsLineTranspileText
+}
+
+
+
+return outConstuctTheOutFromTheCommands
+
+
+
+
+
+}
+
+return "false"
+}
+
+
+
+func str ExtractDigits(str inputString)
+{
+str digits
+
+Loop, Parse, inputString
+{
+    if (RegExMatch(A_LoopField, "\\d"))
+    {
+        digits .= A_LoopField
+    }
+}
+return digits
+}
+
+func str convertJs_cpp_Normal(str theCode)
+{
+str out
+
+str indexName
+str indexEqual
+str indexMax
+Loop, Parse, theCode, " "
+{
+if (A_Index = 3)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 5)
+{
+indexEqual := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 8)
+{
+indexMax := StrReplace(A_LoopField, ";", "")
+}
+}
+out := "for (int " . indexName . " = " . indexEqual . "; " . indexName . " < " . indexMax . "; " . indexName . "++)"
+return out
+}
+
+func str convertJs_py_Normal(str theCode)
+{
+str out
+
+str indexName
+str indexEqual
+str indexMax
+Loop, Parse, theCode, " "
+{
+if (A_Index = 3)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 5)
+{
+indexEqual := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 8)
+{
+indexMax := StrReplace(A_LoopField, ";", "")
+}
+}
+out := "for " . indexName . " in range(" . indexEqual . ", " . indexMax . "):"
+return out
+}
+
+func str convertPy_cpp_Normal(str theCode)
+{
+str out
+
+str indexName
+str indexEqual
+str indexMax
+
+if (InStr(theCode, ","))
+{
+Loop, Parse, theCode, " "
+{
+if (A_Index = 2)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 4)
+{
+indexEqual := ExtractDigits(StrReplace(A_LoopField, ";", ""))
+}
+if (A_Index = 5)
+{
+indexMax := ExtractDigits(StrReplace(A_LoopField, ";", ""))
+}
+}
+out := "for (int " . indexName . " = " . indexEqual . "; " . indexName . " < " . indexMax . "; " . indexName . "++)"
+return out
+}
+else
+{
+Loop, Parse, theCode, " "
+{
+if (A_Index = 2)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 4)
+{
+indexEqual := "0"
+indexMax := ExtractDigits(StrReplace(A_LoopField, ";", ""))
+}
+}
+out := "for (int " . indexName . " = " . indexEqual . "; " . indexName . " < " . indexMax . "; " . indexName . "++)"
+return out
+}
+
+}
+
+func str convertPy_js_Normal(str theCode)
+{
+str out
+
+str indexName
+str indexEqual
+str indexMax
+
+if (InStr(theCode, ","))
+{
+Loop, Parse, theCode, " "
+{
+if (A_Index = 2)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 4)
+{
+indexEqual := ExtractDigits(StrReplace(A_LoopField, ";", ""))
+}
+if (A_Index = 5)
+{
+indexMax := ExtractDigits(StrReplace(A_LoopField, ";", ""))
+}
+}
+out := "for (let " . indexName . " = " . indexEqual . "; " . indexName . " < " . indexMax . "; " . indexName . "++)"
+return out
+}
+else
+{
+Loop, Parse, theCode, " "
+{
+if (A_Index = 2)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 4)
+{
+indexEqual := "0"
+indexMax := ExtractDigits(StrReplace(A_LoopField, ";", ""))
+}
+}
+out := "for (let " . indexName . " = " . indexEqual . "; " . indexName . " < " . indexMax . "; " . indexName . "++)"
+return out
+}
+
+}
+
+func str convertCpp_js_Normal(str theCode)
+{
+str out
+
+str indexName
+str indexEqual
+str indexMax
+Loop, Parse, theCode, " "
+{
+if (A_Index = 3)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 5)
+{
+indexEqual := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 8)
+{
+indexMax := StrReplace(A_LoopField, ";", "")
+}
+}
+out := "for (let " . indexName . " = " . indexEqual . "; " . indexName . " < " . indexMax . "; " . indexName . "++)"
+return out
+}
+
+func str convertCpp_py_Normal(str theCode)
+{
+str out
+
+str indexName
+str indexEqual
+str indexMax
+Loop, Parse, theCode, " "
+{
+if (A_Index = 3)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 5)
+{
+indexEqual := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 8)
+{
+indexMax := StrReplace(A_LoopField, ";", "")
+}
+}
+out := "for " . indexName . " in range(" . indexEqual . ", " . indexMax . "):"
+return out
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func str convertJs_cpp_Array(str theCode)
+{
+str out
+
+str indexName
+str indexEqual
+str indexMax
+Loop, Parse, theCode, " "
+{
+if (A_Index = 3)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 5)
+{
+indexEqual := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 8)
+{
+indexMax := StrReplace(A_LoopField, ";", "")
+}
+}
+
+indexMax := StrSplit(indexMax, ".", 1) . ".size()"
+
+out := "for (int " . indexName . " = " . indexEqual . "; " . indexName . " < " . indexMax . "; " . indexName . "++)"
+return out
+}
+
+func str convertJs_py_Array(str theCode)
+{
+str out
+
+str indexName
+str indexEqual
+str indexMax
+Loop, Parse, theCode, " "
+{
+if (A_Index = 3)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 5)
+{
+indexEqual := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 8)
+{
+indexMax := StrSplit(StrReplace(A_LoopField, ";", ""), ".", 1)
+}
+}
+out := "for " . indexName . " in range(" . indexEqual . ", len(" . indexMax . ")):"
+return out
+}
+
+
+func str convertPy_cpp_Array(str theCode)
+{
+str out
+
+str indexName
+str indexEqual
+str indexMax
+
+if (InStr(theCode, ","))
+{
+Loop, Parse, theCode, " "
+{
+if (A_Index = 2)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 4)
+{
+indexEqual := ExtractDigits(StrReplace(A_LoopField, ";", ""))
+}
+if (A_Index = 5)
+{
+indexMax := StrSplit(StrSplit(StrReplace(A_LoopField, ";", ""), "len(", 2), ")", 1) . ".size()"
+}
+}
+out := "for (int " . indexName . " = " . indexEqual . "; " . indexName . " < " . indexMax . "; " . indexName . "++)"
+return out
+}
+else
+{
+
+Loop, Parse, theCode, " "
+{
+if (A_Index = 2)
+{
+indexName := A_LoopField
+}
+if (A_Index = 4)
+{
+indexEqual := "0"
+indexMax := StrSplit(StrSplit(StrReplace(A_LoopField, ";", ""), "len(", 2), ")", 1) . ".size()"
+}
+}
+out := "for (int " . indexName . " = " . indexEqual . "; " . indexName . " < " . indexMax . "; " . indexName . "++)"
+return out
+}
+
+}
+
+func str convertPy_js_Array(str theCode)
+{
+str out
+
+str indexName
+str indexEqual
+str indexMax
+
+if (InStr(theCode, ","))
+{
+Loop, Parse, theCode, " "
+{
+if (A_Index = 2)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 4)
+{
+indexEqual := ExtractDigits(StrReplace(A_LoopField, ";", ""))
+}
+if (A_Index = 5)
+{
+indexMax := StrSplit(StrSplit(StrReplace(A_LoopField, ";", ""), "len(", 2), ")", 1) . ".length"
+}
+}
+out := "for (let " . indexName . " = " . indexEqual . "; " . indexName . " < " . indexMax . "; " . indexName . "++)"
+return out
+}
+else
+{
+
+Loop, Parse, theCode, " "
+{
+if (A_Index = 2)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 4)
+{
+indexEqual := "0"
+indexMax := StrSplit(StrSplit(StrReplace(A_LoopField, ";", ""), "len(", 2), ")", 1) . ".length"
+}
+}
+out := "for (let " . indexName . " = " . indexEqual . "; " . indexName . " < " . indexMax . "; " . indexName . "++)"
+return out
+}
+
+}
+
+func str convertCpp_js_Array(str theCode)
+{
+str out
+
+str indexName
+str indexEqual
+str indexMax
+Loop, Parse, theCode, " "
+{
+if (A_Index = 3)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 5)
+{
+indexEqual := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 8)
+{
+indexMax := StrReplace(A_LoopField, ";", "")
+}
+}
+
+indexMax := StrSplit(indexMax, ".", 1) . ".length"
+
+out := "for (let " . indexName . " = " . indexEqual . "; " . indexName . " < " . indexMax . "; " . indexName . "++)"
+return out
+}
+
+
+func str convertCpp_py_Array(str theCode)
+{
+str out
+
+str indexName
+str indexEqual
+str indexMax
+Loop, Parse, theCode, " "
+{
+if (A_Index = 3)
+{
+indexName := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 5)
+{
+indexEqual := StrReplace(A_LoopField, ";", "")
+}
+if (A_Index = 8)
+{
+indexMax := StrSplit(StrReplace(A_LoopField, ";", ""), ".", 1)
+}
+}
+out := "for " . indexName . " in range(" . indexEqual . ", len(" . indexMax . ")):"
+return out
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func str transpileForLoop(str langToConvertTo, str langForLoopStyleOfUser, str TheCode)
+{
+str out
+bool isNormalLoop
+
+; Check if source and target languages are the same
+if (langForLoopStyleOfUser = langToConvertTo)
+{
+;theColon
+if (langForLoopStyleOfUser = "py")
+{
+if (!(InStr(TheCode, ":")))
+{
+TheCode := TheCode . ":"
+return TheCode
+}
+}
+else
+{
+if (InStr(TheCode, ":"))
+{
+TheCode := StrReplace(TheCode, ":", "")
+return TheCode
+}
+}
+return TheCode
+}
+
+if (Trim(TheCode) = "for (;;)")
+{
+if (langToConvertTo != "py")
+{
+return "for (;;)"
+}
+else
+{
+return "while Ture:"
+}
+}
+
+if (langForLoopStyleOfUser = "py")
+{
+if (InStr(TheCode, "len("))
+{
+isNormalLoop := false
+}
+else
+{
+isNormalLoop := true
+}
+}
+else
+{
+if (InStr(TheCode, "."))
+{
+isNormalLoop := false
+}
+else
+{
+isNormalLoop := true
+}
+}
+
+if (isNormalLoop)
+{
+if (langForLoopStyleOfUser = "py") && (langToConvertTo = "cpp")
+{
+out := convertPy_cpp_Normal(TheCode)
+}
+if (langForLoopStyleOfUser = "py") && (langToConvertTo = "js")
+{
+out := convertPy_js_Normal(TheCode)
+}
+if (langForLoopStyleOfUser = "js") && (langToConvertTo = "cpp")
+{
+out := convertJs_cpp_Normal(TheCode)
+}
+if (langForLoopStyleOfUser = "js") && (langToConvertTo = "py")
+{
+out := convertJs_py_Normal(TheCode)
+}
+if (langForLoopStyleOfUser = "cpp") && (langToConvertTo = "py")
+{
+out := convertCpp_py_Normal(TheCode)
+}
+if (langForLoopStyleOfUser = "cpp") && (langToConvertTo = "js")
+{
+out := convertCpp_js_Normal(TheCode)
+}
+}
+else
+{
+if (langForLoopStyleOfUser = "py") && (langToConvertTo = "cpp")
+{
+out := convertPy_cpp_Array(TheCode)
+}
+if (langForLoopStyleOfUser = "py") && (langToConvertTo = "js")
+{
+out := convertPy_js_Array(TheCode)
+}
+if (langForLoopStyleOfUser = "js") && (langToConvertTo = "cpp")
+{
+out := convertJs_cpp_Array(TheCode)
+}
+if (langForLoopStyleOfUser = "js") && (langToConvertTo = "py")
+{
+out := convertJs_py_Array(TheCode)
+}
+if (langForLoopStyleOfUser = "cpp") && (langToConvertTo = "py")
+{
+out := convertCpp_py_Array(TheCode)
+}
+if (langForLoopStyleOfUser = "cpp") && (langToConvertTo = "js")
+{
+out := convertCpp_js_Array(TheCode)
+}
+}
+
+
+return out
+}
+
+
+
+; Helper function to create spaces
+func str spaces(int n)
+{
+str s := ""
+if (n != 0)
+{
+Loop, % n
+{
+s .= " "
+}
+}
+return s
+}
+
+func str LTrim(str input)
+{
+    str result := ""
+    bool foundNonSpace := false
+
+    Loop, Parse, input
+    {
+        if (A_LoopField != " " || foundNonSpace)
+        {
+            result .= A_LoopField
+            foundNonSpace := true
+        }
+    }
+
+    return result
+}
+
+
+func str getLastChar(str strippedString)
+{
+str lastChar
+Loop, Parse, strippedString
+{
+lastChar := A_LoopField
+}
+return lastChar
+}
+
+func str AddCurlyBraces(str pythonCode)
+{
+pythonCode := StrReplace(pythonCode, A_Tab, "    ")
+str result := ""
+int indentLevel := 0
+int indent
+str line
+str stripped
+Loop, Parse, pythonCode, `n, `r
+{
+line := A_LoopField
+stripped := Trim(line)
+if (stripped == "")
+{
+result .= line . "`n"
+continue
+}
+
+; Count leading spaces
+indent := StrLen(line) - StrLen(LTrim(line))
+;MsgBox, % indent
+; Close braces for unindents
+
+loop
+{
+if (indentLevel <= indent)
+{
+	break
+}
+indentLevel -= 4
+result .= spaces(indentLevel) . "}`n"
+}
+
+
+; Add opening brace for new blocks
+if (getLastChar(stripped) = ":")
+{
+result .= SubStr(line, 1, -1) . " {`n"
+indentLevel += 4
+}
+else
+{
+result .= line . "`n"
+}
+}
+
+; Close any remaining open braces
+Loop
+{
+if (indentLevel <= 0)
+{
+break
+}
+indentLevel -= 4
+result .= spaces(indentLevel) . "}`n"
+}
+
+
+return result
+}
+
+
+func str RepeatSpaces(int count)
+{
+str spaces := ""
+Loop, % count
+{
+spaces .= Chr(32)
+}
+return spaces
+}
+
+
+func str indent_nested_curly_braces(str input_string)
+{
+int indent_size := 4
+int current_indent := 0
+str result
+str trimmed_line
+;MsgBox, % input_string
+Loop, Parse, input_string, `n, `r
+{
+
+trimmed_line := Trim(A_LoopField)
+
+if (trimmed_line = Chr(123))
+{
+
+result .= Chr(32) . RepeatSpaces(current_indent) . trimmed_line . "`n"
+current_indent := current_indent + indent_size
+}
+else if (trimmed_line = Chr(125))
+{
+
+current_indent := current_indent - indent_size
+result .= Chr(32) . RepeatSpaces(current_indent) . trimmed_line . "`n"
+}
+else
+{
+
+result .= Chr(32) . RepeatSpaces(current_indent) . trimmed_line . "`n"
+}
+
+}
+str resultOut
+Loop, Parse, result, `n, `r
+{
+if (Trim(A_LoopField) != "{") && (Trim(A_LoopField) != "}")
+{
+resultOut .= A_LoopField . "`n"
+}
+}
+StringTrimRight, result, resultOut, 1
+; Return the result
+return result
+}
+
+
+
+str keyWordsCommands
+str fileExtention
+str code
+str keyWordINT
+str keyWordSTR
+str instructions
+str filePathOfCode
+str langToTranspileTo
+str out_KeyWordsCommands
+str outTrimCode
+str htCode
+str str1
+str str2
+str str3
+str str4
+str str5
+str str6
+str str7
+str str8
+str str9
+str str10
+str outVarOperator
+int lineDone
+int areWeInAFuncFromInstructions
+int areWeInAFuncFromInstructionsLineNum
+str funcNameHolder
+str funcLibsHolder
+str funcParamsHolder
+str funcFuncHolder
+str funcDescriptionHolder
+str keyWordIF
+str keyWordElseIf
+str keyWordWhileLoop
+str keyWordForLoop
+str keyWordElse
+str keyWordBOOL
+str keyWordINT8
+str keyWordINT16
+str keyWordINT32
+str keyWordINT64
+str keyWordLoop
+str keyWordLoopInfinite
+str keyWordLoopParse
+str keyWordBreak
+str keyWordContinue
+str keyWordFunc
+str keyWordAwait
+str keyWordConcatenationAssignmentOperator
+str keyWordVariablesAssignmentOperator
+str keyWordAdditionAssignmentOperator
+str keyWordSubtractionAssignmentOperator
+str keyWordMultiplicationAssignmentOperator
+str keyWordDivisionAssignmentOperator
+str keyWordAdditionOperator
+str keyWordConcatenationOperator
+str keyWordEqualOperator
+str keyWordNotOperator
+str keyWordGreaterThanOperator
+str keyWordLessThanOperator
+str keyWordGreaterThanOrEqualToOperator
+str keyWordLessThanOrEqualToOperator
+str keyWordOrOperator
+str keyWordAndOperator
+str keyWordNotEqualToOperator
+str keyWordSwitch
+str keyWordSwitchCase
+str keyWordSwitchDefault
+str keyWordThrow
+str keyWordErrorMsg
+str keyWordTry
+str keyWordCatch
+str keyWordFinally
+str keyWordArrayAppend
+str keyWordArrayPop
+str keyWordArraySize
+str keyWordArrayDefinition
+str keyWordArrayOfIntegersDefinition
+str keyWordArrayOfStringsDefinition
+str keyWordArrayOfFloatingPointNumbersDefinition
+str keyWordArrayOfBooleansDefinition
+str keyWordJavaScriptVar
+str keyWordJavaScriptLet
+str keyWordJavaScriptConst
+str keyWordReturnStatement
+str keyWordReturnEndOFaSubroutineFunction
+str keyWordEnd
+str keyWordGlobal
+str keyWordComment
+str keyWordCommentOpenMultiLine
+str keyWordCommentCloseMultiLine
+str keyWordEscpaeChar
+
+str useCurlyBraces
+str useEnd
+str useSemicolon
+str useParentheses
+str usePythonicColonSyntax
+str useTypes
+str forLoopLang
+str useJavaScriptInAfullHTMLfile
+str useInJavaScriptAlwaysUseVar
+str useJavaScriptAmainFuncDef
+
+str theSemicolon
+str theColon
+
+str theCppVarForErrors := "jhku-dfsds-ds-d-ffdsf-sdfsfdsedsf"
+str theJSvarDeclaredVarsBugFix := "|"
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func str expressionParserTranspiler(str expression)
+{
+
+expression := StrReplace(expression, " " . keyWordAdditionOperator . " ", " + ")
+expression := StrReplace(expression, " " . keyWordConcatenationOperator . " ", " + ")
+expression := StrReplace(expression, " " . keyWordEqualOperator . " ", " == ")
+
+if (langToTranspileTo = "py")
+{
+expression := RegExReplace(expression, "!([\\w]+)", "not $1")
+}
+
+if (langToTranspileTo = "py")
+{
+expression := StrReplace(expression, keyWordNotOperator, "not")
+}
+else
+{
+expression := StrReplace(expression, keyWordNotOperator, "!")
+}
+expression := StrReplace(expression, " " . keyWordGreaterThanOperator . " ", " > ")
+expression := StrReplace(expression, " " . keyWordLessThanOperator . " ", " < ")
+expression := StrReplace(expression, " " . keyWordGreaterThanOrEqualToOperator . " ", " >= ")
+expression := StrReplace(expression, " " . keyWordLessThanOrEqualToOperator . " ", " <= ")
+if (langToTranspileTo = "py")
+{
+expression := StrReplace(expression, " " . keyWordOrOperator . " ", " or ")
+}
+else
+{
+expression := StrReplace(expression, " " . keyWordOrOperator . " ", " || ")
+}
+if (langToTranspileTo = "py")
+{
+expression := StrReplace(expression, " " . keyWordAndOperator . " ", " and ")
+}
+else
+{
+expression := StrReplace(expression, " " . keyWordAndOperator . " ", " && ")
+}
+expression := StrReplace(expression, " " . keyWordNotEqualToOperator . " ", " != ")
+expression := StrReplace(expression, " not= ", " != ")
+
+
+if (langToTranspileTo = "py")
+{
+; Python-specific replacements
+expression := RegExReplace(expression, "\\btrue\\b", "True")
+expression := RegExReplace(expression, "\\bfalse\\b", "False")
+expression := RegExReplace(expression, "\\bnull\\b", "None")
+expression := StrReplace(expression, "{}", "[]")
+
+expression := StrReplace(expression, keyWordErrorMsg, "Exception")
+expression := StrReplace(expression, keyWordArrayAppend, ".append")
+expression := StrReplace(expression, keyWordArrayPop, ".pop")
+
+expression := StrReplace(expression, ") and (", " and ")
+expression := StrReplace(expression, ") or (", " or ")
+
+
+if (InStr(expression, keyWordArraySize))
+{
+
+str pattern1 := "(\\w{1,1})\\" . keyWordArraySize
+str pattern2 := "(\\w+)\\" . keyWordArraySize
+
+int result2 := RegExMatch(expression, pattern1)
+int result1 := RegExMatch(expression, pattern2)
+
+str concatResults
+Loop, Parse, expression
+{
+if (A_Index >= result1) && (A_Index <= result2)
+{
+concatResults .= A_LoopField
+}
+}
+expression := StrReplace(expression, concatResults . ".", ".")
+expression := StrReplace(expression, keyWordArraySize, "len(" . concatResults . ")")
+expression := StrReplace(expression, ")()", ")")
+}
+
+
+}
+else if (langToTranspileTo = "js")
+{
+; JavaScript-specific replacements
+expression := RegExReplace(expression, "\\bTrue\\b", "true")
+expression := RegExReplace(expression, "\\bFalse\\b", "false")
+expression := RegExReplace(expression, "\\bNone\\b", "null")
+expression := StrReplace(expression, "{}", "[]")
+
+expression := StrReplace(expression, keyWordErrorMsg, "new Error")
+expression := StrReplace(expression, keyWordArrayAppend, ".push")
+expression := StrReplace(expression, keyWordArrayPop, ".pop")
+expression := StrReplace(expression, keyWordArraySize, ".length")
+
+expression := StrReplace(expression, ") && (", " && ")
+expression := StrReplace(expression, ") || (", " || ")
+
+}
+else if (langToTranspileTo = "cpp")
+{
+; C++-specific replacements
+expression := RegExReplace(expression, "\\b" . theCppVarForErrors . "\\b", theCppVarForErrors . ".what()")
+expression := RegExReplace(expression, "\\bTrue\\b", "true")
+expression := RegExReplace(expression, "\\bFalse\\b", "false")
+expression := RegExReplace(expression, "\\bnull\\b", Chr(34) . Chr(34))
+expression := RegExReplace(expression, "\\bNone\\b", Chr(34) . Chr(34))
+expression := StrReplace(expression, "[]", "{}")
+
+expression := StrReplace(expression, keyWordErrorMsg, "std::runtime_error")
+expression := StrReplace(expression, keyWordArrayAppend, ".push_back")
+expression := StrReplace(expression, keyWordArrayPop, ".pop_back")
+expression := StrReplace(expression, keyWordArraySize, ".size")
+
+expression := StrReplace(expression, ") && (", " && ")
+expression := StrReplace(expression, ") || (", " || ")
+
+}
+
+expression := StrReplace(expression, ".length()", ".length")
+
+
+
+
+str expressionOut
+Loop, Parse, expression, " "
+{
+expressionOut .= A_LoopField . " "
+}
+
+
+StringTrimRight, expressionOut, expressionOut, 1
+return expressionOut
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+func void compiler()
+{
+str params := GetParams()
+if (params = "")
+{
+MsgBox, No params!!!!
+ExitApp
+}
+
+Loop, Parse, params, `n, `r
+{
+if (A_Index = 1)
+{
+MsgBox, % A_LoopField
+filePathOfCode := A_LoopField
+;MsgBox, % filePathOfCode
+;code := FileRead(filePathOfCode)
+FileRead, code, %filePathOfCode%
+;MsgBox, % code
+}
+if (A_Index = 2)
+{
+MsgBox, % A_LoopField
+
+FileRead, instructions, %A_LoopField%
+}
+}
+;MsgBox, % code
+
+Loop, Parse, instructions, `n, `r
+{
+if (A_Index = 1)
+{
+langToTranspileTo := Trim(A_LoopField)
+}
+if (A_Index = 2)
+{
+fileExtention := Trim(A_LoopField)
+}
+if (A_Index = 3)
+{
+keyWordsCommands := Trim(A_LoopField)
+}
+
+if (A_Index = 4)
+{
+keyWordINT := Trim(A_LoopField) . " "
+}
+if (A_Index = 5)
+{
+keyWordSTR := Trim(A_LoopField) . " "
+}
+if (A_Index = 6)
+{
+keyWordBOOL := Trim(A_LoopField) . " "
+}
+if (A_Index = 7)
+{
+keyWordINT8 := Trim(A_LoopField) . " "
+}
+if (A_Index = 8)
+{
+keyWordINT16 := Trim(A_LoopField) . " "
+}
+if (A_Index = 9)
+{
+keyWordINT32 := Trim(A_LoopField) . " "
+}
+if (A_Index = 10)
+{
+keyWordINT64 := Trim(A_LoopField) . " "
+}
+if (A_Index = 11)
+{
+keyWordIF := Trim(A_LoopField) . " "
+}
+if (A_Index = 12)
+{
+keyWordElseIf := Trim(A_LoopField) . " "
+}
+if (A_Index = 13)
+{
+keyWordElse := Trim(A_LoopField)
+}
+if (A_Index = 14)
+{
+keyWordWhileLoop := Trim(A_LoopField) . " "
+}
+if (A_Index = 15)
+{
+keyWordForLoop := Trim(A_LoopField) . " "
+}
+if (A_Index = 16)
+{
+keyWordLoopInfinite := Trim(A_LoopField)
+}
+if (A_Index = 17)
+{
+keyWordLoop := Trim(A_LoopField) . " "
+}
+if (A_Index = 18)
+{
+keyWordLoopParse := Trim(A_LoopField) . " "
+}
+if (A_Index = 19)
+{
+keyWordContinue := Trim(A_LoopField)
+}
+if (A_Index = 20)
+{
+keyWordBreak := Trim(A_LoopField)
+}
+if (A_Index = 21)
+{
+keyWordFunc := Trim(A_LoopField) . " "
+}
+if (A_Index = 22)
+{
+keyWordAwait := Trim(A_LoopField) . " "
+}
+if (A_Index = 23)
+{
+keyWordVariablesAssignmentOperator := Trim(A_LoopField)
+}
+if (A_Index = 24)
+{
+keyWordConcatenationAssignmentOperator := Trim(A_LoopField)
+}
+if (A_Index = 25)
+{
+keyWordAdditionAssignmentOperator := Trim(A_LoopField)
+}
+if (A_Index = 26)
+{
+keyWordSubtractionAssignmentOperator := Trim(A_LoopField)
+}
+if (A_Index = 27)
+{
+keyWordMultiplicationAssignmentOperator := Trim(A_LoopField)
+}
+if (A_Index = 28)
+{
+keyWordDivisionAssignmentOperator := Trim(A_LoopField)
+}
+if (A_Index = 29)
+{
+keyWordAdditionOperator := Trim(A_LoopField)
+}
+if (A_Index = 30)
+{
+keyWordConcatenationOperator := Trim(A_LoopField)
+}
+if (A_Index = 31)
+{
+keyWordEqualOperator := Trim(A_LoopField)
+}
+if (A_Index = 32)
+{
+keyWordNotOperator := Trim(A_LoopField)
+}
+if (A_Index = 33)
+{
+keyWordGreaterThanOperator := Trim(A_LoopField)
+}
+if (A_Index = 34)
+{
+keyWordLessThanOperator := Trim(A_LoopField)
+}
+if (A_Index = 35)
+{
+keyWordGreaterThanOrEqualToOperator := Trim(A_LoopField)
+}
+if (A_Index = 36)
+{
+keyWordLessThanOrEqualToOperator := Trim(A_LoopField)
+}
+if (A_Index = 37)
+{
+keyWordOrOperator := Trim(A_LoopField)
+}
+if (A_Index = 38)
+{
+keyWordAndOperator := Trim(A_LoopField)
+}
+if (A_Index = 39)
+{
+keyWordNotEqualToOperator := Trim(A_LoopField)
+}
+if (A_Index = 40)
+{
+keyWordSwitch := Trim(A_LoopField) . " "
+}
+if (A_Index = 41)
+{
+keyWordSwitchCase := Trim(A_LoopField) . " "
+}
+if (A_Index = 42)
+{
+keyWordSwitchDefault := Trim(A_LoopField)
+}
+if (A_Index = 43)
+{
+keyWordThrow := Trim(A_LoopField) . " "
+}
+if (A_Index = 44)
+{
+keyWordErrorMsg := Trim(A_LoopField)
+}
+if (A_Index = 45)
+{
+keyWordTry := Trim(A_LoopField)
+}
+if (A_Index = 46)
+{
+keyWordCatch := Trim(A_LoopField) . " "
+}
+if (A_Index = 47)
+{
+keyWordFinally := Trim(A_LoopField)
+}
+if (A_Index = 48)
+{
+keyWordArrayAppend := Trim(A_LoopField)
+}
+if (A_Index = 49)
+{
+keyWordArrayPop := Trim(A_LoopField)
+}
+if (A_Index = 50)
+{
+keyWordArraySize := Trim(A_LoopField)
+}
+if (A_Index = 51)
+{
+keyWordArrayDefinition := Trim(A_LoopField) . " "
+}
+if (A_Index = 52)
+{
+keyWordArrayOfIntegersDefinition := Trim(A_LoopField) . " "
+}
+if (A_Index = 53)
+{
+keyWordArrayOfStringsDefinition := Trim(A_LoopField) . " "
+}
+if (A_Index = 54)
+{
+keyWordArrayOfFloatingPointNumbersDefinition := Trim(A_LoopField) . " "
+}
+if (A_Index = 55)
+{
+keyWordArrayOfBooleansDefinition := Trim(A_LoopField) . " "
+}
+if (A_Index = 56)
+{
+keyWordJavaScriptVar := Trim(A_LoopField) . " "
+}
+if (A_Index = 57)
+{
+keyWordJavaScriptLet := Trim(A_LoopField) . " "
+}
+if (A_Index = 58)
+{
+keyWordJavaScriptConst := Trim(A_LoopField) . " "
+}
+if (A_Index = 59)
+{
+keyWordReturnStatement := Trim(A_LoopField) . " "
+}
+if (A_Index = 60)
+{
+keyWordReturnEndOFaSubroutineFunction := Trim(A_LoopField)
+}
+if (A_Index = 61)
+{
+keyWordEnd := Trim(A_LoopField)
+}
+if (A_Index = 62)
+{
+keyWordGlobal := Trim(A_LoopField) . " "
+}
+if (A_Index = 63)
+{
+keyWordComment := Trim(A_LoopField)
+}
+if (A_Index = 64)
+{
+keyWordCommentOpenMultiLine := Trim(A_LoopField)
+}
+if (A_Index = 65)
+{
+keyWordCommentCloseMultiLine := Trim(A_LoopField)
+}
+if (A_Index = 66)
+{
+keyWordEscpaeChar := Trim(A_LoopField)
+}
+if (A_Index = 67)
+{
+useCurlyBraces := Trim(A_LoopField)
+}
+if (A_Index = 68)
+{
+useEnd := Trim(A_LoopField)
+}
+if (A_Index = 69)
+{
+useSemicolon := Trim(A_LoopField)
+}
+if (A_Index = 70)
+{
+useParentheses := Trim(A_LoopField)
+}
+if (A_Index = 71)
+{
+usePythonicColonSyntax := Trim(A_LoopField)
+}
+if (A_Index = 72)
+{
+useTypes := Trim(A_LoopField)
+}
+if (A_Index = 73)
+{
+forLoopLang := Trim(A_LoopField)
+}
+if (A_Index = 74)
+{
+useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
+}
+if (A_Index = 75)
+{
+useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
+}
+if (A_Index = 76)
+{
+useJavaScriptAmainFuncDef := Trim(A_LoopField)
+}
+
+}
+
+
+
+
+areWeInAFuncFromInstructions := 0
+areWeInAFuncFromInstructionsLineNum := 0
+
+arr str allFuncNames
+arr str allFuncLibs
+arr str allFuncParams
+arr str allFuncs
+arr str allfuncDescription
+
+
+
+Loop, Parse, instructions, `n, `r
+{
+if (Trim(A_LoopField) = "funcEND======================funcEND==============")
+{
+areWeInAFuncFromInstructions := 0
+areWeInAFuncFromInstructionsLineNum := 0
+arr allFuncs .= funcFuncHolder
+}
+
+if (areWeInAFuncFromInstructions = 1)
+{
+
+if (areWeInAFuncFromInstructionsLineNum = 1)
+{
+; name of the func
+StringTrimLeft, funcNameHolder, A_LoopField, 5
+arr allFuncNames .= Trim(funcNameHolder)
+}
+if (areWeInAFuncFromInstructionsLineNum = 2)
+{
+; all libs
+StringTrimLeft, funcLibsHolder, A_LoopField, 5
+arr allFuncLibs .= Trim(funcLibsHolder)
+}
+if (areWeInAFuncFromInstructionsLineNum = 3)
+{
+; func params
+StringTrimLeft, funcParamsHolder, A_LoopField, 7
+arr allFuncParams .= Trim(funcParamsHolder)
+}
+if (areWeInAFuncFromInstructionsLineNum = 4)
+{
+; func description
+StringTrimLeft, funcDescriptionHolder, A_LoopField, 12
+arr allfuncDescription .= Trim(funcDescriptionHolder)
+}
+if (areWeInAFuncFromInstructionsLineNum >= 5)
+{
+; the full func
+funcFuncHolder .= A_LoopField . "`n"
+}
+
+;MsgBox, % A_LoopField
+
+areWeInAFuncFromInstructionsLineNum++
+}
+
+
+if (Trim(A_LoopField) = "func======================func==============")
+{
+areWeInAFuncFromInstructions := 1
+areWeInAFuncFromInstructionsLineNum := 1
+}
+
+
+
+}
+
+;~ MsgBox, % "==========================================================================="
+;~ msgbox, % allFuncNames
+;~ MsgBox, % "==========================================================================="
+;~ msgbox, % allFuncLibs
+;~ MsgBox, % "==========================================================================="
+;~ msgbox, % allFuncParams
+;~ MsgBox, % "==========================================================================="
+;~ msgbox, % allFuncs
+;~ MsgBox, % "==========================================================================="
+
+
+
+str htCodeOUT754754 := ""
+int areWEinSome34sNum := 0
+int theIdNumOfThe34 := 0
+
+
+
+arr str theIdNumOfThe34theVar
+
+
+arr str getAllCharForTheFurtureSoIcanAddEscapeChar
+
+int removeNexFixkeyWordEscpaeChar := 0
+Loop, Parse, code
+{
+theIdNumOfThe34theVar[A_Index] := theIdNumOfThe34theVar[A_Index] . Chr(34)
+arr getAllCharForTheFurtureSoIcanAddEscapeChar .= A_LoopField
+}
+arr str getAllCharForTheFurtureSoIcanAddEscapeChar .= " "
+
+str ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes := Chr(34) . "ihuiuusgfgesrheidFor-asas-theuhtuwaesphoutr" . Chr(34)
+str OutFixDoubleQuotesInsideDoubleQuotes
+
+int fixOutFixDoubleQuotesInsideDoubleQuotesFIXok := 0
+Loop, Parse, code
+{
+
+if (A_LoopField = keyWordEscpaeChar) && (getAllCharForTheFurtureSoIcanAddEscapeChar[A_Index + 1] = Chr(34))
+{
+fixOutFixDoubleQuotesInsideDoubleQuotesFIXok := 1
+OutFixDoubleQuotesInsideDoubleQuotes .= ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes
+}
+else
+{
+if (fixOutFixDoubleQuotesInsideDoubleQuotesFIXok != 1)
+{
+OutFixDoubleQuotesInsideDoubleQuotes .= A_LoopField
+}
+else
+{
+fixOutFixDoubleQuotesInsideDoubleQuotesFIXok := 0
+}
+}
+
+}
+
+StringTrimRight, code, OutFixDoubleQuotesInsideDoubleQuotes, 1
+if (keyWordEscpaeChar != Chr(92))
+{
+code := StrReplace(code, Chr(92), Chr(92) . Chr(92))
+}
+
+
+if (keyWordEscpaeChar = Chr(92))
+{
+Loop, Parse, code
+{
+if (A_LoopField = Chr(34))
+{
+areWEinSome34sNum++
+}
+
+
+if (areWEinSome34sNum = 1)
+{
+
+
+
+if (A_LoopField != Chr(34))
+{
+if (A_LoopField = keyWordEscpaeChar)
+{
+theIdNumOfThe34theVar[theIdNumOfThe34] := theIdNumOfThe34theVar[theIdNumOfThe34] . Chr(92)
+}
+else
+{
+theIdNumOfThe34theVar[theIdNumOfThe34] := theIdNumOfThe34theVar[theIdNumOfThe34] . A_LoopField
+}
+}
+else
+{
+theIdNumOfThe34++
+htCodeOUT754754 .= "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(theIdNumOfThe34) . Chr(65) . Chr(65)
+}
+
+}
+
+
+if (areWEinSome34sNum = 2) or (areWEinSome34sNum = 0)
+{
+if (A_LoopField != Chr(34))
+{
+htCodeOUT754754 .= A_LoopField
+}
+
+areWEinSome34sNum := 0
+}
+
+
+
+}
+
+}
+else
+{
+
+Loop, Parse, code
+{
+if (A_LoopField = Chr(34))
+{
+areWEinSome34sNum++
+}
+
+
+if (areWEinSome34sNum = 1)
+{
+
+
+
+if (A_LoopField != Chr(34))
+{
+;MsgBox, % A_LoopField . " = " . keyWordEscpaeChar . ") && (" . keyWordEscpaeChar . " = " . getAllCharForTheFurtureSoIcanAddEscapeChar[A_Index + 1] . ")"
+if (A_LoopField = keyWordEscpaeChar) && (keyWordEscpaeChar = getAllCharForTheFurtureSoIcanAddEscapeChar[A_Index + 1])
+{
+theIdNumOfThe34theVar[theIdNumOfThe34] := theIdNumOfThe34theVar[theIdNumOfThe34] . keyWordEscpaeChar
+removeNexFixkeyWordEscpaeChar := 1
+}
+else if (A_LoopField = keyWordEscpaeChar)
+{
+if (removeNexFixkeyWordEscpaeChar != 1)
+{
+theIdNumOfThe34theVar[theIdNumOfThe34] := theIdNumOfThe34theVar[theIdNumOfThe34] . Chr(92)
+}
+else
+{
+removeNexFixkeyWordEscpaeChar := 0
+}
+}
+else
+{
+theIdNumOfThe34theVar[theIdNumOfThe34] := theIdNumOfThe34theVar[theIdNumOfThe34] . A_LoopField
+}
+
+}
+else
+{
+theIdNumOfThe34++
+htCodeOUT754754 .= "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(theIdNumOfThe34) . Chr(65) . Chr(65)
+}
+
+}
+
+
+if (areWEinSome34sNum = 2) or (areWEinSome34sNum = 0)
+{
+if (A_LoopField != Chr(34))
+{
+htCodeOUT754754 .= A_LoopField
+}
+
+areWEinSome34sNum := 0
+}
+
+
+
+}
+}
+
+
+
+
+
+
+code := htCodeOUT754754
+
+Loop, % theIdNumOfThe34
+{
+theIdNumOfThe34theVar[A_Index] := theIdNumOfThe34theVar[A_Index] . Chr(34)
+}
+
+
+
+code := StrReplace(code, Chr(13), "")
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+if (langToTranspileTo != "py") && (useSemicolon = "off")
+{
+theSemicolon := ";"
+}
+else
+{
+theSemicolon := ""
+}
+
+
+if (langToTranspileTo != "py") && (usePythonicColonSyntax = "off")
+{
+theColon := ""
+}
+else
+{
+theColon := ":"
+}
+
+
+
+
+str beforeKeywordForRemoveCommentsOnTheEndOfTheLine
+str newStringOutCode
+int posForRemoveCommentsOnTheEndOfTheLine
+str originalStringForRemoveCommentsOnTheEndOfTheLine
+Loop, Parse, code, `n, `r
+{
+
+; Define the original string
+originalStringForRemoveCommentsOnTheEndOfTheLine := A_LoopField
+
+; Find the position of the keyword in the original string
+posForRemoveCommentsOnTheEndOfTheLine := InStr(originalStringForRemoveCommentsOnTheEndOfTheLine, keyWordComment)
+
+if (!(SubStr(Trim(A_LoopField), 1, StrLen(keyWordComment)) = keyWordComment))
+{
+if (posForRemoveCommentsOnTheEndOfTheLine > 0)
+{
+
+; Extract the part of the string before the keyword
+if (!(SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordForLoop))) = StrLower(keyWordForLoop)))
+{
+beforeKeywordForRemoveCommentsOnTheEndOfTheLine := SubStr(originalStringForRemoveCommentsOnTheEndOfTheLine, 1, posForRemoveCommentsOnTheEndOfTheLine - 1)
+}
+else
+{
+beforeKeywordForRemoveCommentsOnTheEndOfTheLine := A_LoopField
+}
+
+; Construct the new string with everything before the keyword
+newStringOutCode .= beforeKeywordForRemoveCommentsOnTheEndOfTheLine . "`n"
+}
+else
+{
+newStringOutCode .= A_LoopField . "`n"
+}
+}
+else
+{
+newStringOutCode .= A_LoopField . "`n"
+}
+
+}
+
+StringTrimRight, code, newStringOutCode, 1
+;MsgBox, % code
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+if (useEnd = "on")
+{
+str htCodeOutFixEnd
+Loop, Parse, code, `n, `r
+{
+if (StrLower(A_LoopField) = StrLower(keyWordEnd))
+{
+htCodeOutFixEnd .= str10 . "}" . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf))
+{
+htCodeOutFixEnd .= "`n}`n" . A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordElse))) = StrLower(keyWordElse))
+{
+htCodeOutFixEnd .= "`n}`n" . A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordWhileLoop))) = StrLower(keyWordWhileLoop))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordForLoop))) = StrLower(keyWordForLoop))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordLoopInfinite))) = StrLower(keyWordLoopInfinite))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordLoop))) = StrLower(keyWordLoop))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordLoopParse))) = StrLower(keyWordLoopParse))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordSwitch))) = StrLower(keyWordSwitch))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordSwitchCase))) = StrLower(keyWordSwitchCase))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordSwitchDefault))) = StrLower(keyWordSwitchDefault))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordTry))) = StrLower(keyWordTry))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordCatch))) = StrLower(keyWordCatch))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFinally))) = StrLower(keyWordFinally))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else
+{
+htCodeOutFixEnd .= A_LoopField . "`n"
+}
+}
+StringTrimRight, code, htCodeOutFixEnd, 1
+}
+
+
+if (useCurlyBraces = "off")
+{
+code := AddCurlyBraces(code)
+}
+
+Loop, Parse, code, `n, `r
+{
+outTrimCode .= Trim(A_LoopField) . "`n"
+}
+StringTrimRight, code, outTrimCode, 1
+
+
+; for converting c++ to js and py
+code := StrReplace(code, "{}", "[]")
+
+str outCodeFixBraces
+Loop, 2
+{
+outCodeFixBraces := ""
+Loop, Parse, code, `n, `r
+{
+if (InStr(Trim(A_LoopField), "{")) && (Trim(A_LoopField) != "{")
+{
+outCodeFixBraces .= Trim(StrReplace(Trim(A_LoopField), "{", "")) . "`n{`n"
+}
+else if (InStr(Trim(A_LoopField), "}")) && (Trim(A_LoopField) != "}")
+{
+outCodeFixBraces .= "}`n" . Trim(StrReplace(Trim(A_LoopField), "}", "")) . "`n"
+}
+else
+{
+outCodeFixBraces .= Trim(A_LoopField) . "`n"
+}
+
+}
+
+StringTrimRight, code , outCodeFixBraces , 1
+}
+;MsgBox, % code
+
+; main loop
+; main loop
+; main loop
+; main loop
+; main loop
+; main loop
+; main loop
+; main loop
+; main loop
+; main loop
+; main loop
+; main loop
+; main loop
+; main loop
+
+
+
+Loop, Parse, code, `n, `r
+{
+lineDone := 0
+
+if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordINT))) = StrLower(keyWordINT))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordINT))
+
+
+
+if (langToTranspileTo = "cpp")
+{
+str5 := "int "
+}
+else if (langToTranspileTo = "js")
+{
+str5 := "var "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = None"
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordSTR))) = StrLower(keyWordSTR))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordSTR))
+
+
+if (langToTranspileTo = "cpp")
+{
+str5 := "std::string "
+}
+else if (langToTranspileTo = "js")
+{
+str5 := "var "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = None"
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordBOOL))) = StrLower(keyWordBOOL))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordBOOL))
+
+
+if (langToTranspileTo = "cpp")
+{
+str5 := "bool "
+}
+else if (langToTranspileTo = "js")
+{
+str5 := "var "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = None"
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordINT8))) = StrLower(keyWordINT8))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordINT8))
+
+
+if (langToTranspileTo = "cpp")
+{
+str5 := "int8_t "
+}
+else if (langToTranspileTo = "js")
+{
+str5 := "var "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = None"
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordINT16))) = StrLower(keyWordINT16))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordINT16))
+
+
+if (langToTranspileTo = "cpp")
+{
+str5 := "int16_t "
+}
+else if (langToTranspileTo = "js")
+{
+str5 := "var "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = None"
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordINT32))) = StrLower(keyWordINT32))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordINT32))
+
+
+if (langToTranspileTo = "cpp")
+{
+str5 := "int32_t "
+}
+else if (langToTranspileTo = "js")
+{
+str5 := "var "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = None"
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordINT64))) = StrLower(keyWordINT64))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordINT64))
+
+
+if (langToTranspileTo = "cpp")
+{
+str5 := "long long "
+}
+else if (langToTranspileTo = "js")
+{
+str5 := "var "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = None"
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordIF))
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+;useParentheses
+if (useParentheses = "off")
+{
+str8 := ""
+str9 := expressionParserTranspiler(str1)
+Loop, Parse, str9, " "
+{
+str8 := STR(A_Index)
+}
+
+if (INT(str8) <= 4)
+{
+str2 := "if " . expressionParserTranspiler(str1) . theColon
+str2 := StrReplace(str2, "(", "")
+str2 := StrReplace(str2, ")", "")
+}
+else
+{
+str2 := "if " . str10 . "(" . StrReplace(expressionParserTranspiler(str1), ":", "") . ")" . theColon
+}
+
+}
+else
+{
+str2 := "if " . expressionParserTranspiler(str1) . theColon
+}
+
+str2 := StrReplace(str2, ";", "")
+str2 := StrReplace(str2, "::", ":")
+}
+else
+{
+
+str1 := StrReplace(str1, ":", "")
+if (useParentheses = "off")
+{
+str2 := "if " . str10 . "(" . expressionParserTranspiler(str1) . ")"
+}
+else
+{
+str2 := "if " . expressionParserTranspiler(str1)
+}
+str2 := StrReplace(str2, ";;", ";")
+}
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordElseIf))
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+;useParentheses
+if (useParentheses = "off")
+{
+str8 := ""
+str9 := expressionParserTranspiler(str1)
+Loop, Parse, str9, " "
+{
+str8 := STR(A_Index)
+}
+
+if (INT(str8) <= 4)
+{
+str2 := "elif " . expressionParserTranspiler(str1) . theColon
+str2 := StrReplace(str2, "(", "")
+str2 := StrReplace(str2, ")", "")
+}
+else
+{
+str2 := "elif " . str10 . "(" . StrReplace(expressionParserTranspiler(str1), ":", "") . ")" . theColon
+}
+
+}
+else
+{
+str2 := "elif " . expressionParserTranspiler(str1) . theColon
+}
+
+str2 := StrReplace(str2, ";", "")
+str2 := StrReplace(str2, "::", ":")
+}
+else
+{
+
+str1 := StrReplace(str1, ":", "")
+if (useParentheses = "off")
+{
+str2 := "else if " . str10 . "(" . expressionParserTranspiler(str1) . ")"
+}
+else
+{
+str2 := "else if " . expressionParserTranspiler(str1)
+}
+str2 := StrReplace(str2, ";;", ";")
+}
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordElse))) = StrLower(keyWordElse))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordElse))
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str2 := "else:"
+}
+else
+{
+str2 := "else"
+}
+
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordWhileLoop))) = StrLower(keyWordWhileLoop))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordWhileLoop))
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+;useParentheses
+if (useParentheses = "off")
+{
+str8 := ""
+str9 := expressionParserTranspiler(str1)
+Loop, Parse, str9, " "
+{
+str8 := STR(A_Index)
+}
+
+if (INT(str8) <= 4)
+{
+str2 := "while " . expressionParserTranspiler(str1) . theColon
+str2 := StrReplace(str2, "(", "")
+str2 := StrReplace(str2, ")", "")
+}
+else
+{
+str2 := "while " . str10 . "(" . StrReplace(expressionParserTranspiler(str1), ":", "") . ")" . theColon
+}
+
+}
+else
+{
+str2 := "while " . expressionParserTranspiler(str1) . theColon
+}
+
+str2 := StrReplace(str2, ";", "")
+str2 := StrReplace(str2, "::", ":")
+}
+else
+{
+
+str1 := StrReplace(str1, ":", "")
+if (useParentheses = "off")
+{
+str2 := "while " . str10 . "(" . expressionParserTranspiler(str1) . ")"
+}
+else
+{
+str2 := "while " . expressionParserTranspiler(str1)
+}
+str2 := StrReplace(str2, ";;", ";")
+}
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordForLoop))) = StrLower(keyWordForLoop))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordForLoop))
+;MsgBox, % A_LoopField
+
+str2 := transpileForLoop(langToTranspileTo, forLoopLang, "for " . str1)
+
+lineDone := 1
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordLoopInfinite))) = StrLower(keyWordLoopInfinite))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordLoopInfinite))
+;MsgBox, % A_LoopField
+lineDone := 1
+htCode .= A_LoopField . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordLoop))) = StrLower(keyWordLoop))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordLoop))
+;MsgBox, % A_LoopField
+lineDone := 1
+htCode .= A_LoopField . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordLoopParse))) = StrLower(keyWordLoopParse))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordLoopParse))
+;MsgBox, % A_LoopField
+lineDone := 1
+htCode .= A_LoopField . "`n"
+}
+else if (StrLower(A_LoopField) = StrLower(keyWordContinue))
+{
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str2 := "continue"
+}
+else
+{
+str2 := "continue;"
+}
+
+htCode .= str2 . "`n"
+}
+else if (StrLower(A_LoopField) = StrLower(keyWordBreak))
+{
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str2 := "break"
+}
+else
+{
+str2 := "break;"
+}
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordFunc))
+;MsgBox, % A_LoopField
+lineDone := 1
+htCode .= A_LoopField . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAwait))) = StrLower(keyWordAwait))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordAwait))
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str2 := expressionParserTranspiler(str1) . theSemicolon
+str2 := StrReplace(str2, ";", "")
+}
+else if (langToTranspileTo = "js")
+{
+str2 := "await " . expressionParserTranspiler(str1) . theSemicolon
+str2 := StrReplace(str2, ";;", ";")
+}
+else
+{
+str2 := expressionParserTranspiler(str1) . theSemicolon
+str2 := StrReplace(str2, ";;", ";")
+}
+
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordSwitch))) = StrLower(keyWordSwitch))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordSwitch))
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str2 := "match " . expressionParserTranspiler(str1) . theColon
+str2 := StrReplace(str2, ";", "")
+str2 := StrReplace(str2, "::", ":")
+str2 := StrReplace(str2, "(", "")
+str2 := StrReplace(str2, ")", "")
+}
+else
+{
+str1 := StrReplace(str1, ":", "")
+str2 := "switch " . expressionParserTranspiler(str1)
+str2 := StrReplace(str2, ";;", ";")
+}
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordSwitchCase))) = StrLower(keyWordSwitchCase))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordSwitchCase))
+;MsgBox, % A_LoopField
+str1 := StrReplace(str1, ":", "")
+str2 := "case " . expressionParserTranspiler(str1) . ":"
+
+lineDone := 1
+htCode .= str2 . "`n"
+}
+else if (StrLower(A_LoopField) = StrLower(keyWordSwitchDefault))
+{
+;MsgBox, % A_LoopField
+if (langToTranspileTo = "py")
+{
+str2 := "case _:"
+}
+else
+{
+str2 := "default:"
+}
+lineDone := 1
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordThrow))) = StrLower(keyWordThrow))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordThrow))
+;MsgBox, % A_LoopField
+;#include <stdexcept>
+
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str2 := "raise " . expressionParserTranspiler(str1) . theSemicolon
+str2 := StrReplace(str2, ";", "")
+}
+else
+{
+str2 := "throw " . expressionParserTranspiler(str1) . theSemicolon
+str2 := StrReplace(str2, ";;", ";")
+}
+htCode .= str2 . "`n"
+}
+else if (StrLower(A_LoopField) = StrLower(keyWordTry))
+{
+;MsgBox, % A_LoopField
+str2 := "try" . theColon
+str2 := StrReplace(str2, "::", ":")
+str2 := StrReplace(str2, "::", ":")
+lineDone := 1
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordCatch))) = StrLower(keyWordCatch))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordCatch))
+;MsgBox, % A_LoopField
+lineDone := 1
+
+if (langToTranspileTo = "cpp")
+{
+str2 := "catch " . str10 . "(const std::exception& " . Trim(StrReplace(StrReplace(StrReplace(str1, ":", ""), ")", ""), "(", "")) . ")"
+theCppVarForErrors := Trim(StrReplace(StrReplace(StrReplace(str1, ":", ""), ")", ""), "(", ""))
+}
+if (langToTranspileTo = "js")
+{
+str2 := "catch " . str10 . "(" . Trim(StrReplace(StrReplace(StrReplace(str1, ":", ""), ")", ""), "(", "")) . ")"
+}
+if (langToTranspileTo = "py")
+{
+str2 := "except " . str10 . "Exception as " . Trim(StrReplace(StrReplace(StrReplace(str1, ":", ""), ")", ""), "(", "")) . ":"
+}
+
+htCode .= str2 . "`n"
+}
+else if (StrLower(A_LoopField) = StrLower(keyWordFinally))
+{
+;MsgBox, % A_LoopField
+
+if (langToTranspileTo = "py")
+{
+str2 := "finally:"
+}
+else
+{
+str2 := "finally"
+}
+lineDone := 1
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordArrayDefinition))) = StrLower(keyWordArrayDefinition))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordArrayDefinition))
+if (langToTranspileTo = "cpp")
+{
+str5 := "std::vector<std::string> "
+}
+else if (langToTranspileTo = "js")
+{
+str5 := "let "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = []"
+}
+else if (langToTranspileTo = "js")
+{
+str4 := str5 . str1 . " = []" . theSemicolon
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordArrayOfIntegersDefinition))) = StrLower(keyWordArrayOfIntegersDefinition))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordArrayOfIntegersDefinition))
+if (langToTranspileTo = "cpp")
+{
+str5 := "std::vector<int> "
+}
+else if (langToTranspileTo = "js")
+{
+str5 := "let "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = []"
+}
+else if (langToTranspileTo = "js")
+{
+str4 := str5 . str1 . " = []" . theSemicolon
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordArrayOfStringsDefinition))) = StrLower(keyWordArrayOfStringsDefinition))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordArrayOfStringsDefinition))
+if (langToTranspileTo = "cpp")
+{
+str5 := "std::vector<std::string> "
+}
+else if (langToTranspileTo = "js")
+{
+str5 := "let "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = []"
+}
+else if (langToTranspileTo = "js")
+{
+str4 := str5 . str1 . " = []" . theSemicolon
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordArrayOfFloatingPointNumbersDefinition))) = StrLower(keyWordArrayOfFloatingPointNumbersDefinition))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordArrayOfFloatingPointNumbersDefinition))
+if (langToTranspileTo = "cpp")
+{
+str5 := "std::vector<float> "
+}
+else if (langToTranspileTo = "js")
+{
+str5 := "let "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = []"
+}
+else if (langToTranspileTo = "js")
+{
+str4 := str5 . str1 . " = []" . theSemicolon
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordArrayOfBooleansDefinition))) = StrLower(keyWordArrayOfBooleansDefinition))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordArrayOfBooleansDefinition))
+if (langToTranspileTo = "cpp")
+{
+str5 := "std::vector<bool> "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = []"
+}
+else if (langToTranspileTo = "js")
+{
+str4 := str5 . str1 . " = []" . theSemicolon
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordJavaScriptVar))) = StrLower(keyWordJavaScriptVar))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordJavaScriptVar))
+
+if (langToTranspileTo = "js")
+{
+str5 := "var "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = None"
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordJavaScriptLet))) = StrLower(keyWordJavaScriptLet))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordJavaScriptLet))
+
+if (langToTranspileTo = "js")
+{
+str5 := "let "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = None"
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordJavaScriptConst))) = StrLower(keyWordJavaScriptConst))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordJavaScriptConst))
+
+if (langToTranspileTo = "js")
+{
+str5 := "const "
+}
+else
+{
+str5 := ""
+}
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = None"
+}
+else
+{
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+str4 := str5 . str1 . theSemicolon
+}
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordReturnStatement))) = StrLower(keyWordReturnStatement))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordReturnStatement))
+;MsgBox, % A_LoopField
+lineDone := 1
+str2 := "return " . expressionParserTranspiler(str1) . theSemicolon
+
+if (langToTranspileTo = "py")
+{
+str2 := StrReplace(str2, ";", "")
+}
+else
+{
+str2 := StrReplace(str2, ";;", ";")
+}
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordReturnEndOFaSubroutineFunction))) = StrLower(keyWordReturnEndOFaSubroutineFunction))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordReturnEndOFaSubroutineFunction))
+;MsgBox, % A_LoopField
+lineDone := 1
+htCode .= str10 . "}" . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordGlobal))) = StrLower(keyWordGlobal))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordGlobal))
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str2 := "global " . str1
+}
+else
+{
+str2 := ""
+}
+
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordComment))) = StrLower(keyWordComment))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordComment))
+;MsgBox, % A_LoopField
+if (langToTranspileTo = "py")
+{
+str2 := "#" . str1
+}
+if (langToTranspileTo = "js")
+{
+str2 := "//" . str1
+}
+if (langToTranspileTo = "cpp")
+{
+str2 := "//" . str1
+}
+
+
+lineDone := 1
+htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordCommentOpenMultiLine))) = StrLower(keyWordCommentOpenMultiLine))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordCommentOpenMultiLine))
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+htCode .= Chr(34) . Chr(34) . Chr(34) . "`n"
+}
+else
+{
+htCode .= Chr(47) . Chr(42) . "`n"
+}
+
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordCommentCloseMultiLine))) = StrLower(keyWordCommentCloseMultiLine))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordCommentCloseMultiLine))
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+htCode .= Chr(34) . Chr(34) . Chr(34) . "`n"
+}
+else
+{
+htCode .= Chr(42) . Chr(47) . "`n"
+}
+}
+else if (KeyWordsCommands(A_LoopField, "check", keyWordsCommands, langToTranspileTo) = "true") && (lineDone = 0)
+{
+out_KeyWordsCommands := KeyWordsCommands(A_LoopField, "transpile", keyWordsCommands, langToTranspileTo)
+;MsgBox, % out_KeyWordsCommands
+lineDone := 1
+htCode .= out_KeyWordsCommands . "`n"
+}
+else if (InStr(A_LoopField, keyWordArrayAppend)) or (InStr(A_LoopField, keyWordArrayPop)) or (InStr(A_LoopField, keyWordArraySize)) && (lineDone = 0)
+{
+;MsgBox, % A_LoopField
+lineDone := 1
+str2 := expressionParserTranspiler(A_LoopField) . theSemicolon
+
+if (langToTranspileTo = "py")
+{
+str2 := StrReplace(str2, ";", "")
+}
+else
+{
+str2 := StrReplace(str2, ";;", ";")
+}
+htCode .= str2 . "`n"
+}
+else if (InStr(A_LoopField, keyWordVariablesAssignmentOperator)) or (InStr(A_LoopField, keyWordConcatenationAssignmentOperator)) or (InStr(A_LoopField, keyWordAdditionAssignmentOperator)) or (InStr(A_LoopField, keyWordSubtractionAssignmentOperator)) or (InStr(A_LoopField, keyWordMultiplicationAssignmentOperator)) or (InStr(A_LoopField, keyWordDivisionAssignmentOperator)) && (lineDone = 0)
+{
+str1 := A_LoopField
+
+str5 := ""
+
+if (InStr(str1, keyWordVariablesAssignmentOperator))
+{
+outVarOperator := "="
+
+str2 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordVariablesAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+
+if (langToTranspileTo = "js") && (useInJavaScriptAlwaysUseVar = "on")
+{
+;theJSvarDeclaredVarsBugFix
+if (InStr(theJSvarDeclaredVarsBugFix, "|" . Trim(StrReplace(str2, ";", "")) . "|"))
+{
+str5 := ""
+}
+else
+{
+str5 := "var "
+}
+}
+else
+{
+str5 := ""
+}
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordConcatenationAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordConcatenationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+
+if (langToTranspileTo = "js") && (useInJavaScriptAlwaysUseVar = "on")
+{
+;theJSvarDeclaredVarsBugFix
+if (InStr(theJSvarDeclaredVarsBugFix, "|" . Trim(StrReplace(str2, ";", "")) . "|"))
+{
+str5 := ""
+}
+else
+{
+str5 := "var "
+}
+}
+else
+{
+str5 := ""
+}
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordAdditionAssignmentOperator))
+{
+outVarOperator := "+="
+
+str2 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordAdditionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+
+if (langToTranspileTo = "js") && (useInJavaScriptAlwaysUseVar = "on")
+{
+;theJSvarDeclaredVarsBugFix
+if (InStr(theJSvarDeclaredVarsBugFix, "|" . Trim(StrReplace(str2, ";", "")) . "|"))
+{
+str5 := ""
+}
+else
+{
+str5 := "var "
+}
+}
+else
+{
+str5 := ""
+}
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordSubtractionAssignmentOperator))
+{
+outVarOperator := "-="
+
+str2 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordSubtractionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+
+if (langToTranspileTo = "js") && (useInJavaScriptAlwaysUseVar = "on")
+{
+;theJSvarDeclaredVarsBugFix
+if (InStr(theJSvarDeclaredVarsBugFix, "|" . Trim(StrReplace(str2, ";", "")) . "|"))
+{
+str5 := ""
+}
+else
+{
+str5 := "var "
+}
+}
+else
+{
+str5 := ""
+}
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordMultiplicationAssignmentOperator))
+{
+outVarOperator := "*="
+
+str2 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordMultiplicationAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+
+if (langToTranspileTo = "js") && (useInJavaScriptAlwaysUseVar = "on")
+{
+;theJSvarDeclaredVarsBugFix
+if (InStr(theJSvarDeclaredVarsBugFix, "|" . Trim(StrReplace(str2, ";", "")) . "|"))
+{
+str5 := ""
+}
+else
+{
+str5 := "var "
+}
+}
+else
+{
+str5 := ""
+}
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else if (InStr(str1, keyWordDivisionAssignmentOperator))
+{
+outVarOperator := "/="
+
+str2 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 1))
+str3 := Trim(StrSplit(str1, keyWordDivisionAssignmentOperator, 2))
+str3 := expressionParserTranspiler(str3)
+
+if (langToTranspileTo = "js") && (useInJavaScriptAlwaysUseVar = "on")
+{
+;theJSvarDeclaredVarsBugFix
+if (InStr(theJSvarDeclaredVarsBugFix, "|" . Trim(StrReplace(str2, ";", "")) . "|"))
+{
+str5 := ""
+}
+else
+{
+str5 := "var "
+}
+}
+else
+{
+str5 := ""
+}
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str2, ";", "")) . "|"
+
+str4 := str5 . str2 . " " . outVarOperator . " " . str3 . theSemicolon
+}
+else
+{
+
+
+
+if (langToTranspileTo = "py")
+{
+str4 := Trim(str5) . Trim(str1) . " = None"
+}
+else if (langToTranspileTo = "js")
+{
+
+
+if (langToTranspileTo = "js") && (useInJavaScriptAlwaysUseVar = "on")
+{
+;theJSvarDeclaredVarsBugFix
+if (InStr(theJSvarDeclaredVarsBugFix, "|" . Trim(StrReplace(str1, ";", "")) . "|"))
+{
+str5 := ""
+}
+else
+{
+str5 := "var "
+}
+}
+else
+{
+str5 := ""
+}
+theJSvarDeclaredVarsBugFix .= "|" . Trim(StrReplace(str1, ";", "")) . "|"
+
+str4 := str5 . str1 . theSemicolon
+}
+else
+{
+str4 := str5 . str1 . theSemicolon
+}
+
+
+
+}
+
+
+;MsgBox, % A_LoopField
+lineDone := 1
+if (langToTranspileTo = "py")
+{
+str4 := StrReplace(str4, ";", "")
+}
+else
+{
+str4 := StrReplace(str4, ";;", ";")
+}
+htCode .= str4 . "`n"
+}
+else
+{
+;MsgBox, % "else else else " . A_LoopField
+lineDone := 1
+htCode .= A_LoopField . "`n"
+}
+
+}
+
+StringTrimRight, htCode, htCode, 1
+
+
+if (langToTranspileTo = "py")
+{
+htCode := indent_nested_curly_braces(htCode)
+}
+
+
+Loop, % theIdNumOfThe34
+{
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(A_Index) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index])
+}
+
+htCode := StrReplace(htCode, ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes, Chr(92) . Chr(34))
+
+;arr str allFuncNames
+;arr str allFuncLibs
+;arr str allFuncs
+
+str allFuncsToPutAtTop := "`n"
+str allLibsToPutAtTop
+
+Loop, % INT(allFuncNames[0])
+{
+if (InStr(htCode, allFuncNames[A_Index]))
+{
+;MsgBox, % allFuncNames[A_Index]
+allFuncsToPutAtTop .= allFuncs[A_Index] . "`n"
+
+allLibsToPutAtTop .= allFuncLibs[A_Index] . "|"
+
+}
+}
+StringTrimRight, allLibsToPutAtTop, allLibsToPutAtTop, 1
+
+str allLibsToPutAtTopTEMP
+Loop, Parse, allLibsToPutAtTop, "|"
+{
+allLibsToPutAtTopTEMP .= A_LoopField . "`n"
+}
+StringTrimRight, allLibsToPutAtTop, allLibsToPutAtTopTEMP, 1
+Sort, allLibsToPutAtTop, U
+
+htCode := allLibsToPutAtTop . "`n" . allFuncsToPutAtTop . "`n" . htCode
+MsgBox, % htCode
+
+Loop, Parse, fileExtention
+{
+StringTrimRight, filePathOfCode, filePathOfCode, 1
+}
+filePathOfCode := filePathOfCode . langToTranspileTo
+FileDelete, %filePathOfCode%
+FileAppend, %htCode%, %filePathOfCode%
+
+}
+
+main:
+compiler()

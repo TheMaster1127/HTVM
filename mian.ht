@@ -1,0 +1,128 @@
+
+int64 adesfd
+
+int var1 := !(!(var1 != 5 and 6 = 5 or var67 > 5 or >= 6 . 6 + 6 / 3));this is the comment
+
+global var1;
+
+try:
+	throw ErrorMsg("ono")
+catch (e):
+	str var2345 := e
+finally:
+	gg := "hello";
+
+if (sad):
+	var123 := 56;
+	if (sad):
+		varsdfcxszdc := 56
+	aszd := 56
+
+
+
+var66 := 5;
+var outSometing;
+switch (var66) {
+case 1:
+{
+outSometing := 1
+break
+end
+}
+case 2:{
+outSometing := 2
+break;
+end
+}
+case 3
+{
+outSometing := 3
+break
+end
+}
+case 4: {
+outSometing := 4
+break
+end
+}
+case 5:
+{
+outSometing := 5
+break;
+end
+}
+case 6:{
+outSometing := 6
+break
+end
+}
+defalut{
+outSometing := 0
+break;
+end
+}
+}
+
+
+for index in range(1, 5) {
+bool var1 := true;
+}
+arr12 := []
+arr12.add("hello");
+arr12.add("hello1")
+arr12.add("hello2");
+arr12.add("man");
+int var12 := arr12.size();
+
+int var1 := 5
+str var12 := "`hello `" `nwhats up" . HalloMan()
+var1234 := "helllllllllo"
+cmd, sd, %2%, %3%, %3%, 3, 3, 3
+gg, %2%, %2%
+cmd, sd, %2%, %2%, 4, 4, 4, 4
+hi
+Sort, var1234
+var jsVar1
+let jsVar2
+const jsVar3 := "some string yeah"
+
+
+;;;;;;;;;;;;; adsf
+
+/*
+wasfddes
+awe
+sfae
+sr
+sdf
+*/
+
+
+
+while (var1)
+{
+; some code
+}
+
+if var1 != 5 and var5 = 6: {
+; adf
+}
+
+var1 := !(var1 != 3)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+if (QWAEDSFD)
+var34 := 5
+else
+avaas := "adsf"
+end
+
+
