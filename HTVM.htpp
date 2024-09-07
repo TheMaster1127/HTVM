@@ -1045,6 +1045,8 @@ str keyWordLessThanOrEqualToOperator
 str keyWordOrOperator
 str keyWordAndOperator
 str keyWordNotEqualToOperator
+str keyWordTrue
+str keyWordFalse
 str keyWordSwitch
 str keyWordSwitchCase
 str keyWordSwitchDefault
@@ -1157,8 +1159,8 @@ expression := StrReplace(expression, " not= ", " != ")
 if (langToTranspileTo = "py")
 {
 ; Python-specific replacements
-expression := RegExReplace(expression, "\\btrue\\b", "True")
-expression := RegExReplace(expression, "\\bfalse\\b", "False")
+expression := RegExReplace(expression, "\\b" . keyWordTrue . "\\b", "True")
+expression := RegExReplace(expression, "\\b" . keyWordFalse . "\\b", "False")
 expression := RegExReplace(expression, "\\bnull\\b", "None")
 expression := StrReplace(expression, "{}", "[]")
 
@@ -1455,149 +1457,157 @@ keyWordNotEqualToOperator := Trim(A_LoopField)
 }
 if (A_Index = 40)
 {
-keyWordSwitch := Trim(A_LoopField) . " "
+keyWordTrue := Trim(A_LoopField)
 }
 if (A_Index = 41)
 {
-keyWordSwitchCase := Trim(A_LoopField) . " "
+keyWordFalse := Trim(A_LoopField)
 }
 if (A_Index = 42)
 {
-keyWordSwitchDefault := Trim(A_LoopField)
+keyWordSwitch := Trim(A_LoopField) . " "
 }
 if (A_Index = 43)
 {
-keyWordThrow := Trim(A_LoopField) . " "
+keyWordSwitchCase := Trim(A_LoopField) . " "
 }
 if (A_Index = 44)
 {
-keyWordErrorMsg := Trim(A_LoopField)
+keyWordSwitchDefault := Trim(A_LoopField)
 }
 if (A_Index = 45)
 {
-keyWordTry := Trim(A_LoopField)
+keyWordThrow := Trim(A_LoopField) . " "
 }
 if (A_Index = 46)
 {
-keyWordCatch := Trim(A_LoopField) . " "
+keyWordErrorMsg := Trim(A_LoopField)
 }
 if (A_Index = 47)
 {
-keyWordFinally := Trim(A_LoopField)
+keyWordTry := Trim(A_LoopField)
 }
 if (A_Index = 48)
 {
-keyWordArrayAppend := Trim(A_LoopField)
+keyWordCatch := Trim(A_LoopField) . " "
 }
 if (A_Index = 49)
 {
-keyWordArrayPop := Trim(A_LoopField)
+keyWordFinally := Trim(A_LoopField)
 }
 if (A_Index = 50)
 {
-keyWordArraySize := Trim(A_LoopField)
+keyWordArrayAppend := Trim(A_LoopField)
 }
 if (A_Index = 51)
 {
-keyWordArrayDefinition := Trim(A_LoopField) . " "
+keyWordArrayPop := Trim(A_LoopField)
 }
 if (A_Index = 52)
 {
-keyWordArrayOfIntegersDefinition := Trim(A_LoopField) . " "
+keyWordArraySize := Trim(A_LoopField)
 }
 if (A_Index = 53)
 {
-keyWordArrayOfStringsDefinition := Trim(A_LoopField) . " "
+keyWordArrayDefinition := Trim(A_LoopField) . " "
 }
 if (A_Index = 54)
 {
-keyWordArrayOfFloatingPointNumbersDefinition := Trim(A_LoopField) . " "
+keyWordArrayOfIntegersDefinition := Trim(A_LoopField) . " "
 }
 if (A_Index = 55)
 {
-keyWordArrayOfBooleansDefinition := Trim(A_LoopField) . " "
+keyWordArrayOfStringsDefinition := Trim(A_LoopField) . " "
 }
 if (A_Index = 56)
 {
-keyWordJavaScriptVar := Trim(A_LoopField) . " "
+keyWordArrayOfFloatingPointNumbersDefinition := Trim(A_LoopField) . " "
 }
 if (A_Index = 57)
 {
-keyWordJavaScriptLet := Trim(A_LoopField) . " "
+keyWordArrayOfBooleansDefinition := Trim(A_LoopField) . " "
 }
 if (A_Index = 58)
 {
-keyWordJavaScriptConst := Trim(A_LoopField) . " "
+keyWordJavaScriptVar := Trim(A_LoopField) . " "
 }
 if (A_Index = 59)
 {
-keyWordReturnStatement := Trim(A_LoopField) . " "
+keyWordJavaScriptLet := Trim(A_LoopField) . " "
 }
 if (A_Index = 60)
 {
-keyWordReturnEndOFaSubroutineFunction := Trim(A_LoopField)
+keyWordJavaScriptConst := Trim(A_LoopField) . " "
 }
 if (A_Index = 61)
 {
-keyWordEnd := Trim(A_LoopField)
+keyWordReturnStatement := Trim(A_LoopField) . " "
 }
 if (A_Index = 62)
 {
-keyWordGlobal := Trim(A_LoopField) . " "
+keyWordReturnEndOFaSubroutineFunction := Trim(A_LoopField)
 }
 if (A_Index = 63)
 {
-keyWordComment := Trim(A_LoopField)
+keyWordEnd := Trim(A_LoopField)
 }
 if (A_Index = 64)
 {
-keyWordCommentOpenMultiLine := Trim(A_LoopField)
+keyWordGlobal := Trim(A_LoopField) . " "
 }
 if (A_Index = 65)
 {
-keyWordCommentCloseMultiLine := Trim(A_LoopField)
+keyWordComment := Trim(A_LoopField)
 }
 if (A_Index = 66)
 {
-keyWordEscpaeChar := Trim(A_LoopField)
+keyWordCommentOpenMultiLine := Trim(A_LoopField)
 }
 if (A_Index = 67)
 {
-useCurlyBraces := Trim(A_LoopField)
+keyWordCommentCloseMultiLine := Trim(A_LoopField)
 }
 if (A_Index = 68)
 {
-useEnd := Trim(A_LoopField)
+keyWordEscpaeChar := Trim(A_LoopField)
 }
 if (A_Index = 69)
 {
-useSemicolon := Trim(A_LoopField)
+useCurlyBraces := Trim(A_LoopField)
 }
 if (A_Index = 70)
 {
-useParentheses := Trim(A_LoopField)
+useEnd := Trim(A_LoopField)
 }
 if (A_Index = 71)
 {
-usePythonicColonSyntax := Trim(A_LoopField)
+useSemicolon := Trim(A_LoopField)
 }
 if (A_Index = 72)
 {
-useTypes := Trim(A_LoopField)
+useParentheses := Trim(A_LoopField)
 }
 if (A_Index = 73)
 {
-forLoopLang := Trim(A_LoopField)
+usePythonicColonSyntax := Trim(A_LoopField)
 }
 if (A_Index = 74)
 {
-useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
+useTypes := Trim(A_LoopField)
 }
 if (A_Index = 75)
 {
-useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
+forLoopLang := Trim(A_LoopField)
 }
 if (A_Index = 76)
+{
+useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
+}
+if (A_Index = 77)
+{
+useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
+}
+if (A_Index = 78)
 {
 useJavaScriptAmainFuncDef := Trim(A_LoopField)
 }
@@ -3151,9 +3161,14 @@ htCode .= str2 . "`n"
 else if (StrLower(A_LoopField) = StrLower(keyWordTry))
 {
 ;MsgBox, % A_LoopField
-str2 := "try" . theColon
-str2 := StrReplace(str2, "::", ":")
-str2 := StrReplace(str2, "::", ":")
+if (langToTranspileTo = "py")
+{
+str2 := "try:"
+}
+else
+{
+str2 := "try"
+}
 lineDone := 1
 htCode .= str2 . "`n"
 }

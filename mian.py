@@ -64,7 +64,7 @@ void HalloMan(const std::string& name, int age, float height = 0.0f) {
                          arr12.append("man")
                          var12 = len(arr12)
                          var1 = 5
-                         var12 = "\hello \" \nwhats up" + HalloMan()
+                         var12 = "hello \" \nwhats up" + HalloMan()
                          var1234 = "helllllllllo"
                          sd = cmd(2, "3", 3, 3)
                          2 = gg(2, 2)
@@ -95,6 +95,6 @@ void HalloMan(const std::string& name, int age, float height = 0.0f) {
                                  #;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                  #;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                  if QWAEDSFD:
-                                     var34 = 5
-                                 else:
-                                     avaas = "adsf"
+                                         var34 = 5
+                                     else:
+                                         avaas = "adsf"

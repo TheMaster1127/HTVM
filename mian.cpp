@@ -20,18 +20,14 @@ void HalloMan(const std::string& name, int age, float height = 0.0f) {
 long long adesfd;
 int var1 = !(!(var1 != 5 && 6 == 5 || var67 > 5 || >= 6 + 6 + 6 / 3));
 
-try:
-{
+try
 throw std::runtime_error("ono");
-}
 catch (const std::exception& e)
 {
 std::string var2345 = e.what();
 }
-fainily:
-{
+finally
 gg = "hello";
-}
 if ((sad))
 {
 var123 = 56;
@@ -51,21 +47,25 @@ case 1:
 {
 outSometing = 1;
 break;
+end
 }
 case 2:
 {
 outSometing = 2;
 break;
+end
 }
 case 3:
 {
 outSometing = 3;
 break;
+end
 }
 case 4:
 {
 outSometing = 4;
 break;
+end
 }
 case 5:
 {
@@ -73,16 +73,19 @@ case 5:
 {
 outSometing = 5;
 break;
+end
 }
 case 6:
 {
 outSometing = 6;
 break;
+end
 }
 default:
 {
 outSometing = 0;
 break;
+end
 }
 }
 for (int index = 1; index < 5; index++)
@@ -96,7 +99,7 @@ arr12.push_back("hello2");
 arr12.push_back("man");
 int var12 = arr12.size();
 int var1 = 5;
-std::string var12 = "\hello \" \nwhats up" + HalloMan();
+std::string var12 = "hello \" \nwhats up" + HalloMan();
 var1234 = "helllllllllo";
 sd = cmd(2, "3", 3, 3);
 2 = gg(2, 2);
@@ -123,3 +126,15 @@ if (var1 != 5 && var5 == 6)
 // adf
 }
 var1 = !(var1 != 3);
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+if ((QWAEDSFD))
+var34 = 5;
+else
+avaas = "adsf";
+end

@@ -1546,6 +1546,8 @@ std::string keyWordLessThanOrEqualToOperator;
 std::string keyWordOrOperator;
 std::string keyWordAndOperator;
 std::string keyWordNotEqualToOperator;
+std::string keyWordTrue;
+std::string keyWordFalse;
 std::string keyWordSwitch;
 std::string keyWordSwitchCase;
 std::string keyWordSwitchDefault;
@@ -1648,8 +1650,8 @@ expression = StrReplace ( expression , " not= " , " != " ) ;
 if (langToTranspileTo == "py") 
 {
 // Python-specific replacements
-expression = RegExReplace ( expression , "\\btrue\\b" , "True" ) ;
-expression = RegExReplace ( expression , "\\bfalse\\b" , "False" ) ;
+expression = RegExReplace ( expression , "\\b" + keyWordTrue + "\\b" , "True" ) ;
+expression = RegExReplace ( expression , "\\b" + keyWordFalse + "\\b" , "False" ) ;
 expression = RegExReplace ( expression , "\\bnull\\b" , "None" ) ;
 expression = StrReplace ( expression , "{}" , "[]" ) ;
 expression = StrReplace ( expression , keyWordErrorMsg , "Exception" ) ;
@@ -1925,149 +1927,157 @@ keyWordNotEqualToOperator = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 40) 
 {
-keyWordSwitch = Trim ( A_LoopField37 ) + " ";
+keyWordTrue = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 41) 
 {
-keyWordSwitchCase = Trim ( A_LoopField37 ) + " ";
+keyWordFalse = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 42) 
 {
-keyWordSwitchDefault = Trim ( A_LoopField37 ) ;
+keyWordSwitch = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 43) 
 {
-keyWordThrow = Trim ( A_LoopField37 ) + " ";
+keyWordSwitchCase = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 44) 
 {
-keyWordErrorMsg = Trim ( A_LoopField37 ) ;
+keyWordSwitchDefault = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 45) 
 {
-keyWordTry = Trim ( A_LoopField37 ) ;
+keyWordThrow = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 46) 
 {
-keyWordCatch = Trim ( A_LoopField37 ) + " ";
+keyWordErrorMsg = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 47) 
 {
-keyWordFinally = Trim ( A_LoopField37 ) ;
+keyWordTry = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 48) 
 {
-keyWordArrayAppend = Trim ( A_LoopField37 ) ;
+keyWordCatch = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 49) 
 {
-keyWordArrayPop = Trim ( A_LoopField37 ) ;
+keyWordFinally = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 50) 
 {
-keyWordArraySize = Trim ( A_LoopField37 ) ;
+keyWordArrayAppend = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 51) 
 {
-keyWordArrayDefinition = Trim ( A_LoopField37 ) + " ";
+keyWordArrayPop = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 52) 
 {
-keyWordArrayOfIntegersDefinition = Trim ( A_LoopField37 ) + " ";
+keyWordArraySize = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 53) 
 {
-keyWordArrayOfStringsDefinition = Trim ( A_LoopField37 ) + " ";
+keyWordArrayDefinition = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 54) 
 {
-keyWordArrayOfFloatingPointNumbersDefinition = Trim ( A_LoopField37 ) + " ";
+keyWordArrayOfIntegersDefinition = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 55) 
 {
-keyWordArrayOfBooleansDefinition = Trim ( A_LoopField37 ) + " ";
+keyWordArrayOfStringsDefinition = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 56) 
 {
-keyWordJavaScriptVar = Trim ( A_LoopField37 ) + " ";
+keyWordArrayOfFloatingPointNumbersDefinition = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 57) 
 {
-keyWordJavaScriptLet = Trim ( A_LoopField37 ) + " ";
+keyWordArrayOfBooleansDefinition = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 58) 
 {
-keyWordJavaScriptConst = Trim ( A_LoopField37 ) + " ";
+keyWordJavaScriptVar = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 59) 
 {
-keyWordReturnStatement = Trim ( A_LoopField37 ) + " ";
+keyWordJavaScriptLet = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 60) 
 {
-keyWordReturnEndOFaSubroutineFunction = Trim ( A_LoopField37 ) ;
+keyWordJavaScriptConst = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 61) 
 {
-keyWordEnd = Trim ( A_LoopField37 ) ;
+keyWordReturnStatement = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 62) 
 {
-keyWordGlobal = Trim ( A_LoopField37 ) + " ";
+keyWordReturnEndOFaSubroutineFunction = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 63) 
 {
-keyWordComment = Trim ( A_LoopField37 ) ;
+keyWordEnd = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 64) 
 {
-keyWordCommentOpenMultiLine = Trim ( A_LoopField37 ) ;
+keyWordGlobal = Trim ( A_LoopField37 ) + " ";
 }
 if (A_Index37 == 65) 
 {
-keyWordCommentCloseMultiLine = Trim ( A_LoopField37 ) ;
+keyWordComment = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 66) 
 {
-keyWordEscpaeChar = Trim ( A_LoopField37 ) ;
+keyWordCommentOpenMultiLine = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 67) 
 {
-useCurlyBraces = Trim ( A_LoopField37 ) ;
+keyWordCommentCloseMultiLine = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 68) 
 {
-useEnd = Trim ( A_LoopField37 ) ;
+keyWordEscpaeChar = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 69) 
 {
-useSemicolon = Trim ( A_LoopField37 ) ;
+useCurlyBraces = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 70) 
 {
-useParentheses = Trim ( A_LoopField37 ) ;
+useEnd = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 71) 
 {
-usePythonicColonSyntax = Trim ( A_LoopField37 ) ;
+useSemicolon = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 72) 
 {
-useTypes = Trim ( A_LoopField37 ) ;
+useParentheses = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 73) 
 {
-forLoopLang = Trim ( A_LoopField37 ) ;
+usePythonicColonSyntax = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 74) 
 {
-useInJavaScriptAlwaysUseVar = Trim ( A_LoopField37 ) ;
+useTypes = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 75) 
 {
-useJavaScriptInAfullHTMLfile = Trim ( A_LoopField37 ) ;
+forLoopLang = Trim ( A_LoopField37 ) ;
 }
 if (A_Index37 == 76) 
+{
+useInJavaScriptAlwaysUseVar = Trim ( A_LoopField37 ) ;
+}
+if (A_Index37 == 77) 
+{
+useJavaScriptInAfullHTMLfile = Trim ( A_LoopField37 ) ;
+}
+if (A_Index37 == 78) 
 {
 useJavaScriptAmainFuncDef = Trim ( A_LoopField37 ) ;
 }
@@ -3446,9 +3456,14 @@ htCode += str2 + "\n";
 else if (StrLower (A_LoopField49) == StrLower (keyWordTry)) 
 {
 //MsgBox, % A_LoopField49
-str2 = "try" + theColon;
-str2 = StrReplace ( str2 , "::" , ":" ) ;
-str2 = StrReplace ( str2 , "::" , ":" ) ;
+if (langToTranspileTo == "py") 
+{
+str2 = "try:";
+}
+else
+{
+str2 = "try";
+}
 lineDone = 1;
 htCode += str2 + "\n";
 }
