@@ -69,6 +69,9 @@ keyWordComment: Starts a single-line comment.
 keyWordCommentOpenMultiLine: Opens a multiline comment.
 keyWordCommentCloseMultiLine: Closes a multiline comment.
 keyWordEscapeChar: Escapes special characters in strings or identifiers.
+AHKlikeLoopsIndexedAt: Specifies the starting index for the AHK-like loop, such as 1-indexed, 0-indexed, or any custom value.
+keyWordAIndex: Represents the current index of the loop. It can be customized based on the indexing method and renamed using configuration settings.
+keyWordALoopField: Represents the current value or field in the loop. It can be renamed according to user preferences through configuration. 
 useCurlyBraces: Toggle for using curly braces instead of indentation for code blocks.
 useEnd: Enable custom end-of-block keyword (e.g., 'end', 'finish', etc.).
 useSemicolon: Toggle for using semicolons at the end of statements.

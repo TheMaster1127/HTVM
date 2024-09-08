@@ -841,6 +841,34 @@ s .= " "
 return s
 }
 
+
+; Define the function to check odd spaces at the beginning
+func str CheckOddLeadingSpaces(str string123)
+{
+; Initialize a variable to count the spaces
+int spaceCount := 0
+
+; Loop through the string one character at a time
+Loop, Parse, string123
+{
+; Check if the current character is a space
+if (A_LoopField = Chr(32))
+{
+spaceCount++
+}
+else
+{
+; When we hit a non-space character, break the loop
+break
+}
+}
+
+; Return true if the number of spaces is odd, false otherwise
+str sdsfawasd := STR(Mod(spaceCount, 2) = 1)
+;MsgBox, % sdsfawasd
+return sdsfawasd
+}
+
 func str LTrim(str input)
 {
     str result := ""
@@ -948,6 +976,7 @@ int indent_size := 4
 int current_indent := 0
 str result
 str trimmed_line
+str resultOut
 ;MsgBox, % input_string
 Loop, Parse, input_string, `n, `r
 {
@@ -1068,13 +1097,17 @@ resultOut .= A_LoopField . "`n"
 }
 }
 StringTrimRight, result, resultOut, 1
+}
+
 
 resultOut := ""
+str ALoopField
 Loop, Parse, result, `n, `r
 {
-if (SubStr(A_LoopField, 1, 2) = " {")
+if (CheckOddLeadingSpaces(A_LoopField) = "1")
 {
-resultOut .= "{`n"
+StringTrimLeft, ALoopField, A_LoopField, 1
+resultOut .= ALoopField . "`n"
 }
 else
 {
@@ -1083,8 +1116,6 @@ resultOut .= A_LoopField . "`n"
 }
 
 StringTrimRight, result, resultOut, 1
-}
-
 
 
 ; Return the result
@@ -1191,6 +1222,9 @@ str keyWordComment
 str keyWordCommentOpenMultiLine
 str keyWordCommentCloseMultiLine
 str keyWordEscpaeChar
+str AHKlikeLoopsIndexedAt
+str keyWordAIndex
+str keyWordALoopField
 
 str useCurlyBraces
 str useEnd
@@ -1869,41 +1903,53 @@ keyWordEscpaeChar := Trim(A_LoopField)
 }
 if (A_Index = 72)
 {
-useCurlyBraces := Trim(A_LoopField)
+AHKlikeLoopsIndexedAt := Trim(A_LoopField)
 }
 if (A_Index = 73)
 {
-useEnd := Trim(A_LoopField)
+keyWordAIndex := Trim(A_LoopField)
 }
 if (A_Index = 74)
 {
-useSemicolon := Trim(A_LoopField)
+keyWordALoopField := Trim(A_LoopField)
 }
 if (A_Index = 75)
 {
-useParentheses := Trim(A_LoopField)
+useCurlyBraces := Trim(A_LoopField)
 }
 if (A_Index = 76)
 {
-usePythonicColonSyntax := Trim(A_LoopField)
+useEnd := Trim(A_LoopField)
 }
 if (A_Index = 77)
 {
-useTypes := Trim(A_LoopField)
+useSemicolon := Trim(A_LoopField)
 }
 if (A_Index = 78)
 {
-forLoopLang := Trim(A_LoopField)
+useParentheses := Trim(A_LoopField)
 }
 if (A_Index = 79)
 {
-useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
+usePythonicColonSyntax := Trim(A_LoopField)
 }
 if (A_Index = 80)
 {
-useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
+useTypes := Trim(A_LoopField)
 }
 if (A_Index = 81)
+{
+forLoopLang := Trim(A_LoopField)
+}
+if (A_Index = 82)
+{
+useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
+}
+if (A_Index = 83)
+{
+useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
+}
+if (A_Index = 84)
 {
 useJavaScriptAmainFuncDef := Trim(A_LoopField)
 }
@@ -3369,15 +3415,15 @@ lineDone := 1
 
 if (langToTranspileTo = "py")
 {
-var1 := "for A" . Chr(95) . "Index" . STR(AindexcharLength) . " , value in enumerate(iter(int, 1), start=1):"
+var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " , value in enumerate(iter(int, 1), start=" . AHKlikeLoopsIndexedAt . "):"
 }
 if (langToTranspileTo = "js")
 {
-var1 := "for (let A_Index" . STR(AindexcharLength) . " = 1; ; A_Index" . STR(AindexcharLength) . "++)"
+var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; ; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 if (langToTranspileTo = "cpp")
 {
-var1 := "for (int A_Index" . STR(AindexcharLength) . " = 1; ; A_Index" . STR(AindexcharLength) . "++)"
+var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; ; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 
 
@@ -3411,15 +3457,15 @@ haveWeEverUsedAloop := 1
 
 if (langToTranspileTo = "py")
 {
-var1 := "for A" . Chr(95) . "Index" . STR(AindexcharLength) . " in range(1, " . line . " + 1):"
+var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(0, " . line . " + " . AHKlikeLoopsIndexedAt . "):"
 }
 if (langToTranspileTo = "js")
 {
-var1 := "for (let A_Index" . STR(AindexcharLength) . " = 1; A_Index" . STR(AindexcharLength) . " <= " . line . "; A_Index" . STR(AindexcharLength) . "++)"
+var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " <= " . line . " + " . AHKlikeLoopsIndexedAt . " - 1; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 if (langToTranspileTo = "cpp")
 {
-var1 := "for (int A_Index" . STR(AindexcharLength) . " = 1; A_Index" . STR(AindexcharLength) . " <= " . line . "; ++A_Index" . STR(AindexcharLength) . ")"
+var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " <= " . line . " + " . AHKlikeLoopsIndexedAt . " - 1; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 
 nothing := ""
@@ -3455,15 +3501,15 @@ haveWeEverUsedAloop := 1
 
 if (langToTranspileTo = "py")
 {
-var1 := "for A" . Chr(95) . "Index" . STR(AindexcharLength) . " in range(1, " . line . " + 1):"
+var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(0, " . line . " + " . AHKlikeLoopsIndexedAt . "):"
 }
 if (langToTranspileTo = "js")
 {
-var1 := "for (let A_Index" . STR(AindexcharLength) . " = 1; A_Index" . STR(AindexcharLength) . " <= " . line . "; A_Index" . STR(AindexcharLength) . "++)"
+var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " <= " . line . " + " . AHKlikeLoopsIndexedAt . " - 1; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 if (langToTranspileTo = "cpp")
 {
-var1 := "for (int A_Index" . STR(AindexcharLength) . " = 1; A_Index" . STR(AindexcharLength) . " <= " . line . "; ++A_Index" . STR(AindexcharLength) . ")"
+var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " <= " . line . " + " . AHKlikeLoopsIndexedAt . " - 1; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 
 nothing := ""
@@ -3580,15 +3626,15 @@ itemsOut := StrReplace(itemsOut, Chr(96), Chr(92))
 
 if (langToTranspileTo = "py")
 {
-var1out := itemsOut . "`n" . "for A" . Chr(95) . "Index" . STR(AindexcharLength) . " , A" . Chr(95) . "LoopField" . STR(AindexcharLength) . " in enumerate(items" . STR(AindexcharLength) . ", start=1):"
+var1out := itemsOut . "`n" . "for " . keyWordAIndex . "" . STR(AindexcharLength) . " , " . keyWordALoopField . "" . STR(AindexcharLength) . " in enumerate(items" . STR(AindexcharLength) . ", start=" . AHKlikeLoopsIndexedAt . "):"
 }
 if (langToTranspileTo = "js")
 {
-var1out := itemsOut . "`n" . "for (let A_Index" . STR(AindexcharLength) . " = 1; A_Index" . STR(AindexcharLength) . " <= items" . STR(AindexcharLength) . ".length; A_Index" . STR(AindexcharLength) . "++)"
+var1out := itemsOut . "`n" . "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " <= items" . STR(AindexcharLength) . ".length + " . AHKlikeLoopsIndexedAt . " - 1; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 if (langToTranspileTo = "cpp")
 {
-var1out := itemsOut . "`n" . "for (size_t A_Index" . STR(AindexcharLength) . " = 1; A_Index" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".size() + 1; A_Index" . STR(AindexcharLength) . "++)"
+var1out := itemsOut . "`n" . "for (size_t " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".size() + " . AHKlikeLoopsIndexedAt . " - 1; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 
 
@@ -3600,11 +3646,11 @@ AindexcharLengthStr := nothing . STR(AindexcharLength) . nothing
 theFixTextLoopLP := ""
 if (langToTranspileTo = "cpp")
 {
-theFixTextLoopLP := "std::string A_LoopField" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[A_Index" . AindexcharLengthStr . " - 1];"
+theFixTextLoopLP := "std::string " . keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "];"
 }
 if (langToTranspileTo = "js")
 {
-theFixTextLoopLP := "const A_LoopField" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[A_Index" . AindexcharLengthStr . " - 1];"
+theFixTextLoopLP := "const " . keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "];"
 }
 
 htCodeAcurlyBraceAddSomeVrasFixLP := 1
@@ -5091,7 +5137,7 @@ fixLoopLokingForNum := 1
 if (SubStr(Trim(A_LoopField), 1, 4) = "for ") && (weAreDoneHereCurly != 1) && (insdeAnestedLoopBAD != 1) && (fixLoopLokingForNum = 1)
 {
 
-s := StrSplit(A_LoopField ,"A" . Chr(95) . "Index", 2)
+s := StrSplit(A_LoopField ,"" . keyWordAIndex . "", 2)
 out1z := s
 
 
@@ -5185,7 +5231,7 @@ ALoopField := A_LoopField
 
 
 ; Replace "A_Index" with or without a following digit with "A_Index" + out1z
-ALoopField := RegExReplace(ALoopField, "A_Index\\d*", "A_Index" . out1z)
+ALoopField := RegExReplace(ALoopField, "" . keyWordAIndex . "\\d*", "" . keyWordAIndex . "" . out1z)
 
 
 
@@ -5262,7 +5308,7 @@ if (SubStr(Trim(A_LoopField), 1, 4) = "for ") && (weAreDoneHereCurly != 1) && (i
 {
 
 
-s := StrSplit(A_LoopField ,"A" . Chr(95) . "Index", 2)
+s := StrSplit(A_LoopField ,"" . keyWordAIndex . "", 2)
 out1z := s
 
 s := StrSplit(out1z, " ", 1)
@@ -5351,9 +5397,9 @@ if (inTarget = 1) && (dontSaveStr != 1) && (fixLoopLokingForNum != 1) && (insdeA
 ALoopField := A_LoopField
 
 ; Replace "A_Index" with or without a following digit with "A_Index" + out1z
-ALoopField := RegExReplace(ALoopField, "A_Index\\d*", "A_Index" . out1z)
+ALoopField := RegExReplace(ALoopField, "" . keyWordAIndex . "\\d*", "" . keyWordAIndex . "" . out1z)
 ; Replace "A_Index" with or without a following digit with "A_Index" + out1z
-ALoopField := RegExReplace(ALoopField, "A_LoopField\\d*", "A_LoopField" . out1z)
+ALoopField := RegExReplace(ALoopField, "" . keyWordALoopField . "\\d*", "" . keyWordALoopField . "" . out1z)
 
 
 
@@ -5473,8 +5519,6 @@ StringTrimRight, htCode, htCodeOut1234565432, 1
 
 
 
-
-
 if (langToTranspileTo = "py")
 {
 htCode := indent_nested_curly_braces(htCode, 0)
@@ -5483,6 +5527,8 @@ else
 {
 htCode := indent_nested_curly_braces(htCode, 1)
 }
+
+
 
 
 Loop, % theIdNumOfThe34
@@ -5521,6 +5567,9 @@ StringTrimRight, allLibsToPutAtTop, allLibsToPutAtTopTEMP, 1
 Sort, allLibsToPutAtTop, U
 
 htCode := allLibsToPutAtTop . "`n" . allFuncsToPutAtTop . "`n" . htCode
+
+
+
 MsgBox, % htCode
 
 Loop, Parse, fileExtention

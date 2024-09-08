@@ -178,3 +178,23 @@ ads--
 ads--;
 
 dffdsfs--
+
+
+}
+
+Loop, 5
+{
+console.log(A_Index)
+if A_Index >= 100
+{
+break
+}
+}
+
+
+str var1 := "WAEDSFESRFSRF ES ESDF ESD FE SDFG SDXF"
+
+Loop, Parse, var1, " "
+{
+console.log(A_LoopField)
+}
