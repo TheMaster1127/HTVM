@@ -27,39 +27,32 @@ case 1:
 {
 outSometing := 1
 break
-end
 }
 case 2:{
 outSometing := 2
 break;
-end
 }
 case 3
 {
 outSometing := 3
 break
-end
 }
 case 4: {
 outSometing := 4
 break
-end
 }
 case 5:
 {
 outSometing := 5
 break;
-end
 }
 case 6:{
 outSometing := 6
 break
-end
 }
 defalut{
 outSometing := 0
 break;
-end
 }
 }
 
@@ -77,8 +70,8 @@ int var12 := arr12.size();
 int var1 := 5
 str var12 := "hello `" `nwhats up" . HalloMan()
 var1234 := "helllllllllo"
-cmd, sd, %2%, %3%, %3%, 3, 3, 3
-gg, %2%, %2%
+cmd, sd
+gg, %2%
 cmd, sd, %2%, %2%, 4, 4, 4, 4
 hi
 Sort, var1234
@@ -126,5 +119,62 @@ var34 := 5
 		avaas := "adsf"
 }
 
+;;;;;;;;;;;
+
+if QWAEDSFD
+{
+var34 := 5
+else if () {
+qwaesdf := awsd
+} else {
+		avaas := "adsf"
+}
 
 
+int strinfadsf
+const ads
+asd := 5
+asd2 := 5;
+arr arr1234
+arr1234.add("hi1")
+arr1234.add("hi2");
+arr1234.add("hi3")
+if (InStr(arr1234.index("hi2")))
+{
+print("hi")
+}
+
+
+
+
+var1 := "waesr wesr`nwers`nwaesrd`n"
+Loop, Parse, var1, `n, `r
+{
+
+Loop, 5
+{
+
+Loop
+{
+if (A_Index >= 2)
+{
+break
+}
+else
+{
+MsgBox, % A_Index
+}
+}
+
+MsgBox, % A_Index
+}
+
+MsgBox, % A_LoopField
+}
+
+ads++
+ads++;
+ads--
+ads--;
+
+dffdsfs--

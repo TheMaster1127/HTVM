@@ -37,6 +37,8 @@ keyWordLessThanOrEqualToOperator: Checks if one value is less than or equal to a
 keyWordOrOperator: Combines two boolean conditions (true if either is true).
 keyWordAndOperator: Combines two boolean conditions (true if both are true).
 keyWordNotEqualToOperator: Checks if two values or variables are not equal.
+keyWordTrue: Its the true boolean value.
+keyWordFlase: Its the false boolean value.
 keyWordSwitch: The switch statement is a type of selection control mechanism.
 keyWordSwitchCase: The switch case is a type of selection control mechanism used within the switch statement.
 keyWordSwitchDefault: The default case in a switch statement provides a fallback option when no case matches.
@@ -48,6 +50,9 @@ keyWordFinally: Block that executes after try and catch, regardless of whether a
 keyWordArrayAppend: Method to add an element to the end of a collection (e.g., list or array).
 keyWordArrayPop: Method to remove and return the last element of a collection (e.g., stack or list).
 keyWordArraySize: Method that returns the number of elements in a collection (e.g., array, list, or vector).
+keyWordArrayInsert: Method to add an element at a specific position in a collection (e.g., list or array).
+keyWordArrayRemove: Method to remove an element from a collection by its value or index (e.g., list or array).
+keyWordArrayIndexOf: Method that returns the index of the first occurrence of an element, or -1 if not found.
 keyWordArrayDefinition: Defines an array data structure.
 keyWordArrayOfIntegersDefinition: Defines an array of integers.
 keyWordArrayOfStringsDefinition: Defines an array of strings.

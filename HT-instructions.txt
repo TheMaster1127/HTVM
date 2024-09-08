@@ -1,6 +1,6 @@
-py
+cpp
 ht
-cmd,OUTVAR,INVAR,'param1,param2,param3|gg,INOUTVAR,param1|Sort,INOUTVAR|hi,lineTranspile,w49g8seg8^(T*^R*^&(&#(dgweaws
+cmd,OUTVAR,INVAR,'param1,param2,param3|gg,INOUTVAR,param1|MsgBox,INVAR|Sort,INOUTVAR|hi,lineTranspile,w49g8seg8^(T*^R*^&(&#(dgweaws
 int 
 str
 bool
@@ -50,6 +50,9 @@ finally
 .add
 .pop
 .size
+.insert
+.remove
+.index
 arr
 arr int
 arr str
@@ -66,8 +69,8 @@ global
 /*
 */
 `
-off
 on
+off
 off
 off
 off
