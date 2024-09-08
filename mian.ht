@@ -25,8 +25,8 @@ var outSometing;
 switch (var66) {
 case 1:
 {
-outSometing := 1
-break
+	outSometing := 1
+	break
 }
 case 2:{
 outSometing := 2
@@ -156,13 +156,12 @@ Loop, 5
 
 Loop
 {
-if (A_Index >= 2)
-{
-break
+if (A_Index >= 2) {
+	break
 }
 else
 {
-MsgBox, % A_Index
+	MsgBox, % A_Index
 }
 }
 
@@ -198,3 +197,5 @@ Loop, Parse, var1, " "
 {
 console.log(A_LoopField)
 }
+
+var1 := 5

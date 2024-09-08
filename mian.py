@@ -117,9 +117,9 @@ if QWAEDSFD:
         print("hi")
     var1 = "waesr wesr\nwers\nwaesrd\n"
     items1 = LoopParseFunc(var1, "\n", "\r")
-    for A_Index1 , A_LoopField1 in enumerate(items1, start=69):
-        for A_Index2 in range(0, 5 + 69):
-            for A_Index3 , value in enumerate(iter(int, 1), start=69):
+    for A_Index1 , A_LoopField1 in enumerate(items1, start=0):
+        for A_Index2 in range(0, 5 + 0):
+            for A_Index3 , value in enumerate(iter(int, 1), start=0):
                 if (A_Index3 >= 2):
                     break
                 else:
@@ -131,7 +131,12 @@ if QWAEDSFD:
     ads =- 1
     ads =- 1
     dffdsfs =- 1
-for A_Index4 in range(0, 5 + 69):
-    print(A_Index4)
+for A_Index4 in range(0, 5 + 0):
+    console.log(A_Index4)
     if A_Index4 >= 100:
         break
+var1 = "WAEDSFESRFSRF ES ESDF ESD FE SDFG SDXF"
+items5 = LoopParseFunc(var1, " ")
+for A_Index5 , A_LoopField5 in enumerate(items5, start=0):
+    console.log(A_LoopField5)
+var1 = 5
