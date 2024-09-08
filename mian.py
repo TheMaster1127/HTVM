@@ -23,14 +23,14 @@ global var1
 try:
 raise Exception("ono")
 except Exception as e:
-var2345 = e
+    var2345 = e
 finally:
 gg = "hello"
 if (sad):
-var123 = 56
-if (sad):
-varsdfcxszdc = 56
-aszd = 56
+    var123 = 56
+    if (sad):
+        varsdfcxszdc = 56
+    aszd = 56
 var66 = 5
 outSometing = None
 match var66:
@@ -55,7 +55,6 @@ match var66:
     case _:
         outSometing = 0
         break
-for index in range(1, 5):
     var1 = True
 arr12 = []
 arr12.append("hello")
@@ -139,4 +138,4 @@ var1 = "WAEDSFESRFSRF ES ESDF ESD FE SDFG SDXF"
 items5 = LoopParseFunc(var1, " ")
 for A_Index5 , A_LoopField5 in enumerate(items5, start=0):
     console.log(A_LoopField5)
-var1 = 5
+var1 = True

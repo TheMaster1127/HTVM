@@ -62,7 +62,6 @@ keyWordJavaScriptVar: Use var for variable declarations ONLY in javascript.
 keyWordJavaScriptLet: Use let for block-scoped variables ONLY in javascript.
 keyWordJavaScriptConst: Use const for block-scoped, unchangeable variables ONLY in javascript.
 keyWordReturnStatement: Returns a value from a function or exits a subroutine.
-keyWordReturnEndOFaSubroutineFunction: Marks the end of a subroutine or function.
 keyWordEnd: Indicates the end of a code block.
 keyWordGlobal: Global in Python allows variables inside functions to be accessed and modified globally.
 keyWordComment: Starts a single-line comment.
@@ -72,6 +71,7 @@ keyWordEscapeChar: Escapes special characters in strings or identifiers.
 AHKlikeLoopsIndexedAt: Specifies the starting index for the AHK-like loop, such as 1-indexed, 0-indexed, or any custom value.
 keyWordAIndex: Represents the current index of the loop. It can be customized based on the indexing method and renamed using configuration settings.
 keyWordALoopField: Represents the current value or field in the loop. It can be renamed according to user preferences through configuration. 
+useFuncKeyWord: If transpiling to JS or Python, you don't need to use the function keyword. Also, we must toggle useCurlyBraces to on.
 useCurlyBraces: Toggle for using curly braces instead of indentation for code blocks.
 useEnd: Enable custom end-of-block keyword (e.g., 'end', 'finish', etc.).
 useSemicolon: Toggle for using semicolons at the end of statements.

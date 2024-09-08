@@ -57,8 +57,9 @@ break;
 }
 
 
-for index in range(1, 5) {
-bool var1 := yes;
+for index in range(1, 5):
+{
+bool var1 := yeah;
 }
 arr12 := []
 arr12.add("hello");
@@ -144,7 +145,7 @@ if (InStr(arr1234.index("hi2")))
 print("hi")
 }
 
-
+int var1 := nah
 
 
 var1 := "waesr wesr`nwers`nwaesrd`n"
@@ -198,4 +199,5 @@ Loop, Parse, var1, " "
 console.log(A_LoopField)
 }
 
-var1 := 5
+var1 := yeah
+for index in range(1, 5)

@@ -1,4 +1,4 @@
-py
+cpp
 ht
 cmd,OUTVAR,INVAR,'param1,param2,param3|gg,INOUTVAR,param1|MsgBox,INVAR|Sort,INOUTVAR|hi,lineTranspile,w49g8seg8^(T*^R*^&(&#(dgweaws
 int 
@@ -37,8 +37,8 @@ await
 or
 and
 !=
-yes
-no
+yeah
+nah
 switch
 case
 defalut
@@ -62,7 +62,6 @@ var
 let
 const
 return
-Return
 end
 global
 ;
@@ -72,6 +71,8 @@ global
 0
 A_Index
 A_LoopField
+main:
+off
 on
 off
 off

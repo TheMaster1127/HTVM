@@ -1215,7 +1215,6 @@ str keyWordJavaScriptVar
 str keyWordJavaScriptLet
 str keyWordJavaScriptConst
 str keyWordReturnStatement
-str keyWordReturnEndOFaSubroutineFunction
 str keyWordEnd
 str keyWordGlobal
 str keyWordComment
@@ -1225,7 +1224,9 @@ str keyWordEscpaeChar
 str AHKlikeLoopsIndexedAt
 str keyWordAIndex
 str keyWordALoopField
+str keyWordMainLabel
 
+str useFuncKeyWord
 str useCurlyBraces
 str useEnd
 str useSemicolon
@@ -1508,8 +1509,8 @@ expression := StrReplace(expression, ")()", ")")
 else if (langToTranspileTo = "js")
 {
 ; JavaScript-specific replacements
-expression := RegExReplace(expression, "\\bTrue\\b", "true")
-expression := RegExReplace(expression, "\\bFalse\\b", "false")
+expression := RegExReplace(expression, "\\b" . keyWordTrue . "\\b", "true")
+expression := RegExReplace(expression, "\\b" . keyWordFalse . "\\b", "false")
 expression := RegExReplace(expression, "\\bNone\\b", "null")
 expression := StrReplace(expression, "{}", "[]")
 
@@ -1531,8 +1532,8 @@ else if (langToTranspileTo = "cpp")
 {
 ; C++-specific replacements
 expression := RegExReplace(expression, "\\b" . theCppVarForErrors . "\\b", theCppVarForErrors . ".what()")
-expression := RegExReplace(expression, "\\bTrue\\b", "true")
-expression := RegExReplace(expression, "\\bFalse\\b", "false")
+expression := RegExReplace(expression, "\\b" . keyWordTrue . "\\b", "true")
+expression := RegExReplace(expression, "\\b" . keyWordFalse . "\\b", "false")
 expression := RegExReplace(expression, "\\bnull\\b", Chr(34) . Chr(34))
 expression := RegExReplace(expression, "\\bNone\\b", Chr(34) . Chr(34))
 expression := StrReplace(expression, "[]", "{}")
@@ -1553,18 +1554,7 @@ expression := StrReplace(expression, ") || (", " || ")
 
 expression := StrReplace(expression, ".length()", ".length")
 
-
-
-
-str expressionOut
-Loop, Parse, expression, " "
-{
-expressionOut .= A_LoopField . " "
-}
-
-
-StringTrimRight, expressionOut, expressionOut, 1
-return expressionOut
+return expression
 }
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1875,81 +1865,85 @@ keyWordReturnStatement := Trim(A_LoopField) . " "
 }
 if (A_Index = 65)
 {
-keyWordReturnEndOFaSubroutineFunction := Trim(A_LoopField)
+keyWordEnd := Trim(A_LoopField)
 }
 if (A_Index = 66)
 {
-keyWordEnd := Trim(A_LoopField)
+keyWordGlobal := Trim(A_LoopField) . " "
 }
 if (A_Index = 67)
 {
-keyWordGlobal := Trim(A_LoopField) . " "
+keyWordComment := Trim(A_LoopField)
 }
 if (A_Index = 68)
 {
-keyWordComment := Trim(A_LoopField)
+keyWordCommentOpenMultiLine := Trim(A_LoopField)
 }
 if (A_Index = 69)
 {
-keyWordCommentOpenMultiLine := Trim(A_LoopField)
+keyWordCommentCloseMultiLine := Trim(A_LoopField)
 }
 if (A_Index = 70)
 {
-keyWordCommentCloseMultiLine := Trim(A_LoopField)
+keyWordEscpaeChar := Trim(A_LoopField)
 }
 if (A_Index = 71)
 {
-keyWordEscpaeChar := Trim(A_LoopField)
+AHKlikeLoopsIndexedAt := Trim(A_LoopField)
 }
 if (A_Index = 72)
 {
-AHKlikeLoopsIndexedAt := Trim(A_LoopField)
+keyWordAIndex := Trim(A_LoopField)
 }
 if (A_Index = 73)
 {
-keyWordAIndex := Trim(A_LoopField)
+keyWordALoopField := Trim(A_LoopField)
 }
 if (A_Index = 74)
 {
-keyWordALoopField := Trim(A_LoopField)
+keyWordMainLabel := Trim(A_LoopField)
 }
 if (A_Index = 75)
 {
-useCurlyBraces := Trim(A_LoopField)
+useFuncKeyWord := Trim(A_LoopField)
 }
 if (A_Index = 76)
 {
-useEnd := Trim(A_LoopField)
+useCurlyBraces := Trim(A_LoopField)
 }
 if (A_Index = 77)
 {
-useSemicolon := Trim(A_LoopField)
+useEnd := Trim(A_LoopField)
 }
 if (A_Index = 78)
 {
-useParentheses := Trim(A_LoopField)
+useSemicolon := Trim(A_LoopField)
 }
 if (A_Index = 79)
 {
-usePythonicColonSyntax := Trim(A_LoopField)
+useParentheses := Trim(A_LoopField)
 }
 if (A_Index = 80)
 {
-useTypes := Trim(A_LoopField)
+usePythonicColonSyntax := Trim(A_LoopField)
 }
 if (A_Index = 81)
 {
-forLoopLang := Trim(A_LoopField)
+useTypes := Trim(A_LoopField)
 }
 if (A_Index = 82)
 {
-useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
+forLoopLang := Trim(A_LoopField)
 }
 if (A_Index = 83)
 {
-useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
+useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
 }
 if (A_Index = 84)
+{
+useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
+}
+if (A_Index = 85)
 {
 useJavaScriptAmainFuncDef := Trim(A_LoopField)
 }
@@ -3402,7 +3396,7 @@ else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordForLoop))) = St
 str1 := StringTrimLeft(A_LoopField, StrLen(keyWordForLoop))
 ;MsgBox, % A_LoopField
 
-str2 := transpileForLoop(langToTranspileTo, forLoopLang, "for " . str1)
+str2 := transpileForLoop(langToTranspileTo, forLoopLang, "for " . expressionParserTranspiler(str1))
 
 lineDone := 1
 htCode .= str2 . "`n"
@@ -4685,13 +4679,6 @@ else
 str2 := StrReplace(str2, ";;", ";")
 }
 htCode .= str2 . "`n"
-}
-else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordReturnEndOFaSubroutineFunction))) = StrLower(keyWordReturnEndOFaSubroutineFunction))
-{
-str1 := StringTrimLeft(A_LoopField, StrLen(keyWordReturnEndOFaSubroutineFunction))
-;MsgBox, % A_LoopField
-lineDone := 1
-htCode .= str10 . "}" . "`n"
 }
 else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordGlobal))) = StrLower(keyWordGlobal))
 {
