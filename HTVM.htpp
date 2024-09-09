@@ -1152,11 +1152,6 @@ str outVarOperator
 int lineDone
 int areWeInAFuncFromInstructions
 int areWeInAFuncFromInstructionsLineNum
-str funcNameHolder
-str funcLibsHolder
-str funcParamsHolder
-str funcFuncHolder
-str funcDescriptionHolder
 str keyWordIF
 str keyWordElseIf
 str keyWordWhileLoop
@@ -1961,21 +1956,33 @@ useJavaScriptAmainFuncDef := Trim(A_LoopField)
 areWeInAFuncFromInstructions := 0
 areWeInAFuncFromInstructionsLineNum := 0
 
+str funcLangHolder
+str funcNameHolder
+str funcLibsHolder
+str funcFuncHolder
+str funcDescriptionHolder
+
+arr str allFuncLang
 arr str allFuncNames
 arr str allFuncLibs
-arr str allFuncParams
 arr str allFuncs
 arr str allfuncDescription
 
 
-
+int correctLang := 0
 Loop, Parse, instructions, `n, `r
 {
 if (Trim(A_LoopField) = "funcEND======================funcEND==============")
 {
 areWeInAFuncFromInstructions := 0
 areWeInAFuncFromInstructionsLineNum := 0
+if (correctLang = 1) && (InStr(code, Trim(funcNameHolder) . "("))
+{
+;MsgBox, % funcFuncHolder
 arr allFuncs .= funcFuncHolder
+}
+correctLang := 0
+funcFuncHolder := ""
 }
 
 if (areWeInAFuncFromInstructions = 1)
@@ -1984,31 +1991,47 @@ if (areWeInAFuncFromInstructions = 1)
 if (areWeInAFuncFromInstructionsLineNum = 1)
 {
 ; name of the func
-StringTrimLeft, funcNameHolder, A_LoopField, 5
-arr allFuncNames .= Trim(funcNameHolder)
+StringTrimLeft, funcLangHolder, A_LoopField, 5
+if (Trim(funcLangHolder) = langToTranspileTo)
+{
+arr allFuncLang .= Trim(funcLangHolder)
+correctLang := 1
+}
 }
 if (areWeInAFuncFromInstructionsLineNum = 2)
 {
-; all libs
-StringTrimLeft, funcLibsHolder, A_LoopField, 5
-arr allFuncLibs .= Trim(funcLibsHolder)
+; name of the func
+StringTrimLeft, funcNameHolder, A_LoopField, 5
+if (correctLang = 1) && (InStr(code, Trim(funcNameHolder) . "("))
+{
+arr allFuncNames .= Trim(funcNameHolder)
+}
 }
 if (areWeInAFuncFromInstructionsLineNum = 3)
 {
-; func params
-StringTrimLeft, funcParamsHolder, A_LoopField, 7
-arr allFuncParams .= Trim(funcParamsHolder)
+; all libs
+StringTrimLeft, funcLibsHolder, A_LoopField, 5
+if (correctLang = 1) && (InStr(code, Trim(funcNameHolder) . "("))
+{
+arr allFuncLibs .= Trim(funcLibsHolder)
+}
 }
 if (areWeInAFuncFromInstructionsLineNum = 4)
 {
 ; func description
 StringTrimLeft, funcDescriptionHolder, A_LoopField, 12
+if (correctLang = 1) && (InStr(code, Trim(funcNameHolder) . "("))
+{
 arr allfuncDescription .= Trim(funcDescriptionHolder)
+}
 }
 if (areWeInAFuncFromInstructionsLineNum >= 5)
 {
 ; the full func
+if (correctLang = 1) && (InStr(code, Trim(funcNameHolder) . "("))
+{
 funcFuncHolder .= A_LoopField . "`n"
+}
 }
 
 ;MsgBox, % A_LoopField
@@ -2021,21 +2044,22 @@ if (Trim(A_LoopField) = "func======================func==============")
 {
 areWeInAFuncFromInstructions := 1
 areWeInAFuncFromInstructionsLineNum := 1
+correctLang := 0
 }
 
 
 
 }
 
-;~ MsgBox, % "==========================================================================="
+;~ MsgBox, ===========================================================================
 ;~ msgbox, % allFuncNames
-;~ MsgBox, % "==========================================================================="
+;~ MsgBox, ===========================================================================
 ;~ msgbox, % allFuncLibs
-;~ MsgBox, % "==========================================================================="
-;~ msgbox, % allFuncParams
-;~ MsgBox, % "==========================================================================="
+;~ MsgBox, ===========================================================================
+;~ msgbox, % allFuncLang
+;~ MsgBox, ===========================================================================
 ;~ msgbox, % allFuncs
-;~ MsgBox, % "==========================================================================="
+;~ MsgBox, ===========================================================================
 
 
 
@@ -3844,7 +3868,7 @@ str2 := "break;"
 }
 htCode .= str2 . "`n"
 }
-else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc))
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc)) && (useFuncKeyWord = "on")
 {
 str1 := StringTrimLeft(A_LoopField, StrLen(keyWordFunc))
 ;MsgBox, % A_LoopField
@@ -5781,28 +5805,23 @@ str jsHTMLdownCode := "</script>`n</body>`n</html>"
 
 
 
-Loop, % theIdNumOfThe34
-{
-htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(A_Index) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index])
-}
-
-htCode := StrReplace(htCode, ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes, Chr(92) . Chr(34))
-
-;arr str allFuncNames
-;arr str allFuncLibs
-;arr str allFuncs
-
 str allFuncsToPutAtTop := "`n"
 str allLibsToPutAtTop
-
+MsgBox, Transpiling...
+if (!(INT(allFuncNames[0]) <= 0))
+{
 Loop, % INT(allFuncNames[0])
 {
-if (InStr(htCode, allFuncNames[A_Index]))
+if (InStr(htCode, allFuncNames[A_Index]) . "(")
 {
 ;MsgBox, % allFuncNames[A_Index]
+
 allFuncsToPutAtTop .= allFuncs[A_Index] . "`n"
 
+if (Trim(allFuncLibs[A_Index]) != "null")
+{
 allLibsToPutAtTop .= allFuncLibs[A_Index] . "|"
+}
 
 }
 }
@@ -5817,6 +5836,16 @@ StringTrimRight, allLibsToPutAtTop, allLibsToPutAtTopTEMP, 1
 Sort, allLibsToPutAtTop, U
 
 htCode := allLibsToPutAtTop . "`n" . allFuncsToPutAtTop . "`n" . htCode
+}
+MsgBox, Transpiling...
+
+Loop, % theIdNumOfThe34
+{
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(A_Index) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index])
+}
+
+htCode := StrReplace(htCode, ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes, Chr(92) . Chr(34))
+
 
 
 if (useJavaScriptInAfullHTMLfile = "on") && (langToTranspileTo = "js")

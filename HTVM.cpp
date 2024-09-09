@@ -1644,11 +1644,6 @@ std::string outVarOperator;
 int lineDone;
 int areWeInAFuncFromInstructions;
 int areWeInAFuncFromInstructionsLineNum;
-std::string funcNameHolder;
-std::string funcLibsHolder;
-std::string funcParamsHolder;
-std::string funcFuncHolder;
-std::string funcDescriptionHolder;
 std::string keyWordIF;
 std::string keyWordElseIf;
 std::string keyWordWhileLoop;
@@ -2398,11 +2393,17 @@ useJavaScriptAmainFuncDef = Trim ( A_LoopField47 ) ;
 }
 areWeInAFuncFromInstructions = 0;
 areWeInAFuncFromInstructionsLineNum = 0;
+std::string funcLangHolder;
+std::string funcNameHolder;
+std::string funcLibsHolder;
+std::string funcFuncHolder;
+std::string funcDescriptionHolder;
+OneIndexedArray<std::string> allFuncLang;
 OneIndexedArray<std::string> allFuncNames;
 OneIndexedArray<std::string> allFuncLibs;
-OneIndexedArray<std::string> allFuncParams;
 OneIndexedArray<std::string> allFuncs;
 OneIndexedArray<std::string> allfuncDescription;
+int correctLang = 0;
 std::vector<std::string> items48 = LoopParseFunc(instructions, "\n", "\r");
 for (size_t A_Index48 = 1; A_Index48 < items48.size() + 1; A_Index48++)
 {
@@ -2411,38 +2412,60 @@ if (Trim (A_LoopField48) == "funcEND======================funcEND=============="
 {
 areWeInAFuncFromInstructions = 0;
 areWeInAFuncFromInstructionsLineNum = 0;
+if (correctLang == 1 && InStr (code , Trim (funcNameHolder) + "(")) 
+{
+//MsgBox, % funcFuncHolder
 allFuncs.add(funcFuncHolder);
+}
+correctLang = 0;
+funcFuncHolder = "";
 }
 if (areWeInAFuncFromInstructions == 1) 
 {
 if (areWeInAFuncFromInstructionsLineNum == 1) 
 {
 // name of the func
-funcNameHolder = StringTrimLeft(A_LoopField48, 5);
-allFuncNames.add(Trim(funcNameHolder));
+funcLangHolder = StringTrimLeft(A_LoopField48, 5);
+if (Trim (funcLangHolder) == langToTranspileTo) 
+{
+allFuncLang.add(Trim(funcLangHolder));
+correctLang = 1;
+}
 }
 if (areWeInAFuncFromInstructionsLineNum == 2) 
 {
-// all libs
-funcLibsHolder = StringTrimLeft(A_LoopField48, 5);
-allFuncLibs.add(Trim(funcLibsHolder));
+// name of the func
+funcNameHolder = StringTrimLeft(A_LoopField48, 5);
+if (correctLang == 1 && InStr (code , Trim (funcNameHolder) + "(")) 
+{
+allFuncNames.add(Trim(funcNameHolder));
+}
 }
 if (areWeInAFuncFromInstructionsLineNum == 3) 
 {
-// func params
-funcParamsHolder = StringTrimLeft(A_LoopField48, 7);
-allFuncParams.add(Trim(funcParamsHolder));
+// all libs
+funcLibsHolder = StringTrimLeft(A_LoopField48, 5);
+if (correctLang == 1 && InStr (code , Trim (funcNameHolder) + "(")) 
+{
+allFuncLibs.add(Trim(funcLibsHolder));
+}
 }
 if (areWeInAFuncFromInstructionsLineNum == 4) 
 {
 // func description
 funcDescriptionHolder = StringTrimLeft(A_LoopField48, 12);
+if (correctLang == 1 && InStr (code , Trim (funcNameHolder) + "(")) 
+{
 allfuncDescription.add(Trim(funcDescriptionHolder));
+}
 }
 if (areWeInAFuncFromInstructionsLineNum >= 5) 
 {
 // the full func
+if (correctLang == 1 && InStr (code , Trim (funcNameHolder) + "(")) 
+{
 funcFuncHolder += A_LoopField48 + "\n";
+}
 }
 //MsgBox, % A_LoopField48
 areWeInAFuncFromInstructionsLineNum++;
@@ -2451,17 +2474,18 @@ if (Trim (A_LoopField48) == "func======================func==============")
 {
 areWeInAFuncFromInstructions = 1;
 areWeInAFuncFromInstructionsLineNum = 1;
+correctLang = 0;
 }
 }
-//~ MsgBox, % "==========================================================================="
+//~ MsgBox, ===========================================================================
 //~ msgbox, % allFuncNames
-//~ MsgBox, % "==========================================================================="
+//~ MsgBox, ===========================================================================
 //~ msgbox, % allFuncLibs
-//~ MsgBox, % "==========================================================================="
-//~ msgbox, % allFuncParams
-//~ MsgBox, % "==========================================================================="
+//~ MsgBox, ===========================================================================
+//~ msgbox, % allFuncLang
+//~ MsgBox, ===========================================================================
 //~ msgbox, % allFuncs
-//~ MsgBox, % "==========================================================================="
+//~ MsgBox, ===========================================================================
 std::string htCodeOUT754754 = "";
 int areWEinSome34sNum = 0;
 int theIdNumOfThe34 = 0;
@@ -4032,7 +4056,7 @@ str2 = "break;";
 }
 htCode += str2 + "\n";
 }
-else if (SubStr (StrLower (A_LoopField61) , 1 , StrLen (StrLower (keyWordFunc))) == StrLower (keyWordFunc)) 
+else if (SubStr (StrLower (A_LoopField61) , 1 , StrLen (StrLower (keyWordFunc))) == StrLower (keyWordFunc) && useFuncKeyWord == "on") 
 {
 str1 = StringTrimLeft ( A_LoopField61 , StrLen ( keyWordFunc ) ) ;
 //MsgBox, % A_LoopField61
@@ -5673,36 +5697,41 @@ htCode = indent_nested_curly_braces ( htCode , 1 ) ;
 }
 std::string jsHTMLupCode = "<!doctype html>\n<html lang=" + Chr ( 34 ) + "en" + Chr ( 34 ) + ">\n    <head>\n        <meta charset=" + Chr ( 34 ) + "UTF-8" + Chr ( 34 ) + " />\n        <meta name=" + Chr ( 34 ) + "viewport" + Chr ( 34 ) + " content=" + Chr ( 34 ) + "width=device-width, initial-scale=1.0" + Chr ( 34 ) + " />\n        <title>HTVM</title>\n        <style>\n            body {\n                background-color: #202020;\n                font-family:\n                    " + Chr ( 34 ) + "Open Sans" + Chr ( 34 ) + ",\n                    -apple-system,\n                    BlinkMacSystemFont,\n                    " + Chr ( 34 ) + "Segoe UI" + Chr ( 34 ) + ",\n                    Roboto,\n                    Oxygen-Sans,\n                    Ubuntu,\n                    Cantarell,\n                    " + Chr ( 34 ) + "Helvetica Neue" + Chr ( 34 ) + ",\n                    Helvetica,\n                    Arial,\n                    sans-serif;\n            }\n        </style>\n    </head>\n    <body>\n<script>";
 std::string jsHTMLdownCode = "</script>\n</body>\n</html>";
-for (int A_Index70 = 1; A_Index70<= theIdNumOfThe34; ++A_Index70)
-{
-htCode = StrReplace ( htCode , "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" + Chr ( 65 ) + Chr ( 65 ) + STR ( A_Index70 ) + Chr ( 65 ) + Chr ( 65 ) , theIdNumOfThe34theVar[A_Index70] ) ;
-}
-htCode = StrReplace ( htCode , ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes , Chr ( 92 ) + Chr ( 34 ) ) ;
-//arr str allFuncNames
-//arr str allFuncLibs
-//arr str allFuncs
 std::string allFuncsToPutAtTop = "\n";
 std::string allLibsToPutAtTop;
-for (int A_Index71 = 1; A_Index71<= INT ( allFuncNames[0] ) ; ++A_Index71)
+print(std::string("Transpiling..."));
+if (!(INT (allFuncNames[0]) <= 0)) 
 {
-if (InStr (htCode , allFuncNames[A_Index71])) 
+for (int A_Index70 = 1; A_Index70<= INT ( allFuncNames[0] ) ; ++A_Index70)
 {
-//MsgBox, % allFuncNames[A_Index71]
-allFuncsToPutAtTop += allFuncs[A_Index71] + "\n";
-allLibsToPutAtTop += allFuncLibs[A_Index71] + "|";
+if (InStr (htCode , allFuncNames[A_Index70]) + "(") 
+{
+//MsgBox, % allFuncNames[A_Index70]
+allFuncsToPutAtTop += allFuncs[A_Index70] + "\n";
+if (Trim (allFuncLibs[A_Index70])!= "null") 
+{
+allLibsToPutAtTop += allFuncLibs[A_Index70] + "|";
+}
 }
 }
 allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTop, 1);
 std::string allLibsToPutAtTopTEMP;
-std::vector<std::string> items72 = LoopParseFunc(allLibsToPutAtTop, "|");
-for (size_t A_Index72 = 1; A_Index72 < items72.size() + 1; A_Index72++)
+std::vector<std::string> items71 = LoopParseFunc(allLibsToPutAtTop, "|");
+for (size_t A_Index71 = 1; A_Index71 < items71.size() + 1; A_Index71++)
 {
-std::string A_LoopField72 = items72[A_Index72 - 1];
-allLibsToPutAtTopTEMP += A_LoopField72 + "\n";
+std::string A_LoopField71 = items71[A_Index71 - 1];
+allLibsToPutAtTopTEMP += A_LoopField71 + "\n";
 }
 allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTopTEMP, 1);
 allLibsToPutAtTop = SortLikeAHK(allLibsToPutAtTop, "U");
 htCode = allLibsToPutAtTop + "\n" + allFuncsToPutAtTop + "\n" + htCode;
+}
+print(std::string("Transpiling..."));
+for (int A_Index72 = 1; A_Index72<= theIdNumOfThe34; ++A_Index72)
+{
+htCode = StrReplace ( htCode , "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" + Chr ( 65 ) + Chr ( 65 ) + STR ( A_Index72 ) + Chr ( 65 ) + Chr ( 65 ) , theIdNumOfThe34theVar[A_Index72] ) ;
+}
+htCode = StrReplace ( htCode , ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes , Chr ( 92 ) + Chr ( 34 ) ) ;
 if (useJavaScriptInAfullHTMLfile == "on" && langToTranspileTo == "js") 
 {
 htCode = jsHTMLupCode + "\n" + htCode + "\n" + jsHTMLdownCode;

@@ -1,9 +1,13 @@
-func int waesr(int var1){
+str reversed = reverseString("Hello World");
+std::cout << "Reversed string: " << reversed << std::endl;  // Output: "dlroW olleH"
 
-if var1 = 10 {
-var1 := 1
-}
-return var1
-}
+// Using the factorial function
+int fact = factorial(5);
+std::cout << "Factorial of 5: " << fact << std::endl;  // Output: 120
 
-main:
+// Using the isPrime function
+bool primeCheck = isPrime(7);
+std::cout << "Is 7 prime? " << (primeCheck ? "True" : "False") << std::endl;  // Output: True
+
+primeCheck = isPrime(10);
+std::cout << "Is 10 prime? " << (primeCheck ? "True" : "False") << std::endl;  // Output: False

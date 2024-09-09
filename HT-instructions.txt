@@ -21,7 +21,7 @@ continue
 break
 func
 await
-:=
+=
 .=
 +=
 -=
@@ -82,58 +82,151 @@ off
 off
 py
 on
-off
+on
 off
 
 func======================func==============
-name: HalloMan
-libs: #include <string>|#include <regex>|#include <iostream>
-params: str, int, (float)
+lang: js
+name: reverseString
+libs: null
 description: hello that is func mhm
 
-void HalloMan(const std::string& name, int age, float height = 0.0f) {
-    // Use regex to check if the name contains only letters
-    std::regex name_regex("^[A-Za-z]+$");
-    
-    if (std::regex_match(name, name_regex)) {
-        std::cout << "Hallo, " << name << "!" << std::endl;
-        std::cout << "Age: " << age << std::endl;
-        std::cout << "Height: " << height << " meters" << std::endl;
-    } else {
-        std::cout << "Invalid name. Please use only letters." << std::endl;
-    }
+// 1. Function to reverse a string
+function reverseString(str) {
+    return str.split('').reverse().join('');
 }
 
 funcEND======================funcEND==============
 
+
+
 func======================func==============
-name: processInput
-libs: #include <iostream>|#include <vector>|#include <algorithm>
-params: undefined
+lang: js
+name: factorial
+libs: null
 description: hello that is func mhm
 
-void processInput(const std::vector<int>& numbers) {
-    if (numbers.empty()) {
-        std::cout << "The list is empty." << std::endl;
-        return;
+// 2. Function to calculate the factorial of a number
+function factorial(n) {
+    if (n <= 1) return 1;
+    return n * factorial(n - 1);
+}
+
+
+funcEND======================funcEND==============
+
+
+
+func======================func==============
+lang: js
+name: isPrime
+libs: null
+description: hello that is func mhm
+
+// 3. Function to check if a number is prime
+function isPrime(num) {
+    if (num <= 1) return false;
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
     }
+    return true;
+}
 
-    // Copy the input vector to avoid modifying the original
-    std::vector<int> sorted_numbers = numbers;
+funcEND======================funcEND==============
 
-    // Sort the numbers
-    std::sort(sorted_numbers.begin(), sorted_numbers.end());
 
-    // Print the sorted numbers
-    std::cout << "Sorted numbers: ";
-    for (int num : sorted_numbers) {
-        std::cout << num << " ";
+func======================func==============
+lang: py
+name: reverse_string
+libs: null
+description: hello that is func mhm
+
+# 1. Function to reverse a string
+def reverse_string(s):
+    return s[::-1]
+
+funcEND======================funcEND==============
+
+
+
+func======================func==============
+lang: py
+name: factorial
+libs: null
+description: hello that is func mhm
+
+# 2. Function to calculate the factorial of a number
+def factorial(n):
+    if n <= 1:
+        return 1
+    return n * factorial(n - 1)
+
+funcEND======================funcEND==============
+
+
+
+func======================func==============
+lang: py
+name: is_prime
+libs: null
+description: hello that is func mhm
+
+# 3. Function to check if a number is prime
+def is_prime(num):
+    if num <= 1:
+        return False
+    for i in range(2, int(num ** 0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: cpp
+name: reverseString
+libs: #include <iostream>
+description: hello that is func mhm
+
+// 1. Function to reverse a string
+std::string reverseString(const std::string& str) {
+    return std::string(str.rbegin(), str.rend());
+}
+
+funcEND======================funcEND==============
+
+
+
+func======================func==============
+lang: cpp
+name: factorial
+libs: #include <iostream>
+description: hello that is func mhm
+
+// 2. Function to calculate the factorial of a number
+int factorial(int n) {
+    if (n <= 1) return 1;
+    return n * factorial(n - 1);
+}
+
+funcEND======================funcEND==============
+
+
+
+func======================func==============
+lang: cpp
+name: isPrime
+libs: #include <iostream>|#include <cmath>
+description: hello that is func mhm
+
+// 3. Function to check if a number is prime
+bool isPrime(int num) {
+    if (num <= 1) return false;
+    for (int i = 2; i <= std::sqrt(num); i++) {
+        if (num % i == 0) return false;
     }
-    std::cout << std::endl;
-
-    // Find and print the largest number
-    int largest = sorted_numbers.back();
-    std::cout << "The largest number is: " << largest << std::endl;
+    return true;
 }
 
 funcEND======================funcEND==============
