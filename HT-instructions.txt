@@ -4,6 +4,7 @@ cmd,OUTVAR,INVAR,'param1,param2,param3|gg,INOUTVAR,param1|MsgBox,INVAR|Sort,INOU
 int 
 str
 bool
+float
 int8
 int16
 int32
@@ -81,8 +82,8 @@ off
 off
 py
 on
-off
-off
+on
+on
 
 func======================func==============
 name: HalloMan

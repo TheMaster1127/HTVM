@@ -112,47 +112,47 @@ if (QWAEDSFD) {
 //;;;;;;;;;;
 if (QWAEDSFD) {
     var34 = 5;
-    else if (()) {
-        qwaesdf = awsd;
-    } else {
-        avaas = "adsf";
-    }
-    int strinfadsf;
-    ads;
-    asd = 5;
-    asd2 = 5;
-    std::vector<std::string> arr1234;
-    arr1234.push_back("hi1");
-    arr1234.push_back("hi2");
-    arr1234.push_back("hi3");
-    if ((InStr(std::find(arr1234.begin(), arr1234.end(), "hi2") != arr1234.end() ? std::find(arr1234.begin(), arr1234.end(), "hi2") - arr1234.begin() : -1))) {
-        print("hi")
-    }
-    int var1 = false;
-    var1 = "waesr wesr\nwers\nwaesrd\n";
-    std::vector<std::string> items1 = LoopParseFunc(var1, "\r");
-    for (size_t A_Index1 = 0; A_Index1 < items1.size() + 0 - 1; A_Index1++) {
-        std::string A_LoopField1 = items1[A_Index1 - 0];
-        for (int A_Index2 = 0; A_Index2 <= 5 + 0 - 1; A_Index2++) {
-            for (int A_Index3 = 0; ; A_Index3++) {
-                if ((A_Index3 >= 2)) {
-                    break;
-                } else {
-                    MsgBox(A_Index3);
-                }
-            }
-            MsgBox(A_Index2);
-        }
-        MsgBox(A_LoopField1);
-    }
-    ads++;
-    ads++;
-    ads--;
-    ads--;
-    dffdsfs--;
 }
+else if (()) {
+    qwaesdf = awsd;
+} else {
+    avaas = "adsf";
+}
+int strinfadsf;
+ads;
+asd = 5;
+asd2 = 5;
+std::vector<std::string> arr1234;
+arr1234.push_back("hi1");
+arr1234.push_back("hi2");
+arr1234.push_back("hi3");
+if ((InStr(std::find(arr1234.begin(), arr1234.end(), "hi2") != arr1234.end() ? std::find(arr1234.begin(), arr1234.end(), "hi2") - arr1234.begin() : -1))) {
+    print("hi");
+}
+int var1 = false;
+var1 = "waesr wesr\nwers\nwaesrd\n";
+std::vector<std::string> items1 = LoopParseFunc(var1, "\r");
+for (size_t A_Index1 = 0; A_Index1 < items1.size() + 0 - 1; A_Index1++) {
+    std::string A_LoopField1 = items1[A_Index1 - 0];
+    for (int A_Index2 = 0; A_Index2 <= 5 + 0 - 1; A_Index2++) {
+        for (int A_Index3 = 0; ; A_Index3++) {
+            if ((A_Index3 >= 2)) {
+                break;
+            } else {
+                MsgBox(A_Index3);
+            }
+        }
+        MsgBox(A_Index2);
+    }
+    MsgBox(A_LoopField1);
+}
+ads++;
+ads++;
+ads--;
+ads--;
+dffdsfs--;
 for (int A_Index4 = 0; A_Index4 <= 5 + 0 - 1; A_Index4++) {
-    console.log(A_Index4)
+    console.log(A_Index4);
     if (A_Index4 >= 100) {
         break;
     }
@@ -161,7 +161,14 @@ std::string var1 = "WAEDSFESRFSRF ES ESDF ESD FE SDFG SDXF";
 std::vector<std::string> items5 = LoopParseFunc(var1, " ");
 for (size_t A_Index5 = 0; A_Index5 < items5.size() + 0 - 1; A_Index5++) {
     std::string A_LoopField5 = items5[A_Index5 - 0];
-    console.log(A_LoopField5)
+    console.log(A_LoopField5);
 }
-var1 = true;
-for (int index = 1; index < 5; index++)
+int main(int argc, char* argv[]) {
+    var1 = true;
+    for (int index = 1; index < 5; index++) {
+    }
+    std::string asfs(std::string awsd, std::string awsed, int asdzfx, int8_t asdf, std::vector<std::string> waesd, std::string hammak = "none") {
+        wae(true);
+    }
+    return 0;
+}

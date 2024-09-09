@@ -4,6 +4,7 @@ commands: List of supported operations or built-in functions.
 keyWordINT: Defines an integer data type.
 keyWordSTR: Defines a string data type.
 keyWordBOOL: Defines a boolean data type.
+keyWordFLOAT: Defines a floating data type.
 keyWordINT8: Defines an 8-bit integer data type.
 keyWordINT16: Defines a 16-bit integer data type.
 keyWordINT32: Defines a 32-bit integer data type.

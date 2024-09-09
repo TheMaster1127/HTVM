@@ -125,6 +125,7 @@ var34 := 5
 if QWAEDSFD
 {
 var34 := 5
+}
 else if () {
 qwaesdf := awsd
 } else {
@@ -180,7 +181,6 @@ ads--;
 dffdsfs--
 
 
-}
 
 Loop, 5
 {
@@ -199,5 +199,17 @@ Loop, Parse, var1, " "
 console.log(A_LoopField)
 }
 
+main:
 var1 := yeah
 for index in range(1, 5)
+{
+
+}
+
+
+func str asfs(str awsd, str awsed, int asdzfx, int8 asdf, arr waesd, str hammak := "none")
+{
+wae(yeah)
+}
+
+
