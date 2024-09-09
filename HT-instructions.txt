@@ -1,7 +1,7 @@
 cpp
 ht
 cmd,OUTVAR,INVAR,'param1,param2,param3|gg,INOUTVAR,param1|MsgBox,INVAR|Sort,INOUTVAR|hi,lineTranspile,w49g8seg8^(T*^R*^&(&#(dgweaws
-int 
+int
 str
 bool
 float
@@ -82,8 +82,8 @@ off
 off
 py
 on
-on
-on
+off
+off
 
 func======================func==============
 name: HalloMan

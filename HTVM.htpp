@@ -2529,6 +2529,14 @@ codeOutFixAndAddMainFunc := "async function main()`n{`n" . codeOutFixAndAddMainF
 StringTrimRight, code, codeOutFixAndAddMainFunc, 1
 ; main loop
 ; main loop
+
+arr str lookIntoTheNextLineForFuncWhitNoKeyWord
+Loop, Parse, code, `n, `r
+{
+arr lookIntoTheNextLineForFuncWhitNoKeyWord .= A_LoopField
+}
+arr lookIntoTheNextLineForFuncWhitNoKeyWord .= " "
+
 ; main loop
 ; main loop
 ; main loop
@@ -5204,6 +5212,33 @@ else if (SubStr(Trim(A_LoopField), -1) = ")") && (lineDone = 0)
 {
 lineDone := 1
 str1 := A_LoopField
+if (Trim(lookIntoTheNextLineForFuncWhitNoKeyWord[A_Index + 1]) = "{") && (useFuncKeyWord = "off")
+{
+str2 := str1
+
+str2 := StrReplace(str2, Trim(keyWordVariablesAssignmentOperator), "=")
+str2 := StrReplace(str2, "):", ")")
+str2 := StrReplace(str2, ") :", ")")
+
+
+if (langToTranspileTo = "py")
+{
+str3 := "def " . str2 . ":"
+}
+if (langToTranspileTo = "js")
+{
+str3 := "function " . str2
+}
+if (langToTranspileTo = "cpp")
+{
+str3 := str1
+}
+
+
+htCode .= str3 . "`n"
+}
+else
+{
 str2 := expressionParserTranspiler(Trim(str1)) . ";"
 if (langToTranspileTo = "py")
 {
@@ -5214,6 +5249,7 @@ else
 str2 := StrReplace(str2, ";;", ";")
 }
 htCode .= str2 . "`n"
+}
 }
 else
 {
