@@ -1930,7 +1930,7 @@ expression = RegExReplace ( expression , "\\b" + keyWordTrue + "\\b" , "True" ) 
 expression = RegExReplace ( expression , "\\b" + keyWordFalse + "\\b" , "False" ) ;
 expression = RegExReplace ( expression , "\\bnull\\b" , "None" ) ;
 expression = StrReplace ( expression , "{}" , "[]" ) ;
-expression = StrReplace ( expression , keyWordErrorMsg , "Exception" ) ;
+expression = RegExReplace ( expression , "\\b" + keyWordErrorMsg + "\\b" , "Exception" ) ;
 expression = StrReplace ( expression , keyWordArrayAppend , ".append" ) ;
 expression = StrReplace ( expression , keyWordArrayPop , ".pop" ) ;
 expression = RegExReplace ( expression , "(\\w+)\\" + keyWordArrayInsert + "\\(([^,]+), ([^)]+)\\)" , "$1.insert($2, $3)" ) ;
@@ -1966,7 +1966,7 @@ expression = RegExReplace ( expression , "\\b" + keyWordTrue + "\\b" , "true" ) 
 expression = RegExReplace ( expression , "\\b" + keyWordFalse + "\\b" , "false" ) ;
 expression = RegExReplace ( expression , "\\bNone\\b" , "null" ) ;
 expression = StrReplace ( expression , "{}" , "[]" ) ;
-expression = StrReplace ( expression , keyWordErrorMsg , "new Error" ) ;
+expression = RegExReplace ( expression , "\\b" + keyWordErrorMsg + "\\b" , "new Error" ) ;
 expression = StrReplace ( expression , keyWordArrayAppend , ".push" ) ;
 expression = StrReplace ( expression , keyWordArrayPop , ".pop" ) ;
 expression = StrReplace ( expression , keyWordArraySize , ".length" ) ;
@@ -1985,7 +1985,7 @@ expression = RegExReplace ( expression , "\\b" + keyWordFalse + "\\b" , "false" 
 expression = RegExReplace ( expression , "\\bnull\\b" , Chr ( 34 ) + Chr ( 34 ) ) ;
 expression = RegExReplace ( expression , "\\bNone\\b" , Chr ( 34 ) + Chr ( 34 ) ) ;
 expression = StrReplace ( expression , "[]" , "{}" ) ;
-expression = StrReplace ( expression , keyWordErrorMsg , "std::runtime_error" ) ;
+expression = RegExReplace ( expression , "\\b" + keyWordErrorMsg + "\\b" , "std::runtime_error" ) ;
 expression = StrReplace ( expression , keyWordArrayAppend , ".push_back" ) ;
 expression = StrReplace ( expression , keyWordArrayPop , ".pop_back" ) ;
 expression = StrReplace ( expression , keyWordArraySize , ".size" ) ;
@@ -2372,21 +2372,17 @@ usePythonicColonSyntax = Trim ( A_LoopField47 ) ;
 }
 if (A_Index47 == 82) 
 {
-useTypes = Trim ( A_LoopField47 ) ;
+forLoopLang = Trim ( A_LoopField47 ) ;
 }
 if (A_Index47 == 83) 
 {
-forLoopLang = Trim ( A_LoopField47 ) ;
+useInJavaScriptAlwaysUseVar = Trim ( A_LoopField47 ) ;
 }
 if (A_Index47 == 84) 
 {
-useInJavaScriptAlwaysUseVar = Trim ( A_LoopField47 ) ;
-}
-if (A_Index47 == 85) 
-{
 useJavaScriptInAfullHTMLfile = Trim ( A_LoopField47 ) ;
 }
-if (A_Index47 == 86) 
+if (A_Index47 == 85) 
 {
 useJavaScriptAmainFuncDef = Trim ( A_LoopField47 ) ;
 }
@@ -2412,7 +2408,7 @@ if (Trim (A_LoopField48) == "funcEND======================funcEND=============="
 {
 areWeInAFuncFromInstructions = 0;
 areWeInAFuncFromInstructionsLineNum = 0;
-if (correctLang == 1 && InStr (code , Trim (funcNameHolder) + "(")) 
+if (correctLang == 1 && InStr (code , Trim (funcNameHolder))) 
 {
 //MsgBox, % funcFuncHolder
 allFuncs.add(funcFuncHolder);
@@ -2436,7 +2432,7 @@ if (areWeInAFuncFromInstructionsLineNum == 2)
 {
 // name of the func
 funcNameHolder = StringTrimLeft(A_LoopField48, 5);
-if (correctLang == 1 && InStr (code , Trim (funcNameHolder) + "(")) 
+if (correctLang == 1 && InStr (code , Trim (funcNameHolder))) 
 {
 allFuncNames.add(Trim(funcNameHolder));
 }
@@ -2445,7 +2441,7 @@ if (areWeInAFuncFromInstructionsLineNum == 3)
 {
 // all libs
 funcLibsHolder = StringTrimLeft(A_LoopField48, 5);
-if (correctLang == 1 && InStr (code , Trim (funcNameHolder) + "(")) 
+if (correctLang == 1 && InStr (code , Trim (funcNameHolder))) 
 {
 allFuncLibs.add(Trim(funcLibsHolder));
 }
@@ -2454,7 +2450,7 @@ if (areWeInAFuncFromInstructionsLineNum == 4)
 {
 // func description
 funcDescriptionHolder = StringTrimLeft(A_LoopField48, 12);
-if (correctLang == 1 && InStr (code , Trim (funcNameHolder) + "(")) 
+if (correctLang == 1 && InStr (code , Trim (funcNameHolder))) 
 {
 allfuncDescription.add(Trim(funcDescriptionHolder));
 }
@@ -2462,7 +2458,7 @@ allfuncDescription.add(Trim(funcDescriptionHolder));
 if (areWeInAFuncFromInstructionsLineNum >= 5) 
 {
 // the full func
-if (correctLang == 1 && InStr (code , Trim (funcNameHolder) + "(")) 
+if (correctLang == 1 && InStr (code , Trim (funcNameHolder))) 
 {
 funcFuncHolder += A_LoopField48 + "\n";
 }
@@ -4245,103 +4241,6 @@ str2 = "finally";
 lineDone = 1;
 htCode += str2 + "\n";
 }
-else if (SubStr (StrLower (A_LoopField61) , 1 , StrLen (StrLower (keyWordArrayDefinition))) == StrLower (keyWordArrayDefinition)) 
-{
-str1 = StringTrimLeft ( A_LoopField61 , StrLen ( keyWordArrayDefinition ) ) ;
-if (langToTranspileTo == "cpp") 
-{
-str5 = "std::vector<std::string> ";
-}
-else if (langToTranspileTo == "js") 
-{
-str5 = "let ";
-}
-else
-{
-str5 = "";
-}
-if (InStr (str1 , keyWordVariablesAssignmentOperator)) 
-{
-outVarOperator = "=";
-str2 = Trim ( StrSplit ( str1 , keyWordVariablesAssignmentOperator , 1 ) ) ;
-str3 = Trim ( StrSplit ( str1 , keyWordVariablesAssignmentOperator , 2 ) ) ;
-str3 = expressionParserTranspiler ( str3 ) ;
-theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str2 , ";" , "" ) ) + "|";
-str4 = str5 + str2 + " " + outVarOperator + " " + str3 + theSemicolon;
-}
-else if (InStr (str1 , keyWordConcatenationAssignmentOperator)) 
-{
-outVarOperator = "+=";
-str2 = Trim ( StrSplit ( str1 , keyWordConcatenationAssignmentOperator , 1 ) ) ;
-str3 = Trim ( StrSplit ( str1 , keyWordConcatenationAssignmentOperator , 2 ) ) ;
-str3 = expressionParserTranspiler ( str3 ) ;
-theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str2 , ";" , "" ) ) + "|";
-str4 = str5 + str2 + " " + outVarOperator + " " + str3 + theSemicolon;
-}
-else if (InStr (str1 , keyWordAdditionAssignmentOperator)) 
-{
-outVarOperator = "+=";
-str2 = Trim ( StrSplit ( str1 , keyWordAdditionAssignmentOperator , 1 ) ) ;
-str3 = Trim ( StrSplit ( str1 , keyWordAdditionAssignmentOperator , 2 ) ) ;
-str3 = expressionParserTranspiler ( str3 ) ;
-theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str2 , ";" , "" ) ) + "|";
-str4 = str5 + str2 + " " + outVarOperator + " " + str3 + theSemicolon;
-}
-else if (InStr (str1 , keyWordSubtractionAssignmentOperator)) 
-{
-outVarOperator = "-=";
-str2 = Trim ( StrSplit ( str1 , keyWordSubtractionAssignmentOperator , 1 ) ) ;
-str3 = Trim ( StrSplit ( str1 , keyWordSubtractionAssignmentOperator , 2 ) ) ;
-str3 = expressionParserTranspiler ( str3 ) ;
-theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str2 , ";" , "" ) ) + "|";
-str4 = str5 + str2 + " " + outVarOperator + " " + str3 + theSemicolon;
-}
-else if (InStr (str1 , keyWordMultiplicationAssignmentOperator)) 
-{
-outVarOperator = "*=";
-str2 = Trim ( StrSplit ( str1 , keyWordMultiplicationAssignmentOperator , 1 ) ) ;
-str3 = Trim ( StrSplit ( str1 , keyWordMultiplicationAssignmentOperator , 2 ) ) ;
-str3 = expressionParserTranspiler ( str3 ) ;
-theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str2 , ";" , "" ) ) + "|";
-str4 = str5 + str2 + " " + outVarOperator + " " + str3 + theSemicolon;
-}
-else if (InStr (str1 , keyWordDivisionAssignmentOperator)) 
-{
-outVarOperator = "/=";
-str2 = Trim ( StrSplit ( str1 , keyWordDivisionAssignmentOperator , 1 ) ) ;
-str3 = Trim ( StrSplit ( str1 , keyWordDivisionAssignmentOperator , 2 ) ) ;
-str3 = expressionParserTranspiler ( str3 ) ;
-theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str2 , ";" , "" ) ) + "|";
-str4 = str5 + str2 + " " + outVarOperator + " " + str3 + theSemicolon;
-}
-else
-{
-if (langToTranspileTo == "py") 
-{
-str4 = Trim ( str5 ) + Trim ( str1 ) + " = []";
-}
-else if (langToTranspileTo == "js") 
-{
-str4 = str5 + str1 + " = []" + theSemicolon;
-}
-else
-{
-theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str1 , ";" , "" ) ) + "|";
-str4 = str5 + str1 + theSemicolon;
-}
-}
-//MsgBox, % A_LoopField61
-lineDone = 1;
-if (langToTranspileTo == "py") 
-{
-str4 = StrReplace ( str4 , ";" , "" ) ;
-}
-else
-{
-str4 = StrReplace ( str4 , ";;" , ";" ) ;
-}
-htCode += str4 + "\n";
-}
 else if (SubStr (StrLower (A_LoopField61) , 1 , StrLen (StrLower (keyWordArrayOfIntegersDefinition))) == StrLower (keyWordArrayOfIntegersDefinition)) 
 {
 str1 = StringTrimLeft ( A_LoopField61 , StrLen ( keyWordArrayOfIntegersDefinition ) ) ;
@@ -4639,6 +4538,103 @@ str1 = StringTrimLeft ( A_LoopField61 , StrLen ( keyWordArrayOfBooleansDefinitio
 if (langToTranspileTo == "cpp") 
 {
 str5 = "std::vector<bool> ";
+}
+else
+{
+str5 = "";
+}
+if (InStr (str1 , keyWordVariablesAssignmentOperator)) 
+{
+outVarOperator = "=";
+str2 = Trim ( StrSplit ( str1 , keyWordVariablesAssignmentOperator , 1 ) ) ;
+str3 = Trim ( StrSplit ( str1 , keyWordVariablesAssignmentOperator , 2 ) ) ;
+str3 = expressionParserTranspiler ( str3 ) ;
+theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str2 , ";" , "" ) ) + "|";
+str4 = str5 + str2 + " " + outVarOperator + " " + str3 + theSemicolon;
+}
+else if (InStr (str1 , keyWordConcatenationAssignmentOperator)) 
+{
+outVarOperator = "+=";
+str2 = Trim ( StrSplit ( str1 , keyWordConcatenationAssignmentOperator , 1 ) ) ;
+str3 = Trim ( StrSplit ( str1 , keyWordConcatenationAssignmentOperator , 2 ) ) ;
+str3 = expressionParserTranspiler ( str3 ) ;
+theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str2 , ";" , "" ) ) + "|";
+str4 = str5 + str2 + " " + outVarOperator + " " + str3 + theSemicolon;
+}
+else if (InStr (str1 , keyWordAdditionAssignmentOperator)) 
+{
+outVarOperator = "+=";
+str2 = Trim ( StrSplit ( str1 , keyWordAdditionAssignmentOperator , 1 ) ) ;
+str3 = Trim ( StrSplit ( str1 , keyWordAdditionAssignmentOperator , 2 ) ) ;
+str3 = expressionParserTranspiler ( str3 ) ;
+theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str2 , ";" , "" ) ) + "|";
+str4 = str5 + str2 + " " + outVarOperator + " " + str3 + theSemicolon;
+}
+else if (InStr (str1 , keyWordSubtractionAssignmentOperator)) 
+{
+outVarOperator = "-=";
+str2 = Trim ( StrSplit ( str1 , keyWordSubtractionAssignmentOperator , 1 ) ) ;
+str3 = Trim ( StrSplit ( str1 , keyWordSubtractionAssignmentOperator , 2 ) ) ;
+str3 = expressionParserTranspiler ( str3 ) ;
+theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str2 , ";" , "" ) ) + "|";
+str4 = str5 + str2 + " " + outVarOperator + " " + str3 + theSemicolon;
+}
+else if (InStr (str1 , keyWordMultiplicationAssignmentOperator)) 
+{
+outVarOperator = "*=";
+str2 = Trim ( StrSplit ( str1 , keyWordMultiplicationAssignmentOperator , 1 ) ) ;
+str3 = Trim ( StrSplit ( str1 , keyWordMultiplicationAssignmentOperator , 2 ) ) ;
+str3 = expressionParserTranspiler ( str3 ) ;
+theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str2 , ";" , "" ) ) + "|";
+str4 = str5 + str2 + " " + outVarOperator + " " + str3 + theSemicolon;
+}
+else if (InStr (str1 , keyWordDivisionAssignmentOperator)) 
+{
+outVarOperator = "/=";
+str2 = Trim ( StrSplit ( str1 , keyWordDivisionAssignmentOperator , 1 ) ) ;
+str3 = Trim ( StrSplit ( str1 , keyWordDivisionAssignmentOperator , 2 ) ) ;
+str3 = expressionParserTranspiler ( str3 ) ;
+theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str2 , ";" , "" ) ) + "|";
+str4 = str5 + str2 + " " + outVarOperator + " " + str3 + theSemicolon;
+}
+else
+{
+if (langToTranspileTo == "py") 
+{
+str4 = Trim ( str5 ) + Trim ( str1 ) + " = []";
+}
+else if (langToTranspileTo == "js") 
+{
+str4 = str5 + str1 + " = []" + theSemicolon;
+}
+else
+{
+theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str1 , ";" , "" ) ) + "|";
+str4 = str5 + str1 + theSemicolon;
+}
+}
+//MsgBox, % A_LoopField61
+lineDone = 1;
+if (langToTranspileTo == "py") 
+{
+str4 = StrReplace ( str4 , ";" , "" ) ;
+}
+else
+{
+str4 = StrReplace ( str4 , ";;" , ";" ) ;
+}
+htCode += str4 + "\n";
+}
+else if (SubStr (StrLower (A_LoopField61) , 1 , StrLen (StrLower (keyWordArrayDefinition))) == StrLower (keyWordArrayDefinition) && lineDone == 0) 
+{
+str1 = StringTrimLeft ( A_LoopField61 , StrLen ( keyWordArrayDefinition ) ) ;
+if (langToTranspileTo == "cpp") 
+{
+str5 = "std::vector<std::string> ";
+}
+else if (langToTranspileTo == "js") 
+{
+str5 = "let ";
 }
 else
 {
@@ -5697,6 +5693,7 @@ htCode = indent_nested_curly_braces ( htCode , 1 ) ;
 }
 std::string jsHTMLupCode = "<!doctype html>\n<html lang=" + Chr ( 34 ) + "en" + Chr ( 34 ) + ">\n    <head>\n        <meta charset=" + Chr ( 34 ) + "UTF-8" + Chr ( 34 ) + " />\n        <meta name=" + Chr ( 34 ) + "viewport" + Chr ( 34 ) + " content=" + Chr ( 34 ) + "width=device-width, initial-scale=1.0" + Chr ( 34 ) + " />\n        <title>HTVM</title>\n        <style>\n            body {\n                background-color: #202020;\n                font-family:\n                    " + Chr ( 34 ) + "Open Sans" + Chr ( 34 ) + ",\n                    -apple-system,\n                    BlinkMacSystemFont,\n                    " + Chr ( 34 ) + "Segoe UI" + Chr ( 34 ) + ",\n                    Roboto,\n                    Oxygen-Sans,\n                    Ubuntu,\n                    Cantarell,\n                    " + Chr ( 34 ) + "Helvetica Neue" + Chr ( 34 ) + ",\n                    Helvetica,\n                    Arial,\n                    sans-serif;\n            }\n        </style>\n    </head>\n    <body>\n<script>";
 std::string jsHTMLdownCode = "</script>\n</body>\n</html>";
+int includeLibsInCppIf;
 std::string allFuncsToPutAtTop = "\n";
 std::string allLibsToPutAtTop;
 print(std::string("Transpiling..."));
@@ -5723,6 +5720,8 @@ std::string A_LoopField71 = items71[A_Index71 - 1];
 allLibsToPutAtTopTEMP += A_LoopField71 + "\n";
 }
 allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTopTEMP, 1);
+includeLibsInCppIf = 1;
+allLibsToPutAtTop = "#include <iostream>\n#include <sstream>\n#include <string>\n#include <cstdint>\n#include <algorithm>\n#include <vector>\n" + allLibsToPutAtTop;
 allLibsToPutAtTop = SortLikeAHK(allLibsToPutAtTop, "U");
 htCode = allLibsToPutAtTop + "\n" + allFuncsToPutAtTop + "\n" + htCode;
 }
@@ -5735,6 +5734,10 @@ htCode = StrReplace ( htCode , ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuote
 if (useJavaScriptInAfullHTMLfile == "on" && langToTranspileTo == "js") 
 {
 htCode = jsHTMLupCode + "\n" + htCode + "\n" + jsHTMLdownCode;
+}
+if (langToTranspileTo == "cpp" && includeLibsInCppIf == 0) 
+{
+htCode = "#include <iostream>\n#include <sstream>\n#include <string>\n#include <cstdint>\n#include <algorithm>\n#include <vector>\n\n" + htCode;
 }
 print(htCode);
 std::vector<std::string> items73 = LoopParseFunc(fileExtention);

@@ -79,7 +79,6 @@ useEnd: Enable custom end-of-block keyword (e.g., 'end', 'finish', etc.).
 useSemicolon: Toggle for using semicolons at the end of statements.
 useParentheses: if off, there's no need to use parentheses where necessary, but you still must use them in some places.
 usePythonicColonSyntax: Enables Python-style colon syntax for defining code blocks.
-useTypes: Use static types. If transpiled to C++, this will be on by default, since C++ is statically typed. Otherwise, the types will be stripped and can be used with Python and JavaScript if useInJavaScriptAlwaysUseVar mode is on.
 forLoopLang: Choose the language for the style of the for loop.
 useInJavaScriptAlwaysUseVar: You dont have to declere variables in js now all of them will start whit var varName...
 useJavaScriptInAfullHTMLfile: It wraps the js cdoe in a full index.html file

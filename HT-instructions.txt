@@ -1,6 +1,6 @@
 cpp
 ht
-cmd,OUTVAR,INVAR,'param1,param2,param3|gg,INOUTVAR,param1|MsgBox,INVAR|Sort,INOUTVAR|hi,lineTranspile,w49g8seg8^(T*^R*^&(&#(dgweaws
+cmd,OUTVAR,INVAR,'param1,param2,param3|gg,INOUTVAR,param1|MsgBox,INVAR|Sort,INOUTVAR,'param1|hi,lineTranspile,w49g8seg8^(T*^R*^&(&#(dgweaws|StringTrimLeft,OUTVAR,INVAR,INVAR|StringTrimRight,OUTVAR,INVAR,INVAR
 int
 str
 bool
@@ -21,7 +21,7 @@ continue
 break
 func
 await
-=
+:=
 .=
 +=
 -=
@@ -38,8 +38,8 @@ await
 or
 and
 !=
-yeah
-nah
+true
+false
 switch
 case
 defalut
@@ -69,164 +69,68 @@ global
 /*
 */
 `
-0
+1
 A_Index
 A_LoopField
 main:
 off
+off
 on
 off
 off
-off
-off
-off
+on
 py
 on
-on
+off
 off
 
 func======================func==============
-lang: js
-name: reverseString
-libs: null
+lang: cpp
+name: MsgBox
+libs: #include <iostream>|#include <string>|#include <type_traits>
 description: hello that is func mhm
 
-// 1. Function to reverse a string
-function reverseString(str) {
-    return str.split('').reverse().join('');
-}
-
-funcEND======================funcEND==============
-
-
-
-func======================func==============
-lang: js
-name: factorial
-libs: null
-description: hello that is func mhm
-
-// 2. Function to calculate the factorial of a number
-function factorial(n) {
-    if (n <= 1) return 1;
-    return n * factorial(n - 1);
-}
-
-
-funcEND======================funcEND==============
-
-
-
-func======================func==============
-lang: js
-name: isPrime
-libs: null
-description: hello that is func mhm
-
-// 3. Function to check if a number is prime
-function isPrime(num) {
-    if (num <= 1) return false;
-    for (let i = 2; i <= Math.sqrt(num); i++) {
-        if (num % i === 0) return false;
+// Print function that converts all types to string if needed
+template <typename T>
+void MsgBox(const T& value) {
+    if constexpr (std::is_same_v<T, std::string>) {
+        std::cout << value << std::endl;
+    } else if constexpr (std::is_same_v<T, int>) {
+        std::cout << std::to_string(value) << std::endl;
+    } else if constexpr (std::is_same_v<T, float>) {
+        std::cout << std::to_string(value) << std::endl;
+    } else if constexpr (std::is_same_v<T, double>) {
+        std::cout << std::to_string(value) << std::endl;
+    } else if constexpr (std::is_same_v<T, size_t>) {
+        std::cout << std::to_string(value) << std::endl;
+    } else if constexpr (std::is_same_v<T, bool>) {
+        std::cout << (value ? "1" : "0") << std::endl;
+    } 
+    #ifdef OneIndexedArray_DEFINED
+    else if constexpr (std::is_base_of_v<OneIndexedArray<std::string>, T>) {
+        for (size_t i = 1; i <= value.size(); ++i) {
+            std::cout << value[i] << std::endl;
+        }
+    } else if constexpr (std::is_base_of_v<OneIndexedArray<int>, T>) {
+        for (size_t i = 1; i <= value.size(); ++i) {
+            std::cout << std::to_string(value[i]) << std::endl;
+        }
+    } else if constexpr (std::is_base_of_v<OneIndexedArray<float>, T>) {
+        for (size_t i = 1; i <= value.size(); ++i) {
+            std::cout << std::to_string(value[i]) << std::endl;
+        }
+    } else if constexpr (std::is_base_of_v<OneIndexedArray<double>, T>) {
+        for (size_t i = 1; i <= value.size(); ++i) {
+            std::cout << std::to_string(value[i]) << std::endl;
+        }
     }
-    return true;
-}
-
-funcEND======================funcEND==============
-
-
-func======================func==============
-lang: py
-name: reverse_string
-libs: null
-description: hello that is func mhm
-
-# 1. Function to reverse a string
-def reverse_string(s):
-    return s[::-1]
-
-funcEND======================funcEND==============
-
-
-
-func======================func==============
-lang: py
-name: factorial
-libs: null
-description: hello that is func mhm
-
-# 2. Function to calculate the factorial of a number
-def factorial(n):
-    if n <= 1:
-        return 1
-    return n * factorial(n - 1)
-
-funcEND======================funcEND==============
-
-
-
-func======================func==============
-lang: py
-name: is_prime
-libs: null
-description: hello that is func mhm
-
-# 3. Function to check if a number is prime
-def is_prime(num):
-    if num <= 1:
-        return False
-    for i in range(2, int(num ** 0.5) + 1):
-        if num % i == 0:
-            return False
-    return True
-
-funcEND======================funcEND==============
-
-
-func======================func==============
-lang: cpp
-name: reverseString
-libs: #include <iostream>
-description: hello that is func mhm
-
-// 1. Function to reverse a string
-std::string reverseString(const std::string& str) {
-    return std::string(str.rbegin(), str.rend());
-}
-
-funcEND======================funcEND==============
-
-
-
-func======================func==============
-lang: cpp
-name: factorial
-libs: #include <iostream>
-description: hello that is func mhm
-
-// 2. Function to calculate the factorial of a number
-int factorial(int n) {
-    if (n <= 1) return 1;
-    return n * factorial(n - 1);
-}
-
-funcEND======================funcEND==============
-
-
-
-func======================func==============
-lang: cpp
-name: isPrime
-libs: #include <iostream>|#include <cmath>
-description: hello that is func mhm
-
-// 3. Function to check if a number is prime
-bool isPrime(int num) {
-    if (num <= 1) return false;
-    for (int i = 2; i <= std::sqrt(num); i++) {
-        if (num % i == 0) return false;
+    #endif
+    else {
+        std::cout << "Unsupported type" << std::endl;
     }
-    return true;
 }
 
+
+
 funcEND======================funcEND==============
+

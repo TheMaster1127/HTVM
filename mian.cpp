@@ -1,37 +1,62 @@
-#include <cmath>
+#include <algorithm>
+#include <cstdint>
 #include <iostream>
+#include <sstream>
+#include <string>
+#include <type_traits>
+#include <vector>
 
-// 1. Function to reverse a string
-std::string reverseString(const std::string& str) {
-    return std::string(str.rbegin(), str.rend());
-}
-
-// 2. Function to calculate the factorial of a number
-int factorial(int n) {
-    if (n <= 1) return 1;
-    return n * factorial(n - 1);
-}
-
-// 3. Function to check if a number is prime
-bool isPrime(int num) {
-    if (num <= 1) return false;
-    for (int i = 2; i <= std::sqrt(num); i++) {
-        if (num % i == 0) return false;
+// Print function that converts all types to string if needed
+template <typename T>
+void MsgBox(const T& value) {
+    if constexpr (std::is_same_v<T, std::string>) {
+        std::cout << value << std::endl;
+    } else if constexpr (std::is_same_v<T, int>) {
+        std::cout << std::to_string(value) << std::endl;
+    } else if constexpr (std::is_same_v<T, float>) {
+        std::cout << std::to_string(value) << std::endl;
+    } else if constexpr (std::is_same_v<T, double>) {
+        std::cout << std::to_string(value) << std::endl;
+    } else if constexpr (std::is_same_v<T, size_t>) {
+        std::cout << std::to_string(value) << std::endl;
+    } else if constexpr (std::is_same_v<T, bool>) {
+        std::cout << (value ? "1" : "0") << std::endl;
+    } 
+    #ifdef OneIndexedArray_DEFINED
+    else if constexpr (std::is_base_of_v<OneIndexedArray<std::string>, T>) {
+        for (size_t i = 1; i <= value.size(); ++i) {
+            std::cout << value[i] << std::endl;
+        }
+    } else if constexpr (std::is_base_of_v<OneIndexedArray<int>, T>) {
+        for (size_t i = 1; i <= value.size(); ++i) {
+            std::cout << std::to_string(value[i]) << std::endl;
+        }
+    } else if constexpr (std::is_base_of_v<OneIndexedArray<float>, T>) {
+        for (size_t i = 1; i <= value.size(); ++i) {
+            std::cout << std::to_string(value[i]) << std::endl;
+        }
+    } else if constexpr (std::is_base_of_v<OneIndexedArray<double>, T>) {
+        for (size_t i = 1; i <= value.size(); ++i) {
+            std::cout << std::to_string(value[i]) << std::endl;
+        }
     }
-    return true;
+    #endif
+    else {
+        std::cout << "Unsupported type" << std::endl;
+    }
 }
 
 
 int main(int argc, char* argv[]) {
-    std::string reversed = reverseString("Hello World");
-    std::cout << "Reversed string: " << reversed << std::endl
-    // Using the factorial function
-    int fact = factorial(5);
-    std::cout << "Factorial of 5: " << fact << std::endl
-    // Using the isPrime function
-    bool primeCheck = isPrime(7);
-    std::cout << "Is 7 prime? " << (primeCheck ? "True" : "False") << std::endl
-    primeCheck = isPrime(10);
-    std::cout << "Is 10 prime? " << (primeCheck ? "True" : "False") << std::endl
+    std::vector<int> arr123 = {};
+    arr123.push_back(6);
+    arr123.push_back(5);
+    arr123.push_back(58);
+    for (int A_Index1 = 1; A_Index1 <= arr123.size() + 1 - 1; A_Index1++) {
+        MsgBox(arr123[A_Index1 - 1]);
+    }
+    if ((arr123[1] == 5)) {
+        MsgBox(std::string("yes"));
+    }
     return 0;
 }
