@@ -3868,7 +3868,7 @@ haveWeEverUsedAloop = 1;
 //MsgBox, % line
 if (langToTranspileTo == "py") 
 {
-var1 = "for " + keyWordAIndex + "" + STR ( AindexcharLength ) + " in range(0, " + line + " + " + AHKlikeLoopsIndexedAt + "):";
+var1 = "for " + keyWordAIndex + "" + STR ( AindexcharLength ) + " in range(" + AHKlikeLoopsIndexedAt + ", " + line + " + " + AHKlikeLoopsIndexedAt + "):";
 }
 if (langToTranspileTo == "js") 
 {
@@ -3900,7 +3900,7 @@ haveWeEverUsedAloop = 1;
 //MsgBox, % line
 if (langToTranspileTo == "py") 
 {
-var1 = "for " + keyWordAIndex + "" + STR ( AindexcharLength ) + " in range(0, " + line + " + " + AHKlikeLoopsIndexedAt + "):";
+var1 = "for " + keyWordAIndex + "" + STR ( AindexcharLength ) + " in range(" + AHKlikeLoopsIndexedAt + ", " + line + " + " + AHKlikeLoopsIndexedAt + "):";
 }
 if (langToTranspileTo == "js") 
 {
@@ -5682,6 +5682,7 @@ if (langToTranspileTo == "js" && useJavaScriptAmainFuncDef == "on")
 {
 htCode = htCode + "\n}\nmain();";
 htCode = StrReplace ( htCode , "async function main();" , "async function main()" ) ;
+htCode = StrReplace ( htCode , "function async function main()" , "async function main()" ) ;
 }
 if (langToTranspileTo == "py") 
 {
@@ -5721,7 +5722,10 @@ allLibsToPutAtTopTEMP += A_LoopField71 + "\n";
 }
 allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTopTEMP, 1);
 includeLibsInCppIf = 1;
+if (langToTranspileTo == "cpp") 
+{
 allLibsToPutAtTop = "#include <iostream>\n#include <sstream>\n#include <string>\n#include <cstdint>\n#include <algorithm>\n#include <vector>\n" + allLibsToPutAtTop;
+}
 allLibsToPutAtTop = SortLikeAHK(allLibsToPutAtTop, "U");
 htCode = allLibsToPutAtTop + "\n" + allFuncsToPutAtTop + "\n" + htCode;
 }

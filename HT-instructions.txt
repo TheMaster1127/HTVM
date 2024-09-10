@@ -73,7 +73,7 @@ global
 A_Index
 A_LoopField
 main:
-off
+on
 off
 on
 off
@@ -90,10 +90,17 @@ name: MsgBox
 libs: #include <iostream>|#include <string>|#include <type_traits>
 description: hello that is func mhm
 
+// Print function for const char* specifically
+void MsgBox(const char* value) {
+    std::cout << std::string(value) << std::endl;  // Convert const char* to std::string
+}
+
 // Print function that converts all types to string if needed
 template <typename T>
 void MsgBox(const T& value) {
     if constexpr (std::is_same_v<T, std::string>) {
+        std::cout << value << std::endl;
+    } else if constexpr (std::is_same_v<T, char>) {
         std::cout << value << std::endl;
     } else if constexpr (std::is_same_v<T, int>) {
         std::cout << std::to_string(value) << std::endl;
@@ -105,46 +112,34 @@ void MsgBox(const T& value) {
         std::cout << std::to_string(value) << std::endl;
     } else if constexpr (std::is_same_v<T, bool>) {
         std::cout << (value ? "1" : "0") << std::endl;
-    } 
-    #ifdef OneIndexedArray_DEFINED
-    else if constexpr (std::is_base_of_v<OneIndexedArray<std::string>, T>) {
-        for (size_t i = 1; i <= value.size(); ++i) {
-            std::cout << value[i] << std::endl;
-        }
-    } else if constexpr (std::is_base_of_v<OneIndexedArray<int>, T>) {
-        for (size_t i = 1; i <= value.size(); ++i) {
-            std::cout << std::to_string(value[i]) << std::endl;
-        }
-    } else if constexpr (std::is_base_of_v<OneIndexedArray<float>, T>) {
-        for (size_t i = 1; i <= value.size(); ++i) {
-            std::cout << std::to_string(value[i]) << std::endl;
-        }
-    } else if constexpr (std::is_base_of_v<OneIndexedArray<double>, T>) {
-        for (size_t i = 1; i <= value.size(); ++i) {
-            std::cout << std::to_string(value[i]) << std::endl;
-        }
-    }
-    #endif
-    else {
+    } else {
         std::cout << "Unsupported type" << std::endl;
     }
 }
-
-
 
 funcEND======================funcEND==============
 
 
 
 func======================func==============
-lang: cpp
-name: someFunchere
+lang: py
+name: MsgBox
 libs: null
 description: you can coppy this section as much as you want for build in funcs
 
-someFunchere()
-{
+def MsgBox(value):
+	print(value)
 
+funcEND======================funcEND==============
+
+func======================func==============
+lang: js
+name: MsgBox
+libs: null
+description: you can coppy this section as much as you want for build in funcs
+
+function MsgBox(value) {
+	console.log(value)
 }
 
 funcEND======================funcEND==============

@@ -3627,7 +3627,7 @@ haveWeEverUsedAloop := 1
 
 if (langToTranspileTo = "py")
 {
-var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(0, " . line . " + " . AHKlikeLoopsIndexedAt . "):"
+var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(" . AHKlikeLoopsIndexedAt . ", " . line . " + " . AHKlikeLoopsIndexedAt . "):"
 }
 if (langToTranspileTo = "js")
 {
@@ -3671,7 +3671,7 @@ haveWeEverUsedAloop := 1
 
 if (langToTranspileTo = "py")
 {
-var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(0, " . line . " + " . AHKlikeLoopsIndexedAt . "):"
+var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(" . AHKlikeLoopsIndexedAt . ", " . line . " + " . AHKlikeLoopsIndexedAt . "):"
 }
 if (langToTranspileTo = "js")
 {
@@ -5782,6 +5782,7 @@ if (langToTranspileTo = "js") && (useJavaScriptAmainFuncDef = "on")
 {
 htCode := htCode . "`n}`nmain();"
 htCode := StrReplace(htCode, "async function main();", "async function main()")
+htCode := StrReplace(htCode, "function async function main()", "async function main()")
 }
 
 
@@ -5831,7 +5832,11 @@ allLibsToPutAtTopTEMP .= A_LoopField . "`n"
 StringTrimRight, allLibsToPutAtTop, allLibsToPutAtTopTEMP, 1
 
 includeLibsInCppIf := 1
+
+if (langToTranspileTo = "cpp")
+{
 allLibsToPutAtTop := "#include <iostream>`n#include <sstream>`n#include <string>`n#include <cstdint>`n#include <algorithm>`n#include <vector>`n" . allLibsToPutAtTop
+}
 
 Sort, allLibsToPutAtTop, U
 
