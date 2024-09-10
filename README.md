@@ -13,9 +13,14 @@ HTVM is a tool for creating and deploying new programming languages quickly. You
 4. **Built-in Functions**: Define built-in functions at the bottom of `HT-instructions.txt` by duplicating the relevant section.
 
 ## Usage
+
+In windows
+
 ```
 HTVM mian.ht HT-instructions.txt
 ```
+
+And for linux you can compile the `HTVM.cpp` and run it with the same args
 
 ## Note
 This project is still in development. More features will be added soon, including a website for easy instruction file generation and documentation.
