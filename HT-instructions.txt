@@ -134,3 +134,18 @@ void MsgBox(const T& value) {
 
 funcEND======================funcEND==============
 
+
+
+func======================func==============
+lang: cpp
+name: someFunchere
+libs: null
+description: you can coppy this section as much as you want for build in funcs
+
+someFunchere()
+{
+
+}
+
+funcEND======================funcEND==============
+
