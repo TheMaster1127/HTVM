@@ -6,9 +6,6 @@ function MsgBox(value) {
 
 
 
-function asf() {
-    MsgBox("hello");
-}
 let arr123 = [];
 arr123.push(6);
 arr123.push(5);
