@@ -4075,6 +4075,7 @@ str2 = RegExReplace ( str2 , "\\b" + Trim ( keyWordArrayOfBooleansDefinition ) +
 }
 else
 {
+str2 = RegExReplace ( str2 , "\\bvoid\\b" , "" ) ;
 str2 = RegExReplace ( str2 , "\\b" + Trim ( keyWordINT ) + "\\b" , "" ) ;
 str2 = RegExReplace ( str2 , "\\b" + Trim ( keyWordSTR ) + "\\b" , "" ) ;
 str2 = RegExReplace ( str2 , "\\b" + Trim ( keyWordBOOL ) + "\\b" , "" ) ;
@@ -5673,17 +5674,6 @@ htCodeOut1234565432 += out + "\n";
 }
 }
 htCode = StringTrimRight(htCodeOut1234565432, 1);
-if (langToTranspileTo == "cpp") 
-{
-htCode = htCode + "\nreturn 0;\n}";
-htCode = StrReplace ( htCode , "int main(int argc, char* argv[]);" , "int main(int argc, char* argv[])" ) ;
-}
-if (langToTranspileTo == "js" && useJavaScriptAmainFuncDef == "on") 
-{
-htCode = htCode + "\n}\nmain();";
-htCode = StrReplace ( htCode , "async function main();" , "async function main()" ) ;
-htCode = StrReplace ( htCode , "function async function main()" , "async function main()" ) ;
-}
 if (langToTranspileTo == "py") 
 {
 htCode = indent_nested_curly_braces ( htCode , 0 ) ;
@@ -5691,6 +5681,17 @@ htCode = indent_nested_curly_braces ( htCode , 0 ) ;
 else
 {
 htCode = indent_nested_curly_braces ( htCode , 1 ) ;
+}
+if (langToTranspileTo == "cpp") 
+{
+htCode = htCode + "\n    return 0;\n}";
+htCode = StrReplace ( htCode , "int main(int argc, char* argv[]);" , "int main(int argc, char* argv[])" ) ;
+}
+if (langToTranspileTo == "js" && useJavaScriptAmainFuncDef == "on") 
+{
+htCode = htCode + "\n}\nmain();";
+htCode = StrReplace ( htCode , "async function main();" , "async function main()" ) ;
+htCode = StrReplace ( htCode , "function async function main()" , "async function main()" ) ;
 }
 std::string jsHTMLupCode = "<!doctype html>\n<html lang=" + Chr ( 34 ) + "en" + Chr ( 34 ) + ">\n    <head>\n        <meta charset=" + Chr ( 34 ) + "UTF-8" + Chr ( 34 ) + " />\n        <meta name=" + Chr ( 34 ) + "viewport" + Chr ( 34 ) + " content=" + Chr ( 34 ) + "width=device-width, initial-scale=1.0" + Chr ( 34 ) + " />\n        <title>HTVM</title>\n        <style>\n            body {\n                background-color: #202020;\n                font-family:\n                    " + Chr ( 34 ) + "Open Sans" + Chr ( 34 ) + ",\n                    -apple-system,\n                    BlinkMacSystemFont,\n                    " + Chr ( 34 ) + "Segoe UI" + Chr ( 34 ) + ",\n                    Roboto,\n                    Oxygen-Sans,\n                    Ubuntu,\n                    Cantarell,\n                    " + Chr ( 34 ) + "Helvetica Neue" + Chr ( 34 ) + ",\n                    Helvetica,\n                    Arial,\n                    sans-serif;\n            }\n        </style>\n    </head>\n    <body>\n<script>";
 std::string jsHTMLdownCode = "</script>\n</body>\n</html>";

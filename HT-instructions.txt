@@ -72,13 +72,13 @@ global
 1
 A_Index
 A_LoopField
-main:
+main
 on
 off
 on
 off
 off
-on
+off
 py
 on
 off
