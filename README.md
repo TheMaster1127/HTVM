@@ -11,3 +11,6 @@ HTVM is a tool for creating and deploying new programming languages quickly. You
 3. **Execution**: Use `HTVM.exe` or compile the C++ code to generate the output. Choose the target language by specifying `cpp`, `py`, or `js` on the first line of `HT-instructions.txt`.
 
 4. **Built-in Functions**: Define built-in functions at the bottom of `HT-instructions.txt` by duplicating the relevant section.
+
+## Note
+This project is still in development. More features will be added soon, including a website for easy instruction file generation and documentation.
