@@ -2,6 +2,11 @@ Gui, Show, w%A_ScreenWidth% h3000 +websitemode
 MsgBox, Website is still in development!!!
 allData := ""
 
+Loop, 86
+{
+EditText%A_Index% := ""
+}
+
 EditText76 := "off"
 EditText77 := "off"
 EditText78 := "off"
@@ -78,7 +83,437 @@ Gui, Add, Toggle, x5 y%guiEditY% gEdit85 vS1 off, useJavaScriptAmainFuncDef
 }
 else
 {
-Gui, Add, Edit, x5 y%guiEditY% w%guiW% g%guiEditTextG% h25 bg000000 cffffff -Border r5, %guiEditText%
+if (guiEditTextG = "Edit1")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit1 bg000000 cffffff -Border r5, %guiEditText%
+}
+if (guiEditTextG = "Edit2")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit2 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit3")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit3 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit4")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit4 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit5")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit5 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit6")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit6 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit7")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit7 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit8")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit8 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit9")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit9 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit10")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit10 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit11")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit11 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit12")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit12 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit13")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit13 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit14")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit14 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit15")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit15 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit16")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit16 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit17")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit17 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit18")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit18 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit19")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit19 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit20")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit20 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit21")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit21 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit22")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit22 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit23")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit23 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit24")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit24 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit25")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit25 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit26")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit26 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit27")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit27 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit28")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit28 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit29")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit29 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit30")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit30 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit31")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit31 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit32")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit32 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit33")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit33 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit34")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit34 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit35")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit35 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit36")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit36 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit37")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit37 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit38")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit38 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit39")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit39 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit40")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit40 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit41")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit41 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit42")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit42 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit43")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit43 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit44")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit44 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit45")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit45 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit46")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit46 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit47")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit47 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit48")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit48 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit49")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit49 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit50")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit50 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit51")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit51 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit52")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit52 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit53")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit53 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit54")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit54 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit55")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit55 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit56")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit56 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit57")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit57 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit58")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit58 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit59")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit59 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit60")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit60 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit61")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit61 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit62")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit62 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit63")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit63 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit64")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit64 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit65")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit65 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit66")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit66 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit67")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit67 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit68")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit68 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit69")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit69 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit70")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit70 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit71")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit71 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit72")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit72 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit73")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit73 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit74")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit74 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit75")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit75 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit76")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit76 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit77")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit77 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit78")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit78 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit79")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit79 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit80")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit80 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit81")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit81 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit82")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit82 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit83")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit83 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit84")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit84 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit85")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit85 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+if (guiEditTextG = "Edit86")
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit86 bg000000 cffffff -Border r5, %guiEditText%
+}
+
+
+
 }
 buttonX := guiW + 15
 Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
@@ -111,18 +546,6 @@ MsgBox, Website is still in development! Here, you will be able to create the bu
 MsgBox, % A_GuiControl
 Return
 
-BuildButton:
-MsgBox, 36, HT-instructions.txt, Download the language you just created!
-IfMsgBox, OK
-{
-Loop, 85
-{
-allData .= EditText%A_Index% . "`n"
-}
-FileAppend, %allData%, HT-instructions.txt
-} ; end of ifmsgbox
-Return
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -131,6 +554,7 @@ Return
 
 Edit1:
 EditText1 := A_GuiControl
+return
 Return
 
 Edit2:
@@ -539,6 +963,19 @@ Return
 
 
 
+
+BuildButton:
+MsgBox, 36, HT-instructions.txt, Download the language you just created!
+IfMsgBox, OK
+{
+allData := ""
+Loop, 86
+{
+allData .= EditText%A_Index% . "`n"
+}
+FileAppend, %allData%, HT-instructions.txt
+} ; end of ifmsgbox
+Return
 
 
 
