@@ -36,7 +36,7 @@ g++ HTVM.cpp -o HTVM
 Compile `IDE-generator.cpp` to produce `IDE-generator` and run:
 
 ```
-IDE-generator HT-instructions.txt
+./IDE-generator HT-instructions.txt
 ```
 
 This will generate `IDE.html`, providing an IDE with features like syntax highlighting, code completion, and formatting options.
