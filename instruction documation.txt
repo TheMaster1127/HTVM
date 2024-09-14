@@ -39,7 +39,7 @@ keyWordOrOperator: Combines two boolean conditions (true if either is true).
 keyWordAndOperator: Combines two boolean conditions (true if both are true).
 keyWordNotEqualToOperator: Checks if two values or variables are not equal.
 keyWordTrue: Its the true boolean value.
-keyWordFlase: Its the false boolean value.
+keyWordFalse: Its the false boolean value.
 keyWordSwitch: The switch statement is a type of selection control mechanism.
 keyWordSwitchCase: The switch case is a type of selection control mechanism used within the switch statement.
 keyWordSwitchDefault: The default case in a switch statement provides a fallback option when no case matches.
@@ -68,7 +68,7 @@ keyWordGlobal: Global in Python allows variables inside functions to be accessed
 keyWordComment: Starts a single-line comment.
 keyWordCommentOpenMultiLine: Opens a multiline comment.
 keyWordCommentCloseMultiLine: Closes a multiline comment.
-keyWordEscapeChar: Escapes special characters in strings or identifiers.
+keyWordEscpaeChar: Escapes special characters in strings or identifiers.
 AHKlikeLoopsIndexedAt: Specifies the starting index for the AHK-like loop, such as 1-indexed, 0-indexed, or any custom value.
 keyWordAIndex: Represents the current index of the loop. It can be customized based on the indexing method and renamed using configuration settings.
 keyWordALoopField: Represents the current value or field in the loop. It can be renamed according to user preferences through configuration. 

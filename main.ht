@@ -1,5 +1,7 @@
 
 
+main
+
 arr int arr123
 arr123.add(6) ; You don't need to use semicolons if you don't want to, but you still can if it's a habit.
 arr123.add(5); ; You don't need to use semicolons if you don't want to, but you still can if it's a habit.
@@ -13,6 +15,7 @@ end
 Loop, 3
 	MsgBox, A_Index
 end
+
 
 ; You can use indentations if you want to. It's all optional.
 if arr123[1] = 5

@@ -363,11 +363,27 @@ int Mod(int dividend, int divisor) {
     return dividend % divisor;
 }
 
+// Platform-specific handling for command-line arguments
+#ifdef _WIN32
+    #define ARGC __argc
+    #define ARGV __argv
+#else
+    // On Linux/macOS, we need to declare these as extern variables.
+    extern char **environ; // Ensure the declaration of `environ`
+    int ARGC;
+    char** ARGV;
+
+    __attribute__((constructor)) void init_args(int argc, char* argv[], char* envp[]) {
+        ARGC = argc;
+        ARGV = argv;
+    }
+#endif
+
 // Function to get command-line parameters
 std::string GetParams() {
     std::vector<std::string> params;
-    for (int i = 1; i < __argc; ++i) {
-        std::string arg = __argv[i];
+    for (int i = 1; i < ARGC; ++i) {
+        std::string arg = ARGV[i];
         if (std::filesystem::exists(arg)) {
             arg = std::filesystem::absolute(arg).string();
         }

@@ -1,6 +1,6 @@
-cpp
+js
 ht
-cmd,OUTVAR,INVAR,'param1,param2,param3|gg,INOUTVAR,param1|MsgBox,INVAR|Sort,INOUTVAR,'param1|hi,lineTranspile,w49g8seg8^(T*^R*^&(&#(dgweaws|StringTrimLeft,OUTVAR,INVAR,INVAR|StringTrimRight,OUTVAR,INVAR,INVAR
+cmd,OUTVAR,INVAR,'param1,param2,param3|gg,INOUTVAR,param1|MsgBox,INVAR|Sort,INOUTVAR,'param1|hi,lineTranspile,aerh*^*SCTF89s7zdfg8s|StringTrimLeft,OUTVAR,INVAR,INVAR|StringTrimRight,OUTVAR,INVAR,INVAR
 int
 str
 bool
@@ -14,9 +14,9 @@ else if
 else
 while
 for
-loop
-loop,
-loop, parse,
+Loop
+Loop,
+Loop, parse,
 continue
 break
 func
@@ -81,8 +81,8 @@ off
 off
 py
 on
-off
-off
+on
+on
 
 func======================func==============
 lang: cpp
@@ -143,4 +143,3 @@ function MsgBox(value) {
 }
 
 funcEND======================funcEND==============
-
