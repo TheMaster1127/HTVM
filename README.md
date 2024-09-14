@@ -4,8 +4,7 @@ HTVM is a tool for creating and deploying new programming languages quickly. You
 
 **HTVM** lets you create and deploy new programming languages efficiently. To configure your language:
 
-1. **Syntax Configuration**: Use the website <a href="https://themaster1127.github.io/HTVM/" target="_blank">here</a>
- or Adjust the syntax in `HT-instructions.txt`. Each line in this file corresponds to the same line in `instruction documentation.txt`, so line 10 in `instruction documentation.txt` matches line 10 in `HT-instructions.txt`. 
+1. **Syntax Configuration**: Use the website [here](https://themaster1127.github.io/HTVM/) or Adjust the syntax in `HT-instructions.txt`. Each line in this file corresponds to the same line in `instruction documentation.txt`, so line 10 in `instruction documentation.txt` matches line 10 in `HT-instructions.txt`. 
 
 2. **Code Writing**: Write your language code in `main.ht`. 
 
