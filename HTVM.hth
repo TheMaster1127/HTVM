@@ -1,3 +1,545 @@
-Gui, Show, w%A_ScreenWidth% h%A_ScreenHeight% +websitemode
+Gui, Show, w%A_ScreenWidth% h3000 +websitemode
+MsgBox, Website is still in development!!!
+allData := ""
 
-MsgBox, Website still in development!!!
+EditText76 := "off"
+EditText77 := "off"
+EditText78 := "off"
+EditText79 := "off"
+EditText80 := "off"
+EditText81 := "off"
+EditText83 := "off"
+EditText84 := "off"
+EditText85 := "off"
+
+
+if (isMobileDevice())
+{
+guiW := A_ScreenWidth - 90
+}
+else
+{
+guiW := A_ScreenWidth - 110
+}
+
+instructionDocumation := "lang to transpile to: Target programming language for transpilation.`nfile extention of the file: File extension for transpiled output files.`ncommands: List of supported operations or built-in functions.`nkeyWordINT: Defines an integer data type.`nkeyWordSTR: Defines a string data type.`nkeyWordBOOL: Defines a boolean data type.`nkeyWordFLOAT: Defines a floating data type.`nkeyWordINT8: Defines an 8-bit integer data type.`nkeyWordINT16: Defines a 16-bit integer data type.`nkeyWordINT32: Defines a 32-bit integer data type.`nkeyWordINT64: Defines a 64-bit integer data type.`nkeyWordIF: Used for conditional statements.`nkeyWordElseIf: Alternative condition in conditional statements.`nkeyWordElse: Defines a block of code for when no conditions are met.`nkeyWordWhileLoop: Defines a while loop.`nkeyWordForLoop: Defines a for loop.`nkeyWordLoopInfinite: Defines an infinite loop.`nkeyWordLoop: Defines a loop that iterates a specified number of times.`nkeyWordLoopParse: Defines a loop that parses through data or text.`nkeyWordContinue: Skips to the next iteration of the loop.`nkeyWordBreak: Exits a loop prematurely.`nkeyWordFunc: Defines a function or subroutine.`nkeyWordAwait: Await a func only in js.`nkeyWordVariablesAssignmentOperator: Operator for variable assignment.`nkeyWordConcatenationAssignmentOperator: Concatenates and assigns to a string variable.`nkeyWordAdditionAssignmentOperator: Adds to a numeric variable and assigns.`nkeyWordSubtractionAssignmentOperator: Subtracts from a numeric variable and assigns.`nkeyWordMultiplicationAssignmentOperator: Multiplies a numeric variable and assigns.`nkeyWordDivisionAssignmentOperator: Divides a numeric variable and assigns.`nkeyWordAdditionOperator: Adds two values or variables.`nkeyWordConcatenationOperator: Concatenates two strings or variables.`nkeyWordEqualOperator: Checks if two values or variables are equal.`nkeyWordNotOperator: Negates a boolean value or condition.`nkeyWordGreaterThanOperator: Checks if one value is greater than another.`nkeyWordLessThanOperator: Checks if one value is less than another.`nkeyWordGreaterThanOrEqualToOperator: Checks if one value is greater than or equal to another.`nkeyWordLessThanOrEqualToOperator: Checks if one value is less than or equal to another.`nkeyWordOrOperator: Combines two boolean conditions (true if either is true).`nkeyWordAndOperator: Combines two boolean conditions (true if both are true).`nkeyWordNotEqualToOperator: Checks if two values or variables are not equal.`nkeyWordTrue: Its the true boolean value.`nkeyWordFalse: Its the false boolean value.`nkeyWordSwitch: The switch statement is a type of selection control mechanism.`nkeyWordSwitchCase: The switch case is a type of selection control mechanism used within the switch statement.`nkeyWordSwitchDefault: The default case in a switch statement provides a fallback option when no case matches.`nkeyWordThrow: Used to raise an exception, signaling an error or special condition.`nkeyWordErrorMsg: Placeholder for a variable or method that stores or retrieves error messages.`nkeyWordTry: Block where code that might throw exceptions is placed; used for handling potential errors.`nkeyWordCatch: Block that handles exceptions thrown by the try block, allowing for error recovery.`nkeyWordFinally: Block that executes after try and catch, regardless of whether an exception was thrown or not. NOT SUPPORTED IN C++`nkeyWordArrayAppend: Method to add an element to the end of a collection (e.g., list or array).`nkeyWordArrayPop: Method to remove and return the last element of a collection (e.g., stack or list).`nkeyWordArraySize: Method that returns the number of elements in a collection (e.g., array, list, or vector).`nkeyWordArrayInsert: Method to add an element at a specific position in a collection (e.g., list or array).`nkeyWordArrayRemove: Method to remove an element from a collection by its value or index (e.g., list or array).`nkeyWordArrayIndexOf: Method that returns the index of the first occurrence of an element, or -1 if not found.`nkeyWordArrayDefinition: Defines an array data structure.`nkeyWordArrayOfIntegersDefinition: Defines an array of integers.`nkeyWordArrayOfStringsDefinition: Defines an array of strings.`nkeyWordArrayOfFloatingPointNumbersDefinition: Defines an array of floating-point numbers.`nkeyWordArrayOfBooleansDefinition: Defines an array of booleans.`nkeyWordJavaScriptVar: Use var for variable declarations ONLY in javascript.`nkeyWordJavaScriptLet: Use let for block-scoped variables ONLY in javascript.`nkeyWordJavaScriptConst: Use const for block-scoped, unchangeable variables ONLY in javascript.`nkeyWordReturnStatement: Returns a value from a function or exits a subroutine.`nkeyWordEnd: Indicates the end of a code block.`nkeyWordGlobal: Global in Python allows variables inside functions to be accessed and modified globally.`nkeyWordComment: Starts a single-line comment.`nkeyWordCommentOpenMultiLine: Opens a multiline comment.`nkeyWordCommentCloseMultiLine: Closes a multiline comment.`nkeyWordEscpaeChar: Escapes special characters in strings or identifiers.`nAHKlikeLoopsIndexedAt: Specifies the starting index for the AHK-like loop, such as 1-indexed, 0-indexed, or any custom value.`nkeyWordAIndex: Represents the current index of the loop. It can be customized based on the indexing method and renamed using configuration settings.`nkeyWordALoopField: Represents the current value or field in the loop. It can be renamed according to user preferences through configuration. `nkeyWordMainLabel: This is the main label where the main function will be inserted in the transpiled language.`nuseFuncKeyWord: If transpiling to JS or Python, you don't need to use the function keyword. Also, we must toggle useCurlyBraces to on.`nuseCurlyBraces: Toggle for using curly braces instead of indentation for code blocks.`nuseEnd: Enable custom end-of-block keyword (e.g., 'end', 'finish', etc.).`nuseSemicolon: Toggle for using semicolons at the end of statements.`nuseParentheses: if off, there's no need to use parentheses where necessary, but you still must use them in some places.`nusePythonicColonSyntax: Enables Python-style colon syntax for defining code blocks.`nforLoopLang: Choose the language for the style of the for loop.`nuseInJavaScriptAlwaysUseVar: You dont have to declere variables in js now all of them will start whit var varName...`nuseJavaScriptInAfullHTMLfile: It wraps the js cdoe in a full index.html file`nuseJavaScriptAmainFuncDef: The useJavaScriptAmainFuncDef option controls whether an async function is used as the main function and where it is placed in the code. If this option is set to any value other than " . Chr(34) . "off," . Chr(34) . " you must specify the syntax for the main function. This syntax is simply a label, marking the start of the main function. There’s no need to add {} brackets since it’s just a label. If you enable this option but don't explicitly place the main function label anywhere in the code, it will automatically be defined at the top. This allows you to define other functions at the top of your script or within the main function itself."
+
+guiEditY := 10
+Loop, Parse, instructionDocumation, `n, `r
+{
+guiEditText := StrReplace(Trim(StrSplit(A_LoopField, ":", 1)), "keyWord", "")
+guiEditTextV := Trim(A_LoopField)
+guiEditTextG := "Edit" . A_Index
+
+if (InStr(guiEditText, "use"))
+{
+;MsgBox, % guiEditText
+
+if (Trim(guiEditText) = "useFuncKeyWord")
+{
+Gui, Add, Toggle, x5 y%guiEditY% gEdit76 vS1 off, useFuncKeyWord
+}
+if (Trim(guiEditText) = "useCurlyBraces")
+{
+Gui, Add, Toggle, x5 y%guiEditY% gEdit77 vS1 off, useCurlyBraces
+}
+if (Trim(guiEditText) = "useEnd")
+{
+Gui, Add, Toggle, x5 y%guiEditY% gEdit78 vS1 off, useEnd
+}
+if (Trim(guiEditText) = "useSemicolon")
+{
+Gui, Add, Toggle, x5 y%guiEditY% gEdit79 vS1 off, useSemicolon
+}
+if (Trim(guiEditText) = "useParentheses")
+{
+Gui, Add, Toggle, x5 y%guiEditY% gEdit80 vS1 off, useParentheses
+}
+if (Trim(guiEditText) = "usePythonicColonSyntax")
+{
+Gui, Add, Toggle, x5 y%guiEditY% gEdit81 vS1 off, usePythonicColonSyntax
+}
+if (Trim(guiEditText) = "useInJavaScriptAlwaysUseVar")
+{
+Gui, Add, Toggle, x5 y%guiEditY% gEdit83 vS1 off, useInJavaScriptAlwaysUseVar
+}
+if (Trim(guiEditText) = "useJavaScriptInAfullHTMLfile")
+{
+Gui, Add, Toggle, x5 y%guiEditY% gEdit84 vS1 off, useJavaScriptInAfullHTMLfile
+}
+if (Trim(guiEditText) = "useJavaScriptAmainFuncDef")
+{
+Gui, Add, Toggle, x5 y%guiEditY% gEdit85 vS1 off, useJavaScriptAmainFuncDef
+}
+
+
+
+
+}
+else
+{
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% g%guiEditTextG% h25 bg000000 cffffff -Border r5, %guiEditText%
+}
+buttonX := guiW + 15
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+
+
+guiEditY := guiEditY + 30
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+if (isMobileDevice())
+{
+Gui, Add, DropDownList, x5 y%guiEditY% gMyDropDown, Option1|Option2|Option3|Option2|Option3|Option2|Option3|Option2|Option3
+}
+else
+{
+Gui, Add, DropDownList, x5 y%guiEditY% gMyDropDown, Option1|Option2|Option3|Option2|Option3|Option2|Option3|Option2|Option3
+}
+
+Gui, Add, Button, x5 y2900 w140 h40 gBuildButton, Build
+return
+
+ButtonINFO:
+MsgBox, % A_GuiControl
+Return
+
+MyDropDown:
+MsgBox, Website is still in development! Here, you will be able to create the built-in functions!
+MsgBox, % A_GuiControl
+Return
+
+BuildButton:
+MsgBox, 36, HT-instructions.txt, Download the language you just created!
+IfMsgBox, OK
+{
+Loop, 85
+{
+allData .= EditText%A_Index% . "`n"
+}
+FileAppend, %allData%, HT-instructions.txt
+} ; end of ifmsgbox
+Return
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+Edit1:
+EditText1 := A_GuiControl
+Return
+
+Edit2:
+EditText2 := A_GuiControl
+Return
+
+Edit3:
+EditText3 := A_GuiControl
+Return
+
+Edit4:
+EditText4 := A_GuiControl
+Return
+
+Edit5:
+EditText5 := A_GuiControl
+Return
+
+Edit6:
+EditText6 := A_GuiControl
+Return
+
+Edit7:
+EditText7 := A_GuiControl
+Return
+
+Edit8:
+EditText8 := A_GuiControl
+Return
+
+Edit9:
+EditText9 := A_GuiControl
+Return
+
+Edit10:
+EditText10 := A_GuiControl
+Return
+
+Edit11:
+EditText11 := A_GuiControl
+Return
+
+Edit12:
+EditText12 := A_GuiControl
+Return
+
+Edit13:
+EditText13 := A_GuiControl
+Return
+
+Edit14:
+EditText14 := A_GuiControl
+Return
+
+Edit15:
+EditText15 := A_GuiControl
+Return
+
+Edit16:
+EditText16 := A_GuiControl
+Return
+
+Edit17:
+EditText17 := A_GuiControl
+Return
+
+Edit18:
+EditText18 := A_GuiControl
+Return
+
+Edit19:
+EditText19 := A_GuiControl
+Return
+
+Edit20:
+EditText20 := A_GuiControl
+Return
+
+Edit21:
+EditText21 := A_GuiControl
+Return
+
+Edit22:
+EditText22 := A_GuiControl
+Return
+
+Edit23:
+EditText23 := A_GuiControl
+Return
+
+Edit24:
+EditText24 := A_GuiControl
+Return
+
+Edit25:
+EditText25 := A_GuiControl
+Return
+
+Edit26:
+EditText26 := A_GuiControl
+Return
+
+Edit27:
+EditText27 := A_GuiControl
+Return
+
+Edit28:
+EditText28 := A_GuiControl
+Return
+
+Edit29:
+EditText29 := A_GuiControl
+Return
+
+Edit30:
+EditText30 := A_GuiControl
+Return
+
+Edit31:
+EditText31 := A_GuiControl
+Return
+
+Edit32:
+EditText32 := A_GuiControl
+Return
+
+Edit33:
+EditText33 := A_GuiControl
+Return
+
+Edit34:
+EditText34 := A_GuiControl
+Return
+
+Edit35:
+EditText35 := A_GuiControl
+Return
+
+Edit36:
+EditText36 := A_GuiControl
+Return
+
+Edit37:
+EditText37 := A_GuiControl
+Return
+
+Edit38:
+EditText38 := A_GuiControl
+Return
+
+Edit39:
+EditText39 := A_GuiControl
+Return
+
+Edit40:
+EditText40 := A_GuiControl
+Return
+
+Edit41:
+EditText41 := A_GuiControl
+Return
+
+Edit42:
+EditText42 := A_GuiControl
+Return
+
+Edit43:
+EditText43 := A_GuiControl
+Return
+
+Edit44:
+EditText44 := A_GuiControl
+Return
+
+Edit45:
+EditText45 := A_GuiControl
+Return
+
+Edit46:
+EditText46 := A_GuiControl
+Return
+
+Edit47:
+EditText47 := A_GuiControl
+Return
+
+Edit48:
+EditText48 := A_GuiControl
+Return
+
+Edit49:
+EditText49 := A_GuiControl
+Return
+
+Edit50:
+EditText50 := A_GuiControl
+Return
+
+Edit51:
+EditText51 := A_GuiControl
+Return
+
+Edit52:
+EditText52 := A_GuiControl
+Return
+
+Edit53:
+EditText53 := A_GuiControl
+Return
+
+Edit54:
+EditText54 := A_GuiControl
+Return
+
+Edit55:
+EditText55 := A_GuiControl
+Return
+
+Edit56:
+EditText56 := A_GuiControl
+Return
+
+Edit57:
+EditText57 := A_GuiControl
+Return
+
+Edit58:
+EditText58 := A_GuiControl
+Return
+
+Edit59:
+EditText59 := A_GuiControl
+Return
+
+Edit60:
+EditText60 := A_GuiControl
+Return
+
+Edit61:
+EditText61 := A_GuiControl
+Return
+
+Edit62:
+EditText62 := A_GuiControl
+Return
+
+Edit63:
+EditText63 := A_GuiControl
+Return
+
+Edit64:
+EditText64 := A_GuiControl
+Return
+
+Edit65:
+EditText65 := A_GuiControl
+Return
+
+Edit66:
+EditText66 := A_GuiControl
+Return
+
+Edit67:
+EditText67 := A_GuiControl
+Return
+
+Edit68:
+EditText68 := A_GuiControl
+Return
+
+Edit69:
+EditText69 := A_GuiControl
+Return
+
+Edit70:
+EditText70 := A_GuiControl
+Return
+
+Edit71:
+EditText71 := A_GuiControl
+Return
+
+Edit72:
+EditText72 := A_GuiControl
+Return
+
+Edit73:
+EditText73 := A_GuiControl
+Return
+
+Edit74:
+EditText74 := A_GuiControl
+Return
+
+Edit75:
+EditText75 := A_GuiControl
+Return
+
+Edit76:
+EditText76 := A_GuiControl
+if (EditText76 = "1")
+{
+EditText76 := "on"
+}
+else
+{
+EditText76 := "off"
+}
+Return
+
+Edit77:
+EditText77 := A_GuiControl
+if (EditText77 = "1")
+{
+EditText77 := "on"
+}
+else
+{
+EditText77 := "off"
+}
+Return
+
+Edit78:
+EditText78 := A_GuiControl
+if (EditText78 = "1")
+{
+EditText78 := "on"
+}
+else
+{
+EditText78 := "off"
+}
+Return
+
+Edit79:
+EditText79 := A_GuiControl
+Return
+
+Edit80:
+EditText80 := A_GuiControl
+if (EditText80 = "1")
+{
+EditText80 := "on"
+}
+else
+{
+EditText80 := "off"
+}
+Return
+
+Edit81:
+EditText81 := A_GuiControl
+if (EditText81 = "1")
+{
+EditText81 := "on"
+}
+else
+{
+EditText81 := "off"
+}
+Return
+
+Edit82:
+EditText82 := A_GuiControl
+Return
+
+Edit83:
+EditText83 := A_GuiControl
+if (EditText83 = "1")
+{
+EditText83 := "on"
+}
+else
+{
+EditText83 := "off"
+}
+Return
+
+Edit84:
+EditText84 := A_GuiControl
+if (EditText84 = "1")
+{
+EditText84 := "on"
+}
+else
+{
+EditText84 := "off"
+}
+Return
+
+Edit85:
+EditText85 := A_GuiControl
+if (EditText85 = "1")
+{
+EditText85 := "on"
+}
+else
+{
+EditText85 := "off"
+}
+Return
+
+Edit86:
+EditText86 := A_GuiControl
+Return
+
+
+
+
+
+
+

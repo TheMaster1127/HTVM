@@ -344,6 +344,246 @@
       }
 
 
+      function Chr(number) {
+        // Check if the number is null
+        if (number === null) {
+          // Return an empty string
+          return "";
+        }
+
+        // Check if the number is within the valid range
+        if (number >= 0 && number <= 0x10ffff) {
+          // Convert the number to a character using String.fromCharCode
+          return String.fromCharCode(number);
+        } else {
+          // Return an empty string for invalid numbers
+          return "";
+        }
+      }
+
+
+      // InStr
+      function InStr(Haystack, Needle, CaseSensitive = true, StartingPos = 1, Occurrence = 1) {
+        if (Haystack === null || Needle === null) return false;
+
+        // Adjust starting position if less than 1
+        StartingPos = Math.max(StartingPos, 1);
+
+        // Case-sensitive search by default
+        if (!CaseSensitive) {
+          Haystack = Haystack.toLowerCase();
+          Needle = Needle.toLowerCase();
+        }
+
+        let pos = -1;
+        let count = 0;
+        for (let i = StartingPos - 1; i < Haystack.length; i++) {
+          if (Haystack.substring(i, i + Needle.length) === Needle) {
+            count++;
+            if (count === Occurrence) {
+              pos = i + 1;
+              break;
+            }
+          }
+        }
+
+        return pos > 0; // Return true if the substring is found, false otherwise
+      }
+
+
+      function Trim(inputString) {
+        // Check if inputString is null or undefined
+        if (inputString == null) {
+          return ""; // Return an empty string if inputString is null or undefined
+        }
+        return inputString.replace(/^\s+|\s+$/g, ""); // Removes leading and trailing whitespace
+      }
+
+
+      function StrReplace(originalString, find, replaceWith) {
+        // Check if originalString is a string
+        if (typeof originalString !== "string") {
+          return originalString; // Return originalString as is
+        }
+
+        // Escape special characters in the 'find' string to be used literally
+        const escapedFind = find.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+        // Use replace method to replace all occurrences of 'find' with 'replaceWith'
+        return originalString.replace(new RegExp(escapedFind, "g"), replaceWith);
+      }
+
+
+      function isMobileDevice() {
+        return /Mobi|Android/i.test(navigator.userAgent);
+      }
+
+
+      function FileAppend(data, filename) {
+        // Create a blob with the provided data
+        const blob = new Blob([data], { type: "text/plain" });
+
+        // Create a temporary anchor element
+        const anchor = document.createElement("a");
+        anchor.style.display = "none";
+
+        // Set the download attribute and filename
+        anchor.setAttribute("href", window.URL.createObjectURL(blob));
+        anchor.setAttribute("download", filename);
+
+        // Append the anchor element to the body
+        document.body.appendChild(anchor);
+
+        // Trigger a click event on the anchor element
+        anchor.click();
+
+        // Remove the anchor element
+        document.body.removeChild(anchor);
+      }
+
+
+      // Function to create a toggle switch with width and height
+      function createToggleSwitch(parent, id, label, color, leftPos, topPos, width, height, switchFunction) {
+        let toggleSwitch = document.createElement("div");
+        toggleSwitch.className = "toggle-switch";
+        toggleSwitch.id = id;
+        toggleSwitch.dataset.id = id;
+        toggleSwitch.dataset.isOn = "false";
+        toggleSwitch.dataset.color = color; // Save color in dataset for use when toggled
+        toggleSwitch.style.width = width + "px"; // Set width
+        toggleSwitch.style.height = height + "px"; // Set height
+        toggleSwitch.style.backgroundColor = "#ccc";
+        toggleSwitch.style.borderRadius = height / 2 + "px"; // Make border radius proportional to height
+        toggleSwitch.style.position = "absolute";
+        toggleSwitch.style.left = leftPos + "px";
+        toggleSwitch.style.top = topPos + "px";
+        toggleSwitch.style.cursor = "pointer";
+        toggleSwitch.style.transition = "background-color 0.3s ease";
+
+        // Create knob for the toggle switch
+        let knob = document.createElement("div");
+        knob.className = "knob";
+        knob.style.width = height - 4 + "px"; // Set knob width (slightly less than height)
+        knob.style.height = height - 4 + "px"; // Set knob height (slightly less than height)
+        knob.style.backgroundColor = "#fff";
+        knob.style.borderRadius = "50%";
+        knob.style.position = "absolute";
+        knob.style.top = "2px";
+        knob.style.left = "2px";
+        knob.style.transition = "transform 0.3s ease";
+
+        toggleSwitch.appendChild(knob);
+        parent.appendChild(toggleSwitch);
+
+        // Create label for the toggle switch
+        let toggleLabel = document.createElement("div");
+        toggleLabel.textContent = label;
+        toggleLabel.style.position = "absolute";
+        toggleLabel.style.left = leftPos + width + 10 + "px"; // Position label relative to switch
+        toggleLabel.style.top = topPos + 5 + "px";
+        parent.appendChild(toggleLabel);
+
+        // Toggle switch click event
+        toggleSwitch.addEventListener("click", function () {
+          let isOn = toggleSwitch.dataset.isOn === "true";
+          toggleSwitch.dataset.isOn = String(!isOn); // Toggle the state
+
+          const knob = toggleSwitch.querySelector(".knob");
+          knob.style.transform = isOn ? "translateX(0)" : "translateX(" + (width - height + 4) + "px)"; // Move knob based on state
+
+          const backgroundColor = isOn ? "#ccc" : toggleSwitch.dataset.color;
+          toggleSwitch.style.backgroundColor = backgroundColor; // Update background color
+
+          if (isOn == true) {
+            isOn = "0";
+          } else {
+            isOn = "1";
+          }
+
+          // Call the switch function with toggle switch ID and state
+          switchFunction(isOn);
+        });
+      }
+
+
+      // Function to create and populate the dropdown dynamically within a specified parent div
+      function createCustomDropdown(parent, id, data, color, leftPos, topPos, width, height, onChangeFunction) {
+        // Split the data string into an array of options
+        const options = data.split("|").map((option) => option.trim());
+
+        // Create a select element (dropdown)
+        const selectElement = document.createElement("select");
+
+        // Set attributes and styles for the select element
+        selectElement.id = id;
+        selectElement.style.width = width + "px";
+        selectElement.style.height = height + "px";
+        selectElement.style.left = leftPos + "px";
+        selectElement.style.top = topPos + "px";
+        selectElement.style.position = "absolute";
+        selectElement.style.backgroundColor = color;
+        selectElement.style.color = "white"; // Set text color to white
+        selectElement.style.border = "none"; // Remove default border
+        selectElement.style.borderRadius = "5px"; // Add border radius
+        selectElement.style.padding = "5px"; // Add padding
+        selectElement.style.cursor = "pointer"; // Change cursor on hover
+
+        // Populate the dropdown with options
+        options.forEach((optionText) => {
+          const optionElement = document.createElement("option");
+          optionElement.textContent = optionText;
+          selectElement.appendChild(optionElement);
+        });
+
+        // Add event listener to handle option selection
+        selectElement.addEventListener("change", function () {
+          const selectedText = this.options[this.selectedIndex].textContent;
+          onChangeFunction(selectedText);
+        });
+
+        // Append the dropdown to the specified parent element (Gui1 div)
+        const parentElement = parent instanceof HTMLElement ? parent : document.getElementById(parent);
+        if (parentElement) {
+          parentElement.appendChild(selectElement);
+        } else {
+          console.error(`Parent element "${parent}" not found.`);
+        }
+      }
+
+
+function StrSplit(inputStr, delimiter, num) {
+    // Check if inputStr is a valid string
+    if (typeof inputStr !== 'string') {
+        return ''; // Return empty string for invalid input
+    }
+
+    // Split the input string based on the delimiter
+    const parts = inputStr.split(delimiter);
+
+    // Return the part specified by the num parameter (1-based index)
+    if (num > 0 && num <= parts.length) {
+        return parts[num - 1]; // Return the specified part (0-based index)
+    } else {
+        return ''; // Return an empty string if num is out of range
+    }
+}
+
+
+function LoopParseFunc(varString, delimiter1="", delimiter2="") {
+    let items;
+    if (!delimiter1 && !delimiter2) {
+        // If no delimiters are provided, return an array of characters
+        items = [...varString];
+    } else {
+        // Construct the regular expression pattern for splitting the string
+        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + delimiter2.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ']+');
+        // Split the string using the constructed pattern
+        items = varString.split(pattern);
+    }
+    return items;
+}
+
+
 
 // Define the str function
 function str(value) {
@@ -375,7 +615,7 @@ null: null,
 
 Gui1.style.position = "absolute";
 Gui1.style.width = window.innerWidth + "px"; // Set the width
-Gui1.style.height = "" + BuildInVars("A_ScreenHeight") + "px"; // Set the height
+Gui1.style.height = "3000px"; // Set the height
 Gui1.style.background = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
 Gui1.style.backgroundColor = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
 Gui1.style.color = "white";
@@ -389,7 +629,591 @@ Gui1.style.display = "block";
 document.documentElement.setAttribute("style", "padding: 0; margin: 0;");
 document.head.setAttribute("style", "padding: 0; margin: 0;");
 document.body.setAttribute("style", "overflow-x: hidden;padding: 0; margin: 0;");
-await showCustomMessageBox({}," ", "Website still in development!!!", 0, 0)
+await showCustomMessageBox({}," ", "Website is still in development!!!", 0, 0)
+variables.allData = ""
+variables.EditText76 = "off"
+variables.EditText77 = "off"
+variables.EditText78 = "off"
+variables.EditText79 = "off"
+variables.EditText80 = "off"
+variables.EditText81 = "off"
+variables.EditText83 = "off"
+variables.EditText84 = "off"
+variables.EditText85 = "off"
+if (( await isMobileDevice () ))
+{
+variables.guiW = BuildInVars("A_ScreenWidth") - 90
+}
+else
+{
+variables.guiW = BuildInVars("A_ScreenWidth") - 110
+}
+variables.instructionDocumation = "lang to transpile to: Target programming language for transpilation.\nfile extention of the file: File extension for transpiled output files.\ncommands: List of supported operations or built-in functions.\nkeyWordINT: Defines an integer data type.\nkeyWordSTR: Defines a string data type.\nkeyWordBOOL: Defines a boolean data type.\nkeyWordFLOAT: Defines a floating data type.\nkeyWordINT8: Defines an 8-bit integer data type.\nkeyWordINT16: Defines a 16-bit integer data type.\nkeyWordINT32: Defines a 32-bit integer data type.\nkeyWordINT64: Defines a 64-bit integer data type.\nkeyWordIF: Used for conditional statements.\nkeyWordElseIf: Alternative condition in conditional statements.\nkeyWordElse: Defines a block of code for when no conditions are met.\nkeyWordWhileLoop: Defines a while loop.\nkeyWordForLoop: Defines a for loop.\nkeyWordLoopInfinite: Defines an infinite loop.\nkeyWordLoop: Defines a loop that iterates a specified number of times.\nkeyWordLoopParse: Defines a loop that parses through data or text.\nkeyWordContinue: Skips to the next iteration of the loop.\nkeyWordBreak: Exits a loop prematurely.\nkeyWordFunc: Defines a function or subroutine.\nkeyWordAwait: Await a func only in js.\nkeyWordVariablesAssignmentOperator: Operator for variable assignment.\nkeyWordConcatenationAssignmentOperator: Concatenates and assigns to a string variable.\nkeyWordAdditionAssignmentOperator: Adds to a numeric variable and assigns.\nkeyWordSubtractionAssignmentOperator: Subtracts from a numeric variable and assigns.\nkeyWordMultiplicationAssignmentOperator: Multiplies a numeric variable and assigns.\nkeyWordDivisionAssignmentOperator: Divides a numeric variable and assigns.\nkeyWordAdditionOperator: Adds two values or variables.\nkeyWordConcatenationOperator: Concatenates two strings or variables.\nkeyWordEqualOperator: Checks if two values or variables are equal.\nkeyWordNotOperator: Negates a boolean value or condition.\nkeyWordGreaterThanOperator: Checks if one value is greater than another.\nkeyWordLessThanOperator: Checks if one value is less than another.\nkeyWordGreaterThanOrEqualToOperator: Checks if one value is greater than or equal to another.\nkeyWordLessThanOrEqualToOperator: Checks if one value is less than or equal to another.\nkeyWordOrOperator: Combines two boolean conditions (true if either is true).\nkeyWordAndOperator: Combines two boolean conditions (true if both are true).\nkeyWordNotEqualToOperator: Checks if two values or variables are not equal.\nkeyWordTrue: Its the true boolean value.\nkeyWordFalse: Its the false boolean value.\nkeyWordSwitch: The switch statement is a type of selection control mechanism.\nkeyWordSwitchCase: The switch case is a type of selection control mechanism used within the switch statement.\nkeyWordSwitchDefault: The default case in a switch statement provides a fallback option when no case matches.\nkeyWordThrow: Used to raise an exception, signaling an error or special condition.\nkeyWordErrorMsg: Placeholder for a variable or method that stores or retrieves error messages.\nkeyWordTry: Block where code that might throw exceptions is placed; used for handling potential errors.\nkeyWordCatch: Block that handles exceptions thrown by the try block, allowing for error recovery.\nkeyWordFinally: Block that executes after try and catch, regardless of whether an exception was thrown or not. NOT SUPPORTED IN C++\nkeyWordArrayAppend: Method to add an element to the end of a collection (e.g., list or array).\nkeyWordArrayPop: Method to remove and return the last element of a collection (e.g., stack or list).\nkeyWordArraySize: Method that returns the number of elements in a collection (e.g., array, list, or vector).\nkeyWordArrayInsert: Method to add an element at a specific position in a collection (e.g., list or array).\nkeyWordArrayRemove: Method to remove an element from a collection by its value or index (e.g., list or array).\nkeyWordArrayIndexOf: Method that returns the index of the first occurrence of an element, or -1 if not found.\nkeyWordArrayDefinition: Defines an array data structure.\nkeyWordArrayOfIntegersDefinition: Defines an array of integers.\nkeyWordArrayOfStringsDefinition: Defines an array of strings.\nkeyWordArrayOfFloatingPointNumbersDefinition: Defines an array of floating-point numbers.\nkeyWordArrayOfBooleansDefinition: Defines an array of booleans.\nkeyWordJavaScriptVar: Use var for variable declarations ONLY in javascript.\nkeyWordJavaScriptLet: Use let for block-scoped variables ONLY in javascript.\nkeyWordJavaScriptConst: Use const for block-scoped, unchangeable variables ONLY in javascript.\nkeyWordReturnStatement: Returns a value from a function or exits a subroutine.\nkeyWordEnd: Indicates the end of a code block.\nkeyWordGlobal: Global in Python allows variables inside functions to be accessed and modified globally.\nkeyWordComment: Starts a single-line comment.\nkeyWordCommentOpenMultiLine: Opens a multiline comment.\nkeyWordCommentCloseMultiLine: Closes a multiline comment.\nkeyWordEscpaeChar: Escapes special characters in strings or identifiers.\nAHKlikeLoopsIndexedAt: Specifies the starting index for the AHK-like loop, such as 1-indexed, 0-indexed, or any custom value.\nkeyWordAIndex: Represents the current index of the loop. It can be customized based on the indexing method and renamed using configuration settings.\nkeyWordALoopField: Represents the current value or field in the loop. It can be renamed according to user preferences through configuration. \nkeyWordMainLabel: This is the main label where the main function will be inserted in the transpiled language.\nuseFuncKeyWord: If transpiling to JS or Python, you don't need to use the function keyword. Also, we must toggle useCurlyBraces to on.\nuseCurlyBraces: Toggle for using curly braces instead of indentation for code blocks.\nuseEnd: Enable custom end-of-block keyword (e.g., 'end', 'finish', etc.).\nuseSemicolon: Toggle for using semicolons at the end of statements.\nuseParentheses: if off, there's no need to use parentheses where necessary, but you still must use them in some places.\nusePythonicColonSyntax: Enables Python-style colon syntax for defining code blocks.\nforLoopLang: Choose the language for the style of the for loop.\nuseInJavaScriptAlwaysUseVar: You dont have to declere variables in js now all of them will start whit var varName...\nuseJavaScriptInAfullHTMLfile: It wraps the js cdoe in a full index.html file\nuseJavaScriptAmainFuncDef: The useJavaScriptAmainFuncDef option controls whether an async function is used as the main function and where it is placed in the code. If this option is set to any value other than " + await Chr (34) + "off," + await Chr (34) + " you must specify the syntax for the main function. This syntax is simply a label, marking the start of the main function. There’s no need to add {} brackets since it’s just a label. If you enable this option but don't explicitly place the main function label anywhere in the code, it will automatically be defined at the top. This allows you to define other functions at the top of your script or within the main function itself."
+variables.guiEditY = 10
+var items1 = LoopParseFunc(variables.instructionDocumation, "\n", "\r");
+for (/* Loop Parse */ let A_Index1 = 1; A_Index1 <= items1.length; A_Index1++)
+{
+variables.A_Index1 = A_Index1
+variables.A_LoopField1 = items1[A_Index1 - 1];
+variables.guiEditText = await StrReplace (await Trim (await StrSplit (variables.A_LoopField1 , ":" , 1) ) , "keyWord" , "" )
+variables.guiEditTextV = await Trim (variables.A_LoopField1 )
+variables.guiEditTextG = "Edit" + variables.A_Index1
+if (( await InStr (variables.guiEditText , "use") ))
+{
+//MsgBox, % guiEditText
+if (( await Trim (variables.guiEditText) == "useFuncKeyWord" ))
+{
+createToggleSwitch(Gui1, "Gui1S1", "useFuncKeyWord", "#2196F3", 5, variables.guiEditY, 60, 30, Edit76 );
+}
+if (( await Trim (variables.guiEditText) == "useCurlyBraces" ))
+{
+createToggleSwitch(Gui1, "Gui1S1", "useCurlyBraces", "#2196F3", 5, variables.guiEditY, 60, 30, Edit77 );
+}
+if (( await Trim (variables.guiEditText) == "useEnd" ))
+{
+createToggleSwitch(Gui1, "Gui1S1", "useEnd", "#2196F3", 5, variables.guiEditY, 60, 30, Edit78 );
+}
+if (( await Trim (variables.guiEditText) == "useSemicolon" ))
+{
+createToggleSwitch(Gui1, "Gui1S1", "useSemicolon", "#2196F3", 5, variables.guiEditY, 60, 30, Edit79 );
+}
+if (( await Trim (variables.guiEditText) == "useParentheses" ))
+{
+createToggleSwitch(Gui1, "Gui1S1", "useParentheses", "#2196F3", 5, variables.guiEditY, 60, 30, Edit80 );
+}
+if (( await Trim (variables.guiEditText) == "usePythonicColonSyntax" ))
+{
+createToggleSwitch(Gui1, "Gui1S1", "usePythonicColonSyntax", "#2196F3", 5, variables.guiEditY, 60, 30, Edit81 );
+}
+if (( await Trim (variables.guiEditText) == "useInJavaScriptAlwaysUseVar" ))
+{
+createToggleSwitch(Gui1, "Gui1S1", "useInJavaScriptAlwaysUseVar", "#2196F3", 5, variables.guiEditY, 60, 30, Edit83 );
+}
+if (( await Trim (variables.guiEditText) == "useJavaScriptInAfullHTMLfile" ))
+{
+createToggleSwitch(Gui1, "Gui1S1", "useJavaScriptInAfullHTMLfile", "#2196F3", 5, variables.guiEditY, 60, 30, Edit84 );
+}
+if (( await Trim (variables.guiEditText) == "useJavaScriptAmainFuncDef" ))
+{
+createToggleSwitch(Gui1, "Gui1S1", "useJavaScriptAmainFuncDef", "#2196F3", 5, variables.guiEditY, 60, 30, Edit85 );
+}
+}
+else
+{
+Gui1Edit1 = document.createElement("textarea");
+Gui1Edit1.id = "Gui1" + "Edit" + "1"; // Set ID for referencing
+Gui1Edit1.placeholder = "" + variables.guiEditText + "";
+Gui1Edit1.style.fontSize = "15px"; // Set font size
+Gui1Edit1.style.resize = "none"; // Disable resizing
+Gui1Edit1.style.position = "absolute"; // Set position to absolute
+Gui1Edit1.style.left = "5px"; // Set initial x position
+Gui1Edit1.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Edit1.style.width = "" + variables.guiW + "px"; // Set width
+Gui1Edit1.style.height = "25px"; // Set height
+Gui1Edit1.style.border = "none"
+Gui1Edit1.style.color = "#ffffff"
+Gui1Edit1.style.background = ""
+Gui1Edit1.style.backgroundColor = "#000000"
+Gui1Edit1.style.borderRadius = "5px"
+Gui1Edit1.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Edit1.addEventListener("input", function () {
+A_GuiControl = Gui1Edit1.value
+  %guiEditTextG%(A_GuiControl);
+});
+Gui1.appendChild(Gui1Edit1);
+}
+variables.buttonX = variables.guiW + 15
+Gui1[variables.guiEditTextV] = document.createElement("button");
+Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
+Gui1[variables.guiEditTextV].textContent = "INFO";
+Gui1[variables.guiEditTextV].style.fontSize = "15px"; // Set font size
+Gui1[variables.guiEditTextV].style.position = "absolute"; // Set position to absolute
+Gui1[variables.guiEditTextV].style.left = "" + variables.buttonX + "px"; // Set initial x position
+Gui1[variables.guiEditTextV].style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1[variables.guiEditTextV].style.width = "70px"; // Set width
+Gui1[variables.guiEditTextV].style.height = "25px"; // Set height
+Gui1[variables.guiEditTextV].style.cursor = "pointer"; // Change cursor on hover
+Gui1[variables.guiEditTextV].style.border = "";
+Gui1[variables.guiEditTextV].style.background = "";
+Gui1[variables.guiEditTextV].style.backgroundColor = "#181818";
+Gui1[variables.guiEditTextV].style.borderRadius = "3px";
+Gui1[variables.guiEditTextV].style.color = "#ffffff";
+Gui1[variables.guiEditTextV].style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1[variables.guiEditTextV].onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
+  ButtonINFO(A_GuiControl);
+};
+Gui1.appendChild(Gui1[variables.guiEditTextV]);
+variables.guiEditY = variables.guiEditY + 30
+}
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+if (( await isMobileDevice () ))
+{
+createCustomDropdown(Gui1, "Gui1DropDownList1", "Option1|Option2|Option3|Option2|Option3|Option2|Option3|Option2|Option3", "#333333", 5, variables.guiEditY, 150, 30, MyDropDown );
+}
+else
+{
+createCustomDropdown(Gui1, "Gui1DropDownList2", "Option1|Option2|Option3|Option2|Option3|Option2|Option3|Option2|Option3", "#333333", 5, variables.guiEditY, 150, 30, MyDropDown );
+}
+Gui1Button2 = document.createElement("button");
+Gui1Button2.id = "Gui1" + "Button" + "2"; // Set ID for referencing
+Gui1Button2.textContent = "Build";
+Gui1Button2.style.fontSize = "15px"; // Set font size
+Gui1Button2.style.position = "absolute"; // Set position to absolute
+Gui1Button2.style.left = "5px"; // Set initial x position
+Gui1Button2.style.top = "2900px"; // Set initial y position
+Gui1Button2.style.width = "140px"; // Set width
+Gui1Button2.style.height = "40px"; // Set height
+Gui1Button2.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button2.style.border = "";
+Gui1Button2.style.background = "";
+Gui1Button2.style.backgroundColor = "";
+Gui1Button2.style.borderRadius = "";
+Gui1Button2.style.color = "";
+Gui1Button2.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button2.onclick = function (event) {
+A_GuiControl = event.target.textContent
+  BuildButton(A_GuiControl);
+};
+Gui1.appendChild(Gui1Button2);
+return
+async function ButtonINFO(A_GuiControl)
+{
+await showCustomMessageBox({}," ", A_GuiControl, 0, 0.)
+}
+async function MyDropDown(A_GuiControl)
+{
+await showCustomMessageBox({}," ", "Website is still in development! Here, you will be able to create the built-in functions!", 0, 0)
+await showCustomMessageBox({}," ", A_GuiControl, 0, 0.)
+}
+async function BuildButton(A_GuiControl)
+{
+await showCustomMessageBox({},"HT-instructions.txt", "Download the language you just created!", 36, 0)
+.then(async (result) => {
+if (result === "OK")
+{
+for (/* Normal Loop */ variables.A_Index2 = 1; variables.A_Index2 <= 85; variables.A_Index2++)
+{
+variables.allData += variables["EditText" + variables.A_Index2] + "\n"
+}
+FileAppend("" + variables.allData + "", "HT-instructions.txt")
+} // end of ifmsgbox
+});
+}
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+async function Edit1(A_GuiControl)
+{
+variables.EditText1 = A_GuiControl
+}
+async function Edit2(A_GuiControl)
+{
+variables.EditText2 = A_GuiControl
+}
+async function Edit3(A_GuiControl)
+{
+variables.EditText3 = A_GuiControl
+}
+async function Edit4(A_GuiControl)
+{
+variables.EditText4 = A_GuiControl
+}
+async function Edit5(A_GuiControl)
+{
+variables.EditText5 = A_GuiControl
+}
+async function Edit6(A_GuiControl)
+{
+variables.EditText6 = A_GuiControl
+}
+async function Edit7(A_GuiControl)
+{
+variables.EditText7 = A_GuiControl
+}
+async function Edit8(A_GuiControl)
+{
+variables.EditText8 = A_GuiControl
+}
+async function Edit9(A_GuiControl)
+{
+variables.EditText9 = A_GuiControl
+}
+async function Edit10(A_GuiControl)
+{
+variables.EditText10 = A_GuiControl
+}
+async function Edit11(A_GuiControl)
+{
+variables.EditText11 = A_GuiControl
+}
+async function Edit12(A_GuiControl)
+{
+variables.EditText12 = A_GuiControl
+}
+async function Edit13(A_GuiControl)
+{
+variables.EditText13 = A_GuiControl
+}
+async function Edit14(A_GuiControl)
+{
+variables.EditText14 = A_GuiControl
+}
+async function Edit15(A_GuiControl)
+{
+variables.EditText15 = A_GuiControl
+}
+async function Edit16(A_GuiControl)
+{
+variables.EditText16 = A_GuiControl
+}
+async function Edit17(A_GuiControl)
+{
+variables.EditText17 = A_GuiControl
+}
+async function Edit18(A_GuiControl)
+{
+variables.EditText18 = A_GuiControl
+}
+async function Edit19(A_GuiControl)
+{
+variables.EditText19 = A_GuiControl
+}
+async function Edit20(A_GuiControl)
+{
+variables.EditText20 = A_GuiControl
+}
+async function Edit21(A_GuiControl)
+{
+variables.EditText21 = A_GuiControl
+}
+async function Edit22(A_GuiControl)
+{
+variables.EditText22 = A_GuiControl
+}
+async function Edit23(A_GuiControl)
+{
+variables.EditText23 = A_GuiControl
+}
+async function Edit24(A_GuiControl)
+{
+variables.EditText24 = A_GuiControl
+}
+async function Edit25(A_GuiControl)
+{
+variables.EditText25 = A_GuiControl
+}
+async function Edit26(A_GuiControl)
+{
+variables.EditText26 = A_GuiControl
+}
+async function Edit27(A_GuiControl)
+{
+variables.EditText27 = A_GuiControl
+}
+async function Edit28(A_GuiControl)
+{
+variables.EditText28 = A_GuiControl
+}
+async function Edit29(A_GuiControl)
+{
+variables.EditText29 = A_GuiControl
+}
+async function Edit30(A_GuiControl)
+{
+variables.EditText30 = A_GuiControl
+}
+async function Edit31(A_GuiControl)
+{
+variables.EditText31 = A_GuiControl
+}
+async function Edit32(A_GuiControl)
+{
+variables.EditText32 = A_GuiControl
+}
+async function Edit33(A_GuiControl)
+{
+variables.EditText33 = A_GuiControl
+}
+async function Edit34(A_GuiControl)
+{
+variables.EditText34 = A_GuiControl
+}
+async function Edit35(A_GuiControl)
+{
+variables.EditText35 = A_GuiControl
+}
+async function Edit36(A_GuiControl)
+{
+variables.EditText36 = A_GuiControl
+}
+async function Edit37(A_GuiControl)
+{
+variables.EditText37 = A_GuiControl
+}
+async function Edit38(A_GuiControl)
+{
+variables.EditText38 = A_GuiControl
+}
+async function Edit39(A_GuiControl)
+{
+variables.EditText39 = A_GuiControl
+}
+async function Edit40(A_GuiControl)
+{
+variables.EditText40 = A_GuiControl
+}
+async function Edit41(A_GuiControl)
+{
+variables.EditText41 = A_GuiControl
+}
+async function Edit42(A_GuiControl)
+{
+variables.EditText42 = A_GuiControl
+}
+async function Edit43(A_GuiControl)
+{
+variables.EditText43 = A_GuiControl
+}
+async function Edit44(A_GuiControl)
+{
+variables.EditText44 = A_GuiControl
+}
+async function Edit45(A_GuiControl)
+{
+variables.EditText45 = A_GuiControl
+}
+async function Edit46(A_GuiControl)
+{
+variables.EditText46 = A_GuiControl
+}
+async function Edit47(A_GuiControl)
+{
+variables.EditText47 = A_GuiControl
+}
+async function Edit48(A_GuiControl)
+{
+variables.EditText48 = A_GuiControl
+}
+async function Edit49(A_GuiControl)
+{
+variables.EditText49 = A_GuiControl
+}
+async function Edit50(A_GuiControl)
+{
+variables.EditText50 = A_GuiControl
+}
+async function Edit51(A_GuiControl)
+{
+variables.EditText51 = A_GuiControl
+}
+async function Edit52(A_GuiControl)
+{
+variables.EditText52 = A_GuiControl
+}
+async function Edit53(A_GuiControl)
+{
+variables.EditText53 = A_GuiControl
+}
+async function Edit54(A_GuiControl)
+{
+variables.EditText54 = A_GuiControl
+}
+async function Edit55(A_GuiControl)
+{
+variables.EditText55 = A_GuiControl
+}
+async function Edit56(A_GuiControl)
+{
+variables.EditText56 = A_GuiControl
+}
+async function Edit57(A_GuiControl)
+{
+variables.EditText57 = A_GuiControl
+}
+async function Edit58(A_GuiControl)
+{
+variables.EditText58 = A_GuiControl
+}
+async function Edit59(A_GuiControl)
+{
+variables.EditText59 = A_GuiControl
+}
+async function Edit60(A_GuiControl)
+{
+variables.EditText60 = A_GuiControl
+}
+async function Edit61(A_GuiControl)
+{
+variables.EditText61 = A_GuiControl
+}
+async function Edit62(A_GuiControl)
+{
+variables.EditText62 = A_GuiControl
+}
+async function Edit63(A_GuiControl)
+{
+variables.EditText63 = A_GuiControl
+}
+async function Edit64(A_GuiControl)
+{
+variables.EditText64 = A_GuiControl
+}
+async function Edit65(A_GuiControl)
+{
+variables.EditText65 = A_GuiControl
+}
+async function Edit66(A_GuiControl)
+{
+variables.EditText66 = A_GuiControl
+}
+async function Edit67(A_GuiControl)
+{
+variables.EditText67 = A_GuiControl
+}
+async function Edit68(A_GuiControl)
+{
+variables.EditText68 = A_GuiControl
+}
+async function Edit69(A_GuiControl)
+{
+variables.EditText69 = A_GuiControl
+}
+async function Edit70(A_GuiControl)
+{
+variables.EditText70 = A_GuiControl
+}
+async function Edit71(A_GuiControl)
+{
+variables.EditText71 = A_GuiControl
+}
+async function Edit72(A_GuiControl)
+{
+variables.EditText72 = A_GuiControl
+}
+async function Edit73(A_GuiControl)
+{
+variables.EditText73 = A_GuiControl
+}
+async function Edit74(A_GuiControl)
+{
+variables.EditText74 = A_GuiControl
+}
+async function Edit75(A_GuiControl)
+{
+variables.EditText75 = A_GuiControl
+}
+async function Edit76(A_GuiControl)
+{
+variables.EditText76 = A_GuiControl
+if (( variables.EditText76 == "1" ))
+{
+variables.EditText76 = "on"
+}
+else
+{
+variables.EditText76 = "off"
+}
+}
+async function Edit77(A_GuiControl)
+{
+variables.EditText77 = A_GuiControl
+if (( variables.EditText77 == "1" ))
+{
+variables.EditText77 = "on"
+}
+else
+{
+variables.EditText77 = "off"
+}
+}
+async function Edit78(A_GuiControl)
+{
+variables.EditText78 = A_GuiControl
+if (( variables.EditText78 == "1" ))
+{
+variables.EditText78 = "on"
+}
+else
+{
+variables.EditText78 = "off"
+}
+}
+async function Edit79(A_GuiControl)
+{
+variables.EditText79 = A_GuiControl
+}
+async function Edit80(A_GuiControl)
+{
+variables.EditText80 = A_GuiControl
+if (( variables.EditText80 == "1" ))
+{
+variables.EditText80 = "on"
+}
+else
+{
+variables.EditText80 = "off"
+}
+}
+async function Edit81(A_GuiControl)
+{
+variables.EditText81 = A_GuiControl
+if (( variables.EditText81 == "1" ))
+{
+variables.EditText81 = "on"
+}
+else
+{
+variables.EditText81 = "off"
+}
+}
+async function Edit82(A_GuiControl)
+{
+variables.EditText82 = A_GuiControl
+}
+async function Edit83(A_GuiControl)
+{
+variables.EditText83 = A_GuiControl
+if (( variables.EditText83 == "1" ))
+{
+variables.EditText83 = "on"
+}
+else
+{
+variables.EditText83 = "off"
+}
+}
+async function Edit84(A_GuiControl)
+{
+variables.EditText84 = A_GuiControl
+if (( variables.EditText84 == "1" ))
+{
+variables.EditText84 = "on"
+}
+else
+{
+variables.EditText84 = "off"
+}
+}
+async function Edit85(A_GuiControl)
+{
+variables.EditText85 = A_GuiControl
+if (( variables.EditText85 == "1" ))
+{
+variables.EditText85 = "on"
+}
+else
+{
+variables.EditText85 = "off"
+}
+}
+async function Edit86(A_GuiControl)
+{
+variables.EditText86 = A_GuiControl
+}
 
 
  }
