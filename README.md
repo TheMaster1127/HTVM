@@ -12,15 +12,35 @@ HTVM is a tool for creating and deploying new programming languages quickly. You
 
 4. **Built-in Functions**: Define built-in functions at the bottom of `HT-instructions.txt` by duplicating the relevant section.
 
+5. **IDE Integration**: Compile `IDE-generator.cpp` to produce `IDE-generator`. You can then run it with `HT-instructions.txt` to generate `IDE.html`, which includes an IDE with syntax highlighting and code completion features. Use `Ctrl+Shift+Alt+F` to format code and `Ctrl+Shift+Alt+G` to undo formatting. For normal undo operations, use `Ctrl+Z` like in a typical IDE.
+
 ## Usage
 
-In windows
+### On Windows
 
 ```
-HTVM mian.ht HT-instructions.txt
+HTVM main.ht HT-instructions.txt
 ```
 
-And for linux you can compile the `HTVM.cpp` and run it with the same args
+### On Linux
+
+Compile `HTVM.cpp` and run it with the same arguments:
+
+```
+g++ HTVM.cpp -o HTVM
+./HTVM main.ht HT-instructions.txt
+```
+
+### IDE Generation
+
+Compile `IDE-generator.cpp` to produce `IDE-generator` and run:
+
+```
+IDE-generator HT-instructions.txt
+```
+
+This will generate `IDE.html`, providing an IDE with features like syntax highlighting, code completion, and formatting options.
 
 ## Note
+
 This project is still in development. More features will be added soon, including a website for easy instruction file generation and documentation.
