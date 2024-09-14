@@ -80,8 +80,8 @@ useSemicolon: Toggle for using semicolons at the end of statements.
 useParentheses: if off, there's no need to use parentheses where necessary, but you still must use them in some places.
 usePythonicColonSyntax: Enables Python-style colon syntax for defining code blocks.
 forLoopLang: Choose the language for the style of the for loop.
-useInJavaScriptAlwaysUseVar: You dont have to declere variables in js now all of them will start whit var varName...
-useJavaScriptInAfullHTMLfile: It wraps the js cdoe in a full index.html file
+useInJavaScriptAlwaysUseVar: You dont have to declere variables in js now all of them will start whit var var varName...
+useJavaScriptInAfullHTMLfile: It wraps the js code in a full index.html file
 useJavaScriptAmainFuncDef: The useJavaScriptAmainFuncDef option controls whether an async function is used as the main function and where it is placed in the code. If this option is set to any value other than "off," you must specify the syntax for the main function. This syntax is simply a label, marking the start of the main function. There’s no need to add {} brackets since it’s just a label. If you enable this option but don't explicitly place the main function label anywhere in the code, it will automatically be defined at the top. This allows you to define other functions at the top of your script or within the main function itself.
 
 Anything else is built-in functions.
