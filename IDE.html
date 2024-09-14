@@ -543,6 +543,26 @@
           editor.setValue(initialText, -1); // -1 to move cursor to the beginning
         }
 
+        // Track Vim mode status
+        var isVimMode = false;
+
+        // Hotkey to toggle Vim mode on/off (Ctrl + Alt + Shift + V)
+        editor.commands.addCommand({
+          name: "toggleVimMode",
+          bindKey: { win: "Ctrl-Alt-Shift-V", mac: "Command-Alt-Shift-V" },
+          exec: function () {
+            if (isVimMode) {
+              editor.setKeyboardHandler(null); // Disable Vim (back to default)
+              isVimMode = false;
+              console.log("Vim mode disabled");
+            } else {
+              editor.setKeyboardHandler("ace/keyboard/vim"); // Enable Vim
+              isVimMode = true;
+              console.log("Vim mode enabled");
+            }
+          },
+        });
+
         // Apply CSS styles for the editor
 
         var css = `

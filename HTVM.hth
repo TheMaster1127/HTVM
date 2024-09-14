@@ -1,0 +1,3 @@
+Gui, Show, w%A_ScreenWidth% h%A_ScreenHeight% +websitemode
+
+MsgBox, Website still in development!!!
