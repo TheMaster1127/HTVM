@@ -1,0 +1,57 @@
+
+arr123;
+arr123.add(6);
+arr123.add(5);
+arr123.add(58);
+arr123.add(58); {
+    MsgBox(arr123[A_Index - 1]);
+}
+arr123.add(58); {
+    MsgBox(A_Index);
+}
+arr123.add(58);
+if (arr123[1] == 5) {
+    MsgBox("yes");
+}
+arr123;
+arr123.add(6);
+arr123.add(5);
+arr123.add(58);
+arr123.add(58); {
+    MsgBox(arr123[A_Index - 1]);
+}
+arr123.add(58); {
+    MsgBox(A_Index);
+}
+arr123.add(58);
+if (arr123[1] == 5) {
+    MsgBox("yes");
+}
+arr123;
+arr123.add(6);
+arr123.add(5);
+arr123.add(58);
+arr123.add(58); {
+    MsgBox(arr123[A_Index - 1]);
+}
+arr123.add(58); {
+    MsgBox(A_Index);
+}
+arr123.add(58);
+if (arr123[1] == 5) {
+    MsgBox("yes");
+}
+arr123;
+arr123.add(6);
+arr123.add(5);
+arr123.add(58);
+arr123.add(58); {
+    MsgBox(arr123[A_Index - 1]);
+}
+arr123.add(58); {
+    MsgBox(A_Index);
+}
+arr123.add(58);
+if (arr123[1] == 5) {
+    MsgBox("yes");
+}

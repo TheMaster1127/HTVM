@@ -400,6 +400,18 @@
       }
 
 
+      async function ParseInt(num) {
+        if (num === null) {
+          return null;
+        }
+
+        num = num.trim();
+        num++;
+        num--;
+
+        return num;
+      }
+
       function StrReplace(originalString, find, replaceWith) {
         // Check if originalString is a string
         if (typeof originalString !== "string") {
@@ -414,8 +426,93 @@
       }
 
 
+      // Custom Mod function
+      function Mod(dividend, divisor) {
+        return dividend % divisor;
+      }
+
+
+// Function to trim specified number of characters from the left side of a string
+function StringTrimLeft(input, numChars) {
+  if (typeof input === 'string' && typeof numChars === 'number' && numChars >= 0) {
+    return input.length > numChars ? input.substring(numChars) : '';
+  } else {
+    console.error("Invalid input provided.");
+    return input; // Return original input if trimming is not possible
+  }
+}
+
+
       function isMobileDevice() {
         return /Mobi|Android/i.test(navigator.userAgent);
+      }
+
+
+      function GuiControl(action, id, param1, param2, param3, param4) {
+        const element = document.getElementById(id);
+        if (element) {
+          // Handle DOM elements
+          if (action === "move") {
+            // Set position and size
+            element.style.left = param1 + "px";
+            element.style.top = param2 + "px";
+            element.style.width = param3 + "px";
+            element.style.height = param4 + "px";
+          } else if (action === "focus" && (element instanceof HTMLInputElement || element instanceof HTMLElement)) {
+            // Focus on the element
+            element.focus();
+          } else if (action === "text") {
+            // Set new text content
+            element.textContent = param1;
+          } else if (action === "hide") {
+            // Hide the element
+            element.style.display = "none";
+          } else if (action === "show") {
+            // Show the element
+            element.style.display = "";
+          } else if (action === "enable") {
+            // Enable the element
+            element.disabled = false;
+          } else if (action === "disable") {
+            // Disable the element
+            element.disabled = true;
+          } else if (action === "font") {
+            // Set font size
+            element.style.fontSize = param1 + "px";
+          } else if (action === "destroy") {
+      	    // Remove the element from the DOM
+    	    element.parentNode.removeChild(element);
+    	  } else if (action === "color") {
+            // Set color
+            element.style.color = param1;
+          } else if (action === "picture") {
+            // Change the image source
+            if (element instanceof HTMLImageElement) {
+              element.src = param1;
+            } else {
+              console.error("Element is not an <img> tag, cannot change picture.");
+            }
+          } else if (action === "textide") {
+            // Set value for Ace editor
+            var editor = ace.edit(id); // Access the Ace editor instance using its ID
+            if (editor && param1) {
+              editor.session.setValue(param1);
+            } else {
+              console.error("Element is not an Ace editor or parameter is missing.");
+            }
+          }
+        } else {
+          // Handle canvas or non-existing element
+          if (action === "move") {
+            // Update position and size of the rectangle
+            updateRectangle(id, param1, param2, param3, param4);
+            redrawCanvas(); // Redraw the canvas with updated rectangles
+          } else if (action === "color") {
+            // Update color of the rectangle
+            updateRectangleColor(id, param1);
+            redrawCanvas(); // Redraw the canvas with updated rectangles
+          }
+        }
       }
 
 
@@ -440,6 +537,83 @@
         // Remove the anchor element
         document.body.removeChild(anchor);
       }
+
+
+// Define the StoreLocally function with embedded getLocalStorageUsagePercentage logic
+function StoreLocally(operation, saveLocation, data) {
+    if (operation === "s") {
+        // Save data to local storage under specified saveLocation
+        localStorage.setItem(saveLocation, String(data));
+        return true; // Indicate success
+    } else if (operation === "d") {
+        // Delete data from local storage under specified saveLocation
+        localStorage.removeItem(saveLocation);
+        return true; // Indicate success
+    } else if (operation === "r") {
+        // Retrieve data from local storage under specified saveLocation
+        return localStorage.getItem(saveLocation) || null; // Return stored data or null if not found
+    } else if (operation === "dALL") {
+        // Delete all data from local storage (clear all keys)
+        localStorage.clear();
+        return true; // Indicate success
+    } else if (operation === "e") {
+        // Check if local storage is empty (no keys present)
+        return localStorage.length === 0; // Return true if empty, false if not empty
+    } else if (operation === "u") {
+        // Embed the logic of getLocalStorageUsagePercentage function
+
+        var store = localStorage;
+        var testKey = "$_test";
+
+        // Function to test storage capacity
+        function testCapacity(size) {
+            try {
+                store.setItem(testKey, new Array(size + 1).join('0'));
+                store.removeItem(testKey);
+                return true;
+            } catch (ex) {
+                return false;
+            }
+        }
+
+        // Binary search to find maximum size
+        var low = 0,
+            high = 1,
+            upperLimit = (1024 * 1024 * 1024) / 2; // Default upper limit (1 GB)
+
+        while (testCapacity(high) && high < upperLimit) {
+            low = high;
+            high *= 2;
+        }
+
+        // Refine the estimate using binary search
+        var precision = 8; // Number of iterations for precision
+        while (precision--) {
+            var mid = (low + high) / 2;
+            if (testCapacity(mid)) {
+                low = mid;
+            } else {
+                high = mid;
+            }
+        }
+
+        var totalBytes = Math.ceil(high) * 2; // Total storage limit in bytes
+
+        // Calculate used storage size directly
+        var usedBytes = Object.keys(store).reduce(function(total, key) {
+            return total + key.length + store[key].length * 2;
+        }, 0);
+
+        // Calculate percentage used
+        var usedPercentage = (usedBytes / totalBytes) * 100;
+        usedPercentage = usedPercentage.toFixed(2); // Round to 2 decimal places
+
+        return usedPercentage;
+    } else {
+        console.error("Invalid operation specified.");
+        return false; // Indicate failure
+    }
+}
 
 
       // Function to create a toggle switch with width and height
@@ -600,6 +774,10 @@ function str(value) {
 
 
 
+var Gui2 = {}
+Gui2 = document.createElement("div")
+Gui2.id = "Gui2"
+
 var Gui1 = {}
 Gui1 = document.createElement("div")
 Gui1.id = "Gui1"
@@ -612,7 +790,140 @@ Gui1.id = "Gui1"
 let variables = {
 null: null,
 };
-
+await showCustomMessageBox({}," ", "Website is still in development!!!", 0, 0)
+variables.AScreenWidth = BuildInVars("A_ScreenWidth") - 20
+variables.AScreenHeight = BuildInVars("A_ScreenHeight") - 20
+Gui2.style.position = "absolute";
+Gui2.style.width = "" + variables.AScreenWidth + "px"; // Set the width
+Gui2.style.height = "" + variables.AScreenHeight + "px"; // Set the height
+Gui2.style.background = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
+Gui2.style.backgroundColor = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
+Gui2.style.color = "white";
+Gui2.style.fontSize = "15px";
+Gui2.style.borderRadius = "0px";
+Gui2.style.padding = "0px";
+Gui2.style.border = "2px solid white";
+Gui2.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui2.style.zIndex = "20";
+// Calculate center position
+Gui2.style.left = (window.innerWidth - parseInt(Gui2.style.width)) / 2 + "px";
+Gui2.style.top = (window.innerHeight - parseInt(Gui2.style.height)) / 2 + "px";
+document.body.appendChild(Gui2); // Append the GUI window to the body
+Gui2.style.display = "block";
+Gui2NewProject = document.createElement("button");
+Gui2NewProject.id = "Gui2" + "NewProject"; // Set ID for referencing
+Gui2NewProject.textContent = "Make a new project";
+Gui2NewProject.style.fontSize = "15px"; // Set font size
+Gui2NewProject.style.position = "absolute"; // Set position to absolute
+Gui2NewProject.style.left = "10px"; // Set initial x position
+Gui2NewProject.style.top = "10px"; // Set initial y position
+Gui2NewProject.style.width = "140px"; // Set width
+Gui2NewProject.style.height = "40px"; // Set height
+Gui2NewProject.style.cursor = "pointer"; // Change cursor on hover
+Gui2NewProject.style.border = "";
+Gui2NewProject.style.background = "";
+Gui2NewProject.style.backgroundColor = "";
+Gui2NewProject.style.borderRadius = "";
+Gui2NewProject.style.color = "";
+Gui2NewProject.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui2NewProject.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
+  ButtonProjects(A_GuiControl);
+};
+Gui2.appendChild(Gui2NewProject);
+variables.currentProjectNum = 1
+variables.HTVM_HowManyProjects = await ParseInt (await StoreLocally ("r" , "HTVM-HowManyProjects") )
+if (( variables.HTVM_HowManyProjects == variables.null ))
+{
+variables.HTVM_HowManyProjects = 0
+}
+variables.HTVM_HowManyProjectsButtonY = 60
+for (/* Normal Loop */ variables.A_Index1 = 1; variables.A_Index1 <= variables.HTVM_HowManyProjects; variables.A_Index1++)
+{
+variables.projectName = await StoreLocally ("r" , "HTVM-ProjectName" + variables.A_Index1 )
+variables.AIndex = "a" + variables.A_Index1
+if (( await Mod (variables.A_Index1 , 2) ))
+{
+Gui2[variables.AIndex] = document.createElement("button");
+Gui2[variables.AIndex].id = "Gui2" + "" + [variables.AIndex] + ""; // Set ID for referencing
+Gui2[variables.AIndex].textContent = "" + variables.projectName + "";
+Gui2[variables.AIndex].style.fontSize = "15px"; // Set font size
+Gui2[variables.AIndex].style.position = "absolute"; // Set position to absolute
+Gui2[variables.AIndex].style.left = "10px"; // Set initial x position
+Gui2[variables.AIndex].style.top = "" + variables.HTVM_HowManyProjectsButtonY + "px"; // Set initial y position
+Gui2[variables.AIndex].style.width = "140px"; // Set width
+Gui2[variables.AIndex].style.height = "40px"; // Set height
+Gui2[variables.AIndex].style.cursor = "pointer"; // Change cursor on hover
+Gui2[variables.AIndex].style.border = "";
+Gui2[variables.AIndex].style.background = "";
+Gui2[variables.AIndex].style.backgroundColor = "";
+Gui2[variables.AIndex].style.borderRadius = "";
+Gui2[variables.AIndex].style.color = "";
+Gui2[variables.AIndex].style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui2[variables.AIndex].onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
+  ButtonProjects(A_GuiControl);
+};
+Gui2.appendChild(Gui2[variables.AIndex]);
+}
+else
+{
+Gui2[variables.AIndex] = document.createElement("button");
+Gui2[variables.AIndex].id = "Gui2" + "" + [variables.AIndex] + ""; // Set ID for referencing
+Gui2[variables.AIndex].textContent = "" + variables.projectName + "";
+Gui2[variables.AIndex].style.fontSize = "15px"; // Set font size
+Gui2[variables.AIndex].style.position = "absolute"; // Set position to absolute
+Gui2[variables.AIndex].style.left = "160px"; // Set initial x position
+Gui2[variables.AIndex].style.top = "" + variables.HTVM_HowManyProjectsButtonY + "px"; // Set initial y position
+Gui2[variables.AIndex].style.width = "140px"; // Set width
+Gui2[variables.AIndex].style.height = "40px"; // Set height
+Gui2[variables.AIndex].style.cursor = "pointer"; // Change cursor on hover
+Gui2[variables.AIndex].style.border = "";
+Gui2[variables.AIndex].style.background = "";
+Gui2[variables.AIndex].style.backgroundColor = "";
+Gui2[variables.AIndex].style.borderRadius = "";
+Gui2[variables.AIndex].style.color = "";
+Gui2[variables.AIndex].style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui2[variables.AIndex].onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
+  ButtonProjects(A_GuiControl);
+};
+Gui2.appendChild(Gui2[variables.AIndex]);
+variables.HTVM_HowManyProjectsButtonY = variables.HTVM_HowManyProjectsButtonY + 50
+}
+}
+return
+async function ButtonProjects(A_GuiControl)
+{
+if (( A_GuiControl == "NewProject" ))
+{
+variables.HTVM_HowManyProjects = await ParseInt (await StoreLocally ("r" , "HTVM-HowManyProjects") )
+if (( variables.HTVM_HowManyProjects == variables.null ))
+{
+variables.HTVM_HowManyProjects = 0
+}
+variables.nameYouChose = prompt('Choose a name for your lang');
+if (( variables.nameYouChose == variables.null ))
+{
+await showCustomMessageBox({}," ", "You canceled", 0, 0)
+return
+}
+await StoreLocally( "s" , "HTVM-ProjectName" + (variables.HTVM_HowManyProjects + 1) , variables.nameYouChose )
+await StoreLocally( "s" , "HTVM-HowManyProjects" , (variables.HTVM_HowManyProjects + 1) )
+variables.currentProjectNum = ( variables.HTVM_HowManyProjects + 1 )
+Gui2.style.display = "none";
+await main()
+}
+else
+{
+variables.AGuiControl = StringTrimLeft(A_GuiControl, 1)
+variables.currentProjectNum = variables.AGuiControl
+Gui2.style.display = "none";
+await main()
+}
+}
+async function main(A_GuiControl)
+{
 Gui1.style.position = "absolute";
 Gui1.style.width = window.innerWidth + "px"; // Set the width
 Gui1.style.height = "3000px"; // Set the height
@@ -629,11 +940,10 @@ Gui1.style.display = "block";
 document.documentElement.setAttribute("style", "padding: 0; margin: 0;");
 document.head.setAttribute("style", "padding: 0; margin: 0;");
 document.body.setAttribute("style", "overflow-x: hidden;padding: 0; margin: 0;");
-await showCustomMessageBox({}," ", "Website is still in development!!!", 0, 0)
 variables.allData = ""
-for (/* Normal Loop */ variables.A_Index1 = 1; variables.A_Index1 <= 86; variables.A_Index1++)
+for (/* Normal Loop */ variables.A_Index2 = 1; variables.A_Index2 <= 86; variables.A_Index2++)
 {
-variables["EditText" + variables.A_Index1] = ""
+variables["EditText" + variables.A_Index2] = ""
 }
 variables.EditText76 = "off"
 variables.EditText77 = "off"
@@ -654,14 +964,14 @@ variables.guiW = BuildInVars("A_ScreenWidth") - 110
 }
 variables.instructionDocumation = "lang to transpile to: Target programming language for transpilation.\nfile extention of the file: File extension for transpiled output files.\ncommands: List of supported operations or built-in functions.\nkeyWordINT: Defines an integer data type.\nkeyWordSTR: Defines a string data type.\nkeyWordBOOL: Defines a boolean data type.\nkeyWordFLOAT: Defines a floating data type.\nkeyWordINT8: Defines an 8-bit integer data type.\nkeyWordINT16: Defines a 16-bit integer data type.\nkeyWordINT32: Defines a 32-bit integer data type.\nkeyWordINT64: Defines a 64-bit integer data type.\nkeyWordIF: Used for conditional statements.\nkeyWordElseIf: Alternative condition in conditional statements.\nkeyWordElse: Defines a block of code for when no conditions are met.\nkeyWordWhileLoop: Defines a while loop.\nkeyWordForLoop: Defines a for loop.\nkeyWordLoopInfinite: Defines an infinite loop.\nkeyWordLoop: Defines a loop that iterates a specified number of times.\nkeyWordLoopParse: Defines a loop that parses through data or text.\nkeyWordContinue: Skips to the next iteration of the loop.\nkeyWordBreak: Exits a loop prematurely.\nkeyWordFunc: Defines a function or subroutine.\nkeyWordAwait: Await a func only in js.\nkeyWordVariablesAssignmentOperator: Operator for variable assignment.\nkeyWordConcatenationAssignmentOperator: Concatenates and assigns to a string variable.\nkeyWordAdditionAssignmentOperator: Adds to a numeric variable and assigns.\nkeyWordSubtractionAssignmentOperator: Subtracts from a numeric variable and assigns.\nkeyWordMultiplicationAssignmentOperator: Multiplies a numeric variable and assigns.\nkeyWordDivisionAssignmentOperator: Divides a numeric variable and assigns.\nkeyWordAdditionOperator: Adds two values or variables.\nkeyWordConcatenationOperator: Concatenates two strings or variables.\nkeyWordEqualOperator: Checks if two values or variables are equal.\nkeyWordNotOperator: Negates a boolean value or condition.\nkeyWordGreaterThanOperator: Checks if one value is greater than another.\nkeyWordLessThanOperator: Checks if one value is less than another.\nkeyWordGreaterThanOrEqualToOperator: Checks if one value is greater than or equal to another.\nkeyWordLessThanOrEqualToOperator: Checks if one value is less than or equal to another.\nkeyWordOrOperator: Combines two boolean conditions (true if either is true).\nkeyWordAndOperator: Combines two boolean conditions (true if both are true).\nkeyWordNotEqualToOperator: Checks if two values or variables are not equal.\nkeyWordTrue: Its the true boolean value.\nkeyWordFalse: Its the false boolean value.\nkeyWordSwitch: The switch statement is a type of selection control mechanism.\nkeyWordSwitchCase: The switch case is a type of selection control mechanism used within the switch statement.\nkeyWordSwitchDefault: The default case in a switch statement provides a fallback option when no case matches.\nkeyWordThrow: Used to raise an exception, signaling an error or special condition.\nkeyWordErrorMsg: Placeholder for a variable or method that stores or retrieves error messages.\nkeyWordTry: Block where code that might throw exceptions is placed; used for handling potential errors.\nkeyWordCatch: Block that handles exceptions thrown by the try block, allowing for error recovery.\nkeyWordFinally: Block that executes after try and catch, regardless of whether an exception was thrown or not. NOT SUPPORTED IN C++\nkeyWordArrayAppend: Method to add an element to the end of a collection (e.g., list or array).\nkeyWordArrayPop: Method to remove and return the last element of a collection (e.g., stack or list).\nkeyWordArraySize: Method that returns the number of elements in a collection (e.g., array, list, or vector).\nkeyWordArrayInsert: Method to add an element at a specific position in a collection (e.g., list or array).\nkeyWordArrayRemove: Method to remove an element from a collection by its value or index (e.g., list or array).\nkeyWordArrayIndexOf: Method that returns the index of the first occurrence of an element, or -1 if not found.\nkeyWordArrayDefinition: Defines an array data structure.\nkeyWordArrayOfIntegersDefinition: Defines an array of integers.\nkeyWordArrayOfStringsDefinition: Defines an array of strings.\nkeyWordArrayOfFloatingPointNumbersDefinition: Defines an array of floating-point numbers.\nkeyWordArrayOfBooleansDefinition: Defines an array of booleans.\nkeyWordJavaScriptVar: Use var for variable declarations ONLY in javascript.\nkeyWordJavaScriptLet: Use let for block-scoped variables ONLY in javascript.\nkeyWordJavaScriptConst: Use const for block-scoped, unchangeable variables ONLY in javascript.\nkeyWordReturnStatement: Returns a value from a function or exits a subroutine.\nkeyWordEnd: Indicates the end of a code block.\nkeyWordGlobal: Global in Python allows variables inside functions to be accessed and modified globally.\nkeyWordComment: Starts a single-line comment.\nkeyWordCommentOpenMultiLine: Opens a multiline comment.\nkeyWordCommentCloseMultiLine: Closes a multiline comment.\nkeyWordEscpaeChar: Escapes special characters in strings or identifiers.\nAHKlikeLoopsIndexedAt: Specifies the starting index for the AHK-like loop, such as 1-indexed, 0-indexed, or any custom value.\nkeyWordAIndex: Represents the current index of the loop. It can be customized based on the indexing method and renamed using configuration settings.\nkeyWordALoopField: Represents the current value or field in the loop. It can be renamed according to user preferences through configuration. \nkeyWordMainLabel: This is the main label where the main function will be inserted in the transpiled language.\nuseFuncKeyWord: If transpiling to JS or Python, you don't need to use the function keyword. Also, we must toggle useCurlyBraces to on.\nuseCurlyBraces: Toggle for using curly braces instead of indentation for code blocks.\nuseEnd: Enable custom end-of-block keyword (e.g., 'end', 'finish', etc.).\nuseSemicolon: Toggle for using semicolons at the end of statements.\nuseParentheses: if off, there's no need to use parentheses where necessary, but you still must use them in some places.\nusePythonicColonSyntax: Enables Python-style colon syntax for defining code blocks.\nforLoopLang: Choose the language for the style of the for loop.\nuseInJavaScriptAlwaysUseVar: You dont have to declere variables in js now all of them will start whit var var varName...\nuseJavaScriptInAfullHTMLfile: It wraps the js code in a full index.html file\nuseJavaScriptAmainFuncDef: The useJavaScriptAmainFuncDef option controls whether an async function is used as the main function and where it is placed in the code. If this option is set to any value other than " + await Chr (34) + "off," + await Chr (34) + " you must specify the syntax for the main function. This syntax is simply a label, marking the start of the main function. There’s no need to add {} brackets since it’s just a label. If you enable this option but don't explicitly place the main function label anywhere in the code, it will automatically be defined at the top. This allows you to define other functions at the top of your script or within the main function itself."
 variables.guiEditY = 10
-var items2 = LoopParseFunc(variables.instructionDocumation, "\n", "\r");
-for (/* Loop Parse */ let A_Index2 = 1; A_Index2 <= items2.length; A_Index2++)
+var items3 = LoopParseFunc(variables.instructionDocumation, "\n", "\r");
+for (/* Loop Parse */ let A_Index3 = 1; A_Index3 <= items3.length; A_Index3++)
 {
-variables.A_Index2 = A_Index2
-variables.A_LoopField2 = items2[A_Index2 - 1];
-variables.guiEditText = await StrReplace (await Trim (await StrSplit (variables.A_LoopField2 , ":" , 1) ) , "keyWord" , "" )
-variables.guiEditTextV = await Trim (variables.A_LoopField2 )
-variables.guiEditTextG = "Edit" + variables.A_Index2
+variables.A_Index3 = A_Index3
+variables.A_LoopField3 = items3[A_Index3 - 1];
+variables.guiEditText = await StrReplace (await Trim (await StrSplit (variables.A_LoopField3 , ":" , 1) ) , "keyWord" , "" )
+variables.guiEditTextV = await Trim (variables.A_LoopField3 )
+variables.guiEditTextG = "Edit" + variables.A_Index3
 if (( await InStr (variables.guiEditText , "use") ))
 {
 //MsgBox, % guiEditText
@@ -2793,6 +3103,12 @@ A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
 Gui1.appendChild(Gui1[variables.guiEditTextV]);
 variables.guiEditY = variables.guiEditY + 30
 }
+for (/* Normal Loop */ variables.A_Index4 = 1; variables.A_Index4 <= 86; variables.A_Index4++)
+{
+variables.editTextTemp = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-" + variables.A_Index4 )
+variables.editTextTemp1 = "Edit" + variables.A_Index4
+GuiControl("text", "Gui1" + variables.editTextTemp1, variables.editTextTemp);
+}
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2825,7 +3141,7 @@ A_GuiControl = event.target.textContent
   BuildButton(A_GuiControl);
 };
 Gui1.appendChild(Gui1Button2);
-return
+}
 async function ButtonINFO(A_GuiControl)
 {
 await showCustomMessageBox({}," ", A_GuiControl, 0, 0.)
@@ -2842,23 +3158,28 @@ await showCustomMessageBox({}," ", A_GuiControl, 0, 0.)
 async function Edit1(A_GuiControl)
 {
 variables.EditText1 = A_GuiControl
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-1" , variables.EditText1 )
 return
 }
 async function Edit2(A_GuiControl)
 {
 variables.EditText2 = A_GuiControl
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-2" , variables.EditText2 )
 }
 async function Edit3(A_GuiControl)
 {
 variables.EditText3 = A_GuiControl
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-3" , variables.EditText3 )
 }
 async function Edit4(A_GuiControl)
 {
 variables.EditText4 = A_GuiControl
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-4" , variables.EditText4 )
 }
 async function Edit5(A_GuiControl)
 {
 variables.EditText5 = A_GuiControl
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-5" , variables.EditText5 )
 }
 async function Edit6(A_GuiControl)
 {
@@ -3179,6 +3500,14 @@ variables.EditText78 = "off"
 async function Edit79(A_GuiControl)
 {
 variables.EditText79 = A_GuiControl
+if (( variables.EditText79 == "1" ))
+{
+variables.EditText79 = "on"
+}
+else
+{
+variables.EditText79 = "off"
+}
 }
 async function Edit80(A_GuiControl)
 {
@@ -3255,9 +3584,9 @@ await showCustomMessageBox({},"HT-instructions.txt", "Download the language you 
 if (result === "OK")
 {
 variables.allData = ""
-for (/* Normal Loop */ variables.A_Index3 = 1; variables.A_Index3 <= 86; variables.A_Index3++)
+for (/* Normal Loop */ variables.A_Index5 = 1; variables.A_Index5 <= 86; variables.A_Index5++)
 {
-variables.allData += variables["EditText" + variables.A_Index3] + "\n"
+variables.allData += variables["EditText" + variables.A_Index5] + "\n"
 }
 FileAppend("" + variables.allData + "", "HT-instructions.txt")
 } // end of ifmsgbox

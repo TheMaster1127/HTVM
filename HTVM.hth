@@ -1,5 +1,70 @@
-Gui, Show, w%A_ScreenWidth% h3000 +websitemode
 MsgBox, Website is still in development!!!
+AScreenWidth := A_ScreenWidth - 20
+AScreenHeight := A_ScreenHeight - 20
+Gui 2: Show, w%AScreenWidth% h%AScreenHeight%
+Gui 2: Add, Button, x10 y10 w140 h40 gButtonProjects vNewProject, Make a new project
+
+currentProjectNum := 1
+
+HTVM_HowManyProjects := ParseInt(StoreLocally("r", "HTVM-HowManyProjects"))
+if (HTVM_HowManyProjects = null)
+{
+
+HTVM_HowManyProjects := 0
+}
+HTVM_HowManyProjectsButtonY := 60
+Loop, % HTVM_HowManyProjects
+{
+projectName := StoreLocally("r", "HTVM-ProjectName" . A_Index)
+AIndex := "a" . A_Index
+if (Mod(A_Index, 2))
+{
+Gui 2: Add, Button, x10 y%HTVM_HowManyProjectsButtonY% v%AIndex% w140 h40 gButtonProjects, %projectName%
+}
+else
+{
+Gui 2: Add, Button, x160 y%HTVM_HowManyProjectsButtonY% v%AIndex% w140 h40 gButtonProjects, %projectName%
+HTVM_HowManyProjectsButtonY := HTVM_HowManyProjectsButtonY + 50
+}
+
+
+}
+return
+
+ButtonProjects:
+if (A_GuiControl = "NewProject")
+{
+HTVM_HowManyProjects := ParseInt(StoreLocally("r", "HTVM-HowManyProjects"))
+if (HTVM_HowManyProjects = null)
+{
+HTVM_HowManyProjects := 0
+}
+InputBox, nameYouChose, Choose a name for your lang
+if (nameYouChose = null)
+{
+MsgBox, You canceled
+return
+}
+StoreLocally("s", "HTVM-ProjectName" . (HTVM_HowManyProjects + 1), nameYouChose)
+StoreLocally("s", "HTVM-HowManyProjects", (HTVM_HowManyProjects + 1))
+currentProjectNum := (HTVM_HowManyProjects + 1)
+Gui 2: Hide
+gosub, main
+}
+else
+{
+StringTrimLeft, AGuiControl, A_GuiControl, 1
+currentProjectNum := AGuiControl
+Gui 2: Hide
+gosub, main
+}
+Return
+
+
+main:
+Gui, Show, w%A_ScreenWidth% h3000 +websitemode
+
+
 allData := ""
 
 Loop, 86
@@ -16,6 +81,10 @@ EditText81 := "off"
 EditText83 := "off"
 EditText84 := "off"
 EditText85 := "off"
+
+
+
+
 
 
 if (isMobileDevice())
@@ -521,6 +590,15 @@ Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO 
 
 guiEditY := guiEditY + 30
 }
+
+Loop, 86
+{
+editTextTemp := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-" . A_Index)
+editTextTemp1 := "Edit" . A_Index
+GuiControl, Text, %editTextTemp1%, %editTextTemp%
+
+}
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -535,7 +613,7 @@ Gui, Add, DropDownList, x5 y%guiEditY% gMyDropDown, Option1|Option2|Option3|Opti
 }
 
 Gui, Add, Button, x5 y2900 w140 h40 gBuildButton, Build
-return
+Return
 
 ButtonINFO:
 MsgBox, % A_GuiControl
@@ -547,6 +625,7 @@ MsgBox, % A_GuiControl
 Return
 
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -554,23 +633,28 @@ Return
 
 Edit1:
 EditText1 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-1", EditText1)
 return
 Return
 
 Edit2:
 EditText2 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-2", EditText2)
 Return
 
 Edit3:
 EditText3 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-3", EditText3)
 Return
 
 Edit4:
 EditText4 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-4", EditText4)
 Return
 
 Edit5:
 EditText5 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-5", EditText5)
 Return
 
 Edit6:
@@ -891,6 +975,14 @@ Return
 
 Edit79:
 EditText79 := A_GuiControl
+if (EditText79 = "1")
+{
+EditText79 := "on"
+}
+else
+{
+EditText79 := "off"
+}
 Return
 
 Edit80:
