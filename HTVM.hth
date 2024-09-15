@@ -111,39 +111,39 @@ if (InStr(guiEditText, "use"))
 
 if (Trim(guiEditText) = "useFuncKeyWord")
 {
-Gui, Add, Toggle, x5 y%guiEditY% gEdit76 vS1 off, useFuncKeyWord
+Gui, Add, Toggle, x5 y%guiEditY% gEdit76 vEdit76 off, useFuncKeyWord
 }
 if (Trim(guiEditText) = "useCurlyBraces")
 {
-Gui, Add, Toggle, x5 y%guiEditY% gEdit77 vS1 off, useCurlyBraces
+Gui, Add, Toggle, x5 y%guiEditY% gEdit77 vEdit77 off, useCurlyBraces
 }
 if (Trim(guiEditText) = "useEnd")
 {
-Gui, Add, Toggle, x5 y%guiEditY% gEdit78 vS1 off, useEnd
+Gui, Add, Toggle, x5 y%guiEditY% gEdit78 vEdit78 off, useEnd
 }
 if (Trim(guiEditText) = "useSemicolon")
 {
-Gui, Add, Toggle, x5 y%guiEditY% gEdit79 vS1 off, useSemicolon
+Gui, Add, Toggle, x5 y%guiEditY% gEdit79 vEdit79 off, useSemicolon
 }
 if (Trim(guiEditText) = "useParentheses")
 {
-Gui, Add, Toggle, x5 y%guiEditY% gEdit80 vS1 off, useParentheses
+Gui, Add, Toggle, x5 y%guiEditY% gEdit80 vEdit80 off, useParentheses
 }
 if (Trim(guiEditText) = "usePythonicColonSyntax")
 {
-Gui, Add, Toggle, x5 y%guiEditY% gEdit81 vS1 off, usePythonicColonSyntax
+Gui, Add, Toggle, x5 y%guiEditY% gEdit81 vEdit81 off, usePythonicColonSyntax
 }
 if (Trim(guiEditText) = "useInJavaScriptAlwaysUseVar")
 {
-Gui, Add, Toggle, x5 y%guiEditY% gEdit83 vS1 off, useInJavaScriptAlwaysUseVar
+Gui, Add, Toggle, x5 y%guiEditY% gEdit83 vEdit83 off, useInJavaScriptAlwaysUseVar
 }
 if (Trim(guiEditText) = "useJavaScriptInAfullHTMLfile")
 {
-Gui, Add, Toggle, x5 y%guiEditY% gEdit84 vS1 off, useJavaScriptInAfullHTMLfile
+Gui, Add, Toggle, x5 y%guiEditY% gEdit84 vEdit84 off, useJavaScriptInAfullHTMLfile
 }
 if (Trim(guiEditText) = "useJavaScriptAmainFuncDef")
 {
-Gui, Add, Toggle, x5 y%guiEditY% gEdit85 vS1 off, useJavaScriptAmainFuncDef
+Gui, Add, Toggle, x5 y%guiEditY% gEdit85 vEdit85 off, useJavaScriptAmainFuncDef
 }
 
 
@@ -595,8 +595,76 @@ Loop, 86
 {
 editTextTemp := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-" . A_Index)
 editTextTemp1 := "Edit" . A_Index
-GuiControl, Text, %editTextTemp1%, %editTextTemp%
 
+
+if (A_Index = 85)
+{
+if (editTextTemp = "on")
+{
+document.getElementById('Gui1Edit85').click()
+}
+}
+else if (A_Index = 84)
+{
+if (editTextTemp = "on")
+{
+document.getElementById('Gui1Edit84').click()
+}
+}
+else if (A_Index = 83)
+{
+if (editTextTemp = "on")
+{
+document.getElementById('Gui1Edit83').click()
+}
+}
+else if (A_Index = 81)
+{
+if (editTextTemp = "on")
+{
+document.getElementById('Gui1Edit81').click()
+}
+}
+else if (A_Index = 80)
+{
+if (editTextTemp = "on")
+{
+document.getElementById('Gui1Edit80').click()
+}
+}
+else if (A_Index = 79)
+{
+if (editTextTemp = "on")
+{
+document.getElementById('Gui1Edit79').click()
+}
+}
+else if (A_Index = 78)
+{
+if (editTextTemp = "on")
+{
+document.getElementById('Gui1Edit78').click()
+}
+}
+else if (A_Index = 77)
+{
+if (editTextTemp = "on")
+{
+document.getElementById('Gui1Edit77').click()
+}
+}
+else if (A_Index = 76)
+{
+if (editTextTemp = "on")
+{
+document.getElementById('Gui1Edit76').click()
+}
+}
+else
+{
+EditText%A_Index% := editTextTemp
+GuiControl, Text, %editTextTemp1%, %editTextTemp%
+}
 }
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -659,282 +727,352 @@ Return
 
 Edit6:
 EditText6 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-6", EditText6)
 Return
 
 Edit7:
 EditText7 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-7", EditText7)
 Return
 
 Edit8:
 EditText8 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-8", EditText8)
 Return
 
 Edit9:
 EditText9 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-9", EditText9)
 Return
 
 Edit10:
 EditText10 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-10", EditText10)
 Return
 
 Edit11:
 EditText11 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-11", EditText11)
 Return
 
 Edit12:
 EditText12 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-12", EditText12)
 Return
 
 Edit13:
 EditText13 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-13", EditText13)
 Return
 
 Edit14:
 EditText14 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-14", EditText14)
 Return
 
 Edit15:
 EditText15 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-15", EditText15)
 Return
 
 Edit16:
 EditText16 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-16", EditText16)
 Return
 
 Edit17:
 EditText17 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-17", EditText17)
 Return
 
 Edit18:
 EditText18 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-18", EditText18)
 Return
 
 Edit19:
 EditText19 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-19", EditText19)
 Return
 
 Edit20:
 EditText20 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-20", EditText20)
 Return
 
 Edit21:
 EditText21 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-21", EditText21)
 Return
 
 Edit22:
 EditText22 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-22", EditText22)
 Return
 
 Edit23:
 EditText23 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-23", EditText23)
 Return
 
 Edit24:
 EditText24 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-24", EditText24)
 Return
 
 Edit25:
 EditText25 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-25", EditText25)
 Return
 
 Edit26:
 EditText26 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-26", EditText26)
 Return
 
 Edit27:
 EditText27 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-27", EditText27)
 Return
 
 Edit28:
 EditText28 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-28", EditText28)
 Return
 
 Edit29:
 EditText29 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-29", EditText29)
 Return
 
 Edit30:
 EditText30 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-30", EditText30)
 Return
 
 Edit31:
 EditText31 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-31", EditText31)
 Return
 
 Edit32:
 EditText32 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-32", EditText32)
 Return
 
 Edit33:
 EditText33 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-33", EditText33)
 Return
 
 Edit34:
 EditText34 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-34", EditText34)
 Return
 
 Edit35:
 EditText35 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-35", EditText35)
 Return
 
 Edit36:
 EditText36 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-36", EditText36)
 Return
 
 Edit37:
 EditText37 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-37", EditText37)
 Return
 
 Edit38:
 EditText38 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-38", EditText38)
 Return
 
 Edit39:
 EditText39 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-39", EditText39)
 Return
 
 Edit40:
 EditText40 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-40", EditText40)
 Return
 
 Edit41:
 EditText41 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-41", EditText41)
 Return
 
 Edit42:
 EditText42 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-42", EditText42)
 Return
 
 Edit43:
 EditText43 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-43", EditText43)
 Return
 
 Edit44:
 EditText44 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-44", EditText44)
 Return
 
 Edit45:
 EditText45 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-45", EditText45)
 Return
 
 Edit46:
 EditText46 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-46", EditText46)
 Return
 
 Edit47:
 EditText47 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-47", EditText47)
 Return
 
 Edit48:
 EditText48 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-48", EditText48)
 Return
 
 Edit49:
 EditText49 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-49", EditText49)
 Return
 
 Edit50:
 EditText50 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-50", EditText50)
 Return
 
 Edit51:
 EditText51 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-51", EditText51)
 Return
 
 Edit52:
 EditText52 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-52", EditText52)
 Return
 
 Edit53:
 EditText53 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-53", EditText53)
 Return
 
 Edit54:
 EditText54 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-54", EditText54)
 Return
 
 Edit55:
 EditText55 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-55", EditText55)
 Return
 
 Edit56:
 EditText56 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-56", EditText56)
 Return
 
 Edit57:
 EditText57 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-57", EditText57)
 Return
 
 Edit58:
 EditText58 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-58", EditText58)
 Return
 
 Edit59:
 EditText59 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-59", EditText59)
 Return
 
 Edit60:
 EditText60 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-60", EditText60)
 Return
 
 Edit61:
 EditText61 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-61", EditText61)
 Return
 
 Edit62:
 EditText62 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-62", EditText62)
 Return
 
 Edit63:
 EditText63 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-63", EditText63)
 Return
 
 Edit64:
 EditText64 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-64", EditText64)
 Return
 
 Edit65:
 EditText65 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-65", EditText65)
 Return
 
 Edit66:
 EditText66 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-66", EditText66)
 Return
 
 Edit67:
 EditText67 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-67", EditText67)
 Return
 
 Edit68:
 EditText68 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-68", EditText68)
 Return
 
 Edit69:
 EditText69 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-69", EditText69)
 Return
 
 Edit70:
 EditText70 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-70", EditText70)
 Return
 
 Edit71:
 EditText71 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-71", EditText71)
 Return
 
 Edit72:
 EditText72 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-72", EditText72)
 Return
 
 Edit73:
 EditText73 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-73", EditText73)
 Return
 
 Edit74:
 EditText74 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-74", EditText74)
 Return
 
 Edit75:
 EditText75 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-75", EditText75)
 Return
 
 Edit76:
@@ -947,6 +1085,7 @@ else
 {
 EditText76 := "off"
 }
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-76", EditText76)
 Return
 
 Edit77:
@@ -959,6 +1098,7 @@ else
 {
 EditText77 := "off"
 }
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-77", EditText77)
 Return
 
 Edit78:
@@ -971,6 +1111,7 @@ else
 {
 EditText78 := "off"
 }
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-78", EditText78)
 Return
 
 Edit79:
@@ -983,6 +1124,7 @@ else
 {
 EditText79 := "off"
 }
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-79", EditText79)
 Return
 
 Edit80:
@@ -995,6 +1137,7 @@ else
 {
 EditText80 := "off"
 }
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-80", EditText80)
 Return
 
 Edit81:
@@ -1007,10 +1150,12 @@ else
 {
 EditText81 := "off"
 }
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-81", EditText81)
 Return
 
 Edit82:
 EditText82 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-82", EditText82)
 Return
 
 Edit83:
@@ -1023,6 +1168,7 @@ else
 {
 EditText83 := "off"
 }
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-83", EditText83)
 Return
 
 Edit84:
@@ -1035,6 +1181,7 @@ else
 {
 EditText84 := "off"
 }
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-84", EditText84)
 Return
 
 Edit85:
@@ -1047,10 +1194,12 @@ else
 {
 EditText85 := "off"
 }
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-85", EditText85)
 Return
 
 Edit86:
 EditText86 := A_GuiControl
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-86", EditText86)
 Return
 
 
