@@ -25,6 +25,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     
+<!-- Include Ace Editor CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.2/ace.js" integrity="sha512-JLIRlxWh96sND3uUgI2RVHZJpgkWHg3+xoUY8XkgTPKpqRaqdk7zD/ck/XHXFSMW84o6GrP67dlqN3b98NB/yA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-language_tools.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
     
 
@@ -758,6 +762,214 @@ function LoopParseFunc(varString, delimiter1="", delimiter2="") {
 }
 
 
+      function AddIDE(parent, xPos, yPos, w, h, id, font = 18, langName = "autohotkey", onChangeFunc, initialText = "") {
+        var langTools = ace.require("ace/ext/language_tools");
+
+        let Completer = {
+          getCompletions: function (editor, session, pos, prefix, callback) {
+
+            if (prefix.startsWith("p")) {
+                // Continue executing if the prefix starts with "p"
+            } else {
+                // Return early if the prefix does not start with "p" and its length is not greater than 1
+                if (prefix.length <= 1) {
+                    callback(null, []); // Return an empty array of completions
+                    return;
+                }
+            }
+
+            let prefixLower = prefix.toLowerCase();
+            let filteredTables = hth.filter(function (table) {
+              return table.name.toLowerCase().startsWith(prefixLower);
+            });
+            // filteredTables.sort(function(a, b) {
+            //     return a.name.length - b.name.length;
+            // });
+            let limitedTables = filteredTables; //.slice(-10);
+
+            callback(
+              null,
+              limitedTables.map(function (table) {
+                return {
+                  caption: table.name,
+                  value: table.name,
+                };
+              }),
+            );
+          },
+        };
+        let hth = [{ name: "#AllowSameLineComments" }, { name: "#ClipboardTimeout" }, { name: "#CommentFlag" }, { name: "#Delimiter" }, { name: "#DerefChar" }, { name: "#ErrorStdOut" }, { name: "#EscapeChar" }, { name: "#HotkeyInterval" }, { name: "#HotkeyModifierTimeout" }, { name: "#Hotstring" }, { name: "#If" }, { name: "#IfTimeout" }, { name: "#IfWinActive" }, { name: "#IfWinExist" }, { name: "#IfWinNotActive" }, { name: "#IfWinNotExist" }, { name: "#Include" }, { name: "#IncludeAgain" }, { name: "#InputLevel" }, { name: "#InstallKeybdHook" }, { name: "#InstallMouseHook" }, { name: "#KeyHistory" }, { name: "#LTrim" }, { name: "#MaxHotkeysPerInterval" }, { name: "#MaxMem" }, { name: "#MaxThreads" }, { name: "#MaxThreadsBuffer" }, { name: "#MaxThreadsPerHotkey" }, { name: "#MenuMaskKey" }, { name: "#NoEnv" }, { name: "#NoTrayIcon" }, { name: "#Persistent" }, { name: "#Requires" }, { name: "#SingleInstance" }, { name: "#UseHook" }, { name: "#Warn" }, { name: "#WinActivateForce" }, { name: "break" }, { name: "case" }, { name: "catch" }, { name: "continue" }, { name: "else" }, { name: "finally" }, { name: "for" }, { name: "gosub" }, { name: "goto" }, { name: "if" }, { name: "IfEqual" }, { name: "IfExist" }, { name: "IfGreater" }, { name: "IfGreaterOrEqual" }, { name: "IfInString" }, { name: "IfLess" }, { name: "IfLessOrEqual" }, { name: "IfMsgBox" }, { name: "IfNotEqual" }, { name: "IfNotExist" }, { name: "IfNotInString" }, { name: "IfWinActive" }, { name: "IfWinExist" }, { name: "IfWinNotActive" }, { name: "IfWinNotExist" }, { name: "Loop" }, { name: "return" }, { name: "switch" }, { name: "throw" }, { name: "try" }, { name: "until" }, { name: "while" }, { name: "__Call" }, { name: "__Delete" }, { name: "__Get" }, { name: "__New" }, { name: "__Set" }, { name: "ahk_class" }, { name: "ahk_exe" }, { name: "ahk_group" }, { name: "ahk_id" }, { name: "ahk_pid" }, { name: "and" }, { name: "base" }, { name: "ByRef" }, { name: "class" }, { name: "extends" }, { name: "false" }, { name: "Files" }, { name: "global" }, { name: "local" }, { name: "new" }, { name: "not" }, { name: "or" }, { name: "Parse" }, { name: "ParseInt" }, { name: "Read" }, { name: "Reg" }, { name: "static" }, { name: "true" }, { name: "A_AhkPath" }, { name: "A_AhkVersion" }, { name: "A_AppData" }, { name: "A_AppDataCommon" }, { name: "A_Args" }, { name: "A_AutoTrim" }, { name: "A_BatchLines" }, { name: "A_CaretX" }, { name: "A_CaretY" }, { name: "A_ComputerName" }, { name: "A_ComSpec" }, { name: "A_ControlDelay" }, { name: "A_CoordModeCaret" }, { name: "A_CoordModeMenu" }, { name: "A_CoordModeMouse" }, { name: "A_CoordModePixel" }, { name: "A_CoordModeToolTip" }, { name: "A_Cursor" }, { name: "A_DD" }, { name: "A_DDD" }, { name: "A_DDDD" }, { name: "A_DefaultGui" }, { name: "A_DefaultListView" }, { name: "A_DefaultMouseSpeed" }, { name: "A_DefaultTreeView" }, { name: "A_Desktop" }, { name: "A_DesktopCommon" }, { name: "A_DetectHiddenText" }, { name: "A_DetectHiddenWindows" }, { name: "A_EndChar" }, { name: "A_EventInfo" }, { name: "A_ExitReason" }, { name: "A_FileEncoding" }, { name: "A_FormatFloat" }, { name: "A_FormatInteger" }, { name: "A_Gui" }, { name: "A_GuiControl" }, { name: "A_GuiControlEvent" }, { name: "A_GuiEvent" }, { name: "A_GuiHeight" }, { name: "A_GuiWidth" }, { name: "A_GuiX" }, { name: "A_GuiY" }, { name: "A_Hour" }, { name: "A_IconFile" }, { name: "A_IconHidden" }, { name: "A_IconNumber" }, { name: "A_IconTip" }, { name: "A_Index" }, { name: "A_IPAddress1" }, { name: "A_IPAddress2" }, { name: "A_IPAddress3" }, { name: "A_IPAddress4" }, { name: "A_Is64bitOS" }, { name: "A_IsAdmin" }, { name: "A_IsCompiled" }, { name: "A_IsCritical" }, { name: "A_IsPaused" }, { name: "A_IsSuspended" }, { name: "A_IsUnicode" }, { name: "A_KeyDelay" }, { name: "A_KeyDelayPlay" }, { name: "A_KeyDuration" }, { name: "A_KeyDurationPlay" }, { name: "A_Language" }, { name: "A_LastKey" }, { name: "A_LastError" }, { name: "A_LineFile" }, { name: "A_LineNumber" }, { name: "A_ListLines" }, { name: "A_LoopField" }, { name: "A_LoopFileAttrib" }, { name: "A_LoopFileDir" }, { name: "A_LoopFileExt" }, { name: "A_LoopFileFullPath" }, { name: "A_LoopFileLongPath" }, { name: "A_LoopFileName" }, { name: "A_LoopFilePath" }, { name: "A_LoopFileShortName" }, { name: "A_LoopFileShortPath" }, { name: "A_LoopFileSize" }, { name: "A_LoopFileSizeKB" }, { name: "A_LoopFileSizeMB" }, { name: "A_LoopFileTimeAccessed" }, { name: "A_LoopFileTimeCreated" }, { name: "A_LoopFileTimeModified" }, { name: "A_LoopReadLine" }, { name: "A_LoopRegKey" }, { name: "A_LoopRegName" }, { name: "A_LoopRegSubKey" }, { name: "A_LoopRegTimeModified" }, { name: "A_LoopRegType" }, { name: "A_MDay" }, { name: "A_Min" }, { name: "A_MM" }, { name: "A_MMM" }, { name: "A_MMMM" }, { name: "A_Mon" }, { name: "A_MouseDelay" }, { name: "A_MouseDelayPlay" }, { name: "A_MSec" }, { name: "A_MyDocuments" }, { name: "A_Now" }, { name: "A_NowUTC" }, { name: "A_NumBatchLines" }, { name: "A_OSType" }, { name: "A_OSVersion" }, { name: "A_PriorHotkey" }, { name: "A_PriorKey" }, { name: "A_ProgramFiles" }, { name: "A_Programs" }, { name: "A_ProgramsCommon" }, { name: "A_PtrSize" }, { name: "A_RegView" }, { name: "A_ScreenDPI" }, { name: "A_ScreenHeight" }, { name: "A_ScreenWidth" }, { name: "A_ScriptDir" }, { name: "A_ScriptFullPath" }, { name: "A_ScriptHwnd" }, { name: "A_ScriptName" }, { name: "A_Sec" }, { name: "A_SendLevel" }, { name: "A_SendMode" }, { name: "A_Space" }, { name: "A_StartMenu" }, { name: "A_StartMenuCommon" }, { name: "A_Startup" }, { name: "A_StartupCommon" }, { name: "A_StoreCapsLockMode" }, { name: "A_StringCaseSense" }, { name: "A_Tab" }, { name: "A_Temp" }, { name: "A_ThisFunc" }, { name: "A_ThisHotkey" }, { name: "A_ThisLabel" }, { name: "A_ThisMenu" }, { name: "A_ThisMenuItem" }, { name: "A_ThisMenuItemPos" }, { name: "A_TickCount" }, { name: "A_TimeIdle" }, { name: "A_TimeIdleKeyboard" }, { name: "A_TimeIdleMouse" }, { name: "A_TimeIdlePhysical" }, { name: "A_TimeSincePriorHotkey" }, { name: "A_TimeSinceThisHotkey" }, { name: "A_TitleMatchMode" }, { name: "A_TitleMatchModeSpeed" }, { name: "A_UserName" }, { name: "A_WDay" }, { name: "A_WinDelay" }, { name: "A_WinDir" }, { name: "A_WorkingDir" }, { name: "A_YDay" }, { name: "A_Year" }, { name: "A_YWeek" }, { name: "A_YYYY" }, { name: "Clipboard" }, { name: "ClipboardAll" }, { name: "ComSpec" }, { name: "ErrorLevel" }, { name: "ProgramFiles" }, { name: "this" }, { name: "Abs" }, { name: "ACos" }, { name: "Array" }, { name: "Asc" }, { name: "ASin" }, { name: "ATan" }, { name: "Ceil" }, { name: "Chr" }, { name: "ComObjActive" }, { name: "ComObjArray" }, { name: "ComObjConnect" }, { name: "ComObjCreate" }, { name: "ComObject" }, { name: "ComObjError" }, { name: "ComObjFlags" }, { name: "ComObjGet" }, { name: "ComObjQuery" }, { name: "ComObjType" }, { name: "ComObjValue" }, { name: "Cos" }, { name: "DllCall" }, { name: "Exception" }, { name: "Exp" }, { name: "FileExist" }, { name: "FileOpen" }, { name: "Floor" }, { name: "Format" }, { name: "Func" }, { name: "getDataFromEndpoint" }, { name: "GetKeyName" }, { name: "GetKeySC" }, { name: "GetKeyState" }, { name: "GetKeyVK" }, { name: "Hotstring" }, { name: "Icon" }, { name: "IL_Add" }, { name: "IL_Create" }, { name: "IL_Destroy" }, { name: "InputHook" }, { name: "InStr" }, { name: "IsByRef" }, { name: "isConnectedToBackend" }, { name: "IsFunc" }, { name: "IsLabel" }, { name: "isMobileDevice" }, { name: "IsObject" }, { name: "Ln" }, { name: "LoadPicture" }, { name: "Log" }, { name: "LTrim" }, { name: "LV_Add" }, { name: "LV_Delete" }, { name: "LV_DeleteCol" }, { name: "LV_GetCount" }, { name: "LV_GetNext" }, { name: "LV_GetText" }, { name: "LV_Insert" }, { name: "LV_InsertCol" }, { name: "LV_Modify" }, { name: "LV_ModifyCol" }, { name: "LV_SetImageList" }, { name: "Max" }, { name: "MenuGetHandle" }, { name: "MenuGetName" }, { name: "Min" }, { name: "Mod" }, { name: "NumGet" }, { name: "NumPut" }, { name: "ObjAddRef" }, { name: "ObjBindMethod" }, { name: "ObjClone" }, { name: "ObjCount" }, { name: "ObjDelete" }, { name: "Object" }, { name: "ObjGetAddress" }, { name: "ObjGetBase" }, { name: "ObjGetCapacity" }, { name: "ObjHasKey" }, { name: "ObjInsert" }, { name: "ObjInsertAt" }, { name: "ObjLength" }, { name: "ObjMaxIndex" }, { name: "ObjMinIndex" }, { name: "ObjNewEnum" }, { name: "ObjPop" }, { name: "ObjPush" }, { name: "ObjRawGet" }, { name: "ObjRawSet" }, { name: "ObjRelease" }, { name: "ObjRemove" }, { name: "ObjRemoveAt" }, { name: "ObjSetBase" }, { name: "ObjSetCapacity" }, { name: "OnClipboardChange" }, { name: "OnError" }, { name: "OnExit" }, { name: "OnMessage" }, { name: "Ord" }, { name: "RegExMatch" }, { name: "RegExReplace" }, { name: "RegisterCallback" }, { name: "Round" }, { name: "RTrim" }, { name: "StoreLocally" }, { name: "SB_SetIcon" }, { name: "SB_SetParts" }, { name: "SB_SetText" }, { name: "Sin" }, { name: "Sqrt" }, { name: "StrGet" }, { name: "StrLen" }, { name: "StrLower" }, { name: "StrPut" }, { name: "StrReplace" }, { name: "StrSplit" }, { name: "SubStr" }, { name: "Tan" }, { name: "Title" }, { name: "Trim" }, { name: "TV_Add" }, { name: "TV_Delete" }, { name: "TV_Get" }, { name: "TV_GetChild" }, { name: "TV_GetCount" }, { name: "TV_GetNext" }, { name: "TV_GetParent" }, { name: "TV_GetPrev" }, { name: "TV_GetSelection" }, { name: "TV_GetText" }, { name: "TV_Modify" }, { name: "TV_SetImageList" }, { name: "VarSetCapacity" }, { name: "WinActive" }, { name: "WinExist" }, { name: "AutoTrim" }, { name: "BlockInput" }, { name: "Click" }, { name: "ClipWait" }, { name: "Control" }, { name: "ControlClick" }, { name: "ControlFocus" }, { name: "ControlGet" }, { name: "ControlGetFocus" }, { name: "ControlGetPos" }, { name: "ControlGetText" }, { name: "ControlMove" }, { name: "ControlSend" }, { name: "ControlSendRaw" }, { name: "ControlSetText" }, { name: "CoordMode" }, { name: "Critical" }, { name: "DetectHiddenText" }, { name: "DetectHiddenWindows" }, { name: "Drive" }, { name: "DriveGet" }, { name: "DriveSpaceFree" }, { name: "Edit" }, { name: "Endpoint" }, { name: "EnvAdd" }, { name: "EnvDiv" }, { name: "EnvGet" }, { name: "EnvMult" }, { name: "EnvSet" }, { name: "EnvSub" }, { name: "EnvUpdate" }, { name: "Exit" }, { name: "ExitApp" }, { name: "FileAppend" }, { name: "FileCopy" }, { name: "FileCopyDir" }, { name: "FileCreateDir" }, { name: "FileCreateShortcut" }, { name: "FileDelete" }, { name: "FileEncoding" }, { name: "FileGetAttrib" }, { name: "FileGetShortcut" }, { name: "FileGetSize" }, { name: "FileGetTime" }, { name: "FileGetVersion" }, { name: "FileInstall" }, { name: "FileMove" }, { name: "FileMoveDir" }, { name: "FileRead" }, { name: "FileReadLine" }, { name: "FileRecycle" }, { name: "FileRecycleEmpty" }, { name: "FileRemoveDir" }, { name: "FileSelectFile" }, { name: "FileSelectFolder" }, { name: "FileSetAttrib" }, { name: "FileSetTime" }, { name: "FormatTime" }, { name: "getDataFromAPI" }, { name: "getDataFromJSON" }, { name: "GetKeyState" }, { name: "getUrlParams" }, { name: "GroupActivate" }, { name: "GroupAdd" }, { name: "GroupClose" }, { name: "GroupDeactivate" }, { name: "Gui" }, { name: "GuiControl" }, { name: "GuiControlGet" }, { name: "Hotkey" }, { name: "ImageSearch" }, { name: "IniDelete" }, { name: "IniRead" }, { name: "IniWrite" }, { name: "Input" }, { name: "InputBox" }, { name: "KeyHistory" }, { name: "KeyWait" }, { name: "ListHotkeys" }, { name: "ListLines" }, { name: "ListVars" }, { name: "Menu" }, { name: "MouseClick" }, { name: "MouseClickDrag" }, { name: "MouseGetPos" }, { name: "MouseMove" }, { name: "MsgBox" }, { name: "OnExit" }, { name: "OutputDebug" }, { name: "Pause" }, { name: "PixelGetColor" }, { name: "PixelSearch" }, { name: "PostMessage" }, { name: "Process" }, { name: "Progress" }, { name: "Random" }, { name: "RegDelete" }, { name: "RegRead" }, { name: "RegWrite" }, { name: "Reload" }, { name: "reloadWithParams" }, { name: "Run" }, { name: "RunAs" }, { name: "RunWait" }, { name: "Send" }, { name: "SendEvent" }, { name: "SendInput" }, { name: "SendLevel" }, { name: "SendMessage" }, { name: "SendMode" }, { name: "SendPlay" }, { name: "SendRaw" }, { name: "SetBatchLines" }, { name: "SetCapsLockState" }, { name: "SetControlDelay" }, { name: "SetDefaultMouseSpeed" }, { name: "SetEnv" }, { name: "SetFormat" }, { name: "SetKeyDelay" }, { name: "SetMouseDelay" }, { name: "SetNumLockState" }, { name: "SetRegView" }, { name: "SetScrollLockState" }, { name: "SetStoreCapsLockMode" }, { name: "SetTimer" }, { name: "SetTitleMatchMode" }, { name: "SetWinDelay" }, { name: "SetWorkingDir" }, { name: "Shutdown" }, { name: "Sleep" }, { name: "Sort" }, { name: "SoundBeep" }, { name: "SoundGet" }, { name: "SoundGetWaveVolume" }, { name: "SoundPlay" }, { name: "SoundSet" }, { name: "SoundSetWaveVolume" }, { name: "SplashImage" }, { name: "SplashTextOff" }, { name: "SplashTextOn" }, { name: "SplitPath" }, { name: "StatusBarGetText" }, { name: "StatusBarWait" }, { name: "StringCaseSense" }, { name: "StringGetPos" }, { name: "StringLeft" }, { name: "StringLen" }, { name: "StringLower" }, { name: "StringMid" }, { name: "StringReplace" }, { name: "StringRight" }, { name: "StringSplit" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "StringUpper" }, { name: "Suspend" }, { name: "SysGet" }, { name: "Thread" }, { name: "ToolTip" }, { name: "Transform" }, { name: "TrayTip" }, { name: "URLDownloadToFile" }, { name: "WinActivate" }, { name: "WinActivateBottom" }, { name: "WinClose" }, { name: "WinGet" }, { name: "WinGetActiveStats" }, { name: "WinGetActiveTitle" }, { name: "WinGetClass" }, { name: "WinGetPos" }, { name: "WinGetText" }, { name: "WinGetTitle" }, { name: "WinHide" }, { name: "WinKill" }, { name: "WinMaximize" }, { name: "WinMenuSelectItem" }, { name: "WinMinimize" }, { name: "WinMinimizeAll" }, { name: "WinMinimizeAllUndo" }, { name: "WinMove" }, { name: "WinRestore" }, { name: "WinSet" }, { name: "WinSetTitle" }, { name: "WinShow" }, { name: "WinWait" }, { name: "WinWaitActive" }, { name: "WinWaitClose" }, { name: "WinWaitNotActive" }];
+
+
+
+        // Create a new div element for the editor
+        var editorDiv = document.createElement("div");
+        editorDiv.id = id;
+        editorDiv.style.position = "absolute";
+        editorDiv.style.left = xPos + "px";
+        editorDiv.style.top = yPos + "px";
+        editorDiv.style.width = w + "px";
+        editorDiv.style.height = h + "px";
+        editorDiv.style.fontSize = font + "px";
+
+        // Append the editor div to the parent
+        parent.appendChild(editorDiv);
+
+        // Create a new editor instance inside the div
+        var editor = ace.edit(id);
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/" + langName);
+        // editor.setOptions({
+        //   enableBasicAutocompletion: true,
+        //   enableLiveAutocompletion: true,
+        //   behavioursEnabled: false, // Disable auto-pairing of characters
+        // });
+
+        editor.setOptions({
+          enableBasicAutocompletion: false,
+          enableSnippets: false,
+          enableLiveAutocompletion: true,
+          behavioursEnabled: false,
+          showPrintMargin: false,
+        });
+
+        langTools.setCompleters([]);
+        langTools.addCompleter(Completer);
+
+        // Set initial text if provided
+        if (initialText) {
+          editor.setValue(initialText, -1); // -1 to move cursor to the beginning
+        }
+
+        // Apply CSS styles for the editor
+        var css = `
+          body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1818;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+          }
+
+          .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem;
+            padding: 1rem;
+          }
+
+          button {
+            padding: 0.7rem;
+            font-size: 1.2em;
+            cursor: pointer;
+            background-color: #bababa;
+            color: #000000;
+            border: none;
+            border-radius: 0.2rem;
+            transition: background-color 0.3s;
+          }
+
+          button:hover {
+            background-color: #27ae60;
+          }
+
+          #${id} {
+            width: ${w}px;
+            height: ${h}px;
+            font-size: 1em;
+            border-radius: 0.3rem;
+          }
+
+          #result {
+            margin-top: 1rem;
+            font-size: 1.2em;
+            color: #999c9a;
+            font-weight: bold;
+            text-align: center;
+          }
+
+          .ace-monokai .ace_marker-layer .ace_active-line {
+            background-color: #103010 !important;
+          }
+
+          .ace-monokai {
+            background-color: #121212 !important;
+            color: #f8f8f2;
+          }
+
+          .ace-monokai .ace_gutter {
+            background: #204020 !important;
+            color: #cbcdc3 !important;
+          }
+
+          .ace-monokai .ace_gutter-active-line {
+            background-color: transparent !important;
+          }
+
+          .ace-monokai .ace_entity.ace_name.ace_tag,
+          .ace-monokai .ace_keyword,
+          .ace-monokai .ace_meta.ace_tag,
+          .ace-monokai .ace_storage {
+            color: #40a0e0 !important;
+          }
+
+          .ace-monokai .ace_entity.ace_name.ace_function,
+          .ace-monokai .ace_entity.ace_other,
+          .ace-monokai .ace_entity.ace_other.ace_attribute-name,
+          .ace-monokai .ace_variable {
+            color: #ff80df !important;
+          }
+
+          .ace-monokai .ace_comment {
+            color: #40d080 !important;
+          }
+
+          .ace-monokai .ace_string {
+            color: #ffa0a0 !important;
+          }
+
+          .ace-monokai .ace_punctuation,
+          .ace-monokai .ace_punctuation.ace _tag {
+            color: #ffa0a0 !important;
+          }
+
+          *::-webkit-scrollbar {
+            width: 1em;
+          }
+
+          *::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          }
+
+          *::-webkit-scrollbar-thumb {
+            background-color: darkgrey;
+            outline: 1px solid slategrey;
+          }
+        `;
+
+        var style = document.createElement("style");
+        style.type = "text/css";
+        if (style.styleSheet) {
+          style.styleSheet.cssText = css;
+        } else {
+          style.appendChild(document.createTextNode(css));
+        }
+        document.head.appendChild(style);
+
+        // Bind change event listener to the editor
+        editor.getSession().on("change", function () {
+          var code = editor.getValue();
+          if (typeof onChangeFunc === "function") {
+            onChangeFunc(code);
+          }
+        });
+      }
+
+
 
 // Define the str function
 function str(value) {
@@ -926,7 +1138,7 @@ async function main(A_GuiControl)
 {
 Gui1.style.position = "absolute";
 Gui1.style.width = window.innerWidth + "px"; // Set the width
-Gui1.style.height = "3000px"; // Set the height
+Gui1.style.height = "3280px"; // Set the height
 Gui1.style.background = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
 Gui1.style.backgroundColor = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
 Gui1.style.color = "white";
@@ -962,8 +1174,8 @@ else
 {
 variables.guiW = BuildInVars("A_ScreenWidth") - 110
 }
-variables.instructionDocumation = "lang to transpile to: Target programming language for transpilation.\nfile extention of the file: File extension for transpiled output files.\ncommands: List of supported operations or built-in functions.\nkeyWordINT: Defines an integer data type.\nkeyWordSTR: Defines a string data type.\nkeyWordBOOL: Defines a boolean data type.\nkeyWordFLOAT: Defines a floating data type.\nkeyWordINT8: Defines an 8-bit integer data type.\nkeyWordINT16: Defines a 16-bit integer data type.\nkeyWordINT32: Defines a 32-bit integer data type.\nkeyWordINT64: Defines a 64-bit integer data type.\nkeyWordIF: Used for conditional statements.\nkeyWordElseIf: Alternative condition in conditional statements.\nkeyWordElse: Defines a block of code for when no conditions are met.\nkeyWordWhileLoop: Defines a while loop.\nkeyWordForLoop: Defines a for loop.\nkeyWordLoopInfinite: Defines an infinite loop.\nkeyWordLoop: Defines a loop that iterates a specified number of times.\nkeyWordLoopParse: Defines a loop that parses through data or text.\nkeyWordContinue: Skips to the next iteration of the loop.\nkeyWordBreak: Exits a loop prematurely.\nkeyWordFunc: Defines a function or subroutine.\nkeyWordAwait: Await a func only in js.\nkeyWordVariablesAssignmentOperator: Operator for variable assignment.\nkeyWordConcatenationAssignmentOperator: Concatenates and assigns to a string variable.\nkeyWordAdditionAssignmentOperator: Adds to a numeric variable and assigns.\nkeyWordSubtractionAssignmentOperator: Subtracts from a numeric variable and assigns.\nkeyWordMultiplicationAssignmentOperator: Multiplies a numeric variable and assigns.\nkeyWordDivisionAssignmentOperator: Divides a numeric variable and assigns.\nkeyWordAdditionOperator: Adds two values or variables.\nkeyWordConcatenationOperator: Concatenates two strings or variables.\nkeyWordEqualOperator: Checks if two values or variables are equal.\nkeyWordNotOperator: Negates a boolean value or condition.\nkeyWordGreaterThanOperator: Checks if one value is greater than another.\nkeyWordLessThanOperator: Checks if one value is less than another.\nkeyWordGreaterThanOrEqualToOperator: Checks if one value is greater than or equal to another.\nkeyWordLessThanOrEqualToOperator: Checks if one value is less than or equal to another.\nkeyWordOrOperator: Combines two boolean conditions (true if either is true).\nkeyWordAndOperator: Combines two boolean conditions (true if both are true).\nkeyWordNotEqualToOperator: Checks if two values or variables are not equal.\nkeyWordTrue: Its the true boolean value.\nkeyWordFalse: Its the false boolean value.\nkeyWordSwitch: The switch statement is a type of selection control mechanism.\nkeyWordSwitchCase: The switch case is a type of selection control mechanism used within the switch statement.\nkeyWordSwitchDefault: The default case in a switch statement provides a fallback option when no case matches.\nkeyWordThrow: Used to raise an exception, signaling an error or special condition.\nkeyWordErrorMsg: Placeholder for a variable or method that stores or retrieves error messages.\nkeyWordTry: Block where code that might throw exceptions is placed; used for handling potential errors.\nkeyWordCatch: Block that handles exceptions thrown by the try block, allowing for error recovery.\nkeyWordFinally: Block that executes after try and catch, regardless of whether an exception was thrown or not. NOT SUPPORTED IN C++\nkeyWordArrayAppend: Method to add an element to the end of a collection (e.g., list or array).\nkeyWordArrayPop: Method to remove and return the last element of a collection (e.g., stack or list).\nkeyWordArraySize: Method that returns the number of elements in a collection (e.g., array, list, or vector).\nkeyWordArrayInsert: Method to add an element at a specific position in a collection (e.g., list or array).\nkeyWordArrayRemove: Method to remove an element from a collection by its value or index (e.g., list or array).\nkeyWordArrayIndexOf: Method that returns the index of the first occurrence of an element, or -1 if not found.\nkeyWordArrayDefinition: Defines an array data structure.\nkeyWordArrayOfIntegersDefinition: Defines an array of integers.\nkeyWordArrayOfStringsDefinition: Defines an array of strings.\nkeyWordArrayOfFloatingPointNumbersDefinition: Defines an array of floating-point numbers.\nkeyWordArrayOfBooleansDefinition: Defines an array of booleans.\nkeyWordJavaScriptVar: Use var for variable declarations ONLY in javascript.\nkeyWordJavaScriptLet: Use let for block-scoped variables ONLY in javascript.\nkeyWordJavaScriptConst: Use const for block-scoped, unchangeable variables ONLY in javascript.\nkeyWordReturnStatement: Returns a value from a function or exits a subroutine.\nkeyWordEnd: Indicates the end of a code block.\nkeyWordGlobal: Global in Python allows variables inside functions to be accessed and modified globally.\nkeyWordComment: Starts a single-line comment.\nkeyWordCommentOpenMultiLine: Opens a multiline comment.\nkeyWordCommentCloseMultiLine: Closes a multiline comment.\nkeyWordEscpaeChar: Escapes special characters in strings or identifiers.\nAHKlikeLoopsIndexedAt: Specifies the starting index for the AHK-like loop, such as 1-indexed, 0-indexed, or any custom value.\nkeyWordAIndex: Represents the current index of the loop. It can be customized based on the indexing method and renamed using configuration settings.\nkeyWordALoopField: Represents the current value or field in the loop. It can be renamed according to user preferences through configuration. \nkeyWordMainLabel: This is the main label where the main function will be inserted in the transpiled language.\nuseFuncKeyWord: If transpiling to JS or Python, you don't need to use the function keyword. Also, we must toggle useCurlyBraces to on.\nuseCurlyBraces: Toggle for using curly braces instead of indentation for code blocks.\nuseEnd: Enable custom end-of-block keyword (e.g., 'end', 'finish', etc.).\nuseSemicolon: Toggle for using semicolons at the end of statements.\nuseParentheses: if off, there's no need to use parentheses where necessary, but you still must use them in some places.\nusePythonicColonSyntax: Enables Python-style colon syntax for defining code blocks.\nforLoopLang: Choose the language for the style of the for loop.\nuseInJavaScriptAlwaysUseVar: You dont have to declere variables in js now all of them will start whit var var varName...\nuseJavaScriptInAfullHTMLfile: It wraps the js code in a full index.html file\nuseJavaScriptAmainFuncDef: The useJavaScriptAmainFuncDef option controls whether an async function is used as the main function and where it is placed in the code. If this option is set to any value other than " + await Chr (34) + "off," + await Chr (34) + " you must specify the syntax for the main function. This syntax is simply a label, marking the start of the main function. There’s no need to add {} brackets since it’s just a label. If you enable this option but don't explicitly place the main function label anywhere in the code, it will automatically be defined at the top. This allows you to define other functions at the top of your script or within the main function itself."
-variables.guiEditY = 10
+variables.instructionDocumation = "lang to transpile to: Target programming language for transpilation.\nfile extention of the file: File extension for transpiled output files.\ncommands: List of supported operations or built-in functions.\nkeyWordINT: Defines an integer data type.\nkeyWordSTR: Defines a string data type.\nkeyWordBOOL: Defines a boolean data type.\nkeyWordFLOAT: Defines a floating data type.\nkeyWordINT8: Defines an 8-bit integer data type.\nkeyWordINT16: Defines a 16-bit integer data type.\nkeyWordINT32: Defines a 32-bit integer data type.\nkeyWordINT64: Defines a 64-bit integer data type.\nkeyWordIF: Used for conditional statements.\nkeyWordElseIf: Alternative condition in conditional statements.\nkeyWordElse: Defines a block of code for when no conditions are met.\nkeyWordWhileLoop: Defines a while loop.\nkeyWordForLoop: Defines a for loop.\nkeyWordLoopInfinite: Defines an infinite loop.\nkeyWordLoop: Defines a loop that iterates a specified number of times.\nkeyWordLoopParse: Defines a loop that parses through data or text.\nkeyWordContinue: Skips to the next iteration of the loop.\nkeyWordBreak: Exits a loop prematurely.\nkeyWordFunc: Defines a function or subroutine.\nkeyWordAwait: Await a func only in js.\nkeyWordVariablesAssignmentOperator: Operator for variable assignment.\nkeyWordConcatenationAssignmentOperator: Concatenates and assigns to a string variable.\nkeyWordAdditionAssignmentOperator: Adds to a numeric variable and assigns.\nkeyWordSubtractionAssignmentOperator: Subtracts from a numeric variable and assigns.\nkeyWordMultiplicationAssignmentOperator: Multiplies a numeric variable and assigns.\nkeyWordDivisionAssignmentOperator: Divides a numeric variable and assigns.\nkeyWordAdditionOperator: Adds two values or variables.\nkeyWordConcatenationOperator: Concatenates two strings or variables.\nkeyWordEqualOperator: Checks if two values or variables are equal.\nkeyWordNotOperator: Negates a boolean value or condition.\nkeyWordGreaterThanOperator: Checks if one value is greater than another.\nkeyWordLessThanOperator: Checks if one value is less than another.\nkeyWordGreaterThanOrEqualToOperator: Checks if one value is greater than or equal to another.\nkeyWordLessThanOrEqualToOperator: Checks if one value is less than or equal to another.\nkeyWordOrOperator: Combines two boolean conditions (true if either is true).\nkeyWordAndOperator: Combines two boolean conditions (true if both are true).\nkeyWordNotEqualToOperator: Checks if two values or variables are not equal.\nkeyWordTrue: Its the true boolean value.\nkeyWordFalse: Its the false boolean value.\nkeyWordSwitch: The switch statement is a type of selection control mechanism.\nkeyWordSwitchCase: The switch case is a type of selection control mechanism used within the switch statement.\nkeyWordSwitchDefault: The default case in a switch statement provides a fallback option when no case matches.\nkeyWordThrow: Used to raise an exception, signaling an error or special condition.\nkeyWordErrorMsg: Placeholder for a variable or method that stores or retrieves error messages.\nkeyWordTry: Block where code that might throw exceptions is placed; used for handling potential errors.\nkeyWordCatch: Block that handles exceptions thrown by the try block, allowing for error recovery.\nkeyWordFinally: Block that executes after try and catch, regardless of whether an exception was thrown or not. NOT SUPPORTED IN C++\nkeyWordArrayAppend: Method to add an element to the end of a collection (e.g., list or array).\nkeyWordArrayPop: Method to remove and return the last element of a collection (e.g., stack or list).\nkeyWordArraySize: Method that returns the number of elements in a collection (e.g., array, list, or vector).\nkeyWordArrayInsert: Method to add an element at a specific position in a collection (e.g., list or array).\nkeyWordArrayRemove: Method to remove an element from a collection by its value or index (e.g., list or array).\nkeyWordArrayIndexOf: Method that returns the index of the first occurrence of an element, or -1 if not found.\nkeyWordArrayDefinition: Defines an array data structure.\nkeyWordArrayOfIntegersDefinition: Defines an array of integers.\nkeyWordArrayOfStringsDefinition: Defines an array of strings.\nkeyWordArrayOfFloatingPointDefinition: Defines an array of floating-point numbers.\nkeyWordArrayOfBooleansDefinition: Defines an array of booleans.\nkeyWordJavaScriptVar: Use var for variable declarations ONLY in javascript.\nkeyWordJavaScriptLet: Use let for block-scoped variables ONLY in javascript.\nkeyWordJavaScriptConst: Use const for block-scoped, unchangeable variables ONLY in javascript.\nkeyWordReturnStatement: Returns a value from a function or exits a subroutine.\nkeyWordEnd: Indicates the end of a code block.\nkeyWordGlobal: Global in Python allows variables inside functions to be accessed and modified globally.\nkeyWordComment: Starts a single-line comment.\nkeyWordCommentOpenMultiLine: Opens a multiline comment.\nkeyWordCommentCloseMultiLine: Closes a multiline comment.\nkeyWordEscpaeChar: Escapes special characters in strings or identifiers.\nAHKlikeLoopsIndexedAt: Specifies the starting index for the AHK-like loop, such as 1-indexed, 0-indexed, or any custom value.\nkeyWordAIndex: Represents the current index of the loop. It can be customized based on the indexing method and renamed using configuration settings.\nkeyWordALoopField: Represents the current value or field in the loop. It can be renamed according to user preferences through configuration. \nkeyWordMainLabel: This is the main label where the main function will be inserted in the transpiled language.\nuseFuncKeyWord: If transpiling to JS or Python, you don't need to use the function keyword. Also, we must toggle useCurlyBraces to on.\nuseCurlyBraces: Toggle for using curly braces instead of indentation for code blocks.\nuseEnd: Enable custom end-of-block keyword (e.g., 'end', 'finish', etc.).\nuseSemicolon: Toggle for using semicolons at the end of statements.\nuseParentheses: if off, there's no need to use parentheses where necessary, but you still must use them in some places.\nusePythonicColonSyntax: Enables Python-style colon syntax for defining code blocks.\nforLoopLang: Choose the language for the style of the for loop.\nuseInJavaScriptAlwaysUseVar: You dont have to declere variables in js now all of them will start whit var var varName...\nuseJavaScriptInAfullHTMLfile: It wraps the js code in a full index.html file\nuseJavaScriptAmainFuncDef: The useJavaScriptAmainFuncDef option controls whether an async function is used as the main function and where it is placed in the code. If this option is set to any value other than " + await Chr (34) + "off," + await Chr (34) + " you must specify the syntax for the main function. This syntax is simply a label, marking the start of the main function. There’s no need to add {} brackets since it’s just a label. If you enable this option but don't explicitly place the main function label anywhere in the code, it will automatically be defined at the top. This allows you to define other functions at the top of your script or within the main function itself."
+variables.guiEditY = 5
 var items3 = LoopParseFunc(variables.instructionDocumation, "\n", "\r");
 for (/* Loop Parse */ let A_Index3 = 1; A_Index3 <= items3.length; A_Index3++)
 {
@@ -977,76 +1189,118 @@ if (( await InStr (variables.guiEditText , "use") ))
 //MsgBox, % guiEditText
 if (( await Trim (variables.guiEditText) == "useFuncKeyWord" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit76", "useFuncKeyWord", "#2196F3", 5, variables.guiEditY, 60, 30, Edit76 );
+createToggleSwitch(Gui1, "Gui1Edit76", "useFuncKeyWord", "#2196F3", 10, variables.guiEditY, 60, 30, Edit76 );
 }
 if (( await Trim (variables.guiEditText) == "useCurlyBraces" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit77", "useCurlyBraces", "#2196F3", 5, variables.guiEditY, 60, 30, Edit77 );
+createToggleSwitch(Gui1, "Gui1Edit77", "useCurlyBraces", "#2196F3", 10, variables.guiEditY, 60, 30, Edit77 );
 }
 if (( await Trim (variables.guiEditText) == "useEnd" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit78", "useEnd", "#2196F3", 5, variables.guiEditY, 60, 30, Edit78 );
+createToggleSwitch(Gui1, "Gui1Edit78", "useEnd", "#2196F3", 10, variables.guiEditY, 60, 30, Edit78 );
 }
 if (( await Trim (variables.guiEditText) == "useSemicolon" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit79", "useSemicolon", "#2196F3", 5, variables.guiEditY, 60, 30, Edit79 );
+createToggleSwitch(Gui1, "Gui1Edit79", "useSemicolon", "#2196F3", 10, variables.guiEditY, 60, 30, Edit79 );
 }
 if (( await Trim (variables.guiEditText) == "useParentheses" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit80", "useParentheses", "#2196F3", 5, variables.guiEditY, 60, 30, Edit80 );
+createToggleSwitch(Gui1, "Gui1Edit80", "useParentheses", "#2196F3", 10, variables.guiEditY, 60, 30, Edit80 );
 }
 if (( await Trim (variables.guiEditText) == "usePythonicColonSyntax" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit81", "usePythonicColonSyntax", "#2196F3", 5, variables.guiEditY, 60, 30, Edit81 );
+createToggleSwitch(Gui1, "Gui1Edit81", "usePythonicColonSyntax", "#2196F3", 10, variables.guiEditY, 60, 30, Edit81 );
 }
 if (( await Trim (variables.guiEditText) == "useInJavaScriptAlwaysUseVar" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit83", "useInJavaScriptAlwaysUseVar", "#2196F3", 5, variables.guiEditY, 60, 30, Edit83 );
+createToggleSwitch(Gui1, "Gui1Edit83", "useInJavaScriptAlwaysUseVar", "#2196F3", 10, variables.guiEditY, 60, 30, Edit83 );
 }
 if (( await Trim (variables.guiEditText) == "useJavaScriptInAfullHTMLfile" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit84", "useJavaScriptInAfullHTMLfile", "#2196F3", 5, variables.guiEditY, 60, 30, Edit84 );
+createToggleSwitch(Gui1, "Gui1Edit84", "useJavaScriptInAfullHTMLfile", "#2196F3", 10, variables.guiEditY, 60, 30, Edit84 );
 }
 if (( await Trim (variables.guiEditText) == "useJavaScriptAmainFuncDef" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit85", "useJavaScriptAmainFuncDef", "#2196F3", 5, variables.guiEditY, 60, 30, Edit85 );
+createToggleSwitch(Gui1, "Gui1Edit85", "useJavaScriptAmainFuncDef", "#2196F3", 10, variables.guiEditY, 60, 30, Edit85 );
 }
 }
 else
 {
 if (( variables.guiEditTextG == "Edit1" ))
 {
-Gui1Edit1 = document.createElement("textarea");
-Gui1Edit1.id = "Gui1" + "Edit" + "1"; // Set ID for referencing
-Gui1Edit1.placeholder = "" + variables.guiEditText + "";
-Gui1Edit1.style.fontSize = "15px"; // Set font size
-Gui1Edit1.style.resize = "none"; // Disable resizing
-Gui1Edit1.style.position = "absolute"; // Set position to absolute
-Gui1Edit1.style.left = "5px"; // Set initial x position
-Gui1Edit1.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Edit1.style.width = "" + variables.guiW + "px"; // Set width
-Gui1Edit1.style.height = "25px"; // Set height
-Gui1Edit1.style.border = "none"
-Gui1Edit1.style.color = "#ffffff"
-Gui1Edit1.style.background = ""
-Gui1Edit1.style.backgroundColor = "#000000"
-Gui1Edit1.style.borderRadius = "5px"
-Gui1Edit1.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Edit1.addEventListener("input", function () {
-A_GuiControl = Gui1Edit1.value
+Gui1Button1 = document.createElement("button");
+Gui1Button1.id = "Gui1" + "Button" + "1"; // Set ID for referencing
+Gui1Button1.textContent = "cpp";
+Gui1Button1.style.fontSize = "15px"; // Set font size
+Gui1Button1.style.position = "absolute"; // Set position to absolute
+Gui1Button1.style.left = "10px"; // Set initial x position
+Gui1Button1.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Button1.style.width = "60px"; // Set width
+Gui1Button1.style.height = "30px"; // Set height
+Gui1Button1.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button1.style.border = "";
+Gui1Button1.style.background = "";
+Gui1Button1.style.backgroundColor = "";
+Gui1Button1.style.borderRadius = "";
+Gui1Button1.style.color = "";
+Gui1Button1.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button1.onclick = function (event) {
+A_GuiControl = event.target.textContent
   Edit1(A_GuiControl);
-});
-Gui1.appendChild(Gui1Edit1);
+};
+Gui1.appendChild(Gui1Button1);
+Gui1Button2 = document.createElement("button");
+Gui1Button2.id = "Gui1" + "Button" + "2"; // Set ID for referencing
+Gui1Button2.textContent = "py";
+Gui1Button2.style.fontSize = "15px"; // Set font size
+Gui1Button2.style.position = "absolute"; // Set position to absolute
+Gui1Button2.style.left = "75px"; // Set initial x position
+Gui1Button2.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Button2.style.width = "60px"; // Set width
+Gui1Button2.style.height = "30px"; // Set height
+Gui1Button2.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button2.style.border = "";
+Gui1Button2.style.background = "";
+Gui1Button2.style.backgroundColor = "";
+Gui1Button2.style.borderRadius = "";
+Gui1Button2.style.color = "";
+Gui1Button2.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button2.onclick = function (event) {
+A_GuiControl = event.target.textContent
+  Edit1(A_GuiControl);
+};
+Gui1.appendChild(Gui1Button2);
+Gui1Button3 = document.createElement("button");
+Gui1Button3.id = "Gui1" + "Button" + "3"; // Set ID for referencing
+Gui1Button3.textContent = "js";
+Gui1Button3.style.fontSize = "15px"; // Set font size
+Gui1Button3.style.position = "absolute"; // Set position to absolute
+Gui1Button3.style.left = "140px"; // Set initial x position
+Gui1Button3.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Button3.style.width = "60px"; // Set width
+Gui1Button3.style.height = "30px"; // Set height
+Gui1Button3.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button3.style.border = "";
+Gui1Button3.style.background = "";
+Gui1Button3.style.backgroundColor = "";
+Gui1Button3.style.borderRadius = "";
+Gui1Button3.style.color = "";
+Gui1Button3.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button3.onclick = function (event) {
+A_GuiControl = event.target.textContent
+  Edit1(A_GuiControl);
+};
+Gui1.appendChild(Gui1Button3);
 }
 if (( variables.guiEditTextG == "Edit2" ))
 {
 Gui1Edit2 = document.createElement("textarea");
-Gui1Edit2.id = "Gui1" + "Edit" + "2"; // Set ID for referencing
+Gui1Edit2.id = "Gui1" + "Edit2"; // Set ID for referencing
 Gui1Edit2.placeholder = "" + variables.guiEditText + "";
 Gui1Edit2.style.fontSize = "15px"; // Set font size
 Gui1Edit2.style.resize = "none"; // Disable resizing
 Gui1Edit2.style.position = "absolute"; // Set position to absolute
-Gui1Edit2.style.left = "5px"; // Set initial x position
+Gui1Edit2.style.left = "10px"; // Set initial x position
 Gui1Edit2.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit2.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit2.style.height = "25px"; // Set height
@@ -1065,12 +1319,12 @@ Gui1.appendChild(Gui1Edit2);
 if (( variables.guiEditTextG == "Edit3" ))
 {
 Gui1Edit3 = document.createElement("textarea");
-Gui1Edit3.id = "Gui1" + "Edit" + "3"; // Set ID for referencing
+Gui1Edit3.id = "Gui1" + "Edit3"; // Set ID for referencing
 Gui1Edit3.placeholder = "" + variables.guiEditText + "";
 Gui1Edit3.style.fontSize = "15px"; // Set font size
 Gui1Edit3.style.resize = "none"; // Disable resizing
 Gui1Edit3.style.position = "absolute"; // Set position to absolute
-Gui1Edit3.style.left = "5px"; // Set initial x position
+Gui1Edit3.style.left = "10px"; // Set initial x position
 Gui1Edit3.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit3.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit3.style.height = "25px"; // Set height
@@ -1089,12 +1343,12 @@ Gui1.appendChild(Gui1Edit3);
 if (( variables.guiEditTextG == "Edit4" ))
 {
 Gui1Edit4 = document.createElement("textarea");
-Gui1Edit4.id = "Gui1" + "Edit" + "4"; // Set ID for referencing
+Gui1Edit4.id = "Gui1" + "Edit4"; // Set ID for referencing
 Gui1Edit4.placeholder = "" + variables.guiEditText + "";
 Gui1Edit4.style.fontSize = "15px"; // Set font size
 Gui1Edit4.style.resize = "none"; // Disable resizing
 Gui1Edit4.style.position = "absolute"; // Set position to absolute
-Gui1Edit4.style.left = "5px"; // Set initial x position
+Gui1Edit4.style.left = "10px"; // Set initial x position
 Gui1Edit4.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit4.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit4.style.height = "25px"; // Set height
@@ -1113,12 +1367,12 @@ Gui1.appendChild(Gui1Edit4);
 if (( variables.guiEditTextG == "Edit5" ))
 {
 Gui1Edit5 = document.createElement("textarea");
-Gui1Edit5.id = "Gui1" + "Edit" + "5"; // Set ID for referencing
+Gui1Edit5.id = "Gui1" + "Edit5"; // Set ID for referencing
 Gui1Edit5.placeholder = "" + variables.guiEditText + "";
 Gui1Edit5.style.fontSize = "15px"; // Set font size
 Gui1Edit5.style.resize = "none"; // Disable resizing
 Gui1Edit5.style.position = "absolute"; // Set position to absolute
-Gui1Edit5.style.left = "5px"; // Set initial x position
+Gui1Edit5.style.left = "10px"; // Set initial x position
 Gui1Edit5.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit5.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit5.style.height = "25px"; // Set height
@@ -1137,12 +1391,12 @@ Gui1.appendChild(Gui1Edit5);
 if (( variables.guiEditTextG == "Edit6" ))
 {
 Gui1Edit6 = document.createElement("textarea");
-Gui1Edit6.id = "Gui1" + "Edit" + "6"; // Set ID for referencing
+Gui1Edit6.id = "Gui1" + "Edit6"; // Set ID for referencing
 Gui1Edit6.placeholder = "" + variables.guiEditText + "";
 Gui1Edit6.style.fontSize = "15px"; // Set font size
 Gui1Edit6.style.resize = "none"; // Disable resizing
 Gui1Edit6.style.position = "absolute"; // Set position to absolute
-Gui1Edit6.style.left = "5px"; // Set initial x position
+Gui1Edit6.style.left = "10px"; // Set initial x position
 Gui1Edit6.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit6.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit6.style.height = "25px"; // Set height
@@ -1161,12 +1415,12 @@ Gui1.appendChild(Gui1Edit6);
 if (( variables.guiEditTextG == "Edit7" ))
 {
 Gui1Edit7 = document.createElement("textarea");
-Gui1Edit7.id = "Gui1" + "Edit" + "7"; // Set ID for referencing
+Gui1Edit7.id = "Gui1" + "Edit7"; // Set ID for referencing
 Gui1Edit7.placeholder = "" + variables.guiEditText + "";
 Gui1Edit7.style.fontSize = "15px"; // Set font size
 Gui1Edit7.style.resize = "none"; // Disable resizing
 Gui1Edit7.style.position = "absolute"; // Set position to absolute
-Gui1Edit7.style.left = "5px"; // Set initial x position
+Gui1Edit7.style.left = "10px"; // Set initial x position
 Gui1Edit7.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit7.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit7.style.height = "25px"; // Set height
@@ -1185,12 +1439,12 @@ Gui1.appendChild(Gui1Edit7);
 if (( variables.guiEditTextG == "Edit8" ))
 {
 Gui1Edit8 = document.createElement("textarea");
-Gui1Edit8.id = "Gui1" + "Edit" + "8"; // Set ID for referencing
+Gui1Edit8.id = "Gui1" + "Edit8"; // Set ID for referencing
 Gui1Edit8.placeholder = "" + variables.guiEditText + "";
 Gui1Edit8.style.fontSize = "15px"; // Set font size
 Gui1Edit8.style.resize = "none"; // Disable resizing
 Gui1Edit8.style.position = "absolute"; // Set position to absolute
-Gui1Edit8.style.left = "5px"; // Set initial x position
+Gui1Edit8.style.left = "10px"; // Set initial x position
 Gui1Edit8.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit8.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit8.style.height = "25px"; // Set height
@@ -1209,12 +1463,12 @@ Gui1.appendChild(Gui1Edit8);
 if (( variables.guiEditTextG == "Edit9" ))
 {
 Gui1Edit9 = document.createElement("textarea");
-Gui1Edit9.id = "Gui1" + "Edit" + "9"; // Set ID for referencing
+Gui1Edit9.id = "Gui1" + "Edit9"; // Set ID for referencing
 Gui1Edit9.placeholder = "" + variables.guiEditText + "";
 Gui1Edit9.style.fontSize = "15px"; // Set font size
 Gui1Edit9.style.resize = "none"; // Disable resizing
 Gui1Edit9.style.position = "absolute"; // Set position to absolute
-Gui1Edit9.style.left = "5px"; // Set initial x position
+Gui1Edit9.style.left = "10px"; // Set initial x position
 Gui1Edit9.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit9.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit9.style.height = "25px"; // Set height
@@ -1233,12 +1487,12 @@ Gui1.appendChild(Gui1Edit9);
 if (( variables.guiEditTextG == "Edit10" ))
 {
 Gui1Edit10 = document.createElement("textarea");
-Gui1Edit10.id = "Gui1" + "Edit" + "10"; // Set ID for referencing
+Gui1Edit10.id = "Gui1" + "Edit10"; // Set ID for referencing
 Gui1Edit10.placeholder = "" + variables.guiEditText + "";
 Gui1Edit10.style.fontSize = "15px"; // Set font size
 Gui1Edit10.style.resize = "none"; // Disable resizing
 Gui1Edit10.style.position = "absolute"; // Set position to absolute
-Gui1Edit10.style.left = "5px"; // Set initial x position
+Gui1Edit10.style.left = "10px"; // Set initial x position
 Gui1Edit10.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit10.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit10.style.height = "25px"; // Set height
@@ -1257,12 +1511,12 @@ Gui1.appendChild(Gui1Edit10);
 if (( variables.guiEditTextG == "Edit11" ))
 {
 Gui1Edit11 = document.createElement("textarea");
-Gui1Edit11.id = "Gui1" + "Edit" + "11"; // Set ID for referencing
+Gui1Edit11.id = "Gui1" + "Edit11"; // Set ID for referencing
 Gui1Edit11.placeholder = "" + variables.guiEditText + "";
 Gui1Edit11.style.fontSize = "15px"; // Set font size
 Gui1Edit11.style.resize = "none"; // Disable resizing
 Gui1Edit11.style.position = "absolute"; // Set position to absolute
-Gui1Edit11.style.left = "5px"; // Set initial x position
+Gui1Edit11.style.left = "10px"; // Set initial x position
 Gui1Edit11.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit11.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit11.style.height = "25px"; // Set height
@@ -1281,12 +1535,12 @@ Gui1.appendChild(Gui1Edit11);
 if (( variables.guiEditTextG == "Edit12" ))
 {
 Gui1Edit12 = document.createElement("textarea");
-Gui1Edit12.id = "Gui1" + "Edit" + "12"; // Set ID for referencing
+Gui1Edit12.id = "Gui1" + "Edit12"; // Set ID for referencing
 Gui1Edit12.placeholder = "" + variables.guiEditText + "";
 Gui1Edit12.style.fontSize = "15px"; // Set font size
 Gui1Edit12.style.resize = "none"; // Disable resizing
 Gui1Edit12.style.position = "absolute"; // Set position to absolute
-Gui1Edit12.style.left = "5px"; // Set initial x position
+Gui1Edit12.style.left = "10px"; // Set initial x position
 Gui1Edit12.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit12.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit12.style.height = "25px"; // Set height
@@ -1305,12 +1559,12 @@ Gui1.appendChild(Gui1Edit12);
 if (( variables.guiEditTextG == "Edit13" ))
 {
 Gui1Edit13 = document.createElement("textarea");
-Gui1Edit13.id = "Gui1" + "Edit" + "13"; // Set ID for referencing
+Gui1Edit13.id = "Gui1" + "Edit13"; // Set ID for referencing
 Gui1Edit13.placeholder = "" + variables.guiEditText + "";
 Gui1Edit13.style.fontSize = "15px"; // Set font size
 Gui1Edit13.style.resize = "none"; // Disable resizing
 Gui1Edit13.style.position = "absolute"; // Set position to absolute
-Gui1Edit13.style.left = "5px"; // Set initial x position
+Gui1Edit13.style.left = "10px"; // Set initial x position
 Gui1Edit13.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit13.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit13.style.height = "25px"; // Set height
@@ -1329,12 +1583,12 @@ Gui1.appendChild(Gui1Edit13);
 if (( variables.guiEditTextG == "Edit14" ))
 {
 Gui1Edit14 = document.createElement("textarea");
-Gui1Edit14.id = "Gui1" + "Edit" + "14"; // Set ID for referencing
+Gui1Edit14.id = "Gui1" + "Edit14"; // Set ID for referencing
 Gui1Edit14.placeholder = "" + variables.guiEditText + "";
 Gui1Edit14.style.fontSize = "15px"; // Set font size
 Gui1Edit14.style.resize = "none"; // Disable resizing
 Gui1Edit14.style.position = "absolute"; // Set position to absolute
-Gui1Edit14.style.left = "5px"; // Set initial x position
+Gui1Edit14.style.left = "10px"; // Set initial x position
 Gui1Edit14.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit14.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit14.style.height = "25px"; // Set height
@@ -1353,12 +1607,12 @@ Gui1.appendChild(Gui1Edit14);
 if (( variables.guiEditTextG == "Edit15" ))
 {
 Gui1Edit15 = document.createElement("textarea");
-Gui1Edit15.id = "Gui1" + "Edit" + "15"; // Set ID for referencing
+Gui1Edit15.id = "Gui1" + "Edit15"; // Set ID for referencing
 Gui1Edit15.placeholder = "" + variables.guiEditText + "";
 Gui1Edit15.style.fontSize = "15px"; // Set font size
 Gui1Edit15.style.resize = "none"; // Disable resizing
 Gui1Edit15.style.position = "absolute"; // Set position to absolute
-Gui1Edit15.style.left = "5px"; // Set initial x position
+Gui1Edit15.style.left = "10px"; // Set initial x position
 Gui1Edit15.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit15.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit15.style.height = "25px"; // Set height
@@ -1377,12 +1631,12 @@ Gui1.appendChild(Gui1Edit15);
 if (( variables.guiEditTextG == "Edit16" ))
 {
 Gui1Edit16 = document.createElement("textarea");
-Gui1Edit16.id = "Gui1" + "Edit" + "16"; // Set ID for referencing
+Gui1Edit16.id = "Gui1" + "Edit16"; // Set ID for referencing
 Gui1Edit16.placeholder = "" + variables.guiEditText + "";
 Gui1Edit16.style.fontSize = "15px"; // Set font size
 Gui1Edit16.style.resize = "none"; // Disable resizing
 Gui1Edit16.style.position = "absolute"; // Set position to absolute
-Gui1Edit16.style.left = "5px"; // Set initial x position
+Gui1Edit16.style.left = "10px"; // Set initial x position
 Gui1Edit16.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit16.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit16.style.height = "25px"; // Set height
@@ -1401,12 +1655,12 @@ Gui1.appendChild(Gui1Edit16);
 if (( variables.guiEditTextG == "Edit17" ))
 {
 Gui1Edit17 = document.createElement("textarea");
-Gui1Edit17.id = "Gui1" + "Edit" + "17"; // Set ID for referencing
+Gui1Edit17.id = "Gui1" + "Edit17"; // Set ID for referencing
 Gui1Edit17.placeholder = "" + variables.guiEditText + "";
 Gui1Edit17.style.fontSize = "15px"; // Set font size
 Gui1Edit17.style.resize = "none"; // Disable resizing
 Gui1Edit17.style.position = "absolute"; // Set position to absolute
-Gui1Edit17.style.left = "5px"; // Set initial x position
+Gui1Edit17.style.left = "10px"; // Set initial x position
 Gui1Edit17.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit17.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit17.style.height = "25px"; // Set height
@@ -1425,12 +1679,12 @@ Gui1.appendChild(Gui1Edit17);
 if (( variables.guiEditTextG == "Edit18" ))
 {
 Gui1Edit18 = document.createElement("textarea");
-Gui1Edit18.id = "Gui1" + "Edit" + "18"; // Set ID for referencing
+Gui1Edit18.id = "Gui1" + "Edit18"; // Set ID for referencing
 Gui1Edit18.placeholder = "" + variables.guiEditText + "";
 Gui1Edit18.style.fontSize = "15px"; // Set font size
 Gui1Edit18.style.resize = "none"; // Disable resizing
 Gui1Edit18.style.position = "absolute"; // Set position to absolute
-Gui1Edit18.style.left = "5px"; // Set initial x position
+Gui1Edit18.style.left = "10px"; // Set initial x position
 Gui1Edit18.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit18.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit18.style.height = "25px"; // Set height
@@ -1449,12 +1703,12 @@ Gui1.appendChild(Gui1Edit18);
 if (( variables.guiEditTextG == "Edit19" ))
 {
 Gui1Edit19 = document.createElement("textarea");
-Gui1Edit19.id = "Gui1" + "Edit" + "19"; // Set ID for referencing
+Gui1Edit19.id = "Gui1" + "Edit19"; // Set ID for referencing
 Gui1Edit19.placeholder = "" + variables.guiEditText + "";
 Gui1Edit19.style.fontSize = "15px"; // Set font size
 Gui1Edit19.style.resize = "none"; // Disable resizing
 Gui1Edit19.style.position = "absolute"; // Set position to absolute
-Gui1Edit19.style.left = "5px"; // Set initial x position
+Gui1Edit19.style.left = "10px"; // Set initial x position
 Gui1Edit19.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit19.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit19.style.height = "25px"; // Set height
@@ -1473,12 +1727,12 @@ Gui1.appendChild(Gui1Edit19);
 if (( variables.guiEditTextG == "Edit20" ))
 {
 Gui1Edit20 = document.createElement("textarea");
-Gui1Edit20.id = "Gui1" + "Edit" + "20"; // Set ID for referencing
+Gui1Edit20.id = "Gui1" + "Edit20"; // Set ID for referencing
 Gui1Edit20.placeholder = "" + variables.guiEditText + "";
 Gui1Edit20.style.fontSize = "15px"; // Set font size
 Gui1Edit20.style.resize = "none"; // Disable resizing
 Gui1Edit20.style.position = "absolute"; // Set position to absolute
-Gui1Edit20.style.left = "5px"; // Set initial x position
+Gui1Edit20.style.left = "10px"; // Set initial x position
 Gui1Edit20.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit20.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit20.style.height = "25px"; // Set height
@@ -1497,12 +1751,12 @@ Gui1.appendChild(Gui1Edit20);
 if (( variables.guiEditTextG == "Edit21" ))
 {
 Gui1Edit21 = document.createElement("textarea");
-Gui1Edit21.id = "Gui1" + "Edit" + "21"; // Set ID for referencing
+Gui1Edit21.id = "Gui1" + "Edit21"; // Set ID for referencing
 Gui1Edit21.placeholder = "" + variables.guiEditText + "";
 Gui1Edit21.style.fontSize = "15px"; // Set font size
 Gui1Edit21.style.resize = "none"; // Disable resizing
 Gui1Edit21.style.position = "absolute"; // Set position to absolute
-Gui1Edit21.style.left = "5px"; // Set initial x position
+Gui1Edit21.style.left = "10px"; // Set initial x position
 Gui1Edit21.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit21.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit21.style.height = "25px"; // Set height
@@ -1521,12 +1775,12 @@ Gui1.appendChild(Gui1Edit21);
 if (( variables.guiEditTextG == "Edit22" ))
 {
 Gui1Edit22 = document.createElement("textarea");
-Gui1Edit22.id = "Gui1" + "Edit" + "22"; // Set ID for referencing
+Gui1Edit22.id = "Gui1" + "Edit22"; // Set ID for referencing
 Gui1Edit22.placeholder = "" + variables.guiEditText + "";
 Gui1Edit22.style.fontSize = "15px"; // Set font size
 Gui1Edit22.style.resize = "none"; // Disable resizing
 Gui1Edit22.style.position = "absolute"; // Set position to absolute
-Gui1Edit22.style.left = "5px"; // Set initial x position
+Gui1Edit22.style.left = "10px"; // Set initial x position
 Gui1Edit22.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit22.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit22.style.height = "25px"; // Set height
@@ -1545,12 +1799,12 @@ Gui1.appendChild(Gui1Edit22);
 if (( variables.guiEditTextG == "Edit23" ))
 {
 Gui1Edit23 = document.createElement("textarea");
-Gui1Edit23.id = "Gui1" + "Edit" + "23"; // Set ID for referencing
+Gui1Edit23.id = "Gui1" + "Edit23"; // Set ID for referencing
 Gui1Edit23.placeholder = "" + variables.guiEditText + "";
 Gui1Edit23.style.fontSize = "15px"; // Set font size
 Gui1Edit23.style.resize = "none"; // Disable resizing
 Gui1Edit23.style.position = "absolute"; // Set position to absolute
-Gui1Edit23.style.left = "5px"; // Set initial x position
+Gui1Edit23.style.left = "10px"; // Set initial x position
 Gui1Edit23.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit23.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit23.style.height = "25px"; // Set height
@@ -1569,12 +1823,12 @@ Gui1.appendChild(Gui1Edit23);
 if (( variables.guiEditTextG == "Edit24" ))
 {
 Gui1Edit24 = document.createElement("textarea");
-Gui1Edit24.id = "Gui1" + "Edit" + "24"; // Set ID for referencing
+Gui1Edit24.id = "Gui1" + "Edit24"; // Set ID for referencing
 Gui1Edit24.placeholder = "" + variables.guiEditText + "";
 Gui1Edit24.style.fontSize = "15px"; // Set font size
 Gui1Edit24.style.resize = "none"; // Disable resizing
 Gui1Edit24.style.position = "absolute"; // Set position to absolute
-Gui1Edit24.style.left = "5px"; // Set initial x position
+Gui1Edit24.style.left = "10px"; // Set initial x position
 Gui1Edit24.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit24.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit24.style.height = "25px"; // Set height
@@ -1593,12 +1847,12 @@ Gui1.appendChild(Gui1Edit24);
 if (( variables.guiEditTextG == "Edit25" ))
 {
 Gui1Edit25 = document.createElement("textarea");
-Gui1Edit25.id = "Gui1" + "Edit" + "25"; // Set ID for referencing
+Gui1Edit25.id = "Gui1" + "Edit25"; // Set ID for referencing
 Gui1Edit25.placeholder = "" + variables.guiEditText + "";
 Gui1Edit25.style.fontSize = "15px"; // Set font size
 Gui1Edit25.style.resize = "none"; // Disable resizing
 Gui1Edit25.style.position = "absolute"; // Set position to absolute
-Gui1Edit25.style.left = "5px"; // Set initial x position
+Gui1Edit25.style.left = "10px"; // Set initial x position
 Gui1Edit25.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit25.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit25.style.height = "25px"; // Set height
@@ -1617,12 +1871,12 @@ Gui1.appendChild(Gui1Edit25);
 if (( variables.guiEditTextG == "Edit26" ))
 {
 Gui1Edit26 = document.createElement("textarea");
-Gui1Edit26.id = "Gui1" + "Edit" + "26"; // Set ID for referencing
+Gui1Edit26.id = "Gui1" + "Edit26"; // Set ID for referencing
 Gui1Edit26.placeholder = "" + variables.guiEditText + "";
 Gui1Edit26.style.fontSize = "15px"; // Set font size
 Gui1Edit26.style.resize = "none"; // Disable resizing
 Gui1Edit26.style.position = "absolute"; // Set position to absolute
-Gui1Edit26.style.left = "5px"; // Set initial x position
+Gui1Edit26.style.left = "10px"; // Set initial x position
 Gui1Edit26.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit26.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit26.style.height = "25px"; // Set height
@@ -1641,12 +1895,12 @@ Gui1.appendChild(Gui1Edit26);
 if (( variables.guiEditTextG == "Edit27" ))
 {
 Gui1Edit27 = document.createElement("textarea");
-Gui1Edit27.id = "Gui1" + "Edit" + "27"; // Set ID for referencing
+Gui1Edit27.id = "Gui1" + "Edit27"; // Set ID for referencing
 Gui1Edit27.placeholder = "" + variables.guiEditText + "";
 Gui1Edit27.style.fontSize = "15px"; // Set font size
 Gui1Edit27.style.resize = "none"; // Disable resizing
 Gui1Edit27.style.position = "absolute"; // Set position to absolute
-Gui1Edit27.style.left = "5px"; // Set initial x position
+Gui1Edit27.style.left = "10px"; // Set initial x position
 Gui1Edit27.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit27.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit27.style.height = "25px"; // Set height
@@ -1665,12 +1919,12 @@ Gui1.appendChild(Gui1Edit27);
 if (( variables.guiEditTextG == "Edit28" ))
 {
 Gui1Edit28 = document.createElement("textarea");
-Gui1Edit28.id = "Gui1" + "Edit" + "28"; // Set ID for referencing
+Gui1Edit28.id = "Gui1" + "Edit28"; // Set ID for referencing
 Gui1Edit28.placeholder = "" + variables.guiEditText + "";
 Gui1Edit28.style.fontSize = "15px"; // Set font size
 Gui1Edit28.style.resize = "none"; // Disable resizing
 Gui1Edit28.style.position = "absolute"; // Set position to absolute
-Gui1Edit28.style.left = "5px"; // Set initial x position
+Gui1Edit28.style.left = "10px"; // Set initial x position
 Gui1Edit28.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit28.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit28.style.height = "25px"; // Set height
@@ -1689,12 +1943,12 @@ Gui1.appendChild(Gui1Edit28);
 if (( variables.guiEditTextG == "Edit29" ))
 {
 Gui1Edit29 = document.createElement("textarea");
-Gui1Edit29.id = "Gui1" + "Edit" + "29"; // Set ID for referencing
+Gui1Edit29.id = "Gui1" + "Edit29"; // Set ID for referencing
 Gui1Edit29.placeholder = "" + variables.guiEditText + "";
 Gui1Edit29.style.fontSize = "15px"; // Set font size
 Gui1Edit29.style.resize = "none"; // Disable resizing
 Gui1Edit29.style.position = "absolute"; // Set position to absolute
-Gui1Edit29.style.left = "5px"; // Set initial x position
+Gui1Edit29.style.left = "10px"; // Set initial x position
 Gui1Edit29.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit29.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit29.style.height = "25px"; // Set height
@@ -1713,12 +1967,12 @@ Gui1.appendChild(Gui1Edit29);
 if (( variables.guiEditTextG == "Edit30" ))
 {
 Gui1Edit30 = document.createElement("textarea");
-Gui1Edit30.id = "Gui1" + "Edit" + "30"; // Set ID for referencing
+Gui1Edit30.id = "Gui1" + "Edit30"; // Set ID for referencing
 Gui1Edit30.placeholder = "" + variables.guiEditText + "";
 Gui1Edit30.style.fontSize = "15px"; // Set font size
 Gui1Edit30.style.resize = "none"; // Disable resizing
 Gui1Edit30.style.position = "absolute"; // Set position to absolute
-Gui1Edit30.style.left = "5px"; // Set initial x position
+Gui1Edit30.style.left = "10px"; // Set initial x position
 Gui1Edit30.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit30.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit30.style.height = "25px"; // Set height
@@ -1737,12 +1991,12 @@ Gui1.appendChild(Gui1Edit30);
 if (( variables.guiEditTextG == "Edit31" ))
 {
 Gui1Edit31 = document.createElement("textarea");
-Gui1Edit31.id = "Gui1" + "Edit" + "31"; // Set ID for referencing
+Gui1Edit31.id = "Gui1" + "Edit31"; // Set ID for referencing
 Gui1Edit31.placeholder = "" + variables.guiEditText + "";
 Gui1Edit31.style.fontSize = "15px"; // Set font size
 Gui1Edit31.style.resize = "none"; // Disable resizing
 Gui1Edit31.style.position = "absolute"; // Set position to absolute
-Gui1Edit31.style.left = "5px"; // Set initial x position
+Gui1Edit31.style.left = "10px"; // Set initial x position
 Gui1Edit31.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit31.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit31.style.height = "25px"; // Set height
@@ -1761,12 +2015,12 @@ Gui1.appendChild(Gui1Edit31);
 if (( variables.guiEditTextG == "Edit32" ))
 {
 Gui1Edit32 = document.createElement("textarea");
-Gui1Edit32.id = "Gui1" + "Edit" + "32"; // Set ID for referencing
+Gui1Edit32.id = "Gui1" + "Edit32"; // Set ID for referencing
 Gui1Edit32.placeholder = "" + variables.guiEditText + "";
 Gui1Edit32.style.fontSize = "15px"; // Set font size
 Gui1Edit32.style.resize = "none"; // Disable resizing
 Gui1Edit32.style.position = "absolute"; // Set position to absolute
-Gui1Edit32.style.left = "5px"; // Set initial x position
+Gui1Edit32.style.left = "10px"; // Set initial x position
 Gui1Edit32.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit32.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit32.style.height = "25px"; // Set height
@@ -1785,12 +2039,12 @@ Gui1.appendChild(Gui1Edit32);
 if (( variables.guiEditTextG == "Edit33" ))
 {
 Gui1Edit33 = document.createElement("textarea");
-Gui1Edit33.id = "Gui1" + "Edit" + "33"; // Set ID for referencing
+Gui1Edit33.id = "Gui1" + "Edit33"; // Set ID for referencing
 Gui1Edit33.placeholder = "" + variables.guiEditText + "";
 Gui1Edit33.style.fontSize = "15px"; // Set font size
 Gui1Edit33.style.resize = "none"; // Disable resizing
 Gui1Edit33.style.position = "absolute"; // Set position to absolute
-Gui1Edit33.style.left = "5px"; // Set initial x position
+Gui1Edit33.style.left = "10px"; // Set initial x position
 Gui1Edit33.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit33.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit33.style.height = "25px"; // Set height
@@ -1809,12 +2063,12 @@ Gui1.appendChild(Gui1Edit33);
 if (( variables.guiEditTextG == "Edit34" ))
 {
 Gui1Edit34 = document.createElement("textarea");
-Gui1Edit34.id = "Gui1" + "Edit" + "34"; // Set ID for referencing
+Gui1Edit34.id = "Gui1" + "Edit34"; // Set ID for referencing
 Gui1Edit34.placeholder = "" + variables.guiEditText + "";
 Gui1Edit34.style.fontSize = "15px"; // Set font size
 Gui1Edit34.style.resize = "none"; // Disable resizing
 Gui1Edit34.style.position = "absolute"; // Set position to absolute
-Gui1Edit34.style.left = "5px"; // Set initial x position
+Gui1Edit34.style.left = "10px"; // Set initial x position
 Gui1Edit34.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit34.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit34.style.height = "25px"; // Set height
@@ -1833,12 +2087,12 @@ Gui1.appendChild(Gui1Edit34);
 if (( variables.guiEditTextG == "Edit35" ))
 {
 Gui1Edit35 = document.createElement("textarea");
-Gui1Edit35.id = "Gui1" + "Edit" + "35"; // Set ID for referencing
+Gui1Edit35.id = "Gui1" + "Edit35"; // Set ID for referencing
 Gui1Edit35.placeholder = "" + variables.guiEditText + "";
 Gui1Edit35.style.fontSize = "15px"; // Set font size
 Gui1Edit35.style.resize = "none"; // Disable resizing
 Gui1Edit35.style.position = "absolute"; // Set position to absolute
-Gui1Edit35.style.left = "5px"; // Set initial x position
+Gui1Edit35.style.left = "10px"; // Set initial x position
 Gui1Edit35.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit35.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit35.style.height = "25px"; // Set height
@@ -1857,12 +2111,12 @@ Gui1.appendChild(Gui1Edit35);
 if (( variables.guiEditTextG == "Edit36" ))
 {
 Gui1Edit36 = document.createElement("textarea");
-Gui1Edit36.id = "Gui1" + "Edit" + "36"; // Set ID for referencing
+Gui1Edit36.id = "Gui1" + "Edit36"; // Set ID for referencing
 Gui1Edit36.placeholder = "" + variables.guiEditText + "";
 Gui1Edit36.style.fontSize = "15px"; // Set font size
 Gui1Edit36.style.resize = "none"; // Disable resizing
 Gui1Edit36.style.position = "absolute"; // Set position to absolute
-Gui1Edit36.style.left = "5px"; // Set initial x position
+Gui1Edit36.style.left = "10px"; // Set initial x position
 Gui1Edit36.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit36.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit36.style.height = "25px"; // Set height
@@ -1881,12 +2135,12 @@ Gui1.appendChild(Gui1Edit36);
 if (( variables.guiEditTextG == "Edit37" ))
 {
 Gui1Edit37 = document.createElement("textarea");
-Gui1Edit37.id = "Gui1" + "Edit" + "37"; // Set ID for referencing
+Gui1Edit37.id = "Gui1" + "Edit37"; // Set ID for referencing
 Gui1Edit37.placeholder = "" + variables.guiEditText + "";
 Gui1Edit37.style.fontSize = "15px"; // Set font size
 Gui1Edit37.style.resize = "none"; // Disable resizing
 Gui1Edit37.style.position = "absolute"; // Set position to absolute
-Gui1Edit37.style.left = "5px"; // Set initial x position
+Gui1Edit37.style.left = "10px"; // Set initial x position
 Gui1Edit37.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit37.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit37.style.height = "25px"; // Set height
@@ -1905,12 +2159,12 @@ Gui1.appendChild(Gui1Edit37);
 if (( variables.guiEditTextG == "Edit38" ))
 {
 Gui1Edit38 = document.createElement("textarea");
-Gui1Edit38.id = "Gui1" + "Edit" + "38"; // Set ID for referencing
+Gui1Edit38.id = "Gui1" + "Edit38"; // Set ID for referencing
 Gui1Edit38.placeholder = "" + variables.guiEditText + "";
 Gui1Edit38.style.fontSize = "15px"; // Set font size
 Gui1Edit38.style.resize = "none"; // Disable resizing
 Gui1Edit38.style.position = "absolute"; // Set position to absolute
-Gui1Edit38.style.left = "5px"; // Set initial x position
+Gui1Edit38.style.left = "10px"; // Set initial x position
 Gui1Edit38.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit38.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit38.style.height = "25px"; // Set height
@@ -1929,12 +2183,12 @@ Gui1.appendChild(Gui1Edit38);
 if (( variables.guiEditTextG == "Edit39" ))
 {
 Gui1Edit39 = document.createElement("textarea");
-Gui1Edit39.id = "Gui1" + "Edit" + "39"; // Set ID for referencing
+Gui1Edit39.id = "Gui1" + "Edit39"; // Set ID for referencing
 Gui1Edit39.placeholder = "" + variables.guiEditText + "";
 Gui1Edit39.style.fontSize = "15px"; // Set font size
 Gui1Edit39.style.resize = "none"; // Disable resizing
 Gui1Edit39.style.position = "absolute"; // Set position to absolute
-Gui1Edit39.style.left = "5px"; // Set initial x position
+Gui1Edit39.style.left = "10px"; // Set initial x position
 Gui1Edit39.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit39.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit39.style.height = "25px"; // Set height
@@ -1953,12 +2207,12 @@ Gui1.appendChild(Gui1Edit39);
 if (( variables.guiEditTextG == "Edit40" ))
 {
 Gui1Edit40 = document.createElement("textarea");
-Gui1Edit40.id = "Gui1" + "Edit" + "40"; // Set ID for referencing
+Gui1Edit40.id = "Gui1" + "Edit40"; // Set ID for referencing
 Gui1Edit40.placeholder = "" + variables.guiEditText + "";
 Gui1Edit40.style.fontSize = "15px"; // Set font size
 Gui1Edit40.style.resize = "none"; // Disable resizing
 Gui1Edit40.style.position = "absolute"; // Set position to absolute
-Gui1Edit40.style.left = "5px"; // Set initial x position
+Gui1Edit40.style.left = "10px"; // Set initial x position
 Gui1Edit40.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit40.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit40.style.height = "25px"; // Set height
@@ -1977,12 +2231,12 @@ Gui1.appendChild(Gui1Edit40);
 if (( variables.guiEditTextG == "Edit41" ))
 {
 Gui1Edit41 = document.createElement("textarea");
-Gui1Edit41.id = "Gui1" + "Edit" + "41"; // Set ID for referencing
+Gui1Edit41.id = "Gui1" + "Edit41"; // Set ID for referencing
 Gui1Edit41.placeholder = "" + variables.guiEditText + "";
 Gui1Edit41.style.fontSize = "15px"; // Set font size
 Gui1Edit41.style.resize = "none"; // Disable resizing
 Gui1Edit41.style.position = "absolute"; // Set position to absolute
-Gui1Edit41.style.left = "5px"; // Set initial x position
+Gui1Edit41.style.left = "10px"; // Set initial x position
 Gui1Edit41.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit41.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit41.style.height = "25px"; // Set height
@@ -2001,12 +2255,12 @@ Gui1.appendChild(Gui1Edit41);
 if (( variables.guiEditTextG == "Edit42" ))
 {
 Gui1Edit42 = document.createElement("textarea");
-Gui1Edit42.id = "Gui1" + "Edit" + "42"; // Set ID for referencing
+Gui1Edit42.id = "Gui1" + "Edit42"; // Set ID for referencing
 Gui1Edit42.placeholder = "" + variables.guiEditText + "";
 Gui1Edit42.style.fontSize = "15px"; // Set font size
 Gui1Edit42.style.resize = "none"; // Disable resizing
 Gui1Edit42.style.position = "absolute"; // Set position to absolute
-Gui1Edit42.style.left = "5px"; // Set initial x position
+Gui1Edit42.style.left = "10px"; // Set initial x position
 Gui1Edit42.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit42.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit42.style.height = "25px"; // Set height
@@ -2025,12 +2279,12 @@ Gui1.appendChild(Gui1Edit42);
 if (( variables.guiEditTextG == "Edit43" ))
 {
 Gui1Edit43 = document.createElement("textarea");
-Gui1Edit43.id = "Gui1" + "Edit" + "43"; // Set ID for referencing
+Gui1Edit43.id = "Gui1" + "Edit43"; // Set ID for referencing
 Gui1Edit43.placeholder = "" + variables.guiEditText + "";
 Gui1Edit43.style.fontSize = "15px"; // Set font size
 Gui1Edit43.style.resize = "none"; // Disable resizing
 Gui1Edit43.style.position = "absolute"; // Set position to absolute
-Gui1Edit43.style.left = "5px"; // Set initial x position
+Gui1Edit43.style.left = "10px"; // Set initial x position
 Gui1Edit43.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit43.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit43.style.height = "25px"; // Set height
@@ -2049,12 +2303,12 @@ Gui1.appendChild(Gui1Edit43);
 if (( variables.guiEditTextG == "Edit44" ))
 {
 Gui1Edit44 = document.createElement("textarea");
-Gui1Edit44.id = "Gui1" + "Edit" + "44"; // Set ID for referencing
+Gui1Edit44.id = "Gui1" + "Edit44"; // Set ID for referencing
 Gui1Edit44.placeholder = "" + variables.guiEditText + "";
 Gui1Edit44.style.fontSize = "15px"; // Set font size
 Gui1Edit44.style.resize = "none"; // Disable resizing
 Gui1Edit44.style.position = "absolute"; // Set position to absolute
-Gui1Edit44.style.left = "5px"; // Set initial x position
+Gui1Edit44.style.left = "10px"; // Set initial x position
 Gui1Edit44.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit44.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit44.style.height = "25px"; // Set height
@@ -2073,12 +2327,12 @@ Gui1.appendChild(Gui1Edit44);
 if (( variables.guiEditTextG == "Edit45" ))
 {
 Gui1Edit45 = document.createElement("textarea");
-Gui1Edit45.id = "Gui1" + "Edit" + "45"; // Set ID for referencing
+Gui1Edit45.id = "Gui1" + "Edit45"; // Set ID for referencing
 Gui1Edit45.placeholder = "" + variables.guiEditText + "";
 Gui1Edit45.style.fontSize = "15px"; // Set font size
 Gui1Edit45.style.resize = "none"; // Disable resizing
 Gui1Edit45.style.position = "absolute"; // Set position to absolute
-Gui1Edit45.style.left = "5px"; // Set initial x position
+Gui1Edit45.style.left = "10px"; // Set initial x position
 Gui1Edit45.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit45.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit45.style.height = "25px"; // Set height
@@ -2097,12 +2351,12 @@ Gui1.appendChild(Gui1Edit45);
 if (( variables.guiEditTextG == "Edit46" ))
 {
 Gui1Edit46 = document.createElement("textarea");
-Gui1Edit46.id = "Gui1" + "Edit" + "46"; // Set ID for referencing
+Gui1Edit46.id = "Gui1" + "Edit46"; // Set ID for referencing
 Gui1Edit46.placeholder = "" + variables.guiEditText + "";
 Gui1Edit46.style.fontSize = "15px"; // Set font size
 Gui1Edit46.style.resize = "none"; // Disable resizing
 Gui1Edit46.style.position = "absolute"; // Set position to absolute
-Gui1Edit46.style.left = "5px"; // Set initial x position
+Gui1Edit46.style.left = "10px"; // Set initial x position
 Gui1Edit46.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit46.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit46.style.height = "25px"; // Set height
@@ -2121,12 +2375,12 @@ Gui1.appendChild(Gui1Edit46);
 if (( variables.guiEditTextG == "Edit47" ))
 {
 Gui1Edit47 = document.createElement("textarea");
-Gui1Edit47.id = "Gui1" + "Edit" + "47"; // Set ID for referencing
+Gui1Edit47.id = "Gui1" + "Edit47"; // Set ID for referencing
 Gui1Edit47.placeholder = "" + variables.guiEditText + "";
 Gui1Edit47.style.fontSize = "15px"; // Set font size
 Gui1Edit47.style.resize = "none"; // Disable resizing
 Gui1Edit47.style.position = "absolute"; // Set position to absolute
-Gui1Edit47.style.left = "5px"; // Set initial x position
+Gui1Edit47.style.left = "10px"; // Set initial x position
 Gui1Edit47.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit47.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit47.style.height = "25px"; // Set height
@@ -2145,12 +2399,12 @@ Gui1.appendChild(Gui1Edit47);
 if (( variables.guiEditTextG == "Edit48" ))
 {
 Gui1Edit48 = document.createElement("textarea");
-Gui1Edit48.id = "Gui1" + "Edit" + "48"; // Set ID for referencing
+Gui1Edit48.id = "Gui1" + "Edit48"; // Set ID for referencing
 Gui1Edit48.placeholder = "" + variables.guiEditText + "";
 Gui1Edit48.style.fontSize = "15px"; // Set font size
 Gui1Edit48.style.resize = "none"; // Disable resizing
 Gui1Edit48.style.position = "absolute"; // Set position to absolute
-Gui1Edit48.style.left = "5px"; // Set initial x position
+Gui1Edit48.style.left = "10px"; // Set initial x position
 Gui1Edit48.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit48.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit48.style.height = "25px"; // Set height
@@ -2169,12 +2423,12 @@ Gui1.appendChild(Gui1Edit48);
 if (( variables.guiEditTextG == "Edit49" ))
 {
 Gui1Edit49 = document.createElement("textarea");
-Gui1Edit49.id = "Gui1" + "Edit" + "49"; // Set ID for referencing
+Gui1Edit49.id = "Gui1" + "Edit49"; // Set ID for referencing
 Gui1Edit49.placeholder = "" + variables.guiEditText + "";
 Gui1Edit49.style.fontSize = "15px"; // Set font size
 Gui1Edit49.style.resize = "none"; // Disable resizing
 Gui1Edit49.style.position = "absolute"; // Set position to absolute
-Gui1Edit49.style.left = "5px"; // Set initial x position
+Gui1Edit49.style.left = "10px"; // Set initial x position
 Gui1Edit49.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit49.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit49.style.height = "25px"; // Set height
@@ -2193,12 +2447,12 @@ Gui1.appendChild(Gui1Edit49);
 if (( variables.guiEditTextG == "Edit50" ))
 {
 Gui1Edit50 = document.createElement("textarea");
-Gui1Edit50.id = "Gui1" + "Edit" + "50"; // Set ID for referencing
+Gui1Edit50.id = "Gui1" + "Edit50"; // Set ID for referencing
 Gui1Edit50.placeholder = "" + variables.guiEditText + "";
 Gui1Edit50.style.fontSize = "15px"; // Set font size
 Gui1Edit50.style.resize = "none"; // Disable resizing
 Gui1Edit50.style.position = "absolute"; // Set position to absolute
-Gui1Edit50.style.left = "5px"; // Set initial x position
+Gui1Edit50.style.left = "10px"; // Set initial x position
 Gui1Edit50.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit50.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit50.style.height = "25px"; // Set height
@@ -2217,12 +2471,12 @@ Gui1.appendChild(Gui1Edit50);
 if (( variables.guiEditTextG == "Edit51" ))
 {
 Gui1Edit51 = document.createElement("textarea");
-Gui1Edit51.id = "Gui1" + "Edit" + "51"; // Set ID for referencing
+Gui1Edit51.id = "Gui1" + "Edit51"; // Set ID for referencing
 Gui1Edit51.placeholder = "" + variables.guiEditText + "";
 Gui1Edit51.style.fontSize = "15px"; // Set font size
 Gui1Edit51.style.resize = "none"; // Disable resizing
 Gui1Edit51.style.position = "absolute"; // Set position to absolute
-Gui1Edit51.style.left = "5px"; // Set initial x position
+Gui1Edit51.style.left = "10px"; // Set initial x position
 Gui1Edit51.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit51.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit51.style.height = "25px"; // Set height
@@ -2241,12 +2495,12 @@ Gui1.appendChild(Gui1Edit51);
 if (( variables.guiEditTextG == "Edit52" ))
 {
 Gui1Edit52 = document.createElement("textarea");
-Gui1Edit52.id = "Gui1" + "Edit" + "52"; // Set ID for referencing
+Gui1Edit52.id = "Gui1" + "Edit52"; // Set ID for referencing
 Gui1Edit52.placeholder = "" + variables.guiEditText + "";
 Gui1Edit52.style.fontSize = "15px"; // Set font size
 Gui1Edit52.style.resize = "none"; // Disable resizing
 Gui1Edit52.style.position = "absolute"; // Set position to absolute
-Gui1Edit52.style.left = "5px"; // Set initial x position
+Gui1Edit52.style.left = "10px"; // Set initial x position
 Gui1Edit52.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit52.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit52.style.height = "25px"; // Set height
@@ -2265,12 +2519,12 @@ Gui1.appendChild(Gui1Edit52);
 if (( variables.guiEditTextG == "Edit53" ))
 {
 Gui1Edit53 = document.createElement("textarea");
-Gui1Edit53.id = "Gui1" + "Edit" + "53"; // Set ID for referencing
+Gui1Edit53.id = "Gui1" + "Edit53"; // Set ID for referencing
 Gui1Edit53.placeholder = "" + variables.guiEditText + "";
 Gui1Edit53.style.fontSize = "15px"; // Set font size
 Gui1Edit53.style.resize = "none"; // Disable resizing
 Gui1Edit53.style.position = "absolute"; // Set position to absolute
-Gui1Edit53.style.left = "5px"; // Set initial x position
+Gui1Edit53.style.left = "10px"; // Set initial x position
 Gui1Edit53.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit53.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit53.style.height = "25px"; // Set height
@@ -2289,12 +2543,12 @@ Gui1.appendChild(Gui1Edit53);
 if (( variables.guiEditTextG == "Edit54" ))
 {
 Gui1Edit54 = document.createElement("textarea");
-Gui1Edit54.id = "Gui1" + "Edit" + "54"; // Set ID for referencing
+Gui1Edit54.id = "Gui1" + "Edit54"; // Set ID for referencing
 Gui1Edit54.placeholder = "" + variables.guiEditText + "";
 Gui1Edit54.style.fontSize = "15px"; // Set font size
 Gui1Edit54.style.resize = "none"; // Disable resizing
 Gui1Edit54.style.position = "absolute"; // Set position to absolute
-Gui1Edit54.style.left = "5px"; // Set initial x position
+Gui1Edit54.style.left = "10px"; // Set initial x position
 Gui1Edit54.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit54.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit54.style.height = "25px"; // Set height
@@ -2313,12 +2567,12 @@ Gui1.appendChild(Gui1Edit54);
 if (( variables.guiEditTextG == "Edit55" ))
 {
 Gui1Edit55 = document.createElement("textarea");
-Gui1Edit55.id = "Gui1" + "Edit" + "55"; // Set ID for referencing
+Gui1Edit55.id = "Gui1" + "Edit55"; // Set ID for referencing
 Gui1Edit55.placeholder = "" + variables.guiEditText + "";
 Gui1Edit55.style.fontSize = "15px"; // Set font size
 Gui1Edit55.style.resize = "none"; // Disable resizing
 Gui1Edit55.style.position = "absolute"; // Set position to absolute
-Gui1Edit55.style.left = "5px"; // Set initial x position
+Gui1Edit55.style.left = "10px"; // Set initial x position
 Gui1Edit55.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit55.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit55.style.height = "25px"; // Set height
@@ -2337,12 +2591,12 @@ Gui1.appendChild(Gui1Edit55);
 if (( variables.guiEditTextG == "Edit56" ))
 {
 Gui1Edit56 = document.createElement("textarea");
-Gui1Edit56.id = "Gui1" + "Edit" + "56"; // Set ID for referencing
+Gui1Edit56.id = "Gui1" + "Edit56"; // Set ID for referencing
 Gui1Edit56.placeholder = "" + variables.guiEditText + "";
 Gui1Edit56.style.fontSize = "15px"; // Set font size
 Gui1Edit56.style.resize = "none"; // Disable resizing
 Gui1Edit56.style.position = "absolute"; // Set position to absolute
-Gui1Edit56.style.left = "5px"; // Set initial x position
+Gui1Edit56.style.left = "10px"; // Set initial x position
 Gui1Edit56.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit56.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit56.style.height = "25px"; // Set height
@@ -2361,12 +2615,12 @@ Gui1.appendChild(Gui1Edit56);
 if (( variables.guiEditTextG == "Edit57" ))
 {
 Gui1Edit57 = document.createElement("textarea");
-Gui1Edit57.id = "Gui1" + "Edit" + "57"; // Set ID for referencing
+Gui1Edit57.id = "Gui1" + "Edit57"; // Set ID for referencing
 Gui1Edit57.placeholder = "" + variables.guiEditText + "";
 Gui1Edit57.style.fontSize = "15px"; // Set font size
 Gui1Edit57.style.resize = "none"; // Disable resizing
 Gui1Edit57.style.position = "absolute"; // Set position to absolute
-Gui1Edit57.style.left = "5px"; // Set initial x position
+Gui1Edit57.style.left = "10px"; // Set initial x position
 Gui1Edit57.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit57.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit57.style.height = "25px"; // Set height
@@ -2385,12 +2639,12 @@ Gui1.appendChild(Gui1Edit57);
 if (( variables.guiEditTextG == "Edit58" ))
 {
 Gui1Edit58 = document.createElement("textarea");
-Gui1Edit58.id = "Gui1" + "Edit" + "58"; // Set ID for referencing
+Gui1Edit58.id = "Gui1" + "Edit58"; // Set ID for referencing
 Gui1Edit58.placeholder = "" + variables.guiEditText + "";
 Gui1Edit58.style.fontSize = "15px"; // Set font size
 Gui1Edit58.style.resize = "none"; // Disable resizing
 Gui1Edit58.style.position = "absolute"; // Set position to absolute
-Gui1Edit58.style.left = "5px"; // Set initial x position
+Gui1Edit58.style.left = "10px"; // Set initial x position
 Gui1Edit58.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit58.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit58.style.height = "25px"; // Set height
@@ -2409,12 +2663,12 @@ Gui1.appendChild(Gui1Edit58);
 if (( variables.guiEditTextG == "Edit59" ))
 {
 Gui1Edit59 = document.createElement("textarea");
-Gui1Edit59.id = "Gui1" + "Edit" + "59"; // Set ID for referencing
+Gui1Edit59.id = "Gui1" + "Edit59"; // Set ID for referencing
 Gui1Edit59.placeholder = "" + variables.guiEditText + "";
 Gui1Edit59.style.fontSize = "15px"; // Set font size
 Gui1Edit59.style.resize = "none"; // Disable resizing
 Gui1Edit59.style.position = "absolute"; // Set position to absolute
-Gui1Edit59.style.left = "5px"; // Set initial x position
+Gui1Edit59.style.left = "10px"; // Set initial x position
 Gui1Edit59.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit59.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit59.style.height = "25px"; // Set height
@@ -2433,12 +2687,12 @@ Gui1.appendChild(Gui1Edit59);
 if (( variables.guiEditTextG == "Edit60" ))
 {
 Gui1Edit60 = document.createElement("textarea");
-Gui1Edit60.id = "Gui1" + "Edit" + "60"; // Set ID for referencing
+Gui1Edit60.id = "Gui1" + "Edit60"; // Set ID for referencing
 Gui1Edit60.placeholder = "" + variables.guiEditText + "";
 Gui1Edit60.style.fontSize = "15px"; // Set font size
 Gui1Edit60.style.resize = "none"; // Disable resizing
 Gui1Edit60.style.position = "absolute"; // Set position to absolute
-Gui1Edit60.style.left = "5px"; // Set initial x position
+Gui1Edit60.style.left = "10px"; // Set initial x position
 Gui1Edit60.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit60.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit60.style.height = "25px"; // Set height
@@ -2457,12 +2711,12 @@ Gui1.appendChild(Gui1Edit60);
 if (( variables.guiEditTextG == "Edit61" ))
 {
 Gui1Edit61 = document.createElement("textarea");
-Gui1Edit61.id = "Gui1" + "Edit" + "61"; // Set ID for referencing
+Gui1Edit61.id = "Gui1" + "Edit61"; // Set ID for referencing
 Gui1Edit61.placeholder = "" + variables.guiEditText + "";
 Gui1Edit61.style.fontSize = "15px"; // Set font size
 Gui1Edit61.style.resize = "none"; // Disable resizing
 Gui1Edit61.style.position = "absolute"; // Set position to absolute
-Gui1Edit61.style.left = "5px"; // Set initial x position
+Gui1Edit61.style.left = "10px"; // Set initial x position
 Gui1Edit61.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit61.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit61.style.height = "25px"; // Set height
@@ -2481,12 +2735,12 @@ Gui1.appendChild(Gui1Edit61);
 if (( variables.guiEditTextG == "Edit62" ))
 {
 Gui1Edit62 = document.createElement("textarea");
-Gui1Edit62.id = "Gui1" + "Edit" + "62"; // Set ID for referencing
+Gui1Edit62.id = "Gui1" + "Edit62"; // Set ID for referencing
 Gui1Edit62.placeholder = "" + variables.guiEditText + "";
 Gui1Edit62.style.fontSize = "15px"; // Set font size
 Gui1Edit62.style.resize = "none"; // Disable resizing
 Gui1Edit62.style.position = "absolute"; // Set position to absolute
-Gui1Edit62.style.left = "5px"; // Set initial x position
+Gui1Edit62.style.left = "10px"; // Set initial x position
 Gui1Edit62.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit62.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit62.style.height = "25px"; // Set height
@@ -2505,12 +2759,12 @@ Gui1.appendChild(Gui1Edit62);
 if (( variables.guiEditTextG == "Edit63" ))
 {
 Gui1Edit63 = document.createElement("textarea");
-Gui1Edit63.id = "Gui1" + "Edit" + "63"; // Set ID for referencing
+Gui1Edit63.id = "Gui1" + "Edit63"; // Set ID for referencing
 Gui1Edit63.placeholder = "" + variables.guiEditText + "";
 Gui1Edit63.style.fontSize = "15px"; // Set font size
 Gui1Edit63.style.resize = "none"; // Disable resizing
 Gui1Edit63.style.position = "absolute"; // Set position to absolute
-Gui1Edit63.style.left = "5px"; // Set initial x position
+Gui1Edit63.style.left = "10px"; // Set initial x position
 Gui1Edit63.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit63.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit63.style.height = "25px"; // Set height
@@ -2529,12 +2783,12 @@ Gui1.appendChild(Gui1Edit63);
 if (( variables.guiEditTextG == "Edit64" ))
 {
 Gui1Edit64 = document.createElement("textarea");
-Gui1Edit64.id = "Gui1" + "Edit" + "64"; // Set ID for referencing
+Gui1Edit64.id = "Gui1" + "Edit64"; // Set ID for referencing
 Gui1Edit64.placeholder = "" + variables.guiEditText + "";
 Gui1Edit64.style.fontSize = "15px"; // Set font size
 Gui1Edit64.style.resize = "none"; // Disable resizing
 Gui1Edit64.style.position = "absolute"; // Set position to absolute
-Gui1Edit64.style.left = "5px"; // Set initial x position
+Gui1Edit64.style.left = "10px"; // Set initial x position
 Gui1Edit64.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit64.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit64.style.height = "25px"; // Set height
@@ -2553,12 +2807,12 @@ Gui1.appendChild(Gui1Edit64);
 if (( variables.guiEditTextG == "Edit65" ))
 {
 Gui1Edit65 = document.createElement("textarea");
-Gui1Edit65.id = "Gui1" + "Edit" + "65"; // Set ID for referencing
+Gui1Edit65.id = "Gui1" + "Edit65"; // Set ID for referencing
 Gui1Edit65.placeholder = "" + variables.guiEditText + "";
 Gui1Edit65.style.fontSize = "15px"; // Set font size
 Gui1Edit65.style.resize = "none"; // Disable resizing
 Gui1Edit65.style.position = "absolute"; // Set position to absolute
-Gui1Edit65.style.left = "5px"; // Set initial x position
+Gui1Edit65.style.left = "10px"; // Set initial x position
 Gui1Edit65.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit65.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit65.style.height = "25px"; // Set height
@@ -2577,12 +2831,12 @@ Gui1.appendChild(Gui1Edit65);
 if (( variables.guiEditTextG == "Edit66" ))
 {
 Gui1Edit66 = document.createElement("textarea");
-Gui1Edit66.id = "Gui1" + "Edit" + "66"; // Set ID for referencing
+Gui1Edit66.id = "Gui1" + "Edit66"; // Set ID for referencing
 Gui1Edit66.placeholder = "" + variables.guiEditText + "";
 Gui1Edit66.style.fontSize = "15px"; // Set font size
 Gui1Edit66.style.resize = "none"; // Disable resizing
 Gui1Edit66.style.position = "absolute"; // Set position to absolute
-Gui1Edit66.style.left = "5px"; // Set initial x position
+Gui1Edit66.style.left = "10px"; // Set initial x position
 Gui1Edit66.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit66.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit66.style.height = "25px"; // Set height
@@ -2601,12 +2855,12 @@ Gui1.appendChild(Gui1Edit66);
 if (( variables.guiEditTextG == "Edit67" ))
 {
 Gui1Edit67 = document.createElement("textarea");
-Gui1Edit67.id = "Gui1" + "Edit" + "67"; // Set ID for referencing
+Gui1Edit67.id = "Gui1" + "Edit67"; // Set ID for referencing
 Gui1Edit67.placeholder = "" + variables.guiEditText + "";
 Gui1Edit67.style.fontSize = "15px"; // Set font size
 Gui1Edit67.style.resize = "none"; // Disable resizing
 Gui1Edit67.style.position = "absolute"; // Set position to absolute
-Gui1Edit67.style.left = "5px"; // Set initial x position
+Gui1Edit67.style.left = "10px"; // Set initial x position
 Gui1Edit67.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit67.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit67.style.height = "25px"; // Set height
@@ -2625,12 +2879,12 @@ Gui1.appendChild(Gui1Edit67);
 if (( variables.guiEditTextG == "Edit68" ))
 {
 Gui1Edit68 = document.createElement("textarea");
-Gui1Edit68.id = "Gui1" + "Edit" + "68"; // Set ID for referencing
+Gui1Edit68.id = "Gui1" + "Edit68"; // Set ID for referencing
 Gui1Edit68.placeholder = "" + variables.guiEditText + "";
 Gui1Edit68.style.fontSize = "15px"; // Set font size
 Gui1Edit68.style.resize = "none"; // Disable resizing
 Gui1Edit68.style.position = "absolute"; // Set position to absolute
-Gui1Edit68.style.left = "5px"; // Set initial x position
+Gui1Edit68.style.left = "10px"; // Set initial x position
 Gui1Edit68.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit68.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit68.style.height = "25px"; // Set height
@@ -2649,12 +2903,12 @@ Gui1.appendChild(Gui1Edit68);
 if (( variables.guiEditTextG == "Edit69" ))
 {
 Gui1Edit69 = document.createElement("textarea");
-Gui1Edit69.id = "Gui1" + "Edit" + "69"; // Set ID for referencing
+Gui1Edit69.id = "Gui1" + "Edit69"; // Set ID for referencing
 Gui1Edit69.placeholder = "" + variables.guiEditText + "";
 Gui1Edit69.style.fontSize = "15px"; // Set font size
 Gui1Edit69.style.resize = "none"; // Disable resizing
 Gui1Edit69.style.position = "absolute"; // Set position to absolute
-Gui1Edit69.style.left = "5px"; // Set initial x position
+Gui1Edit69.style.left = "10px"; // Set initial x position
 Gui1Edit69.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit69.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit69.style.height = "25px"; // Set height
@@ -2673,12 +2927,12 @@ Gui1.appendChild(Gui1Edit69);
 if (( variables.guiEditTextG == "Edit70" ))
 {
 Gui1Edit70 = document.createElement("textarea");
-Gui1Edit70.id = "Gui1" + "Edit" + "70"; // Set ID for referencing
+Gui1Edit70.id = "Gui1" + "Edit70"; // Set ID for referencing
 Gui1Edit70.placeholder = "" + variables.guiEditText + "";
 Gui1Edit70.style.fontSize = "15px"; // Set font size
 Gui1Edit70.style.resize = "none"; // Disable resizing
 Gui1Edit70.style.position = "absolute"; // Set position to absolute
-Gui1Edit70.style.left = "5px"; // Set initial x position
+Gui1Edit70.style.left = "10px"; // Set initial x position
 Gui1Edit70.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit70.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit70.style.height = "25px"; // Set height
@@ -2697,12 +2951,12 @@ Gui1.appendChild(Gui1Edit70);
 if (( variables.guiEditTextG == "Edit71" ))
 {
 Gui1Edit71 = document.createElement("textarea");
-Gui1Edit71.id = "Gui1" + "Edit" + "71"; // Set ID for referencing
+Gui1Edit71.id = "Gui1" + "Edit71"; // Set ID for referencing
 Gui1Edit71.placeholder = "" + variables.guiEditText + "";
 Gui1Edit71.style.fontSize = "15px"; // Set font size
 Gui1Edit71.style.resize = "none"; // Disable resizing
 Gui1Edit71.style.position = "absolute"; // Set position to absolute
-Gui1Edit71.style.left = "5px"; // Set initial x position
+Gui1Edit71.style.left = "10px"; // Set initial x position
 Gui1Edit71.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit71.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit71.style.height = "25px"; // Set height
@@ -2721,12 +2975,12 @@ Gui1.appendChild(Gui1Edit71);
 if (( variables.guiEditTextG == "Edit72" ))
 {
 Gui1Edit72 = document.createElement("textarea");
-Gui1Edit72.id = "Gui1" + "Edit" + "72"; // Set ID for referencing
+Gui1Edit72.id = "Gui1" + "Edit72"; // Set ID for referencing
 Gui1Edit72.placeholder = "" + variables.guiEditText + "";
 Gui1Edit72.style.fontSize = "15px"; // Set font size
 Gui1Edit72.style.resize = "none"; // Disable resizing
 Gui1Edit72.style.position = "absolute"; // Set position to absolute
-Gui1Edit72.style.left = "5px"; // Set initial x position
+Gui1Edit72.style.left = "10px"; // Set initial x position
 Gui1Edit72.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit72.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit72.style.height = "25px"; // Set height
@@ -2745,12 +2999,12 @@ Gui1.appendChild(Gui1Edit72);
 if (( variables.guiEditTextG == "Edit73" ))
 {
 Gui1Edit73 = document.createElement("textarea");
-Gui1Edit73.id = "Gui1" + "Edit" + "73"; // Set ID for referencing
+Gui1Edit73.id = "Gui1" + "Edit73"; // Set ID for referencing
 Gui1Edit73.placeholder = "" + variables.guiEditText + "";
 Gui1Edit73.style.fontSize = "15px"; // Set font size
 Gui1Edit73.style.resize = "none"; // Disable resizing
 Gui1Edit73.style.position = "absolute"; // Set position to absolute
-Gui1Edit73.style.left = "5px"; // Set initial x position
+Gui1Edit73.style.left = "10px"; // Set initial x position
 Gui1Edit73.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit73.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit73.style.height = "25px"; // Set height
@@ -2769,12 +3023,12 @@ Gui1.appendChild(Gui1Edit73);
 if (( variables.guiEditTextG == "Edit74" ))
 {
 Gui1Edit74 = document.createElement("textarea");
-Gui1Edit74.id = "Gui1" + "Edit" + "74"; // Set ID for referencing
+Gui1Edit74.id = "Gui1" + "Edit74"; // Set ID for referencing
 Gui1Edit74.placeholder = "" + variables.guiEditText + "";
 Gui1Edit74.style.fontSize = "15px"; // Set font size
 Gui1Edit74.style.resize = "none"; // Disable resizing
 Gui1Edit74.style.position = "absolute"; // Set position to absolute
-Gui1Edit74.style.left = "5px"; // Set initial x position
+Gui1Edit74.style.left = "10px"; // Set initial x position
 Gui1Edit74.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit74.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit74.style.height = "25px"; // Set height
@@ -2793,12 +3047,12 @@ Gui1.appendChild(Gui1Edit74);
 if (( variables.guiEditTextG == "Edit75" ))
 {
 Gui1Edit75 = document.createElement("textarea");
-Gui1Edit75.id = "Gui1" + "Edit" + "75"; // Set ID for referencing
+Gui1Edit75.id = "Gui1" + "Edit75"; // Set ID for referencing
 Gui1Edit75.placeholder = "" + variables.guiEditText + "";
 Gui1Edit75.style.fontSize = "15px"; // Set font size
 Gui1Edit75.style.resize = "none"; // Disable resizing
 Gui1Edit75.style.position = "absolute"; // Set position to absolute
-Gui1Edit75.style.left = "5px"; // Set initial x position
+Gui1Edit75.style.left = "10px"; // Set initial x position
 Gui1Edit75.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit75.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit75.style.height = "25px"; // Set height
@@ -2817,12 +3071,12 @@ Gui1.appendChild(Gui1Edit75);
 if (( variables.guiEditTextG == "Edit76" ))
 {
 Gui1Edit76 = document.createElement("textarea");
-Gui1Edit76.id = "Gui1" + "Edit" + "76"; // Set ID for referencing
+Gui1Edit76.id = "Gui1" + "Edit76"; // Set ID for referencing
 Gui1Edit76.placeholder = "" + variables.guiEditText + "";
 Gui1Edit76.style.fontSize = "15px"; // Set font size
 Gui1Edit76.style.resize = "none"; // Disable resizing
 Gui1Edit76.style.position = "absolute"; // Set position to absolute
-Gui1Edit76.style.left = "5px"; // Set initial x position
+Gui1Edit76.style.left = "10px"; // Set initial x position
 Gui1Edit76.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit76.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit76.style.height = "25px"; // Set height
@@ -2841,12 +3095,12 @@ Gui1.appendChild(Gui1Edit76);
 if (( variables.guiEditTextG == "Edit77" ))
 {
 Gui1Edit77 = document.createElement("textarea");
-Gui1Edit77.id = "Gui1" + "Edit" + "77"; // Set ID for referencing
+Gui1Edit77.id = "Gui1" + "Edit77"; // Set ID for referencing
 Gui1Edit77.placeholder = "" + variables.guiEditText + "";
 Gui1Edit77.style.fontSize = "15px"; // Set font size
 Gui1Edit77.style.resize = "none"; // Disable resizing
 Gui1Edit77.style.position = "absolute"; // Set position to absolute
-Gui1Edit77.style.left = "5px"; // Set initial x position
+Gui1Edit77.style.left = "10px"; // Set initial x position
 Gui1Edit77.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit77.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit77.style.height = "25px"; // Set height
@@ -2865,12 +3119,12 @@ Gui1.appendChild(Gui1Edit77);
 if (( variables.guiEditTextG == "Edit78" ))
 {
 Gui1Edit78 = document.createElement("textarea");
-Gui1Edit78.id = "Gui1" + "Edit" + "78"; // Set ID for referencing
+Gui1Edit78.id = "Gui1" + "Edit78"; // Set ID for referencing
 Gui1Edit78.placeholder = "" + variables.guiEditText + "";
 Gui1Edit78.style.fontSize = "15px"; // Set font size
 Gui1Edit78.style.resize = "none"; // Disable resizing
 Gui1Edit78.style.position = "absolute"; // Set position to absolute
-Gui1Edit78.style.left = "5px"; // Set initial x position
+Gui1Edit78.style.left = "10px"; // Set initial x position
 Gui1Edit78.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit78.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit78.style.height = "25px"; // Set height
@@ -2889,12 +3143,12 @@ Gui1.appendChild(Gui1Edit78);
 if (( variables.guiEditTextG == "Edit79" ))
 {
 Gui1Edit79 = document.createElement("textarea");
-Gui1Edit79.id = "Gui1" + "Edit" + "79"; // Set ID for referencing
+Gui1Edit79.id = "Gui1" + "Edit79"; // Set ID for referencing
 Gui1Edit79.placeholder = "" + variables.guiEditText + "";
 Gui1Edit79.style.fontSize = "15px"; // Set font size
 Gui1Edit79.style.resize = "none"; // Disable resizing
 Gui1Edit79.style.position = "absolute"; // Set position to absolute
-Gui1Edit79.style.left = "5px"; // Set initial x position
+Gui1Edit79.style.left = "10px"; // Set initial x position
 Gui1Edit79.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit79.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit79.style.height = "25px"; // Set height
@@ -2913,12 +3167,12 @@ Gui1.appendChild(Gui1Edit79);
 if (( variables.guiEditTextG == "Edit80" ))
 {
 Gui1Edit80 = document.createElement("textarea");
-Gui1Edit80.id = "Gui1" + "Edit" + "80"; // Set ID for referencing
+Gui1Edit80.id = "Gui1" + "Edit80"; // Set ID for referencing
 Gui1Edit80.placeholder = "" + variables.guiEditText + "";
 Gui1Edit80.style.fontSize = "15px"; // Set font size
 Gui1Edit80.style.resize = "none"; // Disable resizing
 Gui1Edit80.style.position = "absolute"; // Set position to absolute
-Gui1Edit80.style.left = "5px"; // Set initial x position
+Gui1Edit80.style.left = "10px"; // Set initial x position
 Gui1Edit80.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit80.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit80.style.height = "25px"; // Set height
@@ -2937,12 +3191,12 @@ Gui1.appendChild(Gui1Edit80);
 if (( variables.guiEditTextG == "Edit81" ))
 {
 Gui1Edit81 = document.createElement("textarea");
-Gui1Edit81.id = "Gui1" + "Edit" + "81"; // Set ID for referencing
+Gui1Edit81.id = "Gui1" + "Edit81"; // Set ID for referencing
 Gui1Edit81.placeholder = "" + variables.guiEditText + "";
 Gui1Edit81.style.fontSize = "15px"; // Set font size
 Gui1Edit81.style.resize = "none"; // Disable resizing
 Gui1Edit81.style.position = "absolute"; // Set position to absolute
-Gui1Edit81.style.left = "5px"; // Set initial x position
+Gui1Edit81.style.left = "10px"; // Set initial x position
 Gui1Edit81.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit81.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit81.style.height = "25px"; // Set height
@@ -2960,37 +3214,80 @@ Gui1.appendChild(Gui1Edit81);
 }
 if (( variables.guiEditTextG == "Edit82" ))
 {
-Gui1Edit82 = document.createElement("textarea");
-Gui1Edit82.id = "Gui1" + "Edit" + "82"; // Set ID for referencing
-Gui1Edit82.placeholder = "" + variables.guiEditText + "";
-Gui1Edit82.style.fontSize = "15px"; // Set font size
-Gui1Edit82.style.resize = "none"; // Disable resizing
-Gui1Edit82.style.position = "absolute"; // Set position to absolute
-Gui1Edit82.style.left = "5px"; // Set initial x position
-Gui1Edit82.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Edit82.style.width = "" + variables.guiW + "px"; // Set width
-Gui1Edit82.style.height = "25px"; // Set height
-Gui1Edit82.style.border = "none"
-Gui1Edit82.style.color = "#ffffff"
-Gui1Edit82.style.background = ""
-Gui1Edit82.style.backgroundColor = "#000000"
-Gui1Edit82.style.borderRadius = "5px"
-Gui1Edit82.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Edit82.addEventListener("input", function () {
-A_GuiControl = Gui1Edit82.value
+variables.guiEditY82 = variables.guiEditY + 3
+Gui1Button4 = document.createElement("button");
+Gui1Button4.id = "Gui1" + "Button" + "4"; // Set ID for referencing
+Gui1Button4.textContent = "cpp";
+Gui1Button4.style.fontSize = "12px"; // Set font size
+Gui1Button4.style.position = "absolute"; // Set position to absolute
+Gui1Button4.style.left = "10px"; // Set initial x position
+Gui1Button4.style.top = "" + variables.guiEditY82 + "px"; // Set initial y position
+Gui1Button4.style.width = "60px"; // Set width
+Gui1Button4.style.height = "26px"; // Set height
+Gui1Button4.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button4.style.border = "";
+Gui1Button4.style.background = "";
+Gui1Button4.style.backgroundColor = "";
+Gui1Button4.style.borderRadius = "";
+Gui1Button4.style.color = "";
+Gui1Button4.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button4.onclick = function (event) {
+A_GuiControl = event.target.textContent
   Edit82(A_GuiControl);
-});
-Gui1.appendChild(Gui1Edit82);
+};
+Gui1.appendChild(Gui1Button4);
+Gui1Button5 = document.createElement("button");
+Gui1Button5.id = "Gui1" + "Button" + "5"; // Set ID for referencing
+Gui1Button5.textContent = "py";
+Gui1Button5.style.fontSize = "12px"; // Set font size
+Gui1Button5.style.position = "absolute"; // Set position to absolute
+Gui1Button5.style.left = "75px"; // Set initial x position
+Gui1Button5.style.top = "" + variables.guiEditY82 + "px"; // Set initial y position
+Gui1Button5.style.width = "60px"; // Set width
+Gui1Button5.style.height = "26px"; // Set height
+Gui1Button5.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button5.style.border = "";
+Gui1Button5.style.background = "";
+Gui1Button5.style.backgroundColor = "";
+Gui1Button5.style.borderRadius = "";
+Gui1Button5.style.color = "";
+Gui1Button5.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button5.onclick = function (event) {
+A_GuiControl = event.target.textContent
+  Edit82(A_GuiControl);
+};
+Gui1.appendChild(Gui1Button5);
+Gui1Button6 = document.createElement("button");
+Gui1Button6.id = "Gui1" + "Button" + "6"; // Set ID for referencing
+Gui1Button6.textContent = "js";
+Gui1Button6.style.fontSize = "12px"; // Set font size
+Gui1Button6.style.position = "absolute"; // Set position to absolute
+Gui1Button6.style.left = "140px"; // Set initial x position
+Gui1Button6.style.top = "" + variables.guiEditY82 + "px"; // Set initial y position
+Gui1Button6.style.width = "60px"; // Set width
+Gui1Button6.style.height = "26px"; // Set height
+Gui1Button6.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button6.style.border = "";
+Gui1Button6.style.background = "";
+Gui1Button6.style.backgroundColor = "";
+Gui1Button6.style.borderRadius = "";
+Gui1Button6.style.color = "";
+Gui1Button6.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button6.onclick = function (event) {
+A_GuiControl = event.target.textContent
+  Edit82(A_GuiControl);
+};
+Gui1.appendChild(Gui1Button6);
 }
 if (( variables.guiEditTextG == "Edit83" ))
 {
 Gui1Edit83 = document.createElement("textarea");
-Gui1Edit83.id = "Gui1" + "Edit" + "83"; // Set ID for referencing
+Gui1Edit83.id = "Gui1" + "Edit83"; // Set ID for referencing
 Gui1Edit83.placeholder = "" + variables.guiEditText + "";
 Gui1Edit83.style.fontSize = "15px"; // Set font size
 Gui1Edit83.style.resize = "none"; // Disable resizing
 Gui1Edit83.style.position = "absolute"; // Set position to absolute
-Gui1Edit83.style.left = "5px"; // Set initial x position
+Gui1Edit83.style.left = "10px"; // Set initial x position
 Gui1Edit83.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit83.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit83.style.height = "25px"; // Set height
@@ -3009,12 +3306,12 @@ Gui1.appendChild(Gui1Edit83);
 if (( variables.guiEditTextG == "Edit84" ))
 {
 Gui1Edit84 = document.createElement("textarea");
-Gui1Edit84.id = "Gui1" + "Edit" + "84"; // Set ID for referencing
+Gui1Edit84.id = "Gui1" + "Edit84"; // Set ID for referencing
 Gui1Edit84.placeholder = "" + variables.guiEditText + "";
 Gui1Edit84.style.fontSize = "15px"; // Set font size
 Gui1Edit84.style.resize = "none"; // Disable resizing
 Gui1Edit84.style.position = "absolute"; // Set position to absolute
-Gui1Edit84.style.left = "5px"; // Set initial x position
+Gui1Edit84.style.left = "10px"; // Set initial x position
 Gui1Edit84.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit84.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit84.style.height = "25px"; // Set height
@@ -3033,12 +3330,12 @@ Gui1.appendChild(Gui1Edit84);
 if (( variables.guiEditTextG == "Edit85" ))
 {
 Gui1Edit85 = document.createElement("textarea");
-Gui1Edit85.id = "Gui1" + "Edit" + "85"; // Set ID for referencing
+Gui1Edit85.id = "Gui1" + "Edit85"; // Set ID for referencing
 Gui1Edit85.placeholder = "" + variables.guiEditText + "";
 Gui1Edit85.style.fontSize = "15px"; // Set font size
 Gui1Edit85.style.resize = "none"; // Disable resizing
 Gui1Edit85.style.position = "absolute"; // Set position to absolute
-Gui1Edit85.style.left = "5px"; // Set initial x position
+Gui1Edit85.style.left = "10px"; // Set initial x position
 Gui1Edit85.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit85.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit85.style.height = "25px"; // Set height
@@ -3057,12 +3354,12 @@ Gui1.appendChild(Gui1Edit85);
 if (( variables.guiEditTextG == "Edit86" ))
 {
 Gui1Edit86 = document.createElement("textarea");
-Gui1Edit86.id = "Gui1" + "Edit" + "86"; // Set ID for referencing
+Gui1Edit86.id = "Gui1" + "Edit86"; // Set ID for referencing
 Gui1Edit86.placeholder = "" + variables.guiEditText + "";
 Gui1Edit86.style.fontSize = "15px"; // Set font size
 Gui1Edit86.style.resize = "none"; // Disable resizing
 Gui1Edit86.style.position = "absolute"; // Set position to absolute
-Gui1Edit86.style.left = "5px"; // Set initial x position
+Gui1Edit86.style.left = "10px"; // Set initial x position
 Gui1Edit86.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit86.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit86.style.height = "25px"; // Set height
@@ -3083,7 +3380,7 @@ variables.buttonX = variables.guiW + 15
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
 Gui1[variables.guiEditTextV].textContent = "INFO";
-Gui1[variables.guiEditTextV].style.fontSize = "15px"; // Set font size
+Gui1[variables.guiEditTextV].style.fontSize = "13px"; // Set font size
 Gui1[variables.guiEditTextV].style.position = "absolute"; // Set position to absolute
 Gui1[variables.guiEditTextV].style.left = "" + variables.buttonX + "px"; // Set initial x position
 Gui1[variables.guiEditTextV].style.top = "" + variables.guiEditY + "px"; // Set initial y position
@@ -3179,35 +3476,229 @@ GuiControl("text", "Gui1" + variables.editTextTemp1, variables.editTextTemp);
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+variables.MyDropDownFuncs = "Option1|Option2|Option3|Option2|Option3|Option2|Option3|Option2|Option3"
 if (( await isMobileDevice () ))
 {
-createCustomDropdown(Gui1, "Gui1DropDownList1", "Option1|Option2|Option3|Option2|Option3|Option2|Option3|Option2|Option3", "#333333", 5, variables.guiEditY, 150, 30, MyDropDown );
+createCustomDropdown(Gui1, "Gui1MyDropDownV", "" + variables.MyDropDownFuncs + "", "#333333", 10, variables.guiEditY, 150, 30, MyDropDown );
 }
 else
 {
-createCustomDropdown(Gui1, "Gui1DropDownList2", "Option1|Option2|Option3|Option2|Option3|Option2|Option3|Option2|Option3", "#333333", 5, variables.guiEditY, 150, 30, MyDropDown );
+createCustomDropdown(Gui1, "Gui1MyDropDownV", "" + variables.MyDropDownFuncs + "", "#333333", 10, variables.guiEditY, 150, 30, MyDropDown );
 }
-Gui1Button2 = document.createElement("button");
-Gui1Button2.id = "Gui1" + "Button" + "2"; // Set ID for referencing
-Gui1Button2.textContent = "Build";
-Gui1Button2.style.fontSize = "15px"; // Set font size
-Gui1Button2.style.position = "absolute"; // Set position to absolute
-Gui1Button2.style.left = "5px"; // Set initial x position
-Gui1Button2.style.top = "2900px"; // Set initial y position
-Gui1Button2.style.width = "140px"; // Set width
-Gui1Button2.style.height = "40px"; // Set height
-Gui1Button2.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button2.style.border = "";
-Gui1Button2.style.background = "";
-Gui1Button2.style.backgroundColor = "";
-Gui1Button2.style.borderRadius = "";
-Gui1Button2.style.color = "";
-Gui1Button2.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button2.onclick = function (event) {
+variables.MyDropDownFuncs = "func1"
+GuiControl("destroy", "Gui1MyDropDownV");
+variables.guiEditYDDD = variables.guiEditY
+createCustomDropdown(Gui1, "Gui1MyDropDownV", "" + variables.MyDropDownFuncs + "", "#333333", 10, variables.guiEditYDDD, 150, 30, MyDropDown );
+Gui1Button8 = document.createElement("button");
+Gui1Button8.id = "Gui1" + "Button" + "8"; // Set ID for referencing
+Gui1Button8.textContent = "Add a new function";
+Gui1Button8.style.fontSize = "15px"; // Set font size
+Gui1Button8.style.position = "absolute"; // Set position to absolute
+Gui1Button8.style.left = "170px"; // Set initial x position
+Gui1Button8.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Button8.style.width = "155px"; // Set width
+Gui1Button8.style.height = "30px"; // Set height
+Gui1Button8.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button8.style.border = "";
+Gui1Button8.style.background = "";
+Gui1Button8.style.backgroundColor = "";
+Gui1Button8.style.borderRadius = "";
+Gui1Button8.style.color = "";
+Gui1Button8.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button8.onclick = function (event) {
+A_GuiControl = event.target.textContent
+  AddNewFuncButton(A_GuiControl);
+};
+Gui1.appendChild(Gui1Button8);
+if (( await isMobileDevice () ))
+{
+variables.guiW = BuildInVars("A_ScreenWidth") - 15
+}
+else
+{
+variables.guiW = BuildInVars("A_ScreenWidth") - 40
+}
+variables.guiEditY = variables.guiEditY + 35
+Gui1Button9 = document.createElement("button");
+Gui1Button9.id = "Gui1" + "Button" + "9"; // Set ID for referencing
+Gui1Button9.textContent = "cpp";
+Gui1Button9.style.fontSize = "15px"; // Set font size
+Gui1Button9.style.position = "absolute"; // Set position to absolute
+Gui1Button9.style.left = "10px"; // Set initial x position
+Gui1Button9.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Button9.style.width = "60px"; // Set width
+Gui1Button9.style.height = "35px"; // Set height
+Gui1Button9.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button9.style.border = "";
+Gui1Button9.style.background = "";
+Gui1Button9.style.backgroundColor = "";
+Gui1Button9.style.borderRadius = "";
+Gui1Button9.style.color = "";
+Gui1Button9.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button9.onclick = function (event) {
+A_GuiControl = event.target.textContent
+  EditFuncButtonLangCpp(A_GuiControl);
+};
+Gui1.appendChild(Gui1Button9);
+Gui1Button10 = document.createElement("button");
+Gui1Button10.id = "Gui1" + "Button" + "10"; // Set ID for referencing
+Gui1Button10.textContent = "py";
+Gui1Button10.style.fontSize = "15px"; // Set font size
+Gui1Button10.style.position = "absolute"; // Set position to absolute
+Gui1Button10.style.left = "75px"; // Set initial x position
+Gui1Button10.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Button10.style.width = "60px"; // Set width
+Gui1Button10.style.height = "35px"; // Set height
+Gui1Button10.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button10.style.border = "";
+Gui1Button10.style.background = "";
+Gui1Button10.style.backgroundColor = "";
+Gui1Button10.style.borderRadius = "";
+Gui1Button10.style.color = "";
+Gui1Button10.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button10.onclick = function (event) {
+A_GuiControl = event.target.textContent
+  EditFuncButtonLangPy(A_GuiControl);
+};
+Gui1.appendChild(Gui1Button10);
+Gui1Button11 = document.createElement("button");
+Gui1Button11.id = "Gui1" + "Button" + "11"; // Set ID for referencing
+Gui1Button11.textContent = "js";
+Gui1Button11.style.fontSize = "15px"; // Set font size
+Gui1Button11.style.position = "absolute"; // Set position to absolute
+Gui1Button11.style.left = "140px"; // Set initial x position
+Gui1Button11.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Button11.style.width = "60px"; // Set width
+Gui1Button11.style.height = "35px"; // Set height
+Gui1Button11.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button11.style.border = "";
+Gui1Button11.style.background = "";
+Gui1Button11.style.backgroundColor = "";
+Gui1Button11.style.borderRadius = "";
+Gui1Button11.style.color = "";
+Gui1Button11.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button11.onclick = function (event) {
+A_GuiControl = event.target.textContent
+  EditFuncButtonLangJs(A_GuiControl);
+};
+Gui1.appendChild(Gui1Button11);
+variables.guiEditY = variables.guiEditY + 40
+Gui1Edit85 = document.createElement("textarea");
+Gui1Edit85.id = "Gui1" + "Edit" + "85"; // Set ID for referencing
+Gui1Edit85.placeholder = "Name of the function";
+Gui1Edit85.style.fontSize = "15px"; // Set font size
+Gui1Edit85.style.resize = "none"; // Disable resizing
+Gui1Edit85.style.position = "absolute"; // Set position to absolute
+Gui1Edit85.style.left = "10px"; // Set initial x position
+Gui1Edit85.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Edit85.style.width = "" + variables.guiW + "px"; // Set width
+Gui1Edit85.style.height = "25px"; // Set height
+Gui1Edit85.style.border = "none"
+Gui1Edit85.style.color = "#ffffff"
+Gui1Edit85.style.background = ""
+Gui1Edit85.style.backgroundColor = "#000000"
+Gui1Edit85.style.borderRadius = "5px"
+Gui1Edit85.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Edit85.addEventListener("input", function () {
+A_GuiControl = Gui1Edit85.value
+  EditFuncName(A_GuiControl);
+});
+Gui1.appendChild(Gui1Edit85);
+variables.guiEditY = variables.guiEditY + 30
+Gui1Edit86 = document.createElement("textarea");
+Gui1Edit86.id = "Gui1" + "Edit" + "86"; // Set ID for referencing
+Gui1Edit86.placeholder = "Libs";
+Gui1Edit86.style.fontSize = "15px"; // Set font size
+Gui1Edit86.style.resize = "none"; // Disable resizing
+Gui1Edit86.style.position = "absolute"; // Set position to absolute
+Gui1Edit86.style.left = "10px"; // Set initial x position
+Gui1Edit86.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Edit86.style.width = "" + variables.guiW + "px"; // Set width
+Gui1Edit86.style.height = "25px"; // Set height
+Gui1Edit86.style.border = "none"
+Gui1Edit86.style.color = "#ffffff"
+Gui1Edit86.style.background = ""
+Gui1Edit86.style.backgroundColor = "#000000"
+Gui1Edit86.style.borderRadius = "5px"
+Gui1Edit86.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Edit86.addEventListener("input", function () {
+A_GuiControl = Gui1Edit86.value
+  EditFuncLibs(A_GuiControl);
+});
+Gui1.appendChild(Gui1Edit86);
+variables.guiEditY = variables.guiEditY + 30
+Gui1Edit87 = document.createElement("textarea");
+Gui1Edit87.id = "Gui1" + "Edit" + "87"; // Set ID for referencing
+Gui1Edit87.placeholder = "Description";
+Gui1Edit87.style.fontSize = "15px"; // Set font size
+Gui1Edit87.style.resize = "none"; // Disable resizing
+Gui1Edit87.style.position = "absolute"; // Set position to absolute
+Gui1Edit87.style.left = "10px"; // Set initial x position
+Gui1Edit87.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Edit87.style.width = "" + variables.guiW + "px"; // Set width
+Gui1Edit87.style.height = "25px"; // Set height
+Gui1Edit87.style.border = "none"
+Gui1Edit87.style.color = "#ffffff"
+Gui1Edit87.style.background = ""
+Gui1Edit87.style.backgroundColor = "#000000"
+Gui1Edit87.style.borderRadius = "5px"
+Gui1Edit87.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Edit87.addEventListener("input", function () {
+A_GuiControl = Gui1Edit87.value
+  EditFuncDescription(A_GuiControl);
+});
+Gui1.appendChild(Gui1Edit87);
+variables.guiEditY = variables.guiEditY + 30
+variables.guiW = variables.guiW - 20
+AddIDE(Gui1, 10, variables.guiEditY, variables.guiW, 500, "Gui1IDEcpp", 18, "c_cpp", IDEcpp,    null    );
+AddIDE(Gui1, 10, variables.guiEditY, variables.guiW, 500, "Gui1IDEpy", 18, "python", IDEpy,    null    );
+AddIDE(Gui1, 10, variables.guiEditY, variables.guiW, 500, "Gui1IDEjs", 18, "javascript", IDEjs,    null    );
+variables.guiEditY = variables.guiEditY + 510
+Gui1Button12 = document.createElement("button");
+Gui1Button12.id = "Gui1" + "Button" + "12"; // Set ID for referencing
+Gui1Button12.textContent = "Build";
+Gui1Button12.style.fontSize = "15px"; // Set font size
+Gui1Button12.style.position = "absolute"; // Set position to absolute
+Gui1Button12.style.left = "15px"; // Set initial x position
+Gui1Button12.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Button12.style.width = "140px"; // Set width
+Gui1Button12.style.height = "40px"; // Set height
+Gui1Button12.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button12.style.border = "";
+Gui1Button12.style.background = "";
+Gui1Button12.style.backgroundColor = "";
+Gui1Button12.style.borderRadius = "";
+Gui1Button12.style.color = "";
+Gui1Button12.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button12.onclick = function (event) {
 A_GuiControl = event.target.textContent
   BuildButton(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button2);
+Gui1.appendChild(Gui1Button12);
+}
+async function IDEcpp(A_GuiControl)
+{
+}
+async function IDEpy(A_GuiControl)
+{
+}
+async function IDEjs(A_GuiControl)
+{
+}
+async function EditFuncButtonLangCpp(A_GuiControl)
+{
+}
+async function EditFuncButtonLangPy(A_GuiControl)
+{
+}
+async function EditFuncButtonLangJs(A_GuiControl)
+{
+}
+async function AddNewFuncButton(A_GuiControl)
+{
+variables.MyDropDownFuncs += "|" + ""
+GuiControl("destroy", "Gui1MyDropDownV");
+createCustomDropdown(Gui1, "Gui1MyDropDownV", "" + variables.MyDropDownFuncs + "", "#333333", 10, variables.guiEditYDDD, 150, 30, MyDropDown );
 }
 async function ButtonINFO(A_GuiControl)
 {
