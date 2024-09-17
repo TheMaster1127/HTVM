@@ -5801,8 +5801,6 @@ htCode := StrReplace(htCode, "function async function main()", "async function m
 
 
 
-str jsHTMLupCode := "<!doctype html>`n<html lang=" . Chr(34) . "en" . Chr(34) . ">`n    <head>`n        <meta charset=" . Chr(34) . "UTF-8" . Chr(34) . " />`n        <meta name=" . Chr(34) . "viewport" . Chr(34) . " content=" . Chr(34) . "width=device-width, initial-scale=1.0" . Chr(34) . " />`n        <title>HTVM</title>`n        <style>`n            body {`n                background-color: #202020;`n                font-family:`n                    " . Chr(34) . "Open Sans" . Chr(34) . ",`n                    -apple-system,`n                    BlinkMacSystemFont,`n                    " . Chr(34) . "Segoe UI" . Chr(34) . ",`n                    Roboto,`n                    Oxygen-Sans,`n                    Ubuntu,`n                    Cantarell,`n                    " . Chr(34) . "Helvetica Neue" . Chr(34) . ",`n                    Helvetica,`n                    Arial,`n                    sans-serif;`n            }`n        </style>`n    </head>`n    <body>`n<script>"
-
 str jsHTMLdownCode := "</script>`n</body>`n</html>"
 
 int includeLibsInCppIf
@@ -5845,7 +5843,15 @@ allLibsToPutAtTop := "#include <iostream>`n#include <sstream>`n#include <string>
 
 Sort, allLibsToPutAtTop, U
 
+if (langToTranspileTo != "js")
+{
 htCode := allLibsToPutAtTop . "`n" . allFuncsToPutAtTop . "`n" . htCode
+}
+else
+{
+htCode := "`n" . allFuncsToPutAtTop . "`n" . htCode
+}
+
 }
 MsgBox, Transpiling...
 
@@ -5855,6 +5861,12 @@ htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" . Chr(6
 }
 
 htCode := StrReplace(htCode, ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes, Chr(92) . Chr(34))
+
+
+
+
+
+str jsHTMLupCode := "<!doctype html>`n<html lang=" . Chr(34) . "en" . Chr(34) . ">`n    <head>`n        <meta charset=" . Chr(34) . "UTF-8" . Chr(34) . " />`n        <meta name=" . Chr(34) . "viewport" . Chr(34) . " content=" . Chr(34) . "width=device-width, initial-scale=1.0" . Chr(34) . " />`n        <title>HTVM</title>`n        <style>`n            body {`n                background-color: #202020;`n                font-family:`n                    " . Chr(34) . "Open Sans" . Chr(34) . ",`n                    -apple-system,`n                    BlinkMacSystemFont,`n                    " . Chr(34) . "Segoe UI" . Chr(34) . ",`n                    Roboto,`n                    Oxygen-Sans,`n                    Ubuntu,`n                    Cantarell,`n                    " . Chr(34) . "Helvetica Neue" . Chr(34) . ",`n                    Helvetica,`n                    Arial,`n                    sans-serif;`n            }`n        </style>`n" . allLibsToPutAtTop . "`n</head>`n    <body>`n<script>"
 
 
 

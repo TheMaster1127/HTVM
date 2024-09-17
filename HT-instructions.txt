@@ -1,4 +1,4 @@
-cpp
+js
 ht
 cmd,OUTVAR,INVAR,'param1,param2,param3|gg,INOUTVAR,param1|MsgBox,INVAR|Sort,INOUTVAR,'param1|hi,lineTranspile,aerh*^*SCTF89s7zdfg8s|StringTrimLeft,OUTVAR,INVAR,INVAR|StringTrimRight,OUTVAR,INVAR,INVAR
 int
@@ -81,8 +81,8 @@ off
 off
 py
 on
-off
-off
+on
+on
 
 func======================func==============
 lang: cpp
@@ -135,7 +135,7 @@ funcEND======================funcEND==============
 func======================func==============
 lang: js
 name: MsgBox
-libs: null
+libs: <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 description: you can coppy this section as much as you want for build in funcs
 
 function MsgBox(value) {

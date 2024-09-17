@@ -695,26 +695,43 @@ GuiControl, Destroy, MyDropDownV
 guiEditYDDD := guiEditY
 Gui, Add, DropDownList, x10 y%guiEditYDDD% gMyDropDown vMyDropDownV, " + variables.MyDropDownFuncs + "
 Gui, Add, Button, x170 y%guiEditY% w155 h30 gAddNewFuncButton, Add a new function
-
-if (isMobileDevice())
-{
-guiW := A_ScreenWidth - 15
-}
-else
-{
-guiW := A_ScreenWidth - 40
-}
+Gui, Font, s13
+guiEditTextV := "explain the Add a new function"
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Font, s15
 
 guiEditY := guiEditY + 35
 Gui, Add, Button, x10 y%guiEditY% w60 h35 gEditFuncButtonLangCpp, cpp
 Gui, Add, Button, x75 y%guiEditY% w60 h35 gEditFuncButtonLangPy, py
 Gui, Add, Button, x140 y%guiEditY% w60 h35 gEditFuncButtonLangJs, js
+
+buttonX := guiW + 15
+Gui, Font, s13
+guiEditTextV := "explain the cpp js py buttons"
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Font, s15
+
 guiEditY := guiEditY + 40
 Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEditFuncName bg000000 cffffff -Border r5, Name of the function
+buttonX := guiW + 15
+Gui, Font, s13
+guiEditTextV := "explain the name of the func"
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Font, s15
 guiEditY := guiEditY + 30
 Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEditFuncLibs bg000000 cffffff -Border r5, Libs
+buttonX := guiW + 15
+Gui, Font, s13
+guiEditTextV := "explain the libs like inport WASD|IMPORT qawsedd"
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Font, s15
 guiEditY := guiEditY + 30
 Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEditFuncDescription bg000000 cffffff -Border r5, Description
+buttonX := guiW + 15
+Gui, Font, s13
+guiEditTextV := "explain the Description"
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Font, s15
 guiEditY := guiEditY + 30
 
 guiW := guiW - 20
@@ -722,9 +739,22 @@ Gui, Font, s12
 Gui, Add, IDE, x10 y%guiEditY% w%guiW% h500 gIDEcpp vIDEcpp lc_cpp
 Gui, Add, IDE, x10 y%guiEditY% w%guiW% h500 gIDEpy vIDEpy lpython
 Gui, Add, IDE, x10 y%guiEditY% w%guiW% h500 gIDEjs vIDEjs ljavascript
+
+Gui, Font, s13
+guiEditTextV := "explain the IDE"
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Font, s15
+
+GuiControl, Hide, IDEpy
+GuiControl, Hide, IDEjs
+
 Gui, Font, s15
 guiEditY := guiEditY + 510
 Gui, Add, Button, x15 y%guiEditY% w140 h40 gBuildButton, Build
+Gui, Font, s13
+guiEditTextV := "explain the Build button"
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Font, s15
 Return
 
 IDEcpp:
@@ -741,15 +771,21 @@ Return
 
 
 EditFuncButtonLangCpp:
-
+GuiControl, Show, IDEcpp
+GuiControl, Hide, IDEpy
+GuiControl, Hide, IDEjs
 Return
 
 EditFuncButtonLangPy:
-
+GuiControl, Hide, IDEcpp
+GuiControl, Show, IDEpy
+GuiControl, Hide, IDEjs
 Return
 
 EditFuncButtonLangJs:
-
+GuiControl, Hide, IDEcpp
+GuiControl, Hide, IDEpy
+GuiControl, Show, IDEjs
 Return
 
 AddNewFuncButton:

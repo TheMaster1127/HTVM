@@ -5709,7 +5709,6 @@ htCode = htCode + "\n}\nmain();";
 htCode = StrReplace ( htCode , "async function main();" , "async function main()" ) ;
 htCode = StrReplace ( htCode , "function async function main()" , "async function main()" ) ;
 }
-std::string jsHTMLupCode = "<!doctype html>\n<html lang=" + Chr ( 34 ) + "en" + Chr ( 34 ) + ">\n    <head>\n        <meta charset=" + Chr ( 34 ) + "UTF-8" + Chr ( 34 ) + " />\n        <meta name=" + Chr ( 34 ) + "viewport" + Chr ( 34 ) + " content=" + Chr ( 34 ) + "width=device-width, initial-scale=1.0" + Chr ( 34 ) + " />\n        <title>HTVM</title>\n        <style>\n            body {\n                background-color: #202020;\n                font-family:\n                    " + Chr ( 34 ) + "Open Sans" + Chr ( 34 ) + ",\n                    -apple-system,\n                    BlinkMacSystemFont,\n                    " + Chr ( 34 ) + "Segoe UI" + Chr ( 34 ) + ",\n                    Roboto,\n                    Oxygen-Sans,\n                    Ubuntu,\n                    Cantarell,\n                    " + Chr ( 34 ) + "Helvetica Neue" + Chr ( 34 ) + ",\n                    Helvetica,\n                    Arial,\n                    sans-serif;\n            }\n        </style>\n    </head>\n    <body>\n<script>";
 std::string jsHTMLdownCode = "</script>\n</body>\n</html>";
 int includeLibsInCppIf;
 std::string allFuncsToPutAtTop = "\n";
@@ -5744,7 +5743,14 @@ if (langToTranspileTo == "cpp")
 allLibsToPutAtTop = "#include <iostream>\n#include <sstream>\n#include <string>\n#include <cstdint>\n#include <algorithm>\n#include <vector>\n" + allLibsToPutAtTop;
 }
 allLibsToPutAtTop = SortLikeAHK(allLibsToPutAtTop, "U");
+if (langToTranspileTo!= "js") 
+{
 htCode = allLibsToPutAtTop + "\n" + allFuncsToPutAtTop + "\n" + htCode;
+}
+else
+{
+htCode = "\n" + allFuncsToPutAtTop + "\n" + htCode;
+}
 }
 print(std::string("Transpiling..."));
 for (int A_Index72 = 1; A_Index72<= theIdNumOfThe34; ++A_Index72)
@@ -5752,6 +5758,7 @@ for (int A_Index72 = 1; A_Index72<= theIdNumOfThe34; ++A_Index72)
 htCode = StrReplace ( htCode , "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" + Chr ( 65 ) + Chr ( 65 ) + STR ( A_Index72 ) + Chr ( 65 ) + Chr ( 65 ) , theIdNumOfThe34theVar[A_Index72] ) ;
 }
 htCode = StrReplace ( htCode , ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes , Chr ( 92 ) + Chr ( 34 ) ) ;
+std::string jsHTMLupCode = "<!doctype html>\n<html lang=" + Chr ( 34 ) + "en" + Chr ( 34 ) + ">\n    <head>\n        <meta charset=" + Chr ( 34 ) + "UTF-8" + Chr ( 34 ) + " />\n        <meta name=" + Chr ( 34 ) + "viewport" + Chr ( 34 ) + " content=" + Chr ( 34 ) + "width=device-width, initial-scale=1.0" + Chr ( 34 ) + " />\n        <title>HTVM</title>\n        <style>\n            body {\n                background-color: #202020;\n                font-family:\n                    " + Chr ( 34 ) + "Open Sans" + Chr ( 34 ) + ",\n                    -apple-system,\n                    BlinkMacSystemFont,\n                    " + Chr ( 34 ) + "Segoe UI" + Chr ( 34 ) + ",\n                    Roboto,\n                    Oxygen-Sans,\n                    Ubuntu,\n                    Cantarell,\n                    " + Chr ( 34 ) + "Helvetica Neue" + Chr ( 34 ) + ",\n                    Helvetica,\n                    Arial,\n                    sans-serif;\n            }\n        </style>\n" + allLibsToPutAtTop + "\n</head>\n    <body>\n<script>";
 if (useJavaScriptInAfullHTMLfile == "on" && langToTranspileTo == "js") 
 {
 htCode = jsHTMLupCode + "\n" + htCode + "\n" + jsHTMLdownCode;
