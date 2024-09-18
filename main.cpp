@@ -35,6 +35,7 @@ void MsgBox(const T& value) {
 
 
 int main(int argc, char* argv[]) {
+    int qWASED;
     std::vector<int> arr123;
     arr123.push_back(6);
     arr123.push_back(5);

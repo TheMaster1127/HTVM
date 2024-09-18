@@ -395,6 +395,28 @@
       }
 
 
+      // RegExMatch
+      function RegExMatch(Haystack, NeedleRegEx, OutputVar, StartingPos) {
+          if (Haystack === null || NeedleRegEx === null) return null;
+
+          const regex = new RegExp(NeedleRegEx);
+          let match;
+
+          if (typeof Haystack === 'string') {
+              match = Haystack.match(regex);
+          }
+
+          if (match) {
+              if (OutputVar) {
+                  OutputVar.push(match[0]);
+              }
+              return match.index + 1;
+          } else {
+              return 0;
+          }
+      }
+
+
       function Trim(inputString) {
         // Check if inputString is null or undefined
         if (inputString == null) {
@@ -440,6 +462,17 @@
 function StringTrimLeft(input, numChars) {
   if (typeof input === 'string' && typeof numChars === 'number' && numChars >= 0) {
     return input.length > numChars ? input.substring(numChars) : '';
+  } else {
+    console.error("Invalid input provided.");
+    return input; // Return original input if trimming is not possible
+  }
+}
+
+
+// Function to trim specified number of characters from the right side of a string
+function StringTrimRight(input, numChars) {
+  if (typeof input === 'string' && typeof numChars === 'number' && numChars >= 0) {
+    return input.length > numChars ? input.substring(0, input.length - numChars) : '';
   } else {
     console.error("Invalid input provided.");
     return input; // Return original input if trimming is not possible
@@ -729,6 +762,11 @@ function StoreLocally(operation, saveLocation, data) {
       }
 
 
+      function StrLower(string) {
+        return string.toLowerCase();
+      }
+
+
 function StrSplit(inputStr, delimiter, num) {
     // Check if inputStr is a valid string
     if (typeof inputStr !== 'string') {
@@ -843,55 +881,6 @@ function LoopParseFunc(varString, delimiter1="", delimiter2="") {
 
         // Apply CSS styles for the editor
         var css = `
-          body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1818;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-          }
-
-          .controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 1rem;
-            padding: 1rem;
-          }
-
-          button {
-            padding: 0.7rem;
-            font-size: 1.2em;
-            cursor: pointer;
-            background-color: #bababa;
-            color: #000000;
-            border: none;
-            border-radius: 0.2rem;
-            transition: background-color 0.3s;
-          }
-
-          button:hover {
-            background-color: #27ae60;
-          }
-
-          #${id} {
-            width: ${w}px;
-            height: ${h}px;
-            font-size: 1em;
-            border-radius: 0.3rem;
-          }
-
-          #result {
-            margin-top: 1rem;
-            font-size: 1.2em;
-            color: #999c9a;
-            font-weight: bold;
-            text-align: center;
-          }
-
           .ace-monokai .ace_marker-layer .ace_active-line {
             background-color: #103010 !important;
           }
@@ -983,6 +972,10 @@ function str(value) {
 
         
 
+let funcs = {
+  isFuncNameValid: isFuncNameValid,
+}
+
 
 
 
@@ -1027,7 +1020,7 @@ Gui2NewProject.id = "Gui2" + "NewProject"; // Set ID for referencing
 Gui2NewProject.textContent = "Make a new project";
 Gui2NewProject.style.fontSize = "15px"; // Set font size
 Gui2NewProject.style.position = "absolute"; // Set position to absolute
-Gui2NewProject.style.left = "10px"; // Set initial x position
+Gui2NewProject.style.left = "5px"; // Set initial x position
 Gui2NewProject.style.top = "10px"; // Set initial y position
 Gui2NewProject.style.width = "140px"; // Set width
 Gui2NewProject.style.height = "40px"; // Set height
@@ -1061,7 +1054,7 @@ Gui2[variables.AIndex].id = "Gui2" + "" + [variables.AIndex] + ""; // Set ID for
 Gui2[variables.AIndex].textContent = "" + variables.projectName + "";
 Gui2[variables.AIndex].style.fontSize = "15px"; // Set font size
 Gui2[variables.AIndex].style.position = "absolute"; // Set position to absolute
-Gui2[variables.AIndex].style.left = "10px"; // Set initial x position
+Gui2[variables.AIndex].style.left = "5px"; // Set initial x position
 Gui2[variables.AIndex].style.top = "" + variables.HTVM_HowManyProjectsButtonY + "px"; // Set initial y position
 Gui2[variables.AIndex].style.width = "140px"; // Set width
 Gui2[variables.AIndex].style.height = "40px"; // Set height
@@ -1138,7 +1131,7 @@ async function main(A_GuiControl)
 {
 Gui1.style.position = "absolute";
 Gui1.style.width = window.innerWidth + "px"; // Set the width
-Gui1.style.height = "3280px"; // Set the height
+Gui1.style.height = "3790px"; // Set the height
 Gui1.style.background = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
 Gui1.style.backgroundColor = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
 Gui1.style.color = "white";
@@ -1166,6 +1159,7 @@ variables.EditText81 = "off"
 variables.EditText83 = "off"
 variables.EditText84 = "off"
 variables.EditText85 = "off"
+variables.funcWeAreModifying = 1
 if (( await isMobileDevice () ))
 {
 variables.guiW = BuildInVars("A_ScreenWidth") - 90
@@ -1189,108 +1183,108 @@ if (( await InStr (variables.guiEditText , "use") ))
 //MsgBox, % guiEditText
 if (( await Trim (variables.guiEditText) == "useFuncKeyWord" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit76", "useFuncKeyWord", "#2196F3", 10, variables.guiEditY, 60, 30, Edit76 );
+createToggleSwitch(Gui1, "Gui1Edit76", "useFuncKeyWord", "#2196F3", 5, variables.guiEditY, 60, 30, Edit76 );
 }
 if (( await Trim (variables.guiEditText) == "useCurlyBraces" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit77", "useCurlyBraces", "#2196F3", 10, variables.guiEditY, 60, 30, Edit77 );
+createToggleSwitch(Gui1, "Gui1Edit77", "useCurlyBraces", "#2196F3", 5, variables.guiEditY, 60, 30, Edit77 );
 }
 if (( await Trim (variables.guiEditText) == "useEnd" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit78", "useEnd", "#2196F3", 10, variables.guiEditY, 60, 30, Edit78 );
+createToggleSwitch(Gui1, "Gui1Edit78", "useEnd", "#2196F3", 5, variables.guiEditY, 60, 30, Edit78 );
 }
 if (( await Trim (variables.guiEditText) == "useSemicolon" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit79", "useSemicolon", "#2196F3", 10, variables.guiEditY, 60, 30, Edit79 );
+createToggleSwitch(Gui1, "Gui1Edit79", "useSemicolon", "#2196F3", 5, variables.guiEditY, 60, 30, Edit79 );
 }
 if (( await Trim (variables.guiEditText) == "useParentheses" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit80", "useParentheses", "#2196F3", 10, variables.guiEditY, 60, 30, Edit80 );
+createToggleSwitch(Gui1, "Gui1Edit80", "useParentheses", "#2196F3", 5, variables.guiEditY, 60, 30, Edit80 );
 }
 if (( await Trim (variables.guiEditText) == "usePythonicColonSyntax" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit81", "usePythonicColonSyntax", "#2196F3", 10, variables.guiEditY, 60, 30, Edit81 );
+createToggleSwitch(Gui1, "Gui1Edit81", "usePythonicColonSyntax", "#2196F3", 5, variables.guiEditY, 60, 30, Edit81 );
 }
 if (( await Trim (variables.guiEditText) == "useInJavaScriptAlwaysUseVar" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit83", "useInJavaScriptAlwaysUseVar", "#2196F3", 10, variables.guiEditY, 60, 30, Edit83 );
+createToggleSwitch(Gui1, "Gui1Edit83", "useInJavaScriptAlwaysUseVar", "#2196F3", 5, variables.guiEditY, 60, 30, Edit83 );
 }
 if (( await Trim (variables.guiEditText) == "useJavaScriptInAfullHTMLfile" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit84", "useJavaScriptInAfullHTMLfile", "#2196F3", 10, variables.guiEditY, 60, 30, Edit84 );
+createToggleSwitch(Gui1, "Gui1Edit84", "useJavaScriptInAfullHTMLfile", "#2196F3", 5, variables.guiEditY, 60, 30, Edit84 );
 }
 if (( await Trim (variables.guiEditText) == "useJavaScriptAmainFuncDef" ))
 {
-createToggleSwitch(Gui1, "Gui1Edit85", "useJavaScriptAmainFuncDef", "#2196F3", 10, variables.guiEditY, 60, 30, Edit85 );
+createToggleSwitch(Gui1, "Gui1Edit85", "useJavaScriptAmainFuncDef", "#2196F3", 5, variables.guiEditY, 60, 30, Edit85 );
 }
 }
 else
 {
 if (( variables.guiEditTextG == "Edit1" ))
 {
-Gui1Button1 = document.createElement("button");
-Gui1Button1.id = "Gui1" + "Button" + "1"; // Set ID for referencing
-Gui1Button1.textContent = "cpp";
-Gui1Button1.style.fontSize = "15px"; // Set font size
-Gui1Button1.style.position = "absolute"; // Set position to absolute
-Gui1Button1.style.left = "10px"; // Set initial x position
-Gui1Button1.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Button1.style.width = "60px"; // Set width
-Gui1Button1.style.height = "30px"; // Set height
-Gui1Button1.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button1.style.border = "";
-Gui1Button1.style.background = "";
-Gui1Button1.style.backgroundColor = "";
-Gui1Button1.style.borderRadius = "";
-Gui1Button1.style.color = "";
-Gui1Button1.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button1.onclick = function (event) {
-A_GuiControl = event.target.textContent
+Gui1Edit1CPP = document.createElement("button");
+Gui1Edit1CPP.id = "Gui1" + "Edit1CPP"; // Set ID for referencing
+Gui1Edit1CPP.textContent = "cpp";
+Gui1Edit1CPP.style.fontSize = "15px"; // Set font size
+Gui1Edit1CPP.style.position = "absolute"; // Set position to absolute
+Gui1Edit1CPP.style.left = "5px"; // Set initial x position
+Gui1Edit1CPP.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Edit1CPP.style.width = "60px"; // Set width
+Gui1Edit1CPP.style.height = "30px"; // Set height
+Gui1Edit1CPP.style.cursor = "pointer"; // Change cursor on hover
+Gui1Edit1CPP.style.border = "";
+Gui1Edit1CPP.style.background = "";
+Gui1Edit1CPP.style.backgroundColor = "";
+Gui1Edit1CPP.style.borderRadius = "";
+Gui1Edit1CPP.style.color = "";
+Gui1Edit1CPP.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Edit1CPP.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
   Edit1(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button1);
-Gui1Button2 = document.createElement("button");
-Gui1Button2.id = "Gui1" + "Button" + "2"; // Set ID for referencing
-Gui1Button2.textContent = "py";
-Gui1Button2.style.fontSize = "15px"; // Set font size
-Gui1Button2.style.position = "absolute"; // Set position to absolute
-Gui1Button2.style.left = "75px"; // Set initial x position
-Gui1Button2.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Button2.style.width = "60px"; // Set width
-Gui1Button2.style.height = "30px"; // Set height
-Gui1Button2.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button2.style.border = "";
-Gui1Button2.style.background = "";
-Gui1Button2.style.backgroundColor = "";
-Gui1Button2.style.borderRadius = "";
-Gui1Button2.style.color = "";
-Gui1Button2.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button2.onclick = function (event) {
-A_GuiControl = event.target.textContent
+Gui1.appendChild(Gui1Edit1CPP);
+Gui1Edit1PY = document.createElement("button");
+Gui1Edit1PY.id = "Gui1" + "Edit1PY"; // Set ID for referencing
+Gui1Edit1PY.textContent = "py";
+Gui1Edit1PY.style.fontSize = "15px"; // Set font size
+Gui1Edit1PY.style.position = "absolute"; // Set position to absolute
+Gui1Edit1PY.style.left = "70px"; // Set initial x position
+Gui1Edit1PY.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Edit1PY.style.width = "60px"; // Set width
+Gui1Edit1PY.style.height = "30px"; // Set height
+Gui1Edit1PY.style.cursor = "pointer"; // Change cursor on hover
+Gui1Edit1PY.style.border = "";
+Gui1Edit1PY.style.background = "";
+Gui1Edit1PY.style.backgroundColor = "";
+Gui1Edit1PY.style.borderRadius = "";
+Gui1Edit1PY.style.color = "";
+Gui1Edit1PY.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Edit1PY.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
   Edit1(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button2);
-Gui1Button3 = document.createElement("button");
-Gui1Button3.id = "Gui1" + "Button" + "3"; // Set ID for referencing
-Gui1Button3.textContent = "js";
-Gui1Button3.style.fontSize = "15px"; // Set font size
-Gui1Button3.style.position = "absolute"; // Set position to absolute
-Gui1Button3.style.left = "140px"; // Set initial x position
-Gui1Button3.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Button3.style.width = "60px"; // Set width
-Gui1Button3.style.height = "30px"; // Set height
-Gui1Button3.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button3.style.border = "";
-Gui1Button3.style.background = "";
-Gui1Button3.style.backgroundColor = "";
-Gui1Button3.style.borderRadius = "";
-Gui1Button3.style.color = "";
-Gui1Button3.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button3.onclick = function (event) {
-A_GuiControl = event.target.textContent
+Gui1.appendChild(Gui1Edit1PY);
+Gui1Edit1JS = document.createElement("button");
+Gui1Edit1JS.id = "Gui1" + "Edit1JS"; // Set ID for referencing
+Gui1Edit1JS.textContent = "js";
+Gui1Edit1JS.style.fontSize = "15px"; // Set font size
+Gui1Edit1JS.style.position = "absolute"; // Set position to absolute
+Gui1Edit1JS.style.left = "135px"; // Set initial x position
+Gui1Edit1JS.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Edit1JS.style.width = "60px"; // Set width
+Gui1Edit1JS.style.height = "30px"; // Set height
+Gui1Edit1JS.style.cursor = "pointer"; // Change cursor on hover
+Gui1Edit1JS.style.border = "";
+Gui1Edit1JS.style.background = "";
+Gui1Edit1JS.style.backgroundColor = "";
+Gui1Edit1JS.style.borderRadius = "";
+Gui1Edit1JS.style.color = "";
+Gui1Edit1JS.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Edit1JS.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
   Edit1(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button3);
+Gui1.appendChild(Gui1Edit1JS);
 }
 if (( variables.guiEditTextG == "Edit2" ))
 {
@@ -1300,7 +1294,7 @@ Gui1Edit2.placeholder = "" + variables.guiEditText + "";
 Gui1Edit2.style.fontSize = "15px"; // Set font size
 Gui1Edit2.style.resize = "none"; // Disable resizing
 Gui1Edit2.style.position = "absolute"; // Set position to absolute
-Gui1Edit2.style.left = "10px"; // Set initial x position
+Gui1Edit2.style.left = "5px"; // Set initial x position
 Gui1Edit2.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit2.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit2.style.height = "25px"; // Set height
@@ -1324,7 +1318,7 @@ Gui1Edit3.placeholder = "" + variables.guiEditText + "";
 Gui1Edit3.style.fontSize = "15px"; // Set font size
 Gui1Edit3.style.resize = "none"; // Disable resizing
 Gui1Edit3.style.position = "absolute"; // Set position to absolute
-Gui1Edit3.style.left = "10px"; // Set initial x position
+Gui1Edit3.style.left = "5px"; // Set initial x position
 Gui1Edit3.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit3.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit3.style.height = "25px"; // Set height
@@ -1348,7 +1342,7 @@ Gui1Edit4.placeholder = "" + variables.guiEditText + "";
 Gui1Edit4.style.fontSize = "15px"; // Set font size
 Gui1Edit4.style.resize = "none"; // Disable resizing
 Gui1Edit4.style.position = "absolute"; // Set position to absolute
-Gui1Edit4.style.left = "10px"; // Set initial x position
+Gui1Edit4.style.left = "5px"; // Set initial x position
 Gui1Edit4.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit4.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit4.style.height = "25px"; // Set height
@@ -1372,7 +1366,7 @@ Gui1Edit5.placeholder = "" + variables.guiEditText + "";
 Gui1Edit5.style.fontSize = "15px"; // Set font size
 Gui1Edit5.style.resize = "none"; // Disable resizing
 Gui1Edit5.style.position = "absolute"; // Set position to absolute
-Gui1Edit5.style.left = "10px"; // Set initial x position
+Gui1Edit5.style.left = "5px"; // Set initial x position
 Gui1Edit5.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit5.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit5.style.height = "25px"; // Set height
@@ -1396,7 +1390,7 @@ Gui1Edit6.placeholder = "" + variables.guiEditText + "";
 Gui1Edit6.style.fontSize = "15px"; // Set font size
 Gui1Edit6.style.resize = "none"; // Disable resizing
 Gui1Edit6.style.position = "absolute"; // Set position to absolute
-Gui1Edit6.style.left = "10px"; // Set initial x position
+Gui1Edit6.style.left = "5px"; // Set initial x position
 Gui1Edit6.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit6.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit6.style.height = "25px"; // Set height
@@ -1420,7 +1414,7 @@ Gui1Edit7.placeholder = "" + variables.guiEditText + "";
 Gui1Edit7.style.fontSize = "15px"; // Set font size
 Gui1Edit7.style.resize = "none"; // Disable resizing
 Gui1Edit7.style.position = "absolute"; // Set position to absolute
-Gui1Edit7.style.left = "10px"; // Set initial x position
+Gui1Edit7.style.left = "5px"; // Set initial x position
 Gui1Edit7.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit7.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit7.style.height = "25px"; // Set height
@@ -1444,7 +1438,7 @@ Gui1Edit8.placeholder = "" + variables.guiEditText + "";
 Gui1Edit8.style.fontSize = "15px"; // Set font size
 Gui1Edit8.style.resize = "none"; // Disable resizing
 Gui1Edit8.style.position = "absolute"; // Set position to absolute
-Gui1Edit8.style.left = "10px"; // Set initial x position
+Gui1Edit8.style.left = "5px"; // Set initial x position
 Gui1Edit8.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit8.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit8.style.height = "25px"; // Set height
@@ -1468,7 +1462,7 @@ Gui1Edit9.placeholder = "" + variables.guiEditText + "";
 Gui1Edit9.style.fontSize = "15px"; // Set font size
 Gui1Edit9.style.resize = "none"; // Disable resizing
 Gui1Edit9.style.position = "absolute"; // Set position to absolute
-Gui1Edit9.style.left = "10px"; // Set initial x position
+Gui1Edit9.style.left = "5px"; // Set initial x position
 Gui1Edit9.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit9.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit9.style.height = "25px"; // Set height
@@ -1492,7 +1486,7 @@ Gui1Edit10.placeholder = "" + variables.guiEditText + "";
 Gui1Edit10.style.fontSize = "15px"; // Set font size
 Gui1Edit10.style.resize = "none"; // Disable resizing
 Gui1Edit10.style.position = "absolute"; // Set position to absolute
-Gui1Edit10.style.left = "10px"; // Set initial x position
+Gui1Edit10.style.left = "5px"; // Set initial x position
 Gui1Edit10.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit10.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit10.style.height = "25px"; // Set height
@@ -1516,7 +1510,7 @@ Gui1Edit11.placeholder = "" + variables.guiEditText + "";
 Gui1Edit11.style.fontSize = "15px"; // Set font size
 Gui1Edit11.style.resize = "none"; // Disable resizing
 Gui1Edit11.style.position = "absolute"; // Set position to absolute
-Gui1Edit11.style.left = "10px"; // Set initial x position
+Gui1Edit11.style.left = "5px"; // Set initial x position
 Gui1Edit11.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit11.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit11.style.height = "25px"; // Set height
@@ -1540,7 +1534,7 @@ Gui1Edit12.placeholder = "" + variables.guiEditText + "";
 Gui1Edit12.style.fontSize = "15px"; // Set font size
 Gui1Edit12.style.resize = "none"; // Disable resizing
 Gui1Edit12.style.position = "absolute"; // Set position to absolute
-Gui1Edit12.style.left = "10px"; // Set initial x position
+Gui1Edit12.style.left = "5px"; // Set initial x position
 Gui1Edit12.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit12.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit12.style.height = "25px"; // Set height
@@ -1564,7 +1558,7 @@ Gui1Edit13.placeholder = "" + variables.guiEditText + "";
 Gui1Edit13.style.fontSize = "15px"; // Set font size
 Gui1Edit13.style.resize = "none"; // Disable resizing
 Gui1Edit13.style.position = "absolute"; // Set position to absolute
-Gui1Edit13.style.left = "10px"; // Set initial x position
+Gui1Edit13.style.left = "5px"; // Set initial x position
 Gui1Edit13.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit13.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit13.style.height = "25px"; // Set height
@@ -1588,7 +1582,7 @@ Gui1Edit14.placeholder = "" + variables.guiEditText + "";
 Gui1Edit14.style.fontSize = "15px"; // Set font size
 Gui1Edit14.style.resize = "none"; // Disable resizing
 Gui1Edit14.style.position = "absolute"; // Set position to absolute
-Gui1Edit14.style.left = "10px"; // Set initial x position
+Gui1Edit14.style.left = "5px"; // Set initial x position
 Gui1Edit14.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit14.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit14.style.height = "25px"; // Set height
@@ -1612,7 +1606,7 @@ Gui1Edit15.placeholder = "" + variables.guiEditText + "";
 Gui1Edit15.style.fontSize = "15px"; // Set font size
 Gui1Edit15.style.resize = "none"; // Disable resizing
 Gui1Edit15.style.position = "absolute"; // Set position to absolute
-Gui1Edit15.style.left = "10px"; // Set initial x position
+Gui1Edit15.style.left = "5px"; // Set initial x position
 Gui1Edit15.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit15.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit15.style.height = "25px"; // Set height
@@ -1636,7 +1630,7 @@ Gui1Edit16.placeholder = "" + variables.guiEditText + "";
 Gui1Edit16.style.fontSize = "15px"; // Set font size
 Gui1Edit16.style.resize = "none"; // Disable resizing
 Gui1Edit16.style.position = "absolute"; // Set position to absolute
-Gui1Edit16.style.left = "10px"; // Set initial x position
+Gui1Edit16.style.left = "5px"; // Set initial x position
 Gui1Edit16.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit16.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit16.style.height = "25px"; // Set height
@@ -1660,7 +1654,7 @@ Gui1Edit17.placeholder = "" + variables.guiEditText + "";
 Gui1Edit17.style.fontSize = "15px"; // Set font size
 Gui1Edit17.style.resize = "none"; // Disable resizing
 Gui1Edit17.style.position = "absolute"; // Set position to absolute
-Gui1Edit17.style.left = "10px"; // Set initial x position
+Gui1Edit17.style.left = "5px"; // Set initial x position
 Gui1Edit17.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit17.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit17.style.height = "25px"; // Set height
@@ -1684,7 +1678,7 @@ Gui1Edit18.placeholder = "" + variables.guiEditText + "";
 Gui1Edit18.style.fontSize = "15px"; // Set font size
 Gui1Edit18.style.resize = "none"; // Disable resizing
 Gui1Edit18.style.position = "absolute"; // Set position to absolute
-Gui1Edit18.style.left = "10px"; // Set initial x position
+Gui1Edit18.style.left = "5px"; // Set initial x position
 Gui1Edit18.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit18.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit18.style.height = "25px"; // Set height
@@ -1708,7 +1702,7 @@ Gui1Edit19.placeholder = "" + variables.guiEditText + "";
 Gui1Edit19.style.fontSize = "15px"; // Set font size
 Gui1Edit19.style.resize = "none"; // Disable resizing
 Gui1Edit19.style.position = "absolute"; // Set position to absolute
-Gui1Edit19.style.left = "10px"; // Set initial x position
+Gui1Edit19.style.left = "5px"; // Set initial x position
 Gui1Edit19.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit19.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit19.style.height = "25px"; // Set height
@@ -1732,7 +1726,7 @@ Gui1Edit20.placeholder = "" + variables.guiEditText + "";
 Gui1Edit20.style.fontSize = "15px"; // Set font size
 Gui1Edit20.style.resize = "none"; // Disable resizing
 Gui1Edit20.style.position = "absolute"; // Set position to absolute
-Gui1Edit20.style.left = "10px"; // Set initial x position
+Gui1Edit20.style.left = "5px"; // Set initial x position
 Gui1Edit20.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit20.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit20.style.height = "25px"; // Set height
@@ -1756,7 +1750,7 @@ Gui1Edit21.placeholder = "" + variables.guiEditText + "";
 Gui1Edit21.style.fontSize = "15px"; // Set font size
 Gui1Edit21.style.resize = "none"; // Disable resizing
 Gui1Edit21.style.position = "absolute"; // Set position to absolute
-Gui1Edit21.style.left = "10px"; // Set initial x position
+Gui1Edit21.style.left = "5px"; // Set initial x position
 Gui1Edit21.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit21.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit21.style.height = "25px"; // Set height
@@ -1780,7 +1774,7 @@ Gui1Edit22.placeholder = "" + variables.guiEditText + "";
 Gui1Edit22.style.fontSize = "15px"; // Set font size
 Gui1Edit22.style.resize = "none"; // Disable resizing
 Gui1Edit22.style.position = "absolute"; // Set position to absolute
-Gui1Edit22.style.left = "10px"; // Set initial x position
+Gui1Edit22.style.left = "5px"; // Set initial x position
 Gui1Edit22.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit22.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit22.style.height = "25px"; // Set height
@@ -1804,7 +1798,7 @@ Gui1Edit23.placeholder = "" + variables.guiEditText + "";
 Gui1Edit23.style.fontSize = "15px"; // Set font size
 Gui1Edit23.style.resize = "none"; // Disable resizing
 Gui1Edit23.style.position = "absolute"; // Set position to absolute
-Gui1Edit23.style.left = "10px"; // Set initial x position
+Gui1Edit23.style.left = "5px"; // Set initial x position
 Gui1Edit23.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit23.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit23.style.height = "25px"; // Set height
@@ -1828,7 +1822,7 @@ Gui1Edit24.placeholder = "" + variables.guiEditText + "";
 Gui1Edit24.style.fontSize = "15px"; // Set font size
 Gui1Edit24.style.resize = "none"; // Disable resizing
 Gui1Edit24.style.position = "absolute"; // Set position to absolute
-Gui1Edit24.style.left = "10px"; // Set initial x position
+Gui1Edit24.style.left = "5px"; // Set initial x position
 Gui1Edit24.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit24.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit24.style.height = "25px"; // Set height
@@ -1852,7 +1846,7 @@ Gui1Edit25.placeholder = "" + variables.guiEditText + "";
 Gui1Edit25.style.fontSize = "15px"; // Set font size
 Gui1Edit25.style.resize = "none"; // Disable resizing
 Gui1Edit25.style.position = "absolute"; // Set position to absolute
-Gui1Edit25.style.left = "10px"; // Set initial x position
+Gui1Edit25.style.left = "5px"; // Set initial x position
 Gui1Edit25.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit25.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit25.style.height = "25px"; // Set height
@@ -1876,7 +1870,7 @@ Gui1Edit26.placeholder = "" + variables.guiEditText + "";
 Gui1Edit26.style.fontSize = "15px"; // Set font size
 Gui1Edit26.style.resize = "none"; // Disable resizing
 Gui1Edit26.style.position = "absolute"; // Set position to absolute
-Gui1Edit26.style.left = "10px"; // Set initial x position
+Gui1Edit26.style.left = "5px"; // Set initial x position
 Gui1Edit26.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit26.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit26.style.height = "25px"; // Set height
@@ -1900,7 +1894,7 @@ Gui1Edit27.placeholder = "" + variables.guiEditText + "";
 Gui1Edit27.style.fontSize = "15px"; // Set font size
 Gui1Edit27.style.resize = "none"; // Disable resizing
 Gui1Edit27.style.position = "absolute"; // Set position to absolute
-Gui1Edit27.style.left = "10px"; // Set initial x position
+Gui1Edit27.style.left = "5px"; // Set initial x position
 Gui1Edit27.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit27.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit27.style.height = "25px"; // Set height
@@ -1924,7 +1918,7 @@ Gui1Edit28.placeholder = "" + variables.guiEditText + "";
 Gui1Edit28.style.fontSize = "15px"; // Set font size
 Gui1Edit28.style.resize = "none"; // Disable resizing
 Gui1Edit28.style.position = "absolute"; // Set position to absolute
-Gui1Edit28.style.left = "10px"; // Set initial x position
+Gui1Edit28.style.left = "5px"; // Set initial x position
 Gui1Edit28.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit28.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit28.style.height = "25px"; // Set height
@@ -1948,7 +1942,7 @@ Gui1Edit29.placeholder = "" + variables.guiEditText + "";
 Gui1Edit29.style.fontSize = "15px"; // Set font size
 Gui1Edit29.style.resize = "none"; // Disable resizing
 Gui1Edit29.style.position = "absolute"; // Set position to absolute
-Gui1Edit29.style.left = "10px"; // Set initial x position
+Gui1Edit29.style.left = "5px"; // Set initial x position
 Gui1Edit29.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit29.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit29.style.height = "25px"; // Set height
@@ -1972,7 +1966,7 @@ Gui1Edit30.placeholder = "" + variables.guiEditText + "";
 Gui1Edit30.style.fontSize = "15px"; // Set font size
 Gui1Edit30.style.resize = "none"; // Disable resizing
 Gui1Edit30.style.position = "absolute"; // Set position to absolute
-Gui1Edit30.style.left = "10px"; // Set initial x position
+Gui1Edit30.style.left = "5px"; // Set initial x position
 Gui1Edit30.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit30.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit30.style.height = "25px"; // Set height
@@ -1996,7 +1990,7 @@ Gui1Edit31.placeholder = "" + variables.guiEditText + "";
 Gui1Edit31.style.fontSize = "15px"; // Set font size
 Gui1Edit31.style.resize = "none"; // Disable resizing
 Gui1Edit31.style.position = "absolute"; // Set position to absolute
-Gui1Edit31.style.left = "10px"; // Set initial x position
+Gui1Edit31.style.left = "5px"; // Set initial x position
 Gui1Edit31.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit31.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit31.style.height = "25px"; // Set height
@@ -2020,7 +2014,7 @@ Gui1Edit32.placeholder = "" + variables.guiEditText + "";
 Gui1Edit32.style.fontSize = "15px"; // Set font size
 Gui1Edit32.style.resize = "none"; // Disable resizing
 Gui1Edit32.style.position = "absolute"; // Set position to absolute
-Gui1Edit32.style.left = "10px"; // Set initial x position
+Gui1Edit32.style.left = "5px"; // Set initial x position
 Gui1Edit32.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit32.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit32.style.height = "25px"; // Set height
@@ -2044,7 +2038,7 @@ Gui1Edit33.placeholder = "" + variables.guiEditText + "";
 Gui1Edit33.style.fontSize = "15px"; // Set font size
 Gui1Edit33.style.resize = "none"; // Disable resizing
 Gui1Edit33.style.position = "absolute"; // Set position to absolute
-Gui1Edit33.style.left = "10px"; // Set initial x position
+Gui1Edit33.style.left = "5px"; // Set initial x position
 Gui1Edit33.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit33.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit33.style.height = "25px"; // Set height
@@ -2068,7 +2062,7 @@ Gui1Edit34.placeholder = "" + variables.guiEditText + "";
 Gui1Edit34.style.fontSize = "15px"; // Set font size
 Gui1Edit34.style.resize = "none"; // Disable resizing
 Gui1Edit34.style.position = "absolute"; // Set position to absolute
-Gui1Edit34.style.left = "10px"; // Set initial x position
+Gui1Edit34.style.left = "5px"; // Set initial x position
 Gui1Edit34.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit34.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit34.style.height = "25px"; // Set height
@@ -2092,7 +2086,7 @@ Gui1Edit35.placeholder = "" + variables.guiEditText + "";
 Gui1Edit35.style.fontSize = "15px"; // Set font size
 Gui1Edit35.style.resize = "none"; // Disable resizing
 Gui1Edit35.style.position = "absolute"; // Set position to absolute
-Gui1Edit35.style.left = "10px"; // Set initial x position
+Gui1Edit35.style.left = "5px"; // Set initial x position
 Gui1Edit35.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit35.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit35.style.height = "25px"; // Set height
@@ -2116,7 +2110,7 @@ Gui1Edit36.placeholder = "" + variables.guiEditText + "";
 Gui1Edit36.style.fontSize = "15px"; // Set font size
 Gui1Edit36.style.resize = "none"; // Disable resizing
 Gui1Edit36.style.position = "absolute"; // Set position to absolute
-Gui1Edit36.style.left = "10px"; // Set initial x position
+Gui1Edit36.style.left = "5px"; // Set initial x position
 Gui1Edit36.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit36.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit36.style.height = "25px"; // Set height
@@ -2140,7 +2134,7 @@ Gui1Edit37.placeholder = "" + variables.guiEditText + "";
 Gui1Edit37.style.fontSize = "15px"; // Set font size
 Gui1Edit37.style.resize = "none"; // Disable resizing
 Gui1Edit37.style.position = "absolute"; // Set position to absolute
-Gui1Edit37.style.left = "10px"; // Set initial x position
+Gui1Edit37.style.left = "5px"; // Set initial x position
 Gui1Edit37.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit37.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit37.style.height = "25px"; // Set height
@@ -2164,7 +2158,7 @@ Gui1Edit38.placeholder = "" + variables.guiEditText + "";
 Gui1Edit38.style.fontSize = "15px"; // Set font size
 Gui1Edit38.style.resize = "none"; // Disable resizing
 Gui1Edit38.style.position = "absolute"; // Set position to absolute
-Gui1Edit38.style.left = "10px"; // Set initial x position
+Gui1Edit38.style.left = "5px"; // Set initial x position
 Gui1Edit38.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit38.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit38.style.height = "25px"; // Set height
@@ -2188,7 +2182,7 @@ Gui1Edit39.placeholder = "" + variables.guiEditText + "";
 Gui1Edit39.style.fontSize = "15px"; // Set font size
 Gui1Edit39.style.resize = "none"; // Disable resizing
 Gui1Edit39.style.position = "absolute"; // Set position to absolute
-Gui1Edit39.style.left = "10px"; // Set initial x position
+Gui1Edit39.style.left = "5px"; // Set initial x position
 Gui1Edit39.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit39.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit39.style.height = "25px"; // Set height
@@ -2212,7 +2206,7 @@ Gui1Edit40.placeholder = "" + variables.guiEditText + "";
 Gui1Edit40.style.fontSize = "15px"; // Set font size
 Gui1Edit40.style.resize = "none"; // Disable resizing
 Gui1Edit40.style.position = "absolute"; // Set position to absolute
-Gui1Edit40.style.left = "10px"; // Set initial x position
+Gui1Edit40.style.left = "5px"; // Set initial x position
 Gui1Edit40.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit40.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit40.style.height = "25px"; // Set height
@@ -2236,7 +2230,7 @@ Gui1Edit41.placeholder = "" + variables.guiEditText + "";
 Gui1Edit41.style.fontSize = "15px"; // Set font size
 Gui1Edit41.style.resize = "none"; // Disable resizing
 Gui1Edit41.style.position = "absolute"; // Set position to absolute
-Gui1Edit41.style.left = "10px"; // Set initial x position
+Gui1Edit41.style.left = "5px"; // Set initial x position
 Gui1Edit41.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit41.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit41.style.height = "25px"; // Set height
@@ -2260,7 +2254,7 @@ Gui1Edit42.placeholder = "" + variables.guiEditText + "";
 Gui1Edit42.style.fontSize = "15px"; // Set font size
 Gui1Edit42.style.resize = "none"; // Disable resizing
 Gui1Edit42.style.position = "absolute"; // Set position to absolute
-Gui1Edit42.style.left = "10px"; // Set initial x position
+Gui1Edit42.style.left = "5px"; // Set initial x position
 Gui1Edit42.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit42.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit42.style.height = "25px"; // Set height
@@ -2284,7 +2278,7 @@ Gui1Edit43.placeholder = "" + variables.guiEditText + "";
 Gui1Edit43.style.fontSize = "15px"; // Set font size
 Gui1Edit43.style.resize = "none"; // Disable resizing
 Gui1Edit43.style.position = "absolute"; // Set position to absolute
-Gui1Edit43.style.left = "10px"; // Set initial x position
+Gui1Edit43.style.left = "5px"; // Set initial x position
 Gui1Edit43.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit43.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit43.style.height = "25px"; // Set height
@@ -2308,7 +2302,7 @@ Gui1Edit44.placeholder = "" + variables.guiEditText + "";
 Gui1Edit44.style.fontSize = "15px"; // Set font size
 Gui1Edit44.style.resize = "none"; // Disable resizing
 Gui1Edit44.style.position = "absolute"; // Set position to absolute
-Gui1Edit44.style.left = "10px"; // Set initial x position
+Gui1Edit44.style.left = "5px"; // Set initial x position
 Gui1Edit44.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit44.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit44.style.height = "25px"; // Set height
@@ -2332,7 +2326,7 @@ Gui1Edit45.placeholder = "" + variables.guiEditText + "";
 Gui1Edit45.style.fontSize = "15px"; // Set font size
 Gui1Edit45.style.resize = "none"; // Disable resizing
 Gui1Edit45.style.position = "absolute"; // Set position to absolute
-Gui1Edit45.style.left = "10px"; // Set initial x position
+Gui1Edit45.style.left = "5px"; // Set initial x position
 Gui1Edit45.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit45.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit45.style.height = "25px"; // Set height
@@ -2356,7 +2350,7 @@ Gui1Edit46.placeholder = "" + variables.guiEditText + "";
 Gui1Edit46.style.fontSize = "15px"; // Set font size
 Gui1Edit46.style.resize = "none"; // Disable resizing
 Gui1Edit46.style.position = "absolute"; // Set position to absolute
-Gui1Edit46.style.left = "10px"; // Set initial x position
+Gui1Edit46.style.left = "5px"; // Set initial x position
 Gui1Edit46.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit46.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit46.style.height = "25px"; // Set height
@@ -2380,7 +2374,7 @@ Gui1Edit47.placeholder = "" + variables.guiEditText + "";
 Gui1Edit47.style.fontSize = "15px"; // Set font size
 Gui1Edit47.style.resize = "none"; // Disable resizing
 Gui1Edit47.style.position = "absolute"; // Set position to absolute
-Gui1Edit47.style.left = "10px"; // Set initial x position
+Gui1Edit47.style.left = "5px"; // Set initial x position
 Gui1Edit47.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit47.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit47.style.height = "25px"; // Set height
@@ -2404,7 +2398,7 @@ Gui1Edit48.placeholder = "" + variables.guiEditText + "";
 Gui1Edit48.style.fontSize = "15px"; // Set font size
 Gui1Edit48.style.resize = "none"; // Disable resizing
 Gui1Edit48.style.position = "absolute"; // Set position to absolute
-Gui1Edit48.style.left = "10px"; // Set initial x position
+Gui1Edit48.style.left = "5px"; // Set initial x position
 Gui1Edit48.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit48.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit48.style.height = "25px"; // Set height
@@ -2428,7 +2422,7 @@ Gui1Edit49.placeholder = "" + variables.guiEditText + "";
 Gui1Edit49.style.fontSize = "15px"; // Set font size
 Gui1Edit49.style.resize = "none"; // Disable resizing
 Gui1Edit49.style.position = "absolute"; // Set position to absolute
-Gui1Edit49.style.left = "10px"; // Set initial x position
+Gui1Edit49.style.left = "5px"; // Set initial x position
 Gui1Edit49.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit49.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit49.style.height = "25px"; // Set height
@@ -2452,7 +2446,7 @@ Gui1Edit50.placeholder = "" + variables.guiEditText + "";
 Gui1Edit50.style.fontSize = "15px"; // Set font size
 Gui1Edit50.style.resize = "none"; // Disable resizing
 Gui1Edit50.style.position = "absolute"; // Set position to absolute
-Gui1Edit50.style.left = "10px"; // Set initial x position
+Gui1Edit50.style.left = "5px"; // Set initial x position
 Gui1Edit50.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit50.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit50.style.height = "25px"; // Set height
@@ -2476,7 +2470,7 @@ Gui1Edit51.placeholder = "" + variables.guiEditText + "";
 Gui1Edit51.style.fontSize = "15px"; // Set font size
 Gui1Edit51.style.resize = "none"; // Disable resizing
 Gui1Edit51.style.position = "absolute"; // Set position to absolute
-Gui1Edit51.style.left = "10px"; // Set initial x position
+Gui1Edit51.style.left = "5px"; // Set initial x position
 Gui1Edit51.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit51.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit51.style.height = "25px"; // Set height
@@ -2500,7 +2494,7 @@ Gui1Edit52.placeholder = "" + variables.guiEditText + "";
 Gui1Edit52.style.fontSize = "15px"; // Set font size
 Gui1Edit52.style.resize = "none"; // Disable resizing
 Gui1Edit52.style.position = "absolute"; // Set position to absolute
-Gui1Edit52.style.left = "10px"; // Set initial x position
+Gui1Edit52.style.left = "5px"; // Set initial x position
 Gui1Edit52.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit52.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit52.style.height = "25px"; // Set height
@@ -2524,7 +2518,7 @@ Gui1Edit53.placeholder = "" + variables.guiEditText + "";
 Gui1Edit53.style.fontSize = "15px"; // Set font size
 Gui1Edit53.style.resize = "none"; // Disable resizing
 Gui1Edit53.style.position = "absolute"; // Set position to absolute
-Gui1Edit53.style.left = "10px"; // Set initial x position
+Gui1Edit53.style.left = "5px"; // Set initial x position
 Gui1Edit53.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit53.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit53.style.height = "25px"; // Set height
@@ -2548,7 +2542,7 @@ Gui1Edit54.placeholder = "" + variables.guiEditText + "";
 Gui1Edit54.style.fontSize = "15px"; // Set font size
 Gui1Edit54.style.resize = "none"; // Disable resizing
 Gui1Edit54.style.position = "absolute"; // Set position to absolute
-Gui1Edit54.style.left = "10px"; // Set initial x position
+Gui1Edit54.style.left = "5px"; // Set initial x position
 Gui1Edit54.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit54.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit54.style.height = "25px"; // Set height
@@ -2572,7 +2566,7 @@ Gui1Edit55.placeholder = "" + variables.guiEditText + "";
 Gui1Edit55.style.fontSize = "15px"; // Set font size
 Gui1Edit55.style.resize = "none"; // Disable resizing
 Gui1Edit55.style.position = "absolute"; // Set position to absolute
-Gui1Edit55.style.left = "10px"; // Set initial x position
+Gui1Edit55.style.left = "5px"; // Set initial x position
 Gui1Edit55.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit55.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit55.style.height = "25px"; // Set height
@@ -2596,7 +2590,7 @@ Gui1Edit56.placeholder = "" + variables.guiEditText + "";
 Gui1Edit56.style.fontSize = "15px"; // Set font size
 Gui1Edit56.style.resize = "none"; // Disable resizing
 Gui1Edit56.style.position = "absolute"; // Set position to absolute
-Gui1Edit56.style.left = "10px"; // Set initial x position
+Gui1Edit56.style.left = "5px"; // Set initial x position
 Gui1Edit56.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit56.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit56.style.height = "25px"; // Set height
@@ -2620,7 +2614,7 @@ Gui1Edit57.placeholder = "" + variables.guiEditText + "";
 Gui1Edit57.style.fontSize = "15px"; // Set font size
 Gui1Edit57.style.resize = "none"; // Disable resizing
 Gui1Edit57.style.position = "absolute"; // Set position to absolute
-Gui1Edit57.style.left = "10px"; // Set initial x position
+Gui1Edit57.style.left = "5px"; // Set initial x position
 Gui1Edit57.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit57.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit57.style.height = "25px"; // Set height
@@ -2644,7 +2638,7 @@ Gui1Edit58.placeholder = "" + variables.guiEditText + "";
 Gui1Edit58.style.fontSize = "15px"; // Set font size
 Gui1Edit58.style.resize = "none"; // Disable resizing
 Gui1Edit58.style.position = "absolute"; // Set position to absolute
-Gui1Edit58.style.left = "10px"; // Set initial x position
+Gui1Edit58.style.left = "5px"; // Set initial x position
 Gui1Edit58.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit58.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit58.style.height = "25px"; // Set height
@@ -2668,7 +2662,7 @@ Gui1Edit59.placeholder = "" + variables.guiEditText + "";
 Gui1Edit59.style.fontSize = "15px"; // Set font size
 Gui1Edit59.style.resize = "none"; // Disable resizing
 Gui1Edit59.style.position = "absolute"; // Set position to absolute
-Gui1Edit59.style.left = "10px"; // Set initial x position
+Gui1Edit59.style.left = "5px"; // Set initial x position
 Gui1Edit59.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit59.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit59.style.height = "25px"; // Set height
@@ -2692,7 +2686,7 @@ Gui1Edit60.placeholder = "" + variables.guiEditText + "";
 Gui1Edit60.style.fontSize = "15px"; // Set font size
 Gui1Edit60.style.resize = "none"; // Disable resizing
 Gui1Edit60.style.position = "absolute"; // Set position to absolute
-Gui1Edit60.style.left = "10px"; // Set initial x position
+Gui1Edit60.style.left = "5px"; // Set initial x position
 Gui1Edit60.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit60.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit60.style.height = "25px"; // Set height
@@ -2716,7 +2710,7 @@ Gui1Edit61.placeholder = "" + variables.guiEditText + "";
 Gui1Edit61.style.fontSize = "15px"; // Set font size
 Gui1Edit61.style.resize = "none"; // Disable resizing
 Gui1Edit61.style.position = "absolute"; // Set position to absolute
-Gui1Edit61.style.left = "10px"; // Set initial x position
+Gui1Edit61.style.left = "5px"; // Set initial x position
 Gui1Edit61.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit61.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit61.style.height = "25px"; // Set height
@@ -2740,7 +2734,7 @@ Gui1Edit62.placeholder = "" + variables.guiEditText + "";
 Gui1Edit62.style.fontSize = "15px"; // Set font size
 Gui1Edit62.style.resize = "none"; // Disable resizing
 Gui1Edit62.style.position = "absolute"; // Set position to absolute
-Gui1Edit62.style.left = "10px"; // Set initial x position
+Gui1Edit62.style.left = "5px"; // Set initial x position
 Gui1Edit62.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit62.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit62.style.height = "25px"; // Set height
@@ -2764,7 +2758,7 @@ Gui1Edit63.placeholder = "" + variables.guiEditText + "";
 Gui1Edit63.style.fontSize = "15px"; // Set font size
 Gui1Edit63.style.resize = "none"; // Disable resizing
 Gui1Edit63.style.position = "absolute"; // Set position to absolute
-Gui1Edit63.style.left = "10px"; // Set initial x position
+Gui1Edit63.style.left = "5px"; // Set initial x position
 Gui1Edit63.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit63.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit63.style.height = "25px"; // Set height
@@ -2788,7 +2782,7 @@ Gui1Edit64.placeholder = "" + variables.guiEditText + "";
 Gui1Edit64.style.fontSize = "15px"; // Set font size
 Gui1Edit64.style.resize = "none"; // Disable resizing
 Gui1Edit64.style.position = "absolute"; // Set position to absolute
-Gui1Edit64.style.left = "10px"; // Set initial x position
+Gui1Edit64.style.left = "5px"; // Set initial x position
 Gui1Edit64.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit64.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit64.style.height = "25px"; // Set height
@@ -2812,7 +2806,7 @@ Gui1Edit65.placeholder = "" + variables.guiEditText + "";
 Gui1Edit65.style.fontSize = "15px"; // Set font size
 Gui1Edit65.style.resize = "none"; // Disable resizing
 Gui1Edit65.style.position = "absolute"; // Set position to absolute
-Gui1Edit65.style.left = "10px"; // Set initial x position
+Gui1Edit65.style.left = "5px"; // Set initial x position
 Gui1Edit65.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit65.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit65.style.height = "25px"; // Set height
@@ -2836,7 +2830,7 @@ Gui1Edit66.placeholder = "" + variables.guiEditText + "";
 Gui1Edit66.style.fontSize = "15px"; // Set font size
 Gui1Edit66.style.resize = "none"; // Disable resizing
 Gui1Edit66.style.position = "absolute"; // Set position to absolute
-Gui1Edit66.style.left = "10px"; // Set initial x position
+Gui1Edit66.style.left = "5px"; // Set initial x position
 Gui1Edit66.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit66.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit66.style.height = "25px"; // Set height
@@ -2860,7 +2854,7 @@ Gui1Edit67.placeholder = "" + variables.guiEditText + "";
 Gui1Edit67.style.fontSize = "15px"; // Set font size
 Gui1Edit67.style.resize = "none"; // Disable resizing
 Gui1Edit67.style.position = "absolute"; // Set position to absolute
-Gui1Edit67.style.left = "10px"; // Set initial x position
+Gui1Edit67.style.left = "5px"; // Set initial x position
 Gui1Edit67.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit67.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit67.style.height = "25px"; // Set height
@@ -2884,7 +2878,7 @@ Gui1Edit68.placeholder = "" + variables.guiEditText + "";
 Gui1Edit68.style.fontSize = "15px"; // Set font size
 Gui1Edit68.style.resize = "none"; // Disable resizing
 Gui1Edit68.style.position = "absolute"; // Set position to absolute
-Gui1Edit68.style.left = "10px"; // Set initial x position
+Gui1Edit68.style.left = "5px"; // Set initial x position
 Gui1Edit68.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit68.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit68.style.height = "25px"; // Set height
@@ -2908,7 +2902,7 @@ Gui1Edit69.placeholder = "" + variables.guiEditText + "";
 Gui1Edit69.style.fontSize = "15px"; // Set font size
 Gui1Edit69.style.resize = "none"; // Disable resizing
 Gui1Edit69.style.position = "absolute"; // Set position to absolute
-Gui1Edit69.style.left = "10px"; // Set initial x position
+Gui1Edit69.style.left = "5px"; // Set initial x position
 Gui1Edit69.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit69.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit69.style.height = "25px"; // Set height
@@ -2932,7 +2926,7 @@ Gui1Edit70.placeholder = "" + variables.guiEditText + "";
 Gui1Edit70.style.fontSize = "15px"; // Set font size
 Gui1Edit70.style.resize = "none"; // Disable resizing
 Gui1Edit70.style.position = "absolute"; // Set position to absolute
-Gui1Edit70.style.left = "10px"; // Set initial x position
+Gui1Edit70.style.left = "5px"; // Set initial x position
 Gui1Edit70.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit70.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit70.style.height = "25px"; // Set height
@@ -2956,7 +2950,7 @@ Gui1Edit71.placeholder = "" + variables.guiEditText + "";
 Gui1Edit71.style.fontSize = "15px"; // Set font size
 Gui1Edit71.style.resize = "none"; // Disable resizing
 Gui1Edit71.style.position = "absolute"; // Set position to absolute
-Gui1Edit71.style.left = "10px"; // Set initial x position
+Gui1Edit71.style.left = "5px"; // Set initial x position
 Gui1Edit71.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit71.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit71.style.height = "25px"; // Set height
@@ -2980,7 +2974,7 @@ Gui1Edit72.placeholder = "" + variables.guiEditText + "";
 Gui1Edit72.style.fontSize = "15px"; // Set font size
 Gui1Edit72.style.resize = "none"; // Disable resizing
 Gui1Edit72.style.position = "absolute"; // Set position to absolute
-Gui1Edit72.style.left = "10px"; // Set initial x position
+Gui1Edit72.style.left = "5px"; // Set initial x position
 Gui1Edit72.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit72.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit72.style.height = "25px"; // Set height
@@ -3004,7 +2998,7 @@ Gui1Edit73.placeholder = "" + variables.guiEditText + "";
 Gui1Edit73.style.fontSize = "15px"; // Set font size
 Gui1Edit73.style.resize = "none"; // Disable resizing
 Gui1Edit73.style.position = "absolute"; // Set position to absolute
-Gui1Edit73.style.left = "10px"; // Set initial x position
+Gui1Edit73.style.left = "5px"; // Set initial x position
 Gui1Edit73.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit73.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit73.style.height = "25px"; // Set height
@@ -3028,7 +3022,7 @@ Gui1Edit74.placeholder = "" + variables.guiEditText + "";
 Gui1Edit74.style.fontSize = "15px"; // Set font size
 Gui1Edit74.style.resize = "none"; // Disable resizing
 Gui1Edit74.style.position = "absolute"; // Set position to absolute
-Gui1Edit74.style.left = "10px"; // Set initial x position
+Gui1Edit74.style.left = "5px"; // Set initial x position
 Gui1Edit74.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit74.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit74.style.height = "25px"; // Set height
@@ -3052,7 +3046,7 @@ Gui1Edit75.placeholder = "" + variables.guiEditText + "";
 Gui1Edit75.style.fontSize = "15px"; // Set font size
 Gui1Edit75.style.resize = "none"; // Disable resizing
 Gui1Edit75.style.position = "absolute"; // Set position to absolute
-Gui1Edit75.style.left = "10px"; // Set initial x position
+Gui1Edit75.style.left = "5px"; // Set initial x position
 Gui1Edit75.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit75.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit75.style.height = "25px"; // Set height
@@ -3076,7 +3070,7 @@ Gui1Edit76.placeholder = "" + variables.guiEditText + "";
 Gui1Edit76.style.fontSize = "15px"; // Set font size
 Gui1Edit76.style.resize = "none"; // Disable resizing
 Gui1Edit76.style.position = "absolute"; // Set position to absolute
-Gui1Edit76.style.left = "10px"; // Set initial x position
+Gui1Edit76.style.left = "5px"; // Set initial x position
 Gui1Edit76.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit76.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit76.style.height = "25px"; // Set height
@@ -3100,7 +3094,7 @@ Gui1Edit77.placeholder = "" + variables.guiEditText + "";
 Gui1Edit77.style.fontSize = "15px"; // Set font size
 Gui1Edit77.style.resize = "none"; // Disable resizing
 Gui1Edit77.style.position = "absolute"; // Set position to absolute
-Gui1Edit77.style.left = "10px"; // Set initial x position
+Gui1Edit77.style.left = "5px"; // Set initial x position
 Gui1Edit77.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit77.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit77.style.height = "25px"; // Set height
@@ -3124,7 +3118,7 @@ Gui1Edit78.placeholder = "" + variables.guiEditText + "";
 Gui1Edit78.style.fontSize = "15px"; // Set font size
 Gui1Edit78.style.resize = "none"; // Disable resizing
 Gui1Edit78.style.position = "absolute"; // Set position to absolute
-Gui1Edit78.style.left = "10px"; // Set initial x position
+Gui1Edit78.style.left = "5px"; // Set initial x position
 Gui1Edit78.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit78.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit78.style.height = "25px"; // Set height
@@ -3148,7 +3142,7 @@ Gui1Edit79.placeholder = "" + variables.guiEditText + "";
 Gui1Edit79.style.fontSize = "15px"; // Set font size
 Gui1Edit79.style.resize = "none"; // Disable resizing
 Gui1Edit79.style.position = "absolute"; // Set position to absolute
-Gui1Edit79.style.left = "10px"; // Set initial x position
+Gui1Edit79.style.left = "5px"; // Set initial x position
 Gui1Edit79.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit79.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit79.style.height = "25px"; // Set height
@@ -3172,7 +3166,7 @@ Gui1Edit80.placeholder = "" + variables.guiEditText + "";
 Gui1Edit80.style.fontSize = "15px"; // Set font size
 Gui1Edit80.style.resize = "none"; // Disable resizing
 Gui1Edit80.style.position = "absolute"; // Set position to absolute
-Gui1Edit80.style.left = "10px"; // Set initial x position
+Gui1Edit80.style.left = "5px"; // Set initial x position
 Gui1Edit80.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit80.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit80.style.height = "25px"; // Set height
@@ -3196,7 +3190,7 @@ Gui1Edit81.placeholder = "" + variables.guiEditText + "";
 Gui1Edit81.style.fontSize = "15px"; // Set font size
 Gui1Edit81.style.resize = "none"; // Disable resizing
 Gui1Edit81.style.position = "absolute"; // Set position to absolute
-Gui1Edit81.style.left = "10px"; // Set initial x position
+Gui1Edit81.style.left = "5px"; // Set initial x position
 Gui1Edit81.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit81.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit81.style.height = "25px"; // Set height
@@ -3215,69 +3209,69 @@ Gui1.appendChild(Gui1Edit81);
 if (( variables.guiEditTextG == "Edit82" ))
 {
 variables.guiEditY82 = variables.guiEditY + 3
-Gui1Button4 = document.createElement("button");
-Gui1Button4.id = "Gui1" + "Button" + "4"; // Set ID for referencing
-Gui1Button4.textContent = "cpp";
-Gui1Button4.style.fontSize = "12px"; // Set font size
-Gui1Button4.style.position = "absolute"; // Set position to absolute
-Gui1Button4.style.left = "10px"; // Set initial x position
-Gui1Button4.style.top = "" + variables.guiEditY82 + "px"; // Set initial y position
-Gui1Button4.style.width = "60px"; // Set width
-Gui1Button4.style.height = "26px"; // Set height
-Gui1Button4.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button4.style.border = "";
-Gui1Button4.style.background = "";
-Gui1Button4.style.backgroundColor = "";
-Gui1Button4.style.borderRadius = "";
-Gui1Button4.style.color = "";
-Gui1Button4.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button4.onclick = function (event) {
-A_GuiControl = event.target.textContent
+Gui1Edit82CPP = document.createElement("button");
+Gui1Edit82CPP.id = "Gui1" + "Edit82CPP"; // Set ID for referencing
+Gui1Edit82CPP.textContent = "cpp";
+Gui1Edit82CPP.style.fontSize = "12px"; // Set font size
+Gui1Edit82CPP.style.position = "absolute"; // Set position to absolute
+Gui1Edit82CPP.style.left = "5px"; // Set initial x position
+Gui1Edit82CPP.style.top = "" + variables.guiEditY82 + "px"; // Set initial y position
+Gui1Edit82CPP.style.width = "60px"; // Set width
+Gui1Edit82CPP.style.height = "26px"; // Set height
+Gui1Edit82CPP.style.cursor = "pointer"; // Change cursor on hover
+Gui1Edit82CPP.style.border = "";
+Gui1Edit82CPP.style.background = "";
+Gui1Edit82CPP.style.backgroundColor = "";
+Gui1Edit82CPP.style.borderRadius = "";
+Gui1Edit82CPP.style.color = "";
+Gui1Edit82CPP.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Edit82CPP.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
   Edit82(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button4);
-Gui1Button5 = document.createElement("button");
-Gui1Button5.id = "Gui1" + "Button" + "5"; // Set ID for referencing
-Gui1Button5.textContent = "py";
-Gui1Button5.style.fontSize = "12px"; // Set font size
-Gui1Button5.style.position = "absolute"; // Set position to absolute
-Gui1Button5.style.left = "75px"; // Set initial x position
-Gui1Button5.style.top = "" + variables.guiEditY82 + "px"; // Set initial y position
-Gui1Button5.style.width = "60px"; // Set width
-Gui1Button5.style.height = "26px"; // Set height
-Gui1Button5.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button5.style.border = "";
-Gui1Button5.style.background = "";
-Gui1Button5.style.backgroundColor = "";
-Gui1Button5.style.borderRadius = "";
-Gui1Button5.style.color = "";
-Gui1Button5.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button5.onclick = function (event) {
-A_GuiControl = event.target.textContent
+Gui1.appendChild(Gui1Edit82CPP);
+Gui1Edit82PY = document.createElement("button");
+Gui1Edit82PY.id = "Gui1" + "Edit82PY"; // Set ID for referencing
+Gui1Edit82PY.textContent = "py";
+Gui1Edit82PY.style.fontSize = "12px"; // Set font size
+Gui1Edit82PY.style.position = "absolute"; // Set position to absolute
+Gui1Edit82PY.style.left = "70px"; // Set initial x position
+Gui1Edit82PY.style.top = "" + variables.guiEditY82 + "px"; // Set initial y position
+Gui1Edit82PY.style.width = "60px"; // Set width
+Gui1Edit82PY.style.height = "26px"; // Set height
+Gui1Edit82PY.style.cursor = "pointer"; // Change cursor on hover
+Gui1Edit82PY.style.border = "";
+Gui1Edit82PY.style.background = "";
+Gui1Edit82PY.style.backgroundColor = "";
+Gui1Edit82PY.style.borderRadius = "";
+Gui1Edit82PY.style.color = "";
+Gui1Edit82PY.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Edit82PY.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
   Edit82(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button5);
-Gui1Button6 = document.createElement("button");
-Gui1Button6.id = "Gui1" + "Button" + "6"; // Set ID for referencing
-Gui1Button6.textContent = "js";
-Gui1Button6.style.fontSize = "12px"; // Set font size
-Gui1Button6.style.position = "absolute"; // Set position to absolute
-Gui1Button6.style.left = "140px"; // Set initial x position
-Gui1Button6.style.top = "" + variables.guiEditY82 + "px"; // Set initial y position
-Gui1Button6.style.width = "60px"; // Set width
-Gui1Button6.style.height = "26px"; // Set height
-Gui1Button6.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button6.style.border = "";
-Gui1Button6.style.background = "";
-Gui1Button6.style.backgroundColor = "";
-Gui1Button6.style.borderRadius = "";
-Gui1Button6.style.color = "";
-Gui1Button6.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button6.onclick = function (event) {
-A_GuiControl = event.target.textContent
+Gui1.appendChild(Gui1Edit82PY);
+Gui1Edit82JS = document.createElement("button");
+Gui1Edit82JS.id = "Gui1" + "Edit82JS"; // Set ID for referencing
+Gui1Edit82JS.textContent = "js";
+Gui1Edit82JS.style.fontSize = "12px"; // Set font size
+Gui1Edit82JS.style.position = "absolute"; // Set position to absolute
+Gui1Edit82JS.style.left = "135px"; // Set initial x position
+Gui1Edit82JS.style.top = "" + variables.guiEditY82 + "px"; // Set initial y position
+Gui1Edit82JS.style.width = "60px"; // Set width
+Gui1Edit82JS.style.height = "26px"; // Set height
+Gui1Edit82JS.style.cursor = "pointer"; // Change cursor on hover
+Gui1Edit82JS.style.border = "";
+Gui1Edit82JS.style.background = "";
+Gui1Edit82JS.style.backgroundColor = "";
+Gui1Edit82JS.style.borderRadius = "";
+Gui1Edit82JS.style.color = "";
+Gui1Edit82JS.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Edit82JS.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
   Edit82(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button6);
+Gui1.appendChild(Gui1Edit82JS);
 }
 if (( variables.guiEditTextG == "Edit83" ))
 {
@@ -3287,7 +3281,7 @@ Gui1Edit83.placeholder = "" + variables.guiEditText + "";
 Gui1Edit83.style.fontSize = "15px"; // Set font size
 Gui1Edit83.style.resize = "none"; // Disable resizing
 Gui1Edit83.style.position = "absolute"; // Set position to absolute
-Gui1Edit83.style.left = "10px"; // Set initial x position
+Gui1Edit83.style.left = "5px"; // Set initial x position
 Gui1Edit83.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit83.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit83.style.height = "25px"; // Set height
@@ -3311,7 +3305,7 @@ Gui1Edit84.placeholder = "" + variables.guiEditText + "";
 Gui1Edit84.style.fontSize = "15px"; // Set font size
 Gui1Edit84.style.resize = "none"; // Disable resizing
 Gui1Edit84.style.position = "absolute"; // Set position to absolute
-Gui1Edit84.style.left = "10px"; // Set initial x position
+Gui1Edit84.style.left = "5px"; // Set initial x position
 Gui1Edit84.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit84.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit84.style.height = "25px"; // Set height
@@ -3335,7 +3329,7 @@ Gui1Edit85.placeholder = "" + variables.guiEditText + "";
 Gui1Edit85.style.fontSize = "15px"; // Set font size
 Gui1Edit85.style.resize = "none"; // Disable resizing
 Gui1Edit85.style.position = "absolute"; // Set position to absolute
-Gui1Edit85.style.left = "10px"; // Set initial x position
+Gui1Edit85.style.left = "5px"; // Set initial x position
 Gui1Edit85.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit85.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit85.style.height = "25px"; // Set height
@@ -3359,7 +3353,7 @@ Gui1Edit86.placeholder = "" + variables.guiEditText + "";
 Gui1Edit86.style.fontSize = "15px"; // Set font size
 Gui1Edit86.style.resize = "none"; // Disable resizing
 Gui1Edit86.style.position = "absolute"; // Set position to absolute
-Gui1Edit86.style.left = "10px"; // Set initial x position
+Gui1Edit86.style.left = "5px"; // Set initial x position
 Gui1Edit86.style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1Edit86.style.width = "" + variables.guiW + "px"; // Set width
 Gui1Edit86.style.height = "25px"; // Set height
@@ -3385,7 +3379,7 @@ Gui1[variables.guiEditTextV].style.position = "absolute"; // Set position to abs
 Gui1[variables.guiEditTextV].style.left = "" + variables.buttonX + "px"; // Set initial x position
 Gui1[variables.guiEditTextV].style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1[variables.guiEditTextV].style.width = "70px"; // Set width
-Gui1[variables.guiEditTextV].style.height = "25px"; // Set height
+Gui1[variables.guiEditTextV].style.height = "28px"; // Set height
 Gui1[variables.guiEditTextV].style.cursor = "pointer"; // Change cursor on hover
 Gui1[variables.guiEditTextV].style.border = "";
 Gui1[variables.guiEditTextV].style.background = "";
@@ -3404,6 +3398,60 @@ for (/* Normal Loop */ variables.A_Index4 = 1; variables.A_Index4 <= 86; variabl
 {
 variables.editTextTemp = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-" + variables.A_Index4 )
 variables.editTextTemp1 = "Edit" + variables.A_Index4
+if (( variables.A_Index4 == 1 ))
+{
+if (( variables.editTextTemp == variables.null ))
+{
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-1" , "cpp" )
+variables.editTextTemp = "cpp"
+}
+//editTextTemp
+if (( variables.editTextTemp == "cpp" ))
+{
+GuiControl("disable", "Gui1Edit1CPP");
+GuiControl("enable", "Gui1Edit1JS");
+GuiControl("enable", "Gui1Edit1PY");
+}
+if (( variables.editTextTemp == "js" ))
+{
+GuiControl("disable", "Gui1Edit1JS");
+GuiControl("enable", "Gui1Edit1CPP");
+GuiControl("enable", "Gui1Edit1PY");
+}
+if (( variables.editTextTemp == "py" ))
+{
+GuiControl("disable", "Gui1Edit1PY");
+GuiControl("enable", "Gui1Edit1JS");
+GuiControl("enable", "Gui1Edit1CPP");
+}
+}
+if (( variables.A_Index4 == 82 ))
+{
+if (( variables.editTextTemp == variables.null ))
+{
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-82" , "cpp" )
+variables.editTextTemp = "cpp"
+}
+//editTextTemp
+if (( variables.editTextTemp == "cpp" ))
+{
+GuiControl("disable", "Gui1Edit82CPP");
+GuiControl("enable", "Gui1Edit82JS");
+GuiControl("enable", "Gui1Edit82PY");
+}
+if (( variables.editTextTemp == "js" ))
+{
+GuiControl("disable", "Gui1Edit82JS");
+GuiControl("enable", "Gui1Edit82CPP");
+GuiControl("enable", "Gui1Edit82PY");
+}
+if (( variables.editTextTemp == "py" ))
+{
+GuiControl("disable", "Gui1Edit82PY");
+GuiControl("enable", "Gui1Edit82JS");
+GuiControl("enable", "Gui1Edit82CPP");
+}
+}
 if (( variables.A_Index4 == 85 ))
 {
 if (( variables.editTextTemp == "on" ))
@@ -3476,27 +3524,59 @@ GuiControl("text", "Gui1" + variables.editTextTemp1, variables.editTextTemp);
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-variables.MyDropDownFuncs = "Option1|Option2|Option3|Option2|Option3|Option2|Option3|Option2|Option3"
-if (( await isMobileDevice () ))
+variables.allLocalSrorageLinks = "|"
+variables.MyDropDownFuncs = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" )
+if (( variables.MyDropDownFuncs == variables.null ))
 {
-createCustomDropdown(Gui1, "Gui1MyDropDownV", "" + variables.MyDropDownFuncs + "", "#333333", 10, variables.guiEditY, 150, 30, MyDropDown );
+variables.MyDropDownFuncs = "HTVM_func1"
 }
-else
+variables.MyDropDownFuncsTempFirstAddShowDisplay = ""
+var items5 = LoopParseFunc(variables.MyDropDownFuncs, "|");
+for (/* Loop Parse */ let A_Index5 = 1; A_Index5 <= items5.length; A_Index5++)
 {
-createCustomDropdown(Gui1, "Gui1MyDropDownV", "" + variables.MyDropDownFuncs + "", "#333333", 10, variables.guiEditY, 150, 30, MyDropDown );
+variables.A_Index5 = A_Index5
+variables.A_LoopField5 = items5[A_Index5 - 1];
+variables.MyDropDownFuncsTempFirstAddShowDisplay = variables.A_LoopField5
+break
 }
-variables.MyDropDownFuncs = "func1"
+variables.currentFuncName = variables.MyDropDownFuncsTempFirstAddShowDisplay
+variables.currentFuncNameOLD = variables.currentFuncName
+variables.MyFuncsLibs = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.MyDropDownFuncsTempFirstAddShowDisplay )
+variables.allLocalSrorageLinks += variables.MyDropDownFuncsTempFirstAddShowDisplay + "|"
+if (( variables.MyFuncsLibs == variables.null ))
+{
+variables.MyFuncsLibs = "null"
+}
+variables.MyFuncsDescription = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.MyDropDownFuncsTempFirstAddShowDisplay )
+variables.allLocalSrorageLinks += variables.MyDropDownFuncsTempFirstAddShowDisplay + "|"
+if (( variables.MyFuncsDescription == variables.null ))
+{
+variables.MyFuncsDescription = "null"
+}
+variables.MyFuncsCode = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.MyDropDownFuncsTempFirstAddShowDisplay )
+variables.allLocalSrorageLinks += variables.MyDropDownFuncsTempFirstAddShowDisplay + "|"
+if (( variables.MyFuncsCode == variables.null ))
+{
+variables.MyFuncsCode = "// add the function here"
+}
+variables.MyFuncsLang = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.MyDropDownFuncsTempFirstAddShowDisplay )
+variables.allLocalSrorageLinks += variables.MyDropDownFuncsTempFirstAddShowDisplay + "|"
+if (( variables.MyFuncsLang == variables.null ))
+{
+variables.MyFuncsLang = "cpp"
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.MyDropDownFuncsTempFirstAddShowDisplay , "cpp" )
+}
 GuiControl("destroy", "Gui1MyDropDownV");
 variables.guiEditYDDD = variables.guiEditY
-createCustomDropdown(Gui1, "Gui1MyDropDownV", "" + variables.MyDropDownFuncs + "", "#333333", 10, variables.guiEditYDDD, 150, 30, MyDropDown );
+createCustomDropdown(Gui1, "Gui1MyDropDownV", "" + variables.MyDropDownFuncs + "", "#333333", 5, variables.guiEditYDDD, 150, 30, MyDropDown );
 Gui1Button8 = document.createElement("button");
 Gui1Button8.id = "Gui1" + "Button" + "8"; // Set ID for referencing
-Gui1Button8.textContent = "Add a new function";
+Gui1Button8.textContent = "New function";
 Gui1Button8.style.fontSize = "15px"; // Set font size
 Gui1Button8.style.position = "absolute"; // Set position to absolute
-Gui1Button8.style.left = "170px"; // Set initial x position
+Gui1Button8.style.left = "165px"; // Set initial x position
 Gui1Button8.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Button8.style.width = "155px"; // Set width
+Gui1Button8.style.width = "105px"; // Set width
 Gui1Button8.style.height = "30px"; // Set height
 Gui1Button8.style.cursor = "pointer"; // Change cursor on hover
 Gui1Button8.style.border = "";
@@ -3519,7 +3599,7 @@ Gui1[variables.guiEditTextV].style.position = "absolute"; // Set position to abs
 Gui1[variables.guiEditTextV].style.left = "" + variables.buttonX + "px"; // Set initial x position
 Gui1[variables.guiEditTextV].style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1[variables.guiEditTextV].style.width = "70px"; // Set width
-Gui1[variables.guiEditTextV].style.height = "25px"; // Set height
+Gui1[variables.guiEditTextV].style.height = "28px"; // Set height
 Gui1[variables.guiEditTextV].style.cursor = "pointer"; // Change cursor on hover
 Gui1[variables.guiEditTextV].style.border = "";
 Gui1[variables.guiEditTextV].style.background = "";
@@ -3533,69 +3613,87 @@ A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
 };
 Gui1.appendChild(Gui1[variables.guiEditTextV]);
 variables.guiEditY = variables.guiEditY + 35
-Gui1Button10 = document.createElement("button");
-Gui1Button10.id = "Gui1" + "Button" + "10"; // Set ID for referencing
-Gui1Button10.textContent = "cpp";
-Gui1Button10.style.fontSize = "15px"; // Set font size
-Gui1Button10.style.position = "absolute"; // Set position to absolute
-Gui1Button10.style.left = "10px"; // Set initial x position
-Gui1Button10.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Button10.style.width = "60px"; // Set width
-Gui1Button10.style.height = "35px"; // Set height
-Gui1Button10.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button10.style.border = "";
-Gui1Button10.style.background = "";
-Gui1Button10.style.backgroundColor = "";
-Gui1Button10.style.borderRadius = "";
-Gui1Button10.style.color = "";
-Gui1Button10.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button10.onclick = function (event) {
-A_GuiControl = event.target.textContent
+Gui1EditFuncButtonLangCpp = document.createElement("button");
+Gui1EditFuncButtonLangCpp.id = "Gui1" + "EditFuncButtonLangCpp"; // Set ID for referencing
+Gui1EditFuncButtonLangCpp.textContent = "cpp";
+Gui1EditFuncButtonLangCpp.style.fontSize = "15px"; // Set font size
+Gui1EditFuncButtonLangCpp.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncButtonLangCpp.style.left = "5px"; // Set initial x position
+Gui1EditFuncButtonLangCpp.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1EditFuncButtonLangCpp.style.width = "60px"; // Set width
+Gui1EditFuncButtonLangCpp.style.height = "35px"; // Set height
+Gui1EditFuncButtonLangCpp.style.cursor = "pointer"; // Change cursor on hover
+Gui1EditFuncButtonLangCpp.style.border = "";
+Gui1EditFuncButtonLangCpp.style.background = "";
+Gui1EditFuncButtonLangCpp.style.backgroundColor = "";
+Gui1EditFuncButtonLangCpp.style.borderRadius = "";
+Gui1EditFuncButtonLangCpp.style.color = "";
+Gui1EditFuncButtonLangCpp.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncButtonLangCpp.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
   EditFuncButtonLangCpp(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button10);
-Gui1Button11 = document.createElement("button");
-Gui1Button11.id = "Gui1" + "Button" + "11"; // Set ID for referencing
-Gui1Button11.textContent = "py";
-Gui1Button11.style.fontSize = "15px"; // Set font size
-Gui1Button11.style.position = "absolute"; // Set position to absolute
-Gui1Button11.style.left = "75px"; // Set initial x position
-Gui1Button11.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Button11.style.width = "60px"; // Set width
-Gui1Button11.style.height = "35px"; // Set height
-Gui1Button11.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button11.style.border = "";
-Gui1Button11.style.background = "";
-Gui1Button11.style.backgroundColor = "";
-Gui1Button11.style.borderRadius = "";
-Gui1Button11.style.color = "";
-Gui1Button11.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button11.onclick = function (event) {
-A_GuiControl = event.target.textContent
+Gui1.appendChild(Gui1EditFuncButtonLangCpp);
+Gui1EditFuncButtonLangPy = document.createElement("button");
+Gui1EditFuncButtonLangPy.id = "Gui1" + "EditFuncButtonLangPy"; // Set ID for referencing
+Gui1EditFuncButtonLangPy.textContent = "py";
+Gui1EditFuncButtonLangPy.style.fontSize = "15px"; // Set font size
+Gui1EditFuncButtonLangPy.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncButtonLangPy.style.left = "70px"; // Set initial x position
+Gui1EditFuncButtonLangPy.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1EditFuncButtonLangPy.style.width = "60px"; // Set width
+Gui1EditFuncButtonLangPy.style.height = "35px"; // Set height
+Gui1EditFuncButtonLangPy.style.cursor = "pointer"; // Change cursor on hover
+Gui1EditFuncButtonLangPy.style.border = "";
+Gui1EditFuncButtonLangPy.style.background = "";
+Gui1EditFuncButtonLangPy.style.backgroundColor = "";
+Gui1EditFuncButtonLangPy.style.borderRadius = "";
+Gui1EditFuncButtonLangPy.style.color = "";
+Gui1EditFuncButtonLangPy.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncButtonLangPy.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
   EditFuncButtonLangPy(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button11);
-Gui1Button12 = document.createElement("button");
-Gui1Button12.id = "Gui1" + "Button" + "12"; // Set ID for referencing
-Gui1Button12.textContent = "js";
-Gui1Button12.style.fontSize = "15px"; // Set font size
-Gui1Button12.style.position = "absolute"; // Set position to absolute
-Gui1Button12.style.left = "140px"; // Set initial x position
-Gui1Button12.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Button12.style.width = "60px"; // Set width
-Gui1Button12.style.height = "35px"; // Set height
-Gui1Button12.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button12.style.border = "";
-Gui1Button12.style.background = "";
-Gui1Button12.style.backgroundColor = "";
-Gui1Button12.style.borderRadius = "";
-Gui1Button12.style.color = "";
-Gui1Button12.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button12.onclick = function (event) {
-A_GuiControl = event.target.textContent
+Gui1.appendChild(Gui1EditFuncButtonLangPy);
+Gui1EditFuncButtonLangJs = document.createElement("button");
+Gui1EditFuncButtonLangJs.id = "Gui1" + "EditFuncButtonLangJs"; // Set ID for referencing
+Gui1EditFuncButtonLangJs.textContent = "js";
+Gui1EditFuncButtonLangJs.style.fontSize = "15px"; // Set font size
+Gui1EditFuncButtonLangJs.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncButtonLangJs.style.left = "135px"; // Set initial x position
+Gui1EditFuncButtonLangJs.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1EditFuncButtonLangJs.style.width = "60px"; // Set width
+Gui1EditFuncButtonLangJs.style.height = "35px"; // Set height
+Gui1EditFuncButtonLangJs.style.cursor = "pointer"; // Change cursor on hover
+Gui1EditFuncButtonLangJs.style.border = "";
+Gui1EditFuncButtonLangJs.style.background = "";
+Gui1EditFuncButtonLangJs.style.backgroundColor = "";
+Gui1EditFuncButtonLangJs.style.borderRadius = "";
+Gui1EditFuncButtonLangJs.style.color = "";
+Gui1EditFuncButtonLangJs.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncButtonLangJs.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
   EditFuncButtonLangJs(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button12);
+Gui1.appendChild(Gui1EditFuncButtonLangJs);
+if (( variables.MyFuncsLang == "cpp" ))
+{
+GuiControl("disable", "Gui1EditFuncButtonLangCpp");
+GuiControl("enable", "Gui1EditFuncButtonLangJs");
+GuiControl("enable", "Gui1EditFuncButtonLangPy");
+}
+if (( variables.MyFuncsLang == "js" ))
+{
+GuiControl("disable", "Gui1EditFuncButtonLangJs");
+GuiControl("enable", "Gui1EditFuncButtonLangCpp");
+GuiControl("enable", "Gui1EditFuncButtonLangPy");
+}
+if (( variables.MyFuncsLang == "py" ))
+{
+GuiControl("disable", "Gui1EditFuncButtonLangPy");
+GuiControl("enable", "Gui1EditFuncButtonLangJs");
+GuiControl("enable", "Gui1EditFuncButtonLangCpp");
+}
 variables.buttonX = variables.guiW + 15
 variables.guiEditTextV = "explain the cpp js py buttons"
 Gui1[variables.guiEditTextV] = document.createElement("button");
@@ -3606,7 +3704,7 @@ Gui1[variables.guiEditTextV].style.position = "absolute"; // Set position to abs
 Gui1[variables.guiEditTextV].style.left = "" + variables.buttonX + "px"; // Set initial x position
 Gui1[variables.guiEditTextV].style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1[variables.guiEditTextV].style.width = "70px"; // Set width
-Gui1[variables.guiEditTextV].style.height = "25px"; // Set height
+Gui1[variables.guiEditTextV].style.height = "28px"; // Set height
 Gui1[variables.guiEditTextV].style.cursor = "pointer"; // Change cursor on hover
 Gui1[variables.guiEditTextV].style.border = "";
 Gui1[variables.guiEditTextV].style.background = "";
@@ -3620,27 +3718,29 @@ A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
 };
 Gui1.appendChild(Gui1[variables.guiEditTextV]);
 variables.guiEditY = variables.guiEditY + 40
-Gui1Edit85 = document.createElement("textarea");
-Gui1Edit85.id = "Gui1" + "Edit" + "85"; // Set ID for referencing
-Gui1Edit85.placeholder = "Name of the function";
-Gui1Edit85.style.fontSize = "15px"; // Set font size
-Gui1Edit85.style.resize = "none"; // Disable resizing
-Gui1Edit85.style.position = "absolute"; // Set position to absolute
-Gui1Edit85.style.left = "10px"; // Set initial x position
-Gui1Edit85.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Edit85.style.width = "" + variables.guiW + "px"; // Set width
-Gui1Edit85.style.height = "25px"; // Set height
-Gui1Edit85.style.border = "none"
-Gui1Edit85.style.color = "#ffffff"
-Gui1Edit85.style.background = ""
-Gui1Edit85.style.backgroundColor = "#000000"
-Gui1Edit85.style.borderRadius = "5px"
-Gui1Edit85.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Edit85.addEventListener("input", function () {
-A_GuiControl = Gui1Edit85.value
+variables.guiEditYNOTF = variables.guiEditY
+Gui1EditFuncName = document.createElement("textarea");
+Gui1EditFuncName.id = "Gui1" + "EditFuncName"; // Set ID for referencing
+Gui1EditFuncName.placeholder = "Name of the function";
+Gui1EditFuncName.style.fontSize = "15px"; // Set font size
+Gui1EditFuncName.style.resize = "none"; // Disable resizing
+Gui1EditFuncName.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncName.style.left = "5px"; // Set initial x position
+Gui1EditFuncName.style.top = "" + variables.guiEditYNOTF + "px"; // Set initial y position
+Gui1EditFuncName.style.width = "" + variables.guiW + "px"; // Set width
+Gui1EditFuncName.style.height = "25px"; // Set height
+Gui1EditFuncName.style.border = "none"
+Gui1EditFuncName.style.color = "#ffffff"
+Gui1EditFuncName.style.background = ""
+Gui1EditFuncName.style.backgroundColor = "#000000"
+Gui1EditFuncName.style.borderRadius = "5px"
+Gui1EditFuncName.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncName.addEventListener("input", function () {
+A_GuiControl = Gui1EditFuncName.value
   EditFuncName(A_GuiControl);
 });
-Gui1.appendChild(Gui1Edit85);
+Gui1.appendChild(Gui1EditFuncName);
+GuiControl("text", "Gui1EditFuncName", variables.MyDropDownFuncsTempFirstAddShowDisplay);
 variables.buttonX = variables.guiW + 15
 variables.guiEditTextV = "explain the name of the func"
 Gui1[variables.guiEditTextV] = document.createElement("button");
@@ -3651,7 +3751,7 @@ Gui1[variables.guiEditTextV].style.position = "absolute"; // Set position to abs
 Gui1[variables.guiEditTextV].style.left = "" + variables.buttonX + "px"; // Set initial x position
 Gui1[variables.guiEditTextV].style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1[variables.guiEditTextV].style.width = "70px"; // Set width
-Gui1[variables.guiEditTextV].style.height = "25px"; // Set height
+Gui1[variables.guiEditTextV].style.height = "28px"; // Set height
 Gui1[variables.guiEditTextV].style.cursor = "pointer"; // Change cursor on hover
 Gui1[variables.guiEditTextV].style.border = "";
 Gui1[variables.guiEditTextV].style.background = "";
@@ -3665,27 +3765,29 @@ A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
 };
 Gui1.appendChild(Gui1[variables.guiEditTextV]);
 variables.guiEditY = variables.guiEditY + 30
-Gui1Edit86 = document.createElement("textarea");
-Gui1Edit86.id = "Gui1" + "Edit" + "86"; // Set ID for referencing
-Gui1Edit86.placeholder = "Libs";
-Gui1Edit86.style.fontSize = "15px"; // Set font size
-Gui1Edit86.style.resize = "none"; // Disable resizing
-Gui1Edit86.style.position = "absolute"; // Set position to absolute
-Gui1Edit86.style.left = "10px"; // Set initial x position
-Gui1Edit86.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Edit86.style.width = "" + variables.guiW + "px"; // Set width
-Gui1Edit86.style.height = "25px"; // Set height
-Gui1Edit86.style.border = "none"
-Gui1Edit86.style.color = "#ffffff"
-Gui1Edit86.style.background = ""
-Gui1Edit86.style.backgroundColor = "#000000"
-Gui1Edit86.style.borderRadius = "5px"
-Gui1Edit86.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Edit86.addEventListener("input", function () {
-A_GuiControl = Gui1Edit86.value
+variables.guiEditYLibs = variables.guiEditY
+Gui1EditFuncLibs = document.createElement("textarea");
+Gui1EditFuncLibs.id = "Gui1" + "EditFuncLibs"; // Set ID for referencing
+Gui1EditFuncLibs.placeholder = "Libs";
+Gui1EditFuncLibs.style.fontSize = "15px"; // Set font size
+Gui1EditFuncLibs.style.resize = "none"; // Disable resizing
+Gui1EditFuncLibs.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncLibs.style.left = "5px"; // Set initial x position
+Gui1EditFuncLibs.style.top = "" + variables.guiEditYLibs + "px"; // Set initial y position
+Gui1EditFuncLibs.style.width = "" + variables.guiW + "px"; // Set width
+Gui1EditFuncLibs.style.height = "25px"; // Set height
+Gui1EditFuncLibs.style.border = "none"
+Gui1EditFuncLibs.style.color = "#ffffff"
+Gui1EditFuncLibs.style.background = ""
+Gui1EditFuncLibs.style.backgroundColor = "#000000"
+Gui1EditFuncLibs.style.borderRadius = "5px"
+Gui1EditFuncLibs.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncLibs.addEventListener("input", function () {
+A_GuiControl = Gui1EditFuncLibs.value
   EditFuncLibs(A_GuiControl);
 });
-Gui1.appendChild(Gui1Edit86);
+Gui1.appendChild(Gui1EditFuncLibs);
+GuiControl("text", "Gui1EditFuncLibs", variables.MyFuncsLibs);
 variables.buttonX = variables.guiW + 15
 variables.guiEditTextV = "explain the libs like inport WASD|IMPORT qawsedd"
 Gui1[variables.guiEditTextV] = document.createElement("button");
@@ -3696,7 +3798,7 @@ Gui1[variables.guiEditTextV].style.position = "absolute"; // Set position to abs
 Gui1[variables.guiEditTextV].style.left = "" + variables.buttonX + "px"; // Set initial x position
 Gui1[variables.guiEditTextV].style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1[variables.guiEditTextV].style.width = "70px"; // Set width
-Gui1[variables.guiEditTextV].style.height = "25px"; // Set height
+Gui1[variables.guiEditTextV].style.height = "28px"; // Set height
 Gui1[variables.guiEditTextV].style.cursor = "pointer"; // Change cursor on hover
 Gui1[variables.guiEditTextV].style.border = "";
 Gui1[variables.guiEditTextV].style.background = "";
@@ -3710,27 +3812,29 @@ A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
 };
 Gui1.appendChild(Gui1[variables.guiEditTextV]);
 variables.guiEditY = variables.guiEditY + 30
-Gui1Edit87 = document.createElement("textarea");
-Gui1Edit87.id = "Gui1" + "Edit" + "87"; // Set ID for referencing
-Gui1Edit87.placeholder = "Description";
-Gui1Edit87.style.fontSize = "15px"; // Set font size
-Gui1Edit87.style.resize = "none"; // Disable resizing
-Gui1Edit87.style.position = "absolute"; // Set position to absolute
-Gui1Edit87.style.left = "10px"; // Set initial x position
-Gui1Edit87.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Edit87.style.width = "" + variables.guiW + "px"; // Set width
-Gui1Edit87.style.height = "25px"; // Set height
-Gui1Edit87.style.border = "none"
-Gui1Edit87.style.color = "#ffffff"
-Gui1Edit87.style.background = ""
-Gui1Edit87.style.backgroundColor = "#000000"
-Gui1Edit87.style.borderRadius = "5px"
-Gui1Edit87.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Edit87.addEventListener("input", function () {
-A_GuiControl = Gui1Edit87.value
+variables.guiEditYDescription = variables.guiEditY
+Gui1EditFuncDescription = document.createElement("textarea");
+Gui1EditFuncDescription.id = "Gui1" + "EditFuncDescription"; // Set ID for referencing
+Gui1EditFuncDescription.placeholder = "Description";
+Gui1EditFuncDescription.style.fontSize = "15px"; // Set font size
+Gui1EditFuncDescription.style.resize = "none"; // Disable resizing
+Gui1EditFuncDescription.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncDescription.style.left = "5px"; // Set initial x position
+Gui1EditFuncDescription.style.top = "" + variables.guiEditYDescription + "px"; // Set initial y position
+Gui1EditFuncDescription.style.width = "" + variables.guiW + "px"; // Set width
+Gui1EditFuncDescription.style.height = "25px"; // Set height
+Gui1EditFuncDescription.style.border = "none"
+Gui1EditFuncDescription.style.color = "#ffffff"
+Gui1EditFuncDescription.style.background = ""
+Gui1EditFuncDescription.style.backgroundColor = "#000000"
+Gui1EditFuncDescription.style.borderRadius = "5px"
+Gui1EditFuncDescription.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncDescription.addEventListener("input", function () {
+A_GuiControl = Gui1EditFuncDescription.value
   EditFuncDescription(A_GuiControl);
 });
-Gui1.appendChild(Gui1Edit87);
+Gui1.appendChild(Gui1EditFuncDescription);
+GuiControl("text", "Gui1EditFuncDescription", variables.MyFuncsDescription);
 variables.buttonX = variables.guiW + 15
 variables.guiEditTextV = "explain the Description"
 Gui1[variables.guiEditTextV] = document.createElement("button");
@@ -3741,7 +3845,7 @@ Gui1[variables.guiEditTextV].style.position = "absolute"; // Set position to abs
 Gui1[variables.guiEditTextV].style.left = "" + variables.buttonX + "px"; // Set initial x position
 Gui1[variables.guiEditTextV].style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1[variables.guiEditTextV].style.width = "70px"; // Set width
-Gui1[variables.guiEditTextV].style.height = "25px"; // Set height
+Gui1[variables.guiEditTextV].style.height = "28px"; // Set height
 Gui1[variables.guiEditTextV].style.cursor = "pointer"; // Change cursor on hover
 Gui1[variables.guiEditTextV].style.border = "";
 Gui1[variables.guiEditTextV].style.background = "";
@@ -3755,10 +3859,34 @@ A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
 };
 Gui1.appendChild(Gui1[variables.guiEditTextV]);
 variables.guiEditY = variables.guiEditY + 30
-variables.guiW = variables.guiW - 20
-AddIDE(Gui1, 10, variables.guiEditY, variables.guiW, 500, "Gui1IDEcpp", 18, "c_cpp", IDEcpp,    null    );
-AddIDE(Gui1, 10, variables.guiEditY, variables.guiW, 500, "Gui1IDEpy", 18, "python", IDEpy,    null    );
-AddIDE(Gui1, 10, variables.guiEditY, variables.guiW, 500, "Gui1IDEjs", 18, "javascript", IDEjs,    null    );
+AddIDE(Gui1, 5, variables.guiEditY, variables.guiW, 500, "Gui1IDEcpp", 18, "c_cpp", IDEcpp,    null    );
+AddIDE(Gui1, 5, variables.guiEditY, variables.guiW, 500, "Gui1IDEpy", 18, "python", IDEpy,    null    );
+AddIDE(Gui1, 5, variables.guiEditY, variables.guiW, 500, "Gui1IDEjs", 18, "javascript", IDEjs,    null    );
+if (( variables.MyFuncsCode == variables.null) || (variables.MyFuncsCode == "" ))
+{
+variables.MyFuncsCode = "null"
+}
+if (( variables.MyFuncsLang == "cpp" ))
+{
+GuiControl("textide", "Gui1IDEcpp", variables.MyFuncsCode);
+GuiControl("show", "Gui1IDEcpp");
+GuiControl("hide", "Gui1IDEpy");
+GuiControl("hide", "Gui1IDEjs");
+}
+if (( variables.MyFuncsLang == "py" ))
+{
+GuiControl("textide", "Gui1IDEpy", variables.MyFuncsCode);
+GuiControl("hide", "Gui1IDEcpp");
+GuiControl("show", "Gui1IDEpy");
+GuiControl("hide", "Gui1IDEjs");
+}
+if (( variables.MyFuncsLang == "js" ))
+{
+GuiControl("textide", "Gui1IDEjs", variables.MyFuncsCode);
+GuiControl("hide", "Gui1IDEcpp");
+GuiControl("hide", "Gui1IDEpy");
+GuiControl("show", "Gui1IDEjs");
+}
 variables.guiEditTextV = "explain the IDE"
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
@@ -3768,7 +3896,7 @@ Gui1[variables.guiEditTextV].style.position = "absolute"; // Set position to abs
 Gui1[variables.guiEditTextV].style.left = "" + variables.buttonX + "px"; // Set initial x position
 Gui1[variables.guiEditTextV].style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1[variables.guiEditTextV].style.width = "70px"; // Set width
-Gui1[variables.guiEditTextV].style.height = "25px"; // Set height
+Gui1[variables.guiEditTextV].style.height = "65px"; // Set height
 Gui1[variables.guiEditTextV].style.cursor = "pointer"; // Change cursor on hover
 Gui1[variables.guiEditTextV].style.border = "";
 Gui1[variables.guiEditTextV].style.background = "";
@@ -3781,30 +3909,52 @@ A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
   ButtonINFO(A_GuiControl);
 };
 Gui1.appendChild(Gui1[variables.guiEditTextV]);
-GuiControl("hide", "Gui1IDEpy");
-GuiControl("hide", "Gui1IDEjs");
 variables.guiEditY = variables.guiEditY + 510
-Gui1Button18 = document.createElement("button");
-Gui1Button18.id = "Gui1" + "Button" + "18"; // Set ID for referencing
-Gui1Button18.textContent = "Build";
-Gui1Button18.style.fontSize = "15px"; // Set font size
-Gui1Button18.style.position = "absolute"; // Set position to absolute
-Gui1Button18.style.left = "15px"; // Set initial x position
-Gui1Button18.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Button18.style.width = "140px"; // Set width
-Gui1Button18.style.height = "40px"; // Set height
-Gui1Button18.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button18.style.border = "";
-Gui1Button18.style.background = "";
-Gui1Button18.style.backgroundColor = "";
-Gui1Button18.style.borderRadius = "";
-Gui1Button18.style.color = "";
-Gui1Button18.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button18.onclick = function (event) {
+AddIDE(Gui1, 5, variables.guiEditY, variables.guiW, 500, "Gui1IDEshow", 18, "autohotkey", IDEshow,    null    );
+variables.guiEditTextV = "explain the Showing your code"
+Gui1[variables.guiEditTextV] = document.createElement("button");
+Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
+Gui1[variables.guiEditTextV].textContent = "INFO";
+Gui1[variables.guiEditTextV].style.fontSize = "13px"; // Set font size
+Gui1[variables.guiEditTextV].style.position = "absolute"; // Set position to absolute
+Gui1[variables.guiEditTextV].style.left = "" + variables.buttonX + "px"; // Set initial x position
+Gui1[variables.guiEditTextV].style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1[variables.guiEditTextV].style.width = "70px"; // Set width
+Gui1[variables.guiEditTextV].style.height = "65px"; // Set height
+Gui1[variables.guiEditTextV].style.cursor = "pointer"; // Change cursor on hover
+Gui1[variables.guiEditTextV].style.border = "";
+Gui1[variables.guiEditTextV].style.background = "";
+Gui1[variables.guiEditTextV].style.backgroundColor = "#181818";
+Gui1[variables.guiEditTextV].style.borderRadius = "3px";
+Gui1[variables.guiEditTextV].style.color = "#ffffff";
+Gui1[variables.guiEditTextV].style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1[variables.guiEditTextV].onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
+  ButtonINFO(A_GuiControl);
+};
+Gui1.appendChild(Gui1[variables.guiEditTextV]);
+variables.guiEditY = variables.guiEditY + 510
+Gui1Button19 = document.createElement("button");
+Gui1Button19.id = "Gui1" + "Button" + "19"; // Set ID for referencing
+Gui1Button19.textContent = "Build";
+Gui1Button19.style.fontSize = "15px"; // Set font size
+Gui1Button19.style.position = "absolute"; // Set position to absolute
+Gui1Button19.style.left = "10px"; // Set initial x position
+Gui1Button19.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Button19.style.width = "140px"; // Set width
+Gui1Button19.style.height = "40px"; // Set height
+Gui1Button19.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button19.style.border = "";
+Gui1Button19.style.background = "";
+Gui1Button19.style.backgroundColor = "";
+Gui1Button19.style.borderRadius = "";
+Gui1Button19.style.color = "";
+Gui1Button19.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button19.onclick = function (event) {
 A_GuiControl = event.target.textContent
   BuildButton(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button18);
+Gui1.appendChild(Gui1Button19);
 variables.guiEditTextV = "explain the Build button"
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
@@ -3814,7 +3964,7 @@ Gui1[variables.guiEditTextV].style.position = "absolute"; // Set position to abs
 Gui1[variables.guiEditTextV].style.left = "" + variables.buttonX + "px"; // Set initial x position
 Gui1[variables.guiEditTextV].style.top = "" + variables.guiEditY + "px"; // Set initial y position
 Gui1[variables.guiEditTextV].style.width = "70px"; // Set width
-Gui1[variables.guiEditTextV].style.height = "25px"; // Set height
+Gui1[variables.guiEditTextV].style.height = "28px"; // Set height
 Gui1[variables.guiEditTextV].style.cursor = "pointer"; // Change cursor on hover
 Gui1[variables.guiEditTextV].style.border = "";
 Gui1[variables.guiEditTextV].style.background = "";
@@ -3828,56 +3978,456 @@ A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
 };
 Gui1.appendChild(Gui1[variables.guiEditTextV]);
 }
+async function MyDropDown(A_GuiControl)
+{
+await showCustomMessageBox({}," ", "Website is still in development! Here, you will be able to create the built-in functions!", 0, 0)
+//MsgBox, % A_GuiControl
+variables.currentFuncNameOLD = A_GuiControl
+variables.currentFuncName = A_GuiControl
+variables.MyDropDownFuncsNUM = 0
+var items6 = LoopParseFunc(variables.MyDropDownFuncs, "|");
+for (/* Loop Parse */ let A_Index6 = 1; A_Index6 <= items6.length; A_Index6++)
+{
+variables.A_Index6 = A_Index6
+variables.A_LoopField6 = items6[A_Index6 - 1];
+if (( variables.A_LoopField6 == A_GuiControl ))
+{
+variables.funcWeAreModifying = variables.A_Index6
+break
+}
+}
+GuiControl("destroy", "Gui1EditFuncName");
+Gui1EditFuncName = document.createElement("textarea");
+Gui1EditFuncName.id = "Gui1" + "EditFuncName"; // Set ID for referencing
+Gui1EditFuncName.placeholder = "Name of the function";
+Gui1EditFuncName.style.fontSize = "15px"; // Set font size
+Gui1EditFuncName.style.resize = "none"; // Disable resizing
+Gui1EditFuncName.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncName.style.left = "5px"; // Set initial x position
+Gui1EditFuncName.style.top = "" + variables.guiEditYNOTF + "px"; // Set initial y position
+Gui1EditFuncName.style.width = "" + variables.guiW + "px"; // Set width
+Gui1EditFuncName.style.height = "25px"; // Set height
+Gui1EditFuncName.style.border = "none"
+Gui1EditFuncName.style.color = "#ffffff"
+Gui1EditFuncName.style.background = ""
+Gui1EditFuncName.style.backgroundColor = "#000000"
+Gui1EditFuncName.style.borderRadius = "5px"
+Gui1EditFuncName.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncName.addEventListener("input", function () {
+A_GuiControl = Gui1EditFuncName.value
+  EditFuncName(A_GuiControl);
+});
+Gui1.appendChild(Gui1EditFuncName);
+variables.nameOfFuncTemp = A_GuiControl
+GuiControl("text", "Gui1EditFuncName", variables.nameOfFuncTemp);
+variables.MyFuncsDescription = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.nameOfFuncTemp )
+GuiControl("destroy", "Gui1EditFuncDescription");
+Gui1EditFuncDescription = document.createElement("textarea");
+Gui1EditFuncDescription.id = "Gui1" + "EditFuncDescription"; // Set ID for referencing
+Gui1EditFuncDescription.placeholder = "Description";
+Gui1EditFuncDescription.style.fontSize = "15px"; // Set font size
+Gui1EditFuncDescription.style.resize = "none"; // Disable resizing
+Gui1EditFuncDescription.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncDescription.style.left = "5px"; // Set initial x position
+Gui1EditFuncDescription.style.top = "" + variables.guiEditYDescription + "px"; // Set initial y position
+Gui1EditFuncDescription.style.width = "" + variables.guiW + "px"; // Set width
+Gui1EditFuncDescription.style.height = "25px"; // Set height
+Gui1EditFuncDescription.style.border = "none"
+Gui1EditFuncDescription.style.color = "#ffffff"
+Gui1EditFuncDescription.style.background = ""
+Gui1EditFuncDescription.style.backgroundColor = "#000000"
+Gui1EditFuncDescription.style.borderRadius = "5px"
+Gui1EditFuncDescription.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncDescription.addEventListener("input", function () {
+A_GuiControl = Gui1EditFuncDescription.value
+  EditFuncDescription(A_GuiControl);
+});
+Gui1.appendChild(Gui1EditFuncDescription);
+GuiControl("text", "Gui1EditFuncDescription", variables.MyFuncsDescription);
+variables.MyFuncsLibs = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.nameOfFuncTemp )
+GuiControl("destroy", "Gui1EditFuncLibs");
+Gui1EditFuncLibs = document.createElement("textarea");
+Gui1EditFuncLibs.id = "Gui1" + "EditFuncLibs"; // Set ID for referencing
+Gui1EditFuncLibs.placeholder = "Libs";
+Gui1EditFuncLibs.style.fontSize = "15px"; // Set font size
+Gui1EditFuncLibs.style.resize = "none"; // Disable resizing
+Gui1EditFuncLibs.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncLibs.style.left = "5px"; // Set initial x position
+Gui1EditFuncLibs.style.top = "" + variables.guiEditYLibs + "px"; // Set initial y position
+Gui1EditFuncLibs.style.width = "" + variables.guiW + "px"; // Set width
+Gui1EditFuncLibs.style.height = "25px"; // Set height
+Gui1EditFuncLibs.style.border = "none"
+Gui1EditFuncLibs.style.color = "#ffffff"
+Gui1EditFuncLibs.style.background = ""
+Gui1EditFuncLibs.style.backgroundColor = "#000000"
+Gui1EditFuncLibs.style.borderRadius = "5px"
+Gui1EditFuncLibs.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncLibs.addEventListener("input", function () {
+A_GuiControl = Gui1EditFuncLibs.value
+  EditFuncLibs(A_GuiControl);
+});
+Gui1.appendChild(Gui1EditFuncLibs);
+GuiControl("text", "Gui1EditFuncLibs", variables.MyFuncsLibs);
+variables.MyFuncsLang = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.nameOfFuncTemp )
+if (( variables.MyFuncsLang == variables.null ))
+{
+variables.MyFuncsLang = "cpp"
+}
+if (( variables.MyFuncsLang == "cpp" ))
+{
+GuiControl("disable", "Gui1EditFuncButtonLangCpp");
+GuiControl("enable", "Gui1EditFuncButtonLangJs");
+GuiControl("enable", "Gui1EditFuncButtonLangPy");
+GuiControl("show", "Gui1IDEcpp");
+GuiControl("hide", "Gui1IDEpy");
+GuiControl("hide", "Gui1IDEjs");
+}
+if (( variables.MyFuncsLang == "js" ))
+{
+GuiControl("disable", "Gui1EditFuncButtonLangJs");
+GuiControl("enable", "Gui1EditFuncButtonLangCpp");
+GuiControl("enable", "Gui1EditFuncButtonLangPy");
+GuiControl("show", "Gui1IDEjs");
+GuiControl("hide", "Gui1IDEcpp");
+GuiControl("hide", "Gui1IDEpy");
+}
+if (( variables.MyFuncsLang == "py" ))
+{
+GuiControl("disable", "Gui1EditFuncButtonLangPy");
+GuiControl("enable", "Gui1EditFuncButtonLangJs");
+GuiControl("enable", "Gui1EditFuncButtonLangCpp");
+GuiControl("show", "Gui1IDEpy");
+GuiControl("hide", "Gui1IDEcpp");
+GuiControl("hide", "Gui1IDEjs");
+}
+variables.MyFuncsCode = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.nameOfFuncTemp )
+if (( variables.MyFuncsCode == variables.null) || (variables.MyFuncsCode == "" ))
+{
+variables.MyFuncsCode = "null"
+}
+if (( variables.MyFuncsLang == "cpp" ))
+{
+GuiControl("textide", "Gui1IDEcpp", variables.MyFuncsCode);
+}
+if (( variables.MyFuncsLang == "py" ))
+{
+GuiControl("textide", "Gui1IDEpy", variables.MyFuncsCode);
+}
+if (( variables.MyFuncsLang == "js" ))
+{
+GuiControl("textide", "Gui1IDEjs", variables.MyFuncsCode);
+}
+}
+async function AddNewFuncButton(A_GuiControl)
+{
+await showCustomMessageBox({}," ", "Website is still in development! Here, you will be able to create the built-in functions!", 0, 0)
+variables.MyDropDownFuncsNUM = 0
+var items7 = LoopParseFunc(variables.MyDropDownFuncs, "|");
+for (/* Loop Parse */ let A_Index7 = 1; A_Index7 <= items7.length; A_Index7++)
+{
+variables.A_Index7 = A_Index7
+variables.A_LoopField7 = items7[A_Index7 - 1];
+variables.MyDropDownFuncsNUM += 1
+}
+variables.MyDropDownFuncsNUM += 1
+variables.MyDropDownFuncs += "|" + "HTVM_func" + variables.MyDropDownFuncsNUM
+GuiControl("destroy", "Gui1MyDropDownV");
+createCustomDropdown(Gui1, "Gui1MyDropDownV", "" + variables.MyDropDownFuncs + "", "#333333", 5, variables.guiEditYDDD, 150, 30, MyDropDown );
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" , variables.MyDropDownFuncs )
+variables.funcWeAreModifying = variables.MyDropDownFuncsNUM
+GuiControl("destroy", "Gui1EditFuncName");
+Gui1EditFuncName = document.createElement("textarea");
+Gui1EditFuncName.id = "Gui1" + "EditFuncName"; // Set ID for referencing
+Gui1EditFuncName.placeholder = "Name of the function";
+Gui1EditFuncName.style.fontSize = "15px"; // Set font size
+Gui1EditFuncName.style.resize = "none"; // Disable resizing
+Gui1EditFuncName.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncName.style.left = "5px"; // Set initial x position
+Gui1EditFuncName.style.top = "" + variables.guiEditYNOTF + "px"; // Set initial y position
+Gui1EditFuncName.style.width = "" + variables.guiW + "px"; // Set width
+Gui1EditFuncName.style.height = "25px"; // Set height
+Gui1EditFuncName.style.border = "none"
+Gui1EditFuncName.style.color = "#ffffff"
+Gui1EditFuncName.style.background = ""
+Gui1EditFuncName.style.backgroundColor = "#000000"
+Gui1EditFuncName.style.borderRadius = "5px"
+Gui1EditFuncName.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncName.addEventListener("input", function () {
+A_GuiControl = Gui1EditFuncName.value
+  EditFuncName(A_GuiControl);
+});
+Gui1.appendChild(Gui1EditFuncName);
+variables.nameOfFuncTemp = "HTVM_func" + variables.MyDropDownFuncsNUM
+variables.currentFuncNameOLD = variables.nameOfFuncTemp
+GuiControl("text", "Gui1EditFuncName", variables.nameOfFuncTemp);
+variables.currentFuncName = variables.nameOfFuncTemp
+variables.MyFuncsDescription = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.nameOfFuncTemp )
+GuiControl("destroy", "Gui1EditFuncDescription");
+Gui1EditFuncDescription = document.createElement("textarea");
+Gui1EditFuncDescription.id = "Gui1" + "EditFuncDescription"; // Set ID for referencing
+Gui1EditFuncDescription.placeholder = "Description";
+Gui1EditFuncDescription.style.fontSize = "15px"; // Set font size
+Gui1EditFuncDescription.style.resize = "none"; // Disable resizing
+Gui1EditFuncDescription.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncDescription.style.left = "5px"; // Set initial x position
+Gui1EditFuncDescription.style.top = "" + variables.guiEditYDescription + "px"; // Set initial y position
+Gui1EditFuncDescription.style.width = "" + variables.guiW + "px"; // Set width
+Gui1EditFuncDescription.style.height = "25px"; // Set height
+Gui1EditFuncDescription.style.border = "none"
+Gui1EditFuncDescription.style.color = "#ffffff"
+Gui1EditFuncDescription.style.background = ""
+Gui1EditFuncDescription.style.backgroundColor = "#000000"
+Gui1EditFuncDescription.style.borderRadius = "5px"
+Gui1EditFuncDescription.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncDescription.addEventListener("input", function () {
+A_GuiControl = Gui1EditFuncDescription.value
+  EditFuncDescription(A_GuiControl);
+});
+Gui1.appendChild(Gui1EditFuncDescription);
+GuiControl("text", "Gui1EditFuncDescription", variables.MyFuncsDescription);
+variables.MyFuncsLibs = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.nameOfFuncTemp )
+GuiControl("destroy", "Gui1EditFuncLibs");
+Gui1EditFuncLibs = document.createElement("textarea");
+Gui1EditFuncLibs.id = "Gui1" + "EditFuncLibs"; // Set ID for referencing
+Gui1EditFuncLibs.placeholder = "Libs";
+Gui1EditFuncLibs.style.fontSize = "15px"; // Set font size
+Gui1EditFuncLibs.style.resize = "none"; // Disable resizing
+Gui1EditFuncLibs.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncLibs.style.left = "5px"; // Set initial x position
+Gui1EditFuncLibs.style.top = "" + variables.guiEditYLibs + "px"; // Set initial y position
+Gui1EditFuncLibs.style.width = "" + variables.guiW + "px"; // Set width
+Gui1EditFuncLibs.style.height = "25px"; // Set height
+Gui1EditFuncLibs.style.border = "none"
+Gui1EditFuncLibs.style.color = "#ffffff"
+Gui1EditFuncLibs.style.background = ""
+Gui1EditFuncLibs.style.backgroundColor = "#000000"
+Gui1EditFuncLibs.style.borderRadius = "5px"
+Gui1EditFuncLibs.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncLibs.addEventListener("input", function () {
+A_GuiControl = Gui1EditFuncLibs.value
+  EditFuncLibs(A_GuiControl);
+});
+Gui1.appendChild(Gui1EditFuncLibs);
+GuiControl("text", "Gui1EditFuncLibs", variables.MyFuncsLibs);
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.currentFuncName , "cpp" )
+variables.allLocalSrorageLinks += variables.currentFuncName + "|"
+variables.MyFuncsLang = "cpp"
+if (( variables.MyFuncsLang == "cpp" ))
+{
+GuiControl("disable", "Gui1EditFuncButtonLangCpp");
+GuiControl("enable", "Gui1EditFuncButtonLangJs");
+GuiControl("enable", "Gui1EditFuncButtonLangPy");
+GuiControl("show", "Gui1IDEcpp");
+GuiControl("hide", "Gui1IDEpy");
+GuiControl("hide", "Gui1IDEjs");
+}
+if (( variables.MyFuncsLang == "js" ))
+{
+GuiControl("disable", "Gui1EditFuncButtonLangJs");
+GuiControl("enable", "Gui1EditFuncButtonLangCpp");
+GuiControl("enable", "Gui1EditFuncButtonLangPy");
+GuiControl("show", "Gui1IDEjs");
+GuiControl("hide", "Gui1IDEcpp");
+GuiControl("hide", "Gui1IDEpy");
+}
+if (( variables.MyFuncsLang == "py" ))
+{
+GuiControl("disable", "Gui1EditFuncButtonLangPy");
+GuiControl("enable", "Gui1EditFuncButtonLangJs");
+GuiControl("enable", "Gui1EditFuncButtonLangCpp");
+GuiControl("show", "Gui1IDEpy");
+GuiControl("hide", "Gui1IDEcpp");
+GuiControl("hide", "Gui1IDEjs");
+}
+variables.MyFuncsCode = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.nameOfFuncTemp )
+if (( variables.MyFuncsCode == variables.null) || (variables.MyFuncsCode == "" ))
+{
+variables.MyFuncsCode = "null"
+}
+if (( variables.MyFuncsLang == "cpp" ))
+{
+GuiControl("textide", "Gui1IDEcpp", variables.MyFuncsCode);
+}
+if (( variables.MyFuncsLang == "py" ))
+{
+GuiControl("textide", "Gui1IDEpy", variables.MyFuncsCode);
+}
+if (( variables.MyFuncsLang == "js" ))
+{
+GuiControl("textide", "Gui1IDEjs", variables.MyFuncsCode);
+}
+}
+async function isFuncNameValid(FuncName)
+{
+variables.FuncName = FuncName
+var items8 = LoopParseFunc(variables.FuncName);
+for (/* Loop Parse */ let A_Index8 = 1; A_Index8 <= items8.length; A_Index8++)
+{
+variables.A_Index8 = A_Index8
+variables.A_LoopField8 = items8[A_Index8 - 1];
+variables.matchPosition = await RegExMatch (variables.A_LoopField8 , "[A-Za-z0-9_]+" )
+if (( variables.matchPosition == 0 ))
+{
+return false
+}
+}
+return true
+}
+async function EditFuncName(A_GuiControl)
+{
+A_GuiControl = await Trim (A_GuiControl )
+variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.currentFuncNameOLD )
+variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.currentFuncNameOLD )
+variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.currentFuncNameOLD )
+variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.currentFuncNameOLD )
+await StoreLocally( "d" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.currentFuncNameOLD )
+await StoreLocally( "d" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.currentFuncNameOLD )
+await StoreLocally( "d" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.currentFuncNameOLD )
+await StoreLocally( "d" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.currentFuncNameOLD )
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + A_GuiControl , variables.tempReadSave1 )
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + A_GuiControl , variables.tempReadSave2 )
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + A_GuiControl , variables.tempReadSave3 )
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + A_GuiControl , variables.tempReadSave4 )
+if (( ! (await isFuncNameValid (A_GuiControl) ) ))
+{
+await showCustomMessageBox({},"Error: Invalid Function Name", "Function names must start with a letter or underscore and can only contain letters numbers and underscores.", 16, 0)
+GuiControl("destroy", "Gui1EditFuncName");
+Gui1EditFuncName = document.createElement("textarea");
+Gui1EditFuncName.id = "Gui1" + "EditFuncName"; // Set ID for referencing
+Gui1EditFuncName.placeholder = "Name of the function";
+Gui1EditFuncName.style.fontSize = "15px"; // Set font size
+Gui1EditFuncName.style.resize = "none"; // Disable resizing
+Gui1EditFuncName.style.position = "absolute"; // Set position to absolute
+Gui1EditFuncName.style.left = "5px"; // Set initial x position
+Gui1EditFuncName.style.top = "" + variables.guiEditYNOTF + "px"; // Set initial y position
+Gui1EditFuncName.style.width = "" + variables.guiW + "px"; // Set width
+Gui1EditFuncName.style.height = "25px"; // Set height
+Gui1EditFuncName.style.border = "none"
+Gui1EditFuncName.style.color = "#ffffff"
+Gui1EditFuncName.style.background = ""
+Gui1EditFuncName.style.backgroundColor = "#000000"
+Gui1EditFuncName.style.borderRadius = "5px"
+Gui1EditFuncName.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1EditFuncName.addEventListener("input", function () {
+A_GuiControl = Gui1EditFuncName.value
+  EditFuncName(A_GuiControl);
+});
+Gui1.appendChild(Gui1EditFuncName);
+A_GuiControl = StringTrimRight(A_GuiControl, 1)
+GuiControl("focus", "Gui1EditFuncName");
+GuiControl("text", "Gui1EditFuncName", A_GuiControl);
+}
+variables.currentFuncName = A_GuiControl
+variables.currentFuncNameOLD = A_GuiControl
+variables.MyDropDownFuncsOut = ""
+var items9 = LoopParseFunc(variables.MyDropDownFuncs, "|");
+for (/* Loop Parse */ let A_Index9 = 1; A_Index9 <= items9.length; A_Index9++)
+{
+variables.A_Index9 = A_Index9
+variables.A_LoopField9 = items9[A_Index9 - 1];
+if (( variables.A_Index9 == variables.funcWeAreModifying ))
+{
+variables.MyDropDownFuncsOut += A_GuiControl + "|"
+}
+else
+{
+variables.MyDropDownFuncsOut += variables.A_LoopField9 + "|"
+}
+}
+variables.MyDropDownFuncs = StringTrimRight(variables.MyDropDownFuncsOut, 1)
+GuiControl("destroy", "Gui1MyDropDownV");
+createCustomDropdown(Gui1, "Gui1MyDropDownV", "" + variables.MyDropDownFuncs + "", "#333333", 5, variables.guiEditYDDD, 150, 30, MyDropDown );
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" , variables.MyDropDownFuncs )
+}
+async function EditFuncLibs(A_GuiControl)
+{
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.currentFuncName , A_GuiControl )
+}
+async function EditFuncDescription(A_GuiControl)
+{
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.currentFuncName , A_GuiControl )
+}
 async function IDEcpp(A_GuiControl)
 {
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.currentFuncName , A_GuiControl )
 }
 async function IDEpy(A_GuiControl)
 {
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.currentFuncName , A_GuiControl )
 }
 async function IDEjs(A_GuiControl)
 {
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.currentFuncName , A_GuiControl )
 }
+//;;;;;;;;;;;;;;;;;;;;;;;;
+async function IDEshow(A_GuiControl)
+{
+}
+//;;;;;;;;;;;;;;;;;;;;;;;;
 async function EditFuncButtonLangCpp(A_GuiControl)
 {
 GuiControl("show", "Gui1IDEcpp");
 GuiControl("hide", "Gui1IDEpy");
 GuiControl("hide", "Gui1IDEjs");
+GuiControl("disable", "Gui1EditFuncButtonLangCpp");
+GuiControl("enable", "Gui1EditFuncButtonLangJs");
+GuiControl("enable", "Gui1EditFuncButtonLangPy");
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.currentFuncName , "cpp" )
+variables.allLocalSrorageLinks += variables.currentFuncName + "|"
 }
 async function EditFuncButtonLangPy(A_GuiControl)
 {
 GuiControl("hide", "Gui1IDEcpp");
 GuiControl("show", "Gui1IDEpy");
 GuiControl("hide", "Gui1IDEjs");
+GuiControl("disable", "Gui1EditFuncButtonLangPy");
+GuiControl("enable", "Gui1EditFuncButtonLangJs");
+GuiControl("enable", "Gui1EditFuncButtonLangCpp");
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.currentFuncName , "py" )
+variables.allLocalSrorageLinks += variables.currentFuncName + "|"
 }
 async function EditFuncButtonLangJs(A_GuiControl)
 {
 GuiControl("hide", "Gui1IDEcpp");
 GuiControl("hide", "Gui1IDEpy");
 GuiControl("show", "Gui1IDEjs");
+GuiControl("disable", "Gui1EditFuncButtonLangJs");
+GuiControl("enable", "Gui1EditFuncButtonLangCpp");
+GuiControl("enable", "Gui1EditFuncButtonLangPy");
+await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.currentFuncName , "js" )
+variables.allLocalSrorageLinks += variables.currentFuncName + "|"
 }
-async function AddNewFuncButton(A_GuiControl)
-{
-variables.MyDropDownFuncs += "|" + ""
-GuiControl("destroy", "Gui1MyDropDownV");
-createCustomDropdown(Gui1, "Gui1MyDropDownV", "" + variables.MyDropDownFuncs + "", "#333333", 10, variables.guiEditYDDD, 150, 30, MyDropDown );
-}
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 async function ButtonINFO(A_GuiControl)
 {
 await showCustomMessageBox({}," ", A_GuiControl, 0, 0.)
 }
-async function MyDropDown(A_GuiControl)
-{
-await showCustomMessageBox({}," ", "Website is still in development! Here, you will be able to create the built-in functions!", 0, 0)
-await showCustomMessageBox({}," ", A_GuiControl, 0, 0.)
-}
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 async function Edit1(A_GuiControl)
 {
-variables.EditText1 = A_GuiControl
+A_GuiControl = StringTrimLeft(A_GuiControl, 5)
+variables.EditText1 = await StrLower (A_GuiControl )
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-1" , variables.EditText1 )
+if (( variables.EditText1 == "cpp" ))
+{
+GuiControl("disable", "Gui1Edit1CPP");
+GuiControl("enable", "Gui1Edit1JS");
+GuiControl("enable", "Gui1Edit1PY");
+}
+if (( variables.EditText1 == "js" ))
+{
+GuiControl("disable", "Gui1Edit1JS");
+GuiControl("enable", "Gui1Edit1CPP");
+GuiControl("enable", "Gui1Edit1PY");
+}
+if (( variables.EditText1 == "py" ))
+{
+GuiControl("disable", "Gui1Edit1PY");
+GuiControl("enable", "Gui1Edit1JS");
+GuiControl("enable", "Gui1Edit1CPP");
+}
 return
 }
 async function Edit2(A_GuiControl)
@@ -4330,8 +4880,28 @@ await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-8
 }
 async function Edit82(A_GuiControl)
 {
-variables.EditText82 = A_GuiControl
+A_GuiControl = StringTrimLeft(A_GuiControl, 6)
+variables.EditText82 = await StrLower (A_GuiControl )
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-82" , variables.EditText82 )
+if (( variables.EditText82 == "cpp" ))
+{
+GuiControl("disable", "Gui1Edit82CPP");
+GuiControl("enable", "Gui1Edit82JS");
+GuiControl("enable", "Gui1Edit82PY");
+}
+if (( variables.EditText82 == "js" ))
+{
+GuiControl("disable", "Gui1Edit82JS");
+GuiControl("enable", "Gui1Edit82CPP");
+GuiControl("enable", "Gui1Edit82PY");
+}
+if (( variables.EditText82 == "py" ))
+{
+GuiControl("disable", "Gui1Edit82PY");
+GuiControl("enable", "Gui1Edit82JS");
+GuiControl("enable", "Gui1Edit82CPP");
+}
+return
 }
 async function Edit83(A_GuiControl)
 {
@@ -4384,10 +4954,31 @@ await showCustomMessageBox({},"HT-instructions.txt", "Download the language you 
 if (result === "OK")
 {
 variables.allData = ""
-for (/* Normal Loop */ variables.A_Index5 = 1; variables.A_Index5 <= 86; variables.A_Index5++)
+for (/* Normal Loop */ variables.A_Index10 = 1; variables.A_Index10 <= 86; variables.A_Index10++)
 {
-variables.allData += variables["EditText" + variables.A_Index5] + "\n"
+variables.allData += variables["EditText" + variables.A_Index10] + "\n"
 }
+variables.allFuncNamesForSavingIt = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" )
+variables.allFuncNamesForSavingItOut = ""
+var items11 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
+for (/* Loop Parse */ let A_Index11 = 1; A_Index11 <= items11.length; A_Index11++)
+{
+variables.A_Index11 = A_Index11
+variables.A_LoopField11 = items11[A_Index11 - 1];
+variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField11 )
+variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField11 )
+variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField11 )
+variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField11 )
+variables.bodyFuncTemp1 = "func======================func==============\n"
+variables.bodyFuncTemp2 = "lang: " + variables.tempReadSave1
+variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField11
+variables.bodyFuncTemp4 = "\nlibs: " + variables.tempReadSave4
+variables.bodyFuncTemp5 = "\ndescription: " + variables.tempReadSave2
+variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
+variables.bodyFuncTemp7 = "funcEND======================funcEND==============\n"
+variables.allFuncNamesForSavingItOut += "\n" + variables.bodyFuncTemp1 + variables.bodyFuncTemp2 + variables.bodyFuncTemp3 + variables.bodyFuncTemp4 + variables.bodyFuncTemp5 + variables.bodyFuncTemp6 + variables.bodyFuncTemp7 + "\n"
+}
+variables.allData = variables.allData + "\n" + variables.allFuncNamesForSavingItOut
 FileAppend("" + variables.allData + "", "HT-instructions.txt")
 } // end of ifmsgbox
 });

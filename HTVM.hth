@@ -2,7 +2,7 @@ MsgBox, Website is still in development!!!
 AScreenWidth := A_ScreenWidth - 20
 AScreenHeight := A_ScreenHeight - 20
 Gui 2: Show, w%AScreenWidth% h%AScreenHeight%
-Gui 2: Add, Button, x10 y10 w140 h40 gButtonProjects vNewProject, Make a new project
+Gui 2: Add, Button, x5 y10 w140 h40 gButtonProjects vNewProject, Make a new project
 
 currentProjectNum := 1
 
@@ -19,7 +19,7 @@ projectName := StoreLocally("r", "HTVM-ProjectName" . A_Index)
 AIndex := "a" . A_Index
 if (Mod(A_Index, 2))
 {
-Gui 2: Add, Button, x10 y%HTVM_HowManyProjectsButtonY% v%AIndex% w140 h40 gButtonProjects, %projectName%
+Gui 2: Add, Button, x5 y%HTVM_HowManyProjectsButtonY% v%AIndex% w140 h40 gButtonProjects, %projectName%
 }
 else
 {
@@ -63,10 +63,11 @@ Return
 
 main:
 
-Gui, Show, w%A_ScreenWidth% h3280 +websitemode
+Gui, Show, w%A_ScreenWidth% h3790 +websitemode
 
 
 allData := ""
+
 
 Loop, 86
 {
@@ -82,7 +83,7 @@ EditText81 := "off"
 EditText83 := "off"
 EditText84 := "off"
 EditText85 := "off"
-
+funcWeAreModifying := 1
 
 
 
@@ -112,39 +113,39 @@ if (InStr(guiEditText, "use"))
 
 if (Trim(guiEditText) = "useFuncKeyWord")
 {
-Gui, Add, Toggle, x10 y%guiEditY% gEdit76 vEdit76 off, useFuncKeyWord
+Gui, Add, Toggle, x5 y%guiEditY% gEdit76 vEdit76 off, useFuncKeyWord
 }
 if (Trim(guiEditText) = "useCurlyBraces")
 {
-Gui, Add, Toggle, x10 y%guiEditY% gEdit77 vEdit77 off, useCurlyBraces
+Gui, Add, Toggle, x5 y%guiEditY% gEdit77 vEdit77 off, useCurlyBraces
 }
 if (Trim(guiEditText) = "useEnd")
 {
-Gui, Add, Toggle, x10 y%guiEditY% gEdit78 vEdit78 off, useEnd
+Gui, Add, Toggle, x5 y%guiEditY% gEdit78 vEdit78 off, useEnd
 }
 if (Trim(guiEditText) = "useSemicolon")
 {
-Gui, Add, Toggle, x10 y%guiEditY% gEdit79 vEdit79 off, useSemicolon
+Gui, Add, Toggle, x5 y%guiEditY% gEdit79 vEdit79 off, useSemicolon
 }
 if (Trim(guiEditText) = "useParentheses")
 {
-Gui, Add, Toggle, x10 y%guiEditY% gEdit80 vEdit80 off, useParentheses
+Gui, Add, Toggle, x5 y%guiEditY% gEdit80 vEdit80 off, useParentheses
 }
 if (Trim(guiEditText) = "usePythonicColonSyntax")
 {
-Gui, Add, Toggle, x10 y%guiEditY% gEdit81 vEdit81 off, usePythonicColonSyntax
+Gui, Add, Toggle, x5 y%guiEditY% gEdit81 vEdit81 off, usePythonicColonSyntax
 }
 if (Trim(guiEditText) = "useInJavaScriptAlwaysUseVar")
 {
-Gui, Add, Toggle, x10 y%guiEditY% gEdit83 vEdit83 off, useInJavaScriptAlwaysUseVar
+Gui, Add, Toggle, x5 y%guiEditY% gEdit83 vEdit83 off, useInJavaScriptAlwaysUseVar
 }
 if (Trim(guiEditText) = "useJavaScriptInAfullHTMLfile")
 {
-Gui, Add, Toggle, x10 y%guiEditY% gEdit84 vEdit84 off, useJavaScriptInAfullHTMLfile
+Gui, Add, Toggle, x5 y%guiEditY% gEdit84 vEdit84 off, useJavaScriptInAfullHTMLfile
 }
 if (Trim(guiEditText) = "useJavaScriptAmainFuncDef")
 {
-Gui, Add, Toggle, x10 y%guiEditY% gEdit85 vEdit85 off, useJavaScriptAmainFuncDef
+Gui, Add, Toggle, x5 y%guiEditY% gEdit85 vEdit85 off, useJavaScriptAmainFuncDef
 }
 
 
@@ -155,438 +156,438 @@ else
 {
 if (guiEditTextG = "Edit1")
 {
-Gui, Add, Button, x10 y%guiEditY% w60 h30 gEdit1, cpp
-Gui, Add, Button, x75 y%guiEditY% w60 h30 gEdit1, py
-Gui, Add, Button, x140 y%guiEditY% w60 h30 gEdit1, js
+Gui, Add, Button, x5 y%guiEditY% w60 h30 gEdit1 vEdit1CPP, cpp
+Gui, Add, Button, x70 y%guiEditY% w60 h30 gEdit1 vEdit1PY, py
+Gui, Add, Button, x135 y%guiEditY% w60 h30 gEdit1 vEdit1JS, js
 }
 if (guiEditTextG = "Edit2")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit2 vEdit2 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit2 vEdit2 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit3")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit3 vEdit3 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit3 vEdit3 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit4")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit4 vEdit4 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit4 vEdit4 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit5")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit5 vEdit5 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit5 vEdit5 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit6")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit6 vEdit6 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit6 vEdit6 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit7")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit7 vEdit7 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit7 vEdit7 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit8")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit8 vEdit8 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit8 vEdit8 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit9")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit9 vEdit9 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit9 vEdit9 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit10")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit10 vEdit10 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit10 vEdit10 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit11")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit11 vEdit11 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit11 vEdit11 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit12")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit12 vEdit12 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit12 vEdit12 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit13")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit13 vEdit13 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit13 vEdit13 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit14")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit14 vEdit14 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit14 vEdit14 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit15")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit15 vEdit15 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit15 vEdit15 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit16")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit16 vEdit16 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit16 vEdit16 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit17")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit17 vEdit17 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit17 vEdit17 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit18")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit18 vEdit18 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit18 vEdit18 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit19")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit19 vEdit19 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit19 vEdit19 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit20")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit20 vEdit20 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit20 vEdit20 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit21")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit21 vEdit21 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit21 vEdit21 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit22")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit22 vEdit22 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit22 vEdit22 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit23")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit23 vEdit23 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit23 vEdit23 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit24")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit24 vEdit24 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit24 vEdit24 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit25")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit25 vEdit25 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit25 vEdit25 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit26")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit26 vEdit26 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit26 vEdit26 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit27")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit27 vEdit27 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit27 vEdit27 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit28")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit28 vEdit28 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit28 vEdit28 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit29")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit29 vEdit29 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit29 vEdit29 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit30")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit30 vEdit30 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit30 vEdit30 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit31")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit31 vEdit31 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit31 vEdit31 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit32")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit32 vEdit32 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit32 vEdit32 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit33")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit33 vEdit33 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit33 vEdit33 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit34")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit34 vEdit34 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit34 vEdit34 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit35")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit35 vEdit35 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit35 vEdit35 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit36")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit36 vEdit36 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit36 vEdit36 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit37")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit37 vEdit37 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit37 vEdit37 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit38")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit38 vEdit38 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit38 vEdit38 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit39")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit39 vEdit39 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit39 vEdit39 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit40")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit40 vEdit40 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit40 vEdit40 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit41")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit41 vEdit41 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit41 vEdit41 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit42")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit42 vEdit42 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit42 vEdit42 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit43")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit43 vEdit43 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit43 vEdit43 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit44")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit44 vEdit44 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit44 vEdit44 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit45")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit45 vEdit45 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit45 vEdit45 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit46")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit46 vEdit46 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit46 vEdit46 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit47")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit47 vEdit47 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit47 vEdit47 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit48")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit48 vEdit48 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit48 vEdit48 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit49")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit49 vEdit49 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit49 vEdit49 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit50")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit50 vEdit50 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit50 vEdit50 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit51")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit51 vEdit51 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit51 vEdit51 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit52")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit52 vEdit52 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit52 vEdit52 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit53")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit53 vEdit53 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit53 vEdit53 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit54")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit54 vEdit54 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit54 vEdit54 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit55")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit55 vEdit55 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit55 vEdit55 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit56")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit56 vEdit56 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit56 vEdit56 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit57")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit57 vEdit57 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit57 vEdit57 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit58")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit58 vEdit58 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit58 vEdit58 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit59")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit59 vEdit59 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit59 vEdit59 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit60")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit60 vEdit60 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit60 vEdit60 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit61")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit61 vEdit61 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit61 vEdit61 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit62")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit62 vEdit62 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit62 vEdit62 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit63")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit63 vEdit63 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit63 vEdit63 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit64")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit64 vEdit64 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit64 vEdit64 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit65")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit65 vEdit65 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit65 vEdit65 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit66")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit66 vEdit66 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit66 vEdit66 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit67")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit67 vEdit67 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit67 vEdit67 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit68")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit68 vEdit68 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit68 vEdit68 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit69")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit69 vEdit69 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit69 vEdit69 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit70")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit70 vEdit70 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit70 vEdit70 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit71")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit71 vEdit71 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit71 vEdit71 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit72")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit72 vEdit72 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit72 vEdit72 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit73")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit73 vEdit73 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit73 vEdit73 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit74")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit74 vEdit74 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit74 vEdit74 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit75")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit75 vEdit75 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit75 vEdit75 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit76")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit76 vEdit76 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit76 vEdit76 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit77")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit77 vEdit77 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit77 vEdit77 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit78")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit78 vEdit78 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit78 vEdit78 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit79")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit79 vEdit79 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit79 vEdit79 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit80")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit80 vEdit80 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit80 vEdit80 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit81")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit81 vEdit81 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit81 vEdit81 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit82")
 {
 guiEditY82 := guiEditY + 3
 Gui, Font, s12
-Gui, Add, Button, x10 y%guiEditY82% w60 h26 gEdit82, cpp
-Gui, Add, Button, x75 y%guiEditY82% w60 h26 gEdit82, py
-Gui, Add, Button, x140 y%guiEditY82% w60 h26 gEdit82, js
+Gui, Add, Button, x5 y%guiEditY82% w60 h26 gEdit82 vEdit82CPP, cpp
+Gui, Add, Button, x70 y%guiEditY82% w60 h26 gEdit82 vEdit82PY, py
+Gui, Add, Button, x135 y%guiEditY82% w60 h26 gEdit82 vEdit82JS, js
 Gui, Font, s15
 }
 
 if (guiEditTextG = "Edit83")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit83 vEdit83 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit83 vEdit83 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit84")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit84 vEdit84 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit84 vEdit84 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit85")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit85 vEdit85 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit85 vEdit85 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 if (guiEditTextG = "Edit86")
 {
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit86 vEdit86 bg000000 cffffff -Border r5, %guiEditText%
+Gui, Add, Edit, x5 y%guiEditY% w%guiW% h25 gEdit86 vEdit86 bg000000 cffffff -Border r5, %guiEditText%
 }
 
 
@@ -594,7 +595,7 @@ Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEdit86 vEdit86 bg000000 cffffff -Bo
 }
 buttonX := guiW + 15
 Gui, Font, s13
-Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h28 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
 Gui, Font, s15
 
 guiEditY := guiEditY + 30
@@ -604,6 +605,66 @@ Loop, 86
 {
 editTextTemp := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-" . A_Index)
 editTextTemp1 := "Edit" . A_Index
+
+if (A_Index = 1)
+{
+if (editTextTemp = null)
+{
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-1", "cpp")
+editTextTemp := "cpp"
+}
+;editTextTemp
+
+if (editTextTemp = "cpp")
+{
+GuiControl, Disable, Edit1CPP
+GuiControl, Enable, Edit1JS
+GuiControl, Enable, Edit1PY
+}
+if (editTextTemp = "js")
+{
+GuiControl, Disable, Edit1JS
+GuiControl, Enable, Edit1CPP
+GuiControl, Enable, Edit1PY
+}
+if (editTextTemp = "py")
+{
+GuiControl, Disable, Edit1PY
+GuiControl, Enable, Edit1JS
+GuiControl, Enable, Edit1CPP
+}
+}
+
+
+if (A_Index = 82)
+{
+if (editTextTemp = null)
+{
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-82", "cpp")
+editTextTemp := "cpp"
+}
+;editTextTemp
+
+if (editTextTemp = "cpp")
+{
+GuiControl, Disable, Edit82CPP
+GuiControl, Enable, Edit82JS
+GuiControl, Enable, Edit82PY
+}
+if (editTextTemp = "js")
+{
+GuiControl, Disable, Edit82JS
+GuiControl, Enable, Edit82CPP
+GuiControl, Enable, Edit82PY
+}
+if (editTextTemp = "py")
+{
+GuiControl, Disable, Edit82PY
+GuiControl, Enable, Edit82JS
+GuiControl, Enable, Edit82CPP
+}
+}
+
 
 
 if (A_Index = 85)
@@ -679,141 +740,525 @@ GuiControl, Text, %editTextTemp1%, %editTextTemp%
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+allLocalSrorageLinks := "|"
 
-MyDropDownFuncs := "Option1|Option2|Option3|Option2|Option3|Option2|Option3|Option2|Option3"
-if (isMobileDevice())
+
+MyDropDownFuncs := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncs")
+if (MyDropDownFuncs = null)
 {
-Gui, Add, DropDownList, x10 y%guiEditY% gMyDropDown vMyDropDownV, " + variables.MyDropDownFuncs + "
+MyDropDownFuncs := "HTVM_func1"
 }
-else
+MyDropDownFuncsTempFirstAddShowDisplay := ""
+Loop, Parse, MyDropDownFuncs, "|"
 {
-Gui, Add, DropDownList, x10 y%guiEditY% gMyDropDown vMyDropDownV, " + variables.MyDropDownFuncs + "
+MyDropDownFuncsTempFirstAddShowDisplay := A_LoopField
+break
+}
+currentFuncName := MyDropDownFuncsTempFirstAddShowDisplay
+currentFuncNameOLD := currentFuncName
+
+
+MyFuncsLibs := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLibs-" . MyDropDownFuncsTempFirstAddShowDisplay)
+allLocalSrorageLinks .= MyDropDownFuncsTempFirstAddShowDisplay . "|"
+if (MyFuncsLibs = null)
+{
+MyFuncsLibs := "null"
 }
 
-MyDropDownFuncs := "func1"
+MyFuncsDescription := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsDescription-" . MyDropDownFuncsTempFirstAddShowDisplay)
+allLocalSrorageLinks .= MyDropDownFuncsTempFirstAddShowDisplay . "|"
+if (MyFuncsDescription = null)
+{
+MyFuncsDescription := "null"
+}
+
+MyFuncsCode := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsCode-" . MyDropDownFuncsTempFirstAddShowDisplay)
+allLocalSrorageLinks .= MyDropDownFuncsTempFirstAddShowDisplay . "|"
+if (MyFuncsCode = null)
+{
+MyFuncsCode := "// add the function here"
+}
+
+MyFuncsLang := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLang-" . MyDropDownFuncsTempFirstAddShowDisplay)
+allLocalSrorageLinks .= MyDropDownFuncsTempFirstAddShowDisplay . "|"
+if (MyFuncsLang = null)
+{
+MyFuncsLang := "cpp"
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLang-" . MyDropDownFuncsTempFirstAddShowDisplay, "cpp")
+}
+
+
+
 GuiControl, Destroy, MyDropDownV
 guiEditYDDD := guiEditY
-Gui, Add, DropDownList, x10 y%guiEditYDDD% gMyDropDown vMyDropDownV, " + variables.MyDropDownFuncs + "
-Gui, Add, Button, x170 y%guiEditY% w155 h30 gAddNewFuncButton, Add a new function
+Gui, Add, DropDownList, x5 y%guiEditYDDD% gMyDropDown vMyDropDownV, " + variables.MyDropDownFuncs + "
+Gui, Add, Button, x165 y%guiEditY% w105 h30 gAddNewFuncButton, New function
 Gui, Font, s13
 guiEditTextV := "explain the Add a new function"
-Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h28 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
 Gui, Font, s15
 
 guiEditY := guiEditY + 35
-Gui, Add, Button, x10 y%guiEditY% w60 h35 gEditFuncButtonLangCpp, cpp
-Gui, Add, Button, x75 y%guiEditY% w60 h35 gEditFuncButtonLangPy, py
-Gui, Add, Button, x140 y%guiEditY% w60 h35 gEditFuncButtonLangJs, js
+
+Gui, Add, Button, x5 y%guiEditY% w60 h35 gEditFuncButtonLangCpp vEditFuncButtonLangCpp, cpp
+Gui, Add, Button, x70 y%guiEditY% w60 h35 gEditFuncButtonLangPy vEditFuncButtonLangPy, py
+Gui, Add, Button, x135 y%guiEditY% w60 h35 gEditFuncButtonLangJs vEditFuncButtonLangJs, js
+
+if (MyFuncsLang = "cpp")
+{
+GuiControl, Disable, EditFuncButtonLangCpp
+GuiControl, Enable, EditFuncButtonLangJs
+GuiControl, Enable, EditFuncButtonLangPy
+}
+if (MyFuncsLang = "js")
+{
+GuiControl, Disable, EditFuncButtonLangJs
+GuiControl, Enable, EditFuncButtonLangCpp
+GuiControl, Enable, EditFuncButtonLangPy
+}
+if (MyFuncsLang = "py")
+{
+GuiControl, Disable, EditFuncButtonLangPy
+GuiControl, Enable, EditFuncButtonLangJs
+GuiControl, Enable, EditFuncButtonLangCpp
+}
 
 buttonX := guiW + 15
 Gui, Font, s13
 guiEditTextV := "explain the cpp js py buttons"
-Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h28 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
 Gui, Font, s15
 
 guiEditY := guiEditY + 40
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEditFuncName bg000000 cffffff -Border r5, Name of the function
+guiEditYNOTF := guiEditY
+Gui, Add, Edit, x5 y%guiEditYNOTF% w%guiW% h25 gEditFuncName vEditFuncName bg000000 cffffff -Border r5, Name of the function
+GuiControl, Text, EditFuncName, %MyDropDownFuncsTempFirstAddShowDisplay%
 buttonX := guiW + 15
 Gui, Font, s13
 guiEditTextV := "explain the name of the func"
-Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h28 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
 Gui, Font, s15
 guiEditY := guiEditY + 30
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEditFuncLibs bg000000 cffffff -Border r5, Libs
+guiEditYLibs := guiEditY
+Gui, Add, Edit, x5 y%guiEditYLibs% w%guiW% h25 gEditFuncLibs vEditFuncLibs bg000000 cffffff -Border r5, Libs
+GuiControl, Text, EditFuncLibs, %MyFuncsLibs%
+
 buttonX := guiW + 15
 Gui, Font, s13
 guiEditTextV := "explain the libs like inport WASD|IMPORT qawsedd"
-Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h28 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
 Gui, Font, s15
 guiEditY := guiEditY + 30
-Gui, Add, Edit, x10 y%guiEditY% w%guiW% h25 gEditFuncDescription bg000000 cffffff -Border r5, Description
+guiEditYDescription := guiEditY
+Gui, Add, Edit, x5 y%guiEditYDescription% w%guiW% h25 gEditFuncDescription vEditFuncDescription bg000000 cffffff -Border r5, Description
+GuiControl, Text, EditFuncDescription, %MyFuncsDescription%
 buttonX := guiW + 15
 Gui, Font, s13
 guiEditTextV := "explain the Description"
-Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h28 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
 Gui, Font, s15
 guiEditY := guiEditY + 30
 
-guiW := guiW - 20
+
 Gui, Font, s12
-Gui, Add, IDE, x10 y%guiEditY% w%guiW% h500 gIDEcpp vIDEcpp lc_cpp
-Gui, Add, IDE, x10 y%guiEditY% w%guiW% h500 gIDEpy vIDEpy lpython
-Gui, Add, IDE, x10 y%guiEditY% w%guiW% h500 gIDEjs vIDEjs ljavascript
+Gui, Add, IDE, x5 y%guiEditY% w%guiW% h500 gIDEcpp vIDEcpp lc_cpp
+Gui, Add, IDE, x5 y%guiEditY% w%guiW% h500 gIDEpy vIDEpy lpython
+Gui, Add, IDE, x5 y%guiEditY% w%guiW% h500 gIDEjs vIDEjs ljavascript
+if (MyFuncsCode = null) or (MyFuncsCode = "")
+{
+MyFuncsCode := "null"
+}
+
+if (MyFuncsLang = "cpp")
+{
+GuiControl, textIDE, IDEcpp, %MyFuncsCode%
+GuiControl, Show, IDEcpp
+GuiControl, Hide, IDEpy
+GuiControl, Hide, IDEjs
+}
+if (MyFuncsLang = "py")
+{
+GuiControl, textIDE, IDEpy, %MyFuncsCode%
+GuiControl, Hide, IDEcpp
+GuiControl, Show, IDEpy
+GuiControl, Hide, IDEjs
+}
+if (MyFuncsLang = "js")
+{
+GuiControl, textIDE, IDEjs, %MyFuncsCode%
+GuiControl, Hide, IDEcpp
+GuiControl, Hide, IDEpy
+GuiControl, Show, IDEjs
+}
+
 
 Gui, Font, s13
 guiEditTextV := "explain the IDE"
-Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h65 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
 Gui, Font, s15
 
-GuiControl, Hide, IDEpy
-GuiControl, Hide, IDEjs
+
+guiEditY := guiEditY + 510
+Gui, Add, IDE, x5 y%guiEditY% w%guiW% h500 gIDEshow vIDEshow
+Gui, Font, s13
+guiEditTextV := "explain the Showing your code"
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h65 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Font, s15
 
 Gui, Font, s15
 guiEditY := guiEditY + 510
-Gui, Add, Button, x15 y%guiEditY% w140 h40 gBuildButton, Build
+Gui, Add, Button, x10 y%guiEditY% w140 h40 gBuildButton, Build
 Gui, Font, s13
 guiEditTextV := "explain the Build button"
-Gui, Add, Button, x%buttonX% y%guiEditY% w70 h25 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
+Gui, Add, Button, x%buttonX% y%guiEditY% w70 h28 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
 Gui, Font, s15
 Return
 
-IDEcpp:
+MyDropDown:
+MsgBox, Website is still in development! Here, you will be able to create the built-in functions!
+;MsgBox, % A_GuiControl
+currentFuncNameOLD := A_GuiControl
+currentFuncName := A_GuiControl
+MyDropDownFuncsNUM := 0
+Loop, Parse, MyDropDownFuncs, "|"
+{
+if (A_LoopField = A_GuiControl)
+{
+funcWeAreModifying := A_Index
+break
+}
+}
 
+GuiControl, Destroy, EditFuncName
+Gui, Add, Edit, x5 y%guiEditYNOTF% w%guiW% h25 gEditFuncName vEditFuncName bg000000 cffffff -Border r5, Name of the function
+nameOfFuncTemp := A_GuiControl
+GuiControl, Text, EditFuncName, %nameOfFuncTemp%
+
+
+MyFuncsDescription := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsDescription-" . nameOfFuncTemp)
+GuiControl, Destroy, EditFuncDescription
+Gui, Add, Edit, x5 y%guiEditYDescription% w%guiW% h25 gEditFuncDescription vEditFuncDescription bg000000 cffffff -Border r5, Description
+GuiControl, Text, EditFuncDescription, %MyFuncsDescription%
+
+MyFuncsLibs := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLibs-" . nameOfFuncTemp)
+GuiControl, Destroy, EditFuncLibs
+Gui, Add, Edit, x5 y%guiEditYLibs% w%guiW% h25 gEditFuncLibs vEditFuncLibs bg000000 cffffff -Border r5, Libs
+GuiControl, Text, EditFuncLibs, %MyFuncsLibs%
+
+
+MyFuncsLang := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLang-" . nameOfFuncTemp)
+if (MyFuncsLang = null)
+{
+MyFuncsLang := "cpp"
+}
+
+if (MyFuncsLang = "cpp")
+{
+GuiControl, Disable, EditFuncButtonLangCpp
+GuiControl, Enable, EditFuncButtonLangJs
+GuiControl, Enable, EditFuncButtonLangPy
+
+GuiControl, Show, IDEcpp
+GuiControl, Hide, IDEpy
+GuiControl, Hide, IDEjs
+}
+if (MyFuncsLang = "js")
+{
+GuiControl, Disable, EditFuncButtonLangJs
+GuiControl, Enable, EditFuncButtonLangCpp
+GuiControl, Enable, EditFuncButtonLangPy
+
+GuiControl, Show, IDEjs
+GuiControl, Hide, IDEcpp
+GuiControl, Hide, IDEpy
+}
+if (MyFuncsLang = "py")
+{
+GuiControl, Disable, EditFuncButtonLangPy
+GuiControl, Enable, EditFuncButtonLangJs
+GuiControl, Enable, EditFuncButtonLangCpp
+
+GuiControl, Show, IDEpy
+GuiControl, Hide, IDEcpp
+GuiControl, Hide, IDEjs
+}
+
+
+MyFuncsCode := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsCode-" . nameOfFuncTemp)
+if (MyFuncsCode = null) or (MyFuncsCode = "")
+{
+MyFuncsCode := "null"
+}
+
+if (MyFuncsLang = "cpp")
+{
+GuiControl, textIDE, IDEcpp, %MyFuncsCode%
+}
+if (MyFuncsLang = "py")
+{
+GuiControl, textIDE, IDEpy, %MyFuncsCode%
+}
+if (MyFuncsLang = "js")
+{
+GuiControl, textIDE, IDEjs, %MyFuncsCode%
+}
+
+
+Return
+
+AddNewFuncButton:
+MsgBox, Website is still in development! Here, you will be able to create the built-in functions!
+MyDropDownFuncsNUM := 0
+Loop, Parse, MyDropDownFuncs, "|"
+{
+MyDropDownFuncsNUM++
+}
+MyDropDownFuncsNUM++
+MyDropDownFuncs .= "|" . "HTVM_func" . MyDropDownFuncsNUM
+GuiControl, Destroy, MyDropDownV
+Gui, Add, DropDownList, x5 y%guiEditYDDD% gMyDropDown vMyDropDownV, " + variables.MyDropDownFuncs + "
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncs", MyDropDownFuncs)
+funcWeAreModifying := MyDropDownFuncsNUM
+
+GuiControl, Destroy, EditFuncName
+Gui, Add, Edit, x5 y%guiEditYNOTF% w%guiW% h25 gEditFuncName vEditFuncName bg000000 cffffff -Border r5, Name of the function
+nameOfFuncTemp := "HTVM_func" . MyDropDownFuncsNUM
+currentFuncNameOLD := nameOfFuncTemp
+GuiControl, Text, EditFuncName, %nameOfFuncTemp%
+currentFuncName := nameOfFuncTemp
+
+
+MyFuncsDescription := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsDescription-" . nameOfFuncTemp)
+GuiControl, Destroy, EditFuncDescription
+Gui, Add, Edit, x5 y%guiEditYDescription% w%guiW% h25 gEditFuncDescription vEditFuncDescription bg000000 cffffff -Border r5, Description
+GuiControl, Text, EditFuncDescription, %MyFuncsDescription%
+
+MyFuncsLibs := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLibs-" . nameOfFuncTemp)
+GuiControl, Destroy, EditFuncLibs
+Gui, Add, Edit, x5 y%guiEditYLibs% w%guiW% h25 gEditFuncLibs vEditFuncLibs bg000000 cffffff -Border r5, Libs
+GuiControl, Text, EditFuncLibs, %MyFuncsLibs%
+
+
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLang-" . currentFuncName, "cpp")
+allLocalSrorageLinks .= currentFuncName . "|"
+MyFuncsLang := "cpp"
+
+if (MyFuncsLang = "cpp")
+{
+GuiControl, Disable, EditFuncButtonLangCpp
+GuiControl, Enable, EditFuncButtonLangJs
+GuiControl, Enable, EditFuncButtonLangPy
+
+GuiControl, Show, IDEcpp
+GuiControl, Hide, IDEpy
+GuiControl, Hide, IDEjs
+}
+if (MyFuncsLang = "js")
+{
+GuiControl, Disable, EditFuncButtonLangJs
+GuiControl, Enable, EditFuncButtonLangCpp
+GuiControl, Enable, EditFuncButtonLangPy
+
+GuiControl, Show, IDEjs
+GuiControl, Hide, IDEcpp
+GuiControl, Hide, IDEpy
+}
+if (MyFuncsLang = "py")
+{
+GuiControl, Disable, EditFuncButtonLangPy
+GuiControl, Enable, EditFuncButtonLangJs
+GuiControl, Enable, EditFuncButtonLangCpp
+
+GuiControl, Show, IDEpy
+GuiControl, Hide, IDEcpp
+GuiControl, Hide, IDEjs
+}
+
+MyFuncsCode := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsCode-" . nameOfFuncTemp)
+if (MyFuncsCode = null) or (MyFuncsCode = "")
+{
+MyFuncsCode := "null"
+}
+
+if (MyFuncsLang = "cpp")
+{
+GuiControl, textIDE, IDEcpp, %MyFuncsCode%
+}
+if (MyFuncsLang = "py")
+{
+GuiControl, textIDE, IDEpy, %MyFuncsCode%
+}
+if (MyFuncsLang = "js")
+{
+GuiControl, textIDE, IDEjs, %MyFuncsCode%
+}
+
+
+
+Return
+
+
+isFuncNameValid(FuncName)
+{
+Loop, Parse, FuncName
+{
+matchPosition := RegExMatch(A_LoopField, "[A-Za-z0-9_]+")
+if (matchPosition = 0)
+{
+return false
+}
+}
+return true
+}
+
+
+EditFuncName:
+A_GuiControl := Trim(A_GuiControl)
+tempReadSave1 := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLang-" . currentFuncNameOLD)
+tempReadSave2 := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsDescription-" . currentFuncNameOLD)
+tempReadSave3 := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsCode-" . currentFuncNameOLD)
+tempReadSave4 := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLibs-" . currentFuncNameOLD)
+
+
+StoreLocally("d", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLang-" . currentFuncNameOLD)
+StoreLocally("d", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsDescription-" . currentFuncNameOLD)
+StoreLocally("d", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsCode-" . currentFuncNameOLD)
+StoreLocally("d", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLibs-" . currentFuncNameOLD)
+
+
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLang-" . A_GuiControl, tempReadSave1)
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsDescription-" . A_GuiControl, tempReadSave2)
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsCode-" . A_GuiControl, tempReadSave3)
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLibs-" . A_GuiControl, tempReadSave4)
+if (!(isFuncNameValid(A_GuiControl)))
+{
+MsgBox, 16, Error: Invalid Function Name, Function names must start with a letter or underscore and can only contain letters numbers and underscores.
+GuiControl, Destroy, EditFuncName
+Gui, Add, Edit, x5 y%guiEditYNOTF% w%guiW% h25 gEditFuncName vEditFuncName bg000000 cffffff -Border r5, Name of the function
+StringTrimRight, A_GuiControl, A_GuiControl, 1
+GuiControl, Focus, EditFuncName
+GuiControl, Text, EditFuncName, %A_GuiControl%
+}
+currentFuncName := A_GuiControl
+currentFuncNameOLD := A_GuiControl
+MyDropDownFuncsOut := ""
+Loop, Parse, MyDropDownFuncs, "|"
+{
+if (A_Index = funcWeAreModifying)
+{
+MyDropDownFuncsOut .= A_GuiControl . "|"
+}
+else
+{
+MyDropDownFuncsOut .= A_LoopField . "|"
+}
+}
+StringTrimRight, MyDropDownFuncs, MyDropDownFuncsOut, 1
+GuiControl, Destroy, MyDropDownV
+Gui, Add, DropDownList, x5 y%guiEditYDDD% gMyDropDown vMyDropDownV, " + variables.MyDropDownFuncs + "
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncs", MyDropDownFuncs)
+
+
+
+Return
+
+EditFuncLibs:
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLibs-" . currentFuncName, A_GuiControl)
+Return
+
+EditFuncDescription:
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsDescription-" . currentFuncName, A_GuiControl)
+Return
+
+
+
+IDEcpp:
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsCode-" . currentFuncName, A_GuiControl)
 Return
 
 IDEpy:
-
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsCode-" . currentFuncName, A_GuiControl)
 Return
 
 IDEjs:
-
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsCode-" . currentFuncName, A_GuiControl)
 Return
 
+;;;;;;;;;;;;;;;;;;;;;;;;;
+IDEshow:
+
+Return
+;;;;;;;;;;;;;;;;;;;;;;;;;
 
 EditFuncButtonLangCpp:
 GuiControl, Show, IDEcpp
 GuiControl, Hide, IDEpy
 GuiControl, Hide, IDEjs
+
+GuiControl, Disable, EditFuncButtonLangCpp
+GuiControl, Enable, EditFuncButtonLangJs
+GuiControl, Enable, EditFuncButtonLangPy
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLang-" . currentFuncName, "cpp")
+allLocalSrorageLinks .= currentFuncName . "|"
 Return
 
 EditFuncButtonLangPy:
 GuiControl, Hide, IDEcpp
 GuiControl, Show, IDEpy
 GuiControl, Hide, IDEjs
+
+GuiControl, Disable, EditFuncButtonLangPy
+GuiControl, Enable, EditFuncButtonLangJs
+GuiControl, Enable, EditFuncButtonLangCpp
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLang-" . currentFuncName, "py")
+allLocalSrorageLinks .= currentFuncName . "|"
 Return
 
 EditFuncButtonLangJs:
 GuiControl, Hide, IDEcpp
 GuiControl, Hide, IDEpy
 GuiControl, Show, IDEjs
+
+GuiControl, Disable, EditFuncButtonLangJs
+GuiControl, Enable, EditFuncButtonLangCpp
+GuiControl, Enable, EditFuncButtonLangPy
+StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLang-" . currentFuncName, "js")
+allLocalSrorageLinks .= currentFuncName . "|"
 Return
-
-AddNewFuncButton:
-MyDropDownFuncs .= "|" . ""
-GuiControl, Destroy, MyDropDownV
-Gui, Add, DropDownList, x10 y%guiEditYDDD% gMyDropDown vMyDropDownV, " + variables.MyDropDownFuncs + "
-Return
-
-
-ButtonINFO:
-MsgBox, % A_GuiControl
-Return
-
-MyDropDown:
-MsgBox, Website is still in development! Here, you will be able to create the built-in functions!
-MsgBox, % A_GuiControl
-Return
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ButtonINFO:
+MsgBox, % A_GuiControl
+Return
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Edit1:
-EditText1 := A_GuiControl
+StringTrimLeft, A_GuiControl, A_GuiControl, 5
+EditText1 := StrLower(A_GuiControl)
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-1", EditText1)
+
+if (EditText1 = "cpp")
+{
+GuiControl, Disable, Edit1CPP
+GuiControl, Enable, Edit1JS
+GuiControl, Enable, Edit1PY
+}
+if (EditText1 = "js")
+{
+GuiControl, Disable, Edit1JS
+GuiControl, Enable, Edit1CPP
+GuiControl, Enable, Edit1PY
+}
+if (EditText1 = "py")
+{
+GuiControl, Disable, Edit1PY
+GuiControl, Enable, Edit1JS
+GuiControl, Enable, Edit1CPP
+}
+
 return
 Return
 
@@ -1266,8 +1711,31 @@ StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-81", EditText81)
 Return
 
 Edit82:
-EditText82 := A_GuiControl
+StringTrimLeft, A_GuiControl, A_GuiControl, 6
+EditText82 := StrLower(A_GuiControl)
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-82", EditText82)
+
+if (EditText82 = "cpp")
+{
+GuiControl, Disable, Edit82CPP
+GuiControl, Enable, Edit82JS
+GuiControl, Enable, Edit82PY
+}
+if (EditText82 = "js")
+{
+GuiControl, Disable, Edit82JS
+GuiControl, Enable, Edit82CPP
+GuiControl, Enable, Edit82PY
+}
+if (EditText82 = "py")
+{
+GuiControl, Disable, Edit82PY
+GuiControl, Enable, Edit82JS
+GuiControl, Enable, Edit82CPP
+}
+
+return
+
 Return
 
 Edit83:
@@ -1326,6 +1794,31 @@ Loop, 86
 {
 allData .= EditText%A_Index% . "`n"
 }
+
+allFuncNamesForSavingIt := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncs")
+allFuncNamesForSavingItOut := ""
+Loop, Parse, allFuncNamesForSavingIt, "|"
+{
+tempReadSave1 := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLang-" . A_LoopField)
+tempReadSave2 := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsDescription-" . A_LoopField)
+tempReadSave3 := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsCode-" . A_LoopField)
+tempReadSave4 := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLibs-" . A_LoopField)
+
+
+bodyFuncTemp1 := "func======================func==============`n"
+bodyFuncTemp2 := "lang: " . tempReadSave1
+bodyFuncTemp3 := "`nname: " . A_LoopField
+bodyFuncTemp4 := "`nlibs: " . tempReadSave4
+bodyFuncTemp5 := "`ndescription: " . tempReadSave2
+bodyFuncTemp6 := "`n`n" . tempReadSave3 . "`n`n"
+bodyFuncTemp7 := "funcEND======================funcEND==============`n"
+
+allFuncNamesForSavingItOut .= "`n" . bodyFuncTemp1 . bodyFuncTemp2 . bodyFuncTemp3 . bodyFuncTemp4 . bodyFuncTemp5 . bodyFuncTemp6 . bodyFuncTemp7 . "`n"
+
+}
+
+allData := allData . "`n" . allFuncNamesForSavingItOut
+
 FileAppend, %allData%, HT-instructions.txt
 } ; end of ifmsgbox
 Return
