@@ -1796,6 +1796,8 @@ allData .= EditText%A_Index% . "`n"
 }
 
 allFuncNamesForSavingIt := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncs")
+if (allFuncNamesForSavingIt != null)
+{
 allFuncNamesForSavingItOut := ""
 Loop, Parse, allFuncNamesForSavingIt, "|"
 {
@@ -1816,7 +1818,9 @@ bodyFuncTemp7 := "funcEND======================funcEND=============="
 allFuncNamesForSavingItOut .= "`n" . bodyFuncTemp1 . bodyFuncTemp2 . bodyFuncTemp3 . bodyFuncTemp4 . bodyFuncTemp5 . bodyFuncTemp6 . bodyFuncTemp7 . "`n"
 }
 
+
 allData := allData . "`n" . allFuncNamesForSavingItOut
+}
 
 FileAppend, %allData%, HT-instructions.txt
 } ; end of ifmsgbox

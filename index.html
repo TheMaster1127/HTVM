@@ -4959,6 +4959,8 @@ for (/* Normal Loop */ variables.A_Index10 = 1; variables.A_Index10 <= 85; varia
 variables.allData += variables["EditText" + variables.A_Index10] + "\n"
 }
 variables.allFuncNamesForSavingIt = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" )
+if (( variables.allFuncNamesForSavingIt  != variables.null ))
+{
 variables.allFuncNamesForSavingItOut = ""
 var items11 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
 for (/* Loop Parse */ let A_Index11 = 1; A_Index11 <= items11.length; A_Index11++)
@@ -4979,6 +4981,7 @@ variables.bodyFuncTemp7 = "funcEND======================funcEND=============="
 variables.allFuncNamesForSavingItOut += "\n" + variables.bodyFuncTemp1 + variables.bodyFuncTemp2 + variables.bodyFuncTemp3 + variables.bodyFuncTemp4 + variables.bodyFuncTemp5 + variables.bodyFuncTemp6 + variables.bodyFuncTemp7 + "\n"
 }
 variables.allData = variables.allData + "\n" + variables.allFuncNamesForSavingItOut
+}
 FileAppend("" + variables.allData + "", "HT-instructions.txt")
 } // end of ifmsgbox
 });
