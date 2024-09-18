@@ -1790,7 +1790,7 @@ MsgBox, 36, HT-instructions.txt, Download the language you just created!
 IfMsgBox, OK
 {
 allData := ""
-Loop, 86
+Loop, 85
 {
 allData .= EditText%A_Index% . "`n"
 }
