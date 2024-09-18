@@ -1811,10 +1811,9 @@ bodyFuncTemp3 := "`nname: " . A_LoopField
 bodyFuncTemp4 := "`nlibs: " . tempReadSave4
 bodyFuncTemp5 := "`ndescription: " . tempReadSave2
 bodyFuncTemp6 := "`n`n" . tempReadSave3 . "`n`n"
-bodyFuncTemp7 := "funcEND======================funcEND==============`n"
+bodyFuncTemp7 := "funcEND======================funcEND=============="
 
 allFuncNamesForSavingItOut .= "`n" . bodyFuncTemp1 . bodyFuncTemp2 . bodyFuncTemp3 . bodyFuncTemp4 . bodyFuncTemp5 . bodyFuncTemp6 . bodyFuncTemp7 . "`n"
-
 }
 
 allData := allData . "`n" . allFuncNamesForSavingItOut
