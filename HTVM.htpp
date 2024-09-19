@@ -1,6 +1,3 @@
-; HT++
-; revolution.htpp
-
 ; Wellcome the new revolution
 
 ; keyWordsCommands rules
@@ -2323,10 +2320,9 @@ StringTrimRight, code, newStringOutCode, 1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
+str htCodeOutFixEnd
 if (useEnd = "on")
 {
-str htCodeOutFixEnd
 Loop, Parse, code, `n, `r
 {
 if (StrLower(A_LoopField) = StrLower(keyWordEnd))
@@ -2402,10 +2398,86 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 }
 
 
+if (useEnd = "off") && (useCurlyBraces = "off")
+{
+htCodeOutFixEnd := ""
+Loop, Parse, code, `n, `r
+{
+if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordElse))) = StrLower(keyWordElse))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordWhileLoop))) = StrLower(keyWordWhileLoop))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordForLoop))) = StrLower(keyWordForLoop))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordLoopInfinite))) = StrLower(keyWordLoopInfinite))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordLoop))) = StrLower(keyWordLoop))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordLoopParse))) = StrLower(keyWordLoopParse))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordSwitch))) = StrLower(keyWordSwitch))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordSwitchCase))) = StrLower(keyWordSwitchCase))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordSwitchDefault))) = StrLower(keyWordSwitchDefault))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordTry))) = StrLower(keyWordTry))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordCatch))) = StrLower(keyWordCatch))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFinally))) = StrLower(keyWordFinally))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else
+{
+htCodeOutFixEnd .= A_LoopField . "`n"
+}
+}
+StringTrimRight, code, htCodeOutFixEnd, 1
+
+}
+
+
 if (useCurlyBraces = "off")
 {
 code := AddCurlyBraces(code)
 }
+
 
 Loop, Parse, code, `n, `r
 {
@@ -3447,6 +3519,7 @@ str2 := "if " . expressionParserTranspiler(str1)
 }
 str2 := StrReplace(str2, ";;", ";")
 }
+str2 := StrReplace(str2, "::", ":")
 htCode .= str2 . "`n"
 }
 else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf))
@@ -3498,6 +3571,7 @@ str2 := "else if " . expressionParserTranspiler(str1)
 }
 str2 := StrReplace(str2, ";;", ";")
 }
+str2 := StrReplace(str2, "::", ":")
 htCode .= str2 . "`n"
 }
 else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordElse))) = StrLower(keyWordElse))
@@ -3565,6 +3639,7 @@ str2 := "while " . expressionParserTranspiler(str1)
 }
 str2 := StrReplace(str2, ";;", ";")
 }
+str2 := StrReplace(str2, "::", ":")
 htCode .= str2 . "`n"
 }
 else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordForLoop))) = StrLower(keyWordForLoop))
@@ -3575,9 +3650,10 @@ str1 := StringTrimLeft(A_LoopField, StrLen(keyWordForLoop))
 str2 := transpileForLoop(langToTranspileTo, forLoopLang, "for " . expressionParserTranspiler(str1))
 
 lineDone := 1
+str2 := StrReplace(str2, "::", ":")
 htCode .= str2 . "`n"
 }
-else if (StrLower(A_LoopField) = StrLower(keyWordLoopInfinite))
+else if (StrLower(A_LoopField) = StrLower(keyWordLoopInfinite)) or (StrLower(A_LoopField) = StrLower(keyWordLoopInfinite . ":"))
 {
 ; infinity loops
 haveWeEverUsedAloop := 1
@@ -3610,7 +3686,7 @@ htCode .= htCodeLoopfixa1 . "`n" . var1 . "`n"
 else if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(StrLower(keyWordLoop))) = StrLower(keyWordLoop)) && (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(StrLower(keyWordLoop)) + 2) != StrLower(keyWordLoop) . "% ") && (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(StrLower(keyWordLoopParse))) != StrLower(keyWordLoopParse))
 {
 out2 := StringTrimLeft(A_LoopField, StrLen(keyWordLoop))
-
+out2 := StrReplace(out2, ":", "")
 ;MsgBox % out2
 
 ;MsgBox, % out2
@@ -3653,7 +3729,7 @@ else if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(StrLower(keyWordLoop)) + 
 {
 
 out2 := StringTrimLeft(A_LoopField, StrLen(keyWordLoop) + 2)
-
+out2 := StrReplace(out2, ":", "")
 
 ;MsgBox % out2
 
@@ -3696,7 +3772,7 @@ htCode .= htCodeLoopfixa1 . "`n" . var1 . "`n"
 else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordLoopParse))) = StrLower(keyWordLoopParse))
 {
 var1 := StringTrimLeft(A_LoopField, StrLen(keyWordLoopParse))
-
+out2 := StrReplace(out2, ":", "")
 lineDone := 1
 
 line1 := Trim(StrSplit(var1, ",", 1))
@@ -3870,7 +3946,7 @@ str1 := StringTrimLeft(A_LoopField, StrLen(keyWordFunc))
 ;MsgBox, % A_LoopField
 
 str2 := str1
-
+str2 := StrReplace(str2, ":", "")
 if (langToTranspileTo = "cpp")
 {
 str2 := RegExReplace(str2, "\\b" . Trim(keyWordINT) . "\\b", "int")
@@ -3955,6 +4031,7 @@ else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordSwitch))) = Str
 str1 := StringTrimLeft(A_LoopField, StrLen(keyWordSwitch))
 ;MsgBox, % A_LoopField
 lineDone := 1
+str1 := StrReplace(str1, ":", "")
 if (langToTranspileTo = "py")
 {
 str2 := "match " . expressionParserTranspiler(str1) . theColon
@@ -4033,7 +4110,7 @@ else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordCatch))) = StrL
 str1 := StringTrimLeft(A_LoopField, StrLen(keyWordCatch))
 ;MsgBox, % A_LoopField
 lineDone := 1
-
+str1 := StrReplace(str1, ":", "")
 if (langToTranspileTo = "cpp")
 {
 str2 := "catch " . str10 . "(const std::exception& " . Trim(StrReplace(StrReplace(StrReplace(str1, ":", ""), ")", ""), "(", "")) . ")"

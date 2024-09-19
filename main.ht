@@ -9,17 +9,20 @@ arr123.add(6) ; You don't need to use semicolons if you don't want to, but you s
 arr123.add(5); ; You don't need to use semicolons if you don't want to, but you still can if it's a habit.
 arr123.add(58) ; You don't need to use semicolons if you don't want to, but you still can if it's a habit.
 ; You can use indentations if you want to. It's all optional.
-Loop, % arr123.size()
+Loop, % arr123.size():
 	MsgBox, % arr123[A_Index - 1]
-end
 
 ; You can use indentations if you want to. It's all optional.
 Loop, 3
 	MsgBox, A_Index
-end
 
+while AWSEDS and WER:
+	aQwsde
 
 ; You can use indentations if you want to. It's all optional.
-if arr123[1] = 5
-MsgBox, "yes"
-end
+if arr123[1] = 5:
+	MsgBox, "yes"
+else if asd
+	AwSZDF
+else
+	aszd

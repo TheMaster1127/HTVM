@@ -48,9 +48,17 @@ int main(int argc, char* argv[]) {
     for (int A_Index2 = 1; A_Index2 <= 3 + 1 - 1; A_Index2++) {
         MsgBox(A_Index2);
     }
+    while (AWSEDS && WER) {
+        aQwsde
+    }
     // You can use indentations if you want to. It's all optional.
     if (arr123[1] == 5) {
         MsgBox("yes");
+    }
+    else if (asd) {
+        AwSZDF
+    } else {
+        aszd
     }
     return 0;
 }
