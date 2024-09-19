@@ -4477,9 +4477,13 @@ GuiControl("enable", "Gui1Edit1CPP");
 }
 if (( variables.EditText83 == "off") && (variables.EditText1 == "cpp" ))
 {
-variables.EditText83 = "on"
 await document.getElementById( 'Gui1Edit83') .click ()
 await showCustomMessageBox({},"useInJavaScriptAlwaysUseVar", "If you choose cpp then useInJavaScriptAlwaysUseVar will always be toggled on.", 48, 0)
+}
+if (( variables.EditText76 == "off") && (variables.EditText1 == "cpp" ))
+{
+await document.getElementById( 'Gui1Edit76') .click ()
+await showCustomMessageBox({},"useFuncKeyWord", "useFuncKeyWord This option allows you to use a keyword to define functions when transpiling to Python (py) or JavaScript (js) or C++ (cpp). If it is turned off you won't need to use a function definition keyword for Python and JavaScript. If you select C++ as your language this option will always be on and cannot be turned off. Additionally if you have useFuncKeyWord turned off and then switch to C++ it will automatically be turned on. When useFuncKeyWord is off useCurlyBraces will automatically be toggled on and if you turn off useFuncKeyWord it will also toggle off useEnd if it was on.", 48, 0)
 }
 return
 }
@@ -4864,6 +4868,16 @@ else
 {
 variables.EditText76 = "off"
 }
+if (( variables.EditText76 == "off") && (variables.EditText1 == "cpp" ))
+{
+await document.getElementById( 'Gui1Edit76') .click ()
+await showCustomMessageBox({},"useFuncKeyWord", "useFuncKeyWord This option allows you to use a keyword to define functions when transpiling to Python (py) or JavaScript (js) or C++ (cpp). If it is turned off you won't need to use a function definition keyword for Python and JavaScript. If you select C++ as your language this option will always be on and cannot be turned off. Additionally if you have useFuncKeyWord turned off and then switch to C++ it will automatically be turned on. When useFuncKeyWord is off useCurlyBraces will automatically be toggled on and if you turn off useFuncKeyWord it will also toggle off useEnd if it was on.", 48, 0)
+}
+if (( variables.EditText76 == "off") && (variables.EditText77 == "off" ))
+{
+await document.getElementById( 'Gui1Edit77') .click ()
+await showCustomMessageBox({},"useFuncKeyWord", "useFuncKeyWord This option allows you to use a keyword to define functions when transpiling to Python (py) or JavaScript (js) or C++ (cpp). If it is turned off you won't need to use a function definition keyword for Python and JavaScript. If you select C++ as your language this option will always be on and cannot be turned off. Additionally if you have useFuncKeyWord turned off and then switch to C++ it will automatically be turned on. When useFuncKeyWord is off useCurlyBraces will automatically be toggled on and if you turn off useFuncKeyWord it will also toggle off useEnd if it was on.", 48, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-76" , variables.EditText76 )
 }
 async function Edit77(A_GuiControl)
@@ -4877,6 +4891,20 @@ else
 {
 variables.EditText77 = "off"
 }
+if (( variables.EditText78 == "on") && (variables.EditText77 == "on" ))
+{
+await document.getElementById( 'Gui1Edit78') .click ()
+await showCustomMessageBox({},"useEnd", "If useEnd is toggled on it will automatically untoggle useCurlyBraces to prevent conflicts between the two styles. When useEnd is toggled on useFuncKeyWord will also be toggled on to maintain consistency in your code syntax.", 48, 0)
+}
+if (( variables.EditText76 == "off") && (variables.EditText77 == "off" ))
+{
+await document.getElementById( 'Gui1Edit76') .click ()
+await showCustomMessageBox({},"useCurlyBraces", "If useCurlyBraces is untoggled it will automatically toggle useFuncKeyWord on. When useCurlyBraces is enabled it will automatically untoggle useEnd if it was on. This ensures that both methods of defining code blocks do not conflict.", 48, 0)
+}
+if (( variables.EditText77 == "off") && (variables.EditText78 == "off" ))
+{
+await showCustomMessageBox({},"Python indentation style", "When both useEnd and useCurlyBraces are off the language will adopt Python's indentation style for defining code blocks. This means that code blocks will be delineated based on indentation levels rather than using keywords or curly braces.", 64, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-77" , variables.EditText77 )
 }
 async function Edit78(A_GuiControl)
@@ -4889,6 +4917,20 @@ variables.EditText78 = "on"
 else
 {
 variables.EditText78 = "off"
+}
+if (( variables.EditText78 == "on") && (variables.EditText77 == "on" ))
+{
+await document.getElementById( 'Gui1Edit77') .click ()
+await showCustomMessageBox({},"useEnd", "If useEnd is toggled on it will automatically untoggle useCurlyBraces to prevent conflicts between the two styles. When useEnd is toggled on useFuncKeyWord will also be toggled on to maintain consistency in your code syntax.", 48, 0)
+}
+if (( variables.EditText78 == "on") && (variables.EditText76 == "off" ))
+{
+await document.getElementById( 'Gui1Edit76') .click ()
+await showCustomMessageBox({},"useEnd", "If useEnd is toggled on it will automatically untoggle useCurlyBraces to prevent conflicts between the two styles. When useEnd is toggled on useFuncKeyWord will also be toggled on to maintain consistency in your code syntax.", 48, 0)
+}
+if (( variables.EditText77 == "off") && (variables.EditText78 == "off" ))
+{
+await showCustomMessageBox({},"Python indentation style", "When both useEnd and useCurlyBraces are off the language will adopt Python's indentation style for defining code blocks. This means that code blocks will be delineated based on indentation levels rather than using keywords or curly braces.", 64, 0)
 }
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-78" , variables.EditText78 )
 }
@@ -4969,7 +5011,6 @@ variables.EditText83 = "off"
 }
 if (( variables.EditText83 == "off") && (variables.EditText1 == "cpp" ))
 {
-variables.EditText83 = "on"
 await document.getElementById( 'Gui1Edit83') .click ()
 await showCustomMessageBox({},"useInJavaScriptAlwaysUseVar", "If you choose cpp then useInJavaScriptAlwaysUseVar will always be toggled on.", 48, 0)
 }

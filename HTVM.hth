@@ -1312,9 +1312,14 @@ GuiControl, Enable, Edit1CPP
 
 if (EditText83 = "off") && (EditText1 = "cpp")
 {
-EditText83 := "on"
 document.getElementById('Gui1Edit83').click()
 MsgBox, 48, useInJavaScriptAlwaysUseVar, If you choose cpp then useInJavaScriptAlwaysUseVar will always be toggled on.
+}
+
+if (EditText76 = "off") && (EditText1 = "cpp")
+{
+document.getElementById('Gui1Edit76').click()
+MsgBox, 48, useFuncKeyWord, useFuncKeyWord This option allows you to use a keyword to define functions when transpiling to Python (py) or JavaScript (js) or C++ (cpp). If it is turned off you won't need to use a function definition keyword for Python and JavaScript. If you select C++ as your language this option will always be on and cannot be turned off. Additionally if you have useFuncKeyWord turned off and then switch to C++ it will automatically be turned on. When useFuncKeyWord is off useCurlyBraces will automatically be toggled on and if you turn off useFuncKeyWord it will also toggle off useEnd if it was on.
 }
 
 return
@@ -1700,6 +1705,20 @@ else
 {
 EditText76 := "off"
 }
+
+if (EditText76 = "off") && (EditText1 = "cpp")
+{
+document.getElementById('Gui1Edit76').click()
+MsgBox, 48, useFuncKeyWord, useFuncKeyWord This option allows you to use a keyword to define functions when transpiling to Python (py) or JavaScript (js) or C++ (cpp). If it is turned off you won't need to use a function definition keyword for Python and JavaScript. If you select C++ as your language this option will always be on and cannot be turned off. Additionally if you have useFuncKeyWord turned off and then switch to C++ it will automatically be turned on. When useFuncKeyWord is off useCurlyBraces will automatically be toggled on and if you turn off useFuncKeyWord it will also toggle off useEnd if it was on.
+}
+
+
+if (EditText76 = "off") && (EditText77 = "off")
+{
+document.getElementById('Gui1Edit77').click()
+MsgBox, 48, useFuncKeyWord, useFuncKeyWord This option allows you to use a keyword to define functions when transpiling to Python (py) or JavaScript (js) or C++ (cpp). If it is turned off you won't need to use a function definition keyword for Python and JavaScript. If you select C++ as your language this option will always be on and cannot be turned off. Additionally if you have useFuncKeyWord turned off and then switch to C++ it will automatically be turned on. When useFuncKeyWord is off useCurlyBraces will automatically be toggled on and if you turn off useFuncKeyWord it will also toggle off useEnd if it was on.
+}
+
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-76", EditText76)
 Return
 
@@ -1713,6 +1732,23 @@ else
 {
 EditText77 := "off"
 }
+if (EditText78 = "on") && (EditText77 = "on")
+{
+document.getElementById('Gui1Edit78').click()
+MsgBox, 48, useEnd, If useEnd is toggled on it will automatically untoggle useCurlyBraces to prevent conflicts between the two styles. When useEnd is toggled on useFuncKeyWord will also be toggled on to maintain consistency in your code syntax.
+}
+
+if (EditText76 = "off") && (EditText77 = "off")
+{
+document.getElementById('Gui1Edit76').click()
+MsgBox, 48, useCurlyBraces, If useCurlyBraces is untoggled it will automatically toggle useFuncKeyWord on. When useCurlyBraces is enabled it will automatically untoggle useEnd if it was on. This ensures that both methods of defining code blocks do not conflict.
+}
+
+if (EditText77 = "off") && (EditText78 = "off")
+{
+MsgBox, 64, Python indentation style, When both useEnd and useCurlyBraces are off the language will adopt Python's indentation style for defining code blocks. This means that code blocks will be delineated based on indentation levels rather than using keywords or curly braces.
+}
+
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-77", EditText77)
 Return
 
@@ -1726,6 +1762,24 @@ else
 {
 EditText78 := "off"
 }
+
+if (EditText78 = "on") && (EditText77 = "on")
+{
+document.getElementById('Gui1Edit77').click()
+MsgBox, 48, useEnd, If useEnd is toggled on it will automatically untoggle useCurlyBraces to prevent conflicts between the two styles. When useEnd is toggled on useFuncKeyWord will also be toggled on to maintain consistency in your code syntax.
+}
+
+if (EditText78 = "on") && (EditText76 = "off")
+{
+document.getElementById('Gui1Edit76').click()
+MsgBox, 48, useEnd, If useEnd is toggled on it will automatically untoggle useCurlyBraces to prevent conflicts between the two styles. When useEnd is toggled on useFuncKeyWord will also be toggled on to maintain consistency in your code syntax.
+}
+
+if (EditText77 = "off") && (EditText78 = "off")
+{
+MsgBox, 64, Python indentation style, When both useEnd and useCurlyBraces are off the language will adopt Python's indentation style for defining code blocks. This means that code blocks will be delineated based on indentation levels rather than using keywords or curly braces.
+}
+
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-78", EditText78)
 Return
 
@@ -1808,7 +1862,6 @@ EditText83 := "off"
 }
 if (EditText83 = "off") && (EditText1 = "cpp")
 {
-EditText83 := "on"
 document.getElementById('Gui1Edit83').click()
 MsgBox, 48, useInJavaScriptAlwaysUseVar, If you choose cpp then useInJavaScriptAlwaysUseVar will always be toggled on.
 }
