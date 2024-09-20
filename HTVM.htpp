@@ -1573,8 +1573,7 @@ func void compiler()
 str params := GetParams()
 if (params = "")
 {
-MsgBox, No params!!!
-MsgBox, You need at leats 2 params: yourCodeFileName.yourExtension HT-instructions.txt (optional LangToTranspileTo)
+MsgBox, % str10 . "Usage: HTVM <yourCodeFileName.yourExtension> <HT-instructions.txt> [optional LangToTranspileTo]`n`nOptions:`n  <yourCodeFileName.yourExtension>  The source code file to transpile.`n  <HT-instructions.txt>              The instructions file for transpilation.`n  [LangToTranspileTo]                Optional: Specify the target language (cpp, py, js).`n`nExample:`n  HTVM main.ht HT-instructions.txt cpp`n"
 ExitApp
 }
 
@@ -1586,7 +1585,8 @@ linesFixBugBUGbugBUG++
 
 if (linesFixBugBUGbugBUG < 2)
 {
-MsgBox, You need at leats 2 params: yourCodeFileName.yourExtension HT-instructions.txt (optional LangToTranspileTo)
+MsgBox, You need at leats 2 params
+MsgBox, % str10 . "Usage: HTVM <yourCodeFileName.yourExtension> <HT-instructions.txt> [optional LangToTranspileTo]`n`nOptions:`n  <yourCodeFileName.yourExtension>  The source code file to transpile.`n  <HT-instructions.txt>              The instructions file for transpilation.`n  [LangToTranspileTo]                Optional: Specify the target language (cpp, py, js).`n`nExample:`n  HTVM main.ht HT-instructions.txt cpp`n"
 ExitApp
 }
 

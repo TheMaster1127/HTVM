@@ -2033,8 +2033,7 @@ void compiler()
 std::string params = GetParams ( ) ;
 if (params == "") 
 {
-print(std::string("No params!!!"));
-print(std::string("You need at leats 2 params: yourCodeFileName.yourExtension HT-instructions.txt (optional LangToTranspileTo)"));
+print(str10 + "Usage: HTVM <yourCodeFileName.yourExtension> <HT-instructions.txt> [optional LangToTranspileTo]\n\nOptions:\n  <yourCodeFileName.yourExtension>  The source code file to transpile.\n  <HT-instructions.txt>              The instructions file for transpilation.\n  [LangToTranspileTo]                Optional: Specify the target language (cpp, py, js).\n\nExample:\n  HTVM main.ht HT-instructions.txt cpp\n");
 ExitApp();
 }
 int linesFixBugBUGbugBUG = 0;
@@ -2046,7 +2045,8 @@ linesFixBugBUGbugBUG++;
 }
 if (linesFixBugBUGbugBUG < 2) 
 {
-print(std::string("You need at leats 2 params: yourCodeFileName.yourExtension HT-instructions.txt (optional LangToTranspileTo)"));
+print(std::string("You need at leats 2 params"));
+print(str10 + "Usage: HTVM <yourCodeFileName.yourExtension> <HT-instructions.txt> [optional LangToTranspileTo]\n\nOptions:\n  <yourCodeFileName.yourExtension>  The source code file to transpile.\n  <HT-instructions.txt>              The instructions file for transpilation.\n  [LangToTranspileTo]                Optional: Specify the target language (cpp, py, js).\n\nExample:\n  HTVM main.ht HT-instructions.txt cpp\n");
 ExitApp();
 }
 int optionalLangToTranspileTo = 0;
