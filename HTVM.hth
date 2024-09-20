@@ -1159,12 +1159,16 @@ if (matchPosition = 0)
 return false
 }
 }
+
+if (!(RegExMatch(FuncName, "^[^\\r\\n]*$"))) or (InStr(FuncName, Chr(34)))
+{
+return false
+}
 return true
 }
 
 
 EditFuncName:
-A_GuiControl := Trim(A_GuiControl)
 tempReadSave1 := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLang-" . currentFuncNameOLD)
 tempReadSave2 := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsDescription-" . currentFuncNameOLD)
 tempReadSave3 := StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsCode-" . currentFuncNameOLD)
@@ -1183,12 +1187,8 @@ StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsCode
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLibs-" . A_GuiControl, tempReadSave4)
 if (!(isFuncNameValid(A_GuiControl)))
 {
-MsgBox, 16, Error: Invalid Function Name, Function names must start with a letter or underscore and can only contain letters numbers and underscores.
-GuiControl, Destroy, EditFuncName
-Gui, Add, Edit, x5 y%guiEditYNOTF% w%guiW% h25 gEditFuncName vEditFuncName bg000000 cffffff -Border r5, Name of the function
-StringTrimRight, A_GuiControl, A_GuiControl, 1
-GuiControl, Focus, EditFuncName
-GuiControl, Text, EditFuncName, %A_GuiControl%
+MsgBox, 16, Error: Invalid Function Name, Function names must start with a letter or underscore and can only contain letters numbers and underscores also do not use new lines or carriage returns.
+MsgBox, 16, ERROR, Please fix your error by pressing the Backspace!!!
 }
 currentFuncName := A_GuiControl
 currentFuncNameOLD := A_GuiControl
@@ -1214,10 +1214,20 @@ StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncs", M
 Return
 
 EditFuncLibs:
+if (!(RegExMatch(A_GuiControl, "^[^\\r\\n]*$")))
+{
+MsgBox, 16, Invalid input, Please do not use new lines or carriage returns.
+MsgBox, 16, ERROR, Please fix your error by pressing the Backspace!!!
+}
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLibs-" . currentFuncName, A_GuiControl)
 Return
 
 EditFuncDescription:
+if (!(RegExMatch(A_GuiControl, "^[^\\r\\n]*$")))
+{
+MsgBox, 16, Invalid input, Please do not use new lines or carriage returns.
+MsgBox, 16, ERROR, Please fix your error by pressing the Backspace!!!
+}
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsDescription-" . currentFuncName, A_GuiControl)
 Return
 

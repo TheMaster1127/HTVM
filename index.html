@@ -4327,11 +4327,14 @@ if (( variables.matchPosition == 0 ))
 return false
 }
 }
+if (( ! (await RegExMatch (variables.FuncName , "^[^\\r\\n]*$") )) || (await InStr (variables.FuncName , await Chr (34) ) ))
+{
+return false
+}
 return true
 }
 async function EditFuncName(A_GuiControl)
 {
-A_GuiControl = await Trim (A_GuiControl )
 variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.currentFuncNameOLD )
 variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.currentFuncNameOLD )
 variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.currentFuncNameOLD )
@@ -4346,32 +4349,8 @@ await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-A
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + A_GuiControl , variables.tempReadSave4 )
 if (( ! (await isFuncNameValid (A_GuiControl) ) ))
 {
-await showCustomMessageBox({},"Error: Invalid Function Name", "Function names must start with a letter or underscore and can only contain letters numbers and underscores.", 16, 0)
-GuiControl("destroy", "Gui1EditFuncName");
-Gui1EditFuncName = document.createElement("textarea");
-Gui1EditFuncName.id = "Gui1" + "EditFuncName"; // Set ID for referencing
-Gui1EditFuncName.placeholder = "Name of the function";
-Gui1EditFuncName.style.fontSize = "15px"; // Set font size
-Gui1EditFuncName.style.resize = "none"; // Disable resizing
-Gui1EditFuncName.style.position = "absolute"; // Set position to absolute
-Gui1EditFuncName.style.left = "5px"; // Set initial x position
-Gui1EditFuncName.style.top = "" + variables.guiEditYNOTF + "px"; // Set initial y position
-Gui1EditFuncName.style.width = "" + variables.guiW + "px"; // Set width
-Gui1EditFuncName.style.height = "25px"; // Set height
-Gui1EditFuncName.style.border = "none"
-Gui1EditFuncName.style.color = "#ffffff"
-Gui1EditFuncName.style.background = ""
-Gui1EditFuncName.style.backgroundColor = "#000000"
-Gui1EditFuncName.style.borderRadius = "5px"
-Gui1EditFuncName.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1EditFuncName.addEventListener("input", function () {
-A_GuiControl = Gui1EditFuncName.value
-  EditFuncName(A_GuiControl);
-});
-Gui1.appendChild(Gui1EditFuncName);
-A_GuiControl = StringTrimRight(A_GuiControl, 1)
-GuiControl("focus", "Gui1EditFuncName");
-GuiControl("text", "Gui1EditFuncName", A_GuiControl);
+await showCustomMessageBox({},"Error: Invalid Function Name", "Function names must start with a letter or underscore and can only contain letters numbers and underscores also do not use new lines or carriage returns.", 16, 0)
+await showCustomMessageBox({},"ERROR", "Please fix your error by pressing the Backspace!!!", 16, 0)
 }
 variables.currentFuncName = A_GuiControl
 variables.currentFuncNameOLD = A_GuiControl
@@ -4397,10 +4376,20 @@ await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-A
 }
 async function EditFuncLibs(A_GuiControl)
 {
+if (( ! (await RegExMatch (A_GuiControl , "^[^\\r\\n]*$") ) ))
+{
+await showCustomMessageBox({},"Invalid input", "Please do not use new lines or carriage returns.", 16, 0)
+await showCustomMessageBox({},"ERROR", "Please fix your error by pressing the Backspace!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.currentFuncName , A_GuiControl )
 }
 async function EditFuncDescription(A_GuiControl)
 {
+if (( ! (await RegExMatch (A_GuiControl , "^[^\\r\\n]*$") ) ))
+{
+await showCustomMessageBox({},"Invalid input", "Please do not use new lines or carriage returns.", 16, 0)
+await showCustomMessageBox({},"ERROR", "Please fix your error by pressing the Backspace!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.currentFuncName , A_GuiControl )
 }
 async function IDEcpp(A_GuiControl)

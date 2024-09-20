@@ -1573,16 +1573,30 @@ func void compiler()
 str params := GetParams()
 if (params = "")
 {
-MsgBox, No params!!!!
+MsgBox, No params!!!
+MsgBox, You need at leats 2 params: yourCodeFileName.yourExtension HT-instructions.txt (optional LangToTranspileTo)
 ExitApp
 }
 
+int linesFixBugBUGbugBUG := 0
+Loop, Parse, params, `n, `r
+{
+linesFixBugBUGbugBUG++
+}
+
+if (linesFixBugBUGbugBUG < 2)
+{
+MsgBox, You need at leats 2 params: yourCodeFileName.yourExtension HT-instructions.txt (optional LangToTranspileTo)
+ExitApp
+}
+
+int optionalLangToTranspileTo := 0
 Loop, Parse, params, `n, `r
 {
 if (A_Index = 1)
 {
 MsgBox, % A_LoopField
-filePathOfCode := A_LoopField
+filePathOfCode := Trim(A_LoopField)
 ;MsgBox, % filePathOfCode
 ;code := FileRead(filePathOfCode)
 FileRead, code, %filePathOfCode%
@@ -1594,6 +1608,11 @@ MsgBox, % A_LoopField
 
 FileRead, instructions, %A_LoopField%
 }
+if (A_Index = 3)
+{
+optionalLangToTranspileTo := 1
+langToTranspileTo := Trim(A_LoopField)
+}
 }
 ;MsgBox, % code
 
@@ -1601,7 +1620,10 @@ Loop, Parse, instructions, `n, `r
 {
 if (A_Index = 1)
 {
+if (optionalLangToTranspileTo = 0)
+{
 langToTranspileTo := Trim(A_LoopField)
+}
 }
 if (A_Index = 2)
 {
