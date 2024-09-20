@@ -417,6 +417,12 @@
       }
 
 
+      // StrLen
+      function StrLen(str) {
+        return str === null ? null : str.length;
+      }
+
+
       function Trim(inputString) {
         // Check if inputString is null or undefined
         if (inputString == null) {
@@ -974,6 +980,7 @@ function str(value) {
 
 let funcs = {
   isFuncNameValid: isFuncNameValid,
+  rulesForEditBoxesSyntaxDef: rulesForEditBoxesSyntaxDef,
 }
 
 
@@ -4454,6 +4461,99 @@ await showCustomMessageBox({}," ", A_GuiControl, 0, 0.)
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+async function rulesForEditBoxesSyntaxDef(text, mode)
+{
+variables.text = text
+variables.mode = mode
+if (( await Trim (variables.text) == "" ))
+{
+return true
+}
+if (( ! (await RegExMatch (variables.text , "^[^\\r\\n:]*$") )) || (await InStr (variables.text , await Chr (34) ) ))
+{
+await showCustomMessageBox({},"Invalid input", "Please do not use new lines or carriage returns or colons or double quotes.", 16, 0)
+return false
+}
+if (( variables.mode == 1 ))
+{
+// mode 1
+// File Extension Rule
+if (( await RegExMatch (variables.text , "^[a-zA-Z0-9]+$") ))
+{
+return variables.text
+}
+else
+{
+await showCustomMessageBox({},"Invalid input", "File Extension Rule: The file extension can only contain letters or numbers and there should be no spaces or other characters.", 16, 0)
+return false
+}
+}
+if (( variables.mode == 2 ))
+{
+// mode 2
+// ErrorMsg Rule
+if (( await isFuncNameValid (variables.text) ))
+{
+return variables.text
+}
+else
+{
+await showCustomMessageBox({},"Invalid input", "ErrorMsg Rule: The error message should consist only of letters numbers or underscores similar to a function name without spaces or special characters.", 16, 0)
+return false
+}
+}
+if (( variables.mode == 3 ))
+{
+// mode 3
+// Array Types Rule
+if (( await RegExMatch (variables.text , "^\\.[a-zA-Z0-9_]+$") ))
+{
+return variables.text
+}
+else
+{
+if (( variables.text == "." ))
+{
+return variables.text
+}
+await showCustomMessageBox({},"Invalid input", "Array Types Rule: Array types must start with a dot (.) and should consist only of letters or numbers or underscores similar to a function name without spaces or special characters.", 16, 0)
+return false
+}
+}
+if (( variables.mode == 4 ))
+{
+// mode 4
+// Escape Character Rule
+if (( await StrLen (variables.text) == 1 ))
+{
+return variables.text
+}
+else
+{
+await showCustomMessageBox({},"Invalid input", "Escape Character Rule: The escape character must be a single character with no new lines or colons or carriage returns or double quotes or spaces.", 16, 0)
+return false
+}
+}
+if (( variables.mode == 5 ))
+{
+// mode 5
+// AHKlikeLoopsIndexedAt Rule
+if (( await RegExMatch (variables.text , "^-?\\d+$") ))
+{
+return variables.text
+}
+else
+{
+if (( variables.text == "-" ))
+{
+return variables.text
+}
+await showCustomMessageBox({},"Invalid input", "AHKlikeLoopsIndexedAt Rule: This value must be a number and can optionally be negative (indicated by a leading -).", 16, 0)
+return false
+}
+}
+return variables.text
+}
 async function Edit1(A_GuiControl)
 {
 A_GuiControl = StringTrimLeft(A_GuiControl, 5)
@@ -4495,371 +4595,667 @@ return
 async function Edit2(A_GuiControl)
 {
 variables.EditText2 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText2 , 1)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-2" , variables.EditText2 )
 }
 async function Edit3(A_GuiControl)
 {
 variables.EditText3 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText3 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-3" , variables.EditText3 )
 }
 async function Edit4(A_GuiControl)
 {
 variables.EditText4 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText4 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-4" , variables.EditText4 )
 }
 async function Edit5(A_GuiControl)
 {
 variables.EditText5 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText5 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-5" , variables.EditText5 )
 }
 async function Edit6(A_GuiControl)
 {
 variables.EditText6 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText6 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-6" , variables.EditText6 )
 }
 async function Edit7(A_GuiControl)
 {
 variables.EditText7 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText7 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-7" , variables.EditText7 )
 }
 async function Edit8(A_GuiControl)
 {
 variables.EditText8 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText8 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-8" , variables.EditText8 )
 }
 async function Edit9(A_GuiControl)
 {
 variables.EditText9 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText9 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-9" , variables.EditText9 )
 }
 async function Edit10(A_GuiControl)
 {
 variables.EditText10 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText10 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-10" , variables.EditText10 )
 }
 async function Edit11(A_GuiControl)
 {
 variables.EditText11 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText11 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-11" , variables.EditText11 )
 }
 async function Edit12(A_GuiControl)
 {
 variables.EditText12 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText12 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-12" , variables.EditText12 )
 }
 async function Edit13(A_GuiControl)
 {
 variables.EditText13 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText13 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-13" , variables.EditText13 )
 }
 async function Edit14(A_GuiControl)
 {
 variables.EditText14 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText14 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-14" , variables.EditText14 )
 }
 async function Edit15(A_GuiControl)
 {
 variables.EditText15 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText15 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-15" , variables.EditText15 )
 }
 async function Edit16(A_GuiControl)
 {
 variables.EditText16 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText16 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-16" , variables.EditText16 )
 }
 async function Edit17(A_GuiControl)
 {
 variables.EditText17 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText17 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-17" , variables.EditText17 )
 }
 async function Edit18(A_GuiControl)
 {
 variables.EditText18 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText18 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-18" , variables.EditText18 )
 }
 async function Edit19(A_GuiControl)
 {
 variables.EditText19 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText19 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-19" , variables.EditText19 )
 }
 async function Edit20(A_GuiControl)
 {
 variables.EditText20 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText20 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-20" , variables.EditText20 )
 }
 async function Edit21(A_GuiControl)
 {
 variables.EditText21 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText21 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-21" , variables.EditText21 )
 }
 async function Edit22(A_GuiControl)
 {
 variables.EditText22 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText22 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-22" , variables.EditText22 )
 }
 async function Edit23(A_GuiControl)
 {
 variables.EditText23 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText23 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-23" , variables.EditText23 )
 }
 async function Edit24(A_GuiControl)
 {
 variables.EditText24 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText24 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-24" , variables.EditText24 )
 }
 async function Edit25(A_GuiControl)
 {
 variables.EditText25 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText25 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-25" , variables.EditText25 )
 }
 async function Edit26(A_GuiControl)
 {
 variables.EditText26 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText26 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-26" , variables.EditText26 )
 }
 async function Edit27(A_GuiControl)
 {
 variables.EditText27 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText27 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-27" , variables.EditText27 )
 }
 async function Edit28(A_GuiControl)
 {
 variables.EditText28 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText28 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-28" , variables.EditText28 )
 }
 async function Edit29(A_GuiControl)
 {
 variables.EditText29 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText29 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-29" , variables.EditText29 )
 }
 async function Edit30(A_GuiControl)
 {
 variables.EditText30 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText30 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-30" , variables.EditText30 )
 }
 async function Edit31(A_GuiControl)
 {
 variables.EditText31 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText31 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-31" , variables.EditText31 )
 }
 async function Edit32(A_GuiControl)
 {
 variables.EditText32 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText32 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-32" , variables.EditText32 )
 }
 async function Edit33(A_GuiControl)
 {
 variables.EditText33 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText33 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-33" , variables.EditText33 )
 }
 async function Edit34(A_GuiControl)
 {
 variables.EditText34 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText34 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-34" , variables.EditText34 )
 }
 async function Edit35(A_GuiControl)
 {
 variables.EditText35 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText35 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-35" , variables.EditText35 )
 }
 async function Edit36(A_GuiControl)
 {
 variables.EditText36 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText36 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-36" , variables.EditText36 )
 }
 async function Edit37(A_GuiControl)
 {
 variables.EditText37 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText37 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-37" , variables.EditText37 )
 }
 async function Edit38(A_GuiControl)
 {
 variables.EditText38 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText38 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-38" , variables.EditText38 )
 }
 async function Edit39(A_GuiControl)
 {
 variables.EditText39 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText39 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-39" , variables.EditText39 )
 }
 async function Edit40(A_GuiControl)
 {
 variables.EditText40 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText40 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-40" , variables.EditText40 )
 }
 async function Edit41(A_GuiControl)
 {
 variables.EditText41 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText41 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-41" , variables.EditText41 )
 }
 async function Edit42(A_GuiControl)
 {
 variables.EditText42 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText42 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-42" , variables.EditText42 )
 }
 async function Edit43(A_GuiControl)
 {
 variables.EditText43 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText43 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-43" , variables.EditText43 )
 }
 async function Edit44(A_GuiControl)
 {
 variables.EditText44 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText44 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-44" , variables.EditText44 )
 }
 async function Edit45(A_GuiControl)
 {
 variables.EditText45 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText45 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-45" , variables.EditText45 )
 }
 async function Edit46(A_GuiControl)
 {
 variables.EditText46 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText46 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-46" , variables.EditText46 )
 }
 async function Edit47(A_GuiControl)
 {
 variables.EditText47 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText47 , 2)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-47" , variables.EditText47 )
 }
 async function Edit48(A_GuiControl)
 {
 variables.EditText48 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText48 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-48" , variables.EditText48 )
 }
 async function Edit49(A_GuiControl)
 {
 variables.EditText49 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText49 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-49" , variables.EditText49 )
 }
 async function Edit50(A_GuiControl)
 {
 variables.EditText50 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText50 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-50" , variables.EditText50 )
 }
 async function Edit51(A_GuiControl)
 {
 variables.EditText51 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText51 , 3)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-51" , variables.EditText51 )
 }
 async function Edit52(A_GuiControl)
 {
 variables.EditText52 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText52 , 3)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-52" , variables.EditText52 )
 }
 async function Edit53(A_GuiControl)
 {
 variables.EditText53 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText53 , 3)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-53" , variables.EditText53 )
 }
 async function Edit54(A_GuiControl)
 {
 variables.EditText54 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText54 , 3)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-54" , variables.EditText54 )
 }
 async function Edit55(A_GuiControl)
 {
 variables.EditText55 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText55 , 3)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-55" , variables.EditText55 )
 }
 async function Edit56(A_GuiControl)
 {
 variables.EditText56 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText56 , 3)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-56" , variables.EditText56 )
 }
 async function Edit57(A_GuiControl)
 {
 variables.EditText57 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText57 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-57" , variables.EditText57 )
 }
 async function Edit58(A_GuiControl)
 {
 variables.EditText58 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText58 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-58" , variables.EditText58 )
 }
 async function Edit59(A_GuiControl)
 {
 variables.EditText59 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText59 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-59" , variables.EditText59 )
 }
 async function Edit60(A_GuiControl)
 {
 variables.EditText60 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText60 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-60" , variables.EditText60 )
 }
 async function Edit61(A_GuiControl)
 {
 variables.EditText61 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText61 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-61" , variables.EditText61 )
 }
 async function Edit62(A_GuiControl)
 {
 variables.EditText62 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText62 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-62" , variables.EditText62 )
 }
 async function Edit63(A_GuiControl)
 {
 variables.EditText63 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText63 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-63" , variables.EditText63 )
 }
 async function Edit64(A_GuiControl)
 {
 variables.EditText64 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText64 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-64" , variables.EditText64 )
 }
 async function Edit65(A_GuiControl)
 {
 variables.EditText65 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText65 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-65" , variables.EditText65 )
 }
 async function Edit66(A_GuiControl)
 {
 variables.EditText66 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText66 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-66" , variables.EditText66 )
 }
 async function Edit67(A_GuiControl)
 {
 variables.EditText67 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText67 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-67" , variables.EditText67 )
 }
 async function Edit68(A_GuiControl)
 {
 variables.EditText68 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText68 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-68" , variables.EditText68 )
 }
 async function Edit69(A_GuiControl)
 {
 variables.EditText69 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText69 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-69" , variables.EditText69 )
 }
 async function Edit70(A_GuiControl)
 {
 variables.EditText70 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText70 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-70" , variables.EditText70 )
 }
 async function Edit71(A_GuiControl)
 {
 variables.EditText71 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText71 , 4)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-71" , variables.EditText71 )
 }
 async function Edit72(A_GuiControl)
 {
 variables.EditText72 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText72 , 5)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-72" , variables.EditText72 )
 }
 async function Edit73(A_GuiControl)
 {
 variables.EditText73 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText73 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-73" , variables.EditText73 )
 }
 async function Edit74(A_GuiControl)
 {
 variables.EditText74 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText74 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-74" , variables.EditText74 )
 }
 async function Edit75(A_GuiControl)
 {
 variables.EditText75 = A_GuiControl
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText75 , 0)  != false) ))
+{
+await showCustomMessageBox({},"ERROR", "Please fix your error!!!", 16, 0)
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-75" , variables.EditText75 )
 }
 async function Edit76(A_GuiControl)
@@ -5073,7 +5469,12 @@ if (result === "OK")
 variables.allData = ""
 for (/* Normal Loop */ variables.A_Index10 = 1; variables.A_Index10 <= 85; variables.A_Index10++)
 {
-variables.allData += variables["EditText" + variables.A_Index10] + "\n"
+if (( await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index10] , 0)  != false ))
+{
+await showCustomMessageBox({},"InvalidI nstructions", "InvalidI nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+variables.allData += await Trim (variables["EditText" + variables.A_Index10]) + "\n"
 }
 variables.allFuncNamesForSavingIt = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" )
 if (( variables.allFuncNamesForSavingIt  != variables.null ))
