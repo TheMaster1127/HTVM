@@ -3430,6 +3430,7 @@ A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
 Gui1.appendChild(Gui1[variables.guiEditTextV]);
 variables.guiEditY = variables.guiEditY + 30
 }
+variables.doneLoading = 0
 for (/* Normal Loop */ variables.A_Index4 = 1; variables.A_Index4 <= 86; variables.A_Index4++)
 {
 variables.editTextTemp = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-" + variables.A_Index4 )
@@ -3557,6 +3558,7 @@ variables["EditText" + variables.A_Index4] = variables.editTextTemp
 GuiControl("text", "Gui1" + variables.editTextTemp1, variables.editTextTemp);
 }
 }
+variables.doneLoading = 1
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -4475,6 +4477,8 @@ GuiControl("disable", "Gui1Edit1PY");
 GuiControl("enable", "Gui1Edit1JS");
 GuiControl("enable", "Gui1Edit1CPP");
 }
+if (( variables.doneLoading == 1 ))
+{
 if (( variables.EditText83 == "off") && (variables.EditText1 == "cpp" ))
 {
 await document.getElementById( 'Gui1Edit83') .click ()
@@ -4484,6 +4488,7 @@ if (( variables.EditText76 == "off") && (variables.EditText1 == "cpp" ))
 {
 await document.getElementById( 'Gui1Edit76') .click ()
 await showCustomMessageBox({},"useFuncKeyWord", "useFuncKeyWord This option allows you to use a keyword to define functions when transpiling to Python (py) or JavaScript (js) or C++ (cpp). If it is turned off you won't need to use a function definition keyword for Python and JavaScript. If you select C++ as your language this option will always be on and cannot be turned off. Additionally if you have useFuncKeyWord turned off and then switch to C++ it will automatically be turned on. When useFuncKeyWord is off useCurlyBraces will automatically be toggled on and if you turn off useFuncKeyWord it will also toggle off useEnd if it was on.", 48, 0)
+}
 }
 return
 }
@@ -4868,6 +4873,8 @@ else
 {
 variables.EditText76 = "off"
 }
+if (( variables.doneLoading == 1 ))
+{
 if (( variables.EditText76 == "off") && (variables.EditText1 == "cpp" ))
 {
 await document.getElementById( 'Gui1Edit76') .click ()
@@ -4877,6 +4884,7 @@ if (( variables.EditText76 == "off") && (variables.EditText77 == "off" ))
 {
 await document.getElementById( 'Gui1Edit77') .click ()
 await showCustomMessageBox({},"useFuncKeyWord", "useFuncKeyWord This option allows you to use a keyword to define functions when transpiling to Python (py) or JavaScript (js) or C++ (cpp). If it is turned off you won't need to use a function definition keyword for Python and JavaScript. If you select C++ as your language this option will always be on and cannot be turned off. Additionally if you have useFuncKeyWord turned off and then switch to C++ it will automatically be turned on. When useFuncKeyWord is off useCurlyBraces will automatically be toggled on and if you turn off useFuncKeyWord it will also toggle off useEnd if it was on.", 48, 0)
+}
 }
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-76" , variables.EditText76 )
 }
@@ -4891,6 +4899,8 @@ else
 {
 variables.EditText77 = "off"
 }
+if (( variables.doneLoading == 1 ))
+{
 if (( variables.EditText78 == "on") && (variables.EditText77 == "on" ))
 {
 await document.getElementById( 'Gui1Edit78') .click ()
@@ -4905,6 +4915,7 @@ if (( variables.EditText77 == "off") && (variables.EditText78 == "off" ))
 {
 await showCustomMessageBox({},"Python indentation style", "When both useEnd and useCurlyBraces are off the language will adopt Python's indentation style for defining code blocks. This means that code blocks will be delineated based on indentation levels rather than using keywords or curly braces.", 64, 0)
 }
+}
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-77" , variables.EditText77 )
 }
 async function Edit78(A_GuiControl)
@@ -4918,6 +4929,8 @@ else
 {
 variables.EditText78 = "off"
 }
+if (( variables.doneLoading == 1 ))
+{
 if (( variables.EditText78 == "on") && (variables.EditText77 == "on" ))
 {
 await document.getElementById( 'Gui1Edit77') .click ()
@@ -4931,6 +4944,7 @@ await showCustomMessageBox({},"useEnd", "If useEnd is toggled on it will automat
 if (( variables.EditText77 == "off") && (variables.EditText78 == "off" ))
 {
 await showCustomMessageBox({},"Python indentation style", "When both useEnd and useCurlyBraces are off the language will adopt Python's indentation style for defining code blocks. This means that code blocks will be delineated based on indentation levels rather than using keywords or curly braces.", 64, 0)
+}
 }
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-78" , variables.EditText78 )
 }
@@ -5009,10 +5023,13 @@ else
 {
 variables.EditText83 = "off"
 }
+if (( variables.doneLoading == 1 ))
+{
 if (( variables.EditText83 == "off") && (variables.EditText1 == "cpp" ))
 {
 await document.getElementById( 'Gui1Edit83') .click ()
 await showCustomMessageBox({},"useInJavaScriptAlwaysUseVar", "If you choose cpp then useInJavaScriptAlwaysUseVar will always be toggled on.", 48, 0)
+}
 }
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-83" , variables.EditText83 )
 }
