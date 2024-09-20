@@ -22,7 +22,17 @@ HTVM is a tool for creating and deploying new programming languages quickly. You
 
 ## Usage
 
-### On Windows
+```
+Usage: HTVM <yourCodeFileName.yourExtension> <HT-instructions.txt> [optional LangToTranspileTo]
+
+Options:
+  <yourCodeFileName.yourExtension>  The source code file to transpile.
+  <HT-instructions.txt>              The instructions file for transpilation.
+  [LangToTranspileTo]                Optional: Specify the target language (cpp, py, js).
+
+Example:
+  HTVM main.ht HT-instructions.txt cpp
+```
 
 To run the transpiler, use the following command:
 
