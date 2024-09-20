@@ -24,18 +24,48 @@ HTVM is a tool for creating and deploying new programming languages quickly. You
 
 ### On Windows
 
+To run the transpiler, use the following command:
+
 ```
 HTVM main.ht HT-instructions.txt
 ```
 
+### Required Parameters
+
+You need at least 2 parameters:
+- `yourCodeFileName.yourExtension`
+- `HT-instructions.txt`
+
+You can also optionally specify the target language for transpilation.
+
+### Optional Parameter
+
+Instead of relying on the instruction file for the target language, you can specify one of the following languages:
+- `cpp` (C++)
+- `py` (Python)
+- `js` (JavaScript)
+
+**Example:**
+
+```
+HTVM main.ht HT-instructions.txt cpp
+```
+
 ### On Linux
 
-Compile `HTVM.cpp` and run it with the same arguments:
+First, compile `HTVM.cpp` and run it with the same arguments:
 
 ```
 g++ HTVM.cpp -o HTVM
 ./HTVM main.ht HT-instructions.txt
 ```
+
+You can also include the optional parameter:
+
+```
+./HTVM main.ht HT-instructions.txt cpp
+```
+
 
 ### IDE Generation
 
