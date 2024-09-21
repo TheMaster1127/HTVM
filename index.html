@@ -5474,53 +5474,61 @@ await showCustomMessageBox({},"HT-instructions.txt", "Download the language you 
 if (result === "OK")
 {
 variables.allData = ""
-for (/* Normal Loop */ variables.A_Index10 = 1; variables.A_Index10 <= 85; variables.A_Index10++)
+variables.defaultSyntax = "cpp\nht\nStringTrimLeft,OUTVAR,INVAR|StringTrimRight,OUTVAR,INVAR\nint\nstr\nbool\nfloat\nint8\nint16\nint32\nint64\nif\nelse if\nelse\nwhile\nfor\nLoop\nLoop,\nLoop, Parse,\ncontinue\nbreak\nfunc\nawait\n=\n+=\n+=\n-=\n*=\n/=\n+\n+\n==\n!\n>\n<\n>=\n<=\nor\nand\n!=\ntrue\nfalse\nswitch\ncase\ndefault\nthrow\nErrorMsg\nTry\nCatch\nFinally\n.push\n.pop\n.size\n.insert\n.rm\n.indexOf\narr\narr int\narr str\narr float\narr bool\nvar\nlet\nconst\nreturn\nend\nglobal\n//\n/*\n*/\n" + await Chr (92) + "\n0\nA_Index\nA_LoopField\nmain\non\non\noff\noff\non\noff\ncpp\non\non\noff"
+var items10 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
+for (/* Loop Parse */ let A_Index10 = 1; A_Index10 <= items10.length; A_Index10++)
 {
-if (( variables["EditText" + variables.A_Index10]  != "") || (variables["EditText" + variables.A_Index10]  != variables.null ))
+variables.A_Index10 = A_Index10
+variables.A_LoopField10 = items10[A_Index10 - 1];
+variables["defaultSyntax" + variables.A_Index10] = variables.A_LoopField10
+}
+for (/* Normal Loop */ variables.A_Index11 = 1; variables.A_Index11 <= 85; variables.A_Index11++)
 {
-if (( variables.A_Index10 == 2 ))
+if (( variables["EditText" + variables.A_Index11]  != "") || (variables["EditText" + variables.A_Index11]  != variables.null ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index10] , 1)  != false) ))
+if (( variables.A_Index11 == 2 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 1)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index10 >= 24) && (variables.A_Index10 <= 29 ))
+else if (( variables.A_Index11 >= 24) && (variables.A_Index11 <= 29 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index10] , 6)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index10 == 47 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index10] , 2)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 6)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index10 >= 51) && (variables.A_Index10 <= 56 ))
+else if (( variables.A_Index11 == 47 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index10] , 3)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index10 == 71 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index10] , 4)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 2)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index10 == 72 ))
+else if (( variables.A_Index11 >= 51) && (variables.A_Index11 <= 56 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index10] , 5)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 3)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index11 == 71 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 4)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index11 == 72 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 5)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
@@ -5528,31 +5536,35 @@ return
 }
 else
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index10] , 0)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 0)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
 }
-variables.allData += await Trim (variables["EditText" + variables.A_Index10]) + "\n"
+if (( await Trim (variables["EditText" + variables.A_Index11]) == "") || (variables["EditText" + variables.A_Index11] == variables.null ))
+{
+variables["EditText" + variables.A_Index11] = variables["defaultSyntax" + variables.A_Index11]
+}
+variables.allData += await Trim (variables["EditText" + variables.A_Index11]) + "\n"
 }
 variables.allFuncNamesForSavingIt = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" )
 if (( variables.allFuncNamesForSavingIt  != variables.null ))
 {
 variables.allFuncNamesForSavingItOut = ""
-var items11 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
-for (/* Loop Parse */ let A_Index11 = 1; A_Index11 <= items11.length; A_Index11++)
+var items12 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
+for (/* Loop Parse */ let A_Index12 = 1; A_Index12 <= items12.length; A_Index12++)
 {
-variables.A_Index11 = A_Index11
-variables.A_LoopField11 = items11[A_Index11 - 1];
-variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField11 )
-variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField11 )
-variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField11 )
-variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField11 )
+variables.A_Index12 = A_Index12
+variables.A_LoopField12 = items12[A_Index12 - 1];
+variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField12 )
+variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField12 )
+variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField12 )
+variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField12 )
 variables.bodyFuncTemp1 = "func======================func==============\n"
 variables.bodyFuncTemp2 = "lang: " + variables.tempReadSave1
-variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField11
+variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField12
 variables.bodyFuncTemp4 = "\nlibs: " + variables.tempReadSave4
 variables.bodyFuncTemp5 = "\ndescription: " + variables.tempReadSave2
 variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"

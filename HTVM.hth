@@ -84,6 +84,9 @@ EditText83 := "on"
 EditText84 := "on"
 EditText85 := "off"
 
+
+
+
 if (StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-76") = null)
 {
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-76", "on")
@@ -2341,6 +2344,13 @@ MsgBox, 36, HT-instructions.txt, Download the language you just created!
 IfMsgBox, OK
 {
 allData := ""
+
+defaultSyntax := "cpp`nht`nStringTrimLeft,OUTVAR,INVAR|StringTrimRight,OUTVAR,INVAR`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nfor`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`n=`n+=`n+=`n-=`n*=`n/=`n+`n+`n==`n!`n>`n<`n>=`n<=`nor`nand`n!=`ntrue`nfalse`nswitch`ncase`ndefault`nthrow`nErrorMsg`nTry`nCatch`nFinally`n.push`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nreturn`nend`nglobal`n//`n/*`n*/`n" . Chr(92) . "`n0`nA_Index`nA_LoopField`nmain`non`non`noff`noff`non`noff`ncpp`non`non`noff"
+Loop, Parse, defaultSyntax, `n, `r
+{
+defaultSyntax%A_Index% := A_LoopField
+}
+
 Loop, 85
 {
 
@@ -2403,6 +2413,12 @@ return
 }
 }
 }
+
+if (Trim(EditText%A_Index%) = "") or (EditText%A_Index% = null)
+{
+EditText%A_Index% := defaultSyntax%A_Index%
+}
+
 allData .= Trim(EditText%A_Index%) . "`n"
 }
 
