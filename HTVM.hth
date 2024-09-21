@@ -1397,7 +1397,7 @@ return text
 }
 else
 {
-if (text = "-")
+if (text = "-") or (text = "0")
 {
 return text
 }
