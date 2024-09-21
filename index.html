@@ -4385,6 +4385,11 @@ await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-A
 }
 async function EditFuncDescription(A_GuiControl)
 {
+if (( await StoreLocally ("r" , "HTVM-EditFuncDescription") == variables.null) || (await StoreLocally ("r" , "HTVM-EditFuncDescription") == "" ))
+{
+await StoreLocally( "s" , "HTVM-EditFuncDescription" , "dummy data" )
+await showCustomMessageBox({},"What dose ~ char do when we add it!", "It will be replaced in the documentation with a new line as the description section must be written in only one line. You cannot add a new line and the ~ character is not commonly used.", 64, 0)
+}
 if (( ! (await RegExMatch (A_GuiControl , "^[^\\r\\n]*$") ) ))
 {
 await showCustomMessageBox({},"Invalid input", "Please do not use new lines or carriage returns.", 16, 0)

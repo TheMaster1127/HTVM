@@ -1223,6 +1223,11 @@ StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-AllBuildInFuncsLibs
 Return
 
 EditFuncDescription:
+if (StoreLocally("r", "HTVM-EditFuncDescription") = null) or (StoreLocally("r", "HTVM-EditFuncDescription") = "")
+{
+StoreLocally("s", "HTVM-EditFuncDescription", "dummy data")
+MsgBox, 64, What dose ~ char do when we add it!, It will be replaced in the documentation with a new line as the description section must be written in only one line. You cannot add a new line and the ~ character is not commonly used.
+}
 if (!(RegExMatch(A_GuiControl, "^[^\\r\\n]*$")))
 {
 MsgBox, 16, Invalid input, Please do not use new lines or carriage returns.
