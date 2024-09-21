@@ -4463,6 +4463,10 @@ if (( await Trim (variables.text) == "" ))
 {
 return true
 }
+if (( variables.text == "0" ))
+{
+return true
+}
 if (( ! (await RegExMatch (variables.text , "^[^\\r\\n:]*$") )) || (await InStr (variables.text , await Chr (34) ) ))
 {
 if (( await InStr (variables.text , ":") ) && (variables.mode == 6 ))

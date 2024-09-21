@@ -1308,6 +1308,11 @@ if (Trim(text) = "")
 return true
 }
 
+if (text = "0")
+{
+return true
+}
+
 if (!(RegExMatch(text, "^[^\\r\\n:]*$"))) or (InStr(text, Chr(34)))
 {
 if (InStr(text, ":")) && (mode = 6)
