@@ -3572,6 +3572,27 @@ variables.doneLoading = 1
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Gui1Button8 = document.createElement("button");
+Gui1Button8.id = "Gui1" + "Button" + "8"; // Set ID for referencing
+Gui1Button8.textContent = "Getting Started";
+Gui1Button8.style.fontSize = "15px"; // Set font size
+Gui1Button8.style.position = "absolute"; // Set position to absolute
+Gui1Button8.style.left = "200px"; // Set initial x position
+Gui1Button8.style.top = "5px"; // Set initial y position
+Gui1Button8.style.width = "120px"; // Set width
+Gui1Button8.style.height = "30px"; // Set height
+Gui1Button8.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button8.style.border = "";
+Gui1Button8.style.background = "";
+Gui1Button8.style.backgroundColor = "";
+Gui1Button8.style.borderRadius = "";
+Gui1Button8.style.color = "";
+Gui1Button8.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button8.onclick = function (event) {
+A_GuiControl = event.target.textContent
+  GettingStartedButton(A_GuiControl);
+};
+Gui1.appendChild(Gui1Button8);
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3625,27 +3646,27 @@ await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-A
 GuiControl("destroy", "Gui1MyDropDownV");
 variables.guiEditYDDD = variables.guiEditY
 createCustomDropdown(Gui1, "Gui1MyDropDownV", "" + variables.MyDropDownFuncs + "", "#333333", 5, variables.guiEditYDDD, 150, 30, MyDropDown );
-Gui1Button8 = document.createElement("button");
-Gui1Button8.id = "Gui1" + "Button" + "8"; // Set ID for referencing
-Gui1Button8.textContent = "New function";
-Gui1Button8.style.fontSize = "15px"; // Set font size
-Gui1Button8.style.position = "absolute"; // Set position to absolute
-Gui1Button8.style.left = "165px"; // Set initial x position
-Gui1Button8.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Button8.style.width = "105px"; // Set width
-Gui1Button8.style.height = "30px"; // Set height
-Gui1Button8.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button8.style.border = "";
-Gui1Button8.style.background = "";
-Gui1Button8.style.backgroundColor = "";
-Gui1Button8.style.borderRadius = "";
-Gui1Button8.style.color = "";
-Gui1Button8.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button8.onclick = function (event) {
+Gui1Button9 = document.createElement("button");
+Gui1Button9.id = "Gui1" + "Button" + "9"; // Set ID for referencing
+Gui1Button9.textContent = "New function";
+Gui1Button9.style.fontSize = "15px"; // Set font size
+Gui1Button9.style.position = "absolute"; // Set position to absolute
+Gui1Button9.style.left = "165px"; // Set initial x position
+Gui1Button9.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Button9.style.width = "105px"; // Set width
+Gui1Button9.style.height = "30px"; // Set height
+Gui1Button9.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button9.style.border = "";
+Gui1Button9.style.background = "";
+Gui1Button9.style.backgroundColor = "";
+Gui1Button9.style.borderRadius = "";
+Gui1Button9.style.color = "";
+Gui1Button9.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button9.onclick = function (event) {
 A_GuiControl = event.target.textContent
   AddNewFuncButton(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button8);
+Gui1.appendChild(Gui1Button9);
 variables.guiEditTextV = "explain the Add a new function"
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
@@ -3990,27 +4011,27 @@ A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
 };
 Gui1.appendChild(Gui1[variables.guiEditTextV]);
 variables.guiEditY = variables.guiEditY + 510
-Gui1Button19 = document.createElement("button");
-Gui1Button19.id = "Gui1" + "Button" + "19"; // Set ID for referencing
-Gui1Button19.textContent = "Build";
-Gui1Button19.style.fontSize = "15px"; // Set font size
-Gui1Button19.style.position = "absolute"; // Set position to absolute
-Gui1Button19.style.left = "10px"; // Set initial x position
-Gui1Button19.style.top = "" + variables.guiEditY + "px"; // Set initial y position
-Gui1Button19.style.width = "140px"; // Set width
-Gui1Button19.style.height = "40px"; // Set height
-Gui1Button19.style.cursor = "pointer"; // Change cursor on hover
-Gui1Button19.style.border = "";
-Gui1Button19.style.background = "";
-Gui1Button19.style.backgroundColor = "";
-Gui1Button19.style.borderRadius = "";
-Gui1Button19.style.color = "";
-Gui1Button19.style.fontFamily = ", sans-serif"; // Specify your desired font here
-Gui1Button19.onclick = function (event) {
+Gui1Button20 = document.createElement("button");
+Gui1Button20.id = "Gui1" + "Button" + "20"; // Set ID for referencing
+Gui1Button20.textContent = "Build";
+Gui1Button20.style.fontSize = "15px"; // Set font size
+Gui1Button20.style.position = "absolute"; // Set position to absolute
+Gui1Button20.style.left = "10px"; // Set initial x position
+Gui1Button20.style.top = "" + variables.guiEditY + "px"; // Set initial y position
+Gui1Button20.style.width = "140px"; // Set width
+Gui1Button20.style.height = "40px"; // Set height
+Gui1Button20.style.cursor = "pointer"; // Change cursor on hover
+Gui1Button20.style.border = "";
+Gui1Button20.style.background = "";
+Gui1Button20.style.backgroundColor = "";
+Gui1Button20.style.borderRadius = "";
+Gui1Button20.style.color = "";
+Gui1Button20.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui1Button20.onclick = function (event) {
 A_GuiControl = event.target.textContent
   BuildButton(A_GuiControl);
 };
-Gui1.appendChild(Gui1Button19);
+Gui1.appendChild(Gui1Button20);
 variables.guiEditTextV = "explain the Build button"
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
@@ -4451,6 +4472,10 @@ variables.allLocalSrorageLinks += variables.currentFuncName + "|"
 async function ButtonINFO(A_GuiControl)
 {
 await showCustomMessageBox({}," ", A_GuiControl, 0, 0.)
+}
+async function GettingStartedButton(A_GuiControl)
+{
+await showCustomMessageBox({}," ", "Getting Started", 0, 0)
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
