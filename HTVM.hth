@@ -1023,7 +1023,7 @@ Gui, Add, Button, x%buttonX% y%guiEditY% w70 h28 r3 v%guiEditTextV% gButtonINFO 
 Gui, Font, s15
 
 
-
+gosub, IDEshow
 Return
 
 MyDropDown:
@@ -3496,17 +3496,18 @@ ifWeUsedAsemicolumON := ""
 
 displayExampleTextLine1 := keyWordComment . " This is the preview of your language, and this is how your programming language will look.`n`n"
 displayExampleTextLine2 := keyWordComment . " If you use types here how they will look like if you only define them:`n"
-displayExampleTextLine3 := keyWordINT . " varName" . ifWeUsedAsemicolumON . "`n"
-displayExampleTextLine4 := keyWordSTR . " varName" . ifWeUsedAsemicolumON . "`n"
-displayExampleTextLine5 := keyWordBOOL . " varName" . ifWeUsedAsemicolumON . "`n"
-displayExampleTextLine6 := keyWordFLOAT . " varName" . ifWeUsedAsemicolumON . "`n"
-displayExampleTextLine7 := keyWordINT8 . " varName" . ifWeUsedAsemicolumON . "`n"
-displayExampleTextLine8 := keyWordINT16 . " varName" . ifWeUsedAsemicolumON . "`n"
-displayExampleTextLine9 := keyWordINT32 . " varName" . ifWeUsedAsemicolumON . "`n"
-displayExampleTextLine10 := keyWordINT64 . " varName" . ifWeUsedAsemicolumON . "`n`n"
+displayExampleTextLine3 := keyWordINT . " varName1" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine4 := keyWordSTR . " varName2" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine5 := keyWordBOOL . " varName3" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine6 := keyWordFLOAT . " varName4" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine7 := keyWordINT8 . " varName5" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine8 := keyWordINT16 . " varName6" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine9 := keyWordINT32 . " varName7" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine10 := keyWordINT64 . " varName8" . ifWeUsedAsemicolumON . "`n`n"
 displayExampleTextLine11 := keyWordComment . " You can also define them like this if you like:" . "`n"
-displayExampleTextLine12 := keyWordINT . " varName " . keyWordVariablesAssignmentOperator . " 34" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine12 := keyWordINT . " varName9 " . keyWordVariablesAssignmentOperator . " 34" . ifWeUsedAsemicolumON . "`n`n"
 
+displayExampleTextLine13 := keyWordComment . " You can also define them like this if you like:" . "`n"
 
 
 displayExampleTextLine110 := "`n" . keyWordComment . " Preview is still in development.`n"

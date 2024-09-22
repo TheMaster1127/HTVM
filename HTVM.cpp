@@ -260,13 +260,11 @@ bool FileDelete(const std::string& path) {
 
     // Check if the file exists
     if (!std::filesystem::exists(file_path)) {
-        std::cerr << "Error: File does not exist." << std::endl;
         return false;
     }
 
     // Attempt to remove the file
     if (!std::filesystem::remove(file_path)) {
-        std::cerr << "Error: Failed to delete the file." << std::endl;
         return false;
     }
 
@@ -474,7 +472,6 @@ int RegExMatch(const std::string& haystack, const std::string& needleRegEx, std:
 }
 
 void ExitApp() {
-    std::cout << "Exiting application..." << std::endl;
     std::exit(0);
 }
 
