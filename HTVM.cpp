@@ -5412,7 +5412,7 @@ str4 = StrReplace ( str4 , ";;" , ";" ) ;
 }
 htCode += str4 + "\n";
 }
-else if ((SubStr (Trim (A_LoopField63) , -2) == ");" || SubStr (Trim (A_LoopField63) , -1) == ")") && lineDone == 0) 
+else if ((SubStr (Trim (A_LoopField63) , -2) == ");" || SubStr (Trim (A_LoopField63) , -1) == ")") &&!(InStr (A_LoopField63 , "int main(int argc, char* argv[])")) &&!(InStr (A_LoopField63 , "async function main()")) && lineDone == 0) 
 {
 lineDone = 1;
 str1 = A_LoopField63;

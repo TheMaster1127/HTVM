@@ -5331,7 +5331,7 @@ str4 := StrReplace(str4, ";;", ";")
 }
 htCode .= str4 . "`n"
 }
-else if ((SubStr(Trim(A_LoopField), -2) = ");") or (SubStr(Trim(A_LoopField), -1) = ")")) && (lineDone = 0)
+else if ((SubStr(Trim(A_LoopField), -2) = ");") or (SubStr(Trim(A_LoopField), -1) = ")")) && (!(InStr(A_LoopField, "int main(int argc, char* argv[])"))) && (!(InStr(A_LoopField, "async function main()"))) && (lineDone = 0)
 {
 lineDone := 1
 str1 := A_LoopField

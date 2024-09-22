@@ -3535,6 +3535,9 @@ THEfuncKeyWord := keyWordFunc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+if (useCurlyBraces = "on")
+{
 displayExampleTextLine1 := keyWordComment . " This is the preview of your language, and this is how your programming language will look.`n`n"
 displayExampleTextLine2 := keyWordComment . " If you use types here how they will look like if you only define them:`n"
 displayExampleTextLine3 := keyWordINT . " varName1" . ifWeUsedAsemicolumON . "`n"
@@ -3557,8 +3560,70 @@ displayExampleTextLine16 := defineCodeBlockCharCLOSE . "`n"
 }
 displayExampleTextLine17 := keyWordElseIf . " " . openParentheses . "varName1 " . keyWordNotEqualToOperator . " varName9 " . keyWordOrOperator . " varName1 " . keyWordLessThanOrEqualToOperator . " varName9" . closeParentheses . " " . defineCodeBlockChar . "`n"
 displayExampleTextLine18 := A_Tab . "print(" . Chr(34) . "varName1 is less or equal to varName9" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
-displayExampleTextLine19 := defineCodeBlockCharCLOSE . "`n"
 
+if (useEnd = "off")
+{
+displayExampleTextLine20 := keyWordElse . "`n"
+}
+
+if (useCurlyBraces = "off")
+{
+displayExampleTextLine20 := keyWordElse . " " . defineCodeBlockChar . "`n"
+}
+else
+{
+displayExampleTextLine20 := defineCodeBlockCharCLOSE . " " . keyWordElse . " " . defineCodeBlockChar . "`n"
+}
+
+displayExampleTextLine21 := A_Tab . "print(" . Chr(34) . "varName1 is NOT less or equal to varName9 or someting else" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine22 := defineCodeBlockCharCLOSE . "`n"
+
+
+}
+else
+{
+displayExampleTextLine1 := keyWordComment . " This is the preview of your language, and this is how your programming language will look.`n`n"
+displayExampleTextLine2 := keyWordComment . " If you use types here how they will look like if you only define them:`n"
+displayExampleTextLine3 := keyWordINT . " varName1" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine4 := keyWordSTR . " varName2" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine5 := keyWordBOOL . " varName3" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine6 := keyWordFLOAT . " varName4" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine7 := keyWordINT8 . " varName5" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine8 := keyWordINT16 . " varName6" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine9 := keyWordINT32 . " varName7" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine10 := keyWordINT64 . " varName8" . ifWeUsedAsemicolumON . "`n`n"
+displayExampleTextLine11 := keyWordComment . " You can also define them like this if you like:" . "`n"
+displayExampleTextLine12 := keyWordINT . " varName9 " . keyWordVariablesAssignmentOperator . " 34" . ifWeUsedAsemicolumON . "`n`n"
+
+displayExampleTextLine13 := keyWordComment . " Here is how if, else if and else will work and look like" . "`n"
+displayExampleTextLine14 := keyWordIF . " " . openParentheses . "varName1 " . keyWordEqualOperator . " varName9" . closeParentheses . "" . defineCodeBlockChar . "`n"
+displayExampleTextLine15 := A_Tab . "print(" . Chr(34) . "varName1 is = to varName9" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+if (useEnd = "off")
+{
+displayExampleTextLine16 := defineCodeBlockCharCLOSE . "`n"
+}
+displayExampleTextLine17 := keyWordElseIf . " " . openParentheses . "varName1 " . keyWordNotEqualToOperator . " varName9 " . keyWordOrOperator . " varName1 " . keyWordLessThanOrEqualToOperator . " varName9" . closeParentheses . "" . defineCodeBlockChar . "`n"
+displayExampleTextLine18 := A_Tab . "print(" . Chr(34) . "varName1 is less or equal to varName9" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+
+if (useEnd = "off")
+{
+displayExampleTextLine20 := keyWordElse . "`n"
+}
+
+if (useCurlyBraces = "off")
+{
+displayExampleTextLine20 := keyWordElse . " " . defineCodeBlockChar . "`n"
+}
+else
+{
+displayExampleTextLine20 := keyWordElse . "" . defineCodeBlockChar . "`n"
+}
+
+displayExampleTextLine21 := A_Tab . "print(" . Chr(34) . "varName1 is NOT less or equal to varName9 or someting else" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine22 := defineCodeBlockCharCLOSE . "`n"
+
+
+}
 
 displayExampleTextLine110 := "`n" . keyWordComment . " Preview is still in development.`n"
 displayExampleTextLine111 := keyWordComment . " Preview is still in development.`n"
