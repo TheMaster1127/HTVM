@@ -831,6 +831,7 @@ else
 EditText%A_Index% := editTextTemp
 GuiControl, Text, %editTextTemp1%, %editTextTemp%
 }
+EditText%A_Index% := editTextTemp
 }
 doneLoading := 1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2375,6 +2376,13 @@ if (EditText77 = "off") && (EditText78 = "off")
 {
 MsgBox, 64, Python indentation style, When both useEnd and useCurlyBraces are off the language will adopt Python's indentation style for defining code blocks. This means that code blocks will be delineated based on indentation levels rather than using keywords or curly braces.
 }
+
+if (EditText77 = "on") && (EditText81 = "on")
+{
+document.getElementById('Gui1Edit81').click()
+MsgBox, 64, Incompatibility, You cannot have both useCurlyBraces and usePythonicColonSyntax toggled at the same time!
+}
+
 }
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-77", EditText77)
 Return
@@ -2446,6 +2454,15 @@ EditText81 := "on"
 else
 {
 EditText81 := "off"
+}
+
+if (doneLoading = 1)
+{
+if (EditText77 = "on") && (EditText81 = "on")
+{
+document.getElementById('Gui1Edit77').click()
+MsgBox, 64, Incompatibility, You cannot have both useCurlyBraces and usePythonicColonSyntax toggled at the same time!
+}
 }
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-81", EditText81)
 Return
@@ -3612,7 +3629,7 @@ displayExampleTextLine20 := keyWordElse . "`n"
 
 if (useCurlyBraces = "off")
 {
-displayExampleTextLine20 := keyWordElse . " " . defineCodeBlockChar . "`n"
+displayExampleTextLine20 := keyWordElse . "" . defineCodeBlockChar . "`n"
 }
 else
 {

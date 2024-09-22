@@ -4100,6 +4100,7 @@ else
 variables["EditText" + variables.A_Index4] = variables.editTextTemp
 GuiControl("text", "Gui1" + variables.editTextTemp1, variables.editTextTemp);
 }
+variables["EditText" + variables.A_Index4] = variables.editTextTemp
 }
 variables.doneLoading = 1
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -6026,6 +6027,11 @@ if (( variables.EditText77 == "off") && (variables.EditText78 == "off" ))
 {
 await showCustomMessageBox({},"Python indentation style", "When both useEnd and useCurlyBraces are off the language will adopt Python's indentation style for defining code blocks. This means that code blocks will be delineated based on indentation levels rather than using keywords or curly braces.", 64, 0)
 }
+if (( variables.EditText77 == "on") && (variables.EditText81 == "on" ))
+{
+await document.getElementById( 'Gui1Edit81') .click ()
+await showCustomMessageBox({},"Incompatibility", "You cannot have both useCurlyBraces and usePythonicColonSyntax toggled at the same time!", 64, 0)
+}
 }
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-77" , variables.EditText77 )
 }
@@ -6095,6 +6101,14 @@ variables.EditText81 = "on"
 else
 {
 variables.EditText81 = "off"
+}
+if (( variables.doneLoading == 1 ))
+{
+if (( variables.EditText77 == "on") && (variables.EditText81 == "on" ))
+{
+await document.getElementById( 'Gui1Edit77') .click ()
+await showCustomMessageBox({},"Incompatibility", "You cannot have both useCurlyBraces and usePythonicColonSyntax toggled at the same time!", 64, 0)
+}
 }
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-81" , variables.EditText81 )
 }
@@ -7201,7 +7215,7 @@ variables.displayExampleTextLine20 = variables.keyWordElse + "\n"
 }
 if (( variables.useCurlyBraces == "off" ))
 {
-variables.displayExampleTextLine20 = variables.keyWordElse + " " + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine20 = variables.keyWordElse + "" + variables.defineCodeBlockChar + "\n"
 }
 else
 {
