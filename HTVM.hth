@@ -1366,6 +1366,14 @@ return
 }
 else if (A_Index = 72)
 {
+
+if (Trim(EditText%A_Index%) = "-")
+{
+MsgBox, 16, Invalid Instructions, At AHKlikeLoopsIndexedAt you only added a - character. A number must follow the - or it should be a standalone number.
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+
 if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 5) != false))
 {
 MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
@@ -2529,6 +2537,88 @@ GuiControl, Focus, Button21
 Return
 
 BuildButton:
+
+
+allData := ""
+
+defaultSyntax := "cpp`nht`nStringTrimLeft,OUTVAR,INVAR|StringTrimRight,OUTVAR,INVAR`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nfor`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`n=`n+=`n+=`n-=`n*=`n/=`n+`n+`n==`n!`n>`n<`n>=`n<=`nor`nand`n!=`ntrue`nfalse`nswitch`ncase`ndefault`nthrow`nErrorMsg`nTry`nCatch`nFinally`n.push`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nreturn`nend`nglobal`n//`n/*`n*/`n" . Chr(92) . "`n0`nA_Index`nA_LoopField`nmain`non`non`noff`noff`non`noff`ncpp`non`non`noff"
+Loop, Parse, defaultSyntax, `n, `r
+{
+defaultSyntax%A_Index% := A_LoopField
+}
+
+Loop, 85
+{
+
+if (EditText%A_Index% != "") or (EditText%A_Index% != null)
+{
+if (A_Index = 2)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 1) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index >= 24) && (A_Index <= 29)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 6) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index = 47)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 2) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index >= 51) && (A_Index <= 56)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 3) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index = 71)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 4) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index = 72)
+{
+
+if (Trim(EditText%A_Index%) = "-")
+{
+MsgBox, 16, Invalid Instructions, At AHKlikeLoopsIndexedAt you only added a - character. A number must follow the - or it should be a standalone number.
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 5) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 0) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+}
+}
+
 Gui 4: Show
 GuiControl, Focus, Button8
 Return
@@ -2591,6 +2681,14 @@ return
 }
 else if (A_Index = 72)
 {
+
+if (Trim(EditText%A_Index%) = "-")
+{
+MsgBox, 16, Invalid Instructions, At AHKlikeLoopsIndexedAt you only added a - character. A number must follow the - or it should be a standalone number.
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+
 if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 5) != false))
 {
 MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
@@ -2702,6 +2800,14 @@ return
 }
 else if (A_Index = 72)
 {
+
+if (Trim(EditText%A_Index%) = "-")
+{
+MsgBox, 16, Invalid Instructions, At AHKlikeLoopsIndexedAt you only added a - character. A number must follow the - or it should be a standalone number.
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+
 if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 5) != false))
 {
 MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
