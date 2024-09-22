@@ -5411,10 +5411,14 @@ str4 = StrReplace ( str4 , ";;" , ";" ) ;
 }
 htCode += str4 + "\n";
 }
-else if (SubStr (Trim (A_LoopField63) , -1) == ")" && lineDone == 0) 
+else if (SubStr (Trim (A_LoopField63) , -2) == ");" && lineDone == 0) 
 {
 lineDone = 1;
 str1 = A_LoopField63;
+if (langToTranspileTo == "py") 
+{
+str1 = StrReplace ( str1 , ";" , "" ) ;
+}
 if (Trim (lookIntoTheNextLineForFuncWhitNoKeyWord[A_Index63 + 1]) == "{" && useFuncKeyWord == "off") 
 {
 str2 = str1;

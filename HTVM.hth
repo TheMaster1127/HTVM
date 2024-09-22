@@ -3490,6 +3490,47 @@ else
 {
 ifWeUsedAsemicolumON := ""
 }
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+defineCodeBlockChar := ""
+defineCodeBlockCharCLOSE := ""
+
+if (usePythonicColonSyntax = "on")
+{
+defineCodeBlockChar := ":"
+}
+
+if (useCurlyBraces = "on") && (useEnd = "off")
+{
+defineCodeBlockChar .= "{"
+defineCodeBlockCharCLOSE := "}"
+}
+if (useCurlyBraces = "off") && (useEnd = "on")
+{
+defineCodeBlockCharCLOSE := keyWordEnd
+}
+
+openParentheses := ""
+closeParentheses := ""
+if (useParentheses = "on")
+{
+openParentheses := "("
+closeParentheses := ")"
+}
+
+; THEfuncKeyWord
+; openParentheses
+; closeParentheses
+; defineCodeBlockCharCLOSE
+; defineCodeBlockChar
+; ifWeUsedAsemicolumON
+
+THEfuncKeyWord := ""
+if (useFuncKeyWord = "on")
+{
+THEfuncKeyWord := keyWordFunc
+}
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3507,7 +3548,11 @@ displayExampleTextLine10 := keyWordINT64 . " varName8" . ifWeUsedAsemicolumON . 
 displayExampleTextLine11 := keyWordComment . " You can also define them like this if you like:" . "`n"
 displayExampleTextLine12 := keyWordINT . " varName9 " . keyWordVariablesAssignmentOperator . " 34" . ifWeUsedAsemicolumON . "`n`n"
 
-displayExampleTextLine13 := keyWordComment . " You can also define them like this if you like:" . "`n"
+displayExampleTextLine13 := keyWordComment . " Here is how if, else if and else will work and look like" . "`n"
+displayExampleTextLine14 := keyWordIF . " " . openParentheses . "varName1 " . keyWordEqualOperator . " varName9" . closeParentheses . " " . defineCodeBlockChar . "`n"
+displayExampleTextLine15 := A_Tab . "print(" . Chr(34) . "some text" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine16 := defineCodeBlockCharCLOSE . "`n"
+
 
 
 displayExampleTextLine110 := "`n" . keyWordComment . " Preview is still in development.`n"
