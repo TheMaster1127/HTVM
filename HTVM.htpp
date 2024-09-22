@@ -486,6 +486,8 @@ return out
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+str keyWordComment
+
 func str convertJs_cpp_Array(str theCode)
 {
 str out
@@ -929,7 +931,7 @@ result .= spaces(indentLevel) . "}`n"
 
 
 ; Add opening brace for new blocks
-if (getLastChar(stripped) = ":")
+if (getLastChar(stripped) = ":") && (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordComment))) != StrLower(keyWordComment))
 {
 result .= SubStr(line, 1, -1) . " {`n"
 indentLevel += 4
@@ -1210,7 +1212,7 @@ str keyWordJavaScriptConst
 str keyWordReturnStatement
 str keyWordEnd
 str keyWordGlobal
-str keyWordComment
+;str keyWordComment defined at line 489
 str keyWordCommentOpenMultiLine
 str keyWordCommentCloseMultiLine
 str keyWordEscpaeChar
@@ -5329,7 +5331,7 @@ str4 := StrReplace(str4, ";;", ";")
 }
 htCode .= str4 . "`n"
 }
-else if (SubStr(Trim(A_LoopField), -2) = ");") && (lineDone = 0)
+else if ((SubStr(Trim(A_LoopField), -2) = ");") or (SubStr(Trim(A_LoopField), -1) = ")")) && (lineDone = 0)
 {
 lineDone := 1
 str1 := A_LoopField

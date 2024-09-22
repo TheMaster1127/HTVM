@@ -3550,9 +3550,14 @@ displayExampleTextLine12 := keyWordINT . " varName9 " . keyWordVariablesAssignme
 
 displayExampleTextLine13 := keyWordComment . " Here is how if, else if and else will work and look like" . "`n"
 displayExampleTextLine14 := keyWordIF . " " . openParentheses . "varName1 " . keyWordEqualOperator . " varName9" . closeParentheses . " " . defineCodeBlockChar . "`n"
-displayExampleTextLine15 := A_Tab . "print(" . Chr(34) . "some text" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine15 := A_Tab . "print(" . Chr(34) . "varName1 is = to varName9" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+if (useEnd = "off")
+{
 displayExampleTextLine16 := defineCodeBlockCharCLOSE . "`n"
-
+}
+displayExampleTextLine17 := keyWordElseIf . " " . openParentheses . "varName1 " . keyWordNotEqualToOperator . " varName9 " . keyWordOrOperator . " varName1 " . keyWordLessThanOrEqualToOperator . " varName9" . closeParentheses . " " . defineCodeBlockChar . "`n"
+displayExampleTextLine18 := A_Tab . "print(" . Chr(34) . "varName1 is less or equal to varName9" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine19 := defineCodeBlockCharCLOSE . "`n"
 
 
 displayExampleTextLine110 := "`n" . keyWordComment . " Preview is still in development.`n"

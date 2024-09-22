@@ -18,7 +18,7 @@ for A_Index2 in range(1, 3 + 1):
     MsgBox(A_Index2)
 while AWSEDS and WER:
     aQwsde
-result = "Adult" if age >= 18 else "Minor"
+WAESRD(AWSDXF + aesdrft )
 # You can use indentations if you want to. It's all optional.
 if arr123[1] == 5:
     MsgBox("yes")

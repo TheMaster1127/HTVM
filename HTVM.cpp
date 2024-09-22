@@ -1038,6 +1038,7 @@ return out;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+std::string keyWordComment;
 std::string convertJs_cpp_Array(std::string theCode)
 {
 std::string out;
@@ -1457,7 +1458,7 @@ indentLevel -= 4;
 result += spaces ( indentLevel ) + "}\n";
 }
 // Add opening brace for new blocks
-if (getLastChar (stripped) == ":") 
+if (getLastChar (stripped) == ":" && SubStr (StrLower (A_LoopField29) , 1 , StrLen (StrLower (keyWordComment)))!= StrLower (keyWordComment)) 
 {
 result += SubStr ( line , 1 , -1 ) + " {\n";
 indentLevel += 4;
@@ -1716,7 +1717,7 @@ std::string keyWordJavaScriptConst;
 std::string keyWordReturnStatement;
 std::string keyWordEnd;
 std::string keyWordGlobal;
-std::string keyWordComment;
+//str keyWordComment defined at line 489
 std::string keyWordCommentOpenMultiLine;
 std::string keyWordCommentCloseMultiLine;
 std::string keyWordEscpaeChar;
@@ -5411,7 +5412,7 @@ str4 = StrReplace ( str4 , ";;" , ";" ) ;
 }
 htCode += str4 + "\n";
 }
-else if (SubStr (Trim (A_LoopField63) , -2) == ");" && lineDone == 0) 
+else if ((SubStr (Trim (A_LoopField63) , -2) == ");" || SubStr (Trim (A_LoopField63) , -1) == ")") && lineDone == 0) 
 {
 lineDone = 1;
 str1 = A_LoopField63;

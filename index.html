@@ -7148,8 +7148,14 @@ variables.displayExampleTextLine11 = variables.keyWordComment + " You can also d
 variables.displayExampleTextLine12 = variables.keyWordINT + " varName9 " + variables.keyWordVariablesAssignmentOperator + " 34" + variables.ifWeUsedAsemicolumON + "\n\n"
 variables.displayExampleTextLine13 = variables.keyWordComment + " Here is how if, else if and else will work and look like" + "\n"
 variables.displayExampleTextLine14 = variables.keyWordIF + " " + variables.openParentheses + "varName1 " + variables.keyWordEqualOperator + " varName9" + variables.closeParentheses + " " + variables.defineCodeBlockChar + "\n"
-variables.displayExampleTextLine15 = BuildInVars("A_Tab") + "print(" + await Chr (34) + "some text" + await Chr (34) + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine15 = BuildInVars("A_Tab") + "print(" + await Chr (34) + "varName1 is = to varName9" + await Chr (34) + ")" + variables.ifWeUsedAsemicolumON + "\n"
+if (( variables.useEnd == "off" ))
+{
 variables.displayExampleTextLine16 = variables.defineCodeBlockCharCLOSE + "\n"
+}
+variables.displayExampleTextLine17 = variables.keyWordElseIf + " " + variables.openParentheses + "varName1 " + variables.keyWordNotEqualToOperator + " varName9 " + variables.keyWordOrOperator + " varName1 " + variables.keyWordLessThanOrEqualToOperator + " varName9" + variables.closeParentheses + " " + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine18 = BuildInVars("A_Tab") + "print(" + await Chr (34) + "varName1 is less or equal to varName9" + await Chr (34) + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine19 = variables.defineCodeBlockCharCLOSE + "\n"
 variables.displayExampleTextLine110 = "\n" + variables.keyWordComment + " Preview is still in development.\n"
 variables.displayExampleTextLine111 = variables.keyWordComment + " Preview is still in development.\n"
 variables.displayExampleText = ""
