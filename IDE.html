@@ -435,7 +435,6 @@
               { token: "braces_Open", regex: "\\{" },
               { token: "braces_Close", regex: "\\}" },
               { token: "string", regex: '".*?"' },
-              { token: "escape-char", regex: "`." },
               // Multi-line comments
               {
                 token: "comment.block", // Token for multi-line comments
@@ -1217,7 +1216,7 @@
         document.documentElement.setAttribute("style", "padding: 0; margin: 0;");
         document.head.setAttribute("style", "padding: 0; margin: 0;");
         document.body.setAttribute("style", "overflow-x: hidden;padding: 0; margin: 0;");
-        variables.ideTEXT = "MsgBox(hello123 . sdfx)\nMsgBox, " + Chr(34) + "hi" + Chr(34) + "\n\n\nChr(true) print(\n\n;sd dc\nChr(true) print() ;some comment\n\n" + Chr(34) + "sdcx{} sadf" + Chr(34) + "\nif\n{\nsdf\n}\nif\nLoop\nStringTrimRight, szd, szd, 1\n\nszd.add(esddf A_Index\n(A_LoopField)\n\nelse if\nWADSFG asd(\nelsee ief\n\nint var1\nstr && sd sdfx  MsgBox(AWESDRFG)\nfloat true false\n\nLoop\nA_LoopField\n\n/*\nAWESDAWDSFDX \n*/";
+
         variables.idetext = variables.ideTEXT;
         variables.AScreenHeight = BuildInVars("A_ScreenHeight") - 20;
         variables.AScreenWidth = BuildInVars("A_ScreenWidth") - 20;

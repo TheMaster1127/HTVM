@@ -348,6 +348,72 @@
       }
 
 
+      function MakeHotKey(hotkey, callback) {
+        document.addEventListener("keydown", function (event) {
+          const keys = hotkey.split("+").map((key) => key.trim().toLowerCase());
+          const modifiers = {
+            ctrl: event.ctrlKey,
+            shift: event.shiftKey,
+            alt: event.altKey,
+          };
+
+          let hotkeyPressed = true;
+          keys.forEach((key) => {
+            if (key === "ctrl" || key === "shift" || key === "alt") {
+              if (!modifiers[key]) {
+                hotkeyPressed = false;
+              }
+            } else if (key === "backspace") {
+              if (event.key !== "Backspace") {
+                hotkeyPressed = false;
+              }
+            } else if (key.startsWith("arrow")) {
+              const arrowDirection = key.replace("arrow", "");
+              if (arrowDirection === "up" && event.key !== "ArrowUp") {
+                hotkeyPressed = false;
+              } else if (arrowDirection === "down" && event.key !== "ArrowDown") {
+                hotkeyPressed = false;
+              } else if (arrowDirection === "left" && event.key !== "ArrowLeft") {
+                hotkeyPressed = false;
+              } else if (arrowDirection === "right" && event.key !== "ArrowRight") {
+                hotkeyPressed = false;
+              }
+            } else if (key === "enter") {
+              if (event.key !== "Enter") {
+                hotkeyPressed = false;
+              }
+            } else if (!event.key.match(/^[0-9a-zA-Z]$/) && event.key !== key) {
+              hotkeyPressed = false;
+            } else if (event.key.toLowerCase() !== key && event.key.match(/^[a-zA-Z]$/)) {
+              hotkeyPressed = false;
+            }
+          });
+
+          if (hotkeyPressed) {
+            if (modifiers["shift"]) {
+              callback(hotkey.toUpperCase());
+            } else {
+              callback(hotkey.toLowerCase());
+            }
+          }
+        });
+      }
+
+
+      // Exponential
+      function Exp(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.exp(num);
+      }
+
+
+      // Base-10 logarithm
+      function Log(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.log10(num);
+      }
+
+
       function Chr(number) {
         // Check if the number is null
         if (number === null) {
@@ -420,6 +486,27 @@
       // StrLen
       function StrLen(str) {
         return str === null ? null : str.length;
+      }
+
+
+      function SubStr(str, startPos, length) {
+        // If str is null or undefined, return an empty string
+        if (str === null || str === undefined) {
+          return "";
+        }
+
+        // If length is not provided or is blank, default to "all characters"
+        if (length === undefined || length === "") {
+          length = str.length - startPos + 1;
+        }
+
+        // If startPos is less than 1, adjust it to start from the end of the string
+        if (startPos < 1) {
+          startPos = str.length + startPos;
+        }
+
+        // Extract the substring based on startPos and length
+        return str.substr(startPos - 1, length);
       }
 
 
@@ -791,6 +878,19 @@ function StrSplit(inputStr, delimiter, num) {
 }
 
 
+      // Function to simulate AutoHotkey's RegExReplace in JavaScript
+      function RegExReplace(inputStr, regexPattern, replacement) {
+          // Create a regular expression object using the provided pattern
+          const regex = new RegExp(regexPattern, 'g'); // 'g' flag for global match
+
+          // Use the replace() method to perform the regex replacement
+          const resultStr = inputStr.replace(regex, replacement);
+
+          // Return the modified string
+          return resultStr;
+      }
+
+
 function LoopParseFunc(varString, delimiter1="", delimiter2="") {
     let items;
     if (!delimiter1 && !delimiter2) {
@@ -803,6 +903,66 @@ function LoopParseFunc(varString, delimiter1="", delimiter2="") {
         items = varString.split(pattern);
     }
     return items;
+}
+
+
+function SortLikeAHK(varName, options = "") {
+    let delimiter = '\n'; // Default delimiter
+    let delimiterIndex = options.indexOf('D');
+
+    if (delimiterIndex !== -1) {
+        let delimiterChar = options[delimiterIndex + 1];
+        delimiter = delimiterChar === '' ? ',' : delimiterChar;
+    }
+
+    let items = varName.split(new RegExp(delimiter === ',' ? ',' : '\\' + delimiter));
+
+    // Remove empty items and trim whitespace
+    items = items.filter(item => item.trim() !== '');
+
+    // Apply sorting based on options
+    if (options.includes('N')) {
+        // Numeric sort
+        items.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
+    } else if (options.includes('Random')) {
+        // Random sort
+        for (let i = items.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [items[i], items[j]] = [items[j], items[i]];
+        }
+    } else {
+        // Default alphabetical sort
+        items.sort((a, b) => {
+            const keyA = options.includes('C') ? a : a.toLowerCase();
+            const keyB = options.includes('C') ? b : b.toLowerCase();
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+        });
+    }
+
+    // Reverse if 'R' option is present
+    if (options.includes('R')) {
+        items.reverse();
+    }
+
+    // Remove duplicates if 'U' option is present
+    if (options.includes('U')) {
+        const seen = new Map();
+        items = items.filter(item => {
+            const key = options.includes('C') ? item : item.toLowerCase();
+            if (!seen.has(key)) {
+                seen.set(key, item);
+                return true;
+            }
+            return false;
+        });
+    }
+
+    // Join the sorted items back into a string
+    const sortedVar = items.join(delimiter === ',' ? ',' : '\n');
+
+    return sortedVar;
 }
 
 
@@ -981,6 +1141,8 @@ function str(value) {
 let funcs = {
   isFuncNameValid: isFuncNameValid,
   rulesForEditBoxesSyntaxDef: rulesForEditBoxesSyntaxDef,
+  addBackShlashes: addBackShlashes,
+  IDEgenerataion: IDEgenerataion,
 }
 
 
@@ -993,6 +1155,18 @@ Gui2.id = "Gui2"
 var Gui1 = {}
 Gui1 = document.createElement("div")
 Gui1.id = "Gui1"
+
+var Gui3 = {}
+Gui3 = document.createElement("div")
+Gui3.id = "Gui3"
+
+var Gui1 = {}
+Gui1 = document.createElement("div")
+Gui1.id = "Gui1"
+
+var Gui3 = {}
+Gui3 = document.createElement("div")
+Gui3.id = "Gui3"
 
 
 
@@ -1166,6 +1340,118 @@ variables.EditText81 = "off"
 variables.EditText83 = "on"
 variables.EditText84 = "on"
 variables.EditText85 = "off"
+variables.AScreenWidth = variables.AScreenWidth - 30
+variables.AScreenWidth2 = variables.AScreenWidth - 20
+variables.AScreenHeight = variables.AScreenHeight - 30
+variables.AScreenHeight2 = variables.AScreenHeight - 50
+variables.AScreenHeight3 = variables.AScreenHeight2
+if (( await isMobileDevice () ))
+{
+Gui3.style.position = "absolute";
+Gui3.style.width = "" + variables.AScreenWidth + "px"; // Set the width
+Gui3.style.height = "" + variables.AScreenHeight + "px"; // Set the height
+Gui3.style.background = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
+Gui3.style.backgroundColor = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
+Gui3.style.color = "white";
+Gui3.style.fontSize = "15px";
+Gui3.style.borderRadius = "0px";
+Gui3.style.padding = "0px";
+Gui3.style.border = "2px solid white";
+Gui3.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui3.style.zIndex = "30";
+// Calculate center position
+Gui3.style.left = (window.innerWidth - parseInt(Gui3.style.width)) / 2 + "px";
+Gui3.style.top = (window.innerHeight - parseInt(Gui3.style.height)) / 2 + "px";
+document.body.appendChild(Gui3); // Append the GUI window to the body
+Gui3.style.display = "block";
+Gui3DisplayInfoData = document.createElement("div");
+Gui3DisplayInfoData.id = "Gui3" + "DisplayInfoData"; // Set ID for referencing
+Gui3DisplayInfoData.textContent = "";
+Gui3DisplayInfoData.style.color = "#black"
+Gui3DisplayInfoData.style.fontSize = "16px"; // Set font size
+Gui3DisplayInfoData.style.position = "absolute"; // Set position to absolute
+Gui3DisplayInfoData.style.left = "10px"; // Set initial x position
+Gui3DisplayInfoData.style.top = "10px"; // Set initial y position
+Gui3DisplayInfoData.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
+Gui3DisplayInfoData.style.height = "" + variables.AScreenHeight2 + "px"; // Set height
+Gui3.appendChild(Gui3DisplayInfoData);
+Gui3ButtonInfoOK = document.createElement("button");
+Gui3ButtonInfoOK.id = "Gui3" + "ButtonInfoOK"; // Set ID for referencing
+Gui3ButtonInfoOK.textContent = "OK";
+Gui3ButtonInfoOK.style.fontSize = "15px"; // Set font size
+Gui3ButtonInfoOK.style.position = "absolute"; // Set position to absolute
+Gui3ButtonInfoOK.style.left = "10px"; // Set initial x position
+Gui3ButtonInfoOK.style.top = "" + variables.AScreenHeight3 + "px"; // Set initial y position
+Gui3ButtonInfoOK.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
+Gui3ButtonInfoOK.style.height = "40px"; // Set height
+Gui3ButtonInfoOK.style.cursor = "pointer"; // Change cursor on hover
+Gui3ButtonInfoOK.style.border = "";
+Gui3ButtonInfoOK.style.background = "";
+Gui3ButtonInfoOK.style.backgroundColor = "";
+Gui3ButtonInfoOK.style.borderRadius = "";
+Gui3ButtonInfoOK.style.color = "";
+Gui3ButtonInfoOK.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui3ButtonInfoOK.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
+  ButtonInfoOK(A_GuiControl);
+};
+Gui3.appendChild(Gui3ButtonInfoOK);
+Gui3.style.display = "none";
+}
+else
+{
+Gui3.style.position = "absolute";
+Gui3.style.width = "" + variables.AScreenWidth + "px"; // Set the width
+Gui3.style.height = "" + variables.AScreenHeight + "px"; // Set the height
+Gui3.style.background = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
+Gui3.style.backgroundColor = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
+Gui3.style.color = "white";
+Gui3.style.fontSize = "15px";
+Gui3.style.borderRadius = "0px";
+Gui3.style.padding = "0px";
+Gui3.style.border = "2px solid white";
+Gui3.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui3.style.zIndex = "30";
+// Calculate center position
+Gui3.style.left = (window.innerWidth - parseInt(Gui3.style.width)) / 2 + "px";
+Gui3.style.top = (window.innerHeight - parseInt(Gui3.style.height)) / 2 + "px";
+document.body.appendChild(Gui3); // Append the GUI window to the body
+Gui3.style.display = "block";
+Gui3DisplayInfoData = document.createElement("div");
+Gui3DisplayInfoData.id = "Gui3" + "DisplayInfoData"; // Set ID for referencing
+Gui3DisplayInfoData.textContent = "";
+Gui3DisplayInfoData.style.color = "#black"
+Gui3DisplayInfoData.style.fontSize = "20px"; // Set font size
+Gui3DisplayInfoData.style.position = "absolute"; // Set position to absolute
+Gui3DisplayInfoData.style.left = "10px"; // Set initial x position
+Gui3DisplayInfoData.style.top = "10px"; // Set initial y position
+Gui3DisplayInfoData.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
+Gui3DisplayInfoData.style.height = "" + variables.AScreenHeight2 + "px"; // Set height
+Gui3.appendChild(Gui3DisplayInfoData);
+Gui3ButtonInfoOK = document.createElement("button");
+Gui3ButtonInfoOK.id = "Gui3" + "ButtonInfoOK"; // Set ID for referencing
+Gui3ButtonInfoOK.textContent = "OK";
+Gui3ButtonInfoOK.style.fontSize = "15px"; // Set font size
+Gui3ButtonInfoOK.style.position = "absolute"; // Set position to absolute
+Gui3ButtonInfoOK.style.left = "10px"; // Set initial x position
+Gui3ButtonInfoOK.style.top = "" + variables.AScreenHeight3 + "px"; // Set initial y position
+Gui3ButtonInfoOK.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
+Gui3ButtonInfoOK.style.height = "40px"; // Set height
+Gui3ButtonInfoOK.style.cursor = "pointer"; // Change cursor on hover
+Gui3ButtonInfoOK.style.border = "";
+Gui3ButtonInfoOK.style.background = "";
+Gui3ButtonInfoOK.style.backgroundColor = "";
+Gui3ButtonInfoOK.style.borderRadius = "";
+Gui3ButtonInfoOK.style.color = "";
+Gui3ButtonInfoOK.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui3ButtonInfoOK.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
+  ButtonInfoOK(A_GuiControl);
+};
+Gui3.appendChild(Gui3ButtonInfoOK);
+Gui3.style.display = "none";
+}
+variables.ButtonINFOvHolder = ""
 if (( await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-76") == variables.null ))
 {
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-76" , "on" )
@@ -4057,7 +4343,6 @@ Gui1.appendChild(Gui1[variables.guiEditTextV]);
 }
 async function MyDropDown(A_GuiControl)
 {
-await showCustomMessageBox({}," ", "Website is still in development! Here, you will be able to create the built-in functions!", 0, 0)
 //MsgBox, % A_GuiControl
 variables.currentFuncNameOLD = A_GuiControl
 variables.currentFuncName = A_GuiControl
@@ -4197,7 +4482,6 @@ GuiControl("textide", "Gui1IDEjs", variables.MyFuncsCode);
 }
 async function AddNewFuncButton(A_GuiControl)
 {
-await showCustomMessageBox({}," ", "Website is still in development! Here, you will be able to create the built-in functions!", 0, 0)
 variables.MyDropDownFuncsNUM = 0
 var items7 = LoopParseFunc(variables.MyDropDownFuncs, "|");
 for (/* Loop Parse */ let A_Index7 = 1; A_Index7 <= items7.length; A_Index7++)
@@ -4471,7 +4755,19 @@ variables.allLocalSrorageLinks += variables.currentFuncName + "|"
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 async function ButtonINFO(A_GuiControl)
 {
-await showCustomMessageBox({}," ", A_GuiControl, 0, 0.)
+//MsgBox, % A_GuiControl
+variables.ButtonINFOvHolder = A_GuiControl
+Gui1.style.display = "none";
+Gui1.style.display = "block";
+Gui3.style.display = "block";
+GuiControl("text", "Gui3DisplayInfoData", A_GuiControl);
+GuiControl("focus", "Gui1Button8");
+GuiControl("focus", "Gui3ButtonInfoOK");
+}
+async function ButtonInfoOK(A_GuiControl)
+{
+Gui3.style.display = "none";
+GuiControl("focus", "Gui1" + variables.ButtonINFOvHolder);
 }
 async function GettingStartedButton(A_GuiControl)
 {
@@ -5598,9 +5894,646 @@ variables.allFuncNamesForSavingItOut += "\n" + variables.bodyFuncTemp1 + variabl
 }
 variables.allData = variables.allData + "\n" + variables.allFuncNamesForSavingItOut
 }
+variables.ideHTMLdata = await IDEgenerataion (variables.allData )
 FileAppend("" + variables.allData + "", "HT-instructions.txt")
+FileAppend("" + variables.ideHTMLdata + "", "IDE.html")
 } // end of ifmsgbox
 });
+}
+async function addBackShlashes(str123)
+{
+variables.str123 = str123
+variables.str123 = await StrReplace (variables.str123 , await Chr (46) , await Chr (92) + await Chr (46) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (42) , await Chr (92) + await Chr (42) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (43) , await Chr (92) + await Chr (43) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (63) , await Chr (92) + await Chr (63) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (94) , await Chr (92) + await Chr (94) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (36) , await Chr (92) + await Chr (36) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (91) , await Chr (92) + await Chr (91) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (93) , await Chr (92) + await Chr (93) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (40) , await Chr (92) + await Chr (40) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (41) , await Chr (92) + await Chr (41) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (123) , await Chr (92) + await Chr (123) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (125) , await Chr (92) + await Chr (125) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (124) , await Chr (92) + await Chr (124) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (92) , await Chr (92) + await Chr (92) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (45) , await Chr (92) + await Chr (45) )
+variables.str123 = await StrReplace (variables.str123 , await Chr (47) , await Chr (92) + await Chr (47) )
+return variables.str123
+}
+async function IDEgenerataion(instructions)
+{
+variables.instructions = instructions
+variables.keyWordsCommands = ""
+variables.fileExtention = ""
+variables.code = ""
+variables.keyWordINT = ""
+variables.keyWordSTR = ""
+variables.keyWordFLOAT = ""
+variables.filePathOfCode = ""
+variables.langToTranspileTo = ""
+variables.out_KeyWordsCommands = ""
+variables.outTrimCode = ""
+variables.htCode = ""
+variables.str1 = ""
+variables.str2 = ""
+variables.str3 = ""
+variables.str4 = ""
+variables.str5 = ""
+variables.str6 = ""
+variables.str7 = ""
+variables.str8 = ""
+variables.str9 = ""
+variables.str10 = ""
+variables.outVarOperator = ""
+variables.lineDone = 0
+variables.areWeInAFuncFromInstructions = 0
+variables.areWeInAFuncFromInstructionsLineNum = 0
+variables.keyWordIF = ""
+variables.keyWordElseIf = ""
+variables.keyWordWhileLoop = ""
+variables.keyWordForLoop = ""
+variables.keyWordElse = ""
+variables.keyWordBOOL = ""
+variables.keyWordINT8 = ""
+variables.keyWordINT16 = ""
+variables.keyWordINT32 = ""
+variables.keyWordINT64 = ""
+variables.keyWordLoop = ""
+variables.keyWordLoopInfinite = ""
+variables.keyWordLoopParse = ""
+variables.keyWordBreak = ""
+variables.keyWordContinue = ""
+variables.keyWordFunc = ""
+variables.keyWordAwait = ""
+variables.keyWordConcatenationAssignmentOperator = ""
+variables.keyWordVariablesAssignmentOperator = ""
+variables.keyWordAdditionAssignmentOperator = ""
+variables.keyWordSubtractionAssignmentOperator = ""
+variables.keyWordMultiplicationAssignmentOperator = ""
+variables.keyWordDivisionAssignmentOperator = ""
+variables.keyWordAdditionOperator = ""
+variables.keyWordConcatenationOperator = ""
+variables.keyWordEqualOperator = ""
+variables.keyWordNotOperator = ""
+variables.keyWordGreaterThanOperator = ""
+variables.keyWordLessThanOperator = ""
+variables.keyWordGreaterThanOrEqualToOperator = ""
+variables.keyWordLessThanOrEqualToOperator = ""
+variables.keyWordOrOperator = ""
+variables.keyWordAndOperator = ""
+variables.keyWordNotEqualToOperator = ""
+variables.keyWordTrue = ""
+variables.keyWordFalse = ""
+variables.keyWordSwitch = ""
+variables.keyWordSwitchCase = ""
+variables.keyWordSwitchDefault = ""
+variables.keyWordThrow = ""
+variables.keyWordErrorMsg = ""
+variables.keyWordTry = ""
+variables.keyWordCatch = ""
+variables.keyWordFinally = ""
+variables.keyWordArrayAppend = ""
+variables.keyWordArrayPop = ""
+variables.keyWordArraySize = ""
+variables.keyWordArrayInsert = ""
+variables.keyWordArrayRemove = ""
+variables.keyWordArrayIndexOf = ""
+variables.keyWordArrayDefinition = ""
+variables.keyWordArrayOfIntegersDefinition = ""
+variables.keyWordArrayOfStringsDefinition = ""
+variables.keyWordArrayOfFloatingPointNumbersDefinition = ""
+variables.keyWordArrayOfBooleansDefinition = ""
+variables.keyWordJavaScriptVar = ""
+variables.keyWordJavaScriptLet = ""
+variables.keyWordJavaScriptConst = ""
+variables.keyWordReturnStatement = ""
+variables.keyWordEnd = ""
+variables.keyWordGlobal = ""
+variables.keyWordComment = ""
+variables.keyWordCommentOpenMultiLine = ""
+variables.keyWordCommentCloseMultiLine = ""
+variables.keyWordEscpaeChar = ""
+variables.AHKlikeLoopsIndexedAt = ""
+variables.keyWordAIndex = ""
+variables.keyWordALoopField = ""
+variables.keyWordMainLabel = ""
+variables.useFuncKeyWord = ""
+variables.useCurlyBraces = ""
+variables.useEnd = ""
+variables.useSemicolon = ""
+variables.useParentheses = ""
+variables.usePythonicColonSyntax = ""
+variables.useTypes = ""
+variables.forLoopLang = ""
+variables.useJavaScriptInAfullHTMLfile = ""
+variables.useInJavaScriptAlwaysUseVar = ""
+variables.useJavaScriptAmainFuncDef = ""
+variables.theSemicolon = ""
+variables.theColon = ""
+variables.theCppVarForErrors = "jhku-dfsds-ds-d-ffdsf-sdfsfdsedsf"
+variables.theJSvarDeclaredVarsBugFix = "|"
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; code starts here realy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; code starts here realy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; code starts here realy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; code starts here realy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; code starts here realy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; code starts here realy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; code starts here realy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; code starts here realy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+variables.ALoopField = ""
+var items13 = LoopParseFunc(variables.instructions, "\n", "\r");
+for (/* Loop Parse */ let A_Index13 = 1; A_Index13 <= items13.length; A_Index13++)
+{
+variables.A_Index13 = A_Index13
+variables.A_LoopField13 = items13[A_Index13 - 1];
+variables.ALoopField = await addBackShlashes (variables.A_LoopField13 )
+if (( variables.A_Index13 == 1 ))
+{
+variables.langToTranspileTo = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 2 ))
+{
+variables.fileExtention = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 3 ))
+{
+variables.keyWordsCommands = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 4 ))
+{
+variables.keyWordINT = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 5 ))
+{
+variables.keyWordSTR = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 6 ))
+{
+variables.keyWordBOOL = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 7 ))
+{
+variables.keyWordFLOAT = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 8 ))
+{
+variables.keyWordINT8 = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 9 ))
+{
+variables.keyWordINT16 = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 10 ))
+{
+variables.keyWordINT32 = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 11 ))
+{
+variables.keyWordINT64 = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 12 ))
+{
+variables.keyWordIF = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 13 ))
+{
+variables.keyWordElseIf = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 14 ))
+{
+variables.keyWordElse = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 15 ))
+{
+variables.keyWordWhileLoop = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 16 ))
+{
+variables.keyWordForLoop = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 17 ))
+{
+variables.keyWordLoopInfinite = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 18 ))
+{
+variables.keyWordLoop = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 19 ))
+{
+variables.keyWordLoopParse = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 20 ))
+{
+variables.keyWordContinue = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 21 ))
+{
+variables.keyWordBreak = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 22 ))
+{
+variables.keyWordFunc = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 23 ))
+{
+variables.keyWordAwait = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 24 ))
+{
+variables.keyWordVariablesAssignmentOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 25 ))
+{
+variables.keyWordConcatenationAssignmentOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 26 ))
+{
+variables.keyWordAdditionAssignmentOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 27 ))
+{
+variables.keyWordSubtractionAssignmentOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 28 ))
+{
+variables.keyWordMultiplicationAssignmentOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 29 ))
+{
+variables.keyWordDivisionAssignmentOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 30 ))
+{
+variables.keyWordAdditionOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 31 ))
+{
+variables.keyWordConcatenationOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 32 ))
+{
+variables.keyWordEqualOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 33 ))
+{
+variables.keyWordNotOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 34 ))
+{
+variables.keyWordGreaterThanOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 35 ))
+{
+variables.keyWordLessThanOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 36 ))
+{
+variables.keyWordGreaterThanOrEqualToOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 37 ))
+{
+variables.keyWordLessThanOrEqualToOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 38 ))
+{
+variables.keyWordOrOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 39 ))
+{
+variables.keyWordAndOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 40 ))
+{
+variables.keyWordNotEqualToOperator = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 41 ))
+{
+variables.keyWordTrue = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 42 ))
+{
+variables.keyWordFalse = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 43 ))
+{
+variables.keyWordSwitch = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 44 ))
+{
+variables.keyWordSwitchCase = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 45 ))
+{
+variables.keyWordSwitchDefault = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 46 ))
+{
+variables.keyWordThrow = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 47 ))
+{
+variables.keyWordErrorMsg = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 48 ))
+{
+variables.keyWordTry = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 49 ))
+{
+variables.keyWordCatch = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 50 ))
+{
+variables.keyWordFinally = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 51 ))
+{
+variables.keyWordArrayAppend = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 52 ))
+{
+variables.keyWordArrayPop = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 53 ))
+{
+variables.keyWordArraySize = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 54 ))
+{
+variables.keyWordArrayInsert = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 55 ))
+{
+variables.keyWordArrayRemove = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 56 ))
+{
+variables.keyWordArrayIndexOf = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 57 ))
+{
+variables.keyWordArrayDefinition = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 58 ))
+{
+variables.keyWordArrayOfIntegersDefinition = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 59 ))
+{
+variables.keyWordArrayOfStringsDefinition = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 60 ))
+{
+variables.keyWordArrayOfFloatingPointNumbersDefinition = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 61 ))
+{
+variables.keyWordArrayOfBooleansDefinition = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 62 ))
+{
+variables.keyWordJavaScriptVar = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 63 ))
+{
+variables.keyWordJavaScriptLet = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 64 ))
+{
+variables.keyWordJavaScriptConst = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 65 ))
+{
+variables.keyWordReturnStatement = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 66 ))
+{
+variables.keyWordEnd = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 67 ))
+{
+variables.keyWordGlobal = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 68 ))
+{
+variables.keyWordComment = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 69 ))
+{
+variables.keyWordCommentOpenMultiLine = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 70 ))
+{
+variables.keyWordCommentCloseMultiLine = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 71 ))
+{
+variables.keyWordEscpaeChar = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 72 ))
+{
+variables.AHKlikeLoopsIndexedAt = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 73 ))
+{
+variables.keyWordAIndex = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 74 ))
+{
+variables.keyWordALoopField = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 75 ))
+{
+variables.keyWordMainLabel = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 76 ))
+{
+variables.useFuncKeyWord = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 77 ))
+{
+variables.useCurlyBraces = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 78 ))
+{
+variables.useEnd = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 79 ))
+{
+variables.useSemicolon = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 80 ))
+{
+variables.useParentheses = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 81 ))
+{
+variables.usePythonicColonSyntax = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 82 ))
+{
+variables.forLoopLang = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 83 ))
+{
+variables.useInJavaScriptAlwaysUseVar = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 84 ))
+{
+variables.useJavaScriptInAfullHTMLfile = await Trim (variables.ALoopField )
+}
+if (( variables.A_Index13 == 85 ))
+{
+variables.useJavaScriptAmainFuncDef = await Trim (variables.ALoopField )
+}
+}
+variables.areWeInAFuncFromInstructions = 0
+variables.areWeInAFuncFromInstructionsLineNum = 0
+variables.funcLangHolder = ""
+variables.funcNameHolder = ""
+variables.funcLibsHolder = ""
+variables.funcFuncHolder = ""
+variables.funcDescriptionHolder = ""
+variables.allFuncLangNum = 0
+variables.allFuncNamesNum = 0
+variables.allFuncLibsNum = 0
+variables.allFuncsNum = 0
+variables.allfuncDescriptionNum = 0
+variables.correctLang = 0
+var items14 = LoopParseFunc(variables.instructions, "\n", "\r");
+for (/* Loop Parse */ let A_Index14 = 1; A_Index14 <= items14.length; A_Index14++)
+{
+variables.A_Index14 = A_Index14
+variables.A_LoopField14 = items14[A_Index14 - 1];
+if (( await Trim (variables.A_LoopField14) == "funcEND======================funcEND==============" ))
+{
+variables.areWeInAFuncFromInstructions = 0
+variables.areWeInAFuncFromInstructionsLineNum = 0
+if (( variables.correctLang == 1) && (await InStr (variables.code , await Trim (variables.funcNameHolder) ) ))
+{
+//MsgBox, % funcFuncHolder
+variables.allFuncsNum += 1
+variables["allFuncs" + variables.allFuncsNum] = variables.funcFuncHolder
+}
+variables.correctLang = 0
+variables.funcFuncHolder = ""
+}
+if (( variables.areWeInAFuncFromInstructions == 1 ))
+{
+if (( variables.areWeInAFuncFromInstructionsLineNum == 1 ))
+{
+// name of the func
+variables.funcLangHolder = StringTrimLeft(variables.A_LoopField14, 5)
+if (( await Trim (variables.funcLangHolder) == variables.langToTranspileTo ))
+{
+variables.correctLang = 1
+}
+}
+if (( variables.areWeInAFuncFromInstructionsLineNum == 2 ))
+{
+// name of the func
+variables.funcNameHolder = StringTrimLeft(variables.A_LoopField14, 5)
+variables.allFuncNamesNum += 1
+variables["allFuncNames" + variables.allFuncNamesNum] = await Trim (variables.funcNameHolder )
+}
+if (( variables.areWeInAFuncFromInstructionsLineNum == 3 ))
+{
+// all libs
+variables.funcLibsHolder = StringTrimLeft(variables.A_LoopField14, 5)
+if (( variables.correctLang == 1) && (await InStr (variables.code , await Trim (variables.funcNameHolder) ) ))
+{
+variables.gg = 5
+}
+}
+if (( variables.areWeInAFuncFromInstructionsLineNum == 4 ))
+{
+// func description
+variables.funcDescriptionHolder = StringTrimLeft(variables.A_LoopField14, 12)
+if (( variables.correctLang == 1) && (await InStr (variables.code , await Trim (variables.funcNameHolder) ) ))
+{
+variables.gg = 5
+}
+}
+if (( variables.areWeInAFuncFromInstructionsLineNum >= 5 ))
+{
+// the full func
+if (( variables.correctLang == 1) && (await InStr (variables.code , await Trim (variables.funcNameHolder) ) ))
+{
+variables.funcFuncHolder += variables.A_LoopField14 + "\n"
+}
+}
+//MsgBox, % A_LoopField14
+variables.areWeInAFuncFromInstructionsLineNum += 1
+}
+if (( await Trim (variables.A_LoopField14) == "func======================func==============" ))
+{
+variables.areWeInAFuncFromInstructions = 1
+variables.areWeInAFuncFromInstructionsLineNum = 1
+variables.correctLang = 0
+}
+}
+//~ MsgBox, ===========================================================================
+//~ msgbox, % allFuncNames
+//~ MsgBox, ===========================================================================
+//~ msgbox, % allFuncLibs
+//~ MsgBox, ===========================================================================
+//~ msgbox, % allFuncLang
+//~ MsgBox, ===========================================================================
+//~ msgbox, % allFuncs
+//~ MsgBox, ===========================================================================
+variables.upCode = await Chr (60) + await Chr (33) + await Chr (100) + await Chr (111) + await Chr (99) + await Chr (116) + await Chr (121) + await Chr (112) + await Chr (101) + await Chr (32) + await Chr (104) + await Chr (116) + await Chr (109) + await Chr (108) + await Chr (62) + await Chr (10) + await Chr (60) + await Chr (104) + await Chr (116) + await Chr (109) + await Chr (108) + await Chr (32) + await Chr (108) + await Chr (97) + await Chr (110) + await Chr (103) + await Chr (61) + await Chr (34) + await Chr (101) + await Chr (110) + await Chr (34) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (104) + await Chr (101) + await Chr (97) + await Chr (100) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (109) + await Chr (101) + await Chr (116) + await Chr (97) + await Chr (32) + await Chr (99) + await Chr (104) + await Chr (97) + await Chr (114) + await Chr (115) + await Chr (101) + await Chr (116) + await Chr (61) + await Chr (34) + await Chr (85) + await Chr (84) + await Chr (70) + await Chr (45) + await Chr (56) + await Chr (34) + await Chr (32) + await Chr (47) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (109) + await Chr (101) + await Chr (116) + await Chr (97) + await Chr (32) + await Chr (110) + await Chr (97) + await Chr (109) + await Chr (101) + await Chr (61) + await Chr (34) + await Chr (118) + await Chr (105) + await Chr (101) + await Chr (119) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (34) + await Chr (32) + await Chr (99) + await Chr (111) + await Chr (110) + await Chr (116) + await Chr (101) + await Chr (110) + await Chr (116) + await Chr (61) + await Chr (34) + await Chr (119) + await Chr (105) + await Chr (100) + await Chr (116) + await Chr (104) + await Chr (61) + await Chr (100) + await Chr (101) + await Chr (118) + await Chr (105) + await Chr (99) + await Chr (101) + await Chr (45) + await Chr (119) + await Chr (105) + await Chr (100) + await Chr (116) + await Chr (104) + await Chr (44) + await Chr (32) + await Chr (105) + await Chr (110) + await Chr (105) + await Chr (116) + await Chr (105) + await Chr (97) + await Chr (108) + await Chr (45) + await Chr (115) + await Chr (99) + await Chr (97) + await Chr (108) + await Chr (101) + await Chr (61) + await Chr (49) + await Chr (46) + await Chr (48) + await Chr (34) + await Chr (32) + await Chr (47) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (116) + await Chr (105) + await Chr (116) + await Chr (108) + await Chr (101) + await Chr (62) + await Chr (72) + await Chr (84) + await Chr (86) + await Chr (77) + await Chr (32) + await Chr (73) + await Chr (68) + await Chr (69) + await Chr (60) + await Chr (47) + await Chr (116) + await Chr (105) + await Chr (116) + await Chr (108) + await Chr (101) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (116) + await Chr (121) + await Chr (108) + await Chr (101) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (98) + await Chr (111) + await Chr (100) + await Chr (121) + await Chr (32) + await Chr (123) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (98) + await Chr (97) + await Chr (99) + await Chr (107) + await Chr (103) + await Chr (114) + await Chr (111) + await Chr (117) + await Chr (110) + await Chr (100) + await Chr (45) + await Chr (99) + await Chr (111) + await Chr (108) + await Chr (111) + await Chr (114) + await Chr (58) + await Chr (32) + await Chr (35) + await Chr (50) + await Chr (48) + await Chr (50) + await Chr (48) + await Chr (50) + await Chr (48) + await Chr (59) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (102) + await Chr (111) + await Chr (110) + await Chr (116) + await Chr (45) + await Chr (102) + await Chr (97) + await Chr (109) + await Chr (105) + await Chr (108) + await Chr (121) + await Chr (58) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (34) + await Chr (79) + await Chr (112) + await Chr (101) + await Chr (110) + await Chr (32) + await Chr (83) + await Chr (97) + await Chr (110) + await Chr (115) + await Chr (34) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (45) + await Chr (97) + await Chr (112) + await Chr (112) + await Chr (108) + await Chr (101) + await Chr (45) + await Chr (115) + await Chr (121) + await Chr (115) + await Chr (116) + await Chr (101) + await Chr (109) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (66) + await Chr (108) + await Chr (105) + await Chr (110) + await Chr (107) + await Chr (77) + await Chr (97) + await Chr (99) + await Chr (83) + await Chr (121) + await Chr (115) + await Chr (116) + await Chr (101) + await Chr (109) + await Chr (70) + await Chr (111) + await Chr (110) + await Chr (116) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (34) + await Chr (83) + await Chr (101) + await Chr (103) + await Chr (111) + await Chr (101) + await Chr (32) + await Chr (85) + await Chr (73) + await Chr (34) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (82) + await Chr (111) + await Chr (98) + await Chr (111) + await Chr (116) + await Chr (111) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (79) + await Chr (120) + await Chr (121) + await Chr (103) + await Chr (101) + await Chr (110) + await Chr (45) + await Chr (83) + await Chr (97) + await Chr (110) + await Chr (115) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (85) + await Chr (98) + await Chr (117) + await Chr (110) + await Chr (116) + await Chr (117) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (67) + await Chr (97) + await Chr (110) + await Chr (116) + await Chr (97) + await Chr (114) + await Chr (101) + await Chr (108) + await Chr (108) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (34) + await Chr (72) + await Chr (101) + await Chr (108) + await Chr (118) + await Chr (101) + await Chr (116) + await Chr (105) + await Chr (99) + await Chr (97) + await Chr (32) + await Chr (78) + await Chr (101) + await Chr (117) + await Chr (101) + await Chr (34) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (72) + await Chr (101) + await Chr (108) + await Chr (118) + await Chr (101) + await Chr (116) + await Chr (105) + await Chr (99) + await Chr (97) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (65) + await Chr (114) + await Chr (105) + await Chr (97) + await Chr (108) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (115) + await Chr (97) + await Chr (110) + await Chr (115) + await Chr (45) + await Chr (115) + await Chr (101) + await Chr (114) + await Chr (105) + await Chr (102) + await Chr (59) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (125) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (116) + await Chr (121) + await Chr (108) + await Chr (101) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (100) + await Chr (101) + await Chr (108) + await Chr (105) + await Chr (118) + await Chr (114) + await Chr (46) + await Chr (110) + await Chr (101) + await Chr (116) + await Chr (47) + await Chr (110) + await Chr (112) + await Chr (109) + await Chr (47) + await Chr (115) + await Chr (119) + await Chr (101) + await Chr (101) + await Chr (116) + await Chr (97) + await Chr (108) + await Chr (101) + await Chr (114) + await Chr (116) + await Chr (50) + await Chr (64) + await Chr (49) + await Chr (49) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (10) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (33) + await Chr (45) + await Chr (45) + await Chr (32) + await Chr (73) + await Chr (110) + await Chr (99) + await Chr (108) + await Chr (117) + await Chr (100) + await Chr (101) + await Chr (32) + await Chr (65) + await Chr (99) + await Chr (101) + await Chr (32) + await Chr (69) + await Chr (100) + await Chr (105) + await Chr (116) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (67) + await Chr (68) + await Chr (78) + await Chr (32) + await Chr (45) + await Chr (45) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (106) + await Chr (115) + await Chr (46) + await Chr (99) + await Chr (108) + await Chr (111) + await Chr (117) + await Chr (100) + await Chr (102) + await Chr (108) + await Chr (97) + await Chr (114) + await Chr (101) + await Chr (46) + await Chr (99) + await Chr (111) + await Chr (109) + await Chr (47) + await Chr (97) + await Chr (106) + await Chr (97) + await Chr (120) + await Chr (47) + await Chr (108) + await Chr (105) + await Chr (98) + await Chr (115) + await Chr (47) + await Chr (97) + await Chr (99) + await Chr (101) + await Chr (47) + await Chr (49) + await Chr (46) + await Chr (51) + await Chr (50) + await Chr (46) + await Chr (50) + await Chr (47) + await Chr (97) + await Chr (99) + await Chr (101) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (34) + await Chr (32) + await Chr (105) + await Chr (110) + await Chr (116) + await Chr (101) + await Chr (103) + await Chr (114) + await Chr (105) + await Chr (116) + await Chr (121) + await Chr (61) + await Chr (34) + await Chr (115) + await Chr (104) + await Chr (97) + await Chr (53) + await Chr (49) + await Chr (50) + await Chr (45) + await Chr (74) + await Chr (76) + await Chr (73) + await Chr (82) + await Chr (108) + await Chr (120) + await Chr (87) + await Chr (104) + await Chr (57) + await Chr (54) + await Chr (115) + await Chr (78) + await Chr (68) + await Chr (51) + await Chr (117) + await Chr (85) + await Chr (103) + await Chr (73) + await Chr (50) + await Chr (82) + await Chr (86) + await Chr (72) + await Chr (90) + await Chr (74) + await Chr (112) + await Chr (103) + await Chr (107) + await Chr (87) + await Chr (72) + await Chr (103) + await Chr (51) + await Chr (43) + await Chr (120) + await Chr (111) + await Chr (85) + await Chr (89) + await Chr (56) + await Chr (88) + await Chr (107) + await Chr (103) + await Chr (84) + await Chr (80) + await Chr (75) + await Chr (112) + await Chr (113) + await Chr (82) + await Chr (97) + await Chr (113) + await Chr (100) + await Chr (107) + await Chr (55) + await Chr (122) + await Chr (68) + await Chr (47) + await Chr (99) + await Chr (107) + await Chr (47) + await Chr (88) + await Chr (72) + await Chr (88) + await Chr (70) + await Chr (83) + await Chr (77) + await Chr (87) + await Chr (56) + await Chr (52) + await Chr (111) + await Chr (54) + await Chr (71) + await Chr (114) + await Chr (80) + await Chr (54) + await Chr (55) + await Chr (100) + await Chr (108) + await Chr (113) + await Chr (78) + await Chr (51) + await Chr (98) + await Chr (57) + await Chr (56) + await Chr (78) + await Chr (66) + await Chr (47) + await Chr (121) + await Chr (65) + await Chr (61) + await Chr (61) + await Chr (34) + await Chr (32) + await Chr (99) + await Chr (114) + await Chr (111) + await Chr (115) + await Chr (115) + await Chr (111) + await Chr (114) + await Chr (105) + await Chr (103) + await Chr (105) + await Chr (110) + await Chr (61) + await Chr (34) + await Chr (97) + await Chr (110) + await Chr (111) + await Chr (110) + await Chr (121) + await Chr (109) + await Chr (111) + await Chr (117) + await Chr (115) + await Chr (34) + await Chr (32) + await Chr (114) + await Chr (101) + await Chr (102) + await Chr (101) + await Chr (114) + await Chr (114) + await Chr (101) + await Chr (114) + await Chr (112) + await Chr (111) + await Chr (108) + await Chr (105) + await Chr (99) + await Chr (121) + await Chr (61) + await Chr (34) + await Chr (110) + await Chr (111) + await Chr (45) + await Chr (114) + await Chr (101) + await Chr (102) + await Chr (101) + await Chr (114) + await Chr (114) + await Chr (101) + await Chr (114) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (106) + await Chr (115) + await Chr (46) + await Chr (99) + await Chr (108) + await Chr (111) + await Chr (117) + await Chr (100) + await Chr (102) + await Chr (108) + await Chr (97) + await Chr (114) + await Chr (101) + await Chr (46) + await Chr (99) + await Chr (111) + await Chr (109) + await Chr (47) + await Chr (97) + await Chr (106) + await Chr (97) + await Chr (120) + await Chr (47) + await Chr (108) + await Chr (105) + await Chr (98) + await Chr (115) + await Chr (47) + await Chr (97) + await Chr (99) + await Chr (101) + await Chr (47) + await Chr (49) + await Chr (46) + await Chr (52) + await Chr (46) + await Chr (49) + await Chr (50) + await Chr (47) + await Chr (101) + await Chr (120) + await Chr (116) + await Chr (45) + await Chr (108) + await Chr (97) + await Chr (110) + await Chr (103) + await Chr (117) + await Chr (97) + await Chr (103) + await Chr (101) + await Chr (95) + await Chr (116) + await Chr (111) + await Chr (111) + await Chr (108) + await Chr (115) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (34) + await Chr (32) + await Chr (99) + await Chr (114) + await Chr (111) + await Chr (115) + await Chr (115) + await Chr (111) + await Chr (114) + await Chr (105) + await Chr (103) + await Chr (105) + await Chr (110) + await Chr (61) + await Chr (34) + await Chr (97) + await Chr (110) + await Chr (111) + await Chr (110) + await Chr (121) + await Chr (109) + await Chr (111) + await Chr (117) + await Chr (115) + await Chr (34) + await Chr (32) + await Chr (114) + await Chr (101) + await Chr (102) + await Chr (101) + await Chr (114) + await Chr (114) + await Chr (101) + await Chr (114) + await Chr (112) + await Chr (111) + await Chr (108) + await Chr (105) + await Chr (99) + await Chr (121) + await Chr (61) + await Chr (34) + await Chr (110) + await Chr (111) + await Chr (45) + await Chr (114) + await Chr (101) + await Chr (102) + await Chr (101) + await Chr (114) + await Chr (114) + await Chr (101) + await Chr (114) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (47) + await Chr (104) + await Chr (101) + await Chr (97) + await Chr (100) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (98) + await Chr (111) + await Chr (100) + await Chr (121) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + "\n      // JavaScript equivalent code with variables\n\n      function changeFaviconAtTheBeginning(faviconUrl) {\n        // Create a new favicon link element\n        const newFavicon = document.createElement(" + await Chr (34) + "link" + await Chr (34) + ");\n        newFavicon.rel = " + await Chr (34) + "icon" + await Chr (34) + ";\n        newFavicon.href = faviconUrl;\n\n        // Get the current favicon element (if exists)\n        const existingFavicon = document.querySelector('link[rel=" + await Chr (34) + "icon" + await Chr (34) + "]');\n\n        // Replace the current favicon with the new one\n        if (existingFavicon) {\n          // If a favicon exists, replace it\n          document.head.removeChild(existingFavicon); // Remove the existing favicon\n        }\n\n        // Append the new favicon to the head\n        document.head.appendChild(newFavicon);\n      }\n\n      // Call the function with the desired favicon URL\n      changeFaviconAtTheBeginning(" + await Chr (34) + "https://i.ibb.co/Jpty1B8/305182938-1a0efe63-726e-49ca-a13c-d0ed627f2ea7.png" + await Chr (34) + ");\n\n      function showCustomMessageBox(options, title, text, value, timeout) {\n        return new Promise((resolve) => {\n          // Define default options for the message box\n          let defaultOptions = {\n            title: title || " + await Chr (34) + "" + await Chr (34) + ", // Default title is empty\n            text: text || " + await Chr (34) + "Press OK to continue." + await Chr (34) + ", // Default text if not provided\n            showCancelButton: false, // Default is to not show Cancel button\n            showDenyButton: false, // Default is to not show Deny button\n            confirmButtonText: " + await Chr (34) + "OK" + await Chr (34) + ", // Default text for OK button\n            focusConfirm: true, // Default focus on OK button\n          };\n\n          let numOriginal = value;\n\n          let num = numOriginal;\n\n          let done1 = 0;\n\n          let done2 = 0;\n\n          let done3 = 0;\n\n          let AIndex = 0;\n\n          for (AIndex = 1; AIndex <= 1; AIndex++) {\n            // this is about if you add always on top in a msgbox it will be removed in js cuz its kinda useless...\n            // becouse if you like adding always on top in ahk in js we dont realy do it so yeah\n            if (num >= 262144) {\n              num = num - 262144;\n              numOriginal = numOriginal - 262144;\n            }\n\n            if (num >= 256 && num < 500) {\n              num = num - 256;\n\n              done3 = 256;\n            }\n\n            if (num >= 512) {\n              num = num - 512;\n\n              done3 = 512;\n            }\n\n            if (num == 0) {\n              done1 = 0;\n\n              break;\n            }\n\n            if (num <= 6) {\n              done1 = num;\n\n              break;\n            }\n\n            if (num >= 64 && num < 64 * 2) {\n              done2 = 64;\n\n              if (num == 64) {\n                done1 = 0;\n\n                break;\n              } else {\n                done1 = num - 64;\n\n                break;\n              }\n            }\n\n            if (num >= 48 && num < 63) {\n              done2 = 48;\n\n              if (num == 48) {\n                done1 = 0;\n\n                break;\n              } else {\n                done1 = num - 48;\n\n                break;\n              }\n            }\n\n            if (num >= 32 && num < 47) {\n              done2 = 32;\n\n              if (num == 32) {\n                done1 = 0;\n\n                break;\n              } else {\n                done1 = num - 32;\n\n                break;\n              }\n            }\n\n            if (num >= 16 && num < 30) {\n              done2 = 16;\n\n              if (num == 16) {\n                done1 = 0;\n\n                break;\n              } else {\n                done1 = num - 16;\n\n                break;\n              }\n            }\n          }\n\n          let doneAdded = done1 + done2 + done3;\n\n          if (doneAdded !== numOriginal) {\n            // displayMessage(" + await Chr (34) + "The calc was wrong!" + await Chr (34) + ");\n          } else {\n            // displayMessage(" + await Chr (34) + "num was: " + await Chr (34) + " + numOriginal + " + await Chr (34) + "" + await Chr (92) + "ndone1: " + await Chr (34) + " + done1 + " + await Chr (34) + "" + await Chr (92) + "ndone2: " + await Chr (34) + " + done2 + " + await Chr (34) + "" + await Chr (92) + "ndone3: " + await Chr (34) + " + done3);\n          }\n\n          // Parse the value to determine the options for the message box\n          if (done1 === 1) defaultOptions.showCancelButton = true; // OK/Cancel in ahk but here it will show Ok/Cancel wiat its same haha\n\n          // not gonna work if you can make it work i will appreciate\n          //   if (done1 === 2) {\n          //     defaultOptions.showCancelButton = true; // Abort/Retry/Ignore\n          //     defaultOptions.showDenyButton = true;\n          //   }\n          if (done1 === 3) {\n            defaultOptions.showCancelButton = true; // Yes/No/Cancel in ahk but here it will show Ok/No/Cancel\n            defaultOptions.showDenyButton = true;\n          }\n          if (done1 === 4) {\n            // defaultOptions.showCancelButton = true;\n            defaultOptions.showDenyButton = true; // Yes/No in ahk but here it will show Ok/No\n          }\n          if (done1 === 5) {\n            defaultOptions.showCancelButton = true; // Retry/Cancel in ahk but here it will show Ok/Cancel tip you can write in the Msgbox press ok to retry\n          }\n          // not gonna work if you can make it work i will appreciate\n          //   if (done1 === 6) {\n          //     defaultOptions.showCancelButton = true; // Cancel/Try Again/Continue\n          //     defaultOptions.showDenyButton = true;\n          //   }\n\n          if (done2 === 16) defaultOptions.icon = " + await Chr (34) + "error" + await Chr (34) + "; // Icon Hand (stop/error)\n          if (done2 === 32) defaultOptions.icon = " + await Chr (34) + "question" + await Chr (34) + "; // Icon Question\n          if (done2 === 48) defaultOptions.icon = " + await Chr (34) + "warning" + await Chr (34) + "; // Icon Exclamation\n          if (done2 === 64) defaultOptions.icon = " + await Chr (34) + "info" + await Chr (34) + "; // Icon Asterisk (info)\n\n          if (done3 === 256) defaultOptions.focusDeny = true; // Makes the 3rd button the default\n          if (done3 === 512) defaultOptions.focusCancel = true; // Makes the 2nd button the default\n\n          // Set timeout if provided\n          if (timeout) {\n            defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds\n          }\n\n          // Merge default options with provided options\n          Object.assign(defaultOptions, options);\n\n          // Display the message box with the constructed options\n          Swal.fire(defaultOptions).then((result) => {\n            if (result.isConfirmed) {\n              resolve(" + await Chr (34) + "OK" + await Chr (34) + ");\n            } else if (result.isDenied) {\n              resolve(" + await Chr (34) + "No" + await Chr (34) + ");\n            } else {\n              resolve(" + await Chr (34) + "Cancel" + await Chr (34) + ");\n            }\n          });\n        });\n      }\n\n      var lastKeyPressed = " + await Chr (34) + "" + await Chr (34) + ";\n\n      function trackLastKeyPressed() {\n        document.addEventListener(" + await Chr (34) + "keydown" + await Chr (34) + ", function (event) {\n          lastKeyPressed = event.key;\n          // console.log(lastKeyPressed);\n        });\n      }\n\n      function getLastKeyPressed() {\n        return lastKeyPressed;\n      }\n\n      // Call the trackLastKeyPressed function to start tracking key presses\n      trackLastKeyPressed();\n\n      let lastInputTime = Date.now(); // Initialize with current timestamp\n      let startTimestamp = Date.now(); // Initialize with current timestamp\n\n      // Event listener to track user activity\n      function resetIdleTimer() {\n        lastInputTime = Date.now(); // Update last input time\n      }\n\n      document.addEventListener(" + await Chr (34) + "mousemove" + await Chr (34) + ", resetIdleTimer);\n      document.addEventListener(" + await Chr (34) + "keypress" + await Chr (34) + ", resetIdleTimer);\n\n      // Function to calculate time since last input event\n      function A_TimeIdle() {\n        return Date.now() - lastInputTime; // Calculate time difference\n      }\n\n      // Function to calculate tick count in milliseconds\n      function A_TickCount() {\n        return Date.now() - startTimestamp;\n      }\n\n      function GuiControl(action, id, param1, param2, param3, param4) {\n        const element = document.getElementById(id);\n        if (element) {\n          // Handle DOM elements\n          if (action === " + await Chr (34) + "move" + await Chr (34) + ") {\n            // Set position and size\n            element.style.left = param1 + " + await Chr (34) + "px" + await Chr (34) + ";\n            element.style.top = param2 + " + await Chr (34) + "px" + await Chr (34) + ";\n            element.style.width = param3 + " + await Chr (34) + "px" + await Chr (34) + ";\n            element.style.height = param4 + " + await Chr (34) + "px" + await Chr (34) + ";\n          } else if (action === " + await Chr (34) + "focus" + await Chr (34) + " && (element instanceof HTMLInputElement || element instanceof HTMLElement)) {\n            // Focus on the element\n            element.focus();\n          } else if (action === " + await Chr (34) + "text" + await Chr (34) + ") {\n            // Set new text content\n            element.textContent = param1;\n          } else if (action === " + await Chr (34) + "hide" + await Chr (34) + ") {\n            // Hide the element\n            element.style.display = " + await Chr (34) + "none" + await Chr (34) + ";\n          } else if (action === " + await Chr (34) + "show" + await Chr (34) + ") {\n            // Show the element\n            element.style.display = " + await Chr (34) + "" + await Chr (34) + ";\n          } else if (action === " + await Chr (34) + "enable" + await Chr (34) + ") {\n            // Enable the element\n            element.disabled = false;\n          } else if (action === " + await Chr (34) + "disable" + await Chr (34) + ") {\n            // Disable the element\n            element.disabled = true;\n          } else if (action === " + await Chr (34) + "font" + await Chr (34) + ") {\n            // Set font size\n            element.style.fontSize = param1 + " + await Chr (34) + "px" + await Chr (34) + ";\n          } else if (action === " + await Chr (34) + "destroy" + await Chr (34) + ") {\n            // Remove the element from the DOM\n            element.parentNode.removeChild(element);\n          } else if (action === " + await Chr (34) + "color" + await Chr (34) + ") {\n            // Set color\n            element.style.color = param1;\n          } else if (action === " + await Chr (34) + "picture" + await Chr (34) + ") {\n            // Change the image source\n            if (element instanceof HTMLImageElement) {\n              element.src = param1;\n            } else {\n              console.error(" + await Chr (34) + "Element is not an <img> tag, cannot change picture." + await Chr (34) + ");\n            }\n          } else if (action === " + await Chr (34) + "textide" + await Chr (34) + ") {\n            // Set value for Ace editor\n            var editor = ace.edit(id); // Access the Ace editor instance using its ID\n            if (editor && param1) {\n              editor.session.setValue(param1);\n            } else {\n              console.error(" + await Chr (34) + "Element is not an Ace editor or parameter is missing." + await Chr (34) + ");\n            }\n          }\n        } else {\n          // Handle canvas or non-existing element\n          if (action === " + await Chr (34) + "move" + await Chr (34) + ") {\n            // Update position and size of the rectangle\n            updateRectangle(id, param1, param2, param3, param4);\n            redrawCanvas(); // Redraw the canvas with updated rectangles\n          } else if (action === " + await Chr (34) + "color" + await Chr (34) + ") {\n            // Update color of the rectangle\n            updateRectangleColor(id, param1);\n            redrawCanvas(); // Redraw the canvas with updated rectangles\n          }\n        }\n      }\n\n      function BuildInVars(varName) {\n        switch (varName) {\n          case " + await Chr (34) + "A_ScreenWidth" + await Chr (34) + ":\n            // Return screen width\n            return window.innerWidth;\n          case " + await Chr (34) + "A_LastKey" + await Chr (34) + ":\n            // Return screen width\n            return getLastKeyPressed();\n          case " + await Chr (34) + "A_ScreenHeight" + await Chr (34) + ":\n            // Return screen height\n            return window.innerHeight;\n          case " + await Chr (34) + "A_TimeIdle" + await Chr (34) + ":\n            // Return time idle\n            return A_TimeIdle();\n          case " + await Chr (34) + "A_TickCount" + await Chr (34) + ":\n            // Return tick count in milliseconds\n            return A_TickCount();\n          case " + await Chr (34) + "A_Now" + await Chr (34) + ":\n            // Return current local timestamp\n            return new Date().toLocaleString();\n          case " + await Chr (34) + "A_YYYY" + await Chr (34) + ":\n            // Return current year\n            return new Date().getFullYear();\n          case " + await Chr (34) + "A_MM" + await Chr (34) + ":\n            // Return current month\n            return (new Date().getMonth() + 1).toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_DD" + await Chr (34) + ":\n            // Return current day\n            return new Date().getDate().toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_MMMM" + await Chr (34) + ":\n            // Return full month name\n            return new Date().toLocaleDateString(undefined, { month: " + await Chr (34) + "long" + await Chr (34) + " });\n          case " + await Chr (34) + "A_MMM" + await Chr (34) + ":\n            // Return short month name\n            return new Date().toLocaleDateString(undefined, { month: " + await Chr (34) + "short" + await Chr (34) + " });\n          case " + await Chr (34) + "A_DDDD" + await Chr (34) + ":\n            // Return full day name\n            return new Date().toLocaleDateString(undefined, { weekday: " + await Chr (34) + "long" + await Chr (34) + " });\n          case " + await Chr (34) + "A_DDD" + await Chr (34) + ":\n            // Return short day name\n            return new Date().toLocaleDateString(undefined, { weekday: " + await Chr (34) + "short" + await Chr (34) + " });\n          case " + await Chr (34) + "A_Hour" + await Chr (34) + ":\n            // Return current hour\n            return new Date().getHours().toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_Min" + await Chr (34) + ":\n            // Return current minute\n            return new Date().getMinutes().toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_Sec" + await Chr (34) + ":\n            // Return current second\n            return new Date().getSeconds().toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_Space" + await Chr (34) + ":\n            // Return space character\n            return " + await Chr (34) + " " + await Chr (34) + ";\n          case " + await Chr (34) + "A_Tab" + await Chr (34) + ":\n            // Return tab character\n            return " + await Chr (34) + "" + await Chr (92) + "t" + await Chr (34) + ";\n\n          default:\n            // Handle unknown variable names\n            return null;\n        }\n      }\n\n      function Chr(number) {\n        // Check if the number is null\n        if (number === null) {\n          // Return an empty string\n          return " + await Chr (34) + "" + await Chr (34) + ";\n        }\n\n        // Check if the number is within the valid range\n        if (number >= 0 && number <= 0x10ffff) {\n          // Convert the number to a character using String.fromCharCode\n          return String.fromCharCode(number);\n        } else {\n          // Return an empty string for invalid numbers\n          return " + await Chr (34) + "" + await Chr (34) + ";\n        }\n      }\n\n      // Define the custom " + await Chr (34) + "ht" + await Chr (34) + " language for Ace Editor with AHK rules\n      ace.define(" + await Chr (34) + "ace/mode/ht" + await Chr (34) + ", [" + await Chr (34) + "require" + await Chr (34) + ", " + await Chr (34) + "exports" + await Chr (34) + ", " + await Chr (34) + "module" + await Chr (34) + ", " + await Chr (34) + "ace/lib/oop" + await Chr (34) + ", " + await Chr (34) + "ace/mode/text" + await Chr (34) + ", " + await Chr (34) + "ace/mode/text_highlight_rules" + await Chr (34) + "], function (require, exports, module) {\n        var oop = require(" + await Chr (34) + "ace/lib/oop" + await Chr (34) + ");\n        var TextMode = require(" + await Chr (34) + "ace/mode/text" + await Chr (34) + ").Mode;\n        var TextHighlightRules = require(" + await Chr (34) + "ace/mode/text_highlight_rules" + await Chr (34) + ").TextHighlightRules;\n\n        var HTHighlightRules = function () {\n          this.$rules = {\n            start: ["
+variables.keyWordsCommandsFolrmated = ""
+var items15 = LoopParseFunc(variables.keyWordsCommands, "|");
+for (/* Loop Parse */ let A_Index15 = 1; A_Index15 <= items15.length; A_Index15++)
+{
+variables.A_Index15 = A_Index15
+variables.A_LoopField15 = items15[A_Index15 - 1];
+var items16 = LoopParseFunc(variables.A_LoopField15, ",");
+for (/* Loop Parse */ let A_Index16 = 1; A_Index16 <= items16.length; A_Index16++)
+{
+variables.A_Index16 = A_Index16
+variables.A_LoopField16 = items16[A_Index16 - 1];
+if (( variables.A_Index16 == 1 ))
+{
+variables.keyWordsCommandsFolrmated += variables.A_LoopField16 + "|"
+}
+}
+}
+variables.keyWordsCommandsFolrmated = StringTrimRight(variables.keyWordsCommandsFolrmated, 1)
+variables.keywords = variables.keyWordIF + "|" + variables.keyWordElseIf + "|" + variables.keyWordElse + "|" + variables.keyWordWhileLoop + "|" + variables.keyWordForLoop + "|" + variables.keyWordLoopInfinite + "|" + variables.keyWordLoop + "|" + variables.keyWordLoopParse + "|" + variables.keyWordContinue + "|" + variables.keyWordBreak + "|" + variables.keyWordFunc + "|" + variables.keyWordAwait + "|" + variables.keyWordSwitch + "|" + variables.keyWordSwitchCase + "|" + variables.keyWordThrow + "|" + variables.keyWordTry + "|" + variables.keyWordCatch + "|" + variables.keyWordFinally + "|" + variables.keyWordJavaScriptVar + "|" + variables.keyWordJavaScriptLet + "|" + variables.keyWordJavaScriptConst + "|" + variables.keyWordReturnStatement + "|" + variables.keyWordEnd
+variables.functionsForHighlighting = ""
+for (/* Normal Loop */ variables.A_Index17 = 1; variables.A_Index17 <= variables.allFuncNamesNum; variables.A_Index17++)
+{
+variables.functionsForHighlighting += variables["allFuncNames" + variables.A_Index17] + "|"
+}
+variables.functionsForHighlighting += variables.keyWordErrorMsg
+variables.keyWordArrayMethods = variables.keyWordArrayAppend + "|" + variables.keyWordArrayPop + "|" + variables.keyWordArraySize + "|" + variables.keyWordArrayInsert + "|" + variables.keyWordArrayRemove + "|" + variables.keyWordArrayIndexOf
+variables.keyWordArrayMethods = await StrReplace (variables.keyWordArrayMethods , "." , "" )
+variables.keyWordTypes = ""
+variables.keyWordTypes = variables.keyWordINT + "|" + variables.keyWordSTR + "|" + variables.keyWordBOOL + "|" + variables.keyWordFLOAT + "|" + variables.keyWordINT8 + "|" + variables.keyWordINT16 + "|" + variables.keyWordINT32 + "|" + variables.keyWordINT64 + "|" + variables.keyWordArrayDefinition + "|" + variables.keyWordArrayOfIntegersDefinition + "|" + variables.keyWordArrayOfStringsDefinition + "|" + variables.keyWordArrayOfFloatingPointNumbersDefinition + "|" + variables.keyWordArrayOfBooleansDefinition
+variables.autoCompleteUp = "["
+variables.autoCompleteALLTemp = variables.keywords + "|" + variables.keyWordsCommandsFolrmated + "|" + variables.functionsForHighlighting + "|" + variables.keyWordALoopField + "|" + variables.keyWordAIndex + "|" + variables.keyWordArrayMethods + "|" + variables.keyWordTypes + "|" + variables.keyWordGlobal
+variables.autoCompleteALL = ""
+var items18 = LoopParseFunc(variables.autoCompleteALLTemp, "|");
+for (/* Loop Parse */ let A_Index18 = 1; A_Index18 <= items18.length; A_Index18++)
+{
+variables.A_Index18 = A_Index18
+variables.A_LoopField18 = items18[A_Index18 - 1];
+variables.autoCompleteALL += "{ name: " + await Chr (34) + await Trim (variables.A_LoopField18) + await Chr (34) + " }, "
+}
+variables.autoCompleteALL = StringTrimRight(variables.autoCompleteALL, 2)
+variables.autoCompleteDown = "]"
+variables.autoComplete = ""
+variables.autoComplete = variables.autoCompleteUp + variables.autoCompleteALL + variables.autoCompleteDown
+variables.autoComplete = await StrReplace (variables.autoComplete , await Chr (92) , "" )
+variables.downCode = " oop.inherits(HTHighlightRules, TextHighlightRules);\n\n        var HTMode = function () {\n          this.HighlightRules = HTHighlightRules;\n        };\n        oop.inherits(HTMode, TextMode);\n\n        exports.Mode = HTMode;\n      });\n\n      function AddIDE(parent, xPos, yPos, w, h, id, font = 18, langName = " + await Chr (34) + "autohotkey" + await Chr (34) + ", onChangeFunc, initialText = " + await Chr (34) + "" + await Chr (34) + ") {\n        var langTools = ace.require(" + await Chr (34) + "ace/ext/language_tools" + await Chr (34) + ");\n\n        let Completer = {\n          getCompletions: function (editor, session, pos, prefix, callback) {\n            if (prefix.startsWith(" + await Chr (34) + "p" + await Chr (34) + ")) {\n              // Continue executing if the prefix starts with " + await Chr (34) + "p" + await Chr (34) + "\n            } else {\n              // Return early if the prefix does not start with " + await Chr (34) + "p" + await Chr (34) + " and its length is not greater than 1\n              if (prefix.length <= 1) {\n                callback(null, []); // Return an empty array of completions\n                return;\n              }\n            }\n\n            let prefixLower = prefix.toLowerCase();\n            let filteredTables = hth.filter(function (table) {\n              return table.name.toLowerCase().startsWith(prefixLower);\n            });\n            // filteredTables.sort(function(a, b) {\n            //     return a.name.length - b.name.length;\n            // });\n            let limitedTables = filteredTables; //.slice(-10);\n\n            callback(\n              null,\n              limitedTables.map(function (table) {\n                return {\n                  caption: table.name,\n                  value: table.name,\n                };\n              }),\n            );\n          },\n        };\n        // Combined keywords for " + await Chr (34) + "ht" + await Chr (34) + " and AHK\n        let hth = " + variables.autoComplete + ";\n\n        // Create a new div element for the editor\n        var editorDiv = document.createElement(" + await Chr (34) + "div" + await Chr (34) + ");\n        editorDiv.id = id;\n        editorDiv.style.position = " + await Chr (34) + "absolute" + await Chr (34) + ";\n        editorDiv.style.left = xPos + " + await Chr (34) + "px" + await Chr (34) + ";\n        editorDiv.style.top = yPos + " + await Chr (34) + "px" + await Chr (34) + ";\n        editorDiv.style.width = w + " + await Chr (34) + "px" + await Chr (34) + ";\n        editorDiv.style.height = h + " + await Chr (34) + "px" + await Chr (34) + ";\n        editorDiv.style.fontSize = font + " + await Chr (34) + "px" + await Chr (34) + ";\n\n        // Append the editor div to the parent\n        parent.appendChild(editorDiv);\n\n        // Create a new editor instance inside the div\n        var editor = ace.edit(id);\n        editor.setTheme(" + await Chr (34) + "ace/theme/monokai" + await Chr (34) + ");\n        editor.session.setMode(" + await Chr (34) + "ace/mode/" + await Chr (34) + " + " + await Chr (34) + "ht" + await Chr (34) + ");\n        // editor.setOptions({\n        //   enableBasicAutocompletion: true,\n        //   enableLiveAutocompletion: true,\n        //   behavioursEnabled: false, // Disable auto-pairing of characters\n        // });\n\n        editor.setOptions({\n          enableBasicAutocompletion: false,\n          enableSnippets: false,\n          enableLiveAutocompletion: true,\n          behavioursEnabled: false,\n          showPrintMargin: false,\n        });\n\n        langTools.setCompleters([]);\n        langTools.addCompleter(Completer);\n\n        // Set initial text if provided\n        if (initialText) {\n          editor.setValue(initialText, -1); // -1 to move cursor to the beginning\n        }\n\n        // Track Vim mode status\n        var isVimMode = false;\n\n        // Hotkey to toggle Vim mode on/off (Ctrl + Alt + Shift + V)\n        editor.commands.addCommand({\n          name: " + await Chr (34) + "toggleVimMode" + await Chr (34) + ",\n          bindKey: { win: " + await Chr (34) + "Ctrl-Alt-Shift-V" + await Chr (34) + ", mac: " + await Chr (34) + "Command-Alt-Shift-V" + await Chr (34) + " },\n          exec: function () {\n            if (isVimMode) {\n              editor.setKeyboardHandler(null); // Disable Vim (back to default)\n              isVimMode = false;\n              console.log(" + await Chr (34) + "Vim mode disabled" + await Chr (34) + ");\n            } else {\n              editor.setKeyboardHandler(" + await Chr (34) + "ace/keyboard/vim" + await Chr (34) + "); // Enable Vim\n              isVimMode = true;\n              console.log(" + await Chr (34) + "Vim mode enabled" + await Chr (34) + ");\n            }\n          },\n        });\n\n        // Apply CSS styles for the editor\n\n        var css = " + await Chr (96) + "\n                      body {\n                        font-family: " + await Chr (34) + "Segoe UI" + await Chr (34) + ", Tahoma, Geneva, Verdana, sans-serif;\n                        background-color: #1a1818;\n                        color: #ffffff;\n                        display: flex;\n                        flex-direction: column;\n                        align-items: center;\n                        height: 100vh;\n                        margin: 0;\n                      }\n\n                      .controls {\n                        display: flex;\n                        justify-content: center;\n                        gap: 1rem;\n                        margin: 1rem;\n                        padding: 1rem;\n                      }\n\n                      button {\n                        padding: 0.7rem;\n                        font-size: 1.2em;\n                        cursor: pointer;\n                        background-color: #bababa;\n                        color: #000000;\n                        border: none;\n                        border-radius: 0.2rem;\n                        transition: background-color 0.3s;\n                      }\n\n                      button:hover {\n                        background-color: #27ae60;\n                      }\n\n                      #${id} {\n                        width: ${w}px;\n                        height: ${h}px;\n                        font-size: 1em;\n                        border-radius: 0.3rem;\n                      }\n\n                      #result {\n                        margin-top: 1rem;\n                        font-size: 1.2em;\n                        color: #999c9a;\n                        font-weight: bold;\n                        text-align: center;\n                      }\n\n                      .ace-monokai .ace_marker-layer .ace_active-line {\n                        background-color: #103010 !important;\n                      }\n\n                      .ace-monokai {\n                        background-color: #121212 !important;\n                        color: #f8f8f2;\n                      }\n\n                      .ace-monokai .ace_gutter {\n                        background: #204020 !important;\n                        color: #cbcdc3 !important;\n                      }\n\n                      .ace-monokai .ace_gutter-active-line {\n                        background-color: transparent !important;\n                      }\n\n                      .ace-monokai .ace_entity.ace_name.ace_tag,\n                      .ace-monokai .ace_keyword,\n                      .ace-monokai .ace_meta.ace_tag,\n                      .ace-monokai .ace_storage {\n                        color: #40a0e0 !important;\n                      }\n\n                      .ace-monokai .ace_entity.ace_name.ace_function,\n                      .ace-monokai .ace_entity.ace_other,\n                      .ace-monokai .ace_entity.ace_other.ace_attribute-name,\n                      .ace-monokai .ace_variable {\n                        color: #ff80df !important;\n                      }\n\n                      .ace-monokai .ace_comment {\n                        color: #40d080 !important;\n                        font-weight: line-through !important;\n                      }\n\n                      .ace-monokai .ace_commentOpen_Close {\n                        color: #40d080 !important;\n                        font-weight: line-through !important;\n                      }\n\n                      .ace-monokai .ace_variables {\n                        color: #ffffff !important;\n                      }\n\n                      .ace-monokai .ace_functions {\n                        color: #80dfff !important;\n                      }\n\n                    .ace-monokai .ace_keywords {\n                color: #8080e0 !important; /* Customize color as needed */\n                font-weight: bold !important;\n            }\n                      .ace-monokai .ace_braces_Open {\n                        color: #FFFFff !important;\n                      }\n\n                      .ace-monokai .ace_braces_Close {\n                        color: #FFFFff !important;\n                      }\n\n                      .ace-monokai .ace_arrayMethods {\n                        color: #FAB820 !important;\n                      }\n\n                      .ace-monokai .ace_BuildInFunc {\n                        color: #ff80df !important;\n                      }\n\n                      .ace-monokai .ace_command {\n                        color: #40a0e0 !important;\n                        font-weight: bold !important;\n                      }\n\n                      .ace-monokai .ace_static_types {\n                        color: #569cd6 !important;\n                        font-weight: bold !important;\n                      }\n\n                      .ace-monokai .ace_string {\n                        color: #ffa0a0 !important;\n                        font-weight: lighter !important;\n                      }\n\n                      .ace-monokai .ace_operators {\n                        color: #00ffff !important;\n                        font-weight: lighter !important;\n                      }\n\n\n                      .ace-monokai .ace_trueANDfalse {\n                        color: #00ffff !important;\n                        font-weight: lighter !important;\n                      }\n\n                      .ace-monokai .ace_escape-char {\n                        color: #ff8000 !important;\n                        font-weight: bold !important;\n                      }\n\n                      .ace-monokai .ace_punctuation,\n                      .ace-monokai .ace_punctuation.ace _tag {\n                        color: #ffa0a0 !important;\n                      }\n\n                      *::-webkit-scrollbar {\n                        width: 1em;\n                      }\n\n                      *::-webkit-scrollbar-track {\n                        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);\n                      }\n\n                      *::-webkit-scrollbar-thumb {\n                        background-color: darkgrey;\n                        outline: 1px solid slategrey;\n                      }\n                    " + await Chr (96) + ";\n\n        var style = document.createElement(" + await Chr (34) + "style" + await Chr (34) + ");\n        style.type = " + await Chr (34) + "text/css" + await Chr (34) + ";\n        if (style.styleSheet) {\n          style.styleSheet.cssText = css;\n        } else {\n          style.appendChild(document.createTextNode(css));\n        }\n        document.head.appendChild(style);\n\n        // Bind change event listener to the editor\n        editor.getSession().on(" + await Chr (34) + "change" + await Chr (34) + ", function () {\n          var code = editor.getValue();\n          if (typeof onChangeFunc === " + await Chr (34) + "function" + await Chr (34) + ") {\n            onChangeFunc(code);\n          }\n        });\n      }\n\n      // Helper function to set the internal array's size as a string\n      function setInternalArraySize(element, size) {\n        if (typeof element === " + await Chr (34) + "string" + await Chr (34) + ") {\n          return size.toString();\n        }\n        return size;\n      }\n\n      // Convert string to int\n      function INT(str) {\n        return str;\n      }\n\n      // Convert various types to string\n      function STR(value) {\n        return value;\n      }\n\n      // Exponential\n      function Exp(num) {\n        if (num === null || isNaN(num)) return null;\n        return Math.exp(num);\n      }\n\n      // Base-10 logarithm\n      function Log(num) {\n        if (num === null || isNaN(num)) return null;\n        return Math.log10(num);\n      }\n\n      function Chr(number) {\n        // Check if the number is null\n        if (number === null) {\n          // Return an empty string\n          return " + await Chr (34) + "" + await Chr (34) + ";\n        }\n\n        // Check if the number is within the valid range\n        if (number >= 0 && number <= 0x10ffff) {\n          // Convert the number to a character using String.fromCharCode\n          return String.fromCharCode(number);\n        } else {\n          // Return an empty string for invalid numbers\n          return " + await Chr (34) + "" + await Chr (34) + ";\n        }\n      }\n\n      // InStr\n      function InStr(Haystack, Needle, CaseSensitive = true, StartingPos = 1, Occurrence = 1) {\n        if (Haystack === null || Needle === null) return false;\n\n        // Adjust starting position if less than 1\n        StartingPos = Math.max(StartingPos, 1);\n\n        // Case-sensitive search by default\n        if (!CaseSensitive) {\n          Haystack = Haystack.toLowerCase();\n          Needle = Needle.toLowerCase();\n        }\n\n        let pos = -1;\n        let count = 0;\n        for (let i = StartingPos - 1; i < Haystack.length; i++) {\n          if (Haystack.substring(i, i + Needle.length) === Needle) {\n            count++;\n            if (count === Occurrence) {\n              pos = i + 1;\n              break;\n            }\n          }\n        }\n\n        return pos > 0; // Return true if the substring is found, false otherwise\n      }\n\n      // RegExMatch\n      function RegExMatch(Haystack, NeedleRegEx, OutputVar, StartingPos) {\n        if (Haystack === null || NeedleRegEx === null) return null;\n\n        const regex = new RegExp(NeedleRegEx);\n        let match;\n\n        if (typeof Haystack === " + await Chr (34) + "string" + await Chr (34) + ") {\n          match = Haystack.match(regex);\n        }\n\n        if (match) {\n          if (OutputVar) {\n            OutputVar.push(match[0]);\n          }\n          return match.index + 1;\n        } else {\n          return 0;\n        }\n      }\n\n      // StrLen\n      function StrLen(str) {\n        if (typeof str !== " + await Chr (34) + "string" + await Chr (34) + ") {\n          console.error(" + await Chr (34) + "Invalid input: expected a string but received:" + await Chr (34) + ", str);\n          return 0; // Return 0 or handle as needed\n        }\n        return str.length;\n      }\n\n      function SubStr(str, startPos, length) {\n        // If str is null or undefined, return an empty string\n        if (str === null || str === undefined) {\n          return " + await Chr (34) + "" + await Chr (34) + ";\n        }\n\n        // If length is not provided or is blank, default to " + await Chr (34) + "all characters" + await Chr (34) + "\n        if (length === undefined || length === " + await Chr (34) + "" + await Chr (34) + ") {\n          length = str.length - startPos + 1;\n        }\n\n        // If startPos is less than 1, adjust it to start from the end of the string\n        if (startPos < 1) {\n          startPos = str.length + startPos;\n        }\n\n        // Extract the substring based on startPos and length\n        return str.substr(startPos - 1, length);\n      }\n\n      function Trim(inputString) {\n        // Check if inputString is null or undefined\n        if (inputString == null) {\n          return " + await Chr (34) + "" + await Chr (34) + "; // Return an empty string if inputString is null or undefined\n        }\n        return inputString.replace(/^" + await Chr (92) + "s+|" + await Chr (92) + "s+$/g, " + await Chr (34) + "" + await Chr (34) + "); // Removes leading and trailing whitespace\n      }\n\n      async function ParseInt(num) {\n        if (num === null) {\n          return null;\n        }\n\n        num = num.trim();\n        num++;\n        num--;\n\n        return num;\n      }\n\n      function StrReplace(originalString, find, replaceWith) {\n        // Check if originalString is a string\n        if (typeof originalString !== " + await Chr (34) + "string" + await Chr (34) + ") {\n          return originalString; // Return originalString as is\n        }\n\n        // Escape special characters in the 'find' string to be used literally\n        const escapedFind = find.replace(/[.*+?^${}()|[" + await Chr (92) + "]" + await Chr (92) + "" + await Chr (92) + "]/g, " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "$&" + await Chr (34) + ");\n\n        // Use replace method to replace all occurrences of 'find' with 'replaceWith'\n        return originalString.replace(new RegExp(escapedFind, " + await Chr (34) + "g" + await Chr (34) + "), replaceWith);\n      }\n\n      // Custom Mod function\n      function Mod(dividend, divisor) {\n        return dividend % divisor;\n      }\n\n      // Function to trim specified number of characters from the left side of a string\n      function StringTrimLeft(input, numChars) {\n        if (typeof input === " + await Chr (34) + "string" + await Chr (34) + " && typeof numChars === " + await Chr (34) + "number" + await Chr (34) + " && numChars >= 0) {\n          return input.length > numChars ? input.substring(numChars) : " + await Chr (34) + "" + await Chr (34) + ";\n        } else {\n          console.error(" + await Chr (34) + "Invalid input provided." + await Chr (34) + ");\n          return input; // Return original input if trimming is not possible\n        }\n      }\n\n      // Function to trim specified number of characters from the right side of a string\n      function StringTrimRight(input, numChars) {\n        if (typeof input === " + await Chr (34) + "string" + await Chr (34) + " && typeof numChars === " + await Chr (34) + "number" + await Chr (34) + " && numChars >= 0) {\n          return input.length > numChars ? input.substring(0, input.length - numChars) : " + await Chr (34) + "" + await Chr (34) + ";\n        } else {\n          console.error(" + await Chr (34) + "Invalid input provided." + await Chr (34) + ");\n          return input; // Return original input if trimming is not possible\n        }\n      }\n\n      function StrLower(string) {\n        if (typeof string !== " + await Chr (34) + "string" + await Chr (34) + ") {\n          console.error(" + await Chr (34) + "Invalid input: expected a string but received:" + await Chr (34) + ", string);\n          return " + await Chr (34) + "" + await Chr (34) + "; // Return an empty string or handle as needed\n        }\n        return string.toLowerCase();\n      }\n\n      function StrSplit(inputStr, delimiter, num) {\n        // Check if inputStr is a valid string\n        if (typeof inputStr !== " + await Chr (34) + "string" + await Chr (34) + ") {\n          return " + await Chr (34) + "" + await Chr (34) + "; // Return empty string for invalid input\n        }\n\n        // Split the input string based on the delimiter\n        const parts = inputStr.split(delimiter);\n\n        // Return the part specified by the num parameter (1-based index)\n        if (num > 0 && num <= parts.length) {\n          return parts[num - 1]; // Return the specified part (0-based index)\n        } else {\n          return " + await Chr (34) + "" + await Chr (34) + "; // Return an empty string if num is out of range\n        }\n      }\n\n      // Function to simulate AutoHotkey's RegExReplace in JavaScript\n      function RegExReplace(inputStr, regexPattern, replacement) {\n        // Create a regular expression object using the provided pattern\n        const regex = new RegExp(regexPattern, " + await Chr (34) + "g" + await Chr (34) + "); // 'g' flag for global match\n\n        // Use the replace() method to perform the regex replacement\n        const resultStr = inputStr.replace(regex, replacement);\n\n        // Return the modified string\n        return resultStr;\n      }\n\n      // Function to escape special characters for regex\n      function escapeRegex(str) {\n        if (typeof str !== " + await Chr (34) + "string" + await Chr (34) + ") {\n          console.error(" + await Chr (34) + "Invalid input for escapeRegex: expected a string but received:" + await Chr (34) + ", str);\n          return " + await Chr (34) + "" + await Chr (34) + ";\n        }\n        return str.replace(/[-[" + await Chr (92) + "]{}()*+?.," + await Chr (92) + "" + await Chr (92) + "^$|#" + await Chr (92) + "s]/g, " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "$&" + await Chr (34) + ");\n      }\n\n      // Function to split a string based on delimiters\n      function LoopParseFunc(var_, delimiter1 = " + await Chr (34) + "" + await Chr (34) + ", delimiter2 = " + await Chr (34) + "" + await Chr (34) + ") {\n        if (typeof var_ !== " + await Chr (34) + "string" + await Chr (34) + ") {\n          console.error(" + await Chr (34) + "Invalid input: expected a string but received:" + await Chr (34) + ", var_);\n          return []; // Return an empty array or handle as needed\n        }\n\n        if (!delimiter1 && !delimiter2) {\n          return var_.split(" + await Chr (34) + "" + await Chr (34) + ");\n        } else {\n          const escapedDelimiters = escapeRegex(delimiter1 + delimiter2);\n          const pattern = new RegExp(" + await Chr (96) + "[${escapedDelimiters}]+" + await Chr (96) + ");\n          return var_.split(pattern).filter(Boolean);\n        }\n      }\n\n      // MsgBox function\n      function MsgBox(value) {\n        console.log(value.toString());\n      }\n\n      // Sorting function\n\n      function SortLikeAHK(varName, options = " + await Chr (34) + "" + await Chr (34) + ") {\n        let delimiter = " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + "; // Default delimiter\n        let delimiterIndex = options.indexOf(" + await Chr (34) + "D" + await Chr (34) + ");\n\n        if (delimiterIndex !== -1) {\n          let delimiterChar = options[delimiterIndex + 1];\n          delimiter = delimiterChar === " + await Chr (34) + "" + await Chr (34) + " ? " + await Chr (34) + "," + await Chr (34) + " : delimiterChar;\n        }\n\n        let items = varName.split(new RegExp(delimiter === " + await Chr (34) + "," + await Chr (34) + " ? " + await Chr (34) + "," + await Chr (34) + " : " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "" + await Chr (34) + " + delimiter));\n\n        // Remove empty items and trim whitespace\n        items = items.filter((item) => item.trim() !== " + await Chr (34) + "" + await Chr (34) + ");\n\n        // Apply sorting based on options\n        if (options.includes(" + await Chr (34) + "N" + await Chr (34) + ")) {\n          // Numeric sort\n          items.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));\n        } else if (options.includes(" + await Chr (34) + "Random" + await Chr (34) + ")) {\n          // Random sort\n          for (let i = items.length - 1; i > 0; i--) {\n            const j = Math.floor(Math.random() * (i + 1));\n            [items[i], items[j]] = [items[j], items[i]];\n          }\n        } else {\n          // Default alphabetical sort\n          items.sort((a, b) => {\n            const keyA = options.includes(" + await Chr (34) + "C" + await Chr (34) + ") ? a : a.toLowerCase();\n            const keyB = options.includes(" + await Chr (34) + "C" + await Chr (34) + ") ? b : b.toLowerCase();\n            if (keyA < keyB) return -1;\n            if (keyA > keyB) return 1;\n            return 0;\n          });\n        }\n\n        // Reverse if 'R' option is present\n        if (options.includes(" + await Chr (34) + "R" + await Chr (34) + ")) {\n          items.reverse();\n        }\n\n        // Remove duplicates if 'U' option is present\n        if (options.includes(" + await Chr (34) + "U" + await Chr (34) + ")) {\n          const seen = new Map();\n          items = items.filter((item) => {\n            const key = options.includes(" + await Chr (34) + "C" + await Chr (34) + ") ? item : item.toLowerCase();\n            if (!seen.has(key)) {\n              seen.set(key, item);\n              return true;\n            }\n            return false;\n          });\n        }\n\n        // Join the sorted items back into a string\n        const sortedVar = items.join(delimiter === " + await Chr (34) + "," + await Chr (34) + " ? " + await Chr (34) + "," + await Chr (34) + " : " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ");\n\n        return sortedVar;\n      }\n\n      function MakeHotKey(hotkey, callback) {\n        document.addEventListener(" + await Chr (34) + "keydown" + await Chr (34) + ", function (event) {\n          const keys = hotkey.split(" + await Chr (34) + "+" + await Chr (34) + ").map((key) => key.trim().toLowerCase());\n          const modifiers = {\n            ctrl: event.ctrlKey,\n            shift: event.shiftKey,\n            alt: event.altKey,\n          };\n\n          let hotkeyPressed = true;\n          keys.forEach((key) => {\n            if (key === " + await Chr (34) + "ctrl" + await Chr (34) + " || key === " + await Chr (34) + "shift" + await Chr (34) + " || key === " + await Chr (34) + "alt" + await Chr (34) + ") {\n              if (!modifiers[key]) {\n                hotkeyPressed = false;\n              }\n            } else if (key === " + await Chr (34) + "backspace" + await Chr (34) + ") {\n              if (event.key !== " + await Chr (34) + "Backspace" + await Chr (34) + ") {\n                hotkeyPressed = false;\n              }\n            } else if (key.startsWith(" + await Chr (34) + "arrow" + await Chr (34) + ")) {\n              const arrowDirection = key.replace(" + await Chr (34) + "arrow" + await Chr (34) + ", " + await Chr (34) + "" + await Chr (34) + ");\n              if (arrowDirection === " + await Chr (34) + "up" + await Chr (34) + " && event.key !== " + await Chr (34) + "ArrowUp" + await Chr (34) + ") {\n                hotkeyPressed = false;\n              } else if (arrowDirection === " + await Chr (34) + "down" + await Chr (34) + " && event.key !== " + await Chr (34) + "ArrowDown" + await Chr (34) + ") {\n                hotkeyPressed = false;\n              } else if (arrowDirection === " + await Chr (34) + "left" + await Chr (34) + " && event.key !== " + await Chr (34) + "ArrowLeft" + await Chr (34) + ") {\n                hotkeyPressed = false;\n              } else if (arrowDirection === " + await Chr (34) + "right" + await Chr (34) + " && event.key !== " + await Chr (34) + "ArrowRight" + await Chr (34) + ") {\n                hotkeyPressed = false;\n              }\n            } else if (key === " + await Chr (34) + "enter" + await Chr (34) + ") {\n              if (event.key !== " + await Chr (34) + "Enter" + await Chr (34) + ") {\n                hotkeyPressed = false;\n              }\n            } else if (!event.key.match(/^[0-9a-zA-Z]$/) && event.key !== key) {\n              hotkeyPressed = false;\n            } else if (event.key.toLowerCase() !== key && event.key.match(/^[a-zA-Z]$/)) {\n              hotkeyPressed = false;\n            }\n          });\n\n          if (hotkeyPressed) {\n            if (modifiers[" + await Chr (34) + "shift" + await Chr (34) + "]) {\n              callback(hotkey.toUpperCase());\n            } else {\n              callback(hotkey.toLowerCase());\n            }\n          }\n        });\n      }\n\n      // InStr\n      function InStr(Haystack, Needle, CaseSensitive = true, StartingPos = 1, Occurrence = 1) {\n        if (Haystack === null || Needle === null) return false;\n\n        // Adjust starting position if less than 1\n        StartingPos = Math.max(StartingPos, 1);\n\n        // Case-sensitive search by default\n        if (!CaseSensitive) {\n          Haystack = Haystack.toLowerCase();\n          Needle = Needle.toLowerCase();\n        }\n\n        let pos = -1;\n        let count = 0;\n        for (let i = StartingPos - 1; i < Haystack.length; i++) {\n          if (Haystack.substring(i, i + Needle.length) === Needle) {\n            count++;\n            if (count === Occurrence) {\n              pos = i + 1;\n              break;\n            }\n          }\n        }\n\n        return pos > 0; // Return true if the substring is found, false otherwise\n      }\n\n      function Trim(inputString) {\n        // Check if inputString is null or undefined\n        if (inputString == null) {\n          return " + await Chr (34) + "" + await Chr (34) + "; // Return an empty string if inputString is null or undefined\n        }\n        return inputString.replace(/^" + await Chr (92) + "s+|" + await Chr (92) + "s+$/g, " + await Chr (34) + "" + await Chr (34) + "); // Removes leading and trailing whitespace\n      }\n\n      function StrReplace(originalString, find, replaceWith) {\n        // Check if originalString is a string\n        if (typeof originalString !== " + await Chr (34) + "string" + await Chr (34) + ") {\n          return originalString; // Return originalString as is\n        }\n\n        // Escape special characters in the 'find' string to be used literally\n        const escapedFind = find.replace(/[.*+?^${}()|[" + await Chr (92) + "]" + await Chr (92) + "" + await Chr (92) + "]/g, " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "$&" + await Chr (34) + ");\n\n        // Use replace method to replace all occurrences of 'find' with 'replaceWith'\n        return originalString.replace(new RegExp(escapedFind, " + await Chr (34) + "g" + await Chr (34) + "), replaceWith);\n      }\n\n      // Function to trim specified number of characters from the right side of a string\n      function StringTrimRight(input, numChars) {\n        if (typeof input === " + await Chr (34) + "string" + await Chr (34) + " && typeof numChars === " + await Chr (34) + "number" + await Chr (34) + " && numChars >= 0) {\n          return input.length > numChars ? input.substring(0, input.length - numChars) : " + await Chr (34) + "" + await Chr (34) + ";\n        } else {\n          console.error(" + await Chr (34) + "Invalid input provided." + await Chr (34) + ");\n          return input; // Return original input if trimming is not possible\n        }\n      }\n\n      // Define the str function\n      function str(value) {\n        return String(value);\n      }\n\n      // Single async function to structure the entire script\n      async function runScript() {\n        // Declare and assign a variable\n\n        MakeHotKey(" + await Chr (34) + "Alt+Shift+Ctrl+F" + await Chr (34) + ", function (hotkey) {\n          HotKeyCalledAltShiftCtrlF();\n        });\n\n        MakeHotKey(" + await Chr (34) + "Alt+Shift+Ctrl+G" + await Chr (34) + ", function (hotkey) {\n          HotKeyCalledAltShiftCtrlG();\n        });\n\n        var Gui1 = {};\n        Gui1 = document.createElement(" + await Chr (34) + "div" + await Chr (34) + ");\n        Gui1.id = " + await Chr (34) + "Gui1" + await Chr (34) + ";\n\n        // Declare and assign a variable\n        let variables = {\n          null: null,\n        };\n\n        Gui1.style.position = " + await Chr (34) + "absolute" + await Chr (34) + ";\n        Gui1.style.width = window.innerWidth + " + await Chr (34) + "px" + await Chr (34) + "; // Set the width\n        Gui1.style.height = " + await Chr (34) + "" + await Chr (34) + " + BuildInVars(" + await Chr (34) + "A_ScreenHeight" + await Chr (34) + ") + " + await Chr (34) + "px" + await Chr (34) + "; // Set the height\n        Gui1.style.background = " + await Chr (34) + "linear-gradient(90deg, " + await Chr (34) + " + " + await Chr (34) + "#121212" + await Chr (34) + " + " + await Chr (34) + " 0%, " + await Chr (34) + " + " + await Chr (34) + "#121212" + await Chr (34) + " + " + await Chr (34) + " 100%)" + await Chr (34) + ";\n        Gui1.style.backgroundColor = " + await Chr (34) + "linear-gradient(90deg, " + await Chr (34) + " + " + await Chr (34) + "#121212" + await Chr (34) + " + " + await Chr (34) + " 0%, " + await Chr (34) + " + " + await Chr (34) + "#121212" + await Chr (34) + " + " + await Chr (34) + " 100%)" + await Chr (34) + ";\n        Gui1.style.color = " + await Chr (34) + "white" + await Chr (34) + ";\n        Gui1.style.fontSize = " + await Chr (34) + "15px" + await Chr (34) + ";\n        Gui1.style.padding = " + await Chr (34) + "0px" + await Chr (34) + ";\n        Gui1.style.borderRadius = " + await Chr (34) + "0px" + await Chr (34) + ";\n        Gui1.style.fontFamily = " + await Chr (34) + ", sans-serif" + await Chr (34) + "; // Specify your desired font here\n        Gui1.style.zIndex = " + await Chr (34) + "10" + await Chr (34) + ";\n        document.body.appendChild(Gui1); // Append the GUI window to the body\n        Gui1.style.display = " + await Chr (34) + "block" + await Chr (34) + ";\n        let textOldSave;\n        document.documentElement.setAttribute(" + await Chr (34) + "style" + await Chr (34) + ", " + await Chr (34) + "padding: 0; margin: 0;" + await Chr (34) + ");\n        document.head.setAttribute(" + await Chr (34) + "style" + await Chr (34) + ", " + await Chr (34) + "padding: 0; margin: 0;" + await Chr (34) + ");\n        document.body.setAttribute(" + await Chr (34) + "style" + await Chr (34) + ", " + await Chr (34) + "overflow-x: hidden;padding: 0; margin: 0;" + await Chr (34) + ");\n        variables.ideTEXT = " + await Chr (34) + "MsgBox(hello123 . sdfx)" + await Chr (92) + "nMsgBox, " + await Chr (34) + " + Chr(34) + " + await Chr (34) + "hi" + await Chr (34) + " + Chr(34) + " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (92) + "n" + await Chr (92) + "nChr(true) print(" + await Chr (92) + "n" + await Chr (92) + "n;sd dc" + await Chr (92) + "nChr(true) print() ;some comment" + await Chr (92) + "n" + await Chr (92) + "n" + await Chr (34) + " + Chr(34) + " + await Chr (34) + "sdcx{} sadf" + await Chr (34) + " + Chr(34) + " + await Chr (34) + "" + await Chr (92) + "nif" + await Chr (92) + "n{" + await Chr (92) + "nsdf" + await Chr (92) + "n}" + await Chr (92) + "nif" + await Chr (92) + "nLoop" + await Chr (92) + "nStringTrimRight, szd, szd, 1" + await Chr (92) + "n" + await Chr (92) + "nszd.add(esddf A_Index" + await Chr (92) + "n(A_LoopField)" + await Chr (92) + "n" + await Chr (92) + "nelse if" + await Chr (92) + "nWADSFG asd(" + await Chr (92) + "nelsee ief" + await Chr (92) + "n" + await Chr (92) + "nint var1" + await Chr (92) + "nstr && sd sdfx  MsgBox(AWESDRFG)" + await Chr (92) + "nfloat true false" + await Chr (92) + "n" + await Chr (92) + "nLoop" + await Chr (92) + "nA_LoopField" + await Chr (92) + "n" + await Chr (92) + "n/*" + await Chr (92) + "nAWESDAWDSFDX " + await Chr (92) + "n*/" + await Chr (34) + ";\n        variables.idetext = variables.ideTEXT;\n        variables.AScreenHeight = BuildInVars(" + await Chr (34) + "A_ScreenHeight" + await Chr (34) + ") - 20;\n        variables.AScreenWidth = BuildInVars(" + await Chr (34) + "A_ScreenWidth" + await Chr (34) + ") - 20;\n        var saveBackCodeBugFix = variables.ideTEXT;\n        AddIDE(Gui1, 10, 10, variables.AScreenWidth, variables.AScreenHeight, " + await Chr (34) + "Gui1IDE1" + await Chr (34) + ", 18, " + await Chr (34) + "autohotkey" + await Chr (34) + ", IDE1, variables.ideTEXT);\n\n        async function IDE1(A_GuiControl) {\n          variables.idetext = A_GuiControl;\n        }\n\n        async function HotKeyCalledAltShiftCtrlG() {\n          GuiControl(" + await Chr (34) + "textide" + await Chr (34) + ", " + await Chr (34) + "Gui1IDE1" + await Chr (34) + ", textOldSave);\n        }\n        async function HotKeyCalledAltShiftCtrlF() {\n          // console.log(" + await Chr (34) + "HotKeyCalled AltShiftCtrlF" + await Chr (34) + ")\n          textOldSave = variables.idetext;\n          variables.TextData = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.out = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.base64ImageData = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.base64soundList = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.base64iconList = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.base64VideoData = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.jsCode01CanvasW = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.jsCode01CanvasH = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.skipLeftCuleyForFuncPLS = 0;\n          variables.eavbnsalvbaslv = 0;\n          variables.ifWeUseCanvas = 0;\n          variables.weUseCnanvasAtALL = 0;\n          variables.numOfTextData = 0;\n          variables.funcs = " + await Chr (34) + "let funcs = {" + await Chr (92) + "n" + await Chr (34) + ";\n          variables.doWeEvenDecAnyFuncHUH = 0;\n          variables.onKeyPress = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.jsCodeGui = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.isFullScrenOnce = 0;\n          variables.HotKeyCalledHotKyes = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.jsCode = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.outAHKCodeTrimed = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.idetext = await StrReplace(variables.idetext, await Chr(13), " + await Chr (34) + "" + await Chr (34) + ");\n          var items1 = LoopParseFunc(variables.idetext, " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ", " + await Chr (34) + "" + await Chr (92) + "r" + await Chr (34) + ");\n          for (/* Loop Parse */ let A_Index1 = 1; A_Index1 <= items1.length; A_Index1++) {\n            variables.A_Index1 = A_Index1;\n            variables.A_LoopField1 = items1[A_Index1 - 1];\n            variables.outAHKCodeTrimed += (await Trim(variables.A_LoopField1)) + " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ";\n          }\n          variables.idetext = StringTrimRight(variables.outAHKCodeTrimed, 1);\n          variables.AHKcodeOUT754754 = " + await Chr (34) + "" + await Chr (34) + ";\n          variables.areWEinSome34sNum = 0;\n          variables.theIdNumOfThe34 = 0;\n          var items2 = LoopParseFunc(variables.idetext);\n          for (/* Loop Parse */ let A_Index2 = 1; A_Index2 <= items2.length; A_Index2++) {\n            variables.A_Index2 = A_Index2;\n            variables.A_LoopField2 = items2[A_Index2 - 1];\n            variables[" + await Chr (34) + "theIdNumOfThe34theVar" + await Chr (34) + " + variables.A_Index2] = await Chr(34);\n          }\n          var items3 = LoopParseFunc(variables.idetext);\n          for (/* Loop Parse */ let A_Index3 = 1; A_Index3 <= items3.length; A_Index3++) {\n            variables.A_Index3 = A_Index3;\n            variables.A_LoopField3 = items3[A_Index3 - 1];\n            if (variables.A_LoopField3 == (await Chr(34))) {\n              variables.areWEinSome34sNum += 1;\n            }\n            if (variables.areWEinSome34sNum == 1) {\n              if (variables.A_LoopField3 != (await Chr(34))) {\n                variables[" + await Chr (34) + "theIdNumOfThe34theVar" + await Chr (34) + " + variables.theIdNumOfThe34] += variables.A_LoopField3;\n              } else {\n                variables.theIdNumOfThe34 += 1;\n                variables.AHKcodeOUT754754 += " + await Chr (34) + "ihuiuuhuuhtheidFor--asas-theuhturtyphoutr-" + await Chr (34) + " + (await Chr(65)) + (await Chr(65)) + (await str(variables.theIdNumOfThe34)) + (await Chr(65)) + (await Chr(65));\n              }\n            }\n            if (variables.areWEinSome34sNum == 2 || variables.areWEinSome34sNum == 0) {\n              if (variables.A_LoopField3 != (await Chr(34))) {\n                variables.AHKcodeOUT754754 += variables.A_LoopField3;\n              }\n              variables.areWEinSome34sNum = 0;\n            }\n          }\n          variables.idetext = variables.AHKcodeOUT754754;\n          for (/* Normal Loop */ variables.A_Index4 = 1; variables.A_Index4 <= variables.theIdNumOfThe34; variables.A_Index4++) {\n            variables[" + await Chr (34) + "theIdNumOfThe34theVar" + await Chr (34) + " + variables.A_Index4] += await Chr(34);\n          }\n          variables.sstr23IfFuncInNAMEnum = 0;\n          variables.outCodeFixBraces = " + await Chr (34) + "" + await Chr (34) + ";\n          for (/* Normal Loop */ variables.A_Index5 = 1; variables.A_Index5 <= 2; variables.A_Index5++) {\n            variables.outCodeFixBraces = " + await Chr (34) + "" + await Chr (34) + ";\n            var items6 = LoopParseFunc(variables.idetext, " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ", " + await Chr (34) + "" + await Chr (92) + "r" + await Chr (34) + ");\n            for (/* Loop Parse */ let A_Index6 = 1; A_Index6 <= items6.length; A_Index6++) {\n              variables.A_Index6 = A_Index6;\n              variables.A_LoopField6 = items6[A_Index6 - 1];\n              if ((await InStr(await Trim(variables.A_LoopField6), " + await Chr (34) + "{" + await Chr (34) + ")) && (await Trim(variables.A_LoopField6)) != " + await Chr (34) + "{" + await Chr (34) + ") {\n                variables.outCodeFixBraces += (await Trim(await StrReplace(await Trim(variables.A_LoopField6), " + await Chr (34) + "{" + await Chr (34) + ", " + await Chr (34) + "" + await Chr (34) + "))) + " + await Chr (34) + "" + await Chr (92) + "n{" + await Chr (92) + "n" + await Chr (34) + ";\n              } else if ((await InStr(await Trim(variables.A_LoopField6), " + await Chr (34) + "}" + await Chr (34) + ")) && (await Trim(variables.A_LoopField6)) != " + await Chr (34) + "}" + await Chr (34) + ") {\n                variables.outCodeFixBraces += " + await Chr (34) + "}" + await Chr (92) + "n" + await Chr (34) + " + (await Trim(await StrReplace(await Trim(variables.A_LoopField6), " + await Chr (34) + "}" + await Chr (34) + ", " + await Chr (34) + "" + await Chr (34) + "))) + " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ";\n              } else {\n                variables.outCodeFixBraces += (await Trim(variables.A_LoopField6)) + " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ";\n              }\n            }\n            variables.idetext = StringTrimRight(variables.outCodeFixBraces, 1);\n          }\n          variables.idetext = await KandRstyleFormat(await indent_nested_curly_braces(variables.idetext));\n          for (/* Normal Loop */ variables.A_Index7 = 1; variables.A_Index7 <= variables.theIdNumOfThe34; variables.A_Index7++) {\n            variables.idetext = await StrReplace(variables.idetext, " + await Chr (34) + "ihuiuuhuuhtheidFor--asas-theuhturtyphoutr-" + await Chr (34) + " + (await Chr(65)) + (await Chr(65)) + (await str(variables.A_Index7)) + (await Chr(65)) + (await Chr(65)), variables[" + await Chr (34) + "theIdNumOfThe34theVar" + await Chr (34) + " + variables.A_Index7]);\n          }\n          GuiControl(" + await Chr (34) + "textide" + await Chr (34) + ", " + await Chr (34) + "Gui1IDE1" + await Chr (34) + ", variables.idetext);\n        }\n        async function KandRstyleFormat(code) {\n          variables.code = code;\n          variables.codeOut = " + await Chr (34) + "" + await Chr (34) + ";\n          var items8 = LoopParseFunc(variables.code, " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ", " + await Chr (34) + "" + await Chr (92) + "r" + await Chr (34) + ");\n          for (/* Loop Parse */ let A_Index8 = 1; A_Index8 <= items8.length; A_Index8++) {\n            variables.A_Index8 = A_Index8;\n            variables.A_LoopField8 = items8[A_Index8 - 1];\n            variables[" + await Chr (34) + "lookInTheFurtre" + await Chr (34) + " + variables.A_Index8] = await Trim(variables.A_LoopField8);\n          }\n          variables[" + await Chr (34) + "lookInTheFurtre" + await Chr (34) + " + variables.A_Index] = " + await Chr (34) + " " + await Chr (34) + ";\n          variables.skipLine = 0;\n          var items9 = LoopParseFunc(variables.code, " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ", " + await Chr (34) + "" + await Chr (92) + "r" + await Chr (34) + ");\n          for (/* Loop Parse */ let A_Index9 = 1; A_Index9 <= items9.length; A_Index9++) {\n            variables.A_Index9 = A_Index9;\n            variables.A_LoopField9 = items9[A_Index9 - 1];\n            variables.AIndex = variables.A_Index9 + 1;\n            if (variables.skipLine == 1) {\n              variables.skipLine = 0;\n            } else {\n              if (variables[" + await Chr (34) + "lookInTheFurtre" + await Chr (34) + " + variables.AIndex] != " + await Chr (34) + "{" + await Chr (34) + ") {\n                variables.codeOut += variables.A_LoopField9 + " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ";\n              }\n            }\n            if (variables[" + await Chr (34) + "lookInTheFurtre" + await Chr (34) + " + variables.AIndex] == " + await Chr (34) + "{" + await Chr (34) + ") {\n              variables.skipLine = 1;\n              variables.codeOut += variables.A_LoopField9 + " + await Chr (34) + " {" + await Chr (92) + "n" + await Chr (34) + ";\n            }\n          }\n          variables.codeOut = StringTrimRight(variables.codeOut, 1);\n          variables.codeOut2 = " + await Chr (34) + "" + await Chr (34) + ";\n          var items10 = LoopParseFunc(variables.codeOut, " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ", " + await Chr (34) + "" + await Chr (92) + "r" + await Chr (34) + ");\n          for (/* Loop Parse */ let A_Index10 = 1; A_Index10 <= items10.length; A_Index10++) {\n            variables.A_Index10 = A_Index10;\n            variables.A_LoopField10 = items10[A_Index10 - 1];\n            variables[" + await Chr (34) + "lookInTheFurtre" + await Chr (34) + " + variables.A_Index10] = await Trim(variables.A_LoopField10);\n          }\n          variables[" + await Chr (34) + "lookInTheFurtre" + await Chr (34) + " + variables.A_Index] = " + await Chr (34) + " " + await Chr (34) + ";\n          variables.skipLine = 0;\n          var items11 = LoopParseFunc(variables.codeOut, " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ", " + await Chr (34) + "" + await Chr (92) + "r" + await Chr (34) + ");\n          for (/* Loop Parse */ let A_Index11 = 1; A_Index11 <= items11.length; A_Index11++) {\n            variables.A_Index11 = A_Index11;\n            variables.A_LoopField11 = items11[A_Index11 - 1];\n            variables.AIndex = variables.A_Index11 + 1;\n            if (variables.skipLine == 1) {\n              variables.skipLine = 0;\n            } else {\n              if (variables[" + await Chr (34) + "lookInTheFurtre" + await Chr (34) + " + variables.AIndex] != " + await Chr (34) + variables.keyWordElse + " {" + await Chr (34) + ") {\n                variables.codeOut2 += variables.A_LoopField11 + " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ";\n              }\n            }\n            if (variables[" + await Chr (34) + "lookInTheFurtre" + await Chr (34) + " + variables.AIndex] == " + await Chr (34) + variables.keyWordElse + " {" + await Chr (34) + ") {\n              variables.skipLine = 1;\n              variables.scoaceses = " + await Chr (34) + "" + await Chr (34) + ";\n              var items12 = LoopParseFunc(variables.A_LoopField11);\n              for (/* Loop Parse */ let A_Index12 = 1; A_Index12 <= items12.length; A_Index12++) {\n                variables.A_Index12 = A_Index12;\n                variables.A_LoopField12 = items12[A_Index12 - 1];\n                if (variables.A_LoopField12 != " + await Chr (34) + " " + await Chr (34) + ") {\n                  break;\n                } else {\n                  variables.scoaceses += " + await Chr (34) + " " + await Chr (34) + ";\n                }\n              }\n              variables.codeOut2 += variables.scoaceses + " + await Chr (34) + "} " + variables.keyWordElse + await Chr (34) + " + " + await Chr (34) + " {" + await Chr (92) + "n" + await Chr (34) + ";\n            }\n          }\n          variables.codeOut = StringTrimRight(variables.codeOut2, 1);\n          return variables.codeOut;\n        }\n        async function RepeatSpaces(count) {\n          variables.count = count;\n          variables.spaces = " + await Chr (34) + "" + await Chr (34) + ";\n          for (/* Normal Loop */ variables.A_Index10 = 1; variables.A_Index10 <= variables.count; variables.A_Index10++) {\n            variables.spaces += " + await Chr (34) + " " + await Chr (34) + ";\n          }\n          return variables.spaces;\n        }\n        async function indent_nested_curly_braces(input_string) {\n          variables.input_string = input_string;\n          variables.indent_size = 4;\n          variables.current_indent = 0;\n          variables.result = " + await Chr (34) + "" + await Chr (34) + ";\n          var items11 = variables.input_string.split(/" + await Chr (92) + "r?" + await Chr (92) + "n|" + await Chr (92) + "r/);\n          for (/* Loop Parse */ let A_Index11 = 1; A_Index11 <= items11.length; A_Index11++) {\n            variables.A_Index11 = A_Index11;\n            variables.A_LoopField11 = items11[A_Index11 - 1];\n            variables.trimmed_line = await Trim(variables.A_LoopField11);\n            if (variables.trimmed_line == (await Chr(123))) {\n              variables.result += (await RepeatSpaces(variables.current_indent)) + (variables.trimmed_line + " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ");\n              variables.current_indent = variables.current_indent + variables.indent_size;\n            } else if (variables.trimmed_line == (await Chr(125))) {\n              variables.current_indent = variables.current_indent - variables.indent_size;\n              variables.result += (await RepeatSpaces(variables.current_indent)) + (variables.trimmed_line + " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ");\n            } else {\n              variables.result += (await RepeatSpaces(variables.current_indent)) + (variables.trimmed_line + " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ");\n            }\n          }\n          variables.result = StringTrimRight(variables.result, 1);\n          // Return the result\n          return variables.result;\n        }\n      }\n\n      // Call the async function to start the script\n      runScript();\n    " + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (47) + await Chr (98) + await Chr (111) + await Chr (100) + await Chr (121) + await Chr (62) + await Chr (10) + await Chr (60) + await Chr (47) + await Chr (104) + await Chr (116) + await Chr (109) + await Chr (108) + await Chr (62 )
+variables.regexCode = "{ token: " + await Chr (34) + "comment" + await Chr (34) + ", regex: " + await Chr (34) + variables.keyWordComment + ".*$" + await Chr (34) + " },\n              { token: " + await Chr (34) + "keywords" + await Chr (34) + ", regex: " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "b(" + variables.keywords + ")" + await Chr (92) + "" + await Chr (92) + "b" + await Chr (34) + " },\n              { token: " + await Chr (34) + "command" + await Chr (34) + ", regex: " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "b(" + variables.keyWordsCommandsFolrmated + ")(?=" + await Chr (92) + "" + await Chr (92) + ",)" + await Chr (34) + " },\n              { token: " + await Chr (34) + "functions" + await Chr (34) + ", regex: " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "b(" + variables.functionsForHighlighting + ")(?=" + await Chr (92) + "" + await Chr (92) + "()" + await Chr (34) + " },\n              { token: " + await Chr (34) + "BuildInFunc" + await Chr (34) + ", regex: " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "b(" + variables.keyWordAIndex + "|" + variables.keyWordALoopField + ")" + await Chr (92) + "" + await Chr (92) + "b" + await Chr (34) + " },\n              { token: " + await Chr (34) + "arrayMethods" + await Chr (34) + ", regex: " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + ".(" + variables.keyWordArrayMethods + ")" + await Chr (92) + "" + await Chr (92) + "b" + await Chr (34) + " },\n              { token: " + await Chr (34) + "static_types" + await Chr (34) + ", regex: " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "b(" + variables.keyWordTypes + ")" + await Chr (92) + "" + await Chr (92) + "b" + await Chr (34) + " },\n              { token: " + await Chr (34) + "operators" + await Chr (34) + ", regex: " + await Chr (34) + " && | " + variables.keyWordOrOperator + " | " + variables.keyWordAndOperator + " | && " + await Chr (34) + " },\n              { token: " + await Chr (34) + "trueANDfalse" + await Chr (34) + ", regex: " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "b(" + variables.keyWordTrue + "|" + variables.keyWordFalse + "|" + variables.keyWordGlobal + ")" + await Chr (92) + "" + await Chr (92) + "b" + await Chr (34) + " },\n              { token: " + await Chr (34) + "variables" + await Chr (34) + ", regex: " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "b[a-zA-Z_][a-zA-Z0-9_]*" + await Chr (92) + "" + await Chr (92) + "b" + await Chr (34) + " },\n              { token: " + await Chr (34) + "constant.numeric" + await Chr (34) + ", regex: " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "b[0-9]+" + await Chr (92) + "" + await Chr (92) + "b" + await Chr (34) + " },\n              { token: " + await Chr (34) + "braces_Open" + await Chr (34) + ", regex: " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "{" + await Chr (34) + " },\n              { token: " + await Chr (34) + "braces_Close" + await Chr (34) + ", regex: " + await Chr (34) + "" + await Chr (92) + "" + await Chr (92) + "}" + await Chr (34) + " },\n              { token: " + await Chr (34) + "string" + await Chr (34) + ", regex: '" + await Chr (34) + ".*?" + await Chr (34) + "' },\n              // Multi-line comments\n              {\n                token: " + await Chr (34) + "comment.block" + await Chr (34) + ", // Token for multi-line comments\n                regex: /" + variables.keyWordCommentOpenMultiLine + "/, // Start of multi-line comment\n                next: " + await Chr (34) + "comment_block" + await Chr (34) + ",\n              },\n            ],\n            comment_block: [\n              {\n                token: " + await Chr (34) + "comment.block" + await Chr (34) + ",\n                regex: /.*?" + variables.keyWordCommentCloseMultiLine + "/, // End of multi-line comment\n                next: " + await Chr (34) + "start" + await Chr (34) + ", // Go back to the start state\n              },\n              {\n                token: " + await Chr (34) + "comment.block" + await Chr (34) + ",\n                regex: /.*/, // Any other content within the comment\n              },\n            ],\n          };\n        };\n"
+variables.allIDEHTML = variables.upCode + variables.regexCode + variables.downCode
+return variables.allIDEHTML
 }
 
 
