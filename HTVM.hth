@@ -110,7 +110,7 @@ Gui 3: Hide
 }
 ButtonINFOvHolder := ""
 
-
+ToggleMoreBuildInFuncsTEXT := ""
 
 if (isMobileDevice())
 {
@@ -121,8 +121,9 @@ Gui 4: Add, Text, x10 y10 w%AScreenWidth2% h50, Download the language you just c
 Gui 4: Font, s15
 closeGui4X := AScreenWidth - 72
 Gui 4: Add, Button, x%closeGui4X% y3 w69 h34 cffffff bgff0000 gGui4Close, close
-Gui 4: Add, Button, x10 y65 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadInstruction, Download HT-instructions.txt
-Gui 4: Add, Button, x10 y115 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadIDE, Download IDE.html
+Gui 4: Add, Toggle, x10 y65 vToggleMoreBuildInFuncsV gToggleMoreBuildInFuncs, Toggle all HTVM pre-made Build-in functions
+Gui 4: Add, Button, x10 y115 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadInstruction, Download HT-instructions.txt
+Gui 4: Add, Button, x10 y165 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadIDE, Download IDE.html
 Gui 4: Hide
 }
 else
@@ -133,11 +134,12 @@ Gui 4: Add, Text, x10 y10 w%AScreenWidth2% h50, Download the language you just c
 Gui 4: Font, s15
 closeGui4X := AScreenWidth - 72
 Gui 4: Add, Button, x%closeGui4X% y3 w69 h34 cffffff bgff0000 gGui4Close, close
-Gui 4: Add, Button, x10 y65 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadInstruction, Download HT-instructions.txt
-Gui 4: Add, Button, x10 y115 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadIDE, Download IDE.html
+Gui 4: Add, Toggle, x10 y65 vToggleMoreBuildInFuncsV gToggleMoreBuildInFuncs, Toggle all HTVM pre-made Build-in functions
+Gui 4: Add, Button, x10 y115 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadInstruction, Download HT-instructions.txt
+Gui 4: Add, Button, x10 y165 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadIDE, Download IDE.html
 Gui 4: Hide
 }
-
+document.getElementById('Gui4ToggleMoreBuildInFuncsV').click()
 
 
 if (StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-76") = null)
@@ -1423,7 +1425,7 @@ allFuncNamesForSavingItOut .= "`n" . bodyFuncTemp1 . bodyFuncTemp2 . bodyFuncTem
 }
 
 
-allData := allData . "`n" . allFuncNamesForSavingItOut
+allData := allData . "`n" . allFuncNamesForSavingItOut . "`n" . ToggleMoreBuildInFuncsTEXT
 }
 if (A_ScreenHeight > A_ScreenWidth)
 {
@@ -2641,6 +2643,29 @@ GuiControl, Focus, Button8
 Return
 
 
+ToggleMoreBuildInFuncs:
+ToggleMoreBuildInFuncsHolder := A_GuiControl
+if (ToggleMoreBuildInFuncsHolder = "1")
+{
+ToggleMoreBuildInFuncsHolder := "on"
+}
+else
+{
+ToggleMoreBuildInFuncsHolder := "off"
+}
+
+if (ToggleMoreBuildInFuncsHolder = "off")
+{
+ToggleMoreBuildInFuncsTEXT := ""
+}
+else
+{
+ToggleMoreBuildInFuncsTEXT := "`nfunc======================func==============`nlang: cpp`nname: print`nlibs: #include <iostream>|#include <string>|#include <type_traits>`ndescription: hello that is func mhm`n`n// Print function for const char* specifically`nvoid print(const char* value) {`n    std::cout << std::string(value) << std::endl;  // Convert const char* to std::string`n}`n`n// Print function that converts all types to string if needed`ntemplate <typename T>`nvoid print(const T& value) {`n    if constexpr (std::is_same_v<T, std::string>) {`n        std::cout << value << std::endl;`n    } else if constexpr (std::is_same_v<T, char>) {`n        std::cout << value << std::endl;`n    } else if constexpr (std::is_same_v<T, int>) {`n        std::cout << std::to_string(value) << std::endl;`n    } else if constexpr (std::is_same_v<T, float>) {`n        std::cout << std::to_string(value) << std::endl;`n    } else if constexpr (std::is_same_v<T, double>) {`n        std::cout << std::to_string(value) << std::endl;`n    } else if constexpr (std::is_same_v<T, size_t>) {`n        std::cout << std::to_string(value) << std::endl;`n    } else if constexpr (std::is_same_v<T, bool>) {`n        std::cout << (value ? " . Chr(34) . "1" . Chr(34) . " : " . Chr(34) . "0" . Chr(34) . ") << std::endl;`n    } else {`n        std::cout << " . Chr(34) . "Unsupported type" . Chr(34) . " << std::endl;`n    }`n}`n`nfuncEND======================funcEND==============`n`nfunc======================func==============`nlang: js`nname: print`n" . Chr(108) . Chr(105) . Chr(98) . Chr(115) . Chr(58) . Chr(32) . Chr(60) . Chr(115) . Chr(99) . Chr(114) . Chr(105) . Chr(112) . Chr(116) . Chr(32) . Chr(115) . Chr(114) . Chr(99) . Chr(61) . Chr(34) . Chr(104) . Chr(116) . Chr(116) . Chr(112) . Chr(115) . Chr(58) . Chr(47) . Chr(47) . Chr(99) . Chr(100) . Chr(110) . Chr(46) . Chr(106) . Chr(115) . Chr(100) . Chr(101) . Chr(108) . Chr(105) . Chr(118) . Chr(114) . Chr(46) . Chr(110) . Chr(101) . Chr(116) . Chr(47) . Chr(110) . Chr(112) . Chr(109) . Chr(47) . Chr(115) . Chr(119) . Chr(101) . Chr(101) . Chr(116) . Chr(97) . Chr(108) . Chr(101) . Chr(114) . Chr(116) . Chr(50) . Chr(64) . Chr(49) . Chr(49) . Chr(34) . Chr(62) . Chr(60) . Chr(47) . Chr(115) . Chr(99) . Chr(114) . Chr(105) . Chr(112) . Chr(116) . Chr(62) . "`ndescription: you can coppy this section as much as you want for build in funcs`n`nfunction print(value) {`n    console.log(value)`n}`n`nfuncEND======================funcEND==============`n"
+}
+Return
+
+
+
 ButtonDownloadIDE:
 
 allData := ""
@@ -2754,7 +2779,7 @@ allFuncNamesForSavingItOut .= "`n" . bodyFuncTemp1 . bodyFuncTemp2 . bodyFuncTem
 }
 
 
-allData := allData . "`n" . allFuncNamesForSavingItOut
+allData := allData . "`n" . allFuncNamesForSavingItOut . "`n" . ToggleMoreBuildInFuncsTEXT
 }
 ideHTMLdata := IDEgenerataion(allData)
 FileAppend, %ideHTMLdata%, IDE.html
@@ -2873,7 +2898,7 @@ allFuncNamesForSavingItOut .= "`n" . bodyFuncTemp1 . bodyFuncTemp2 . bodyFuncTem
 }
 
 
-allData := allData . "`n" . allFuncNamesForSavingItOut
+allData := allData . "`n" . allFuncNamesForSavingItOut . "`n" . ToggleMoreBuildInFuncsTEXT
 }
 ideHTMLdata := IDEgenerataion(allData)
 FileAppend, %allData%, HT-instructions.txt
@@ -3615,10 +3640,7 @@ displayExampleTextLine12 := keyWordINT . " varName9 " . keyWordVariablesAssignme
 displayExampleTextLine13 := keyWordComment . " Here is how if, else if and else will work and look like" . "`n"
 displayExampleTextLine14 := keyWordIF . " " . openParentheses . "varName1 " . keyWordEqualOperator . " varName9" . closeParentheses . "" . defineCodeBlockChar . "`n"
 displayExampleTextLine15 := A_Tab . "print(" . Chr(34) . "varName1 is = to varName9" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
-if (useEnd = "off")
-{
-displayExampleTextLine16 := defineCodeBlockCharCLOSE . "`n"
-}
+
 displayExampleTextLine17 := keyWordElseIf . " " . openParentheses . "varName1 " . keyWordNotEqualToOperator . " varName9 " . keyWordOrOperator . " varName1 " . keyWordLessThanOrEqualToOperator . " varName9" . closeParentheses . "" . defineCodeBlockChar . "`n"
 displayExampleTextLine18 := A_Tab . "print(" . Chr(34) . "varName1 is less or equal to varName9" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
 

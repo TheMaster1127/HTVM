@@ -1509,6 +1509,7 @@ Gui3.appendChild(Gui3ButtonInfoOK);
 Gui3.style.display = "none";
 }
 variables.ButtonINFOvHolder = ""
+variables.ToggleMoreBuildInFuncsTEXT = ""
 if (( await isMobileDevice () ))
 {
 variables.AScreenWidth = variables.AScreenWidth + 25
@@ -1562,13 +1563,14 @@ A_GuiControl = event.target.textContent
   Gui4Close(A_GuiControl);
 };
 Gui4.appendChild(Gui4Button1);
+createToggleSwitch(Gui4, "Gui4ToggleMoreBuildInFuncsV", "Toggle all HTVM pre-made Build-in functions", "#2196F3", 10, 65, 60, 30, ToggleMoreBuildInFuncs );
 Gui4Button2 = document.createElement("button");
 Gui4Button2.id = "Gui4" + "Button" + "2"; // Set ID for referencing
 Gui4Button2.textContent = "Download HT-instructions.txt";
 Gui4Button2.style.fontSize = "15px"; // Set font size
 Gui4Button2.style.position = "absolute"; // Set position to absolute
 Gui4Button2.style.left = "10px"; // Set initial x position
-Gui4Button2.style.top = "65px"; // Set initial y position
+Gui4Button2.style.top = "115px"; // Set initial y position
 Gui4Button2.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
 Gui4Button2.style.height = "40px"; // Set height
 Gui4Button2.style.cursor = "pointer"; // Change cursor on hover
@@ -1589,7 +1591,7 @@ Gui4Button3.textContent = "Download IDE.html";
 Gui4Button3.style.fontSize = "15px"; // Set font size
 Gui4Button3.style.position = "absolute"; // Set position to absolute
 Gui4Button3.style.left = "10px"; // Set initial x position
-Gui4Button3.style.top = "115px"; // Set initial y position
+Gui4Button3.style.top = "165px"; // Set initial y position
 Gui4Button3.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
 Gui4Button3.style.height = "40px"; // Set height
 Gui4Button3.style.cursor = "pointer"; // Change cursor on hover
@@ -1658,13 +1660,14 @@ A_GuiControl = event.target.textContent
   Gui4Close(A_GuiControl);
 };
 Gui4.appendChild(Gui4Button4);
+createToggleSwitch(Gui4, "Gui4ToggleMoreBuildInFuncsV", "Toggle all HTVM pre-made Build-in functions", "#2196F3", 10, 65, 60, 30, ToggleMoreBuildInFuncs );
 Gui4Button5 = document.createElement("button");
 Gui4Button5.id = "Gui4" + "Button" + "5"; // Set ID for referencing
 Gui4Button5.textContent = "Download HT-instructions.txt";
 Gui4Button5.style.fontSize = "15px"; // Set font size
 Gui4Button5.style.position = "absolute"; // Set position to absolute
 Gui4Button5.style.left = "10px"; // Set initial x position
-Gui4Button5.style.top = "65px"; // Set initial y position
+Gui4Button5.style.top = "115px"; // Set initial y position
 Gui4Button5.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
 Gui4Button5.style.height = "40px"; // Set height
 Gui4Button5.style.cursor = "pointer"; // Change cursor on hover
@@ -1685,7 +1688,7 @@ Gui4Button6.textContent = "Download IDE.html";
 Gui4Button6.style.fontSize = "15px"; // Set font size
 Gui4Button6.style.position = "absolute"; // Set position to absolute
 Gui4Button6.style.left = "10px"; // Set initial x position
-Gui4Button6.style.top = "115px"; // Set initial y position
+Gui4Button6.style.top = "165px"; // Set initial y position
 Gui4Button6.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
 Gui4Button6.style.height = "40px"; // Set height
 Gui4Button6.style.cursor = "pointer"; // Change cursor on hover
@@ -1702,6 +1705,7 @@ A_GuiControl = event.target.textContent
 Gui4.appendChild(Gui4Button6);
 Gui4.style.display = "none";
 }
+await document.getElementById( 'Gui4ToggleMoreBuildInFuncsV') .click ()
 if (( await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-76") == variables.null ))
 {
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-76" , "on" )
@@ -5095,7 +5099,7 @@ variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
 variables.bodyFuncTemp7 = "funcEND======================funcEND=============="
 variables.allFuncNamesForSavingItOut += "\n" + variables.bodyFuncTemp1 + variables.bodyFuncTemp2 + variables.bodyFuncTemp3 + variables.bodyFuncTemp4 + variables.bodyFuncTemp5 + variables.bodyFuncTemp6 + variables.bodyFuncTemp7 + "\n"
 }
-variables.allData = variables.allData + "\n" + variables.allFuncNamesForSavingItOut
+variables.allData = variables.allData + "\n" + variables.allFuncNamesForSavingItOut + "\n" + variables.ToggleMoreBuildInFuncsTEXT
 }
 if (( BuildInVars("A_ScreenHeight") > BuildInVars("A_ScreenWidth") ))
 {
@@ -6276,6 +6280,26 @@ return
 Gui4.style.display = "block";
 GuiControl("focus", "Gui1Button8");
 }
+async function ToggleMoreBuildInFuncs(A_GuiControl)
+{
+variables.ToggleMoreBuildInFuncsHolder = A_GuiControl
+if (( variables.ToggleMoreBuildInFuncsHolder == "1" ))
+{
+variables.ToggleMoreBuildInFuncsHolder = "on"
+}
+else
+{
+variables.ToggleMoreBuildInFuncsHolder = "off"
+}
+if (( variables.ToggleMoreBuildInFuncsHolder == "off" ))
+{
+variables.ToggleMoreBuildInFuncsTEXT = ""
+}
+else
+{
+variables.ToggleMoreBuildInFuncsTEXT = "\nfunc======================func==============\nlang: cpp\nname: print\nlibs: #include <iostream>|#include <string>|#include <type_traits>\ndescription: hello that is func mhm\n\n// Print function for const char* specifically\nvoid print(const char* value) {\n    std::cout << std::string(value) << std::endl;  // Convert const char* to std::string\n}\n\n// Print function that converts all types to string if needed\ntemplate <typename T>\nvoid print(const T& value) {\n    if constexpr (std::is_same_v<T, std::string>) {\n        std::cout << value << std::endl;\n    } else if constexpr (std::is_same_v<T, char>) {\n        std::cout << value << std::endl;\n    } else if constexpr (std::is_same_v<T, int>) {\n        std::cout << std::to_string(value) << std::endl;\n    } else if constexpr (std::is_same_v<T, float>) {\n        std::cout << std::to_string(value) << std::endl;\n    } else if constexpr (std::is_same_v<T, double>) {\n        std::cout << std::to_string(value) << std::endl;\n    } else if constexpr (std::is_same_v<T, size_t>) {\n        std::cout << std::to_string(value) << std::endl;\n    } else if constexpr (std::is_same_v<T, bool>) {\n        std::cout << (value ? " + await Chr (34) + "1" + await Chr (34) + " : " + await Chr (34) + "0" + await Chr (34) + ") << std::endl;\n    } else {\n        std::cout << " + await Chr (34) + "Unsupported type" + await Chr (34) + " << std::endl;\n    }\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: js\nname: print\n" + await Chr (108) + await Chr (105) + await Chr (98) + await Chr (115) + await Chr (58) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (100) + await Chr (101) + await Chr (108) + await Chr (105) + await Chr (118) + await Chr (114) + await Chr (46) + await Chr (110) + await Chr (101) + await Chr (116) + await Chr (47) + await Chr (110) + await Chr (112) + await Chr (109) + await Chr (47) + await Chr (115) + await Chr (119) + await Chr (101) + await Chr (101) + await Chr (116) + await Chr (97) + await Chr (108) + await Chr (101) + await Chr (114) + await Chr (116) + await Chr (50) + await Chr (64) + await Chr (49) + await Chr (49) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + "\ndescription: you can coppy this section as much as you want for build in funcs\n\nfunction print(value) {\n    console.log(value)\n}\n\nfuncEND======================funcEND==============\n"
+}
+}
 async function ButtonDownloadIDE(A_GuiControl)
 {
 variables.allData = ""
@@ -6382,7 +6406,7 @@ variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
 variables.bodyFuncTemp7 = "funcEND======================funcEND=============="
 variables.allFuncNamesForSavingItOut += "\n" + variables.bodyFuncTemp1 + variables.bodyFuncTemp2 + variables.bodyFuncTemp3 + variables.bodyFuncTemp4 + variables.bodyFuncTemp5 + variables.bodyFuncTemp6 + variables.bodyFuncTemp7 + "\n"
 }
-variables.allData = variables.allData + "\n" + variables.allFuncNamesForSavingItOut
+variables.allData = variables.allData + "\n" + variables.allFuncNamesForSavingItOut + "\n" + variables.ToggleMoreBuildInFuncsTEXT
 }
 variables.ideHTMLdata = await IDEgenerataion (variables.allData )
 FileAppend("" + variables.ideHTMLdata + "", "IDE.html")
@@ -6493,7 +6517,7 @@ variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
 variables.bodyFuncTemp7 = "funcEND======================funcEND=============="
 variables.allFuncNamesForSavingItOut += "\n" + variables.bodyFuncTemp1 + variables.bodyFuncTemp2 + variables.bodyFuncTemp3 + variables.bodyFuncTemp4 + variables.bodyFuncTemp5 + variables.bodyFuncTemp6 + variables.bodyFuncTemp7 + "\n"
 }
-variables.allData = variables.allData + "\n" + variables.allFuncNamesForSavingItOut
+variables.allData = variables.allData + "\n" + variables.allFuncNamesForSavingItOut + "\n" + variables.ToggleMoreBuildInFuncsTEXT
 }
 variables.ideHTMLdata = await IDEgenerataion (variables.allData )
 FileAppend("" + variables.allData + "", "HT-instructions.txt")
@@ -7203,10 +7227,6 @@ variables.displayExampleTextLine12 = variables.keyWordINT + " varName9 " + varia
 variables.displayExampleTextLine13 = variables.keyWordComment + " Here is how if, else if and else will work and look like" + "\n"
 variables.displayExampleTextLine14 = variables.keyWordIF + " " + variables.openParentheses + "varName1 " + variables.keyWordEqualOperator + " varName9" + variables.closeParentheses + "" + variables.defineCodeBlockChar + "\n"
 variables.displayExampleTextLine15 = BuildInVars("A_Tab") + "print(" + await Chr (34) + "varName1 is = to varName9" + await Chr (34) + ")" + variables.ifWeUsedAsemicolumON + "\n"
-if (( variables.useEnd == "off" ))
-{
-variables.displayExampleTextLine16 = variables.defineCodeBlockCharCLOSE + "\n"
-}
 variables.displayExampleTextLine17 = variables.keyWordElseIf + " " + variables.openParentheses + "varName1 " + variables.keyWordNotEqualToOperator + " varName9 " + variables.keyWordOrOperator + " varName1 " + variables.keyWordLessThanOrEqualToOperator + " varName9" + variables.closeParentheses + "" + variables.defineCodeBlockChar + "\n"
 variables.displayExampleTextLine18 = BuildInVars("A_Tab") + "print(" + await Chr (34) + "varName1 is less or equal to varName9" + await Chr (34) + ")" + variables.ifWeUsedAsemicolumON + "\n"
 if (( variables.useEnd == "off" ))

@@ -4175,6 +4175,8 @@ str2 = str1;
 str2 = StrReplace ( str2 , ":" , "" ) ;
 if (langToTranspileTo == "cpp") 
 {
+str2 = RegExReplace ( str2 , "\\b" + keyWordTrue + "\\b" , "true" ) ;
+str2 = RegExReplace ( str2 , "\\b" + keyWordFalse + "\\b" , "false" ) ;
 str2 = RegExReplace ( str2 , "\\b" + Trim ( keyWordINT ) + "\\b" , "int" ) ;
 str2 = RegExReplace ( str2 , "\\b" + Trim ( keyWordSTR ) + "\\b" , "std::string" ) ;
 str2 = RegExReplace ( str2 , "\\b" + Trim ( keyWordBOOL ) + "\\b" , "bool" ) ;
@@ -4192,6 +4194,16 @@ str2 = RegExReplace ( str2 , "\\b" + Trim ( keyWordArrayOfBooleansDefinition ) +
 else
 {
 str2 = RegExReplace ( str2 , "\\bvoid\\b" , "" ) ;
+if (langToTranspileTo!= "py") 
+{
+str2 = RegExReplace ( str2 , "\\b" + keyWordTrue + "\\b" , "true" ) ;
+str2 = RegExReplace ( str2 , "\\b" + keyWordFalse + "\\b" , "false" ) ;
+}
+else
+{
+str2 = RegExReplace ( str2 , "\\b" + keyWordTrue + "\\b" , "True" ) ;
+str2 = RegExReplace ( str2 , "\\b" + keyWordFalse + "\\b" , "False" ) ;
+}
 str2 = RegExReplace ( str2 , "\\b" + Trim ( keyWordINT ) + "\\b" , "" ) ;
 str2 = RegExReplace ( str2 , "\\b" + Trim ( keyWordSTR ) + "\\b" , "" ) ;
 str2 = RegExReplace ( str2 , "\\b" + Trim ( keyWordBOOL ) + "\\b" , "" ) ;
