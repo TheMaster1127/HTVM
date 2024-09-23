@@ -5964,6 +5964,8 @@ allLibsToPutAtTop := "#include <iostream>`n#include <sstream>`n#include <string>
 
 Sort, allLibsToPutAtTop, U
 
+allLibsToPutAtTop := StrReplace(allLibsToPutAtTop, "~", "`n")
+
 if (langToTranspileTo != "js")
 {
 htCode := allLibsToPutAtTop . "`n" . allFuncsToPutAtTop . "`n" . htCode

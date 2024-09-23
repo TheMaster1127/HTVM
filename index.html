@@ -4959,6 +4959,11 @@ await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-A
 }
 async function EditFuncLibs(A_GuiControl)
 {
+if (( await StoreLocally ("r" , "HTVM-EditFuncLIBS") == variables.null) || (await StoreLocally ("r" , "HTVM-EditFuncLIBS") == "" ))
+{
+await StoreLocally( "s" , "HTVM-EditFuncLIBS" , "dummy data" )
+await showCustomMessageBox({},"What dose ~ char do when we add it!", "It will be replaced with a new line as the libs section must be written in only one line. You cannot add a new line and the ~ character is not commonly used.", 64, 0)
+}
 if (( ! (await RegExMatch (A_GuiControl , "^[^\\r\\n]*$") ) ))
 {
 await showCustomMessageBox({},"Invalid input", "Please do not use new lines or carriage returns.", 16, 0)

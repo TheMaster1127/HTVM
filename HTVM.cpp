@@ -5861,6 +5861,7 @@ if (langToTranspileTo == "cpp")
 allLibsToPutAtTop = "#include <iostream>\n#include <sstream>\n#include <string>\n#include <cstdint>\n#include <algorithm>\n#include <vector>\n" + allLibsToPutAtTop;
 }
 allLibsToPutAtTop = SortLikeAHK(allLibsToPutAtTop, "U");
+allLibsToPutAtTop = StrReplace ( allLibsToPutAtTop , "~" , "\n" ) ;
 if (langToTranspileTo!= "js") 
 {
 htCode = allLibsToPutAtTop + "\n" + allFuncsToPutAtTop + "\n" + htCode;
