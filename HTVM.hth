@@ -1333,7 +1333,7 @@ Return
 IDEshow:
 allData := ""
 
-defaultSyntax := "cpp`nht`nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nfor`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`n=`n+=`n+=`n-=`n*=`n/=`n+`n+`n==`n!`n>`n<`n>=`n<=`nor`nand`n!=`ntrue`nfalse`nswitch`ncase`ndefault`nthrow`nErrorMsg`nTry`nCatch`nFinally`n.push`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nreturn`nend`nglobal`n//`n/*`n*/`n" . Chr(92) . "`n0`nA_Index`nA_LoopField`nmain`non`non`noff`noff`non`noff`ncpp`non`non`noff"
+defaultSyntax := "cpp`nht`nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,param1|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'param1|Sort,OUTVAR,'param1,'param2`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nfor`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`n=`n+=`n+=`n-=`n*=`n/=`n+`n+`n==`n!`n>`n<`n>=`n<=`nor`nand`n!=`ntrue`nfalse`nswitch`ncase`ndefault`nthrow`nErrorMsg`nTry`nCatch`nFinally`n.push`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nreturn`nend`nglobal`n//`n/*`n*/`n" . Chr(92) . "`n0`nA_Index`nA_LoopField`nmain`non`non`noff`noff`non`noff`ncpp`non`non`noff"
 Loop, Parse, defaultSyntax, `n, `r
 {
 defaultSyntax%A_Index% := A_LoopField
