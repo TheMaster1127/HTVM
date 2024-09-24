@@ -400,6 +400,48 @@
       }
 
 
+      // Absolute value
+      function Abs(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.abs(num);
+      }
+
+
+      // Arc cosine
+      function ACos(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.acos(num);
+      }
+
+
+      // Arc sine
+      function ASin(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.asin(num);
+      }
+
+
+      // Arc tangent
+      function ATan(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.atan(num);
+      }
+
+
+      // Ceiling
+      function Ceil(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.ceil(num);
+      }
+
+
+      // Cosine
+      function Cos(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.cos(num);
+      }
+
+
       // Exponential
       function Exp(num) {
         if (num === null || isNaN(num)) return null;
@@ -407,10 +449,52 @@
       }
 
 
+      // Flooring
+      function Floor(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.floor(num);
+      }
+
+
+      // Natural logarithm
+      function Ln(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.log(num);
+      }
+
+
       // Base-10 logarithm
       function Log(num) {
         if (num === null || isNaN(num)) return null;
         return Math.log10(num);
+      }
+
+
+      // Rounding
+      function Round(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.round(num);
+      }
+
+
+      // Sin
+      function Sin(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.sin(num);
+      }
+
+
+      // Square root
+      function Sqrt(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.sqrt(num);
+      }
+
+
+      // Tangent
+      function Tan(num) {
+        if (num === null || isNaN(num)) return null;
+        return Math.tan(num);
       }
 
 
@@ -429,6 +513,12 @@
           // Return an empty string for invalid numbers
           return "";
         }
+      }
+
+
+      // Function to simulate Sleep
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
       }
 
 
@@ -548,6 +638,11 @@
       // Custom Mod function
       function Mod(dividend, divisor) {
         return dividend % divisor;
+      }
+
+
+      function Asc(char) {
+        return char.charCodeAt(0);
       }
 
 
@@ -857,6 +952,21 @@ function StoreLocally(operation, saveLocation, data) {
 
       function StrLower(string) {
         return string.toLowerCase();
+      }
+
+
+      async function getDataFromAPI(url) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          return null;
+        }
       }
 
 
@@ -1193,6 +1303,18 @@ let funcs = {
 
 
 
+var Gui5 = {}
+Gui5 = document.createElement("div")
+Gui5.id = "Gui5"
+
+var Gui2 = {}
+Gui2 = document.createElement("div")
+Gui2.id = "Gui2"
+
+var Gui5 = {}
+Gui5 = document.createElement("div")
+Gui5.id = "Gui5"
+
 var Gui2 = {}
 Gui2 = document.createElement("div")
 Gui2.id = "Gui2"
@@ -1201,6 +1323,10 @@ var Gui1 = {}
 Gui1 = document.createElement("div")
 Gui1.id = "Gui1"
 
+var Gui5 = {}
+Gui5 = document.createElement("div")
+Gui5.id = "Gui5"
+
 var Gui3 = {}
 Gui3 = document.createElement("div")
 Gui3.id = "Gui3"
@@ -1213,6 +1339,18 @@ var Gui1 = {}
 Gui1 = document.createElement("div")
 Gui1.id = "Gui1"
 
+var Gui5 = {}
+Gui5 = document.createElement("div")
+Gui5.id = "Gui5"
+
+var Gui5 = {}
+Gui5 = document.createElement("div")
+Gui5.id = "Gui5"
+
+var Gui5 = {}
+Gui5 = document.createElement("div")
+Gui5.id = "Gui5"
+
 var Gui3 = {}
 Gui3 = document.createElement("div")
 Gui3.id = "Gui3"
@@ -1224,6 +1362,10 @@ Gui4.id = "Gui4"
 var Gui4 = {}
 Gui4 = document.createElement("div")
 Gui4.id = "Gui4"
+
+var Gui5 = {}
+Gui5 = document.createElement("div")
+Gui5.id = "Gui5"
 
 
 
@@ -1234,6 +1376,37 @@ let variables = {
 null: null,
 };
 await showCustomMessageBox({}," ", "Website is still in development!!!", 0, 0)
+Gui5.style.position = "absolute";
+Gui5.style.width = "240px"; // Set the width
+Gui5.style.height = "100px"; // Set the height
+Gui5.style.background = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
+Gui5.style.backgroundColor = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
+Gui5.style.color = "white";
+Gui5.style.fontSize = "15px";
+Gui5.style.borderRadius = "0px";
+Gui5.style.padding = "0px";
+Gui5.style.border = "2px solid white";
+Gui5.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui5.style.zIndex = "50";
+// Calculate center position
+Gui5.style.left = (window.innerWidth - parseInt(Gui5.style.width)) / 2 + "px";
+Gui5.style.top = (window.innerHeight - parseInt(Gui5.style.height)) / 2 + "px";
+document.body.appendChild(Gui5); // Append the GUI window to the body
+Gui5.style.display = "block";
+Gui5Static1 = document.createElement("div");
+Gui5Static1.id = "Gui5" + "Static" + "1"; // Set ID for referencing
+Gui5Static1.textContent = "Loading...";
+Gui5Static1.style.color = "#black"
+Gui5Static1.style.fontSize = "50px"; // Set font size
+Gui5Static1.style.position = "absolute"; // Set position to absolute
+Gui5Static1.style.left = "5px"; // Set initial x position
+Gui5Static1.style.top = "5px"; // Set initial y position
+Gui5Static1.style.width = "230px"; // Set width
+Gui5Static1.style.height = "35px"; // Set height
+Gui5.appendChild(Gui5Static1);
+Gui5.style.display = "none";
+Gui5.style.display = "block";
+await sleep(50)
 variables.AScreenWidth = BuildInVars("A_ScreenWidth") - 20
 variables.AScreenHeight = BuildInVars("A_ScreenHeight") - 20
 Gui2.style.position = "absolute";
@@ -1335,6 +1508,7 @@ Gui2.appendChild(Gui2[variables.AIndex]);
 variables.HTVM_HowManyProjectsButtonY = variables.HTVM_HowManyProjectsButtonY + 50
 }
 }
+Gui5.style.display = "none";
 return
 async function ButtonProjects(A_GuiControl)
 {
@@ -1383,6 +1557,8 @@ Gui1.style.display = "block";
 document.documentElement.setAttribute("style", "padding: 0; margin: 0;");
 document.head.setAttribute("style", "padding: 0; margin: 0;");
 document.body.setAttribute("style", "overflow-x: hidden;padding: 0; margin: 0;");
+Gui5.style.display = "block";
+await sleep(50)
 variables.allData = ""
 for (/* Normal Loop */ variables.A_Index2 = 1; variables.A_Index2 <= 86; variables.A_Index2++)
 {
@@ -1530,17 +1706,17 @@ Gui4.style.left = (window.innerWidth - parseInt(Gui4.style.width)) / 2 + "px";
 Gui4.style.top = (window.innerHeight - parseInt(Gui4.style.height)) / 2 + "px";
 document.body.appendChild(Gui4); // Append the GUI window to the body
 Gui4.style.display = "block";
-Gui4Static3 = document.createElement("div");
-Gui4Static3.id = "Gui4" + "Static" + "3"; // Set ID for referencing
-Gui4Static3.textContent = "Download the language you just created!";
-Gui4Static3.style.color = "#black"
-Gui4Static3.style.fontSize = "15px"; // Set font size
-Gui4Static3.style.position = "absolute"; // Set position to absolute
-Gui4Static3.style.left = "10px"; // Set initial x position
-Gui4Static3.style.top = "10px"; // Set initial y position
-Gui4Static3.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
-Gui4Static3.style.height = "50px"; // Set height
-Gui4.appendChild(Gui4Static3);
+Gui4Static4 = document.createElement("div");
+Gui4Static4.id = "Gui4" + "Static" + "4"; // Set ID for referencing
+Gui4Static4.textContent = "Download the language you just created!";
+Gui4Static4.style.color = "#black"
+Gui4Static4.style.fontSize = "15px"; // Set font size
+Gui4Static4.style.position = "absolute"; // Set position to absolute
+Gui4Static4.style.left = "10px"; // Set initial x position
+Gui4Static4.style.top = "10px"; // Set initial y position
+Gui4Static4.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
+Gui4Static4.style.height = "50px"; // Set height
+Gui4.appendChild(Gui4Static4);
 variables.closeGui4X = variables.AScreenWidth - 72
 Gui4Button1 = document.createElement("button");
 Gui4Button1.id = "Gui4" + "Button" + "1"; // Set ID for referencing
@@ -1627,17 +1803,17 @@ Gui4.style.left = (window.innerWidth - parseInt(Gui4.style.width)) / 2 + "px";
 Gui4.style.top = (window.innerHeight - parseInt(Gui4.style.height)) / 2 + "px";
 document.body.appendChild(Gui4); // Append the GUI window to the body
 Gui4.style.display = "block";
-Gui4Static4 = document.createElement("div");
-Gui4Static4.id = "Gui4" + "Static" + "4"; // Set ID for referencing
-Gui4Static4.textContent = "Download the language you just created!";
-Gui4Static4.style.color = "#black"
-Gui4Static4.style.fontSize = "20px"; // Set font size
-Gui4Static4.style.position = "absolute"; // Set position to absolute
-Gui4Static4.style.left = "10px"; // Set initial x position
-Gui4Static4.style.top = "10px"; // Set initial y position
-Gui4Static4.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
-Gui4Static4.style.height = "50px"; // Set height
-Gui4.appendChild(Gui4Static4);
+Gui4Static5 = document.createElement("div");
+Gui4Static5.id = "Gui4" + "Static" + "5"; // Set ID for referencing
+Gui4Static5.textContent = "Download the language you just created!";
+Gui4Static5.style.color = "#black"
+Gui4Static5.style.fontSize = "20px"; // Set font size
+Gui4Static5.style.position = "absolute"; // Set position to absolute
+Gui4Static5.style.left = "10px"; // Set initial x position
+Gui4Static5.style.top = "10px"; // Set initial y position
+Gui4Static5.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
+Gui4Static5.style.height = "50px"; // Set height
+Gui4.appendChild(Gui4Static5);
 variables.closeGui4X = variables.AScreenWidth - 72
 Gui4Button4 = document.createElement("button");
 Gui4Button4.id = "Gui4" + "Button" + "4"; // Set ID for referencing
@@ -4618,6 +4794,8 @@ A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
 };
 Gui1.appendChild(Gui1[variables.guiEditTextV]);
 await IDEshow()
+GuiControl("focus", "Gui1Button8");
+Gui5.style.display = "none";
 }
 async function MyDropDown(A_GuiControl)
 {
@@ -5104,7 +5282,11 @@ variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
 variables.bodyFuncTemp7 = "funcEND======================funcEND=============="
 variables.allFuncNamesForSavingItOut += "\n" + variables.bodyFuncTemp1 + variables.bodyFuncTemp2 + variables.bodyFuncTemp3 + variables.bodyFuncTemp4 + variables.bodyFuncTemp5 + variables.bodyFuncTemp6 + variables.bodyFuncTemp7 + "\n"
 }
-variables.allData = variables.allData + "\n" + variables.allFuncNamesForSavingItOut + "\n" + variables.ToggleMoreBuildInFuncsTEXT
+variables.extraFuncNeedLoopParse = "\nfunc======================func==============\nlang: cpp\nname: LoopParseFunc\nlibs: #include <vector>|#include <string>|#include <regex>\ndescription: LoopParseFunc func is a func\n\n// Function to escape special characters for regex\nstd::string escapeRegex(const std::string& str) {\n    static const std::regex specialChars{R" + await Chr (34) + "([-[" + await Chr (92) + "]{}()*+?.," + await Chr (92) + "^$|#" + await Chr (92) + "s])" + await Chr (34) + "};\n    return std::regex_replace(str, specialChars, R" + await Chr (34) + "(" + await Chr (92) + "$&)" + await Chr (34) + ");\n}\n\n// Function to split a string based on delimiters\nstd::vector<std::string> LoopParseFunc(const std::string& var, const std::string& delimiter1 = " + await Chr (34) + "" + await Chr (34) + ", const std::string& delimiter2 = " + await Chr (34) + "" + await Chr (34) + ") {\n    std::vector<std::string> items;\n    if (delimiter1.empty() && delimiter2.empty()) {\n        // If no delimiters are provided, return a list of characters\n        for (char c : var) {\n            items.push_back(std::string(1, c));\n        }\n    } else {\n        // Escape delimiters for regex\n        std::string escapedDelimiters = escapeRegex(delimiter1 + delimiter2);\n        // Construct the regular expression pattern for splitting the string\n        std::string pattern = " + await Chr (34) + "[" + await Chr (34) + " + escapedDelimiters + " + await Chr (34) + "]+" + await Chr (34) + ";\n        std::regex regexPattern(pattern);\n        std::sregex_token_iterator iter(var.begin(), var.end(), regexPattern, -1);\n        std::sregex_token_iterator end;\n        while (iter != end) {\n            items.push_back(*iter++);\n        }\n    }\n    return items;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: js\nname: LoopParseFunc\nlibs: null\ndescription: LoopParseFunc splits a string into an array based on specified delimiters or returns an array of characters if no delimiters are provided.\n\nfunction LoopParseFunc(varString, delimiter1=" + await Chr (34) + "" + await Chr (34) + ", delimiter2=" + await Chr (34) + "" + await Chr (34) + ") {\n    let items;\n    if (!delimiter1 && !delimiter2) {\n        // If no delimiters are provided, return an array of characters\n        items = [...varString];\n    } else {\n        // Construct the regular expression pattern for splitting the string\n        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[" + await Chr (92) + "]" + await Chr (92) + "" + await Chr (92) + "]/g, '" + await Chr (92) + "" + await Chr (92) + "$&') + delimiter2.replace(/[.*+?^${}()|[" + await Chr (92) + "]" + await Chr (92) + "" + await Chr (92) + "]/g, '" + await Chr (92) + "" + await Chr (92) + "$&') + ']+');\n        // Split the string using the constructed pattern\n        items = varString.split(pattern);\n    }\n    return items;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: py\nname: LoopParseFunc\nlibs: import re\ndescription: LoopParseFunc splits a string into a list based on specified delimiters or returns a list of characters if no delimiters are provided.\n\ndef LoopParseFunc(var, delimiter1=" + await Chr (34) + "" + await Chr (34) + ", delimiter2=" + await Chr (34) + "" + await Chr (34) + "):\n    if not delimiter1 and not delimiter2:\n        # If no delimiters are provided, return a list of characters\n        items = list(var)\n    else:\n        # Construct the regular expression pattern for splitting the string\n        pattern = r'[' + re.escape(delimiter1) + re.escape(delimiter2) + r']+'\n        # Split the string using the constructed pattern\n        items = re.split(pattern, var)\n    return items\n\nfuncEND======================funcEND==============\n"
+Gui5.style.display = "block";
+await sleep(50)
+GuiControl("focus", "Gui1Button8");
+variables.allData = variables.allData + "\n" + variables.extraFuncNeedLoopParse + "\n" + variables.allFuncNamesForSavingItOut + "\n" + variables.ToggleMoreBuildInFuncsTEXT
 }
 if (( BuildInVars("A_ScreenHeight") > BuildInVars("A_ScreenWidth") ))
 {
@@ -5114,6 +5296,9 @@ else
 {
 await runHTML(Gui1 , "iframe1" , 1.5 , 5 , variables.IDEshowguiEditY , variables.guiW , 500 , await IDEgenerataion (variables.allData) )
 }
+Gui5.style.display = "none";
+GuiControl("focus", "Gui1Button21");
+GuiControl("focus", "Gui1IDEshow");
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;
 async function EditFuncButtonLangCpp(A_GuiControl)
@@ -6287,6 +6472,8 @@ GuiControl("focus", "Gui1Button8");
 }
 async function ToggleMoreBuildInFuncs(A_GuiControl)
 {
+Gui5.style.display = "block";
+await sleep(50)
 variables.ToggleMoreBuildInFuncsHolder = A_GuiControl
 if (( variables.ToggleMoreBuildInFuncsHolder == "1" ))
 {
@@ -6302,8 +6489,9 @@ variables.ToggleMoreBuildInFuncsTEXT = ""
 }
 else
 {
-variables.ToggleMoreBuildInFuncsTEXT = "\nfunc======================func==============\nlang: cpp\nname: print\nlibs: #include <iostream>|#include <string>|#include <type_traits>\ndescription: hello that is func mhm\n\n// Print function for const char* specifically\nvoid print(const char* value) {\n    std::cout << std::string(value) << std::endl;  // Convert const char* to std::string\n}\n\n// Print function that converts all types to string if needed\ntemplate <typename T>\nvoid print(const T& value) {\n    if constexpr (std::is_same_v<T, std::string>) {\n        std::cout << value << std::endl;\n    } else if constexpr (std::is_same_v<T, char>) {\n        std::cout << value << std::endl;\n    } else if constexpr (std::is_same_v<T, int>) {\n        std::cout << std::to_string(value) << std::endl;\n    } else if constexpr (std::is_same_v<T, float>) {\n        std::cout << std::to_string(value) << std::endl;\n    } else if constexpr (std::is_same_v<T, double>) {\n        std::cout << std::to_string(value) << std::endl;\n    } else if constexpr (std::is_same_v<T, size_t>) {\n        std::cout << std::to_string(value) << std::endl;\n    } else if constexpr (std::is_same_v<T, bool>) {\n        std::cout << (value ? " + await Chr (34) + "1" + await Chr (34) + " : " + await Chr (34) + "0" + await Chr (34) + ") << std::endl;\n    } else {\n        std::cout << " + await Chr (34) + "Unsupported type" + await Chr (34) + " << std::endl;\n    }\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: js\nname: print\n" + await Chr (108) + await Chr (105) + await Chr (98) + await Chr (115) + await Chr (58) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (100) + await Chr (101) + await Chr (108) + await Chr (105) + await Chr (118) + await Chr (114) + await Chr (46) + await Chr (110) + await Chr (101) + await Chr (116) + await Chr (47) + await Chr (110) + await Chr (112) + await Chr (109) + await Chr (47) + await Chr (115) + await Chr (119) + await Chr (101) + await Chr (101) + await Chr (116) + await Chr (97) + await Chr (108) + await Chr (101) + await Chr (114) + await Chr (116) + await Chr (50) + await Chr (64) + await Chr (49) + await Chr (49) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + "\ndescription: you can coppy this section as much as you want for build in funcs\n\nfunction print(value) {\n    console.log(value)\n}\n\nfuncEND======================funcEND==============\n"
+variables.ToggleMoreBuildInFuncsTEXT = "\nfunc======================func==============\nlang: cpp\nname: print\nlibs: #include <iostream>|#include <string>|#include <type_traits>\ndescription: hello that is func mhm\n\n// Print function for const char* specifically\nvoid print(const char* value) {\n    std::cout << std::string(value) << std::endl;  // Convert const char* to std::string\n}\n\n// Print function that converts all types to string if needed\ntemplate <typename T>\nvoid print(const T& value) {\n    if constexpr (std::is_same_v<T, std::string>) {\n        std::cout << value << std::endl;\n    } else if constexpr (std::is_same_v<T, char>) {\n        std::cout << value << std::endl;\n    } else if constexpr (std::is_same_v<T, int>) {\n        std::cout << std::to_string(value) << std::endl;\n    } else if constexpr (std::is_same_v<T, float>) {\n        std::cout << std::to_string(value) << std::endl;\n    } else if constexpr (std::is_same_v<T, double>) {\n        std::cout << std::to_string(value) << std::endl;\n    } else if constexpr (std::is_same_v<T, size_t>) {\n        std::cout << std::to_string(value) << std::endl;\n    } else if constexpr (std::is_same_v<T, bool>) {\n        std::cout << (value ? " + await Chr (34) + "1" + await Chr (34) + " : " + await Chr (34) + "0" + await Chr (34) + ") << std::endl;\n    } else {\n        std::cout << " + await Chr (34) + "Unsupported type" + await Chr (34) + " << std::endl;\n    }\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: js\nname: print\nlibs: null\ndescription: you can coppy this section as much as you want for build in funcs\n\nfunction print(value) {\n    console.log(value)\n}\n\nfuncEND======================funcEND==============\n" + "\nfunc======================func==============\nlang: cpp\nname: INT\nlibs: #include <string>|#include <sstream>\ndescription: INT func is a func\n\n// Convert std::string to int\nint INT(const std::string& str) {\n    std::istringstream iss(str);\n    int value;\n    iss >> value;\n    return value;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: STR\nlibs: #include <string>\ndescription: STR func is a func\n\n// Convert various types to std::string\nstd::string STR(int value) {\n    return std::to_string(value);\n}\n\n// Convert various types to std::string\nstd::string STR(long long value) {\n    return std::to_string(value);\n}\n\nstd::string STR(float value) {\n    return std::to_string(value);\n}\n\nstd::string STR(double value) {\n    return std::to_string(value);\n}\n\nstd::string STR(size_t value) {\n    return std::to_string(value);\n}\n\nstd::string STR(bool value) {\n    return value ? " + await Chr (34) + "1" + await Chr (34) + " : " + await Chr (34) + "0" + await Chr (34) + ";\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: FLOAT\nlibs: #include <string>|#include <sstream>\ndescription: FLOAT func is a func\n\n// Convert std::string to float\nfloat FLOAT(const std::string& str) {\n    std::istringstream iss(str);\n    float value;\n    iss >> value;\n    return value;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: InStr\nlibs: #include <string>\ndescription: InStr func is a func\n\n// Function to find the position of needle in haystack (std::string overload)\nint InStr(const std::string& haystack, const std::string& needle) {\n    size_t pos = haystack.find(needle);\n    return (pos != std::string::npos) ? static_cast<int>(pos) + 1 : 0;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Random\nlibs: #include <cstdlib>|#include <ctime>|#include <random>\ndescription: Random func is a func\n\nint Random(int min, int max) {\n    // Create a random device to seed the generator\n    std::random_device rd;\n    \n    // Create a generator seeded with the random device\n    std::mt19937 gen(rd());\n    \n    // Define a distribution within the specified range\n    std::uniform_int_distribution<> dis(min, max);\n    \n    // Generate and return a random number within the specified range\n    return dis(gen);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Sleep\nlibs: #include <thread>|#include <chrono>\ndescription: Sleep func is a func\n\n// Function to sleep for a specified number of milliseconds\nvoid Sleep(int milliseconds) {\n    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: input\nlibs: #include <iostream>|#include <string>\ndescription: input func is a func\n\n// Function to get input from the user, similar to Python's input() function\nstd::string input(const std::string& prompt) {\n    std::string userInput;\n    std::cout << prompt; // Display the prompt to the user\n    std::getline(std::cin, userInput); // Get the entire line of input\n    return userInput;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: FileRead\nlibs: #include <fstream>|#include <string>|#include <filesystem>|#include <stdexcept>\ndescription: FileRead func is a func\n\nstd::string FileRead(const std::string& path) {\n    std::ifstream file;\n    std::filesystem::path full_path;\n\n    // Check if the file path is an absolute path\n    if (std::filesystem::path(path).is_absolute()) {\n        full_path = path;\n    } else {\n        // If it's not a full path, prepend the current working directory\n        full_path = std::filesystem::current_path() / path;\n    }\n\n    // Open the file\n    file.open(full_path);\n    if (!file.is_open()) {\n        throw std::runtime_error(" + await Chr (34) + "Error: Could not open the file." + await Chr (34) + ");\n    }\n\n    // Read the file content into a string\n    std::string content;\n    std::string line;\n    while (std::getline(file, line)) {\n        content += line + '" + await Chr (92) + "n';\n    }\n\n    file.close();\n    return content;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: FileAppend\nlibs: #include <fstream>|#include <iostream>|#include <string>\ndescription: FileAppend func is a func\n\nbool FileAppend(const std::string& content, const std::string& path) {\n    std::ofstream file;\n\n    // Open the file in append mode\n    file.open(path, std::ios::app);\n\n    if (!file.is_open()) {\n        std::cerr << " + await Chr (34) + "Error: Could not open the file for appending." + await Chr (34) + " << std::endl;\n        return false;\n    }\n\n    // Append the content to the file\n    file << content;\n\n    // Close the file\n    file.close();\n\n    return true;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: FileDelete\nlibs: #include <fstream>|#include <iostream>|#include <string>\ndescription: FileDelete func is a func\n\nbool FileDelete(const std::string& path) {\n    std::filesystem::path file_path(path);\n\n    // Check if the file exists\n    if (!std::filesystem::exists(file_path)) {\n        return false;\n    }\n\n    // Attempt to remove the file\n    if (!std::filesystem::remove(file_path)) {\n        return false;\n    }\n\n    return true;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: StrLen\nlibs: #include <string>\ndescription: StrLen func is a func\n\nsize_t StrLen(const std::string& str) {\n    return str.length();\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Asc\nlibs: #include <string>\ndescription: Asc func is a func\n\nint Asc(const std::string& str) {\n    if (!str.empty()) {\n        return static_cast<int>(str[0]);\n    }\n    return -1; // Return -1 if the string is empty\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Abs\nlibs: #include <string>\ndescription: Abs func is a func\n\ndouble Abs(double value) {\n    return std::fabs(value);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: ACos\nlibs: #include <cmath>\ndescription: ACos func calculates the arc cosine of a value\n\ndouble ACos(double value) {\n    return std::acos(value);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: ASin\nlibs: #include <cmath>\ndescription: ASin func calculates the arc sine of a value, with error handling for out-of-range inputs\n\ndouble ASin(double value) {\n    if (value < -1.0 || value > 1.0) {\n        std::cerr << " + await Chr (34) + "Error: Value out of range for arcsine function." + await Chr (34) + " << std::endl;\n        return NAN;\n    }\n    return asin(value);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: ATan\nlibs: #include <cmath>\ndescription: ATan func calculates the arc tangent of a value\n\ndouble ATan(double value) {\n    return std::atan(value);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Ceil\nlibs: #include <cmath>\ndescription: Ceil func rounds a value upwards to the nearest integer\n\ndouble Ceil(double value) {\n    return std::ceil(value);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Cos\nlibs: #include <cmath>\ndescription: Cos func calculates the cosine of an angle\n\ndouble Cos(double angle) {\n    return std::cos(angle);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Exp\nlibs: #include <cmath>\ndescription: Exp func calculates the exponential of a value\n\ndouble Exp(double value) {\n    return std::exp(value);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Ln\nlibs: #include <cmath>\ndescription: Ln func calculates the natural logarithm of a value\n\ndouble Ln(double value) {\n    return std::log(value);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Log\nlibs: #include <cmath>\ndescription: Log func calculates the base-10 logarithm of a value\n\ndouble Log(double value) {\n    return std::log10(value);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Round\nlibs: #include <cmath>\ndescription: Round func rounds a value to the nearest integer\n\ndouble Round(double value) {\n    return std::round(value);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Sin\nlibs: #include <cmath>\ndescription: Sin func calculates the sine of an angle\n\ndouble Sin(double angle) {\n    return std::sin(angle);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Sqrt\nlibs: #include <cmath>\ndescription: Sqrt func calculates the square root of a value\n\ndouble Sqrt(double value) {\n    return std::sqrt(value);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Tan\nlibs: #include <cmath>\ndescription: Tan func calculates the tangent of an angle\n\ndouble Tan(double angle) {\n    return std::tan(angle);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: SubStr\nlibs: #include <string>\ndescription: Extracts a substring from a given string starting at a specified position with an optional length.\n\nstd::string SubStr(const std::string& str, int startPos, int length = -1) {\n    std::string result;\n    size_t strLen = str.size();\n\n    // Handle negative starting positions\n    if (startPos < 0) {\n        startPos += strLen;\n        if (startPos < 0) startPos = 0;\n    } else {\n        if (startPos > static_cast<int>(strLen)) return " + await Chr (34) + "" + await Chr (34) + "; // Starting position beyond string length\n        startPos -= 1; // Convert to 0-based index\n    }\n\n    // Handle length\n    if (length < 0) {\n        length = strLen - startPos; // Length to end of string\n    } else if (startPos + length > static_cast<int>(strLen)) {\n        length = strLen - startPos; // Adjust length to fit within the string\n    }\n\n    // Extract substring\n    result = str.substr(startPos, length);\n    return result;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Trim\nlibs: #include <string>\ndescription: Removes leading and trailing whitespace from a string.\n\nstd::string Trim(const std::string &inputString) {\n    if (inputString.empty()) return " + await Chr (34) + "" + await Chr (34) + ";\n\n    size_t start = inputString.find_first_not_of(" + await Chr (34) + " " + await Chr (92) + "t" + await Chr (92) + "n" + await Chr (92) + "r" + await Chr (92) + "f" + await Chr (92) + "v" + await Chr (34) + ");\n    size_t end = inputString.find_last_not_of(" + await Chr (34) + " " + await Chr (92) + "t" + await Chr (92) + "n" + await Chr (92) + "r" + await Chr (92) + "f" + await Chr (92) + "v" + await Chr (34) + ");\n\n    return (start == std::string::npos) ? " + await Chr (34) + "" + await Chr (34) + " : inputString.substr(start, end - start + 1);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: StrReplace\nlibs: #include <string>\ndescription: Replaces all occurrences of a substring with another string in the given string.\n\nstd::string StrReplace(const std::string &originalString, const std::string &find, const std::string &replaceWith) {\n    std::string result = originalString;\n    size_t pos = 0;\n\n    while ((pos = result.find(find, pos)) != std::string::npos) {\n        result.replace(pos, find.length(), replaceWith);\n        pos += replaceWith.length();\n    }\n\n    return result;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: StringTrimLeft\nlibs: #include <string>\ndescription: Trims characters from the left side of the string based on the specified number of characters.\n\nstd::string StringTrimLeft(const std::string &input, int numChars) {\n    return (numChars <= input.length()) ? input.substr(numChars) : input;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: StringTrimRight\nlibs: #include <string>\ndescription: Trims characters from the right side of the string based on the specified number of characters.\n\nstd::string StringTrimRight(const std::string &input, int numChars) {\n    return (numChars <= input.length()) ? input.substr(0, input.length() - numChars) : input;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: StrLower\nlibs: #include <algorithm>|#include <cctype>|#include <string>\ndescription: Converts all characters in a string to lowercase.\n\nstd::string StrLower(const std::string &string) {\n    std::string result = string;\n    std::transform(result.begin(), result.end(), result.begin(), ::tolower);\n    return result;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: StrSplit\nlibs: #include <string>\ndescription: Splits a string by a delimiter and returns the nth split.\n\nstd::string StrSplit(const std::string &inputStr, const std::string &delimiter, int num) {\n    size_t start = 0, end = 0, count = 0;\n\n    while ((end = inputStr.find(delimiter, start)) != std::string::npos) {\n        if (++count == num) {\n            return inputStr.substr(start, end - start);\n        }\n        start = end + delimiter.length();\n    }\n\n    if (count + 1 == num) {\n        return inputStr.substr(start);\n    }\n\n    return " + await Chr (34) + "" + await Chr (34) + ";\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Chr\nlibs: #include <string>\ndescription: Returns a character corresponding to the provided Unicode code point.\n\nstd::string Chr(int number) {\n    return (number >= 0 && number <= 0x10FFFF) ? std::string(1, static_cast<char>(number)) : " + await Chr (34) + "" + await Chr (34) + ";\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Mod\nlibs: #include <string>\ndescription: Returns the remainder of the division of two integers.\n\nint Mod(int dividend, int divisor) {\n    return dividend % divisor;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: Floor\nlibs: #include <cmath>|#include <limits>\ndescription: Rounds down a floating-point number to the nearest integer.\n\ndouble Floor(double num) {\n    if (std::isnan(num)) {\n        return std::numeric_limits<double>::quiet_NaN();\n    }\n    return std::floor(num);\n}\n\nfuncEND======================funcEND==============\n\n\nfunc======================func==============\nlang: cpp\nname: Sort\nlibs: #include <string>|#include <vector>|#include <algorithm>|#include <sstream>|#include <unordered_set>|#include <cctype>\ndescription: Sort func is a func\n\n// Helper function to trim whitespace from both ends of a string\nstd::string trim(const std::string& str) {\n    const std::string whitespace = " + await Chr (34) + " " + await Chr (92) + "t" + await Chr (92) + "n" + await Chr (92) + "r" + await Chr (92) + "f" + await Chr (92) + "v" + await Chr (34) + ";\n    size_t start = str.find_first_not_of(whitespace);\n    if (start == std::string::npos) return " + await Chr (34) + "" + await Chr (34) + ";\n    size_t end = str.find_last_not_of(whitespace);\n    return str.substr(start, end - start + 1);\n}\n\n// Helper function to convert string to lowercase\nstd::string toLower(const std::string& str) {\n    std::string lowerStr = str;\n    std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), ::tolower);\n    return lowerStr;\n}\n\n// Function to sort case-insensitively but ensure lowercase items come last\nbool customSortCompare(const std::string& a, const std::string& b) {\n    std::string lowerA = toLower(a);\n    std::string lowerB = toLower(b);\n    if (lowerA == lowerB) {\n        // If case-insensitive equivalent, ensure lowercase items come last\n        if (std::islower(a[0]) && std::isupper(b[0])) {\n            return false; // a should come after b\n        } else if (std::isupper(a[0]) && std::islower(b[0])) {\n            return true; // a should come before b\n        }\n        return a < b; // Otherwise, sort lexicographically\n    }\n    return lowerA < lowerB;\n}\n\n// Function to remove exact duplicates (case-sensitive)\nstd::vector<std::string> removeExactDuplicates(const std::vector<std::string>& items) {\n    std::unordered_set<std::string> seen;\n    std::vector<std::string> uniqueItems;\n    for (const auto& item : items) {\n        if (seen.find(item) == seen.end()) {\n            seen.insert(item);\n            uniqueItems.push_back(item);\n        }\n    }\n    return uniqueItems;\n}\n\n// Main sorting function\nstd::string Sort(const std::string& input, const std::string& options) {\n    std::string delimiter = " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ";\n    bool caseInsensitive = options.find('C') != std::string::npos;\n    bool unique = options.find('U') != std::string::npos;\n    bool reverse = options.find('R') != std::string::npos;\n    bool random = options.find(" + await Chr (34) + "Random" + await Chr (34) + ") != std::string::npos;\n    bool numeric = options.find('N') != std::string::npos;\n\n    // Custom delimiter\n    if (options.find('D') != std::string::npos) {\n        size_t delimiterPos = options.find('D') + 1;\n        if (delimiterPos < options.size()) {\n            delimiter = options.substr(delimiterPos, 1);\n        }\n    }\n\n    // Split input by delimiter\n    std::vector<std::string> items;\n    std::stringstream ss(input);\n    std::string item;\n    while (std::getline(ss, item, delimiter[0])) {\n        item = trim(item);  // Trim whitespace from each item\n        if (!item.empty()) {\n            items.push_back(item);\n        }\n    }\n\n    // Sort items\n    if (numeric) {\n        std::sort(items.begin(), items.end(), [](const std::string& a, const std::string& b) {\n            return std::stoi(a) < std::stoi(b);\n        });\n    } else {\n        std::sort(items.begin(), items.end(), customSortCompare);\n    }\n\n    // Remove exact duplicates if needed\n    if (unique) {\n        items = removeExactDuplicates(items);\n    }\n\n    // Apply reverse order if needed\n    if (reverse) {\n        std::reverse(items.begin(), items.end());\n    }\n\n    // Separate uppercase and lowercase items\n    std::vector<std::string> uppercaseItems;\n    std::vector<std::string> lowercaseItems;\n    \n    for (const auto& item : items) {\n        if (std::isupper(item[0])) {\n            uppercaseItems.push_back(item);\n        } else {\n            lowercaseItems.push_back(item);\n        }\n    }\n\n    // Combine sorted uppercase items with sorted lowercase items\n    std::string result;\n    for (const auto& item : uppercaseItems) {\n        result += item;\n        result += delimiter;\n    }\n    for (const auto& item : lowercaseItems) {\n        result += item;\n        if (&item != &lowercaseItems.back()) {\n            result += delimiter;\n        }\n    }\n\n    // Remove trailing delimiter if necessary\n    if (!result.empty() && result.back() == delimiter[0]) {\n        result.pop_back();\n    }\n\n    return result;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: getDataFromAPI\nlibs: #include <string>|#include <array>|#include <memory>|#include <stdexcept>| #include <cstdio>\ndescription: getDataFromAPI is a function to fetch data from an API.\n\n// Function to run a system command\nstd::string getDataFromAPIRunCMD(const std::string& command) {\n    std::array<char, 128> buffer;\n    std::string result;\n#if defined(_WIN32)\n    std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(command.c_str(), " + await Chr (34) + "r" + await Chr (34) + "), _pclose);\n#else\n    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), " + await Chr (34) + "r" + await Chr (34) + "), pclose);\n#endif\n    if (!pipe) {\n        throw std::runtime_error(" + await Chr (34) + "popen() failed!" + await Chr (34) + ");\n    }\n    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {\n        result += buffer.data();\n    }\n    return result;\n}\n\n// Function to fetch data from API\nstd::string getDataFromAPI(const std::string& url) {\n    std::string command = " + await Chr (34) + "curl -s " + await Chr (34) + " + url;\n    return getDataFromAPIRunCMD(command);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: FileCreateDir\nlibs: #include <filesystem>|#include <system_error>\ndescription: FileCreateDir is a function to create a directory if it does not exist.\n\n// Creates a directory if it does not exist\nvoid FileCreateDir(const std::string& path) {\n    try {\n        std::filesystem::create_directory(path);\n    } catch (const std::filesystem::filesystem_error&) {\n        // Handle errors silently\n    }\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: FileRemoveDir\nlibs: #include <filesystem>|#include <system_error>\ndescription: FileRemoveDir is a function to remove a directory if it exists.\n\n// Removes a directory if it exists\nvoid FileRemoveDir(const std::string& path) {\n    try {\n        if (std::filesystem::exists(path) && std::filesystem::is_directory(path)) {\n            std::filesystem::remove_all(path);\n        }\n    } catch (const std::filesystem::filesystem_error&) {\n        // Handle errors silently\n    }\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: FileExist\nlibs: #include <filesystem>|#include <system_error>\ndescription: FileExist is a function to check if a file or directory exists.\n\n// Checks if a file or directory exists\nbool FileExist(const std::string& path) {\n    try {\n        return std::filesystem::exists(path);\n    } catch (const std::filesystem::filesystem_error&) {\n        // Handle errors silently; return false if an error occurs\n        return false;\n    }\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: isWindows\nlibs: #include <iostream>\ndescription: isWindows is a function to check if the operating system is Windows\n\n// Function to check if the operating system is Windows\nbool isWindows() {\n    #ifdef _WIN32\n        return true;\n    #else\n        return false;\n    #endif\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: GetParams\nlibs: #include <iostream>|#include <vector>|#include <string>|#include <filesystem>\ndescription: GetParams is a func for Platform-specific handling for command-line arguments and getting parameters.\n\n#ifdef _WIN32\n    #define ARGC __argc\n    #define ARGV __argv\n#else\n    extern char **environ;\n    int ARGC;\n    char** ARGV;\n\n    __attribute__((constructor)) void init_args(int argc, char* argv[], char* envp[]) {\n        ARGC = argc;\n        ARGV = argv;\n    }\n#endif\n\nstd::string GetParams() {\n    std::vector<std::string> params;\n    for (int i = 1; i < ARGC; ++i) {\n        std::string arg = ARGV[i];\n        if (std::filesystem::exists(arg)) {\n            arg = std::filesystem::absolute(arg).string();\n        }\n        params.push_back(arg);\n    }\n    std::string result;\n    for (const auto& param : params) {\n        result += param + " + await Chr (34) + "" + await Chr (92) + "n" + await Chr (34) + ";\n    }\n    return result;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: BuildInVars\nlibs: #include <iostream>|#include <chrono>|#include <ctime>|#include <sstream>|#include <iomanip>|#include <string>|#include <limits>\ndescription: BuildInVars is a function to get built-in variables like A_TickCount, A_Now, and date/time-related values.\n\n// Store the start time as a global variable\nstd::chrono::time_point<std::chrono::steady_clock> programStartTime = std::chrono::steady_clock::now();\n\n// Function to get built-in variables\nstd::string BuildInVars(const std::string& varName) {\n    auto now = std::chrono::system_clock::now();\n    std::time_t currentTime = std::chrono::system_clock::to_time_t(now);\n    std::tm* localTime = std::localtime(&currentTime);\n\n    std::ostringstream oss;\n\n    if (varName == " + await Chr (34) + "A_TickCount" + await Chr (34) + ") {\n        // Calculate milliseconds since program start\n        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - programStartTime).count();\n        if (duration > std::numeric_limits<int>::max()) {\n            // Handle overflow case\n            return " + await Chr (34) + "Value too large" + await Chr (34) + ";\n        } else {\n            return std::to_string(static_cast<int>(duration));\n        }\n    } else if (varName == " + await Chr (34) + "A_Now" + await Chr (34) + ") {\n        oss << std::put_time(localTime, " + await Chr (34) + "%Y-%m-%d %H:%M:%S" + await Chr (34) + ");\n    } else if (varName == " + await Chr (34) + "A_YYYY" + await Chr (34) + ") {\n        oss << std::put_time(localTime, " + await Chr (34) + "%Y" + await Chr (34) + ");\n    } else if (varName == " + await Chr (34) + "A_MM" + await Chr (34) + ") {\n        oss << std::put_time(localTime, " + await Chr (34) + "%m" + await Chr (34) + ");\n    } else if (varName == " + await Chr (34) + "A_DD" + await Chr (34) + ") {\n        oss << std::put_time(localTime, " + await Chr (34) + "%d" + await Chr (34) + ");\n    } else if (varName == " + await Chr (34) + "A_MMMM" + await Chr (34) + ") {\n        oss << std::put_time(localTime, " + await Chr (34) + "%B" + await Chr (34) + ");\n    } else if (varName == " + await Chr (34) + "A_MMM" + await Chr (34) + ") {\n        oss << std::put_time(localTime, " + await Chr (34) + "%b" + await Chr (34) + ");\n    } else if (varName == " + await Chr (34) + "A_DDDD" + await Chr (34) + ") {\n        oss << std::put_time(localTime, " + await Chr (34) + "%A" + await Chr (34) + ");\n    } else if (varName == " + await Chr (34) + "A_DDD" + await Chr (34) + ") {\n        oss << std::put_time(localTime, " + await Chr (34) + "%a" + await Chr (34) + ");\n    } else if (varName == " + await Chr (34) + "A_Hour" + await Chr (34) + ") {\n        oss << std::put_time(localTime, " + await Chr (34) + "%H" + await Chr (34) + ");\n    } else if (varName == " + await Chr (34) + "A_Min" + await Chr (34) + ") {\n        oss << std::put_time(localTime, " + await Chr (34) + "%M" + await Chr (34) + ");\n    } else if (varName == " + await Chr (34) + "A_Sec" + await Chr (34) + ") {\n        oss << std::put_time(localTime, " + await Chr (34) + "%S" + await Chr (34) + ");\n    } else if (varName == " + await Chr (34) + "A_Space" + await Chr (34) + ") {\n        return " + await Chr (34) + " " + await Chr (34) + ";\n    } else if (varName == " + await Chr (34) + "A_Tab" + await Chr (34) + ") {\n        return " + await Chr (34) + "" + await Chr (92) + "t" + await Chr (34) + ";\n    } else {\n        return " + await Chr (34) + "" + await Chr (34) + ";\n    }\n    return oss.str();\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: RegExReplace\nlibs: #include <string>|#include <regex>|#include <iostream>\ndescription: RegExReplace is a function to perform regex replacement.\n\nstd::string RegExReplace(const std::string& inputStr, const std::string& regexPattern, const std::string& replacement) {\n    std::regex re(regexPattern, std::regex_constants::ECMAScript | std::regex_constants::multiline);\n    return std::regex_replace(inputStr, re, replacement);\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: RunCMD\nlibs: #include <iostream>|#include <stdexcept>|#include <string>|#include <array>|#include <memory>|#include <cstdio>\ndescription: RunCMD is a function to run a system command and capture the output.\n\nstd::string RunCMD(const std::string& command) {\n    std::array<char, 128> buffer;\n    std::string result;\n#if defined(_WIN32)\n    std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(command.c_str(), " + await Chr (34) + "r" + await Chr (34) + "), _pclose);\n#else\n    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), " + await Chr (34) + "r" + await Chr (34) + "), pclose);\n#endif\n    if (!pipe) {\n        throw std::runtime_error(" + await Chr (34) + "popen() failed!" + await Chr (34) + ");\n    }\n    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {\n        result += buffer.data();\n    }\n    return result;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: RegExMatch\nlibs: #include <iostream>|#include <string>|#include <regex>\ndescription: RegExMatch is a function to perform regex matching and return the match position.\n\nint RegExMatch(const std::string& haystack, const std::string& needleRegEx, std::string* outputVar = nullptr, int startingPos = 0) {\n    if (haystack.empty() || needleRegEx.empty()) {\n        return 0;\n    }\n\n    std::regex re(needleRegEx);\n    std::smatch match;\n\n    if (std::regex_search(haystack.begin() + startingPos, haystack.end(), match, re)) {\n        if (outputVar != nullptr) {\n            *outputVar = match.str(0);\n        }\n        return match.position(0) + 1; // To make it 1-based index\n    }\n\n    return 0;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: cpp\nname: ExitApp\nlibs: #include <iostream>|#include <cstdlib>\ndescription: ExitApp is a function to exit the application.\n\nvoid ExitApp() {\n    std::exit(0);\n}\n\nfuncEND======================funcEND==============\n\n"
 }
+Gui5.style.display = "none";
 }
 async function ButtonDownloadIDE(A_GuiControl)
 {
@@ -6411,7 +6599,11 @@ variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
 variables.bodyFuncTemp7 = "funcEND======================funcEND=============="
 variables.allFuncNamesForSavingItOut += "\n" + variables.bodyFuncTemp1 + variables.bodyFuncTemp2 + variables.bodyFuncTemp3 + variables.bodyFuncTemp4 + variables.bodyFuncTemp5 + variables.bodyFuncTemp6 + variables.bodyFuncTemp7 + "\n"
 }
-variables.allData = variables.allData + "\n" + variables.allFuncNamesForSavingItOut + "\n" + variables.ToggleMoreBuildInFuncsTEXT
+variables.extraFuncNeedLoopParse = "\nfunc======================func==============\nlang: cpp\nname: LoopParseFunc\nlibs: #include <vector>|#include <string>|#include <regex>\ndescription: LoopParseFunc func is a func\n\n// Function to escape special characters for regex\nstd::string escapeRegex(const std::string& str) {\n    static const std::regex specialChars{R" + await Chr (34) + "([-[" + await Chr (92) + "]{}()*+?.," + await Chr (92) + "^$|#" + await Chr (92) + "s])" + await Chr (34) + "};\n    return std::regex_replace(str, specialChars, R" + await Chr (34) + "(" + await Chr (92) + "$&)" + await Chr (34) + ");\n}\n\n// Function to split a string based on delimiters\nstd::vector<std::string> LoopParseFunc(const std::string& var, const std::string& delimiter1 = " + await Chr (34) + "" + await Chr (34) + ", const std::string& delimiter2 = " + await Chr (34) + "" + await Chr (34) + ") {\n    std::vector<std::string> items;\n    if (delimiter1.empty() && delimiter2.empty()) {\n        // If no delimiters are provided, return a list of characters\n        for (char c : var) {\n            items.push_back(std::string(1, c));\n        }\n    } else {\n        // Escape delimiters for regex\n        std::string escapedDelimiters = escapeRegex(delimiter1 + delimiter2);\n        // Construct the regular expression pattern for splitting the string\n        std::string pattern = " + await Chr (34) + "[" + await Chr (34) + " + escapedDelimiters + " + await Chr (34) + "]+" + await Chr (34) + ";\n        std::regex regexPattern(pattern);\n        std::sregex_token_iterator iter(var.begin(), var.end(), regexPattern, -1);\n        std::sregex_token_iterator end;\n        while (iter != end) {\n            items.push_back(*iter++);\n        }\n    }\n    return items;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: js\nname: LoopParseFunc\nlibs: null\ndescription: LoopParseFunc splits a string into an array based on specified delimiters or returns an array of characters if no delimiters are provided.\n\nfunction LoopParseFunc(varString, delimiter1=" + await Chr (34) + "" + await Chr (34) + ", delimiter2=" + await Chr (34) + "" + await Chr (34) + ") {\n    let items;\n    if (!delimiter1 && !delimiter2) {\n        // If no delimiters are provided, return an array of characters\n        items = [...varString];\n    } else {\n        // Construct the regular expression pattern for splitting the string\n        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[" + await Chr (92) + "]" + await Chr (92) + "" + await Chr (92) + "]/g, '" + await Chr (92) + "" + await Chr (92) + "$&') + delimiter2.replace(/[.*+?^${}()|[" + await Chr (92) + "]" + await Chr (92) + "" + await Chr (92) + "]/g, '" + await Chr (92) + "" + await Chr (92) + "$&') + ']+');\n        // Split the string using the constructed pattern\n        items = varString.split(pattern);\n    }\n    return items;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: py\nname: LoopParseFunc\nlibs: import re\ndescription: LoopParseFunc splits a string into a list based on specified delimiters or returns a list of characters if no delimiters are provided.\n\ndef LoopParseFunc(var, delimiter1=" + await Chr (34) + "" + await Chr (34) + ", delimiter2=" + await Chr (34) + "" + await Chr (34) + "):\n    if not delimiter1 and not delimiter2:\n        # If no delimiters are provided, return a list of characters\n        items = list(var)\n    else:\n        # Construct the regular expression pattern for splitting the string\n        pattern = r'[' + re.escape(delimiter1) + re.escape(delimiter2) + r']+'\n        # Split the string using the constructed pattern\n        items = re.split(pattern, var)\n    return items\n\nfuncEND======================funcEND==============\n"
+Gui5.style.display = "block";
+await sleep(50)
+variables.allData = variables.allData + "\n" + variables.extraFuncNeedLoopParse + "\n" + variables.allFuncNamesForSavingItOut + "\n" + variables.ToggleMoreBuildInFuncsTEXT
+Gui5.style.display = "none";
 }
 variables.ideHTMLdata = await IDEgenerataion (variables.allData )
 FileAppend("" + variables.ideHTMLdata + "", "IDE.html")
@@ -6522,7 +6714,11 @@ variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
 variables.bodyFuncTemp7 = "funcEND======================funcEND=============="
 variables.allFuncNamesForSavingItOut += "\n" + variables.bodyFuncTemp1 + variables.bodyFuncTemp2 + variables.bodyFuncTemp3 + variables.bodyFuncTemp4 + variables.bodyFuncTemp5 + variables.bodyFuncTemp6 + variables.bodyFuncTemp7 + "\n"
 }
-variables.allData = variables.allData + "\n" + variables.allFuncNamesForSavingItOut + "\n" + variables.ToggleMoreBuildInFuncsTEXT
+variables.extraFuncNeedLoopParse = "\nfunc======================func==============\nlang: cpp\nname: LoopParseFunc\nlibs: #include <vector>|#include <string>|#include <regex>\ndescription: LoopParseFunc func is a func\n\n// Function to escape special characters for regex\nstd::string escapeRegex(const std::string& str) {\n    static const std::regex specialChars{R" + await Chr (34) + "([-[" + await Chr (92) + "]{}()*+?.," + await Chr (92) + "^$|#" + await Chr (92) + "s])" + await Chr (34) + "};\n    return std::regex_replace(str, specialChars, R" + await Chr (34) + "(" + await Chr (92) + "$&)" + await Chr (34) + ");\n}\n\n// Function to split a string based on delimiters\nstd::vector<std::string> LoopParseFunc(const std::string& var, const std::string& delimiter1 = " + await Chr (34) + "" + await Chr (34) + ", const std::string& delimiter2 = " + await Chr (34) + "" + await Chr (34) + ") {\n    std::vector<std::string> items;\n    if (delimiter1.empty() && delimiter2.empty()) {\n        // If no delimiters are provided, return a list of characters\n        for (char c : var) {\n            items.push_back(std::string(1, c));\n        }\n    } else {\n        // Escape delimiters for regex\n        std::string escapedDelimiters = escapeRegex(delimiter1 + delimiter2);\n        // Construct the regular expression pattern for splitting the string\n        std::string pattern = " + await Chr (34) + "[" + await Chr (34) + " + escapedDelimiters + " + await Chr (34) + "]+" + await Chr (34) + ";\n        std::regex regexPattern(pattern);\n        std::sregex_token_iterator iter(var.begin(), var.end(), regexPattern, -1);\n        std::sregex_token_iterator end;\n        while (iter != end) {\n            items.push_back(*iter++);\n        }\n    }\n    return items;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: js\nname: LoopParseFunc\nlibs: null\ndescription: LoopParseFunc splits a string into an array based on specified delimiters or returns an array of characters if no delimiters are provided.\n\nfunction LoopParseFunc(varString, delimiter1=" + await Chr (34) + "" + await Chr (34) + ", delimiter2=" + await Chr (34) + "" + await Chr (34) + ") {\n    let items;\n    if (!delimiter1 && !delimiter2) {\n        // If no delimiters are provided, return an array of characters\n        items = [...varString];\n    } else {\n        // Construct the regular expression pattern for splitting the string\n        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[" + await Chr (92) + "]" + await Chr (92) + "" + await Chr (92) + "]/g, '" + await Chr (92) + "" + await Chr (92) + "$&') + delimiter2.replace(/[.*+?^${}()|[" + await Chr (92) + "]" + await Chr (92) + "" + await Chr (92) + "]/g, '" + await Chr (92) + "" + await Chr (92) + "$&') + ']+');\n        // Split the string using the constructed pattern\n        items = varString.split(pattern);\n    }\n    return items;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: py\nname: LoopParseFunc\nlibs: import re\ndescription: LoopParseFunc splits a string into a list based on specified delimiters or returns a list of characters if no delimiters are provided.\n\ndef LoopParseFunc(var, delimiter1=" + await Chr (34) + "" + await Chr (34) + ", delimiter2=" + await Chr (34) + "" + await Chr (34) + "):\n    if not delimiter1 and not delimiter2:\n        # If no delimiters are provided, return a list of characters\n        items = list(var)\n    else:\n        # Construct the regular expression pattern for splitting the string\n        pattern = r'[' + re.escape(delimiter1) + re.escape(delimiter2) + r']+'\n        # Split the string using the constructed pattern\n        items = re.split(pattern, var)\n    return items\n\nfuncEND======================funcEND==============\n"
+Gui5.style.display = "block";
+await sleep(50)
+variables.allData = variables.allData + "\n" + variables.extraFuncNeedLoopParse + "\n" + variables.allFuncNamesForSavingItOut + "\n" + variables.ToggleMoreBuildInFuncsTEXT
+Gui5.style.display = "none";
 }
 variables.ideHTMLdata = await IDEgenerataion (variables.allData )
 FileAppend("" + variables.allData + "", "HT-instructions.txt")
