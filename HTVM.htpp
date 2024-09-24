@@ -1970,114 +1970,6 @@ useJavaScriptAmainFuncDef := Trim(A_LoopField)
 
 
 
-areWeInAFuncFromInstructions := 0
-areWeInAFuncFromInstructionsLineNum := 0
-
-str funcLangHolder
-str funcNameHolder
-str funcLibsHolder
-str funcFuncHolder
-str funcDescriptionHolder
-
-arr str allFuncLang
-arr str allFuncNames
-arr str allFuncLibs
-arr str allFuncs
-arr str allfuncDescription
-
-
-int correctLang := 0
-Loop, Parse, instructions, `n, `r
-{
-if (Trim(A_LoopField) = "funcEND======================funcEND==============")
-{
-areWeInAFuncFromInstructions := 0
-areWeInAFuncFromInstructionsLineNum := 0
-if (correctLang = 1) && (InStr(code, Trim(funcNameHolder)))
-{
-;MsgBox, % funcFuncHolder
-arr allFuncs .= funcFuncHolder
-}
-correctLang := 0
-funcFuncHolder := ""
-}
-
-if (areWeInAFuncFromInstructions = 1)
-{
-
-if (areWeInAFuncFromInstructionsLineNum = 1)
-{
-; name of the func
-StringTrimLeft, funcLangHolder, A_LoopField, 5
-if (Trim(funcLangHolder) = langToTranspileTo)
-{
-arr allFuncLang .= Trim(funcLangHolder)
-correctLang := 1
-}
-}
-if (areWeInAFuncFromInstructionsLineNum = 2)
-{
-; name of the func
-StringTrimLeft, funcNameHolder, A_LoopField, 5
-if (correctLang = 1) && (InStr(code, Trim(funcNameHolder)))
-{
-arr allFuncNames .= Trim(funcNameHolder)
-}
-}
-if (areWeInAFuncFromInstructionsLineNum = 3)
-{
-; all libs
-StringTrimLeft, funcLibsHolder, A_LoopField, 5
-if (correctLang = 1) && (InStr(code, Trim(funcNameHolder)))
-{
-arr allFuncLibs .= Trim(funcLibsHolder)
-}
-}
-if (areWeInAFuncFromInstructionsLineNum = 4)
-{
-; func description
-StringTrimLeft, funcDescriptionHolder, A_LoopField, 12
-if (correctLang = 1) && (InStr(code, Trim(funcNameHolder)))
-{
-arr allfuncDescription .= Trim(funcDescriptionHolder)
-}
-}
-if (areWeInAFuncFromInstructionsLineNum >= 5)
-{
-; the full func
-if (correctLang = 1) && (InStr(code, Trim(funcNameHolder)))
-{
-funcFuncHolder .= A_LoopField . "`n"
-}
-}
-
-;MsgBox, % A_LoopField
-
-areWeInAFuncFromInstructionsLineNum++
-}
-
-
-if (Trim(A_LoopField) = "func======================func==============")
-{
-areWeInAFuncFromInstructions := 1
-areWeInAFuncFromInstructionsLineNum := 1
-correctLang := 0
-}
-
-
-
-}
-
-;~ MsgBox, ===========================================================================
-;~ msgbox, % allFuncNames
-;~ MsgBox, ===========================================================================
-;~ msgbox, % allFuncLibs
-;~ MsgBox, ===========================================================================
-;~ msgbox, % allFuncLang
-;~ MsgBox, ===========================================================================
-;~ msgbox, % allFuncs
-;~ MsgBox, ===========================================================================
-
 
 
 str htCodeOUT754754 := ""
@@ -5895,6 +5787,114 @@ StringTrimRight, htCode, htCodeOut1234565432, 1
 
 
 
+
+areWeInAFuncFromInstructions := 0
+areWeInAFuncFromInstructionsLineNum := 0
+
+str funcLangHolder
+str funcNameHolder
+str funcLibsHolder
+str funcFuncHolder
+str funcDescriptionHolder
+
+arr str allFuncLang
+arr str allFuncNames
+arr str allFuncLibs
+arr str allFuncs
+arr str allfuncDescription
+
+
+int correctLang := 0
+Loop, Parse, instructions, `n, `r
+{
+if (Trim(A_LoopField) = "funcEND======================funcEND==============")
+{
+areWeInAFuncFromInstructions := 0
+areWeInAFuncFromInstructionsLineNum := 0
+if (correctLang = 1) && (InStr(htCode, Trim(funcNameHolder)))
+{
+;MsgBox, % funcFuncHolder
+arr allFuncs .= funcFuncHolder
+}
+correctLang := 0
+funcFuncHolder := ""
+}
+
+if (areWeInAFuncFromInstructions = 1)
+{
+
+if (areWeInAFuncFromInstructionsLineNum = 1)
+{
+; name of the func
+StringTrimLeft, funcLangHolder, A_LoopField, 5
+if (Trim(funcLangHolder) = langToTranspileTo)
+{
+arr allFuncLang .= Trim(funcLangHolder)
+correctLang := 1
+}
+}
+if (areWeInAFuncFromInstructionsLineNum = 2)
+{
+; name of the func
+StringTrimLeft, funcNameHolder, A_LoopField, 5
+if (correctLang = 1) && (InStr(htCode, Trim(funcNameHolder)))
+{
+arr allFuncNames .= Trim(funcNameHolder)
+}
+}
+if (areWeInAFuncFromInstructionsLineNum = 3)
+{
+; all libs
+StringTrimLeft, funcLibsHolder, A_LoopField, 5
+if (correctLang = 1) && (InStr(htCode, Trim(funcNameHolder)))
+{
+arr allFuncLibs .= Trim(funcLibsHolder)
+}
+}
+if (areWeInAFuncFromInstructionsLineNum = 4)
+{
+; func description
+StringTrimLeft, funcDescriptionHolder, A_LoopField, 12
+if (correctLang = 1) && (InStr(htCode, Trim(funcNameHolder)))
+{
+arr allfuncDescription .= Trim(funcDescriptionHolder)
+}
+}
+if (areWeInAFuncFromInstructionsLineNum >= 5)
+{
+; the full func
+if (correctLang = 1) && (InStr(htCode, Trim(funcNameHolder)))
+{
+funcFuncHolder .= A_LoopField . "`n"
+}
+}
+
+;MsgBox, % A_LoopField
+
+areWeInAFuncFromInstructionsLineNum++
+}
+
+
+if (Trim(A_LoopField) = "func======================func==============")
+{
+areWeInAFuncFromInstructions := 1
+areWeInAFuncFromInstructionsLineNum := 1
+correctLang := 0
+}
+
+
+
+}
+
+;~ MsgBox, ===========================================================================
+;~ msgbox, % allFuncNames
+;~ MsgBox, ===========================================================================
+;~ msgbox, % allFuncLibs
+;~ MsgBox, ===========================================================================
+;~ msgbox, % allFuncLang
+;~ MsgBox, ===========================================================================
+;~ msgbox, % allFuncs
+;~ MsgBox, ===========================================================================
 
 
 if (langToTranspileTo = "py")
