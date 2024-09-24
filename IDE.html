@@ -421,12 +421,12 @@
 
         var HTHighlightRules = function () {
           this.$rules = {
-            start: [{ token: "comment", regex: ";.*$" },
-              { token: "keywords", regex: "\\b(if|else if|else|while|for|Loop|Loop,|Loop, parse,|continue|break|func|await|switch|case|throw|try|catch|finally|var|let|const|return|end)\\b" },
-              { token: "command", regex: "\\b(cmd|gg|MsgBox|Sort|hi|StringTrimLeft|StringTrimRight)(?=\\,)" },
-              { token: "functions", regex: "\\b(MsgBox|ErrorMsg)(?=\\()" },
+            start: [{ token: "comment", regex: "\/\/.*$" },
+              { token: "keywords", regex: "\\b(if|else if|else|while|for|Loop|Loop,|Loop, Parse,|continue|break|func|await|switch|case|throw|Try|Catch|Finally|var|let|const|return|end)\\b" },
+              { token: "command", regex: "\\b(StringTrimLeft|StringTrimRight)(?=\\,)" },
+              { token: "functions", regex: "\\b(LoopParseFunc|LoopParseFunc|LoopParseFunc|HTVM_func1|print|print|INT|STR|FLOAT|InStr|Random|Sleep|input|FileRead|FileAppend|FileDelete|StrLen|Asc|Abs|ACos|ASin|ATan|Ceil|Cos|Exp|Ln|Log|Round|Sin|Sqrt|Tan|SubStr|Trim|StrReplace|StringTrimLeft|StringTrimRight|StrLower|StrSplit|Chr|Mod|Floor|Sort|getDataFromAPI|FileCreateDir|FileRemoveDir|FileExist|isWindows|GetParams|BuildInVars|RegExReplace|RunCMD|RegExMatch|ExitApp|ErrorMsg)(?=\\()" },
               { token: "BuildInFunc", regex: "\\b(A_Index|A_LoopField)\\b" },
-              { token: "arrayMethods", regex: "\\.(\\add|\\pop|\\size|\\insert|\\remove|\\index)\\b" },
+              { token: "arrayMethods", regex: "\\.(\\|\\pop|\\size|\\insert|\\rm|\\indexOf)\\b" },
               { token: "static_types", regex: "\\b(int|str|bool|float|int8|int16|int32|int64|arr|arr int|arr str|arr float|arr bool)\\b" },
               { token: "operators", regex: " && | or | and | && " },
               { token: "trueANDfalse", regex: "\\b(true|false|global)\\b" },
@@ -501,7 +501,7 @@
           },
         };
         // Combined keywords for "ht" and AHK
-        let hth = [{ name: "if" }, { name: "else if" }, { name: "else" }, { name: "while" }, { name: "for" }, { name: "Loop" }, { name: "Loop," }, { name: "Loop, parse," }, { name: "continue" }, { name: "break" }, { name: "func" }, { name: "await" }, { name: "switch" }, { name: "case" }, { name: "throw" }, { name: "try" }, { name: "catch" }, { name: "finally" }, { name: "var" }, { name: "let" }, { name: "const" }, { name: "return" }, { name: "end" }, { name: "cmd" }, { name: "gg" }, { name: "MsgBox" }, { name: "Sort" }, { name: "hi" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "MsgBox" }, { name: "ErrorMsg" }, { name: "A_LoopField" }, { name: "A_Index" }, { name: "add" }, { name: "pop" }, { name: "size" }, { name: "insert" }, { name: "remove" }, { name: "index" }, { name: "int" }, { name: "str" }, { name: "bool" }, { name: "float" }, { name: "int8" }, { name: "int16" }, { name: "int32" }, { name: "int64" }, { name: "arr" }, { name: "arr int" }, { name: "arr str" }, { name: "arr float" }, { name: "arr bool" }, { name: "global" }];
+        let hth = [{ name: "if" }, { name: "else if" }, { name: "else" }, { name: "while" }, { name: "for" }, { name: "Loop" }, { name: "Loop," }, { name: "Loop, Parse," }, { name: "continue" }, { name: "break" }, { name: "func" }, { name: "await" }, { name: "switch" }, { name: "case" }, { name: "throw" }, { name: "Try" }, { name: "Catch" }, { name: "Finally" }, { name: "var" }, { name: "let" }, { name: "const" }, { name: "return" }, { name: "end" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "LoopParseFunc" }, { name: "LoopParseFunc" }, { name: "LoopParseFunc" }, { name: "HTVM_func1" }, { name: "print" }, { name: "print" }, { name: "INT" }, { name: "STR" }, { name: "FLOAT" }, { name: "InStr" }, { name: "Random" }, { name: "Sleep" }, { name: "input" }, { name: "FileRead" }, { name: "FileAppend" }, { name: "FileDelete" }, { name: "StrLen" }, { name: "Asc" }, { name: "Abs" }, { name: "ACos" }, { name: "ASin" }, { name: "ATan" }, { name: "Ceil" }, { name: "Cos" }, { name: "Exp" }, { name: "Ln" }, { name: "Log" }, { name: "Round" }, { name: "Sin" }, { name: "Sqrt" }, { name: "Tan" }, { name: "SubStr" }, { name: "Trim" }, { name: "StrReplace" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "StrLower" }, { name: "StrSplit" }, { name: "Chr" }, { name: "Mod" }, { name: "Floor" }, { name: "Sort" }, { name: "getDataFromAPI" }, { name: "FileCreateDir" }, { name: "FileRemoveDir" }, { name: "FileExist" }, { name: "isWindows" }, { name: "GetParams" }, { name: "BuildInVars" }, { name: "RegExReplace" }, { name: "RunCMD" }, { name: "RegExMatch" }, { name: "ExitApp" }, { name: "ErrorMsg" }, { name: "A_LoopField" }, { name: "A_Index" }, { name: "" }, { name: "pop" }, { name: "size" }, { name: "insert" }, { name: "rm" }, { name: "indexOf" }, { name: "int" }, { name: "str" }, { name: "bool" }, { name: "float" }, { name: "int8" }, { name: "int16" }, { name: "int32" }, { name: "int64" }, { name: "arr" }, { name: "arr int" }, { name: "arr str" }, { name: "arr float" }, { name: "arr bool" }, { name: "global" }];
 
         // Create a new div element for the editor
         var editorDiv = document.createElement("div");
@@ -1216,8 +1216,40 @@
         document.documentElement.setAttribute("style", "padding: 0; margin: 0;");
         document.head.setAttribute("style", "padding: 0; margin: 0;");
         document.body.setAttribute("style", "overflow-x: hidden;padding: 0; margin: 0;");
+        variables.ideTEXT = `// This is the preview of your language, and this is how your programming language will look.
 
-        variables.idetext = variables.ideTEXT;
+// If you use types here how they will look like if you only define them:
+int varName1;
+str varName2;
+bool varName3;
+float varName4;
+int8 varName5;
+int16 varName6;
+int32 varName7;
+int64 varName8;
+
+// You can also define them like this if you like:
+int varName9 = 34;
+
+// Here is how if, else if and else will work and look like
+if (varName1 == varName9) {
+	print("varName1 is = to varName9");
+}
+else if (varName1 != varName9 or varName1 <= varName9) {
+	print("varName1 is less or equal to varName9");
+} else {
+	print("varName1 is NOT less or equal to varName9 or someting else");
+}
+
+// Preview is still in development.
+// Preview is still in development.
+`;
+        
+        // Assuming variables.theSHA is already set
+        const shaKey = "HTVM-IDE-5b4d8a2e372f41d0140299e6b38c7eb35dd63477fd72432fe23b4de0d342ea5b";
+
+        // Retrieve the plain text from local storage
+        variables.idetext = localStorage.getItem(shaKey) || variables.ideTEXT;
         variables.AScreenHeight = BuildInVars("A_ScreenHeight") - 20;
         variables.AScreenWidth = BuildInVars("A_ScreenWidth") - 20;
         var saveBackCodeBugFix = variables.ideTEXT;
@@ -1225,10 +1257,7 @@
 
         async function IDE1(A_GuiControl) {
           variables.idetext = A_GuiControl;
-        }
-
-        async function HotKeyCalledAltShiftCtrlG() {
-          GuiControl("textide", "Gui1IDE1", textOldSave);
+          localStorage.setItem(shaKey, variables.idetext); // Update storage with the new content
         }
         async function HotKeyCalledAltShiftCtrlF() {
           // console.log("HotKeyCalled AltShiftCtrlF")
@@ -1426,6 +1455,6 @@
 
       // Call the async function to start the script
       runScript();
-    </script>
+        </script>
   </body>
 </html>
