@@ -2777,7 +2777,7 @@ htCodeOutFixEnd += A_LoopField56 + "\n";
 }
 code = StringTrimRight(htCodeOutFixEnd, 1);
 }
-if (useCurlyBraces == "off") 
+if (useCurlyBraces == "off" && useEnd == "off") 
 {
 code = AddCurlyBraces ( code ) ;
 }

@@ -2389,7 +2389,7 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 }
 
 
-if (useCurlyBraces = "off")
+if (useCurlyBraces = "off") && (useEnd = "off")
 {
 code := AddCurlyBraces(code)
 }
