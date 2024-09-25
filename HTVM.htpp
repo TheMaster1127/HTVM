@@ -1397,8 +1397,142 @@ return str111
 }
 
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str fixFuncParamsHandleSpacesHELPER(int theINDEX, str str2FIXhelper)
+{
+if (theINDEX = 1)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordArrayDefinition) . "\\b", "std::vector<std::string>")
+}
+if (theINDEX = 2)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordArrayOfIntegersDefinition) . "\\b", "std::vector<int>")
+}
+if (theINDEX = 3)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordArrayOfStringsDefinition) . "\\b", "std::vector<std::string>")
+}
+if (theINDEX = 4)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordArrayOfFloatingPointNumbersDefinition) . "\\b", "std::vector<float>")
+}
+if (theINDEX = 5)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordArrayOfBooleansDefinition) . "\\b", "std::vector<bool>")
+}
+if (theINDEX = 6)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordINT) . "\\b", "int")
+}
+if (theINDEX = 7)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordSTR) . "\\b", "std::string")
+}
+if (theINDEX = 8)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordBOOL) . "\\b", "bool")
+}
+if (theINDEX = 9)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordINT8) . "\\b", "int8_t")
+}
+if (theINDEX = 10)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordINT16) . "\\b", "int8_t")
+}
+if (theINDEX = 11)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordINT32) . "\\b", "int32_t")
+}
+if (theINDEX = 12)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordINT64) . "\\b", "long long")
+}
+if (theINDEX = 13)
+{
+str2FIXhelper := RegExReplace(str2FIXhelper, "\\b" . Trim(keyWordFLOAT) . "\\b", "float")
+}
+return str2FIXhelper
+}
+
+
+func int getNumOfSpacesHelperFunc(str theTEXTtoGetTheSpaceCount)
+{
+
+int NUMofSpaces := 0
+
+Loop, Parse, theTEXTtoGetTheSpaceCount
+{
+if (A_LoopField = " ")
+{
+NUMofSpaces++
+}
+}
+
+return NUMofSpaces
+}
+
+func str fixFuncParamsHandleSpaces(str str2FIX)
+{
+arr int holdDoneIdexes
+
+arr holdDoneIdexes .= 0
+arr holdDoneIdexes .= 0
+arr holdDoneIdexes .= 0
+arr holdDoneIdexes .= 0
+arr holdDoneIdexes .= 0
+arr holdDoneIdexes .= 0
+arr holdDoneIdexes .= 0
+arr holdDoneIdexes .= 0
+arr holdDoneIdexes .= 0
+arr holdDoneIdexes .= 0
+arr holdDoneIdexes .= 0
+arr holdDoneIdexes .= 0
+arr holdDoneIdexes .= 0
+
+arr str holdAllKeyWords
+
+arr holdAllKeyWords .= keyWordArrayDefinition
+arr holdAllKeyWords .= keyWordArrayOfIntegersDefinition
+arr holdAllKeyWords .= keyWordArrayOfStringsDefinition
+arr holdAllKeyWords .= keyWordArrayOfFloatingPointNumbersDefinition
+arr holdAllKeyWords .= keyWordArrayOfBooleansDefinition
+arr holdAllKeyWords .= keyWordINT
+arr holdAllKeyWords .= keyWordSTR
+arr holdAllKeyWords .= keyWordBOOL
+arr holdAllKeyWords .= keyWordINT8
+arr holdAllKeyWords .= keyWordINT16
+arr holdAllKeyWords .= keyWordINT32
+arr holdAllKeyWords .= keyWordINT64
+arr holdAllKeyWords .= keyWordFLOAT
+
+int tempSIZEholder
+int indexHolder
+Loop, INT(holdAllKeyWords[0])
+{
+tempSIZEholder := 0
+Loop, INT(holdAllKeyWords[0])
+{
+
+
+
+if (holdDoneIdexes[A_Index] = 0) && (getNumOfSpacesHelperFunc(holdAllKeyWords[A_Index]) >= tempSIZEholder)
+{
+tempSIZEholder := getNumOfSpacesHelperFunc(holdAllKeyWords[A_Index])
+indexHolder := A_Index
+}
+
+
+}
+holdDoneIdexes[indexHolder] := indexHolder
+str2FIX := fixFuncParamsHandleSpacesHELPER(indexHolder, str2FIX)
+}
+
+
+
+
+return str2FIX
+}
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3863,23 +3997,13 @@ str1 := StringTrimLeft(A_LoopField, StrLen(keyWordFunc))
 
 str2 := str1
 str2 := StrReplace(str2, ":", "")
+str2 := StrReplace(str2, Trim(keyWordVariablesAssignmentOperator), "=")
 if (langToTranspileTo = "cpp")
 {
 str2 := RegExReplace(str2, "\\b" . keyWordTrue . "\\b", "true")
 str2 := RegExReplace(str2, "\\b" . keyWordFalse . "\\b", "false")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayDefinition) . "\\b", "std::vector<std::string>")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayOfIntegersDefinition) . "\\b", "std::vector<int>")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayOfStringsDefinition) . "\\b", "std::vector<std::string>")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayOfFloatingPointNumbersDefinition) . "\\b", "std::vector<float>")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayOfBooleansDefinition) . "\\b", "std::vector<bool>")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordINT) . "\\b", "int")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordSTR) . "\\b", "std::string")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordBOOL) . "\\b", "bool")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordINT8) . "\\b", "int8_t")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordINT16) . "\\b", "int8_t")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordINT32) . "\\b", "int32_t")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordINT64) . "\\b", "long long")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordFLOAT) . "\\b", "float")
+str2 := fixFuncParamsHandleSpaces(str2)
+
 
 }
 else
@@ -3897,6 +4021,12 @@ str2 := RegExReplace(str2, "\\b" . keyWordTrue . "\\b", "True")
 str2 := RegExReplace(str2, "\\b" . keyWordFalse . "\\b", "False")
 }
 
+
+str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayDefinition) . "\\b", "")
+str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayOfIntegersDefinition) . "\\b", "")
+str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayOfStringsDefinition) . "\\b", "")
+str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayOfFloatingPointNumbersDefinition) . "\\b", "")
+str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayOfBooleansDefinition) . "\\b", "")
 str2 := RegExReplace(str2, "\\b" . Trim(keyWordINT) . "\\b", "")
 str2 := RegExReplace(str2, "\\b" . Trim(keyWordSTR) . "\\b", "")
 str2 := RegExReplace(str2, "\\b" . Trim(keyWordBOOL) . "\\b", "")
@@ -3905,13 +4035,9 @@ str2 := RegExReplace(str2, "\\b" . Trim(keyWordINT16) . "\\b", "")
 str2 := RegExReplace(str2, "\\b" . Trim(keyWordINT32) . "\\b", "")
 str2 := RegExReplace(str2, "\\b" . Trim(keyWordINT64) . "\\b", "")
 str2 := RegExReplace(str2, "\\b" . Trim(keyWordFLOAT) . "\\b", "")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayDefinition) . "\\b", "")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayOfIntegersDefinition) . "\\b", "")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayOfStringsDefinition) . "\\b", "")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayOfFloatingPointNumbersDefinition) . "\\b", "")
-str2 := RegExReplace(str2, "\\b" . Trim(keyWordArrayOfBooleansDefinition) . "\\b", "")
+
 }
-str2 := StrReplace(str2, Trim(keyWordVariablesAssignmentOperator), "=")
+
 str2 := StrReplace(str2, "):", ")")
 str2 := StrReplace(str2, ") :", ")")
 
