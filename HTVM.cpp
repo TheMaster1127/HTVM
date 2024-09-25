@@ -3890,11 +3890,32 @@ var1 = "for " + keyWordAIndex + "" + STR ( AindexcharLength ) + " in range(" + A
 }
 if (langToTranspileTo == "js") 
 {
+if (AHKlikeLoopsIndexedAt == "0") 
+{
+var1 = "for (let " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " <= " + line + " + " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
+else
+{
+if (AHKlikeLoopsIndexedAt == "0") 
+{
+var1 = "for (let " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " <= " + line + " + " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
+else
+{
 var1 = "for (let " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " <= " + line + " + " + AHKlikeLoopsIndexedAt + " - 1; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
+}
 }
 if (langToTranspileTo == "cpp") 
 {
+if (AHKlikeLoopsIndexedAt == "0") 
+{
+var1 = "for (int " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " <= " + line + " + " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
+else
+{
 var1 = "for (int " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " <= " + line + " + " + AHKlikeLoopsIndexedAt + " - 1; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
 }
 nothing = "";
 AindexcharLengthStr = nothing + STR ( AindexcharLength ) + nothing;
@@ -3923,11 +3944,25 @@ var1 = "for " + keyWordAIndex + "" + STR ( AindexcharLength ) + " in range(" + A
 }
 if (langToTranspileTo == "js") 
 {
+if (AHKlikeLoopsIndexedAt == "0") 
+{
+var1 = "for (let " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " <= " + line + " + " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
+else
+{
 var1 = "for (let " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " <= " + line + " + " + AHKlikeLoopsIndexedAt + " - 1; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
 }
 if (langToTranspileTo == "cpp") 
 {
+if (AHKlikeLoopsIndexedAt == "0") 
+{
+var1 = "for (int " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " <= " + line + " + " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
+else
+{
 var1 = "for (int " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " <= " + line + " + " + AHKlikeLoopsIndexedAt + " - 1; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
 }
 nothing = "";
 AindexcharLengthStr = nothing + STR ( AindexcharLength ) + nothing;
@@ -4018,11 +4053,25 @@ var1out = itemsOut + "\n" + "for " + keyWordAIndex + "" + STR ( AindexcharLength
 }
 if (langToTranspileTo == "js") 
 {
+if (AHKlikeLoopsIndexedAt == "0") 
+{
+var1out = itemsOut + "\n" + "for (let " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " <= items" + STR ( AindexcharLength ) + ".length + " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
+else
+{
 var1out = itemsOut + "\n" + "for (let " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " <= items" + STR ( AindexcharLength ) + ".length + " + AHKlikeLoopsIndexedAt + " - 1; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
 }
 if (langToTranspileTo == "cpp") 
 {
+if (AHKlikeLoopsIndexedAt == "0") 
+{
+var1out = itemsOut + "\n" + "for (size_t " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " < items" + STR ( AindexcharLength ) + ".size() + " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
+else
+{
 var1out = itemsOut + "\n" + "for (size_t " + keyWordAIndex + "" + STR ( AindexcharLength ) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR ( AindexcharLength ) + " < items" + STR ( AindexcharLength ) + ".size() + " + AHKlikeLoopsIndexedAt + " - 1; " + keyWordAIndex + "" + STR ( AindexcharLength ) + "++)";
+}
 }
 nothing = "";
 AindexcharLengthStr = nothing + STR ( AindexcharLength ) + nothing;
