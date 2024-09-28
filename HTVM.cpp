@@ -4460,7 +4460,7 @@ str4 = Trim ( str5 ) + Trim ( str1 ) + " = []";
 }
 else if (langToTranspileTo == "js") 
 {
-str4 = str5 + str1 + " = []" + theSemicolon;
+str4 = str5 + StrReplace ( str1 , ";" , "" ) + " = [];";
 }
 else
 {
@@ -4557,7 +4557,7 @@ str4 = Trim ( str5 ) + Trim ( str1 ) + " = []";
 }
 else if (langToTranspileTo == "js") 
 {
-str4 = str5 + str1 + " = []" + theSemicolon;
+str4 = str5 + StrReplace ( str1 , ";" , "" ) + " = [];";
 }
 else
 {
@@ -4654,7 +4654,7 @@ str4 = Trim ( str5 ) + Trim ( str1 ) + " = []";
 }
 else if (langToTranspileTo == "js") 
 {
-str4 = str5 + str1 + " = []" + theSemicolon;
+str4 = str5 + StrReplace ( str1 , ";" , "" ) + " = [];";
 }
 else
 {
@@ -4747,7 +4747,7 @@ str4 = Trim ( str5 ) + Trim ( str1 ) + " = []";
 }
 else if (langToTranspileTo == "js") 
 {
-str4 = str5 + str1 + " = []" + theSemicolon;
+str4 = str5 + StrReplace ( str1 , ";" , "" ) + " = [];";
 }
 else
 {
@@ -4844,7 +4844,7 @@ str4 = Trim ( str5 ) + Trim ( str1 ) + " = []";
 }
 else if (langToTranspileTo == "js") 
 {
-str4 = str5 + str1 + " = []" + theSemicolon;
+str4 = str5 + StrReplace ( str1 , ";" , "" ) + " = [];";
 }
 else
 {

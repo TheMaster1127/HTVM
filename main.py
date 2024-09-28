@@ -1,10 +1,4 @@
 
-
-def MsgBox(value):
-	print(value)
-
-
-
 qWASED = None
 arr123 = []
 arr123.append(6)

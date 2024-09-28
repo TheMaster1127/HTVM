@@ -3582,7 +3582,7 @@ defineCodeBlockChar := ":"
 
 if (useCurlyBraces = "on") && (useEnd = "off")
 {
-defineCodeBlockChar .= "{"
+defineCodeBlockChar := " {"
 defineCodeBlockCharCLOSE := "}"
 }
 if (useCurlyBraces = "off") && (useEnd = "on")
@@ -3597,6 +3597,35 @@ if (useParentheses = "on")
 openParentheses := "("
 closeParentheses := ")"
 }
+
+
+if (usePythonicColonSyntax = "off") && (useCurlyBraces = "on") && (useEnd = "off")
+{
+defineCodeBlockChar := " {"
+defineCodeBlockCharCLOSE := "}"
+}
+if (usePythonicColonSyntax = "on") && (useCurlyBraces = "off") && (useEnd = "off")
+{
+defineCodeBlockChar := ":"
+defineCodeBlockCharCLOSE := ""
+}
+if (usePythonicColonSyntax = "off") && (useCurlyBraces = "off") && (useEnd = "on")
+{
+defineCodeBlockChar := ""
+defineCodeBlockCharCLOSE := keyWordEnd
+}
+if (usePythonicColonSyntax = "off") && (useCurlyBraces = "off") && (useEnd = "off")
+{
+defineCodeBlockChar := ""
+defineCodeBlockCharCLOSE := ""
+}
+if (usePythonicColonSyntax = "on") && (useCurlyBraces = "off") && (useEnd = "on")
+{
+defineCodeBlockChar := ":"
+defineCodeBlockCharCLOSE := keyWordEnd
+}
+
+
 
 ; THEfuncKeyWord
 ; openParentheses
