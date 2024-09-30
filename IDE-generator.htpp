@@ -672,7 +672,7 @@ str keyWordTypes
 
 
 
-keyWordTypes := keyWordINT . "|" . keyWordSTR . "|" . keyWordBOOL . "|" . keyWordFLOAT . "|" . keyWordINT8 . "|" . keyWordINT16 . "|" . keyWordINT32 . "|" . keyWordINT64 . "|" . keyWordArrayDefinition . "|" . keyWordArrayOfIntegersDefinition . "|" . keyWordArrayOfStringsDefinition . "|" . keyWordArrayOfFloatingPointNumbersDefinition . "|" . keyWordArrayOfBooleansDefinition
+keyWordTypes := keyWordINT . "|" . keyWordSTR . "|" . "void" . "|" . keyWordBOOL . "|" . keyWordFLOAT . "|" . keyWordINT8 . "|" . keyWordINT16 . "|" . keyWordINT32 . "|" . keyWordINT64 . "|" . keyWordArrayDefinition . "|" . keyWordArrayOfIntegersDefinition . "|" . keyWordArrayOfStringsDefinition . "|" . keyWordArrayOfFloatingPointNumbersDefinition . "|" . keyWordArrayOfBooleansDefinition
 
 
 

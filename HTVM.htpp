@@ -3961,7 +3961,7 @@ htCode .= htCodeLoopfixa1 . "`n" . var1out . "`n"
 
 
 }
-else if (StrLower(A_LoopField) = StrLower(keyWordContinue))
+else if (StrLower(A_LoopField) = StrLower(keyWordContinue)) or (StrLower(A_LoopField) = StrLower(keyWordContinue . ";"))
 {
 ;MsgBox, % A_LoopField
 lineDone := 1
@@ -3976,7 +3976,7 @@ str2 := "continue;"
 
 htCode .= str2 . "`n"
 }
-else if (StrLower(A_LoopField) = StrLower(keyWordBreak))
+else if (StrLower(A_LoopField) = StrLower(keyWordBreak)) or (StrLower(A_LoopField) = StrLower(keyWordBreak . ";"))
 {
 ;MsgBox, % A_LoopField
 lineDone := 1

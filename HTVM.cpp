@@ -4162,7 +4162,7 @@ htCodeLoopfixa1 = "lp|itsaersdtgtgfergsdgfsegdfsedAA|" + STR ( AindexcharLength 
 AindexcharLength++;
 htCode += htCodeLoopfixa1 + "\n" + var1out + "\n";
 }
-else if (StrLower (A_LoopField65) == StrLower (keyWordContinue)) 
+else if (StrLower (A_LoopField65) == StrLower (keyWordContinue) || StrLower (A_LoopField65) == StrLower (keyWordContinue + ";")) 
 {
 //MsgBox, % A_LoopField65
 lineDone = 1;
@@ -4176,7 +4176,7 @@ str2 = "continue;";
 }
 htCode += str2 + "\n";
 }
-else if (StrLower (A_LoopField65) == StrLower (keyWordBreak)) 
+else if (StrLower (A_LoopField65) == StrLower (keyWordBreak) || StrLower (A_LoopField65) == StrLower (keyWordBreak + ";")) 
 {
 //MsgBox, % A_LoopField65
 lineDone = 1;

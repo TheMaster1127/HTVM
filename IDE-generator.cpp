@@ -1245,7 +1245,7 @@ functionsForHighlighting += keyWordErrorMsg;
 std::string keyWordArrayMethods = keyWordArrayAppend + "|" + keyWordArrayPop + "|" + keyWordArraySize + "|" + keyWordArrayInsert + "|" + keyWordArrayRemove + "|" + keyWordArrayIndexOf;
 keyWordArrayMethods = StrReplace ( keyWordArrayMethods , "." , "" ) ;
 std::string keyWordTypes;
-keyWordTypes = keyWordINT + "|" + keyWordSTR + "|" + keyWordBOOL + "|" + keyWordFLOAT + "|" + keyWordINT8 + "|" + keyWordINT16 + "|" + keyWordINT32 + "|" + keyWordINT64 + "|" + keyWordArrayDefinition + "|" + keyWordArrayOfIntegersDefinition + "|" + keyWordArrayOfStringsDefinition + "|" + keyWordArrayOfFloatingPointNumbersDefinition + "|" + keyWordArrayOfBooleansDefinition;
+keyWordTypes = keyWordINT + "|" + keyWordSTR + "|" + "void" + "|" + keyWordBOOL + "|" + keyWordFLOAT + "|" + keyWordINT8 + "|" + keyWordINT16 + "|" + keyWordINT32 + "|" + keyWordINT64 + "|" + keyWordArrayDefinition + "|" + keyWordArrayOfIntegersDefinition + "|" + keyWordArrayOfStringsDefinition + "|" + keyWordArrayOfFloatingPointNumbersDefinition + "|" + keyWordArrayOfBooleansDefinition;
 std::string autoCompleteUp = "[";
 std::string autoCompleteALLTemp = keywords + "|" + keyWordsCommandsFolrmated + "|" + functionsForHighlighting + "|" + keyWordALoopField + "|" + keyWordAIndex + "|" + keyWordArrayMethods + "|" + keyWordTypes + "|" + keyWordGlobal;
 std::string autoCompleteALL;
