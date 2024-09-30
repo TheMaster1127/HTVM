@@ -1458,7 +1458,7 @@ indentLevel -= 4;
 result += spaces ( indentLevel ) + "}\n";
 }
 // Add opening brace for new blocks
-if (getLastChar (stripped) == ":" && SubStr (StrLower (A_LoopField29) , 1 , StrLen (StrLower (keyWordComment)))!= StrLower (keyWordComment)) 
+if (getLastChar (stripped) == ":" && SubStr (StrLower (Trim (A_LoopField29)) , 1 , StrLen (StrLower (keyWordComment)))!= StrLower (keyWordComment)) 
 {
 result += SubStr ( line , 1 , -1 ) + " {\n";
 indentLevel += 4;
@@ -2828,63 +2828,63 @@ std::vector<std::string> items59 = LoopParseFunc(code, "\n", "\r");
 for (size_t A_Index59 = 1; A_Index59 < items59.size() + 1; A_Index59++)
 {
 std::string A_LoopField59 = items59[A_Index59 - 1];
-if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordIF))) == StrLower (keyWordIF)) 
+if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordIF))) == StrLower (keyWordIF)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordElseIf))) == StrLower (keyWordElseIf)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordElseIf))) == StrLower (keyWordElseIf)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordElse))) == StrLower (keyWordElse)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordElse))) == StrLower (keyWordElse)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordWhileLoop))) == StrLower (keyWordWhileLoop)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordWhileLoop))) == StrLower (keyWordWhileLoop)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordForLoop))) == StrLower (keyWordForLoop)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordForLoop))) == StrLower (keyWordForLoop)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordLoopInfinite))) == StrLower (keyWordLoopInfinite)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordLoopInfinite))) == StrLower (keyWordLoopInfinite)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordLoop))) == StrLower (keyWordLoop)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordLoop))) == StrLower (keyWordLoop)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordLoopParse))) == StrLower (keyWordLoopParse)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordLoopParse))) == StrLower (keyWordLoopParse)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordSwitch))) == StrLower (keyWordSwitch)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordSwitch))) == StrLower (keyWordSwitch)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordSwitchCase))) == StrLower (keyWordSwitchCase)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordSwitchCase))) == StrLower (keyWordSwitchCase)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordSwitchDefault))) == StrLower (keyWordSwitchDefault)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordSwitchDefault))) == StrLower (keyWordSwitchDefault)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordTry))) == StrLower (keyWordTry)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordTry))) == StrLower (keyWordTry)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordCatch))) == StrLower (keyWordCatch)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordCatch))) == StrLower (keyWordCatch)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordFinally))) == StrLower (keyWordFinally)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordFinally))) == StrLower (keyWordFinally)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
-else if (SubStr (StrLower (A_LoopField59) , 1 , StrLen (StrLower (keyWordFunc))) == StrLower (keyWordFunc)) 
+else if (SubStr (StrLower (Trim (A_LoopField59)) , 1 , StrLen (StrLower (keyWordFunc))) == StrLower (keyWordFunc)) 
 {
 htCodeOutFixEnd += A_LoopField59 + ":\n";
 }
