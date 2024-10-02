@@ -858,6 +858,9 @@ if (A_Index9 == 8)
 indexMax = StrReplace ( A_LoopField9 , ";" , "" ) ;
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for (int " + indexName + " = " + indexEqual + "; " + indexName + " < " + indexMax + "; " + indexName + "++)";
 return out;
 }
@@ -884,6 +887,9 @@ if (A_Index10 == 8)
 indexMax = StrReplace ( A_LoopField10 , ";" , "" ) ;
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for " + indexName + " in range(" + indexEqual + ", " + indexMax + "):";
 return out;
 }
@@ -905,13 +911,16 @@ indexName = StrReplace ( A_LoopField11 , ";" , "" ) ;
 }
 if (A_Index11 == 4) 
 {
-indexEqual = ExtractDigits ( StrReplace ( A_LoopField11 , ";" , "" ) ) ;
+indexEqual = Trim ( StrReplace ( StrReplace ( StrReplace ( A_LoopField11 , ";" , "" ) , "range(" , "" ) , "," , "" ) ) ;
 }
 if (A_Index11 == 5) 
 {
-indexMax = ExtractDigits ( StrReplace ( A_LoopField11 , ";" , "" ) ) ;
+indexMax = Trim ( StrReplace ( StrReplace ( StrReplace ( A_LoopField11 , ";" , "" ) , ")" , "" ) , "," , "" ) ) ;
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for (int " + indexName + " = " + indexEqual + "; " + indexName + " < " + indexMax + "; " + indexName + "++)";
 return out;
 }
@@ -931,6 +940,9 @@ indexEqual = "0";
 indexMax = ExtractDigits ( StrReplace ( A_LoopField12 , ";" , "" ) ) ;
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for (int " + indexName + " = " + indexEqual + "; " + indexName + " < " + indexMax + "; " + indexName + "++)";
 return out;
 }
@@ -953,13 +965,16 @@ indexName = StrReplace ( A_LoopField13 , ";" , "" ) ;
 }
 if (A_Index13 == 4) 
 {
-indexEqual = ExtractDigits ( StrReplace ( A_LoopField13 , ";" , "" ) ) ;
+indexEqual = Trim ( StrReplace ( StrReplace ( StrReplace ( A_LoopField13 , ";" , "" ) , "range(" , "" ) , "," , "" ) ) ;
 }
 if (A_Index13 == 5) 
 {
-indexMax = ExtractDigits ( StrReplace ( A_LoopField13 , ";" , "" ) ) ;
+indexMax = Trim ( StrReplace ( StrReplace ( StrReplace ( A_LoopField13 , ";" , "" ) , ")" , "" ) , "," , "" ) ) ;
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for (let " + indexName + " = " + indexEqual + "; " + indexName + " < " + indexMax + "; " + indexName + "++)";
 return out;
 }
@@ -979,6 +994,9 @@ indexEqual = "0";
 indexMax = ExtractDigits ( StrReplace ( A_LoopField14 , ";" , "" ) ) ;
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for (let " + indexName + " = " + indexEqual + "; " + indexName + " < " + indexMax + "; " + indexName + "++)";
 return out;
 }
@@ -1006,6 +1024,9 @@ if (A_Index15 == 8)
 indexMax = StrReplace ( A_LoopField15 , ";" , "" ) ;
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for (let " + indexName + " = " + indexEqual + "; " + indexName + " < " + indexMax + "; " + indexName + "++)";
 return out;
 }
@@ -1032,6 +1053,9 @@ if (A_Index16 == 8)
 indexMax = StrReplace ( A_LoopField16 , ";" , "" ) ;
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for " + indexName + " in range(" + indexEqual + ", " + indexMax + "):";
 return out;
 }
@@ -1063,6 +1087,9 @@ indexMax = StrReplace ( A_LoopField17 , ";" , "" ) ;
 }
 }
 indexMax = StrSplit ( indexMax , "." , 1 ) + ".size()";
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for (int " + indexName + " = " + indexEqual + "; " + indexName + " < " + indexMax + "; " + indexName + "++)";
 return out;
 }
@@ -1089,6 +1116,9 @@ if (A_Index18 == 8)
 indexMax = StrSplit ( StrReplace ( A_LoopField18 , ";" , "" ) , "." , 1 ) ;
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for " + indexName + " in range(" + indexEqual + ", len(" + indexMax + ")):";
 return out;
 }
@@ -1117,6 +1147,9 @@ if (A_Index19 == 5)
 indexMax = StrSplit ( StrSplit ( StrReplace ( A_LoopField19 , ";" , "" ) , "len(" , 2 ) , ")" , 1 ) + ".size()";
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for (int " + indexName + " = " + indexEqual + "; " + indexName + " < " + indexMax + "; " + indexName + "++)";
 return out;
 }
@@ -1136,6 +1169,9 @@ indexEqual = "0";
 indexMax = StrSplit ( StrSplit ( StrReplace ( A_LoopField20 , ";" , "" ) , "len(" , 2 ) , ")" , 1 ) + ".size()";
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for (int " + indexName + " = " + indexEqual + "; " + indexName + " < " + indexMax + "; " + indexName + "++)";
 return out;
 }
@@ -1165,7 +1201,7 @@ if (A_Index21 == 5)
 indexMax = StrSplit ( StrSplit ( StrReplace ( A_LoopField21 , ";" , "" ) , "len(" , 2 ) , ")" , 1 ) + ".length";
 }
 }
-out = "for (let " + indexName + " = " + indexEqual + "; " + indexName + " < " + indexMax + "; " + indexName + "++)";
+out = "for (let " + StrReplace ( indexName , ":" , "" ) + " = " + StrReplace ( indexEqual , ":" , "" ) + "; " + StrReplace ( indexName , ":" , "" ) + " < " + StrReplace ( indexMax , ":" , "" ) + "; " + StrReplace ( indexName , ":" , "" ) + "++)";
 return out;
 }
 else
@@ -1184,6 +1220,9 @@ indexEqual = "0";
 indexMax = StrSplit ( StrSplit ( StrReplace ( A_LoopField22 , ";" , "" ) , "len(" , 2 ) , ")" , 1 ) + ".length";
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for (let " + indexName + " = " + indexEqual + "; " + indexName + " < " + indexMax + "; " + indexName + "++)";
 return out;
 }
@@ -1212,6 +1251,9 @@ indexMax = StrReplace ( A_LoopField23 , ";" , "" ) ;
 }
 }
 indexMax = StrSplit ( indexMax , "." , 1 ) + ".length";
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for (let " + indexName + " = " + indexEqual + "; " + indexName + " < " + indexMax + "; " + indexName + "++)";
 return out;
 }
@@ -1238,6 +1280,9 @@ if (A_Index24 == 8)
 indexMax = StrSplit ( StrReplace ( A_LoopField24 , ";" , "" ) , "." , 1 ) ;
 }
 }
+indexName = StrReplace ( indexName , ":" , "" ) ;
+indexEqual = StrReplace ( indexEqual , ":" , "" ) ;
+indexMax = StrReplace ( indexMax , ":" , "" ) ;
 out = "for " + indexName + " in range(" + indexEqual + ", len(" + indexMax + ")):";
 return out;
 }
@@ -3962,6 +4007,7 @@ str1 = StringTrimLeft ( A_LoopField65 , StrLen ( keyWordForLoop ) ) ;
 str2 = transpileForLoop ( langToTranspileTo , forLoopLang , "for " + expressionParserTranspiler ( str1 ) ) ;
 lineDone = 1;
 str2 = StrReplace ( str2 , "::" , ":" ) ;
+str2 = StrReplace ( str2 , ";;" , ";" ) ;
 htCode += str2 + "\n";
 }
 else if (StrLower (A_LoopField65) == StrLower (keyWordLoopInfinite) || StrLower (A_LoopField65) == StrLower (keyWordLoopInfinite + ":")) 
