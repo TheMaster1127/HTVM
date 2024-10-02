@@ -1384,6 +1384,22 @@ MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wro
 return
 }
 }
+else if (A_Index = 69)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 9) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index = 70)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 9) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
 else if (A_Index = 71)
 {
 if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 4) != false))
@@ -1546,6 +1562,16 @@ return true
 if (text = "0")
 {
 return true
+}
+
+if (mode = 9)
+{
+if (!(RegExMatch(text, "^[^\\r\\n]*$")))
+{
+MsgBox, 16, Invalid input, Please do not use new lines or carriage returns or colons or double quotes.
+return false
+}
+return text
 }
 
 if (mode = 7)
@@ -2325,18 +2351,26 @@ Return
 
 Edit69:
 EditText69 := A_GuiControl
-if (!(rulesForEditBoxesSyntaxDef(EditText69, 0) != false))
+if (!(rulesForEditBoxesSyntaxDef(EditText69, 9) != false))
 {
 MsgBox, 16, ERROR, Please fix your error by pressing the Backspace!!!
+}
+if (StrLower(EditText69) = StrLower(EditText70))
+{
+MsgBox, 16, ERROR, You can't have the comment block start and end with the same one. Please fix your error by pressing the Backspace!!!
 }
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-69", EditText69)
 Return
 
 Edit70:
 EditText70 := A_GuiControl
-if (!(rulesForEditBoxesSyntaxDef(EditText70, 0) != false))
+if (!(rulesForEditBoxesSyntaxDef(EditText70, 9) != false))
 {
 MsgBox, 16, ERROR, Please fix your error by pressing the Backspace!!!
+}
+if (StrLower(EditText69) = StrLower(EditText70))
+{
+MsgBox, 16, ERROR, You can't have the comment block start and end with the same one. Please fix your error by pressing the Backspace!!!
 }
 StoreLocally("s", "HTVM-ProjectName" . currentProjectNum . "-70", EditText70)
 Return
@@ -2676,6 +2710,22 @@ MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wro
 return
 }
 }
+else if (A_Index = 69)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 9) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index = 70)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 9) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
 else if (A_Index = 71)
 {
 if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 4) != false))
@@ -2783,6 +2833,38 @@ return
 else if (A_Index >= 51) && (A_Index <= 56)
 {
 if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 3) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index = 68)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 7) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index = 69)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 9) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index = 70)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 9) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index = 70)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 9) != false))
 {
 MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
 return
@@ -2907,6 +2989,30 @@ return
 else if (A_Index >= 51) && (A_Index <= 56)
 {
 if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 3) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index = 68)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 7) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index = 69)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 9) != false))
+{
+MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
+return
+}
+}
+else if (A_Index = 70)
+{
+if (!(rulesForEditBoxesSyntaxDef(EditText%A_Index%, 9) != false))
 {
 MsgBox, 16, Invalid nstructions, Invalid nstructions your language rules are wrong!!!
 return
@@ -3713,7 +3819,7 @@ displayExampleTextLine14 := "" . keyWordINT . " varName9 " . keyWordVariablesAss
 displayExampleTextLine15 := "`n"
 displayExampleTextLine16 := "" . keyWordComment . " Here is how to define a function with static types if you convert to C++.`n"
 displayExampleTextLine17 := "" . keyWordComment . " However, it will still work even if you are not converting to C++; types will be stripped away.`n"
-displayExampleTextLine18 := keyWordFunc . " void funcName1(" . keyWordINT . " paramVar1, " . keyWordSTR . " paramVar2 " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "" . Chr(34) . ", " . keyWordBOOL . " paramVar3 " . keyWordVariablesAssignmentOperator . " " . keyWordFalse . ", " . keyWordFLOAT . " paramVar4 " . keyWordVariablesAssignmentOperator . " 1.5)" . defineCodeBlockChar . "`n"
+displayExampleTextLine18 := keyWordFunc . " void funcName1(" . keyWordINT . " paramVar1, " . keyWordSTR . " paramVar2 " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "" . Chr(34) . ", " . keyWordBOOL . " paramVar3 " . keyWordVariablesAssignmentOperator . " " . keyWordFalse . ", " . keyWordFLOAT . " paramVar4 " . keyWordVariablesAssignmentOperator . " 1.5)" . defineCodeBlockChar . "`n" . A_Tab . keyWordComment . " This is how the global keyword works if we convert to Python.`n" . A_Tab . keyWordComment . " But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.`n" . A_Tab . "" . keyWordGlobal . " varName5" . ifWeUsedAsemicolumON . "`n`n"
 displayExampleTextLine19 := A_Tab . "" . keyWordComment . " Here's how if, else if, " . keyWordAndOperator . " else statements will look:`n"
 displayExampleTextLine20 := A_Tab . keyWordIF . " " . openParentheses . "varName1 " . keyWordEqualOperator . " paramVar1" . closeParentheses . defineCodeBlockChar . "`n"
 displayExampleTextLine21 := A_Tab . A_Tab . "print(" . Chr(34) . "varName1 is equal to paramVar1" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
@@ -3751,7 +3857,7 @@ displayExampleTextLine14 := "" . keyWordINT . " varName9 " . keyWordVariablesAss
 displayExampleTextLine15 := "`n"
 displayExampleTextLine16 := "" . keyWordComment . " Here is how to define a function with static types if you convert to C++.`n"
 displayExampleTextLine17 := "" . keyWordComment . " However, it will still work even if you are not converting to C++; types will be stripped away.`n"
-displayExampleTextLine18 := keyWordFunc . " void funcName1(" . keyWordINT . " paramVar1, " . keyWordSTR . " paramVar2 " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "" . Chr(34) . ", " . keyWordBOOL . " paramVar3 " . keyWordVariablesAssignmentOperator . " " . keyWordFalse . ", " . keyWordFLOAT . " paramVar4 " . keyWordVariablesAssignmentOperator . " 1.5)" . defineCodeBlockChar . "`n"
+displayExampleTextLine18 := keyWordFunc . " void funcName1(" . keyWordINT . " paramVar1, " . keyWordSTR . " paramVar2 " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "" . Chr(34) . ", " . keyWordBOOL . " paramVar3 " . keyWordVariablesAssignmentOperator . " " . keyWordFalse . ", " . keyWordFLOAT . " paramVar4 " . keyWordVariablesAssignmentOperator . " 1.5)" . defineCodeBlockChar . "`n" . A_Tab . keyWordComment . " This is how the global keyword works if we convert to Python.`n" . A_Tab . keyWordComment . " But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.`n" . A_Tab . "" . keyWordGlobal . " varName5" . ifWeUsedAsemicolumON . "`n`n"
 displayExampleTextLine19 := A_Tab . "" . keyWordComment . " Here's how if, else if, " . keyWordAndOperator . " else statements will look:`n"
 displayExampleTextLine20 := A_Tab . keyWordIF . " " . openParentheses . "varName1 " . keyWordEqualOperator . " paramVar1" . closeParentheses . defineCodeBlockChar . "`n"
 displayExampleTextLine21 := A_Tab . A_Tab . "print(" . Chr(34) . "varName1 is equal to paramVar1" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
@@ -3786,7 +3892,7 @@ displayExampleTextLine14 := "" . keyWordINT . " varName9 " . keyWordVariablesAss
 displayExampleTextLine15 := "`n"
 displayExampleTextLine16 := "" . keyWordComment . " Here is how to define a function with static types if you convert to C++.`n"
 displayExampleTextLine17 := "" . keyWordComment . " However, it will still work even if you are not converting to C++; types will be stripped away.`n"
-displayExampleTextLine18 := keyWordFunc . " void funcName1(" . keyWordINT . " paramVar1, " . keyWordSTR . " paramVar2 " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "" . Chr(34) . ", " . keyWordBOOL . " paramVar3 " . keyWordVariablesAssignmentOperator . " " . keyWordFalse . ", " . keyWordFLOAT . " paramVar4 " . keyWordVariablesAssignmentOperator . " 1.5)" . defineCodeBlockChar . "`n"
+displayExampleTextLine18 := keyWordFunc . " void funcName1(" . keyWordINT . " paramVar1, " . keyWordSTR . " paramVar2 " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "" . Chr(34) . ", " . keyWordBOOL . " paramVar3 " . keyWordVariablesAssignmentOperator . " " . keyWordFalse . ", " . keyWordFLOAT . " paramVar4 " . keyWordVariablesAssignmentOperator . " 1.5)" . defineCodeBlockChar . "`n" . A_Tab . keyWordComment . " This is how the global keyword works if we convert to Python.`n" . A_Tab . keyWordComment . " But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.`n" . A_Tab . "" . keyWordGlobal . " varName5" . ifWeUsedAsemicolumON . "`n`n"
 displayExampleTextLine19 := A_Tab . "" . keyWordComment . " Here's how if, else if, " . keyWordAndOperator . " else statements will look:`n"
 displayExampleTextLine20 := A_Tab . keyWordIF . " " . openParentheses . "varName1 " . keyWordEqualOperator . " paramVar1" . closeParentheses . defineCodeBlockChar . "`n"
 displayExampleTextLine21 := A_Tab . A_Tab . "print(" . Chr(34) . "varName1 is equal to paramVar1" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
@@ -3823,7 +3929,7 @@ displayExampleTextLine14 := "" . keyWordINT . " varName9 " . keyWordVariablesAss
 displayExampleTextLine15 := "`n"
 displayExampleTextLine16 := "" . keyWordComment . " Here is how to define a function with static types if you convert to C++.`n"
 displayExampleTextLine17 := "" . keyWordComment . " However, it will still work even if you are not converting to C++; types will be stripped away.`n"
-displayExampleTextLine18 := keyWordFunc . " void funcName1(" . keyWordINT . " paramVar1, " . keyWordSTR . " paramVar2 " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "" . Chr(34) . ", " . keyWordBOOL . " paramVar3 " . keyWordVariablesAssignmentOperator . " " . keyWordFalse . ", " . keyWordFLOAT . " paramVar4 " . keyWordVariablesAssignmentOperator . " 1.5)" . defineCodeBlockChar . "`n"
+displayExampleTextLine18 := keyWordFunc . " void funcName1(" . keyWordINT . " paramVar1, " . keyWordSTR . " paramVar2 " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "" . Chr(34) . ", " . keyWordBOOL . " paramVar3 " . keyWordVariablesAssignmentOperator . " " . keyWordFalse . ", " . keyWordFLOAT . " paramVar4 " . keyWordVariablesAssignmentOperator . " 1.5)" . defineCodeBlockChar . "`n" . A_Tab . keyWordComment . " This is how the global keyword works if we convert to Python.`n" . A_Tab . keyWordComment . " But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.`n" . A_Tab . "" . keyWordGlobal . " varName5" . ifWeUsedAsemicolumON . "`n`n"
 displayExampleTextLine19 := A_Tab . "" . keyWordComment . " Here's how if, else if, " . keyWordAndOperator . " else statements will look:`n"
 displayExampleTextLine20 := A_Tab . keyWordIF . " " . openParentheses . "varName1 " . keyWordEqualOperator . " paramVar1" . closeParentheses . defineCodeBlockChar . "`n"
 displayExampleTextLine21 := A_Tab . A_Tab . "print(" . Chr(34) . "varName1 is equal to paramVar1" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
@@ -3858,7 +3964,7 @@ displayExampleTextLine14 := "" . keyWordINT . " varName9 " . keyWordVariablesAss
 displayExampleTextLine15 := "`n"
 displayExampleTextLine16 := "" . keyWordComment . " Here is how to define a function with static types if you convert to C++.`n"
 displayExampleTextLine17 := "" . keyWordComment . " However, it will still work even if you are not converting to C++; types will be stripped away.`n"
-displayExampleTextLine18 := keyWordFunc . " void funcName1(" . keyWordINT . " paramVar1, " . keyWordSTR . " paramVar2 " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "" . Chr(34) . ", " . keyWordBOOL . " paramVar3 " . keyWordVariablesAssignmentOperator . " " . keyWordFalse . ", " . keyWordFLOAT . " paramVar4 " . keyWordVariablesAssignmentOperator . " 1.5)" . defineCodeBlockChar . "`n"
+displayExampleTextLine18 := keyWordFunc . " void funcName1(" . keyWordINT . " paramVar1, " . keyWordSTR . " paramVar2 " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "" . Chr(34) . ", " . keyWordBOOL . " paramVar3 " . keyWordVariablesAssignmentOperator . " " . keyWordFalse . ", " . keyWordFLOAT . " paramVar4 " . keyWordVariablesAssignmentOperator . " 1.5)" . defineCodeBlockChar . "`n" . A_Tab . keyWordComment . " This is how the global keyword works if we convert to Python.`n" . A_Tab . keyWordComment . " But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.`n" . A_Tab . "" . keyWordGlobal . " varName5" . ifWeUsedAsemicolumON . "`n`n"
 displayExampleTextLine19 := A_Tab . "" . keyWordComment . " Here's how if, else if, " . keyWordAndOperator . " else statements will look:`n"
 displayExampleTextLine20 := A_Tab . keyWordIF . " " . openParentheses . "varName1 " . keyWordEqualOperator . " paramVar1" . closeParentheses . defineCodeBlockChar . "`n"
 displayExampleTextLine21 := A_Tab . A_Tab . "print(" . Chr(34) . "varName1 is equal to paramVar1" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
@@ -4342,6 +4448,11 @@ displayExampleTextLine68 := "`n"
 }
 
 
+displayExampleTextLine71 := "print(" . Chr(34) . "this is how the escape char looks like " . Chr(92) . keyWordEscpaeChar . "nthis is a new line" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine72 := "" . keyWordCommentOpenMultiLine . "`n"
+displayExampleTextLine73 := "this is a comment block`n"
+displayExampleTextLine74 := "this is a comment block`n"
+displayExampleTextLine75 := "" . keyWordCommentCloseMultiLine . "`n"
 
 
 

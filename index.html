@@ -5231,6 +5231,22 @@ await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your l
 return
 }
 }
+else if (( variables.A_Index11 == 69 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index11 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
 else if (( variables.A_Index11 == 71 ))
 {
 if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 4)  != false) ))
@@ -5379,6 +5395,15 @@ return true
 if (( variables.text == "0" ))
 {
 return true
+}
+if (( variables.mode == 9 ))
+{
+if (( ! (await RegExMatch (variables.text , "^[^\\r\\n]*$") ) ))
+{
+await showCustomMessageBox({},"Invalid input", "Please do not use new lines or carriage returns or colons or double quotes.", 16, 0)
+return false
+}
+return variables.text
 }
 if (( variables.mode == 7 ))
 {
@@ -6145,18 +6170,26 @@ await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-6
 async function Edit69(A_GuiControl)
 {
 variables.EditText69 = A_GuiControl
-if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText69 , 0)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText69 , 9)  != false) ))
 {
 await showCustomMessageBox({},"ERROR", "Please fix your error by pressing the Backspace!!!", 16, 0)
+}
+if (( await StrLower (variables.EditText69) == await StrLower (variables.EditText70) ))
+{
+await showCustomMessageBox({},"ERROR", "You can't have the comment block start and end with the same one. Please fix your error by pressing the Backspace!!!", 16, 0)
 }
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-69" , variables.EditText69 )
 }
 async function Edit70(A_GuiControl)
 {
 variables.EditText70 = A_GuiControl
-if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText70 , 0)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables.EditText70 , 9)  != false) ))
 {
 await showCustomMessageBox({},"ERROR", "Please fix your error by pressing the Backspace!!!", 16, 0)
+}
+if (( await StrLower (variables.EditText69) == await StrLower (variables.EditText70) ))
+{
+await showCustomMessageBox({},"ERROR", "You can't have the comment block start and end with the same one. Please fix your error by pressing the Backspace!!!", 16, 0)
 }
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-70" , variables.EditText70 )
 }
@@ -6480,6 +6513,22 @@ await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your l
 return
 }
 }
+else if (( variables.A_Index14 == 69 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index14 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
 else if (( variables.A_Index14 == 71 ))
 {
 if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 4)  != false) ))
@@ -6580,6 +6629,38 @@ return
 else if (( variables.A_Index16 >= 51) && (variables.A_Index16 <= 56 ))
 {
 if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 3)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index16 == 68 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 7)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index16 == 69 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index16 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index16 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 9)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
@@ -6696,6 +6777,30 @@ return
 else if (( variables.A_Index19 >= 51) && (variables.A_Index19 <= 56 ))
 {
 if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 3)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index19 == 68 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 7)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index19 == 69 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index19 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 9)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
@@ -7468,7 +7573,7 @@ variables.displayExampleTextLine14 = "" + variables.keyWordINT + " varName9 " + 
 variables.displayExampleTextLine15 = "\n"
 variables.displayExampleTextLine16 = "" + variables.keyWordComment + " Here is how to define a function with static types if you convert to C++.\n"
 variables.displayExampleTextLine17 = "" + variables.keyWordComment + " However, it will still work even if you are not converting to C++; types will be stripped away.\n"
-variables.displayExampleTextLine18 = variables.keyWordFunc + " void funcName1(" + variables.keyWordINT + " paramVar1, " + variables.keyWordSTR + " paramVar2 " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "" + await Chr (34) + ", " + variables.keyWordBOOL + " paramVar3 " + variables.keyWordVariablesAssignmentOperator + " " + variables.keyWordFalse + ", " + variables.keyWordFLOAT + " paramVar4 " + variables.keyWordVariablesAssignmentOperator + " 1.5)" + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine18 = variables.keyWordFunc + " void funcName1(" + variables.keyWordINT + " paramVar1, " + variables.keyWordSTR + " paramVar2 " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "" + await Chr (34) + ", " + variables.keyWordBOOL + " paramVar3 " + variables.keyWordVariablesAssignmentOperator + " " + variables.keyWordFalse + ", " + variables.keyWordFLOAT + " paramVar4 " + variables.keyWordVariablesAssignmentOperator + " 1.5)" + variables.defineCodeBlockChar + "\n" + BuildInVars("A_Tab") + variables.keyWordComment + " This is how the global keyword works if we convert to Python.\n" + BuildInVars("A_Tab") + variables.keyWordComment + " But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.\n" + BuildInVars("A_Tab") + "" + variables.keyWordGlobal + " varName5" + variables.ifWeUsedAsemicolumON + "\n\n"
 variables.displayExampleTextLine19 = BuildInVars("A_Tab") + "" + variables.keyWordComment + " Here's how if, else if, " + variables.keyWordAndOperator + " else statements will look:\n"
 variables.displayExampleTextLine20 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "varName1 " + variables.keyWordEqualOperator + " paramVar1" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
 variables.displayExampleTextLine21 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "print(" + await Chr (34) + "varName1 is equal to paramVar1" + await Chr (34) + ")" + variables.ifWeUsedAsemicolumON + "\n"
@@ -7503,7 +7608,7 @@ variables.displayExampleTextLine14 = "" + variables.keyWordINT + " varName9 " + 
 variables.displayExampleTextLine15 = "\n"
 variables.displayExampleTextLine16 = "" + variables.keyWordComment + " Here is how to define a function with static types if you convert to C++.\n"
 variables.displayExampleTextLine17 = "" + variables.keyWordComment + " However, it will still work even if you are not converting to C++; types will be stripped away.\n"
-variables.displayExampleTextLine18 = variables.keyWordFunc + " void funcName1(" + variables.keyWordINT + " paramVar1, " + variables.keyWordSTR + " paramVar2 " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "" + await Chr (34) + ", " + variables.keyWordBOOL + " paramVar3 " + variables.keyWordVariablesAssignmentOperator + " " + variables.keyWordFalse + ", " + variables.keyWordFLOAT + " paramVar4 " + variables.keyWordVariablesAssignmentOperator + " 1.5)" + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine18 = variables.keyWordFunc + " void funcName1(" + variables.keyWordINT + " paramVar1, " + variables.keyWordSTR + " paramVar2 " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "" + await Chr (34) + ", " + variables.keyWordBOOL + " paramVar3 " + variables.keyWordVariablesAssignmentOperator + " " + variables.keyWordFalse + ", " + variables.keyWordFLOAT + " paramVar4 " + variables.keyWordVariablesAssignmentOperator + " 1.5)" + variables.defineCodeBlockChar + "\n" + BuildInVars("A_Tab") + variables.keyWordComment + " This is how the global keyword works if we convert to Python.\n" + BuildInVars("A_Tab") + variables.keyWordComment + " But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.\n" + BuildInVars("A_Tab") + "" + variables.keyWordGlobal + " varName5" + variables.ifWeUsedAsemicolumON + "\n\n"
 variables.displayExampleTextLine19 = BuildInVars("A_Tab") + "" + variables.keyWordComment + " Here's how if, else if, " + variables.keyWordAndOperator + " else statements will look:\n"
 variables.displayExampleTextLine20 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "varName1 " + variables.keyWordEqualOperator + " paramVar1" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
 variables.displayExampleTextLine21 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "print(" + await Chr (34) + "varName1 is equal to paramVar1" + await Chr (34) + ")" + variables.ifWeUsedAsemicolumON + "\n"
@@ -7535,7 +7640,7 @@ variables.displayExampleTextLine14 = "" + variables.keyWordINT + " varName9 " + 
 variables.displayExampleTextLine15 = "\n"
 variables.displayExampleTextLine16 = "" + variables.keyWordComment + " Here is how to define a function with static types if you convert to C++.\n"
 variables.displayExampleTextLine17 = "" + variables.keyWordComment + " However, it will still work even if you are not converting to C++; types will be stripped away.\n"
-variables.displayExampleTextLine18 = variables.keyWordFunc + " void funcName1(" + variables.keyWordINT + " paramVar1, " + variables.keyWordSTR + " paramVar2 " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "" + await Chr (34) + ", " + variables.keyWordBOOL + " paramVar3 " + variables.keyWordVariablesAssignmentOperator + " " + variables.keyWordFalse + ", " + variables.keyWordFLOAT + " paramVar4 " + variables.keyWordVariablesAssignmentOperator + " 1.5)" + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine18 = variables.keyWordFunc + " void funcName1(" + variables.keyWordINT + " paramVar1, " + variables.keyWordSTR + " paramVar2 " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "" + await Chr (34) + ", " + variables.keyWordBOOL + " paramVar3 " + variables.keyWordVariablesAssignmentOperator + " " + variables.keyWordFalse + ", " + variables.keyWordFLOAT + " paramVar4 " + variables.keyWordVariablesAssignmentOperator + " 1.5)" + variables.defineCodeBlockChar + "\n" + BuildInVars("A_Tab") + variables.keyWordComment + " This is how the global keyword works if we convert to Python.\n" + BuildInVars("A_Tab") + variables.keyWordComment + " But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.\n" + BuildInVars("A_Tab") + "" + variables.keyWordGlobal + " varName5" + variables.ifWeUsedAsemicolumON + "\n\n"
 variables.displayExampleTextLine19 = BuildInVars("A_Tab") + "" + variables.keyWordComment + " Here's how if, else if, " + variables.keyWordAndOperator + " else statements will look:\n"
 variables.displayExampleTextLine20 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "varName1 " + variables.keyWordEqualOperator + " paramVar1" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
 variables.displayExampleTextLine21 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "print(" + await Chr (34) + "varName1 is equal to paramVar1" + await Chr (34) + ")" + variables.ifWeUsedAsemicolumON + "\n"
@@ -7569,7 +7674,7 @@ variables.displayExampleTextLine14 = "" + variables.keyWordINT + " varName9 " + 
 variables.displayExampleTextLine15 = "\n"
 variables.displayExampleTextLine16 = "" + variables.keyWordComment + " Here is how to define a function with static types if you convert to C++.\n"
 variables.displayExampleTextLine17 = "" + variables.keyWordComment + " However, it will still work even if you are not converting to C++; types will be stripped away.\n"
-variables.displayExampleTextLine18 = variables.keyWordFunc + " void funcName1(" + variables.keyWordINT + " paramVar1, " + variables.keyWordSTR + " paramVar2 " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "" + await Chr (34) + ", " + variables.keyWordBOOL + " paramVar3 " + variables.keyWordVariablesAssignmentOperator + " " + variables.keyWordFalse + ", " + variables.keyWordFLOAT + " paramVar4 " + variables.keyWordVariablesAssignmentOperator + " 1.5)" + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine18 = variables.keyWordFunc + " void funcName1(" + variables.keyWordINT + " paramVar1, " + variables.keyWordSTR + " paramVar2 " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "" + await Chr (34) + ", " + variables.keyWordBOOL + " paramVar3 " + variables.keyWordVariablesAssignmentOperator + " " + variables.keyWordFalse + ", " + variables.keyWordFLOAT + " paramVar4 " + variables.keyWordVariablesAssignmentOperator + " 1.5)" + variables.defineCodeBlockChar + "\n" + BuildInVars("A_Tab") + variables.keyWordComment + " This is how the global keyword works if we convert to Python.\n" + BuildInVars("A_Tab") + variables.keyWordComment + " But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.\n" + BuildInVars("A_Tab") + "" + variables.keyWordGlobal + " varName5" + variables.ifWeUsedAsemicolumON + "\n\n"
 variables.displayExampleTextLine19 = BuildInVars("A_Tab") + "" + variables.keyWordComment + " Here's how if, else if, " + variables.keyWordAndOperator + " else statements will look:\n"
 variables.displayExampleTextLine20 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "varName1 " + variables.keyWordEqualOperator + " paramVar1" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
 variables.displayExampleTextLine21 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "print(" + await Chr (34) + "varName1 is equal to paramVar1" + await Chr (34) + ")" + variables.ifWeUsedAsemicolumON + "\n"
@@ -7601,7 +7706,7 @@ variables.displayExampleTextLine14 = "" + variables.keyWordINT + " varName9 " + 
 variables.displayExampleTextLine15 = "\n"
 variables.displayExampleTextLine16 = "" + variables.keyWordComment + " Here is how to define a function with static types if you convert to C++.\n"
 variables.displayExampleTextLine17 = "" + variables.keyWordComment + " However, it will still work even if you are not converting to C++; types will be stripped away.\n"
-variables.displayExampleTextLine18 = variables.keyWordFunc + " void funcName1(" + variables.keyWordINT + " paramVar1, " + variables.keyWordSTR + " paramVar2 " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "" + await Chr (34) + ", " + variables.keyWordBOOL + " paramVar3 " + variables.keyWordVariablesAssignmentOperator + " " + variables.keyWordFalse + ", " + variables.keyWordFLOAT + " paramVar4 " + variables.keyWordVariablesAssignmentOperator + " 1.5)" + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine18 = variables.keyWordFunc + " void funcName1(" + variables.keyWordINT + " paramVar1, " + variables.keyWordSTR + " paramVar2 " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "" + await Chr (34) + ", " + variables.keyWordBOOL + " paramVar3 " + variables.keyWordVariablesAssignmentOperator + " " + variables.keyWordFalse + ", " + variables.keyWordFLOAT + " paramVar4 " + variables.keyWordVariablesAssignmentOperator + " 1.5)" + variables.defineCodeBlockChar + "\n" + BuildInVars("A_Tab") + variables.keyWordComment + " This is how the global keyword works if we convert to Python.\n" + BuildInVars("A_Tab") + variables.keyWordComment + " But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.\n" + BuildInVars("A_Tab") + "" + variables.keyWordGlobal + " varName5" + variables.ifWeUsedAsemicolumON + "\n\n"
 variables.displayExampleTextLine19 = BuildInVars("A_Tab") + "" + variables.keyWordComment + " Here's how if, else if, " + variables.keyWordAndOperator + " else statements will look:\n"
 variables.displayExampleTextLine20 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "varName1 " + variables.keyWordEqualOperator + " paramVar1" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
 variables.displayExampleTextLine21 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "print(" + await Chr (34) + "varName1 is equal to paramVar1" + await Chr (34) + ")" + variables.ifWeUsedAsemicolumON + "\n"
@@ -8072,6 +8177,11 @@ variables.displayExampleTextLine67 = variables.defineCodeBlockCharCLOSE
 variables.displayExampleTextLine68 = "\n"
 }
 }
+variables.displayExampleTextLine71 = "print(" + await Chr (34) + "this is how the escape char looks like " + await Chr (92) + variables.keyWordEscpaeChar + "nthis is a new line" + await Chr (34) + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine72 = "" + variables.keyWordCommentOpenMultiLine + "\n"
+variables.displayExampleTextLine73 = "this is a comment block\n"
+variables.displayExampleTextLine74 = "this is a comment block\n"
+variables.displayExampleTextLine75 = "" + variables.keyWordCommentCloseMultiLine + "\n"
 variables.displayExampleText = ""
 for (/* Normal Loop */ variables.A_Index22 = 1; variables.A_Index22 <= 111; variables.A_Index22++)
 {

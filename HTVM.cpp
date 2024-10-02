@@ -2755,7 +2755,7 @@ std::string A_LoopField57 = items57[A_Index57 - 1];
 // Define the original string
 originalStringForRemoveCommentsOnTheEndOfTheLine = A_LoopField57;
 // Find the position of the keyword in the original string
-posForRemoveCommentsOnTheEndOfTheLine = InStr ( originalStringForRemoveCommentsOnTheEndOfTheLine , keyWordComment ) ;
+posForRemoveCommentsOnTheEndOfTheLine = InStr ( originalStringForRemoveCommentsOnTheEndOfTheLine , " " + keyWordComment ) ;
 if (!(SubStr (Trim (A_LoopField57) , 1 , StrLen (keyWordComment)) == keyWordComment)) 
 {
 if (posForRemoveCommentsOnTheEndOfTheLine > 0) 
@@ -5199,10 +5199,26 @@ str2 = StrReplace ( str2 , ";;" , ";" ) ;
 }
 htCode += str2 + "\n";
 }
+else if (StrLower (Trim (A_LoopField65)) == StrLower (Trim (keyWordReturnStatement))) 
+{
+//MsgBox, % A_LoopField65
+lineDone = 1;
+str2 = "return;";
+if (langToTranspileTo == "py") 
+{
+str2 = StrReplace ( str2 , ";" , "" ) ;
+}
+else
+{
+str2 = StrReplace ( str2 , ";;" , ";" ) ;
+}
+htCode += str2 + "\n";
+}
 else if (SubStr (StrLower (A_LoopField65) , 1 , StrLen (StrLower (keyWordGlobal))) == StrLower (keyWordGlobal)) 
 {
 str1 = StringTrimLeft ( A_LoopField65 , StrLen ( keyWordGlobal ) ) ;
 //MsgBox, % A_LoopField65
+str1 = StrReplace ( str1 , ";" , "" ) ;
 lineDone = 1;
 if (langToTranspileTo == "py") 
 {

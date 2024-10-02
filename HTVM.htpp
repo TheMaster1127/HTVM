@@ -2376,7 +2376,7 @@ Loop, Parse, code, `n, `r
 originalStringForRemoveCommentsOnTheEndOfTheLine := A_LoopField
 
 ; Find the position of the keyword in the original string
-posForRemoveCommentsOnTheEndOfTheLine := InStr(originalStringForRemoveCommentsOnTheEndOfTheLine, keyWordComment)
+posForRemoveCommentsOnTheEndOfTheLine := InStr(originalStringForRemoveCommentsOnTheEndOfTheLine, " " . keyWordComment)
 
 if (!(SubStr(Trim(A_LoopField), 1, StrLen(keyWordComment)) = keyWordComment))
 {
@@ -5093,10 +5093,27 @@ str2 := StrReplace(str2, ";;", ";")
 }
 htCode .= str2 . "`n"
 }
+else if (StrLower(Trim(A_LoopField)) = StrLower(Trim(keyWordReturnStatement)))
+{
+;MsgBox, % A_LoopField
+lineDone := 1
+str2 := "return;"
+
+if (langToTranspileTo = "py")
+{
+str2 := StrReplace(str2, ";", "")
+}
+else
+{
+str2 := StrReplace(str2, ";;", ";")
+}
+htCode .= str2 . "`n"
+}
 else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordGlobal))) = StrLower(keyWordGlobal))
 {
 str1 := StringTrimLeft(A_LoopField, StrLen(keyWordGlobal))
 ;MsgBox, % A_LoopField
+str1 := StrReplace(str1, ";", "")
 lineDone := 1
 if (langToTranspileTo = "py")
 {
