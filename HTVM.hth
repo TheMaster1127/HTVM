@@ -1333,7 +1333,7 @@ Return
 IDEshow:
 allData := ""
 
-defaultSyntax := "cpp`nht`nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,param1|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'param1|Sort,OUTVAR,'param1,'param2`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nfor`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`n=`n+=`n+=`n-=`n*=`n/=`n+`n+`n==`n!`n>`n<`n>=`n<=`nor`nand`n!=`ntrue`nfalse`nswitch`ncase`ndefault`nthrow`nErrorMsg`nTry`nCatch`nFinally`n.push`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nreturn`nend`nglobal`n//`n/*`n*/`n" . Chr(92) . "`n0`nA_Index`nA_LoopField`nmain`non`non`noff`noff`non`noff`ncpp`non`non`noff"
+defaultSyntax := "cpp`nht`nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,param1|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'param1|Sort,OUTVAR,'param1,'param2`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nfor`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`n=`n+=`n+=`n-=`n*=`n/=`n+`n+`n==`n!`n>`n<`n>=`n<=`nor`nand`n!=`ntrue`nfalse`nswitch`ncase`ndefault`nthrow`nErrorMsg`ntry`ncatch`nfinally`n.push`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nreturn`nend`nglobal`n//`n/*`n*/`n" . Chr(92) . "`n0`nA_Index`nA_LoopField`nmain`non`non`noff`noff`non`noff`ncpp`non`non`noff"
 Loop, Parse, defaultSyntax, `n, `r
 {
 defaultSyntax%A_Index% := A_LoopField
@@ -2659,7 +2659,7 @@ BuildButton:
 
 allData := ""
 
-defaultSyntax := "cpp`nht`nStringTrimLeft,OUTVAR,INVAR|StringTrimRight,OUTVAR,INVAR`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nfor`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`n=`n+=`n+=`n-=`n*=`n/=`n+`n+`n==`n!`n>`n<`n>=`n<=`nor`nand`n!=`ntrue`nfalse`nswitch`ncase`ndefault`nthrow`nErrorMsg`nTry`nCatch`nFinally`n.push`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nreturn`nend`nglobal`n//`n/*`n*/`n" . Chr(92) . "`n0`nA_Index`nA_LoopField`nmain`non`non`noff`noff`non`noff`ncpp`non`non`noff"
+defaultSyntax := "cpp`nht`nStringTrimLeft,OUTVAR,INVAR|StringTrimRight,OUTVAR,INVAR`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nfor`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`n=`n+=`n+=`n-=`n*=`n/=`n+`n+`n==`n!`n>`n<`n>=`n<=`nor`nand`n!=`ntrue`nfalse`nswitch`ncase`ndefault`nthrow`nErrorMsg`ntry`ncatch`nfinally`n.push`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nreturn`nend`nglobal`n//`n/*`n*/`n" . Chr(92) . "`n0`nA_Index`nA_LoopField`nmain`non`non`noff`noff`non`noff`ncpp`non`non`noff"
 Loop, Parse, defaultSyntax, `n, `r
 {
 defaultSyntax%A_Index% := A_LoopField
@@ -2795,7 +2795,7 @@ Return
 ButtonDownloadIDE:
 allData := ""
 
-defaultSyntax := "cpp`nht`nStringTrimLeft,OUTVAR,INVAR|StringTrimRight,OUTVAR,INVAR`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nfor`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`n=`n+=`n+=`n-=`n*=`n/=`n+`n+`n==`n!`n>`n<`n>=`n<=`nor`nand`n!=`ntrue`nfalse`nswitch`ncase`ndefault`nthrow`nErrorMsg`nTry`nCatch`nFinally`n.push`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nreturn`nend`nglobal`n//`n/*`n*/`n" . Chr(92) . "`n0`nA_Index`nA_LoopField`nmain`non`non`noff`noff`non`noff`ncpp`non`non`noff"
+defaultSyntax := "cpp`nht`nStringTrimLeft,OUTVAR,INVAR|StringTrimRight,OUTVAR,INVAR`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nfor`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`n=`n+=`n+=`n-=`n*=`n/=`n+`n+`n==`n!`n>`n<`n>=`n<=`nor`nand`n!=`ntrue`nfalse`nswitch`ncase`ndefault`nthrow`nErrorMsg`ntry`ncatch`nfinally`n.push`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nreturn`nend`nglobal`n//`n/*`n*/`n" . Chr(92) . "`n0`nA_Index`nA_LoopField`nmain`non`non`noff`noff`non`noff`ncpp`non`non`noff"
 Loop, Parse, defaultSyntax, `n, `r
 {
 defaultSyntax%A_Index% := A_LoopField
@@ -2951,7 +2951,7 @@ Return
 ButtonDownloadInstruction:
 allData := ""
 
-defaultSyntax := "cpp`nht`nStringTrimLeft,OUTVAR,INVAR|StringTrimRight,OUTVAR,INVAR`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nfor`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`n=`n+=`n+=`n-=`n*=`n/=`n+`n+`n==`n!`n>`n<`n>=`n<=`nor`nand`n!=`ntrue`nfalse`nswitch`ncase`ndefault`nthrow`nErrorMsg`nTry`nCatch`nFinally`n.push`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nreturn`nend`nglobal`n//`n/*`n*/`n" . Chr(92) . "`n0`nA_Index`nA_LoopField`nmain`non`non`noff`noff`non`noff`ncpp`non`non`noff"
+defaultSyntax := "cpp`nht`nStringTrimLeft,OUTVAR,INVAR|StringTrimRight,OUTVAR,INVAR`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nfor`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`n=`n+=`n+=`n-=`n*=`n/=`n+`n+`n==`n!`n>`n<`n>=`n<=`nor`nand`n!=`ntrue`nfalse`nswitch`ncase`ndefault`nthrow`nErrorMsg`ntry`ncatch`nfinally`n.push`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nreturn`nend`nglobal`n//`n/*`n*/`n" . Chr(92) . "`n0`nA_Index`nA_LoopField`nmain`non`non`noff`noff`non`noff`ncpp`non`non`noff"
 Loop, Parse, defaultSyntax, `n, `r
 {
 defaultSyntax%A_Index% := A_LoopField
@@ -3711,6 +3711,15 @@ displayExampleTextLine108 := ""
 displayExampleTextLine109 := ""
 displayExampleTextLine110 := ""
 displayExampleTextLine111 := ""
+displayExampleTextLine112 := ""
+displayExampleTextLine113 := ""
+displayExampleTextLine114 := ""
+displayExampleTextLine115 := ""
+displayExampleTextLine116 := ""
+displayExampleTextLine117 := ""
+displayExampleTextLine118 := ""
+displayExampleTextLine119 := ""
+displayExampleTextLine120 := ""
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -4582,8 +4591,72 @@ displayExampleTextLine99 := defineCodeBlockCharCLOSE
 
 
 
+
+if (usePythonicColonSyntax = "off") && (useCurlyBraces = "on") && (useEnd = "off")
+{
+displayExampleTextLine101 := "`n"
+displayExampleTextLine102 := "" . keyWordComment . " Error Handling`n"
+displayExampleTextLine103 := keyWordTry . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine104 := A_Tab . keyWordThrow . " " . keyWordErrorMsg . "(" . Chr(34) . "Something went wrong!" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine106 := "} " . "`n"
+displayExampleTextLine107 := keyWordCatch . " " . openParentheses . "e" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine108 := A_Tab . "print(e)" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine109 := "} " . "`n"
+displayExampleTextLine110 := keyWordFinally . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine111 := A_Tab . "print(" . Chr(34) . "Finally block executed" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine112 := "} " . "`n"
+}
+if (usePythonicColonSyntax = "on") && (useCurlyBraces = "off") && (useEnd = "off")
+{
+displayExampleTextLine101 := "`n"
+displayExampleTextLine102 := "" . keyWordComment . " Error Handling`n"
+displayExampleTextLine103 := keyWordTry . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine104 := A_Tab . keyWordThrow . " " . keyWordErrorMsg . "(" . Chr(34) . "Something went wrong!" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine107 := keyWordCatch . " " . openParentheses . "e" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine108 := A_Tab . "print(e)" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine110 := keyWordFinally . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine111 := A_Tab . "print(" . Chr(34) . "Finally block executed" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+}
+if (usePythonicColonSyntax = "off") && (useCurlyBraces = "off") && (useEnd = "on")
+{
+displayExampleTextLine101 := "`n"
+displayExampleTextLine102 := "" . keyWordComment . " Error Handling`n"
+displayExampleTextLine103 := keyWordTry . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine104 := A_Tab . keyWordThrow . " " . keyWordErrorMsg . "(" . Chr(34) . "Something went wrong!" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine107 := keyWordCatch . " " . openParentheses . "e" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine108 := A_Tab . "print(e)" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine110 := keyWordFinally . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine111 := A_Tab . "print(" . Chr(34) . "Finally block executed" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine112 := defineCodeBlockCharCLOSE
+}
+if (usePythonicColonSyntax = "off") && (useCurlyBraces = "off") && (useEnd = "off")
+{
+displayExampleTextLine101 := "`n"
+displayExampleTextLine102 := "" . keyWordComment . " Error Handling`n"
+displayExampleTextLine103 := keyWordTry . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine104 := A_Tab . keyWordThrow . " " . keyWordErrorMsg . "(" . Chr(34) . "Something went wrong!" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine107 := keyWordCatch . " " . openParentheses . "e" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine108 := A_Tab . "print(e)" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine110 := keyWordFinally . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine111 := A_Tab . "print(" . Chr(34) . "Finally block executed" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+}
+if (usePythonicColonSyntax = "on") && (useCurlyBraces = "off") && (useEnd = "on")
+{
+displayExampleTextLine101 := "`n"
+displayExampleTextLine102 := "" . keyWordComment . " Error Handling`n"
+displayExampleTextLine103 := keyWordTry . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine104 := A_Tab . keyWordThrow . " " . keyWordErrorMsg . "(" . Chr(34) . "Something went wrong!" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine107 := keyWordCatch . " " . openParentheses . "e" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine108 := A_Tab . "print(e)" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine110 := keyWordFinally . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine111 := A_Tab . "print(" . Chr(34) . "Finally block executed" . Chr(34) . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine112 := defineCodeBlockCharCLOSE
+}
+
+
+
 displayExampleText := ""
-Loop, 111
+Loop, 120
 {
 displayExampleText .= displayExampleTextLine%A_Index%
 }

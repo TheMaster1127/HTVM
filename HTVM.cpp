@@ -2849,11 +2849,11 @@ htCodeOutFixEnd += A_LoopField58 + "\n{\n";
 }
 else if (SubStr (StrLower (Trim (A_LoopField58)) , 1 , StrLen (StrLower (keyWordCatch))) == StrLower (keyWordCatch)) 
 {
-htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+htCodeOutFixEnd += "\n}\n" + A_LoopField58 + "\n{\n";
 }
 else if (SubStr (StrLower (Trim (A_LoopField58)) , 1 , StrLen (StrLower (keyWordFinally))) == StrLower (keyWordFinally)) 
 {
-htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+htCodeOutFixEnd += "\n}\n" + A_LoopField58 + "\n{\n";
 }
 else if (SubStr (StrLower (Trim (A_LoopField58)) , 1 , StrLen (StrLower (keyWordFunc))) == StrLower (keyWordFunc)) 
 {
@@ -4422,9 +4422,13 @@ if (langToTranspileTo == "py")
 {
 str2 = "finally:";
 }
-else
+if (langToTranspileTo == "js") 
 {
 str2 = "finally";
+}
+if (langToTranspileTo == "cpp") 
+{
+str2 = "if (" + Chr ( 34 ) + "finally dosent exist in c++" + Chr ( 34 ) + " == " + Chr ( 34 ) + "finally dosent exist in c++" + Chr ( 34 ) + ")";
 }
 lineDone = 1;
 htCode += str2 + "\n";
