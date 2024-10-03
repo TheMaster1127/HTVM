@@ -4452,7 +4452,133 @@ displayExampleTextLine71 := "print(" . Chr(34) . "this is how the escape char lo
 displayExampleTextLine72 := "" . keyWordCommentOpenMultiLine . "`n"
 displayExampleTextLine73 := "this is a comment block`n"
 displayExampleTextLine74 := "this is a comment block`n"
-displayExampleTextLine75 := "" . keyWordCommentCloseMultiLine . "`n"
+displayExampleTextLine75 := "" . keyWordCommentCloseMultiLine . "`n`n"
+
+
+
+
+
+
+
+
+
+;79 81 87 90 92
+if (usePythonicColonSyntax = "off") && (useCurlyBraces = "on") && (useEnd = "off")
+{
+displayExampleTextLine77 := "" . keyWordComment . " this is how to use an AutoHotKey like Loop`n"
+displayExampleTextLine78 := keyWordLoop . " " . openParenthesesPY . "10" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine79 := A_Tab . keyWordIF . " " . openParentheses . "" . keyWordAIndex . " % 2 " . keyWordEqualOperator . " 0" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine80 := A_Tab . A_Tab . "" . keyWordContinue . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine81 := A_Tab . "} " . "`n"
+displayExampleTextLine82 := A_Tab . "print(" . keyWordAIndex . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine83 := "} " . "`n"
+displayExampleTextLine84 := "`n"
+displayExampleTextLine85 := "" . keyWordComment . " this is how to use an AutoHotKey like infinite Loop`n"
+displayExampleTextLine86 := keyWordLoopInfinite . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine87 := A_Tab . keyWordIF . " " . openParentheses . "" . keyWordAIndex . " " . keyWordEqualOperator . " 5" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine88 := A_Tab . A_Tab . "" . keyWordBreak . "" . ifWeUsedAsemicolumON . "`n"
+
+displayExampleTextLine90 := A_Tab . "} " . keyWordElse . defineCodeBlockChar . "`n"
+displayExampleTextLine91 := A_Tab . A_Tab . "print(" . keyWordAIndex . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine92 := A_Tab . "} " . "`n"
+displayExampleTextLine93 := "} " . "`n"
+displayExampleTextLine94 := "`n"
+displayExampleTextLine95 := "" . keyWordComment . " this is how to use an AutoHotKey like Loop, parse`n"
+displayExampleTextLine96 := "" . keyWordSTR . " someText " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "hello how are you doing" . Chr(92) . keyWordEscpaeChar . "ntoday we are good." . Chr(34) . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine97 := keyWordLoopParse . " " . openParenthesesPY . "someText, " . Chr(34) . " " . Chr(34) . ", " . Chr(92) . keyWordEscpaeChar . "n" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine98 := A_Tab . "print(" . keyWordALoopField . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine99 := "} " . "`n"
+}
+if (usePythonicColonSyntax = "on") && (useCurlyBraces = "off") && (useEnd = "off")
+{
+displayExampleTextLine77 := "" . keyWordComment . " this is how to use an AutoHotKey like Loop`n"
+displayExampleTextLine78 := keyWordLoop . " " . openParenthesesPY . "10" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine79 := A_Tab . keyWordIF . " " . openParentheses . "" . keyWordAIndex . " % 2 " . keyWordEqualOperator . " 0" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine80 := A_Tab . A_Tab . "" . keyWordContinue . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine82 := A_Tab . "print(" . keyWordAIndex . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine84 := "`n"
+displayExampleTextLine85 := "" . keyWordComment . " this is how to use an AutoHotKey like infinite Loop`n"
+displayExampleTextLine86 := keyWordLoopInfinite . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine87 := A_Tab . keyWordIF . " " . openParentheses . "" . keyWordAIndex . " " . keyWordEqualOperator . " 5" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine88 := A_Tab . A_Tab . "" . keyWordBreak . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine90 := A_Tab . "" . keyWordElse . defineCodeBlockChar . "`n"
+displayExampleTextLine91 := A_Tab . A_Tab . "print(" . keyWordAIndex . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine94 := "`n"
+displayExampleTextLine95 := "" . keyWordComment . " this is how to use an AutoHotKey like Loop, parse`n"
+displayExampleTextLine96 := "" . keyWordSTR . " someText " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "hello how are you doing" . Chr(92) . keyWordEscpaeChar . "ntoday we are good." . Chr(34) . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine97 := keyWordLoopParse . " " . openParenthesesPY . "someText, " . Chr(34) . " " . Chr(34) . ", " . Chr(92) . keyWordEscpaeChar . "n" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine98 := A_Tab . "print(" . keyWordALoopField . ")" . ifWeUsedAsemicolumON . "`n"
+}
+if (usePythonicColonSyntax = "off") && (useCurlyBraces = "off") && (useEnd = "on")
+{
+displayExampleTextLine77 := "" . keyWordComment . " this is how to use an AutoHotKey like Loop`n"
+displayExampleTextLine78 := keyWordLoop . " " . openParenthesesPY . "10" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine79 := A_Tab . keyWordIF . " " . openParentheses . "" . keyWordAIndex . " % 2 " . keyWordEqualOperator . " 0" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine80 := A_Tab . A_Tab . "" . keyWordContinue . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine81 := A_Tab . defineCodeBlockCharCLOSE
+displayExampleTextLine82 := A_Tab . "print(" . keyWordAIndex . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine83 := defineCodeBlockCharCLOSE
+displayExampleTextLine84 := "`n"
+displayExampleTextLine85 := "" . keyWordComment . " this is how to use an AutoHotKey like infinite Loop`n"
+displayExampleTextLine86 := keyWordLoopInfinite . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine87 := A_Tab . keyWordIF . " " . openParentheses . "" . keyWordAIndex . " " . keyWordEqualOperator . " 5" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine88 := A_Tab . A_Tab . "" . keyWordBreak . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine90 := A_Tab . "" . keyWordElse .  defineCodeBlockChar . "`n"
+displayExampleTextLine91 := A_Tab . A_Tab . "print(" . keyWordAIndex . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine92 := A_Tab . defineCodeBlockCharCLOSE
+displayExampleTextLine93 := defineCodeBlockCharCLOSE
+displayExampleTextLine94 := "`n"
+displayExampleTextLine95 := "" . keyWordComment . " this is how to use an AutoHotKey like Loop, parse`n"
+displayExampleTextLine96 := "" . keyWordSTR . " someText " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "hello how are you doing" . Chr(92) . keyWordEscpaeChar . "ntoday we are good." . Chr(34) . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine97 := keyWordLoopParse . " " . openParenthesesPY . "someText, " . Chr(34) . " " . Chr(34) . ", " . Chr(92) . keyWordEscpaeChar . "n" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine98 := A_Tab . "print(" . keyWordALoopField . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine99 := defineCodeBlockCharCLOSE
+}
+if (usePythonicColonSyntax = "off") && (useCurlyBraces = "off") && (useEnd = "off")
+{
+displayExampleTextLine77 := "" . keyWordComment . " this is how to use an AutoHotKey like Loop`n"
+displayExampleTextLine78 := keyWordLoop . " " . openParenthesesPY . "10" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine79 := A_Tab . keyWordIF . " " . openParentheses . "" . keyWordAIndex . " % 2 " . keyWordEqualOperator . " 0" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine80 := A_Tab . A_Tab . "" . keyWordContinue . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine82 := A_Tab . "print(" . keyWordAIndex . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine84 := "`n"
+displayExampleTextLine85 := "" . keyWordComment . " this is how to use an AutoHotKey like infinite Loop`n"
+displayExampleTextLine86 := keyWordLoopInfinite . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine87 := A_Tab . keyWordIF . " " . openParentheses . "" . keyWordAIndex . " " . keyWordEqualOperator . " 5" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine88 := A_Tab . A_Tab . "" . keyWordBreak . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine90 := A_Tab . "" . keyWordElse . defineCodeBlockChar . "`n"
+displayExampleTextLine91 := A_Tab . A_Tab . "print(" . keyWordAIndex . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine94 := "`n"
+displayExampleTextLine95 := "" . keyWordComment . " this is how to use an AutoHotKey like Loop, parse`n"
+displayExampleTextLine96 := "" . keyWordSTR . " someText " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "hello how are you doing" . Chr(92) . keyWordEscpaeChar . "ntoday we are good." . Chr(34) . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine97 := keyWordLoopParse . " " . openParenthesesPY . "someText, " . Chr(34) . " " . Chr(34) . ", " . Chr(92) . keyWordEscpaeChar . "n" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine98 := A_Tab . "print(" . keyWordALoopField . ")" . ifWeUsedAsemicolumON . "`n"
+}
+if (usePythonicColonSyntax = "on") && (useCurlyBraces = "off") && (useEnd = "on")
+{
+displayExampleTextLine77 := "" . keyWordComment . " this is how to use an AutoHotKey like Loop`n"
+displayExampleTextLine78 := keyWordLoop . " " . openParenthesesPY . "10" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine79 := A_Tab . keyWordIF . " " . openParentheses . "" . keyWordAIndex . " % 2 " . keyWordEqualOperator . " 0" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine80 := A_Tab . A_Tab . "" . keyWordContinue . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine81 := A_Tab . defineCodeBlockCharCLOSE
+displayExampleTextLine82 := A_Tab . "print(" . keyWordAIndex . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine83 := defineCodeBlockCharCLOSE
+displayExampleTextLine84 := "`n"
+displayExampleTextLine85 := "" . keyWordComment . " this is how to use an AutoHotKey like infinite Loop`n"
+displayExampleTextLine86 := keyWordLoopInfinite . "" . openParenthesesPY . "" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine87 := A_Tab . keyWordIF . " " . openParentheses . "" . keyWordAIndex . " " . keyWordEqualOperator . " 5" . closeParentheses . defineCodeBlockChar . "`n"
+displayExampleTextLine88 := A_Tab . A_Tab . "" . keyWordBreak . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine90 := A_Tab . "" . keyWordElse .  defineCodeBlockChar . "`n"
+displayExampleTextLine91 := A_Tab . A_Tab . "print(" . keyWordAIndex . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine92 := A_Tab . defineCodeBlockCharCLOSE
+displayExampleTextLine93 := defineCodeBlockCharCLOSE
+displayExampleTextLine94 := "`n"
+displayExampleTextLine95 := "" . keyWordComment . " this is how to use an AutoHotKey like Loop, parse`n"
+displayExampleTextLine96 := "" . keyWordSTR . " someText " . keyWordVariablesAssignmentOperator . " " . Chr(34) . "hello how are you doing" . Chr(92) . keyWordEscpaeChar . "ntoday we are good." . Chr(34) . "" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine97 := keyWordLoopParse . " " . openParenthesesPY . "someText, " . Chr(34) . " " . Chr(34) . ", " . Chr(92) . keyWordEscpaeChar . "n" . closeParenthesesPY . defineCodeBlockChar . "`n"
+displayExampleTextLine98 := A_Tab . "print(" . keyWordALoopField . ")" . ifWeUsedAsemicolumON . "`n"
+displayExampleTextLine99 := defineCodeBlockCharCLOSE
+}
 
 
 

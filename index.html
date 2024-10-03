@@ -8181,7 +8181,123 @@ variables.displayExampleTextLine71 = "print(" + await Chr (34) + "this is how th
 variables.displayExampleTextLine72 = "" + variables.keyWordCommentOpenMultiLine + "\n"
 variables.displayExampleTextLine73 = "this is a comment block\n"
 variables.displayExampleTextLine74 = "this is a comment block\n"
-variables.displayExampleTextLine75 = "" + variables.keyWordCommentCloseMultiLine + "\n"
+variables.displayExampleTextLine75 = "" + variables.keyWordCommentCloseMultiLine + "\n\n"
+//79 81 87 90 92
+if (( variables.usePythonicColonSyntax == "off") && (variables.useCurlyBraces == "on") && (variables.useEnd == "off" ))
+{
+variables.displayExampleTextLine77 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like Loop\n"
+variables.displayExampleTextLine78 = variables.keyWordLoop + " " + variables.openParenthesesPY + "10" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine79 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "" + variables.keyWordAIndex + " % 2 " + variables.keyWordEqualOperator + " 0" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine80 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "" + variables.keyWordContinue + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine81 = BuildInVars("A_Tab") + "} " + "\n"
+variables.displayExampleTextLine82 = BuildInVars("A_Tab") + "print(" + variables.keyWordAIndex + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine83 = "} " + "\n"
+variables.displayExampleTextLine84 = "\n"
+variables.displayExampleTextLine85 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like infinite Loop\n"
+variables.displayExampleTextLine86 = variables.keyWordLoopInfinite + "" + variables.openParenthesesPY + "" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine87 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "" + variables.keyWordAIndex + " " + variables.keyWordEqualOperator + " 5" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine88 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "" + variables.keyWordBreak + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine90 = BuildInVars("A_Tab") + "} " + variables.keyWordElse + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine91 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "print(" + variables.keyWordAIndex + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine92 = BuildInVars("A_Tab") + "} " + "\n"
+variables.displayExampleTextLine93 = "} " + "\n"
+variables.displayExampleTextLine94 = "\n"
+variables.displayExampleTextLine95 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like Loop, parse\n"
+variables.displayExampleTextLine96 = "" + variables.keyWordSTR + " someText " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "hello how are you doing" + await Chr (92) + variables.keyWordEscpaeChar + "ntoday we are good." + await Chr (34) + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine97 = variables.keyWordLoopParse + " " + variables.openParenthesesPY + "someText, " + await Chr (34) + " " + await Chr (34) + ", " + await Chr (92) + variables.keyWordEscpaeChar + "n" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine98 = BuildInVars("A_Tab") + "print(" + variables.keyWordALoopField + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine99 = "} " + "\n"
+}
+if (( variables.usePythonicColonSyntax == "on") && (variables.useCurlyBraces == "off") && (variables.useEnd == "off" ))
+{
+variables.displayExampleTextLine77 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like Loop\n"
+variables.displayExampleTextLine78 = variables.keyWordLoop + " " + variables.openParenthesesPY + "10" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine79 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "" + variables.keyWordAIndex + " % 2 " + variables.keyWordEqualOperator + " 0" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine80 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "" + variables.keyWordContinue + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine82 = BuildInVars("A_Tab") + "print(" + variables.keyWordAIndex + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine84 = "\n"
+variables.displayExampleTextLine85 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like infinite Loop\n"
+variables.displayExampleTextLine86 = variables.keyWordLoopInfinite + "" + variables.openParenthesesPY + "" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine87 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "" + variables.keyWordAIndex + " " + variables.keyWordEqualOperator + " 5" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine88 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "" + variables.keyWordBreak + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine90 = BuildInVars("A_Tab") + "" + variables.keyWordElse + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine91 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "print(" + variables.keyWordAIndex + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine94 = "\n"
+variables.displayExampleTextLine95 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like Loop, parse\n"
+variables.displayExampleTextLine96 = "" + variables.keyWordSTR + " someText " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "hello how are you doing" + await Chr (92) + variables.keyWordEscpaeChar + "ntoday we are good." + await Chr (34) + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine97 = variables.keyWordLoopParse + " " + variables.openParenthesesPY + "someText, " + await Chr (34) + " " + await Chr (34) + ", " + await Chr (92) + variables.keyWordEscpaeChar + "n" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine98 = BuildInVars("A_Tab") + "print(" + variables.keyWordALoopField + ")" + variables.ifWeUsedAsemicolumON + "\n"
+}
+if (( variables.usePythonicColonSyntax == "off") && (variables.useCurlyBraces == "off") && (variables.useEnd == "on" ))
+{
+variables.displayExampleTextLine77 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like Loop\n"
+variables.displayExampleTextLine78 = variables.keyWordLoop + " " + variables.openParenthesesPY + "10" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine79 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "" + variables.keyWordAIndex + " % 2 " + variables.keyWordEqualOperator + " 0" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine80 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "" + variables.keyWordContinue + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine81 = BuildInVars("A_Tab") + variables.defineCodeBlockCharCLOSE
+variables.displayExampleTextLine82 = BuildInVars("A_Tab") + "print(" + variables.keyWordAIndex + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine83 = variables.defineCodeBlockCharCLOSE
+variables.displayExampleTextLine84 = "\n"
+variables.displayExampleTextLine85 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like infinite Loop\n"
+variables.displayExampleTextLine86 = variables.keyWordLoopInfinite + "" + variables.openParenthesesPY + "" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine87 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "" + variables.keyWordAIndex + " " + variables.keyWordEqualOperator + " 5" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine88 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "" + variables.keyWordBreak + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine90 = BuildInVars("A_Tab") + "" + variables.keyWordElse + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine91 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "print(" + variables.keyWordAIndex + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine92 = BuildInVars("A_Tab") + variables.defineCodeBlockCharCLOSE
+variables.displayExampleTextLine93 = variables.defineCodeBlockCharCLOSE
+variables.displayExampleTextLine94 = "\n"
+variables.displayExampleTextLine95 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like Loop, parse\n"
+variables.displayExampleTextLine96 = "" + variables.keyWordSTR + " someText " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "hello how are you doing" + await Chr (92) + variables.keyWordEscpaeChar + "ntoday we are good." + await Chr (34) + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine97 = variables.keyWordLoopParse + " " + variables.openParenthesesPY + "someText, " + await Chr (34) + " " + await Chr (34) + ", " + await Chr (92) + variables.keyWordEscpaeChar + "n" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine98 = BuildInVars("A_Tab") + "print(" + variables.keyWordALoopField + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine99 = variables.defineCodeBlockCharCLOSE
+}
+if (( variables.usePythonicColonSyntax == "off") && (variables.useCurlyBraces == "off") && (variables.useEnd == "off" ))
+{
+variables.displayExampleTextLine77 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like Loop\n"
+variables.displayExampleTextLine78 = variables.keyWordLoop + " " + variables.openParenthesesPY + "10" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine79 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "" + variables.keyWordAIndex + " % 2 " + variables.keyWordEqualOperator + " 0" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine80 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "" + variables.keyWordContinue + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine82 = BuildInVars("A_Tab") + "print(" + variables.keyWordAIndex + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine84 = "\n"
+variables.displayExampleTextLine85 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like infinite Loop\n"
+variables.displayExampleTextLine86 = variables.keyWordLoopInfinite + "" + variables.openParenthesesPY + "" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine87 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "" + variables.keyWordAIndex + " " + variables.keyWordEqualOperator + " 5" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine88 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "" + variables.keyWordBreak + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine90 = BuildInVars("A_Tab") + "" + variables.keyWordElse + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine91 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "print(" + variables.keyWordAIndex + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine94 = "\n"
+variables.displayExampleTextLine95 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like Loop, parse\n"
+variables.displayExampleTextLine96 = "" + variables.keyWordSTR + " someText " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "hello how are you doing" + await Chr (92) + variables.keyWordEscpaeChar + "ntoday we are good." + await Chr (34) + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine97 = variables.keyWordLoopParse + " " + variables.openParenthesesPY + "someText, " + await Chr (34) + " " + await Chr (34) + ", " + await Chr (92) + variables.keyWordEscpaeChar + "n" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine98 = BuildInVars("A_Tab") + "print(" + variables.keyWordALoopField + ")" + variables.ifWeUsedAsemicolumON + "\n"
+}
+if (( variables.usePythonicColonSyntax == "on") && (variables.useCurlyBraces == "off") && (variables.useEnd == "on" ))
+{
+variables.displayExampleTextLine77 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like Loop\n"
+variables.displayExampleTextLine78 = variables.keyWordLoop + " " + variables.openParenthesesPY + "10" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine79 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "" + variables.keyWordAIndex + " % 2 " + variables.keyWordEqualOperator + " 0" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine80 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "" + variables.keyWordContinue + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine81 = BuildInVars("A_Tab") + variables.defineCodeBlockCharCLOSE
+variables.displayExampleTextLine82 = BuildInVars("A_Tab") + "print(" + variables.keyWordAIndex + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine83 = variables.defineCodeBlockCharCLOSE
+variables.displayExampleTextLine84 = "\n"
+variables.displayExampleTextLine85 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like infinite Loop\n"
+variables.displayExampleTextLine86 = variables.keyWordLoopInfinite + "" + variables.openParenthesesPY + "" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine87 = BuildInVars("A_Tab") + variables.keyWordIF + " " + variables.openParentheses + "" + variables.keyWordAIndex + " " + variables.keyWordEqualOperator + " 5" + variables.closeParentheses + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine88 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "" + variables.keyWordBreak + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine90 = BuildInVars("A_Tab") + "" + variables.keyWordElse + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine91 = BuildInVars("A_Tab") + BuildInVars("A_Tab") + "print(" + variables.keyWordAIndex + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine92 = BuildInVars("A_Tab") + variables.defineCodeBlockCharCLOSE
+variables.displayExampleTextLine93 = variables.defineCodeBlockCharCLOSE
+variables.displayExampleTextLine94 = "\n"
+variables.displayExampleTextLine95 = "" + variables.keyWordComment + " this is how to use an AutoHotKey like Loop, parse\n"
+variables.displayExampleTextLine96 = "" + variables.keyWordSTR + " someText " + variables.keyWordVariablesAssignmentOperator + " " + await Chr (34) + "hello how are you doing" + await Chr (92) + variables.keyWordEscpaeChar + "ntoday we are good." + await Chr (34) + "" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine97 = variables.keyWordLoopParse + " " + variables.openParenthesesPY + "someText, " + await Chr (34) + " " + await Chr (34) + ", " + await Chr (92) + variables.keyWordEscpaeChar + "n" + variables.closeParenthesesPY + variables.defineCodeBlockChar + "\n"
+variables.displayExampleTextLine98 = BuildInVars("A_Tab") + "print(" + variables.keyWordALoopField + ")" + variables.ifWeUsedAsemicolumON + "\n"
+variables.displayExampleTextLine99 = variables.defineCodeBlockCharCLOSE
+}
 variables.displayExampleText = ""
 for (/* Normal Loop */ variables.A_Index22 = 1; variables.A_Index22 <= 111; variables.A_Index22++)
 {

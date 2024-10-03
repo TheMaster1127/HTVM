@@ -4114,7 +4114,7 @@ line3 = "";
 itemsOut = "";
 line2 = Trim ( StrSplit ( var1 , "," , 2 ) ) ;
 line3 = Trim ( StrSplit ( var1 , "," , 3 ) ) ;
-if (InStr (var1 , Chr (96) + ",")) 
+if (InStr (var1 , keyWordEscpaeChar + ",")) 
 {
 line2 = Chr ( 34 ) + "," + Chr ( 34 ) ;
 if (langToTranspileTo == "py" || langToTranspileTo == "js") 
@@ -4142,7 +4142,7 @@ itemsOut = "std::vector<std::string> items" + STR ( AindexcharLength ) + " = Loo
 }
 if (line2!= "" && line3 == "") 
 {
-if (InStr (line2 , Chr (96))) 
+if (InStr (line2 , keyWordEscpaeChar)) 
 {
 line2 = Chr ( 34 ) + line2 + Chr ( 34 ) ;
 }
@@ -4157,11 +4157,11 @@ itemsOut = "std::vector<std::string> items" + STR ( AindexcharLength ) + " = Loo
 }
 if (line2!= "" && line3!= "") 
 {
-if (InStr (line2 , Chr (96))) 
+if (InStr (line2 , keyWordEscpaeChar)) 
 {
 line2 = Chr ( 34 ) + line2 + Chr ( 34 ) ;
 }
-if (InStr (line3 , Chr (96))) 
+if (InStr (line3 , keyWordEscpaeChar)) 
 {
 line3 = Chr ( 34 ) + line3 + Chr ( 34 ) ;
 }
@@ -4171,10 +4171,10 @@ itemsOut = "items" + STR ( AindexcharLength ) + " = LoopParseFunc(" + line1 + ",
 }
 else
 {
-itemsOut = "std::vector<std::string> items" + STR ( AindexcharLength ) + " = LoopParseFunc(" + line1 + ", " + line3 + ");";
+itemsOut = "std::vector<std::string> items" + STR ( AindexcharLength ) + " = LoopParseFunc(" + line1 + ", " + line2 + ", " + line3 + ");";
 }
 }
-itemsOut = StrReplace ( itemsOut , Chr ( 96 ) , Chr ( 92 ) ) ;
+itemsOut = StrReplace ( itemsOut , keyWordEscpaeChar , Chr ( 92 ) ) ;
 }
 if (langToTranspileTo == "py") 
 {
