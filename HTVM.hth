@@ -99,12 +99,14 @@ AScreenWidth2 := AScreenWidth - 20
 AScreenHeight := AScreenHeight - 30
 AScreenHeight2 := AScreenHeight - 50
 AScreenHeight3 := AScreenHeight2
+AScreenHeight2 := AScreenHeight2 - 20
 
 if (isMobileDevice())
 {
 Gui 3: Show, w%AScreenWidth% h%AScreenHeight%
 Gui 3: Font, s16
-Gui 3: Add, Text, x10 y10 w%AScreenWidth2% h%AScreenHeight2% vDisplayInfoData
+Gui 3: Add, Edit, x10 y10 w%AScreenWidth2% h%AScreenHeight2% bg050505 cffffff vDisplayInfoData
+GuiControl 3: Disable, DisplayInfoData
 Gui 3: Font, s15
 Gui 3: Add, Button, x10 y%AScreenHeight3% w%AScreenWidth2% h40 vButtonInfoOK gButtonInfoOK, OK
 Gui 3: Hide
@@ -113,7 +115,8 @@ else
 {
 Gui 3: Show, w%AScreenWidth% h%AScreenHeight%
 Gui 3: Font, s20
-Gui 3: Add, Text, x10 y10 w%AScreenWidth2% h%AScreenHeight2% vDisplayInfoData
+Gui 3: Add, Edit, x10 y10 w%AScreenWidth2% h%AScreenHeight2% bg050505 cffffff vDisplayInfoData
+GuiControl 3: Disable, DisplayInfoData
 Gui 3: Font, s15
 Gui 3: Add, Button, x10 y%AScreenHeight3% w%AScreenWidth2% h40 vButtonInfoOK gButtonInfoOK, OK
 Gui 3: Hide

@@ -1578,6 +1578,7 @@ variables.AScreenWidth2 = variables.AScreenWidth - 20
 variables.AScreenHeight = variables.AScreenHeight - 30
 variables.AScreenHeight2 = variables.AScreenHeight - 50
 variables.AScreenHeight3 = variables.AScreenHeight2
+variables.AScreenHeight2 = variables.AScreenHeight2 - 20
 if (( await isMobileDevice () ))
 {
 Gui3.style.position = "absolute";
@@ -1597,17 +1598,24 @@ Gui3.style.left = (window.innerWidth - parseInt(Gui3.style.width)) / 2 + "px";
 Gui3.style.top = (window.innerHeight - parseInt(Gui3.style.height)) / 2 + "px";
 document.body.appendChild(Gui3); // Append the GUI window to the body
 Gui3.style.display = "block";
-Gui3DisplayInfoData = document.createElement("div");
+Gui3DisplayInfoData = document.createElement("textarea");
 Gui3DisplayInfoData.id = "Gui3" + "DisplayInfoData"; // Set ID for referencing
-Gui3DisplayInfoData.textContent = "";
-Gui3DisplayInfoData.style.color = "#black"
+Gui3DisplayInfoData.placeholder = "";
 Gui3DisplayInfoData.style.fontSize = "16px"; // Set font size
+Gui3DisplayInfoData.style.resize = "none"; // Disable resizing
 Gui3DisplayInfoData.style.position = "absolute"; // Set position to absolute
 Gui3DisplayInfoData.style.left = "10px"; // Set initial x position
 Gui3DisplayInfoData.style.top = "10px"; // Set initial y position
 Gui3DisplayInfoData.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
 Gui3DisplayInfoData.style.height = "" + variables.AScreenHeight2 + "px"; // Set height
+Gui3DisplayInfoData.style.border = ""
+Gui3DisplayInfoData.style.color = "#ffffff"
+Gui3DisplayInfoData.style.background = ""
+Gui3DisplayInfoData.style.backgroundColor = "#050505"
+Gui3DisplayInfoData.style.borderRadius = ""
+Gui3DisplayInfoData.style.fontFamily = ", sans-serif"; // Specify your desired font here
 Gui3.appendChild(Gui3DisplayInfoData);
+GuiControl("disable", "Gui3DisplayInfoData");
 Gui3ButtonInfoOK = document.createElement("button");
 Gui3ButtonInfoOK.id = "Gui3" + "ButtonInfoOK"; // Set ID for referencing
 Gui3ButtonInfoOK.textContent = "OK";
@@ -1650,17 +1658,24 @@ Gui3.style.left = (window.innerWidth - parseInt(Gui3.style.width)) / 2 + "px";
 Gui3.style.top = (window.innerHeight - parseInt(Gui3.style.height)) / 2 + "px";
 document.body.appendChild(Gui3); // Append the GUI window to the body
 Gui3.style.display = "block";
-Gui3DisplayInfoData = document.createElement("div");
+Gui3DisplayInfoData = document.createElement("textarea");
 Gui3DisplayInfoData.id = "Gui3" + "DisplayInfoData"; // Set ID for referencing
-Gui3DisplayInfoData.textContent = "";
-Gui3DisplayInfoData.style.color = "#black"
+Gui3DisplayInfoData.placeholder = "";
 Gui3DisplayInfoData.style.fontSize = "20px"; // Set font size
+Gui3DisplayInfoData.style.resize = "none"; // Disable resizing
 Gui3DisplayInfoData.style.position = "absolute"; // Set position to absolute
 Gui3DisplayInfoData.style.left = "10px"; // Set initial x position
 Gui3DisplayInfoData.style.top = "10px"; // Set initial y position
 Gui3DisplayInfoData.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
 Gui3DisplayInfoData.style.height = "" + variables.AScreenHeight2 + "px"; // Set height
+Gui3DisplayInfoData.style.border = ""
+Gui3DisplayInfoData.style.color = "#ffffff"
+Gui3DisplayInfoData.style.background = ""
+Gui3DisplayInfoData.style.backgroundColor = "#050505"
+Gui3DisplayInfoData.style.borderRadius = ""
+Gui3DisplayInfoData.style.fontFamily = ", sans-serif"; // Specify your desired font here
 Gui3.appendChild(Gui3DisplayInfoData);
+GuiControl("disable", "Gui3DisplayInfoData");
 Gui3ButtonInfoOK = document.createElement("button");
 Gui3ButtonInfoOK.id = "Gui3" + "ButtonInfoOK"; // Set ID for referencing
 Gui3ButtonInfoOK.textContent = "OK";
@@ -1706,17 +1721,17 @@ Gui4.style.left = (window.innerWidth - parseInt(Gui4.style.width)) / 2 + "px";
 Gui4.style.top = (window.innerHeight - parseInt(Gui4.style.height)) / 2 + "px";
 document.body.appendChild(Gui4); // Append the GUI window to the body
 Gui4.style.display = "block";
-Gui4Static4 = document.createElement("div");
-Gui4Static4.id = "Gui4" + "Static" + "4"; // Set ID for referencing
-Gui4Static4.textContent = "Download the language you just created!";
-Gui4Static4.style.color = "#black"
-Gui4Static4.style.fontSize = "15px"; // Set font size
-Gui4Static4.style.position = "absolute"; // Set position to absolute
-Gui4Static4.style.left = "10px"; // Set initial x position
-Gui4Static4.style.top = "10px"; // Set initial y position
-Gui4Static4.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
-Gui4Static4.style.height = "50px"; // Set height
-Gui4.appendChild(Gui4Static4);
+Gui4Static2 = document.createElement("div");
+Gui4Static2.id = "Gui4" + "Static" + "2"; // Set ID for referencing
+Gui4Static2.textContent = "Download the language you just created!";
+Gui4Static2.style.color = "#black"
+Gui4Static2.style.fontSize = "15px"; // Set font size
+Gui4Static2.style.position = "absolute"; // Set position to absolute
+Gui4Static2.style.left = "10px"; // Set initial x position
+Gui4Static2.style.top = "10px"; // Set initial y position
+Gui4Static2.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
+Gui4Static2.style.height = "50px"; // Set height
+Gui4.appendChild(Gui4Static2);
 variables.closeGui4X = variables.AScreenWidth - 72
 Gui4Button1 = document.createElement("button");
 Gui4Button1.id = "Gui4" + "Button" + "1"; // Set ID for referencing
@@ -1803,17 +1818,17 @@ Gui4.style.left = (window.innerWidth - parseInt(Gui4.style.width)) / 2 + "px";
 Gui4.style.top = (window.innerHeight - parseInt(Gui4.style.height)) / 2 + "px";
 document.body.appendChild(Gui4); // Append the GUI window to the body
 Gui4.style.display = "block";
-Gui4Static5 = document.createElement("div");
-Gui4Static5.id = "Gui4" + "Static" + "5"; // Set ID for referencing
-Gui4Static5.textContent = "Download the language you just created!";
-Gui4Static5.style.color = "#black"
-Gui4Static5.style.fontSize = "20px"; // Set font size
-Gui4Static5.style.position = "absolute"; // Set position to absolute
-Gui4Static5.style.left = "10px"; // Set initial x position
-Gui4Static5.style.top = "10px"; // Set initial y position
-Gui4Static5.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
-Gui4Static5.style.height = "50px"; // Set height
-Gui4.appendChild(Gui4Static5);
+Gui4Static3 = document.createElement("div");
+Gui4Static3.id = "Gui4" + "Static" + "3"; // Set ID for referencing
+Gui4Static3.textContent = "Download the language you just created!";
+Gui4Static3.style.color = "#black"
+Gui4Static3.style.fontSize = "20px"; // Set font size
+Gui4Static3.style.position = "absolute"; // Set position to absolute
+Gui4Static3.style.left = "10px"; // Set initial x position
+Gui4Static3.style.top = "10px"; // Set initial y position
+Gui4Static3.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
+Gui4Static3.style.height = "50px"; // Set height
+Gui4.appendChild(Gui4Static3);
 variables.closeGui4X = variables.AScreenWidth - 72
 Gui4Button4 = document.createElement("button");
 Gui4Button4.id = "Gui4" + "Button" + "4"; // Set ID for referencing
