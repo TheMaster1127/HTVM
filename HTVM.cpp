@@ -4348,7 +4348,7 @@ str2 = "case " + expressionParserTranspiler ( str1 ) + ":";
 lineDone = 1;
 htCode += str2 + "\n";
 }
-else if (StrLower (A_LoopField65) == StrLower (keyWordSwitchDefault)) 
+else if (StrLower (A_LoopField65) == StrLower (keyWordSwitchDefault) || StrLower (A_LoopField65) == StrLower (keyWordSwitchDefault + ":")) 
 {
 //MsgBox, % A_LoopField65
 if (langToTranspileTo == "py") 
@@ -4380,7 +4380,7 @@ str2 = StrReplace ( str2 , ";;" , ";" ) ;
 }
 htCode += str2 + "\n";
 }
-else if (StrLower (A_LoopField65) == StrLower (keyWordTry)) 
+else if (StrLower (A_LoopField65) == StrLower (keyWordTry) || StrLower (A_LoopField65) == StrLower (keyWordTry + ":")) 
 {
 //MsgBox, % A_LoopField65
 if (langToTranspileTo == "py") 
@@ -4415,7 +4415,7 @@ str2 = "except " + str10 + "Exception as " + Trim ( StrReplace ( StrReplace ( St
 }
 htCode += str2 + "\n";
 }
-else if (StrLower (A_LoopField65) == StrLower (keyWordFinally)) 
+else if (StrLower (A_LoopField65) == StrLower (keyWordFinally) || StrLower (A_LoopField65) == StrLower (keyWordFinally + ":")) 
 {
 //MsgBox, % A_LoopField65
 if (langToTranspileTo == "py") 

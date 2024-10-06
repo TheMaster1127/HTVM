@@ -4160,7 +4160,7 @@ str2 := "case " . expressionParserTranspiler(str1) . ":"
 lineDone := 1
 htCode .= str2 . "`n"
 }
-else if (StrLower(A_LoopField) = StrLower(keyWordSwitchDefault))
+else if (StrLower(A_LoopField) = StrLower(keyWordSwitchDefault)) or (StrLower(A_LoopField) = StrLower(keyWordSwitchDefault . ":"))
 {
 ;MsgBox, % A_LoopField
 if (langToTranspileTo = "py")
@@ -4193,7 +4193,7 @@ str2 := StrReplace(str2, ";;", ";")
 }
 htCode .= str2 . "`n"
 }
-else if (StrLower(A_LoopField) = StrLower(keyWordTry))
+else if (StrLower(A_LoopField) = StrLower(keyWordTry)) or (StrLower(A_LoopField) = StrLower(keyWordTry . ":"))
 {
 ;MsgBox, % A_LoopField
 if (langToTranspileTo = "py")
@@ -4229,7 +4229,7 @@ str2 := "except " . str10 . "Exception as " . Trim(StrReplace(StrReplace(StrRepl
 
 htCode .= str2 . "`n"
 }
-else if (StrLower(A_LoopField) = StrLower(keyWordFinally))
+else if (StrLower(A_LoopField) = StrLower(keyWordFinally)) or (StrLower(A_LoopField) = StrLower(keyWordFinally . ":"))
 {
 ;MsgBox, % A_LoopField
 
