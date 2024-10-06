@@ -1404,7 +1404,7 @@ Gui5.id = "Gui5"
 let variables = {
 null: null,
 };
-await showCustomMessageBox({}," ", "Website is still in development!!!", 0, 0)
+
 Gui5.style.position = "absolute";
 Gui5.style.width = "240px"; // Set the width
 Gui5.style.height = "100px"; // Set the height
@@ -1975,7 +1975,7 @@ variables.instructionDocumation = "lang to transpile to: Target programming lang
 variables.defaultSyntax = "cpp\nht\nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,param1|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'param1|Sort,OUTVAR,'param1,'param2\nint\nstr\nbool\nfloat\nint8\nint16\nint32\nint64\nif\nelse if\nelse\nwhile\nfor\nLoop\nLoop,\nLoop, Parse,\ncontinue\nbreak\nfunc\nawait\n=\n+=\n+=\n-=\n*=\n/=\n+\n+\n==\n!\n>\n<\n>=\n<=\nor\nand\n!=\ntrue\nfalse\nswitch\ncase\ndefault\nthrow\nErrorMsg\ntry\ncatch\nfinally\n.push\n.pop\n.size\n.insert\n.rm\n.indexOf\narr\narr int\narr str\narr float\narr bool\nvar\nlet\nconst\nreturn\nend\nglobal\n//\n/*\n*/\n" + await Chr (92) + "\n0\nA_Index\nA_LoopField\nmain\non\non\noff\noff\non\noff\ncpp\non\non\noff"
 variables.theINFOtextEachText1 = "lang to transpile to: Target programming language for transpilation.\n\n"
 variables.theINFOtextEachText2 = "file extention of the file: File extension for transpiled output files.\n\n"
-variables.theINFOtextEachText3 = "commands: List of supported operations or built-in functions.\n\n"
+variables.theINFOtextEachText3 = "commands: List of supported operations or built-in functions.\n" + "commands rules\nOUTVAR = the output variable\nINVAR = the input variable, like the one before the =\nINOUTVAR = both the output variable and the input variable\nlineTranspile = the first keyword will be replaced with the third section\n'param123... = a parameter with " + await Chr (34) + "" + await Chr (34) + "\nparam123... = a regular parameter, nothing much, just add as many as needed" + "\n\n"
 variables.theINFOtextEachText4 = "keyWordINT:\n\nThis defines an integer data type. You can change this keyword to whatever you like.\n\nExamples:\n- int\n- number\n- whole number\n- [integer]\n- count#the$steps\n- 42isTheAnswer\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
 variables.theINFOtextEachText5 = "keyWordSTR:\n\nThis defines a string data type. You can change this keyword to whatever you like.\n\nExamples:\n- str\n- string\n- text\n- string value here\n- [character sequence]\n- " + await Chr (34) + "text#inside*quotes" + await Chr (34) + "\n- randomString123\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
 variables.theINFOtextEachText6 = "keyWordBOOL:\n\nThis defines a boolean data type. You can change this keyword to whatever you like.\n\nExamples:\n- bool\n- true/false\n- yesORno\n- is it working now?\n- [condition met]\n- yes#no$maybe\n- trueOrFalse\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
