@@ -1630,7 +1630,7 @@ Gui3.style.display = "block";
 Gui3DisplayInfoData = document.createElement("textarea");
 Gui3DisplayInfoData.id = "Gui3" + "DisplayInfoData"; // Set ID for referencing
 Gui3DisplayInfoData.placeholder = "";
-Gui3DisplayInfoData.style.fontSize = "16px"; // Set font size
+Gui3DisplayInfoData.style.fontSize = "12px"; // Set font size
 Gui3DisplayInfoData.style.resize = "none"; // Disable resizing
 Gui3DisplayInfoData.style.position = "absolute"; // Set position to absolute
 Gui3DisplayInfoData.style.left = "10px"; // Set initial x position
@@ -1690,7 +1690,7 @@ Gui3.style.display = "block";
 Gui3DisplayInfoData = document.createElement("textarea");
 Gui3DisplayInfoData.id = "Gui3" + "DisplayInfoData"; // Set ID for referencing
 Gui3DisplayInfoData.placeholder = "";
-Gui3DisplayInfoData.style.fontSize = "20px"; // Set font size
+Gui3DisplayInfoData.style.fontSize = "16px"; // Set font size
 Gui3DisplayInfoData.style.resize = "none"; // Disable resizing
 Gui3DisplayInfoData.style.position = "absolute"; // Set position to absolute
 Gui3DisplayInfoData.style.left = "10px"; // Set initial x position
@@ -1972,15 +1972,108 @@ else
 variables.guiW = BuildInVars("A_ScreenWidth") - 110
 }
 variables.instructionDocumation = "lang to transpile to: Target programming language for transpilation.\nfile extention of the file: File extension for transpiled output files.\ncommands: List of supported operations or built-in functions.\nkeyWordINT: Defines an integer data type.\nkeyWordSTR: Defines a string data type.\nkeyWordBOOL: Defines a boolean data type.\nkeyWordFLOAT: Defines a floating data type.\nkeyWordINT8: Defines an 8-bit integer data type.\nkeyWordINT16: Defines a 16-bit integer data type.\nkeyWordINT32: Defines a 32-bit integer data type.\nkeyWordINT64: Defines a 64-bit integer data type.\nkeyWordIF: Used for conditional statements.\nkeyWordElseIf: Alternative condition in conditional statements.\nkeyWordElse: Defines a block of code for when no conditions are met.\nkeyWordWhileLoop: Defines a while loop.\nkeyWordForLoop: Defines a for loop.\nkeyWordLoopInfinite: Defines an infinite loop.\nkeyWordLoop: Defines a loop that iterates a specified number of times.\nkeyWordLoopParse: Defines a loop that parses through data or text.\nkeyWordContinue: Skips to the next iteration of the loop.\nkeyWordBreak: Exits a loop prematurely.\nkeyWordFunc: Defines a function or subroutine.\nkeyWordAwait: Await a func only in js.\nkeyWordVariablesAssignmentOperator: Operator for variable assignment.\nkeyWordConcatenationAssignmentOperator: Concatenates and assigns to a string variable.\nkeyWordAdditionAssignmentOperator: Adds to a numeric variable and assigns.\nkeyWordSubtractionAssignmentOperator: Subtracts from a numeric variable and assigns.\nkeyWordMultiplicationAssignmentOperator: Multiplies a numeric variable and assigns.\nkeyWordDivisionAssignmentOperator: Divides a numeric variable and assigns.\nkeyWordAdditionOperator: Adds two values or variables.\nkeyWordConcatenationOperator: Concatenates two strings or variables.\nkeyWordEqualOperator: Checks if two values or variables are equal.\nkeyWordNotOperator: Negates a boolean value or condition.\nkeyWordGreaterThanOperator: Checks if one value is greater than another.\nkeyWordLessThanOperator: Checks if one value is less than another.\nkeyWordGreaterThanOrEqualToOperator: Checks if one value is greater than or equal to another.\nkeyWordLessThanOrEqualToOperator: Checks if one value is less than or equal to another.\nkeyWordOrOperator: Combines two boolean conditions (true if either is true).\nkeyWordAndOperator: Combines two boolean conditions (true if both are true).\nkeyWordNotEqualToOperator: Checks if two values or variables are not equal.\nkeyWordTrue: Its the true boolean value.\nkeyWordFalse: Its the false boolean value.\nkeyWordSwitch: The switch statement is a type of selection control mechanism.\nkeyWordSwitchCase: The switch case is a type of selection control mechanism used within the switch statement.\nkeyWordSwitchDefault: The default case in a switch statement provides a fallback option when no case matches.\nkeyWordThrow: Used to raise an exception, signaling an error or special condition.\nkeyWordErrorMsg: Placeholder for a variable or method that stores or retrieves error messages.\nkeyWordTry: Block where code that might throw exceptions is placed; used for handling potential errors.\nkeyWordCatch: Block that handles exceptions thrown by the try block, allowing for error recovery.\nkeyWordFinally: Block that executes after try and catch, regardless of whether an exception was thrown or not. NOT SUPPORTED IN C++\nkeyWordArrayAppend: Method to add an element to the end of a collection (e.g., list or array).\nkeyWordArrayPop: Method to remove and return the last element of a collection (e.g., stack or list).\nkeyWordArraySize: Method that returns the number of elements in a collection (e.g., array, list, or vector).\nkeyWordArrayInsert: Method to add an element at a specific position in a collection (e.g., list or array).\nkeyWordArrayRemove: Method to remove an element from a collection by its value or index (e.g., list or array).\nkeyWordArrayIndexOf: Method that returns the index of the first occurrence of an element, or -1 if not found.\nkeyWordArrayDefinition: Defines an array data structure.\nkeyWordArrayOfIntegersDefinition: Defines an array of integers.\nkeyWordArrayOfStringsDefinition: Defines an array of strings.\nkeyWordArrayOfFloatingPointDefinition: Defines an array of floating-point numbers.\nkeyWordArrayOfBooleansDefinition: Defines an array of booleans.\nkeyWordJavaScriptVar: Use var for variable declarations ONLY in javascript.\nkeyWordJavaScriptLet: Use let for block-scoped variables ONLY in javascript.\nkeyWordJavaScriptConst: Use const for block-scoped, unchangeable variables ONLY in javascript.\nkeyWordReturnStatement: Returns a value from a function or exits a subroutine.\nkeyWordEnd: Indicates the end of a code block.\nkeyWordGlobal: Global in Python allows variables inside functions to be accessed and modified globally.\nkeyWordComment: Starts a single-line comment.\nkeyWordCommentOpenMultiLine: Opens a multiline comment.\nkeyWordCommentCloseMultiLine: Closes a multiline comment.\nkeyWordEscpaeChar: Escapes special characters in strings or identifiers.\nAHKlikeLoopsIndexedAt: Specifies the starting index for the AHK-like loop, such as 1-indexed, 0-indexed, or any custom value.\nkeyWordAIndex: Represents the current index of the loop. It can be customized based on the indexing method and renamed using configuration settings.\nkeyWordALoopField: Represents the current value or field in the loop. It can be renamed according to user preferences through configuration. \nkeyWordMainLabel: This is the main label where the main function will be inserted in the transpiled language.\nuseFuncKeyWord: This option allows you to use a keyword to define functions when transpiling to Python (py), JavaScript (js), or C++ (cpp). If it is turned off, you won't need to use a function definition keyword for Python and JavaScript. If you select C++ as your language, this option will always be on and cannot be turned off. Additionally, if you have useFuncKeyWord turned off and then switch to C++, it will automatically be turned on. When useFuncKeyWord is off, useCurlyBraces will automatically be toggled on, and if you turn off useFuncKeyWord, it will also toggle off useEnd if it was on.\nuseCurlyBraces: This option allows you to use curly braces to define code blocks. If useCurlyBraces is untoggled it will automatically toggle useFuncKeyWord on. When useCurlyBraces is enabled, it will automatically untoggle useEnd if it was on. This ensures that both methods of defining code blocks do not conflict.\nuseEnd: This option allows you to use an end keyword to signify the end of code blocks. When useEnd is toggled on, it will automatically turn off useCurlyBraces to maintain compatibility with your selected syntax style. Furthermore, enabling useEnd will automatically toggle on useFuncKeyWord, allowing for the use of function keywords alongside the end keyword. This ensures that all your settings work harmoniously together.\nuseSemicolon: Toggle for using semicolons at the end of statements.\nuseParentheses: if off, there's no need to use parentheses where necessary, but you still must use them in some places.\nusePythonicColonSyntax: Enables Python-style colon syntax for defining code blocks.\nforLoopLang: Choose the language for the style of the for loop.\nuseInJavaScriptAlwaysUseVar: You dont have to declere variables in js now all of them will start whit var var varName...\nuseJavaScriptInAfullHTMLfile: It wraps the js code in a full index.html file\nuseJavaScriptAmainFuncDef: The useJavaScriptAmainFuncDef option controls whether an async function is used as the main function and where it is placed in the code. If this option is set to any value other than " + await Chr (34) + "off," + await Chr (34) + " you must specify the syntax for the main function. This syntax is simply a label, marking the start of the main function. There’s no need to add {} brackets since it’s just a label. If you enable this option but don't explicitly place the main function label anywhere in the code, it will automatically be defined at the top. This allows you to define other functions at the top of your script or within the main function itself."
-variables.guiEditY = 5
-var items3 = LoopParseFunc(variables.instructionDocumation, "\n", "\r");
+variables.defaultSyntax = "cpp\nht\nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,param1|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'param1|Sort,OUTVAR,'param1,'param2\nint\nstr\nbool\nfloat\nint8\nint16\nint32\nint64\nif\nelse if\nelse\nwhile\nfor\nLoop\nLoop,\nLoop, Parse,\ncontinue\nbreak\nfunc\nawait\n=\n+=\n+=\n-=\n*=\n/=\n+\n+\n==\n!\n>\n<\n>=\n<=\nor\nand\n!=\ntrue\nfalse\nswitch\ncase\ndefault\nthrow\nErrorMsg\ntry\ncatch\nfinally\n.push\n.pop\n.size\n.insert\n.rm\n.indexOf\narr\narr int\narr str\narr float\narr bool\nvar\nlet\nconst\nreturn\nend\nglobal\n//\n/*\n*/\n" + await Chr (92) + "\n0\nA_Index\nA_LoopField\nmain\non\non\noff\noff\non\noff\ncpp\non\non\noff"
+variables.theINFOtextEachText1 = "lang to transpile to: Target programming language for transpilation.\n\n"
+variables.theINFOtextEachText2 = "file extention of the file: File extension for transpiled output files.\n\n"
+variables.theINFOtextEachText3 = "commands: List of supported operations or built-in functions.\n\n"
+variables.theINFOtextEachText4 = "keyWordINT:\n\nThis defines an integer data type. You can change this keyword to whatever you like.\n\nExamples:\n- int\n- number\n- whole number\n- [integer]\n- count#the$steps\n- 42isTheAnswer\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText5 = "keyWordSTR:\n\nThis defines a string data type. You can change this keyword to whatever you like.\n\nExamples:\n- str\n- string\n- text\n- string value here\n- [character sequence]\n- " + await Chr (34) + "text#inside*quotes" + await Chr (34) + "\n- randomString123\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText6 = "keyWordBOOL:\n\nThis defines a boolean data type. You can change this keyword to whatever you like.\n\nExamples:\n- bool\n- true/false\n- yesORno\n- is it working now?\n- [condition met]\n- yes#no$maybe\n- trueOrFalse\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText7 = "keyWordFLOAT:\n\nThis defines a floating data type. You can change this keyword to whatever you like.\n\nExamples:\n- float\n- decimal number\n- floating point value\n- [float number]\n- 3.14*isAwesome\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText8 = "keyWordINT8:\n\nThis defines an 8-bit integer data type. You can change this keyword to whatever you like.\n\nExamples:\n- int8\n- small integer\n- 8 bits of data\n- [8bit integer]\n- 00001111\n- tinyNumber123!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText9 = "keyWordINT16:\n\nThis defines a 16-bit integer data type. You can change this keyword to whatever you like.\n\nExamples:\n- int16\n- medium integer\n- 16 bits of data\n- [16bit integer]\n- 1010101010101010\n- halfWordData!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText10 = "keyWordINT32:\n\nThis defines a 32-bit integer data type. You can change this keyword to whatever you like.\n\nExamples:\n- int32\n- large integer\n- 32 bits of data\n- [32bit integer]\n- 11111111111111111111111111111111\n- fullWordData123!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText11 = "keyWordINT64:\n\nThis defines a 64-bit integer data type. You can change this keyword to whatever you like.\n\nExamples:\n- int64\n- huge integer\n- 64 bits of data\n- [64bit integer]\n- 00000000000000001111111111111111\n- bigData!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText12 = "keyWordIF:\n\nThis is used for conditional statements. You can change this keyword to whatever you like.\n\nExamples:\n- if\n- check this condition\n- should it be true?\n- [do this if true]\n- (condition?yes:no)\n- decideWhatToDo!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText13 = "keyWordElseIf:\n\nThis is an alternative condition in conditional statements. You can change this keyword to whatever you like.\n\nExamples:\n- else if\n- elif\n- otherwise if\n- check this next condition\n- [if not this then that]\n- (ifNotCondition?tryThis)\n- weShouldTryThisNext\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText14 = "keyWordElse:\n\nThis defines a block of code for when no conditions are met. You can change this keyword to whatever you like.\n\nExamples:\n- else\n- then\n- otherwize\n- default action\n- when all else fails\n- [do this instead]\n- (fallback:doThis)\n- noneOfTheAbove!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText15 = "keyWordWhileLoop:\n\nThis defines a while loop. You can change this keyword to whatever you like.\n\nExamples:\n- while\n- repeat until\n- keep doing this\n- [continue while somting]\n- (loopUntil)\n- goForeverAndEver!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText16 = "keyWordForLoop:\n\nThis defines a for loop. You can change this keyword to whatever you like.\n\nExamples:\n- for\n- iterate through\n- loop a certain number\n- [repeat this many times]\n- goThroughEachItem!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText17 = "keyWordLoopInfinite:\n\nThis defines an infinite loop. You can change this keyword to whatever you like.\n\nExamples:\n- Loop\n- infinite loop\n- forever\n- repeat endlessly\n- [never stop]\n- (loopForever)\n- endlessLoopOfFun!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText18 = "keyWordLoop:\n\nThis defines a loop that iterates a specified number of times. You can change this keyword to whatever you like.\n\nExamples:\n- Loop,\n- iterate,\n- run this number of times\n- [execute x times]\n- (doThis:repeat10Times)\n- goAroundAndAround!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText19 = "keyWordLoopParse:\n\nThis defines a loop that parses through ONLY text. You can change this keyword to whatever you like.\n\nExamples:\n- Loop, Parse,\n- analyze this data,\n- forEach,\n- [parse through text]\n- (analyze:fromStartToEnd)\n- readEachCharacterOneByOne!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText20 = "keyWordContinue:\n\nThis skips to the next iteration of the loop. You can change this keyword to whatever you like.\n\nExamples:\n- continue\n- skip to next\n- move on now\n- [next iteration]\n- must keep going forward here in the loop\n- next#step$continue%on*\n- goOnAndOn!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText21 = "keyWordBreak:\n\nThis exits a loop prematurely. You can change this keyword to whatever you like.\n\nExamples:\n- break\n- exit loop\n- get me out of here my head is spinning\n- stop this execution\n- [terminate loop now]\n- no more iterations here, exit immediately\n- !@#exit^the&loop*now\n- endLoopHere!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText22 = "keyWordFunc:\n\nThis defines a function or subroutine. You can change this keyword to whatever you like.\n\nExamples:\n- func\n- fn\n- define function\n- create subroutine now\n- [set up a function here]\n- this is how we define a function properly\n- func!@#create&my^new*function\n- makeFunctionWorkForYou!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText23 = "keyWordAwait:\n\nThis keyword allows you to await a function only in JavaScript. You can change this keyword to whatever you like.\n\nExamples:\n- await\n- hold on mate\n- wait for function\n- pause until completed\n- [await this operation]\n- please wait while the process completes successfully\n- wait*for&the^result$to!come\n- doNotMoveUntilReady!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText24 = "keyWordVariablesAssignmentOperator:\n\nThis is the operator for variable assignment. You can change this keyword to whatever you like.\n\nExamples:\n- =\n- :=\n- assign value\n- set this variable now\n- [variable assignment operator]\n- use the assignment operator for proper initialization\n- assignValue$toVariable!@#useThis\n- letVariableBeSetHere!\n\nRules:\n- Cannot include a semicolon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText25 = "keyWordConcatenationAssignmentOperator:\n\nThis concatenates and assigns to a string variable. You can change this keyword to whatever you like.\n\nExamples:\n- +=\n- concatenate value\n- join these strings now\n- [concatenation assignment operator]\n- combine these strings together for a meaningful output\n- concatenatedString#newValue!@#addIt\n- joinThemTogetherNow!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText26 = "keyWordAdditionAssignmentOperator:\n\nThis adds to a numeric variable and assigns. You can change this keyword to whatever you like.\n\nExamples:\n- +=\n- addition assignment\n- increase this value\n- [addition operator for assignment]\n- add this number to the existing value directly here\n- plusValue$toVariable!@#increment\n- sumItUpRightHere!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText27 = "keyWordSubtractionAssignmentOperator:\n\nThis subtracts from a numeric variable and assigns. You can change this keyword to whatever you like.\n\nExamples:\n- -=\n- subtraction assignment\n- decrease this value\n- [subtraction operator for assignment]\n- take away this amount from the existing value\n- minusValue!@#toVariable&subtract\n- reduceItByThisAmount!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText28 = "keyWordMultiplicationAssignmentOperator:\n\nThis multiplies a numeric variable and assigns. You can change this keyword to whatever you like.\n\nExamples:\n- *=\n- multiplication assignment\n- double this value\n- [multiplication operator for assignment]\n- multiply this amount by the current value directly\n- timesValue!@#toVariable&multiply\n- increaseByFactorOfThis!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText29 = "keyWordDivisionAssignmentOperator:\n\nThis divides a numeric variable and assigns. You can change this keyword to whatever you like.\n\nExamples:\n- /=\n- division assignment\n- split this value\n- [division operator for assignment]\n- divide this number by the existing value directly\n- dividedValue$toVariable!@#split\n- breakItIntoEqualParts!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText30 = "keyWordAdditionOperator:\n\nThis adds two values or variables. You can change this keyword to whatever you like.\n\nExamples:\n- +\n- plus\n- addition\n- sum of values\n- [add these two numbers]\n- combine these values for a total of sum directly\n- totalIsEqualTo$sumValue@#addIt\n- addingNumbersTogether!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText31 = "keyWordConcatenationOperator:\n\nThis concatenates two strings or variables. You can change this keyword to whatever you like.\n\nExamples:\n- +\n- .\n- concatenate\n- join these strings together\n- [combine two strings]\n- put these together to form a complete statement now\n- stringCombine!@#useThis&connect\n- joinStringsToCreateFullSentence!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText32 = "keyWordEqualOperator:\n\nThis checks if two values or variables are equal. You can change this keyword to whatever you like.\n\nExamples:\n- ==\n- is equal to\n- is\n- matches these two values\n- [compare for equality now]\n- checkIfTheyAreTheSameValueRightHere\n- equalValue$toCompare!@#checkThis\n- areTheyReallyEqual?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText33 = "keyWordNotOperator:\n\nThis negates a boolean value or condition. You can change this keyword to whatever you like.\n\nExamples:\n- !\n- not\n- negation of this condition\n- [opposite of this boolean value]\n- negateThisStatementForClearerUnderstanding\n- !@#notTrue^useThis&instead\n- falseIsTheOppositeOfTrue!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText34 = "keyWordGreaterThanOperator:\n\nThis checks if one value is greater than another. You can change this keyword to whatever you like.\n\nExamples:\n- >\n- greater than\n- is this value larger\n- [compare if greater than]\n- determineIfFirstValueIsBiggerThanSecond\n- compareValue1#toValue2$useThis!\n- isThisValueGreaterThanThatValue?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText35 = "keyWordLessThanOperator:\n\nThis checks if one value is less than another. You can change this keyword to whatever you like.\n\nExamples:\n- <\n- less than\n- is this value smaller\n- [compare if less than]\n- checkIfValue1IsLessThanValue2Now\n- compareValue1&toValue2#useThis@!\n- isThisValueLessThanThatValue?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText36 = "keyWordGreaterThanOrEqualToOperator:\n\nThis checks if one value is greater than or equal to another. You can change this keyword to whatever you like.\n\nExamples:\n- >=\n- greater than or equal to\n- is this value at least\n- [check if value is larger or equal]\n- verifyIfFirstValueIsGreaterOrEqualToSecond\n- compareValue1$toValue2#andUseThis!\n- isThisValueGreaterThanOrEqualToThatValue?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText37 = "keyWordLessThanOrEqualToOperator:\n\nThis checks if one value is less than or equal to another. You can change this keyword to whatever you like.\n\nExamples:\n- <=\n- less than or equal to\n- is this value at most\n- [check if value is smaller or equal]\n- verifyIfFirstValueIsLessOrEqualToSecond\n- compareValue1^toValue2$andUseThis!\n- isThisValueLessThanOrEqualToThatValue?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText38 = "keyWordOrOperator:\n\nThis combines two boolean conditions (true if either is true). You can change this keyword to whatever you like.\n\nExamples:\n- ||\n- or\n- either condition is true\n- [true if either is true]\n- checkIfEitherConditionIsValidForExecution\n- useThis$orThat@toDetermineOutcome!\n- isThisTrueOrThatTrueToo?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText39 = "keyWordAndOperator:\n\nThis combines two boolean conditions (true if both are true). You can change this keyword to whatever you like.\n\nExamples:\n- &&\n- and\n- both conditions must be true\n- [true only if both are true]\n- checkIfBothConditionsAreValidForExecution\n- useThis$andThat@toDetermineOutcome!\n- areBothThisTrueAndThatTrueAlso?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText40 = "keyWordNotEqualToOperator:\n\nThis checks if two values or variables are not equal. You can change this keyword to whatever you like.\n\nExamples:\n- !=\n- not equal to\n- are these values different\n- [check for inequality now]\n- verifyIfTheseTwoValuesAreNotTheSame\n- checkThisValue$andThatValue!@#notEqual\n- isThisDifferentFromThatValueForSure?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText41 = "keyWordTrue:\n\nThis represents the true boolean value. You can change this keyword to whatever you like.\n\nExamples:\n- true\n- yeah\n- boolean true\n- this condition is affirmed\n- [set this to true value now]\n- confirmThisIsTrueAndLetItBeKnown\n- isThisReallyTrue$forEveryone!@#yes\n- truthAlwaysPrevailsInLogicHere!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText42 = "keyWordFalse:\n\nThis represents the false boolean value. You can change this keyword to whatever you like.\n\nExamples:\n- false\n- nah\n- boolean false\n- this condition is denied\n- [set this to false value now]\n- confirmThisIsFalseAndLetItBeClear\n- isThisReallyFalse$forEveryone!@#no\n- falsehoodNeverWinsInLogicHere!\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText43 = "keyWordSwitch:\n\nThe switch statement is a type of selection control mechanism. You can change this keyword to whatever you like.\n\nExamples:\n- switch\n- switch statement\n- change based on these values\n- [control flow with multiple conditions]\n- evaluateThisConditionAndDecideWhatToDoNext\n- switch$up@theGame#toMakeItInteresting\n- whatShouldIChooseNow?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText44 = "keyWordSwitchCase:\n\nThe switch case is a type of selection control mechanism used within the switch statement. You can change this keyword to whatever you like.\n\nExamples:\n- case\n- switch case\n- this value corresponds to a scenario\n- [choose one of the cases here]\n- selectThisCaseIfYouWantToProceedNext\n- case$selection@toDetermineOutcome#here\n- whatScenarioAreYouChoosingToday?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText45 = "keyWordSwitchDefault:\n\nThe default case in a switch statement provides a fallback option when no case matches. You can change this keyword to whatever you like.\n\nExamples:\n- default\n- default case\n- what to do if no cases match\n- [this is the fallback condition]\n- executeThisIfNoneOfTheCasesAreTrue\n- defaultOption!@#toAvoidUnwantedResults$here\n- whatShouldWeDoWhenNothingMatches?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText46 = "keyWordThrow:\n\nUsed to raise an exception, signaling an error or special condition. You can change this keyword to whatever you like.\n\nExamples:\n- throw\n- raise an exception\n- signal an error condition now\n- [indicate an exceptional case here]\n- throwThisErrorIfSomethingGoesWrongNow\n- throw@an#exception$forUnexpectedIssues!\n- whatDoYouWantToSignalNow?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText47 = "keyWordErrorMsg:\n\nPlaceholder for a variable or method that stores or retrieves error messages. You can change this keyword to whatever you like.\n\nExamples:\n- errorMsg\n- error message\n- this holds the current error text\n- [retrieve the latest error message here]\n- storeThisErrorMsgForLaterUsePlease\n- errorMsg!@#toHandleIssues^withLogic\n- whatIsTheCurrentErrorMessageRightNow?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText48 = "keyWordTry:\n\nBlock where code that might throw exceptions is placed; used for handling potential errors. You can change this keyword to whatever you like.\n\nExamples:\n- try\n- try block\n- attempt to execute this code section\n- [place risky code that might fail here]\n- tryToRunThisCodeAndCatchAnyErrorsIfTheyOccur\n- try!@#this&code*toSeeWhatHappensNow\n- whatWillYouAttemptToExecuteToday?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText49 = "keyWordCatch:\n\nBlock that handles exceptions thrown by the try block, allowing for error recovery. You can change this keyword to whatever you like.\n\nExamples:\n- catch\n- catch block\n- handle exceptions here\n- [recover from an error if it happens]\n- catchThisExceptionAndTakeAppropriateActionNow\n- catch@any$error&thatMightOccur!\n- whatExceptionsAreYouPreparedToHandleToday?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText50 = "keyWordFinally:\n\nBlock that executes after try and catch, regardless of whether an exception was thrown or not. NOT SUPPORTED IN C++. You can change this keyword to whatever you like.\n\nExamples:\n- finally\n- finally block\n- code that runs at the end\n- [always executes after try and catch]\n- finallyCompleteThisTaskRegardlessOfOutcomes\n- finally!@#execute&this*noMatterWhatHappens\n- whatFinalActionsWillYouTakeNow?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText51 = "keyWordArrayAppend:\n\nMethod to add an element to the end of a collection (e.g., list or array). You can change this keyword to whatever you like.\n\nExamples:\n- .append\n- .add\n- .insert\n- .insertElementAtEnd\n- .addNewItemToCollection\n- .pushToEndOfArray\n- .thisIsAnExampleOfAddingAnElement\n\nRules:\n- Array types must start with a dot (.) and should consist only of letters or numbers or underscores similar to a function name without spaces or special characters.\n\n"
+variables.theINFOtextEachText52 = "keyWordArrayPop:\n\nMethod to remove and return the last element of a collection (e.g., stack or list). You can change this keyword to whatever you like.\n\nExamples:\n- .pop\n- .remove\n- .takeLast\n- .deleteLastItem\n- .popLastElementFromCollection\n- .removeLastElementFromArray\n- .thisIsAnExampleOfPoppingAnElement\n\nRules:\n- Array types must start with a dot (.) and should consist only of letters or numbers or underscores similar to a function name without spaces or special characters.\n\n"
+variables.theINFOtextEachText53 = "keyWordArraySize:\n\nMethod that returns the number of elements in a collection (e.g., array, list, or vector). You can change this keyword to whatever you like.\n\nExamples:\n- .size\n- .count\n- .length\n- .getTotalItems\n- .returnNumberOfElements\n- .howManyElementsAreInTheArray\n- .thisIsAnExampleOfGettingArraySize\n\nRules:\n- Array types must start with a dot (.) and should consist only of letters or numbers or underscores similar to a function name without spaces or special characters.\n\n"
+variables.theINFOtextEachText54 = "keyWordArrayInsert:\n\nMethod to add an element at a specific position in a collection (e.g., list or array). You can change this keyword to whatever you like.\n\nExamples:\n- .insert\n- .addAt\n- .insertAtPosition\n- .insertElementAtSpecificIndex\n- .addItemAtSpecificLocation\n- .placeElementAtIndexPosition\n- .thisIsAnExampleOfInsertingAnElement\n\nRules:\n- Array types must start with a dot (.) and should consist only of letters or numbers or underscores similar to a function name without spaces or special characters.\n\n"
+variables.theINFOtextEachText55 = "keyWordArrayRemove:\n\nMethod to remove an element from a collection by its value or index (e.g., list or array). You can change this keyword to whatever you like.\n\nExamples:\n- .remove\n- .rm\n- .delete\n- .discard\n- .removeItem\n- .eliminateElementFromCollection\n- .thisIsAnExampleOfRemovingAnElement\n- .removeElementFromSpecificIndex\n\nRules:\n- Array types must start with a dot (.) and should consist only of letters or numbers or underscores similar to a function name without spaces or special characters.\n\n"
+variables.theINFOtextEachText56 = "keyWordArrayIndexOf:\n\nMethod that returns the index of the first occurrence of an element, or -1 if not found. You can change this keyword to whatever you like.\n\nExamples:\n- .indexOf\n- .findIndex\n- .locateIndex\n- .getElementIndex\n- .returnIndexOfFirstOccurrence\n- .thisIsAnExampleOfFindingIndex\n- .indexOfTheRequestedElement\n\nRules:\n- Array types must start with a dot (.) and should consist only of letters or numbers or underscores similar to a function name without spaces or special characters.\n\n"
+variables.theINFOtextEachText57 = "keyWordArrayDefinition:\n\nDefines an array data structure. You can change this keyword to whatever you like. by defalut its a string array in C++\n\nExamples:\n- array\n- array definition\n- create an array for holding values\n- [define a collection of items here]\n- arrayOfValuesThatCanHoldAnyDataType\n- array$of@special!characters%and#numbers\n- whatKindOfArrayAreYouCreatingToday?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText58 = "keyWordArrayOfIntegersDefinition:\n\nDefines an array of integers. You can change this keyword to whatever you like.\n\nExamples:\n- arrayOfIntegers\n- array of integers\n- hold multiple integer values in an array\n- [create an array specifically for integers]\n- arrayOfIntegersForStoringValuesFrom0To100\n- arrayOf!@#$%^&*()RandomIntegers12345678\n- howManyIntegersWillYouStoreInTheArray?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText59 = "keyWordArrayOfStringsDefinition:\n\nDefines an array of strings. You can change this keyword to whatever you like.\n\nExamples:\n- arrayOfStrings\n- string array\n- define an array that holds text values\n- [this array stores multiple string values]\n- arrayOfStringsToHoldNamesOfFruitsVegetablesAndMore\n- arrayOf!@#$%^&*()StringValues12345678\n- howManyStringsDoYouWantToIncludeInThisArray?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText60 = "keyWordArrayOfFloatingPointDefinition:\n\nDefines an array of floating-point numbers. You can change this keyword to whatever you like.\n\nExamples:\n- arrayOfFloats\n- floating-point array\n- create an array for float numbers\n- [store floating-point numbers in an array]\n- arrayOfFloatingPointValuesForCalculationsAndStatistics\n- arrayOf!@#$%^&*()FloatingPointNumbers98765432\n- howManyFloatValuesWillYouIncludeInTheArray?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText61 = "keyWordArrayOfBooleansDefinition:\n\nDefines an array of booleans. You can change this keyword to whatever you like.\n\nExamples:\n- arrayOfBooleans\n- boolean array\n- hold true/false values in an array\n- [create an array to store boolean values]\n- arrayOfBooleansForFlagsInTheProgramToControlFlow\n- arrayOf!@#$%^&*()BooleanValuesTrueFalse\n- howManyBooleanFlagsDoYouNeedInThisArray?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText62 = "keyWordJavaScriptVar:\n\nUse var for variable declarations ONLY in JavaScript. You can change this keyword to whatever you like.\n\nExamples:\n- var\n- variable declaration\n- use var for declaring variables\n- [initialize a variable using var in JS]\n- varToDefineVariablesInJavaScriptForScopeControl\n- var!@#ToStore^VariousData*TypesInYourCode\n- howWillYouUseVarInYourJavaScriptCode?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText63 = "keyWordJavaScriptLet:\n\nUse let for block-scoped variables ONLY in JavaScript. You can change this keyword to whatever you like.\n\nExamples:\n- let\n- block-scoped variable\n- use let for declaring block-level variables\n- [initialize a variable using let in JS]\n- letToDefineBlockScopedVariablesInJavaScriptCode\n- let!@#This^Store*DataForYou!\n- howManyBlockScopedVariablesWillYouDeclare?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText64 = "keyWordJavaScriptConst:\n\nUse const for block-scoped, unchangeable variables ONLY in JavaScript. You can change this keyword to whatever you like.\n\nExamples:\n- const\n- constant variable\n- use const for declaring unchangeable variables\n- [initialize a constant variable using const in JS]\n- constToDefineImmutableValuesInYourJavaScriptCode\n- const!@#$This^Holds*ConstantDataForYou!\n- whatConstantsWillYouDefineInYourCode?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText65 = "keyWordReturnStatement:\n\nReturns a value from a function or exits a subroutine. You can change this keyword to whatever you like.\n\nExamples:\n- return\n- yeet\n- use return to exit a function\n- [return a value from a function call here]\n- returnThisValueToContinueExecutionOfYourProgram\n- return!@#$%^&*()ValueForFurtherProcessingInCode\n- whatWillYouReturnFromYourFunctionToday?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText66 = "keyWordEnd:\n\nIndicates the end of a code block. You can change this keyword to whatever you like.\n\nExamples:\n- end\n- stop\n- end is here\n- signifies the conclusion of the code block\n- [mark the end of a function or loop here]\n- endOfBlockToIndicateNoFurtherExecutionNeeded\n- end!@#$%^&*()OfCodeForCurrentContext\n- whatWillBeTheFinalStepInYourCodeBlock?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText67 = "keyWordGlobal:\n\nGlobal in Python allows variables inside functions to be accessed and modified globally. You can change this keyword to whatever you like.\n\nExamples:\n- global\n- global variable\n- access variables across functions globally\n- [mark a variable for global scope here]\n- globalVariableAllowsAccessAcrossTheEntireModule\n- global$!@#Variables%ForAccessEverywhereInCode\n- whatGlobalVariablesAreYouUsingInYourFunction?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText68 = "keyWordComment:\n\nStarts a single-line comment. You can change this keyword to whatever you like.\n\nExamples:\n- //\n- ;\n- NOTE:\n- single-line comment\n- starts a comment in the code\n- [add a comment to explain your code]\n- commentForClarifyingThePurposeOfYourCodeHere\n- comment!@#$%^&*()ToMakeThingsClearInYourCode\n- whatCommentWouldYouAddToThisSection?\n\nRules:\n- Cannot include a colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText69 = "keyWordCommentOpenMultiLine:\n\nOpens a multiline comment. You can change this keyword to whatever you like.\n\nExamples:\n- /*\n- openMultiLineComment\n- multiline comment start\n- begin a block comment in the code\n- [this opens a comment for multiple lines]\n- openMultiLineCommentToProvideDetailedExplanations\n- openComment@!#forMultipleLines&OfDescription\n- howWillYouUseMultilineCommentsInYourCode?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText70 = "keyWordCommentCloseMultiLine:\n\nCloses a multiline comment. You can change this keyword to whatever you like.\n\nExamples:\n-*/\n- closeMultiLineComment\n- end of multiline comment\n- finish a block comment in the code\n- [this closes a comment for multiple lines]\n- closeCommentToEndDetailedDescriptionsHere\n- closeComment$!@#ToFinishMultiLineExplaining\n- howWillYouEndYourMultilineComment?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText71 = "keyWordEscapeChar:\n\nEscapes special characters in strings or identifiers. You can change this keyword to whatever you like.\n\nExamples:\n" + await Chr (92) + "\n" + await Chr (96) + "\n@\n~\n*\n|\n&\n^\n\nRules:\n- Cannot include a newline character, or carriage return. Anything else is allowed as long as its ONLY 1 char long.\n\n"
+variables.theINFOtextEachText72 = "AHKlikeLoopsIndexedAt:\n\nSpecifies the starting index for the AHK-like loop, such as 1-indexed, 0-indexed, or any custom value. You can change this keyword to whatever you like.\n\nExamples:\n0\n1\n50\n69\n-50\n-69\n4863\n\nRules:\n- Can only be a number or a negative number.\n\n"
+variables.theINFOtextEachText73 = "keyWordAIndex:\n\nRepresents the current index of the loop. It can be customized based on the indexing method and renamed using configuration settings. You can change this keyword to whatever you like.\n\nExamples:\n- A_Index\n- currentIndexInTheLoop\n- [thisIndicatesTheIndexOfTheCurrentIteration]\n- currentIndexInTheLoopForTrackingIterationCount\n- AIndex!@#$%^&*()UsedForCurrentLoopIterationTracking\n- whatIndexAreYouAtInYourCurrentLoop?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText74 = "keyWordALoopField:\n\nRepresents the current value or field in the loop. It can be renamed according to user preferences through configuration. You can change this keyword to whatever you like.\n\nExamples:\n- A_LoopField\n- currentLoopValue\n- [thisRefersToTheValueInTheLoopCurrently]\n- currentValueInTheLoopToProcessOrUseInLogic\n- ALoopField@!#ToStoreCurrentIterationValue%InCode\n- whatValueAreYouProcessingInYourLoopRightNow?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText75 = "keyWordMainLabel:\n\nThis is the main label where the main function will be inserted in the transpiled language. You can change this keyword to whatever you like.\n\nExamples:\n- mainLabel\n- main function label\n- define the entry point for your program\n- [this is the main label for the code execution]\n- mainLabelToInsertYourMainFunctionInTheCode\n- mainLabel@!#UsedToPointToMainFunctionInCode\n- whatIsTheEntryPointOfYourProgramGoingToBe?\n\nRules:\n- Cannot include a semicolon, colon, newline character, or carriage return. Anything else is allowed.\n\n"
+variables.theINFOtextEachText76 = "useFuncKeyWord: This option allows you to use a keyword to define functions when transpiling to Python (py), JavaScript (js), or C++ (cpp). If it is turned off, you won't need to use a function definition keyword for Python and JavaScript. If you select C++ as your language, this option will always be on and cannot be turned off. Additionally, if you have useFuncKeyWord turned off and then switch to C++, it will automatically be turned on. When useFuncKeyWord is off, useCurlyBraces will automatically be toggled on, and if you turn off useFuncKeyWord, it will also toggle off useEnd if it was on."
+variables.theINFOtextEachText77 = "useCurlyBraces: This option allows you to use curly braces to define code blocks. If useCurlyBraces is untoggled it will automatically toggle useFuncKeyWord on. When useCurlyBraces is enabled, it will automatically untoggle useEnd if it was on. This ensures that both methods of defining code blocks do not conflict."
+variables.theINFOtextEachText78 = "useEnd: This option allows you to use an end keyword to signify the end of code blocks. When useEnd is toggled on, it will automatically turn off useCurlyBraces to maintain compatibility with your selected syntax style. Furthermore, enabling useEnd will automatically toggle on useFuncKeyWord, allowing for the use of function keywords alongside the end keyword. This ensures that all your settings work harmoniously together."
+variables.theINFOtextEachText79 = "useSemicolon: Toggle for using semicolons at the end of statements."
+variables.theINFOtextEachText80 = "useParentheses: if off, there's no need to use parentheses where necessary, but you still must use them in some places."
+variables.theINFOtextEachText81 = "usePythonicColonSyntax: Enables Python-style colon syntax for defining code blocks."
+variables.theINFOtextEachText82 = "forLoopLang: Choose the language for the style of the for loop. You can see the for loop in the live preview"
+variables.theINFOtextEachText83 = "useInJavaScriptAlwaysUseVar: You dont have to declare variables when converting to js with keywords like var let const or the ones you changed the var let const to. Now all of them will start with var var varName... automatically."
+variables.theINFOtextEachText84 = "useJavaScriptInAfullHTMLfile: It wraps the js code in a full index.html file"
+variables.theINFOtextEachText85 = "useJavaScriptAmainFuncDef: The useJavaScriptAmainFuncDef option controls whether an async function is used as the main function and where it is placed in the code. If this option is not toggled off, you must specify the syntax for the main function. This syntax is simply a label, marking the start of the main function. There’s no need to add {} brackets since it’s just a label. If you enable this option but don't explicitly place the main function label anywhere in the code, it will automatically be defined at the top. This allows you to define other functions at the top of your script or within the main function itself."
+var items3 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
 for (/* Loop Parse */ let A_Index3 = 1; A_Index3 <= items3.length; A_Index3++)
 {
 variables.A_Index3 = A_Index3
 variables.A_LoopField3 = items3[A_Index3 - 1];
-variables.guiEditText = await StrReplace (await Trim (await StrSplit (variables.A_LoopField3 , ":" , 1) ) , "keyWord" , "" )
-variables.guiEditTextV = await Trim (variables.A_LoopField3 )
-variables.guiEditTextG = "Edit" + variables.A_Index3
+variables["theINFOtextEachText" + variables.A_Index3] += "By default the syntax is:\n" + variables.A_LoopField3
+}
+variables.guiEditY = 5
+var items4 = LoopParseFunc(variables.instructionDocumation, "\n", "\r");
+for (/* Loop Parse */ let A_Index4 = 1; A_Index4 <= items4.length; A_Index4++)
+{
+variables.A_Index4 = A_Index4
+variables.A_LoopField4 = items4[A_Index4 - 1];
+variables.guiEditText = await StrReplace (await Trim (await StrSplit (variables.A_LoopField4 , ":" , 1) ) , "keyWord" , "" )
+variables.guiEditTextV = variables.guiEditText + ":\n\n" + await Trim (variables["theINFOtextEachText" + variables.A_Index4] )
+variables.guiEditTextG = "Edit" + variables.A_Index4
 if (( await InStr (variables.guiEditText , "use") ))
 {
 //MsgBox, % guiEditText
@@ -4198,11 +4291,11 @@ Gui1.appendChild(Gui1[variables.guiEditTextV]);
 variables.guiEditY = variables.guiEditY + 30
 }
 variables.doneLoading = 0
-for (/* Normal Loop */ variables.A_Index4 = 1; variables.A_Index4 <= 86; variables.A_Index4++)
+for (/* Normal Loop */ variables.A_Index5 = 1; variables.A_Index5 <= 86; variables.A_Index5++)
 {
-variables.editTextTemp = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-" + variables.A_Index4 )
-variables.editTextTemp1 = "Edit" + variables.A_Index4
-if (( variables.A_Index4 == 1 ))
+variables.editTextTemp = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-" + variables.A_Index5 )
+variables.editTextTemp1 = "Edit" + variables.A_Index5
+if (( variables.A_Index5 == 1 ))
 {
 if (( variables.editTextTemp == variables.null ))
 {
@@ -4229,7 +4322,7 @@ GuiControl("enable", "Gui1Edit1JS");
 GuiControl("enable", "Gui1Edit1CPP");
 }
 }
-if (( variables.A_Index4 == 82 ))
+if (( variables.A_Index5 == 82 ))
 {
 if (( variables.editTextTemp == variables.null ))
 {
@@ -4256,63 +4349,63 @@ GuiControl("enable", "Gui1Edit82JS");
 GuiControl("enable", "Gui1Edit82CPP");
 }
 }
-if (( variables.A_Index4 == 85 ))
+if (( variables.A_Index5 == 85 ))
 {
 if (( variables.editTextTemp == "on" ))
 {
 await document.getElementById( 'Gui1Edit85') .click ()
 }
 }
-else if (( variables.A_Index4 == 84 ))
+else if (( variables.A_Index5 == 84 ))
 {
 if (( variables.editTextTemp == "on" ))
 {
 await document.getElementById( 'Gui1Edit84') .click ()
 }
 }
-else if (( variables.A_Index4 == 83 ))
+else if (( variables.A_Index5 == 83 ))
 {
 if (( variables.editTextTemp == "on" ))
 {
 await document.getElementById( 'Gui1Edit83') .click ()
 }
 }
-else if (( variables.A_Index4 == 81 ))
+else if (( variables.A_Index5 == 81 ))
 {
 if (( variables.editTextTemp == "on" ))
 {
 await document.getElementById( 'Gui1Edit81') .click ()
 }
 }
-else if (( variables.A_Index4 == 80 ))
+else if (( variables.A_Index5 == 80 ))
 {
 if (( variables.editTextTemp == "on" ))
 {
 await document.getElementById( 'Gui1Edit80') .click ()
 }
 }
-else if (( variables.A_Index4 == 79 ))
+else if (( variables.A_Index5 == 79 ))
 {
 if (( variables.editTextTemp == "on" ))
 {
 await document.getElementById( 'Gui1Edit79') .click ()
 }
 }
-else if (( variables.A_Index4 == 78 ))
+else if (( variables.A_Index5 == 78 ))
 {
 if (( variables.editTextTemp == "on" ))
 {
 await document.getElementById( 'Gui1Edit78') .click ()
 }
 }
-else if (( variables.A_Index4 == 77 ))
+else if (( variables.A_Index5 == 77 ))
 {
 if (( variables.editTextTemp == "on" ))
 {
 await document.getElementById( 'Gui1Edit77') .click ()
 }
 }
-else if (( variables.A_Index4 == 76 ))
+else if (( variables.A_Index5 == 76 ))
 {
 if (( variables.editTextTemp == "on" ))
 {
@@ -4321,10 +4414,10 @@ await document.getElementById( 'Gui1Edit76') .click ()
 }
 else
 {
-variables["EditText" + variables.A_Index4] = variables.editTextTemp
+variables["EditText" + variables.A_Index5] = variables.editTextTemp
 GuiControl("text", "Gui1" + variables.editTextTemp1, variables.editTextTemp);
 }
-variables["EditText" + variables.A_Index4] = variables.editTextTemp
+variables["EditText" + variables.A_Index5] = variables.editTextTemp
 }
 variables.doneLoading = 1
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -4369,12 +4462,12 @@ variables.MyDropDownFuncs = "HTVM_func1"
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" , variables.MyDropDownFuncs )
 }
 variables.MyDropDownFuncsTempFirstAddShowDisplay = ""
-var items5 = LoopParseFunc(variables.MyDropDownFuncs, "|");
-for (/* Loop Parse */ let A_Index5 = 1; A_Index5 <= items5.length; A_Index5++)
+var items6 = LoopParseFunc(variables.MyDropDownFuncs, "|");
+for (/* Loop Parse */ let A_Index6 = 1; A_Index6 <= items6.length; A_Index6++)
 {
-variables.A_Index5 = A_Index5
-variables.A_LoopField5 = items5[A_Index5 - 1];
-variables.MyDropDownFuncsTempFirstAddShowDisplay = variables.A_LoopField5
+variables.A_Index6 = A_Index6
+variables.A_LoopField6 = items6[A_Index6 - 1];
+variables.MyDropDownFuncsTempFirstAddShowDisplay = variables.A_LoopField6
 break
 }
 variables.currentFuncName = variables.MyDropDownFuncsTempFirstAddShowDisplay
@@ -4428,7 +4521,7 @@ A_GuiControl = event.target.textContent
   AddNewFuncButton(A_GuiControl);
 };
 Gui1.appendChild(Gui1Button9);
-variables.guiEditTextV = "explain the Add a new function"
+variables.guiEditTextV = "Add a New Function Info Button:\n\nThis button allows you to add a new custom function to your project. When you click it, you’ll be prompted to define the function’s name, libraries (if any), description, and the actual code. You can also specify the target languages for the function (JavaScript, Python, or C++) for automatic conversion.\n\n- Name: Choose a unique name for your built-in function.\n- Libraries: If your built-in function needs external libraries, you can specify them here (make sure to format them according to the target language).\n- Description: Provide a brief description of what the function does. If the description is more than one line, you can use the tilde (~) character to create new lines in the documentation.\n- Code: Write or paste the code for your built-in function in the provided code editor (IDE).\n\nOnce the function is added, you can easily reuse it in your code, and it will be correctly converted to the specified language when needed.\n\nExamples of function names:\n1. myFunction\n2. calculateSum\n3. get_data\n4. convertToUppercase\n5. handleButtonClick\n\nDescription:\nIf no description is needed for the function, simply type null this ensures that the documentation generation does not include any unnecessary information.\n\nLibraries:\nIf no libraries are needed for your built-in function, just type null this indicates that there are no external libraries required for the function's operation."
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
 Gui1[variables.guiEditTextV].textContent = "INFO";
@@ -4533,7 +4626,7 @@ GuiControl("enable", "Gui1EditFuncButtonLangJs");
 GuiControl("enable", "Gui1EditFuncButtonLangCpp");
 }
 variables.buttonX = variables.guiW + 15
-variables.guiEditTextV = "explain the cpp js py buttons"
+variables.guiEditTextV = "Function Language Selection Info Button:\n\nThis button lets you specify the programming language your built-in function will be converted to: JavaScript, Python, or C++. "
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
 Gui1[variables.guiEditTextV].textContent = "INFO";
@@ -4580,7 +4673,7 @@ A_GuiControl = Gui1EditFuncName.value
 Gui1.appendChild(Gui1EditFuncName);
 GuiControl("text", "Gui1EditFuncName", variables.MyDropDownFuncsTempFirstAddShowDisplay);
 variables.buttonX = variables.guiW + 15
-variables.guiEditTextV = "explain the name of the func"
+variables.guiEditTextV = "Change the name of the function here"
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
 Gui1[variables.guiEditTextV].textContent = "INFO";
@@ -4627,7 +4720,7 @@ A_GuiControl = Gui1EditFuncLibs.value
 Gui1.appendChild(Gui1EditFuncLibs);
 GuiControl("text", "Gui1EditFuncLibs", variables.MyFuncsLibs);
 variables.buttonX = variables.guiW + 15
-variables.guiEditTextV = "explain the libs like inport WASD|IMPORT qawsedd"
+variables.guiEditTextV = await Chr (76) + await Chr (105) + await Chr (98) + await Chr (115) + await Chr (58) + await Chr (10) + await Chr (10) + await Chr (73) + await Chr (102) + await Chr (32) + await Chr (121) + await Chr (111) + await Chr (117) + await Chr (39) + await Chr (114) + await Chr (101) + await Chr (32) + await Chr (99) + await Chr (111) + await Chr (110) + await Chr (118) + await Chr (101) + await Chr (114) + await Chr (116) + await Chr (105) + await Chr (110) + await Chr (103) + await Chr (32) + await Chr (121) + await Chr (111) + await Chr (117) + await Chr (114) + await Chr (32) + await Chr (102) + await Chr (117) + await Chr (110) + await Chr (99) + await Chr (116) + await Chr (105) + await Chr (111) + await Chr (110) + await Chr (32) + await Chr (116) + await Chr (111) + await Chr (32) + await Chr (74) + await Chr (97) + await Chr (118) + await Chr (97) + await Chr (83) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (44) + await Chr (32) + await Chr (121) + await Chr (111) + await Chr (117) + await Chr (32) + await Chr (99) + await Chr (97) + await Chr (110) + await Chr (32) + await Chr (101) + await Chr (105) + await Chr (116) + await Chr (104) + await Chr (101) + await Chr (114) + await Chr (32) + await Chr (117) + await Chr (115) + await Chr (101) + await Chr (32) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (116) + await Chr (97) + await Chr (103) + await Chr (115) + await Chr (32) + await Chr (102) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (98) + await Chr (114) + await Chr (111) + await Chr (119) + await Chr (115) + await Chr (101) + await Chr (114) + await Chr (32) + await Chr (108) + await Chr (105) + await Chr (98) + await Chr (114) + await Chr (97) + await Chr (114) + await Chr (105) + await Chr (101) + await Chr (115) + await Chr (32) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (78) + await Chr (111) + await Chr (100) + await Chr (101) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (32) + await Chr (105) + await Chr (109) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (115) + await Chr (32) + await Chr (105) + await Chr (102) + await Chr (32) + await Chr (121) + await Chr (111) + await Chr (117) + await Chr (39) + await Chr (114) + await Chr (101) + await Chr (32) + await Chr (110) + await Chr (111) + await Chr (116) + await Chr (32) + await Chr (99) + await Chr (111) + await Chr (110) + await Chr (118) + await Chr (101) + await Chr (114) + await Chr (116) + await Chr (105) + await Chr (110) + await Chr (103) + await Chr (32) + await Chr (116) + await Chr (111) + await Chr (32) + await Chr (97) + await Chr (32) + await Chr (102) + await Chr (117) + await Chr (108) + await Chr (108) + await Chr (32) + await Chr (72) + await Chr (84) + await Chr (77) + await Chr (76) + await Chr (32) + await Chr (102) + await Chr (105) + await Chr (108) + await Chr (101) + await Chr (46) + await Chr (32) + await Chr (84) + await Chr (104) + await Chr (101) + await Chr (114) + await Chr (101) + await Chr (8217) + await Chr (115) + await Chr (32) + await Chr (97) + await Chr (32) + await Chr (116) + await Chr (111) + await Chr (103) + await Chr (103) + await Chr (108) + await Chr (101) + await Chr (32) + await Chr (115) + await Chr (119) + await Chr (105) + await Chr (116) + await Chr (99) + await Chr (104) + await Chr (32) + await Chr (116) + await Chr (104) + await Chr (97) + await Chr (116) + await Chr (32) + await Chr (108) + await Chr (101) + await Chr (116) + await Chr (115) + await Chr (32) + await Chr (121) + await Chr (111) + await Chr (117) + await Chr (32) + await Chr (99) + await Chr (104) + await Chr (111) + await Chr (111) + await Chr (115) + await Chr (101) + await Chr (32) + await Chr (119) + await Chr (104) + await Chr (101) + await Chr (116) + await Chr (104) + await Chr (101) + await Chr (114) + await Chr (32) + await Chr (116) + await Chr (111) + await Chr (32) + await Chr (99) + await Chr (111) + await Chr (110) + await Chr (118) + await Chr (101) + await Chr (114) + await Chr (116) + await Chr (32) + await Chr (121) + await Chr (111) + await Chr (117) + await Chr (114) + await Chr (32) + await Chr (99) + await Chr (111) + await Chr (100) + await Chr (101) + await Chr (32) + await Chr (116) + await Chr (111) + await Chr (32) + await Chr (74) + await Chr (97) + await Chr (118) + await Chr (97) + await Chr (83) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (105) + await Chr (110) + await Chr (32) + await Chr (97) + await Chr (32) + await Chr (102) + await Chr (117) + await Chr (108) + await Chr (108) + await Chr (32) + await Chr (72) + await Chr (84) + await Chr (77) + await Chr (76) + await Chr (32) + await Chr (102) + await Chr (105) + await Chr (108) + await Chr (101) + await Chr (46) + await Chr (32) + await Chr (73) + await Chr (102) + await Chr (32) + await Chr (116) + await Chr (104) + await Chr (105) + await Chr (115) + await Chr (32) + await Chr (116) + await Chr (111) + await Chr (103) + await Chr (103) + await Chr (108) + await Chr (101) + await Chr (32) + await Chr (105) + await Chr (115) + await Chr (32) + await Chr (101) + await Chr (110) + await Chr (97) + await Chr (98) + await Chr (108) + await Chr (101) + await Chr (100) + await Chr (44) + await Chr (32) + await Chr (121) + await Chr (111) + await Chr (117) + await Chr (32) + await Chr (109) + await Chr (117) + await Chr (115) + await Chr (116) + await Chr (32) + await Chr (117) + await Chr (115) + await Chr (101) + await Chr (32) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (116) + await Chr (97) + await Chr (103) + await Chr (115) + await Chr (32) + await Chr (102) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (121) + await Chr (111) + await Chr (117) + await Chr (114) + await Chr (32) + await Chr (108) + await Chr (105) + await Chr (98) + await Chr (114) + await Chr (97) + await Chr (114) + await Chr (105) + await Chr (101) + await Chr (115) + await Chr (46) + await Chr (32) + await Chr (73) + await Chr (102) + await Chr (32) + await Chr (100) + await Chr (105) + await Chr (115) + await Chr (97) + await Chr (98) + await Chr (108) + await Chr (101) + await Chr (100) + await Chr (44) + await Chr (32) + await Chr (121) + await Chr (111) + await Chr (117) + await Chr (32) + await Chr (99) + await Chr (97) + await Chr (110) + await Chr (32) + await Chr (117) + await Chr (115) + await Chr (101) + await Chr (32) + await Chr (78) + await Chr (111) + await Chr (100) + await Chr (101) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (45) + await Chr (115) + await Chr (116) + await Chr (121) + await Chr (108) + await Chr (101) + await Chr (32) + await Chr (105) + await Chr (109) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (115) + await Chr (32) + await Chr (105) + await Chr (110) + await Chr (115) + await Chr (116) + await Chr (101) + await Chr (97) + await Chr (100) + await Chr (46) + await Chr (10) + await Chr (10) + await Chr (69) + await Chr (120) + await Chr (97) + await Chr (109) + await Chr (112) + await Chr (108) + await Chr (101) + await Chr (115) + await Chr (58) + await Chr (10) + await Chr (45) + await Chr (32) + await Chr (70) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (74) + await Chr (97) + await Chr (118) + await Chr (97) + await Chr (83) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (44) + await Chr (32) + await Chr (117) + await Chr (115) + await Chr (105) + await Chr (110) + await Chr (103) + await Chr (32) + await Chr (97) + await Chr (32) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (116) + await Chr (97) + await Chr (103) + await Chr (58) + await Chr (10) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (111) + await Chr (100) + await Chr (101) + await Chr (46) + await Chr (106) + await Chr (113) + await Chr (117) + await Chr (101) + await Chr (114) + await Chr (121) + await Chr (46) + await Chr (99) + await Chr (111) + await Chr (109) + await Chr (47) + await Chr (106) + await Chr (113) + await Chr (117) + await Chr (101) + await Chr (114) + await Chr (121) + await Chr (45) + await Chr (51) + await Chr (46) + await Chr (54) + await Chr (46) + await Chr (48) + await Chr (46) + await Chr (109) + await Chr (105) + await Chr (110) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (32) + await Chr (32) + await Chr (10) + await Chr (10) + await Chr (45) + await Chr (32) + await Chr (70) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (109) + await Chr (117) + await Chr (108) + await Chr (116) + await Chr (105) + await Chr (112) + await Chr (108) + await Chr (101) + await Chr (32) + await Chr (74) + await Chr (97) + await Chr (118) + await Chr (97) + await Chr (83) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (105) + await Chr (109) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (115) + await Chr (32) + await Chr (117) + await Chr (115) + await Chr (105) + await Chr (110) + await Chr (103) + await Chr (32) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (116) + await Chr (97) + await Chr (103) + await Chr (115) + await Chr (58) + await Chr (10) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (111) + await Chr (100) + await Chr (101) + await Chr (46) + await Chr (106) + await Chr (113) + await Chr (117) + await Chr (101) + await Chr (114) + await Chr (121) + await Chr (46) + await Chr (99) + await Chr (111) + await Chr (109) + await Chr (47) + await Chr (106) + await Chr (113) + await Chr (117) + await Chr (101) + await Chr (114) + await Chr (121) + await Chr (45) + await Chr (51) + await Chr (46) + await Chr (54) + await Chr (46) + await Chr (48) + await Chr (46) + await Chr (109) + await Chr (105) + await Chr (110) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (124) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (106) + await Chr (115) + await Chr (46) + await Chr (99) + await Chr (108) + await Chr (111) + await Chr (117) + await Chr (100) + await Chr (102) + await Chr (108) + await Chr (97) + await Chr (114) + await Chr (101) + await Chr (46) + await Chr (99) + await Chr (111) + await Chr (109) + await Chr (47) + await Chr (97) + await Chr (106) + await Chr (97) + await Chr (120) + await Chr (47) + await Chr (108) + await Chr (105) + await Chr (98) + await Chr (115) + await Chr (47) + await Chr (108) + await Chr (111) + await Chr (100) + await Chr (97) + await Chr (115) + await Chr (104) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (47) + await Chr (52) + await Chr (46) + await Chr (49) + await Chr (55) + await Chr (46) + await Chr (50) + await Chr (49) + await Chr (47) + await Chr (108) + await Chr (111) + await Chr (100) + await Chr (97) + await Chr (115) + await Chr (104) + await Chr (46) + await Chr (109) + await Chr (105) + await Chr (110) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (124) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (100) + await Chr (101) + await Chr (108) + await Chr (105) + await Chr (118) + await Chr (114) + await Chr (46) + await Chr (110) + await Chr (101) + await Chr (116) + await Chr (47) + await Chr (110) + await Chr (112) + await Chr (109) + await Chr (47) + await Chr (97) + await Chr (120) + await Chr (105) + await Chr (111) + await Chr (115) + await Chr (47) + await Chr (100) + await Chr (105) + await Chr (115) + await Chr (116) + await Chr (47) + await Chr (97) + await Chr (120) + await Chr (105) + await Chr (111) + await Chr (115) + await Chr (46) + await Chr (109) + await Chr (105) + await Chr (110) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (10) + await Chr (10) + await Chr (45) + await Chr (32) + await Chr (70) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (78) + await Chr (111) + await Chr (100) + await Chr (101) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (32) + await Chr (105) + await Chr (109) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (115) + await Chr (32) + await Chr (40) + await Chr (119) + await Chr (104) + await Chr (101) + await Chr (110) + await Chr (32) + await Chr (110) + await Chr (111) + await Chr (116) + await Chr (32) + await Chr (99) + await Chr (111) + await Chr (110) + await Chr (118) + await Chr (101) + await Chr (114) + await Chr (116) + await Chr (105) + await Chr (110) + await Chr (103) + await Chr (32) + await Chr (116) + await Chr (111) + await Chr (32) + await Chr (97) + await Chr (32) + await Chr (102) + await Chr (117) + await Chr (108) + await Chr (108) + await Chr (32) + await Chr (72) + await Chr (84) + await Chr (77) + await Chr (76) + await Chr (32) + await Chr (102) + await Chr (105) + await Chr (108) + await Chr (101) + await Chr (41) + await Chr (58) + await Chr (32) + await Chr (32) + await Chr (10) + await Chr (99) + await Chr (111) + await Chr (110) + await Chr (115) + await Chr (116) + await Chr (32) + await Chr (101) + await Chr (120) + await Chr (112) + await Chr (114) + await Chr (101) + await Chr (115) + await Chr (115) + await Chr (32) + await Chr (61) + await Chr (32) + await Chr (114) + await Chr (101) + await Chr (113) + await Chr (117) + await Chr (105) + await Chr (114) + await Chr (101) + await Chr (40) + await Chr (39) + await Chr (101) + await Chr (120) + await Chr (112) + await Chr (114) + await Chr (101) + await Chr (115) + await Chr (115) + await Chr (39) + await Chr (41) + await Chr (59) + await Chr (32) + await Chr (32) + await Chr (10) + await Chr (10) + await Chr (45) + await Chr (32) + await Chr (70) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (109) + await Chr (117) + await Chr (108) + await Chr (116) + await Chr (105) + await Chr (112) + await Chr (108) + await Chr (101) + await Chr (32) + await Chr (78) + await Chr (111) + await Chr (100) + await Chr (101) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (32) + await Chr (105) + await Chr (109) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (115) + await Chr (58) + await Chr (32) + await Chr (32) + await Chr (10) + await Chr (99) + await Chr (111) + await Chr (110) + await Chr (115) + await Chr (116) + await Chr (32) + await Chr (102) + await Chr (115) + await Chr (32) + await Chr (61) + await Chr (32) + await Chr (114) + await Chr (101) + await Chr (113) + await Chr (117) + await Chr (105) + await Chr (114) + await Chr (101) + await Chr (40) + await Chr (39) + await Chr (102) + await Chr (115) + await Chr (39) + await Chr (41) + await Chr (124) + await Chr (99) + await Chr (111) + await Chr (110) + await Chr (115) + await Chr (116) + await Chr (32) + await Chr (112) + await Chr (97) + await Chr (116) + await Chr (104) + await Chr (32) + await Chr (61) + await Chr (32) + await Chr (114) + await Chr (101) + await Chr (113) + await Chr (117) + await Chr (105) + await Chr (114) + await Chr (101) + await Chr (40) + await Chr (39) + await Chr (112) + await Chr (97) + await Chr (116) + await Chr (104) + await Chr (39) + await Chr (41) + await Chr (124) + await Chr (99) + await Chr (111) + await Chr (110) + await Chr (115) + await Chr (116) + await Chr (32) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (32) + await Chr (61) + await Chr (32) + await Chr (114) + await Chr (101) + await Chr (113) + await Chr (117) + await Chr (105) + await Chr (114) + await Chr (101) + await Chr (40) + await Chr (39) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (39) + await Chr (41) + await Chr (32) + await Chr (32) + await Chr (10) + await Chr (10) + await Chr (45) + await Chr (32) + await Chr (70) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (80) + await Chr (121) + await Chr (116) + await Chr (104) + await Chr (111) + await Chr (110) + await Chr (44) + await Chr (32) + await Chr (97) + await Chr (32) + await Chr (115) + await Chr (105) + await Chr (110) + await Chr (103) + await Chr (108) + await Chr (101) + await Chr (32) + await Chr (105) + await Chr (109) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (32) + await Chr (108) + await Chr (111) + await Chr (111) + await Chr (107) + await Chr (115) + await Chr (32) + await Chr (108) + await Chr (105) + await Chr (107) + await Chr (101) + await Chr (32) + await Chr (116) + await Chr (104) + await Chr (105) + await Chr (115) + await Chr (58) + await Chr (32) + await Chr (32) + await Chr (10) + await Chr (105) + await Chr (109) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (32) + await Chr (109) + await Chr (97) + await Chr (116) + await Chr (104) + await Chr (32) + await Chr (32) + await Chr (10) + await Chr (10) + await Chr (45) + await Chr (32) + await Chr (70) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (109) + await Chr (117) + await Chr (108) + await Chr (116) + await Chr (105) + await Chr (112) + await Chr (108) + await Chr (101) + await Chr (32) + await Chr (80) + await Chr (121) + await Chr (116) + await Chr (104) + await Chr (111) + await Chr (110) + await Chr (32) + await Chr (105) + await Chr (109) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (115) + await Chr (58) + await Chr (32) + await Chr (32) + await Chr (10) + await Chr (105) + await Chr (109) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (32) + await Chr (111) + await Chr (115) + await Chr (124) + await Chr (105) + await Chr (109) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (121) + await Chr (115) + await Chr (124) + await Chr (105) + await Chr (109) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (32) + await Chr (114) + await Chr (97) + await Chr (110) + await Chr (100) + await Chr (111) + await Chr (109) + await Chr (32) + await Chr (32) + await Chr (10) + await Chr (10) + await Chr (45) + await Chr (32) + await Chr (70) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (67) + await Chr (43) + await Chr (43) + await Chr (44) + await Chr (32) + await Chr (97) + await Chr (32) + await Chr (115) + await Chr (105) + await Chr (110) + await Chr (103) + await Chr (108) + await Chr (101) + await Chr (32) + await Chr (105) + await Chr (110) + await Chr (99) + await Chr (108) + await Chr (117) + await Chr (100) + await Chr (101) + await Chr (58) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (10) + await Chr (35) + await Chr (105) + await Chr (110) + await Chr (99) + await Chr (108) + await Chr (117) + await Chr (100) + await Chr (101) + await Chr (32) + await Chr (60) + await Chr (105) + await Chr (111) + await Chr (115) + await Chr (116) + await Chr (114) + await Chr (101) + await Chr (97) + await Chr (109) + await Chr (62) + await Chr (32) + await Chr (32) + await Chr (10) + await Chr (10) + await Chr (45) + await Chr (32) + await Chr (70) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (109) + await Chr (117) + await Chr (108) + await Chr (116) + await Chr (105) + await Chr (112) + await Chr (108) + await Chr (101) + await Chr (32) + await Chr (67) + await Chr (43) + await Chr (43) + await Chr (32) + await Chr (105) + await Chr (110) + await Chr (99) + await Chr (108) + await Chr (117) + await Chr (100) + await Chr (101) + await Chr (115) + await Chr (58) + await Chr (32) + await Chr (32) + await Chr (10) + await Chr (35) + await Chr (105) + await Chr (110) + await Chr (99) + await Chr (108) + await Chr (117) + await Chr (100) + await Chr (101) + await Chr (32) + await Chr (60) + await Chr (118) + await Chr (101) + await Chr (99) + await Chr (116) + await Chr (111) + await Chr (114) + await Chr (62) + await Chr (124) + await Chr (35) + await Chr (105) + await Chr (110) + await Chr (99) + await Chr (108) + await Chr (117) + await Chr (100) + await Chr (101) + await Chr (32) + await Chr (60) + await Chr (97) + await Chr (108) + await Chr (103) + await Chr (111) + await Chr (114) + await Chr (105) + await Chr (116) + await Chr (104) + await Chr (109) + await Chr (62) + await Chr (124) + await Chr (35) + await Chr (105) + await Chr (110) + await Chr (99) + await Chr (108) + await Chr (117) + await Chr (100) + await Chr (101) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (116) + await Chr (114) + await Chr (105) + await Chr (110) + await Chr (103) + await Chr (62) + "\n\nIf no libraries are needed for your built-in function, just type null this indicates that there are no external libraries required for the function's operation."
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
 Gui1[variables.guiEditTextV].textContent = "INFO";
@@ -4674,7 +4767,7 @@ A_GuiControl = Gui1EditFuncDescription.value
 Gui1.appendChild(Gui1EditFuncDescription);
 GuiControl("text", "Gui1EditFuncDescription", variables.MyFuncsDescription);
 variables.buttonX = variables.guiW + 15
-variables.guiEditTextV = "explain the Description"
+variables.guiEditTextV = "Description Info Button:\n\nThe description field lets you provide a brief explanation of what your built-in function does. This is especially useful for documentation purposes. Keep it concise, and if you need to use multiple lines, you can insert a tilde (~) to create new lines in the generated documentation.\n\n- One-line description: Write a simple description of your built-in function.\n- Multi-line support: Use the tilde (~) to split long descriptions into multiple lines.\n\nExample descriptions:\n" + "1. This function calculates the sum of two numbers.\n2. Converts a string to uppercase letters for display.\n3. Retrieves data from the server and handles any errors.\n4. Handles button clicks and updates the UI accordingly.\n5. Generates a random number between 1 and 100." + "\n\nIf no description is needed for the function, simply type null this ensures that the documentation generation does not include any unnecessary information."
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
 Gui1[variables.guiEditTextV].textContent = "INFO";
@@ -4725,7 +4818,7 @@ GuiControl("hide", "Gui1IDEcpp");
 GuiControl("hide", "Gui1IDEpy");
 GuiControl("show", "Gui1IDEjs");
 }
-variables.guiEditTextV = "explain the IDE"
+variables.guiEditTextV = "IDE Info Button:\n\nThis is where you can write or paste the actual code for your built-in function. The code you enter here will be used when your built-in function is called in the programming language you're creating. Make sure the function name matches the name you've defined, and that your code is written correctly for the language you're targeting.\n\n- Write your built-in function code: Enter the code for the function you're creating here.\n- Make sure it's correct: Ensure the syntax matches the target language (JavaScript, Python, C++).\n- Function name consistency: The function name in your code should match the name you've set for the function.\n\nExamples:\njs:\n\nfunction add(a, b) {\n  return a + b;\n}\n\npy:\n\ndef add(a, b):\n    return a + b\n\ncpp:\n\nint add(int a, int b) {\n    return a + b;\n}"
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
 Gui1[variables.guiEditTextV].textContent = "INFO";
@@ -4770,7 +4863,7 @@ A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
   IDEshow(A_GuiControl);
 };
 Gui1.appendChild(Gui1IDEshow);
-variables.guiEditTextV = "explain the Showing your code"
+variables.guiEditTextV = "Update Live Preview Button:\n\nThis button allows you to see how your custom programming language looks in real time. \n\n- Update Live Preview: Clicking this button will refresh the preview to show the latest version of your language, reflecting all the customizations you've made.\n- Syntax Focus: The live preview displays your language's syntax, including custom keywords, operators, and other rules you've set up.\n- Immediate Feedback: Use the preview to quickly validate how your changes affect the overall structure of your language.\n\nAlways click " + await Chr (34) + "Update Live Preview" + await Chr (34) + " to ensure you're seeing the most up-to-date version of your language design."
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
 Gui1[variables.guiEditTextV].textContent = "INFO";
@@ -4815,7 +4908,7 @@ A_GuiControl = event.target.textContent
   BuildButton(A_GuiControl);
 };
 Gui1.appendChild(Gui1Button21);
-variables.guiEditTextV = "explain the Build button"
+variables.guiEditTextV = "Build Button Explanation:\n\nThe Build button allows you to download the programming language you just created, along with relevant files for its use.\n\n- Toggle all HTVM pre-made Built-in functions: This switch lets you choose whether to include or exclude HTVM's pre-made functions in your generated files. When toggled on, these built-in functions provided by HTVM will be integrated into the language, offering a wide range of functionalities that enhance the language's capabilities.\n\n- Download HT-instructions.txt: Clicking this button downloads a file containing specific instructions for the compiler to understand your language. This file is essential for ensuring the correct functioning of the language you've created.\n\n- Download IDE.html: This button allows you to download an HTML file containing an IDE tailored for the language you just created. It provides a convenient development environment accessible directly from your browser.\n\nBy clicking these buttons, you can export your custom language with or without HTVM's built-in functions and obtain all necessary components to start using your language effectively."
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
 Gui1[variables.guiEditTextV].textContent = "INFO";
@@ -4847,14 +4940,14 @@ async function MyDropDown(A_GuiControl)
 variables.currentFuncNameOLD = A_GuiControl
 variables.currentFuncName = A_GuiControl
 variables.MyDropDownFuncsNUM = 0
-var items6 = LoopParseFunc(variables.MyDropDownFuncs, "|");
-for (/* Loop Parse */ let A_Index6 = 1; A_Index6 <= items6.length; A_Index6++)
+var items7 = LoopParseFunc(variables.MyDropDownFuncs, "|");
+for (/* Loop Parse */ let A_Index7 = 1; A_Index7 <= items7.length; A_Index7++)
 {
-variables.A_Index6 = A_Index6
-variables.A_LoopField6 = items6[A_Index6 - 1];
-if (( variables.A_LoopField6 == A_GuiControl ))
+variables.A_Index7 = A_Index7
+variables.A_LoopField7 = items7[A_Index7 - 1];
+if (( variables.A_LoopField7 == A_GuiControl ))
 {
-variables.funcWeAreModifying = variables.A_Index6
+variables.funcWeAreModifying = variables.A_Index7
 break
 }
 }
@@ -4983,11 +5076,11 @@ GuiControl("textide", "Gui1IDEjs", variables.MyFuncsCode);
 async function AddNewFuncButton(A_GuiControl)
 {
 variables.MyDropDownFuncsNUM = 0
-var items7 = LoopParseFunc(variables.MyDropDownFuncs, "|");
-for (/* Loop Parse */ let A_Index7 = 1; A_Index7 <= items7.length; A_Index7++)
+var items8 = LoopParseFunc(variables.MyDropDownFuncs, "|");
+for (/* Loop Parse */ let A_Index8 = 1; A_Index8 <= items8.length; A_Index8++)
 {
-variables.A_Index7 = A_Index7
-variables.A_LoopField7 = items7[A_Index7 - 1];
+variables.A_Index8 = A_Index8
+variables.A_LoopField8 = items8[A_Index8 - 1];
 variables.MyDropDownFuncsNUM += 1
 }
 variables.MyDropDownFuncsNUM += 1
@@ -5121,12 +5214,12 @@ GuiControl("textide", "Gui1IDEjs", variables.MyFuncsCode);
 async function isFuncNameValid(FuncName)
 {
 variables.FuncName = FuncName
-var items8 = LoopParseFunc(variables.FuncName);
-for (/* Loop Parse */ let A_Index8 = 1; A_Index8 <= items8.length; A_Index8++)
+var items9 = LoopParseFunc(variables.FuncName);
+for (/* Loop Parse */ let A_Index9 = 1; A_Index9 <= items9.length; A_Index9++)
 {
-variables.A_Index8 = A_Index8
-variables.A_LoopField8 = items8[A_Index8 - 1];
-variables.matchPosition = await RegExMatch (variables.A_LoopField8 , "[A-Za-z0-9_]+" )
+variables.A_Index9 = A_Index9
+variables.A_LoopField9 = items9[A_Index9 - 1];
+variables.matchPosition = await RegExMatch (variables.A_LoopField9 , "[A-Za-z0-9_]+" )
 if (( variables.matchPosition == 0 ))
 {
 return false
@@ -5160,18 +5253,18 @@ await showCustomMessageBox({},"ERROR", "Please fix your error by pressing the Ba
 variables.currentFuncName = A_GuiControl
 variables.currentFuncNameOLD = A_GuiControl
 variables.MyDropDownFuncsOut = ""
-var items9 = LoopParseFunc(variables.MyDropDownFuncs, "|");
-for (/* Loop Parse */ let A_Index9 = 1; A_Index9 <= items9.length; A_Index9++)
+var items10 = LoopParseFunc(variables.MyDropDownFuncs, "|");
+for (/* Loop Parse */ let A_Index10 = 1; A_Index10 <= items10.length; A_Index10++)
 {
-variables.A_Index9 = A_Index9
-variables.A_LoopField9 = items9[A_Index9 - 1];
-if (( variables.A_Index9 == variables.funcWeAreModifying ))
+variables.A_Index10 = A_Index10
+variables.A_LoopField10 = items10[A_Index10 - 1];
+if (( variables.A_Index10 == variables.funcWeAreModifying ))
 {
 variables.MyDropDownFuncsOut += A_GuiControl + "|"
 }
 else
 {
-variables.MyDropDownFuncsOut += variables.A_LoopField9 + "|"
+variables.MyDropDownFuncsOut += variables.A_LoopField10 + "|"
 }
 }
 variables.MyDropDownFuncs = StringTrimRight(variables.MyDropDownFuncsOut, 1)
@@ -5224,90 +5317,90 @@ async function IDEshow(A_GuiControl)
 {
 variables.allData = ""
 variables.defaultSyntax = "cpp\nht\nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,param1|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'param1|Sort,OUTVAR,'param1,'param2\nint\nstr\nbool\nfloat\nint8\nint16\nint32\nint64\nif\nelse if\nelse\nwhile\nfor\nLoop\nLoop,\nLoop, Parse,\ncontinue\nbreak\nfunc\nawait\n=\n+=\n+=\n-=\n*=\n/=\n+\n+\n==\n!\n>\n<\n>=\n<=\nor\nand\n!=\ntrue\nfalse\nswitch\ncase\ndefault\nthrow\nErrorMsg\ntry\ncatch\nfinally\n.push\n.pop\n.size\n.insert\n.rm\n.indexOf\narr\narr int\narr str\narr float\narr bool\nvar\nlet\nconst\nreturn\nend\nglobal\n//\n/*\n*/\n" + await Chr (92) + "\n0\nA_Index\nA_LoopField\nmain\non\non\noff\noff\non\noff\ncpp\non\non\noff"
-var items10 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
-for (/* Loop Parse */ let A_Index10 = 1; A_Index10 <= items10.length; A_Index10++)
+var items11 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
+for (/* Loop Parse */ let A_Index11 = 1; A_Index11 <= items11.length; A_Index11++)
 {
-variables.A_Index10 = A_Index10
-variables.A_LoopField10 = items10[A_Index10 - 1];
-variables["defaultSyntax" + variables.A_Index10] = variables.A_LoopField10
+variables.A_Index11 = A_Index11
+variables.A_LoopField11 = items11[A_Index11 - 1];
+variables["defaultSyntax" + variables.A_Index11] = variables.A_LoopField11
 }
-for (/* Normal Loop */ variables.A_Index11 = 1; variables.A_Index11 <= 85; variables.A_Index11++)
+for (/* Normal Loop */ variables.A_Index12 = 1; variables.A_Index12 <= 85; variables.A_Index12++)
 {
-if (( variables["EditText" + variables.A_Index11]  != "") || (variables["EditText" + variables.A_Index11]  != variables.null ))
+if (( variables["EditText" + variables.A_Index12]  != "") || (variables["EditText" + variables.A_Index12]  != variables.null ))
 {
-if (( variables.A_Index11 == 2 ))
+if (( variables.A_Index12 == 2 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 1)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index12] , 1)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index11 >= 24) && (variables.A_Index11 <= 29 ))
+else if (( variables.A_Index12 >= 24) && (variables.A_Index12 <= 29 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 6)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index11 == 47 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 2)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index12] , 6)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index11 >= 51) && (variables.A_Index11 <= 56 ))
+else if (( variables.A_Index12 == 47 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 3)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index11 == 68 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 7)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index12] , 2)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index11 == 69 ))
+else if (( variables.A_Index12 >= 51) && (variables.A_Index12 <= 56 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 9)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index11 == 70 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 9)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index12] , 3)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index11 == 71 ))
+else if (( variables.A_Index12 == 68 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 4)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index12] , 7)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index11 == 72 ))
+else if (( variables.A_Index12 == 69 ))
 {
-if (( await Trim (variables["EditText" + variables.A_Index11]) == "-" ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index12] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index12 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index12] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index12 == 71 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index12] , 4)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index12 == 72 ))
+{
+if (( await Trim (variables["EditText" + variables.A_Index12]) == "-" ))
 {
 await showCustomMessageBox({},"Invalid Instructions", "At AHKlikeLoopsIndexedAt you only added a - character. A number must follow the - or it should be a standalone number.", 16, 0)
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 5)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index12] , 5)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
@@ -5315,35 +5408,35 @@ return
 }
 else
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index11] , 0)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index12] , 0)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
 }
-if (( await Trim (variables["EditText" + variables.A_Index11]) == "") || (variables["EditText" + variables.A_Index11] == variables.null ))
+if (( await Trim (variables["EditText" + variables.A_Index12]) == "") || (variables["EditText" + variables.A_Index12] == variables.null ))
 {
-variables["EditText" + variables.A_Index11] = variables["defaultSyntax" + variables.A_Index11]
+variables["EditText" + variables.A_Index12] = variables["defaultSyntax" + variables.A_Index12]
 }
-variables.allData += await Trim (variables["EditText" + variables.A_Index11]) + "\n"
+variables.allData += await Trim (variables["EditText" + variables.A_Index12]) + "\n"
 }
 variables.allFuncNamesForSavingIt = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" )
 if (( variables.allFuncNamesForSavingIt  != variables.null ))
 {
 variables.allFuncNamesForSavingItOut = ""
-var items12 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
-for (/* Loop Parse */ let A_Index12 = 1; A_Index12 <= items12.length; A_Index12++)
+var items13 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
+for (/* Loop Parse */ let A_Index13 = 1; A_Index13 <= items13.length; A_Index13++)
 {
-variables.A_Index12 = A_Index12
-variables.A_LoopField12 = items12[A_Index12 - 1];
-variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField12 )
-variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField12 )
-variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField12 )
-variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField12 )
+variables.A_Index13 = A_Index13
+variables.A_LoopField13 = items13[A_Index13 - 1];
+variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField13 )
+variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField13 )
+variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField13 )
+variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField13 )
 variables.bodyFuncTemp1 = "func======================func==============\n"
 variables.bodyFuncTemp2 = "lang: " + variables.tempReadSave1
-variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField12
+variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField13
 variables.bodyFuncTemp4 = "\nlibs: " + variables.tempReadSave4
 variables.bodyFuncTemp5 = "\ndescription: " + variables.tempReadSave2
 variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
@@ -6506,90 +6599,90 @@ async function BuildButton(A_GuiControl)
 {
 variables.allData = ""
 variables.defaultSyntax = "cpp\nht\nStringTrimLeft,OUTVAR,INVAR|StringTrimRight,OUTVAR,INVAR\nint\nstr\nbool\nfloat\nint8\nint16\nint32\nint64\nif\nelse if\nelse\nwhile\nfor\nLoop\nLoop,\nLoop, Parse,\ncontinue\nbreak\nfunc\nawait\n=\n+=\n+=\n-=\n*=\n/=\n+\n+\n==\n!\n>\n<\n>=\n<=\nor\nand\n!=\ntrue\nfalse\nswitch\ncase\ndefault\nthrow\nErrorMsg\ntry\ncatch\nfinally\n.push\n.pop\n.size\n.insert\n.rm\n.indexOf\narr\narr int\narr str\narr float\narr bool\nvar\nlet\nconst\nreturn\nend\nglobal\n//\n/*\n*/\n" + await Chr (92) + "\n0\nA_Index\nA_LoopField\nmain\non\non\noff\noff\non\noff\ncpp\non\non\noff"
-var items13 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
-for (/* Loop Parse */ let A_Index13 = 1; A_Index13 <= items13.length; A_Index13++)
+var items14 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
+for (/* Loop Parse */ let A_Index14 = 1; A_Index14 <= items14.length; A_Index14++)
 {
-variables.A_Index13 = A_Index13
-variables.A_LoopField13 = items13[A_Index13 - 1];
-variables["defaultSyntax" + variables.A_Index13] = variables.A_LoopField13
+variables.A_Index14 = A_Index14
+variables.A_LoopField14 = items14[A_Index14 - 1];
+variables["defaultSyntax" + variables.A_Index14] = variables.A_LoopField14
 }
-for (/* Normal Loop */ variables.A_Index14 = 1; variables.A_Index14 <= 85; variables.A_Index14++)
+for (/* Normal Loop */ variables.A_Index15 = 1; variables.A_Index15 <= 85; variables.A_Index15++)
 {
-if (( variables["EditText" + variables.A_Index14]  != "") || (variables["EditText" + variables.A_Index14]  != variables.null ))
+if (( variables["EditText" + variables.A_Index15]  != "") || (variables["EditText" + variables.A_Index15]  != variables.null ))
 {
-if (( variables.A_Index14 == 2 ))
+if (( variables.A_Index15 == 2 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 1)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index15] , 1)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index14 >= 24) && (variables.A_Index14 <= 29 ))
+else if (( variables.A_Index15 >= 24) && (variables.A_Index15 <= 29 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 6)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index14 == 47 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 2)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index15] , 6)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index14 >= 51) && (variables.A_Index14 <= 56 ))
+else if (( variables.A_Index15 == 47 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 3)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index14 == 68 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 7)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index15] , 2)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index14 == 69 ))
+else if (( variables.A_Index15 >= 51) && (variables.A_Index15 <= 56 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 9)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index14 == 70 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 9)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index15] , 3)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index14 == 71 ))
+else if (( variables.A_Index15 == 68 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 4)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index15] , 7)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index14 == 72 ))
+else if (( variables.A_Index15 == 69 ))
 {
-if (( await Trim (variables["EditText" + variables.A_Index14]) == "-" ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index15] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index15 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index15] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index15 == 71 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index15] , 4)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index15 == 72 ))
+{
+if (( await Trim (variables["EditText" + variables.A_Index15]) == "-" ))
 {
 await showCustomMessageBox({},"Invalid Instructions", "At AHKlikeLoopsIndexedAt you only added a - character. A number must follow the - or it should be a standalone number.", 16, 0)
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 5)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index15] , 5)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
@@ -6597,7 +6690,7 @@ return
 }
 else
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index14] , 0)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index15] , 0)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
@@ -6635,98 +6728,98 @@ async function ButtonDownloadIDE(A_GuiControl)
 {
 variables.allData = ""
 variables.defaultSyntax = "cpp\nht\nStringTrimLeft,OUTVAR,INVAR|StringTrimRight,OUTVAR,INVAR\nint\nstr\nbool\nfloat\nint8\nint16\nint32\nint64\nif\nelse if\nelse\nwhile\nfor\nLoop\nLoop,\nLoop, Parse,\ncontinue\nbreak\nfunc\nawait\n=\n+=\n+=\n-=\n*=\n/=\n+\n+\n==\n!\n>\n<\n>=\n<=\nor\nand\n!=\ntrue\nfalse\nswitch\ncase\ndefault\nthrow\nErrorMsg\ntry\ncatch\nfinally\n.push\n.pop\n.size\n.insert\n.rm\n.indexOf\narr\narr int\narr str\narr float\narr bool\nvar\nlet\nconst\nreturn\nend\nglobal\n//\n/*\n*/\n" + await Chr (92) + "\n0\nA_Index\nA_LoopField\nmain\non\non\noff\noff\non\noff\ncpp\non\non\noff"
-var items15 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
-for (/* Loop Parse */ let A_Index15 = 1; A_Index15 <= items15.length; A_Index15++)
+var items16 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
+for (/* Loop Parse */ let A_Index16 = 1; A_Index16 <= items16.length; A_Index16++)
 {
-variables.A_Index15 = A_Index15
-variables.A_LoopField15 = items15[A_Index15 - 1];
-variables["defaultSyntax" + variables.A_Index15] = variables.A_LoopField15
+variables.A_Index16 = A_Index16
+variables.A_LoopField16 = items16[A_Index16 - 1];
+variables["defaultSyntax" + variables.A_Index16] = variables.A_LoopField16
 }
-for (/* Normal Loop */ variables.A_Index16 = 1; variables.A_Index16 <= 85; variables.A_Index16++)
+for (/* Normal Loop */ variables.A_Index17 = 1; variables.A_Index17 <= 85; variables.A_Index17++)
 {
-if (( variables["EditText" + variables.A_Index16]  != "") || (variables["EditText" + variables.A_Index16]  != variables.null ))
+if (( variables["EditText" + variables.A_Index17]  != "") || (variables["EditText" + variables.A_Index17]  != variables.null ))
 {
-if (( variables.A_Index16 == 2 ))
+if (( variables.A_Index17 == 2 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 1)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 1)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index16 >= 24) && (variables.A_Index16 <= 29 ))
+else if (( variables.A_Index17 >= 24) && (variables.A_Index17 <= 29 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 6)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index16 == 47 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 2)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 6)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index16 >= 51) && (variables.A_Index16 <= 56 ))
+else if (( variables.A_Index17 == 47 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 3)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index16 == 68 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 7)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 2)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index16 == 69 ))
+else if (( variables.A_Index17 >= 51) && (variables.A_Index17 <= 56 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 9)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index16 == 70 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 9)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 3)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index16 == 70 ))
+else if (( variables.A_Index17 == 68 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 9)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index16 == 71 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 4)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 7)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index16 == 72 ))
+else if (( variables.A_Index17 == 69 ))
 {
-if (( await Trim (variables["EditText" + variables.A_Index16]) == "-" ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index17 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index17 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index17 == 71 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 4)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index17 == 72 ))
+{
+if (( await Trim (variables["EditText" + variables.A_Index17]) == "-" ))
 {
 await showCustomMessageBox({},"Invalid Instructions", "At AHKlikeLoopsIndexedAt you only added a - character. A number must follow the - or it should be a standalone number.", 16, 0)
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 5)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 5)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
@@ -6734,35 +6827,35 @@ return
 }
 else
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index16] , 0)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 0)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
 }
-if (( await Trim (variables["EditText" + variables.A_Index16]) == "") || (variables["EditText" + variables.A_Index16] == variables.null ))
+if (( await Trim (variables["EditText" + variables.A_Index17]) == "") || (variables["EditText" + variables.A_Index17] == variables.null ))
 {
-variables["EditText" + variables.A_Index16] = variables["defaultSyntax" + variables.A_Index16]
+variables["EditText" + variables.A_Index17] = variables["defaultSyntax" + variables.A_Index17]
 }
-variables.allData += await Trim (variables["EditText" + variables.A_Index16]) + "\n"
+variables.allData += await Trim (variables["EditText" + variables.A_Index17]) + "\n"
 }
 variables.allFuncNamesForSavingIt = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" )
 if (( variables.allFuncNamesForSavingIt  != variables.null ))
 {
 variables.allFuncNamesForSavingItOut = ""
-var items17 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
-for (/* Loop Parse */ let A_Index17 = 1; A_Index17 <= items17.length; A_Index17++)
+var items18 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
+for (/* Loop Parse */ let A_Index18 = 1; A_Index18 <= items18.length; A_Index18++)
 {
-variables.A_Index17 = A_Index17
-variables.A_LoopField17 = items17[A_Index17 - 1];
-variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField17 )
-variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField17 )
-variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField17 )
-variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField17 )
+variables.A_Index18 = A_Index18
+variables.A_LoopField18 = items18[A_Index18 - 1];
+variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField18 )
+variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField18 )
+variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField18 )
+variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField18 )
 variables.bodyFuncTemp1 = "func======================func==============\n"
 variables.bodyFuncTemp2 = "lang: " + variables.tempReadSave1
-variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField17
+variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField18
 variables.bodyFuncTemp4 = "\nlibs: " + variables.tempReadSave4
 variables.bodyFuncTemp5 = "\ndescription: " + variables.tempReadSave2
 variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
@@ -6783,90 +6876,90 @@ async function ButtonDownloadInstruction(A_GuiControl)
 {
 variables.allData = ""
 variables.defaultSyntax = "cpp\nht\nStringTrimLeft,OUTVAR,INVAR|StringTrimRight,OUTVAR,INVAR\nint\nstr\nbool\nfloat\nint8\nint16\nint32\nint64\nif\nelse if\nelse\nwhile\nfor\nLoop\nLoop,\nLoop, Parse,\ncontinue\nbreak\nfunc\nawait\n=\n+=\n+=\n-=\n*=\n/=\n+\n+\n==\n!\n>\n<\n>=\n<=\nor\nand\n!=\ntrue\nfalse\nswitch\ncase\ndefault\nthrow\nErrorMsg\ntry\ncatch\nfinally\n.push\n.pop\n.size\n.insert\n.rm\n.indexOf\narr\narr int\narr str\narr float\narr bool\nvar\nlet\nconst\nreturn\nend\nglobal\n//\n/*\n*/\n" + await Chr (92) + "\n0\nA_Index\nA_LoopField\nmain\non\non\noff\noff\non\noff\ncpp\non\non\noff"
-var items18 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
-for (/* Loop Parse */ let A_Index18 = 1; A_Index18 <= items18.length; A_Index18++)
+var items19 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
+for (/* Loop Parse */ let A_Index19 = 1; A_Index19 <= items19.length; A_Index19++)
 {
-variables.A_Index18 = A_Index18
-variables.A_LoopField18 = items18[A_Index18 - 1];
-variables["defaultSyntax" + variables.A_Index18] = variables.A_LoopField18
+variables.A_Index19 = A_Index19
+variables.A_LoopField19 = items19[A_Index19 - 1];
+variables["defaultSyntax" + variables.A_Index19] = variables.A_LoopField19
 }
-for (/* Normal Loop */ variables.A_Index19 = 1; variables.A_Index19 <= 85; variables.A_Index19++)
+for (/* Normal Loop */ variables.A_Index20 = 1; variables.A_Index20 <= 85; variables.A_Index20++)
 {
-if (( variables["EditText" + variables.A_Index19]  != "") || (variables["EditText" + variables.A_Index19]  != variables.null ))
+if (( variables["EditText" + variables.A_Index20]  != "") || (variables["EditText" + variables.A_Index20]  != variables.null ))
 {
-if (( variables.A_Index19 == 2 ))
+if (( variables.A_Index20 == 2 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 1)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 1)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index19 >= 24) && (variables.A_Index19 <= 29 ))
+else if (( variables.A_Index20 >= 24) && (variables.A_Index20 <= 29 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 6)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index19 == 47 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 2)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 6)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index19 >= 51) && (variables.A_Index19 <= 56 ))
+else if (( variables.A_Index20 == 47 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 3)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index19 == 68 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 7)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 2)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index19 == 69 ))
+else if (( variables.A_Index20 >= 51) && (variables.A_Index20 <= 56 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 9)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index19 == 70 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 9)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 3)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index19 == 71 ))
+else if (( variables.A_Index20 == 68 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 4)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 7)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index19 == 72 ))
+else if (( variables.A_Index20 == 69 ))
 {
-if (( await Trim (variables["EditText" + variables.A_Index19]) == "-" ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index20 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index20 == 71 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 4)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index20 == 72 ))
+{
+if (( await Trim (variables["EditText" + variables.A_Index20]) == "-" ))
 {
 await showCustomMessageBox({},"Invalid Instructions", "At AHKlikeLoopsIndexedAt you only added a - character. A number must follow the - or it should be a standalone number.", 16, 0)
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 5)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 5)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
@@ -6874,35 +6967,35 @@ return
 }
 else
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index19] , 0)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 0)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
 }
-if (( await Trim (variables["EditText" + variables.A_Index19]) == "") || (variables["EditText" + variables.A_Index19] == variables.null ))
+if (( await Trim (variables["EditText" + variables.A_Index20]) == "") || (variables["EditText" + variables.A_Index20] == variables.null ))
 {
-variables["EditText" + variables.A_Index19] = variables["defaultSyntax" + variables.A_Index19]
+variables["EditText" + variables.A_Index20] = variables["defaultSyntax" + variables.A_Index20]
 }
-variables.allData += await Trim (variables["EditText" + variables.A_Index19]) + "\n"
+variables.allData += await Trim (variables["EditText" + variables.A_Index20]) + "\n"
 }
 variables.allFuncNamesForSavingIt = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" )
 if (( variables.allFuncNamesForSavingIt  != variables.null ))
 {
 variables.allFuncNamesForSavingItOut = ""
-var items20 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
-for (/* Loop Parse */ let A_Index20 = 1; A_Index20 <= items20.length; A_Index20++)
+var items21 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
+for (/* Loop Parse */ let A_Index21 = 1; A_Index21 <= items21.length; A_Index21++)
 {
-variables.A_Index20 = A_Index20
-variables.A_LoopField20 = items20[A_Index20 - 1];
-variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField20 )
-variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField20 )
-variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField20 )
-variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField20 )
+variables.A_Index21 = A_Index21
+variables.A_LoopField21 = items21[A_Index21 - 1];
+variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField21 )
+variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField21 )
+variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField21 )
+variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField21 )
 variables.bodyFuncTemp1 = "func======================func==============\n"
 variables.bodyFuncTemp2 = "lang: " + variables.tempReadSave1
-variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField20
+variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField21
 variables.bodyFuncTemp4 = "\nlibs: " + variables.tempReadSave4
 variables.bodyFuncTemp5 = "\ndescription: " + variables.tempReadSave2
 variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
@@ -7065,349 +7158,349 @@ variables.theJSvarDeclaredVarsBugFix = "|"
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; code starts here realy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; code starts here realy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 variables.ALoopField = ""
-var items21 = LoopParseFunc(variables.instructions, "\n", "\r");
-for (/* Loop Parse */ let A_Index21 = 1; A_Index21 <= items21.length; A_Index21++)
+var items22 = LoopParseFunc(variables.instructions, "\n", "\r");
+for (/* Loop Parse */ let A_Index22 = 1; A_Index22 <= items22.length; A_Index22++)
 {
-variables.A_Index21 = A_Index21
-variables.A_LoopField21 = items21[A_Index21 - 1];
-variables.ALoopField = variables.A_LoopField21
-if (( variables.A_Index21 == 1 ))
+variables.A_Index22 = A_Index22
+variables.A_LoopField22 = items22[A_Index22 - 1];
+variables.ALoopField = variables.A_LoopField22
+if (( variables.A_Index22 == 1 ))
 {
 variables.langToTranspileTo = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 2 ))
+if (( variables.A_Index22 == 2 ))
 {
 variables.fileExtention = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 3 ))
+if (( variables.A_Index22 == 3 ))
 {
 variables.keyWordsCommands = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 4 ))
+if (( variables.A_Index22 == 4 ))
 {
 variables.keyWordINT = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 5 ))
+if (( variables.A_Index22 == 5 ))
 {
 variables.keyWordSTR = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 6 ))
+if (( variables.A_Index22 == 6 ))
 {
 variables.keyWordBOOL = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 7 ))
+if (( variables.A_Index22 == 7 ))
 {
 variables.keyWordFLOAT = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 8 ))
+if (( variables.A_Index22 == 8 ))
 {
 variables.keyWordINT8 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 9 ))
+if (( variables.A_Index22 == 9 ))
 {
 variables.keyWordINT16 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 10 ))
+if (( variables.A_Index22 == 10 ))
 {
 variables.keyWordINT32 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 11 ))
+if (( variables.A_Index22 == 11 ))
 {
 variables.keyWordINT64 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 12 ))
+if (( variables.A_Index22 == 12 ))
 {
 variables.keyWordIF = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 13 ))
+if (( variables.A_Index22 == 13 ))
 {
 variables.keyWordElseIf = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 14 ))
+if (( variables.A_Index22 == 14 ))
 {
 variables.keyWordElse = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 15 ))
+if (( variables.A_Index22 == 15 ))
 {
 variables.keyWordWhileLoop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 16 ))
+if (( variables.A_Index22 == 16 ))
 {
 variables.keyWordForLoop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 17 ))
+if (( variables.A_Index22 == 17 ))
 {
 variables.keyWordLoopInfinite = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 18 ))
+if (( variables.A_Index22 == 18 ))
 {
 variables.keyWordLoop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 19 ))
+if (( variables.A_Index22 == 19 ))
 {
 variables.keyWordLoopParse = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 20 ))
+if (( variables.A_Index22 == 20 ))
 {
 variables.keyWordContinue = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 21 ))
+if (( variables.A_Index22 == 21 ))
 {
 variables.keyWordBreak = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 22 ))
+if (( variables.A_Index22 == 22 ))
 {
 variables.keyWordFunc = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 23 ))
+if (( variables.A_Index22 == 23 ))
 {
 variables.keyWordAwait = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 24 ))
+if (( variables.A_Index22 == 24 ))
 {
 variables.keyWordVariablesAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 25 ))
+if (( variables.A_Index22 == 25 ))
 {
 variables.keyWordConcatenationAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 26 ))
+if (( variables.A_Index22 == 26 ))
 {
 variables.keyWordAdditionAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 27 ))
+if (( variables.A_Index22 == 27 ))
 {
 variables.keyWordSubtractionAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 28 ))
+if (( variables.A_Index22 == 28 ))
 {
 variables.keyWordMultiplicationAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 29 ))
+if (( variables.A_Index22 == 29 ))
 {
 variables.keyWordDivisionAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 30 ))
+if (( variables.A_Index22 == 30 ))
 {
 variables.keyWordAdditionOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 31 ))
+if (( variables.A_Index22 == 31 ))
 {
 variables.keyWordConcatenationOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 32 ))
+if (( variables.A_Index22 == 32 ))
 {
 variables.keyWordEqualOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 33 ))
+if (( variables.A_Index22 == 33 ))
 {
 variables.keyWordNotOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 34 ))
+if (( variables.A_Index22 == 34 ))
 {
 variables.keyWordGreaterThanOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 35 ))
+if (( variables.A_Index22 == 35 ))
 {
 variables.keyWordLessThanOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 36 ))
+if (( variables.A_Index22 == 36 ))
 {
 variables.keyWordGreaterThanOrEqualToOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 37 ))
+if (( variables.A_Index22 == 37 ))
 {
 variables.keyWordLessThanOrEqualToOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 38 ))
+if (( variables.A_Index22 == 38 ))
 {
 variables.keyWordOrOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 39 ))
+if (( variables.A_Index22 == 39 ))
 {
 variables.keyWordAndOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 40 ))
+if (( variables.A_Index22 == 40 ))
 {
 variables.keyWordNotEqualToOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 41 ))
+if (( variables.A_Index22 == 41 ))
 {
 variables.keyWordTrue = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 42 ))
+if (( variables.A_Index22 == 42 ))
 {
 variables.keyWordFalse = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 43 ))
+if (( variables.A_Index22 == 43 ))
 {
 variables.keyWordSwitch = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 44 ))
+if (( variables.A_Index22 == 44 ))
 {
 variables.keyWordSwitchCase = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 45 ))
+if (( variables.A_Index22 == 45 ))
 {
 variables.keyWordSwitchDefault = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 46 ))
+if (( variables.A_Index22 == 46 ))
 {
 variables.keyWordThrow = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 47 ))
+if (( variables.A_Index22 == 47 ))
 {
 variables.keyWordErrorMsg = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 48 ))
+if (( variables.A_Index22 == 48 ))
 {
 variables.keyWordTry = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 49 ))
+if (( variables.A_Index22 == 49 ))
 {
 variables.keyWordCatch = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 50 ))
+if (( variables.A_Index22 == 50 ))
 {
 variables.keyWordFinally = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 51 ))
+if (( variables.A_Index22 == 51 ))
 {
 variables.keyWordArrayAppend = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 52 ))
+if (( variables.A_Index22 == 52 ))
 {
 variables.keyWordArrayPop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 53 ))
+if (( variables.A_Index22 == 53 ))
 {
 variables.keyWordArraySize = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 54 ))
+if (( variables.A_Index22 == 54 ))
 {
 variables.keyWordArrayInsert = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 55 ))
+if (( variables.A_Index22 == 55 ))
 {
 variables.keyWordArrayRemove = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 56 ))
+if (( variables.A_Index22 == 56 ))
 {
 variables.keyWordArrayIndexOf = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 57 ))
+if (( variables.A_Index22 == 57 ))
 {
 variables.keyWordArrayDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 58 ))
+if (( variables.A_Index22 == 58 ))
 {
 variables.keyWordArrayOfIntegersDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 59 ))
+if (( variables.A_Index22 == 59 ))
 {
 variables.keyWordArrayOfStringsDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 60 ))
+if (( variables.A_Index22 == 60 ))
 {
 variables.keyWordArrayOfFloatingPointNumbersDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 61 ))
+if (( variables.A_Index22 == 61 ))
 {
 variables.keyWordArrayOfBooleansDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 62 ))
+if (( variables.A_Index22 == 62 ))
 {
 variables.keyWordJavaScriptVar = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 63 ))
+if (( variables.A_Index22 == 63 ))
 {
 variables.keyWordJavaScriptLet = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 64 ))
+if (( variables.A_Index22 == 64 ))
 {
 variables.keyWordJavaScriptConst = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 65 ))
+if (( variables.A_Index22 == 65 ))
 {
 variables.keyWordReturnStatement = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 66 ))
+if (( variables.A_Index22 == 66 ))
 {
 variables.keyWordEnd = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 67 ))
+if (( variables.A_Index22 == 67 ))
 {
 variables.keyWordGlobal = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 68 ))
+if (( variables.A_Index22 == 68 ))
 {
 variables.keyWordComment = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 69 ))
+if (( variables.A_Index22 == 69 ))
 {
 variables.keyWordCommentOpenMultiLine = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 70 ))
+if (( variables.A_Index22 == 70 ))
 {
 variables.keyWordCommentCloseMultiLine = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 71 ))
+if (( variables.A_Index22 == 71 ))
 {
 variables.keyWordEscpaeChar = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 72 ))
+if (( variables.A_Index22 == 72 ))
 {
 variables.AHKlikeLoopsIndexedAt = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 73 ))
+if (( variables.A_Index22 == 73 ))
 {
 variables.keyWordAIndex = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 74 ))
+if (( variables.A_Index22 == 74 ))
 {
 variables.keyWordALoopField = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 75 ))
+if (( variables.A_Index22 == 75 ))
 {
 variables.keyWordMainLabel = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 76 ))
+if (( variables.A_Index22 == 76 ))
 {
 variables.useFuncKeyWord = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 77 ))
+if (( variables.A_Index22 == 77 ))
 {
 variables.useCurlyBraces = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 78 ))
+if (( variables.A_Index22 == 78 ))
 {
 variables.useEnd = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 79 ))
+if (( variables.A_Index22 == 79 ))
 {
 variables.useSemicolon = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 80 ))
+if (( variables.A_Index22 == 80 ))
 {
 variables.useParentheses = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 81 ))
+if (( variables.A_Index22 == 81 ))
 {
 variables.usePythonicColonSyntax = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 82 ))
+if (( variables.A_Index22 == 82 ))
 {
 variables.forLoopLang = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 83 ))
+if (( variables.A_Index22 == 83 ))
 {
 variables.useInJavaScriptAlwaysUseVar = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 84 ))
+if (( variables.A_Index22 == 84 ))
 {
 variables.useJavaScriptInAfullHTMLfile = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index21 == 85 ))
+if (( variables.A_Index22 == 85 ))
 {
 variables.useJavaScriptAmainFuncDef = await Trim (variables.ALoopField )
 }
@@ -8412,353 +8505,353 @@ variables.displayExampleTextLine111 = BuildInVars("A_Tab") + "print(" + await Ch
 variables.displayExampleTextLine112 = variables.defineCodeBlockCharCLOSE
 }
 variables.displayExampleText = ""
-for (/* Normal Loop */ variables.A_Index22 = 1; variables.A_Index22 <= 120; variables.A_Index22++)
+for (/* Normal Loop */ variables.A_Index23 = 1; variables.A_Index23 <= 120; variables.A_Index23++)
 {
-variables.displayExampleText += variables["displayExampleTextLine" + variables.A_Index22]
+variables.displayExampleText += variables["displayExampleTextLine" + variables.A_Index23]
 }
-var items23 = LoopParseFunc(variables.instructions, "\n", "\r");
-for (/* Loop Parse */ let A_Index23 = 1; A_Index23 <= items23.length; A_Index23++)
+var items24 = LoopParseFunc(variables.instructions, "\n", "\r");
+for (/* Loop Parse */ let A_Index24 = 1; A_Index24 <= items24.length; A_Index24++)
 {
-variables.A_Index23 = A_Index23
-variables.A_LoopField23 = items23[A_Index23 - 1];
-variables.ALoopField = await addBackShlashes (variables.A_LoopField23 )
-if (( variables.A_Index23 == 1 ))
+variables.A_Index24 = A_Index24
+variables.A_LoopField24 = items24[A_Index24 - 1];
+variables.ALoopField = await addBackShlashes (variables.A_LoopField24 )
+if (( variables.A_Index24 == 1 ))
 {
 variables.langToTranspileTo = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 2 ))
+if (( variables.A_Index24 == 2 ))
 {
 variables.fileExtention = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 3 ))
+if (( variables.A_Index24 == 3 ))
 {
 variables.keyWordsCommands = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 4 ))
+if (( variables.A_Index24 == 4 ))
 {
 variables.keyWordINT = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 5 ))
+if (( variables.A_Index24 == 5 ))
 {
 variables.keyWordSTR = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 6 ))
+if (( variables.A_Index24 == 6 ))
 {
 variables.keyWordBOOL = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 7 ))
+if (( variables.A_Index24 == 7 ))
 {
 variables.keyWordFLOAT = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 8 ))
+if (( variables.A_Index24 == 8 ))
 {
 variables.keyWordINT8 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 9 ))
+if (( variables.A_Index24 == 9 ))
 {
 variables.keyWordINT16 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 10 ))
+if (( variables.A_Index24 == 10 ))
 {
 variables.keyWordINT32 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 11 ))
+if (( variables.A_Index24 == 11 ))
 {
 variables.keyWordINT64 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 12 ))
+if (( variables.A_Index24 == 12 ))
 {
 variables.keyWordIF = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 13 ))
+if (( variables.A_Index24 == 13 ))
 {
 variables.keyWordElseIf = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 14 ))
+if (( variables.A_Index24 == 14 ))
 {
 variables.keyWordElse = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 15 ))
+if (( variables.A_Index24 == 15 ))
 {
 variables.keyWordWhileLoop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 16 ))
+if (( variables.A_Index24 == 16 ))
 {
 variables.keyWordForLoop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 17 ))
+if (( variables.A_Index24 == 17 ))
 {
 variables.keyWordLoopInfinite = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 18 ))
+if (( variables.A_Index24 == 18 ))
 {
 variables.keyWordLoop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 19 ))
+if (( variables.A_Index24 == 19 ))
 {
 variables.keyWordLoopParse = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 20 ))
+if (( variables.A_Index24 == 20 ))
 {
 variables.keyWordContinue = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 21 ))
+if (( variables.A_Index24 == 21 ))
 {
 variables.keyWordBreak = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 22 ))
+if (( variables.A_Index24 == 22 ))
 {
 variables.keyWordFunc = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 23 ))
+if (( variables.A_Index24 == 23 ))
 {
 variables.keyWordAwait = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 24 ))
+if (( variables.A_Index24 == 24 ))
 {
 variables.keyWordVariablesAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 25 ))
+if (( variables.A_Index24 == 25 ))
 {
 variables.keyWordConcatenationAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 26 ))
+if (( variables.A_Index24 == 26 ))
 {
 variables.keyWordAdditionAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 27 ))
+if (( variables.A_Index24 == 27 ))
 {
 variables.keyWordSubtractionAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 28 ))
+if (( variables.A_Index24 == 28 ))
 {
 variables.keyWordMultiplicationAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 29 ))
+if (( variables.A_Index24 == 29 ))
 {
 variables.keyWordDivisionAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 30 ))
+if (( variables.A_Index24 == 30 ))
 {
 variables.keyWordAdditionOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 31 ))
+if (( variables.A_Index24 == 31 ))
 {
 variables.keyWordConcatenationOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 32 ))
+if (( variables.A_Index24 == 32 ))
 {
 variables.keyWordEqualOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 33 ))
+if (( variables.A_Index24 == 33 ))
 {
 variables.keyWordNotOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 34 ))
+if (( variables.A_Index24 == 34 ))
 {
 variables.keyWordGreaterThanOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 35 ))
+if (( variables.A_Index24 == 35 ))
 {
 variables.keyWordLessThanOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 36 ))
+if (( variables.A_Index24 == 36 ))
 {
 variables.keyWordGreaterThanOrEqualToOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 37 ))
+if (( variables.A_Index24 == 37 ))
 {
 variables.keyWordLessThanOrEqualToOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 38 ))
+if (( variables.A_Index24 == 38 ))
 {
 variables.keyWordOrOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 39 ))
+if (( variables.A_Index24 == 39 ))
 {
 variables.keyWordAndOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 40 ))
+if (( variables.A_Index24 == 40 ))
 {
 variables.keyWordNotEqualToOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 41 ))
+if (( variables.A_Index24 == 41 ))
 {
 variables.keyWordTrue = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 42 ))
+if (( variables.A_Index24 == 42 ))
 {
 variables.keyWordFalse = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 43 ))
+if (( variables.A_Index24 == 43 ))
 {
 variables.keyWordSwitch = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 44 ))
+if (( variables.A_Index24 == 44 ))
 {
 variables.keyWordSwitchCase = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 45 ))
+if (( variables.A_Index24 == 45 ))
 {
 variables.keyWordSwitchDefault = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 46 ))
+if (( variables.A_Index24 == 46 ))
 {
 variables.keyWordThrow = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 47 ))
+if (( variables.A_Index24 == 47 ))
 {
 variables.keyWordErrorMsg = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 48 ))
+if (( variables.A_Index24 == 48 ))
 {
 variables.keyWordTry = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 49 ))
+if (( variables.A_Index24 == 49 ))
 {
 variables.keyWordCatch = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 50 ))
+if (( variables.A_Index24 == 50 ))
 {
 variables.keyWordFinally = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 51 ))
+if (( variables.A_Index24 == 51 ))
 {
 variables.keyWordArrayAppend = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 52 ))
+if (( variables.A_Index24 == 52 ))
 {
 variables.keyWordArrayPop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 53 ))
+if (( variables.A_Index24 == 53 ))
 {
 variables.keyWordArraySize = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 54 ))
+if (( variables.A_Index24 == 54 ))
 {
 variables.keyWordArrayInsert = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 55 ))
+if (( variables.A_Index24 == 55 ))
 {
 variables.keyWordArrayRemove = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 56 ))
+if (( variables.A_Index24 == 56 ))
 {
 variables.keyWordArrayIndexOf = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 57 ))
+if (( variables.A_Index24 == 57 ))
 {
 variables.keyWordArrayDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 58 ))
+if (( variables.A_Index24 == 58 ))
 {
 variables.keyWordArrayOfIntegersDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 59 ))
+if (( variables.A_Index24 == 59 ))
 {
 variables.keyWordArrayOfStringsDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 60 ))
+if (( variables.A_Index24 == 60 ))
 {
 variables.keyWordArrayOfFloatingPointNumbersDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 61 ))
+if (( variables.A_Index24 == 61 ))
 {
 variables.keyWordArrayOfBooleansDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 62 ))
+if (( variables.A_Index24 == 62 ))
 {
 variables.keyWordJavaScriptVar = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 63 ))
+if (( variables.A_Index24 == 63 ))
 {
 variables.keyWordJavaScriptLet = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 64 ))
+if (( variables.A_Index24 == 64 ))
 {
 variables.keyWordJavaScriptConst = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 65 ))
+if (( variables.A_Index24 == 65 ))
 {
 variables.keyWordReturnStatement = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 66 ))
+if (( variables.A_Index24 == 66 ))
 {
 variables.keyWordEnd = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 67 ))
+if (( variables.A_Index24 == 67 ))
 {
 variables.keyWordGlobal = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 68 ))
+if (( variables.A_Index24 == 68 ))
 {
 variables.keyWordComment = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 69 ))
+if (( variables.A_Index24 == 69 ))
 {
 variables.keyWordCommentOpenMultiLine = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 70 ))
+if (( variables.A_Index24 == 70 ))
 {
 variables.keyWordCommentCloseMultiLine = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 71 ))
+if (( variables.A_Index24 == 71 ))
 {
 variables.keyWordEscpaeChar = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 72 ))
+if (( variables.A_Index24 == 72 ))
 {
 variables.AHKlikeLoopsIndexedAt = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 73 ))
+if (( variables.A_Index24 == 73 ))
 {
 variables.keyWordAIndex = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 74 ))
+if (( variables.A_Index24 == 74 ))
 {
 variables.keyWordALoopField = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 75 ))
+if (( variables.A_Index24 == 75 ))
 {
 variables.keyWordMainLabel = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 76 ))
+if (( variables.A_Index24 == 76 ))
 {
 variables.useFuncKeyWord = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 77 ))
+if (( variables.A_Index24 == 77 ))
 {
 variables.useCurlyBraces = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 78 ))
+if (( variables.A_Index24 == 78 ))
 {
 variables.useEnd = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 79 ))
+if (( variables.A_Index24 == 79 ))
 {
 variables.useSemicolon = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 80 ))
+if (( variables.A_Index24 == 80 ))
 {
 variables.useParentheses = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 81 ))
+if (( variables.A_Index24 == 81 ))
 {
 variables.usePythonicColonSyntax = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 82 ))
+if (( variables.A_Index24 == 82 ))
 {
 variables.forLoopLang = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 83 ))
+if (( variables.A_Index24 == 83 ))
 {
 variables.useInJavaScriptAlwaysUseVar = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 84 ))
+if (( variables.A_Index24 == 84 ))
 {
 variables.useJavaScriptInAfullHTMLfile = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index23 == 85 ))
+if (( variables.A_Index24 == 85 ))
 {
 variables.useJavaScriptAmainFuncDef = await Trim (variables.ALoopField )
 }
@@ -8776,12 +8869,12 @@ variables.allFuncLibsNum = 0
 variables.allFuncsNum = 0
 variables.allfuncDescriptionNum = 0
 variables.correctLang = 0
-var items24 = LoopParseFunc(variables.instructions, "\n", "\r");
-for (/* Loop Parse */ let A_Index24 = 1; A_Index24 <= items24.length; A_Index24++)
+var items25 = LoopParseFunc(variables.instructions, "\n", "\r");
+for (/* Loop Parse */ let A_Index25 = 1; A_Index25 <= items25.length; A_Index25++)
 {
-variables.A_Index24 = A_Index24
-variables.A_LoopField24 = items24[A_Index24 - 1];
-if (( await Trim (variables.A_LoopField24) == "funcEND======================funcEND==============" ))
+variables.A_Index25 = A_Index25
+variables.A_LoopField25 = items25[A_Index25 - 1];
+if (( await Trim (variables.A_LoopField25) == "funcEND======================funcEND==============" ))
 {
 variables.areWeInAFuncFromInstructions = 0
 variables.areWeInAFuncFromInstructionsLineNum = 0
@@ -8799,7 +8892,7 @@ if (( variables.areWeInAFuncFromInstructions == 1 ))
 if (( variables.areWeInAFuncFromInstructionsLineNum == 1 ))
 {
 // name of the func
-variables.funcLangHolder = StringTrimLeft(variables.A_LoopField24, 5)
+variables.funcLangHolder = StringTrimLeft(variables.A_LoopField25, 5)
 if (( await Trim (variables.funcLangHolder) == variables.langToTranspileTo ))
 {
 variables.correctLang = 1
@@ -8808,14 +8901,14 @@ variables.correctLang = 1
 if (( variables.areWeInAFuncFromInstructionsLineNum == 2 ))
 {
 // name of the func
-variables.funcNameHolder = StringTrimLeft(variables.A_LoopField24, 5)
+variables.funcNameHolder = StringTrimLeft(variables.A_LoopField25, 5)
 variables.allFuncNamesNum += 1
 variables["allFuncNames" + variables.allFuncNamesNum] = await Trim (variables.funcNameHolder )
 }
 if (( variables.areWeInAFuncFromInstructionsLineNum == 3 ))
 {
 // all libs
-variables.funcLibsHolder = StringTrimLeft(variables.A_LoopField24, 5)
+variables.funcLibsHolder = StringTrimLeft(variables.A_LoopField25, 5)
 if (( variables.correctLang == 1) && (await InStr (variables.code , await Trim (variables.funcNameHolder) ) ))
 {
 variables.gg = 5
@@ -8824,7 +8917,7 @@ variables.gg = 5
 if (( variables.areWeInAFuncFromInstructionsLineNum == 4 ))
 {
 // func description
-variables.funcDescriptionHolder = StringTrimLeft(variables.A_LoopField24, 12)
+variables.funcDescriptionHolder = StringTrimLeft(variables.A_LoopField25, 12)
 if (( variables.correctLang == 1) && (await InStr (variables.code , await Trim (variables.funcNameHolder) ) ))
 {
 variables.gg = 5
@@ -8835,13 +8928,13 @@ if (( variables.areWeInAFuncFromInstructionsLineNum >= 5 ))
 // the full func
 if (( variables.correctLang == 1) && (await InStr (variables.code , await Trim (variables.funcNameHolder) ) ))
 {
-variables.funcFuncHolder += variables.A_LoopField24 + "\n"
+variables.funcFuncHolder += variables.A_LoopField25 + "\n"
 }
 }
-//MsgBox, % A_LoopField24
+//MsgBox, % A_LoopField25
 variables.areWeInAFuncFromInstructionsLineNum += 1
 }
-if (( await Trim (variables.A_LoopField24) == "func======================func==============" ))
+if (( await Trim (variables.A_LoopField25) == "func======================func==============" ))
 {
 variables.areWeInAFuncFromInstructions = 1
 variables.areWeInAFuncFromInstructionsLineNum = 1
@@ -8859,28 +8952,28 @@ variables.correctLang = 0
 //~ MsgBox, ===========================================================================
 variables.upCode = await Chr (60) + await Chr (33) + await Chr (100) + await Chr (111) + await Chr (99) + await Chr (116) + await Chr (121) + await Chr (112) + await Chr (101) + await Chr (32) + await Chr (104) + await Chr (116) + await Chr (109) + await Chr (108) + await Chr (62) + await Chr (10) + await Chr (60) + await Chr (104) + await Chr (116) + await Chr (109) + await Chr (108) + await Chr (32) + await Chr (108) + await Chr (97) + await Chr (110) + await Chr (103) + await Chr (61) + await Chr (34) + await Chr (101) + await Chr (110) + await Chr (34) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (104) + await Chr (101) + await Chr (97) + await Chr (100) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (109) + await Chr (101) + await Chr (116) + await Chr (97) + await Chr (32) + await Chr (99) + await Chr (104) + await Chr (97) + await Chr (114) + await Chr (115) + await Chr (101) + await Chr (116) + await Chr (61) + await Chr (34) + await Chr (85) + await Chr (84) + await Chr (70) + await Chr (45) + await Chr (56) + await Chr (34) + await Chr (32) + await Chr (47) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (109) + await Chr (101) + await Chr (116) + await Chr (97) + await Chr (32) + await Chr (110) + await Chr (97) + await Chr (109) + await Chr (101) + await Chr (61) + await Chr (34) + await Chr (118) + await Chr (105) + await Chr (101) + await Chr (119) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (34) + await Chr (32) + await Chr (99) + await Chr (111) + await Chr (110) + await Chr (116) + await Chr (101) + await Chr (110) + await Chr (116) + await Chr (61) + await Chr (34) + await Chr (119) + await Chr (105) + await Chr (100) + await Chr (116) + await Chr (104) + await Chr (61) + await Chr (100) + await Chr (101) + await Chr (118) + await Chr (105) + await Chr (99) + await Chr (101) + await Chr (45) + await Chr (119) + await Chr (105) + await Chr (100) + await Chr (116) + await Chr (104) + await Chr (44) + await Chr (32) + await Chr (105) + await Chr (110) + await Chr (105) + await Chr (116) + await Chr (105) + await Chr (97) + await Chr (108) + await Chr (45) + await Chr (115) + await Chr (99) + await Chr (97) + await Chr (108) + await Chr (101) + await Chr (61) + await Chr (49) + await Chr (46) + await Chr (48) + await Chr (34) + await Chr (32) + await Chr (47) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (116) + await Chr (105) + await Chr (116) + await Chr (108) + await Chr (101) + await Chr (62) + await Chr (72) + await Chr (84) + await Chr (86) + await Chr (77) + await Chr (32) + await Chr (73) + await Chr (68) + await Chr (69) + await Chr (60) + await Chr (47) + await Chr (116) + await Chr (105) + await Chr (116) + await Chr (108) + await Chr (101) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (116) + await Chr (121) + await Chr (108) + await Chr (101) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (98) + await Chr (111) + await Chr (100) + await Chr (121) + await Chr (32) + await Chr (123) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (98) + await Chr (97) + await Chr (99) + await Chr (107) + await Chr (103) + await Chr (114) + await Chr (111) + await Chr (117) + await Chr (110) + await Chr (100) + await Chr (45) + await Chr (99) + await Chr (111) + await Chr (108) + await Chr (111) + await Chr (114) + await Chr (58) + await Chr (32) + await Chr (35) + await Chr (50) + await Chr (48) + await Chr (50) + await Chr (48) + await Chr (50) + await Chr (48) + await Chr (59) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (102) + await Chr (111) + await Chr (110) + await Chr (116) + await Chr (45) + await Chr (102) + await Chr (97) + await Chr (109) + await Chr (105) + await Chr (108) + await Chr (121) + await Chr (58) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (34) + await Chr (79) + await Chr (112) + await Chr (101) + await Chr (110) + await Chr (32) + await Chr (83) + await Chr (97) + await Chr (110) + await Chr (115) + await Chr (34) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (45) + await Chr (97) + await Chr (112) + await Chr (112) + await Chr (108) + await Chr (101) + await Chr (45) + await Chr (115) + await Chr (121) + await Chr (115) + await Chr (116) + await Chr (101) + await Chr (109) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (66) + await Chr (108) + await Chr (105) + await Chr (110) + await Chr (107) + await Chr (77) + await Chr (97) + await Chr (99) + await Chr (83) + await Chr (121) + await Chr (115) + await Chr (116) + await Chr (101) + await Chr (109) + await Chr (70) + await Chr (111) + await Chr (110) + await Chr (116) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (34) + await Chr (83) + await Chr (101) + await Chr (103) + await Chr (111) + await Chr (101) + await Chr (32) + await Chr (85) + await Chr (73) + await Chr (34) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (82) + await Chr (111) + await Chr (98) + await Chr (111) + await Chr (116) + await Chr (111) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (79) + await Chr (120) + await Chr (121) + await Chr (103) + await Chr (101) + await Chr (110) + await Chr (45) + await Chr (83) + await Chr (97) + await Chr (110) + await Chr (115) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (85) + await Chr (98) + await Chr (117) + await Chr (110) + await Chr (116) + await Chr (117) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (67) + await Chr (97) + await Chr (110) + await Chr (116) + await Chr (97) + await Chr (114) + await Chr (101) + await Chr (108) + await Chr (108) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (34) + await Chr (72) + await Chr (101) + await Chr (108) + await Chr (118) + await Chr (101) + await Chr (116) + await Chr (105) + await Chr (99) + await Chr (97) + await Chr (32) + await Chr (78) + await Chr (101) + await Chr (117) + await Chr (101) + await Chr (34) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (72) + await Chr (101) + await Chr (108) + await Chr (118) + await Chr (101) + await Chr (116) + await Chr (105) + await Chr (99) + await Chr (97) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (65) + await Chr (114) + await Chr (105) + await Chr (97) + await Chr (108) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (115) + await Chr (97) + await Chr (110) + await Chr (115) + await Chr (45) + await Chr (115) + await Chr (101) + await Chr (114) + await Chr (105) + await Chr (102) + await Chr (59) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (125) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (116) + await Chr (121) + await Chr (108) + await Chr (101) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (100) + await Chr (101) + await Chr (108) + await Chr (105) + await Chr (118) + await Chr (114) + await Chr (46) + await Chr (110) + await Chr (101) + await Chr (116) + await Chr (47) + await Chr (110) + await Chr (112) + await Chr (109) + await Chr (47) + await Chr (115) + await Chr (119) + await Chr (101) + await Chr (101) + await Chr (116) + await Chr (97) + await Chr (108) + await Chr (101) + await Chr (114) + await Chr (116) + await Chr (50) + await Chr (64) + await Chr (49) + await Chr (49) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (10) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (33) + await Chr (45) + await Chr (45) + await Chr (32) + await Chr (73) + await Chr (110) + await Chr (99) + await Chr (108) + await Chr (117) + await Chr (100) + await Chr (101) + await Chr (32) + await Chr (65) + await Chr (99) + await Chr (101) + await Chr (32) + await Chr (69) + await Chr (100) + await Chr (105) + await Chr (116) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (67) + await Chr (68) + await Chr (78) + await Chr (32) + await Chr (45) + await Chr (45) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (106) + await Chr (115) + await Chr (46) + await Chr (99) + await Chr (108) + await Chr (111) + await Chr (117) + await Chr (100) + await Chr (102) + await Chr (108) + await Chr (97) + await Chr (114) + await Chr (101) + await Chr (46) + await Chr (99) + await Chr (111) + await Chr (109) + await Chr (47) + await Chr (97) + await Chr (106) + await Chr (97) + await Chr (120) + await Chr (47) + await Chr (108) + await Chr (105) + await Chr (98) + await Chr (115) + await Chr (47) + await Chr (97) + await Chr (99) + await Chr (101) + await Chr (47) + await Chr (49) + await Chr (46) + await Chr (51) + await Chr (50) + await Chr (46) + await Chr (50) + await Chr (47) + await Chr (97) + await Chr (99) + await Chr (101) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (34) + await Chr (32) + await Chr (105) + await Chr (110) + await Chr (116) + await Chr (101) + await Chr (103) + await Chr (114) + await Chr (105) + await Chr (116) + await Chr (121) + await Chr (61) + await Chr (34) + await Chr (115) + await Chr (104) + await Chr (97) + await Chr (53) + await Chr (49) + await Chr (50) + await Chr (45) + await Chr (74) + await Chr (76) + await Chr (73) + await Chr (82) + await Chr (108) + await Chr (120) + await Chr (87) + await Chr (104) + await Chr (57) + await Chr (54) + await Chr (115) + await Chr (78) + await Chr (68) + await Chr (51) + await Chr (117) + await Chr (85) + await Chr (103) + await Chr (73) + await Chr (50) + await Chr (82) + await Chr (86) + await Chr (72) + await Chr (90) + await Chr (74) + await Chr (112) + await Chr (103) + await Chr (107) + await Chr (87) + await Chr (72) + await Chr (103) + await Chr (51) + await Chr (43) + await Chr (120) + await Chr (111) + await Chr (85) + await Chr (89) + await Chr (56) + await Chr (88) + await Chr (107) + await Chr (103) + await Chr (84) + await Chr (80) + await Chr (75) + await Chr (112) + await Chr (113) + await Chr (82) + await Chr (97) + await Chr (113) + await Chr (100) + await Chr (107) + await Chr (55) + await Chr (122) + await Chr (68) + await Chr (47) + await Chr (99) + await Chr (107) + await Chr (47) + await Chr (88) + await Chr (72) + await Chr (88) + await Chr (70) + await Chr (83) + await Chr (77) + await Chr (87) + await Chr (56) + await Chr (52) + await Chr (111) + await Chr (54) + await Chr (71) + await Chr (114) + await Chr (80) + await Chr (54) + await Chr (55) + await Chr (100) + await Chr (108) + await Chr (113) + await Chr (78) + await Chr (51) + await Chr (98) + await Chr (57) + await Chr (56) + await Chr (78) + await Chr (66) + await Chr (47) + await Chr (121) + await Chr (65) + await Chr (61) + await Chr (61) + await Chr (34) + await Chr (32) + await Chr (99) + await Chr (114) + await Chr (111) + await Chr (115) + await Chr (115) + await Chr (111) + await Chr (114) + await Chr (105) + await Chr (103) + await Chr (105) + await Chr (110) + await Chr (61) + await Chr (34) + await Chr (97) + await Chr (110) + await Chr (111) + await Chr (110) + await Chr (121) + await Chr (109) + await Chr (111) + await Chr (117) + await Chr (115) + await Chr (34) + await Chr (32) + await Chr (114) + await Chr (101) + await Chr (102) + await Chr (101) + await Chr (114) + await Chr (114) + await Chr (101) + await Chr (114) + await Chr (112) + await Chr (111) + await Chr (108) + await Chr (105) + await Chr (99) + await Chr (121) + await Chr (61) + await Chr (34) + await Chr (110) + await Chr (111) + await Chr (45) + await Chr (114) + await Chr (101) + await Chr (102) + await Chr (101) + await Chr (114) + await Chr (114) + await Chr (101) + await Chr (114) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (106) + await Chr (115) + await Chr (46) + await Chr (99) + await Chr (108) + await Chr (111) + await Chr (117) + await Chr (100) + await Chr (102) + await Chr (108) + await Chr (97) + await Chr (114) + await Chr (101) + await Chr (46) + await Chr (99) + await Chr (111) + await Chr (109) + await Chr (47) + await Chr (97) + await Chr (106) + await Chr (97) + await Chr (120) + await Chr (47) + await Chr (108) + await Chr (105) + await Chr (98) + await Chr (115) + await Chr (47) + await Chr (97) + await Chr (99) + await Chr (101) + await Chr (47) + await Chr (49) + await Chr (46) + await Chr (52) + await Chr (46) + await Chr (49) + await Chr (50) + await Chr (47) + await Chr (101) + await Chr (120) + await Chr (116) + await Chr (45) + await Chr (108) + await Chr (97) + await Chr (110) + await Chr (103) + await Chr (117) + await Chr (97) + await Chr (103) + await Chr (101) + await Chr (95) + await Chr (116) + await Chr (111) + await Chr (111) + await Chr (108) + await Chr (115) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (34) + await Chr (32) + await Chr (99) + await Chr (114) + await Chr (111) + await Chr (115) + await Chr (115) + await Chr (111) + await Chr (114) + await Chr (105) + await Chr (103) + await Chr (105) + await Chr (110) + await Chr (61) + await Chr (34) + await Chr (97) + await Chr (110) + await Chr (111) + await Chr (110) + await Chr (121) + await Chr (109) + await Chr (111) + await Chr (117) + await Chr (115) + await Chr (34) + await Chr (32) + await Chr (114) + await Chr (101) + await Chr (102) + await Chr (101) + await Chr (114) + await Chr (114) + await Chr (101) + await Chr (114) + await Chr (112) + await Chr (111) + await Chr (108) + await Chr (105) + await Chr (99) + await Chr (121) + await Chr (61) + await Chr (34) + await Chr (110) + await Chr (111) + await Chr (45) + await Chr (114) + await Chr (101) + await Chr (102) + await Chr (101) + await Chr (114) + await Chr (114) + await Chr (101) + await Chr (114) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (47) + await Chr (104) + await Chr (101) + await Chr (97) + await Chr (100) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (98) + await Chr (111) + await Chr (100) + await Chr (121) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + "\n      // JavaScript equivalent code with variables\n\n      function changeFaviconAtTheBeginning(faviconUrl) {\n        // Create a new favicon link element\n        const newFavicon = document.createElement(" + await Chr (34) + "link" + await Chr (34) + ");\n        newFavicon.rel = " + await Chr (34) + "icon" + await Chr (34) + ";\n        newFavicon.href = faviconUrl;\n\n        // Get the current favicon element (if exists)\n        const existingFavicon = document.querySelector('link[rel=" + await Chr (34) + "icon" + await Chr (34) + "]');\n\n        // Replace the current favicon with the new one\n        if (existingFavicon) {\n          // If a favicon exists, replace it\n          document.head.removeChild(existingFavicon); // Remove the existing favicon\n        }\n\n        // Append the new favicon to the head\n        document.head.appendChild(newFavicon);\n      }\n\n      // Call the function with the desired favicon URL\n      changeFaviconAtTheBeginning(" + await Chr (34) + "https://i.ibb.co/Jpty1B8/305182938-1a0efe63-726e-49ca-a13c-d0ed627f2ea7.png" + await Chr (34) + ");\n\n      function showCustomMessageBox(options, title, text, value, timeout) {\n        return new Promise((resolve) => {\n          // Define default options for the message box\n          let defaultOptions = {\n            title: title || " + await Chr (34) + "" + await Chr (34) + ", // Default title is empty\n            text: text || " + await Chr (34) + "Press OK to continue." + await Chr (34) + ", // Default text if not provided\n            showCancelButton: false, // Default is to not show Cancel button\n            showDenyButton: false, // Default is to not show Deny button\n            confirmButtonText: " + await Chr (34) + "OK" + await Chr (34) + ", // Default text for OK button\n            focusConfirm: true, // Default focus on OK button\n          };\n\n          let numOriginal = value;\n\n          let num = numOriginal;\n\n          let done1 = 0;\n\n          let done2 = 0;\n\n          let done3 = 0;\n\n          let AIndex = 0;\n\n          for (AIndex = 1; AIndex <= 1; AIndex++) {\n            // this is about if you add always on top in a msgbox it will be removed in js cuz its kinda useless...\n            // becouse if you like adding always on top in ahk in js we dont realy do it so yeah\n            if (num >= 262144) {\n              num = num - 262144;\n              numOriginal = numOriginal - 262144;\n            }\n\n            if (num >= 256 && num < 500) {\n              num = num - 256;\n\n              done3 = 256;\n            }\n\n            if (num >= 512) {\n              num = num - 512;\n\n              done3 = 512;\n            }\n\n            if (num == 0) {\n              done1 = 0;\n\n              break;\n            }\n\n            if (num <= 6) {\n              done1 = num;\n\n              break;\n            }\n\n            if (num >= 64 && num < 64 * 2) {\n              done2 = 64;\n\n              if (num == 64) {\n                done1 = 0;\n\n                break;\n              } else {\n                done1 = num - 64;\n\n                break;\n              }\n            }\n\n            if (num >= 48 && num < 63) {\n              done2 = 48;\n\n              if (num == 48) {\n                done1 = 0;\n\n                break;\n              } else {\n                done1 = num - 48;\n\n                break;\n              }\n            }\n\n            if (num >= 32 && num < 47) {\n              done2 = 32;\n\n              if (num == 32) {\n                done1 = 0;\n\n                break;\n              } else {\n                done1 = num - 32;\n\n                break;\n              }\n            }\n\n            if (num >= 16 && num < 30) {\n              done2 = 16;\n\n              if (num == 16) {\n                done1 = 0;\n\n                break;\n              } else {\n                done1 = num - 16;\n\n                break;\n              }\n            }\n          }\n\n          let doneAdded = done1 + done2 + done3;\n\n          if (doneAdded !== numOriginal) {\n            // displayMessage(" + await Chr (34) + "The calc was wrong!" + await Chr (34) + ");\n          } else {\n            // displayMessage(" + await Chr (34) + "num was: " + await Chr (34) + " + numOriginal + " + await Chr (34) + "" + await Chr (92) + "ndone1: " + await Chr (34) + " + done1 + " + await Chr (34) + "" + await Chr (92) + "ndone2: " + await Chr (34) + " + done2 + " + await Chr (34) + "" + await Chr (92) + "ndone3: " + await Chr (34) + " + done3);\n          }\n\n          // Parse the value to determine the options for the message box\n          if (done1 === 1) defaultOptions.showCancelButton = true; // OK/Cancel in ahk but here it will show Ok/Cancel wiat its same haha\n\n          // not gonna work if you can make it work i will appreciate\n          //   if (done1 === 2) {\n          //     defaultOptions.showCancelButton = true; // Abort/Retry/Ignore\n          //     defaultOptions.showDenyButton = true;\n          //   }\n          if (done1 === 3) {\n            defaultOptions.showCancelButton = true; // Yes/No/Cancel in ahk but here it will show Ok/No/Cancel\n            defaultOptions.showDenyButton = true;\n          }\n          if (done1 === 4) {\n            // defaultOptions.showCancelButton = true;\n            defaultOptions.showDenyButton = true; // Yes/No in ahk but here it will show Ok/No\n          }\n          if (done1 === 5) {\n            defaultOptions.showCancelButton = true; // Retry/Cancel in ahk but here it will show Ok/Cancel tip you can write in the Msgbox press ok to retry\n          }\n          // not gonna work if you can make it work i will appreciate\n          //   if (done1 === 6) {\n          //     defaultOptions.showCancelButton = true; // Cancel/Try Again/Continue\n          //     defaultOptions.showDenyButton = true;\n          //   }\n\n          if (done2 === 16) defaultOptions.icon = " + await Chr (34) + "error" + await Chr (34) + "; // Icon Hand (stop/error)\n          if (done2 === 32) defaultOptions.icon = " + await Chr (34) + "question" + await Chr (34) + "; // Icon Question\n          if (done2 === 48) defaultOptions.icon = " + await Chr (34) + "warning" + await Chr (34) + "; // Icon Exclamation\n          if (done2 === 64) defaultOptions.icon = " + await Chr (34) + "info" + await Chr (34) + "; // Icon Asterisk (info)\n\n          if (done3 === 256) defaultOptions.focusDeny = true; // Makes the 3rd button the default\n          if (done3 === 512) defaultOptions.focusCancel = true; // Makes the 2nd button the default\n\n          // Set timeout if provided\n          if (timeout) {\n            defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds\n          }\n\n          // Merge default options with provided options\n          Object.assign(defaultOptions, options);\n\n          // Display the message box with the constructed options\n          Swal.fire(defaultOptions).then((result) => {\n            if (result.isConfirmed) {\n              resolve(" + await Chr (34) + "OK" + await Chr (34) + ");\n            } else if (result.isDenied) {\n              resolve(" + await Chr (34) + "No" + await Chr (34) + ");\n            } else {\n              resolve(" + await Chr (34) + "Cancel" + await Chr (34) + ");\n            }\n          });\n        });\n      }\n\n      var lastKeyPressed = " + await Chr (34) + "" + await Chr (34) + ";\n\n      function trackLastKeyPressed() {\n        document.addEventListener(" + await Chr (34) + "keydown" + await Chr (34) + ", function (event) {\n          lastKeyPressed = event.key;\n          // console.log(lastKeyPressed);\n        });\n      }\n\n      function getLastKeyPressed() {\n        return lastKeyPressed;\n      }\n\n      // Call the trackLastKeyPressed function to start tracking key presses\n      trackLastKeyPressed();\n\n      let lastInputTime = Date.now(); // Initialize with current timestamp\n      let startTimestamp = Date.now(); // Initialize with current timestamp\n\n      // Event listener to track user activity\n      function resetIdleTimer() {\n        lastInputTime = Date.now(); // Update last input time\n      }\n\n      document.addEventListener(" + await Chr (34) + "mousemove" + await Chr (34) + ", resetIdleTimer);\n      document.addEventListener(" + await Chr (34) + "keypress" + await Chr (34) + ", resetIdleTimer);\n\n      // Function to calculate time since last input event\n      function A_TimeIdle() {\n        return Date.now() - lastInputTime; // Calculate time difference\n      }\n\n      // Function to calculate tick count in milliseconds\n      function A_TickCount() {\n        return Date.now() - startTimestamp;\n      }\n\n      function GuiControl(action, id, param1, param2, param3, param4) {\n        const element = document.getElementById(id);\n        if (element) {\n          // Handle DOM elements\n          if (action === " + await Chr (34) + "move" + await Chr (34) + ") {\n            // Set position and size\n            element.style.left = param1 + " + await Chr (34) + "px" + await Chr (34) + ";\n            element.style.top = param2 + " + await Chr (34) + "px" + await Chr (34) + ";\n            element.style.width = param3 + " + await Chr (34) + "px" + await Chr (34) + ";\n            element.style.height = param4 + " + await Chr (34) + "px" + await Chr (34) + ";\n          } else if (action === " + await Chr (34) + "focus" + await Chr (34) + " && (element instanceof HTMLInputElement || element instanceof HTMLElement)) {\n            // Focus on the element\n            element.focus();\n          } else if (action === " + await Chr (34) + "text" + await Chr (34) + ") {\n            // Set new text content\n            element.textContent = param1;\n          } else if (action === " + await Chr (34) + "hide" + await Chr (34) + ") {\n            // Hide the element\n            element.style.display = " + await Chr (34) + "none" + await Chr (34) + ";\n          } else if (action === " + await Chr (34) + "show" + await Chr (34) + ") {\n            // Show the element\n            element.style.display = " + await Chr (34) + "" + await Chr (34) + ";\n          } else if (action === " + await Chr (34) + "enable" + await Chr (34) + ") {\n            // Enable the element\n            element.disabled = false;\n          } else if (action === " + await Chr (34) + "disable" + await Chr (34) + ") {\n            // Disable the element\n            element.disabled = true;\n          } else if (action === " + await Chr (34) + "font" + await Chr (34) + ") {\n            // Set font size\n            element.style.fontSize = param1 + " + await Chr (34) + "px" + await Chr (34) + ";\n          } else if (action === " + await Chr (34) + "destroy" + await Chr (34) + ") {\n            // Remove the element from the DOM\n            element.parentNode.removeChild(element);\n          } else if (action === " + await Chr (34) + "color" + await Chr (34) + ") {\n            // Set color\n            element.style.color = param1;\n          } else if (action === " + await Chr (34) + "picture" + await Chr (34) + ") {\n            // Change the image source\n            if (element instanceof HTMLImageElement) {\n              element.src = param1;\n            } else {\n              console.error(" + await Chr (34) + "Element is not an <img> tag, cannot change picture." + await Chr (34) + ");\n            }\n          } else if (action === " + await Chr (34) + "textide" + await Chr (34) + ") {\n            // Set value for Ace editor\n            var editor = ace.edit(id); // Access the Ace editor instance using its ID\n            if (editor && param1) {\n              editor.session.setValue(param1);\n            } else {\n              console.error(" + await Chr (34) + "Element is not an Ace editor or parameter is missing." + await Chr (34) + ");\n            }\n          }\n        } else {\n          // Handle canvas or non-existing element\n          if (action === " + await Chr (34) + "move" + await Chr (34) + ") {\n            // Update position and size of the rectangle\n            updateRectangle(id, param1, param2, param3, param4);\n            redrawCanvas(); // Redraw the canvas with updated rectangles\n          } else if (action === " + await Chr (34) + "color" + await Chr (34) + ") {\n            // Update color of the rectangle\n            updateRectangleColor(id, param1);\n            redrawCanvas(); // Redraw the canvas with updated rectangles\n          }\n        }\n      }\n\n      function BuildInVars(varName) {\n        switch (varName) {\n          case " + await Chr (34) + "A_ScreenWidth" + await Chr (34) + ":\n            // Return screen width\n            return window.innerWidth;\n          case " + await Chr (34) + "A_LastKey" + await Chr (34) + ":\n            // Return screen width\n            return getLastKeyPressed();\n          case " + await Chr (34) + "A_ScreenHeight" + await Chr (34) + ":\n            // Return screen height\n            return window.innerHeight;\n          case " + await Chr (34) + "A_TimeIdle" + await Chr (34) + ":\n            // Return time idle\n            return A_TimeIdle();\n          case " + await Chr (34) + "A_TickCount" + await Chr (34) + ":\n            // Return tick count in milliseconds\n            return A_TickCount();\n          case " + await Chr (34) + "A_Now" + await Chr (34) + ":\n            // Return current local timestamp\n            return new Date().toLocaleString();\n          case " + await Chr (34) + "A_YYYY" + await Chr (34) + ":\n            // Return current year\n            return new Date().getFullYear();\n          case " + await Chr (34) + "A_MM" + await Chr (34) + ":\n            // Return current month\n            return (new Date().getMonth() + 1).toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_DD" + await Chr (34) + ":\n            // Return current day\n            return new Date().getDate().toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_MMMM" + await Chr (34) + ":\n            // Return full month name\n            return new Date().toLocaleDateString(undefined, { month: " + await Chr (34) + "long" + await Chr (34) + " });\n          case " + await Chr (34) + "A_MMM" + await Chr (34) + ":\n            // Return short month name\n            return new Date().toLocaleDateString(undefined, { month: " + await Chr (34) + "short" + await Chr (34) + " });\n          case " + await Chr (34) + "A_DDDD" + await Chr (34) + ":\n            // Return full day name\n            return new Date().toLocaleDateString(undefined, { weekday: " + await Chr (34) + "long" + await Chr (34) + " });\n          case " + await Chr (34) + "A_DDD" + await Chr (34) + ":\n            // Return short day name\n            return new Date().toLocaleDateString(undefined, { weekday: " + await Chr (34) + "short" + await Chr (34) + " });\n          case " + await Chr (34) + "A_Hour" + await Chr (34) + ":\n            // Return current hour\n            return new Date().getHours().toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_Min" + await Chr (34) + ":\n            // Return current minute\n            return new Date().getMinutes().toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_Sec" + await Chr (34) + ":\n            // Return current second\n            return new Date().getSeconds().toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_Space" + await Chr (34) + ":\n            // Return space character\n            return " + await Chr (34) + " " + await Chr (34) + ";\n          case " + await Chr (34) + "A_Tab" + await Chr (34) + ":\n            // Return tab character\n            return " + await Chr (34) + "" + await Chr (92) + "t" + await Chr (34) + ";\n\n          default:\n            // Handle unknown variable names\n            return null;\n        }\n      }\n\n      function Chr(number) {\n        // Check if the number is null\n        if (number === null) {\n          // Return an empty string\n          return " + await Chr (34) + "" + await Chr (34) + ";\n        }\n\n        // Check if the number is within the valid range\n        if (number >= 0 && number <= 0x10ffff) {\n          // Convert the number to a character using String.fromCharCode\n          return String.fromCharCode(number);\n        } else {\n          // Return an empty string for invalid numbers\n          return " + await Chr (34) + "" + await Chr (34) + ";\n        }\n      }\n\n      // Define the custom " + await Chr (34) + "ht" + await Chr (34) + " language for Ace Editor with AHK rules\n      ace.define(" + await Chr (34) + "ace/mode/ht" + await Chr (34) + ", [" + await Chr (34) + "require" + await Chr (34) + ", " + await Chr (34) + "exports" + await Chr (34) + ", " + await Chr (34) + "module" + await Chr (34) + ", " + await Chr (34) + "ace/lib/oop" + await Chr (34) + ", " + await Chr (34) + "ace/mode/text" + await Chr (34) + ", " + await Chr (34) + "ace/mode/text_highlight_rules" + await Chr (34) + "], function (require, exports, module) {\n        var oop = require(" + await Chr (34) + "ace/lib/oop" + await Chr (34) + ");\n        var TextMode = require(" + await Chr (34) + "ace/mode/text" + await Chr (34) + ").Mode;\n        var TextHighlightRules = require(" + await Chr (34) + "ace/mode/text_highlight_rules" + await Chr (34) + ").TextHighlightRules;\n\n        var HTHighlightRules = function () {\n          this.$rules = {\n            start: ["
 variables.keyWordsCommandsFolrmated = ""
-var items25 = LoopParseFunc(variables.keyWordsCommands, "|");
-for (/* Loop Parse */ let A_Index25 = 1; A_Index25 <= items25.length; A_Index25++)
-{
-variables.A_Index25 = A_Index25
-variables.A_LoopField25 = items25[A_Index25 - 1];
-var items26 = LoopParseFunc(variables.A_LoopField25, ",");
+var items26 = LoopParseFunc(variables.keyWordsCommands, "|");
 for (/* Loop Parse */ let A_Index26 = 1; A_Index26 <= items26.length; A_Index26++)
 {
 variables.A_Index26 = A_Index26
 variables.A_LoopField26 = items26[A_Index26 - 1];
-if (( variables.A_Index26 == 1 ))
+var items27 = LoopParseFunc(variables.A_LoopField26, ",");
+for (/* Loop Parse */ let A_Index27 = 1; A_Index27 <= items27.length; A_Index27++)
 {
-variables.keyWordsCommandsFolrmated += variables.A_LoopField26 + "|"
+variables.A_Index27 = A_Index27
+variables.A_LoopField27 = items27[A_Index27 - 1];
+if (( variables.A_Index27 == 1 ))
+{
+variables.keyWordsCommandsFolrmated += variables.A_LoopField27 + "|"
 }
 }
 }
 variables.keyWordsCommandsFolrmated = StringTrimRight(variables.keyWordsCommandsFolrmated, 1)
 variables.keywords = variables.keyWordIF + "|" + variables.keyWordElseIf + "|" + variables.keyWordElse + "|" + variables.keyWordWhileLoop + "|" + variables.keyWordForLoop + "|" + variables.keyWordLoopInfinite + "|" + variables.keyWordLoop + "|" + variables.keyWordLoopParse + "|" + variables.keyWordContinue + "|" + variables.keyWordBreak + "|" + variables.keyWordFunc + "|" + variables.keyWordAwait + "|" + variables.keyWordSwitch + "|" + variables.keyWordSwitchCase + "|" + variables.keyWordThrow + "|" + variables.keyWordTry + "|" + variables.keyWordCatch + "|" + variables.keyWordFinally + "|" + variables.keyWordJavaScriptVar + "|" + variables.keyWordJavaScriptLet + "|" + variables.keyWordJavaScriptConst + "|" + variables.keyWordReturnStatement + "|" + variables.keyWordEnd
 variables.functionsForHighlighting = ""
-for (/* Normal Loop */ variables.A_Index27 = 1; variables.A_Index27 <= variables.allFuncNamesNum; variables.A_Index27++)
+for (/* Normal Loop */ variables.A_Index28 = 1; variables.A_Index28 <= variables.allFuncNamesNum; variables.A_Index28++)
 {
-variables.functionsForHighlighting += variables["allFuncNames" + variables.A_Index27] + "|"
+variables.functionsForHighlighting += variables["allFuncNames" + variables.A_Index28] + "|"
 }
 variables.functionsForHighlighting += variables.keyWordErrorMsg
 variables.keyWordArrayMethods = variables.keyWordArrayAppend + "|" + variables.keyWordArrayPop + "|" + variables.keyWordArraySize + "|" + variables.keyWordArrayInsert + "|" + variables.keyWordArrayRemove + "|" + variables.keyWordArrayIndexOf
@@ -8890,12 +8983,12 @@ variables.keyWordTypes = variables.keyWordINT + "|" + variables.keyWordSTR + "|"
 variables.autoCompleteUp = "["
 variables.autoCompleteALLTemp = variables.keywords + "|" + variables.keyWordsCommandsFolrmated + "|" + variables.functionsForHighlighting + "|" + variables.keyWordALoopField + "|" + variables.keyWordAIndex + "|" + variables.keyWordArrayMethods + "|" + variables.keyWordTypes + "|" + variables.keyWordGlobal
 variables.autoCompleteALL = ""
-var items28 = LoopParseFunc(variables.autoCompleteALLTemp, "|");
-for (/* Loop Parse */ let A_Index28 = 1; A_Index28 <= items28.length; A_Index28++)
+var items29 = LoopParseFunc(variables.autoCompleteALLTemp, "|");
+for (/* Loop Parse */ let A_Index29 = 1; A_Index29 <= items29.length; A_Index29++)
 {
-variables.A_Index28 = A_Index28
-variables.A_LoopField28 = items28[A_Index28 - 1];
-variables.autoCompleteALL += "{ name: " + await Chr (34) + await Trim (variables.A_LoopField28) + await Chr (34) + " }, "
+variables.A_Index29 = A_Index29
+variables.A_LoopField29 = items29[A_Index29 - 1];
+variables.autoCompleteALL += "{ name: " + await Chr (34) + await Trim (variables.A_LoopField29) + await Chr (34) + " }, "
 }
 variables.autoCompleteALL = StringTrimRight(variables.autoCompleteALL, 2)
 variables.autoCompleteDown = "]"
