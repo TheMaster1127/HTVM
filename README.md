@@ -87,6 +87,3 @@ Compile `IDE-generator.cpp` to produce `IDE-generator` and run:
 
 This will generate `IDE.html`, providing an IDE with features like syntax highlighting, code completion, and formatting options.
 
-## Note
-
-This project is still in development. More features will be added soon, including a website for easy instruction file generation and documentation.
