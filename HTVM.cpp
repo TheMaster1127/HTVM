@@ -1881,7 +1881,7 @@ if (str11 == "+" && str12 == "+" && str13 == ";")
 str111 = StringTrimRight(str111, 3);
 if (langToTranspileTo == "py") 
 {
-str2 = str111 + " =+ 1";
+str2 = str111 + " = " + Trim ( str111 ) + " + 1";
 }
 else
 {
@@ -1893,7 +1893,7 @@ if (str11 == "-" && str12 == "-" && str13 == ";")
 str111 = StringTrimRight(str111, 3);
 if (langToTranspileTo == "py") 
 {
-str2 = str111 + " =- 1";
+str2 = str111 + " = " + Trim ( str111 ) + " - 1";
 }
 else
 {
@@ -1905,7 +1905,7 @@ if (str12 == "+" && str13 == "+")
 str111 = StringTrimRight(str111, 2);
 if (langToTranspileTo == "py") 
 {
-str2 = str111 + " =+ 1";
+str2 = str111 + " = " + Trim ( str111 ) + " + 1";
 }
 else
 {
@@ -1917,7 +1917,7 @@ if (str12 == "-" && str13 == "-")
 str111 = StringTrimRight(str111, 2);
 if (langToTranspileTo == "py") 
 {
-str2 = str111 + " =- 1";
+str2 = str111 + " = " + Trim ( str111 ) + " - 1";
 }
 else
 {
