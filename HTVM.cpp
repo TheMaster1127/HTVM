@@ -817,6 +817,8 @@ if (outConstuctTheOutFromTheCommandsLineTranspile == 1)
 {
 outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsLineTranspileText;
 }
+outConstuctTheOutFromTheCommands = StrReplace ( outConstuctTheOutFromTheCommands , "(, " , "( " ) ;
+outConstuctTheOutFromTheCommands = StrReplace ( outConstuctTheOutFromTheCommands , "(," , "(" ) ;
 return outConstuctTheOutFromTheCommands;
 }
 return "false";
