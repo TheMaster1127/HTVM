@@ -14,10 +14,10 @@ HTVM is a tool for creating and deploying new programming languages quickly. You
 
 5. **IDE Integration**: Compile `IDE-generator.cpp` to produce `IDE-generator`. You can then run it with `HT-instructions.txt` to generate `IDE.html`, which includes an IDE with syntax highlighting and code completion features. 
 
-   - Use `Ctrl+Shift+Alt+F` to format code.
-   - Use `Ctrl+Shift+Alt+G` to undo formatting.
-   - For normal undo operations, use `Ctrl+Z` like in a typical IDE.
-   - Use `Ctrl+Alt+Shift+V` to toggle Vim mode on and off.
+In the `IDE.html` your code will always be saved in local storage, so if you reload the page, your code will still be there.
+
+   - Use `Ctrl+Shift+Alt+F` to format code. WARNING: Once you press it, there is no going back. You better know what you are doing.
+   - Use `Ctrl+Alt+Shift+V` to toggle Vim mode on and off. Changes will not be saved
 
 
 ## Usage
