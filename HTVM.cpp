@@ -2063,6 +2063,10 @@ return str2FIX;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 std::string expressionParserTranspiler(std::string expression)
 {
+if (forLoopLang == "cpp") 
+{
+expression = RegExReplace ( expression , "\\b" + Trim ( keyWordINT ) + "\\b" , "int" ) ;
+}
 expression = StrReplace ( expression , " " + keyWordAdditionOperator + " " , " + " ) ;
 expression = StrReplace ( expression , " " + keyWordConcatenationOperator + " " , " + " ) ;
 expression = StrReplace ( expression , " " + keyWordEqualOperator + " " , " == " ) ;
@@ -2072,11 +2076,11 @@ expression = RegExReplace ( expression , "!([\\w]+)" , "not $1" ) ;
 }
 if (langToTranspileTo == "py") 
 {
-expression = StrReplace ( expression , keyWordNotOperator , "not" ) ;
+expression = RegExReplace ( expression , "\\b" + keyWordNotOperator + "\\b" , "not" ) ;
 }
 else
 {
-expression = StrReplace ( expression , keyWordNotOperator , "!" ) ;
+expression = RegExReplace ( expression , "\\b" + keyWordNotOperator + "\\b" , "!" ) ;
 }
 expression = StrReplace ( expression , " " + keyWordGreaterThanOperator + " " , " > " ) ;
 expression = StrReplace ( expression , " " + keyWordLessThanOperator + " " , " < " ) ;
@@ -2173,6 +2177,7 @@ expression = StrReplace ( expression , ") && (" , " && " ) ;
 expression = StrReplace ( expression , ") || (" , " || " ) ;
 }
 expression = StrReplace ( expression , ".length()" , ".length" ) ;
+expression = StrReplace ( expression , + " " + Trim ( keyWordVariablesAssignmentOperator ) + " " , " = " ) ;
 return expression;
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -4006,7 +4011,25 @@ else if (SubStr (StrLower (A_LoopField65) , 1 , StrLen (StrLower (keyWordForLoop
 {
 str1 = StringTrimLeft ( A_LoopField65 , StrLen ( keyWordForLoop ) ) ;
 //MsgBox, % A_LoopField65
+if (useParentheses == "on") 
+{
 str2 = transpileForLoop ( langToTranspileTo , forLoopLang , "for " + expressionParserTranspiler ( str1 ) ) ;
+}
+else
+{
+if (langToTranspileTo == "py") 
+{
+str2 = transpileForLoop ( langToTranspileTo , forLoopLang , "for " + expressionParserTranspiler ( str1 ) ) ;
+}
+if (langToTranspileTo == "js") 
+{
+str2 = transpileForLoop ( langToTranspileTo , forLoopLang , "for (" + expressionParserTranspiler ( str1 ) + ")" ) ;
+}
+if (langToTranspileTo == "cpp") 
+{
+str2 = transpileForLoop ( langToTranspileTo , forLoopLang , "for (" + expressionParserTranspiler ( str1 ) + ")" ) ;
+}
+}
 lineDone = 1;
 str2 = StrReplace ( str2 , "::" , ":" ) ;
 str2 = StrReplace ( str2 , ";;" , ";" ) ;

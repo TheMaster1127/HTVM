@@ -1596,9 +1596,15 @@ return str2FIX
 func str expressionParserTranspiler(str expression)
 {
 
+if (forLoopLang = "cpp")
+{
+expression := RegExReplace(expression, "\\b" . Trim(keyWordINT) . "\\b", "int")
+}
+
 expression := StrReplace(expression, " " . keyWordAdditionOperator . " ", " + ")
 expression := StrReplace(expression, " " . keyWordConcatenationOperator . " ", " + ")
 expression := StrReplace(expression, " " . keyWordEqualOperator . " ", " == ")
+
 
 if (langToTranspileTo = "py")
 {
@@ -1607,11 +1613,11 @@ expression := RegExReplace(expression, "!([\\w]+)", "not $1")
 
 if (langToTranspileTo = "py")
 {
-expression := StrReplace(expression, keyWordNotOperator, "not")
+expression := RegExReplace(expression, "\\b" . keyWordNotOperator . "\\b", "not")
 }
 else
 {
-expression := StrReplace(expression, keyWordNotOperator, "!")
+expression := RegExReplace(expression, "\\b" . keyWordNotOperator . "\\b", "!")
 }
 expression := StrReplace(expression, " " . keyWordGreaterThanOperator . " ", " > ")
 expression := StrReplace(expression, " " . keyWordLessThanOperator . " ", " < ")
@@ -1730,6 +1736,9 @@ expression := StrReplace(expression, ") || (", " || ")
 }
 
 expression := StrReplace(expression, ".length()", ".length")
+
+expression := StrReplace(expression, . " " . Trim(keyWordVariablesAssignmentOperator) . " ", " = ")
+
 
 return expression
 }
@@ -3744,8 +3753,25 @@ else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordForLoop))) = St
 {
 str1 := StringTrimLeft(A_LoopField, StrLen(keyWordForLoop))
 ;MsgBox, % A_LoopField
-
+if (useParentheses = "on")
+{
 str2 := transpileForLoop(langToTranspileTo, forLoopLang, "for " . expressionParserTranspiler(str1))
+}
+else
+{
+if (langToTranspileTo = "py")
+{
+str2 := transpileForLoop(langToTranspileTo, forLoopLang, "for " . expressionParserTranspiler(str1))
+}
+if (langToTranspileTo = "js")
+{
+str2 := transpileForLoop(langToTranspileTo, forLoopLang, "for (" . expressionParserTranspiler(str1) . ")")
+}
+if (langToTranspileTo = "cpp")
+{
+str2 := transpileForLoop(langToTranspileTo, forLoopLang, "for (" . expressionParserTranspiler(str1) . ")")
+}
+}
 
 lineDone := 1
 str2 := StrReplace(str2, "::", ":")
