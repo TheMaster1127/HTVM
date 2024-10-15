@@ -566,7 +566,8 @@
       });
 
       // Combined keywords
-      let allKeyWords = [{ name: "if" }, { name: "else if" }, { name: "else" }, { name: "while" }, { name: "for" }, { name: "Loop" }, { name: "Loop," }, { name: "Loop, Parse," }, { name: "continue" }, { name: "break" }, { name: "func" }, { name: "await" }, { name: "switch" }, { name: "case" }, { name: "throw" }, { name: "try" }, { name: "catch" }, { name: "finally" }, { name: "var" }, { name: "let" }, { name: "const" }, { name: "return" }, { name: "end" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "Random" }, { name: "Sleep" }, { name: "FileRead" }, { name: "FileAppend" }, { name: "FileDelete" }, { name: "Sort" }, { name: "LoopParseFunc" }, { name: "LoopParseFunc" }, { name: "LoopParseFunc" }, { name: "HTVM_func1" }, { name: "print" }, { name: "print" }, { name: "STR" }, { name: "INT" }, { name: "FLOAT" }, { name: "STR" }, { name: "INT" }, { name: "FLOAT" }, { name: "INT" }, { name: "STR" }, { name: "FLOAT" }, { name: "InStr" }, { name: "Random" }, { name: "Sleep" }, { name: "input" }, { name: "FileRead" }, { name: "FileAppend" }, { name: "FileDelete" }, { name: "StrLen" }, { name: "Asc" }, { name: "Abs" }, { name: "ACos" }, { name: "ASin" }, { name: "ATan" }, { name: "Ceil" }, { name: "Cos" }, { name: "Exp" }, { name: "Ln" }, { name: "Log" }, { name: "Round" }, { name: "Sin" }, { name: "Sqrt" }, { name: "Tan" }, { name: "SubStr" }, { name: "Trim" }, { name: "StrReplace" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "StrLower" }, { name: "StrSplit" }, { name: "Chr" }, { name: "Mod" }, { name: "Floor" }, { name: "Sort" }, { name: "getDataFromAPI" }, { name: "FileCreateDir" }, { name: "FileRemoveDir" }, { name: "FileExist" }, { name: "isWindows" }, { name: "GetParams" }, { name: "BuildInVars" }, { name: "RegExReplace" }, { name: "RunCMD" }, { name: "RegExMatch" }, { name: "ExitApp" }, { name: "InStr" }, { name: "InStr" }, { name: "Random" }, { name: "Random" }, { name: "Sleep" }, { name: "Sleep" }, { name: "input" }, { name: "FileAppend" }, { name: "FileDelete" }, { name: "FileAppend" }, { name: "FileRead" }, { name: "StrLen" }, { name: "Asc" }, { name: "StrLen" }, { name: "Asc" }, { name: "Chr" }, { name: "Chr" }, { name: "Asc" }, { name: "Abs" }, { name: "ACos" }, { name: "ASin" }, { name: "ATan" }, { name: "Ceil" }, { name: "Cos" }, { name: "Exp" }, { name: "Ln" }, { name: "Log" }, { name: "Round" }, { name: "Sin" }, { name: "Sqrt" }, { name: "Tan" }, { name: "Asc" }, { name: "Abs" }, { name: "ACos" }, { name: "ASin" }, { name: "ATan" }, { name: "Ceil" }, { name: "Cos" }, { name: "Exp" }, { name: "Ln" }, { name: "Log" }, { name: "Round" }, { name: "Sin" }, { name: "Sqrt" }, { name: "Tan" }, { name: "SubStr" }, { name: "SubStr" }, { name: "Trim" }, { name: "StrReplace" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "StrLower" }, { name: "StrSplit" }, { name: "Chr" }, { name: "Mod" }, { name: "Floor" }, { name: "Trim" }, { name: "StrReplace" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "StrLower" }, { name: "StrSplit" }, { name: "Chr" }, { name: "Mod" }, { name: "Floor" }, { name: "Sort" }, { name: "getDataFromAPI" }, { name: "FileCreateDir" }, { name: "FileRemoveDir" }, { name: "FileExist" }, { name: "isWindows" }, { name: "GetParams" }, { name: "BuildInVars" }, { name: "RegExReplace" }, { name: "RunCMD" }, { name: "RegExMatch" }, { name: "ExitApp" }, { name: "Sort" }, { name: "getDataFromAPI" }, { name: "getUrlParams" }, { name: "BuildInVars" }, { name: "RegExReplace" }, { name: "RegExMatch" }, { name: "ErrorMsg" }, { name: "A_LoopField" }, { name: "A_Index" }, { name: "add" }, { name: "pop" }, { name: "size" }, { name: "insert" }, { name: "rm" }, { name: "indexOf" }, { name: "int" }, { name: "str" }, { name: "void" }, { name: "bool" }, { name: "float" }, { name: "int8" }, { name: "int16" }, { name: "int32" }, { name: "int64" }, { name: "arr" }, { name: "arr int" }, { name: "arr str" }, { name: "arr float" }, { name: "arr bool" }, { name: "global" }];
+
+      let allKeyWords = [{ name: "~~~~hewuaesdyuyiaqwes7dy8s7qwr9styqwa7sdys7cyy767^*&]]]]]]]]]][pwaoidgu8wserdgfyieusdfucufaweyr]" }];
 
       function AddIDE(parent, xPos, yPos, w, h, id, font = 18, langName = "autohotkey", onChangeFunc, initialText = "") {
         var langTools = ace.require("ace/ext/language_tools");
@@ -1431,6 +1432,12 @@
         let currentTab = null;
         const files = []; // Store full paths for the files
         let FullPathfiles = []; // Store full paths for the files
+        let currentTabIndex = 0; // To track the current tab index
+        let ctrlPressed = false; // To track if Ctrl is held down
+        let cyclingTabs = false; // To track if we are cycling through tabs
+        let latestTabsUsed = [];
+        let lastTabIndex = -1; // To store the index of the last active tab
+        let lastTabUsed = getData("last_tab.txt");
 
         // Function to add a new tab
         function addTab(fullPath) {
@@ -1510,8 +1517,10 @@
           saveCurrentState(variables.idetext, currentTabFullPath, 1);
           logToOutput(`Clicked tab: ${fullPath}`); // Log the full path of the clicked tab
           currentTabFullPath = fullPath;
+
           // Call another function here and pass the full path
           openThisTabFile(currentTabFullPath);
+          saveData(fullPath, "last_tab.txt");
         }
 
         function fileExtensionToLangName(extension) {
@@ -1656,7 +1665,12 @@
         function openThisTabFile(currentTabFullPathPATH) {
           // Extract the file extension from the full path
           const fileExtension = currentTabFullPathPATH.split(".").pop().toLowerCase();
-
+          if (fileExtension == "ht") {
+            // Combined keywords
+            allKeyWords = [{ name: "if" }, { name: "else if" }, { name: "else" }, { name: "while" }, { name: "for" }, { name: "Loop" }, { name: "Loop," }, { name: "Loop, Parse," }, { name: "continue" }, { name: "break" }, { name: "func" }, { name: "await" }, { name: "switch" }, { name: "case" }, { name: "throw" }, { name: "try" }, { name: "catch" }, { name: "finally" }, { name: "var" }, { name: "let" }, { name: "const" }, { name: "return" }, { name: "end" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "Random" }, { name: "Sleep" }, { name: "FileRead" }, { name: "FileAppend" }, { name: "FileDelete" }, { name: "Sort" }, { name: "LoopParseFunc" }, { name: "LoopParseFunc" }, { name: "LoopParseFunc" }, { name: "HTVM_func1" }, { name: "print" }, { name: "print" }, { name: "STR" }, { name: "INT" }, { name: "FLOAT" }, { name: "STR" }, { name: "INT" }, { name: "FLOAT" }, { name: "INT" }, { name: "STR" }, { name: "FLOAT" }, { name: "InStr" }, { name: "Random" }, { name: "Sleep" }, { name: "input" }, { name: "FileRead" }, { name: "FileAppend" }, { name: "FileDelete" }, { name: "StrLen" }, { name: "Asc" }, { name: "Abs" }, { name: "ACos" }, { name: "ASin" }, { name: "ATan" }, { name: "Ceil" }, { name: "Cos" }, { name: "Exp" }, { name: "Ln" }, { name: "Log" }, { name: "Round" }, { name: "Sin" }, { name: "Sqrt" }, { name: "Tan" }, { name: "SubStr" }, { name: "Trim" }, { name: "StrReplace" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "StrLower" }, { name: "StrSplit" }, { name: "Chr" }, { name: "Mod" }, { name: "Floor" }, { name: "Sort" }, { name: "getDataFromAPI" }, { name: "FileCreateDir" }, { name: "FileRemoveDir" }, { name: "FileExist" }, { name: "isWindows" }, { name: "GetParams" }, { name: "BuildInVars" }, { name: "RegExReplace" }, { name: "RunCMD" }, { name: "RegExMatch" }, { name: "ExitApp" }, { name: "InStr" }, { name: "InStr" }, { name: "Random" }, { name: "Random" }, { name: "Sleep" }, { name: "Sleep" }, { name: "input" }, { name: "FileAppend" }, { name: "FileDelete" }, { name: "FileAppend" }, { name: "FileRead" }, { name: "StrLen" }, { name: "Asc" }, { name: "StrLen" }, { name: "Asc" }, { name: "Chr" }, { name: "Chr" }, { name: "Asc" }, { name: "Abs" }, { name: "ACos" }, { name: "ASin" }, { name: "ATan" }, { name: "Ceil" }, { name: "Cos" }, { name: "Exp" }, { name: "Ln" }, { name: "Log" }, { name: "Round" }, { name: "Sin" }, { name: "Sqrt" }, { name: "Tan" }, { name: "Asc" }, { name: "Abs" }, { name: "ACos" }, { name: "ASin" }, { name: "ATan" }, { name: "Ceil" }, { name: "Cos" }, { name: "Exp" }, { name: "Ln" }, { name: "Log" }, { name: "Round" }, { name: "Sin" }, { name: "Sqrt" }, { name: "Tan" }, { name: "SubStr" }, { name: "SubStr" }, { name: "Trim" }, { name: "StrReplace" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "StrLower" }, { name: "StrSplit" }, { name: "Chr" }, { name: "Mod" }, { name: "Floor" }, { name: "Trim" }, { name: "StrReplace" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "StrLower" }, { name: "StrSplit" }, { name: "Chr" }, { name: "Mod" }, { name: "Floor" }, { name: "Sort" }, { name: "getDataFromAPI" }, { name: "FileCreateDir" }, { name: "FileRemoveDir" }, { name: "FileExist" }, { name: "isWindows" }, { name: "GetParams" }, { name: "BuildInVars" }, { name: "RegExReplace" }, { name: "RunCMD" }, { name: "RegExMatch" }, { name: "ExitApp" }, { name: "Sort" }, { name: "getDataFromAPI" }, { name: "getUrlParams" }, { name: "BuildInVars" }, { name: "RegExReplace" }, { name: "RegExMatch" }, { name: "ErrorMsg" }, { name: "A_LoopField" }, { name: "A_Index" }, { name: "add" }, { name: "pop" }, { name: "size" }, { name: "insert" }, { name: "rm" }, { name: "indexOf" }, { name: "int" }, { name: "str" }, { name: "void" }, { name: "bool" }, { name: "float" }, { name: "int8" }, { name: "int16" }, { name: "int32" }, { name: "int64" }, { name: "arr" }, { name: "arr int" }, { name: "arr str" }, { name: "arr float" }, { name: "arr bool" }, { name: "global" }];
+          } else {
+            allKeyWords = [{ name: "~~~hewuaesdyuyiaqwes7dy8s7qwr9styqwa7sdys7cyy767^*&]]]]]]]]]][pwaoidgu8wserdgfyieusdfucufaweyr]" }];
+          }
           // Use the file extension to get the corresponding language name
           const langName = fileExtensionToLangName(`.${fileExtension}`);
 
@@ -1665,6 +1679,9 @@
 
           // Set the editor mode based on the language name
           editor.session.setMode("ace/mode/" + langName);
+
+          latestTabsUsed.push(currentTabFullPathPATH);
+          lastTabIndex = FullPathfiles.indexOf(latestTabsUsed[latestTabsUsed.length - 2]);
         }
 
         // Function to log messages to the output area
@@ -1694,6 +1711,8 @@
         }
         openThisTabFile(currentTabFullPath);
         tabsData = StringTrimRight(tabsData, 1);
+
+        handleTabClick(getData("last_tab.txt"));
 
         // Log an example message to the output area
         logToOutput("Welcome to the IDE!");
@@ -2118,6 +2137,39 @@
               console.log("No file to reopen.");
               logToOutput("No file to reopen.");
             }
+          }
+
+          if (event.key === "Control") {
+            ctrlPressed = true;
+          }
+
+          // Ctrl + Tab to switch between tabs
+          if (ctrlPressed && event.key === "Tab") {
+            event.preventDefault(); // Prevent default behavior
+
+            if (!cyclingTabs) {
+              // Single press: Switch to the most recent tab
+              if (lastTabIndex !== -1) {
+                let temp = currentTabIndex;
+                currentTabIndex = lastTabIndex;
+                lastTabIndex = temp;
+              }
+              cyclingTabs = true; // Now we start cycling
+            } else {
+              // Cycle through all tabs when repeatedly pressing Tab
+              lastTabIndex = currentTabIndex;
+              currentTabIndex = (currentTabIndex + 1) % FullPathfiles.length; // Move to the next tab, wrap around if needed
+            }
+
+            handleTabClick(FullPathfiles[currentTabIndex]); // Activate the selected tab
+          }
+        });
+
+        // Detect when Ctrl is released
+        window.addEventListener("keyup", function (event) {
+          if (event.key === "Control") {
+            ctrlPressed = false;
+            cyclingTabs = false; // Reset cycling state when Ctrl is released
           }
         });
 
