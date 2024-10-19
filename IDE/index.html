@@ -1869,11 +1869,61 @@
           return tooltip;
         }
 
+        // Function to adjust tooltip position to stay within window bounds
+        function adjustTooltipPosition(tooltip, rect) {
+          const tooltipRect = tooltip.getBoundingClientRect();
+          const viewportWidth = window.innerWidth;
+          const viewportHeight = window.innerHeight;
+
+          // Adjust tooltip position if it overflows on the right
+          if (tooltipRect.right > viewportWidth) {
+            tooltip.style.left = `${viewportWidth - tooltipRect.width}px`;
+          }
+
+          // Adjust tooltip position if it overflows on the bottom
+          if (tooltipRect.bottom > viewportHeight) {
+            tooltip.style.top = `${rect.top - tooltipRect.height + window.scrollY}px`; // Position it above the tab if it goes offscreen at the bottom
+          }
+
+          // Adjust tooltip position if it overflows on the left
+          if (tooltipRect.left < 0) {
+            tooltip.style.left = `0px`;
+          }
+
+          // Adjust tooltip position if it overflows on the top
+          if (tooltipRect.top < 0) {
+            tooltip.style.top = `0px`;
+          }
+        }
+
         // Create a tooltip element
         const fileTooltip = createTooltip();
 
         // Variable to hold the timeout reference
         let hoverTimeout;
+
+        // Function to update the tab colors
+        function updateTabColors() {
+          const allTabs = document.querySelectorAll(".tab, .tab.active"); // Select both classes
+
+          // Loop through all tabs
+          for (let i = 0; i < allTabs.length; i++) {
+            const tab = allTabs[i];
+
+            // Log the text content for debugging
+            console.log(tab.textContent);
+            console.log(currentTabFullPath.replace(/\\/g, "/").split("/").pop());
+
+            // Check if the tab's text matches the current path
+            if (tab.textContent === currentTabFullPath.replace(/\\/g, "/").split("/").pop()) {
+              // Change background color
+              tab.style.backgroundColor = "#2B2B2B"; // Set background color to #2B2B2B
+            } else {
+              // Reset background color for other tabs
+              tab.style.backgroundColor = "rgb(11, 12, 13)"; // Reset to original color
+            }
+          }
+        }
 
         // Attach hover event listeners to each tab
         Array.from(document.querySelectorAll(".tab")).forEach((tab, index) => {
@@ -1891,8 +1941,11 @@
                 const rect = tab.getBoundingClientRect(); // Get button position
                 fileTooltip.style.left = `${rect.left}px`; // Position tooltip horizontally
                 fileTooltip.style.top = `${rect.bottom + window.scrollY}px`; // Position tooltip below the button
+
+                // Adjust tooltip position to make sure it stays within window bounds
+                adjustTooltipPosition(fileTooltip, rect);
               }
-            }, 1000); // 1 second
+            }, 1000); // 1 second delay
           };
 
           tab.onmouseout = () => {
@@ -1900,10 +1953,16 @@
             fileTooltip.style.display = "none"; // Hide the tooltip
             clearTimeout(hoverTimeout); // Clear the timeout
 
-            // Reset button color
-            tab.style.backgroundColor = "#0B0C0D"; // Reset to original color
+            // Call updateTabColors to reset tab colors after mouseout
+            updateTabColors();
           };
         });
+
+        // Run the updateTabColors function every second (111 milliseconds)
+        setInterval(updateTabColors, 111);
+
+        // Call it initially to set the colors based on the current tab
+        updateTabColors();
 
         // Register event listeners ONCE
         ipcRenderer.on("command-output", (event, data) => {
@@ -1949,14 +2008,16 @@
           const onlyFileName = fullFilePath.substring(0, fullFilePath.lastIndexOf(".")); // Get full path without extension
           const dirFullPath = fullFilePath.substring(0, fullFilePath.lastIndexOf(fullFilePath.includes("\\") ? "\\" : "/"));
 
-          const parsedLines = lines.map(
-            (line) =>
-              line
-                .replace(/~~~/g, " ") // Replace '~~~' with space
-                .replace(/%FILENAME%/g, fullFilePath) // Replace '%FILENAME%' with fullFilePath
-                .replace(/%ONLYFILENAME%/g, onlyFileName) // Replace '%ONLYFILENAME%' with filename without extension
-                .replace(/%DIRFULLPATH%/g, dirFullPath), // Replace '%DIRFULLPATH%' with the full directory path
-          );
+          const parsedLines = lines
+            .filter((line) => !line.trim().startsWith(";")) // Ignore lines that start with ';'
+            .map(
+              (line) =>
+                line
+                  .replace(/~~~/g, " ") // Replace '~~~' with space
+                  .replace(/%FILENAME%/g, fullFilePath) // Replace '%FILENAME%' with fullFilePath
+                  .replace(/%ONLYFILENAME%/g, onlyFileName) // Replace '%ONLYFILENAME%' with filename without extension
+                  .replace(/%DIRFULLPATH%/g, dirFullPath), // Replace '%DIRFULLPATH%' with the full directory path
+            );
 
           return parsedLines.filter((line) => line.trim() !== ""); // Filter out any empty lines
         }

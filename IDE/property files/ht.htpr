@@ -1,7 +1,10 @@
+; for cpp
+
 HTVM "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\temp~~~Projects\HT\HT-instructions.txt" "cpp"
-
 g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
-
 cd "%DIRFULLPATH%" && "%ONLYFILENAME%.exe"
 
+; for python
 
+;HTVM "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\temp~~~Projects\HT\HT-instructions.txt" "py"
+;cd "%DIRFULLPATH%" && python "%ONLYFILENAME%.py"

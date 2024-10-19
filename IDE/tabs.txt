@@ -7,5 +7,9 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\py.
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\A-straight-algorithm\A-straight-algorithm\A-straight-GetData.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\tetststsHTVM ide\adsfs.cpp
 C:\Users\The_M\OneDrive\Desktop\temp Projects\tetststsHTVM ide\dsd.py
-C:\Users\The_M\OneDrive\Desktop\temp Projects\tetststsHTVM ide\adsfs.py
-C:\Users\The_M\OneDrive\Desktop\temp Projects\tetststsHTVM ide\adsfs.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\CPU-ASM-EMULATOR.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\HTLL.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\test.htll
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\htll.htpr
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\HTLL.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\test.htasm
