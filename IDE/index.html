@@ -1439,6 +1439,20 @@
         let lastTabIndex = -1; // To store the index of the last active tab
         let lastTabUsed = getData("last_tab.txt");
 
+        // Declare scrollPosArray globally
+        var scrollPosArray = [];
+
+        // Assuming getData is a function that reads the content of the file and returns it as a string.
+        var scrollPosArrayTEMP = getData("scrollPosArray.txt");
+
+        // Split the string by newlines and loop through each line.
+        scrollPosArrayTEMP.split("\n").forEach(function (line) {
+          scrollPosArray.push(line); // Add each line to the global scrollPosArray
+        });
+
+        // Now scrollPosArray contains all the lines from the file.
+        console.log(scrollPosArray);
+
         // Function to add a new tab
         function addTab(fullPath) {
           currentTabFullPath = fullPath;
@@ -1522,6 +1536,42 @@
           openThisTabFile(currentTabFullPath);
           saveData(fullPath, "last_tab.txt");
         }
+
+        // Function to update scroll position and save data
+        function updateScrollPosition() {
+          // Select all tabs with .tab or .tab.active classes
+          const allTabs = document.querySelectorAll(".tab, .tab.active");
+
+          // Loop through all tabs
+          for (let i = 0; i < allTabs.length; i++) {
+            const tab = allTabs[i];
+
+            // Check if the tab's text matches the current path
+            if (tab.textContent === currentTabFullPath.replace(/\\/g, "/").split("/").pop()) {
+              console.log(i);
+
+              // Update scrollPosArray for the matched tab
+              scrollPosArray[i] = editor.session.getScrollTop();
+
+              // Initialize tempDataOut as an empty string
+              let tempDataOut = "";
+
+              // Loop through scrollPosArray and concatenate each element with a newline
+              for (let index = 0; index < scrollPosArray.length; index++) {
+                tempDataOut += scrollPosArray[index] + "\n";
+              }
+
+              // Trim the last newline character from tempDataOut
+              tempDataOut = tempDataOut.trimEnd();
+
+              // Save the data to the file
+              saveData(tempDataOut, "scrollPosArray.txt");
+            }
+          }
+        }
+
+        // Attach the scroll event listener to the editor session
+        editor.session.on("changeScrollTop", updateScrollPosition);
 
         function fileExtensionToLangName(extension) {
           // Mapping of file extensions to language names
@@ -1699,6 +1749,8 @@
 
           latestTabsUsed.push(currentTabFullPathPATH);
           lastTabIndex = FullPathfiles.indexOf(latestTabsUsed[latestTabsUsed.length - 2]);
+
+          editor.session.setScrollTop(scrollPosArray[FullPathfiles.indexOf(latestTabsUsed[latestTabsUsed.length - 1])]);
         }
 
         // Function to log messages to the output area
@@ -1928,8 +1980,8 @@
             const tab = allTabs[i];
 
             // Log the text content for debugging
-            console.log(tab.textContent);
-            console.log(currentTabFullPath.replace(/\\/g, "/").split("/").pop());
+            //console.log(tab.textContent);
+            //console.log(currentTabFullPath.replace(/\\/g, "/").split("/").pop());
 
             // Check if the tab's text matches the current path
             if (tab.textContent === currentTabFullPath.replace(/\\/g, "/").split("/").pop()) {
@@ -2171,8 +2223,8 @@
             for (let i = 0; i < allTabs.length; i++) {
               const tab = allTabs[i];
 
-              console.log(tab.textContent);
-              console.log(currentTabFullPath.replace(/\\/g, "/").split("/").pop());
+              //console.log(tab.textContent);
+              // console.log(currentTabFullPath.replace(/\\/g, "/").split("/").pop());
 
               if (tab.textContent === currentTabFullPath.replace(/\\/g, "/").split("/").pop()) {
                 tab.remove(); // Remove the tab
@@ -2203,7 +2255,7 @@
           // Ctrl + Shift + T key listener to reopen the last closed tab
           if (event.ctrlKey && event.shiftKey && (event.key === "t" || event.key === "T")) {
             event.preventDefault(); // Prevent default behavior
-            console.log(lastFileToOpen);
+            // console.log(lastFileToOpen);
             if (lastFileToOpen) {
               addTab(lastFileToOpen);
               openThisTabFile(lastFileToOpen);
@@ -2278,7 +2330,7 @@
             saveData(tabsData, "tabs.txt");
           }
 
-          console.log(filePaths); // Log the array of file paths
+          // console.log(filePaths); // Log the array of file paths
         });
 
         async function HotKeyCalledAltShiftCtrlF() {
