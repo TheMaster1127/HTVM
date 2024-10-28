@@ -1647,6 +1647,8 @@
             xquery: [".xq", ".xquery"],
             yaml: [".yaml", ".yml"],
             ht: [".ht"],
+            autohotkey: [".htpy"],
+            autohotkey: [".hth"],
           };
 
           // Normalize the extension to lower case
@@ -1664,18 +1666,28 @@
 
         function openThisTabFile(currentTabFullPathPATH) {
           // Extract the file extension from the full path
-          const fileExtension = currentTabFullPathPATH.split(".").pop().toLowerCase();
-          if (fileExtension == "ht") {
+          let fileExtension = currentTabFullPathPATH.split(".").pop().toLowerCase();
+          if (fileExtension === "ht" || fileExtension === "htpy" || fileExtension === "hth") {
             // Combined keywords
             allKeyWords = [{ name: "if" }, { name: "else if" }, { name: "else" }, { name: "while" }, { name: "for" }, { name: "Loop" }, { name: "Loop," }, { name: "Loop, Parse," }, { name: "continue" }, { name: "break" }, { name: "func" }, { name: "await" }, { name: "switch" }, { name: "case" }, { name: "throw" }, { name: "try" }, { name: "catch" }, { name: "finally" }, { name: "var" }, { name: "let" }, { name: "const" }, { name: "return" }, { name: "end" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "Random" }, { name: "Sleep" }, { name: "FileRead" }, { name: "FileAppend" }, { name: "FileDelete" }, { name: "Sort" }, { name: "LoopParseFunc" }, { name: "LoopParseFunc" }, { name: "LoopParseFunc" }, { name: "HTVM_func1" }, { name: "print" }, { name: "print" }, { name: "STR" }, { name: "INT" }, { name: "FLOAT" }, { name: "STR" }, { name: "INT" }, { name: "FLOAT" }, { name: "INT" }, { name: "STR" }, { name: "FLOAT" }, { name: "InStr" }, { name: "Random" }, { name: "Sleep" }, { name: "input" }, { name: "FileRead" }, { name: "FileAppend" }, { name: "FileDelete" }, { name: "StrLen" }, { name: "Asc" }, { name: "Abs" }, { name: "ACos" }, { name: "ASin" }, { name: "ATan" }, { name: "Ceil" }, { name: "Cos" }, { name: "Exp" }, { name: "Ln" }, { name: "Log" }, { name: "Round" }, { name: "Sin" }, { name: "Sqrt" }, { name: "Tan" }, { name: "SubStr" }, { name: "Trim" }, { name: "StrReplace" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "StrLower" }, { name: "StrSplit" }, { name: "Chr" }, { name: "Mod" }, { name: "Floor" }, { name: "Sort" }, { name: "getDataFromAPI" }, { name: "FileCreateDir" }, { name: "FileRemoveDir" }, { name: "FileExist" }, { name: "isWindows" }, { name: "GetParams" }, { name: "BuildInVars" }, { name: "RegExReplace" }, { name: "RunCMD" }, { name: "RegExMatch" }, { name: "ExitApp" }, { name: "InStr" }, { name: "InStr" }, { name: "Random" }, { name: "Random" }, { name: "Sleep" }, { name: "Sleep" }, { name: "input" }, { name: "FileAppend" }, { name: "FileDelete" }, { name: "FileAppend" }, { name: "FileRead" }, { name: "StrLen" }, { name: "Asc" }, { name: "StrLen" }, { name: "Asc" }, { name: "Chr" }, { name: "Chr" }, { name: "Asc" }, { name: "Abs" }, { name: "ACos" }, { name: "ASin" }, { name: "ATan" }, { name: "Ceil" }, { name: "Cos" }, { name: "Exp" }, { name: "Ln" }, { name: "Log" }, { name: "Round" }, { name: "Sin" }, { name: "Sqrt" }, { name: "Tan" }, { name: "Asc" }, { name: "Abs" }, { name: "ACos" }, { name: "ASin" }, { name: "ATan" }, { name: "Ceil" }, { name: "Cos" }, { name: "Exp" }, { name: "Ln" }, { name: "Log" }, { name: "Round" }, { name: "Sin" }, { name: "Sqrt" }, { name: "Tan" }, { name: "SubStr" }, { name: "SubStr" }, { name: "Trim" }, { name: "StrReplace" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "StrLower" }, { name: "StrSplit" }, { name: "Chr" }, { name: "Mod" }, { name: "Floor" }, { name: "Trim" }, { name: "StrReplace" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }, { name: "StrLower" }, { name: "StrSplit" }, { name: "Chr" }, { name: "Mod" }, { name: "Floor" }, { name: "Sort" }, { name: "getDataFromAPI" }, { name: "FileCreateDir" }, { name: "FileRemoveDir" }, { name: "FileExist" }, { name: "isWindows" }, { name: "GetParams" }, { name: "BuildInVars" }, { name: "RegExReplace" }, { name: "RunCMD" }, { name: "RegExMatch" }, { name: "ExitApp" }, { name: "Sort" }, { name: "getDataFromAPI" }, { name: "getUrlParams" }, { name: "BuildInVars" }, { name: "RegExReplace" }, { name: "RegExMatch" }, { name: "ErrorMsg" }, { name: "A_LoopField" }, { name: "A_Index" }, { name: "add" }, { name: "pop" }, { name: "size" }, { name: "insert" }, { name: "rm" }, { name: "indexOf" }, { name: "int" }, { name: "str" }, { name: "void" }, { name: "bool" }, { name: "float" }, { name: "int8" }, { name: "int16" }, { name: "int32" }, { name: "int64" }, { name: "arr" }, { name: "arr int" }, { name: "arr str" }, { name: "arr float" }, { name: "arr bool" }, { name: "global" }];
           } else {
             allKeyWords = [{ name: "~~~hewuaesdyuyiaqwes7dy8s7qwr9styqwa7sdys7cyy767^*&]]]]]]]]]][pwaoidgu8wserdgfyieusdfucufaweyr]" }];
           }
           // Use the file extension to get the corresponding language name
-          const langName = fileExtensionToLangName(`.${fileExtension}`);
+          let langName = fileExtensionToLangName(`.${fileExtension}`);
 
           // Call GuiControl with the data
           GuiControl("textide", "Gui1IDE1", getData(currentTabFullPathPATH));
+
+          if (fileExtension === "ahk") {
+            langName = "autohotkey";
+          }
+          if (fileExtension === "hth") {
+            langName = "autohotkey";
+          }
+          if (fileExtension === "htpy") {
+            langName = "autohotkey";
+          }
 
           // Set the editor mode based on the language name
           editor.session.setMode("ace/mode/" + langName);
