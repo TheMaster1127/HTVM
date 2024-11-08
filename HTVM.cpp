@@ -2315,7 +2315,6 @@ std::string str_5 = "";
 std::string str_6 = "";
 std::string HELPHoldOSPdethodNamePath = "";
 HELPHoldOSPdethodNamePath = StringTrimRight(HoldOSPdethodNamePath, 1);
-theSringOSPline += "|" + HELPHoldOSPdethodNamePath;
 std::vector<std::string> items54 = LoopParseFunc(theSringOSPline, "|");
 for (size_t A_Index54 = 1; A_Index54 < items54.size() + 1; A_Index54++)
 {
@@ -2330,7 +2329,7 @@ std::string A_LoopField55 = items55[A_Index55 - 1];
 str_1 += str_5 + "." + Trim ( StrSplit ( A_LoopField55 , "[" , 1 ) ) + "[" + STR ( A_Index55 ) + "]\n";
 }
 }
-str_1 = StringTrimRight(str_1, 1);
+str_1 += StrReplace ( HELPHoldOSPdethodNamePath , "|" , "\n" ) ;
 std::string shortestLine;
 std::string currentLine;
 int currentLength;
@@ -3309,6 +3308,22 @@ else if (SubStr (StrLower (Trim (A_LoopField73)) , 1 , StrLen (StrLower (keyWord
 {
 htCodeOutFixEnd += A_LoopField73 + "\n{\n";
 }
+else if (SubStr (StrLower (Trim (A_LoopField73)) , 1 , StrLen (StrLower ("alliance"))) == StrLower ("alliance")) 
+{
+htCodeOutFixEnd += A_LoopField73 + "\n{\n";
+}
+else if (SubStr (StrLower (Trim (A_LoopField73)) , 1 , StrLen (StrLower ("crew"))) == StrLower ("crew")) 
+{
+htCodeOutFixEnd += A_LoopField73 + "\n{\n";
+}
+else if (SubStr (StrLower (Trim (A_LoopField73)) , 1 , StrLen (StrLower ("def obj"))) == StrLower ("def obj")) 
+{
+htCodeOutFixEnd += A_LoopField73 + "\n{\n";
+}
+else if (SubStr (StrLower (Trim (A_LoopField73)) , 1 , StrLen (StrLower ("method"))) == StrLower ("method")) 
+{
+htCodeOutFixEnd += A_LoopField73 + "\n{\n";
+}
 else if (SubStr (StrLower (Trim (A_LoopField73)) , 1 , StrLen (StrLower (keyWordCatch))) == StrLower (keyWordCatch)) 
 {
 htCodeOutFixEnd += "\n}\n" + A_LoopField73 + "\n{\n";
@@ -3380,6 +3395,22 @@ else if (SubStr (StrLower (Trim (A_LoopField74)) , 1 , StrLen (StrLower (keyWord
 htCodeOutFixEnd += A_LoopField74 + ":\n";
 }
 else if (SubStr (StrLower (Trim (A_LoopField74)) , 1 , StrLen (StrLower (keyWordTry))) == StrLower (keyWordTry)) 
+{
+htCodeOutFixEnd += A_LoopField74 + ":\n";
+}
+else if (SubStr (StrLower (Trim (A_LoopField74)) , 1 , StrLen (StrLower ("alliance"))) == StrLower ("alliance")) 
+{
+htCodeOutFixEnd += A_LoopField74 + ":\n";
+}
+else if (SubStr (StrLower (Trim (A_LoopField74)) , 1 , StrLen (StrLower ("crew"))) == StrLower ("crew")) 
+{
+htCodeOutFixEnd += A_LoopField74 + ":\n";
+}
+else if (SubStr (StrLower (Trim (A_LoopField74)) , 1 , StrLen (StrLower ("def obj"))) == StrLower ("def obj")) 
+{
+htCodeOutFixEnd += A_LoopField74 + ":\n";
+}
+else if (SubStr (StrLower (Trim (A_LoopField74)) , 1 , StrLen (StrLower ("method"))) == StrLower ("method")) 
 {
 htCodeOutFixEnd += A_LoopField74 + ":\n";
 }

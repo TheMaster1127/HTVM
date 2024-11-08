@@ -1776,6 +1776,7 @@ theSTR123 := RegExReplace(theSTR123, "\\bthis\\b", "std::any_cast<std::string>((
 theSTR123 := StrReplace(theSTR123, "OSPHTVMOSP_OSPHTVMOSP_", "OSPHTVMOSP_")
 
 
+
 return theSTR123
 }
 
@@ -1833,6 +1834,7 @@ theSTR123 := StrReplace(theSTR123, Trim(ALoopFieldIN), "OSPHTVMOSP_" . StrReplac
 ;this__OSP__this
 theSTR123 := RegExReplace(theSTR123, "\\bthis\\b", "std::any_cast<std::string>((*this__OSP__this)[0])")
 theSTR123 := StrReplace(theSTR123, "OSPHTVMOSP_OSPHTVMOSP_", "OSPHTVMOSP_")
+
 
 
 return theSTR123
@@ -1913,7 +1915,7 @@ str HELPHoldOSPdethodNamePath := ""
 
 StringTrimRight, HELPHoldOSPdethodNamePath, HoldOSPdethodNamePath, 1
 
-theSringOSPline .= "|" . HELPHoldOSPdethodNamePath
+
 
 
 Loop, Parse, theSringOSPline, "|"
@@ -1927,7 +1929,10 @@ str_1 .= str_5 . "." . Trim(StrSplit(A_LoopField, "[", 1)) . "[" . STR(A_Index) 
 }
 
 }
-StringTrimRight, str_1, str_1, 1
+
+str_1 .= StrReplace(HELPHoldOSPdethodNamePath, "|", "`n")
+
+
 
 str shortestLine
 str currentLine
@@ -3051,6 +3056,22 @@ else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordTry))) = 
 {
 htCodeOutFixEnd .= A_LoopField . "`n{`n"
 }
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower("alliance"))) = StrLower("alliance"))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower("crew"))) = StrLower("crew"))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower("def obj"))) = StrLower("def obj"))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower("method"))) = StrLower("method"))
+{
+htCodeOutFixEnd .= A_LoopField . "`n{`n"
+}
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCatch))) = StrLower(keyWordCatch))
 {
 htCodeOutFixEnd .= "`n}`n" . A_LoopField . "`n{`n"
@@ -3122,6 +3143,22 @@ else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitchDef
 htCodeOutFixEnd .= A_LoopField . ":`n"
 }
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordTry))) = StrLower(keyWordTry))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower("alliance"))) = StrLower("alliance"))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower("crew"))) = StrLower("crew"))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower("def obj"))) = StrLower("def obj"))
+{
+htCodeOutFixEnd .= A_LoopField . ":`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower("method"))) = StrLower("method"))
 {
 htCodeOutFixEnd .= A_LoopField . ":`n"
 }
