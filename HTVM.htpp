@@ -1581,6 +1581,573 @@ str2FIX := fixFuncParamsHandleSpacesHELPER(indexHolder, str2FIX)
 
 return str2FIX
 }
+
+
+
+
+; path.path.path:propName1[str],propName2[bool],propName3[str array]|path.path.path:propName1[str],propName2[bool],propName3[str array]
+str OSPstrArrayStrALLobjInOSP := ""
+str HoldOSPdethodNamePath := ""
+
+func str findTypeOfOSPprop(str fullARRAYstr, str FromPath)
+{
+str outType := ""
+; if the fullARRAYstr is in this format
+; path.path.path:propName1[str],propName2[bool],propName3[str array]|path.path.path:propName1[str],propName2[bool],propName3[str array]
+
+str outFormat := ""
+str outFormatHELP1 := ""
+str outFormatHELP2 := ""
+
+
+Loop, Parse, fullARRAYstr, "|"
+{
+if (Trim(A_LoopField) != "")
+{
+outFormatHELP1 := StrSplit(A_LoopField, ":", 1)
+outFormatHELP2 := StrSplit(A_LoopField, ":", 2)
+Loop, Parse, outFormatHELP2, `,
+{
+outFormat .= outFormatHELP1 . "." . A_LoopField . "|"
+}
+}
+}
+StringTrimRight, outFormat, outFormat, 1
+
+
+Loop, Parse, outFormat, "|"
+{
+if (Trim(A_LoopField) != "")
+{
+if (StrSplit(Trim(A_LoopField), "[", 1) = Trim(FromPath))
+{
+outType := StrSplit(Trim(A_LoopField), "[", 2)
+StringTrimRight, outType, outType, 1
+break
+}
+
+}
+}
+
+
+
+
+if (outType = "vector<int>")
+{
+outType := "std::vector<int>&"
+}
+else if (outType = "vector<string>")
+{
+outType := "std::vector<std::string>&"
+}
+else if (outType = "vector<string>")
+{
+outType := "std::vector<std::string>&"
+}
+else if (outType = "vector<float>")
+{
+outType := "std::vector<float>&"
+}
+else if (outType = "vector<bool>")
+{
+outType := "std::vector<bool>&"
+}
+else if (outType = Trim(keyWordINT))
+{
+outType := "int"
+}
+else if (outType = Trim(keyWordSTR))
+{
+outType := "std::string"
+}
+else if (outType = Trim(keyWordFLOAT))
+{
+outType := "float"
+}
+else if (outType = Trim(keyWordBOOL))
+{
+outType := "bool"
+}
+else if (outType = Trim(keyWordINT8))
+{
+outType := "int8_t"
+}
+else if (outType = Trim(keyWordINT16))
+{
+outType := "int16_t"
+}
+else if (outType = Trim(keyWordINT32))
+{
+outType := "int32_t"
+}
+else if (outType = Trim(keyWordINT64))
+{
+outType := "int64_t"
+}
+
+
+return outType
+}
+
+
+func str REMOVELastSTRfromDOT(str THESTR)
+{
+str THESTRout := ""
+if (Trim(THESTR) = "")
+{
+return ""
+}
+int count12345 0
+
+Loop, Parse, THESTR, "."
+{
+count12345++
+}
+
+
+Loop, Parse, THESTR, "."
+{
+if (count12345 = A_Index)
+{
+break
+}
+else
+{
+THESTRout .= Trim(A_LoopField) . "."
+}
+}
+
+StringTrimRight, THESTRout, THESTRout, 1
+
+return THESTRout
+}
+
+
+func str replaceTheOSPpathsLEFT(str theSTR123, str ALoopFieldIN)
+{
+
+if (Trim(theSTR123) = "")
+{
+return ""
+}
+if (Trim(ALoopFieldIN) = "")
+{
+return ""
+}
+
+str type := ""
+str theSTR123out := ""
+str ALoopField := ""
+str ALoopField1 := ""
+str ALoopField11 := ""
+
+if (InStr(ALoopFieldIN, "["))
+{
+; ALoopFieldIN
+; animalsKingdom.animals.Dog.typeOf2[2]
+
+ALoopField := StrSplit(Trim(ALoopFieldIN), "[", 1)
+
+
+ALoopField1 := StrSplit(Trim(ALoopFieldIN), "[", 1)
+ALoopField11 := StrSplit(Trim(ALoopFieldIN), "[", 2)
+ALoopField1 := REMOVELastSTRfromDOT(ALoopField1) . "[" . ALoopField11
+
+
+; REMOVELastSTRfromDOT(param1)
+theSTR123 := StrReplace(theSTR123, Trim(ALoopField), "OSPHTVMOSP_" . StrReplace(ALoopField1, ".", "_"))
+
+}
+else
+{
+ALoopField := StrSplit(Trim(ALoopFieldIN), "[", 1)
+
+ALoopField1 := StrSplit(Trim(ALoopFieldIN), "[", 2)
+
+ALoopField1 := REMOVELastSTRfromDOT(StrSplit(Trim(ALoopFieldIN), "]", 1))
+
+ALoopField1 := "[" . Trim(StrSplit(ALoopField1, "[", 2)) . "]"
+theSTR123 := StrReplace(theSTR123, Trim(ALoopFieldIN), "OSPHTVMOSP_" . StrReplace(ALoopFieldIN, ".", "_"))
+
+}
+
+;this__OSP__this
+theSTR123 := RegExReplace(theSTR123, "\\bthis\\b", "std::any_cast<std::string>((*this__OSP__this)[0])")
+theSTR123 := StrReplace(theSTR123, "OSPHTVMOSP_OSPHTVMOSP_", "OSPHTVMOSP_")
+
+
+return theSTR123
+}
+
+func str replaceTheOSPpathsRIGHT(str theSTR123, str ALoopFieldIN)
+{
+
+if (Trim(theSTR123) = "")
+{
+return ""
+}
+if (Trim(ALoopFieldIN) = "")
+{
+return ""
+}
+
+str type := ""
+str theSTR123out := ""
+str ALoopField := ""
+str ALoopField1 := ""
+str ALoopField11 := ""
+
+if (InStr(ALoopFieldIN, "["))
+{
+; ALoopFieldIN
+; animalsKingdom.animals.Dog.typeOf2[2]
+
+ALoopField := StrSplit(Trim(ALoopFieldIN), "[", 1)
+
+
+ALoopField1 := StrSplit(Trim(ALoopFieldIN), "[", 1)
+ALoopField11 := StrSplit(Trim(ALoopFieldIN), "[", 2)
+ALoopField1 := REMOVELastSTRfromDOT(ALoopField1) . "[" . ALoopField11
+
+
+; REMOVELastSTRfromDOT(param1)
+type := findTypeOfOSPprop(OSPstrArrayStrALLobjInOSP, ALoopField)
+;MsgBox, % type
+
+theSTR123 := StrReplace(theSTR123, Trim(ALoopField), "std::any_cast<" . type . ">(OSPHTVMOSP_" . StrReplace(ALoopField1, ".", "_") . ")")
+
+}
+else
+{
+ALoopField := StrSplit(Trim(ALoopFieldIN), "[", 1)
+
+ALoopField1 := StrSplit(Trim(ALoopFieldIN), "[", 2)
+
+ALoopField1 := REMOVELastSTRfromDOT(StrSplit(Trim(ALoopFieldIN), "]", 1))
+
+ALoopField1 := "[" . Trim(StrSplit(ALoopField1, "[", 2)) . "]"
+theSTR123 := StrReplace(theSTR123, Trim(ALoopFieldIN), "OSPHTVMOSP_" . StrReplace(ALoopFieldIN, ".", "_"))
+
+}
+
+;this__OSP__this
+theSTR123 := RegExReplace(theSTR123, "\\bthis\\b", "std::any_cast<std::string>((*this__OSP__this)[0])")
+theSTR123 := StrReplace(theSTR123, "OSPHTVMOSP_OSPHTVMOSP_", "OSPHTVMOSP_")
+
+
+return theSTR123
+}
+
+
+func str CheckStringPosition(str text, str target, str reference)
+{
+
+    str posReference := SubStr(text, 1, StrLen(reference))
+    str posTarget := SubStr(text, 1, StrLen(target))
+
+    ; Check if both strings are found (not using InStr)
+    if (posReference != "" && posTarget != "")
+    {
+        ; Manually find the positions of the target and reference
+        posTarget := RegExMatch(text, target)
+        posReference := RegExMatch(text, reference)
+
+        ; Compare positions of target and reference
+        if (posTarget < posReference)
+        {
+
+            return "left"
+        }
+        else if (posTarget > posReference)
+        {
+
+return "not left"
+        }
+        else
+        {
+
+return "uuh"
+        }
+    }
+    else
+    {
+
+        return "One or both strings not found."
+    }
+
+return "huh"
+}
+
+
+func str getIndexOfTheStrArrayStrOST(str ALoopField, str theSringOSPlineARRAYstrstrSTR)
+{
+
+
+
+Loop, Parse, theSringOSPlineARRAYstrstrSTR, "|"
+{
+if (Trim(StrSplit(A_LoopField, ":", 1)) = Trim(ALoopField))
+{
+
+return STR(A_Index)
+}
+}
+
+
+
+return "0"
+}
+
+
+
+func str parserOSPgloabl(str theSringOSPline, str str123)
+{
+str str_1 := ""
+str str_2 := ""
+str str_3 := ""
+str str_4 := ""
+str str_5 := ""
+str str_6 := ""
+
+str HELPHoldOSPdethodNamePath := ""
+
+StringTrimRight, HELPHoldOSPdethodNamePath, HoldOSPdethodNamePath, 1
+
+theSringOSPline .= "|" . HELPHoldOSPdethodNamePath
+
+
+Loop, Parse, theSringOSPline, "|"
+{
+str_1 .= Trim(StrSplit(A_LoopField, ":", 1)) . "`n"
+str_5 := Trim(StrSplit(A_LoopField, ":", 1))
+str_6 := Trim(StrSplit(A_LoopField, ":", 2))
+Loop, Parse, str_6, `,
+{
+str_1 .= str_5 . "." . Trim(StrSplit(A_LoopField, "[", 1)) . "[" . STR(A_Index) . "]`n"
+}
+
+}
+StringTrimRight, str_1, str_1, 1
+
+str shortestLine
+str currentLine
+int currentLength
+int minLength
+str tempStr
+
+; Sorting by repeatedly finding and appending the shortest line
+Loop
+{
+    ; Initialize variables to track the shortest line in this pass
+    shortestLine := ""
+    minLength := 999999
+
+    ; Find the shortest line in str_1
+    Loop, Parse, str_1, `n, `r
+    {
+        currentLine := A_LoopField
+        currentLength := StrLen(currentLine)
+        if (currentLength < minLength)
+        {
+            minLength := currentLength
+            shortestLine := currentLine
+        }
+    }
+
+    ; If no shortest line is found, break (str_1 is empty)
+    if (shortestLine = "")
+	{
+        break
+	}
+
+    ; Add the shortest line to the sorted result
+    str_2 .= shortestLine . "`n"
+
+    ; Rebuild str_1 without the shortest line
+    tempStr := ""
+    Loop, Parse, str_1, `n, `r
+    {
+        if (A_LoopField != shortestLine)
+		{
+            tempStr .= A_LoopField . "`n"
+		}
+
+    }
+    StringTrimRight, tempStr, tempStr, 1
+    str_1 := tempStr
+}
+
+; Trim the final trailing newline from str_2
+StringTrimRight, str_2, str_2, 1
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+; Initialize an empty result for the reversed lines
+str reversedStr := ""
+
+; Count the number of lines
+int lineCount := 0
+int index
+int lineNum
+
+Loop, Parse, str_2, `n, `r
+{
+    lineCount++
+}
+
+; Reverse the order by re-parsing and appending lines in reverse order
+Loop, % lineCount
+{
+    ; Inner loop to find the (lineCount - A_Index + 1)-th line
+    index := lineCount - A_Index + 1
+    currentLine := ""
+    lineNum := 0
+
+    Loop, Parse, str_2, `n, `r
+    {
+        lineNum++
+        if (lineNum = index)
+        {
+            currentLine := A_LoopField
+            break
+        }
+    }
+
+    ; Append the line in reverse order
+    reversedStr .= currentLine . "`n"
+}
+
+; Trim the final trailing newline
+StringTrimRight, str_2, reversedStr, 1
+
+
+; Display the sorted result
+;MsgBox, % str_2
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;CheckStringPosition(text, target, reference)
+str ALoopField := ""
+str ALoopField1 := ""
+Loop, Parse, str_2, `n, `r
+{
+if (Trim(A_LoopField) != "")
+{
+if (InStr(str123, " += "))
+{
+if (CheckStringPosition(str123, StrSplit(A_LoopField, "[", 1), " += ") = "left")
+{
+
+str123 := replaceTheOSPpathsLEFT(str123, A_LoopField)
+
+
+
+}
+else
+{
+
+
+
+str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
+
+}
+
+}
+else if (InStr(str123, " = "))
+{
+if (CheckStringPosition(str123, StrSplit(A_LoopField, "[", 1), " = ") = "left")
+{
+str123 := replaceTheOSPpathsLEFT(str123, A_LoopField)
+
+}
+else
+{
+
+
+str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
+}
+
+}
+else if (InStr(str123, " += "))
+{
+if (CheckStringPosition(str123, StrSplit(A_LoopField, "[", 1), " += ") = "left")
+{
+str123 := replaceTheOSPpathsLEFT(str123, A_LoopField)
+
+}
+else
+{
+
+str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
+}
+
+}
+else if (InStr(str123, " -= "))
+{
+if (CheckStringPosition(str123, StrSplit(A_LoopField, "[", 1), " -= ") = "left")
+{
+str123 := replaceTheOSPpathsLEFT(str123, A_LoopField)
+
+}
+else
+{
+
+str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
+}
+
+}
+else if (InStr(str123, " *= "))
+{
+if (CheckStringPosition(str123, StrSplit(A_LoopField, "[", 1), " *= ") = "left")
+{
+str123 := replaceTheOSPpathsLEFT(str123, A_LoopField)
+
+}
+else
+{
+
+str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
+}
+
+}
+else if (InStr(str123, " /= "))
+{
+if (CheckStringPosition(str123, StrSplit(A_LoopField, "[", 1), " /= ") = "left")
+{
+str123 := replaceTheOSPpathsLEFT(str123, A_LoopField)
+
+}
+else
+{
+
+str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
+}
+
+}
+else
+{
+
+str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
+
+}
+
+}
+}
+
+
+return str123
+}
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -5555,29 +6122,100 @@ skipLeftCuleyForFuncPLS := 0
 StringTrimRight, htCode, htCode, 1
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int indentTrackCurlyBraceOpenClose := 0
 int canEndIndentTrackCurlyBraceOpenClose := 0
 int indentTrackCurlyBraceOpenCloseSTARTEDAT := 0
 int indentTrackCurlyBraceOpenCloseENDNEXTonce := 0
 int indentTrackCurlyBraceOpenCloseENDNEXT := 0
 
+
 int INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDE := 0
+
+int INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
+
+int INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover := 0
+
+
+int startInStartEdCurlyBraceStartONce := 0
+str OSPpasringHoldNameFirstPart := ""
 
 str addOSPtoHTVM := ""
 
 Loop, Parse, htCode, `n ,`r
 {
-if (SubStr(StrLower(Trim(A_LoopField)), 1, 6) = "waesrf")
+if (SubStr(StrLower(Trim(A_LoopField)), 1, 9) = "alliance ")
 {
+StringTrimLeft, OSPpasringHoldNameFirstPart, A_LoopField, 9
+OSPpasringHoldNameFirstPart := Trim(OSPpasringHoldNameFirstPart)
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover := 0
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDE := 1
 indentTrackCurlyBraceOpenCloseSTARTEDAT := A_Index
 indentTrackCurlyBraceOpenClose := 0
 canEndIndentTrackCurlyBraceOpenClose := 0
 indentTrackCurlyBraceOpenCloseENDNEXT := 0
 indentTrackCurlyBraceOpenCloseENDNEXTonce := 0
+startInStartEdCurlyBraceStartONce := 0
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
 }
 else if (Trim(A_LoopField) = "{")
 {
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
+startInStartEdCurlyBraceStartONce++
+indentTrackCurlyBraceOpenCloseENDNEXTonce := 0
+if (startInStartEdCurlyBraceStartONce = 1)
+{
+addOSPtoHTVM .= "alliance|start|" . OSPpasringHoldNameFirstPart . "`n"
+}
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
 canEndIndentTrackCurlyBraceOpenClose := 1
 indentTrackCurlyBraceOpenClose--
 }
@@ -5585,20 +6223,28 @@ else if (Trim(A_LoopField) = "}")
 {
 canEndIndentTrackCurlyBraceOpenClose := 1
 indentTrackCurlyBraceOpenClose++
-if (indentTrackCurlyBraceOpenClose = 0) and (canEndIndentTrackCurlyBraceOpenClose = 1)
+if (indentTrackCurlyBraceOpenClose = 0)
 {
 indentTrackCurlyBraceOpenCloseENDNEXT := 1
 
-}
-else if (indentTrackCurlyBraceOpenCloseENDNEXT = 1)
-{
 indentTrackCurlyBraceOpenCloseENDNEXTonce++
-if (indentTrackCurlyBraceOpenCloseENDNEXTonce = 1)
+if (indentTrackCurlyBraceOpenCloseENDNEXTonce = 1) && (INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover = 0)
 {
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover++
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE++
+addOSPtoHTVM .= "alliance|end|" . OSPpasringHoldNameFirstPart . "`n"
 ;MsgBox, % "foundCLose } at line " . STR(A_Index) . " and started at " . STR(indentTrackCurlyBraceOpenCloseSTARTEDAT)
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDE := 0
 }
 }
+
+if (INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE = 0)
+{
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+
+
 }
 else
 {
@@ -5609,6 +6255,532 @@ addOSPtoHTVM .= A_LoopField . "`n"
 
 
 StringTrimRight, htCode, addOSPtoHTVM, 1
+
+
+
+
+addOSPtoHTVM := ""
+
+Loop, Parse, htCode, `n ,`r
+{
+if (SubStr(StrLower(Trim(A_LoopField)), 1, 5) = "crew ")
+{
+StringTrimLeft, OSPpasringHoldNameFirstPart, A_LoopField, 5
+OSPpasringHoldNameFirstPart := Trim(OSPpasringHoldNameFirstPart)
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover := 0
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDE := 1
+indentTrackCurlyBraceOpenCloseSTARTEDAT := A_Index
+indentTrackCurlyBraceOpenClose := 0
+canEndIndentTrackCurlyBraceOpenClose := 0
+indentTrackCurlyBraceOpenCloseENDNEXT := 0
+indentTrackCurlyBraceOpenCloseENDNEXTonce := 0
+startInStartEdCurlyBraceStartONce := 0
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
+}
+else if (Trim(A_LoopField) = "{")
+{
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
+startInStartEdCurlyBraceStartONce++
+indentTrackCurlyBraceOpenCloseENDNEXTonce := 0
+if (startInStartEdCurlyBraceStartONce = 1)
+{
+addOSPtoHTVM .= "crew|start|" . OSPpasringHoldNameFirstPart . "`n"
+}
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+canEndIndentTrackCurlyBraceOpenClose := 1
+indentTrackCurlyBraceOpenClose--
+}
+else if (Trim(A_LoopField) = "}")
+{
+canEndIndentTrackCurlyBraceOpenClose := 1
+indentTrackCurlyBraceOpenClose++
+if (indentTrackCurlyBraceOpenClose = 0)
+{
+indentTrackCurlyBraceOpenCloseENDNEXT := 1
+
+indentTrackCurlyBraceOpenCloseENDNEXTonce++
+if (indentTrackCurlyBraceOpenCloseENDNEXTonce = 1) && (INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover = 0)
+{
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover++
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE++
+addOSPtoHTVM .= "crew|end|" . OSPpasringHoldNameFirstPart . "`n"
+;MsgBox, % "foundCLose } at line " . STR(A_Index) . " and started at " . STR(indentTrackCurlyBraceOpenCloseSTARTEDAT)
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDE := 0
+}
+}
+
+if (INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE = 0)
+{
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+
+
+}
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+
+}
+
+
+StringTrimRight, htCode, addOSPtoHTVM, 1
+
+
+
+
+
+addOSPtoHTVM := ""
+
+Loop, Parse, htCode, `n ,`r
+{
+if (SubStr(StrLower(Trim(A_LoopField)), 1, 8) = "def obj ")
+{
+StringTrimLeft, OSPpasringHoldNameFirstPart, A_LoopField, 8
+OSPpasringHoldNameFirstPart := Trim(OSPpasringHoldNameFirstPart)
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover := 0
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDE := 1
+indentTrackCurlyBraceOpenCloseSTARTEDAT := A_Index
+indentTrackCurlyBraceOpenClose := 0
+canEndIndentTrackCurlyBraceOpenClose := 0
+indentTrackCurlyBraceOpenCloseENDNEXT := 0
+indentTrackCurlyBraceOpenCloseENDNEXTonce := 0
+startInStartEdCurlyBraceStartONce := 0
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
+}
+else if (Trim(A_LoopField) = "{")
+{
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
+startInStartEdCurlyBraceStartONce++
+indentTrackCurlyBraceOpenCloseENDNEXTonce := 0
+if (startInStartEdCurlyBraceStartONce = 1)
+{
+addOSPtoHTVM .= "def obj|start|" . OSPpasringHoldNameFirstPart . "`n"
+}
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+canEndIndentTrackCurlyBraceOpenClose := 1
+indentTrackCurlyBraceOpenClose--
+}
+else if (Trim(A_LoopField) = "}")
+{
+canEndIndentTrackCurlyBraceOpenClose := 1
+indentTrackCurlyBraceOpenClose++
+if (indentTrackCurlyBraceOpenClose = 0)
+{
+indentTrackCurlyBraceOpenCloseENDNEXT := 1
+
+indentTrackCurlyBraceOpenCloseENDNEXTonce++
+if (indentTrackCurlyBraceOpenCloseENDNEXTonce = 1) && (INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover = 0)
+{
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover++
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE++
+addOSPtoHTVM .= "def obj|end|" . OSPpasringHoldNameFirstPart . "`n"
+;MsgBox, % "foundCLose } at line " . STR(A_Index) . " and started at " . STR(indentTrackCurlyBraceOpenCloseSTARTEDAT)
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDE := 0
+}
+}
+
+if (INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE = 0)
+{
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+
+
+}
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+
+}
+
+
+StringTrimRight, htCode, addOSPtoHTVM, 1
+
+
+
+
+addOSPtoHTVM := ""
+
+Loop, Parse, htCode, `n ,`r
+{
+if (SubStr(StrLower(Trim(A_LoopField)), 1, 7) = "method ")
+{
+StringTrimLeft, OSPpasringHoldNameFirstPart, A_LoopField, 7
+OSPpasringHoldNameFirstPart := Trim(OSPpasringHoldNameFirstPart)
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover := 0
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDE := 1
+indentTrackCurlyBraceOpenCloseSTARTEDAT := A_Index
+indentTrackCurlyBraceOpenClose := 0
+canEndIndentTrackCurlyBraceOpenClose := 0
+indentTrackCurlyBraceOpenCloseENDNEXT := 0
+indentTrackCurlyBraceOpenCloseENDNEXTonce := 0
+startInStartEdCurlyBraceStartONce := 0
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
+}
+else if (Trim(A_LoopField) = "{")
+{
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
+startInStartEdCurlyBraceStartONce++
+indentTrackCurlyBraceOpenCloseENDNEXTonce := 0
+if (startInStartEdCurlyBraceStartONce = 1)
+{
+addOSPtoHTVM .= "method|start|" . OSPpasringHoldNameFirstPart . "`n"
+}
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+canEndIndentTrackCurlyBraceOpenClose := 1
+indentTrackCurlyBraceOpenClose--
+}
+else if (Trim(A_LoopField) = "}")
+{
+canEndIndentTrackCurlyBraceOpenClose := 1
+indentTrackCurlyBraceOpenClose++
+if (indentTrackCurlyBraceOpenClose = 0)
+{
+indentTrackCurlyBraceOpenCloseENDNEXT := 1
+
+indentTrackCurlyBraceOpenCloseENDNEXTonce++
+if (indentTrackCurlyBraceOpenCloseENDNEXTonce = 1) && (INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover = 0)
+{
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover++
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE++
+addOSPtoHTVM .= "method|end|" . OSPpasringHoldNameFirstPart . "`n"
+;MsgBox, % "foundCLose } at line " . STR(A_Index) . " and started at " . STR(indentTrackCurlyBraceOpenCloseSTARTEDAT)
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDE := 0
+}
+}
+
+if (INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE = 0)
+{
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+
+
+}
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+
+}
+
+
+StringTrimRight, htCode, addOSPtoHTVM, 1
+
+
+
+
+;MsgBox, ========================== phase1 =============================
+;MsgBox, ========================== phase1 =============================
+;MsgBox, ========================== phase1 =============================
+;MsgBox, ========================== phase1 =============================
+;MsgBox, % htCode
+;MsgBox, ========================== phase1 =============================
+;MsgBox, ========================== phase1 =============================
+;MsgBox, ========================== phase1 =============================
+;MsgBox, ========================== phase1 =============================
+
+
+arr str statckOSPgetData
+arr str OSPconnectionArrayHOLD
+str OSPconnectionStrHOLD
+
+str OSPholdPROPstrForArray := ""
+
+
+; important string
+; exmaple how it will look like
+
+
+
+int areWeInDefObj := 0
+
+addOSPtoHTVM := ""
+
+Loop, Parse, htCode, `n ,`r
+{
+
+if (InStr(A_LoopField, "alliance|start|"))
+{
+arr statckOSPgetData .= Trim(StrSplit(A_LoopField, "|", 3))
+}
+else if (InStr(A_LoopField, "crew|start|"))
+{
+arr statckOSPgetData .= Trim(StrSplit(A_LoopField, "|", 3))
+}
+else if (InStr(A_LoopField, "def obj|start|"))
+{
+OSPholdPROPstrForArray := ""
+areWeInDefObj := 1
+arr statckOSPgetData .= Trim(StrSplit(A_LoopField, "|", 3))
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "prop ")
+{
+OSPholdPROPstrForArray .= A_LoopField . "|"
+}
+else if (InStr(A_LoopField, "method|start|"))
+{
+if (InStr(Trim(A_LoopField), " "))
+{
+arr statckOSPgetData .= Trim(StrSplit(Trim(StrSplit(Trim(StrSplit(A_LoopField, "|", 3)), "(", 1)), " ", 2))
+}
+else
+{
+arr statckOSPgetData .= Trim(StrSplit(Trim(StrSplit(A_LoopField, "|", 3)), "(", 1))
+}
+
+OSPconnectionStrHOLD := ""
+Loop, % INT(statckOSPgetData[0])
+{
+;MsgBox, % "aswadsfadsfasdfasd::::::::::::::" . statckOSPgetData[A_Index]
+OSPconnectionStrHOLD .= statckOSPgetData[A_Index] . "_"
+str5 := statckOSPgetData[A_Index]
+}
+
+StringTrimRight, OSPconnectionStrHOLD, OSPconnectionStrHOLD, 1
+;MsgBox, % OSPconnectionStrHOLD
+
+
+
+HoldOSPdethodNamePath .= StrReplace(OSPconnectionStrHOLD, "_", ".") . "|"
+
+
+str1 := Trim(StrSplit(Trim(StrSplit(A_LoopField, "|", 3)), " ", 1))
+str2 := OSPconnectionStrHOLD
+
+
+if (str1 = Trim(keyWordINT))
+{
+str4 := "int"
+}
+else if (str1 = Trim(keyWordSTR))
+{
+str4 := "std::string"
+}
+else if (str1 = Trim(keyWordFLOAT))
+{
+str4 := "float"
+}
+else if (str1 = Trim(keyWordBOOL))
+{
+str4 := "bool"
+}
+else if (str1 = Trim(keyWordINT8))
+{
+str4 := "int8_t"
+}
+else if (str1 = Trim(keyWordINT16))
+{
+str4 := "int16_t"
+}
+else if (str1 = Trim(keyWordINT32))
+{
+str4 := "int32_t"
+}
+else if (str1 = Trim(keyWordINT64))
+{
+str4 := "int64_t"
+}
+else
+{
+str4 := "void"
+}
+
+
+addOSPtoHTVM .= str4 . " OSPHTVMOSP_" . str2 . "(std::optional<std::vector<std::any>> this__OSP__this = std::nullopt)`n{`n"
+
+}
+else if (InStr(A_LoopField, "alliance|end|"))
+{
+OSPconnectionStrHOLD := ""
+Loop, % INT(statckOSPgetData[0])
+{
+OSPconnectionStrHOLD .= statckOSPgetData[A_Index] . "."
+}
+StringTrimRight, OSPconnectionStrHOLD, OSPconnectionStrHOLD, 1
+arr OSPconnectionArrayHOLD .= OSPconnectionStrHOLD
+statckOSPgetData.pop_back()
+}
+else if (InStr(A_LoopField, "crew|end|"))
+{
+OSPconnectionStrHOLD := ""
+Loop, % INT(statckOSPgetData[0])
+{
+OSPconnectionStrHOLD .= statckOSPgetData[A_Index] . "."
+}
+StringTrimRight, OSPconnectionStrHOLD, OSPconnectionStrHOLD, 1
+arr OSPconnectionArrayHOLD .= OSPconnectionStrHOLD
+statckOSPgetData.pop_back()
+}
+else if (InStr(A_LoopField, "def obj|end|"))
+{
+
+StringTrimRight, OSPholdPROPstrForArray, OSPholdPROPstrForArray, 1
+if (Trim(OSPholdPROPstrForArray) != "")
+{
+
+str1 := ""
+str2 := ""
+str3 := ""
+str4 := ""
+str5 := ""
+str6 := ""
+str7 := ""
+str8 := ""
+str9 := ""
+str10 := ""
+
+str1 := ""
+
+
+areWeInDefObj := 0
+OSPconnectionStrHOLD := ""
+Loop, % INT(statckOSPgetData[0])
+{
+OSPconnectionStrHOLD .= statckOSPgetData[A_Index] . "."
+}
+StringTrimRight, OSPconnectionStrHOLD, OSPconnectionStrHOLD, 1
+arr OSPconnectionArrayHOLD .= OSPconnectionStrHOLD
+statckOSPgetData.pop_back()
+
+OSPstrArrayStrALLobjInOSP .= OSPconnectionStrHOLD . ":"
+
+str2 := "std::vector<std::any> OSPHTVMOSP_" . StrReplace(OSPconnectionStrHOLD, ".", "_") . " = {`nstd::string(" . Chr(34) . OSPconnectionStrHOLD . Chr(34) . "),`n"
+
+Loop, Parse, OSPholdPROPstrForArray, "|"
+{
+str1 := A_LoopField
+if (Trim(A_LoopField) != "")
+{
+; prop str typeOf := ""
+; path.path.path:propName1[str],propName2[bool],propName3[str array]|path.path.path:propName1[str],propName2[bool],propName3[str array]
+;;;;;;;;
+
+
+
+str1 := StrReplace(str1, Trim(keyWordArrayOfIntegersDefinition) . " ", "vector<int> ")
+str1 := StrReplace(str1, Trim(keyWordArrayOfStringsDefinition) . " ", "vector<string> ")
+str1 := StrReplace(str1, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " ", "vector<float> ")
+str1 := StrReplace(str1, Trim(keyWordArrayOfBooleansDefinition) . " ", "vector<bool> ")
+str1 := StrReplace(str1, Trim(keyWordArrayDefinition) . " ", "vector<string> ")
+str1 := StrReplace(str1, ";", "")
+
+OSPstrArrayStrALLobjInOSP .= Trim(StrSplit(str1, " ", 3)) . "[" . Trim(StrSplit(str1, " ", 2)) . "],"
+
+if (InStr(Trim(StrSplit(str1, " ", 5)), "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-")) or (InStr(Trim(StrSplit(str1, " ", 5)), Chr(34)))
+{
+str4 .= "std::string(" . Trim(StrSplit(str1, " ", 5)) . "),`n"
+}
+else
+{
+
+str4 .= Trim(StrSplit(str1, " ", 5)) . ",`n"
+}
+
+;;;;;;;;
+}
+}
+StringTrimRight, OSPstrArrayStrALLobjInOSP, OSPstrArrayStrALLobjInOSP, 1
+OSPstrArrayStrALLobjInOSP .= "|"
+
+
+addOSPtoHTVM .= str2 . str4 . "};`n"
+
+}
+
+}
+else if (InStr(A_LoopField, "method|end|"))
+{
+addOSPtoHTVM .= "}`n"
+OSPconnectionStrHOLD := ""
+Loop, % INT(statckOSPgetData[0])
+{
+OSPconnectionStrHOLD .= statckOSPgetData[A_Index] . "."
+}
+StringTrimRight, OSPconnectionStrHOLD, OSPconnectionStrHOLD, 1
+arr OSPconnectionArrayHOLD .= OSPconnectionStrHOLD
+statckOSPgetData.pop_back()
+}
+else
+{
+addOSPtoHTVM .= parserOSPgloabl(OSPstrArrayStrALLobjInOSP, A_LoopField) . "`n"
+}
+}
+StringTrimRight, htCode, addOSPtoHTVM, 1
+StringTrimRight, OSPstrArrayStrALLobjInOSP, OSPstrArrayStrALLobjInOSP, 1
+
+; alliance|start|animalsKingdom
+; crew|start|animals
+; def obj|start|Dog
+
+
+;MsgBox, ========================== phase2 =============================
+;MsgBox, ========================== phase2 =============================
+;MsgBox, % OSPstrArrayStrALLobjInOSP
+;MsgBox, ========================== phase2 =============================
+;MsgBox, ========================== phase2 =============================
+;MsgBox, % htCode
+;MsgBox, ========================== phase2 =============================
+;MsgBox, ========================== phase2 =============================
+;MsgBox, ========================== phase2 =============================
+;MsgBox, ========================== phase2 =============================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6223,7 +7395,7 @@ includeLibsInCppIf := 1
 
 if (langToTranspileTo = "cpp")
 {
-allLibsToPutAtTop := "#include <iostream>`n#include <sstream>`n#include <string>`n#include <cstdint>`n#include <algorithm>`n#include <vector>`n" . allLibsToPutAtTop
+allLibsToPutAtTop := "#include <iostream>`n#include <sstream>`n#include <string>`n#include <cstdint>`n#include <algorithm>`n#include <vector>`n#include <any>`n#include <optional>`n" . allLibsToPutAtTop
 }
 
 Sort, allLibsToPutAtTop, U
@@ -6248,6 +7420,9 @@ htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" . Chr(6
 }
 
 htCode := StrReplace(htCode, ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes, Chr(92) . Chr(34))
+
+
+htCode := StrReplace(htCode, "std::string(" . Chr(34) . Chr(34) . ";),", "std::string(" . Chr(34) . Chr(34) . "),")
 
 
 
