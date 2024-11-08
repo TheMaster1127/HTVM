@@ -2043,6 +2043,8 @@ StringTrimRight, str_2, reversedStr, 1
 ;CheckStringPosition(text, target, reference)
 str ALoopField := ""
 str ALoopField1 := ""
+Loop, 2
+{
 Loop, Parse, str_2, `n, `r
 {
 if (Trim(A_LoopField) != "")
@@ -2145,6 +2147,7 @@ str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
 
 }
 
+}
 }
 }
 
@@ -6224,10 +6227,16 @@ str OSPpasringHoldNameFirstPart := ""
 
 str addOSPtoHTVM := ""
 
+int foundAllianceCrewOrOtehrs := 0
+foundAllianceCrewOrOtehrs := 0
 Loop, Parse, htCode, `n ,`r
 {
+
+
+
 if (SubStr(StrLower(Trim(A_LoopField)), 1, 9) = "alliance ")
 {
+foundAllianceCrewOrOtehrs := 1
 StringTrimLeft, OSPpasringHoldNameFirstPart, A_LoopField, 9
 OSPpasringHoldNameFirstPart := Trim(OSPpasringHoldNameFirstPart)
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover := 0
@@ -6241,6 +6250,8 @@ startInStartEdCurlyBraceStartONce := 0
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
 }
 else if (Trim(A_LoopField) = "{")
+{
+if (foundAllianceCrewOrOtehrs = 1)
 {
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
 startInStartEdCurlyBraceStartONce++
@@ -6256,7 +6267,14 @@ addOSPtoHTVM .= A_LoopField . "`n"
 canEndIndentTrackCurlyBraceOpenClose := 1
 indentTrackCurlyBraceOpenClose--
 }
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+}
 else if (Trim(A_LoopField) = "}")
+{
+if (foundAllianceCrewOrOtehrs = 1)
 {
 canEndIndentTrackCurlyBraceOpenClose := 1
 indentTrackCurlyBraceOpenClose++
@@ -6287,6 +6305,11 @@ else
 {
 addOSPtoHTVM .= A_LoopField . "`n"
 }
+}
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
 
 }
 
@@ -6295,13 +6318,14 @@ StringTrimRight, htCode, addOSPtoHTVM, 1
 
 
 
-
+foundAllianceCrewOrOtehrs := 0
 addOSPtoHTVM := ""
 
 Loop, Parse, htCode, `n ,`r
 {
 if (SubStr(StrLower(Trim(A_LoopField)), 1, 5) = "crew ")
 {
+foundAllianceCrewOrOtehrs := 1
 StringTrimLeft, OSPpasringHoldNameFirstPart, A_LoopField, 5
 OSPpasringHoldNameFirstPart := Trim(OSPpasringHoldNameFirstPart)
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover := 0
@@ -6315,6 +6339,8 @@ startInStartEdCurlyBraceStartONce := 0
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
 }
 else if (Trim(A_LoopField) = "{")
+{
+if (foundAllianceCrewOrOtehrs = 1)
 {
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
 startInStartEdCurlyBraceStartONce++
@@ -6330,7 +6356,14 @@ addOSPtoHTVM .= A_LoopField . "`n"
 canEndIndentTrackCurlyBraceOpenClose := 1
 indentTrackCurlyBraceOpenClose--
 }
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+}
 else if (Trim(A_LoopField) = "}")
+{
+if (foundAllianceCrewOrOtehrs = 1)
 {
 canEndIndentTrackCurlyBraceOpenClose := 1
 indentTrackCurlyBraceOpenClose++
@@ -6361,6 +6394,11 @@ else
 {
 addOSPtoHTVM .= A_LoopField . "`n"
 }
+}
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
 
 }
 
@@ -6372,11 +6410,12 @@ StringTrimRight, htCode, addOSPtoHTVM, 1
 
 
 addOSPtoHTVM := ""
-
+foundAllianceCrewOrOtehrs := 0
 Loop, Parse, htCode, `n ,`r
 {
 if (SubStr(StrLower(Trim(A_LoopField)), 1, 8) = "def obj ")
 {
+foundAllianceCrewOrOtehrs := 1
 StringTrimLeft, OSPpasringHoldNameFirstPart, A_LoopField, 8
 OSPpasringHoldNameFirstPart := Trim(OSPpasringHoldNameFirstPart)
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover := 0
@@ -6390,6 +6429,8 @@ startInStartEdCurlyBraceStartONce := 0
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
 }
 else if (Trim(A_LoopField) = "{")
+{
+if (foundAllianceCrewOrOtehrs = 1)
 {
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
 startInStartEdCurlyBraceStartONce++
@@ -6405,7 +6446,14 @@ addOSPtoHTVM .= A_LoopField . "`n"
 canEndIndentTrackCurlyBraceOpenClose := 1
 indentTrackCurlyBraceOpenClose--
 }
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+}
 else if (Trim(A_LoopField) = "}")
+{
+if (foundAllianceCrewOrOtehrs = 1)
 {
 canEndIndentTrackCurlyBraceOpenClose := 1
 indentTrackCurlyBraceOpenClose++
@@ -6430,7 +6478,11 @@ INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
 addOSPtoHTVM .= A_LoopField . "`n"
 }
 
-
+}
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
 }
 else
 {
@@ -6446,11 +6498,12 @@ StringTrimRight, htCode, addOSPtoHTVM, 1
 
 
 addOSPtoHTVM := ""
-
+foundAllianceCrewOrOtehrs := 0
 Loop, Parse, htCode, `n ,`r
 {
 if (SubStr(StrLower(Trim(A_LoopField)), 1, 7) = "method ")
 {
+foundAllianceCrewOrOtehrs := 1
 StringTrimLeft, OSPpasringHoldNameFirstPart, A_LoopField, 7
 OSPpasringHoldNameFirstPart := Trim(OSPpasringHoldNameFirstPart)
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_itsOVERover := 0
@@ -6464,6 +6517,8 @@ startInStartEdCurlyBraceStartONce := 0
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
 }
 else if (Trim(A_LoopField) = "{")
+{
+if (foundAllianceCrewOrOtehrs = 1)
 {
 INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
 startInStartEdCurlyBraceStartONce++
@@ -6479,7 +6534,14 @@ addOSPtoHTVM .= A_LoopField . "`n"
 canEndIndentTrackCurlyBraceOpenClose := 1
 indentTrackCurlyBraceOpenClose--
 }
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+}
 else if (Trim(A_LoopField) = "}")
+{
+if (foundAllianceCrewOrOtehrs = 1)
 {
 canEndIndentTrackCurlyBraceOpenClose := 1
 indentTrackCurlyBraceOpenClose++
@@ -6504,7 +6566,11 @@ INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDEdoneDONE := 0
 addOSPtoHTVM .= A_LoopField . "`n"
 }
 
-
+}
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
 }
 else
 {
