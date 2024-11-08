@@ -5555,18 +5555,60 @@ skipLeftCuleyForFuncPLS := 0
 StringTrimRight, htCode, htCode, 1
 
 
+int indentTrackCurlyBraceOpenClose := 0
+int canEndIndentTrackCurlyBraceOpenClose := 0
+int indentTrackCurlyBraceOpenCloseSTARTEDAT := 0
+int indentTrackCurlyBraceOpenCloseENDNEXTonce := 0
+int indentTrackCurlyBraceOpenCloseENDNEXT := 0
+
+int INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDE := 0
+
+str addOSPtoHTVM := ""
+
+Loop, Parse, htCode, `n ,`r
+{
+if (SubStr(StrLower(Trim(A_LoopField)), 1, 6) = "waesrf")
+{
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDE := 1
+indentTrackCurlyBraceOpenCloseSTARTEDAT := A_Index
+indentTrackCurlyBraceOpenClose := 0
+canEndIndentTrackCurlyBraceOpenClose := 0
+indentTrackCurlyBraceOpenCloseENDNEXT := 0
+indentTrackCurlyBraceOpenCloseENDNEXTonce := 0
+}
+else if (Trim(A_LoopField) = "{")
+{
+canEndIndentTrackCurlyBraceOpenClose := 1
+indentTrackCurlyBraceOpenClose--
+}
+else if (Trim(A_LoopField) = "}")
+{
+canEndIndentTrackCurlyBraceOpenClose := 1
+indentTrackCurlyBraceOpenClose++
+if (indentTrackCurlyBraceOpenClose = 0) and (canEndIndentTrackCurlyBraceOpenClose = 1)
+{
+indentTrackCurlyBraceOpenCloseENDNEXT := 1
+
+}
+else if (indentTrackCurlyBraceOpenCloseENDNEXT = 1)
+{
+indentTrackCurlyBraceOpenCloseENDNEXTonce++
+if (indentTrackCurlyBraceOpenCloseENDNEXTonce = 1)
+{
+;MsgBox, % "foundCLose } at line " . STR(A_Index) . " and started at " . STR(indentTrackCurlyBraceOpenCloseSTARTEDAT)
+INSIDEindentTrackCurlyBraceOpenCloseENDNEXT_INSIDE := 0
+}
+}
+}
+else
+{
+addOSPtoHTVM .= A_LoopField . "`n"
+}
+
+}
 
 
-
-
-
-
-
-
-
-
-
-
+StringTrimRight, htCode, addOSPtoHTVM, 1
 
 
 
@@ -6222,7 +6264,7 @@ htCode := jsHTMLupCode . "`n" . htCode . "`n" . jsHTMLdownCode
 
 if (langToTranspileTo = "cpp") && (includeLibsInCppIf = 0)
 {
-htCode := "#include <iostream>`n#include <sstream>`n#include <string>`n#include <cstdint>`n#include <algorithm>`n#include <vector>`n`n" . htCode
+htCode := "#include <iostream>`n#include <sstream>`n#include <any>`n#include <string>`n#include <cstdint>`n#include <algorithm>`n#include <vector>`n`n" . htCode
 }
 
 
@@ -6248,3 +6290,4 @@ FileAppend, %htCode%, %filePathOfCode%
 
 main:
 compiler()
+

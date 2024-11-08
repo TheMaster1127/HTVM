@@ -1,11 +1,11 @@
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\tabs.txt
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpc
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
-C:\Users\The_M\OneDrive\Desktop\AutoHotKey Scripts\Fitness Master Tracker\trackData.py
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\getDirectionDataAPI.py
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\backend.py
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\ssh_script.py
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\iframe.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\front.hth
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\host.htpy
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\host.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\getGPSloc.py
+C:\Users\The_M\OneDrive\Desktop\temp Projects\wasddsHTHTHTHGTHGTG\testAddHTVM.html
+C:\Users\The_M\OneDrive\Desktop\AutoHotKey Scripts\Open Notepad\Notepad Log\Date-02-11-2024 Time-18-08-53-Notepad.html
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\MDsharp\MDsharp\MDsharp.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\index.html
+C:\Users\The_M\OneDrive\Desktop\temp Projects\ADSDASD\WAEDSRF12323.cpp
