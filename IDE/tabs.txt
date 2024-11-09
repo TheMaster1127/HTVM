@@ -10,3 +10,13 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\MDsharp\MDsharp\MDsharp.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\index.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\MDsharp\MDsharp\MDsharp.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.ht
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test2.ht
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.cpp
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test2.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpc
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.py
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.html
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test2.py
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test2.html

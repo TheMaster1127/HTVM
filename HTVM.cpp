@@ -2182,6 +2182,54 @@ THESTRout += Trim ( A_LoopField52 ) + ".";
 THESTRout = StringTrimRight(THESTRout, 1);
 return THESTRout;
 }
+//;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;
+std::string replaceTheOSPpathsPY_JS(std::string theSTR123, std::string ALoopFieldIN)
+{
+if (Trim (theSTR123) == "") 
+{
+return "";
+}
+if (Trim (ALoopFieldIN) == "") 
+{
+return "";
+}
+std::string type = "";
+std::string theSTR123out = "";
+std::string ALoopField = "";
+std::string ALoopField1 = "";
+std::string ALoopField11 = "";
+if (InStr (ALoopFieldIN , "[")) 
+{
+// ALoopFieldIN
+// animalsKingdom.animals.Dog.typeOf2[2]
+ALoopField = StrSplit ( Trim ( ALoopFieldIN ) , "[" , 1 ) ;
+ALoopField1 = StrSplit ( Trim ( ALoopFieldIN ) , "[" , 1 ) ;
+ALoopField11 = StrSplit ( Trim ( ALoopFieldIN ) , "[" , 2 ) ;
+ALoopField1 = REMOVELastSTRfromDOT ( ALoopField1 ) + "[" + ALoopField11;
+// REMOVELastSTRfromDOT(param1)
+theSTR123 = StrReplace ( theSTR123 , Trim ( ALoopField ) , "OSPHTVMOSP_" + StrReplace ( ALoopField1 , "." , "_" ) ) ;
+}
+else
+{
+ALoopField = StrSplit ( Trim ( ALoopFieldIN ) , "[" , 1 ) ;
+ALoopField1 = StrSplit ( Trim ( ALoopFieldIN ) , "[" , 2 ) ;
+ALoopField1 = REMOVELastSTRfromDOT ( StrSplit ( Trim ( ALoopFieldIN ) , "]" , 1 ) ) ;
+ALoopField1 = "[" + Trim ( StrSplit ( ALoopField1 , "[" , 2 ) ) + "]";
+theSTR123 = StrReplace ( theSTR123 , Trim ( ALoopFieldIN ) , "OSPHTVMOSP_" + StrReplace ( ALoopFieldIN , "." , "_" ) ) ;
+}
+//this__OSP__this
+theSTR123 = RegExReplace ( theSTR123 , "\\bthis\\b" , "this__OSP__this[0]" ) ;
+theSTR123 = StrReplace ( theSTR123 , "OSPHTVMOSP_OSPHTVMOSP_" , "OSPHTVMOSP_" ) ;
+return theSTR123;
+}
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 std::string replaceTheOSPpathsLEFT(std::string theSTR123, std::string ALoopFieldIN)
 {
 if (Trim (theSTR123) == "") 
@@ -2428,6 +2476,8 @@ std::vector<std::string> items62 = LoopParseFunc(str_2, "\n", "\r");
 for (size_t A_Index62 = 1; A_Index62 < items62.size() + 1; A_Index62++)
 {
 std::string A_LoopField62 = items62[A_Index62 - 1];
+if (langToTranspileTo == "cpp") 
+{
 if (Trim (A_LoopField62)!= "") 
 {
 if (InStr (str123 , " += ")) 
@@ -2508,6 +2558,15 @@ str123 = Trim ( str5 ) ;
 else
 {
 str123 = replaceTheOSPpathsRIGHT ( str123 , A_LoopField62 ) ;
+}
+//;;;;
+}
+}
+else
+{
+if (Trim (A_LoopField62)!= "") 
+{
+str123 = replaceTheOSPpathsPY_JS ( str123 , A_LoopField62 ) ;
 }
 }
 }
@@ -3593,7 +3652,39 @@ for (size_t A_Index80 = 1; A_Index80 < items80.size() + 1; A_Index80++)
 {
 std::string A_LoopField80 = items80[A_Index80 - 1];
 lineDone = 0;
-if (SubStr (StrLower (A_LoopField80) , 1 , StrLen (StrLower (keyWordINT))) == StrLower (keyWordINT)) 
+if (SubStr (StrLower (A_LoopField80) , 1 , StrLen (StrLower ("prop "))) == StrLower ("prop ")) 
+{
+if (InStr (A_LoopField80 , " " + Trim (keyWordConcatenationAssignmentOperator) + " ")) 
+{
+htCode += expressionParserTranspiler ( StrReplace ( A_LoopField80 , " " + Trim ( keyWordConcatenationAssignmentOperator ) + " " , " += " ) ) + "\n";
+}
+else if (InStr (A_LoopField80 , " " + Trim (keyWordVariablesAssignmentOperator) + " ")) 
+{
+htCode += expressionParserTranspiler ( StrReplace ( A_LoopField80 , " " + Trim ( keyWordVariablesAssignmentOperator ) + " " , " = " ) ) + "\n";
+}
+else if (InStr (A_LoopField80 , " " + Trim (keyWordAdditionAssignmentOperator) + " ")) 
+{
+htCode += expressionParserTranspiler ( StrReplace ( A_LoopField80 , " " + Trim ( keyWordAdditionAssignmentOperator ) + " " , " += " ) ) + "\n";
+}
+else if (InStr (A_LoopField80 , " " + Trim (keyWordSubtractionAssignmentOperator) + " ")) 
+{
+htCode += expressionParserTranspiler ( StrReplace ( A_LoopField80 , " " + Trim ( keyWordSubtractionAssignmentOperator ) + " " , " -= " ) ) + "\n";
+}
+else if (InStr (A_LoopField80 , " " + Trim (keyWordMultiplicationAssignmentOperator) + " ")) 
+{
+htCode += expressionParserTranspiler ( StrReplace ( A_LoopField80 , " " + Trim ( keyWordMultiplicationAssignmentOperator ) + " " , " *= " ) ) + "\n";
+}
+else if (InStr (A_LoopField80 , " " + Trim (keyWordDivisionAssignmentOperator) + " ")) 
+{
+htCode += expressionParserTranspiler ( StrReplace ( A_LoopField80 , " " + Trim ( keyWordDivisionAssignmentOperator ) + " " , " /= " ) ) + "\n";
+}
+else
+{
+htCode += expressionParserTranspiler ( A_LoopField80 ) + "\n";
+}
+lineDone = 1;
+}
+else if (SubStr (StrLower (A_LoopField80) , 1 , StrLen (StrLower (keyWordINT))) == StrLower (keyWordINT)) 
 {
 str1 = StringTrimLeft ( A_LoopField80 , StrLen ( keyWordINT ) ) ;
 if (langToTranspileTo == "cpp") 
@@ -6532,7 +6623,18 @@ else
 {
 str4 = "void";
 }
+if (langToTranspileTo == "cpp") 
+{
 addOSPtoHTVM += str4 + " OSPHTVMOSP_" + str2 + "(std::optional<std::vector<std::any>> this__OSP__this = std::nullopt)\n{\n";
+}
+if (langToTranspileTo == "js") 
+{
+addOSPtoHTVM += "function OSPHTVMOSP_" + str2 + "(this__OSP__this = null)\n{\n";
+}
+if (langToTranspileTo == "py") 
+{
+addOSPtoHTVM += "def OSPHTVMOSP_" + str2 + "(this__OSP__this = None):\n";
+}
 }
 else if (InStr (A_LoopField88 , "alliance|end|")) 
 {
@@ -6582,7 +6684,18 @@ OSPconnectionStrHOLD = StringTrimRight(OSPconnectionStrHOLD, 1);
 OSPconnectionArrayHOLD.add(OSPconnectionStrHOLD);
 statckOSPgetData.pop_back ( ) ;
 OSPstrArrayStrALLobjInOSP += OSPconnectionStrHOLD + ":";
+if (langToTranspileTo == "cpp") 
+{
 str2 = "std::vector<std::any> OSPHTVMOSP_" + StrReplace ( OSPconnectionStrHOLD , "." , "_" ) + " = {\nstd::string(" + Chr ( 34 ) + OSPconnectionStrHOLD + Chr ( 34 ) + "),\n";
+}
+if (langToTranspileTo == "py") 
+{
+str2 = "OSPHTVMOSP_" + StrReplace ( OSPconnectionStrHOLD , "." , "_" ) + " = [\n" + Chr ( 34 ) + OSPconnectionStrHOLD + Chr ( 34 ) + ",\n";
+}
+if (langToTranspileTo == "js") 
+{
+str2 = "let OSPHTVMOSP_" + StrReplace ( OSPconnectionStrHOLD , "." , "_" ) + " = [\n" + Chr ( 34 ) + OSPconnectionStrHOLD + Chr ( 34 ) + ",\n";
+}
 std::vector<std::string> items93 = LoopParseFunc(OSPholdPROPstrForArray, "|");
 for (size_t A_Index93 = 1; A_Index93 < items93.size() + 1; A_Index93++)
 {
@@ -6602,18 +6715,39 @@ str1 = StrReplace ( str1 , ";" , "" ) ;
 OSPstrArrayStrALLobjInOSP += Trim ( StrSplit ( str1 , " " , 3 ) ) + "[" + Trim ( StrSplit ( str1 , " " , 2 ) ) + "],";
 if (InStr (Trim (StrSplit (str1 , " " , 5)) , "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-") || InStr (Trim (StrSplit (str1 , " " , 5)) , Chr (34))) 
 {
+if (langToTranspileTo == "cpp") 
+{
 str4 += "std::string(" + Trim ( StrSplit ( str1 , " " , 5 ) ) + "),\n";
 }
 else
 {
 str4 += Trim ( StrSplit ( str1 , " " , 5 ) ) + ",\n";
 }
+}
+else
+{
+if (langToTranspileTo == "cpp") 
+{
+str4 += Trim ( StrSplit ( str1 , " " , 5 ) ) + ",\n";
+}
+else
+{
+str4 += Trim ( StrSplit ( str1 , " " , 5 ) ) + ",\n";
+}
+}
 //;;;;;;;
 }
 }
 OSPstrArrayStrALLobjInOSP = StringTrimRight(OSPstrArrayStrALLobjInOSP, 1);
 OSPstrArrayStrALLobjInOSP += "|";
+if (langToTranspileTo == "cpp") 
+{
 addOSPtoHTVM += str2 + str4 + "};\n";
+}
+else
+{
+addOSPtoHTVM += str2 + str4 + "]\n";
+}
 }
 }
 else if (InStr (A_LoopField88 , "method|end|")) 

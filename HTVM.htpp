@@ -1723,6 +1723,75 @@ return THESTRout
 }
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+func str replaceTheOSPpathsPY_JS(str theSTR123, str ALoopFieldIN)
+{
+
+if (Trim(theSTR123) = "")
+{
+return ""
+}
+if (Trim(ALoopFieldIN) = "")
+{
+return ""
+}
+
+str type := ""
+str theSTR123out := ""
+str ALoopField := ""
+str ALoopField1 := ""
+str ALoopField11 := ""
+
+if (InStr(ALoopFieldIN, "["))
+{
+; ALoopFieldIN
+; animalsKingdom.animals.Dog.typeOf2[2]
+
+ALoopField := StrSplit(Trim(ALoopFieldIN), "[", 1)
+
+
+ALoopField1 := StrSplit(Trim(ALoopFieldIN), "[", 1)
+ALoopField11 := StrSplit(Trim(ALoopFieldIN), "[", 2)
+ALoopField1 := REMOVELastSTRfromDOT(ALoopField1) . "[" . ALoopField11
+
+
+; REMOVELastSTRfromDOT(param1)
+theSTR123 := StrReplace(theSTR123, Trim(ALoopField), "OSPHTVMOSP_" . StrReplace(ALoopField1, ".", "_"))
+
+}
+else
+{
+ALoopField := StrSplit(Trim(ALoopFieldIN), "[", 1)
+
+ALoopField1 := StrSplit(Trim(ALoopFieldIN), "[", 2)
+
+ALoopField1 := REMOVELastSTRfromDOT(StrSplit(Trim(ALoopFieldIN), "]", 1))
+
+ALoopField1 := "[" . Trim(StrSplit(ALoopField1, "[", 2)) . "]"
+theSTR123 := StrReplace(theSTR123, Trim(ALoopFieldIN), "OSPHTVMOSP_" . StrReplace(ALoopFieldIN, ".", "_"))
+
+}
+
+;this__OSP__this
+theSTR123 := RegExReplace(theSTR123, "\\bthis\\b", "this__OSP__this[0]")
+theSTR123 := StrReplace(theSTR123, "OSPHTVMOSP_OSPHTVMOSP_", "OSPHTVMOSP_")
+
+
+
+return theSTR123
+}
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 func str replaceTheOSPpathsLEFT(str theSTR123, str ALoopFieldIN)
 {
 
@@ -2046,8 +2115,14 @@ str ALoopField1 := ""
 
 Loop, Parse, str_2, `n, `r
 {
+
+if (langToTranspileTo = "cpp")
+{
+
 if (Trim(A_LoopField) != "")
 {
+
+
 if (InStr(str123, " += "))
 {
 str6 := " += "
@@ -2137,7 +2212,20 @@ str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
 
 }
 
+
+;;;;;
 }
+}
+else
+{
+if (Trim(A_LoopField) != "")
+{
+str123 := replaceTheOSPpathsPY_JS(str123, A_LoopField)
+}
+}
+
+
+
 }
 
 
@@ -3343,7 +3431,44 @@ Loop, Parse, code, `n, `r
 {
 lineDone := 0
 
-if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordINT))) = StrLower(keyWordINT))
+
+if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower("prop "))) = StrLower("prop "))
+{
+
+
+if (InStr(A_LoopField, " " . Trim(keyWordConcatenationAssignmentOperator) . " "))
+{
+htCode .= expressionParserTranspiler(StrReplace(A_LoopField, " " . Trim(keyWordConcatenationAssignmentOperator) . " ", " += ")) . "`n"
+}
+else if (InStr(A_LoopField, " " . Trim(keyWordVariablesAssignmentOperator) . " "))
+{
+htCode .= expressionParserTranspiler(StrReplace(A_LoopField, " " . Trim(keyWordVariablesAssignmentOperator) . " ", " = ")) . "`n"
+}
+else if (InStr(A_LoopField, " " . Trim(keyWordAdditionAssignmentOperator) . " "))
+{
+htCode .= expressionParserTranspiler(StrReplace(A_LoopField, " " . Trim(keyWordAdditionAssignmentOperator) . " ", " += ")) . "`n"
+}
+else if (InStr(A_LoopField, " " . Trim(keyWordSubtractionAssignmentOperator) . " "))
+{
+htCode .= expressionParserTranspiler(StrReplace(A_LoopField, " " . Trim(keyWordSubtractionAssignmentOperator) . " ", " -= ")) . "`n"
+}
+else if (InStr(A_LoopField, " " . Trim(keyWordMultiplicationAssignmentOperator) . " "))
+{
+htCode .= expressionParserTranspiler(StrReplace(A_LoopField, " " . Trim(keyWordMultiplicationAssignmentOperator) . " ", " *= ")) . "`n"
+}
+else if (InStr(A_LoopField, " " . Trim(keyWordDivisionAssignmentOperator) . " "))
+{
+htCode .= expressionParserTranspiler(StrReplace(A_LoopField, " " . Trim(keyWordDivisionAssignmentOperator) . " ", " /= ")) . "`n"
+}
+else
+{
+htCode .= expressionParserTranspiler(A_LoopField) . "`n"
+}
+
+
+lineDone := 1
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordINT))) = StrLower(keyWordINT))
 {
 str1 := StringTrimLeft(A_LoopField, StrLen(keyWordINT))
 
@@ -6600,6 +6725,7 @@ str OSPholdPROPstrForArray := ""
 
 int areWeInDefObj := 0
 
+
 addOSPtoHTVM := ""
 
 Loop, Parse, htCode, `n ,`r
@@ -6691,8 +6817,18 @@ else
 str4 := "void"
 }
 
-
+if (langToTranspileTo = "cpp")
+{
 addOSPtoHTVM .= str4 . " OSPHTVMOSP_" . str2 . "(std::optional<std::vector<std::any>> this__OSP__this = std::nullopt)`n{`n"
+}
+if (langToTranspileTo = "js")
+{
+addOSPtoHTVM .= "function OSPHTVMOSP_" . str2 . "(this__OSP__this = null)`n{`n"
+}
+if (langToTranspileTo = "py")
+{
+addOSPtoHTVM .= "def OSPHTVMOSP_" . str2 . "(this__OSP__this = None):`n"
+}
 
 }
 else if (InStr(A_LoopField, "alliance|end|"))
@@ -6750,7 +6886,19 @@ statckOSPgetData.pop_back()
 
 OSPstrArrayStrALLobjInOSP .= OSPconnectionStrHOLD . ":"
 
+
+if (langToTranspileTo = "cpp")
+{
 str2 := "std::vector<std::any> OSPHTVMOSP_" . StrReplace(OSPconnectionStrHOLD, ".", "_") . " = {`nstd::string(" . Chr(34) . OSPconnectionStrHOLD . Chr(34) . "),`n"
+}
+if (langToTranspileTo = "py")
+{
+str2 := "OSPHTVMOSP_" . StrReplace(OSPconnectionStrHOLD, ".", "_") . " = [`n" . Chr(34) . OSPconnectionStrHOLD . Chr(34) . ",`n"
+}
+if (langToTranspileTo = "js")
+{
+str2 := "let OSPHTVMOSP_" . StrReplace(OSPconnectionStrHOLD, ".", "_") . " = [`n" . Chr(34) . OSPconnectionStrHOLD . Chr(34) . ",`n"
+}
 
 Loop, Parse, OSPholdPROPstrForArray, "|"
 {
@@ -6774,12 +6922,29 @@ OSPstrArrayStrALLobjInOSP .= Trim(StrSplit(str1, " ", 3)) . "[" . Trim(StrSplit(
 
 if (InStr(Trim(StrSplit(str1, " ", 5)), "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-")) or (InStr(Trim(StrSplit(str1, " ", 5)), Chr(34)))
 {
+if (langToTranspileTo = "cpp")
+{
 str4 .= "std::string(" . Trim(StrSplit(str1, " ", 5)) . "),`n"
 }
 else
 {
-
 str4 .= Trim(StrSplit(str1, " ", 5)) . ",`n"
+}
+
+}
+else
+{
+
+if (langToTranspileTo = "cpp")
+{
+str4 .= Trim(StrSplit(str1, " ", 5)) . ",`n"
+}
+else
+{
+str4 .= Trim(StrSplit(str1, " ", 5)) . ",`n"
+}
+
+
 }
 
 ;;;;;;;;
@@ -6788,8 +6953,14 @@ str4 .= Trim(StrSplit(str1, " ", 5)) . ",`n"
 StringTrimRight, OSPstrArrayStrALLobjInOSP, OSPstrArrayStrALLobjInOSP, 1
 OSPstrArrayStrALLobjInOSP .= "|"
 
-
+if (langToTranspileTo = "cpp")
+{
 addOSPtoHTVM .= str2 . str4 . "};`n"
+}
+else
+{
+addOSPtoHTVM .= str2 . str4 . "]`n"
+}
 
 }
 
