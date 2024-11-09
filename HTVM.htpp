@@ -2043,113 +2043,103 @@ StringTrimRight, str_2, reversedStr, 1
 ;CheckStringPosition(text, target, reference)
 str ALoopField := ""
 str ALoopField1 := ""
-Loop, 2
-{
+
 Loop, Parse, str_2, `n, `r
 {
 if (Trim(A_LoopField) != "")
 {
 if (InStr(str123, " += "))
 {
-if (CheckStringPosition(str123, StrSplit(A_LoopField, "[", 1), " += ") = "left")
-{
-
-str123 := replaceTheOSPpathsLEFT(str123, A_LoopField)
-
-
-
-}
-else
-{
-
-
-
-str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
-
-}
+str6 := " += "
+str1 := ""
+str2 := ""
+str3 := ""
+str4 := ""
+str5 := ""
+str1 := Trim(StrSplit(str123, str6, 1))
+str2 := Trim(StrSplit(str123, str6, 2))
+str3 := Trim(replaceTheOSPpathsLEFT(str1, A_LoopField))
+str4 := Trim(replaceTheOSPpathsRIGHT(str2, A_LoopField))
+str5 := str3 . str6 . str4
+str123 := Trim(str5)
 
 }
 else if (InStr(str123, " = "))
 {
-if (CheckStringPosition(str123, StrSplit(A_LoopField, "[", 1), " = ") = "left")
-{
-str123 := replaceTheOSPpathsLEFT(str123, A_LoopField)
 
-}
-else
-{
-
-
-str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
-}
-
-}
-else if (InStr(str123, " += "))
-{
-if (CheckStringPosition(str123, StrSplit(A_LoopField, "[", 1), " += ") = "left")
-{
-str123 := replaceTheOSPpathsLEFT(str123, A_LoopField)
-
-}
-else
-{
-
-str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
-}
+str6 := " = "
+str1 := ""
+str2 := ""
+str3 := ""
+str4 := ""
+str5 := ""
+str1 := Trim(StrSplit(str123, str6, 1))
+str2 := Trim(StrSplit(str123, str6, 2))
+str3 := Trim(replaceTheOSPpathsLEFT(str1, A_LoopField))
+str4 := Trim(replaceTheOSPpathsRIGHT(str2, A_LoopField))
+str5 := str3 . str6 . str4
+str123 := Trim(str5)
 
 }
 else if (InStr(str123, " -= "))
 {
-if (CheckStringPosition(str123, StrSplit(A_LoopField, "[", 1), " -= ") = "left")
-{
-str123 := replaceTheOSPpathsLEFT(str123, A_LoopField)
-
-}
-else
-{
-
-str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
-}
+str6 := " -= "
+str1 := ""
+str2 := ""
+str3 := ""
+str4 := ""
+str5 := ""
+str1 := Trim(StrSplit(str123, str6, 1))
+str2 := Trim(StrSplit(str123, str6, 2))
+str3 := Trim(replaceTheOSPpathsLEFT(str1, A_LoopField))
+str4 := Trim(replaceTheOSPpathsRIGHT(str2, A_LoopField))
+str5 := str3 . str6 . str4
+str123 := Trim(str5)
 
 }
 else if (InStr(str123, " *= "))
 {
-if (CheckStringPosition(str123, StrSplit(A_LoopField, "[", 1), " *= ") = "left")
-{
-str123 := replaceTheOSPpathsLEFT(str123, A_LoopField)
-
-}
-else
-{
-
-str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
-}
+str6 := " *= "
+str1 := ""
+str2 := ""
+str3 := ""
+str4 := ""
+str5 := ""
+str1 := Trim(StrSplit(str123, str6, 1))
+str2 := Trim(StrSplit(str123, str6, 2))
+str3 := Trim(replaceTheOSPpathsLEFT(str1, A_LoopField))
+str4 := Trim(replaceTheOSPpathsRIGHT(str2, A_LoopField))
+str5 := str3 . str6 . str4
+str123 := Trim(str5)
 
 }
 else if (InStr(str123, " /= "))
 {
-if (CheckStringPosition(str123, StrSplit(A_LoopField, "[", 1), " /= ") = "left")
-{
-str123 := replaceTheOSPpathsLEFT(str123, A_LoopField)
+
+str6 := " /= "
+str1 := ""
+str2 := ""
+str3 := ""
+str4 := ""
+str5 := ""
+str1 := Trim(StrSplit(str123, str6, 1))
+str2 := Trim(StrSplit(str123, str6, 2))
+str3 := Trim(replaceTheOSPpathsLEFT(str1, A_LoopField))
+str4 := Trim(replaceTheOSPpathsRIGHT(str2, A_LoopField))
+str5 := str3 . str6 . str4
+str123 := Trim(str5)
 
 }
 else
 {
 
 str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
-}
-
-}
-else
-{
-
-str123 := replaceTheOSPpathsRIGHT(str123, A_LoopField)
 
 }
 
 }
 }
-}
+
 
 
 return str123
