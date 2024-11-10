@@ -6320,9 +6320,6 @@ StringTrimRight, htCode, htCode, 1
 
 
 
-
-
-
 int indentTrackCurlyBraceOpenClose := 0
 int canEndIndentTrackCurlyBraceOpenClose := 0
 int indentTrackCurlyBraceOpenCloseSTARTEDAT := 0
@@ -6827,7 +6824,7 @@ addOSPtoHTVM .= "function OSPHTVMOSP_" . str2 . "(this__OSP__this = null)`n{`n"
 }
 if (langToTranspileTo = "py")
 {
-addOSPtoHTVM .= "def OSPHTVMOSP_" . str2 . "(this__OSP__this = None):`n"
+addOSPtoHTVM .= "def OSPHTVMOSP_" . str2 . "(this__OSP__this = None):`n{`n"
 }
 
 }
@@ -7004,11 +7001,46 @@ StringTrimRight, OSPstrArrayStrALLobjInOSP, OSPstrArrayStrALLobjInOSP, 1
 
 
 
+; last OSP fix
 
 
 
+str fixJSthatVARkeyword := ""
+str fixJSthatVARkeywordOUT := ""
+
+if (langToTranspileTo = "js")
+{
+
+Loop, Parse, htCode, `n, `r
+{
+    if (SubStr(Trim(A_LoopField), 1, StrLen("var ")) = "var ")
+    {
+        if (InStr(A_LoopField, "= "))
+        {
+            if (InStr(StrSplit(A_LoopField, "= ", 1), "["))
+            {
+                fixJSthatVARkeywordOUT .= StringTrimLeft(A_LoopField, 4) . "`n"
+            }
+            else
+            {
+                fixJSthatVARkeywordOUT .= A_LoopField . "`n"
+            }
+        }
+        else
+        {
+            fixJSthatVARkeywordOUT .= A_LoopField . "`n"
+        }
+    }
+    else
+    {
+        fixJSthatVARkeywordOUT .= A_LoopField . "`n"
+    }
+}
+
+StringTrimRight, htCode, fixJSthatVARkeywordOUT, 1
 
 
+}
 
 
 

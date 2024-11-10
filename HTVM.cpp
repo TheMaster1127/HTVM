@@ -6633,7 +6633,7 @@ addOSPtoHTVM += "function OSPHTVMOSP_" + str2 + "(this__OSP__this = null)\n{\n";
 }
 if (langToTranspileTo == "py") 
 {
-addOSPtoHTVM += "def OSPHTVMOSP_" + str2 + "(this__OSP__this = None):\n";
+addOSPtoHTVM += "def OSPHTVMOSP_" + str2 + "(this__OSP__this = None):\n{\n";
 }
 }
 else if (InStr (A_LoopField88 , "alliance|end|")) 
@@ -6782,18 +6782,52 @@ OSPstrArrayStrALLobjInOSP = StringTrimRight(OSPstrArrayStrALLobjInOSP, 1);
 //MsgBox, ========================== phase2 =============================
 //MsgBox, ========================== phase2 =============================
 //MsgBox, ========================== phase2 =============================
+// last OSP fix
+std::string fixJSthatVARkeyword = "";
+std::string fixJSthatVARkeywordOUT = "";
+if (langToTranspileTo == "js") 
+{
+std::vector<std::string> items95 = LoopParseFunc(htCode, "\n", "\r");
+for (size_t A_Index95 = 1; A_Index95 < items95.size() + 1; A_Index95++)
+{
+std::string A_LoopField95 = items95[A_Index95 - 1];
+if (SubStr (Trim (A_LoopField95) , 1 , StrLen ("var ")) == "var ") 
+{
+if (InStr (A_LoopField95 , "= ")) 
+{
+if (InStr (StrSplit (A_LoopField95 , "= " , 1) , "[")) 
+{
+fixJSthatVARkeywordOUT += StringTrimLeft ( A_LoopField95 , 4 ) + "\n";
+}
+else
+{
+fixJSthatVARkeywordOUT += A_LoopField95 + "\n";
+}
+}
+else
+{
+fixJSthatVARkeywordOUT += A_LoopField95 + "\n";
+}
+}
+else
+{
+fixJSthatVARkeywordOUT += A_LoopField95 + "\n";
+}
+}
+htCode = StringTrimRight(fixJSthatVARkeywordOUT, 1);
+}
 //s
 if (haveWeEverUsedAloop == 1) 
 {
 htCodeLoopfixa = StringTrimRight(htCodeLoopfixa, 1);
 //OutputDebug, |%htCodeLoopfixa%|
 AIndexLoopCurlyFix = 1;
-std::vector<std::string> items95 = LoopParseFunc(htCodeLoopfixa, "\n", "\r");
-for (size_t A_Index95 = 1; A_Index95 < items95.size() + 1; A_Index95++)
+std::vector<std::string> items96 = LoopParseFunc(htCodeLoopfixa, "\n", "\r");
+for (size_t A_Index96 = 1; A_Index96 < items96.size() + 1; A_Index96++)
 {
-std::string A_LoopField95 = items95[A_Index95 - 1];
-sstr123 = A_LoopField95;
-fixLoopLokingFor = A_LoopField95;
+std::string A_LoopField96 = items96[A_Index96 - 1];
+sstr123 = A_LoopField96;
+fixLoopLokingFor = A_LoopField96;
 fixLoopLokingForfound = 1;
 out1 = StrSplit ( sstr123 , "|" , 1 ) ;
 out2 = StrSplit ( sstr123 , "|" , 3 ) ;
@@ -6815,133 +6849,16 @@ fixLoopLokingForNum = 0;
 insdeAnestedLoopBAD = 0;
 foundTheTopLoop = 0;
 out4758686d86d86d86578991a = "";
-std::vector<std::string> items96 = LoopParseFunc(htCode, "\n", "\r");
-for (size_t A_Index96 = 1; A_Index96 < items96.size() + 1; A_Index96++)
-{
-std::string A_LoopField96 = items96[A_Index96 - 1];
-//MsgBox, dsfgsdefgesrdg1
-//MsgBox, |%A_LoopField96%|`n|%fixLoopLokingFor%|
-if (InStr (A_LoopField96 , fixLoopLokingFor) && insdeAnestedLoopBAD!= 1) 
-{
-fixLoopLokingForNum = 1;
-//MsgBox, do we came here 1
-}
-if (SubStr (Trim (A_LoopField96) , 1 , 4) == "for " && weAreDoneHereCurly!= 1 && insdeAnestedLoopBAD!= 1 && fixLoopLokingForNum == 1) 
-{
-s = StrSplit ( A_LoopField96 , "" + keyWordAIndex + "" , 2 ) ;
-out1z = s;
-s = StrSplit ( out1z , " " , 1 ) ;
-out1z = Trim ( s ) ;
-//MsgBox, % out1z
-//MsgBox, do we came here 2
-fixLoopLokingForNum = 0;
-foundTheTopLoop++;
-inTarget = 1;
-//MsgBox, % A_LoopField96
-dontSaveStr = 1;
-ALoopField = A_LoopField96;
-DeleayOneCuzOfLoopParse = 1;
-out4758686d86d86d86578991a += ALoopField + "\n";
-}
-if (inTarget == 1 && InStr (A_LoopField96 , Chr (123)) && insdeAnestedLoopBAD!= 1) 
-{
-insideBracket = 1;
-}
-if (insideBracket == 1 && InStr (A_LoopField96 , Chr (123)) && insdeAnestedLoopBAD!= 1) 
-{
-netsedCurly++;
-}
-if (insideBracket == 1 && InStr (A_LoopField96 , Chr (125)) && insdeAnestedLoopBAD!= 1) 
-{
-netsedCurly--;
-readyToEnd = 1;
-}
-if (SubStr (Trim (A_LoopField96) , 1 , 4) == "for " && insdeAnestedLoopBAD!= 1 && foundTheTopLoop >= 2) 
-{
-insdeAnestedLoopBAD = 1;
-insideBracket1 = 0;
-netsedCurly1 = 0;
-}
-if (inTarget == 1) 
-{
-foundTheTopLoop++;
-}
-if (insdeAnestedLoopBAD == 1) 
-{
-if (InStr (A_LoopField96 , Chr (123))) 
-{
-insideBracket1 = 1;
-}
-if (insideBracket1 == 1 && InStr (A_LoopField96 , Chr (123))) 
-{
-netsedCurly1++;
-}
-if (insideBracket1 == 1 && InStr (A_LoopField96 , Chr (125))) 
-{
-netsedCurly1--;
-readyToEnd1 = 1;
-}
-if (InStr (A_LoopField96 , Chr (125)) && readyToEnd1 == 1 && netsedCurly1 == 0 && insideBracket == 1) 
-{
-//MsgBox, % A_LoopField96
-eldLoopNestedBADlol = 1;
-}
-out4758686d86d86d86578991a += A_LoopField96 + "\n";
-}
-if (inTarget == 1 && dontSaveStr!= 1 && fixLoopLokingForNum!= 1 && insdeAnestedLoopBAD!= 1) 
-{
-ALoopField = A_LoopField96;
-// Replace "A_Index" with or without a following digit with "A_Index" + out1z
-ALoopField = RegExReplace ( ALoopField , "" + keyWordAIndex + "\\d*" , "" + keyWordAIndex + "" + out1z ) ;
-out4758686d86d86d86578991a += ALoopField + "\n";
-}
-if (inTarget == 1 && InStr (A_LoopField96 , Chr (125)) && readyToEnd == 1 && netsedCurly == 0 && weAreDoneHereCurly == 0 && dontSaveStr!= 1 && insdeAnestedLoopBAD!= 1) 
-{
-//MsgBox, % A_LoopField96
-weAreDoneHereCurly = 1;
-inTarget = 0;
-endBracketDOntPutThere = 1;
-}
-dontSaveStr = 0;
-if (inTarget!= 1 && endBracketDOntPutThere!= 1 && insdeAnestedLoopBAD!= 1) 
-{
-out4758686d86d86d86578991a += A_LoopField96 + "\n";
-}
-endBracketDOntPutThere = 0;
-if (eldLoopNestedBADlol == 1) 
-{
-insdeAnestedLoopBAD = 0;
-}
-}
-strstysrstsytTRIMHELP = out4758686d86d86d86578991a;
-strstysrstsytTRIMHELP = StringTrimRight(strstysrstsytTRIMHELP, 1);
-htCode = strstysrstsytTRIMHELP;
-//MsgBox, % htCode
-wasAtanyIfsElseAddAIndexLoopCurlyFix = 1;
-}
-else
-{
-inTarget = 0;
-insideBracket = 0;
-netsedCurly = 0;
-eldLoopNestedBADlol = 0;
-readyToEnd = 0;
-endBracketDOntPutThere = 0;
-dontSaveStr = 0;
-weAreDoneHereCurly = 0;
-DeleayOneCuzOfLoopParse = 0;
-fixLoopLokingForNum = 0;
-insdeAnestedLoopBAD = 0;
-foundTheTopLoop = 0;
-out4758686d86d86d86578991a = "";
 std::vector<std::string> items97 = LoopParseFunc(htCode, "\n", "\r");
 for (size_t A_Index97 = 1; A_Index97 < items97.size() + 1; A_Index97++)
 {
 std::string A_LoopField97 = items97[A_Index97 - 1];
+//MsgBox, dsfgsdefgesrdg1
+//MsgBox, |%A_LoopField97%|`n|%fixLoopLokingFor%|
 if (InStr (A_LoopField97 , fixLoopLokingFor) && insdeAnestedLoopBAD!= 1) 
 {
 fixLoopLokingForNum = 1;
-//MsgBox, do we came here 3
+//MsgBox, do we came here 1
 }
 if (SubStr (Trim (A_LoopField97) , 1 , 4) == "for " && weAreDoneHereCurly!= 1 && insdeAnestedLoopBAD!= 1 && fixLoopLokingForNum == 1) 
 {
@@ -6950,8 +6867,8 @@ out1z = s;
 s = StrSplit ( out1z , " " , 1 ) ;
 out1z = Trim ( s ) ;
 //MsgBox, % out1z
+//MsgBox, do we came here 2
 fixLoopLokingForNum = 0;
-//MsgBox, do we came here 4
 foundTheTopLoop++;
 inTarget = 1;
 //MsgBox, % A_LoopField97
@@ -7010,11 +6927,9 @@ if (inTarget == 1 && dontSaveStr!= 1 && fixLoopLokingForNum!= 1 && insdeAnestedL
 ALoopField = A_LoopField97;
 // Replace "A_Index" with or without a following digit with "A_Index" + out1z
 ALoopField = RegExReplace ( ALoopField , "" + keyWordAIndex + "\\d*" , "" + keyWordAIndex + "" + out1z ) ;
-// Replace "A_Index" with or without a following digit with "A_Index" + out1z
-ALoopField = RegExReplace ( ALoopField , "" + keyWordALoopField + "\\d*" , "" + keyWordALoopField + "" + out1z ) ;
 out4758686d86d86d86578991a += ALoopField + "\n";
 }
-if ((inTarget == 1 && InStr (A_LoopField97 , Chr (125)) && readyToEnd == 1 && netsedCurly == 0 && weAreDoneHereCurly == 0 && dontSaveStr!= 1 && insdeAnestedLoopBAD!= 1)) 
+if (inTarget == 1 && InStr (A_LoopField97 , Chr (125)) && readyToEnd == 1 && netsedCurly == 0 && weAreDoneHereCurly == 0 && dontSaveStr!= 1 && insdeAnestedLoopBAD!= 1) 
 {
 //MsgBox, % A_LoopField97
 weAreDoneHereCurly = 1;
@@ -7038,6 +6953,125 @@ htCode = strstysrstsytTRIMHELP;
 //MsgBox, % htCode
 wasAtanyIfsElseAddAIndexLoopCurlyFix = 1;
 }
+else
+{
+inTarget = 0;
+insideBracket = 0;
+netsedCurly = 0;
+eldLoopNestedBADlol = 0;
+readyToEnd = 0;
+endBracketDOntPutThere = 0;
+dontSaveStr = 0;
+weAreDoneHereCurly = 0;
+DeleayOneCuzOfLoopParse = 0;
+fixLoopLokingForNum = 0;
+insdeAnestedLoopBAD = 0;
+foundTheTopLoop = 0;
+out4758686d86d86d86578991a = "";
+std::vector<std::string> items98 = LoopParseFunc(htCode, "\n", "\r");
+for (size_t A_Index98 = 1; A_Index98 < items98.size() + 1; A_Index98++)
+{
+std::string A_LoopField98 = items98[A_Index98 - 1];
+if (InStr (A_LoopField98 , fixLoopLokingFor) && insdeAnestedLoopBAD!= 1) 
+{
+fixLoopLokingForNum = 1;
+//MsgBox, do we came here 3
+}
+if (SubStr (Trim (A_LoopField98) , 1 , 4) == "for " && weAreDoneHereCurly!= 1 && insdeAnestedLoopBAD!= 1 && fixLoopLokingForNum == 1) 
+{
+s = StrSplit ( A_LoopField98 , "" + keyWordAIndex + "" , 2 ) ;
+out1z = s;
+s = StrSplit ( out1z , " " , 1 ) ;
+out1z = Trim ( s ) ;
+//MsgBox, % out1z
+fixLoopLokingForNum = 0;
+//MsgBox, do we came here 4
+foundTheTopLoop++;
+inTarget = 1;
+//MsgBox, % A_LoopField98
+dontSaveStr = 1;
+ALoopField = A_LoopField98;
+DeleayOneCuzOfLoopParse = 1;
+out4758686d86d86d86578991a += ALoopField + "\n";
+}
+if (inTarget == 1 && InStr (A_LoopField98 , Chr (123)) && insdeAnestedLoopBAD!= 1) 
+{
+insideBracket = 1;
+}
+if (insideBracket == 1 && InStr (A_LoopField98 , Chr (123)) && insdeAnestedLoopBAD!= 1) 
+{
+netsedCurly++;
+}
+if (insideBracket == 1 && InStr (A_LoopField98 , Chr (125)) && insdeAnestedLoopBAD!= 1) 
+{
+netsedCurly--;
+readyToEnd = 1;
+}
+if (SubStr (Trim (A_LoopField98) , 1 , 4) == "for " && insdeAnestedLoopBAD!= 1 && foundTheTopLoop >= 2) 
+{
+insdeAnestedLoopBAD = 1;
+insideBracket1 = 0;
+netsedCurly1 = 0;
+}
+if (inTarget == 1) 
+{
+foundTheTopLoop++;
+}
+if (insdeAnestedLoopBAD == 1) 
+{
+if (InStr (A_LoopField98 , Chr (123))) 
+{
+insideBracket1 = 1;
+}
+if (insideBracket1 == 1 && InStr (A_LoopField98 , Chr (123))) 
+{
+netsedCurly1++;
+}
+if (insideBracket1 == 1 && InStr (A_LoopField98 , Chr (125))) 
+{
+netsedCurly1--;
+readyToEnd1 = 1;
+}
+if (InStr (A_LoopField98 , Chr (125)) && readyToEnd1 == 1 && netsedCurly1 == 0 && insideBracket == 1) 
+{
+//MsgBox, % A_LoopField98
+eldLoopNestedBADlol = 1;
+}
+out4758686d86d86d86578991a += A_LoopField98 + "\n";
+}
+if (inTarget == 1 && dontSaveStr!= 1 && fixLoopLokingForNum!= 1 && insdeAnestedLoopBAD!= 1) 
+{
+ALoopField = A_LoopField98;
+// Replace "A_Index" with or without a following digit with "A_Index" + out1z
+ALoopField = RegExReplace ( ALoopField , "" + keyWordAIndex + "\\d*" , "" + keyWordAIndex + "" + out1z ) ;
+// Replace "A_Index" with or without a following digit with "A_Index" + out1z
+ALoopField = RegExReplace ( ALoopField , "" + keyWordALoopField + "\\d*" , "" + keyWordALoopField + "" + out1z ) ;
+out4758686d86d86d86578991a += ALoopField + "\n";
+}
+if ((inTarget == 1 && InStr (A_LoopField98 , Chr (125)) && readyToEnd == 1 && netsedCurly == 0 && weAreDoneHereCurly == 0 && dontSaveStr!= 1 && insdeAnestedLoopBAD!= 1)) 
+{
+//MsgBox, % A_LoopField98
+weAreDoneHereCurly = 1;
+inTarget = 0;
+endBracketDOntPutThere = 1;
+}
+dontSaveStr = 0;
+if (inTarget!= 1 && endBracketDOntPutThere!= 1 && insdeAnestedLoopBAD!= 1) 
+{
+out4758686d86d86d86578991a += A_LoopField98 + "\n";
+}
+endBracketDOntPutThere = 0;
+if (eldLoopNestedBADlol == 1) 
+{
+insdeAnestedLoopBAD = 0;
+}
+}
+strstysrstsytTRIMHELP = out4758686d86d86d86578991a;
+strstysrstsytTRIMHELP = StringTrimRight(strstysrstsytTRIMHELP, 1);
+htCode = strstysrstsytTRIMHELP;
+//MsgBox, % htCode
+wasAtanyIfsElseAddAIndexLoopCurlyFix = 1;
+}
 if (wasAtanyIfsElseAddAIndexLoopCurlyFix == 1) 
 {
 AIndexLoopCurlyFix++;
@@ -7046,37 +7080,37 @@ wasAtanyIfsElseAddAIndexLoopCurlyFix = 0;
 }
 out4758686d86dgt8r754444444 = "";
 hold = 0;
-std::vector<std::string> items98 = LoopParseFunc(htCode, "\n", "\r");
-for (size_t A_Index98 = 1; A_Index98 < items98.size() + 1; A_Index98++)
+std::vector<std::string> items99 = LoopParseFunc(htCode, "\n", "\r");
+for (size_t A_Index99 = 1; A_Index99 < items99.size() + 1; A_Index99++)
 {
-std::string A_LoopField98 = items98[A_Index98 - 1];
+std::string A_LoopField99 = items99[A_Index99 - 1];
 ignore = 0;
-if (SubStr (Trim (A_LoopField98) , 1 , 4) == "for ") 
+if (SubStr (Trim (A_LoopField99) , 1 , 4) == "for ") 
 {
-if (hold == 1 && holdText == A_LoopField98) 
+if (hold == 1 && holdText == A_LoopField99) 
 {
 ignore = 1;
 }
 else
 {
-holdText = A_LoopField98;
+holdText = A_LoopField99;
 hold = 1;
 }
 }
 if (!(ignore)) 
 {
-out4758686d86dgt8r754444444 += A_LoopField98 + "\n";
+out4758686d86dgt8r754444444 += A_LoopField99 + "\n";
 }
 }
 out4758686d86dgt8r754444444 = StringTrimRight(out4758686d86dgt8r754444444, 1);
 htCode = out4758686d86dgt8r754444444;
 }
 htCodeOut1234565432 = "";
-std::vector<std::string> items99 = LoopParseFunc(htCode, "\n", "\r");
-for (size_t A_Index99 = 1; A_Index99 < items99.size() + 1; A_Index99++)
+std::vector<std::string> items100 = LoopParseFunc(htCode, "\n", "\r");
+for (size_t A_Index100 = 1; A_Index100 < items100.size() + 1; A_Index100++)
 {
-std::string A_LoopField99 = items99[A_Index99 - 1];
-out = A_LoopField99;
+std::string A_LoopField100 = items100[A_Index100 - 1];
+out = A_LoopField100;
 if (!(InStr (out , "|itsaersdtgtgfergsdgfsegdfsedAA|"))) 
 {
 htCodeOut1234565432 += out + "\n";
@@ -7096,11 +7130,11 @@ OneIndexedArray<std::string> allFuncLibs;
 OneIndexedArray<std::string> allFuncs;
 OneIndexedArray<std::string> allfuncDescription;
 int correctLang = 0;
-std::vector<std::string> items100 = LoopParseFunc(instructions, "\n", "\r");
-for (size_t A_Index100 = 1; A_Index100 < items100.size() + 1; A_Index100++)
+std::vector<std::string> items101 = LoopParseFunc(instructions, "\n", "\r");
+for (size_t A_Index101 = 1; A_Index101 < items101.size() + 1; A_Index101++)
 {
-std::string A_LoopField100 = items100[A_Index100 - 1];
-if (Trim (A_LoopField100) == "funcEND======================funcEND==============") 
+std::string A_LoopField101 = items101[A_Index101 - 1];
+if (Trim (A_LoopField101) == "funcEND======================funcEND==============") 
 {
 areWeInAFuncFromInstructions = 0;
 areWeInAFuncFromInstructionsLineNum = 0;
@@ -7117,7 +7151,7 @@ if (areWeInAFuncFromInstructions == 1)
 if (areWeInAFuncFromInstructionsLineNum == 1) 
 {
 // name of the func
-funcLangHolder = StringTrimLeft(A_LoopField100, 5);
+funcLangHolder = StringTrimLeft(A_LoopField101, 5);
 if (Trim (funcLangHolder) == langToTranspileTo) 
 {
 allFuncLang.add(Trim(funcLangHolder));
@@ -7127,7 +7161,7 @@ correctLang = 1;
 if (areWeInAFuncFromInstructionsLineNum == 2) 
 {
 // name of the func
-funcNameHolder = StringTrimLeft(A_LoopField100, 5);
+funcNameHolder = StringTrimLeft(A_LoopField101, 5);
 if (correctLang == 1 && InStr (htCode , Trim (funcNameHolder))) 
 {
 allFuncNames.add(Trim(funcNameHolder));
@@ -7136,7 +7170,7 @@ allFuncNames.add(Trim(funcNameHolder));
 if (areWeInAFuncFromInstructionsLineNum == 3) 
 {
 // all libs
-funcLibsHolder = StringTrimLeft(A_LoopField100, 5);
+funcLibsHolder = StringTrimLeft(A_LoopField101, 5);
 if (correctLang == 1 && InStr (htCode , Trim (funcNameHolder))) 
 {
 allFuncLibs.add(Trim(funcLibsHolder));
@@ -7145,7 +7179,7 @@ allFuncLibs.add(Trim(funcLibsHolder));
 if (areWeInAFuncFromInstructionsLineNum == 4) 
 {
 // func description
-funcDescriptionHolder = StringTrimLeft(A_LoopField100, 12);
+funcDescriptionHolder = StringTrimLeft(A_LoopField101, 12);
 if (correctLang == 1 && InStr (htCode , Trim (funcNameHolder))) 
 {
 allfuncDescription.add(Trim(funcDescriptionHolder));
@@ -7156,13 +7190,13 @@ if (areWeInAFuncFromInstructionsLineNum >= 5)
 // the full func
 if (correctLang == 1 && InStr (htCode , Trim (funcNameHolder))) 
 {
-funcFuncHolder += A_LoopField100 + "\n";
+funcFuncHolder += A_LoopField101 + "\n";
 }
 }
-//MsgBox, % A_LoopField100
+//MsgBox, % A_LoopField101
 areWeInAFuncFromInstructionsLineNum++;
 }
-if (Trim (A_LoopField100) == "func======================func==============") 
+if (Trim (A_LoopField101) == "func======================func==============") 
 {
 areWeInAFuncFromInstructions = 1;
 areWeInAFuncFromInstructionsLineNum = 1;
@@ -7204,25 +7238,25 @@ std::string allLibsToPutAtTop;
 print(std::string("Transpiling..."));
 if (!(INT (allFuncNames[0]) <= 0)) 
 {
-for (int A_Index101 = 1; A_Index101<= INT ( allFuncNames[0] ) ; ++A_Index101)
+for (int A_Index102 = 1; A_Index102<= INT ( allFuncNames[0] ) ; ++A_Index102)
 {
-if (InStr (htCode , allFuncNames[A_Index101]) + "(") 
+if (InStr (htCode , allFuncNames[A_Index102]) + "(") 
 {
-//MsgBox, % allFuncNames[A_Index101]
-allFuncsToPutAtTop += allFuncs[A_Index101] + "\n";
-if (Trim (allFuncLibs[A_Index101])!= "null") 
+//MsgBox, % allFuncNames[A_Index102]
+allFuncsToPutAtTop += allFuncs[A_Index102] + "\n";
+if (Trim (allFuncLibs[A_Index102])!= "null") 
 {
-allLibsToPutAtTop += allFuncLibs[A_Index101] + "|";
+allLibsToPutAtTop += allFuncLibs[A_Index102] + "|";
 }
 }
 }
 allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTop, 1);
 std::string allLibsToPutAtTopTEMP;
-std::vector<std::string> items102 = LoopParseFunc(allLibsToPutAtTop, "|");
-for (size_t A_Index102 = 1; A_Index102 < items102.size() + 1; A_Index102++)
+std::vector<std::string> items103 = LoopParseFunc(allLibsToPutAtTop, "|");
+for (size_t A_Index103 = 1; A_Index103 < items103.size() + 1; A_Index103++)
 {
-std::string A_LoopField102 = items102[A_Index102 - 1];
-allLibsToPutAtTopTEMP += A_LoopField102 + "\n";
+std::string A_LoopField103 = items103[A_Index103 - 1];
+allLibsToPutAtTopTEMP += A_LoopField103 + "\n";
 }
 allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTopTEMP, 1);
 includeLibsInCppIf = 1;
@@ -7242,9 +7276,9 @@ htCode = "\n" + allFuncsToPutAtTop + "\n" + htCode;
 }
 }
 print(std::string("Transpiling..."));
-for (int A_Index103 = 1; A_Index103<= theIdNumOfThe34; ++A_Index103)
+for (int A_Index104 = 1; A_Index104<= theIdNumOfThe34; ++A_Index104)
 {
-htCode = StrReplace ( htCode , "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" + Chr ( 65 ) + Chr ( 65 ) + STR ( A_Index103 ) + Chr ( 65 ) + Chr ( 65 ) , theIdNumOfThe34theVar[A_Index103] ) ;
+htCode = StrReplace ( htCode , "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" + Chr ( 65 ) + Chr ( 65 ) + STR ( A_Index104 ) + Chr ( 65 ) + Chr ( 65 ) , theIdNumOfThe34theVar[A_Index104] ) ;
 }
 htCode = StrReplace ( htCode , ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes , Chr ( 92 ) + Chr ( 34 ) ) ;
 htCode = StrReplace ( htCode , "std::string(" + Chr ( 34 ) + Chr ( 34 ) + ";)," , "std::string(" + Chr ( 34 ) + Chr ( 34 ) + ")," ) ;
@@ -7258,10 +7292,10 @@ if (langToTranspileTo == "cpp" && includeLibsInCppIf == 0)
 htCode = "#include <iostream>\n#include <sstream>\n#include <any>\n#include <string>\n#include <cstdint>\n#include <algorithm>\n#include <vector>\n\n" + htCode;
 }
 print(htCode);
-std::vector<std::string> items104 = LoopParseFunc(fileExtention);
-for (size_t A_Index104 = 1; A_Index104 < items104.size() + 1; A_Index104++)
+std::vector<std::string> items105 = LoopParseFunc(fileExtention);
+for (size_t A_Index105 = 1; A_Index105 < items105.size() + 1; A_Index105++)
 {
-std::string A_LoopField104 = items104[A_Index104 - 1];
+std::string A_LoopField105 = items105[A_Index105 - 1];
 filePathOfCode = StringTrimRight(filePathOfCode, 1);
 }
 if (useJavaScriptInAfullHTMLfile == "on" && langToTranspileTo == "js") 

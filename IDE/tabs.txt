@@ -20,3 +20,7 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.py
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.html
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test2.py
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test2.html
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test3.ht
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test3.cpp
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test3.html
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test3.py
