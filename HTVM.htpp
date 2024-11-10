@@ -7017,7 +7017,7 @@ Loop, Parse, htCode, `n, `r
     {
         if (InStr(A_LoopField, "= "))
         {
-            if (InStr(StrSplit(A_LoopField, "= ", 1), "["))
+            if (InStr(StrSplit(A_LoopField, "= ", 1), "[")) or (InStr(StrSplit(A_LoopField, "= ", 1), "."))
             {
                 fixJSthatVARkeywordOUT .= StringTrimLeft(A_LoopField, 4) . "`n"
             }

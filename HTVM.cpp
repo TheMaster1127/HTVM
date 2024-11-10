@@ -6795,7 +6795,7 @@ if (SubStr (Trim (A_LoopField95) , 1 , StrLen ("var ")) == "var ")
 {
 if (InStr (A_LoopField95 , "= ")) 
 {
-if (InStr (StrSplit (A_LoopField95 , "= " , 1) , "[")) 
+if (InStr (StrSplit (A_LoopField95 , "= " , 1) , "[") || InStr (StrSplit (A_LoopField95 , "= " , 1) , ".")) 
 {
 fixJSthatVARkeywordOUT += StringTrimLeft ( A_LoopField95 , 4 ) + "\n";
 }
