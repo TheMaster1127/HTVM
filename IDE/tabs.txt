@@ -1,4 +1,6 @@
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\tabs.txt
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpc
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\backend.py
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\iframe.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\front.hth
@@ -14,8 +16,6 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test2.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.cpp
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test2.cpp
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpc
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.py
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.html
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test2.py
@@ -24,3 +24,8 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test3.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test3.cpp
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test3.html
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test3.py
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test4.ht
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test4.cpp
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test4.html
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test4.py
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSPandHTVMHTH\testGiuAndOSP.ht

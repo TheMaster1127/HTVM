@@ -4843,7 +4843,7 @@ str3 := "def " . str2 . ":"
 }
 if (langToTranspileTo = "js")
 {
-str3 := "function " . str2
+str3 := "async function " . str2
 }
 if (langToTranspileTo = "cpp")
 {
@@ -6206,7 +6206,7 @@ str3 := "def " . str2 . ":"
 }
 if (langToTranspileTo = "js")
 {
-str3 := "function " . str2
+str3 := "async function " . str2
 }
 if (langToTranspileTo = "cpp")
 {
@@ -6820,7 +6820,7 @@ addOSPtoHTVM .= str4 . " OSPHTVMOSP_" . str2 . "(std::optional<std::vector<std::
 }
 if (langToTranspileTo = "js")
 {
-addOSPtoHTVM .= "function OSPHTVMOSP_" . str2 . "(this__OSP__this = null)`n{`n"
+addOSPtoHTVM .= "async function OSPHTVMOSP_" . str2 . "(this__OSP__this = null)`n{`n"
 }
 if (langToTranspileTo = "py")
 {
