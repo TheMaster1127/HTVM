@@ -29,3 +29,6 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test4.cpp
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test4.html
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test4.py
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSPandHTVMHTH\testGiuAndOSP.ht
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSPandHTVMHTH\testGiuAndOSP2.ht
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSPandHTVMHTH\testGiuAndOSP2.html
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\htvm_syntax_highlighting_and_autocomplete.js
