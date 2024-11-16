@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <any>
+#include <cctype>
 #include <cstdint>
 #include <cstdlib>
 #include <filesystem>
@@ -11,6 +12,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <system_error>
 #include <type_traits>
 #include <vector>
 
@@ -122,6 +124,12 @@ std::string Trim(const std::string &inputString) {
     return (start == std::string::npos) ? "" : inputString.substr(start, end - start + 1);
 }
 
+std::string StrLower(const std::string &string) {
+    std::string result = string;
+    std::transform(result.begin(), result.end(), result.begin(), ::tolower);
+    return result;
+}
+
 std::string StrSplit(const std::string &inputStr, const std::string &delimiter, int num) {
     size_t start = 0, end = 0, count = 0;
     while ((end = inputStr.find(delimiter, start)) != std::string::npos) {
@@ -134,6 +142,16 @@ std::string StrSplit(const std::string &inputStr, const std::string &delimiter, 
         return inputStr.substr(start);
     }
     return "";
+}
+
+// Checks if a file or directory exists
+bool FileExist(const std::string& path) {
+    try {
+        return std::filesystem::exists(path);
+    } catch (const std::filesystem::filesystem_error&) {
+        // Handle errors silently; return false if an error occurs
+        return false;
+    }
 }
 
 #ifdef _WIN32
@@ -219,6 +237,10 @@ int main(int argc, char* argv[]) {
             param2 = Trim(A_LoopField1);
         }
     }
+    if (!(FileExist(param1))) {
+        print("the file doesn't exist!!!");
+        ExitApp();
+    }
     int checkIfFuncNameExists = 0;
     if (Trim(param2) != "") {
         checkIfFuncNameExists = 1;
@@ -257,15 +279,18 @@ int main(int argc, char* argv[]) {
         }
     }
     std::vector<std::string> allFuncNames = sortArr(std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[2]));
+    std::string theFuncThatExistsIsCalled = "";
     if (checkIfFuncNameExists == 1) {
         int exitedLoopCheckIfFuncNameExists = 0;
         for (int A_Index3 = 0; A_Index3 < allFuncNames.size() + 0; A_Index3++) {
-            if (param2 == Trim(allFuncNames[A_Index3])) {
+            if (StrLower(param2) == StrLower(Trim(StrSplit(allFuncNames[A_Index3], ":", 2)))) {
+                theFuncThatExistsIsCalled = Trim(StrSplit(allFuncNames[A_Index3], ":", 2));
                 exitedLoopCheckIfFuncNameExists = 1;
+                break;
             }
         }
         if (exitedLoopCheckIfFuncNameExists == 1) {
-            print("the func alredy exists!!!");
+            print("the func alredy exists!!! called: " + theFuncThatExistsIsCalled);
             ExitApp();
         } else {
             print("the func dosent exists!!! YOU CAN USE IT");
@@ -291,8 +316,84 @@ int main(int argc, char* argv[]) {
             }
         }
     }
+    std::vector<std::string> allFuncs;
+    std::string tempstr = "";
+    std::string isLangCpp = "";
+    std::string isLangPy = "";
+    std::string isLangJs = "";
+    std::string allFuncsTempAdd = "";
+    int isDescNull = 0;
     for (int A_Index6 = 0; A_Index6 < allFuncNames.size() + 0; A_Index6++) {
         print(allFuncNames[A_Index6]);
+        tempstr = Trim(allFuncNames[A_Index6]);
+        isDescNull = 0;
+        allFuncsTempAdd = "";
+        isLangCpp = "No";
+        isLangPy = "No";
+        isLangJs = "No";
+        std::vector<std::string> items7 = LoopParseFunc(tempstr, "|");
+        for (size_t A_Index7 = 0; A_Index7 < items7.size() + 0; A_Index7++) {
+            std::string A_LoopField7 = items7[A_Index7 - 0];
+            if (SubStr(Trim(A_LoopField7), 1, 8) == "lang: js") {
+                isLangJs = "Yes";
+            }
+            else if (SubStr(Trim(A_LoopField7), 1, 8) == "lang: py") {
+                isLangPy = "Yes";
+            }
+            else if (SubStr(Trim(A_LoopField7), 1, 9) == "lang: cpp") {
+                isLangCpp = "Yes";
+            }
+            else if (SubStr(Trim(A_LoopField7), 1, 6) == "name: ") {
+                allFuncsTempAdd += Trim(A_LoopField7) + "|";
+            }
+            else if (SubStr(Trim(A_LoopField7), 1, 13) == "description: ") {
+                allFuncsTempAdd += Trim(A_LoopField7) + "|";
+            }
+            if (Trim(StrLower(A_LoopField7)) == "description: null") {
+                isDescNull = 1;
+            }
+        }
+        if (isDescNull != 1) {
+            allFuncsTempAdd += isLangCpp + "|" + isLangPy + "|" + isLangJs;
+            allFuncs.push_back(allFuncsTempAdd);
+        }
+    }
+    for (int A_Index8 = 0; A_Index8 < 20 + 0; A_Index8++) {
+        print("===========================================");
+    }
+    std::vector<std::string> categories;
+    std::string theCurrentLine = "";
+    std::string theCurrentDescCategory = "";
+    int once = 0;
+    int didWeFindSameCategory = 0;
+    for (int A_Index9 = 0; A_Index9 < allFuncs.size() + 0; A_Index9++) {
+        print(allFuncs[A_Index9]);
+        once++;
+        theCurrentLine = Trim(allFuncs[A_Index9]);
+        theCurrentDescCategory = Trim(StrSplit(theCurrentLine, "|", 2));
+        theCurrentDescCategory = Trim(StrSplit(theCurrentDescCategory, ":", 2));
+        theCurrentDescCategory = Trim(StrLower(Trim(StrSplit(theCurrentDescCategory, "~~~", 1))));
+        didWeFindSameCategory = 0;
+        if (once == 1) {
+            categories.push_back(theCurrentDescCategory + "\n" + theCurrentLine);
+        } else {
+            for (int A_Index10 = 0; A_Index10 < categories.size() + 0; A_Index10++) {
+                if (Trim(StrLower(StrSplit(categories[A_Index10], "\n", 1))) == Trim(theCurrentDescCategory)) {
+                    didWeFindSameCategory = 1;
+                    categories[A_Index10] = categories[A_Index10] + "\n" + theCurrentLine;
+                    break;
+                }
+            }
+            if (didWeFindSameCategory == 0) {
+                categories.push_back(theCurrentDescCategory + "\n" + theCurrentLine);
+            }
+        }
+    }
+    for (int A_Index11 = 0; A_Index11 < 20 + 0; A_Index11++) {
+        print("==========================");
+    }
+    for (int A_Index12 = 0; A_Index12 < categories.size() + 0; A_Index12++) {
+        print(categories[A_Index12]);
     }
     return 0;
 }

@@ -27,6 +27,12 @@ param2 := Trim(A_LoopField)
 }
 
 
+if (!(FileExist(param1)))
+{
+print("the file doesn't exist!!!")
+ExitApp()
+}
+
 int checkIfFuncNameExists := 0
 if (Trim(param2) != "")
 {
@@ -89,20 +95,24 @@ inFunc := 1
 
 arr str allFuncNames := sortArr(funcData.name)
 
+str theFuncThatExistsIsCalled := ""
+
 if (checkIfFuncNameExists = 1)
 {
 int exitedLoopCheckIfFuncNameExists := 0
 Loop, % allFuncNames.size()
 {
-if (param2 = Trim(allFuncNames[A_Index]))
+if (StrLower(param2) = StrLower(Trim(StrSplit(allFuncNames[A_Index], ":", 2))))
 {
+theFuncThatExistsIsCalled := Trim(StrSplit(allFuncNames[A_Index], ":", 2))
 exitedLoopCheckIfFuncNameExists := 1
+break
 }
 }
 
 if (exitedLoopCheckIfFuncNameExists = 1)
 {
-print("the func alredy exists!!!")
+print("the func alredy exists!!! called: " + theFuncThatExistsIsCalled)
 ExitApp()
 }
 else
@@ -151,9 +161,128 @@ allFuncNames[A_Index] := allFuncNames[A_Index] . "|" . Trim(tempLang)
 }
 
 
+arr str allFuncs
+
+str tempstr := ""
+
+str isLangCpp := ""
+str isLangPy := ""
+str isLangJs := ""
+
+str allFuncsTempAdd := ""
+
+int isDescNull := 0
 
 Loop, % allFuncNames.size()
 {
 print(allFuncNames[A_Index])
+tempstr := Trim(allFuncNames[A_Index])
+isDescNull := 0
+allFuncsTempAdd := ""
+isLangCpp := "No"
+isLangPy := "No"
+isLangJs := "No"
+Loop, Parse, tempstr, "|"
+{
+if (SubStr(Trim(A_LoopField), 1, 8) = "lang: js")
+{
+isLangJs := "Yes"
 }
+else if (SubStr(Trim(A_LoopField), 1, 8) = "lang: py")
+{
+isLangPy := "Yes"
+}
+else if (SubStr(Trim(A_LoopField), 1, 9) = "lang: cpp")
+{
+isLangCpp := "Yes"
+}
+else if (SubStr(Trim(A_LoopField), 1, 6) = "name: ")
+{
+allFuncsTempAdd .= Trim(A_LoopField) . "|"
+}
+else if (SubStr(Trim(A_LoopField), 1, 13) = "description: ")
+{
+allFuncsTempAdd .= Trim(A_LoopField) . "|"
+}
+
+if (Trim(StrLower(A_LoopField)) = "description: null")
+{
+isDescNull := 1
+}
+
+}
+
+
+if (isDescNull != 1)
+{
+allFuncsTempAdd .= isLangCpp . "|" . isLangPy . "|" . isLangJs
+allFuncs.add(allFuncsTempAdd)
+}
+
+}
+Loop, 20
+{
+print("===========================================")
+}
+
+
+arr str categories
+
+str theCurrentLine := ""
+str theCurrentDescCategory := ""
+
+int once := 0
+
+int didWeFindSameCategory := 0
+Loop, % allFuncs.size()
+{
+print(allFuncs[A_Index])
+once++
+theCurrentLine := Trim(allFuncs[A_Index])
+theCurrentDescCategory := Trim(StrSplit(theCurrentLine, "|", 2))
+theCurrentDescCategory := Trim(StrSplit(theCurrentDescCategory, ":", 2))
+theCurrentDescCategory := Trim(StrLower(Trim(StrSplit(theCurrentDescCategory, "~~~", 1))))
+
+didWeFindSameCategory := 0
+if (once = 1)
+{
+categories.add(theCurrentDescCategory . "`n" . theCurrentLine)
+}
+else
+{
+
+Loop, % categories.size()
+{
+
+if (Trim(StrLower(StrSplit(categories[A_Index], "`n", 1))) = Trim(theCurrentDescCategory))
+{
+didWeFindSameCategory := 1
+categories[A_Index] := categories[A_Index] . "`n" . theCurrentLine
+break
+}
+}
+if (didWeFindSameCategory = 0)
+{
+categories.add(theCurrentDescCategory . "`n" . theCurrentLine)
+}
+}
+
+
+
+}
+
+Loop, 20
+{
+print("==========================")
+}
+
+Loop, % categories.size()
+{
+print(categories[A_Index])
+
+}
+
+
+
+
 

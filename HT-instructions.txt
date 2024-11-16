@@ -89,7 +89,7 @@ func======================func==============
 lang: cpp
 name: LoopParseFunc
 libs: #include <vector>|#include <string>|#include <regex>
-description: LoopParseFunc func is a func
+description: null
 
 // Function to escape special characters for regex
 std::string escapeRegex(const std::string& str) {
@@ -126,7 +126,7 @@ func======================func==============
 lang: js
 name: LoopParseFunc
 libs: null
-description: LoopParseFunc splits a string into an array based on specified delimiters or returns an array of characters if no delimiters are provided.
+description: null
 
 function LoopParseFunc(varString, delimiter1="", delimiter2="") {
     let items;
@@ -148,7 +148,7 @@ func======================func==============
 lang: py
 name: LoopParseFunc
 libs: import re
-description: LoopParseFunc splits a string into a list based on specified delimiters or returns a list of characters if no delimiters are provided.
+description: null
 
 def LoopParseFunc(var, delimiter1="", delimiter2=""):
     if not delimiter1 and not delimiter2:
@@ -582,7 +582,7 @@ func======================func==============
 lang: cpp
 name: Abs
 libs: #include <string>
-description: Abs func is a func
+description: Math~~~Abs func is a func
 
 double Abs(double value) {
     return std::fabs(value);
@@ -594,7 +594,7 @@ func======================func==============
 lang: cpp
 name: ACos
 libs: #include <cmath>
-description: ACos func calculates the arc cosine of a value
+description: Math~~~ACos func calculates the arc cosine of a value
 
 double ACos(double value) {
     return std::acos(value);
@@ -606,7 +606,7 @@ func======================func==============
 lang: cpp
 name: ASin
 libs: #include <cmath>
-description: ASin func calculates the arc sine of a value, with error handling for out-of-range inputs
+description: Math~~~ASin func calculates the arc sine of a value, with error handling for out-of-range inputs
 
 double ASin(double value) {
     if (value < -1.0 || value > 1.0) {
@@ -622,7 +622,7 @@ func======================func==============
 lang: cpp
 name: ATan
 libs: #include <cmath>
-description: ATan func calculates the arc tangent of a value
+description: Math~~~ATan func calculates the arc tangent of a value
 
 double ATan(double value) {
     return std::atan(value);
@@ -634,7 +634,7 @@ func======================func==============
 lang: cpp
 name: Ceil
 libs: #include <cmath>
-description: Ceil func rounds a value upwards to the nearest integer
+description: Math~~~Ceil func rounds a value upwards to the nearest integer
 
 double Ceil(double value) {
     return std::ceil(value);
@@ -646,7 +646,7 @@ func======================func==============
 lang: cpp
 name: Cos
 libs: #include <cmath>
-description: Cos func calculates the cosine of an angle
+description: Math~~~Cos func calculates the cosine of an angle
 
 double Cos(double angle) {
     return std::cos(angle);
@@ -658,7 +658,7 @@ func======================func==============
 lang: cpp
 name: Exp
 libs: #include <cmath>
-description: Exp func calculates the exponential of a value
+description: Math~~~Exp func calculates the exponential of a value
 
 double Exp(double value) {
     return std::exp(value);
@@ -670,7 +670,7 @@ func======================func==============
 lang: cpp
 name: Ln
 libs: #include <cmath>
-description: Ln func calculates the natural logarithm of a value
+description: Math~~~Ln func calculates the natural logarithm of a value
 
 double Ln(double value) {
     return std::log(value);
@@ -682,7 +682,7 @@ func======================func==============
 lang: cpp
 name: Log
 libs: #include <cmath>
-description: Log func calculates the base-10 logarithm of a value
+description: Math~~~Log func calculates the base-10 logarithm of a value
 
 double Log(double value) {
     return std::log10(value);
@@ -694,7 +694,7 @@ func======================func==============
 lang: cpp
 name: Round
 libs: #include <cmath>
-description: Round func rounds a value to the nearest integer
+description: Math~~~Round func rounds a value to the nearest integer
 
 double Round(double value) {
     return std::round(value);
@@ -706,7 +706,7 @@ func======================func==============
 lang: cpp
 name: Sin
 libs: #include <cmath>
-description: Sin func calculates the sine of an angle
+description: Math~~~Sin func calculates the sine of an angle
 
 double Sin(double angle) {
     return std::sin(angle);
@@ -718,7 +718,7 @@ func======================func==============
 lang: cpp
 name: Sqrt
 libs: #include <cmath>
-description: Sqrt func calculates the square root of a value
+description: Math~~~Sqrt func calculates the square root of a value
 
 double Sqrt(double value) {
     return std::sqrt(value);
@@ -730,7 +730,7 @@ func======================func==============
 lang: cpp
 name: Tan
 libs: #include <cmath>
-description: Tan func calculates the tangent of an angle
+description: Math~~~Tan func calculates the tangent of an angle
 
 double Tan(double angle) {
     return std::tan(angle);
@@ -742,7 +742,7 @@ func======================func==============
 lang: cpp
 name: SubStr
 libs: #include <string>
-description: Extracts a substring from a given string starting at a specified position with an optional length.
+description: String~~~Extracts a substring from a given string starting at a specified position with an optional length.
 
 std::string SubStr(const std::string& str, int startPos, int length = -1) {
     std::string result;
@@ -775,7 +775,7 @@ func======================func==============
 lang: cpp
 name: Trim
 libs: #include <string>
-description: Removes leading and trailing whitespace from a string.
+description: String~~~Removes leading and trailing whitespace from a string.
 
 std::string Trim(const std::string &inputString) {
     if (inputString.empty()) return "";
@@ -792,7 +792,7 @@ func======================func==============
 lang: cpp
 name: StrReplace
 libs: #include <string>
-description: Replaces all occurrences of a substring with another string in the given string.
+description: String~~~Replaces all occurrences of a substring with another string in the given string.
 
 std::string StrReplace(const std::string &originalString, const std::string &find, const std::string &replaceWith) {
     std::string result = originalString;
