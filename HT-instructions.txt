@@ -1500,18 +1500,6 @@ def StrLen(s: str) -> int:
 funcEND======================funcEND==============
 
 func======================func==============
-lang: py
-name: Asc
-libs: null
-description: Asc returns the ASCII value of the first character of the string, or -1 if empty.
-
-def Asc(s: str) -> int:
-    # Return the ASCII value of the first character or -1 if the string is empty
-    return ord(s[0]) if s else -1
-
-funcEND======================funcEND==============
-
-func======================func==============
 lang: js
 name: StrLen
 libs: null
@@ -1520,19 +1508,6 @@ description: StrLen returns the length of a given string.
 function StrLen(s) {
     // Return the length of the given string
     return s.length;
-}
-
-funcEND======================funcEND==============
-
-func======================func==============
-lang: js
-name: Asc
-libs: null
-description: Asc returns the ASCII value of the first character of the string, or -1 if empty.
-
-function Asc(s) {
-    // Return the ASCII value of the first character or -1 if the string is empty
-    return s.length > 0 ? s.charCodeAt(0) : -1;
 }
 
 funcEND======================funcEND==============
@@ -2011,17 +1986,6 @@ funcEND======================funcEND==============
 
 func======================func==============
 lang: py
-name: Chr
-libs: null
-description: Returns a character corresponding to the provided Unicode code point.
-
-def Chr(number):
-    return chr(number) if 0 <= number <= 0x10FFFF else ""
-
-funcEND======================funcEND==============
-
-func======================func==============
-lang: py
 name: Mod
 libs: null
 description: Returns the remainder of the division of two integers.
@@ -2115,17 +2079,6 @@ function StrSplit(inputStr, delimiter, num) {
 
 funcEND======================funcEND==============
 
-func======================func==============
-lang: js
-name: Chr
-libs: null
-description: Returns a character corresponding to the provided Unicode code point.
-
-function Chr(number) {
-    return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
-}
-
-funcEND======================funcEND==============
 
 func======================func==============
 lang: js
@@ -3781,3 +3734,112 @@ function MakeHotKey(hotkey, callback) {
 funcEND======================funcEND==============
 
 
+func======================func==============
+lang: cpp
+name: sortArr
+libs: #include <iostream>|#include <vector>|#include <string>|#include <set>|#include <algorithm>
+description: Function to sort a string array and remove duplicates.
+
+// Function to sort and remove duplicates
+std::vector<std::string> sortArr(const std::vector<std::string>& input) {
+    std::set<std::string> uniqueSorted(input.begin(), input.end());
+    return std::vector<std::string>(uniqueSorted.begin(), uniqueSorted.end());
+}
+
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: js
+name: sortArr
+libs: null
+description: Function to sort a string array and remove duplicates.
+
+// Function to sort and remove duplicates
+function sortArr(inputArray) {
+    // Remove duplicates using Set and sort the array
+    return [...new Set(inputArray)].sort();
+}
+
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: py
+name: sortArr
+libs: null
+description: Function to sort a string array and remove duplicates.
+
+# Function to sort and remove duplicates
+def sortArr(input_list):
+    """
+    Function to sort a list of strings and remove duplicates.
+    """
+    return sorted(set(input_list))
+
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: cpp
+name: countChars
+libs: #include <iostream>|#include <string>
+description: Counts the occurrences of a specific character in a string.
+
+// Overload for counting a single character
+int countChars(const std::string& str, char theChar) {
+    int count = 0;
+    for (char c : str) {
+        if (c == theChar) {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Overload for counting a substring
+int countChars(const std::string& str, const std::string& substring) {
+    if (substring.empty()) return 0; // Avoid infinite loop
+
+    int count = 0;
+    size_t pos = 0;
+
+    // Find occurrences of the substring
+    while ((pos = str.find(substring, pos)) != std::string::npos) {
+        count++;
+        pos += substring.length(); // Move past the found substring
+    }
+
+    return count;
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: py
+name: countChars
+libs: null
+description: Counts the occurrences of a specific character in a string.
+
+def countChars(string, theChar):
+    return string.count(theChar)
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: js
+name: countChars
+libs: null
+description: Counts the occurrences of a specific character in a string.
+
+function countChars(string, theChar) {
+    let count = 0;
+    for (let char of string) {
+        if (char === theChar) {
+            count++;
+        }
+    }
+    return count;
+}
+
+funcEND======================funcEND==============

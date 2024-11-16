@@ -32,3 +32,5 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSPandHTVMHTH\testGiuAndOSP.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSPandHTVMHTH\testGiuAndOSP2.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSPandHTVMHTH\testGiuAndOSP2.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\htvm_syntax_highlighting_and_autocomplete.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\Documentation-Generation.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\Documentation-Generation.cpp

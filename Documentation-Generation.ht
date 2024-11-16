@@ -1,0 +1,159 @@
+str params := ""
+str param1 := ""
+str param2 := ""
+
+
+params := Trim(GetParams())
+
+if (Trim(params) = "")
+{
+print("no params Exiting...")
+ExitApp()
+}
+
+Loop, Parse, params, `n, `r 
+{
+if (A_Index = 0)
+{
+print(A_LoopField)
+param1 := Trim(A_LoopField)
+}
+if (A_Index = 1) 
+{
+print(A_LoopField)
+param2 := Trim(A_LoopField)
+}
+
+}
+
+
+int checkIfFuncNameExists := 0
+if (Trim(param2) != "")
+{
+checkIfFuncNameExists := 1
+}
+
+
+str instructionFileData := ""
+instructionFileData := FileRead(Trim(param1))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+int inFunc := 0
+
+def obj funcData
+{
+arr str tempArrayInitOSP
+prop arr str lang := tempArrayInitOSP
+prop arr str name := tempArrayInitOSP
+prop arr str desc := tempArrayInitOSP
+}
+
+
+
+Loop, Parse, instructionFileData, `n, `r
+{
+
+if (Trim(A_LoopField) = "funcEND======================funcEND==============")
+{
+inFunc := 0
+}
+
+if (inFunc = 1)
+{
+
+if (SubStr(Trim(A_LoopField), 1, 6) = "lang: ")
+{
+funcData.lang.add(Trim(A_LoopField))
+}
+else if (SubStr(Trim(A_LoopField), 1, 6) = "name: ")
+{
+funcData.name.add(Trim(A_LoopField))
+}
+else if (SubStr(Trim(A_LoopField), 1, 13) = "description: ")
+{
+funcData.desc.add(Trim(A_LoopField))
+}
+
+
+
+}
+
+
+if (Trim(A_LoopField) = "func======================func==============")
+{
+inFunc := 1
+}
+
+}
+
+
+arr str allFuncNames := sortArr(funcData.name)
+
+if (checkIfFuncNameExists = 1)
+{
+int exitedLoopCheckIfFuncNameExists := 0
+Loop, % allFuncNames.size()
+{
+if (param2 = Trim(allFuncNames[A_Index]))
+{
+exitedLoopCheckIfFuncNameExists := 1
+}
+}
+
+if (exitedLoopCheckIfFuncNameExists = 1)
+{
+print("the func alredy exists!!!")
+ExitApp()
+}
+else
+{
+print("the func dosent exists!!! YOU CAN USE IT")
+ExitApp()
+}
+
+}
+
+; allFuncNames
+
+str allFuncNamesTemp := ""
+
+str tempDesc := ""
+str tempLang := ""
+
+Loop, % funcData.name.size()
+{
+;print(funcData.name[A_Index])
+
+allFuncNamesTemp := funcData.name[A_Index]
+tempLang := funcData.lang[A_Index]
+tempDesc := funcData.desc[A_Index]
+
+
+Loop, % allFuncNames.size()
+{
+if (Trim(allFuncNamesTemp) = Trim(StrSplit(allFuncNames[A_Index], "|", 1)))
+{
+
+if (countChars(allFuncNames[A_Index], "|") = 0)
+{
+allFuncNames[A_Index] := allFuncNames[A_Index] . "|" . Trim(tempDesc) . "|" . Trim(tempLang)
+}
+else
+{
+allFuncNames[A_Index] := allFuncNames[A_Index] . "|" . Trim(tempLang)
+}
+
+}
+}
+
+
+
+}
+
+
+
+Loop, % allFuncNames.size()
+{
+print(allFuncNames[A_Index])
+}
+
