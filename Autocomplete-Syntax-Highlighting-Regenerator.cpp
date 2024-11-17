@@ -642,7 +642,7 @@ return str123;
 }
 int main(int argc, char* argv[])
 {
-print(std::string("Generating IDE"));
+print(std::string("Syntax Highlighting and Code Completion Regeneration"));
 std::string keyWordsCommands;
 std::string fileExtention;
 std::string code;
@@ -1164,7 +1164,7 @@ if (areWeInAFuncFromInstructionsLineNum == 1)
 {
 // name of the func
 funcLangHolder = StringTrimLeft(A_LoopField3, 5);
-if (Trim (funcLangHolder) == langToTranspileTo) 
+if (Trim (funcLangHolder) == "cpp" || Trim (funcLangHolder) == "py" || Trim (funcLangHolder) == "js") 
 {
 allFuncLang.add(Trim(funcLangHolder));
 correctLang = 1;

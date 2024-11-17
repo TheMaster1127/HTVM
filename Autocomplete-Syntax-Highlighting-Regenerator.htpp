@@ -22,7 +22,7 @@ return str123
 
 
 main:
-MsgBox, Generating IDE
+MsgBox, Syntax Highlighting and Code Completion Regeneration
 
 str keyWordsCommands
 str fileExtention
@@ -561,7 +561,7 @@ if (areWeInAFuncFromInstructionsLineNum = 1)
 {
 ; name of the func
 StringTrimLeft, funcLangHolder, A_LoopField, 5
-if (Trim(funcLangHolder) = langToTranspileTo)
+if (Trim(funcLangHolder) = "cpp") or (Trim(funcLangHolder) = "py") or (Trim(funcLangHolder) = "js")
 {
 arr allFuncLang .= Trim(funcLangHolder)
 correctLang := 1
