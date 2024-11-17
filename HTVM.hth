@@ -5488,7 +5488,7 @@ keyWordTypes := keyWordINT . "|" . keyWordSTR . "|void|" . keyWordBOOL . "|" . k
 
 autoCompleteUp := "["
 
-autoCompleteALLTemp := keywords . "|" . keyWordsCommandsFolrmated . "|" . functionsForHighlighting . "|" . keyWordALoopField . "|this|def obj|prop|crew|alliance|method|" . keyWordAIndex . "|" . keyWordArrayMethods . "|" . keyWordTypes . "|" . keyWordGlobal
+autoCompleteALLTemp := keywords . "|" . keyWordsCommandsFolrmated . "|" . functionsForHighlighting . "|" . keyWordALoopField . "|this|def obj|prop|crew|alliance|method|" . keyWordAIndex . "|" . keyWordArrayMethods . "|" . keyWordTypes . "|" . keyWordGlobal . "|this"
 
 
 autoCompleteALL := ""
