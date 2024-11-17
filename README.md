@@ -6,19 +6,17 @@ HTVM is a tool for creating and deploying new programming languages quickly. You
 
 1. **Syntax Configuration**: Use the website [here](https://themaster1127.github.io/HTVM/) or Adjust the syntax in `HT-instructions.txt`. Each line in this file corresponds to the same line in `instruction documentation.txt`, so line 10 in `instruction documentation.txt` matches line 10 in `HT-instructions.txt`. 
 
-2. **Code Writing**: Write your language code in `main.ht`. 
+2. **Code Writing**: Write your language code in `yourCodeFileName.yourExtension`. 
 
 3. **Execution**: Use `HTVM.exe` or compile the C++ code to generate the output. Choose the target language by specifying `cpp`, `py`, or `js` on the first line of `HT-instructions.txt`.
 
 4. **Built-in Functions**: Define built-in functions at the bottom of `HT-instructions.txt` by duplicating the relevant section.
 
-5. **IDE Integration**: Compile `IDE-generator.cpp` to produce `IDE-generator`. You can then run it with `HT-instructions.txt` to generate `IDE.html`, which includes an IDE with syntax highlighting and code completion features. 
-
-In the `IDE.html` your code will always be saved in local storage, so if you reload the page, your code will still be there.
-
-   - Use `Ctrl+Shift+Alt+F` to format code. WARNING: Once you press it, there is no going back. You better know what you are doing.
-   - Use `Ctrl+Alt+Shift+V` to toggle Vim mode on and off. Changes will not be saved
-
+5. **Syntax Highlighting and Code Completion Regeneration for the HTVM IDE**:  
+   - Compile `Autocomplete-Syntax-Highlighting-Regenerator.cpp` and run it as `Autocomplete-Syntax-Highlighting-Regenerator.exe HT-instructions.txt` to regenerate the syntax highlighting and code completion features, replacing `IDE\htvm_syntax_highlighting_and_autocomplete.js`.  
+   - This will generate `IDE\htvm_syntax_highlighting_and_autocomplete.js`, which includes:  
+     - Syntax highlighting  
+     - Code completion
 
 ## Usage
 
@@ -61,6 +59,20 @@ Instead of relying on the instruction file for the target language, you can spec
 HTVM main.ht HT-instructions.txt cpp
 ```
 
+## **Syntax Highlighting and Code Completion Regeneration**
+
+Compile `Autocomplete-Syntax-Highlighting-Regenerator.cpp` to regenerate the syntax highlighting and code completion:
+
+```
+g++ Autocomplete-Syntax-Highlighting-Regenerator.cpp -o Autocomplete-Syntax-Highlighting-Regenerator
+Autocomplete-Syntax-Highlighting-Regenerator.exe HT-instructions.txt
+```
+
+ - Compile `Autocomplete-Syntax-Highlighting-Regenerator.cpp` and run it as `Autocomplete-Syntax-Highlighting-Regenerator.exe HT-instructions.txt` to regenerate the syntax highlighting and code completion features, replacing `IDE\htvm_syntax_highlighting_and_autocomplete.js`.  
+   - This will generate `IDE\htvm_syntax_highlighting_and_autocomplete.js`, which includes:  
+     - Syntax highlighting  
+     - Code completion
+
 ### On Linux
 
 First, compile `HTVM.cpp` and run it with the same arguments:
@@ -75,15 +87,4 @@ You can also include the optional parameter:
 ```
 ./HTVM main.ht HT-instructions.txt cpp
 ```
-
-
-### IDE Generation
-
-Compile `IDE-generator.cpp` to produce `IDE-generator` and run:
-
-```
-./IDE-generator HT-instructions.txt
-```
-
-This will generate `IDE.html`, providing an IDE with features like syntax highlighting, code completion, and formatting options.
 
