@@ -301,8 +301,7 @@ int main(int argc, char* argv[]) {
     std::string allFuncNamesTemp = "";
     std::string tempDesc = "";
     std::string tempLang = "";
-    std::vector<std::string> tempHelp = std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[2]);
-    for (int A_Index4 = 0; A_Index4 < tempHelp.size() + 0; A_Index4++) {
+    for (int A_Index4 = 0; A_Index4 < std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[2]).size() + 0; A_Index4++) {
         //print(std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[2])[A_Index4])
         allFuncNamesTemp = std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[2])[A_Index4];
         tempLang = std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[1])[A_Index4];

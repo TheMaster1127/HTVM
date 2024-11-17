@@ -130,8 +130,8 @@ str allFuncNamesTemp := ""
 str tempDesc := ""
 str tempLang := ""
 
-arr str tempHelp := funcData.name
-Loop, % tempHelp.size()
+
+Loop, % funcData.name.size()
 {
 ;print(funcData.name[A_Index])
 
