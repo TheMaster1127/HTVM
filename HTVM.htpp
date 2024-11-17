@@ -2261,16 +2261,16 @@ expression := StrReplace(expression, " " . keyWordEqualOperator . " ", " == ")
 
 if (langToTranspileTo = "py")
 {
-expression := RegExReplace(expression, "!([\\w]+)", "not $1")
+expression := RegExReplace(expression, keyWordNotOperator . "([\\w]+)", "not $1")
 }
 
 if (langToTranspileTo = "py")
 {
-expression := RegExReplace(expression, "\\b" . keyWordNotOperator . "\\b", "not")
+expression := StrReplace(expression, keyWordNotOperator, "not")
 }
 else
 {
-expression := RegExReplace(expression, "\\b" . keyWordNotOperator . "\\b", "!")
+expression := StrReplace(expression, keyWordNotOperator, "!")
 }
 expression := StrReplace(expression, " " . keyWordGreaterThanOperator . " ", " > ")
 expression := StrReplace(expression, " " . keyWordLessThanOperator . " ", " < ")
