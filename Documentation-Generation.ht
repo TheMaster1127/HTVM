@@ -5,7 +5,7 @@ str param2 := ""
 
 params := Trim(GetParams())
 
-if (Trim(params) = "")
+if (Trim(StrSplit(params, "`n", 1)) = "")
 {
 print("no params Exiting...")
 ExitApp()
@@ -27,7 +27,7 @@ param2 := Trim(A_LoopField)
 }
 
 
-if (!(FileExist(param1)))
+if (!FileExist(param1))
 {
 print("the file doesn't exist!!!")
 ExitApp()
@@ -130,7 +130,8 @@ str allFuncNamesTemp := ""
 str tempDesc := ""
 str tempLang := ""
 
-Loop, % funcData.name.size()
+arr str tempHelp := funcData.name
+Loop, % tempHelp.size()
 {
 ;print(funcData.name[A_Index])
 
