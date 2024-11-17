@@ -85,7 +85,7 @@ for A_Index1 , A_LoopField1 in enumerate(items1, start=0):
     if (A_Index1 == 1):
         print(A_LoopField1)
         param2 = Trim(A_LoopField1)
-if (!(FileExist(param1))):
+if (not(FileExist(param1))):
     print("the file doesn't exist!!!")
     ExitApp()
 checkIfFuncNameExists = 0
@@ -109,14 +109,14 @@ for A_Index2 , A_LoopField2 in enumerate(items2, start=0):
         inFunc = 0
     if (inFunc == 1):
         if (SubStr(Trim(A_LoopField2), 1, 6) == "lang: "):
-            OSPHTVMOSP_funcData[1].append(Trim(A_LoopField2))
+            OSPHTVMOSP_funcData_lang[1].append(Trim(A_LoopField2))
         elif (SubStr(Trim(A_LoopField2), 1, 6) == "name: "):
-            OSPHTVMOSP_funcData[2].append(Trim(A_LoopField2))
+            OSPHTVMOSP_funcData_name[2].append(Trim(A_LoopField2))
         elif (SubStr(Trim(A_LoopField2), 1, 13) == "description: "):
-            OSPHTVMOSP_funcData[3].append(Trim(A_LoopField2))
+            OSPHTVMOSP_funcData_desc[3].append(Trim(A_LoopField2))
     if (Trim(A_LoopField2) == "func======================func=============="):
         inFunc = 1
-allFuncNames = sortArr(OSPHTVMOSP_funcData[2])
+allFuncNames = sortArr(OSPHTVMOSP_funcData_name[2])
 theFuncThatExistsIsCalled = ""
 if (checkIfFuncNameExists == 1):
     exitedLoopCheckIfFuncNameExists = 0
@@ -136,10 +136,10 @@ allFuncNamesTemp = ""
 tempDesc = ""
 tempLang = ""
 for A_Index4 in range(0, OSPHTVMOSP_funcData.len(name) + 0):
-    #print(OSPHTVMOSP_funcData[2][A_Index4])
-    allFuncNamesTemp = OSPHTVMOSP_funcData[2][A_Index4]
-    tempLang = OSPHTVMOSP_funcData[1][A_Index4]
-    tempDesc = OSPHTVMOSP_funcData[3][A_Index4]
+    #print(OSPHTVMOSP_funcData_name[2][A_Index4])
+    allFuncNamesTemp = OSPHTVMOSP_funcData_name[2][A_Index4]
+    tempLang = OSPHTVMOSP_funcData_lang[1][A_Index4]
+    tempDesc = OSPHTVMOSP_funcData_desc[3][A_Index4]
     for A_Index5 in range(0, len(allFuncNames) + 0):
         if (Trim(allFuncNamesTemp) == Trim(StrSplit(allFuncNames[A_Index5], "|", 1))):
             if (countChars(allFuncNames[A_Index5], "|") == 0):
@@ -187,7 +187,7 @@ once = 0
 didWeFindSameCategory = 0
 for A_Index9 in range(0, len(allFuncs) + 0):
     print(allFuncs[A_Index9])
-    once = once + 1
+    once++
     theCurrentLine = Trim(allFuncs[A_Index9])
     theCurrentDescCategory = Trim(StrSplit(theCurrentLine, "|", 2))
     theCurrentDescCategory = Trim(StrSplit(theCurrentDescCategory, ":", 2))

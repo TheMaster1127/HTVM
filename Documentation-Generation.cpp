@@ -265,20 +265,20 @@ int main(int argc, char* argv[]) {
         }
         if (inFunc == 1) {
             if (SubStr(Trim(A_LoopField2), 1, 6) == "lang: ") {
-                std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[1]).push_back(Trim(A_LoopField2));
+                std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData_lang[1]).push_back(Trim(A_LoopField2));
             }
             else if (SubStr(Trim(A_LoopField2), 1, 6) == "name: ") {
-                std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[2]).push_back(Trim(A_LoopField2));
+                std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData_name[2]).push_back(Trim(A_LoopField2));
             }
             else if (SubStr(Trim(A_LoopField2), 1, 13) == "description: ") {
-                std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[3]).push_back(Trim(A_LoopField2));
+                std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData_desc[3]).push_back(Trim(A_LoopField2));
             }
         }
         if (Trim(A_LoopField2) == "func======================func==============") {
             inFunc = 1;
         }
     }
-    std::vector<std::string> allFuncNames = sortArr(std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[2]));
+    std::vector<std::string> allFuncNames = sortArr(std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData_name[2]));
     std::string theFuncThatExistsIsCalled = "";
     if (checkIfFuncNameExists == 1) {
         int exitedLoopCheckIfFuncNameExists = 0;
@@ -301,11 +301,11 @@ int main(int argc, char* argv[]) {
     std::string allFuncNamesTemp = "";
     std::string tempDesc = "";
     std::string tempLang = "";
-    for (int A_Index4 = 0; A_Index4 < std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[2]).size() + 0; A_Index4++) {
-        //print(std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[2])[A_Index4])
-        allFuncNamesTemp = std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[2])[A_Index4];
-        tempLang = std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[1])[A_Index4];
-        tempDesc = std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData[3])[A_Index4];
+    for (int A_Index4 = 0; A_Index4 < std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData_name[2]).size() + 0; A_Index4++) {
+        //print(std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData_name[2])[A_Index4])
+        allFuncNamesTemp = std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData_name[2])[A_Index4];
+        tempLang = std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData_lang[1])[A_Index4];
+        tempDesc = std::any_cast<std::vector<std::string>&>(OSPHTVMOSP_funcData_desc[3])[A_Index4];
         for (int A_Index5 = 0; A_Index5 < allFuncNames.size() + 0; A_Index5++) {
             if (Trim(allFuncNamesTemp) == Trim(StrSplit(allFuncNames[A_Index5], "|", 1))) {
                 if (countChars(allFuncNames[A_Index5], "|") == 0) {
@@ -368,7 +368,7 @@ int main(int argc, char* argv[]) {
     int didWeFindSameCategory = 0;
     for (int A_Index9 = 0; A_Index9 < allFuncs.size() + 0; A_Index9++) {
         print(allFuncs[A_Index9]);
-        once++;
+        once++
         theCurrentLine = Trim(allFuncs[A_Index9]);
         theCurrentDescCategory = Trim(StrSplit(theCurrentLine, "|", 2));
         theCurrentDescCategory = Trim(StrSplit(theCurrentDescCategory, ":", 2));

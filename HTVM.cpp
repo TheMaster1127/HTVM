@@ -2594,15 +2594,15 @@ expression = StrReplace ( expression , " " + keyWordConcatenationOperator + " " 
 expression = StrReplace ( expression , " " + keyWordEqualOperator + " " , " == " ) ;
 if (langToTranspileTo == "py") 
 {
-expression = RegExReplace ( expression , keyWordNotOperator + "([\\w]+)" , "not $1" ) ;
+expression = RegExReplace ( expression , "!([\\w]+)" , "not $1" ) ;
 }
 if (langToTranspileTo == "py") 
 {
-expression = StrReplace ( expression , keyWordNotOperator , "not" ) ;
+expression = RegExReplace ( expression , "\\b" + keyWordNotOperator + "\\b" , "not" ) ;
 }
 else
 {
-expression = StrReplace ( expression , keyWordNotOperator , "!" ) ;
+expression = RegExReplace ( expression , "\\b" + keyWordNotOperator + "\\b" , "!" ) ;
 }
 expression = StrReplace ( expression , " " + keyWordGreaterThanOperator + " " , " > " ) ;
 expression = StrReplace ( expression , " " + keyWordLessThanOperator + " " , " < " ) ;
@@ -7312,6 +7312,5 @@ FileAppend(htCode, filePathOfCode);
 int main(int argc, char* argv[])
 {
 compiler ( ) ;
-
 return 0;
 }
