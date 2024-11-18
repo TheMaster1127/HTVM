@@ -1619,7 +1619,7 @@ extraFuncNeedLoopParse := "`nfunc======================func==============`nlang:
 Gui 5: Show
 Sleep, 50
 GuiControl, Focus, Button8
-allData := allData . "`n" . extraFuncNeedLoopParse . "`n" . allFuncNamesForSavingItOut . "`n" . ToggleMoreBuildInFuncsTEXT
+allData := allData . "`n" . allFuncNamesForSavingItOut . "`n" . ToggleMoreBuildInFuncsTEXT
 variables.sha256 = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(variables.allData)).then(buffer => Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join(''));
 
 ;MsgBox, % sha256
@@ -2943,7 +2943,7 @@ ToggleMoreBuildInFuncsHolder := "off"
 
 if (ToggleMoreBuildInFuncsHolder = "off")
 {
-ToggleMoreBuildInFuncsTEXT := ""
+ToggleMoreBuildInFuncsTEXT := extraFuncNeedLoopParse
 }
 else
 {
@@ -3118,7 +3118,7 @@ extraFuncNeedLoopParse := "`n`n`nfunc======================func==============`nl
 
 Gui 5: Show
 Sleep, 50
-allData := allData . "`n" . extraFuncNeedLoopParse . "`n" . allFuncNamesForSavingItOut . "`n" . ToggleMoreBuildInFuncsTEXT
+allData := allData . "`n" . allFuncNamesForSavingItOut . "`n" . ToggleMoreBuildInFuncsTEXT
 Gui 5: Hide
 }
 variables.sha256 = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(variables.allData)).then(buffer => Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join(''));
@@ -3286,7 +3286,7 @@ extraFuncNeedLoopParse := "`nfunc======================func==============`nlang:
 
 Gui 5: Show
 Sleep, 50
-allData := allData . "`n" . extraFuncNeedLoopParse . "`n" . allFuncNamesForSavingItOut . "`n" . ToggleMoreBuildInFuncsTEXT
+allData := allData . "`n" . allFuncNamesForSavingItOut . "`n" . ToggleMoreBuildInFuncsTEXT
 Gui 5: Hide
 }
 variables.sha256 = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(variables.allData)).then(buffer => Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join(''));
@@ -3454,7 +3454,7 @@ extraFuncNeedLoopParse := "`nfunc======================func==============`nlang:
 
 Gui 5: Show
 Sleep, 50
-allData := allData . "`n" . extraFuncNeedLoopParse . "`n" . allFuncNamesForSavingItOut . "`n" . ToggleMoreBuildInFuncsTEXT
+allData := allData . "`n" . allFuncNamesForSavingItOut . "`n" . ToggleMoreBuildInFuncsTEXT
 Gui 5: Hide
 }
 variables.sha256 = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(variables.allData)).then(buffer => Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join(''));
