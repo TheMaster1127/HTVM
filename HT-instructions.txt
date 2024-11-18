@@ -3150,7 +3150,7 @@ name: StrTitleCase
 libs: null
 description: string~~~StrTitleCase
 
-function strTitleCase(inputString) {
+function StrTitleCase(inputString) {
     return inputString.split(' ')  // Split the string into words
         .map(word => {
             if (word) {  // Avoid empty words (multiple spaces)
@@ -3169,7 +3169,7 @@ name: StrTitleCase
 libs: null
 description: string~~~StrTitleCase
 
-def str_title_case(input_string):
+def StrTitleCase(input_string):
     words = input_string.split(' ')  # Split the input string into words
     result = []
 
