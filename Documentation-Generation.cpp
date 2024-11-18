@@ -283,6 +283,7 @@ int main(int argc, char* argv[]) {
     if (checkIfFuncNameExists == 1) {
         int exitedLoopCheckIfFuncNameExists = 0;
         for (int A_Index3 = 0; A_Index3 < allFuncNames.size() + 0; A_Index3++) {
+            print(allFuncNames[A_Index3]);
             if (StrLower(param2) == StrLower(Trim(StrSplit(allFuncNames[A_Index3], ":", 2)))) {
                 theFuncThatExistsIsCalled = Trim(StrSplit(allFuncNames[A_Index3], ":", 2));
                 exitedLoopCheckIfFuncNameExists = 1;
@@ -394,6 +395,7 @@ int main(int argc, char* argv[]) {
     }
     for (int A_Index12 = 0; A_Index12 < categories.size() + 0; A_Index12++) {
         print(categories[A_Index12]);
+        // [Go back](#built-in-functions)
     }
     return 0;
 }

@@ -3117,3 +3117,70 @@ function countChars(string, theChar) {
 funcEND======================funcEND==============
 
 
+
+func======================func==============
+lang: cpp
+name: StrTitleCase
+libs: #include <iostream>|#include <sstream>|#include <cctype>|#include <string>
+description: string~~~StrTitleCase
+
+std::string StrTitleCase(const std::string& input) {
+    std::string result;
+    bool newWord = true;
+
+    for (char ch : input) {
+        if (std::isspace(ch)) {
+            newWord = true; // next character starts a new word
+            result += ch;
+        } else if (newWord) {
+            result += std::toupper(ch); // capitalize the first letter of the word
+            newWord = false;
+        } else {
+            result += std::tolower(ch); // make other letters lowercase
+        }
+    }
+
+    return result;
+}
+
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: StrTitleCase
+libs: null
+description: string~~~StrTitleCase
+
+function strTitleCase(inputString) {
+    return inputString.split(' ')  // Split the string into words
+        .map(word => {
+            if (word) {  // Avoid empty words (multiple spaces)
+                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();  // Capitalize first letter
+            }
+            return word;  // If it's an empty string (spaces), keep it as is
+        })
+        .join(' ');  // Join the words back together with spaces
+}
+
+
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: StrTitleCase
+libs: null
+description: string~~~StrTitleCase
+
+def str_title_case(input_string):
+    words = input_string.split(' ')  # Split the input string into words
+    result = []
+
+    for word in words:
+        if word:  # Ignore empty strings (in case of multiple spaces)
+            result.append(word[0].upper() + word[1:].lower())  # Capitalize first letter, lowercase others
+        else:
+            result.append(word)  # Preserve spaces as is
+
+    return ' '.join(result)  # Join the list of words back into a string
+
+funcEND======================funcEND==============
+
+

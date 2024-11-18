@@ -15,7 +15,7 @@ Loop, Parse, params, `n, `r
 {
 if (A_Index = 0)
 {
-print(A_LoopField)
+print(A_LoopField) 
 param1 := Trim(A_LoopField)
 }
 if (A_Index = 1) 
@@ -102,6 +102,7 @@ if (checkIfFuncNameExists = 1)
 int exitedLoopCheckIfFuncNameExists := 0
 Loop, % allFuncNames.size()
 {
+print(allFuncNames[A_Index])
 if (StrLower(param2) = StrLower(Trim(StrSplit(allFuncNames[A_Index], ":", 2))))
 {
 theFuncThatExistsIsCalled := Trim(StrSplit(allFuncNames[A_Index], ":", 2))
@@ -280,6 +281,8 @@ print("==========================")
 Loop, % categories.size()
 {
 print(categories[A_Index])
+
+; [Go back](#built-in-functions)
 
 }
 
