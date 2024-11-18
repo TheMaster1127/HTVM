@@ -1,17 +1,17 @@
-py
-htvm
+cpp
+ht
 StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1,'param2|MsgBox,'param1
-ant
-straing
-boooool
-flooat
-ant8
-ant16
-ant32
-ant64
-af
-alse af
-af
+int
+str
+bool
+float
+int8
+int16
+int32
+int64
+if
+else if
+else
 while
 for
 Loop
@@ -21,23 +21,23 @@ continue
 break
 func
 await
-invasion
-+=
+:=
+.=
 +=
 -=
 *=
 /=
 +
-+
-=uk=
-nah
-mooo
-lessssss
-mooo=uk=
-lessssss=uk=
-o
-ind
-!!!===
+.
+=
+!
+>
+<
+>=
+<=
+or
+and
+!=
 true
 false
 switch
@@ -48,7 +48,7 @@ ErrorMsg
 try
 catch
 finally
-.push
+.add
 .pop
 .size
 .insert
@@ -63,12 +63,12 @@ var
 let
 const
 return
-shtop et mait
+end
 global
-ay
+;
 '''1
 '''2
-\
+`
 0
 A_Index
 A_LoopField
@@ -76,13 +76,13 @@ main
 on
 on
 off
-on
+off
 on
 off
 cpp
-off
-off
-off
+on
+on
+on
 
 
 func======================func==============
@@ -96,6 +96,14 @@ description: null
 funcEND======================funcEND==============
 
 
+
+func======================func==============
+lang: cpp
+name: HTVM_func1
+libs: null
+description: null
+// add the function here
+funcEND======================funcEND==============
 func======================func==============
 lang: cpp
 name: LoopParseFunc
@@ -164,7 +172,6 @@ def LoopParseFunc(var, delimiter1="", delimiter2=""):
         items = re.split(pattern, var)
     return items
 funcEND======================funcEND==============
-
 func======================func==============
 lang: cpp
 name: print
