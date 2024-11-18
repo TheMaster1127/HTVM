@@ -1207,9 +1207,17 @@ var Gui2 = {}
 Gui2 = document.createElement("div")
 Gui2.id = "Gui2"
 
+var Gui6 = {}
+Gui6 = document.createElement("div")
+Gui6.id = "Gui6"
+
 var Gui5 = {}
 Gui5 = document.createElement("div")
 Gui5.id = "Gui5"
+
+var Gui6 = {}
+Gui6 = document.createElement("div")
+Gui6.id = "Gui6"
 
 var Gui2 = {}
 Gui2 = document.createElement("div")
@@ -1272,6 +1280,7 @@ let variables = {
 null: null,
 };
 async function wait() { variables.htvmInstructionsFromRepo = await fetch("https://themaster1127.github.io/HTVM/HT-instructions.txt").then(res => res.text()); }; wait();
+variables.FIXhtvmInstructionsFromRepoONCE = 0
 Gui5.style.position = "absolute";
 Gui5.style.width = "240px"; // Set the width
 Gui5.style.height = "100px"; // Set the height
@@ -1404,8 +1413,139 @@ Gui2.appendChild(Gui2[variables.AIndex]);
 variables.HTVM_HowManyProjectsButtonY = variables.HTVM_HowManyProjectsButtonY + 50
 }
 }
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+variables.AScreenWidth = variables.AScreenWidth - 30
+variables.AScreenWidth2 = variables.AScreenWidth - 20
+variables.AScreenHeight = variables.AScreenHeight - 30
+variables.AScreenHeight2 = variables.AScreenHeight - 50
+variables.AScreenHeight3 = variables.AScreenHeight2
+variables.AScreenHeight2 = variables.AScreenHeight2 - 20
+if (( await isMobileDevice () ))
+{
+Gui6.style.position = "absolute";
+Gui6.style.width = "" + variables.AScreenWidth + "px"; // Set the width
+Gui6.style.height = "" + variables.AScreenHeight + "px"; // Set the height
+Gui6.style.background = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
+Gui6.style.backgroundColor = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
+Gui6.style.color = "white";
+Gui6.style.fontSize = "15px";
+Gui6.style.borderRadius = "0px";
+Gui6.style.padding = "0px";
+Gui6.style.border = "2px solid white";
+Gui6.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui6.style.zIndex = "60";
+// Calculate center position
+Gui6.style.left = (window.innerWidth - parseInt(Gui6.style.width)) / 2 + "px";
+Gui6.style.top = (window.innerHeight - parseInt(Gui6.style.height)) / 2 + "px";
+document.body.appendChild(Gui6); // Append the GUI window to the body
+Gui6.style.display = "block";
+Gui6DisplayInfoData6 = document.createElement("textarea");
+Gui6DisplayInfoData6.id = "Gui6" + "DisplayInfoData6"; // Set ID for referencing
+Gui6DisplayInfoData6.placeholder = "";
+Gui6DisplayInfoData6.style.fontSize = "12px"; // Set font size
+Gui6DisplayInfoData6.style.resize = "none"; // Disable resizing
+Gui6DisplayInfoData6.style.position = "absolute"; // Set position to absolute
+Gui6DisplayInfoData6.style.left = "10px"; // Set initial x position
+Gui6DisplayInfoData6.style.top = "10px"; // Set initial y position
+Gui6DisplayInfoData6.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
+Gui6DisplayInfoData6.style.height = "" + variables.AScreenHeight2 + "px"; // Set height
+Gui6DisplayInfoData6.style.border = ""
+Gui6DisplayInfoData6.style.color = "#ffffff"
+Gui6DisplayInfoData6.style.background = ""
+Gui6DisplayInfoData6.style.backgroundColor = "#050505"
+Gui6DisplayInfoData6.style.borderRadius = ""
+Gui6DisplayInfoData6.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui6.appendChild(Gui6DisplayInfoData6);
+Gui6ButtonInfoOK = document.createElement("button");
+Gui6ButtonInfoOK.id = "Gui6" + "ButtonInfoOK"; // Set ID for referencing
+Gui6ButtonInfoOK.textContent = "OK";
+Gui6ButtonInfoOK.style.fontSize = "15px"; // Set font size
+Gui6ButtonInfoOK.style.position = "absolute"; // Set position to absolute
+Gui6ButtonInfoOK.style.left = "10px"; // Set initial x position
+Gui6ButtonInfoOK.style.top = "" + variables.AScreenHeight3 + "px"; // Set initial y position
+Gui6ButtonInfoOK.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
+Gui6ButtonInfoOK.style.height = "40px"; // Set height
+Gui6ButtonInfoOK.style.cursor = "pointer"; // Change cursor on hover
+Gui6ButtonInfoOK.style.border = "";
+Gui6ButtonInfoOK.style.background = "";
+Gui6ButtonInfoOK.style.backgroundColor = "";
+Gui6ButtonInfoOK.style.borderRadius = "";
+Gui6ButtonInfoOK.style.color = "";
+Gui6ButtonInfoOK.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui6ButtonInfoOK.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
+  ButtonInfoOK6(A_GuiControl);
+};
+Gui6.appendChild(Gui6ButtonInfoOK);
+Gui6.style.display = "none";
+}
+else
+{
+Gui6.style.position = "absolute";
+Gui6.style.width = "" + variables.AScreenWidth + "px"; // Set the width
+Gui6.style.height = "" + variables.AScreenHeight + "px"; // Set the height
+Gui6.style.background = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
+Gui6.style.backgroundColor = "linear-gradient(90deg, " + "#121212" + " 0%, " + "#121212" + " 100%)";
+Gui6.style.color = "white";
+Gui6.style.fontSize = "15px";
+Gui6.style.borderRadius = "0px";
+Gui6.style.padding = "0px";
+Gui6.style.border = "2px solid white";
+Gui6.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui6.style.zIndex = "60";
+// Calculate center position
+Gui6.style.left = (window.innerWidth - parseInt(Gui6.style.width)) / 2 + "px";
+Gui6.style.top = (window.innerHeight - parseInt(Gui6.style.height)) / 2 + "px";
+document.body.appendChild(Gui6); // Append the GUI window to the body
+Gui6.style.display = "block";
+Gui6DisplayInfoData6 = document.createElement("textarea");
+Gui6DisplayInfoData6.id = "Gui6" + "DisplayInfoData6"; // Set ID for referencing
+Gui6DisplayInfoData6.placeholder = "";
+Gui6DisplayInfoData6.style.fontSize = "16px"; // Set font size
+Gui6DisplayInfoData6.style.resize = "none"; // Disable resizing
+Gui6DisplayInfoData6.style.position = "absolute"; // Set position to absolute
+Gui6DisplayInfoData6.style.left = "10px"; // Set initial x position
+Gui6DisplayInfoData6.style.top = "10px"; // Set initial y position
+Gui6DisplayInfoData6.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
+Gui6DisplayInfoData6.style.height = "" + variables.AScreenHeight2 + "px"; // Set height
+Gui6DisplayInfoData6.style.border = ""
+Gui6DisplayInfoData6.style.color = "#ffffff"
+Gui6DisplayInfoData6.style.background = ""
+Gui6DisplayInfoData6.style.backgroundColor = "#050505"
+Gui6DisplayInfoData6.style.borderRadius = ""
+Gui6DisplayInfoData6.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui6.appendChild(Gui6DisplayInfoData6);
+Gui6ButtonInfoOK = document.createElement("button");
+Gui6ButtonInfoOK.id = "Gui6" + "ButtonInfoOK"; // Set ID for referencing
+Gui6ButtonInfoOK.textContent = "OK";
+Gui6ButtonInfoOK.style.fontSize = "15px"; // Set font size
+Gui6ButtonInfoOK.style.position = "absolute"; // Set position to absolute
+Gui6ButtonInfoOK.style.left = "10px"; // Set initial x position
+Gui6ButtonInfoOK.style.top = "" + variables.AScreenHeight3 + "px"; // Set initial y position
+Gui6ButtonInfoOK.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
+Gui6ButtonInfoOK.style.height = "40px"; // Set height
+Gui6ButtonInfoOK.style.cursor = "pointer"; // Change cursor on hover
+Gui6ButtonInfoOK.style.border = "";
+Gui6ButtonInfoOK.style.background = "";
+Gui6ButtonInfoOK.style.backgroundColor = "";
+Gui6ButtonInfoOK.style.borderRadius = "";
+Gui6ButtonInfoOK.style.color = "";
+Gui6ButtonInfoOK.style.fontFamily = ", sans-serif"; // Specify your desired font here
+Gui6ButtonInfoOK.onclick = function (event) {
+A_GuiControl = event.target.id.replace(/^Gui\d*/, "");
+  ButtonInfoOK6(A_GuiControl);
+};
+Gui6.appendChild(Gui6ButtonInfoOK);
+Gui6.style.display = "none";
+}
 Gui5.style.display = "none";
 return
+async function ButtonInfoOK6(A_GuiControl)
+{
+Gui6.style.display = "none";
+}
 async function ButtonProjects(A_GuiControl)
 {
 if (( A_GuiControl == "NewProject" ))
@@ -4817,7 +4957,7 @@ A_GuiControl = event.target.textContent
   BuildButton(A_GuiControl);
 };
 Gui1.appendChild(Gui1Button21);
-variables.guiEditTextV = "Build Button Explanation:\n\nThe Build button allows you to download the programming language you just created, along with relevant files for its use.\n\n- Toggle all HTVM pre-made Built-in functions: This switch lets you choose whether to include or exclude HTVM's pre-made functions in your generated files. When toggled on, these built-in functions provided by HTVM will be integrated into the language, offering a wide range of functionalities that enhance the language's capabilities.\n\n- Download HT-instructions.txt: Clicking this button downloads a file containing specific instructions for the compiler to understand your language. This file is essential for ensuring the correct functioning of the language you've created.\n\n- Download IDE.html: This button allows you to download an HTML file containing an IDE tailored for the language you just created. It provides a convenient development environment accessible directly from your browser.\n\nBy clicking these buttons, you can export your custom language with or without HTVM's built-in functions and obtain all necessary components to start using your language effectively."
+variables.guiEditTextV = "Build Button Explanation:\n\nThe Build button allows you to download the programming language you just created, along with relevant files for its use.\n\n- Toggle all HTVM pre-made Built-in functions: This switch lets you choose whether to include or exclude HTVM's pre-made functions in your generated files. When toggled on, these built-in functions provided by HTVM will be integrated into the language, offering a wide range of functionalities that enhance the language's capabilities.\n\n- Download simple_static_HTVM_editor.html: This button allows you to download a simple static HTML file containing a code editor tailored for the language you just created accessible directly from your browser.\n\n- Download HTVM IDE syntax config: The HTVM IDE syntax configuration customizes the editor to recognize and highlight specific elements of the HTVM language. It defines rules for syntax highlighting (e.g., keywords, comments, functions) and enables autocompletion for commonly used terms. This configuration enhances coding efficiency by providing visual cues and auto-suggestions as you type in the HTVM language. After downloading the file locate the index.html file in the IDE folder, and you will see htvm_syntax_highlighting_and_autocomplete.js. Open it for editing and replace everything in it with the text from htvm_syntax_highlighting_and_autocomplete.txt. Then, open or restart the IDE by pressing Ctrl+Shift+R.\n\nBy clicking these buttons, you can export your custom language with or without HTVM's built-in functions and obtain all necessary components to start using your language effectively."
 Gui1[variables.guiEditTextV] = document.createElement("button");
 Gui1[variables.guiEditTextV].id = "Gui1" + "" + [variables.guiEditTextV] + ""; // Set ID for referencing
 Gui1[variables.guiEditTextV].textContent = "INFO";
@@ -5425,7 +5565,9 @@ GuiControl("focus", "Gui1" + variables.ButtonINFOvHolder);
 }
 async function GettingStartedButton(A_GuiControl)
 {
-await showCustomMessageBox({}," ", "Getting Started", 0, 0)
+variables.theDisplayInfoData6TEXT = "Welcome to HTVM - Create Your Dream Programming Language!\n\nThe coolest part? You can change ANY keyword to whatever you want!\nWant 'banana' instead of 'if'? Go for it!\nWant 'pizza' instead of 'while'? That works too!\n\nEvery option has an info button (INFO) next to it - click them to learn what each setting does!\n\nRemember:\n* All keywords are customizable\n* Click the info buttons to learn more\n* Have fun creating your perfect language!\n\nStart experimenting and make programming truly yours!"
+GuiControl("text", "Gui6DisplayInfoData6", variables.theDisplayInfoData6TEXT);
+Gui6.style.display = "block";
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -6638,6 +6780,22 @@ variables.ToggleMoreBuildInFuncsTEXT = ""
 }
 else
 {
+variables.FIXhtvmInstructionsFromRepoONCE += 1
+if (( variables.FIXhtvmInstructionsFromRepoONCE == 1 ))
+{
+variables.FIXhtvmInstructionsFromRepo = ""
+var items16 = LoopParseFunc(variables.htvmInstructionsFromRepo, "\n", "\r");
+for (/* Loop Parse */ let A_Index16 = 1; A_Index16 <= items16.length; A_Index16++)
+{
+variables.A_Index16 = A_Index16
+variables.A_LoopField16 = items16[A_Index16 - 1];
+if (( variables.A_Index16 > 85 ))
+{
+variables.FIXhtvmInstructionsFromRepo += variables.A_LoopField16 + "\n"
+}
+}
+variables.htvmInstructionsFromRepo = StringTrimRight(variables.FIXhtvmInstructionsFromRepo, 1)
+}
 variables.ToggleMoreBuildInFuncsTEXT = "\n\n" + variables.htvmInstructionsFromRepo + "\n\n"
 }
 Gui5.style.display = "none";
@@ -6646,98 +6804,98 @@ async function ButtonDownloadIDE(A_GuiControl)
 {
 variables.allData = ""
 variables.defaultSyntax = "cpp\nhtvm\nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1,'param2|MsgBox,'param1\nint\nstr\nbool\nfloat\nint8\nint16\nint32\nint64\nif\nelse if\nelse\nwhile\nfor\nLoop\nLoop,\nLoop, Parse,\ncontinue\nbreak\nfunc\nawait\n=\n+=\n+=\n-=\n*=\n/=\n+\n+\n==\n!\n>\n<\n>=\n<=\nor\nand\n!=\ntrue\nfalse\nswitch\ncase\ndefault\nthrow\nErrorMsg\ntry\ncatch\nfinally\n.push\n.pop\n.size\n.insert\n.rm\n.indexOf\narr\narr int\narr str\narr float\narr bool\nvar\nlet\nconst\nreturn\nend\nglobal\n//\n'''1\n'''2\n" + await Chr (92) + "\n0\nA_Index\nA_LoopField\nmain\non\non\noff\noff\non\noff\ncpp\non\non\noff"
-var items16 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
-for (/* Loop Parse */ let A_Index16 = 1; A_Index16 <= items16.length; A_Index16++)
+var items17 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
+for (/* Loop Parse */ let A_Index17 = 1; A_Index17 <= items17.length; A_Index17++)
 {
-variables.A_Index16 = A_Index16
-variables.A_LoopField16 = items16[A_Index16 - 1];
-variables["defaultSyntax" + variables.A_Index16] = variables.A_LoopField16
+variables.A_Index17 = A_Index17
+variables.A_LoopField17 = items17[A_Index17 - 1];
+variables["defaultSyntax" + variables.A_Index17] = variables.A_LoopField17
 }
-for (/* Normal Loop */ variables.A_Index17 = 1; variables.A_Index17 <= 85; variables.A_Index17++)
+for (/* Normal Loop */ variables.A_Index18 = 1; variables.A_Index18 <= 85; variables.A_Index18++)
 {
-if (( variables["EditText" + variables.A_Index17]  != "") || (variables["EditText" + variables.A_Index17]  != variables.null ))
+if (( variables["EditText" + variables.A_Index18]  != "") || (variables["EditText" + variables.A_Index18]  != variables.null ))
 {
-if (( variables.A_Index17 == 2 ))
+if (( variables.A_Index18 == 2 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 1)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index18] , 1)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index17 >= 24) && (variables.A_Index17 <= 29 ))
+else if (( variables.A_Index18 >= 24) && (variables.A_Index18 <= 29 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 6)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index17 == 47 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 2)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index18] , 6)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index17 >= 51) && (variables.A_Index17 <= 56 ))
+else if (( variables.A_Index18 == 47 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 3)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index17 == 68 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 7)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index18] , 2)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index17 == 69 ))
+else if (( variables.A_Index18 >= 51) && (variables.A_Index18 <= 56 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 9)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index17 == 70 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 9)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index18] , 3)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index17 == 70 ))
+else if (( variables.A_Index18 == 68 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 9)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index17 == 71 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 4)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index18] , 7)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index17 == 72 ))
+else if (( variables.A_Index18 == 69 ))
 {
-if (( await Trim (variables["EditText" + variables.A_Index17]) == "-" ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index18] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index18 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index18] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index18 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index18] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index18 == 71 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index18] , 4)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index18 == 72 ))
+{
+if (( await Trim (variables["EditText" + variables.A_Index18]) == "-" ))
 {
 await showCustomMessageBox({},"Invalid Instructions", "At AHKlikeLoopsIndexedAt you only added a - character. A number must follow the - or it should be a standalone number.", 16, 0)
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 5)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index18] , 5)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
@@ -6745,42 +6903,42 @@ return
 }
 else
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index17] , 0)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index18] , 0)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
 }
-if (( await Trim (variables["EditText" + variables.A_Index17]) == "") || (variables["EditText" + variables.A_Index17] == variables.null ))
+if (( await Trim (variables["EditText" + variables.A_Index18]) == "") || (variables["EditText" + variables.A_Index18] == variables.null ))
 {
-variables["EditText" + variables.A_Index17] = variables["defaultSyntax" + variables.A_Index17]
+variables["EditText" + variables.A_Index18] = variables["defaultSyntax" + variables.A_Index18]
 }
-variables.allData += await Trim (variables["EditText" + variables.A_Index17]) + "\n"
+variables.allData += await Trim (variables["EditText" + variables.A_Index18]) + "\n"
 }
 variables.allFuncNamesForSavingIt = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" )
 if (( variables.allFuncNamesForSavingIt  != variables.null ))
 {
 variables.allFuncNamesForSavingItOut = ""
-var items18 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
-for (/* Loop Parse */ let A_Index18 = 1; A_Index18 <= items18.length; A_Index18++)
+var items19 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
+for (/* Loop Parse */ let A_Index19 = 1; A_Index19 <= items19.length; A_Index19++)
 {
-variables.A_Index18 = A_Index18
-variables.A_LoopField18 = items18[A_Index18 - 1];
-variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField18 )
-variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField18 )
-variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField18 )
-variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField18 )
+variables.A_Index19 = A_Index19
+variables.A_LoopField19 = items19[A_Index19 - 1];
+variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField19 )
+variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField19 )
+variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField19 )
+variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField19 )
 variables.bodyFuncTemp1 = "func======================func==============\n"
 variables.bodyFuncTemp2 = "lang: " + variables.tempReadSave1
-variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField18
+variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField19
 variables.bodyFuncTemp4 = "\nlibs: " + variables.tempReadSave4
 variables.bodyFuncTemp5 = "\ndescription: " + variables.tempReadSave2
 variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
 variables.bodyFuncTemp7 = "funcEND======================funcEND=============="
 variables.allFuncNamesForSavingItOut += "\n" + variables.bodyFuncTemp1 + variables.bodyFuncTemp2 + variables.bodyFuncTemp3 + variables.bodyFuncTemp4 + variables.bodyFuncTemp5 + variables.bodyFuncTemp6 + variables.bodyFuncTemp7 + "\n"
 }
-variables.extraFuncNeedLoopParse = "\nfunc======================func==============\nlang: cpp\nname: LoopParseFunc\nlibs: #include <vector>|#include <string>|#include <regex>\ndescription: LoopParseFunc func is a func\n\n// Function to escape special characters for regex\nstd::string escapeRegex(const std::string& str) {\n    static const std::regex specialChars{R" + await Chr (34) + "([-[" + await Chr (92) + "]{}()*+?.," + await Chr (92) + "^$|#" + await Chr (92) + "s])" + await Chr (34) + "};\n    return std::regex_replace(str, specialChars, R" + await Chr (34) + "(" + await Chr (92) + "$&)" + await Chr (34) + ");\n}\n\n// Function to split a string based on delimiters\nstd::vector<std::string> LoopParseFunc(const std::string& var, const std::string& delimiter1 = " + await Chr (34) + "" + await Chr (34) + ", const std::string& delimiter2 = " + await Chr (34) + "" + await Chr (34) + ") {\n    std::vector<std::string> items;\n    if (delimiter1.empty() && delimiter2.empty()) {\n        // If no delimiters are provided, return a list of characters\n        for (char c : var) {\n            items.push_back(std::string(1, c));\n        }\n    } else {\n        // Escape delimiters for regex\n        std::string escapedDelimiters = escapeRegex(delimiter1 + delimiter2);\n        // Construct the regular expression pattern for splitting the string\n        std::string pattern = " + await Chr (34) + "[" + await Chr (34) + " + escapedDelimiters + " + await Chr (34) + "]+" + await Chr (34) + ";\n        std::regex regexPattern(pattern);\n        std::sregex_token_iterator iter(var.begin(), var.end(), regexPattern, -1);\n        std::sregex_token_iterator end;\n        while (iter != end) {\n            items.push_back(*iter++);\n        }\n    }\n    return items;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: js\nname: LoopParseFunc\nlibs: null\ndescription: LoopParseFunc splits a string into an array based on specified delimiters or returns an array of characters if no delimiters are provided.\n\nfunction LoopParseFunc(varString, delimiter1=" + await Chr (34) + "" + await Chr (34) + ", delimiter2=" + await Chr (34) + "" + await Chr (34) + ") {\n    let items;\n    if (!delimiter1 && !delimiter2) {\n        // If no delimiters are provided, return an array of characters\n        items = [...varString];\n    } else {\n        // Construct the regular expression pattern for splitting the string\n        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[" + await Chr (92) + "]" + await Chr (92) + "" + await Chr (92) + "]/g, '" + await Chr (92) + "" + await Chr (92) + "$&') + delimiter2.replace(/[.*+?^${}()|[" + await Chr (92) + "]" + await Chr (92) + "" + await Chr (92) + "]/g, '" + await Chr (92) + "" + await Chr (92) + "$&') + ']+');\n        // Split the string using the constructed pattern\n        items = varString.split(pattern);\n    }\n    return items;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: py\nname: LoopParseFunc\nlibs: import re\ndescription: LoopParseFunc splits a string into a list based on specified delimiters or returns a list of characters if no delimiters are provided.\n\ndef LoopParseFunc(var, delimiter1=" + await Chr (34) + "" + await Chr (34) + ", delimiter2=" + await Chr (34) + "" + await Chr (34) + "):\n    if not delimiter1 and not delimiter2:\n        # If no delimiters are provided, return a list of characters\n        items = list(var)\n    else:\n        # Construct the regular expression pattern for splitting the string\n        pattern = r'[' + re.escape(delimiter1) + re.escape(delimiter2) + r']+'\n        # Split the string using the constructed pattern\n        items = re.split(pattern, var)\n    return items\n\nfuncEND======================funcEND==============\n"
+variables.extraFuncNeedLoopParse = "\n\n\nfunc======================func==============\nlang: cpp\nname: LoopParseFunc\nlibs: #include <vector>|#include <string>|#include <regex>\ndescription: LoopParseFunc func is a func\n\n// Function to escape special characters for regex\nstd::string escapeRegex(const std::string& str) {\n    static const std::regex specialChars{R" + await Chr (34) + "([-[" + await Chr (92) + "]{}()*+?.," + await Chr (92) + "^$|#" + await Chr (92) + "s])" + await Chr (34) + "};\n    return std::regex_replace(str, specialChars, R" + await Chr (34) + "(" + await Chr (92) + "$&)" + await Chr (34) + ");\n}\n\n// Function to split a string based on delimiters\nstd::vector<std::string> LoopParseFunc(const std::string& var, const std::string& delimiter1 = " + await Chr (34) + "" + await Chr (34) + ", const std::string& delimiter2 = " + await Chr (34) + "" + await Chr (34) + ") {\n    std::vector<std::string> items;\n    if (delimiter1.empty() && delimiter2.empty()) {\n        // If no delimiters are provided, return a list of characters\n        for (char c : var) {\n            items.push_back(std::string(1, c));\n        }\n    } else {\n        // Escape delimiters for regex\n        std::string escapedDelimiters = escapeRegex(delimiter1 + delimiter2);\n        // Construct the regular expression pattern for splitting the string\n        std::string pattern = " + await Chr (34) + "[" + await Chr (34) + " + escapedDelimiters + " + await Chr (34) + "]+" + await Chr (34) + ";\n        std::regex regexPattern(pattern);\n        std::sregex_token_iterator iter(var.begin(), var.end(), regexPattern, -1);\n        std::sregex_token_iterator end;\n        while (iter != end) {\n            items.push_back(*iter++);\n        }\n    }\n    return items;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: js\nname: LoopParseFunc\nlibs: null\ndescription: LoopParseFunc splits a string into an array based on specified delimiters or returns an array of characters if no delimiters are provided.\n\nfunction LoopParseFunc(varString, delimiter1=" + await Chr (34) + "" + await Chr (34) + ", delimiter2=" + await Chr (34) + "" + await Chr (34) + ") {\n    let items;\n    if (!delimiter1 && !delimiter2) {\n        // If no delimiters are provided, return an array of characters\n        items = [...varString];\n    } else {\n        // Construct the regular expression pattern for splitting the string\n        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[" + await Chr (92) + "]" + await Chr (92) + "" + await Chr (92) + "]/g, '" + await Chr (92) + "" + await Chr (92) + "$&') + delimiter2.replace(/[.*+?^${}()|[" + await Chr (92) + "]" + await Chr (92) + "" + await Chr (92) + "]/g, '" + await Chr (92) + "" + await Chr (92) + "$&') + ']+');\n        // Split the string using the constructed pattern\n        items = varString.split(pattern);\n    }\n    return items;\n}\n\nfuncEND======================funcEND==============\n\nfunc======================func==============\nlang: py\nname: LoopParseFunc\nlibs: import re\ndescription: LoopParseFunc splits a string into a list based on specified delimiters or returns a list of characters if no delimiters are provided.\n\ndef LoopParseFunc(var, delimiter1=" + await Chr (34) + "" + await Chr (34) + ", delimiter2=" + await Chr (34) + "" + await Chr (34) + "):\n    if not delimiter1 and not delimiter2:\n        # If no delimiters are provided, return a list of characters\n        items = list(var)\n    else:\n        # Construct the regular expression pattern for splitting the string\n        pattern = r'[' + re.escape(delimiter1) + re.escape(delimiter2) + r']+'\n        # Split the string using the constructed pattern\n        items = re.split(pattern, var)\n    return items\n\nfuncEND======================funcEND==============\n\n\n"
 Gui5.style.display = "block";
 await sleep(50)
 variables.allData = variables.allData + "\n" + variables.extraFuncNeedLoopParse + "\n" + variables.allFuncNamesForSavingItOut + "\n" + variables.ToggleMoreBuildInFuncsTEXT
@@ -6794,98 +6952,98 @@ async function ButtonDownloadJShelper(A_GuiControl)
 {
 variables.allData = ""
 variables.defaultSyntax = "cpp\nhtvm\nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1,'param2|MsgBox,'param1\nint\nstr\nbool\nfloat\nint8\nint16\nint32\nint64\nif\nelse if\nelse\nwhile\nfor\nLoop\nLoop,\nLoop, Parse,\ncontinue\nbreak\nfunc\nawait\n=\n+=\n+=\n-=\n*=\n/=\n+\n+\n==\n!\n>\n<\n>=\n<=\nor\nand\n!=\ntrue\nfalse\nswitch\ncase\ndefault\nthrow\nErrorMsg\ntry\ncatch\nfinally\n.push\n.pop\n.size\n.insert\n.rm\n.indexOf\narr\narr int\narr str\narr float\narr bool\nvar\nlet\nconst\nreturn\nend\nglobal\n//\n'''1\n'''2\n" + await Chr (92) + "\n0\nA_Index\nA_LoopField\nmain\non\non\noff\noff\non\noff\ncpp\non\non\noff"
-var items19 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
-for (/* Loop Parse */ let A_Index19 = 1; A_Index19 <= items19.length; A_Index19++)
+var items20 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
+for (/* Loop Parse */ let A_Index20 = 1; A_Index20 <= items20.length; A_Index20++)
 {
-variables.A_Index19 = A_Index19
-variables.A_LoopField19 = items19[A_Index19 - 1];
-variables["defaultSyntax" + variables.A_Index19] = variables.A_LoopField19
+variables.A_Index20 = A_Index20
+variables.A_LoopField20 = items20[A_Index20 - 1];
+variables["defaultSyntax" + variables.A_Index20] = variables.A_LoopField20
 }
-for (/* Normal Loop */ variables.A_Index20 = 1; variables.A_Index20 <= 85; variables.A_Index20++)
+for (/* Normal Loop */ variables.A_Index21 = 1; variables.A_Index21 <= 85; variables.A_Index21++)
 {
-if (( variables["EditText" + variables.A_Index20]  != "") || (variables["EditText" + variables.A_Index20]  != variables.null ))
+if (( variables["EditText" + variables.A_Index21]  != "") || (variables["EditText" + variables.A_Index21]  != variables.null ))
 {
-if (( variables.A_Index20 == 2 ))
+if (( variables.A_Index21 == 2 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 1)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index21] , 1)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index20 >= 24) && (variables.A_Index20 <= 29 ))
+else if (( variables.A_Index21 >= 24) && (variables.A_Index21 <= 29 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 6)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index20 == 47 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 2)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index21] , 6)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index20 >= 51) && (variables.A_Index20 <= 56 ))
+else if (( variables.A_Index21 == 47 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 3)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index20 == 68 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 7)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index21] , 2)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index20 == 69 ))
+else if (( variables.A_Index21 >= 51) && (variables.A_Index21 <= 56 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 9)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index20 == 70 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 9)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index21] , 3)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index20 == 70 ))
+else if (( variables.A_Index21 == 68 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 9)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index20 == 71 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 4)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index21] , 7)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index20 == 72 ))
+else if (( variables.A_Index21 == 69 ))
 {
-if (( await Trim (variables["EditText" + variables.A_Index20]) == "-" ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index21] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index21 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index21] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index21 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index21] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index21 == 71 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index21] , 4)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index21 == 72 ))
+{
+if (( await Trim (variables["EditText" + variables.A_Index21]) == "-" ))
 {
 await showCustomMessageBox({},"Invalid Instructions", "At AHKlikeLoopsIndexedAt you only added a - character. A number must follow the - or it should be a standalone number.", 16, 0)
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 5)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index21] , 5)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
@@ -6893,35 +7051,35 @@ return
 }
 else
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index20] , 0)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index21] , 0)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
 }
-if (( await Trim (variables["EditText" + variables.A_Index20]) == "") || (variables["EditText" + variables.A_Index20] == variables.null ))
+if (( await Trim (variables["EditText" + variables.A_Index21]) == "") || (variables["EditText" + variables.A_Index21] == variables.null ))
 {
-variables["EditText" + variables.A_Index20] = variables["defaultSyntax" + variables.A_Index20]
+variables["EditText" + variables.A_Index21] = variables["defaultSyntax" + variables.A_Index21]
 }
-variables.allData += await Trim (variables["EditText" + variables.A_Index20]) + "\n"
+variables.allData += await Trim (variables["EditText" + variables.A_Index21]) + "\n"
 }
 variables.allFuncNamesForSavingIt = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" )
 if (( variables.allFuncNamesForSavingIt  != variables.null ))
 {
 variables.allFuncNamesForSavingItOut = ""
-var items21 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
-for (/* Loop Parse */ let A_Index21 = 1; A_Index21 <= items21.length; A_Index21++)
+var items22 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
+for (/* Loop Parse */ let A_Index22 = 1; A_Index22 <= items22.length; A_Index22++)
 {
-variables.A_Index21 = A_Index21
-variables.A_LoopField21 = items21[A_Index21 - 1];
-variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField21 )
-variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField21 )
-variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField21 )
-variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField21 )
+variables.A_Index22 = A_Index22
+variables.A_LoopField22 = items22[A_Index22 - 1];
+variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField22 )
+variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField22 )
+variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField22 )
+variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField22 )
 variables.bodyFuncTemp1 = "func======================func==============\n"
 variables.bodyFuncTemp2 = "lang: " + variables.tempReadSave1
-variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField21
+variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField22
 variables.bodyFuncTemp4 = "\nlibs: " + variables.tempReadSave4
 variables.bodyFuncTemp5 = "\ndescription: " + variables.tempReadSave2
 variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
@@ -6943,90 +7101,90 @@ async function ButtonDownloadInstruction(A_GuiControl)
 {
 variables.allData = ""
 variables.defaultSyntax = "cpp\nhtvm\nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1,'param2|MsgBox,'param1\nint\nstr\nbool\nfloat\nint8\nint16\nint32\nint64\nif\nelse if\nelse\nwhile\nfor\nLoop\nLoop,\nLoop, Parse,\ncontinue\nbreak\nfunc\nawait\n=\n+=\n+=\n-=\n*=\n/=\n+\n+\n==\n!\n>\n<\n>=\n<=\nor\nand\n!=\ntrue\nfalse\nswitch\ncase\ndefault\nthrow\nErrorMsg\ntry\ncatch\nfinally\n.push\n.pop\n.size\n.insert\n.rm\n.indexOf\narr\narr int\narr str\narr float\narr bool\nvar\nlet\nconst\nreturn\nend\nglobal\n//\n'''1\n'''2\n" + await Chr (92) + "\n0\nA_Index\nA_LoopField\nmain\non\non\noff\noff\non\noff\ncpp\non\non\noff"
-var items22 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
-for (/* Loop Parse */ let A_Index22 = 1; A_Index22 <= items22.length; A_Index22++)
+var items23 = LoopParseFunc(variables.defaultSyntax, "\n", "\r");
+for (/* Loop Parse */ let A_Index23 = 1; A_Index23 <= items23.length; A_Index23++)
 {
-variables.A_Index22 = A_Index22
-variables.A_LoopField22 = items22[A_Index22 - 1];
-variables["defaultSyntax" + variables.A_Index22] = variables.A_LoopField22
+variables.A_Index23 = A_Index23
+variables.A_LoopField23 = items23[A_Index23 - 1];
+variables["defaultSyntax" + variables.A_Index23] = variables.A_LoopField23
 }
-for (/* Normal Loop */ variables.A_Index23 = 1; variables.A_Index23 <= 85; variables.A_Index23++)
+for (/* Normal Loop */ variables.A_Index24 = 1; variables.A_Index24 <= 85; variables.A_Index24++)
 {
-if (( variables["EditText" + variables.A_Index23]  != "") || (variables["EditText" + variables.A_Index23]  != variables.null ))
+if (( variables["EditText" + variables.A_Index24]  != "") || (variables["EditText" + variables.A_Index24]  != variables.null ))
 {
-if (( variables.A_Index23 == 2 ))
+if (( variables.A_Index24 == 2 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index23] , 1)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index24] , 1)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index23 >= 24) && (variables.A_Index23 <= 29 ))
+else if (( variables.A_Index24 >= 24) && (variables.A_Index24 <= 29 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index23] , 6)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index23 == 47 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index23] , 2)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index24] , 6)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index23 >= 51) && (variables.A_Index23 <= 56 ))
+else if (( variables.A_Index24 == 47 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index23] , 3)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index23 == 68 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index23] , 7)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index24] , 2)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index23 == 69 ))
+else if (( variables.A_Index24 >= 51) && (variables.A_Index24 <= 56 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index23] , 9)  != false) ))
-{
-await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
-return
-}
-}
-else if (( variables.A_Index23 == 70 ))
-{
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index23] , 9)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index24] , 3)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index23 == 71 ))
+else if (( variables.A_Index24 == 68 ))
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index23] , 4)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index24] , 7)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
-else if (( variables.A_Index23 == 72 ))
+else if (( variables.A_Index24 == 69 ))
 {
-if (( await Trim (variables["EditText" + variables.A_Index23]) == "-" ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index24] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index24 == 70 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index24] , 9)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index24 == 71 ))
+{
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index24] , 4)  != false) ))
+{
+await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
+return
+}
+}
+else if (( variables.A_Index24 == 72 ))
+{
+if (( await Trim (variables["EditText" + variables.A_Index24]) == "-" ))
 {
 await showCustomMessageBox({},"Invalid Instructions", "At AHKlikeLoopsIndexedAt you only added a - character. A number must follow the - or it should be a standalone number.", 16, 0)
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index23] , 5)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index24] , 5)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
@@ -7034,35 +7192,35 @@ return
 }
 else
 {
-if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index23] , 0)  != false) ))
+if (( ! (await rulesForEditBoxesSyntaxDef (variables["EditText" + variables.A_Index24] , 0)  != false) ))
 {
 await showCustomMessageBox({},"Invalid nstructions", "Invalid nstructions your language rules are wrong!!!", 16, 0)
 return
 }
 }
 }
-if (( await Trim (variables["EditText" + variables.A_Index23]) == "") || (variables["EditText" + variables.A_Index23] == variables.null ))
+if (( await Trim (variables["EditText" + variables.A_Index24]) == "") || (variables["EditText" + variables.A_Index24] == variables.null ))
 {
-variables["EditText" + variables.A_Index23] = variables["defaultSyntax" + variables.A_Index23]
+variables["EditText" + variables.A_Index24] = variables["defaultSyntax" + variables.A_Index24]
 }
-variables.allData += await Trim (variables["EditText" + variables.A_Index23]) + "\n"
+variables.allData += await Trim (variables["EditText" + variables.A_Index24]) + "\n"
 }
 variables.allFuncNamesForSavingIt = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncs" )
 if (( variables.allFuncNamesForSavingIt  != variables.null ))
 {
 variables.allFuncNamesForSavingItOut = ""
-var items24 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
-for (/* Loop Parse */ let A_Index24 = 1; A_Index24 <= items24.length; A_Index24++)
+var items25 = LoopParseFunc(variables.allFuncNamesForSavingIt, "|");
+for (/* Loop Parse */ let A_Index25 = 1; A_Index25 <= items25.length; A_Index25++)
 {
-variables.A_Index24 = A_Index24
-variables.A_LoopField24 = items24[A_Index24 - 1];
-variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField24 )
-variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField24 )
-variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField24 )
-variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField24 )
+variables.A_Index25 = A_Index25
+variables.A_LoopField25 = items25[A_Index25 - 1];
+variables.tempReadSave1 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLang-" + variables.A_LoopField25 )
+variables.tempReadSave2 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsDescription-" + variables.A_LoopField25 )
+variables.tempReadSave3 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsCode-" + variables.A_LoopField25 )
+variables.tempReadSave4 = await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-AllBuildInFuncsLibs-" + variables.A_LoopField25 )
 variables.bodyFuncTemp1 = "func======================func==============\n"
 variables.bodyFuncTemp2 = "lang: " + variables.tempReadSave1
-variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField24
+variables.bodyFuncTemp3 = "\nname: " + variables.A_LoopField25
 variables.bodyFuncTemp4 = "\nlibs: " + variables.tempReadSave4
 variables.bodyFuncTemp5 = "\ndescription: " + variables.tempReadSave2
 variables.bodyFuncTemp6 = "\n\n" + variables.tempReadSave3 + "\n\n"
@@ -7225,349 +7383,349 @@ variables.theJSvarDeclaredVarsBugFix = "|"
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; code starts here realy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; code starts here realy ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 variables.ALoopField = ""
-var items25 = LoopParseFunc(variables.instructions, "\n", "\r");
-for (/* Loop Parse */ let A_Index25 = 1; A_Index25 <= items25.length; A_Index25++)
+var items26 = LoopParseFunc(variables.instructions, "\n", "\r");
+for (/* Loop Parse */ let A_Index26 = 1; A_Index26 <= items26.length; A_Index26++)
 {
-variables.A_Index25 = A_Index25
-variables.A_LoopField25 = items25[A_Index25 - 1];
-variables.ALoopField = variables.A_LoopField25
-if (( variables.A_Index25 == 1 ))
+variables.A_Index26 = A_Index26
+variables.A_LoopField26 = items26[A_Index26 - 1];
+variables.ALoopField = variables.A_LoopField26
+if (( variables.A_Index26 == 1 ))
 {
 variables.langToTranspileTo = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 2 ))
+if (( variables.A_Index26 == 2 ))
 {
 variables.fileExtention = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 3 ))
+if (( variables.A_Index26 == 3 ))
 {
 variables.keyWordsCommands = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 4 ))
+if (( variables.A_Index26 == 4 ))
 {
 variables.keyWordINT = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 5 ))
+if (( variables.A_Index26 == 5 ))
 {
 variables.keyWordSTR = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 6 ))
+if (( variables.A_Index26 == 6 ))
 {
 variables.keyWordBOOL = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 7 ))
+if (( variables.A_Index26 == 7 ))
 {
 variables.keyWordFLOAT = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 8 ))
+if (( variables.A_Index26 == 8 ))
 {
 variables.keyWordINT8 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 9 ))
+if (( variables.A_Index26 == 9 ))
 {
 variables.keyWordINT16 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 10 ))
+if (( variables.A_Index26 == 10 ))
 {
 variables.keyWordINT32 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 11 ))
+if (( variables.A_Index26 == 11 ))
 {
 variables.keyWordINT64 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 12 ))
+if (( variables.A_Index26 == 12 ))
 {
 variables.keyWordIF = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 13 ))
+if (( variables.A_Index26 == 13 ))
 {
 variables.keyWordElseIf = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 14 ))
+if (( variables.A_Index26 == 14 ))
 {
 variables.keyWordElse = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 15 ))
+if (( variables.A_Index26 == 15 ))
 {
 variables.keyWordWhileLoop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 16 ))
+if (( variables.A_Index26 == 16 ))
 {
 variables.keyWordForLoop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 17 ))
+if (( variables.A_Index26 == 17 ))
 {
 variables.keyWordLoopInfinite = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 18 ))
+if (( variables.A_Index26 == 18 ))
 {
 variables.keyWordLoop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 19 ))
+if (( variables.A_Index26 == 19 ))
 {
 variables.keyWordLoopParse = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 20 ))
+if (( variables.A_Index26 == 20 ))
 {
 variables.keyWordContinue = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 21 ))
+if (( variables.A_Index26 == 21 ))
 {
 variables.keyWordBreak = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 22 ))
+if (( variables.A_Index26 == 22 ))
 {
 variables.keyWordFunc = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 23 ))
+if (( variables.A_Index26 == 23 ))
 {
 variables.keyWordAwait = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 24 ))
+if (( variables.A_Index26 == 24 ))
 {
 variables.keyWordVariablesAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 25 ))
+if (( variables.A_Index26 == 25 ))
 {
 variables.keyWordConcatenationAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 26 ))
+if (( variables.A_Index26 == 26 ))
 {
 variables.keyWordAdditionAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 27 ))
+if (( variables.A_Index26 == 27 ))
 {
 variables.keyWordSubtractionAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 28 ))
+if (( variables.A_Index26 == 28 ))
 {
 variables.keyWordMultiplicationAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 29 ))
+if (( variables.A_Index26 == 29 ))
 {
 variables.keyWordDivisionAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 30 ))
+if (( variables.A_Index26 == 30 ))
 {
 variables.keyWordAdditionOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 31 ))
+if (( variables.A_Index26 == 31 ))
 {
 variables.keyWordConcatenationOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 32 ))
+if (( variables.A_Index26 == 32 ))
 {
 variables.keyWordEqualOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 33 ))
+if (( variables.A_Index26 == 33 ))
 {
 variables.keyWordNotOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 34 ))
+if (( variables.A_Index26 == 34 ))
 {
 variables.keyWordGreaterThanOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 35 ))
+if (( variables.A_Index26 == 35 ))
 {
 variables.keyWordLessThanOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 36 ))
+if (( variables.A_Index26 == 36 ))
 {
 variables.keyWordGreaterThanOrEqualToOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 37 ))
+if (( variables.A_Index26 == 37 ))
 {
 variables.keyWordLessThanOrEqualToOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 38 ))
+if (( variables.A_Index26 == 38 ))
 {
 variables.keyWordOrOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 39 ))
+if (( variables.A_Index26 == 39 ))
 {
 variables.keyWordAndOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 40 ))
+if (( variables.A_Index26 == 40 ))
 {
 variables.keyWordNotEqualToOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 41 ))
+if (( variables.A_Index26 == 41 ))
 {
 variables.keyWordTrue = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 42 ))
+if (( variables.A_Index26 == 42 ))
 {
 variables.keyWordFalse = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 43 ))
+if (( variables.A_Index26 == 43 ))
 {
 variables.keyWordSwitch = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 44 ))
+if (( variables.A_Index26 == 44 ))
 {
 variables.keyWordSwitchCase = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 45 ))
+if (( variables.A_Index26 == 45 ))
 {
 variables.keyWordSwitchDefault = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 46 ))
+if (( variables.A_Index26 == 46 ))
 {
 variables.keyWordThrow = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 47 ))
+if (( variables.A_Index26 == 47 ))
 {
 variables.keyWordErrorMsg = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 48 ))
+if (( variables.A_Index26 == 48 ))
 {
 variables.keyWordTry = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 49 ))
+if (( variables.A_Index26 == 49 ))
 {
 variables.keyWordCatch = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 50 ))
+if (( variables.A_Index26 == 50 ))
 {
 variables.keyWordFinally = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 51 ))
+if (( variables.A_Index26 == 51 ))
 {
 variables.keyWordArrayAppend = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 52 ))
+if (( variables.A_Index26 == 52 ))
 {
 variables.keyWordArrayPop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 53 ))
+if (( variables.A_Index26 == 53 ))
 {
 variables.keyWordArraySize = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 54 ))
+if (( variables.A_Index26 == 54 ))
 {
 variables.keyWordArrayInsert = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 55 ))
+if (( variables.A_Index26 == 55 ))
 {
 variables.keyWordArrayRemove = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 56 ))
+if (( variables.A_Index26 == 56 ))
 {
 variables.keyWordArrayIndexOf = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 57 ))
+if (( variables.A_Index26 == 57 ))
 {
 variables.keyWordArrayDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 58 ))
+if (( variables.A_Index26 == 58 ))
 {
 variables.keyWordArrayOfIntegersDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 59 ))
+if (( variables.A_Index26 == 59 ))
 {
 variables.keyWordArrayOfStringsDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 60 ))
+if (( variables.A_Index26 == 60 ))
 {
 variables.keyWordArrayOfFloatingPointNumbersDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 61 ))
+if (( variables.A_Index26 == 61 ))
 {
 variables.keyWordArrayOfBooleansDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 62 ))
+if (( variables.A_Index26 == 62 ))
 {
 variables.keyWordJavaScriptVar = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 63 ))
+if (( variables.A_Index26 == 63 ))
 {
 variables.keyWordJavaScriptLet = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 64 ))
+if (( variables.A_Index26 == 64 ))
 {
 variables.keyWordJavaScriptConst = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 65 ))
+if (( variables.A_Index26 == 65 ))
 {
 variables.keyWordReturnStatement = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 66 ))
+if (( variables.A_Index26 == 66 ))
 {
 variables.keyWordEnd = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 67 ))
+if (( variables.A_Index26 == 67 ))
 {
 variables.keyWordGlobal = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 68 ))
+if (( variables.A_Index26 == 68 ))
 {
 variables.keyWordComment = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 69 ))
+if (( variables.A_Index26 == 69 ))
 {
 variables.keyWordCommentOpenMultiLine = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 70 ))
+if (( variables.A_Index26 == 70 ))
 {
 variables.keyWordCommentCloseMultiLine = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 71 ))
+if (( variables.A_Index26 == 71 ))
 {
 variables.keyWordEscpaeChar = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 72 ))
+if (( variables.A_Index26 == 72 ))
 {
 variables.AHKlikeLoopsIndexedAt = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 73 ))
+if (( variables.A_Index26 == 73 ))
 {
 variables.keyWordAIndex = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 74 ))
+if (( variables.A_Index26 == 74 ))
 {
 variables.keyWordALoopField = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 75 ))
+if (( variables.A_Index26 == 75 ))
 {
 variables.keyWordMainLabel = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 76 ))
+if (( variables.A_Index26 == 76 ))
 {
 variables.useFuncKeyWord = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 77 ))
+if (( variables.A_Index26 == 77 ))
 {
 variables.useCurlyBraces = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 78 ))
+if (( variables.A_Index26 == 78 ))
 {
 variables.useEnd = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 79 ))
+if (( variables.A_Index26 == 79 ))
 {
 variables.useSemicolon = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 80 ))
+if (( variables.A_Index26 == 80 ))
 {
 variables.useParentheses = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 81 ))
+if (( variables.A_Index26 == 81 ))
 {
 variables.usePythonicColonSyntax = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 82 ))
+if (( variables.A_Index26 == 82 ))
 {
 variables.forLoopLang = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 83 ))
+if (( variables.A_Index26 == 83 ))
 {
 variables.useInJavaScriptAlwaysUseVar = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 84 ))
+if (( variables.A_Index26 == 84 ))
 {
 variables.useJavaScriptInAfullHTMLfile = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index25 == 85 ))
+if (( variables.A_Index26 == 85 ))
 {
 variables.useJavaScriptAmainFuncDef = await Trim (variables.ALoopField )
 }
@@ -8572,353 +8730,353 @@ variables.displayExampleTextLine111 = BuildInVars("A_Tab") + "print(" + await Ch
 variables.displayExampleTextLine112 = variables.defineCodeBlockCharCLOSE
 }
 variables.displayExampleText = ""
-for (/* Normal Loop */ variables.A_Index26 = 1; variables.A_Index26 <= 120; variables.A_Index26++)
+for (/* Normal Loop */ variables.A_Index27 = 1; variables.A_Index27 <= 120; variables.A_Index27++)
 {
-variables.displayExampleText += variables["displayExampleTextLine" + variables.A_Index26]
+variables.displayExampleText += variables["displayExampleTextLine" + variables.A_Index27]
 }
-var items27 = LoopParseFunc(variables.instructions, "\n", "\r");
-for (/* Loop Parse */ let A_Index27 = 1; A_Index27 <= items27.length; A_Index27++)
+var items28 = LoopParseFunc(variables.instructions, "\n", "\r");
+for (/* Loop Parse */ let A_Index28 = 1; A_Index28 <= items28.length; A_Index28++)
 {
-variables.A_Index27 = A_Index27
-variables.A_LoopField27 = items27[A_Index27 - 1];
-variables.ALoopField = await addBackShlashes (variables.A_LoopField27 )
-if (( variables.A_Index27 == 1 ))
+variables.A_Index28 = A_Index28
+variables.A_LoopField28 = items28[A_Index28 - 1];
+variables.ALoopField = await addBackShlashes (variables.A_LoopField28 )
+if (( variables.A_Index28 == 1 ))
 {
 variables.langToTranspileTo = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 2 ))
+if (( variables.A_Index28 == 2 ))
 {
 variables.fileExtention = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 3 ))
+if (( variables.A_Index28 == 3 ))
 {
 variables.keyWordsCommands = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 4 ))
+if (( variables.A_Index28 == 4 ))
 {
 variables.keyWordINT = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 5 ))
+if (( variables.A_Index28 == 5 ))
 {
 variables.keyWordSTR = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 6 ))
+if (( variables.A_Index28 == 6 ))
 {
 variables.keyWordBOOL = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 7 ))
+if (( variables.A_Index28 == 7 ))
 {
 variables.keyWordFLOAT = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 8 ))
+if (( variables.A_Index28 == 8 ))
 {
 variables.keyWordINT8 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 9 ))
+if (( variables.A_Index28 == 9 ))
 {
 variables.keyWordINT16 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 10 ))
+if (( variables.A_Index28 == 10 ))
 {
 variables.keyWordINT32 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 11 ))
+if (( variables.A_Index28 == 11 ))
 {
 variables.keyWordINT64 = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 12 ))
+if (( variables.A_Index28 == 12 ))
 {
 variables.keyWordIF = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 13 ))
+if (( variables.A_Index28 == 13 ))
 {
 variables.keyWordElseIf = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 14 ))
+if (( variables.A_Index28 == 14 ))
 {
 variables.keyWordElse = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 15 ))
+if (( variables.A_Index28 == 15 ))
 {
 variables.keyWordWhileLoop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 16 ))
+if (( variables.A_Index28 == 16 ))
 {
 variables.keyWordForLoop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 17 ))
+if (( variables.A_Index28 == 17 ))
 {
 variables.keyWordLoopInfinite = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 18 ))
+if (( variables.A_Index28 == 18 ))
 {
 variables.keyWordLoop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 19 ))
+if (( variables.A_Index28 == 19 ))
 {
 variables.keyWordLoopParse = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 20 ))
+if (( variables.A_Index28 == 20 ))
 {
 variables.keyWordContinue = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 21 ))
+if (( variables.A_Index28 == 21 ))
 {
 variables.keyWordBreak = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 22 ))
+if (( variables.A_Index28 == 22 ))
 {
 variables.keyWordFunc = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 23 ))
+if (( variables.A_Index28 == 23 ))
 {
 variables.keyWordAwait = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 24 ))
+if (( variables.A_Index28 == 24 ))
 {
 variables.keyWordVariablesAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 25 ))
+if (( variables.A_Index28 == 25 ))
 {
 variables.keyWordConcatenationAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 26 ))
+if (( variables.A_Index28 == 26 ))
 {
 variables.keyWordAdditionAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 27 ))
+if (( variables.A_Index28 == 27 ))
 {
 variables.keyWordSubtractionAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 28 ))
+if (( variables.A_Index28 == 28 ))
 {
 variables.keyWordMultiplicationAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 29 ))
+if (( variables.A_Index28 == 29 ))
 {
 variables.keyWordDivisionAssignmentOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 30 ))
+if (( variables.A_Index28 == 30 ))
 {
 variables.keyWordAdditionOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 31 ))
+if (( variables.A_Index28 == 31 ))
 {
 variables.keyWordConcatenationOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 32 ))
+if (( variables.A_Index28 == 32 ))
 {
 variables.keyWordEqualOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 33 ))
+if (( variables.A_Index28 == 33 ))
 {
 variables.keyWordNotOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 34 ))
+if (( variables.A_Index28 == 34 ))
 {
 variables.keyWordGreaterThanOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 35 ))
+if (( variables.A_Index28 == 35 ))
 {
 variables.keyWordLessThanOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 36 ))
+if (( variables.A_Index28 == 36 ))
 {
 variables.keyWordGreaterThanOrEqualToOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 37 ))
+if (( variables.A_Index28 == 37 ))
 {
 variables.keyWordLessThanOrEqualToOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 38 ))
+if (( variables.A_Index28 == 38 ))
 {
 variables.keyWordOrOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 39 ))
+if (( variables.A_Index28 == 39 ))
 {
 variables.keyWordAndOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 40 ))
+if (( variables.A_Index28 == 40 ))
 {
 variables.keyWordNotEqualToOperator = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 41 ))
+if (( variables.A_Index28 == 41 ))
 {
 variables.keyWordTrue = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 42 ))
+if (( variables.A_Index28 == 42 ))
 {
 variables.keyWordFalse = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 43 ))
+if (( variables.A_Index28 == 43 ))
 {
 variables.keyWordSwitch = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 44 ))
+if (( variables.A_Index28 == 44 ))
 {
 variables.keyWordSwitchCase = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 45 ))
+if (( variables.A_Index28 == 45 ))
 {
 variables.keyWordSwitchDefault = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 46 ))
+if (( variables.A_Index28 == 46 ))
 {
 variables.keyWordThrow = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 47 ))
+if (( variables.A_Index28 == 47 ))
 {
 variables.keyWordErrorMsg = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 48 ))
+if (( variables.A_Index28 == 48 ))
 {
 variables.keyWordTry = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 49 ))
+if (( variables.A_Index28 == 49 ))
 {
 variables.keyWordCatch = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 50 ))
+if (( variables.A_Index28 == 50 ))
 {
 variables.keyWordFinally = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 51 ))
+if (( variables.A_Index28 == 51 ))
 {
 variables.keyWordArrayAppend = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 52 ))
+if (( variables.A_Index28 == 52 ))
 {
 variables.keyWordArrayPop = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 53 ))
+if (( variables.A_Index28 == 53 ))
 {
 variables.keyWordArraySize = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 54 ))
+if (( variables.A_Index28 == 54 ))
 {
 variables.keyWordArrayInsert = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 55 ))
+if (( variables.A_Index28 == 55 ))
 {
 variables.keyWordArrayRemove = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 56 ))
+if (( variables.A_Index28 == 56 ))
 {
 variables.keyWordArrayIndexOf = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 57 ))
+if (( variables.A_Index28 == 57 ))
 {
 variables.keyWordArrayDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 58 ))
+if (( variables.A_Index28 == 58 ))
 {
 variables.keyWordArrayOfIntegersDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 59 ))
+if (( variables.A_Index28 == 59 ))
 {
 variables.keyWordArrayOfStringsDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 60 ))
+if (( variables.A_Index28 == 60 ))
 {
 variables.keyWordArrayOfFloatingPointNumbersDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 61 ))
+if (( variables.A_Index28 == 61 ))
 {
 variables.keyWordArrayOfBooleansDefinition = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 62 ))
+if (( variables.A_Index28 == 62 ))
 {
 variables.keyWordJavaScriptVar = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 63 ))
+if (( variables.A_Index28 == 63 ))
 {
 variables.keyWordJavaScriptLet = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 64 ))
+if (( variables.A_Index28 == 64 ))
 {
 variables.keyWordJavaScriptConst = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 65 ))
+if (( variables.A_Index28 == 65 ))
 {
 variables.keyWordReturnStatement = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 66 ))
+if (( variables.A_Index28 == 66 ))
 {
 variables.keyWordEnd = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 67 ))
+if (( variables.A_Index28 == 67 ))
 {
 variables.keyWordGlobal = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 68 ))
+if (( variables.A_Index28 == 68 ))
 {
 variables.keyWordComment = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 69 ))
+if (( variables.A_Index28 == 69 ))
 {
 variables.keyWordCommentOpenMultiLine = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 70 ))
+if (( variables.A_Index28 == 70 ))
 {
 variables.keyWordCommentCloseMultiLine = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 71 ))
+if (( variables.A_Index28 == 71 ))
 {
 variables.keyWordEscpaeChar = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 72 ))
+if (( variables.A_Index28 == 72 ))
 {
 variables.AHKlikeLoopsIndexedAt = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 73 ))
+if (( variables.A_Index28 == 73 ))
 {
 variables.keyWordAIndex = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 74 ))
+if (( variables.A_Index28 == 74 ))
 {
 variables.keyWordALoopField = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 75 ))
+if (( variables.A_Index28 == 75 ))
 {
 variables.keyWordMainLabel = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 76 ))
+if (( variables.A_Index28 == 76 ))
 {
 variables.useFuncKeyWord = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 77 ))
+if (( variables.A_Index28 == 77 ))
 {
 variables.useCurlyBraces = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 78 ))
+if (( variables.A_Index28 == 78 ))
 {
 variables.useEnd = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 79 ))
+if (( variables.A_Index28 == 79 ))
 {
 variables.useSemicolon = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 80 ))
+if (( variables.A_Index28 == 80 ))
 {
 variables.useParentheses = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 81 ))
+if (( variables.A_Index28 == 81 ))
 {
 variables.usePythonicColonSyntax = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 82 ))
+if (( variables.A_Index28 == 82 ))
 {
 variables.forLoopLang = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 83 ))
+if (( variables.A_Index28 == 83 ))
 {
 variables.useInJavaScriptAlwaysUseVar = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 84 ))
+if (( variables.A_Index28 == 84 ))
 {
 variables.useJavaScriptInAfullHTMLfile = await Trim (variables.ALoopField )
 }
-if (( variables.A_Index27 == 85 ))
+if (( variables.A_Index28 == 85 ))
 {
 variables.useJavaScriptAmainFuncDef = await Trim (variables.ALoopField )
 }
@@ -8936,12 +9094,12 @@ variables.allFuncLibsNum = 0
 variables.allFuncsNum = 0
 variables.allfuncDescriptionNum = 0
 variables.correctLang = 0
-var items28 = LoopParseFunc(variables.instructions, "\n", "\r");
-for (/* Loop Parse */ let A_Index28 = 1; A_Index28 <= items28.length; A_Index28++)
+var items29 = LoopParseFunc(variables.instructions, "\n", "\r");
+for (/* Loop Parse */ let A_Index29 = 1; A_Index29 <= items29.length; A_Index29++)
 {
-variables.A_Index28 = A_Index28
-variables.A_LoopField28 = items28[A_Index28 - 1];
-if (( await Trim (variables.A_LoopField28) == "funcEND======================funcEND==============" ))
+variables.A_Index29 = A_Index29
+variables.A_LoopField29 = items29[A_Index29 - 1];
+if (( await Trim (variables.A_LoopField29) == "funcEND======================funcEND==============" ))
 {
 variables.areWeInAFuncFromInstructions = 0
 variables.areWeInAFuncFromInstructionsLineNum = 0
@@ -8959,7 +9117,7 @@ if (( variables.areWeInAFuncFromInstructions == 1 ))
 if (( variables.areWeInAFuncFromInstructionsLineNum == 1 ))
 {
 // name of the func
-variables.funcLangHolder = StringTrimLeft(variables.A_LoopField28, 5)
+variables.funcLangHolder = StringTrimLeft(variables.A_LoopField29, 5)
 if (( await Trim (variables.funcLangHolder) == variables.langToTranspileTo ))
 {
 variables.correctLang = 1
@@ -8968,14 +9126,14 @@ variables.correctLang = 1
 if (( variables.areWeInAFuncFromInstructionsLineNum == 2 ))
 {
 // name of the func
-variables.funcNameHolder = StringTrimLeft(variables.A_LoopField28, 5)
+variables.funcNameHolder = StringTrimLeft(variables.A_LoopField29, 5)
 variables.allFuncNamesNum += 1
 variables["allFuncNames" + variables.allFuncNamesNum] = await Trim (variables.funcNameHolder )
 }
 if (( variables.areWeInAFuncFromInstructionsLineNum == 3 ))
 {
 // all libs
-variables.funcLibsHolder = StringTrimLeft(variables.A_LoopField28, 5)
+variables.funcLibsHolder = StringTrimLeft(variables.A_LoopField29, 5)
 if (( variables.correctLang == 1) && (await InStr (variables.code , await Trim (variables.funcNameHolder) ) ))
 {
 variables.gg = 5
@@ -8984,7 +9142,7 @@ variables.gg = 5
 if (( variables.areWeInAFuncFromInstructionsLineNum == 4 ))
 {
 // func description
-variables.funcDescriptionHolder = StringTrimLeft(variables.A_LoopField28, 12)
+variables.funcDescriptionHolder = StringTrimLeft(variables.A_LoopField29, 12)
 if (( variables.correctLang == 1) && (await InStr (variables.code , await Trim (variables.funcNameHolder) ) ))
 {
 variables.gg = 5
@@ -8995,13 +9153,13 @@ if (( variables.areWeInAFuncFromInstructionsLineNum >= 5 ))
 // the full func
 if (( variables.correctLang == 1) && (await InStr (variables.code , await Trim (variables.funcNameHolder) ) ))
 {
-variables.funcFuncHolder += variables.A_LoopField28 + "\n"
+variables.funcFuncHolder += variables.A_LoopField29 + "\n"
 }
 }
-//MsgBox, % A_LoopField28
+//MsgBox, % A_LoopField29
 variables.areWeInAFuncFromInstructionsLineNum += 1
 }
-if (( await Trim (variables.A_LoopField28) == "func======================func==============" ))
+if (( await Trim (variables.A_LoopField29) == "func======================func==============" ))
 {
 variables.areWeInAFuncFromInstructions = 1
 variables.areWeInAFuncFromInstructionsLineNum = 1
@@ -9019,28 +9177,28 @@ variables.correctLang = 0
 //~ MsgBox, ===========================================================================
 variables.upCode = await Chr (60) + await Chr (33) + await Chr (100) + await Chr (111) + await Chr (99) + await Chr (116) + await Chr (121) + await Chr (112) + await Chr (101) + await Chr (32) + await Chr (104) + await Chr (116) + await Chr (109) + await Chr (108) + await Chr (62) + await Chr (10) + await Chr (60) + await Chr (104) + await Chr (116) + await Chr (109) + await Chr (108) + await Chr (32) + await Chr (108) + await Chr (97) + await Chr (110) + await Chr (103) + await Chr (61) + await Chr (34) + await Chr (101) + await Chr (110) + await Chr (34) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (104) + await Chr (101) + await Chr (97) + await Chr (100) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (109) + await Chr (101) + await Chr (116) + await Chr (97) + await Chr (32) + await Chr (99) + await Chr (104) + await Chr (97) + await Chr (114) + await Chr (115) + await Chr (101) + await Chr (116) + await Chr (61) + await Chr (34) + await Chr (85) + await Chr (84) + await Chr (70) + await Chr (45) + await Chr (56) + await Chr (34) + await Chr (32) + await Chr (47) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (109) + await Chr (101) + await Chr (116) + await Chr (97) + await Chr (32) + await Chr (110) + await Chr (97) + await Chr (109) + await Chr (101) + await Chr (61) + await Chr (34) + await Chr (118) + await Chr (105) + await Chr (101) + await Chr (119) + await Chr (112) + await Chr (111) + await Chr (114) + await Chr (116) + await Chr (34) + await Chr (32) + await Chr (99) + await Chr (111) + await Chr (110) + await Chr (116) + await Chr (101) + await Chr (110) + await Chr (116) + await Chr (61) + await Chr (34) + await Chr (119) + await Chr (105) + await Chr (100) + await Chr (116) + await Chr (104) + await Chr (61) + await Chr (100) + await Chr (101) + await Chr (118) + await Chr (105) + await Chr (99) + await Chr (101) + await Chr (45) + await Chr (119) + await Chr (105) + await Chr (100) + await Chr (116) + await Chr (104) + await Chr (44) + await Chr (32) + await Chr (105) + await Chr (110) + await Chr (105) + await Chr (116) + await Chr (105) + await Chr (97) + await Chr (108) + await Chr (45) + await Chr (115) + await Chr (99) + await Chr (97) + await Chr (108) + await Chr (101) + await Chr (61) + await Chr (49) + await Chr (46) + await Chr (48) + await Chr (34) + await Chr (32) + await Chr (47) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (116) + await Chr (105) + await Chr (116) + await Chr (108) + await Chr (101) + await Chr (62) + await Chr (72) + await Chr (84) + await Chr (86) + await Chr (77) + await Chr (32) + await Chr (73) + await Chr (68) + await Chr (69) + await Chr (60) + await Chr (47) + await Chr (116) + await Chr (105) + await Chr (116) + await Chr (108) + await Chr (101) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (116) + await Chr (121) + await Chr (108) + await Chr (101) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (98) + await Chr (111) + await Chr (100) + await Chr (121) + await Chr (32) + await Chr (123) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (98) + await Chr (97) + await Chr (99) + await Chr (107) + await Chr (103) + await Chr (114) + await Chr (111) + await Chr (117) + await Chr (110) + await Chr (100) + await Chr (45) + await Chr (99) + await Chr (111) + await Chr (108) + await Chr (111) + await Chr (114) + await Chr (58) + await Chr (32) + await Chr (35) + await Chr (50) + await Chr (48) + await Chr (50) + await Chr (48) + await Chr (50) + await Chr (48) + await Chr (59) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (102) + await Chr (111) + await Chr (110) + await Chr (116) + await Chr (45) + await Chr (102) + await Chr (97) + await Chr (109) + await Chr (105) + await Chr (108) + await Chr (121) + await Chr (58) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (34) + await Chr (79) + await Chr (112) + await Chr (101) + await Chr (110) + await Chr (32) + await Chr (83) + await Chr (97) + await Chr (110) + await Chr (115) + await Chr (34) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (45) + await Chr (97) + await Chr (112) + await Chr (112) + await Chr (108) + await Chr (101) + await Chr (45) + await Chr (115) + await Chr (121) + await Chr (115) + await Chr (116) + await Chr (101) + await Chr (109) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (66) + await Chr (108) + await Chr (105) + await Chr (110) + await Chr (107) + await Chr (77) + await Chr (97) + await Chr (99) + await Chr (83) + await Chr (121) + await Chr (115) + await Chr (116) + await Chr (101) + await Chr (109) + await Chr (70) + await Chr (111) + await Chr (110) + await Chr (116) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (34) + await Chr (83) + await Chr (101) + await Chr (103) + await Chr (111) + await Chr (101) + await Chr (32) + await Chr (85) + await Chr (73) + await Chr (34) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (82) + await Chr (111) + await Chr (98) + await Chr (111) + await Chr (116) + await Chr (111) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (79) + await Chr (120) + await Chr (121) + await Chr (103) + await Chr (101) + await Chr (110) + await Chr (45) + await Chr (83) + await Chr (97) + await Chr (110) + await Chr (115) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (85) + await Chr (98) + await Chr (117) + await Chr (110) + await Chr (116) + await Chr (117) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (67) + await Chr (97) + await Chr (110) + await Chr (116) + await Chr (97) + await Chr (114) + await Chr (101) + await Chr (108) + await Chr (108) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (34) + await Chr (72) + await Chr (101) + await Chr (108) + await Chr (118) + await Chr (101) + await Chr (116) + await Chr (105) + await Chr (99) + await Chr (97) + await Chr (32) + await Chr (78) + await Chr (101) + await Chr (117) + await Chr (101) + await Chr (34) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (72) + await Chr (101) + await Chr (108) + await Chr (118) + await Chr (101) + await Chr (116) + await Chr (105) + await Chr (99) + await Chr (97) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (65) + await Chr (114) + await Chr (105) + await Chr (97) + await Chr (108) + await Chr (44) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (115) + await Chr (97) + await Chr (110) + await Chr (115) + await Chr (45) + await Chr (115) + await Chr (101) + await Chr (114) + await Chr (105) + await Chr (102) + await Chr (59) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (125) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (116) + await Chr (121) + await Chr (108) + await Chr (101) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (100) + await Chr (101) + await Chr (108) + await Chr (105) + await Chr (118) + await Chr (114) + await Chr (46) + await Chr (110) + await Chr (101) + await Chr (116) + await Chr (47) + await Chr (110) + await Chr (112) + await Chr (109) + await Chr (47) + await Chr (115) + await Chr (119) + await Chr (101) + await Chr (101) + await Chr (116) + await Chr (97) + await Chr (108) + await Chr (101) + await Chr (114) + await Chr (116) + await Chr (50) + await Chr (64) + await Chr (49) + await Chr (49) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (10) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (33) + await Chr (45) + await Chr (45) + await Chr (32) + await Chr (73) + await Chr (110) + await Chr (99) + await Chr (108) + await Chr (117) + await Chr (100) + await Chr (101) + await Chr (32) + await Chr (65) + await Chr (99) + await Chr (101) + await Chr (32) + await Chr (69) + await Chr (100) + await Chr (105) + await Chr (116) + await Chr (111) + await Chr (114) + await Chr (32) + await Chr (67) + await Chr (68) + await Chr (78) + await Chr (32) + await Chr (45) + await Chr (45) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (106) + await Chr (115) + await Chr (46) + await Chr (99) + await Chr (108) + await Chr (111) + await Chr (117) + await Chr (100) + await Chr (102) + await Chr (108) + await Chr (97) + await Chr (114) + await Chr (101) + await Chr (46) + await Chr (99) + await Chr (111) + await Chr (109) + await Chr (47) + await Chr (97) + await Chr (106) + await Chr (97) + await Chr (120) + await Chr (47) + await Chr (108) + await Chr (105) + await Chr (98) + await Chr (115) + await Chr (47) + await Chr (97) + await Chr (99) + await Chr (101) + await Chr (47) + await Chr (49) + await Chr (46) + await Chr (51) + await Chr (50) + await Chr (46) + await Chr (50) + await Chr (47) + await Chr (97) + await Chr (99) + await Chr (101) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (34) + await Chr (32) + await Chr (105) + await Chr (110) + await Chr (116) + await Chr (101) + await Chr (103) + await Chr (114) + await Chr (105) + await Chr (116) + await Chr (121) + await Chr (61) + await Chr (34) + await Chr (115) + await Chr (104) + await Chr (97) + await Chr (53) + await Chr (49) + await Chr (50) + await Chr (45) + await Chr (74) + await Chr (76) + await Chr (73) + await Chr (82) + await Chr (108) + await Chr (120) + await Chr (87) + await Chr (104) + await Chr (57) + await Chr (54) + await Chr (115) + await Chr (78) + await Chr (68) + await Chr (51) + await Chr (117) + await Chr (85) + await Chr (103) + await Chr (73) + await Chr (50) + await Chr (82) + await Chr (86) + await Chr (72) + await Chr (90) + await Chr (74) + await Chr (112) + await Chr (103) + await Chr (107) + await Chr (87) + await Chr (72) + await Chr (103) + await Chr (51) + await Chr (43) + await Chr (120) + await Chr (111) + await Chr (85) + await Chr (89) + await Chr (56) + await Chr (88) + await Chr (107) + await Chr (103) + await Chr (84) + await Chr (80) + await Chr (75) + await Chr (112) + await Chr (113) + await Chr (82) + await Chr (97) + await Chr (113) + await Chr (100) + await Chr (107) + await Chr (55) + await Chr (122) + await Chr (68) + await Chr (47) + await Chr (99) + await Chr (107) + await Chr (47) + await Chr (88) + await Chr (72) + await Chr (88) + await Chr (70) + await Chr (83) + await Chr (77) + await Chr (87) + await Chr (56) + await Chr (52) + await Chr (111) + await Chr (54) + await Chr (71) + await Chr (114) + await Chr (80) + await Chr (54) + await Chr (55) + await Chr (100) + await Chr (108) + await Chr (113) + await Chr (78) + await Chr (51) + await Chr (98) + await Chr (57) + await Chr (56) + await Chr (78) + await Chr (66) + await Chr (47) + await Chr (121) + await Chr (65) + await Chr (61) + await Chr (61) + await Chr (34) + await Chr (32) + await Chr (99) + await Chr (114) + await Chr (111) + await Chr (115) + await Chr (115) + await Chr (111) + await Chr (114) + await Chr (105) + await Chr (103) + await Chr (105) + await Chr (110) + await Chr (61) + await Chr (34) + await Chr (97) + await Chr (110) + await Chr (111) + await Chr (110) + await Chr (121) + await Chr (109) + await Chr (111) + await Chr (117) + await Chr (115) + await Chr (34) + await Chr (32) + await Chr (114) + await Chr (101) + await Chr (102) + await Chr (101) + await Chr (114) + await Chr (114) + await Chr (101) + await Chr (114) + await Chr (112) + await Chr (111) + await Chr (108) + await Chr (105) + await Chr (99) + await Chr (121) + await Chr (61) + await Chr (34) + await Chr (110) + await Chr (111) + await Chr (45) + await Chr (114) + await Chr (101) + await Chr (102) + await Chr (101) + await Chr (114) + await Chr (114) + await Chr (101) + await Chr (114) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (32) + await Chr (115) + await Chr (114) + await Chr (99) + await Chr (61) + await Chr (34) + await Chr (104) + await Chr (116) + await Chr (116) + await Chr (112) + await Chr (115) + await Chr (58) + await Chr (47) + await Chr (47) + await Chr (99) + await Chr (100) + await Chr (110) + await Chr (106) + await Chr (115) + await Chr (46) + await Chr (99) + await Chr (108) + await Chr (111) + await Chr (117) + await Chr (100) + await Chr (102) + await Chr (108) + await Chr (97) + await Chr (114) + await Chr (101) + await Chr (46) + await Chr (99) + await Chr (111) + await Chr (109) + await Chr (47) + await Chr (97) + await Chr (106) + await Chr (97) + await Chr (120) + await Chr (47) + await Chr (108) + await Chr (105) + await Chr (98) + await Chr (115) + await Chr (47) + await Chr (97) + await Chr (99) + await Chr (101) + await Chr (47) + await Chr (49) + await Chr (46) + await Chr (52) + await Chr (46) + await Chr (49) + await Chr (50) + await Chr (47) + await Chr (101) + await Chr (120) + await Chr (116) + await Chr (45) + await Chr (108) + await Chr (97) + await Chr (110) + await Chr (103) + await Chr (117) + await Chr (97) + await Chr (103) + await Chr (101) + await Chr (95) + await Chr (116) + await Chr (111) + await Chr (111) + await Chr (108) + await Chr (115) + await Chr (46) + await Chr (106) + await Chr (115) + await Chr (34) + await Chr (32) + await Chr (99) + await Chr (114) + await Chr (111) + await Chr (115) + await Chr (115) + await Chr (111) + await Chr (114) + await Chr (105) + await Chr (103) + await Chr (105) + await Chr (110) + await Chr (61) + await Chr (34) + await Chr (97) + await Chr (110) + await Chr (111) + await Chr (110) + await Chr (121) + await Chr (109) + await Chr (111) + await Chr (117) + await Chr (115) + await Chr (34) + await Chr (32) + await Chr (114) + await Chr (101) + await Chr (102) + await Chr (101) + await Chr (114) + await Chr (114) + await Chr (101) + await Chr (114) + await Chr (112) + await Chr (111) + await Chr (108) + await Chr (105) + await Chr (99) + await Chr (121) + await Chr (61) + await Chr (34) + await Chr (110) + await Chr (111) + await Chr (45) + await Chr (114) + await Chr (101) + await Chr (102) + await Chr (101) + await Chr (114) + await Chr (114) + await Chr (101) + await Chr (114) + await Chr (34) + await Chr (62) + await Chr (60) + await Chr (47) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (47) + await Chr (104) + await Chr (101) + await Chr (97) + await Chr (100) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (98) + await Chr (111) + await Chr (100) + await Chr (121) + await Chr (62) + await Chr (10) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (32) + await Chr (60) + await Chr (115) + await Chr (99) + await Chr (114) + await Chr (105) + await Chr (112) + await Chr (116) + await Chr (62) + "\n      // JavaScript equivalent code with variables\n\n      function changeFaviconAtTheBeginning(faviconUrl) {\n        // Create a new favicon link element\n        const newFavicon = document.createElement(" + await Chr (34) + "link" + await Chr (34) + ");\n        newFavicon.rel = " + await Chr (34) + "icon" + await Chr (34) + ";\n        newFavicon.href = faviconUrl;\n\n        // Get the current favicon element (if exists)\n        const existingFavicon = document.querySelector('link[rel=" + await Chr (34) + "icon" + await Chr (34) + "]');\n\n        // Replace the current favicon with the new one\n        if (existingFavicon) {\n          // If a favicon exists, replace it\n          document.head.removeChild(existingFavicon); // Remove the existing favicon\n        }\n\n        // Append the new favicon to the head\n        document.head.appendChild(newFavicon);\n      }\n\n      // Call the function with the desired favicon URL\n      changeFaviconAtTheBeginning(" + await Chr (34) + "https://i.ibb.co/Jpty1B8/305182938-1a0efe63-726e-49ca-a13c-d0ed627f2ea7.png" + await Chr (34) + ");\n\n      function showCustomMessageBox(options, title, text, value, timeout) {\n        return new Promise((resolve) => {\n          // Define default options for the message box\n          let defaultOptions = {\n            title: title || " + await Chr (34) + "" + await Chr (34) + ", // Default title is empty\n            text: text || " + await Chr (34) + "Press OK to continue." + await Chr (34) + ", // Default text if not provided\n            showCancelButton: false, // Default is to not show Cancel button\n            showDenyButton: false, // Default is to not show Deny button\n            confirmButtonText: " + await Chr (34) + "OK" + await Chr (34) + ", // Default text for OK button\n            focusConfirm: true, // Default focus on OK button\n          };\n\n          let numOriginal = value;\n\n          let num = numOriginal;\n\n          let done1 = 0;\n\n          let done2 = 0;\n\n          let done3 = 0;\n\n          let AIndex = 0;\n\n          for (AIndex = 1; AIndex <= 1; AIndex++) {\n            // this is about if you add always on top in a msgbox it will be removed in js cuz its kinda useless...\n            // becouse if you like adding always on top in ahk in js we dont realy do it so yeah\n            if (num >= 262144) {\n              num = num - 262144;\n              numOriginal = numOriginal - 262144;\n            }\n\n            if (num >= 256 && num < 500) {\n              num = num - 256;\n\n              done3 = 256;\n            }\n\n            if (num >= 512) {\n              num = num - 512;\n\n              done3 = 512;\n            }\n\n            if (num == 0) {\n              done1 = 0;\n\n              break;\n            }\n\n            if (num <= 6) {\n              done1 = num;\n\n              break;\n            }\n\n            if (num >= 64 && num < 64 * 2) {\n              done2 = 64;\n\n              if (num == 64) {\n                done1 = 0;\n\n                break;\n              } else {\n                done1 = num - 64;\n\n                break;\n              }\n            }\n\n            if (num >= 48 && num < 63) {\n              done2 = 48;\n\n              if (num == 48) {\n                done1 = 0;\n\n                break;\n              } else {\n                done1 = num - 48;\n\n                break;\n              }\n            }\n\n            if (num >= 32 && num < 47) {\n              done2 = 32;\n\n              if (num == 32) {\n                done1 = 0;\n\n                break;\n              } else {\n                done1 = num - 32;\n\n                break;\n              }\n            }\n\n            if (num >= 16 && num < 30) {\n              done2 = 16;\n\n              if (num == 16) {\n                done1 = 0;\n\n                break;\n              } else {\n                done1 = num - 16;\n\n                break;\n              }\n            }\n          }\n\n          let doneAdded = done1 + done2 + done3;\n\n          if (doneAdded !== numOriginal) {\n            // displayMessage(" + await Chr (34) + "The calc was wrong!" + await Chr (34) + ");\n          } else {\n            // displayMessage(" + await Chr (34) + "num was: " + await Chr (34) + " + numOriginal + " + await Chr (34) + "" + await Chr (92) + "ndone1: " + await Chr (34) + " + done1 + " + await Chr (34) + "" + await Chr (92) + "ndone2: " + await Chr (34) + " + done2 + " + await Chr (34) + "" + await Chr (92) + "ndone3: " + await Chr (34) + " + done3);\n          }\n\n          // Parse the value to determine the options for the message box\n          if (done1 === 1) defaultOptions.showCancelButton = true; // OK/Cancel in ahk but here it will show Ok/Cancel wiat its same haha\n\n          // not gonna work if you can make it work i will appreciate\n          //   if (done1 === 2) {\n          //     defaultOptions.showCancelButton = true; // Abort/Retry/Ignore\n          //     defaultOptions.showDenyButton = true;\n          //   }\n          if (done1 === 3) {\n            defaultOptions.showCancelButton = true; // Yes/No/Cancel in ahk but here it will show Ok/No/Cancel\n            defaultOptions.showDenyButton = true;\n          }\n          if (done1 === 4) {\n            // defaultOptions.showCancelButton = true;\n            defaultOptions.showDenyButton = true; // Yes/No in ahk but here it will show Ok/No\n          }\n          if (done1 === 5) {\n            defaultOptions.showCancelButton = true; // Retry/Cancel in ahk but here it will show Ok/Cancel tip you can write in the Msgbox press ok to retry\n          }\n          // not gonna work if you can make it work i will appreciate\n          //   if (done1 === 6) {\n          //     defaultOptions.showCancelButton = true; // Cancel/Try Again/Continue\n          //     defaultOptions.showDenyButton = true;\n          //   }\n\n          if (done2 === 16) defaultOptions.icon = " + await Chr (34) + "error" + await Chr (34) + "; // Icon Hand (stop/error)\n          if (done2 === 32) defaultOptions.icon = " + await Chr (34) + "question" + await Chr (34) + "; // Icon Question\n          if (done2 === 48) defaultOptions.icon = " + await Chr (34) + "warning" + await Chr (34) + "; // Icon Exclamation\n          if (done2 === 64) defaultOptions.icon = " + await Chr (34) + "info" + await Chr (34) + "; // Icon Asterisk (info)\n\n          if (done3 === 256) defaultOptions.focusDeny = true; // Makes the 3rd button the default\n          if (done3 === 512) defaultOptions.focusCancel = true; // Makes the 2nd button the default\n\n          // Set timeout if provided\n          if (timeout) {\n            defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds\n          }\n\n          // Merge default options with provided options\n          Object.assign(defaultOptions, options);\n\n          // Display the message box with the constructed options\n          Swal.fire(defaultOptions).then((result) => {\n            if (result.isConfirmed) {\n              resolve(" + await Chr (34) + "OK" + await Chr (34) + ");\n            } else if (result.isDenied) {\n              resolve(" + await Chr (34) + "No" + await Chr (34) + ");\n            } else {\n              resolve(" + await Chr (34) + "Cancel" + await Chr (34) + ");\n            }\n          });\n        });\n      }\n\n      var lastKeyPressed = " + await Chr (34) + "" + await Chr (34) + ";\n\n      function trackLastKeyPressed() {\n        document.addEventListener(" + await Chr (34) + "keydown" + await Chr (34) + ", function (event) {\n          lastKeyPressed = event.key;\n          // console.log(lastKeyPressed);\n        });\n      }\n\n      function getLastKeyPressed() {\n        return lastKeyPressed;\n      }\n\n      // Call the trackLastKeyPressed function to start tracking key presses\n      trackLastKeyPressed();\n\n      let lastInputTime = Date.now(); // Initialize with current timestamp\n      let startTimestamp = Date.now(); // Initialize with current timestamp\n\n      // Event listener to track user activity\n      function resetIdleTimer() {\n        lastInputTime = Date.now(); // Update last input time\n      }\n\n      document.addEventListener(" + await Chr (34) + "mousemove" + await Chr (34) + ", resetIdleTimer);\n      document.addEventListener(" + await Chr (34) + "keypress" + await Chr (34) + ", resetIdleTimer);\n\n      // Function to calculate time since last input event\n      function A_TimeIdle() {\n        return Date.now() - lastInputTime; // Calculate time difference\n      }\n\n      // Function to calculate tick count in milliseconds\n      function A_TickCount() {\n        return Date.now() - startTimestamp;\n      }\n\n      function GuiControl(action, id, param1, param2, param3, param4) {\n        const element = document.getElementById(id);\n        if (element) {\n          // Handle DOM elements\n          if (action === " + await Chr (34) + "move" + await Chr (34) + ") {\n            // Set position and size\n            element.style.left = param1 + " + await Chr (34) + "px" + await Chr (34) + ";\n            element.style.top = param2 + " + await Chr (34) + "px" + await Chr (34) + ";\n            element.style.width = param3 + " + await Chr (34) + "px" + await Chr (34) + ";\n            element.style.height = param4 + " + await Chr (34) + "px" + await Chr (34) + ";\n          } else if (action === " + await Chr (34) + "focus" + await Chr (34) + " && (element instanceof HTMLInputElement || element instanceof HTMLElement)) {\n            // Focus on the element\n            element.focus();\n          } else if (action === " + await Chr (34) + "text" + await Chr (34) + ") {\n            // Set new text content\n            element.textContent = param1;\n          } else if (action === " + await Chr (34) + "hide" + await Chr (34) + ") {\n            // Hide the element\n            element.style.display = " + await Chr (34) + "none" + await Chr (34) + ";\n          } else if (action === " + await Chr (34) + "show" + await Chr (34) + ") {\n            // Show the element\n            element.style.display = " + await Chr (34) + "" + await Chr (34) + ";\n          } else if (action === " + await Chr (34) + "enable" + await Chr (34) + ") {\n            // Enable the element\n            element.disabled = false;\n          } else if (action === " + await Chr (34) + "disable" + await Chr (34) + ") {\n            // Disable the element\n            element.disabled = true;\n          } else if (action === " + await Chr (34) + "font" + await Chr (34) + ") {\n            // Set font size\n            element.style.fontSize = param1 + " + await Chr (34) + "px" + await Chr (34) + ";\n          } else if (action === " + await Chr (34) + "destroy" + await Chr (34) + ") {\n            // Remove the element from the DOM\n            element.parentNode.removeChild(element);\n          } else if (action === " + await Chr (34) + "color" + await Chr (34) + ") {\n            // Set color\n            element.style.color = param1;\n          } else if (action === " + await Chr (34) + "picture" + await Chr (34) + ") {\n            // Change the image source\n            if (element instanceof HTMLImageElement) {\n              element.src = param1;\n            } else {\n              console.error(" + await Chr (34) + "Element is not an <img> tag, cannot change picture." + await Chr (34) + ");\n            }\n          } else if (action === " + await Chr (34) + "textide" + await Chr (34) + ") {\n            // Set value for Ace editor\n            var editor = ace.edit(id); // Access the Ace editor instance using its ID\n            if (editor && param1) {\n              editor.session.setValue(param1);\n            } else {\n              console.error(" + await Chr (34) + "Element is not an Ace editor or parameter is missing." + await Chr (34) + ");\n            }\n          }\n        } else {\n          // Handle canvas or non-existing element\n          if (action === " + await Chr (34) + "move" + await Chr (34) + ") {\n            // Update position and size of the rectangle\n            updateRectangle(id, param1, param2, param3, param4);\n            redrawCanvas(); // Redraw the canvas with updated rectangles\n          } else if (action === " + await Chr (34) + "color" + await Chr (34) + ") {\n            // Update color of the rectangle\n            updateRectangleColor(id, param1);\n            redrawCanvas(); // Redraw the canvas with updated rectangles\n          }\n        }\n      }\n\n      function BuildInVars(varName) {\n        switch (varName) {\n          case " + await Chr (34) + "A_ScreenWidth" + await Chr (34) + ":\n            // Return screen width\n            return window.innerWidth;\n          case " + await Chr (34) + "A_LastKey" + await Chr (34) + ":\n            // Return screen width\n            return getLastKeyPressed();\n          case " + await Chr (34) + "A_ScreenHeight" + await Chr (34) + ":\n            // Return screen height\n            return window.innerHeight;\n          case " + await Chr (34) + "A_TimeIdle" + await Chr (34) + ":\n            // Return time idle\n            return A_TimeIdle();\n          case " + await Chr (34) + "A_TickCount" + await Chr (34) + ":\n            // Return tick count in milliseconds\n            return A_TickCount();\n          case " + await Chr (34) + "A_Now" + await Chr (34) + ":\n            // Return current local timestamp\n            return new Date().toLocaleString();\n          case " + await Chr (34) + "A_YYYY" + await Chr (34) + ":\n            // Return current year\n            return new Date().getFullYear();\n          case " + await Chr (34) + "A_MM" + await Chr (34) + ":\n            // Return current month\n            return (new Date().getMonth() + 1).toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_DD" + await Chr (34) + ":\n            // Return current day\n            return new Date().getDate().toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_MMMM" + await Chr (34) + ":\n            // Return full month name\n            return new Date().toLocaleDateString(undefined, { month: " + await Chr (34) + "long" + await Chr (34) + " });\n          case " + await Chr (34) + "A_MMM" + await Chr (34) + ":\n            // Return short month name\n            return new Date().toLocaleDateString(undefined, { month: " + await Chr (34) + "short" + await Chr (34) + " });\n          case " + await Chr (34) + "A_DDDD" + await Chr (34) + ":\n            // Return full day name\n            return new Date().toLocaleDateString(undefined, { weekday: " + await Chr (34) + "long" + await Chr (34) + " });\n          case " + await Chr (34) + "A_DDD" + await Chr (34) + ":\n            // Return short day name\n            return new Date().toLocaleDateString(undefined, { weekday: " + await Chr (34) + "short" + await Chr (34) + " });\n          case " + await Chr (34) + "A_Hour" + await Chr (34) + ":\n            // Return current hour\n            return new Date().getHours().toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_Min" + await Chr (34) + ":\n            // Return current minute\n            return new Date().getMinutes().toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_Sec" + await Chr (34) + ":\n            // Return current second\n            return new Date().getSeconds().toString().padStart(2, " + await Chr (34) + "0" + await Chr (34) + ");\n          case " + await Chr (34) + "A_Space" + await Chr (34) + ":\n            // Return space character\n            return " + await Chr (34) + " " + await Chr (34) + ";\n          case " + await Chr (34) + "A_Tab" + await Chr (34) + ":\n            // Return tab character\n            return " + await Chr (34) + "" + await Chr (92) + "t" + await Chr (34) + ";\n\n          default:\n            // Handle unknown variable names\n            return null;\n        }\n      }\n\n      function Chr(number) {\n        // Check if the number is null\n        if (number === null) {\n          // Return an empty string\n          return " + await Chr (34) + "" + await Chr (34) + ";\n        }\n\n        // Check if the number is within the valid range\n        if (number >= 0 && number <= 0x10ffff) {\n          // Convert the number to a character using String.fromCharCode\n          return String.fromCharCode(number);\n        } else {\n          // Return an empty string for invalid numbers\n          return " + await Chr (34) + "" + await Chr (34) + ";\n        }\n      }\n\n      // Define the custom " + await Chr (34) + "ht" + await Chr (34) + " language for Ace Editor with AHK rules\n      ace.define(" + await Chr (34) + "ace/mode/ht" + await Chr (34) + ", [" + await Chr (34) + "require" + await Chr (34) + ", " + await Chr (34) + "exports" + await Chr (34) + ", " + await Chr (34) + "module" + await Chr (34) + ", " + await Chr (34) + "ace/lib/oop" + await Chr (34) + ", " + await Chr (34) + "ace/mode/text" + await Chr (34) + ", " + await Chr (34) + "ace/mode/text_highlight_rules" + await Chr (34) + "], function (require, exports, module) {\n        var oop = require(" + await Chr (34) + "ace/lib/oop" + await Chr (34) + ");\n        var TextMode = require(" + await Chr (34) + "ace/mode/text" + await Chr (34) + ").Mode;\n        var TextHighlightRules = require(" + await Chr (34) + "ace/mode/text_highlight_rules" + await Chr (34) + ").TextHighlightRules;\n\n        var HTHighlightRules = function () {\n          this.$rules = {\n            start: ["
 variables.keyWordsCommandsFolrmated = ""
-var items29 = LoopParseFunc(variables.keyWordsCommands, "|");
-for (/* Loop Parse */ let A_Index29 = 1; A_Index29 <= items29.length; A_Index29++)
-{
-variables.A_Index29 = A_Index29
-variables.A_LoopField29 = items29[A_Index29 - 1];
-var items30 = LoopParseFunc(variables.A_LoopField29, ",");
+var items30 = LoopParseFunc(variables.keyWordsCommands, "|");
 for (/* Loop Parse */ let A_Index30 = 1; A_Index30 <= items30.length; A_Index30++)
 {
 variables.A_Index30 = A_Index30
 variables.A_LoopField30 = items30[A_Index30 - 1];
-if (( variables.A_Index30 == 1 ))
+var items31 = LoopParseFunc(variables.A_LoopField30, ",");
+for (/* Loop Parse */ let A_Index31 = 1; A_Index31 <= items31.length; A_Index31++)
 {
-variables.keyWordsCommandsFolrmated += variables.A_LoopField30 + "|"
+variables.A_Index31 = A_Index31
+variables.A_LoopField31 = items31[A_Index31 - 1];
+if (( variables.A_Index31 == 1 ))
+{
+variables.keyWordsCommandsFolrmated += variables.A_LoopField31 + "|"
 }
 }
 }
 variables.keyWordsCommandsFolrmated = StringTrimRight(variables.keyWordsCommandsFolrmated, 1)
 variables.keywords = variables.keyWordIF + "|" + variables.keyWordElseIf + "|" + variables.keyWordElse + "|def obj|prop|crew|alliance|method|" + variables.keyWordWhileLoop + "|" + variables.keyWordForLoop + "|" + variables.keyWordLoopInfinite + "|" + variables.keyWordLoop + "|" + variables.keyWordLoopParse + "|" + variables.keyWordContinue + "|" + variables.keyWordBreak + "|" + variables.keyWordFunc + "|" + variables.keyWordAwait + "|" + variables.keyWordSwitch + "|" + variables.keyWordSwitchCase + "|" + variables.keyWordThrow + "|" + variables.keyWordTry + "|" + variables.keyWordCatch + "|" + variables.keyWordFinally + "|" + variables.keyWordJavaScriptVar + "|" + variables.keyWordJavaScriptLet + "|" + variables.keyWordJavaScriptConst + "|" + variables.keyWordReturnStatement + "|" + variables.keyWordEnd
 variables.functionsForHighlighting = ""
-for (/* Normal Loop */ variables.A_Index31 = 1; variables.A_Index31 <= variables.allFuncNamesNum; variables.A_Index31++)
+for (/* Normal Loop */ variables.A_Index32 = 1; variables.A_Index32 <= variables.allFuncNamesNum; variables.A_Index32++)
 {
-variables.functionsForHighlighting += variables["allFuncNames" + variables.A_Index31] + "|"
+variables.functionsForHighlighting += variables["allFuncNames" + variables.A_Index32] + "|"
 }
 variables.functionsForHighlighting += variables.keyWordErrorMsg
 variables.keyWordArrayMethods = variables.keyWordArrayAppend + "|" + variables.keyWordArrayPop + "|" + variables.keyWordArraySize + "|" + variables.keyWordArrayInsert + "|" + variables.keyWordArrayRemove + "|" + variables.keyWordArrayIndexOf
@@ -9050,12 +9208,12 @@ variables.keyWordTypes = variables.keyWordINT + "|" + variables.keyWordSTR + "|v
 variables.autoCompleteUp = "["
 variables.autoCompleteALLTemp = variables.keywords + "|" + variables.keyWordsCommandsFolrmated + "|" + variables.functionsForHighlighting + "|" + variables.keyWordALoopField + "|this|def obj|prop|crew|alliance|method|" + variables.keyWordAIndex + "|" + variables.keyWordArrayMethods + "|" + variables.keyWordTypes + "|" + variables.keyWordGlobal + "|this"
 variables.autoCompleteALL = ""
-var items32 = LoopParseFunc(variables.autoCompleteALLTemp, "|");
-for (/* Loop Parse */ let A_Index32 = 1; A_Index32 <= items32.length; A_Index32++)
+var items33 = LoopParseFunc(variables.autoCompleteALLTemp, "|");
+for (/* Loop Parse */ let A_Index33 = 1; A_Index33 <= items33.length; A_Index33++)
 {
-variables.A_Index32 = A_Index32
-variables.A_LoopField32 = items32[A_Index32 - 1];
-variables.autoCompleteALL += "{ name: " + await Chr (34) + await Trim (variables.A_LoopField32) + await Chr (34) + " }, "
+variables.A_Index33 = A_Index33
+variables.A_LoopField33 = items33[A_Index33 - 1];
+variables.autoCompleteALL += "{ name: " + await Chr (34) + await Trim (variables.A_LoopField33) + await Chr (34) + " }, "
 }
 variables.autoCompleteALL = StringTrimRight(variables.autoCompleteALL, 2)
 variables.autoCompleteDown = "]"

@@ -1,5 +1,8 @@
 async function wait() { variables.htvmInstructionsFromRepo = await fetch("https://themaster1127.github.io/HTVM/HT-instructions.txt").then(res => res.text()); }; wait();
 
+FIXhtvmInstructionsFromRepoONCE := 0
+
+
 Gui 5: Show, w240 h100
 Gui 5: Font, s50
 Gui 5: Add, Text, x5 y5 w230 h35, Loading...
@@ -38,9 +41,42 @@ HTVM_HowManyProjectsButtonY := HTVM_HowManyProjectsButtonY + 50
 
 }
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+AScreenWidth := AScreenWidth - 30
+AScreenWidth2 := AScreenWidth - 20
+AScreenHeight := AScreenHeight - 30
+AScreenHeight2 := AScreenHeight - 50
+AScreenHeight3 := AScreenHeight2
+AScreenHeight2 := AScreenHeight2 - 20
+if (isMobileDevice())
+{
+Gui 6: Show, w%AScreenWidth% h%AScreenHeight%
+Gui 6: Font, s12
+Gui 6: Add, Edit, x10 y10 w%AScreenWidth2% h%AScreenHeight2% bg050505 cffffff vDisplayInfoData6
+Gui 6: Font, s15
+Gui 6: Add, Button, x10 y%AScreenHeight3% w%AScreenWidth2% h40 vButtonInfoOK gButtonInfoOK6, OK
+Gui 6: Hide
+}
+else
+{
+Gui 6: Show, w%AScreenWidth% h%AScreenHeight%
+Gui 6: Font, s16
+Gui 6: Add, Edit, x10 y10 w%AScreenWidth2% h%AScreenHeight2% bg050505 cffffff vDisplayInfoData6
+Gui 6: Font, s15
+Gui 6: Add, Button, x10 y%AScreenHeight3% w%AScreenWidth2% h40 vButtonInfoOK gButtonInfoOK6, OK
+Gui 6: Hide
+}
 
 Gui 5: Hide
 return
+
+ButtonInfoOK6:
+Gui 6: Hide
+Return
+
+
 
 ButtonProjects:
 if (A_GuiControl = "NewProject")
@@ -1144,7 +1180,7 @@ Gui, Font, s15
 guiEditY := guiEditY + 510
 Gui, Add, Button, x10 y%guiEditY% w140 h40 gBuildButton, Build
 Gui, Font, s13
-guiEditTextV := "Build Button Explanation:`n`nThe Build button allows you to download the programming language you just created, along with relevant files for its use.`n`n- Toggle all HTVM pre-made Built-in functions: This switch lets you choose whether to include or exclude HTVM's pre-made functions in your generated files. When toggled on, these built-in functions provided by HTVM will be integrated into the language, offering a wide range of functionalities that enhance the language's capabilities.`n`n- Download HT-instructions.txt: Clicking this button downloads a file containing specific instructions for the compiler to understand your language. This file is essential for ensuring the correct functioning of the language you've created.`n`n- Download IDE.html: This button allows you to download an HTML file containing an IDE tailored for the language you just created. It provides a convenient development environment accessible directly from your browser.`n`nBy clicking these buttons, you can export your custom language with or without HTVM's built-in functions and obtain all necessary components to start using your language effectively."
+guiEditTextV := "Build Button Explanation:`n`nThe Build button allows you to download the programming language you just created, along with relevant files for its use.`n`n- Toggle all HTVM pre-made Built-in functions: This switch lets you choose whether to include or exclude HTVM's pre-made functions in your generated files. When toggled on, these built-in functions provided by HTVM will be integrated into the language, offering a wide range of functionalities that enhance the language's capabilities.`n`n- Download simple_static_HTVM_editor.html: This button allows you to download a simple static HTML file containing a code editor tailored for the language you just created accessible directly from your browser.`n`n- Download HTVM IDE syntax config: The HTVM IDE syntax configuration customizes the editor to recognize and highlight specific elements of the HTVM language. It defines rules for syntax highlighting (e.g., keywords, comments, functions) and enables autocompletion for commonly used terms. This configuration enhances coding efficiency by providing visual cues and auto-suggestions as you type in the HTVM language. After downloading the file locate the index.html file in the IDE folder, and you will see htvm_syntax_highlighting_and_autocomplete.js. Open it for editing and replace everything in it with the text from htvm_syntax_highlighting_and_autocomplete.txt. Then, open or restart the IDE by pressing Ctrl+Shift+R.`n`nBy clicking these buttons, you can export your custom language with or without HTVM's built-in functions and obtain all necessary components to start using your language effectively."
 Gui, Add, Button, x%buttonX% y%guiEditY% w70 h28 r3 v%guiEditTextV% gButtonINFO bg181818 cffffff, INFO
 Gui, Font, s15
 
@@ -1658,7 +1694,9 @@ Return
 
 
 GettingStartedButton:
-MsgBox, Getting Started
+theDisplayInfoData6TEXT := "Welcome to HTVM - Create Your Dream Programming Language!`n`nThe coolest part? You can change ANY keyword to whatever you want!`nWant 'banana' instead of 'if'? Go for it!`nWant 'pizza' instead of 'while'? That works too!`n`nEvery option has an info button (INFO) next to it - click them to learn what each setting does!`n`nRemember:`n* All keywords are customizable`n* Click the info buttons to learn more`n* Have fun creating your perfect language!`n`nStart experimenting and make programming truly yours!"
+GuiControl 6: Text, DisplayInfoData6, %theDisplayInfoData6TEXT%
+Gui 6: Show
 Return
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2909,6 +2947,22 @@ ToggleMoreBuildInFuncsTEXT := ""
 }
 else
 {
+
+FIXhtvmInstructionsFromRepoONCE++
+if (FIXhtvmInstructionsFromRepoONCE = 1)
+{
+FIXhtvmInstructionsFromRepo := ""
+
+Loop, Parse, htvmInstructionsFromRepo, `n, `r
+{
+if (A_Index > 85)
+{
+FIXhtvmInstructionsFromRepo .= A_LoopField . "`n"
+}
+}
+StringTrimRight, htvmInstructionsFromRepo, FIXhtvmInstructionsFromRepo, 1
+}
+
 ToggleMoreBuildInFuncsTEXT := "`n`n" . htvmInstructionsFromRepo . "`n`n"
 }
 Gui 5: Hide
@@ -3060,7 +3114,7 @@ allFuncNamesForSavingItOut .= "`n" . bodyFuncTemp1 . bodyFuncTemp2 . bodyFuncTem
 }
 
 
-extraFuncNeedLoopParse := "`nfunc======================func==============`nlang: cpp`nname: LoopParseFunc`nlibs: #include <vector>|#include <string>|#include <regex>`ndescription: LoopParseFunc func is a func`n`n// Function to escape special characters for regex`nstd::string escapeRegex(const std::string& str) {`n    static const std::regex specialChars{R" . Chr(34) . "([-[" . Chr(92) . "]{}()*+?.," . Chr(92) . "^$|#" . Chr(92) . "s])" . Chr(34) . "};`n    return std::regex_replace(str, specialChars, R" . Chr(34) . "(" . Chr(92) . "$&)" . Chr(34) . ");`n}`n`n// Function to split a string based on delimiters`nstd::vector<std::string> LoopParseFunc(const std::string& var, const std::string& delimiter1 = " . Chr(34) . "" . Chr(34) . ", const std::string& delimiter2 = " . Chr(34) . "" . Chr(34) . ") {`n    std::vector<std::string> items;`n    if (delimiter1.empty() && delimiter2.empty()) {`n        // If no delimiters are provided, return a list of characters`n        for (char c : var) {`n            items.push_back(std::string(1, c));`n        }`n    } else {`n        // Escape delimiters for regex`n        std::string escapedDelimiters = escapeRegex(delimiter1 + delimiter2);`n        // Construct the regular expression pattern for splitting the string`n        std::string pattern = " . Chr(34) . "[" . Chr(34) . " + escapedDelimiters + " . Chr(34) . "]+" . Chr(34) . ";`n        std::regex regexPattern(pattern);`n        std::sregex_token_iterator iter(var.begin(), var.end(), regexPattern, -1);`n        std::sregex_token_iterator end;`n        while (iter != end) {`n            items.push_back(*iter++);`n        }`n    }`n    return items;`n}`n`nfuncEND======================funcEND==============`n`nfunc======================func==============`nlang: js`nname: LoopParseFunc`nlibs: null`ndescription: LoopParseFunc splits a string into an array based on specified delimiters or returns an array of characters if no delimiters are provided.`n`nfunction LoopParseFunc(varString, delimiter1=" . Chr(34) . "" . Chr(34) . ", delimiter2=" . Chr(34) . "" . Chr(34) . ") {`n    let items;`n    if (!delimiter1 && !delimiter2) {`n        // If no delimiters are provided, return an array of characters`n        items = [...varString];`n    } else {`n        // Construct the regular expression pattern for splitting the string`n        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[" . Chr(92) . "]" . Chr(92) . "" . Chr(92) . "]/g, '" . Chr(92) . "" . Chr(92) . "$&') + delimiter2.replace(/[.*+?^${}()|[" . Chr(92) . "]" . Chr(92) . "" . Chr(92) . "]/g, '" . Chr(92) . "" . Chr(92) . "$&') + ']+');`n        // Split the string using the constructed pattern`n        items = varString.split(pattern);`n    }`n    return items;`n}`n`nfuncEND======================funcEND==============`n`nfunc======================func==============`nlang: py`nname: LoopParseFunc`nlibs: import re`ndescription: LoopParseFunc splits a string into a list based on specified delimiters or returns a list of characters if no delimiters are provided.`n`ndef LoopParseFunc(var, delimiter1=" . Chr(34) . "" . Chr(34) . ", delimiter2=" . Chr(34) . "" . Chr(34) . "):`n    if not delimiter1 and not delimiter2:`n        # If no delimiters are provided, return a list of characters`n        items = list(var)`n    else:`n        # Construct the regular expression pattern for splitting the string`n        pattern = r'[' + re.escape(delimiter1) + re.escape(delimiter2) + r']+'`n        # Split the string using the constructed pattern`n        items = re.split(pattern, var)`n    return items`n`nfuncEND======================funcEND==============`n"
+extraFuncNeedLoopParse := "`n`n`nfunc======================func==============`nlang: cpp`nname: LoopParseFunc`nlibs: #include <vector>|#include <string>|#include <regex>`ndescription: LoopParseFunc func is a func`n`n// Function to escape special characters for regex`nstd::string escapeRegex(const std::string& str) {`n    static const std::regex specialChars{R" . Chr(34) . "([-[" . Chr(92) . "]{}()*+?.," . Chr(92) . "^$|#" . Chr(92) . "s])" . Chr(34) . "};`n    return std::regex_replace(str, specialChars, R" . Chr(34) . "(" . Chr(92) . "$&)" . Chr(34) . ");`n}`n`n// Function to split a string based on delimiters`nstd::vector<std::string> LoopParseFunc(const std::string& var, const std::string& delimiter1 = " . Chr(34) . "" . Chr(34) . ", const std::string& delimiter2 = " . Chr(34) . "" . Chr(34) . ") {`n    std::vector<std::string> items;`n    if (delimiter1.empty() && delimiter2.empty()) {`n        // If no delimiters are provided, return a list of characters`n        for (char c : var) {`n            items.push_back(std::string(1, c));`n        }`n    } else {`n        // Escape delimiters for regex`n        std::string escapedDelimiters = escapeRegex(delimiter1 + delimiter2);`n        // Construct the regular expression pattern for splitting the string`n        std::string pattern = " . Chr(34) . "[" . Chr(34) . " + escapedDelimiters + " . Chr(34) . "]+" . Chr(34) . ";`n        std::regex regexPattern(pattern);`n        std::sregex_token_iterator iter(var.begin(), var.end(), regexPattern, -1);`n        std::sregex_token_iterator end;`n        while (iter != end) {`n            items.push_back(*iter++);`n        }`n    }`n    return items;`n}`n`nfuncEND======================funcEND==============`n`nfunc======================func==============`nlang: js`nname: LoopParseFunc`nlibs: null`ndescription: LoopParseFunc splits a string into an array based on specified delimiters or returns an array of characters if no delimiters are provided.`n`nfunction LoopParseFunc(varString, delimiter1=" . Chr(34) . "" . Chr(34) . ", delimiter2=" . Chr(34) . "" . Chr(34) . ") {`n    let items;`n    if (!delimiter1 && !delimiter2) {`n        // If no delimiters are provided, return an array of characters`n        items = [...varString];`n    } else {`n        // Construct the regular expression pattern for splitting the string`n        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[" . Chr(92) . "]" . Chr(92) . "" . Chr(92) . "]/g, '" . Chr(92) . "" . Chr(92) . "$&') + delimiter2.replace(/[.*+?^${}()|[" . Chr(92) . "]" . Chr(92) . "" . Chr(92) . "]/g, '" . Chr(92) . "" . Chr(92) . "$&') + ']+');`n        // Split the string using the constructed pattern`n        items = varString.split(pattern);`n    }`n    return items;`n}`n`nfuncEND======================funcEND==============`n`nfunc======================func==============`nlang: py`nname: LoopParseFunc`nlibs: import re`ndescription: LoopParseFunc splits a string into a list based on specified delimiters or returns a list of characters if no delimiters are provided.`n`ndef LoopParseFunc(var, delimiter1=" . Chr(34) . "" . Chr(34) . ", delimiter2=" . Chr(34) . "" . Chr(34) . "):`n    if not delimiter1 and not delimiter2:`n        # If no delimiters are provided, return a list of characters`n        items = list(var)`n    else:`n        # Construct the regular expression pattern for splitting the string`n        pattern = r'[' + re.escape(delimiter1) + re.escape(delimiter2) + r']+'`n        # Split the string using the constructed pattern`n        items = re.split(pattern, var)`n    return items`n`nfuncEND======================funcEND==============`n`n`n"
 
 Gui 5: Show
 Sleep, 50
