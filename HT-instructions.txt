@@ -1,17 +1,17 @@
-cpp
-ht
+py
+htvm
 StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1,'param2|MsgBox,'param1
-int
-str
-bool
-float
-int8
-int16
-int32
-int64
-if
-else if
-else
+ant
+straing
+boooool
+flooat
+ant8
+ant16
+ant32
+ant64
+af
+alse af
+af
 while
 for
 Loop
@@ -21,23 +21,23 @@ continue
 break
 func
 await
-:=
-.=
+invasion
++=
 +=
 -=
 *=
 /=
 +
-.
-=
-!
->
-<
->=
-<=
-or
-&&
-!=
++
+=uk=
+nah
+mooo
+lessssss
+mooo=uk=
+lessssss=uk=
+o
+ind
+!!!===
 true
 false
 switch
@@ -48,7 +48,7 @@ ErrorMsg
 try
 catch
 finally
-.add
+.push
 .pop
 .size
 .insert
@@ -63,12 +63,12 @@ var
 let
 const
 return
-end
+shtop et mait
 global
-;
+ay
 '''1
 '''2
-`
+\
 0
 A_Index
 A_LoopField
@@ -76,92 +76,13 @@ main
 on
 on
 off
-off
+on
 on
 off
 cpp
-on
-on
-on
-
-
-func======================func==============
-lang: cpp
-name: LoopParseFunc
-libs: #include <vector>|#include <string>|#include <regex>
-description: LoopParseFunc func is a func
-
-// Function to escape special characters for regex
-std::string escapeRegex(const std::string& str) {
-    static const std::regex specialChars{R"([-[\]{}()*+?.,\^$|#\s])"};
-    return std::regex_replace(str, specialChars, R"(\$&)");
-}
-
-// Function to split a string based on delimiters
-std::vector<std::string> LoopParseFunc(const std::string& var, const std::string& delimiter1 = "", const std::string& delimiter2 = "") {
-    std::vector<std::string> items;
-    if (delimiter1.empty() && delimiter2.empty()) {
-        // If no delimiters are provided, return a list of characters
-        for (char c : var) {
-            items.push_back(std::string(1, c));
-        }
-    } else {
-        // Escape delimiters for regex
-        std::string escapedDelimiters = escapeRegex(delimiter1 + delimiter2);
-        // Construct the regular expression pattern for splitting the string
-        std::string pattern = "[" + escapedDelimiters + "]+";
-        std::regex regexPattern(pattern);
-        std::sregex_token_iterator iter(var.begin(), var.end(), regexPattern, -1);
-        std::sregex_token_iterator end;
-        while (iter != end) {
-            items.push_back(*iter++);
-        }
-    }
-    return items;
-}
-
-funcEND======================funcEND==============
-
-func======================func==============
-lang: js
-name: LoopParseFunc
-libs: null
-description: LoopParseFunc splits a string into an array based on specified delimiters or returns an array of characters if no delimiters are provided.
-
-function LoopParseFunc(varString, delimiter1="", delimiter2="") {
-    let items;
-    if (!delimiter1 && !delimiter2) {
-        // If no delimiters are provided, return an array of characters
-        items = [...varString];
-    } else {
-        // Construct the regular expression pattern for splitting the string
-        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + delimiter2.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ']+');
-        // Split the string using the constructed pattern
-        items = varString.split(pattern);
-    }
-    return items;
-}
-
-funcEND======================funcEND==============
-
-func======================func==============
-lang: py
-name: LoopParseFunc
-libs: import re
-description: LoopParseFunc splits a string into a list based on specified delimiters or returns a list of characters if no delimiters are provided.
-
-def LoopParseFunc(var, delimiter1="", delimiter2=""):
-    if not delimiter1 and not delimiter2:
-        # If no delimiters are provided, return a list of characters
-        items = list(var)
-    else:
-        # Construct the regular expression pattern for splitting the string
-        pattern = r'[' + re.escape(delimiter1) + re.escape(delimiter2) + r']+'
-        # Split the string using the constructed pattern
-        items = re.split(pattern, var)
-    return items
-
-funcEND======================funcEND==============
+off
+off
+off
 
 
 func======================func==============
@@ -173,7 +94,6 @@ description: null
 // add the function here
 
 funcEND======================funcEND==============
-
 
 
 func======================func==============
@@ -244,13 +164,7 @@ def LoopParseFunc(var, delimiter1="", delimiter2=""):
         items = re.split(pattern, var)
     return items
 funcEND======================funcEND==============
-func======================func==============
-lang: cpp
-name: HTVM_func1
-libs: null
-description: null
-// add the function here
-funcEND======================funcEND==============
+
 func======================func==============
 lang: cpp
 name: print
