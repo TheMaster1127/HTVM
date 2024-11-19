@@ -101,7 +101,7 @@ What makes HTVM powerful:
 - **Exception Management**
   - Try blocks
   - Catch blocks
-  - Finally blocks (except in C++)
+  - Finally blocks
   - Custom error messages
   - Throw statements
 
