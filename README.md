@@ -88,3 +88,7 @@ You can also include the optional parameter:
 ./HTVM main.ht HT-instructions.txt cpp
 ```
 
+## HTVM IDE
+
+ive made my own IDE
+
