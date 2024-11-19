@@ -545,48 +545,29 @@ HTVM includes a variety of built-in functions organized into categories for conv
 12. [Fileremovedir Is A Function To Remove A Directory If It Exists. Functions](#fileremovedir-is-a-function-to-remove-a-directory-if-it-exists.-functions)
 13. [Rounds Down A Floating-point Number To The Nearest Integer. Functions](#rounds-down-a-floating-point-number-to-the-nearest-integer.-functions)
 14. [Getparams Is A Func For Platform-specific Handling For Command-line Arguments And Getting Parameters. Functions](#getparams-is-a-func-for-platform-specific-handling-for-command-line-arguments-and-getting-parameters.-functions)
-15. [A Function That Handles Various Actions (move, Focus, Text, Hide, Show, Enable, Disable, Font, Destroy, Color, Picture, Textide) On Dom Elements, Divs, And Canvas Elements, Allowing For Dynamic Manipulation Based On The Specified Action. Functions](#a-function-that-handles-various-actions-(move,-focus,-text,-hide,-show,-enable,-disable,-font,-destroy,-color,-picture,-textide)-on-dom-elements,-divs,-and-canvas-elements,-allowing-for-dynamic-manipulation-based-on-the-specified-action.-functions)
-16. [A Function That Creates A Button Inside A Div With Customizable Appearance, Size, Position, And Click Behavior, Based On A Unique Button Id. Functions](#a-function-that-creates-a-button-inside-a-div-with-customizable-appearance,-size,-position,-and-click-behavior,-based-on-a-unique-button-id.-functions)
-17. [A Function To Create A Classic Checkbox With Customizable Position, Scaling, And Color. It Also Triggers A Specified Function When Checked Or Unchecked. Functions](#a-function-to-create-a-classic-checkbox-with-customizable-position,-scaling,-and-color.-it-also-triggers-a-specified-function-when-checked-or-unchecked.-functions)
-18. [A Function To Set The Background Color Of A Div Using A Specified Color. Functions](#a-function-to-set-the-background-color-of-a-div-using-a-specified-color.-functions)
-19. [A Function To Create And Populate A Dropdown List (select Element) Dynamically Within A Specified Parent Div, With Custom Styles, Options, And A Change Event Handler. Functions](#a-function-to-create-and-populate-a-dropdown-list-(select-element)-dynamically-within-a-specified-parent-div,-with-custom-styles,-options,-and-a-change-event-handler.-functions)
-20. [A Function That Creates A Textarea Input Inside A Div With Customizable Appearance, Size, Position, And Change Behavior, Based On A Unique Edit Id. Functions](#a-function-that-creates-a-textarea-input-inside-a-div-with-customizable-appearance,-size,-position,-and-change-behavior,-based-on-a-unique-edit-id.-functions)
-21. [A Function That Sets The Font Family For The Specified Div And All Its Child Elements, Including Buttons, Inputs, And Textareas. Functions](#a-function-that-sets-the-font-family-for-the-specified-div-and-all-its-child-elements,-including-buttons,-inputs,-and-textareas.-functions)
-22. [A Function That Sets The Font Family For The Specified Div And A Specific Element Within It By Id. Functions](#a-function-that-sets-the-font-family-for-the-specified-div-and-a-specific-element-within-it-by-id.-functions)
-23. [A Function To Hide An Html Element With A Specified Id By Setting Its Display Style To "none". Functions](#a-function-to-hide-an-html-element-with-a-specified-id-by-setting-its-display-style-to-"none".-functions)
-24. [A Function To Create And Display An Image Within A Div, With Optional Resizing, Positioning, And Rounded Corners. Functions](#a-function-to-create-and-display-an-image-within-a-div,-with-optional-resizing,-positioning,-and-rounded-corners.-functions)
-25. [A Function To Move And Resize A Div By Updating Its Position And Dimensions Based On Provided Values For X, Y, Width, And Height. Functions](#a-function-to-move-and-resize-a-div-by-updating-its-position-and-dimensions-based-on-provided-values-for-x,-y,-width,-and-height.-functions)
-26. [A Function That Creates Or Shows A Custom Styled Div On The Screen With Configurable Position, Size, And Appearance, Using A Unique Id To Manage It. Functions](#a-function-that-creates-or-shows-a-custom-styled-div-on-the-screen-with-configurable-position,-size,-and-appearance,-using-a-unique-id-to-manage-it.-functions)
-27. [A Function That Sets The Font Size For The Specified Div And All Its Child Elements, Including Buttons, Inputs, And Textareas. Functions](#a-function-that-sets-the-font-size-for-the-specified-div-and-all-its-child-elements,-including-buttons,-inputs,-and-textareas.-functions)
-28. [A Function That Sets The Font Size For The Specified Div And A Specific Element Within It By Id. Functions](#a-function-that-sets-the-font-size-for-the-specified-div-and-a-specific-element-within-it-by-id.-functions)
-29. [A Function That Creates A Text Element Inside A Div With Customizable Appearance, Size, Position, And Other Styles. Functions](#a-function-that-creates-a-text-element-inside-a-div-with-customizable-appearance,-size,-position,-and-other-styles.-functions)
-30. [A Function To Create A Toggle Switch With Customizable Positioning, Size, And Color. It Also Calls A Specified Function When Toggled. Functions](#a-function-to-create-a-toggle-switch-with-customizable-positioning,-size,-and-color.-it-also-calls-a-specified-function-when-toggled.-functions)
-31. [A Function That Updates The Properties (position, Size, Appearance) Of An Existing Div Or Creates A New One If It Doesn't Exist, Based On A Unique Id. Functions](#a-function-that-updates-the-properties-(position,-size,-appearance)-of-an-existing-div-or-creates-a-new-one-if-it-doesn't-exist,-based-on-a-unique-id.-functions)
-32. [Int Func Is A Func Functions](#int-func-is-a-func-functions)
-33. [Instr Func Is A Func Functions](#instr-func-is-a-func-functions)
-34. [A Function To Create A Hotkey. Functions](#a-function-to-create-a-hotkey.-functions)
-35. [Returns The Remainder Of The Division Of Two Integers. Functions](#returns-the-remainder-of-the-division-of-two-integers.-functions)
-36. [A Function That Displays A Custom Message Box With Options Like Title, Text, Buttons, Icon, And Timeout, Based On A Value Parameter That Determines Button Behavior. Functions](#a-function-that-displays-a-custom-message-box-with-options-like-title,-text,-buttons,-icon,-and-timeout,-based-on-a-value-parameter-that-determines-button-behavior.-functions)
-37. [Random Func Is A Func Functions](#random-func-is-a-func-functions)
-38. [Regexmatch Is A Function To Perform Regex Matching And Return The Match Position. Functions](#regexmatch-is-a-function-to-perform-regex-matching-and-return-the-match-position.-functions)
-39. [Regexreplace Is A Function To Perform Regex Replacement. Functions](#regexreplace-is-a-function-to-perform-regex-replacement.-functions)
-40. [Runcmd Is A Function To Run A System Command And Capture The Output. Functions](#runcmd-is-a-function-to-run-a-system-command-and-capture-the-output.-functions)
-41. [Str Func Is A Func Functions](#str-func-is-a-func-functions)
-42. [Sleep Func Is A Func Functions](#sleep-func-is-a-func-functions)
-43. [Sort Func Is A Func Functions](#sort-func-is-a-func-functions)
-44. [Strlen Func Is A Func Functions](#strlen-func-is-a-func-functions)
-45. [Converts All Characters In A String To Lowercase. Functions](#converts-all-characters-in-a-string-to-lowercase.-functions)
-46. [String Functions](#string-functions)
-47. [Splits A String By A Delimiter And Returns The Nth Split. Functions](#splits-a-string-by-a-delimiter-and-returns-the-nth-split.-functions)
-48. [Trims Characters From The Left Side Of The String Based On The Specified Number Of Characters. Functions](#trims-characters-from-the-left-side-of-the-string-based-on-the-specified-number-of-characters.-functions)
-49. [Trims Characters From The Right Side Of The String Based On The Specified Number Of Characters. Functions](#trims-characters-from-the-right-side-of-the-string-based-on-the-specified-number-of-characters.-functions)
-50. [Counts The Occurrences Of A Specific Character In A String. Functions](#counts-the-occurrences-of-a-specific-character-in-a-string.-functions)
-51. [Getdatafromapi Is A Function To Fetch Data From An Api. Functions](#getdatafromapi-is-a-function-to-fetch-data-from-an-api.-functions)
-52. [Geturlparams Is A Func Functions](#geturlparams-is-a-func-functions)
-53. [Input Func Is A Func Functions](#input-func-is-a-func-functions)
-54. [Iswindows Is A Function To Check If The Operating System Is Windows Functions](#iswindows-is-a-function-to-check-if-the-operating-system-is-windows-functions)
-55. [Hello That Is Func Mhm Functions](#hello-that-is-func-mhm-functions)
-56. [Function To Sort A String Array And Remove Duplicates. Functions](#function-to-sort-a-string-array-and-remove-duplicates.-functions)
+15. [Gui Functions](#gui-functions)
+16. [Int Func Is A Func Functions](#int-func-is-a-func-functions)
+17. [Instr Func Is A Func Functions](#instr-func-is-a-func-functions)
+18. [Hotkey Functions](#hotkey-functions)
+19. [Returns The Remainder Of The Division Of Two Integers. Functions](#returns-the-remainder-of-the-division-of-two-integers.-functions)
+20. [Random Func Is A Func Functions](#random-func-is-a-func-functions)
+21. [Regexmatch Is A Function To Perform Regex Matching And Return The Match Position. Functions](#regexmatch-is-a-function-to-perform-regex-matching-and-return-the-match-position.-functions)
+22. [Regexreplace Is A Function To Perform Regex Replacement. Functions](#regexreplace-is-a-function-to-perform-regex-replacement.-functions)
+23. [Runcmd Is A Function To Run A System Command And Capture The Output. Functions](#runcmd-is-a-function-to-run-a-system-command-and-capture-the-output.-functions)
+24. [Str Func Is A Func Functions](#str-func-is-a-func-functions)
+25. [Sleep Func Is A Func Functions](#sleep-func-is-a-func-functions)
+26. [Sort Func Is A Func Functions](#sort-func-is-a-func-functions)
+27. [Strlen Func Is A Func Functions](#strlen-func-is-a-func-functions)
+28. [Converts All Characters In A String To Lowercase. Functions](#converts-all-characters-in-a-string-to-lowercase.-functions)
+29. [String Functions](#string-functions)
+30. [Splits A String By A Delimiter And Returns The Nth Split. Functions](#splits-a-string-by-a-delimiter-and-returns-the-nth-split.-functions)
+31. [Trims Characters From The Left Side Of The String Based On The Specified Number Of Characters. Functions](#trims-characters-from-the-left-side-of-the-string-based-on-the-specified-number-of-characters.-functions)
+32. [Trims Characters From The Right Side Of The String Based On The Specified Number Of Characters. Functions](#trims-characters-from-the-right-side-of-the-string-based-on-the-specified-number-of-characters.-functions)
+33. [Getdatafromapi Is A Function To Fetch Data From An Api. Functions](#getdatafromapi-is-a-function-to-fetch-data-from-an-api.-functions)
+34. [Geturlparams Is A Func Functions](#geturlparams-is-a-func-functions)
+35. [Input Func Is A Func Functions](#input-func-is-a-func-functions)
+36. [Iswindows Is A Function To Check If The Operating System Is Windows Functions](#iswindows-is-a-function-to-check-if-the-operating-system-is-windows-functions)
+37. [Hello That Is Func Mhm Functions](#hello-that-is-func-mhm-functions)
 
 ---
 
@@ -1217,11 +1198,28 @@ Tan func calculates the tangent of an angle
 
 ---
 
-## A Function That Handles Various Actions (move, Focus, Text, Hide, Show, Enable, Disable, Font, Destroy, Color, Picture, Textide) On Dom Elements, Divs, And Canvas Elements, Allowing For Dynamic Manipulation Based On The Specified Action. Functions
+## Gui Functions
 
 [Go back](#built-in-functions)
 
 1. [GuiControl](#guicontrol)
+2. [Gui_Button](#gui_button)
+3. [Gui_CheckBox](#gui_checkbox)
+4. [Gui_Color](#gui_color)
+5. [Gui_DropDownList](#gui_dropdownlist)
+6. [Gui_Edit](#gui_edit)
+7. [Gui_Font](#gui_font)
+8. [Gui_Font_Id](#gui_font_id)
+9. [Gui_Hide](#gui_hide)
+10. [Gui_Image](#gui_image)
+11. [Gui_Move](#gui_move)
+12. [Gui_Show](#gui_show)
+13. [Gui_Size](#gui_size)
+14. [Gui_Size_Id](#gui_size_id)
+15. [Gui_Text](#gui_text)
+16. [Gui_Toggle](#gui_toggle)
+17. [Gui_Update](#gui_update)
+18. [MsgBox](#msgbox)
 
 ---
 
@@ -1232,12 +1230,29 @@ Tan func calculates the tangent of an angle
 | Functions | C++ | Python | JavaScript |
 |----------|----------|----------|----------|
 | GuiControl | No | No | Yes |
+| Gui_Button | No | No | Yes |
+| Gui_CheckBox | No | No | Yes |
+| Gui_Color | No | No | Yes |
+| Gui_DropDownList | No | No | Yes |
+| Gui_Edit | No | No | Yes |
+| Gui_Font | No | No | Yes |
+| Gui_Font_Id | No | No | Yes |
+| Gui_Hide | No | No | Yes |
+| Gui_Image | No | No | Yes |
+| Gui_Move | No | No | Yes |
+| Gui_Show | No | No | Yes |
+| Gui_Size | No | No | Yes |
+| Gui_Size_Id | No | No | Yes |
+| Gui_Text | No | No | Yes |
+| Gui_Toggle | No | No | Yes |
+| Gui_Update | No | No | Yes |
+| MsgBox | No | No | Yes |
 
 ---
 
 ### GuiControl
 
-[Go back](#a-function-that-handles-various-actions-(move,-focus,-text,-hide,-show,-enable,-disable,-font,-destroy,-color,-picture,-textide)-on-dom-elements,-divs,-and-canvas-elements,-allowing-for-dynamic-manipulation-based-on-the-specified-action.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1245,30 +1260,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | GuiControl | No | No | Yes |
 
-
----
-
-## A Function That Creates A Button Inside A Div With Customizable Appearance, Size, Position, And Click Behavior, Based On A Unique Button Id. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Button](#gui_button)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Button | No | No | Yes |
+GuiControl is a function that handles various DOM manipulations like moving, showing, hiding, and modifying elements based on the provided action and parameters.
+here is how the func looks like:
+```
+GuiControl(str action, str divId, str id, [any param1 = ?], [any param2 = ?], [any param3 = ?], [any param4 = ?])
+```
 
 ---
 
 ### Gui_Button
 
-[Go back](#a-function-that-creates-a-button-inside-a-div-with-customizable-appearance,-size,-position,-and-click-behavior,-based-on-a-unique-button-id.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1276,30 +1278,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Button | No | No | Yes |
 
-
----
-
-## A Function To Create A Classic Checkbox With Customizable Position, Scaling, And Color. It Also Triggers A Specified Function When Checked Or Unchecked. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_CheckBox](#gui_checkbox)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_CheckBox | No | No | Yes |
+Gui_Button is a function that creates a button inside a specified div and allows customization of its position, size, color, and click behavior.
+here is how the func looks like:
+```
+Gui_Button(str guiID, str buttonID, str buttonText, [int x = null], [int y = null], [int w = 150], [int h = 50], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onClickCallback = null])
+```
 
 ---
 
 ### Gui_CheckBox
 
-[Go back](#a-function-to-create-a-classic-checkbox-with-customizable-position,-scaling,-and-color.-it-also-triggers-a-specified-function-when-checked-or-unchecked.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1307,30 +1296,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_CheckBox | No | No | Yes |
 
-
----
-
-## A Function To Set The Background Color Of A Div Using A Specified Color. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Color](#gui_color)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Color | No | No | Yes |
+Gui_CheckBox is a function that creates a checkbox within a specified GUI element, allowing for custom label, position, color, initial checked state, and scaling. The checkbox is added to a specified parent div, and a callback function is executed when the checkbox state changes.
+here is how the func looks like:
+```
+Gui_CheckBox(str guiID, str id, str label, [str color = "#ffffff"], int leftPos, int topPos, func checkFunction, [bool isCheckedAtTheBeginning = false], [float scale = 1.5])
+```
 
 ---
 
 ### Gui_Color
 
-[Go back](#a-function-to-set-the-background-color-of-a-div-using-a-specified-color.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1338,30 +1314,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Color | No | No | Yes |
 
-
----
-
-## A Function To Create And Populate A Dropdown List (select Element) Dynamically Within A Specified Parent Div, With Custom Styles, Options, And A Change Event Handler. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_DropDownList](#gui_dropdownlist)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_DropDownList | No | No | Yes |
+Gui_Color is a function that sets the background color of a specific HTML element identified by the given guiID. If the element is not found, it logs a warning.
+here is how the func looks like:
+```
+Gui_Color(str guiID, str color)
+```
 
 ---
 
 ### Gui_DropDownList
 
-[Go back](#a-function-to-create-and-populate-a-dropdown-list-(select-element)-dynamically-within-a-specified-parent-div,-with-custom-styles,-options,-and-a-change-event-handler.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1369,30 +1332,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_DropDownList | No | No | Yes |
 
-
----
-
-## A Function That Creates A Textarea Input Inside A Div With Customizable Appearance, Size, Position, And Change Behavior, Based On A Unique Edit Id. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Edit](#gui_edit)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Edit | No | No | Yes |
+Gui_DropDownList is a function that creates a dropdown list (select element) with options from a string, sets styles, attaches an event listener for selection changes, and appends it to a specified parent element.
+here is how the func looks like:
+```
+Gui_DropDownList(parent, str id, str data, int leftPos, int topPos, int width, int height, str color, func onChangeFunction)
+```
 
 ---
 
 ### Gui_Edit
 
-[Go back](#a-function-that-creates-a-textarea-input-inside-a-div-with-customizable-appearance,-size,-position,-and-change-behavior,-based-on-a-unique-edit-id.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1400,30 +1350,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Edit | No | No | Yes |
 
-
----
-
-## A Function That Sets The Font Family For The Specified Div And All Its Child Elements, Including Buttons, Inputs, And Textareas. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Font](#gui_font)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Font | No | No | Yes |
+Gui_Edit is a function that creates a textarea element within a div, allowing customization of its appearance, position, and behavior, with optional parameters for width, height, colors, borders, and a callback for input changes.
+here is how the func looks like:
+```
+Gui_Edit(str guiID, str editID, str placeholderText, [int x = null], [int y = null], [int w = null], [int h = null], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onChangeCallback = null])
+```
 
 ---
 
 ### Gui_Font
 
-[Go back](#a-function-that-sets-the-font-family-for-the-specified-div-and-all-its-child-elements,-including-buttons,-inputs,-and-textareas.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1431,30 +1368,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Font | No | No | Yes |
 
-
----
-
-## A Function That Sets The Font Family For The Specified Div And A Specific Element Within It By Id. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Font_Id](#gui_font_id)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Font_Id | No | No | Yes |
+Gui_Font is a function that sets the font family for a specified element and all its descendants, including buttons, inputs, and textareas.
+here is how the func looks like:
+```
+Gui_Font(str divID, str fontFamily)
+```
 
 ---
 
 ### Gui_Font_Id
 
-[Go back](#a-function-that-sets-the-font-family-for-the-specified-div-and-a-specific-element-within-it-by-id.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1462,30 +1386,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Font_Id | No | No | Yes |
 
-
----
-
-## A Function To Hide An Html Element With A Specified Id By Setting Its Display Style To "none". Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Hide](#gui_hide)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Hide | No | No | Yes |
+Gui_Font_Id is a function that changes the font family of specified elements in the HTML document based on provided div and element IDs.
+here is how the func looks like:
+```
+Gui_Font_Id(str divID, str elementID, str fontFamily)
+```
 
 ---
 
 ### Gui_Hide
 
-[Go back](#a-function-to-hide-an-html-element-with-a-specified-id-by-setting-its-display-style-to-"none".-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1493,30 +1404,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Hide | No | No | Yes |
 
-
----
-
-## A Function To Create And Display An Image Within A Div, With Optional Resizing, Positioning, And Rounded Corners. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Image](#gui_image)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Image | No | No | Yes |
+Gui_Hide is a function that hides an HTML element by setting its display style to "none" based on the provided element ID.
+here is how the func looks like:
+```
+Gui_Hide(str elementId)
+```
 
 ---
 
 ### Gui_Image
 
-[Go back](#a-function-to-create-and-display-an-image-within-a-div,-with-optional-resizing,-positioning,-and-rounded-corners.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1524,30 +1422,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Image | No | No | Yes |
 
-
----
-
-## A Function To Move And Resize A Div By Updating Its Position And Dimensions Based On Provided Values For X, Y, Width, And Height. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Move](#gui_move)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Move | No | No | Yes |
+Gui_Image is a function that creates and displays an image within a specified div element on the webpage. It optionally sets the image's position, size, and corner roundness, while ensuring that the image maintains its aspect ratio if only one dimension is provided.
+here is how the func looks like:
+```
+Gui_Image(str guiID, str imageID, str imageUrl, [int x = null], [int y = null], [int w = null], [int h = null], [int roundness = null])
+```
 
 ---
 
 ### Gui_Move
 
-[Go back](#a-function-to-move-and-resize-a-div-by-updating-its-position-and-dimensions-based-on-provided-values-for-x,-y,-width,-and-height.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1555,30 +1440,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Move | No | No | Yes |
 
-
----
-
-## A Function That Creates Or Shows A Custom Styled Div On The Screen With Configurable Position, Size, And Appearance, Using A Unique Id To Manage It. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Show](#gui_show)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Show | No | No | Yes |
+Gui_Move is a function that moves or resizes a GUI element by modifying its position and dimensions based on the provided parameters.
+here is how the func looks like:
+```
+Gui_Move(str guiID, [int x = null], [int y = null], [int w = null], [int h = null])
+```
 
 ---
 
 ### Gui_Show
 
-[Go back](#a-function-that-creates-or-shows-a-custom-styled-div-on-the-screen-with-configurable-position,-size,-and-appearance,-using-a-unique-id-to-manage-it.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1586,30 +1458,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Show | No | No | Yes |
 
-
----
-
-## A Function That Sets The Font Size For The Specified Div And All Its Child Elements, Including Buttons, Inputs, And Textareas. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Size](#gui_size)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Size | No | No | Yes |
+Gui_Show is a function that displays a div element on the screen with customizable properties such as position, size, border, background color, and z-index. It creates the div if it doesn't exist and centers it by default.
+here is how the func looks like:
+```
+Gui_Show(guiID, [x], [y], [w], [h], [removeBorder = false], [color = '#121212'], [roundness], [zIndex])
+```
 
 ---
 
 ### Gui_Size
 
-[Go back](#a-function-that-sets-the-font-size-for-the-specified-div-and-all-its-child-elements,-including-buttons,-inputs,-and-textareas.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1617,30 +1476,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Size | No | No | Yes |
 
-
----
-
-## A Function That Sets The Font Size For The Specified Div And A Specific Element Within It By Id. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Size_Id](#gui_size_id)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Size_Id | No | No | Yes |
+Gui_Size is a function that adjusts the font size of the specified HTML element and its children based on the given font size value.
+here is how the func looks like:
+```
+Gui_Size(str divID, int fontSize)
+```
 
 ---
 
 ### Gui_Size_Id
 
-[Go back](#a-function-that-sets-the-font-size-for-the-specified-div-and-a-specific-element-within-it-by-id.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1648,30 +1494,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Size_Id | No | No | Yes |
 
-
----
-
-## A Function That Creates A Text Element Inside A Div With Customizable Appearance, Size, Position, And Other Styles. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Text](#gui_text)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Text | No | No | Yes |
+Gui_Size_Id is a function that changes the font size of a specified div and another specified element by their respective IDs.
+here is how the func looks like:
+```
+Gui_Size_Id(str divID, str elementID, int fontSize)
+```
 
 ---
 
 ### Gui_Text
 
-[Go back](#a-function-that-creates-a-text-element-inside-a-div-with-customizable-appearance,-size,-position,-and-other-styles.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1679,30 +1512,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Text | No | No | Yes |
 
-
----
-
-## A Function To Create A Toggle Switch With Customizable Positioning, Size, And Color. It Also Calls A Specified Function When Toggled. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Toggle](#gui_toggle)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Toggle | No | No | Yes |
+Gui_Text is a function that creates and inserts a text element into a specified GUI container, with optional parameters for positioning, color, roundness, and z-index.
+here is how the func looks like:
+```
+Gui_Text(str guiID, str textID, str text, [int x = null], [int y = null], [str color = '#FFFFFF'], [int roundness = null], [int zIndex = null])
+```
 
 ---
 
 ### Gui_Toggle
 
-[Go back](#a-function-to-create-a-toggle-switch-with-customizable-positioning,-size,-and-color.-it-also-calls-a-specified-function-when-toggled.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1710,30 +1530,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Toggle | No | No | Yes |
 
-
----
-
-## A Function That Updates The Properties (position, Size, Appearance) Of An Existing Div Or Creates A New One If It Doesn't Exist, Based On A Unique Id. Functions
-
-[Go back](#built-in-functions)
-
-1. [Gui_Update](#gui_update)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Gui_Update | No | No | Yes |
+Gui_Toggle is a function that creates a toggle switch UI element, allowing users to toggle between two states (on/off) with customizable properties such as label, position, size, and color. It also includes a callback function to handle the state change.
+here is how the func looks like:
+```
+Gui_Toggle(str guiID, str id, str label, str [color = null], int leftPos, int topPos, [int width = null], [int height = null], func switchFunction, bool [isToggledAtTheBeginning = false])
+```
 
 ---
 
 ### Gui_Update
 
-[Go back](#a-function-that-updates-the-properties-(position,-size,-appearance)-of-an-existing-div-or-creates-a-new-one-if-it-doesn't-exist,-based-on-a-unique-id.-functions)
+[Go back](#gui-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1741,6 +1548,29 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Gui_Update | No | No | Yes |
 
+Gui_Update is a function that updates or creates a div element based on the provided guiID, setting its dimensions, position, background color, border, border-radius, and z-index, with optional parameters for customization.
+here is how the func looks like:
+```
+Gui_Update(str guiID, [int x = null], [int y = null], [int w = 450], [int h = 450], [bool removeBorder = false], [str color = '#121212'], [int roundness = null], [int zIndex = null])
+```
+
+---
+
+### MsgBox
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| MsgBox | No | No | Yes |
+
+MsgBox is a function that displays a message box with customizable text, title, buttons, and icons, handling various options based on the provided value and timeout.
+here is how the func looks like:
+```
+MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
+```
 
 ---
 
@@ -1806,7 +1636,7 @@ Tan func calculates the tangent of an angle
 
 ---
 
-## A Function To Create A Hotkey. Functions
+## Hotkey Functions
 
 [Go back](#built-in-functions)
 
@@ -1826,7 +1656,7 @@ Tan func calculates the tangent of an angle
 
 ### MakeHotKey
 
-[Go back](#a-function-to-create-a-hotkey.-functions)
+[Go back](#hotkey-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1834,6 +1664,11 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | MakeHotKey | No | No | Yes |
 
+MakeHotKey is a function that listens for a specific key combination (hotkey) and triggers a callback when the hotkey is pressed. It handles modifiers like Ctrl, Shift, and Alt, as well as specific keys such as arrows and backspace. The callback function is invoked with the hotkey in either uppercase or lowercase, depending on the Shift modifier.
+here is how the func looks like:
+```
+MakeHotKey(str hotkey, function callback)
+```
 
 ---
 
@@ -1864,37 +1699,6 @@ Tan func calculates the tangent of an angle
 | Function | C++ | Python | JavaScript |
 |----------|----------|----------|----------|
 | Mod | Yes | Yes | Yes |
-
-
----
-
-## A Function That Displays A Custom Message Box With Options Like Title, Text, Buttons, Icon, And Timeout, Based On A Value Parameter That Determines Button Behavior. Functions
-
-[Go back](#built-in-functions)
-
-1. [MsgBox](#msgbox)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| MsgBox | No | No | Yes |
-
----
-
-### MsgBox
-
-[Go back](#a-function-that-displays-a-custom-message-box-with-options-like-title,-text,-buttons,-icon,-and-timeout,-based-on-a-value-parameter-that-determines-button-behavior.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| MsgBox | No | No | Yes |
 
 
 ---
@@ -2186,6 +1990,8 @@ Tan func calculates the tangent of an angle
 2. [StrTitleCase](#strtitlecase)
 3. [SubStr](#substr)
 4. [Trim](#trim)
+5. [countChars](#countchars)
+6. [sortArr](#sortarr)
 
 ---
 
@@ -2199,6 +2005,8 @@ Tan func calculates the tangent of an angle
 | StrTitleCase | Yes | Yes | Yes |
 | SubStr | Yes | Yes | Yes |
 | Trim | Yes | Yes | Yes |
+| countChars | Yes | Yes | Yes |
+| sortArr | Yes | Yes | Yes |
 
 ---
 
@@ -2226,7 +2034,11 @@ Replaces all occurrences of a substring with another string in the given string.
 |----------|----------|----------|----------|
 | StrTitleCase | Yes | Yes | Yes |
 
-StrTitleCase
+StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.
+here is how the func looks like:
+```
+StrTitleCase(str inputString)
+```
 
 ---
 
@@ -2255,6 +2067,42 @@ Extracts a substring from a given string starting at a specified position with a
 | Trim | Yes | Yes | Yes |
 
 Removes leading and trailing whitespace from a string.
+
+---
+
+### countChars
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| countChars | Yes | Yes | Yes |
+
+countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.
+here is how the func looks like:
+```
+countChars(str string, str theChar)
+```
+
+---
+
+### sortArr
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| sortArr | Yes | Yes | Yes |
+
+sortArr is a function that takes an array, removes any duplicate values using a Set, and returns the array sorted in ascending order.
+here is how the func looks like:
+```
+sortArr(arr str stringArray)
+```
 
 ---
 
@@ -2347,37 +2195,6 @@ Removes leading and trailing whitespace from a string.
 | Function | C++ | Python | JavaScript |
 |----------|----------|----------|----------|
 | StringTrimRight | Yes | Yes | Yes |
-
-
----
-
-## Counts The Occurrences Of A Specific Character In A String. Functions
-
-[Go back](#built-in-functions)
-
-1. [countChars](#countchars)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| countChars | Yes | Yes | Yes |
-
----
-
-### countChars
-
-[Go back](#counts-the-occurrences-of-a-specific-character-in-a-string.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| countChars | Yes | Yes | Yes |
 
 
 ---
@@ -2533,37 +2350,6 @@ Removes leading and trailing whitespace from a string.
 | Function | C++ | Python | JavaScript |
 |----------|----------|----------|----------|
 | print | Yes | No | Yes |
-
-
----
-
-## Function To Sort A String Array And Remove Duplicates. Functions
-
-[Go back](#built-in-functions)
-
-1. [sortArr](#sortarr)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| sortArr | Yes | Yes | Yes |
-
----
-
-### sortArr
-
-[Go back](#function-to-sort-a-string-array-and-remove-duplicates.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| sortArr | Yes | Yes | Yes |
 
 
 ---

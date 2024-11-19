@@ -2141,7 +2141,7 @@ func======================func==============
 lang: js
 name: RegExMatch
 libs: null
-description: RegExMatch is a function to perform regex matching and return the match position.
+description: string~~~RegExMatch is a function that matches a regular expression pattern within a string and optionally stores the match in an output variable, returning the position of the match or 0 if no match is found.~~~here is how the func looks like:~~~```~~~RegExMatch(str Haystack, str NeedleRegEx, arr str OutputVar, int StartingPos [optional = 0])~~~```~~~
       // RegExMatch
       function RegExMatch(Haystack, NeedleRegEx, OutputVar, StartingPos) {
           if (Haystack === null || NeedleRegEx === null) return null;
@@ -2164,7 +2164,7 @@ func======================func==============
 lang: js
 name: MsgBox
 libs: <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-description: A function that displays a custom message box with options like title, text, buttons, icon, and timeout, based on a value parameter that determines button behavior.
+description: gui~~~MsgBox is a function that displays a message box with customizable text, title, buttons, and icons, handling various options based on the provided value and timeout.~~~here is how the func looks like:~~~```~~~MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])~~~```~~~
 function MsgBox(text, title = " ", value = 0, timeout = null) {
     return new Promise((resolve) => {
         // Define default options for the message box
@@ -2290,7 +2290,7 @@ func======================func==============
 lang: js
 name: Gui_Show
 libs: null
-description: A function that creates or shows a custom styled div on the screen with configurable position, size, and appearance, using a unique ID to manage it.
+description: gui~~~Gui_Show is a function that displays a div element on the screen with customizable properties such as position, size, border, background color, and z-index. It creates the div if it doesn't exist and centers it by default.~~~here is how the func looks like:~~~```~~~Gui_Show(guiID, [x], [y], [w], [h], [removeBorder = false], [color = '#121212'], [roundness], [zIndex])~~~```~~~
 // Global object to hold references to all created divs
 const HTVM_guiElements = {};
 function Gui_Show(guiID, x = null, y = null, w = null, h = null, removeBorder = false, color = '#121212', roundness = null, zIndex = null) {
@@ -2341,7 +2341,7 @@ func======================func==============
 lang: js
 name: Gui_Update
 libs: null
-description: A function that updates the properties (position, size, appearance) of an existing div or creates a new one if it doesn't exist, based on a unique ID.
+description: gui~~~Gui_Update is a function that updates or creates a div element based on the provided guiID, setting its dimensions, position, background color, border, border-radius, and z-index, with optional parameters for customization.~~~here is how the func looks like:~~~```~~~Gui_Update(str guiID, [int x = null], [int y = null], [int w = 450], [int h = 450], [bool removeBorder = false], [str color = '#121212'], [int roundness = null], [int zIndex = null])~~~```~~~
 function Gui_Update(guiID, x = null, y = null, w = null, h = null, removeBorder = false, color = '#121212', roundness = null, zIndex = null) {
     // Check if the div with the given guiID exists
     let div = HTVM_guiElements[guiID];
@@ -2382,7 +2382,7 @@ func======================func==============
 lang: js
 name: Gui_Button
 libs: null
-description: A function that creates a button inside a div with customizable appearance, size, position, and click behavior, based on a unique button ID.
+description: gui~~~Gui_Button is a function that creates a button inside a specified div and allows customization of its position, size, color, and click behavior.~~~here is how the func looks like:~~~```~~~Gui_Button(str guiID, str buttonID, str buttonText, [int x = null], [int y = null], [int w = 150], [int h = 50], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onClickCallback = null])~~~```~~~
 function Gui_Button(guiID, buttonID, buttonText, x = null, y = null, w = null, h = null, color = '#121212', textColor = '#FFFFFF', removeBorder = false, roundness = null, zIndex = null, onClickCallback = null) {
     // Check if the div with the given guiID exists
     let div = HTVM_guiElements[guiID];
@@ -2436,7 +2436,8 @@ func======================func==============
 lang: js
 name: Gui_Edit
 libs: null
-description: A function that creates a textarea input inside a div with customizable appearance, size, position, and change behavior, based on a unique edit ID.
+description: gui~~~Gui_Edit is a function that creates a textarea element within a div, allowing customization of its appearance, position, and behavior, with optional parameters for width, height, colors, borders, and a callback for input changes.~~~here is how the func looks like:~~~```~~~Gui_Edit(str guiID, str editID, str placeholderText, [int x = null], [int y = null], [int w = null], [int h = null], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onChangeCallback = null])~~~```~~~
+
 function Gui_Edit(guiID, editID, placeholderText, x = null, y = null, w = null, h = null, color = '#121212', textColor = '#FFFFFF', removeBorder = false, roundness = null, zIndex = null, onChangeCallback = null) {
     // Check if the div with the given guiID exists
     let div = HTVM_guiElements[guiID];
@@ -2497,7 +2498,7 @@ func======================func==============
 lang: js
 name: Gui_Text
 libs: null
-description: A function that creates a text element inside a div with customizable appearance, size, position, and other styles.
+description: gui~~~Gui_Text is a function that creates and inserts a text element into a specified GUI container, with optional parameters for positioning, color, roundness, and z-index.~~~here is how the func looks like:~~~```~~~Gui_Text(str guiID, str textID, str text, [int x = null], [int y = null], [str color = '#FFFFFF'], [int roundness = null], [int zIndex = null])~~~```~~~
 function Gui_Text(guiID, textID, text, x = null, y = null, color = '#FFFFFF', roundness = null, zIndex = null) {
     // Check if the div with the given guiID exists
     let div = HTVM_guiElements[guiID];
@@ -2541,7 +2542,7 @@ func======================func==============
 lang: js
 name: Gui_Size
 libs: null
-description: A function that sets the font size for the specified div and all its child elements, including buttons, inputs, and textareas.
+description: gui~~~Gui_Size is a function that adjusts the font size of the specified HTML element and its children based on the given font size value.~~~here is how the func looks like:~~~```~~~Gui_Size(str divID, int fontSize)~~~```~~~
 function Gui_Size(divID, fontSize) {
     document.querySelectorAll(`#${divID}, #${divID} *, #${divID} button, #${divID} input, #${divID} textarea`).forEach(el => el.style.fontSize = `${fontSize}px`);
 }
@@ -2550,7 +2551,7 @@ func======================func==============
 lang: js
 name: Gui_Font
 libs: null
-description: A function that sets the font family for the specified div and all its child elements, including buttons, inputs, and textareas.
+description: gui~~~Gui_Font is a function that sets the font family for a specified element and all its descendants, including buttons, inputs, and textareas.~~~here is how the func looks like:~~~```~~~Gui_Font(str divID, str fontFamily)~~~```~~~
 function Gui_Font(divID, fontFamily) {
     // Use querySelectorAll to select the target element and all its descendants
     document.querySelectorAll(`#${divID}, #${divID} *, #${divID} button, #${divID} input, #${divID} textarea`).forEach(el => {
@@ -2562,7 +2563,7 @@ func======================func==============
 lang: js
 name: Gui_Font_Id
 libs: null
-description: A function that sets the font family for the specified div and a specific element within it by ID.
+description: gui~~~Gui_Font_Id is a function that changes the font family of specified elements in the HTML document based on provided div and element IDs.~~~here is how the func looks like:~~~```~~~Gui_Font_Id(str divID, str elementID, str fontFamily)~~~```~~~
 function Gui_Font_Id(divID, elementID, fontFamily) {
     const divElement = document.getElementById(divID);
     const specificElement = document.getElementById(elementID);
@@ -2574,7 +2575,7 @@ func======================func==============
 lang: js
 name: Gui_Size_Id
 libs: null
-description: A function that sets the font size for the specified div and a specific element within it by ID.
+description: gui~~~Gui_Size_Id is a function that changes the font size of a specified div and another specified element by their respective IDs.~~~here is how the func looks like:~~~```~~~Gui_Size_Id(str divID, str elementID, int fontSize)~~~```~~~
 function Gui_Size_Id(divID, elementID, fontSize) {
     // Change font size for the specified div
     const divElement = document.getElementById(divID);
@@ -2592,7 +2593,8 @@ func======================func==============
 lang: js
 name: GuiControl
 libs: null
-description: A function that handles various actions (move, focus, text, hide, show, enable, disable, font, destroy, color, picture, textide) on DOM elements, divs, and canvas elements, allowing for dynamic manipulation based on the specified action.
+description: gui~~~GuiControl is a function that handles various DOM manipulations like moving, showing, hiding, and modifying elements based on the provided action and parameters.~~~here is how the func looks like:~~~```~~~GuiControl(str action, str divId, str id, [any param1 = ?], [any param2 = ?], [any param3 = ?], [any param4 = ?])~~~```~~~
+
 function GuiControl(action, divId, id, param1, param2, param3, param4) {
     // Convert action to lowercase to handle case insensitivity
     const actionLower = action.toLowerCase();
@@ -2681,7 +2683,8 @@ func======================func==============
 lang: js
 name: Gui_DropDownList
 libs: null
-description: A function to create and populate a dropdown list (select element) dynamically within a specified parent div, with custom styles, options, and a change event handler.
+description: gui~~~Gui_DropDownList is a function that creates a dropdown list (select element) with options from a string, sets styles, attaches an event listener for selection changes, and appends it to a specified parent element.~~~here is how the func looks like:~~~```~~~Gui_DropDownList(parent, str id, str data, int leftPos, int topPos, int width, int height, str color, func onChangeFunction)~~~```~~~
+
 function Gui_DropDownList(parent, id, data, leftPos, topPos, width, height, color, onChangeFunction) {
     // Split the data string into an array of options
     const options = data.split("|").map((option) => option.trim());
@@ -2729,7 +2732,8 @@ func======================func==============
 lang: js
 name: Gui_Hide
 libs: null
-description: A function to hide an HTML element with a specified ID by setting its display style to "none".
+description: gui~~~Gui_Hide is a function that hides an HTML element by setting its display style to "none" based on the provided element ID.~~~here is how the func looks like:~~~```~~~Gui_Hide(str elementId)~~~```~~~
+
 function Gui_Hide(elementId) {
   const element = document.getElementById(elementId);
   if (element) {
@@ -2743,7 +2747,8 @@ func======================func==============
 lang: js
 name: Gui_Move
 libs: null
-description: A function to move and resize a div by updating its position and dimensions based on provided values for x, y, width, and height.
+description: gui~~~Gui_Move is a function that moves or resizes a GUI element by modifying its position and dimensions based on the provided parameters.~~~here is how the func looks like:~~~```~~~Gui_Move(str guiID, [int x = null], [int y = null], [int w = null], [int h = null])~~~```~~~
+
 function Gui_Move(guiID, x = null, y = null, w = null, h = null) {
     let div = HTVM_guiElements[guiID];
     
@@ -2772,7 +2777,7 @@ func======================func==============
 lang: js
 name: Gui_Color
 libs: null
-description: A function to set the background color of a div using a specified color.
+description: gui~~~Gui_Color is a function that sets the background color of a specific HTML element identified by the given guiID. If the element is not found, it logs a warning.~~~here is how the func looks like:~~~```~~~Gui_Color(str guiID, str color)~~~```~~~
 function Gui_Color(guiID, color) {
     let div = HTVM_guiElements[guiID];
     
@@ -2789,7 +2794,7 @@ func======================func==============
 lang: js
 name: Gui_Image
 libs: null
-description: A function to create and display an image within a div, with optional resizing, positioning, and rounded corners.
+description: gui~~~Gui_Image is a function that creates and displays an image within a specified div element on the webpage. It optionally sets the image's position, size, and corner roundness, while ensuring that the image maintains its aspect ratio if only one dimension is provided.~~~here is how the func looks like:~~~```~~~Gui_Image(str guiID, str imageID, str imageUrl, [int x = null], [int y = null], [int w = null], [int h = null], [int roundness = null])~~~```~~~
 function Gui_Image(guiID, imageID, imageUrl, x = null, y = null, w = null, h = null, roundness = null) {
     // Check if the div with the given guiID exists
     let div = HTVM_guiElements[guiID];
@@ -2844,7 +2849,7 @@ func======================func==============
 lang: js
 name: Gui_Toggle
 libs: null
-description: A function to create a toggle switch with customizable positioning, size, and color. It also calls a specified function when toggled.
+description: gui~~~Gui_Toggle is a function that creates a toggle switch UI element, allowing users to toggle between two states (on/off) with customizable properties such as label, position, size, and color. It also includes a callback function to handle the state change.~~~here is how the func looks like:~~~```~~~Gui_Toggle(str guiID, str id, str label, str [color = null], int leftPos, int topPos, [int width = null], [int height = null], func switchFunction, bool [isToggledAtTheBeginning = false])~~~```~~~
 function Gui_Toggle(guiID, id, label, color = null, leftPos, topPos, width = null, height = null, switchFunction, isToggledAtTheBeginning = false) {
     // Check if the div with the given guiID exists
     let parentDiv = HTVM_guiElements[guiID];
@@ -2926,7 +2931,8 @@ func======================func==============
 lang: js
 name: Gui_CheckBox
 libs: null
-description: A function to create a classic checkbox with customizable position, scaling, and color. It also triggers a specified function when checked or unchecked.
+description: gui~~~Gui_CheckBox is a function that creates a checkbox within a specified GUI element, allowing for custom label, position, color, initial checked state, and scaling. The checkbox is added to a specified parent div, and a callback function is executed when the checkbox state changes.~~~here is how the func looks like:~~~```~~~Gui_CheckBox(str guiID, str id, str label, [str color = "#ffffff"], int leftPos, int topPos, func checkFunction, [bool isCheckedAtTheBeginning = false], [float scale = 1.5])~~~```~~~
+
 function Gui_CheckBox(guiID, id, label, color = null, leftPos, topPos, checkFunction, isCheckedAtTheBeginning = false, scale = 1.5) {
     // Check if the div with the given guiID exists
     let parentDiv = HTVM_guiElements[guiID];
@@ -2979,7 +2985,7 @@ func======================func==============
 lang: js
 name: MakeHotKey
 libs: null
-description: A function to create a HotKey.
+description: hotkey~~~MakeHotKey is a function that listens for a specific key combination (hotkey) and triggers a callback when the hotkey is pressed. It handles modifiers like Ctrl, Shift, and Alt, as well as specific keys such as arrows and backspace. The callback function is invoked with the hotkey in either uppercase or lowercase, depending on the Shift modifier.~~~here is how the func looks like:~~~```~~~MakeHotKey(str hotkey, function callback)~~~```~~~
 // Define the MakeHotKey function separately
 function MakeHotKey(hotkey, callback) {
     document.addEventListener("keydown", function (event) {
@@ -3034,7 +3040,7 @@ func======================func==============
 lang: cpp
 name: sortArr
 libs: #include <iostream>|#include <vector>|#include <string>|#include <set>|#include <algorithm>
-description: Function to sort a string array and remove duplicates.
+description: string~~~sortArr is a function that takes an array, removes any duplicate values using a Set, and returns the array sorted in ascending order.~~~here is how the func looks like:~~~```~~~sortArr(arr str stringArray)~~~```~~~
 // Function to sort and remove duplicates
 std::vector<std::string> sortArr(const std::vector<std::string>& input) {
     std::set<std::string> uniqueSorted(input.begin(), input.end());
@@ -3045,7 +3051,7 @@ func======================func==============
 lang: js
 name: sortArr
 libs: null
-description: Function to sort a string array and remove duplicates.
+description: string~~~sortArr is a function that takes an array, removes any duplicate values using a Set, and returns the array sorted in ascending order.~~~here is how the func looks like:~~~```~~~sortArr(arr str stringArray)~~~```~~~
 // Function to sort and remove duplicates
 function sortArr(inputArray) {
     // Remove duplicates using Set and sort the array
@@ -3056,7 +3062,7 @@ func======================func==============
 lang: py
 name: sortArr
 libs: null
-description: Function to sort a string array and remove duplicates.
+description: string~~~sortArr is a function that takes an array, removes any duplicate values using a Set, and returns the array sorted in ascending order.~~~here is how the func looks like:~~~```~~~sortArr(arr str stringArray)~~~```~~~
 # Function to sort and remove duplicates
 def sortArr(input_list):
     """
@@ -3068,7 +3074,7 @@ func======================func==============
 lang: cpp
 name: countChars
 libs: #include <iostream>|#include <string>
-description: Counts the occurrences of a specific character in a string.
+description: string~~~countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.~~~here is how the func looks like:~~~```~~~countChars(str string, str theChar)~~~```~~~
 // Overload for counting a single character
 int countChars(const std::string& str, char theChar) {
     int count = 0;
@@ -3096,7 +3102,7 @@ func======================func==============
 lang: py
 name: countChars
 libs: null
-description: Counts the occurrences of a specific character in a string.
+description: string~~~countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.~~~here is how the func looks like:~~~```~~~countChars(str string, str theChar)~~~```~~~
 def countChars(string, theChar):
     return string.count(theChar)
 funcEND======================funcEND==============
@@ -3104,7 +3110,7 @@ func======================func==============
 lang: js
 name: countChars
 libs: null
-description: Counts the occurrences of a specific character in a string.
+description: string~~~countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.~~~here is how the func looks like:~~~```~~~countChars(str string, str theChar)~~~```~~~
 function countChars(string, theChar) {
     let count = 0;
     for (let char of string) {
@@ -3122,7 +3128,7 @@ func======================func==============
 lang: cpp
 name: StrTitleCase
 libs: #include <iostream>|#include <sstream>|#include <cctype>|#include <string>
-description: string~~~StrTitleCase
+description: string~~~StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.~~~here is how the func looks like:~~~```~~~StrTitleCase(str inputString)~~~```~~~
 
 std::string StrTitleCase(const std::string& input) {
     std::string result;
@@ -3148,7 +3154,7 @@ func======================func==============
 lang: js
 name: StrTitleCase
 libs: null
-description: string~~~StrTitleCase
+description: string~~~StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.~~~here is how the func looks like:~~~```~~~StrTitleCase(str inputString)~~~```~~~
 
 function StrTitleCase(inputString) {
     return inputString.split(' ')  // Split the string into words
@@ -3167,7 +3173,7 @@ func======================func==============
 lang: py
 name: StrTitleCase
 libs: null
-description: string~~~StrTitleCase
+description: string~~~StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.~~~here is how the func looks like:~~~```~~~StrTitleCase(str inputString)~~~```~~~
 
 def StrTitleCase(input_string):
     words = input_string.split(' ')  # Split the input string into words
