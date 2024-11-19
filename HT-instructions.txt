@@ -106,6 +106,13 @@ description: null
 funcEND======================funcEND==============
 func======================func==============
 lang: cpp
+name: HTVM_func1
+libs: null
+description: null
+// add the function here
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
 name: LoopParseFunc
 libs: #include <vector>|#include <string>|#include <regex>
 description: null
@@ -2451,7 +2458,6 @@ lang: js
 name: Gui_Edit
 libs: null
 description: gui~~~Gui_Edit is a function that creates a textarea element within a div, allowing customization of its appearance, position, and behavior, with optional parameters for width, height, colors, borders, and a callback for input changes.~~~here is how the func looks like:~~~```~~~Gui_Edit(str guiID, str editID, str placeholderText, [int x = null], [int y = null], [int w = null], [int h = null], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onChangeCallback = null])~~~```~~~
-
 function Gui_Edit(guiID, editID, placeholderText, x = null, y = null, w = null, h = null, color = '#121212', textColor = '#FFFFFF', removeBorder = false, roundness = null, zIndex = null, onChangeCallback = null) {
     // Check if the div with the given guiID exists
     let div = HTVM_guiElements[guiID];
@@ -2608,7 +2614,6 @@ lang: js
 name: GuiControl
 libs: null
 description: gui~~~GuiControl is a function that handles various DOM manipulations like moving, showing, hiding, and modifying elements based on the provided action and parameters.~~~here is how the func looks like:~~~```~~~GuiControl(str action, str divId, str id, [any param1 = ?], [any param2 = ?], [any param3 = ?], [any param4 = ?])~~~```~~~
-
 function GuiControl(action, divId, id, param1, param2, param3, param4) {
     // Convert action to lowercase to handle case insensitivity
     const actionLower = action.toLowerCase();
@@ -2698,7 +2703,6 @@ lang: js
 name: Gui_DropDownList
 libs: null
 description: gui~~~Gui_DropDownList is a function that creates a dropdown list (select element) with options from a string, sets styles, attaches an event listener for selection changes, and appends it to a specified parent element.~~~here is how the func looks like:~~~```~~~Gui_DropDownList(parent, str id, str data, int leftPos, int topPos, int width, int height, str color, func onChangeFunction)~~~```~~~
-
 function Gui_DropDownList(parent, id, data, leftPos, topPos, width, height, color, onChangeFunction) {
     // Split the data string into an array of options
     const options = data.split("|").map((option) => option.trim());
@@ -2747,7 +2751,6 @@ lang: js
 name: Gui_Hide
 libs: null
 description: gui~~~Gui_Hide is a function that hides an HTML element by setting its display style to "none" based on the provided element ID.~~~here is how the func looks like:~~~```~~~Gui_Hide(str elementId)~~~```~~~
-
 function Gui_Hide(elementId) {
   const element = document.getElementById(elementId);
   if (element) {
@@ -2762,7 +2765,6 @@ lang: js
 name: Gui_Move
 libs: null
 description: gui~~~Gui_Move is a function that moves or resizes a GUI element by modifying its position and dimensions based on the provided parameters.~~~here is how the func looks like:~~~```~~~Gui_Move(str guiID, [int x = null], [int y = null], [int w = null], [int h = null])~~~```~~~
-
 function Gui_Move(guiID, x = null, y = null, w = null, h = null) {
     let div = HTVM_guiElements[guiID];
     
@@ -2946,7 +2948,6 @@ lang: js
 name: Gui_CheckBox
 libs: null
 description: gui~~~Gui_CheckBox is a function that creates a checkbox within a specified GUI element, allowing for custom label, position, color, initial checked state, and scaling. The checkbox is added to a specified parent div, and a callback function is executed when the checkbox state changes.~~~here is how the func looks like:~~~```~~~Gui_CheckBox(str guiID, str id, str label, [str color = "#ffffff"], int leftPos, int topPos, func checkFunction, [bool isCheckedAtTheBeginning = false], [float scale = 1.5])~~~```~~~
-
 function Gui_CheckBox(guiID, id, label, color = null, leftPos, topPos, checkFunction, isCheckedAtTheBeginning = false, scale = 1.5) {
     // Check if the div with the given guiID exists
     let parentDiv = HTVM_guiElements[guiID];
@@ -3135,19 +3136,14 @@ function countChars(string, theChar) {
     return count;
 }
 funcEND======================funcEND==============
-
-
-
 func======================func==============
 lang: cpp
 name: StrTitleCase
 libs: #include <iostream>|#include <sstream>|#include <cctype>|#include <string>
 description: string~~~StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.~~~here is how the func looks like:~~~```~~~StrTitleCase(str inputString)~~~```~~~
-
 std::string StrTitleCase(const std::string& input) {
     std::string result;
     bool newWord = true;
-
     for (char ch : input) {
         if (std::isspace(ch)) {
             newWord = true; // next character starts a new word
@@ -3159,17 +3155,14 @@ std::string StrTitleCase(const std::string& input) {
             result += std::tolower(ch); // make other letters lowercase
         }
     }
-
     return result;
 }
-
 funcEND======================funcEND==============
 func======================func==============
 lang: js
 name: StrTitleCase
 libs: null
 description: string~~~StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.~~~here is how the func looks like:~~~```~~~StrTitleCase(str inputString)~~~```~~~
-
 function StrTitleCase(inputString) {
     return inputString.split(' ')  // Split the string into words
         .map(word => {
@@ -3180,27 +3173,21 @@ function StrTitleCase(inputString) {
         })
         .join(' ');  // Join the words back together with spaces
 }
-
-
 funcEND======================funcEND==============
 func======================func==============
 lang: py
 name: StrTitleCase
 libs: null
 description: string~~~StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.~~~here is how the func looks like:~~~```~~~StrTitleCase(str inputString)~~~```~~~
-
 def StrTitleCase(input_string):
     words = input_string.split(' ')  # Split the input string into words
     result = []
-
     for word in words:
         if word:  # Ignore empty strings (in case of multiple spaces)
             result.append(word[0].upper() + word[1:].lower())  # Capitalize first letter, lowercase others
         else:
             result.append(word)  # Preserve spaces as is
-
     return ' '.join(result)  # Join the list of words back into a string
-
 funcEND======================funcEND==============
 
 
