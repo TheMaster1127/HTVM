@@ -1790,14 +1790,14 @@ A_GuiControl = event.target.textContent
   Gui4Close(A_GuiControl);
 };
 Gui4.appendChild(Gui4Button1);
-createToggleSwitch(Gui4, "Gui4ToggleMoreBuildInFuncsV", "Toggle all HTVM pre-made Build-in functions", "#2196F3", 10, 65, 60, 30, ToggleMoreBuildInFuncs );
+//Gui 4: Add, Toggle, x10 y65 vToggleMoreBuildInFuncsV gToggleMoreBuildInFuncs, Toggle all HTVM pre-made Build-in functions
 Gui4Button2 = document.createElement("button");
 Gui4Button2.id = "Gui4" + "Button" + "2"; // Set ID for referencing
 Gui4Button2.textContent = "Download HT-instructions.txt";
 Gui4Button2.style.fontSize = "15px"; // Set font size
 Gui4Button2.style.position = "absolute"; // Set position to absolute
 Gui4Button2.style.left = "10px"; // Set initial x position
-Gui4Button2.style.top = "115px"; // Set initial y position
+Gui4Button2.style.top = "65px"; // Set initial y position
 Gui4Button2.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
 Gui4Button2.style.height = "40px"; // Set height
 Gui4Button2.style.cursor = "pointer"; // Change cursor on hover
@@ -1818,7 +1818,7 @@ Gui4Button3.textContent = "Download simple_static_HTVM_editor.html";
 Gui4Button3.style.fontSize = "15px"; // Set font size
 Gui4Button3.style.position = "absolute"; // Set position to absolute
 Gui4Button3.style.left = "10px"; // Set initial x position
-Gui4Button3.style.top = "165px"; // Set initial y position
+Gui4Button3.style.top = "115px"; // Set initial y position
 Gui4Button3.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
 Gui4Button3.style.height = "40px"; // Set height
 Gui4Button3.style.cursor = "pointer"; // Change cursor on hover
@@ -1839,7 +1839,7 @@ Gui4Button4.textContent = "Download HTVM IDE syntax config";
 Gui4Button4.style.fontSize = "15px"; // Set font size
 Gui4Button4.style.position = "absolute"; // Set position to absolute
 Gui4Button4.style.left = "10px"; // Set initial x position
-Gui4Button4.style.top = "215px"; // Set initial y position
+Gui4Button4.style.top = "165px"; // Set initial y position
 Gui4Button4.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
 Gui4Button4.style.height = "40px"; // Set height
 Gui4Button4.style.cursor = "pointer"; // Change cursor on hover
@@ -1908,14 +1908,14 @@ A_GuiControl = event.target.textContent
   Gui4Close(A_GuiControl);
 };
 Gui4.appendChild(Gui4Button5);
-createToggleSwitch(Gui4, "Gui4ToggleMoreBuildInFuncsV", "Toggle all HTVM pre-made Build-in functions", "#2196F3", 10, 65, 60, 30, ToggleMoreBuildInFuncs );
+//Gui 4: Add, Toggle, x10 y65 vToggleMoreBuildInFuncsV gToggleMoreBuildInFuncs, Toggle all HTVM pre-made Build-in functions
 Gui4Button6 = document.createElement("button");
 Gui4Button6.id = "Gui4" + "Button" + "6"; // Set ID for referencing
 Gui4Button6.textContent = "Download HT-instructions.txt";
 Gui4Button6.style.fontSize = "15px"; // Set font size
 Gui4Button6.style.position = "absolute"; // Set position to absolute
 Gui4Button6.style.left = "10px"; // Set initial x position
-Gui4Button6.style.top = "115px"; // Set initial y position
+Gui4Button6.style.top = "65px"; // Set initial y position
 Gui4Button6.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
 Gui4Button6.style.height = "40px"; // Set height
 Gui4Button6.style.cursor = "pointer"; // Change cursor on hover
@@ -1936,7 +1936,7 @@ Gui4Button7.textContent = "Download simple_static_HTVM_editor.html";
 Gui4Button7.style.fontSize = "15px"; // Set font size
 Gui4Button7.style.position = "absolute"; // Set position to absolute
 Gui4Button7.style.left = "10px"; // Set initial x position
-Gui4Button7.style.top = "165px"; // Set initial y position
+Gui4Button7.style.top = "115px"; // Set initial y position
 Gui4Button7.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
 Gui4Button7.style.height = "40px"; // Set height
 Gui4Button7.style.cursor = "pointer"; // Change cursor on hover
@@ -1957,7 +1957,7 @@ Gui4Button8.textContent = "Download HTVM IDE syntax config";
 Gui4Button8.style.fontSize = "15px"; // Set font size
 Gui4Button8.style.position = "absolute"; // Set position to absolute
 Gui4Button8.style.left = "10px"; // Set initial x position
-Gui4Button8.style.top = "215px"; // Set initial y position
+Gui4Button8.style.top = "165px"; // Set initial y position
 Gui4Button8.style.width = "" + variables.AScreenWidth2 + "px"; // Set width
 Gui4Button8.style.height = "40px"; // Set height
 Gui4Button8.style.cursor = "pointer"; // Change cursor on hover
@@ -1974,7 +1974,7 @@ A_GuiControl = event.target.textContent
 Gui4.appendChild(Gui4Button8);
 Gui4.style.display = "none";
 }
-await document.getElementById( 'Gui4ToggleMoreBuildInFuncsV') .click ()
+await ToggleMoreBuildInFuncs()
 if (( await StoreLocally ("r" , "HTVM-ProjectName" + variables.currentProjectNum + "-76") == variables.null ))
 {
 await StoreLocally( "s" , "HTVM-ProjectName" + variables.currentProjectNum + "-76" , "on" )
@@ -6765,21 +6765,6 @@ async function ToggleMoreBuildInFuncs(A_GuiControl)
 {
 Gui5.style.display = "block";
 await sleep(50)
-variables.ToggleMoreBuildInFuncsHolder = A_GuiControl
-if (( variables.ToggleMoreBuildInFuncsHolder == "1" ))
-{
-variables.ToggleMoreBuildInFuncsHolder = "on"
-}
-else
-{
-variables.ToggleMoreBuildInFuncsHolder = "off"
-}
-if (( variables.ToggleMoreBuildInFuncsHolder == "off" ))
-{
-variables.ToggleMoreBuildInFuncsTEXT = variables.extraFuncNeedLoopParse
-}
-else
-{
 variables.FIXhtvmInstructionsFromRepoONCE += 1
 if (( variables.FIXhtvmInstructionsFromRepoONCE == 1 ))
 {
@@ -6797,7 +6782,6 @@ variables.FIXhtvmInstructionsFromRepo += variables.A_LoopField16 + "\n"
 variables.htvmInstructionsFromRepo = StringTrimRight(variables.FIXhtvmInstructionsFromRepo, 1)
 }
 variables.ToggleMoreBuildInFuncsTEXT = "\n\n" + variables.htvmInstructionsFromRepo + "\n\n"
-}
 Gui5.style.display = "none";
 }
 async function ButtonDownloadIDE(A_GuiControl)

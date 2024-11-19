@@ -171,10 +171,10 @@ Gui 4: Add, Text, x10 y10 w%AScreenWidth2% h50, Download the language you just c
 Gui 4: Font, s15
 closeGui4X := AScreenWidth - 72
 Gui 4: Add, Button, x%closeGui4X% y3 w69 h34 cffffff bgff0000 gGui4Close, close
-Gui 4: Add, Toggle, x10 y65 vToggleMoreBuildInFuncsV gToggleMoreBuildInFuncs, Toggle all HTVM pre-made Build-in functions
-Gui 4: Add, Button, x10 y115 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadInstruction, Download HT-instructions.txt
-Gui 4: Add, Button, x10 y165 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadIDE, Download simple_static_HTVM_editor.html
-Gui 4: Add, Button, x10 y215 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadJShelper, Download HTVM IDE syntax config
+;Gui 4: Add, Toggle, x10 y65 vToggleMoreBuildInFuncsV gToggleMoreBuildInFuncs, Toggle all HTVM pre-made Build-in functions
+Gui 4: Add, Button, x10 y65 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadInstruction, Download HT-instructions.txt
+Gui 4: Add, Button, x10 y115 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadIDE, Download simple_static_HTVM_editor.html
+Gui 4: Add, Button, x10 y165 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadJShelper, Download HTVM IDE syntax config
 Gui 4: Hide
 }
 else
@@ -185,14 +185,14 @@ Gui 4: Add, Text, x10 y10 w%AScreenWidth2% h50, Download the language you just c
 Gui 4: Font, s15
 closeGui4X := AScreenWidth - 72
 Gui 4: Add, Button, x%closeGui4X% y3 w69 h34 cffffff bgff0000 gGui4Close, close
-Gui 4: Add, Toggle, x10 y65 vToggleMoreBuildInFuncsV gToggleMoreBuildInFuncs, Toggle all HTVM pre-made Build-in functions
-Gui 4: Add, Button, x10 y115 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadInstruction, Download HT-instructions.txt
-Gui 4: Add, Button, x10 y165 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadIDE, Download simple_static_HTVM_editor.html
-Gui 4: Add, Button, x10 y215 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadJShelper, Download HTVM IDE syntax config
+;Gui 4: Add, Toggle, x10 y65 vToggleMoreBuildInFuncsV gToggleMoreBuildInFuncs, Toggle all HTVM pre-made Build-in functions
+Gui 4: Add, Button, x10 y65 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadInstruction, Download HT-instructions.txt
+Gui 4: Add, Button, x10 y115 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadIDE, Download simple_static_HTVM_editor.html
+Gui 4: Add, Button, x10 y165 w%AScreenWidth2% h40 bg121212 cffffff gButtonDownloadJShelper, Download HTVM IDE syntax config
 Gui 4: Hide
 }
-document.getElementById('Gui4ToggleMoreBuildInFuncsV').click()
 
+gosub, ToggleMoreBuildInFuncs
 
 if (StoreLocally("r", "HTVM-ProjectName" . currentProjectNum . "-76") = null)
 {
@@ -2931,23 +2931,6 @@ Return
 ToggleMoreBuildInFuncs:
 Gui 5: Show
 Sleep, 50
-ToggleMoreBuildInFuncsHolder := A_GuiControl
-if (ToggleMoreBuildInFuncsHolder = "1")
-{
-ToggleMoreBuildInFuncsHolder := "on"
-}
-else
-{
-ToggleMoreBuildInFuncsHolder := "off"
-}
-
-if (ToggleMoreBuildInFuncsHolder = "off")
-{
-ToggleMoreBuildInFuncsTEXT := extraFuncNeedLoopParse
-}
-else
-{
-
 FIXhtvmInstructionsFromRepoONCE++
 if (FIXhtvmInstructionsFromRepoONCE = 1)
 {
@@ -2964,7 +2947,7 @@ StringTrimRight, htvmInstructionsFromRepo, FIXhtvmInstructionsFromRepo, 1
 }
 
 ToggleMoreBuildInFuncsTEXT := "`n`n" . htvmInstructionsFromRepo . "`n`n"
-}
+
 Gui 5: Hide
 Return
 
