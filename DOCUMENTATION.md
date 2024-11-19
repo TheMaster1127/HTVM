@@ -532,42 +532,12 @@ OSP simplifies programming while ensuring compatibility with **C++**, **Python**
 HTVM includes a variety of built-in functions organized into categories for convenience.
 
 1. [Math Functions](#math-functions)
-2. [Asc Func Is A Func Functions](#asc-func-is-a-func-functions)
-3. [Buildinvars Is A Function To Get Built-in Variables Like A_tickcount, A_now, And Date/time-related Values. Functions](#buildinvars-is-a-function-to-get-built-in-variables-like-a_tickcount,-a_now,-and-date/time-related-values.-functions)
-4. [Returns A Character Corresponding To The Provided Unicode Code Point. Functions](#returns-a-character-corresponding-to-the-provided-unicode-code-point.-functions)
-5. [Exitapp Is A Function To Exit The Application. Functions](#exitapp-is-a-function-to-exit-the-application.-functions)
-6. [Float Func Is A Func Functions](#float-func-is-a-func-functions)
-7. [Fileappend Func Is A Func Functions](#fileappend-func-is-a-func-functions)
-8. [Filecreatedir Is A Function To Create A Directory If It Does Not Exist. Functions](#filecreatedir-is-a-function-to-create-a-directory-if-it-does-not-exist.-functions)
-9. [Filedelete Func Is A Func Functions](#filedelete-func-is-a-func-functions)
-10. [Fileexist Is A Function To Check If A File Or Directory Exists. Functions](#fileexist-is-a-function-to-check-if-a-file-or-directory-exists.-functions)
-11. [Fileread Func Is A Func Functions](#fileread-func-is-a-func-functions)
-12. [Fileremovedir Is A Function To Remove A Directory If It Exists. Functions](#fileremovedir-is-a-function-to-remove-a-directory-if-it-exists.-functions)
-13. [Rounds Down A Floating-point Number To The Nearest Integer. Functions](#rounds-down-a-floating-point-number-to-the-nearest-integer.-functions)
-14. [Getparams Is A Func For Platform-specific Handling For Command-line Arguments And Getting Parameters. Functions](#getparams-is-a-func-for-platform-specific-handling-for-command-line-arguments-and-getting-parameters.-functions)
-15. [Gui Functions](#gui-functions)
-16. [Int Func Is A Func Functions](#int-func-is-a-func-functions)
-17. [Instr Func Is A Func Functions](#instr-func-is-a-func-functions)
-18. [Hotkey Functions](#hotkey-functions)
-19. [Returns The Remainder Of The Division Of Two Integers. Functions](#returns-the-remainder-of-the-division-of-two-integers.-functions)
-20. [Random Func Is A Func Functions](#random-func-is-a-func-functions)
-21. [Regexmatch Is A Function To Perform Regex Matching And Return The Match Position. Functions](#regexmatch-is-a-function-to-perform-regex-matching-and-return-the-match-position.-functions)
-22. [Regexreplace Is A Function To Perform Regex Replacement. Functions](#regexreplace-is-a-function-to-perform-regex-replacement.-functions)
-23. [Runcmd Is A Function To Run A System Command And Capture The Output. Functions](#runcmd-is-a-function-to-run-a-system-command-and-capture-the-output.-functions)
-24. [Str Func Is A Func Functions](#str-func-is-a-func-functions)
-25. [Sleep Func Is A Func Functions](#sleep-func-is-a-func-functions)
-26. [Sort Func Is A Func Functions](#sort-func-is-a-func-functions)
-27. [Strlen Func Is A Func Functions](#strlen-func-is-a-func-functions)
-28. [Converts All Characters In A String To Lowercase. Functions](#converts-all-characters-in-a-string-to-lowercase.-functions)
-29. [String Functions](#string-functions)
-30. [Splits A String By A Delimiter And Returns The Nth Split. Functions](#splits-a-string-by-a-delimiter-and-returns-the-nth-split.-functions)
-31. [Trims Characters From The Left Side Of The String Based On The Specified Number Of Characters. Functions](#trims-characters-from-the-left-side-of-the-string-based-on-the-specified-number-of-characters.-functions)
-32. [Trims Characters From The Right Side Of The String Based On The Specified Number Of Characters. Functions](#trims-characters-from-the-right-side-of-the-string-based-on-the-specified-number-of-characters.-functions)
-33. [Getdatafromapi Is A Function To Fetch Data From An Api. Functions](#getdatafromapi-is-a-function-to-fetch-data-from-an-api.-functions)
-34. [Geturlparams Is A Func Functions](#geturlparams-is-a-func-functions)
-35. [Input Func Is A Func Functions](#input-func-is-a-func-functions)
-36. [Iswindows Is A Function To Check If The Operating System Is Windows Functions](#iswindows-is-a-function-to-check-if-the-operating-system-is-windows-functions)
-37. [Hello That Is Func Mhm Functions](#hello-that-is-func-mhm-functions)
+2. [String Functions](#string-functions)
+3. [System Functions](#system-functions)
+4. [File Functions](#file-functions)
+5. [Io Functions](#io-functions)
+6. [Gui Functions](#gui-functions)
+7. [Other Functions](#other-functions)
 
 ---
 
@@ -582,12 +552,15 @@ HTVM includes a variety of built-in functions organized into categories for conv
 5. [Ceil](#ceil)
 6. [Cos](#cos)
 7. [Exp](#exp)
-8. [Ln](#ln)
-9. [Log](#log)
-10. [Round](#round)
-11. [Sin](#sin)
-12. [Sqrt](#sqrt)
-13. [Tan](#tan)
+8. [Floor](#floor)
+9. [Ln](#ln)
+10. [Log](#log)
+11. [Mod](#mod)
+12. [Random](#random)
+13. [Round](#round)
+14. [Sin](#sin)
+15. [Sqrt](#sqrt)
+16. [Tan](#tan)
 
 ---
 
@@ -604,8 +577,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 | Ceil | Yes | Yes | Yes |
 | Cos | Yes | Yes | Yes |
 | Exp | Yes | Yes | Yes |
+| Floor | Yes | Yes | Yes |
 | Ln | Yes | Yes | Yes |
 | Log | Yes | Yes | Yes |
+| Mod | Yes | Yes | Yes |
+| Random | Yes | Yes | Yes |
 | Round | Yes | Yes | Yes |
 | Sin | Yes | Yes | Yes |
 | Sqrt | Yes | Yes | Yes |
@@ -623,7 +599,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |----------|----------|----------|----------|
 | ACos | Yes | Yes | Yes |
 
-ACos func calculates the arc cosine of a value
+ACos is a function that returns the arc cosine (inverse cosine) of a number, which must be between -1 and 1.
+here is how the func looks like:
+```
+ACos(float)
+```
 
 ---
 
@@ -637,7 +617,11 @@ ACos func calculates the arc cosine of a value
 |----------|----------|----------|----------|
 | ASin | Yes | Yes | Yes |
 
-ASin func calculates the arc sine of a value, with error handling for out-of-range inputs
+ASin is a function that calculates the arcsine (inverse sine) of a given value, throwing an error if the value is outside the range of -1 to 1.
+here is how the func looks like:
+```
+ASin(float value)
+```
 
 ---
 
@@ -651,7 +635,11 @@ ASin func calculates the arc sine of a value, with error handling for out-of-ran
 |----------|----------|----------|----------|
 | ATan | Yes | Yes | Yes |
 
-ATan func calculates the arc tangent of a value
+ATan is a function that calculates the arctangent of a number, returning the angle in radians.
+here is how the func looks like:
+```
+ATan(float)
+```
 
 ---
 
@@ -665,7 +653,11 @@ ATan func calculates the arc tangent of a value
 |----------|----------|----------|----------|
 | Abs | Yes | Yes | Yes |
 
-Abs func is a func
+Abs is a function that returns the absolute value of the provided number.
+here is how the func looks like:
+```
+Abs(int value)
+```
 
 ---
 
@@ -679,7 +671,11 @@ Abs func is a func
 |----------|----------|----------|----------|
 | Ceil | Yes | Yes | Yes |
 
-Ceil func rounds a value upwards to the nearest integer
+Ceil is a function that takes a numerical value and returns the smallest integer greater than or equal to that value.
+here is how the func looks like:
+```
+Ceil(num)
+```
 
 ---
 
@@ -693,7 +689,11 @@ Ceil func rounds a value upwards to the nearest integer
 |----------|----------|----------|----------|
 | Cos | Yes | Yes | Yes |
 
-Cos func calculates the cosine of an angle
+Cos is a function that calculates the cosine of a given angle in radians.
+here is how the func looks like:
+```
+Cos(float angle)
+```
 
 ---
 
@@ -707,7 +707,29 @@ Cos func calculates the cosine of an angle
 |----------|----------|----------|----------|
 | Exp | Yes | Yes | Yes |
 
-Exp func calculates the exponential of a value
+Exp is a function that takes a numeric value and returns the value of e raised to the power of the given value using the Math.exp() function.
+here is how the func looks like:
+```
+Exp(value)
+```
+
+---
+
+### Floor
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| Floor | Yes | Yes | Yes |
+
+Floor is a function that returns the largest integer less than or equal to a given number, or NaN if the input is not a number.
+here is how the func looks like:
+```
+Floor(num)
+```
 
 ---
 
@@ -721,7 +743,11 @@ Exp func calculates the exponential of a value
 |----------|----------|----------|----------|
 | Ln | Yes | Yes | Yes |
 
-Ln func calculates the natural logarithm of a value
+Ln is a function that calculates the natural logarithm (base e) of a given value.
+here is how the func looks like:
+```
+Ln(int value)
+```
 
 ---
 
@@ -735,7 +761,47 @@ Ln func calculates the natural logarithm of a value
 |----------|----------|----------|----------|
 | Log | Yes | Yes | Yes |
 
-Log func calculates the base-10 logarithm of a value
+Log is a function that calculates the base 10 logarithm of a given value.
+here is how the func looks like:
+```
+Log(int value)
+```
+
+---
+
+### Mod
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| Mod | Yes | Yes | Yes |
+
+Mod is a function that returns the remainder when the dividend is divided by the divisor.
+here is how the func looks like:
+```
+Mod(int dividend, int divisor)
+```
+
+---
+
+### Random
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| Random | Yes | Yes | Yes |
+
+Random is a function that generates and returns a random integer between a specified minimum and maximum value, inclusive.
+here is how the func looks like:
+```
+Random(min, max)
+```
 
 ---
 
@@ -749,7 +815,11 @@ Log func calculates the base-10 logarithm of a value
 |----------|----------|----------|----------|
 | Round | Yes | Yes | Yes |
 
-Round func rounds a value to the nearest integer
+Round is a function that rounds a given numeric value to the nearest integer.
+here is how the func looks like:
+```
+Round(num)
+```
 
 ---
 
@@ -763,7 +833,11 @@ Round func rounds a value to the nearest integer
 |----------|----------|----------|----------|
 | Sin | Yes | Yes | Yes |
 
-Sin func calculates the sine of an angle
+Sin is a function that takes an angle (in radians) and returns the sine of that angle.
+here is how the func looks like:
+```
+Sin(float)
+```
 
 ---
 
@@ -777,7 +851,11 @@ Sin func calculates the sine of an angle
 |----------|----------|----------|----------|
 | Sqrt | Yes | Yes | Yes |
 
-Sqrt func calculates the square root of a value
+Sqrt is a function that calculates the square root of a given numeric value.
+here is how the func looks like:
+```
+Sqrt(num)
+```
 
 ---
 
@@ -791,15 +869,39 @@ Sqrt func calculates the square root of a value
 |----------|----------|----------|----------|
 | Tan | Yes | Yes | Yes |
 
-Tan func calculates the tangent of an angle
+Tan is a function that calculates the tangent of the given angle (in radians).
+here is how the func looks like:
+```
+Tan(float)
+```
 
 ---
 
-## Asc Func Is A Func Functions
+## String Functions
 
 [Go back](#built-in-functions)
 
 1. [Asc](#asc)
+2. [Chr](#chr)
+3. [FLOAT](#float)
+4. [INT](#int)
+5. [InStr](#instr)
+6. [RegExMatch](#regexmatch)
+7. [RegExReplace](#regexreplace)
+8. [STR](#str)
+9. [Sort](#sort)
+10. [StrLen](#strlen)
+11. [StrLower](#strlower)
+12. [StrReplace](#strreplace)
+13. [StrSplit](#strsplit)
+14. [StrTitleCase](#strtitlecase)
+15. [StringTrimLeft](#stringtrimleft)
+16. [StringTrimRight](#stringtrimright)
+17. [SubStr](#substr)
+18. [Trim](#trim)
+19. [countChars](#countchars)
+20. [getUrlParams](#geturlparams)
+21. [sortArr](#sortarr)
 
 ---
 
@@ -810,12 +912,32 @@ Tan func calculates the tangent of an angle
 | Functions | C++ | Python | JavaScript |
 |----------|----------|----------|----------|
 | Asc | Yes | Yes | Yes |
+| Chr | Yes | Yes | Yes |
+| FLOAT | Yes | Yes | Yes |
+| INT | Yes | Yes | Yes |
+| InStr | Yes | Yes | Yes |
+| RegExMatch | Yes | Yes | Yes |
+| RegExReplace | Yes | Yes | Yes |
+| STR | Yes | Yes | Yes |
+| Sort | Yes | Yes | Yes |
+| StrLen | Yes | Yes | Yes |
+| StrLower | Yes | Yes | Yes |
+| StrReplace | Yes | Yes | Yes |
+| StrSplit | Yes | Yes | Yes |
+| StrTitleCase | Yes | Yes | Yes |
+| StringTrimLeft | Yes | Yes | Yes |
+| StringTrimRight | Yes | Yes | Yes |
+| SubStr | Yes | Yes | Yes |
+| Trim | Yes | Yes | Yes |
+| countChars | Yes | Yes | Yes |
+| getUrlParams | No | No | Yes |
+| sortArr | Yes | Yes | Yes |
 
 ---
 
 ### Asc
 
-[Go back](#asc-func-is-a-func-functions)
+[Go back](#string-functions)
 
 **HTVM build-in functions availability.**
 
@@ -823,61 +945,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Asc | Yes | Yes | Yes |
 
-
----
-
-## Buildinvars Is A Function To Get Built-in Variables Like A_tickcount, A_now, And Date/time-related Values. Functions
-
-[Go back](#built-in-functions)
-
-1. [BuildInVars](#buildinvars)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| BuildInVars | Yes | Yes | Yes |
-
----
-
-### BuildInVars
-
-[Go back](#buildinvars-is-a-function-to-get-built-in-variables-like-a_tickcount,-a_now,-and-date/time-related-values.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| BuildInVars | Yes | Yes | Yes |
-
-
----
-
-## Returns A Character Corresponding To The Provided Unicode Code Point. Functions
-
-[Go back](#built-in-functions)
-
-1. [Chr](#chr)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Chr | Yes | Yes | Yes |
+Asc is a function that takes a string and returns the ASCII value of its first character, or -1 if the string is empty.
+here is how the func looks like:
+```
+Asc(str s)
+```
 
 ---
 
 ### Chr
 
-[Go back](#returns-a-character-corresponding-to-the-provided-unicode-code-point.-functions)
+[Go back](#string-functions)
 
 **HTVM build-in functions availability.**
 
@@ -885,61 +963,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | Chr | Yes | Yes | Yes |
 
-
----
-
-## Exitapp Is A Function To Exit The Application. Functions
-
-[Go back](#built-in-functions)
-
-1. [ExitApp](#exitapp)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| ExitApp | Yes | Yes | No |
-
----
-
-### ExitApp
-
-[Go back](#exitapp-is-a-function-to-exit-the-application.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| ExitApp | Yes | Yes | No |
-
-
----
-
-## Float Func Is A Func Functions
-
-[Go back](#built-in-functions)
-
-1. [FLOAT](#float)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| FLOAT | Yes | Yes | Yes |
+Chr is a function that returns the character corresponding to the given Unicode code point or an empty string if the number is out of range.
+here is how the func looks like:
+```
+Chr(int number)
+```
 
 ---
 
 ### FLOAT
 
-[Go back](#float-func-is-a-func-functions)
+[Go back](#string-functions)
 
 **HTVM build-in functions availability.**
 
@@ -947,14 +981,345 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | FLOAT | Yes | Yes | Yes |
 
+FLOAT is a function that converts a given value to a float and throws an error if the value cannot be converted.
+here is how the func looks like:
+```
+FLOAT(str value)
+```
 
 ---
 
-## Fileappend Func Is A Func Functions
+### INT
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| INT | Yes | Yes | Yes |
+
+INT is a function that converts a value to an integer, throwing an error if the conversion fails.
+here is how the func looks like:
+```
+INT(str value)
+```
+
+---
+
+### InStr
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| InStr | Yes | Yes | Yes |
+
+InStr is a function that finds the position of the substring needle within the string haystack and returns its position (1-based index), or 0 if the substring is not found.
+here is how the func looks like:
+```
+InStr(str haystack, str needle)
+```
+
+---
+
+### RegExMatch
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| RegExMatch | Yes | Yes | Yes |
+
+RegExMatch is a function that matches a regular expression pattern within a string and optionally stores the match in an output variable, returning the position of the match or 0 if no match is found.
+here is how the func looks like:
+```
+RegExMatch(str Haystack, str NeedleRegEx, arr str OutputVar, int StartingPos [optional = 0])
+```
+
+---
+
+### RegExReplace
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| RegExReplace | Yes | Yes | Yes |
+
+RegExReplace is a function that performs a regular expression-based replacement on a string using a given pattern and replacement string.
+here is how the func looks like:
+```
+RegExReplace(str inputStr, str regexPattern, str replacement)
+```
+
+---
+
+### STR
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| STR | Yes | Yes | Yes |
+
+STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.
+here is how the func looks like:
+```
+STR(value)
+```
+
+---
+
+### Sort
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| Sort | Yes | Yes | Yes |
+
+Sort is a function that takes a string and optional options to sort its elements based on various criteria such as numeric, random, alphabetical, case sensitivity, and more, with support for delimiters and unique filtering.
+here is how the func looks like:
+```
+Sort(str varName, [str options = ""])
+```
+
+---
+
+### StrLen
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| StrLen | Yes | Yes | Yes |
+
+StrLen is a function that takes a string as input and returns its length as a size_t value.
+here is how the func looks like:
+```
+StrLen(str)
+```
+
+---
+
+### StrLower
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| StrLower | Yes | Yes | Yes |
+
+StrLower is a function that takes a string as input and converts all characters to lowercase.
+here is how the func looks like:
+```
+StrLower(string)
+```
+
+---
+
+### StrReplace
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| StrReplace | Yes | Yes | Yes |
+
+StrReplace is a function that takes an original string, a substring to find, and a substring to replace it with, returning the modified string.
+here is how the func looks like:
+```
+StrReplace(str originalString, str find, str replaceWith)
+```
+
+---
+
+### StrSplit
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| StrSplit | Yes | Yes | Yes |
+
+StrSplit is a function that splits an input string by a specified delimiter and returns the part at the specified index, or an empty string if the index is out of range.
+here is how the func looks like:
+```
+StrSplit(str inputStr, str delimiter, int num)
+```
+
+---
+
+### StrTitleCase
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| StrTitleCase | Yes | Yes | Yes |
+
+StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.
+here is how the func looks like:
+```
+StrTitleCase(str inputString)
+```
+
+---
+
+### StringTrimLeft
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| StringTrimLeft | Yes | Yes | Yes |
+
+StringTrimLeft is a function that trims a specified number of characters from the left side of a given string.
+here is how the func looks like:
+```
+StringTrimLeft(str input, int numChars)
+```
+
+---
+
+### StringTrimRight
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| StringTrimRight | Yes | Yes | Yes |
+
+StringTrimRight is a function that trims a specified number of characters from the right side of a given string.
+here is how the func looks like:
+```
+StringTrimRight(str input, int numChars)
+```
+
+---
+
+### SubStr
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| SubStr | Yes | Yes | Yes |
+
+SubStr is a function that extracts a substring from a given string, starting from a specified position and for a specified length, adjusting for edge cases like null inputs or missing parameters.
+here is how the func looks like:
+```
+SubStr(str, int startPos, int length [= str.length - startPos + 1])
+```
+
+---
+
+### Trim
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| Trim | Yes | Yes | Yes |
+
+Trim is a function that removes leading and trailing whitespace from the input string.
+here is how the func looks like:
+```
+Trim(string)
+```
+
+---
+
+### countChars
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| countChars | Yes | Yes | Yes |
+
+countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.
+here is how the func looks like:
+```
+countChars(str string, str theChar)
+```
+
+---
+
+### getUrlParams
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| getUrlParams | No | No | Yes |
+
+getUrlParams is a function that extracts and decodes parameter values from the URL query string, returning a combined string of values separated by '&'.
+here is how the func looks like:
+```
+getUrlParams()
+```
+
+---
+
+### sortArr
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| sortArr | Yes | Yes | Yes |
+
+sortArr is a function that takes an array, removes any duplicate values using a Set, and returns the array sorted in ascending order.
+here is how the func looks like:
+```
+sortArr(arr str stringArray)
+```
+
+---
+
+## System Functions
 
 [Go back](#built-in-functions)
 
-1. [FileAppend](#fileappend)
+1. [BuildInVars](#buildinvars)
+2. [ExitApp](#exitapp)
+3. [Sleep](#sleep)
 
 ---
 
@@ -964,44 +1329,135 @@ Tan func calculates the tangent of an angle
 
 | Functions | C++ | Python | JavaScript |
 |----------|----------|----------|----------|
-| FileAppend | Yes | Yes | Yes |
+| BuildInVars | Yes | Yes | Yes |
+| ExitApp | Yes | Yes | No |
+| Sleep | Yes | Yes | Yes |
+
+---
+
+### BuildInVars
+
+[Go back](#system-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| BuildInVars | Yes | Yes | Yes |
+
+BuildInVars is a function that retrieves various system-related values or states, including screen dimensions, timestamps, key presses, and more, based on the specified variable name.
+here is how the func looks like:
+```
+BuildInVars(str varName)
+```
+
+---
+
+### ExitApp
+
+[Go back](#system-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| ExitApp | Yes | Yes | No |
+
+ExitApp is a function that terminates the application immediately.
+here is how the func looks like:
+```
+ExitApp()
+```
+
+---
+
+### Sleep
+
+[Go back](#system-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| Sleep | Yes | Yes | Yes |
+
+Sleep is a function that pauses execution for a specified number of milliseconds.
+here is how the func looks like:
+```
+Sleep(int milliseconds)
+```
+
+---
+
+## File Functions
+
+[Go back](#built-in-functions)
+
+1. [FileAppend](#fileappend)
+2. [FileAppendJs](#fileappendjs)
+3. [FileCreateDir](#filecreatedir)
+4. [FileDelete](#filedelete)
+5. [FileExist](#fileexist)
+6. [FileRead](#fileread)
+7. [FileRemoveDir](#fileremovedir)
+
+---
+
+**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+
+**HTVM build-in functions availability.**
+
+| Functions | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| FileAppend | Yes | Yes | No |
+| FileAppendJs | No | No | Yes |
+| FileCreateDir | Yes | Yes | No |
+| FileDelete | Yes | Yes | No |
+| FileExist | Yes | Yes | No |
+| FileRead | Yes | Yes | No |
+| FileRemoveDir | Yes | Yes | No |
 
 ---
 
 ### FileAppend
 
-[Go back](#fileappend-func-is-a-func-functions)
+[Go back](#file-functions)
 
 **HTVM build-in functions availability.**
 
 | Function | C++ | Python | JavaScript |
 |----------|----------|----------|----------|
-| FileAppend | Yes | Yes | Yes |
+| FileAppend | Yes | Yes | No |
 
-
----
-
-## Filecreatedir Is A Function To Create A Directory If It Does Not Exist. Functions
-
-[Go back](#built-in-functions)
-
-1. [FileCreateDir](#filecreatedir)
+FileAppend is a function that appends the given content to a file at the specified path and returns a boolean indicating success or failure.
+here is how the func looks like:
+```
+FileAppend(str content, str path)
+```
 
 ---
 
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+### FileAppendJs
+
+[Go back](#file-functions)
 
 **HTVM build-in functions availability.**
 
-| Functions | C++ | Python | JavaScript |
+| Function | C++ | Python | JavaScript |
 |----------|----------|----------|----------|
-| FileCreateDir | Yes | Yes | No |
+| FileAppendJs | No | No | Yes |
+
+FileAppendJs is a function that appends content to a file by creating a Blob, generating a download link, and triggering a download with the specified filename.
+here is how the func looks like:
+```
+FileAppendJs(str content, str filename)
+```
 
 ---
 
 ### FileCreateDir
 
-[Go back](#filecreatedir-is-a-function-to-create-a-directory-if-it-does-not-exist.-functions)
+[Go back](#file-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1009,30 +1465,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | FileCreateDir | Yes | Yes | No |
 
-
----
-
-## Filedelete Func Is A Func Functions
-
-[Go back](#built-in-functions)
-
-1. [FileDelete](#filedelete)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| FileDelete | Yes | Yes | No |
+FileCreateDir is a function that checks if a directory exists, and if not, it creates the directory.
+here is how the func looks like:
+```
+FileCreateDir(str directory)
+```
 
 ---
 
 ### FileDelete
 
-[Go back](#filedelete-func-is-a-func-functions)
+[Go back](#file-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1040,30 +1483,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | FileDelete | Yes | Yes | No |
 
-
----
-
-## Fileexist Is A Function To Check If A File Or Directory Exists. Functions
-
-[Go back](#built-in-functions)
-
-1. [FileExist](#fileexist)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| FileExist | Yes | Yes | No |
+FileDelete is a function that checks if a file exists at the given path and deletes it if found, returning True if the file is deleted, otherwise False.
+here is how the func looks like:
+```
+FileDelete(str path)
+```
 
 ---
 
 ### FileExist
 
-[Go back](#fileexist-is-a-function-to-check-if-a-file-or-directory-exists.-functions)
+[Go back](#file-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1071,30 +1501,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | FileExist | Yes | Yes | No |
 
-
----
-
-## Fileread Func Is A Func Functions
-
-[Go back](#built-in-functions)
-
-1. [FileRead](#fileread)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| FileRead | Yes | Yes | No |
+FileExist is a function that checks if a file or directory exists at the specified path.
+here is how the func looks like:
+```
+FileExist(str path)
+```
 
 ---
 
 ### FileRead
 
-[Go back](#fileread-func-is-a-func-functions)
+[Go back](#file-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1102,30 +1519,17 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | FileRead | Yes | Yes | No |
 
-
----
-
-## Fileremovedir Is A Function To Remove A Directory If It Exists. Functions
-
-[Go back](#built-in-functions)
-
-1. [FileRemoveDir](#fileremovedir)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| FileRemoveDir | Yes | Yes | No |
+FileRead is a function that reads the content of a file given a path, prepends the current working directory if the path is not absolute, and returns the file content as a string.
+here is how the func looks like:
+```
+FileRead(path: str)
+```
 
 ---
 
 ### FileRemoveDir
 
-[Go back](#fileremovedir-is-a-function-to-remove-a-directory-if-it-exists.-functions)
+[Go back](#file-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1133,45 +1537,23 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | FileRemoveDir | Yes | Yes | No |
 
+FileRemoveDir is a function that removes a directory and its contents if the directory exists.
+here is how the func looks like:
+```
+FileRemoveDir(str directory)
+```
 
 ---
 
-## Rounds Down A Floating-point Number To The Nearest Integer. Functions
-
-[Go back](#built-in-functions)
-
-1. [Floor](#floor)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Floor | Yes | Yes | Yes |
-
----
-
-### Floor
-
-[Go back](#rounds-down-a-floating-point-number-to-the-nearest-integer.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Floor | Yes | Yes | Yes |
-
-
----
-
-## Getparams Is A Func For Platform-specific Handling For Command-line Arguments And Getting Parameters. Functions
+## Io Functions
 
 [Go back](#built-in-functions)
 
 1. [GetParams](#getparams)
+2. [RunCMD](#runcmd)
+3. [getDataFromAPI](#getdatafromapi)
+4. [input](#input)
+5. [print](#print)
 
 ---
 
@@ -1182,12 +1564,16 @@ Tan func calculates the tangent of an angle
 | Functions | C++ | Python | JavaScript |
 |----------|----------|----------|----------|
 | GetParams | Yes | Yes | No |
+| RunCMD | Yes | Yes | No |
+| getDataFromAPI | Yes | Yes | Yes |
+| input | Yes | Yes | Yes |
+| print | Yes | Yes | Yes |
 
 ---
 
 ### GetParams
 
-[Go back](#getparams-is-a-func-for-platform-specific-handling-for-command-line-arguments-and-getting-parameters.-functions)
+[Go back](#io-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1195,6 +1581,83 @@ Tan func calculates the tangent of an angle
 |----------|----------|----------|----------|
 | GetParams | Yes | Yes | No |
 
+GetParams is a function that retrieves command line arguments, checks if they correspond to existing paths, and returns them as absolute paths in new lines, or as they are if they do not exist.
+here is how the func looks like:
+```
+GetParams()
+```
+
+---
+
+### RunCMD
+
+[Go back](#io-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| RunCMD | Yes | Yes | No |
+
+RunCMD is a function that executes a shell command and captures its output or errors.
+here is how the func looks like:
+```
+RunCMD(str command)
+```
+
+---
+
+### getDataFromAPI
+
+[Go back](#io-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| getDataFromAPI | Yes | Yes | Yes |
+
+getDataFromAPI is a function that asynchronously fetches JSON data from a given URL and returns it, handling errors and non-OK responses.
+here is how the func looks like:
+```
+getDataFromAPI(str url)
+```
+
+---
+
+### input
+
+[Go back](#io-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| input | Yes | Yes | Yes |
+
+input is a function that displays a prompt with the given text and returns the user's input.
+here is how the func looks like:
+```
+input(str promptText)
+```
+
+---
+
+### print
+
+[Go back](#io-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| print | Yes | Yes | Yes |
+
+print is a function that outputs the specified data to the console or standard output.
+here is how the func looks like:
+```
+print(str)
+```
 
 ---
 
@@ -1574,73 +2037,12 @@ MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
 
 ---
 
-## Int Func Is A Func Functions
-
-[Go back](#built-in-functions)
-
-1. [INT](#int)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| INT | Yes | Yes | Yes |
-
----
-
-### INT
-
-[Go back](#int-func-is-a-func-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| INT | Yes | Yes | Yes |
-
-
----
-
-## Instr Func Is A Func Functions
-
-[Go back](#built-in-functions)
-
-1. [InStr](#instr)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| InStr | Yes | Yes | Yes |
-
----
-
-### InStr
-
-[Go back](#instr-func-is-a-func-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| InStr | Yes | Yes | Yes |
-
-
----
-
-## Hotkey Functions
+## Other Functions
 
 [Go back](#built-in-functions)
 
 1. [MakeHotKey](#makehotkey)
+2. [isWindows](#iswindows)
 
 ---
 
@@ -1651,12 +2053,13 @@ MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
 | Functions | C++ | Python | JavaScript |
 |----------|----------|----------|----------|
 | MakeHotKey | No | No | Yes |
+| isWindows | Yes | Yes | No |
 
 ---
 
 ### MakeHotKey
 
-[Go back](#hotkey-functions)
+[Go back](#other-functions)
 
 **HTVM build-in functions availability.**
 
@@ -1672,647 +2075,9 @@ MakeHotKey(str hotkey, function callback)
 
 ---
 
-## Returns The Remainder Of The Division Of Two Integers. Functions
-
-[Go back](#built-in-functions)
-
-1. [Mod](#mod)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Mod | Yes | Yes | Yes |
-
----
-
-### Mod
-
-[Go back](#returns-the-remainder-of-the-division-of-two-integers.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Mod | Yes | Yes | Yes |
-
-
----
-
-## Random Func Is A Func Functions
-
-[Go back](#built-in-functions)
-
-1. [Random](#random)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Random | Yes | Yes | Yes |
-
----
-
-### Random
-
-[Go back](#random-func-is-a-func-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Random | Yes | Yes | Yes |
-
-
----
-
-## Regexmatch Is A Function To Perform Regex Matching And Return The Match Position. Functions
-
-[Go back](#built-in-functions)
-
-1. [RegExMatch](#regexmatch)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| RegExMatch | Yes | Yes | Yes |
-
----
-
-### RegExMatch
-
-[Go back](#regexmatch-is-a-function-to-perform-regex-matching-and-return-the-match-position.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| RegExMatch | Yes | Yes | Yes |
-
-
----
-
-## Regexreplace Is A Function To Perform Regex Replacement. Functions
-
-[Go back](#built-in-functions)
-
-1. [RegExReplace](#regexreplace)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| RegExReplace | Yes | Yes | Yes |
-
----
-
-### RegExReplace
-
-[Go back](#regexreplace-is-a-function-to-perform-regex-replacement.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| RegExReplace | Yes | Yes | Yes |
-
-
----
-
-## Runcmd Is A Function To Run A System Command And Capture The Output. Functions
-
-[Go back](#built-in-functions)
-
-1. [RunCMD](#runcmd)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| RunCMD | Yes | Yes | No |
-
----
-
-### RunCMD
-
-[Go back](#runcmd-is-a-function-to-run-a-system-command-and-capture-the-output.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| RunCMD | Yes | Yes | No |
-
-
----
-
-## Str Func Is A Func Functions
-
-[Go back](#built-in-functions)
-
-1. [STR](#str)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| STR | Yes | Yes | Yes |
-
----
-
-### STR
-
-[Go back](#str-func-is-a-func-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| STR | Yes | Yes | Yes |
-
-
----
-
-## Sleep Func Is A Func Functions
-
-[Go back](#built-in-functions)
-
-1. [Sleep](#sleep)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Sleep | Yes | Yes | Yes |
-
----
-
-### Sleep
-
-[Go back](#sleep-func-is-a-func-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Sleep | Yes | Yes | Yes |
-
-
----
-
-## Sort Func Is A Func Functions
-
-[Go back](#built-in-functions)
-
-1. [Sort](#sort)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Sort | Yes | Yes | Yes |
-
----
-
-### Sort
-
-[Go back](#sort-func-is-a-func-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Sort | Yes | Yes | Yes |
-
-
----
-
-## Strlen Func Is A Func Functions
-
-[Go back](#built-in-functions)
-
-1. [StrLen](#strlen)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StrLen | Yes | Yes | Yes |
-
----
-
-### StrLen
-
-[Go back](#strlen-func-is-a-func-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StrLen | Yes | Yes | Yes |
-
-
----
-
-## Converts All Characters In A String To Lowercase. Functions
-
-[Go back](#built-in-functions)
-
-1. [StrLower](#strlower)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StrLower | Yes | Yes | Yes |
-
----
-
-### StrLower
-
-[Go back](#converts-all-characters-in-a-string-to-lowercase.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StrLower | Yes | Yes | Yes |
-
-
----
-
-## String Functions
-
-[Go back](#built-in-functions)
-
-1. [StrReplace](#strreplace)
-2. [StrTitleCase](#strtitlecase)
-3. [SubStr](#substr)
-4. [Trim](#trim)
-5. [countChars](#countchars)
-6. [sortArr](#sortarr)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StrReplace | Yes | Yes | Yes |
-| StrTitleCase | Yes | Yes | Yes |
-| SubStr | Yes | Yes | Yes |
-| Trim | Yes | Yes | Yes |
-| countChars | Yes | Yes | Yes |
-| sortArr | Yes | Yes | Yes |
-
----
-
-### StrReplace
-
-[Go back](#string-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StrReplace | Yes | Yes | Yes |
-
-Replaces all occurrences of a substring with another string in the given string.
-
----
-
-### StrTitleCase
-
-[Go back](#string-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StrTitleCase | Yes | Yes | Yes |
-
-StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.
-here is how the func looks like:
-```
-StrTitleCase(str inputString)
-```
-
----
-
-### SubStr
-
-[Go back](#string-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| SubStr | Yes | Yes | Yes |
-
-Extracts a substring from a given string starting at a specified position with an optional length.
-
----
-
-### Trim
-
-[Go back](#string-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| Trim | Yes | Yes | Yes |
-
-Removes leading and trailing whitespace from a string.
-
----
-
-### countChars
-
-[Go back](#string-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| countChars | Yes | Yes | Yes |
-
-countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.
-here is how the func looks like:
-```
-countChars(str string, str theChar)
-```
-
----
-
-### sortArr
-
-[Go back](#string-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| sortArr | Yes | Yes | Yes |
-
-sortArr is a function that takes an array, removes any duplicate values using a Set, and returns the array sorted in ascending order.
-here is how the func looks like:
-```
-sortArr(arr str stringArray)
-```
-
----
-
-## Splits A String By A Delimiter And Returns The Nth Split. Functions
-
-[Go back](#built-in-functions)
-
-1. [StrSplit](#strsplit)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StrSplit | Yes | Yes | Yes |
-
----
-
-### StrSplit
-
-[Go back](#splits-a-string-by-a-delimiter-and-returns-the-nth-split.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StrSplit | Yes | Yes | Yes |
-
-
----
-
-## Trims Characters From The Left Side Of The String Based On The Specified Number Of Characters. Functions
-
-[Go back](#built-in-functions)
-
-1. [StringTrimLeft](#stringtrimleft)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StringTrimLeft | Yes | Yes | Yes |
-
----
-
-### StringTrimLeft
-
-[Go back](#trims-characters-from-the-left-side-of-the-string-based-on-the-specified-number-of-characters.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StringTrimLeft | Yes | Yes | Yes |
-
-
----
-
-## Trims Characters From The Right Side Of The String Based On The Specified Number Of Characters. Functions
-
-[Go back](#built-in-functions)
-
-1. [StringTrimRight](#stringtrimright)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StringTrimRight | Yes | Yes | Yes |
-
----
-
-### StringTrimRight
-
-[Go back](#trims-characters-from-the-right-side-of-the-string-based-on-the-specified-number-of-characters.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| StringTrimRight | Yes | Yes | Yes |
-
-
----
-
-## Getdatafromapi Is A Function To Fetch Data From An Api. Functions
-
-[Go back](#built-in-functions)
-
-1. [getDataFromAPI](#getdatafromapi)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| getDataFromAPI | Yes | Yes | Yes |
-
----
-
-### getDataFromAPI
-
-[Go back](#getdatafromapi-is-a-function-to-fetch-data-from-an-api.-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| getDataFromAPI | Yes | Yes | Yes |
-
-
----
-
-## Geturlparams Is A Func Functions
-
-[Go back](#built-in-functions)
-
-1. [getUrlParams](#geturlparams)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| getUrlParams | No | No | Yes |
-
----
-
-### getUrlParams
-
-[Go back](#geturlparams-is-a-func-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| getUrlParams | No | No | Yes |
-
-
----
-
-## Input Func Is A Func Functions
-
-[Go back](#built-in-functions)
-
-1. [input](#input)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| input | Yes | No | Yes |
-
----
-
-### input
-
-[Go back](#input-func-is-a-func-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| input | Yes | No | Yes |
-
-
----
-
-## Iswindows Is A Function To Check If The Operating System Is Windows Functions
-
-[Go back](#built-in-functions)
-
-1. [isWindows](#iswindows)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| isWindows | Yes | Yes | No |
-
----
-
 ### isWindows
 
-[Go back](#iswindows-is-a-function-to-check-if-the-operating-system-is-windows-functions)
+[Go back](#other-functions)
 
 **HTVM build-in functions availability.**
 
@@ -2320,37 +2085,11 @@ sortArr(arr str stringArray)
 |----------|----------|----------|----------|
 | isWindows | Yes | Yes | No |
 
-
----
-
-## Hello That Is Func Mhm Functions
-
-[Go back](#built-in-functions)
-
-1. [print](#print)
-
----
-
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| print | Yes | No | Yes |
-
----
-
-### print
-
-[Go back](#hello-that-is-func-mhm-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| print | Yes | No | Yes |
-
+isWindows is a function that checks if the current operating system is Windows by comparing the system name to "windows".
+here is how the func looks like:
+```
+isWindows()
+```
 
 ---
 
