@@ -31,7 +31,7 @@ To enhance your development experience, HTVM comes with a dedicated **HTVM IDE**
 4. [🔄 Syntax Highlighting and Code Completion Regeneration](#-syntax-highlighting-and-code-completion-regeneration)
 5. [📜 Documentation Regeneration](#-documentation-regeneration)
 6. [💻 Linux Instructions](#-linux-instructions)
-7. [🛠️ HTVM IDE](#-htvm-ide)
+7. [🛠️ HTVM IDE](#%EF%B8%8F-htvm-ide)
 
 
 ---
