@@ -521,6 +521,22 @@ The HTVM IDE is built around the [Ace Editor](https://ace.c9.io/), a powerful, w
 
 HTVM IDE uses property files with the extensions `.htpc` and `.htpr` for compiling and running your code. These files provide the commands needed to execute or compile your code based on the file type (e.g., `.cpp`, `.py`, `.js`). The files are located in the `/property files/` folder in the IDE, and you can create your own property files for different languages.
 
+---
+
+### File Extensions and Corresponding Property Files
+
+For each programming language you use in HTVM, the property files should have matching names with the extension `.htpc` for compile commands and `.htpr` for run commands. For example:
+
+- `cpp.htpr` or `cpp.htpc`
+- `zig.htpr` or `zig.htpc`
+- `lua.htpr` or `lua.htpc`
+- `c.htpr` or `c.htpc`
+- `asm.htpr` or `asm.htpc`
+
+In other words, the file extension of the code corresponds to the name of the property file.
+
+---
+
 - **.htpc**: Property file for compiling when pressing `Ctrl+F7`
 - **.htpr**: Property file for running your code when pressing `F5`
 
