@@ -173,7 +173,7 @@ HTVM main.ht HT-instructions.txt cpp
        description: string~~~Sort is a function to sort elements based on various criteria like numeric, random, alphabetical order, etc.~~~Here is how the function looks:~~~```~~~Sort(string input, [string options = ""])~~~```  
        ```  
 
-**Here is how a build-in function in AWSD.AS looks like:**
+**Here is how a build-in function in HT-instructions.txt looks like:**
 
 ```
 func======================func==============
