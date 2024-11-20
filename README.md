@@ -101,6 +101,13 @@ HTVM main.ht HT-instructions.txt cpp
    g++ HTVM.cpp -o HTVM
    ```  
 
+ **Compile `HTVM.cpp` with optimization (`-O3`)**:  
+   **Recommended Command for Faster Compilation**:  
+   ```bash
+   g++ -O3 -std=c++17 HTVM.cpp -o HTVM
+   ```  
+   This command optimizes the compilation process using the `-O3` flag, which can make the HTVM compiler run faster. However, please note that this optimization might take around 5 minutes for the HTVM compiler to compile.
+
 2. **Run the Transpiler**:  
    After compiling, you will get a new executable file.  
 
