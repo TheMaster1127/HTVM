@@ -304,9 +304,8 @@ Regenerate `DOCUMENTATION.md` using:
 
 **Description**: Set up and use the HTVM IDE for coding, testing, and compiling your language.
 
-1.[How to set up the HTVM IDE](#set-up-the-htvm-ide)
-
-2.[How to use the HTVM IDE and its Keyboard shortcuts](#How-to-use-the-htvm-ide-and-its-keyboard-shortcuts)
+1. [How to set up the HTVM IDE](#set-up-the-htvm-ide)
+2. [How to use the HTVM IDE and its Keyboard shortcuts](#How-to-use-the-htvm-ide-and-its-keyboard-shortcuts)
 
 ---
 
