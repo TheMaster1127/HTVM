@@ -16,7 +16,7 @@ HTVM introduces the **Objectively Simplified Programming (OSP)** paradigm, which
 
 ---
 
-### 🛠️ HTVM IDE  
+### 🛠️ HTVM IDE: Integrated development environment
 To enhance your development experience, HTVM comes with a dedicated **HTVM IDE**, featuring:  
 - Syntax highlighting.  
 - Code completion for efficient programming.  
