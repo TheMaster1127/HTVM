@@ -3,7 +3,8 @@
 ### 🚀 HTVM: The Revolution in Programming  
 HTVM is a revolutionary programming language and engine inspired by my earlier languages but a hundred times more powerful. Built in **HT++**, HTVM can convert code to **JavaScript**, **Python**, and **C++**, introducing groundbreaking features:  
 - **Customizable Syntax**: Define your own syntax without restrictions.  
-- **No More Libraries**: Forget importing libraries—everything you need is built-in for simplicity and efficiency.  
+- **No More Build-In Libraries**: Forget importing libraries—everything you need is built-in for simplicity and efficiency.  
+- **HTVM IDE**: To enhance your development experience, HTVM comes with a dedicated IDE.
 
 HTVM makes programming simpler, more flexible, and revolutionary.  
 
@@ -23,35 +24,31 @@ To enhance your development experience, HTVM comes with a dedicated **HTVM IDE**
 
 ---
 
-## Table of Contents
-
-1. [⚡ Getting Started](#-getting-started)
-2. [📘 Usage](#-usage)
-3. [📂 Adding Built-In Functions](#-adding-built-in-functions)
-4. [🔄 Syntax Highlighting and Code Completion Regeneration](#-syntax-highlighting-and-code-completion-regeneration)
-5. [📜 Documentation Regeneration](#-documentation-regeneration)
-6. [💻 Linux Instructions](#-linux-instructions)
-7. [🛠️ HTVM IDE](#%EF%B8%8F-htvm-ide)
-
+### 📚 Documentation
+Here is the [Documentation](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md)
 
 ---
 
-### ⚡ Getting Started  
+### Table of Contents
 
-[Go Back To The Table of Contents ](#table-of-contents)
+1. [📘 Usage](#-usage)
+2. [📂 Adding Built-In Functions](#-adding-built-in-functions)
+3. [🔄 Syntax Highlighting and Code Completion Regeneration](#-syntax-highlighting-and-code-completion-regeneration)
 
-#### Configuring Your Language  
+   Use the **Autocomplete-Syntax-Highlighting-Regenerator** tool to update syntax highlighting and code completion.  
 
-1. **Adjust Syntax**:  
-   - Use the website: [HTVM Syntax Configurator](https://themaster1127.github.io/HTVM/), or  
-   - Edit `HT-instructions.txt` directly.  
-     - Each line corresponds to the same line in `instruction documentation.txt`.  
+4. [📜 Documentation Regeneration](#-documentation-regeneration)
+5. [🛠️ HTVM IDE](#%EF%B8%8F-htvm-ide)
+
+---
+
+
 
 2. **Write Your Code**:  
    - Save your language code as `yourCodeFileName.yourExtension`.  
 
 3. **Compile and Execute**:  
-   - Use `HTVM.exe` or compile the C++ code to generate output.  
+   - Use `HTVM` or compile the C++ code to generate output.  
    - Specify the target language (`cpp`, `py`, or `js`) in the first line of `HT-instructions.txt`.
 
 4. **Add Built-In Functions**:  
@@ -67,7 +64,123 @@ To enhance your development experience, HTVM comes with a dedicated **HTVM IDE**
 
 [Go Back To The Table of Contents ](#table-of-contents)
 
-#### Basic Command  
+### 1. **Clone the Repository**
+
+First, clone the HTVM repository:
+
+```bash
+git clone https://github.com/TheMaster1127/HTVM
+```
+
+Navigate into the directory:
+
+```bash
+cd HTVM
+```
+
+---
+
+### 2. **Set Up the HTVM IDE**
+
+After cloning the repository, go to the `IDE` directory where the files are located:
+
+```bash
+cd IDE
+```
+
+---
+
+### 3. **Ensure Node.js and npm are Installed**
+
+The HTVM IDE requires **Node.js** and **npm** to run.
+
+If either **Node.js** or **npm** is not installed, follow the installation steps below.
+
+#### **Installing Node.js and npm**
+
+- **Windows**: Download the prebuilt installer from the official Node.js website:  
+  [https://nodejs.org/en/download/prebuilt-installer](https://nodejs.org/en/download/prebuilt-installer)
+
+- **Linux**:  
+  1. Update your package index:
+     ```bash
+     sudo apt update
+     ```
+  2. Install Node.js and npm using your package manager:
+     ```bash
+     sudo apt install nodejs npm
+     ```
+
+---
+
+#### **Check if Node.js is Installed**
+
+To check if **Node.js** is installed, use the following command:
+
+```bash
+node --version
+```
+
+If Node.js is installed, this will display the version number, for example:
+
+```
+v16.13.0
+```
+
+#### **Check if npm is Installed**
+
+npm is a package manager that comes with Node.js. To check if **npm** is installed, use the following command:
+
+```bash
+npm --version
+```
+
+If npm is installed, this will display the version number, for example:
+
+```
+7.24.0
+```
+
+---
+
+### 4. **Install Project Dependencies**
+
+In the `IDE` directory, install the required dependencies using npm:
+
+```bash
+npm install
+```
+
+This will install all the necessary packages listed in the `package.json` file.
+
+> **Note**: You only need to run `npm install` **once** during the initial setup. After the dependencies are installed, you don't need to run it again unless you pull changes from the repository that update the dependencies.
+
+---
+
+### 5. **Start the HTVM IDE**
+
+Once the dependencies are installed, you can launch the HTVM IDE using:
+
+```bash
+npm start
+```
+
+This will open the Electron application, providing the HTVM IDE interface.
+
+---
+
+#### Troubleshooting:
+
+- If you encounter issues with `npm install` or `npm start`, make sure that **Node.js** and **npm** are correctly installed.
+- On **Linux**, if you run into permission errors during installation, you may need to prepend `sudo` to the `npm install` or `npm start` commands (e.g., `sudo npm install`).
+
+
+2. **Adjust Syntax**:  
+   - Use the website: [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/), or  
+   - Edit `HT-instructions.txt` directly (NOT RECOMMENDED!).  
+     - Each line corresponds to the same line in `instruction documentation.txt`.  
+
+#### Usage of the HTVM compiler
 ```bash
 HTVM <yourCodeFileName.yourExtension> <HT-instructions.txt> [optional LangToTranspileTo]
 ```  
@@ -83,6 +196,73 @@ HTVM <yourCodeFileName.yourExtension> <HT-instructions.txt> [optional LangToTran
 ```bash
 HTVM main.ht HT-instructions.txt cpp
 ```  
+
+1. Compile `HTVM.cpp`:  
+   ```bash
+   g++ HTVM.cpp -o HTVM
+   ```  
+
+   **recomeneded compile command**
+
+   ```bash
+   g++ -std=c++17 HTVM.cpp -o HTVM
+   ```
+
+2. Run the transpiler:  
+   
+   **On Windows**
+
+   ```bash
+   HTVM main.ht HT-instructions.txt
+   ```  
+
+   **On Limux**
+
+   ```bash
+   ./HTVM main.ht HT-instructions.txt
+   ```  
+
+3. Add an optional target language:  
+
+   **On Windows**
+
+   ```bash
+   HTVM main.ht HT-instructions.txt cpp
+   ```
+
+   **On Limux**
+
+   ```bash
+   ./HTVM main.ht HT-instructions.txt cpp
+   ```  
+
+   or 
+
+   **On Windows**
+
+   ```bash
+   HTVM main.ht HT-instructions.txt py
+   ```
+
+   **On Limux**
+
+   ```bash
+   ./HTVM main.ht HT-instructions.txt py
+   ```
+   
+   or 
+
+   **On Windows**
+
+   ```bash
+   HTVM main.ht HT-instructions.txt js
+   ```
+
+   **On Limux**
+
+   ```bash
+   ./HTVM main.ht HT-instructions.txt js
+   ``` 
 
 ---
 
@@ -227,39 +407,6 @@ Regenerate `DOCUMENTATION.md` using:
    ```bash
    ./Documentation-Generation HT-instructions.txt
    ``` 
-
----
-
-### 💻 Linux Instructions  
-
-[Go Back To The Table of Contents ](#table-of-contents)
-
-1. Compile `HTVM.cpp`:  
-   ```bash
-   g++ HTVM.cpp -o HTVM
-   ```  
-
-2. Run the transpiler:  
-   ```bash
-   ./HTVM main.ht HT-instructions.txt
-   ```  
-
-3. Add an optional target language:  
-   ```bash
-   ./HTVM main.ht HT-instructions.txt cpp
-   ```  
-
-   or 
-
-   ```bash
-   ./HTVM main.ht HT-instructions.txt py
-   ```  
-
-   or 
-
-   ```bash
-   ./HTVM main.ht HT-instructions.txt js
-   ```  
 
 ---
 
