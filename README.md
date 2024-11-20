@@ -31,32 +31,20 @@ Here is the [Documentation](https://github.com/TheMaster1127/HTVM/blob/main/DOCU
 
 ### Table of Contents
 
-1. [📘 Usage](#-usage)
-2. [📂 Adding Built-In Functions](#-adding-built-in-functions)
-3. [🔄 Syntax Highlighting and Code Completion Regeneration](#-syntax-highlighting-and-code-completion-regeneration)
+1. [📘 Usage](#-usage)  
+   **Description**: Learn how to compile and execute your language code using HTVM and the HTVM IDE.
 
-   Use the **Autocomplete-Syntax-Highlighting-Regenerator** tool to update syntax highlighting and code completion.  
+2. [📂 Adding Built-In Functions](#-adding-built-in-functions)  
+   **Description**: Add custom built-in functions to your language by following simple syntax rules.
 
-4. [📜 Documentation Regeneration](#-documentation-regeneration)
-5. [🛠️ HTVM IDE](#%EF%B8%8F-htvm-ide)
+3. [🔄 Syntax Highlighting and Code Completion Regeneration](#-syntax-highlighting-and-code-completion-regeneration)  
+   **Description**: Use the **Autocomplete-Syntax-Highlighting-Regenerator** tool to refresh syntax highlighting and code completion.
 
----
+4. [📜 Documentation Regeneration](#-documentation-regeneration)  
+   **Description**: Update your language’s documentation whenever new features or changes are made.
 
-
-
-2. **Write Your Code**:  
-   - Save your language code as `yourCodeFileName.yourExtension`.  
-
-3. **Compile and Execute**:  
-   - Use `HTVM` or compile the C++ code to generate output.  
-   - Specify the target language (`cpp`, `py`, or `js`) in the first line of `HT-instructions.txt`.
-
-4. **Add Built-In Functions**:  
-   - Add functions at the bottom of `HT-instructions.txt`.  
-   - Follow the syntax rules detailed in the **Adding Built-In Functions** section below.  
-
-5. **Regenerate IDE Features**:  
-   - Use the **Autocomplete-Syntax-Highlighting-Regenerator** tool to update syntax highlighting and code completion.  
+5. [🛠️ HTVM IDE](#%EF%B8%8F-htvm-ide)  
+   **Description**: Set up and use the HTVM IDE for coding, testing, and compiling your language.
 
 ---
 
@@ -80,7 +68,14 @@ cd HTVM
 
 ---
 
-### 2. **Set Up the HTVM IDE**
+2. **Adjust Syntax**:  
+   - Use the website: [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/), or  
+   - Edit `HT-instructions.txt` directly (NOT RECOMMENDED!).  
+     - Each line corresponds to the same line in `instruction documentation.txt`.  
+
+---
+
+### 3. **Set Up the HTVM IDE**
 
 After cloning the repository, go to the `IDE` directory where the files are located:
 
@@ -90,7 +85,7 @@ cd IDE
 
 ---
 
-### 3. **Ensure Node.js and npm are Installed**
+### 4. **Ensure Node.js and npm are Installed**
 
 The HTVM IDE requires **Node.js** and **npm** to run.
 
@@ -143,7 +138,7 @@ If npm is installed, this will display the version number, for example:
 
 ---
 
-### 4. **Install Project Dependencies**
+### 5. **Install Project Dependencies**
 
 In the `IDE` directory, install the required dependencies using npm:
 
@@ -157,7 +152,7 @@ This will install all the necessary packages listed in the `package.json` file.
 
 ---
 
-### 5. **Start the HTVM IDE**
+### 6. **Start the HTVM IDE**
 
 Once the dependencies are installed, you can launch the HTVM IDE using:
 
@@ -173,12 +168,6 @@ This will open the Electron application, providing the HTVM IDE interface.
 
 - If you encounter issues with `npm install` or `npm start`, make sure that **Node.js** and **npm** are correctly installed.
 - On **Linux**, if you run into permission errors during installation, you may need to prepend `sudo` to the `npm install` or `npm start` commands (e.g., `sudo npm install`).
-
-
-2. **Adjust Syntax**:  
-   - Use the website: [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/), or  
-   - Edit `HT-instructions.txt` directly (NOT RECOMMENDED!).  
-     - Each line corresponds to the same line in `instruction documentation.txt`.  
 
 #### Usage of the HTVM compiler
 ```bash
