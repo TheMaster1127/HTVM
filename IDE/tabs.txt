@@ -34,3 +34,8 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSPandHTVMHTH\testGiuAndOSP2.h
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\htvm_syntax_highlighting_and_autocomplete.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\Documentation-Generation.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\Documentation-Generation.cpp
+C:\Users\The_M\OneDrive\Desktop\temp Projects\wadsfxadfx\test1line.ht
+C:\Users\The_M\OneDrive\Desktop\temp Projects\wadsfxadfx\test1line.cpp
+C:\Users\The_M\OneDrive\Desktop\temp Projects\wadsfxadfx\test1line.html
+C:\Users\The_M\OneDrive\Desktop\temp Projects\wadsfxadfx\test1line.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\main.ht

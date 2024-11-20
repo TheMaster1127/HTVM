@@ -7740,7 +7740,8 @@ htCode := "#include <iostream>`n#include <sstream>`n#include <any>`n#include <st
 
 
 
-MsgBox, % htCode
+;MsgBox, % htCode
+
 
 Loop, Parse, fileExtention
 {
@@ -7756,7 +7757,8 @@ filePathOfCode := filePathOfCode . langToTranspileTo
 }
 FileDelete, %filePathOfCode%
 FileAppend, %htCode%, %filePathOfCode%
-
+MsgBox, Done!
+MsgBox, % "The output is saved in: " . filePathOfCode
 }
 
 main:

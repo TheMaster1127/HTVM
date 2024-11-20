@@ -2083,7 +2083,7 @@
         function createNewFile() {
           // Create a new file path for the new tab (you can customize this as needed)
           const randomNumber = Math.floor(Math.random() * 1000000); // Generates a random number between 0 and 9999
-          const newFullPath = `temp files/newfile${randomNumber}.txt`; // Create a unique full path
+          const newFullPath = `temp files/newfile${randomNumber}.ht`; // Create a unique full path
           addTab(newFullPath); // Call your function to add a new tab with the new file path
           currentTabFullPath = newFullPath;
           tabsData += "\n" + currentTabFullPath;

@@ -7291,7 +7291,7 @@ if (langToTranspileTo == "cpp" && includeLibsInCppIf == 0)
 {
 htCode = "#include <iostream>\n#include <sstream>\n#include <any>\n#include <string>\n#include <cstdint>\n#include <algorithm>\n#include <vector>\n\n" + htCode;
 }
-print(htCode);
+//MsgBox, % htCode
 std::vector<std::string> items105 = LoopParseFunc(fileExtention);
 for (size_t A_Index105 = 1; A_Index105 < items105.size() + 1; A_Index105++)
 {
@@ -7308,6 +7308,8 @@ filePathOfCode = filePathOfCode + langToTranspileTo;
 }
 FileDelete(filePathOfCode);
 FileAppend(htCode, filePathOfCode);
+print(std::string("Done!"));
+print("The output is saved in: " + filePathOfCode);
 }
 int main(int argc, char* argv[])
 {
