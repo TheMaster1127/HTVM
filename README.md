@@ -525,7 +525,7 @@ HTVM IDE uses property files with the extensions `.htpc` and `.htpr` for compili
 
 ### File Extensions and Corresponding Property Files
 
-For each programming language you use in HTVM, the property files should have matching names with the extension `.htpc` for compile commands and `.htpr` for run commands. For example:
+For each programming language you use in the **HTVM IDE**, the property files should have matching names with the extension `.htpc` for compile commands and `.htpr` for run commands. For example:
 
 - `cpp.htpr` or `cpp.htpc`
 - `zig.htpr` or `zig.htpc`
