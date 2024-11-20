@@ -250,7 +250,7 @@ Regenerate `DOCUMENTATION.md` using:
    ```  
 
 
-**🛠️ HTVM IDE**
+### **🛠️ HTVM IDE**
 
 
 To run the IDE:
