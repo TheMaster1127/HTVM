@@ -249,6 +249,7 @@ Regenerate `DOCUMENTATION.md` using:
    ./HTVM main.ht HT-instructions.txt js
    ```  
 
+---
 
 ### 🛠️ HTVM IDE
 
