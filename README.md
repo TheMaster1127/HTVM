@@ -1,7 +1,7 @@
 # HTVM  
 
 ### 🚀 HTVM: The Revolution in Programming  
-HTVM is a revolutionary programming language and engine inspired by my earlier languages but a hundred times more powerful. Built in **HT++**, HTVM can convert code to **JavaScript**, **Python**, and **C++**, introducing groundbreaking features:  
+HTVM is a revolutionary programming language and engine inspired by my earlier languages but a hundred times more powerful. Built in **[HT++](https://github.com/TheMaster1127/HT-plus-plus)**, HTVM can convert code to **JavaScript**, **Python**, and **C++**, introducing groundbreaking features:  
 - **Customizable Syntax**: Define your own syntax without restrictions.  
 - **No More Build-In Libraries**: Forget importing libraries—everything you need is built-in for simplicity and efficiency.  
 - **HTVM IDE**: To enhance your development experience, HTVM comes with a dedicated IDE.
@@ -66,108 +66,10 @@ Navigate into the directory:
 cd HTVM
 ```
 
----
-
 2. **Adjust Syntax**:  
    - Use the website: [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/), or  
    - Edit `HT-instructions.txt` directly (NOT RECOMMENDED!).  
      - Each line corresponds to the same line in `instruction documentation.txt`.  
-
----
-
-### 3. **Set Up the HTVM IDE**
-
-After cloning the repository, go to the `IDE` directory where the files are located:
-
-```bash
-cd IDE
-```
-
----
-
-### 4. **Ensure Node.js and npm are Installed**
-
-The HTVM IDE requires **Node.js** and **npm** to run.
-
-If either **Node.js** or **npm** is not installed, follow the installation steps below.
-
-#### **Installing Node.js and npm**
-
-- **Windows**: Download the prebuilt installer from the official Node.js website:  
-  [https://nodejs.org/en/download/prebuilt-installer](https://nodejs.org/en/download/prebuilt-installer)
-
-- **Linux**:  
-  1. Update your package index:
-     ```bash
-     sudo apt update
-     ```
-  2. Install Node.js and npm using your package manager:
-     ```bash
-     sudo apt install nodejs npm
-     ```
-
----
-
-#### **Check if Node.js is Installed**
-
-To check if **Node.js** is installed, use the following command:
-
-```bash
-node --version
-```
-
-If Node.js is installed, this will display the version number, for example:
-
-```
-v16.13.0
-```
-
-#### **Check if npm is Installed**
-
-npm is a package manager that comes with Node.js. To check if **npm** is installed, use the following command:
-
-```bash
-npm --version
-```
-
-If npm is installed, this will display the version number, for example:
-
-```
-7.24.0
-```
-
----
-
-### 5. **Install Project Dependencies**
-
-In the `IDE` directory, install the required dependencies using npm:
-
-```bash
-npm install
-```
-
-This will install all the necessary packages listed in the `package.json` file.
-
-> **Note**: You only need to run `npm install` **once** during the initial setup. After the dependencies are installed, you don't need to run it again unless you pull changes from the repository that update the dependencies.
-
----
-
-### 6. **Start the HTVM IDE**
-
-Once the dependencies are installed, you can launch the HTVM IDE using:
-
-```bash
-npm start
-```
-
-This will open the Electron application, providing the HTVM IDE interface.
-
----
-
-#### Troubleshooting:
-
-- If you encounter issues with `npm install` or `npm start`, make sure that **Node.js** and **npm** are correctly installed.
-- On **Linux**, if you run into permission errors during installation, you may need to prepend `sudo` to the `npm install` or `npm start` commands (e.g., `sudo npm install`).
 
 #### Usage of the HTVM compiler
 ```bash
@@ -186,78 +88,71 @@ HTVM <yourCodeFileName.yourExtension> <HT-instructions.txt> [optional LangToTran
 HTVM main.ht HT-instructions.txt cpp
 ```  
 
-1. Compile `HTVM.cpp`:  
+### 3. Compile and Run `HTVM`
+
+1. **Compile `HTVM.cpp`**:  
+   **Recommended Command**:  
+   ```bash
+   g++ -std=c++17 HTVM.cpp -o HTVM
+   ```  
+
+   **Not Recommended** (may cause issues):  
    ```bash
    g++ HTVM.cpp -o HTVM
    ```  
 
-   **recomeneded compile command**
+2. **Run the Transpiler**:  
+   After compiling, you will get a new executable file.  
 
-   ```bash
-   g++ -std=c++17 HTVM.cpp -o HTVM
-   ```
-
-2. Run the transpiler:  
-   
-   **On Windows**
-
+   **General Usage**:  
    ```bash
    HTVM main.ht HT-instructions.txt
    ```  
 
-   **On Limux**
-
+   **Linux Users**:  
+   Prepend `./` to the command:  
    ```bash
    ./HTVM main.ht HT-instructions.txt
    ```  
 
-3. Add an optional target language:  
+3. **Specify Target Language (Optional)**:  
+   Add `cpp`, `py`, or `js` at the end of the command to specify the target language.  
 
-   **On Windows**
+   **Examples**:  
+   - Generate C++ code:  
+     ```bash
+     HTVM main.ht HT-instructions.txt cpp
+     ```  
+     For Linux:  
+     ```bash
+     ./HTVM main.ht HT-instructions.txt cpp
+     ```  
 
-   ```bash
-   HTVM main.ht HT-instructions.txt cpp
-   ```
+   - Generate Python code:  
+     ```bash
+     HTVM main.ht HT-instructions.txt py
+     ```  
+     For Linux:  
+     ```bash
+     ./HTVM main.ht HT-instructions.txt py
+     ```  
 
-   **On Limux**
+   - Generate JavaScript code:  
+     ```bash
+     HTVM main.ht HT-instructions.txt js
+     ```  
+     For Linux:  
+     ```bash
+     ./HTVM main.ht HT-instructions.txt js
+     ```  
 
-   ```bash
-   ./HTVM main.ht HT-instructions.txt cpp
-   ```  
-
-   or 
-
-   **On Windows**
-
-   ```bash
-   HTVM main.ht HT-instructions.txt py
-   ```
-
-   **On Limux**
-
-   ```bash
-   ./HTVM main.ht HT-instructions.txt py
-   ```
-   
-   or 
-
-   **On Windows**
-
-   ```bash
-   HTVM main.ht HT-instructions.txt js
-   ```
-
-   **On Limux**
-
-   ```bash
-   ./HTVM main.ht HT-instructions.txt js
-   ``` 
-
----
+--- 
 
 ### 📂 Adding Built-In Functions  
 
 [Go Back To The Table of Contents ](#table-of-contents)
+
+**Description**: Add custom built-in functions to your language by following simple syntax rules.
 
 1. Open `HT-instructions.txt`.  
 2. Copy the last function block and paste it at the bottom.  
@@ -353,6 +248,8 @@ If chatGPT replayis in more then one line tell it:
 
 [Go Back To The Table of Contents ](#table-of-contents)
 
+**Description**: Use the **Autocomplete-Syntax-Highlighting-Regenerator** tool to refresh syntax highlighting and code completion.
+
 To regenerate IDE features:  
 1. Compile the `Autocomplete-Syntax-Highlighting-Regenerator.cpp`:  
    ```bash
@@ -380,6 +277,8 @@ To regenerate IDE features:
 
 [Go Back To The Table of Contents ](#table-of-contents)
 
+**Description**: Update your language’s documentation whenever new features or changes are made.
+
 Regenerate `DOCUMENTATION.md` using:  
 1. Compile the `Documentation-Generation.cpp` file:  
    ```bash
@@ -403,16 +302,121 @@ Regenerate `DOCUMENTATION.md` using:
 
 [Go Back To The Table of Contents ](#table-of-contents)
 
-To run the IDE:
+**Description**: Set up and use the HTVM IDE for coding, testing, and compiling your language.
+
+1.[How to set up the HTVM IDE](#set-up-the-htvm-ide)
+2.[How to use the HTVM IDE and its Keyboard shortcuts](#How-to-use-the-htvm-ide-and-its-keyboard-shortcuts)
+
+---
+
+## **Set Up the HTVM IDE**
+
+After cloning the repository, go to the `IDE` directory where the files are located:
+
+**Navigate to the HTVM folder**
+
+```bash
+cd HTVM
+```
+
+**Then navigate to the IDE folder**
+
 ```bash
 cd IDE
+```
+
+---
+
+### 1. **Ensure Node.js and npm are Installed**
+
+The HTVM IDE requires **Node.js** and **npm** to run.
+
+If either **Node.js** or **npm** is not installed, follow the installation steps below.
+
+#### **Installing Node.js and npm**
+
+- **Windows**: Download the prebuilt installer from the official Node.js website:  
+  [https://nodejs.org/en/download/prebuilt-installer](https://nodejs.org/en/download/prebuilt-installer)
+
+- **Linux**:  
+  1. Update your package index:
+     ```bash
+     sudo apt update
+     ```
+  2. Install Node.js and npm using your package manager:
+     ```bash
+     sudo apt install nodejs npm
+     ```
+
+---
+
+#### **Check if Node.js is Installed**
+
+To check if **Node.js** is installed, use the following command:
+
+```bash
+node --version
+```
+
+If Node.js is installed, this will display the version number, for example:
+
+```
+v20.11.0
+```
+
+but it doesn't really matter what version.
+
+#### **Check if npm is Installed**
+
+npm is a package manager that comes with Node.js. To check if **npm** is installed, use the following command:
+
+```bash
+npm --version
+```
+
+If npm is installed, this will display the version number, for example:
+
+```
+10.2.4
+```
+
+but it doesn't really matter what version.
+
+---
+
+### 2. **Install Project Dependencies**
+
+In the `IDE` directory, install the required dependencies using npm:
+
+```bash
 npm install
+```
+
+This will install all the necessary packages listed in the `package.json` file.
+
+> **Note**: You only need to run `npm install` **once** during the initial setup. After the dependencies are installed, you don't need to run it again unless you pull changes from the repository that update the dependencies.
+
+---
+
+### 3. **Start the HTVM IDE**
+
+Once the dependencies are installed, you can launch the HTVM IDE using:
+
+```bash
 npm start
 ```
 
-then next time you wanan open the ide `cd IDE` go to the IDE folder and open a terminal tehre or `cmd` in windows since the **HTVM IDE** will work in both windows and linux.
-and next time just use:
+This will open the Electron application, providing the HTVM IDE interface.
 
-```
-npm start
-```
+---
+
+#### Troubleshooting:
+
+- If you encounter issues with `npm install` or `npm start`, make sure that **Node.js** and **npm** are correctly installed.
+- On **Linux**, if you run into permission errors during installation, you may need to prepend `sudo` to the `npm install` or `npm start` commands (e.g., `sudo npm install`).
+
+---
+
+### **How to use the HTVM IDE and its Keyboard shortcuts**
+
+Detailed instructions are coming soon! Stay tuned for an easy guide to maximize your productivity with HTVM IDE, including all essential keyboard shortcuts.
