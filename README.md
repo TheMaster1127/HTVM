@@ -311,6 +311,8 @@ Regenerate `DOCUMENTATION.md` using:
 
 ## **Set Up the HTVM IDE**
 
+[Go Back](#%EF%B8%8F-htvm-ide)
+
 After cloning the repository, go to the `IDE` directory where the files are located:
 
 **Navigate to the HTVM folder**
@@ -418,6 +420,8 @@ This will open the Electron application, providing the HTVM IDE interface.
 ---
 
 ### **How to use the HTVM IDE and its Keyboard shortcuts**
+
+[Go Back](#%EF%B8%8F-htvm-ide)
 
 ### **Defined Global Hotkeys**
 1. **Run and Compile:**
