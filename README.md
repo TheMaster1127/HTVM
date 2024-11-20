@@ -419,4 +419,91 @@ This will open the Electron application, providing the HTVM IDE interface.
 
 ### **How to use the HTVM IDE and its Keyboard shortcuts**
 
-Detailed instructions are coming soon! Stay tuned for an easy guide to maximize your productivity with HTVM IDE, including all essential keyboard shortcuts.
+### **Defined Global Hotkeys**
+1. **Run and Compile:**
+   - **`F5`**: Runs the current file and saves it.
+   - **`Ctrl+F7`**: Compiles the current file and saves it.
+
+2. **File Management:**
+   - **`Ctrl+S`**: Saves the current file.
+   - **`Ctrl+N`**: Creates a new file
+   - **`Ctrl+O`**: Opens an existing file
+   - **`Ctrl+W`**: Saves and closes the current tab, updates file tracking, and manages active tabs.
+   - **`Ctrl+Shift+T`**: Reopens the last closed tab and restores it to the active session.
+
+3. **Tab Navigation:**
+   - **`Ctrl+Tab`**: Switches between open tabs, with logic for cycling through tabs and tracking the most recent tab.
+
+4. **Advanced Features:**
+   - **`Ctrl+Shift+Alt+F`**: **Warning!** This command **permanently** formats the current code with no undo option. Use with extreme caution, as there is no way to recover the original formatting once this action is performed.
+   - **`Ctrl+Shift+Alt+V`**: Toggles Vim mode on and off.
+
+5. **Drag-and-Drop Support:**
+   - Allows users to drag files into the IDE to open them as new tabs.
+
+---
+
+### **HTVM IDE Keyboard Shortcuts**
+
+The HTVM IDE is built around the [Ace Editor](https://ace.c9.io/), a powerful, web-based code editor that offers many keyboard shortcuts for efficient navigation and editing. Below is a categorized list of the most commonly used keyboard shortcuts within the HTVM IDE.
+
+---
+
+#### **File Management**  
+- **Select All**: `Ctrl-A`  
+- **Go to Line**: `Ctrl-L`  
+- **Replace**: `Ctrl-H`  
+- **Find**: `Ctrl-F`  
+- **Find Next**: `Ctrl-K`  
+- **Find Previous**: `Ctrl-Shift-K`  
+- **Select or Find Next**: `Alt-K`  
+- **Select or Find Previous**: `Alt-Shift-K`  
+- **Find All**: `Ctrl-Alt-K`  
+
+#### **Editing and Navigation**  
+- **Duplicate Selection**: `Ctrl-Shift-D`  
+- **Remove Line**: `Ctrl-D`  
+- **Toggle Comment**: `Ctrl-/`  
+- **Toggle Block Comment**: `Ctrl-Shift-/`  
+- **Undo**: `Ctrl-Z`  
+- **Redo**: `Ctrl-Shift-Z` or `Ctrl-Y`  
+- **Indent**: `Tab`  
+- **Outdent**: `Shift-Tab`  
+- **Block Indent**: `Ctrl-]`  
+- **Block Outdent**: `Ctrl-[`  
+
+#### **Cursor and Selection**  
+- **Expand to Matching**: `Ctrl-Shift-M`  
+- **Jump to Matching**: `Ctrl-\` or `Ctrl-P`  
+- **Select to Matching**: `Ctrl-Shift-\` or `Ctrl-Shift-P`  
+- **Add Cursor Above**: `Ctrl-Alt-Up`  
+- **Add Cursor Below**: `Ctrl-Alt-Down`  
+- **Align Cursors**: `Ctrl-Alt-A`  
+
+#### **Line Movement and Manipulation**  
+- **Move Line Up**: `Alt-Up`  
+- **Move Line Down**: `Alt-Down`  
+- **Copy Line Up**: `Alt-Shift-Up`  
+- **Copy Line Down**: `Alt-Shift-Down`  
+- **Sort Lines**: `Ctrl-Alt-S`  
+
+#### **Scrolling and View**  
+- **Scroll Up**: `Ctrl-Up`  
+- **Scroll Down**: `Ctrl-Down`  
+- **Page Up**: `PageUp`  
+- **Page Down**: `PageDown`  
+- **Select Page Up**: `Shift-PageUp`  
+- **Select Page Down**: `Shift-PageDown`  
+
+#### **Macros**  
+- **Toggle Recording**: `Ctrl-Alt-E`  
+- **Replay Macro**: `Ctrl-Shift-E`  
+
+#### **Case Modification**  
+- **To Uppercase**: `Ctrl-U`  
+- **To Lowercase**: `Ctrl-Shift-U`  
+
+#### **Miscellaneous**  
+- **Show Settings Menu**: `Ctrl-,`  
+- **Show Keyboard Shortcuts**: `Ctrl-Alt-H`  
+- **Open Command Palette**: `F1`  
