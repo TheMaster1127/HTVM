@@ -306,6 +306,7 @@ Regenerate `DOCUMENTATION.md` using:
 
 1. [How to set up the HTVM IDE](#set-up-the-htvm-ide)
 2. [How to use the HTVM IDE and its Keyboard shortcuts](#How-to-use-the-htvm-ide-and-its-keyboard-shortcuts)
+3. [How to use the HTVM IDE Property Files](#htvm-ide-property-files)
 
 ---
 
@@ -511,3 +512,76 @@ The HTVM IDE is built around the [Ace Editor](https://ace.c9.io/), a powerful, w
 - **Show Settings Menu**: `Ctrl-,`  
 - **Show Keyboard Shortcuts**: `Ctrl-Alt-H`  
 - **Open Command Palette**: `F1`  
+
+---
+
+### HTVM IDE Property Files
+
+[Go Back](#%EF%B8%8F-htvm-ide)
+
+HTVM IDE uses property files with the extensions `.htpc` and `.htpr` for compiling and running your code. These files provide the commands needed to execute or compile your code based on the file type (e.g., `.cpp`, `.py`, `.js`). The files are located in the `/property files/` folder in the IDE, and you can create your own property files for different languages.
+
+- **.htpc**: Property file for compiling when pressing `Ctrl+F7`
+- **.htpr**: Property file for running your code when pressing `F5`
+
+Here's how the syntax works in these property files:
+
+- **Placeholders**:
+  - `%FILENAME%`: Full file path of the file being processed
+  - `%ONLYFILENAME%`: The filename without its extension
+  - `%DIRFULLPATH%`: The full directory path of the file
+
+- **Commands**:
+  - `~~~`: A placeholder for space, used to replace any `~~~` occurrences in the commands
+
+#### Example Property File (`ht.htpr`)
+
+The following example shows how to set up a property file to run code in C++, Python, and JavaScript. In this example, the lines for Python and JavaScript are commented out, but they can be enabled by removing the semicolon (`;`).
+
+```plaintext
+; for cpp
+
+HTVM "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HT-instructions.txt" "cpp"
+g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
+cd "%DIRFULLPATH%" && "%ONLYFILENAME%.exe"
+
+; for python
+
+;HTVM "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HT-instructions.txt" "py"
+;cd "%DIRFULLPATH%" && python "%ONLYFILENAME%.py"
+
+; for js
+;HTVM "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HT-instructions.txt" "js"
+```
+
+#### Breakdown of the Code:
+
+1. **For C++**:
+   - The `g++` command compiles the file into an executable.
+   - The output executable is then run from the directory using `%DIRFULLPATH%`.
+
+2. **For Python**:
+   - This section is commented out, but it would run the Python script using the `python` command.
+
+3. **For JavaScript**:
+   - This section is also commented out, but it would run a JavaScript file.
+
+#### How to Use the Property File:
+
+1. **To Compile** (Ctrl+F7):
+   - Press `Ctrl+F7` to compile your code based on the `.htpc` property file.
+   - Ensure the correct commands are in place for your desired language.
+
+2. **To Run** (F5):
+   - Press `F5` to run your code based on the `.htpr` property file.
+   - Make sure the relevant sections for your language are uncommented to run the commands properly.
+
+#### Example Workflow:
+
+1. **Compile C++**:
+   - In the property file, uncomment the C++ section by removing the `;`.
+   - Press `Ctrl+F7` to compile the C++ code.
+
+2. **Run Python**:
+   - Uncomment the Python section in the `.htpr` property file.
+   - Press `F5` to run the Python script.
