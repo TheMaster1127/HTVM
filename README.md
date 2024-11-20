@@ -38,6 +38,8 @@ To enhance your development experience, HTVM comes with a dedicated **HTVM IDE**
 
 ### ⚡ Getting Started  
 
+[Go Back To The Table of Contents ](#table-of-contents)
+
 #### Configuring Your Language  
 
 1. **Adjust Syntax**:  
@@ -63,6 +65,8 @@ To enhance your development experience, HTVM comes with a dedicated **HTVM IDE**
 
 ### 📘 Usage  
 
+[Go Back To The Table of Contents ](#table-of-contents)
+
 #### Basic Command  
 ```bash
 HTVM <yourCodeFileName.yourExtension> <HT-instructions.txt> [optional LangToTranspileTo]
@@ -83,6 +87,8 @@ HTVM main.ht HT-instructions.txt cpp
 ---
 
 ### 📂 Adding Built-In Functions  
+
+[Go Back To The Table of Contents ](#table-of-contents)
 
 1. Open `HT-instructions.txt`.  
 2. Copy the last function block and paste it at the bottom.  
@@ -176,6 +182,8 @@ If chatGPT replayis in more then one line tell it:
 
 ### 🔄 Syntax Highlighting and Code Completion Regeneration  
 
+[Go Back To The Table of Contents ](#table-of-contents)
+
 To regenerate IDE features:  
 1. Compile the `Autocomplete-Syntax-Highlighting-Regenerator.cpp`:  
    ```bash
@@ -201,6 +209,8 @@ To regenerate IDE features:
 
 ### 📜 Documentation Regeneration  
 
+[Go Back To The Table of Contents ](#table-of-contents)
+
 Regenerate `DOCUMENTATION.md` using:  
 1. Compile the `Documentation-Generation.cpp` file:  
    ```bash
@@ -221,6 +231,8 @@ Regenerate `DOCUMENTATION.md` using:
 ---
 
 ### 💻 Linux Instructions  
+
+[Go Back To The Table of Contents ](#table-of-contents)
 
 1. Compile `HTVM.cpp`:  
    ```bash
@@ -253,6 +265,7 @@ Regenerate `DOCUMENTATION.md` using:
 
 ### 🛠️ HTVM IDE
 
+[Go Back To The Table of Contents ](#table-of-contents)
 
 To run the IDE:
 ```bash
