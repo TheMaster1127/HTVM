@@ -446,6 +446,9 @@ This will open the Electron application, providing the HTVM IDE interface.
 5. **Drag-and-Drop Support:**
    - Allows users to drag files into the IDE to open them as new tabs.
 
+6. **Others:**
+   - Press `Ctrl+Shift+R` to reload the IDE
+
 ---
 
 ### **HTVM IDE Keyboard Shortcuts**
