@@ -23,6 +23,19 @@ To enhance your development experience, HTVM comes with a dedicated **[HTVM IDE]
 
 ---
 
+## Table of Contents
+
+1. [⚡ Getting Started](#-getting-started)
+2. [📘 Usage](#usage)
+3. [📂 Adding Built-In Functions](#adding-built-in-functions)
+4. [🔄 Syntax Highlighting and Code Completion Regeneration](#syntax-highlighting-and-code-completion-regeneration)
+5. [📜 Documentation Regeneration](#documentation-regeneration)
+6. [💻 Linux Instructions](#linux-instructions)
+7. [🛠️ HTVM IDE](#htvm-ide)
+
+
+---
+
 ### ⚡ Getting Started  
 
 #### Configuring Your Language  
