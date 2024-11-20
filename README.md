@@ -92,3 +92,8 @@ You can also include the optional parameter:
 
 ive made my own IDE
 
+1. go to the IDE folder
+2. type `npm install`
+3. type `npm start`
+4. you are in the IDE
+
