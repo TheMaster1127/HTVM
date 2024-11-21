@@ -2476,6 +2476,8 @@ std::vector<std::string> items62 = LoopParseFunc(str_2, "\n", "\r");
 for (size_t A_Index62 = 1; A_Index62 < items62.size() + 1; A_Index62++)
 {
 std::string A_LoopField62 = items62[A_Index62 - 1];
+if (SubStr (A_LoopField62 , 1 , StrLen (keyWordFunc))!= keyWordFunc) 
+{
 if (langToTranspileTo == "cpp") 
 {
 if (Trim (A_LoopField62)!= "") 
@@ -2567,6 +2569,7 @@ else
 if (Trim (A_LoopField62)!= "") 
 {
 str123 = replaceTheOSPpathsPY_JS ( str123 , A_LoopField62 ) ;
+}
 }
 }
 }

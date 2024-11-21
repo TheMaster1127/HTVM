@@ -2116,6 +2116,9 @@ str ALoopField1 := ""
 Loop, Parse, str_2, `n, `r
 {
 
+if (SubStr(A_LoopField, 1, StrLen(keyWordFunc)) != keyWordFunc)
+{
+
 if (langToTranspileTo = "cpp")
 {
 
@@ -2226,6 +2229,7 @@ str123 := replaceTheOSPpathsPY_JS(str123, A_LoopField)
 
 
 
+}
 }
 
 
