@@ -199,49 +199,49 @@ funcEND======================funcEND==============
    To generate descriptions for functions, use the following ChatGPT prompt to ensure the response follows a specific format:  
 
    **ChatGPT Prompt:**  
-   ```
-   here is what you will do structly so i wil give you a func like something like this it can be in c++ py or js dosnet matter from what it is it what you must do is give me output in this format:
-   
-   description: string~~~StrTitleCase is a func balalbla bla bal~~~here is how the func looks like:~~~```~~~StrTitleCase(string, [optanalName], string, [optanal], string, [optanal], [optanal])~~~```~~~
-   
-   the param dosnet have to be the same name juts a simlpe name no _ pls
-   
-   Use square brackets: When you mention the function or describe the parameters, put optional parameters in square brackets [ ]. This is the most common notation for optional parameters. For example:
-   
-   functionName(param1, [param2], [param3])
-   This means that param2 and param3 are optional.
-   Provide a description or note: You can also mention which parameters are optional in a description or a comment, such as:
-   
-   "The param2 and param3 parameters are optional."
-   "The optional parameters are param2 and param3."
-   Default values in code: If the function includes default values for parameters, you can also point this out. For example:
-   
-   functionName(param1, param2 = "default", param3 = 10)
-   This means that param2 and param3 have default values and are optional.
-   
-   YOU MUST SPECIFY THE TYPE AS WELL like this
-   
-   funcName(int asd, str, waeds, bool, waedsf, arr str, waesdf, bool [awsesrs = false], bool [awsesrs = true])
-   
-   YOU MUST SPECIFY THE TYPE EVEN IF YOU DONT KNOW TRY TO GUESS HERE IS THE TYPE SYNTAX
-   str
-   int
-   bool
-   arr str
-   func
-   ... otherwize made them up
-   
-   so the ~~~ = to a new line ok ~~~ is a new line and the first one where we typed string is the category and it must alwas be one word the bets word for thet category like string math gui io files bla...
-   THE description BUST BE ONLY IN ONE LINE
-   here is func and replay in one line:
-   ================================================
+```
+here is what you will do structly so i wil give you a func like something like this it can be in c++ py or js dosnet matter from what it is it what you must do is give me output in this format:
 
-   // Function to sleep for a specified number of milliseconds
-   void Sleep(int milliseconds) {
-       std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
-   }
+description: string~~~StrTitleCase is a func balalbla bla bal~~~here is how the func looks like:~~~```~~~StrTitleCase(string, [optanalName], string, [optanal], string, [optanal], [optanal])~~~```~~~
 
-   ```  
+the param dosnet have to be the same name juts a simlpe name no _ pls
+
+Use square brackets: When you mention the function or describe the parameters, put optional parameters in square brackets [ ]. This is the most common notation for optional parameters. For example:
+
+functionName(param1, [param2], [param3])
+This means that param2 and param3 are optional.
+Provide a description or note: You can also mention which parameters are optional in a description or a comment, such as:
+
+"The param2 and param3 parameters are optional."
+"The optional parameters are param2 and param3."
+Default values in code: If the function includes default values for parameters, you can also point this out. For example:
+
+functionName(param1, param2 = "default", param3 = 10)
+This means that param2 and param3 have default values and are optional.
+
+YOU MUST SPECIFY THE TYPE AS WELL like this
+
+funcName(int asd, str, waeds, bool, waedsf, arr str, waesdf, bool [awsesrs = false], bool [awsesrs = true])
+
+YOU MUST SPECIFY THE TYPE EVEN IF YOU DONT KNOW TRY TO GUESS HERE IS THE TYPE SYNTAX
+str
+int
+bool
+arr str
+func
+... otherwize made them up
+
+so the ~~~ = to a new line ok ~~~ is a new line and the first one where we typed string is the category and it must alwas be one word the bets word for thet category like string math gui io files bla...
+THE description BUST BE ONLY IN ONE LINE
+here is func and replay in one line:
+================================================
+
+// Function to sleep for a specified number of milliseconds
+void Sleep(int milliseconds) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+}
+
+```  
 
 If chatGPT replayis in more then one line tell it:
 
