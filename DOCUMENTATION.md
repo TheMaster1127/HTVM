@@ -538,6 +538,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 5. [Io Functions](#io-functions)
 6. [Gui Functions](#gui-functions)
 7. [Other Functions](#other-functions)
+8. [Backend Functions](#backend-functions)
 
 ---
 
@@ -2090,6 +2091,156 @@ here is how the func looks like:
 ```
 isWindows()
 ```
+
+---
+
+## Backend Functions
+
+[Go back](#built-in-functions)
+
+1. [addEndpoint](#addendpoint)
+2. [createBackendInit](#createbackendinit)
+3. [getDataFromEndpoint](#getdatafromendpoint)
+4. [startServer](#startserver)
+
+---
+
+**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+
+**HTVM build-in functions availability.**
+
+| Functions | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| addEndpoint | No | Yes | No |
+| createBackendInit | No | Yes | No |
+| getDataFromEndpoint | No | No | Yes |
+| startServer | No | Yes | No |
+
+---
+
+### addEndpoint
+
+[Go back](#backend-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| addEndpoint | No | Yes | No |
+
+addEndpoint is a function that registers a given function as an endpoint with a specified HTTP method (default is POST).
+here is how the func looks like:
+```
+addEndpoint(func func, str method [default = "POST"])
+```
+Here is an exmaple how to use the backend
+```py
+# Initialize Flask app
+createBackendInit()
+# Define your custom endpoint functions using camelCase
+def helloWord(data):
+    # Handle data and return plain text response
+    return f"Hello, you sent: {data['message']}"
+def uppercaseText(data):
+    # Handle data and return plain text response
+    return data['text'].upper()
+# Register the endpoints
+addEndpoint(helloWord)
+addEndpoint(uppercaseText)
+# Start the server
+startServer()
+```
+This exmaple is in python but the funcs works in HTVM like normal funcs.
+
+---
+
+### createBackendInit
+
+[Go back](#backend-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| createBackendInit | No | Yes | No |
+
+createBackendInit is a function that initializes a Flask app, sets up a default route to serve an `index.html` file, and registers a custom 404 error handler and uses the app variable so never use the app variable please
+here is how the func looks like:
+```
+createBackendInit([filename = "index.html"])
+```
+Here is an exmaple how to use the backend
+```py
+# Initialize Flask app
+createBackendInit()
+# Define your custom endpoint functions using camelCase
+def helloWord(data):
+    # Handle data and return plain text response
+    return f"Hello, you sent: {data['message']}"
+def uppercaseText(data):
+    # Handle data and return plain text response
+    return data['text'].upper()
+# Register the endpoints
+addEndpoint(helloWord)
+addEndpoint(uppercaseText)
+# Start the server
+startServer()
+```
+This exmaple is in python but the funcs works in HTVM like normal funcs.
+
+---
+
+### getDataFromEndpoint
+
+[Go back](#backend-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| getDataFromEndpoint | No | No | Yes |
+
+getDataFromEndpoint is a function that fetches data from a specified endpoint using a provided HTTP method (default is POST), sends the data as a JSON string, and parses the response based on its content type.
+here is how the func looks like:
+```
+getDataFromEndpoint(data, endpoint, method = "POST")
+```
+
+---
+
+### startServer
+
+[Go back](#backend-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| startServer | No | Yes | No |
+
+startServer is a function that runs a Flask web application on a specified host and port, with default values for the host and port parameters.
+here is how the func looks like:
+```
+startServer([port=8000], [host="0.0.0.0"])
+```
+Here is an exmaple how to use the backend
+```py
+# Initialize Flask app
+createBackendInit()
+# Define your custom endpoint functions using camelCase
+def helloWord(data):
+    # Handle data and return plain text response
+    return f"Hello, you sent: {data['message']}"
+def uppercaseText(data):
+    # Handle data and return plain text response
+    return data['text'].upper()
+# Register the endpoints
+addEndpoint(helloWord)
+addEndpoint(uppercaseText)
+# Start the server
+startServer()
+```
+This exmaple is in python but the funcs works in HTVM like normal funcs.
 
 ---
 

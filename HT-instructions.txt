@@ -3191,3 +3191,132 @@ def StrTitleCase(input_string):
 funcEND======================funcEND==============
 
 
+
+
+
+
+
+func======================func==============
+lang: py
+name: createBackendInit
+libs: from flask import Flask, request, send_file|import os
+description: backend~~~createBackendInit is a function that initializes a Flask app, sets up a default route to serve an `index.html` file, and registers a custom 404 error handler and uses the app variable so never use the app variable please~~~here is how the func looks like:~~~```~~~createBackendInit([filename = "index.html"])~~~```~~~Here is an exmaple how to use the backend~~~```py~~~# Initialize Flask app~~~createBackendInit()~~~# Define your custom endpoint functions using camelCase~~~def helloWord(data):~~~    # Handle data and return plain text response~~~    return f"Hello, you sent: {data['message']}"~~~def uppercaseText(data):~~~    # Handle data and return plain text response~~~    return data['text'].upper()~~~# Register the endpoints~~~addEndpoint(helloWord)~~~addEndpoint(uppercaseText)~~~# Start the server~~~startServer()~~~```~~~~~~This exmaple is in python but the funcs works in HTVM like normal funcs.
+# Declare the global app variable
+app = None
+
+def createBackendInit(filename="index.html"):
+    """Initialize the Flask app with an optional filename to be served."""
+    global app  # Use the global app variable
+    app = Flask(__name__)
+
+    # Define a route to serve the file, defaulting to 'index.html'
+    def appRoute():
+        file_path = os.path.join(os.path.dirname(__file__), filename)
+        return send_file(file_path), 200
+
+    # Add URL rule with the route that calls appRoute
+    app.add_url_rule('/', 'appRoute', appRoute, methods=["GET"])
+
+    # Handle 404 errors
+    def notFound(e):
+        return "Page not found", 404
+    app.register_error_handler(404, notFound)
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: py
+name: addEndpoint
+libs: from flask import Flask, request, send_file|import os
+description: backend~~~addEndpoint is a function that registers a given function as an endpoint with a specified HTTP method (default is POST).~~~here is how the func looks like:~~~```~~~addEndpoint(func func, str method [default = "POST"])~~~```~~~Here is an exmaple how to use the backend~~~```py~~~# Initialize Flask app~~~createBackendInit()~~~# Define your custom endpoint functions using camelCase~~~def helloWord(data):~~~    # Handle data and return plain text response~~~    return f"Hello, you sent: {data['message']}"~~~def uppercaseText(data):~~~    # Handle data and return plain text response~~~    return data['text'].upper()~~~# Register the endpoints~~~addEndpoint(helloWord)~~~addEndpoint(uppercaseText)~~~# Start the server~~~startServer()~~~```~~~~~~This exmaple is in python but the funcs works in HTVM like normal funcs.
+def addEndpoint(func, method="POST"):
+    """Register a function as an endpoint with a single HTTP method."""
+    endpoint = f"/{func.__name__}"
+    
+    def handle_request():
+        if request.method == "GET":
+            # Extract raw query string
+            raw_query = request.query_string.decode('utf-8')  # Get query string like "WAESRDG="
+            if raw_query:
+                # Split by "=" and get everything before the "="
+                key = raw_query.split('=')[0]
+                return func(key)  # Pass the extracted key to the function
+            else:
+                return "No query string provided", 400
+        
+        elif request.method in {"POST", "PUT", "PATCH"}:
+            data = request.get_json()
+            return func(data)
+        
+        elif request.method == "DELETE":
+            data = request.args.to_dict() if not request.is_json else request.get_json()
+            return func(data)
+        
+        else:
+            return f"Method {request.method} not supported", 405
+
+    app.add_url_rule(
+        endpoint,
+        endpoint,
+        handle_request,
+        methods=[method]
+    )
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: py
+name: startServer
+libs: from flask import Flask, request, send_file|import os
+description: backend~~~startServer is a function that runs a Flask web application on a specified host and port, with default values for the host and port parameters.~~~here is how the func looks like:~~~```~~~startServer([port=8000], [host="0.0.0.0"])~~~```~~~Here is an exmaple how to use the backend~~~```py~~~# Initialize Flask app~~~createBackendInit()~~~# Define your custom endpoint functions using camelCase~~~def helloWord(data):~~~    # Handle data and return plain text response~~~    return f"Hello, you sent: {data['message']}"~~~def uppercaseText(data):~~~    # Handle data and return plain text response~~~    return data['text'].upper()~~~# Register the endpoints~~~addEndpoint(helloWord)~~~addEndpoint(uppercaseText)~~~# Start the server~~~startServer()~~~```~~~~~~This exmaple is in python but the funcs works in HTVM like normal funcs.
+def startServer(port=8000, host="0.0.0.0"):
+    """Run the Flask app."""
+    app.run(host=host, port=port, debug=True)
+funcEND======================funcEND==============
+
+
+
+func======================func==============
+lang: js
+name: getDataFromEndpoint
+libs: null
+description: backend~~~getDataFromEndpoint is a function that fetches data from a specified endpoint using a provided HTTP method (default is POST), sends the data as a JSON string, and parses the response based on its content type.~~~here is how the func looks like:~~~```~~~getDataFromEndpoint(data, endpoint, method = "POST")~~~```~~~
+async function getDataFromEndpoint(data, endpoint, method = "POST") {
+  let url = endpoint;
+  let requestOptions = {
+    method, // Use the provided method
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  // If the method is GET, append data as query parameters
+  if (method === "GET") {
+    const queryParams = new URLSearchParams(data).toString();
+    url += `?${queryParams}`;
+  } else {
+    // For POST/PUT, include the body
+    requestOptions.body = JSON.stringify(data);
+  }
+
+  // Fetch data
+  const response = await fetch(url, requestOptions);
+
+  // Handle response
+  if (!response.ok) {
+    throw new Error(`Failed to fetch data from ${url}. Status: ${response.status}`);
+  }
+
+  const contentType = response.headers.get("content-type");
+  if (contentType && contentType.includes("application/json")) {
+    return response.json();
+  } else {
+    return response.text();
+  }
+}
+
+
+funcEND======================funcEND==============
+
+
+

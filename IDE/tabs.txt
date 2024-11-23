@@ -39,3 +39,13 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\wadsfxadfx\test1line.cpp
 C:\Users\The_M\OneDrive\Desktop\temp Projects\wadsfxadfx\test1line.html
 C:\Users\The_M\OneDrive\Desktop\temp Projects\wadsfxadfx\test1line.py
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\main.ht
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testtstsNEWbackendHTVM\testBackend.ht
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testtstsNEWbackendHTVM\testBackendIndex.ht
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testtstsNEWbackendHTVM\testBackendIndex.html
+C:\Users\The_M\OneDrive\Desktop\temp Projects\testtstsNEWbackendHTVM\testBackend.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\CPU-ASM-EMULATOR.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\CPU-ASM-EMULATOR.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\HTLL.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\HTLL.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\test.htasm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\test.htll
