@@ -192,7 +192,6 @@ function splitCommand(commandString) {
 ipcMain.handle('get-ide-dir-path', async () => {
   try {
     const ideDirPath = __dirname;  // This returns the directory of the current script (main.js)
-    console.log("IDE Directory Path:", ideDirPath);
     return ideDirPath;
   } catch (error) {
     console.error("Error getting IDE directory path:", error);

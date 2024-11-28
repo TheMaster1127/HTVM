@@ -1986,6 +1986,8 @@
             // Variable to hold the timeout reference
             let hoverTimeout;
 
+
+
             // Function to update the tab colors
             function updateTabColors() {
               const allTabs = document.querySelectorAll(".tab, .tab.active"); // Select both classes
@@ -1997,25 +1999,30 @@
                 // Log the text content for debugging
                 //console.log(tab.textContent);
                 //console.log(currentTabFullPath.replace(/\\/g, "/").split("/").pop());
+                
 
                 // Check if the tab's text matches the current path
                 if (tab.textContent === currentTabFullPath.replace(/\\/g, "/").split("/").pop()) {
                   // Change background color
-                  tab.style.backgroundColor = "#2B2B2B"; // Set background color to #2B2B2B
+                  tab.style.backgroundColor = "#2B2B2B"; // Set background color to #2B2B2B       
                 } else {
                   // Reset background color for other tabs
                   tab.style.backgroundColor = "rgb(11, 12, 13)"; // Reset to original color
                 }
               }
-              
-              
-            document.querySelectorAll('button').forEach(button => {
-                const style = window.getComputedStyle(button);
-                if (style.backgroundColor === 'rgb(43, 43, 43)') {
-                    button.scrollIntoView({block: "end"});
-                }
+                              
+                document.querySelectorAll("button").forEach((button) => {
+                    const style = window.getComputedStyle(button);
+                
+                    // Check if the mouse is not over #tabs before scrolling
+                    const tabsElement = document.getElementById("tabs");
+                    const isHoveringTabs = tabsElement && tabsElement.matches(':hover');
+                
+                    if (!isHoveringTabs && style.backgroundColor === "rgb(43, 43, 43)") {
+                        button.scrollIntoView({ block: "end" });
+                    }
                 });
-        
+
             }
 
             // Attach hover event listeners to each tab
