@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      padding: 20px;
+    }
+    .header {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .setting {
+      margin-bottom: 15px;
+    }
+    .setting label {
+      display: block;
+      font-size: 18px;
+    }
+    .setting input[type="text"], .setting select, .setting input[type="checkbox"], .setting textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    .setting input[type="submit"], .setting button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .setting input[type="submit"]:hover, .setting button:hover {
+      background-color: #45a049;
+    }
+    /* Close button styles */
+    #closeButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .button-row {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="closeButton">X</button>
+    <div class="header">Settings</div>
+
+    <!-- Setting 1 -->
+    <div class="setting">
+      <label for="setting1">Setting 1:</label>
+      <input type="text" id="setting1" name="setting1" placeholder="Enter value">
+    </div>
+
+    <!-- Setting 2 -->
+    <div class="setting">
+      <label for="setting2">Setting 2:</label>
+      <input type="text" id="setting2" name="setting2" placeholder="Enter value">
+    </div>
+
+    <!-- Setting 3: Dropdown -->
+    <div class="setting">
+      <label for="setting3">Setting 3:</label>
+      <select id="setting3" name="setting3">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+
+    <!-- Setting 4: Textarea -->
+    <div class="setting">
+      <label for="setting4">Setting 4: Comments</label>
+      <textarea id="setting4" name="setting4" rows="4" placeholder="Enter your comments here"></textarea>
+    </div>
+
+    <!-- Setting 5: Checkbox -->
+    <div class="setting">
+      <label for="setting5">Enable Feature:</label>
+      <input type="checkbox" id="setting5" name="setting5">
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-row">
+      <button id="applySettings">Apply Settings</button>
+      <button id="resetSettings">Reset</button>
+      <button id="saveSettings">Save</button>
+    </div>
+
+    <div class="button-row">
+      <button id="closeSettings">Close Settings</button>
+    </div>
+  </div>
+
+  <script>
+    // Close the iframe when the close button is clicked
+    document.getElementById('closeButton').addEventListener('click', () => {
+      window.parent.postMessage({ action: 'close' }, '*');
+    });
+
+    // Send data back to the parent window when Apply Settings is clicked
+    document.getElementById('applySettings').addEventListener('click', () => {
+      const settingsData = {
+        setting1: document.getElementById('setting1').value,
+        setting2: document.getElementById('setting2').value,
+        setting3: document.getElementById('setting3').value,
+        setting4: document.getElementById('setting4').value,
+        setting5: document.getElementById('setting5').checked,
+      };
+      window.parent.postMessage({ action: 'applySettings', data: settingsData }, '*');
+      alert('Settings Applied');
+    });
+
+    // Reset all settings when Reset button is clicked
+    document.getElementById('resetSettings').addEventListener('click', () => {
+      document.getElementById('setting1').value = '';
+      document.getElementById('setting2').value = '';
+      document.getElementById('setting3').selectedIndex = 0;
+      document.getElementById('setting4').value = '';
+      document.getElementById('setting5').checked = false;
+      alert('Settings Reset');
+    });
+
+    // Save data to parent window
+    document.getElementById('saveSettings').addEventListener('click', () => {
+      const settingsData = {
+        setting1: document.getElementById('setting1').value,
+        setting2: document.getElementById('setting2').value,
+        setting3: document.getElementById('setting3').value,
+        setting4: document.getElementById('setting4').value,
+        setting5: document.getElementById('setting5').checked,
+      };
+      window.parent.postMessage({ action: 'saveSettings', data: settingsData }, '*');
+      alert('Settings Saved');
+    });
+
+    // Close settings iframe when Close Settings button is clicked
+    document.getElementById('closeSettings').addEventListener('click', () => {
+      window.parent.postMessage({ action: 'close' }, '*');
+    });
+  </script>
+</body>
+</html>
+
