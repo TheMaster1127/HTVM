@@ -1,5 +1,4 @@
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\tabs.txt
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpc
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\backend.py
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\iframe.html
@@ -8,10 +7,9 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\host.htpy
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Smart-Fitness-Termux\getGPSloc.py
 C:\Users\The_M\OneDrive\Desktop\temp Projects\wasddsHTHTHTHGTHGTG\testAddHTVM.html
 C:\Users\The_M\OneDrive\Desktop\AutoHotKey Scripts\Open Notepad\Notepad Log\Date-02-11-2024 Time-18-08-53-Notepad.html
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\MDsharp\MDsharp\MDsharp.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\index.html
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\main.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\MDsharp\MDsharp\MDsharp.cpp
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test2.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.cpp
@@ -43,9 +41,39 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\testtstsNEWbackendHTVM\testBackend
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testtstsNEWbackendHTVM\testBackendIndex.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testtstsNEWbackendHTVM\testBackendIndex.html
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testtstsNEWbackendHTVM\testBackend.py
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\CPU-ASM-EMULATOR.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Chat-Bot\HT-Chat-Bot-BACKEND.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Chat-Bot\HT-Chat-Bot-FRONTEND.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Chat-Bot\HT-Chat-Bot-POWER.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Chat-Bot\HT-Chat-Bot-BACKEND.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Chat-Bot\HT-Chat-Bot-FRONTEND.html
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Chat-Bot\HT-Chat-Bot-POWER.cpp
+C:\Users\The_M\OneDrive\Desktop\temp Projects\qawsdfawedgd\stringManipulate.ht
+C:\Users\The_M\OneDrive\Desktop\temp Projects\qawsdfawedgd\stringManipulate.cpp
+C:\Users\The_M\OneDrive\Desktop\temp Projects\qawsdfawedgd\stringManipulate.py
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\CPU-ASM-EMULATOR.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\HTLL.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\HTLL.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\test.htasm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\test.htll
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\CPU-ASM-EMULATOR.cpp
+C:\Users\The_M\OneDrive\Desktop\temp Projects\qawsdfawedgd\stringManipulate.html
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Home-Control-pi\Home-Control-pi-BACKEND.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Home-Control-pi\Home-Control-pi-FRONTEND.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Home-Control-pi\Home-Control-pi-POWER.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile661514.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile918326.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile32757.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile466329.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile596060.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile939971.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile783395.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile483018.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile136064.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile501428.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile427027.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile343238.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile307258.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile500715.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile586714.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile908244.ht

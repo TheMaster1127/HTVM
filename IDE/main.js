@@ -79,7 +79,7 @@ ipcMain.on("get-data", (event, place) => {
   const filePath = resolveFilePath(place);
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
-      event.returnValue = `Error reading file: ${err.message}`;
+      event.returnValue = `[empty file]`;
     } else {
       event.returnValue = data;
     }
@@ -184,3 +184,19 @@ function splitCommand(commandString) {
 
   return result;
 }
+
+
+
+
+// Ensure this is only registered once in the main process
+ipcMain.handle('get-ide-dir-path', async () => {
+  try {
+    const ideDirPath = __dirname;  // This returns the directory of the current script (main.js)
+    console.log("IDE Directory Path:", ideDirPath);
+    return ideDirPath;
+  } catch (error) {
+    console.error("Error getting IDE directory path:", error);
+    return null;
+  }
+});
+
