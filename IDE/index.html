@@ -90,8 +90,8 @@
         font-size: 18px; /* Default font size */
         overflow-y: absolute; /* Allow scrolling if content overflows */
       }
-
-      @media (max-width: 600px) {
+      
+     @media (max-width: 600px) {
         #Gui1 {
           width: 100%; /* Full width on small screens */
           height: auto; /* Adjust height as necessary */
@@ -110,6 +110,7 @@
           font-size: 16px; /* Default font size */
         }
       }
+ 
 
       /* Console styling */
       #console {
@@ -1378,7 +1379,7 @@
             consoleElement.appendChild(outputArea); // Add textarea to the console
 
             Gui1.style.position = "absolute";
-            Gui1.style.width = "101vw"; // Set width to 80% of the viewport width
+            Gui1.style.width = "100vw"; // Set width to 80% of the viewport width
             Gui1.style.height = "100vh"; // Set height to 80% of the viewport height
             Gui1.style.background = "linear-gradient(90deg, #121212 0%, #121212 100%)";
             Gui1.style.color = "white";
@@ -2452,21 +2453,62 @@ if (event.altKey && (event.key === "s" || event.key === "S")) {
             
             
             
-            
-    window.addEventListener('message', (event) => {
-      // You can verify the origin if needed, for example:
-      // if (event.origin !== "http://your-allowed-origin") return;
 
-      const data = event.data;
-      if (data.action === 'close') {
-        // Handle the close action from iframe
-        const iframe = document.getElementById('iframeContainer');
-        iframe.remove(); // Removes the iframe or you can hide it
-      }
 
-      console.log('Received message from iframe:', data);
-    });
+window.addEventListener('message', (event) => {
+  // Optional: Verify the origin
+  // if (event.origin !== "http://your-allowed-origin") return;
 
+  const data = event.data;
+
+  // Check if the data is the string 'close'
+  if (data === 'close') {
+    // Handle the close action from iframe
+    const iframe = document.getElementById('iframeContainer');
+    iframe.remove(); // Removes the iframe, or you can hide it
+  }
+  
+  
+if (SubStr(Trim(data), 1, 5) == "save|") {
+
+
+}
+
+  console.log('Received message from iframe:', data);
+});
+
+
+
+
+
+
+
+  // Function to update the position and size of the console
+  function updateConsolePosition() {
+    // Get the elements
+    const gui1IDE1 = document.getElementById('Gui1IDE1');
+    const consoleDiv = document.getElementById('console');
+
+    // Calculate new position and size
+    const gui1IDE1Rect = gui1IDE1.getBoundingClientRect();
+    const newY = gui1IDE1Rect.top + gui1IDE1Rect.height + 1; // Add 10px margin
+    const parent = document.getElementById('Gui1');
+    const parentRect = parent.getBoundingClientRect();
+    const newHeight = parentRect.height - newY - 25; // Padding of 5px
+
+    // Apply the new styles
+    consoleDiv.style.position = 'absolute';
+    consoleDiv.style.top = `${newY}px`;
+    consoleDiv.style.left = '1px'; // Align with Gui1IDE1
+    consoleDiv.style.width = 'calc(99% - 10px)'; // Keep the same width as Gui1IDE1
+    consoleDiv.style.height = `${newHeight}px`; // Adjust height dynamically
+  }
+
+  // Set up listeners for changes
+  window.addEventListener('resize', updateConsolePosition); // Update on window resize
+
+  // Initial update
+  updateConsolePosition();
 
             async function HotKeyCalledAltShiftCtrlF() {
               // console.log("HotKeyCalled AltShiftCtrlF")

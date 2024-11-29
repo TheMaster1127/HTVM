@@ -1,164 +1,322 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      padding: 20px;
-    }
-    .header {
-      font-size: 24px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .setting {
-      margin-bottom: 15px;
-    }
-    .setting label {
-      display: block;
-      font-size: 18px;
-    }
-    .setting input[type="text"], .setting select, .setting input[type="checkbox"], .setting textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-    }
-    .setting input[type="submit"], .setting button {
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .setting input[type="submit"]:hover, .setting button:hover {
-      background-color: #45a049;
-    }
-    /* Close button styles */
-    #closeButton {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      padding: 5px;
-      background-color: red;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      font-size: 20px;
-      cursor: pointer;
-    }
-    .button-row {
-      display: flex;
-      gap: 10px;
-    }
-  </style>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HTVM</title>
+        <style>
+            body {
+                background-color: #202020;
+                font-family:
+                    "Open Sans",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    Oxygen-Sans,
+                    Ubuntu,
+                    Cantarell,
+                    "Helvetica Neue",
+                    Helvetica,
+                    Arial,
+                    sans-serif;
+            }
+        </style>
+
 </head>
-<body>
-  <div class="container">
-    <button id="closeButton">X</button>
-    <div class="header">Settings</div>
+    <body>
+<script>
 
-    <!-- Setting 1 -->
-    <div class="setting">
-      <label for="setting1">Setting 1:</label>
-      <input type="text" id="setting1" name="setting1" placeholder="Enter value">
-    </div>
 
-    <!-- Setting 2 -->
-    <div class="setting">
-      <label for="setting2">Setting 2:</label>
-      <input type="text" id="setting2" name="setting2" placeholder="Enter value">
-    </div>
+      var lastKeyPressed = "";
+      function trackLastKeyPressed() {
+        document.addEventListener("keydown", function (event) {
+          lastKeyPressed = event.key;
+          // console.log(lastKeyPressed);
+        });
+      }
+      function getLastKeyPressed() {
+        return lastKeyPressed;
+      }
+      // Call the trackLastKeyPressed function to start tracking key presses
+      trackLastKeyPressed();
+      let lastInputTime = Date.now(); // Initialize with current timestamp
+      let startTimestamp = Date.now(); // Initialize with current timestamp
+      // Event listener to track user activity
+      function resetIdleTimer() {
+        lastInputTime = Date.now(); // Update last input time
+      }
+      document.addEventListener("mousemove", resetIdleTimer);
+      document.addEventListener("keypress", resetIdleTimer);
+      // Function to calculate time since last input event
+      function A_TimeIdle() {
+        return Date.now() - lastInputTime; // Calculate time difference
+      }
+      // Function to calculate tick count in milliseconds
+      function A_TickCount() {
+        return Date.now() - startTimestamp;
+      }
+      function BuildInVars(varName) {
+        switch (varName) {
+          case "A_ScreenWidth":
+            // Return screen width
+            return window.innerWidth;
+          case "A_LastKey":
+            // Return screen width
+            return getLastKeyPressed();
+          case "A_ScreenHeight":
+            // Return screen height
+            return window.innerHeight;
+          case "A_TimeIdle":
+            // Return time idle
+            return A_TimeIdle();
+          case "A_TickCount":
+            // Return tick count in milliseconds
+            return A_TickCount();
+          case "A_Now":
+            // Return current local timestamp
+            return new Date().toLocaleString();
+          case "A_YYYY":
+            // Return current year
+            return new Date().getFullYear();
+          case "A_MM":
+            // Return current month
+            return (new Date().getMonth() + 1).toString().padStart(2, "0");
+          case "A_DD":
+            // Return current day
+            return new Date().getDate().toString().padStart(2, "0");
+          case "A_MMMM":
+            // Return full month name
+            return new Date().toLocaleDateString(undefined, { month: "long" });
+          case "A_MMM":
+            // Return short month name
+            return new Date().toLocaleDateString(undefined, { month: "short" });
+          case "A_DDDD":
+            // Return full day name
+            return new Date().toLocaleDateString(undefined, { weekday: "long" });
+          case "A_DDD":
+            // Return short day name
+            return new Date().toLocaleDateString(undefined, { weekday: "short" });
+          case "A_Hour":
+            // Return current hour
+            return new Date().getHours().toString().padStart(2, "0");
+          case "A_Min":
+            // Return current minute
+            return new Date().getMinutes().toString().padStart(2, "0");
+          case "A_Sec":
+            // Return current second
+            return new Date().getSeconds().toString().padStart(2, "0");
+          case "A_Space":
+            // Return space character
+            return " ";
+          case "A_Tab":
+            // Return tab character
+            return "\t";
+          default:
+            // Handle unknown variable names
+            return null;
+        }
+      }
 
-    <!-- Setting 3: Dropdown -->
-    <div class="setting">
-      <label for="setting3">Setting 3:</label>
-      <select id="setting3" name="setting3">
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-      </select>
-    </div>
+// Global object to hold references to all created divs
+const HTVM_guiElements = {};
+function Gui_Show(guiID, x = null, y = null, w = null, h = null, removeBorder = false, color = '#121212', roundness = null, zIndex = null) {
+    // Check if the div with the given ID already exists
+    let div = document.getElementById(guiID);
+    if (div) {
+        // If only the first parameter is provided, simply show the existing div
+        if (arguments.length === 1) {
+            div.style.display = "block"; // Show the div
+            return;
+        }
+    } else {
+        // Create a new div element if it doesn't exist
+        div = document.createElement('div');
+        div.id = guiID;
+        // Store the div in the global object for future access
+        HTVM_guiElements[guiID] = div;
+        // Append the div to the body
+        document.body.appendChild(div);
+    }
+    // Set default width and height if not provided
+    w = (w === null || w === undefined) ? 450 : w; // Default width
+    h = (h === null || h === undefined) ? 450 : h; // Default height
+    // Set default position if x or y is not provided
+    if (x === null || x === undefined || y === null || y === undefined) {
+        x = (window.innerWidth - w) / 2; // Center horizontally
+        y = (window.innerHeight - h) / 2; // Center vertically
+    }
+    // Set the dimensions and position
+    div.style.position = 'absolute';
+    div.style.left = `${x}px`;
+    div.style.top = `${y}px`;
+    div.style.width = `${w}px`;
+    div.style.height = `${h}px`;
+    // Set styles
+    div.style.backgroundColor = color;
+    div.style.border = removeBorder ? 'none' : '2px solid #ffffff'; // default border color
+    div.style.borderRadius = roundness ? `${roundness}px` : '0px';
+    // Set z-index if provided
+    if (zIndex !== null && zIndex !== undefined) {
+        div.style.zIndex = zIndex;
+    }
+    // Ensure the div is visible
+    div.style.display = "block";
+}
 
-    <!-- Setting 4: Textarea -->
-    <div class="setting">
-      <label for="setting4">Setting 4: Comments</label>
-      <textarea id="setting4" name="setting4" rows="4" placeholder="Enter your comments here"></textarea>
-    </div>
+function Gui_Button(guiID, buttonID, buttonText, x = null, y = null, w = null, h = null, color = '#121212', textColor = '#FFFFFF', removeBorder = false, roundness = null, zIndex = null, onClickCallback = null) {
+    // Check if the div with the given guiID exists
+    let div = HTVM_guiElements[guiID];
+    if (!div) {
+        // If it doesn't exist, create a new div
+        div = document.createElement('div');
+        div.id = guiID;
+        // Store the newly created div in the global object
+        HTVM_guiElements[guiID] = div;
+        // Append the div to the body
+        document.body.appendChild(div);
+    }
+    // Create the button element
+    const button = document.createElement('button');
+    button.innerText = buttonText;
+    // Set the ID of the button
+    button.id = buttonID;
+    // Set default width and height for the button if not provided
+    w = (w === null || w === undefined) ? 150 : w; // Default width
+    h = (h === null || h === undefined) ? 50 : h; // Default height
+    // Set default position if x or y is not provided
+    if (x === null || x === undefined || y === null || y === undefined) {
+        x = (div.clientWidth - w) / 2; // Center horizontally within the div
+        y = (div.clientHeight - h) / 2; // Center vertically within the div
+    }
+    // Set the button's styles
+    button.style.position = 'absolute';
+    button.style.left = `${x}px`;
+    button.style.top = `${y}px`;
+    button.style.width = `${w}px`;
+    button.style.height = `${h}px`;
+    button.style.backgroundColor = color;
+    button.style.color = textColor; // Set button text color
+    button.style.border = removeBorder ? 'none' : '2px solid #ffffff'; // default border color
+    button.style.borderRadius = roundness ? `${roundness}px` : '0px';
+    // Change cursor to pointer on hover
+    button.style.cursor = 'pointer';
+    // Set z-index if provided
+    if (zIndex !== null && zIndex !== undefined) {
+        button.style.zIndex = zIndex;
+    }
+    // Add the click event listener to the button
+    if (onClickCallback) {
+        button.addEventListener('click', () => onClickCallback(buttonID));
+    }
+    // Append the button to the specified div
+    div.appendChild(button);
+}
 
-    <!-- Setting 5: Checkbox -->
-    <div class="setting">
-      <label for="setting5">Enable Feature:</label>
-      <input type="checkbox" id="setting5" name="setting5">
-    </div>
+function Gui_Edit(guiID, editID, placeholderText, x = null, y = null, w = null, h = null, color = '#121212', textColor = '#FFFFFF', removeBorder = false, roundness = null, zIndex = null, onChangeCallback = null) {
+    // Check if the div with the given guiID exists
+    let div = HTVM_guiElements[guiID];
+    if (!div) {
+        // If it doesn't exist, create a new div
+        div = document.createElement('div');
+        div.id = guiID;
+        // Store the newly created div in the global object
+        HTVM_guiElements[guiID] = div;
+        // Append the div to the body
+        document.body.appendChild(div);
+    }
+    // Create the textarea element
+    const textarea = document.createElement('textarea');
+    textarea.placeholder = placeholderText;
+    // Set the ID of the textarea
+    textarea.id = editID;
+    // Set default width and height for the textarea if not provided
+    w = (w === null || w === undefined) ? 300 : w; // Default width
+    h = (h === null || h === undefined) ? 100 : h; // Default height
+    // Set default position if x or y is not provided
+    if (x === null || x === undefined || y === null || y === undefined) {
+        x = (div.clientWidth - w) / 2; // Center horizontally within the div
+        y = (div.clientHeight - h) / 2; // Center vertically within the div
+    }
+    // Set the textarea's styles
+    textarea.style.position = 'absolute';
+    textarea.style.left = `${x}px`;
+    textarea.style.top = `${y}px`;
+    textarea.style.width = `${w}px`;
+    textarea.style.height = `${h}px`;
+    textarea.style.backgroundColor = color;
+    textarea.style.color = textColor; // Set textarea text color
+    textarea.style.border = removeBorder ? 'none' : '2px solid #ffffff'; // Default border color
+    textarea.style.borderRadius = roundness ? `${roundness}px` : '0px';
+    // Prevent textarea from being draggable
+    textarea.style.resize = 'none'; // Disable resizing
+    textarea.style.pointerEvents = 'none'; // Disable all mouse events
+    // Change cursor to text on hover
+    textarea.style.cursor = 'text';
+    // Set z-index if provided
+    if (zIndex !== null && zIndex !== undefined) {
+        textarea.style.zIndex = zIndex;
+    }
+    // Enable pointer events for text editing only, if a callback is provided
+    textarea.style.pointerEvents = 'auto'; // Enable pointer events for user input only
+    // Add the change event listener to the textarea
+    if (onChangeCallback) {
+        textarea.addEventListener('input', function() {
+            onChangeCallback(textarea.value); // Pass the current value
+        });
+    }
+    // Append the textarea to the specified div
+    div.appendChild(textarea);
+}
 
-    <!-- Buttons -->
-    <div class="button-row">
-      <button id="applySettings">Apply Settings</button>
-      <button id="resetSettings">Reset</button>
-      <button id="saveSettings">Save</button>
-    </div>
+function Gui_Size(divID, fontSize) {
+    document.querySelectorAll(`#${divID}, #${divID} *, #${divID} button, #${divID} input, #${divID} textarea`).forEach(el => el.style.fontSize = `${fontSize}px`);
+}
 
-    <div class="button-row">
-      <button id="closeSettings">Close Settings</button>
-    </div>
-  </div>
+function Gui_Size_Id(divID, elementID, fontSize) {
+    // Change font size for the specified div
+    const divElement = document.getElementById(divID);
+    if (divElement) {
+        divElement.style.fontSize = `${fontSize}px`;
+    }
+    // Change font size for the specific element by ID
+    const specificElement = document.getElementById(elementID);
+    if (specificElement) {
+        specificElement.style.fontSize = `${fontSize}px`;
+    }
+}
 
-  <script>
-    // Close the iframe when the close button is clicked
-    document.getElementById('closeButton').addEventListener('click', () => {
-      window.parent.postMessage({ action: 'close' }, '*');
-    });
 
-    // Send data back to the parent window when Apply Settings is clicked
-    document.getElementById('applySettings').addEventListener('click', () => {
-      const settingsData = {
-        setting1: document.getElementById('setting1').value,
-        setting2: document.getElementById('setting2').value,
-        setting3: document.getElementById('setting3').value,
-        setting4: document.getElementById('setting4').value,
-        setting5: document.getElementById('setting5').checked,
-      };
-      window.parent.postMessage({ action: 'applySettings', data: settingsData }, '*');
-      alert('Settings Applied');
-    });
-
-    // Reset all settings when Reset button is clicked
-    document.getElementById('resetSettings').addEventListener('click', () => {
-      document.getElementById('setting1').value = '';
-      document.getElementById('setting2').value = '';
-      document.getElementById('setting3').selectedIndex = 0;
-      document.getElementById('setting4').value = '';
-      document.getElementById('setting5').checked = false;
-      alert('Settings Reset');
-    });
-
-    // Save data to parent window
-    document.getElementById('saveSettings').addEventListener('click', () => {
-      const settingsData = {
-        setting1: document.getElementById('setting1').value,
-        setting2: document.getElementById('setting2').value,
-        setting3: document.getElementById('setting3').value,
-        setting4: document.getElementById('setting4').value,
-        setting5: document.getElementById('setting5').checked,
-      };
-      window.parent.postMessage({ action: 'saveSettings', data: settingsData }, '*');
-      alert('Settings Saved');
-    });
-
-    // Close settings iframe when Close Settings button is clicked
-    document.getElementById('closeSettings').addEventListener('click', () => {
-      window.parent.postMessage({ action: 'close' }, '*');
-    });
-  </script>
+async function main() {
+    var AScreenWidth = BuildInVars("A_ScreenWidth") - 10;
+    var AScreenHeight = BuildInVars("A_ScreenHeight") - 10;
+    Gui_Show("gui1", 5, 5, AScreenWidth, AScreenHeight, true, null, 0, null);
+    // AScreenWidth
+    // AScreenHeight
+    var EditBoxDISPLAY_x = 5;
+    var EditBoxDISPLAY_y = 5;
+    var EditBoxDISPLAY_w = AScreenWidth - 20;
+    var EditBoxDISPLAY_h = AScreenHeight - 20 - 160;
+    var EditBoxUserInput_x = 5;
+    var EditBoxUserInput_y = AScreenHeight - 20 - 160 + 20;
+    var EditBoxUserInput_w = AScreenWidth - 20 - 160;
+    var EditBoxUserInput_h = 150;
+    var SendButton_x = AScreenWidth - 20 - 160 + 20;
+    var SendButton_y = AScreenHeight - 20 - 160 + 20;
+    var SendButton_w = 150;
+    var SendButton_h = 150;
+    Gui_Edit("gui1", "EditBoxDISPLAY", "", EditBoxDISPLAY_x, EditBoxDISPLAY_y, EditBoxDISPLAY_w, EditBoxDISPLAY_h, "#121212", "#FFFFFF", null, null, null, null);
+    //Gui_Edit("gui1", "EditBoxUserInput", "", EditBoxUserInput_x, EditBoxUserInput_y, EditBoxUserInput_w, EditBoxUserInput_h, "#121212", "#FFFFFF", null, null, null, EditBoxUserInputCallBack)
+    Gui_Button("gui1", "SendButton", "Send", SendButton_x, SendButton_y, SendButton_w, SendButton_h, "#4CAF50", "#FFFFFF", true, 5, null, send);
+    //Gui_Size_Id("gui1", "EditBoxDISPLAY", 16)
+    //Gui_Size_Id("gui1", "EditBoxUserInput", 20)
+    //Gui_Size_Id("gui1", "SendButton", 29)
+    //window.parent.postMessage("close", '*')
+    async function send(data) {
+        window.parent.postMessage("clo" + "se", "*");
+    }
+}
+main();
+</script>
 </body>
 </html>
-

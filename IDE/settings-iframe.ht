@@ -1,0 +1,49 @@
+
+
+
+
+
+AScreenWidth := BuildInVars("A_ScreenWidth") - 10   
+AScreenHeight := BuildInVars("A_ScreenHeight") - 10
+
+Gui_Show("gui1", 5, 5, AScreenWidth, AScreenHeight, true, null, 0, null)
+
+
+; AScreenWidth
+; AScreenHeight
+
+EditBoxDISPLAY_x := 5
+EditBoxDISPLAY_y := 5
+EditBoxDISPLAY_w := AScreenWidth - 20
+EditBoxDISPLAY_h := AScreenHeight - 20 - 160
+
+EditBoxUserInput_x := 5
+EditBoxUserInput_y := AScreenHeight - 20 - 160 + 20
+EditBoxUserInput_w := AScreenWidth - 20 - 160 
+EditBoxUserInput_h := 150
+
+SendButton_x := AScreenWidth - 20 - 160 + 20
+SendButton_y := AScreenHeight - 20 - 160 + 20
+SendButton_w := 150
+SendButton_h := 150
+
+
+
+Gui_Edit("gui1", "EditBoxDISPLAY", "", EditBoxDISPLAY_x, EditBoxDISPLAY_y, EditBoxDISPLAY_w, EditBoxDISPLAY_h, "#121212", "#FFFFFF", null, null, null, null)
+;Gui_Edit("gui1", "EditBoxUserInput", "", EditBoxUserInput_x, EditBoxUserInput_y, EditBoxUserInput_w, EditBoxUserInput_h, "#121212", "#FFFFFF", null, null, null, EditBoxUserInputCallBack)
+Gui_Button("gui1", "SendButton", "Send", SendButton_x, SendButton_y, SendButton_w, SendButton_h, "#4CAF50", "#FFFFFF", true, 5, null, send)
+
+;Gui_Size_Id("gui1", "EditBoxDISPLAY", 16)
+;Gui_Size_Id("gui1", "EditBoxUserInput", 20)
+;Gui_Size_Id("gui1", "SendButton", 29)
+
+
+
+;window.parent.postMessage("close", '*')
+
+
+
+func send(data)
+{
+window.parent.postMessage("clo" . "se", "*")
+}
