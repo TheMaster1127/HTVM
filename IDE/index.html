@@ -75,17 +75,16 @@
       }
 
       /* IDE container style */
+/* IDE container style */
+  /* IDE container style */
       #Gui1IDE1 {
         position: absolute; /* Positioned absolutely to fill parent */
         top: 40px; /* Space for tabs, adjust as needed */
         left: 0; /* Align to left */
         right: 0; /* Align to right */
         width: 20px; /* Align to right */
-        bottom: 100px; /* Space for console */
-        height: calc(
-          100% -
-            140px
-        ); /* Adjust height to account for tabs and console */
+        height: 75vh;
+    
         box-sizing: border-box; /* Include padding and border in width/height calculations */
         font-size: 18px; /* Default font size */
         overflow-y: absolute; /* Allow scrolling if content overflows */
@@ -110,7 +109,6 @@
           font-size: 16px; /* Default font size */
         }
       }
- 
 
       /* Console styling */
       #console {
@@ -1413,17 +1411,45 @@
               localStorage.setItem(shaKey, variables.idetext);
             }
             // Function to update dimensions on window resize
-            function updateDimensions() {
-              const ideElement = document.getElementById("Gui1IDE1");
-              if (ideElement) {
-                ideElement.style.width = "99%";
-                ideElement.style.height = "75%";
-                ideElement.style.top = "60px";
-              }
-            }
-            // Event listener for window resize
-            window.addEventListener("resize", updateDimensions);
-            updateDimensions(); // Call it initially to set dimensions
+function updateDimensions() {
+    const ideElement = document.getElementById("Gui1IDE1");
+    if (ideElement) {
+        ideElement.style.width = "99%";
+        
+        // Adjust height based on window height
+        if (window.innerHeight < 10) {
+            ideElement.style.height = (window.innerHeight * 0.10) + "px";
+        } else if (window.innerHeight < 50) {
+            ideElement.style.height = (window.innerHeight * 0.30) + "px";
+        } else if (window.innerHeight < 100) {
+            ideElement.style.height = (window.innerHeight * 0.35) + "px";
+        } else if (window.innerHeight < 200) {
+            ideElement.style.height = (window.innerHeight * 0.38) + "px";
+        } else if (window.innerHeight < 300) {
+            ideElement.style.height = (window.innerHeight * 0.40) + "px";
+        } else if (window.innerHeight < 400) {
+            ideElement.style.height = (window.innerHeight * 0.45) + "px";
+        } else if (window.innerHeight < 500) {
+            ideElement.style.height = (window.innerHeight * 0.50) + "px";
+        } else if (window.innerHeight < 600) {
+            ideElement.style.height = (window.innerHeight * 0.55) + "px";
+        } else if (window.innerHeight < 700) {
+            ideElement.style.height = (window.innerHeight * 0.60) + "px";
+        } else {
+            ideElement.style.height = (window.innerHeight * 0.75) + "px";
+        }
+
+        ideElement.style.top = "60px"; // Set top position
+    }
+}
+
+// Event listener for window resize
+window.addEventListener("resize", updateDimensions);
+
+// Call it initially to set dimensions
+updateDimensions();
+
+
 
             // Create the tab container
             const tabContainer = document.createElement("div");
@@ -2500,7 +2526,7 @@ if (SubStr(Trim(data), 1, 5) == "save|") {
     consoleDiv.style.position = 'absolute';
     consoleDiv.style.top = `${newY}px`;
     consoleDiv.style.left = '1px'; // Align with Gui1IDE1
-    consoleDiv.style.width = 'calc(99% - 10px)'; // Keep the same width as Gui1IDE1
+    consoleDiv.style.width = 'calc(99% - 0px)'; // Keep the same width as Gui1IDE1
     consoleDiv.style.height = `${newHeight}px`; // Adjust height dynamically
   }
 
