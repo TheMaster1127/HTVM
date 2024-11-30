@@ -2588,6 +2588,10 @@ return str123;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 std::string expressionParserTranspiler(std::string expression)
 {
+if (langToTranspileTo!= "js") 
+{
+expression = RegExReplace ( expression , "\\b" + keyWordAwait + "\\b" , "" ) ;
+}
 if (forLoopLang == "cpp") 
 {
 expression = RegExReplace ( expression , "\\b" + Trim ( keyWordINT ) + "\\b" , "int" ) ;

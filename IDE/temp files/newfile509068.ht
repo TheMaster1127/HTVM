@@ -1,0 +1,52 @@
+;Shunting Yard Algorithm
+
+
+func str expresionEval(str expresion)
+{
+str expresionOut := "0"
+
+
+arr str holdingStack 
+arr str outputTemp
+arr str solvingStack
+
+str input := "0"
+
+str arithmeticOperations := "/*=-"
+int arithmeticOperationStrength := 0
+
+int indexOfexpresionLoop := 0
+Loop, Parse, expresion
+{
+indexOfexpresionLoop := A_Index + 1
+input := A_LoopField
+if (Mod(indexOfexpresionLoop, 2) = 1)
+{
+; numbers
+print(input)
+}
+else
+{
+; arithmeticOperation
+print(input)
+}
+
+
+
+}
+
+
+return expresionOut
+}
+
+main
+print("Shunting Yard Algorithm")
+
+str expresion := "1+2*4-3"
+
+print(await expresionEval(expresion))
+
+
+
+
+
