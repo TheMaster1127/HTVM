@@ -83,8 +83,30 @@ function input(promptText) {
     return prompt(promptText);
 }
 
+function StrLen(s) {
+    // Return the length of the given string
+    return s.length;
+}
+
 function Exp(value) {
     return Math.exp(value);
+}
+
+function SubStr(str, startPos, length) {
+    // If str is null or undefined, return an empty string
+    if (str === null || str === undefined) {
+        return "";
+    }
+    // If length is not provided or is blank, default to "all characters"
+    if (length === undefined || length === "") {
+        length = str.length - startPos + 1;
+    }
+    // If startPos is less than 1, adjust it to start from the end of the string
+    if (startPos < 1) {
+        startPos = str.length + startPos;
+    }
+    // Extract the substring based on startPos and length
+    return str.substr(startPos - 1, length);
 }
 
 function Trim(inputString) {
@@ -138,21 +160,24 @@ async function  popFirstStrArrayElement(theStrArray) {
     }
     return out123;
 }
-async function expresionEval(expresion) {
+async function ExpresionEvalNoParentesis(expresion) {
     var expresionOut = "";
     let holdingStack = [];
     let outputTemp = [];
     let solvingStack = [];
     var input = "0";
-    var arithmeticOperations = "-+*/";
+    var arithmeticOperations = "+-(/*)";
     var arithmeticOperationStrength = 0;
     var tempPopHoldingStack = "";
     var indexOfexpresionLoop = 0;
+    var tempHoldingStackNumFIX = 0;
     var expresion = StrReplace(expresion, " ", "");
     expresion = StrReplace(expresion, "-", " - ");
     expresion = StrReplace(expresion, "+", " + ");
     expresion = StrReplace(expresion, "*", " * ");
     expresion = StrReplace(expresion, "/", " / ");
+    expresion = StrReplace(expresion, "(", " ( ");
+    expresion = StrReplace(expresion, ")", " ) ");
     items2 = LoopParseFunc(expresion, " ")
     for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
         const A_LoopField2 = items2[A_Index2 - 0];
@@ -178,9 +203,12 @@ async function expresionEval(expresion) {
                     // add the last
                     for (let A_Index3 = 0; ; A_Index3++) {
                         if (holdingStack.length > 0 && InStr(arithmeticOperations, holdingStack[holdingStack.length - 1]) > InStr(arithmeticOperations, input)) {
-                            tempPopHoldingStack = holdingStack[holdingStack.length - 1];
-                            holdingStack.pop();
-                            outputTemp.push(tempPopHoldingStack);
+                            tempHoldingStackNumFIX = holdingStack.length;
+                            for (let A_Index4 = 0; A_Index4 < tempHoldingStackNumFIX + 0; A_Index4++) {
+                                tempPopHoldingStack = holdingStack[holdingStack.length - 1];
+                                holdingStack.pop();
+                                outputTemp.push(tempPopHoldingStack);
+                            }
                         } else {
                             break;
                         }
@@ -192,12 +220,22 @@ async function expresionEval(expresion) {
         }
     }
     if (holdingStack.length != 0 || STR(holdingStack.length) != "") {
-        for (let A_Index4 = 0; A_Index4 < holdingStack.length + 0; A_Index4++) {
-            outputTemp.push(holdingStack[A_Index4]);
+        for (let A_Index5 = 0; A_Index5 < holdingStack.length + 0; A_Index5++) {
+            if (Trim(holdingStack[holdingStack.length - 1 - A_Index5]) != "") {
+                outputTemp.push(holdingStack[holdingStack.length - 1 - A_Index5]);
+            }
         }
     }
+    var fixOutputTempRMparanesises = outputTemp.length;
+    let outputTemp2 = [];
+    for (let A_Index6 = 0; A_Index6 < fixOutputTempRMparanesises + 0; A_Index6++) {
+        if (Trim(outputTemp[A_Index6]) != "") {
+            outputTemp2.push(outputTemp[A_Index6]);
+        }
+    }
+    outputTemp = outputTemp2;
     print(outputTemp);
-    for (let A_Index5 = 0; ; A_Index5++) {
+    for (let A_Index7 = 0; ; A_Index7++) {
         if (outputTemp.length == 0 || STR(outputTemp.length) == "") {
             break;
         }
@@ -236,6 +274,53 @@ async function expresionEval(expresion) {
     }
     return expresionOut;
 }
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+async function expresionEval(expression) {
+    var startIndex = 0;
+    var endIndex = 0;
+    var innerExpression = "";
+    var innerResult = "";
+    var openCount = 0;
+    var char123 = "";
+    // Remove spaces for consistency
+    var expression = StrReplace(expression, " ", "");
+    // Loop until no more parentheses are left
+    while (InStr(expression, "(")) {
+        // Find the position of the first '('
+        startIndex = InStr(expression, "(");
+        // Now, find the matching closing ')'
+        openCount = 1;
+        endIndex = startIndex + 1;
+        // Loop to find the matching closing ')'
+        while (openCount > 0 && endIndex <= StrLen(expression)) {
+            char123 = SubStr(expression, endIndex, 1);
+            if (char123 == "(") {
+                openCount++;
+            }
+            else if (char123 == ")") {
+                openCount--;
+            }
+            endIndex++;
+        }
+        // Extract the inner expression
+        innerExpression = SubStr(expression, startIndex + 1, endIndex - startIndex - 2);
+        // Evaluate the inner expression (this is where recursion handles nested parentheses)
+        innerResult = await expresionEval(innerExpression);
+        // Replace the entire parentheses with the result
+        expression = SubStr(expression, 1, startIndex - 1) + innerResult + SubStr(expression, endIndex);
+    }
+    // Now evaluate the expression without parentheses
+    return await ExpresionEvalNoParentesis(expression);
+}
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 async function main() {
     print("Shunting Yard Algorithm");
     var expresion = "1+2*4-3";
@@ -247,23 +332,23 @@ async function main() {
     var DidWePassTheTestExpresions = 1;
     var DidWePassTheTestExpresionsCOUNT = 0;
     var DidWePassTheTestExpresionsCOUNTMAX = 0;
-    items6 = LoopParseFunc(testExpresions, "|")
-    for (let A_Index6 = 0; A_Index6 < items6.length + 0; A_Index6++) {
-        const A_LoopField6 = items6[A_Index6 - 0];
+    items8 = LoopParseFunc(testExpresions, "|")
+    for (let A_Index8 = 0; A_Index8 < items8.length + 0; A_Index8++) {
+        const A_LoopField8 = items8[A_Index8 - 0];
         DidWePassTheTestExpresionsCOUNT++;
         DidWePassTheTestExpresionsCOUNTMAX++;
-        testIndexTestExpresions = A_Index6;
-        items7 = LoopParseFunc(answersOfTheTestExpresions, "|")
-        for (let A_Index7 = 0; A_Index7 < items7.length + 0; A_Index7++) {
-            const A_LoopField7 = items7[A_Index7 - 0];
-            if (A_Index7 == testIndexTestExpresions) {
-                TEMPanswersOfTheTestExpresions = A_LoopField7;
+        testIndexTestExpresions = A_Index8;
+        items9 = LoopParseFunc(answersOfTheTestExpresions, "|")
+        for (let A_Index9 = 0; A_Index9 < items9.length + 0; A_Index9++) {
+            const A_LoopField9 = items9[A_Index9 - 0];
+            if (A_Index9 == testIndexTestExpresions) {
+                TEMPanswersOfTheTestExpresions = A_LoopField9;
             }
         }
-        print(STR(A_Index6 + 1) + " ===============================");
-        print(A_LoopField6);
-        print(await expresionEval(A_LoopField6));
-        if (FLOAT(await expresionEval(A_LoopField6)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
+        print(STR(A_Index8 + 1) + " ===============================");
+        print(A_LoopField8);
+        print(await expresionEval(A_LoopField8));
+        if (FLOAT(await expresionEval(A_LoopField8)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
             print("true");
         } else {
             print("false");
@@ -278,6 +363,10 @@ async function main() {
     } else {
         print("TestExpresions PASSED!!!" + STR(DidWePassTheTestExpresionsCOUNT) + "/" + STR(DidWePassTheTestExpresionsCOUNTMAX));
     }
+    print("5+(5+5)*1");
+    print(await expresionEval("5+(5+5)*1"));
+    print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)");
+    print(await expresionEval("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"));
 }
 main();
 </script>

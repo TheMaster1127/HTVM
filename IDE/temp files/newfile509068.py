@@ -39,8 +39,21 @@ def InStr(haystack: str, needle: str) -> int:
 
 # used imput func
 
+def StrLen(s: str) -> int:
+    # Return the length of the given string
+    return len(s)
+
 def Exp(value: float) -> float:
     return math.exp(value)
+
+def SubStr(s, startPos, length=None):
+    if s is None or s == "":
+        return ""
+    if length is None or length == "":
+        length = len(s) - startPos + 1
+    if startPos < 1:
+        startPos = len(s) + startPos
+    return s[startPos - 1:startPos - 1 + length]
 
 def Trim(inputString):
     return inputString.strip() if inputString else ""
@@ -86,21 +99,24 @@ def  popFirstStrArrayElement(theStrArray):
         if (A_Index1 > 0):
             out123.append(theStrArray[A_Index1])
     return out123
-def expresionEval(expresion):
+def ExpresionEvalNoParentesis(expresion):
     expresionOut = ""
     holdingStack = []
     outputTemp = []
     solvingStack = []
     input = "0"
-    arithmeticOperations = "-+*/"
+    arithmeticOperations = "+-(/*)"
     arithmeticOperationStrength = 0
     tempPopHoldingStack = ""
     indexOfexpresionLoop = 0
+    tempHoldingStackNumFIX = 0
     expresion = StrReplace(expresion, " ", "")
     expresion = StrReplace(expresion, "-", " - ")
     expresion = StrReplace(expresion, "+", " + ")
     expresion = StrReplace(expresion, "*", " * ")
     expresion = StrReplace(expresion, "/", " / ")
+    expresion = StrReplace(expresion, "(", " ( ")
+    expresion = StrReplace(expresion, ")", " ) ")
     items2 = LoopParseFunc(expresion, " ")
     for A_Index2 , A_LoopField2 in enumerate(items2, start=0):
         indexOfexpresionLoop = A_Index2 + 1
@@ -124,18 +140,27 @@ def expresionEval(expresion):
                     # add the last
                     for A_Index3 , value in enumerate(iter(int, 1), start=0):
                         if (len(holdingStack) > 0 and InStr(arithmeticOperations, holdingStack[len(holdingStack) - 1]) > InStr(arithmeticOperations, input)):
-                            tempPopHoldingStack = holdingStack[len(holdingStack) - 1]
-                            holdingStack.pop()
-                            outputTemp.append(tempPopHoldingStack)
+                            tempHoldingStackNumFIX = len(holdingStack)
+                            for A_Index4 in range(0, tempHoldingStackNumFIX + 0):
+                                tempPopHoldingStack = holdingStack[len(holdingStack) - 1]
+                                holdingStack.pop()
+                                outputTemp.append(tempPopHoldingStack)
                         else:
                             break
                     holdingStack.append(input)
                 # 2 else and 1 loop end
     if (len(holdingStack) != 0 or STR(len(holdingStack)) != ""):
-        for A_Index4 in range(0, len(holdingStack) + 0):
-            outputTemp.append(holdingStack[A_Index4])
+        for A_Index5 in range(0, len(holdingStack) + 0):
+            if (Trim(holdingStack[len(holdingStack) - 1 - A_Index5]) != ""):
+                outputTemp.append(holdingStack[len(holdingStack) - 1 - A_Index5])
+    fixOutputTempRMparanesises = len(outputTemp)
+    outputTemp2 = []
+    for A_Index6 in range(0, fixOutputTempRMparanesises + 0):
+        if (Trim(outputTemp[A_Index6]) != ""):
+            outputTemp2.append(outputTemp[A_Index6])
+    outputTemp = outputTemp2
     print(outputTemp)
-    for A_Index5 , value in enumerate(iter(int, 1), start=0):
+    for A_Index7 , value in enumerate(iter(int, 1), start=0):
         if (len(outputTemp) == 0 or STR(len(outputTemp)) == ""):
             break
         tempPopHoldingStack = outputTemp[0]
@@ -165,6 +190,48 @@ def expresionEval(expresion):
     if (Trim(expresionOut) == ""):
         expresionOut = "null"
     return expresionOut
+#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+def expresionEval(expression):
+    startIndex = 0
+    endIndex = 0
+    innerExpression = ""
+    innerResult = ""
+    openCount = 0
+    char123 = ""
+    # Remove spaces for consistency
+    expression = StrReplace(expression, " ", "")
+    # Loop until no more parentheses are left
+    while (InStr(expression, "(")):
+        # Find the position of the first '('
+        startIndex = InStr(expression, "(")
+        # Now, find the matching closing ')'
+        openCount = 1
+        endIndex = startIndex + 1
+        # Loop to find the matching closing ')'
+        while (openCount > 0 and endIndex <= StrLen(expression)):
+            char123 = SubStr(expression, endIndex, 1)
+            if (char123 == "("):
+                openCount = openCount + 1
+            elif (char123 == ")"):
+                openCount = openCount - 1
+            endIndex = endIndex + 1
+        # Extract the inner expression
+        innerExpression = SubStr(expression, startIndex + 1, endIndex - startIndex - 2)
+        # Evaluate the inner expression (this is where recursion handles nested parentheses)
+        innerResult = expresionEval(innerExpression)
+        # Replace the entire parentheses with the result
+        expression = SubStr(expression, 1, startIndex - 1) + innerResult + SubStr(expression, endIndex)
+    # Now evaluate the expression without parentheses
+    return ExpresionEvalNoParentesis(expression)
+#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 print("Shunting Yard Algorithm")
 expresion = "1+2*4-3"
 print(expresionEval(expresion))
@@ -175,19 +242,19 @@ TEMPanswersOfTheTestExpresions = ""
 DidWePassTheTestExpresions = 1
 DidWePassTheTestExpresionsCOUNT = 0
 DidWePassTheTestExpresionsCOUNTMAX = 0
-items6 = LoopParseFunc(testExpresions, "|")
-for A_Index6 , A_LoopField6 in enumerate(items6, start=0):
+items8 = LoopParseFunc(testExpresions, "|")
+for A_Index8 , A_LoopField8 in enumerate(items8, start=0):
     DidWePassTheTestExpresionsCOUNT = DidWePassTheTestExpresionsCOUNT + 1
     DidWePassTheTestExpresionsCOUNTMAX = DidWePassTheTestExpresionsCOUNTMAX + 1
-    testIndexTestExpresions = A_Index6
-    items7 = LoopParseFunc(answersOfTheTestExpresions, "|")
-    for A_Index7 , A_LoopField7 in enumerate(items7, start=0):
-        if (A_Index7 == testIndexTestExpresions):
-            TEMPanswersOfTheTestExpresions = A_LoopField7
-    print(STR(A_Index6 + 1) + " ===============================")
-    print(A_LoopField6)
-    print(expresionEval(A_LoopField6))
-    if (FLOAT(expresionEval(A_LoopField6)) == FLOAT(TEMPanswersOfTheTestExpresions)):
+    testIndexTestExpresions = A_Index8
+    items9 = LoopParseFunc(answersOfTheTestExpresions, "|")
+    for A_Index9 , A_LoopField9 in enumerate(items9, start=0):
+        if (A_Index9 == testIndexTestExpresions):
+            TEMPanswersOfTheTestExpresions = A_LoopField9
+    print(STR(A_Index8 + 1) + " ===============================")
+    print(A_LoopField8)
+    print(expresionEval(A_LoopField8))
+    if (FLOAT(expresionEval(A_LoopField8)) == FLOAT(TEMPanswersOfTheTestExpresions)):
         print("true")
     else:
         print("false")
@@ -199,3 +266,7 @@ if (DidWePassTheTestExpresions == 0):
     print("TestExpresions NOT PASSED!!! " + STR(DidWePassTheTestExpresionsCOUNT) + "/" + STR(DidWePassTheTestExpresionsCOUNTMAX))
 else:
     print("TestExpresions PASSED!!!" + STR(DidWePassTheTestExpresionsCOUNT) + "/" + STR(DidWePassTheTestExpresionsCOUNTMAX))
+print("5+(5+5)*1")
+print(expresionEval("5+(5+5)*1"))
+print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)")
+print(expresionEval("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"))

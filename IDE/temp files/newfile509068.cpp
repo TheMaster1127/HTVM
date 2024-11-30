@@ -110,8 +110,34 @@ std::string input(const std::string& prompt) {
     return userInput;
 }
 
+size_t StrLen(const std::string& str) {
+    return str.length();
+}
+
 double Exp(double value) {
     return std::exp(value);
+}
+
+std::string SubStr(const std::string& str, int startPos, int length = -1) {
+    std::string result;
+    size_t strLen = str.size();
+    // Handle negative starting positions
+    if (startPos < 0) {
+        startPos += strLen;
+        if (startPos < 0) startPos = 0;
+    } else {
+        if (startPos > static_cast<int>(strLen)) return ""; // Starting position beyond string length
+        startPos -= 1; // Convert to 0-based index
+    }
+    // Handle length
+    if (length < 0) {
+        length = strLen - startPos; // Length to end of string
+    } else if (startPos + length > static_cast<int>(strLen)) {
+        length = strLen - startPos; // Adjust length to fit within the string
+    }
+    // Extract substring
+    result = str.substr(startPos, length);
+    return result;
 }
 
 std::string Trim(const std::string &inputString) {
@@ -174,21 +200,24 @@ std::vector<std::string> popFirstStrArrayElement(std::vector<std::string> theStr
     }
     return out123;
 }
-std::string expresionEval(std::string expresion) {
+std::string ExpresionEvalNoParentesis(std::string expresion) {
     std::string expresionOut = "";
     std::vector<std::string> holdingStack;
     std::vector<std::string> outputTemp;
     std::vector<std::string> solvingStack;
     std::string input = "0";
-    std::string arithmeticOperations = "-+*/";
+    std::string arithmeticOperations = "+-(/*)";
     int arithmeticOperationStrength = 0;
     std::string tempPopHoldingStack = "";
     int indexOfexpresionLoop = 0;
+    int tempHoldingStackNumFIX = 0;
     expresion = StrReplace(expresion, " ", "");
     expresion = StrReplace(expresion, "-", " - ");
     expresion = StrReplace(expresion, "+", " + ");
     expresion = StrReplace(expresion, "*", " * ");
     expresion = StrReplace(expresion, "/", " / ");
+    expresion = StrReplace(expresion, "(", " ( ");
+    expresion = StrReplace(expresion, ")", " ) ");
     std::vector<std::string> items2 = LoopParseFunc(expresion, " ");
     for (size_t A_Index2 = 0; A_Index2 < items2.size() + 0; A_Index2++) {
         std::string A_LoopField2 = items2[A_Index2 - 0];
@@ -214,9 +243,12 @@ std::string expresionEval(std::string expresion) {
                     // add the last
                     for (int A_Index3 = 0; ; A_Index3++) {
                         if (holdingStack.size() > 0 && InStr(arithmeticOperations, holdingStack[holdingStack.size() - 1]) > InStr(arithmeticOperations, input)) {
-                            tempPopHoldingStack = holdingStack[holdingStack.size() - 1];
-                            holdingStack.pop_back();
-                            outputTemp.push_back(tempPopHoldingStack);
+                            tempHoldingStackNumFIX = holdingStack.size();
+                            for (int A_Index4 = 0; A_Index4 < tempHoldingStackNumFIX + 0; A_Index4++) {
+                                tempPopHoldingStack = holdingStack[holdingStack.size() - 1];
+                                holdingStack.pop_back();
+                                outputTemp.push_back(tempPopHoldingStack);
+                            }
                         } else {
                             break;
                         }
@@ -228,12 +260,22 @@ std::string expresionEval(std::string expresion) {
         }
     }
     if (holdingStack.size() != 0 || STR(holdingStack.size()) != "") {
-        for (int A_Index4 = 0; A_Index4 < holdingStack.size() + 0; A_Index4++) {
-            outputTemp.push_back(holdingStack[A_Index4]);
+        for (int A_Index5 = 0; A_Index5 < holdingStack.size() + 0; A_Index5++) {
+            if (Trim(holdingStack[holdingStack.size() - 1 - A_Index5]) != "") {
+                outputTemp.push_back(holdingStack[holdingStack.size() - 1 - A_Index5]);
+            }
         }
     }
+    int fixOutputTempRMparanesises = outputTemp.size();
+    std::vector<std::string> outputTemp2;
+    for (int A_Index6 = 0; A_Index6 < fixOutputTempRMparanesises + 0; A_Index6++) {
+        if (Trim(outputTemp[A_Index6]) != "") {
+            outputTemp2.push_back(outputTemp[A_Index6]);
+        }
+    }
+    outputTemp = outputTemp2;
     print(outputTemp);
-    for (int A_Index5 = 0; ; A_Index5++) {
+    for (int A_Index7 = 0; ; A_Index7++) {
         if (outputTemp.size() == 0 || STR(outputTemp.size()) == "") {
             break;
         }
@@ -272,6 +314,53 @@ std::string expresionEval(std::string expresion) {
     }
     return expresionOut;
 }
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+std::string expresionEval(std::string expression) {
+    int startIndex = 0;
+    int endIndex = 0;
+    std::string innerExpression = "";
+    std::string innerResult = "";
+    int openCount = 0;
+    std::string char123 = "";
+    // Remove spaces for consistency
+    expression = StrReplace(expression, " ", "");
+    // Loop until no more parentheses are left
+    while (InStr(expression, "(")) {
+        // Find the position of the first '('
+        startIndex = InStr(expression, "(");
+        // Now, find the matching closing ')'
+        openCount = 1;
+        endIndex = startIndex + 1;
+        // Loop to find the matching closing ')'
+        while (openCount > 0 && endIndex <= StrLen(expression)) {
+            char123 = SubStr(expression, endIndex, 1);
+            if (char123 == "(") {
+                openCount++;
+            }
+            else if (char123 == ")") {
+                openCount--;
+            }
+            endIndex++;
+        }
+        // Extract the inner expression
+        innerExpression = SubStr(expression, startIndex + 1, endIndex - startIndex - 2);
+        // Evaluate the inner expression (this is where recursion handles nested parentheses)
+        innerResult = expresionEval(innerExpression);
+        // Replace the entire parentheses with the result
+        expression = SubStr(expression, 1, startIndex - 1) + innerResult + SubStr(expression, endIndex);
+    }
+    // Now evaluate the expression without parentheses
+    return ExpresionEvalNoParentesis(expression);
+}
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 int main(int argc, char* argv[]) {
     print("Shunting Yard Algorithm");
     std::string expresion = "1+2*4-3";
@@ -283,23 +372,23 @@ int main(int argc, char* argv[]) {
     int DidWePassTheTestExpresions = 1;
     int DidWePassTheTestExpresionsCOUNT = 0;
     int DidWePassTheTestExpresionsCOUNTMAX = 0;
-    std::vector<std::string> items6 = LoopParseFunc(testExpresions, "|");
-    for (size_t A_Index6 = 0; A_Index6 < items6.size() + 0; A_Index6++) {
-        std::string A_LoopField6 = items6[A_Index6 - 0];
+    std::vector<std::string> items8 = LoopParseFunc(testExpresions, "|");
+    for (size_t A_Index8 = 0; A_Index8 < items8.size() + 0; A_Index8++) {
+        std::string A_LoopField8 = items8[A_Index8 - 0];
         DidWePassTheTestExpresionsCOUNT++;
         DidWePassTheTestExpresionsCOUNTMAX++;
-        testIndexTestExpresions = A_Index6;
-        std::vector<std::string> items7 = LoopParseFunc(answersOfTheTestExpresions, "|");
-        for (size_t A_Index7 = 0; A_Index7 < items7.size() + 0; A_Index7++) {
-            std::string A_LoopField7 = items7[A_Index7 - 0];
-            if (A_Index7 == testIndexTestExpresions) {
-                TEMPanswersOfTheTestExpresions = A_LoopField7;
+        testIndexTestExpresions = A_Index8;
+        std::vector<std::string> items9 = LoopParseFunc(answersOfTheTestExpresions, "|");
+        for (size_t A_Index9 = 0; A_Index9 < items9.size() + 0; A_Index9++) {
+            std::string A_LoopField9 = items9[A_Index9 - 0];
+            if (A_Index9 == testIndexTestExpresions) {
+                TEMPanswersOfTheTestExpresions = A_LoopField9;
             }
         }
-        print(STR(A_Index6 + 1) + " ===============================");
-        print(A_LoopField6);
-        print(expresionEval(A_LoopField6));
-        if (FLOAT(expresionEval(A_LoopField6)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
+        print(STR(A_Index8 + 1) + " ===============================");
+        print(A_LoopField8);
+        print(expresionEval(A_LoopField8));
+        if (FLOAT(expresionEval(A_LoopField8)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
             print("true");
         } else {
             print("false");
@@ -314,5 +403,9 @@ int main(int argc, char* argv[]) {
     } else {
         print("TestExpresions PASSED!!!" + STR(DidWePassTheTestExpresionsCOUNT) + "/" + STR(DidWePassTheTestExpresionsCOUNTMAX));
     }
+    print("5+(5+5)*1");
+    print(expresionEval("5+(5+5)*1"));
+    print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)");
+    print(expresionEval("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"));
     return 0;
 }

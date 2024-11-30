@@ -58,7 +58,7 @@ out123.add(theStrArray[A_Index])
 return out123
 }
 
-func str expresionEval(str expresion)
+func str ExpresionEvalNoParentesis(str expresion)
 {
 str expresionOut := ""
 
@@ -69,11 +69,13 @@ arr str solvingStack
 
 str input := "0"
 
-str arithmeticOperations := "-+*/"
+str arithmeticOperations := "+-(/*)"
 int arithmeticOperationStrength := 0
 
 str tempPopHoldingStack := ""
 int indexOfexpresionLoop := 0
+
+int tempHoldingStackNumFIX := 0
 
 expresion := StrReplace(expresion, " ", "")
 
@@ -81,6 +83,8 @@ expresion := StrReplace(expresion, "-", " - ")
 expresion := StrReplace(expresion, "+", " + ")
 expresion := StrReplace(expresion, "*", " * ")
 expresion := StrReplace(expresion, "/", " / ")
+expresion := StrReplace(expresion, "(", " ( ")
+expresion := StrReplace(expresion, ")", " ) ")
 
 Loop, Parse, expresion, " "
 {
@@ -123,9 +127,15 @@ Loop
 
 if (holdingStack.size() > 0) and (InStr(arithmeticOperations, holdingStack[holdingStack.size() - 1]) > InStr(arithmeticOperations, input))
 {
+
+tempHoldingStackNumFIX := holdingStack.size()
+Loop, % tempHoldingStackNumFIX
+{
 tempPopHoldingStack := holdingStack[holdingStack.size() - 1]
 holdingStack.pop()
 outputTemp.add(tempPopHoldingStack)
+}
+
 }
 else
 {
@@ -150,9 +160,29 @@ if (holdingStack.size() != 0) or (STR(holdingStack.size()) != "")
 {
 Loop, % holdingStack.size()
 {
-outputTemp.add(holdingStack[A_Index])
+
+if (Trim(holdingStack[holdingStack.size() - 1 - A_Index]) != "")
+{
+outputTemp.add(holdingStack[holdingStack.size() - 1 - A_Index])
+}
+
+}
+
+}
+
+
+int fixOutputTempRMparanesises := outputTemp.size()
+arr str outputTemp2
+Loop, % fixOutputTempRMparanesises
+{
+
+if (Trim(outputTemp[A_Index]) != "")
+{
+outputTemp2.add(outputTemp[A_Index])
 }
 }
+outputTemp := outputTemp2
+
 
 print(outputTemp)
  
@@ -221,6 +251,81 @@ expresionOut := "null"
 return expresionOut
 }
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+   
+
+
+
+
+
+    
+func str expresionEval(str expression)
+{
+int startIndex := 0
+int endIndex := 0
+str innerExpression := ""
+str innerResult := ""
+int openCount := 0
+str char123 := ""
+
+    ; Remove spaces for consistency
+    expression := StrReplace(expression, " ", "")
+
+    ; Loop until no more parentheses are left
+    while (InStr(expression, "(")) ; Find the first '('
+    {
+        ; Find the position of the first '('
+        startIndex := InStr(expression, "(")
+
+        ; Now, find the matching closing ')'
+        openCount := 1  ; One open parenthesis found
+        endIndex := startIndex + 1  ; Start searching right after the '('
+
+        ; Loop to find the matching closing ')'
+        while (openCount > 0 and endIndex <= StrLen(expression))
+        {
+            char123 := SubStr(expression, endIndex, 1)
+            if (char123 = "(")
+            {
+                openCount++
+            }
+            else if (char123 = ")")
+            {
+                openCount--
+            }
+            endIndex++
+        }
+
+        ; Extract the inner expression
+        innerExpression := SubStr(expression, startIndex + 1, endIndex - startIndex - 2)
+
+        ; Evaluate the inner expression (this is where recursion handles nested parentheses)
+        innerResult := await expresionEval(innerExpression)
+
+        ; Replace the entire parentheses with the result
+        expression := SubStr(expression, 1, startIndex - 1) . innerResult . SubStr(expression, endIndex)
+    }
+
+    ; Now evaluate the expression without parentheses
+    return await ExpresionEvalNoParentesis(expression)
+}
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 main
 print("Shunting Yard Algorithm")
 
@@ -274,5 +379,8 @@ else
 {
 print("TestExpresions PASSED!!!" . STR(DidWePassTheTestExpresionsCOUNT) . "/" . STR(DidWePassTheTestExpresionsCOUNTMAX))
 }
-
+print("5+(5+5)*1")
+print(await expresionEval("5+(5+5)*1"))
+print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)")
+print(await expresionEval("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"))
 
