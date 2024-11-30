@@ -5128,6 +5128,7 @@ str4 = Trim ( str5 ) + Trim ( str1 ) + " = []";
 }
 else if (langToTranspileTo == "js") 
 {
+theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str1 , ";" , "" ) ) + "|";
 str4 = str5 + StrReplace ( str1 , ";" , "" ) + " = [];";
 }
 else
@@ -5225,6 +5226,7 @@ str4 = Trim ( str5 ) + Trim ( str1 ) + " = []";
 }
 else if (langToTranspileTo == "js") 
 {
+theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str1 , ";" , "" ) ) + "|";
 str4 = str5 + StrReplace ( str1 , ";" , "" ) + " = [];";
 }
 else
@@ -5322,6 +5324,7 @@ str4 = Trim ( str5 ) + Trim ( str1 ) + " = []";
 }
 else if (langToTranspileTo == "js") 
 {
+theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str1 , ";" , "" ) ) + "|";
 str4 = str5 + StrReplace ( str1 , ";" , "" ) + " = [];";
 }
 else
@@ -5415,6 +5418,7 @@ str4 = Trim ( str5 ) + Trim ( str1 ) + " = []";
 }
 else if (langToTranspileTo == "js") 
 {
+theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str1 , ";" , "" ) ) + "|";
 str4 = str5 + StrReplace ( str1 , ";" , "" ) + " = [];";
 }
 else
@@ -5512,6 +5516,7 @@ str4 = Trim ( str5 ) + Trim ( str1 ) + " = []";
 }
 else if (langToTranspileTo == "js") 
 {
+theJSvarDeclaredVarsBugFix += "|" + Trim ( StrReplace ( str1 , ";" , "" ) ) + "|";
 str4 = str5 + StrReplace ( str1 , ";" , "" ) + " = [];";
 }
 else

@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <any>
+#include <cmath>
 #include <cstdint>
 #include <iostream>
 #include <optional>
@@ -63,6 +64,44 @@ void print(const T& value) {
     }
 }
 
+// Convert various types to std::string
+std::string STR(int value) {
+    return std::to_string(value);
+}
+// Convert various types to std::string
+std::string STR(long long value) {
+    return std::to_string(value);
+}
+std::string STR(float value) {
+    return std::to_string(value);
+}
+std::string STR(double value) {
+    return std::to_string(value);
+}
+std::string STR(size_t value) {
+    return std::to_string(value);
+}
+std::string STR(bool value) {
+    return value ? "1" : "0";
+}
+std::string STR(const char* value) {
+    return std::string(value);
+}
+
+// Convert std::string to float
+float FLOAT(const std::string& str) {
+    std::istringstream iss(str);
+    float value;
+    iss >> value;
+    return value;
+}
+
+// Function to find the position of needle in haystack (std::string overload)
+int InStr(const std::string& haystack, const std::string& needle) {
+    size_t pos = haystack.find(needle);
+    return (pos != std::string::npos) ? static_cast<int>(pos) + 1 : 0;
+}
+
 // Function to get input from the user, similar to Python's input() function
 std::string input(const std::string& prompt) {
     std::string userInput;
@@ -71,33 +110,165 @@ std::string input(const std::string& prompt) {
     return userInput;
 }
 
-int Mod(int dividend, int divisor) {
-    return dividend % divisor;
+double Exp(double value) {
+    return std::exp(value);
+}
+
+std::string Trim(const std::string &inputString) {
+    if (inputString.empty()) return "";
+    size_t start = inputString.find_first_not_of(" \t\n\r\f\v");
+    size_t end = inputString.find_last_not_of(" \t\n\r\f\v");
+    return (start == std::string::npos) ? "" : inputString.substr(start, end - start + 1);
+}
+
+std::string StrReplace(const std::string &originalString, const std::string &find, const std::string &replaceWith) {
+    std::string result = originalString;
+    size_t pos = 0;
+    while ((pos = result.find(find, pos)) != std::string::npos) {
+        result.replace(pos, find.length(), replaceWith);
+        pos += replaceWith.length();
+    }
+    return result;
 }
 
 
 //Shunting Yard Algorithm
+std::string str1 = "";
+std::string str2 = "";
+std::string str3 = "";
+std::string str4 = "";
+std::string str5 = "";
+std::string str6 = "";
+std::string str7 = "";
+std::string str8 = "";
+std::string str9 = "";
+std::string str10 = "";
+int int1 = 0;
+int int2 = 0;
+int int3 = 0;
+int int4 = 0;
+int int5 = 0;
+int int6 = 0;
+int int7 = 0;
+std::vector<std::string> swapLast2StrArrayElement(std::vector<std::string> theStrArray) {
+    // Check if the array has at least two elements
+    if (theStrArray.size() < 2) {
+        return theStrArray;
+    }
+    // Get the indices of the last two elements
+    int lastIndex = theStrArray.size() - 1;
+    int secondLastIndex = lastIndex - 1;
+    // Swap the last two elements
+    std::string temp = theStrArray[lastIndex];
+    theStrArray[lastIndex] = theStrArray[secondLastIndex];
+    theStrArray[secondLastIndex] = temp;
+    // Return the modified array
+    return theStrArray;
+}
+std::vector<std::string> popFirstStrArrayElement(std::vector<std::string> theStrArray) {
+    std::vector<std::string> out123;
+    for (int A_Index1 = 0; A_Index1 < theStrArray.size() + 0; A_Index1++) {
+        if (A_Index1 > 0) {
+            out123.push_back(theStrArray[A_Index1]);
+        }
+    }
+    return out123;
+}
 std::string expresionEval(std::string expresion) {
-    std::string expresionOut = "0";
+    std::string expresionOut = "";
     std::vector<std::string> holdingStack;
     std::vector<std::string> outputTemp;
     std::vector<std::string> solvingStack;
     std::string input = "0";
-    std::string arithmeticOperations = "/*=-";
+    std::string arithmeticOperations = "-+*/";
     int arithmeticOperationStrength = 0;
+    std::string tempPopHoldingStack = "";
     int indexOfexpresionLoop = 0;
-    std::vector<std::string> items1 = LoopParseFunc(expresion);
-    for (size_t A_Index1 = 0; A_Index1 < items1.size() + 0; A_Index1++) {
-        std::string A_LoopField1 = items1[A_Index1 - 0];
-        indexOfexpresionLoop = A_Index1 + 1;
-        input = A_LoopField1;
-        if (Mod(indexOfexpresionLoop, 2) == 1) {
+    expresion = StrReplace(expresion, " ", "");
+    expresion = StrReplace(expresion, "-", " - ");
+    expresion = StrReplace(expresion, "+", " + ");
+    expresion = StrReplace(expresion, "*", " * ");
+    expresion = StrReplace(expresion, "/", " / ");
+    std::vector<std::string> items2 = LoopParseFunc(expresion, " ");
+    for (size_t A_Index2 = 0; A_Index2 < items2.size() + 0; A_Index2++) {
+        std::string A_LoopField2 = items2[A_Index2 - 0];
+        indexOfexpresionLoop = A_Index2 + 1;
+        input = A_LoopField2;
+        if (InStr(arithmeticOperations, input) == 0) {
             // numbers
-            print(input);
+            //print(input)
+            outputTemp.push_back(input);
         } else {
             // arithmeticOperation
-            print(input);
+            //print(input)
+            if (holdingStack.size() == 0) {
+                holdingStack.push_back(input);
+            } else {
+                if (InStr(arithmeticOperations, input) == InStr(arithmeticOperations, holdingStack[holdingStack.size() - 1])) {
+                    outputTemp.push_back(input);
+                }
+                else if (InStr(arithmeticOperations, holdingStack[holdingStack.size() - 1]) < InStr(arithmeticOperations, input)) {
+                    holdingStack.push_back(input);
+                } else {
+                    // what do we do
+                    // add the last
+                    for (int A_Index3 = 0; ; A_Index3++) {
+                        if (holdingStack.size() > 0 && InStr(arithmeticOperations, holdingStack[holdingStack.size() - 1]) > InStr(arithmeticOperations, input)) {
+                            tempPopHoldingStack = holdingStack[holdingStack.size() - 1];
+                            holdingStack.pop_back();
+                            outputTemp.push_back(tempPopHoldingStack);
+                        } else {
+                            break;
+                        }
+                    }
+                    holdingStack.push_back(input);
+                }
+                // 2 else and 1 loop end
+            }
         }
+    }
+    if (holdingStack.size() != 0 || STR(holdingStack.size()) != "") {
+        for (int A_Index4 = 0; A_Index4 < holdingStack.size() + 0; A_Index4++) {
+            outputTemp.push_back(holdingStack[A_Index4]);
+        }
+    }
+    print(outputTemp);
+    for (int A_Index5 = 0; ; A_Index5++) {
+        if (outputTemp.size() == 0 || STR(outputTemp.size()) == "") {
+            break;
+        }
+        tempPopHoldingStack = outputTemp[0];
+        outputTemp = popFirstStrArrayElement(outputTemp);
+        solvingStack.push_back(tempPopHoldingStack);
+        if (InStr(arithmeticOperations, solvingStack[solvingStack.size() - 1]) != 0) {
+            solvingStack = swapLast2StrArrayElement(solvingStack);
+            int1 = FLOAT(solvingStack[solvingStack.size() - 3]);
+            str2 = solvingStack[solvingStack.size() - 2];
+            int3 = FLOAT(solvingStack[solvingStack.size() - 1]);
+            solvingStack.pop_back();
+            solvingStack.pop_back();
+            solvingStack.pop_back();
+            if (str2 == "-") {
+                int4 = int1 - int3;
+                solvingStack.push_back(STR(int4));
+            }
+            if (str2 == "+") {
+                int4 = int1 + int3;
+                solvingStack.push_back(STR(int4));
+            }
+            if (str2 == "*") {
+                int4 = int1 * int3;
+                solvingStack.push_back(STR(int4));
+            }
+            if (str2 == "/") {
+                int4 = int1 / int3;
+                solvingStack.push_back(STR(int4));
+            }
+        }
+    }
+    expresionOut = solvingStack[solvingStack.size() - 1];
+    if (Trim(expresionOut) == "") {
+        expresionOut = "null";
     }
     return expresionOut;
 }
@@ -105,5 +276,43 @@ int main(int argc, char* argv[]) {
     print("Shunting Yard Algorithm");
     std::string expresion = "1+2*4-3";
     print(expresionEval(expresion));
+    std::string testExpresions = "3+5|12-4|7*3|18/6|4+92|10-23|15+3-2|87-9|6+8/4|32+5|18-4/2|6/3+8|14-62|5+9/3|75-3|8+43|9/3+42|12+6*2-3|16-4/2+3|1+2*4-3";
+    std::string answersOfTheTestExpresions = "8|8|21|3|96|-13|16|78|8|37|16|10|-48|8|72|51|45|21|17|6";
+    int testIndexTestExpresions = 0;
+    std::string TEMPanswersOfTheTestExpresions = "";
+    int DidWePassTheTestExpresions = 1;
+    int DidWePassTheTestExpresionsCOUNT = 0;
+    int DidWePassTheTestExpresionsCOUNTMAX = 0;
+    std::vector<std::string> items6 = LoopParseFunc(testExpresions, "|");
+    for (size_t A_Index6 = 0; A_Index6 < items6.size() + 0; A_Index6++) {
+        std::string A_LoopField6 = items6[A_Index6 - 0];
+        DidWePassTheTestExpresionsCOUNT++;
+        DidWePassTheTestExpresionsCOUNTMAX++;
+        testIndexTestExpresions = A_Index6;
+        std::vector<std::string> items7 = LoopParseFunc(answersOfTheTestExpresions, "|");
+        for (size_t A_Index7 = 0; A_Index7 < items7.size() + 0; A_Index7++) {
+            std::string A_LoopField7 = items7[A_Index7 - 0];
+            if (A_Index7 == testIndexTestExpresions) {
+                TEMPanswersOfTheTestExpresions = A_LoopField7;
+            }
+        }
+        print(STR(A_Index6 + 1) + " ===============================");
+        print(A_LoopField6);
+        print(expresionEval(A_LoopField6));
+        if (FLOAT(expresionEval(A_LoopField6)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
+            print("true");
+        } else {
+            print("false");
+            DidWePassTheTestExpresionsCOUNT--;
+            DidWePassTheTestExpresions = 0;
+        }
+    }
+    print("==================================");
+    print("==================================");
+    if (DidWePassTheTestExpresions == 0) {
+        print("TestExpresions NOT PASSED!!! " + STR(DidWePassTheTestExpresionsCOUNT) + "/" + STR(DidWePassTheTestExpresionsCOUNTMAX));
+    } else {
+        print("TestExpresions PASSED!!!" + STR(DidWePassTheTestExpresionsCOUNT) + "/" + STR(DidWePassTheTestExpresionsCOUNTMAX));
+    }
     return 0;
 }

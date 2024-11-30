@@ -233,14 +233,17 @@ libs: null
 description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
 // Convert value to string
 function STR(value) {
-    if (typeof value === 'number') {
+    if (value === null || value === undefined) {
+        return ""; // Return a string for null or undefined
+    } else if (typeof value === 'number') {
         return value.toString();
     } else if (typeof value === 'boolean') {
         return value ? "1" : "0";
     } else if (typeof value === 'string') {
         return value; // Return the string as is
     } else {
-        throw new TypeError("Unsupported type");
+        // Handle any unexpected types gracefully
+        return String(value); // Convert any other type to a string
     }
 }
 funcEND======================funcEND==============
@@ -252,11 +255,13 @@ description: string~~~INT is a function that converts a value to an integer, thr
 // Convert value to integer
 function INT(value) {
     const intValue = parseInt(value, 10);
-    if (isNaN(intValue)) {
-        throw new TypeError("Cannot convert to integer");
+    if (Number.isNaN(intValue)) {
+        console.warn(`Invalid input: ${value} cannot be converted to an integer.`);
+        return 0;  // Or any other default value
     }
     return intValue;
 }
+
 funcEND======================funcEND==============
 func======================func==============
 lang: js
@@ -296,8 +301,10 @@ description: string~~~INT is a function that converts a value to an integer, thr
 # Convert value to integer
 def INT(value):
     try:
-        return int(value)
+        # Try converting the value to an integer
+        return int(float(value))
     except ValueError:
+        # If conversion fails, raise a TypeError
         raise TypeError("Cannot convert to integer")
 funcEND======================funcEND==============
 func======================func==============
