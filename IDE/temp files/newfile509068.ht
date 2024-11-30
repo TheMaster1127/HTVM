@@ -19,7 +19,11 @@ int int4 := 0
 int int5 := 0
 int int6 := 0
 int int7 := 0
-
+float float1 := 0.0
+float float2 := 0.0
+float float3 := 0.0
+float float4 := 0.0
+float float5 := 0.0
 
 
 
@@ -69,7 +73,7 @@ arr str solvingStack
 
 str input := "0"
 
-str arithmeticOperations := "+-(/*)"
+str arithmeticOperations := "+-/*"
 int arithmeticOperationStrength := 0
 
 str tempPopHoldingStack := ""
@@ -86,10 +90,56 @@ expresion := StrReplace(expresion, "/", " / ")
 expresion := StrReplace(expresion, "(", " ( ")
 expresion := StrReplace(expresion, ")", " ) ")
 
+str addNegativeNums := ""
+arr str addNegativeNumsFurture
+
+expresion := Trim(expresion)
+Loop, Parse, expresion, " "
+{
+addNegativeNumsFurture.add(A_LoopField)
+}
+int skip := 0
+
+addNegativeNumsFurture.add("")
+Loop, Parse, expresion, " "
+{
+
+
+if (A_Index = 0) and (A_LoopField = "-")
+{
+addNegativeNums .= Trim(A_LoopField) . addNegativeNumsFurture[A_Index + 1] . " "
+skip := 1
+}
+else if (A_LoopField = "-") and ((addNegativeNumsFurture[A_Index - 1] = "*") or (addNegativeNumsFurture[A_Index - 1] = "/") or (addNegativeNumsFurture[A_Index - 1] = "-") or (addNegativeNumsFurture[A_Index - 1] = "+"))
+{
+
+addNegativeNums .= Trim(A_LoopField) . addNegativeNumsFurture[A_Index + 1] . " "
+skip := 1
+}
+else
+{
+if (skip != 1)
+{
+addNegativeNums .= A_LoopField . " "
+skip := 0
+}
+else
+{
+skip := 0
+}
+
+}
+
+}
+StringTrimRight, expresion, addNegativeNums, 1
+expresion := Trim(expresion)
+;print("DEBUGGGGGGGGGGGG:" . expresion)
+
+arr str output234543 
 Loop, Parse, expresion, " "
 {
 indexOfexpresionLoop := A_Index + 1
-input := A_LoopField
+input := A_LoopField 
 if (InStr(arithmeticOperations, input) = 0)
 {
 ; numbers
@@ -206,32 +256,32 @@ if (InStr(arithmeticOperations, solvingStack[solvingStack.size() - 1]) != 0)
 {
 solvingStack := await swapLast2StrArrayElement(solvingStack)
 
-int1 := FLOAT(solvingStack[solvingStack.size() - 3])
+float1 := FLOAT(solvingStack[solvingStack.size() - 3])
 str2 := solvingStack[solvingStack.size() - 2]
-int3 := FLOAT(solvingStack[solvingStack.size() - 1])
+float3 := FLOAT(solvingStack[solvingStack.size() - 1])
 
 solvingStack.pop()
 solvingStack.pop()
 solvingStack.pop()
 if (str2 = "-")
 {
-int4 := int1 - int3
-solvingStack.add(STR(int4))
+float4 := float1 - float3
+solvingStack.add(STR(float4))
 }
 if (str2 = "+")
 {
-int4 := int1 + int3
-solvingStack.add(STR(int4))
+float4 := float1 + float3
+solvingStack.add(STR(float4))
 }
 if (str2 = "*")
 {
-int4 := int1 * int3
-solvingStack.add(STR(int4))
+float4 := float1 * float3
+solvingStack.add(STR(float4))
 }
 if (str2 = "/")
 {
-int4 := int1 / int3
-solvingStack.add(STR(int4))
+float4 := float1 / float3
+solvingStack.add(STR(float4))
 }
 
 
@@ -241,7 +291,15 @@ solvingStack.add(STR(int4))
 
 }
 
-expresionOut := solvingStack[solvingStack.size() - 1]
+expresionOut := Trim(solvingStack[solvingStack.size() - 1])
+
+
+if (SubStr(expresionOut, 1, 2) = "- ")
+{
+StringTrimLeft, expresionOut, expresionOut, 2
+expresionOut := "-" . expresionOut
+}
+
 
 if (Trim(expresionOut) = "")
 {
@@ -383,4 +441,9 @@ print("5+(5+5)*1")
 print(await expresionEval("5+(5+5)*1"))
 print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)")
 print(await expresionEval("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"))
+print("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3")
+print(await expresionEval("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"))
+
+print("-((1+2)/((6*-7)+(7*-4)/2)-3)")
+print(FLOAT(await expresionEval("-((1+2)/((6*-7)+(7*-4)/2)-3)")))
 

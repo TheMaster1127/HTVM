@@ -61,6 +61,12 @@ def Trim(inputString):
 def StrReplace(originalString, find, replaceWith):
     return originalString.replace(find, replaceWith)
 
+def StringTrimLeft(input, numChars):
+    return input[numChars:] if numChars <= len(input) else input
+
+def StringTrimRight(input, numChars):
+    return input[:-numChars] if numChars <= len(input) else input
+
 
 #Shunting Yard Algorithm
 str1 = ""
@@ -80,6 +86,11 @@ int4 = 0
 int5 = 0
 int6 = 0
 int7 = 0
+float1 = 0.0
+float2 = 0.0
+float3 = 0.0
+float4 = 0.0
+float5 = 0.0
 def  swapLast2StrArrayElement(theStrArray):
     # Check if the array has at least two elements
     if (len(theStrArray) < 2):
@@ -105,7 +116,7 @@ def ExpresionEvalNoParentesis(expresion):
     outputTemp = []
     solvingStack = []
     input = "0"
-    arithmeticOperations = "+-(/*)"
+    arithmeticOperations = "+-/*"
     arithmeticOperationStrength = 0
     tempPopHoldingStack = ""
     indexOfexpresionLoop = 0
@@ -117,10 +128,36 @@ def ExpresionEvalNoParentesis(expresion):
     expresion = StrReplace(expresion, "/", " / ")
     expresion = StrReplace(expresion, "(", " ( ")
     expresion = StrReplace(expresion, ")", " ) ")
+    addNegativeNums = ""
+    addNegativeNumsFurture = []
+    expresion = Trim(expresion)
     items2 = LoopParseFunc(expresion, " ")
     for A_Index2 , A_LoopField2 in enumerate(items2, start=0):
-        indexOfexpresionLoop = A_Index2 + 1
-        input = A_LoopField2
+        addNegativeNumsFurture.append(A_LoopField2)
+    skip = 0
+    addNegativeNumsFurture.append("")
+    items3 = LoopParseFunc(expresion, " ")
+    for A_Index3 , A_LoopField3 in enumerate(items3, start=0):
+        if (A_Index3 == 0 and A_LoopField3 == "-"):
+            addNegativeNums += Trim(A_LoopField3) + addNegativeNumsFurture[A_Index3 + 1] + " "
+            skip = 1
+        elif (A_LoopField3 == "-" and (addNegativeNumsFurture[A_Index3 - 1] == "*" or addNegativeNumsFurture[A_Index3 - 1] == "/" or addNegativeNumsFurture[A_Index3 - 1] == "-" or addNegativeNumsFurture[A_Index3 - 1] == "+")):
+            addNegativeNums += Trim(A_LoopField3) + addNegativeNumsFurture[A_Index3 + 1] + " "
+            skip = 1
+        else:
+            if (skip != 1):
+                addNegativeNums += A_LoopField3 + " "
+                skip = 0
+            else:
+                skip = 0
+    expresion = StringTrimRight(addNegativeNums, 1)
+    expresion = Trim(expresion)
+    #print("DEBUGGGGGGGGGGGG:" . expresion)
+    output234543 = []
+    items4 = LoopParseFunc(expresion, " ")
+    for A_Index4 , A_LoopField4 in enumerate(items4, start=0):
+        indexOfexpresionLoop = A_Index4 + 1
+        input = A_LoopField4
         if (InStr(arithmeticOperations, input) == 0):
             # numbers
             #print(input)
@@ -138,10 +175,10 @@ def ExpresionEvalNoParentesis(expresion):
                 else:
                     # what do we do
                     # add the last
-                    for A_Index3 , value in enumerate(iter(int, 1), start=0):
+                    for A_Index5 , value in enumerate(iter(int, 1), start=0):
                         if (len(holdingStack) > 0 and InStr(arithmeticOperations, holdingStack[len(holdingStack) - 1]) > InStr(arithmeticOperations, input)):
                             tempHoldingStackNumFIX = len(holdingStack)
-                            for A_Index4 in range(0, tempHoldingStackNumFIX + 0):
+                            for A_Index6 in range(0, tempHoldingStackNumFIX + 0):
                                 tempPopHoldingStack = holdingStack[len(holdingStack) - 1]
                                 holdingStack.pop()
                                 outputTemp.append(tempPopHoldingStack)
@@ -150,17 +187,17 @@ def ExpresionEvalNoParentesis(expresion):
                     holdingStack.append(input)
                 # 2 else and 1 loop end
     if (len(holdingStack) != 0 or STR(len(holdingStack)) != ""):
-        for A_Index5 in range(0, len(holdingStack) + 0):
-            if (Trim(holdingStack[len(holdingStack) - 1 - A_Index5]) != ""):
-                outputTemp.append(holdingStack[len(holdingStack) - 1 - A_Index5])
+        for A_Index7 in range(0, len(holdingStack) + 0):
+            if (Trim(holdingStack[len(holdingStack) - 1 - A_Index7]) != ""):
+                outputTemp.append(holdingStack[len(holdingStack) - 1 - A_Index7])
     fixOutputTempRMparanesises = len(outputTemp)
     outputTemp2 = []
-    for A_Index6 in range(0, fixOutputTempRMparanesises + 0):
-        if (Trim(outputTemp[A_Index6]) != ""):
-            outputTemp2.append(outputTemp[A_Index6])
+    for A_Index8 in range(0, fixOutputTempRMparanesises + 0):
+        if (Trim(outputTemp[A_Index8]) != ""):
+            outputTemp2.append(outputTemp[A_Index8])
     outputTemp = outputTemp2
     print(outputTemp)
-    for A_Index7 , value in enumerate(iter(int, 1), start=0):
+    for A_Index9 , value in enumerate(iter(int, 1), start=0):
         if (len(outputTemp) == 0 or STR(len(outputTemp)) == ""):
             break
         tempPopHoldingStack = outputTemp[0]
@@ -168,25 +205,28 @@ def ExpresionEvalNoParentesis(expresion):
         solvingStack.append(tempPopHoldingStack)
         if (InStr(arithmeticOperations, solvingStack[len(solvingStack) - 1]) != 0):
             solvingStack = swapLast2StrArrayElement(solvingStack)
-            int1 = FLOAT(solvingStack[len(solvingStack) - 3])
+            float1 = FLOAT(solvingStack[len(solvingStack) - 3])
             str2 = solvingStack[len(solvingStack) - 2]
-            int3 = FLOAT(solvingStack[len(solvingStack) - 1])
+            float3 = FLOAT(solvingStack[len(solvingStack) - 1])
             solvingStack.pop()
             solvingStack.pop()
             solvingStack.pop()
             if (str2 == "-"):
-                int4 = int1 - int3
-                solvingStack.append(STR(int4))
+                float4 = float1 - float3
+                solvingStack.append(STR(float4))
             if (str2 == "+"):
-                int4 = int1 + int3
-                solvingStack.append(STR(int4))
+                float4 = float1 + float3
+                solvingStack.append(STR(float4))
             if (str2 == "*"):
-                int4 = int1 * int3
-                solvingStack.append(STR(int4))
+                float4 = float1 * float3
+                solvingStack.append(STR(float4))
             if (str2 == "/"):
-                int4 = int1 / int3
-                solvingStack.append(STR(int4))
-    expresionOut = solvingStack[len(solvingStack) - 1]
+                float4 = float1 / float3
+                solvingStack.append(STR(float4))
+    expresionOut = Trim(solvingStack[len(solvingStack) - 1])
+    if (SubStr(expresionOut, 1, 2) == "- "):
+        expresionOut = StringTrimLeft(expresionOut, 2)
+        expresionOut = "-" + expresionOut
     if (Trim(expresionOut) == ""):
         expresionOut = "null"
     return expresionOut
@@ -242,19 +282,19 @@ TEMPanswersOfTheTestExpresions = ""
 DidWePassTheTestExpresions = 1
 DidWePassTheTestExpresionsCOUNT = 0
 DidWePassTheTestExpresionsCOUNTMAX = 0
-items8 = LoopParseFunc(testExpresions, "|")
-for A_Index8 , A_LoopField8 in enumerate(items8, start=0):
+items10 = LoopParseFunc(testExpresions, "|")
+for A_Index10 , A_LoopField10 in enumerate(items10, start=0):
     DidWePassTheTestExpresionsCOUNT = DidWePassTheTestExpresionsCOUNT + 1
     DidWePassTheTestExpresionsCOUNTMAX = DidWePassTheTestExpresionsCOUNTMAX + 1
-    testIndexTestExpresions = A_Index8
-    items9 = LoopParseFunc(answersOfTheTestExpresions, "|")
-    for A_Index9 , A_LoopField9 in enumerate(items9, start=0):
-        if (A_Index9 == testIndexTestExpresions):
-            TEMPanswersOfTheTestExpresions = A_LoopField9
-    print(STR(A_Index8 + 1) + " ===============================")
-    print(A_LoopField8)
-    print(expresionEval(A_LoopField8))
-    if (FLOAT(expresionEval(A_LoopField8)) == FLOAT(TEMPanswersOfTheTestExpresions)):
+    testIndexTestExpresions = A_Index10
+    items11 = LoopParseFunc(answersOfTheTestExpresions, "|")
+    for A_Index11 , A_LoopField11 in enumerate(items11, start=0):
+        if (A_Index11 == testIndexTestExpresions):
+            TEMPanswersOfTheTestExpresions = A_LoopField11
+    print(STR(A_Index10 + 1) + " ===============================")
+    print(A_LoopField10)
+    print(expresionEval(A_LoopField10))
+    if (FLOAT(expresionEval(A_LoopField10)) == FLOAT(TEMPanswersOfTheTestExpresions)):
         print("true")
     else:
         print("false")
@@ -270,3 +310,7 @@ print("5+(5+5)*1")
 print(expresionEval("5+(5+5)*1"))
 print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)")
 print(expresionEval("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"))
+print("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3")
+print(expresionEval("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"))
+print("-((1+2)/((6*-7)+(7*-4)/2)-3)")
+print(FLOAT(expresionEval("-((1+2)/((6*-7)+(7*-4)/2)-3)")))

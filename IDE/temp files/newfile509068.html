@@ -117,6 +117,14 @@ function StrReplace(originalString, find, replaceWith) {
     return originalString.split(find).join(replaceWith);
 }
 
+function StringTrimLeft(input, numChars) {
+    return (numChars <= input.length) ? input.substring(numChars) : input;
+}
+
+function StringTrimRight(input, numChars) {
+    return (numChars <= input.length) ? input.substring(0, input.length - numChars) : input;
+}
+
 
 //Shunting Yard Algorithm
 var str1 = "";
@@ -136,6 +144,11 @@ var int4 = 0;
 var int5 = 0;
 var int6 = 0;
 var int7 = 0;
+var float1 = 0.0;
+var float2 = 0.0;
+var float3 = 0.0;
+var float4 = 0.0;
+var float5 = 0.0;
 async function  swapLast2StrArrayElement(theStrArray) {
     // Check if the array has at least two elements
     if (theStrArray.length < 2) {
@@ -166,7 +179,7 @@ async function ExpresionEvalNoParentesis(expresion) {
     let outputTemp = [];
     let solvingStack = [];
     var input = "0";
-    var arithmeticOperations = "+-(/*)";
+    var arithmeticOperations = "+-/*";
     var arithmeticOperationStrength = 0;
     var tempPopHoldingStack = "";
     var indexOfexpresionLoop = 0;
@@ -178,11 +191,44 @@ async function ExpresionEvalNoParentesis(expresion) {
     expresion = StrReplace(expresion, "/", " / ");
     expresion = StrReplace(expresion, "(", " ( ");
     expresion = StrReplace(expresion, ")", " ) ");
+    var addNegativeNums = "";
+    let addNegativeNumsFurture = [];
+    expresion = Trim(expresion);
     items2 = LoopParseFunc(expresion, " ")
     for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
         const A_LoopField2 = items2[A_Index2 - 0];
-        indexOfexpresionLoop = A_Index2 + 1;
-        input = A_LoopField2;
+        addNegativeNumsFurture.push(A_LoopField2);
+    }
+    var skip = 0;
+    addNegativeNumsFurture.push("");
+    items3 = LoopParseFunc(expresion, " ")
+    for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
+        const A_LoopField3 = items3[A_Index3 - 0];
+        if (A_Index3 == 0 && A_LoopField3 == "-") {
+            addNegativeNums += Trim(A_LoopField3) + addNegativeNumsFurture[A_Index3 + 1] + " ";
+            skip = 1;
+        }
+        else if (A_LoopField3 == "-" && (addNegativeNumsFurture[A_Index3 - 1] == "*" || addNegativeNumsFurture[A_Index3 - 1] == "/" || addNegativeNumsFurture[A_Index3 - 1] == "-" || addNegativeNumsFurture[A_Index3 - 1] == "+")) {
+            addNegativeNums += Trim(A_LoopField3) + addNegativeNumsFurture[A_Index3 + 1] + " ";
+            skip = 1;
+        } else {
+            if (skip != 1) {
+                addNegativeNums += A_LoopField3 + " ";
+                skip = 0;
+            } else {
+                skip = 0;
+            }
+        }
+    }
+    expresion = StringTrimRight(addNegativeNums, 1);
+    expresion = Trim(expresion);
+    //print("DEBUGGGGGGGGGGGG:" . expresion)
+    let output234543 = [];
+    items4 = LoopParseFunc(expresion, " ")
+    for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
+        const A_LoopField4 = items4[A_Index4 - 0];
+        indexOfexpresionLoop = A_Index4 + 1;
+        input = A_LoopField4;
         if (InStr(arithmeticOperations, input) == 0) {
             // numbers
             //print(input)
@@ -201,10 +247,10 @@ async function ExpresionEvalNoParentesis(expresion) {
                 } else {
                     // what do we do
                     // add the last
-                    for (let A_Index3 = 0; ; A_Index3++) {
+                    for (let A_Index5 = 0; ; A_Index5++) {
                         if (holdingStack.length > 0 && InStr(arithmeticOperations, holdingStack[holdingStack.length - 1]) > InStr(arithmeticOperations, input)) {
                             tempHoldingStackNumFIX = holdingStack.length;
-                            for (let A_Index4 = 0; A_Index4 < tempHoldingStackNumFIX + 0; A_Index4++) {
+                            for (let A_Index6 = 0; A_Index6 < tempHoldingStackNumFIX + 0; A_Index6++) {
                                 tempPopHoldingStack = holdingStack[holdingStack.length - 1];
                                 holdingStack.pop();
                                 outputTemp.push(tempPopHoldingStack);
@@ -220,22 +266,22 @@ async function ExpresionEvalNoParentesis(expresion) {
         }
     }
     if (holdingStack.length != 0 || STR(holdingStack.length) != "") {
-        for (let A_Index5 = 0; A_Index5 < holdingStack.length + 0; A_Index5++) {
-            if (Trim(holdingStack[holdingStack.length - 1 - A_Index5]) != "") {
-                outputTemp.push(holdingStack[holdingStack.length - 1 - A_Index5]);
+        for (let A_Index7 = 0; A_Index7 < holdingStack.length + 0; A_Index7++) {
+            if (Trim(holdingStack[holdingStack.length - 1 - A_Index7]) != "") {
+                outputTemp.push(holdingStack[holdingStack.length - 1 - A_Index7]);
             }
         }
     }
     var fixOutputTempRMparanesises = outputTemp.length;
     let outputTemp2 = [];
-    for (let A_Index6 = 0; A_Index6 < fixOutputTempRMparanesises + 0; A_Index6++) {
-        if (Trim(outputTemp[A_Index6]) != "") {
-            outputTemp2.push(outputTemp[A_Index6]);
+    for (let A_Index8 = 0; A_Index8 < fixOutputTempRMparanesises + 0; A_Index8++) {
+        if (Trim(outputTemp[A_Index8]) != "") {
+            outputTemp2.push(outputTemp[A_Index8]);
         }
     }
     outputTemp = outputTemp2;
     print(outputTemp);
-    for (let A_Index7 = 0; ; A_Index7++) {
+    for (let A_Index9 = 0; ; A_Index9++) {
         if (outputTemp.length == 0 || STR(outputTemp.length) == "") {
             break;
         }
@@ -244,31 +290,35 @@ async function ExpresionEvalNoParentesis(expresion) {
         solvingStack.push(tempPopHoldingStack);
         if (InStr(arithmeticOperations, solvingStack[solvingStack.length - 1]) != 0) {
             solvingStack = await swapLast2StrArrayElement(solvingStack);
-            int1 = FLOAT(solvingStack[solvingStack.length - 3]);
+            float1 = FLOAT(solvingStack[solvingStack.length - 3]);
             str2 = solvingStack[solvingStack.length - 2];
-            int3 = FLOAT(solvingStack[solvingStack.length - 1]);
+            float3 = FLOAT(solvingStack[solvingStack.length - 1]);
             solvingStack.pop();
             solvingStack.pop();
             solvingStack.pop();
             if (str2 == "-") {
-                int4 = int1 - int3;
-                solvingStack.push(STR(int4));
+                float4 = float1 - float3;
+                solvingStack.push(STR(float4));
             }
             if (str2 == "+") {
-                int4 = int1 + int3;
-                solvingStack.push(STR(int4));
+                float4 = float1 + float3;
+                solvingStack.push(STR(float4));
             }
             if (str2 == "*") {
-                int4 = int1 * int3;
-                solvingStack.push(STR(int4));
+                float4 = float1 * float3;
+                solvingStack.push(STR(float4));
             }
             if (str2 == "/") {
-                int4 = int1 / int3;
-                solvingStack.push(STR(int4));
+                float4 = float1 / float3;
+                solvingStack.push(STR(float4));
             }
         }
     }
-    expresionOut = solvingStack[solvingStack.length - 1];
+    expresionOut = Trim(solvingStack[solvingStack.length - 1]);
+    if (SubStr(expresionOut, 1, 2) == "- ") {
+        expresionOut = StringTrimLeft(expresionOut, 2);
+        expresionOut = "-" + expresionOut;
+    }
     if (Trim(expresionOut) == "") {
         expresionOut = "null";
     }
@@ -332,23 +382,23 @@ async function main() {
     var DidWePassTheTestExpresions = 1;
     var DidWePassTheTestExpresionsCOUNT = 0;
     var DidWePassTheTestExpresionsCOUNTMAX = 0;
-    items8 = LoopParseFunc(testExpresions, "|")
-    for (let A_Index8 = 0; A_Index8 < items8.length + 0; A_Index8++) {
-        const A_LoopField8 = items8[A_Index8 - 0];
+    items10 = LoopParseFunc(testExpresions, "|")
+    for (let A_Index10 = 0; A_Index10 < items10.length + 0; A_Index10++) {
+        const A_LoopField10 = items10[A_Index10 - 0];
         DidWePassTheTestExpresionsCOUNT++;
         DidWePassTheTestExpresionsCOUNTMAX++;
-        testIndexTestExpresions = A_Index8;
-        items9 = LoopParseFunc(answersOfTheTestExpresions, "|")
-        for (let A_Index9 = 0; A_Index9 < items9.length + 0; A_Index9++) {
-            const A_LoopField9 = items9[A_Index9 - 0];
-            if (A_Index9 == testIndexTestExpresions) {
-                TEMPanswersOfTheTestExpresions = A_LoopField9;
+        testIndexTestExpresions = A_Index10;
+        items11 = LoopParseFunc(answersOfTheTestExpresions, "|")
+        for (let A_Index11 = 0; A_Index11 < items11.length + 0; A_Index11++) {
+            const A_LoopField11 = items11[A_Index11 - 0];
+            if (A_Index11 == testIndexTestExpresions) {
+                TEMPanswersOfTheTestExpresions = A_LoopField11;
             }
         }
-        print(STR(A_Index8 + 1) + " ===============================");
-        print(A_LoopField8);
-        print(await expresionEval(A_LoopField8));
-        if (FLOAT(await expresionEval(A_LoopField8)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
+        print(STR(A_Index10 + 1) + " ===============================");
+        print(A_LoopField10);
+        print(await expresionEval(A_LoopField10));
+        if (FLOAT(await expresionEval(A_LoopField10)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
             print("true");
         } else {
             print("false");
@@ -367,6 +417,10 @@ async function main() {
     print(await expresionEval("5+(5+5)*1"));
     print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)");
     print(await expresionEval("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"));
+    print("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3");
+    print(await expresionEval("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"));
+    print("-((1+2)/((6*-7)+(7*-4)/2)-3)");
+    print(FLOAT(await expresionEval("-((1+2)/((6*-7)+(7*-4)/2)-3)")));
 }
 main();
 </script>

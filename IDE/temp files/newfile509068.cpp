@@ -157,6 +157,14 @@ std::string StrReplace(const std::string &originalString, const std::string &fin
     return result;
 }
 
+std::string StringTrimLeft(const std::string &input, int numChars) {
+    return (numChars <= input.length()) ? input.substr(numChars) : input;
+}
+
+std::string StringTrimRight(const std::string &input, int numChars) {
+    return (numChars <= input.length()) ? input.substr(0, input.length() - numChars) : input;
+}
+
 
 //Shunting Yard Algorithm
 std::string str1 = "";
@@ -176,6 +184,11 @@ int int4 = 0;
 int int5 = 0;
 int int6 = 0;
 int int7 = 0;
+float float1 = 0.0;
+float float2 = 0.0;
+float float3 = 0.0;
+float float4 = 0.0;
+float float5 = 0.0;
 std::vector<std::string> swapLast2StrArrayElement(std::vector<std::string> theStrArray) {
     // Check if the array has at least two elements
     if (theStrArray.size() < 2) {
@@ -206,7 +219,7 @@ std::string ExpresionEvalNoParentesis(std::string expresion) {
     std::vector<std::string> outputTemp;
     std::vector<std::string> solvingStack;
     std::string input = "0";
-    std::string arithmeticOperations = "+-(/*)";
+    std::string arithmeticOperations = "+-/*";
     int arithmeticOperationStrength = 0;
     std::string tempPopHoldingStack = "";
     int indexOfexpresionLoop = 0;
@@ -218,11 +231,44 @@ std::string ExpresionEvalNoParentesis(std::string expresion) {
     expresion = StrReplace(expresion, "/", " / ");
     expresion = StrReplace(expresion, "(", " ( ");
     expresion = StrReplace(expresion, ")", " ) ");
+    std::string addNegativeNums = "";
+    std::vector<std::string> addNegativeNumsFurture;
+    expresion = Trim(expresion);
     std::vector<std::string> items2 = LoopParseFunc(expresion, " ");
     for (size_t A_Index2 = 0; A_Index2 < items2.size() + 0; A_Index2++) {
         std::string A_LoopField2 = items2[A_Index2 - 0];
-        indexOfexpresionLoop = A_Index2 + 1;
-        input = A_LoopField2;
+        addNegativeNumsFurture.push_back(A_LoopField2);
+    }
+    int skip = 0;
+    addNegativeNumsFurture.push_back("");
+    std::vector<std::string> items3 = LoopParseFunc(expresion, " ");
+    for (size_t A_Index3 = 0; A_Index3 < items3.size() + 0; A_Index3++) {
+        std::string A_LoopField3 = items3[A_Index3 - 0];
+        if (A_Index3 == 0 && A_LoopField3 == "-") {
+            addNegativeNums += Trim(A_LoopField3) + addNegativeNumsFurture[A_Index3 + 1] + " ";
+            skip = 1;
+        }
+        else if (A_LoopField3 == "-" && (addNegativeNumsFurture[A_Index3 - 1] == "*" || addNegativeNumsFurture[A_Index3 - 1] == "/" || addNegativeNumsFurture[A_Index3 - 1] == "-" || addNegativeNumsFurture[A_Index3 - 1] == "+")) {
+            addNegativeNums += Trim(A_LoopField3) + addNegativeNumsFurture[A_Index3 + 1] + " ";
+            skip = 1;
+        } else {
+            if (skip != 1) {
+                addNegativeNums += A_LoopField3 + " ";
+                skip = 0;
+            } else {
+                skip = 0;
+            }
+        }
+    }
+    expresion = StringTrimRight(addNegativeNums, 1);
+    expresion = Trim(expresion);
+    //print("DEBUGGGGGGGGGGGG:" . expresion)
+    std::vector<std::string> output234543;
+    std::vector<std::string> items4 = LoopParseFunc(expresion, " ");
+    for (size_t A_Index4 = 0; A_Index4 < items4.size() + 0; A_Index4++) {
+        std::string A_LoopField4 = items4[A_Index4 - 0];
+        indexOfexpresionLoop = A_Index4 + 1;
+        input = A_LoopField4;
         if (InStr(arithmeticOperations, input) == 0) {
             // numbers
             //print(input)
@@ -241,10 +287,10 @@ std::string ExpresionEvalNoParentesis(std::string expresion) {
                 } else {
                     // what do we do
                     // add the last
-                    for (int A_Index3 = 0; ; A_Index3++) {
+                    for (int A_Index5 = 0; ; A_Index5++) {
                         if (holdingStack.size() > 0 && InStr(arithmeticOperations, holdingStack[holdingStack.size() - 1]) > InStr(arithmeticOperations, input)) {
                             tempHoldingStackNumFIX = holdingStack.size();
-                            for (int A_Index4 = 0; A_Index4 < tempHoldingStackNumFIX + 0; A_Index4++) {
+                            for (int A_Index6 = 0; A_Index6 < tempHoldingStackNumFIX + 0; A_Index6++) {
                                 tempPopHoldingStack = holdingStack[holdingStack.size() - 1];
                                 holdingStack.pop_back();
                                 outputTemp.push_back(tempPopHoldingStack);
@@ -260,22 +306,22 @@ std::string ExpresionEvalNoParentesis(std::string expresion) {
         }
     }
     if (holdingStack.size() != 0 || STR(holdingStack.size()) != "") {
-        for (int A_Index5 = 0; A_Index5 < holdingStack.size() + 0; A_Index5++) {
-            if (Trim(holdingStack[holdingStack.size() - 1 - A_Index5]) != "") {
-                outputTemp.push_back(holdingStack[holdingStack.size() - 1 - A_Index5]);
+        for (int A_Index7 = 0; A_Index7 < holdingStack.size() + 0; A_Index7++) {
+            if (Trim(holdingStack[holdingStack.size() - 1 - A_Index7]) != "") {
+                outputTemp.push_back(holdingStack[holdingStack.size() - 1 - A_Index7]);
             }
         }
     }
     int fixOutputTempRMparanesises = outputTemp.size();
     std::vector<std::string> outputTemp2;
-    for (int A_Index6 = 0; A_Index6 < fixOutputTempRMparanesises + 0; A_Index6++) {
-        if (Trim(outputTemp[A_Index6]) != "") {
-            outputTemp2.push_back(outputTemp[A_Index6]);
+    for (int A_Index8 = 0; A_Index8 < fixOutputTempRMparanesises + 0; A_Index8++) {
+        if (Trim(outputTemp[A_Index8]) != "") {
+            outputTemp2.push_back(outputTemp[A_Index8]);
         }
     }
     outputTemp = outputTemp2;
     print(outputTemp);
-    for (int A_Index7 = 0; ; A_Index7++) {
+    for (int A_Index9 = 0; ; A_Index9++) {
         if (outputTemp.size() == 0 || STR(outputTemp.size()) == "") {
             break;
         }
@@ -284,31 +330,35 @@ std::string ExpresionEvalNoParentesis(std::string expresion) {
         solvingStack.push_back(tempPopHoldingStack);
         if (InStr(arithmeticOperations, solvingStack[solvingStack.size() - 1]) != 0) {
             solvingStack = swapLast2StrArrayElement(solvingStack);
-            int1 = FLOAT(solvingStack[solvingStack.size() - 3]);
+            float1 = FLOAT(solvingStack[solvingStack.size() - 3]);
             str2 = solvingStack[solvingStack.size() - 2];
-            int3 = FLOAT(solvingStack[solvingStack.size() - 1]);
+            float3 = FLOAT(solvingStack[solvingStack.size() - 1]);
             solvingStack.pop_back();
             solvingStack.pop_back();
             solvingStack.pop_back();
             if (str2 == "-") {
-                int4 = int1 - int3;
-                solvingStack.push_back(STR(int4));
+                float4 = float1 - float3;
+                solvingStack.push_back(STR(float4));
             }
             if (str2 == "+") {
-                int4 = int1 + int3;
-                solvingStack.push_back(STR(int4));
+                float4 = float1 + float3;
+                solvingStack.push_back(STR(float4));
             }
             if (str2 == "*") {
-                int4 = int1 * int3;
-                solvingStack.push_back(STR(int4));
+                float4 = float1 * float3;
+                solvingStack.push_back(STR(float4));
             }
             if (str2 == "/") {
-                int4 = int1 / int3;
-                solvingStack.push_back(STR(int4));
+                float4 = float1 / float3;
+                solvingStack.push_back(STR(float4));
             }
         }
     }
-    expresionOut = solvingStack[solvingStack.size() - 1];
+    expresionOut = Trim(solvingStack[solvingStack.size() - 1]);
+    if (SubStr(expresionOut, 1, 2) == "- ") {
+        expresionOut = StringTrimLeft(expresionOut, 2);
+        expresionOut = "-" + expresionOut;
+    }
     if (Trim(expresionOut) == "") {
         expresionOut = "null";
     }
@@ -372,23 +422,23 @@ int main(int argc, char* argv[]) {
     int DidWePassTheTestExpresions = 1;
     int DidWePassTheTestExpresionsCOUNT = 0;
     int DidWePassTheTestExpresionsCOUNTMAX = 0;
-    std::vector<std::string> items8 = LoopParseFunc(testExpresions, "|");
-    for (size_t A_Index8 = 0; A_Index8 < items8.size() + 0; A_Index8++) {
-        std::string A_LoopField8 = items8[A_Index8 - 0];
+    std::vector<std::string> items10 = LoopParseFunc(testExpresions, "|");
+    for (size_t A_Index10 = 0; A_Index10 < items10.size() + 0; A_Index10++) {
+        std::string A_LoopField10 = items10[A_Index10 - 0];
         DidWePassTheTestExpresionsCOUNT++;
         DidWePassTheTestExpresionsCOUNTMAX++;
-        testIndexTestExpresions = A_Index8;
-        std::vector<std::string> items9 = LoopParseFunc(answersOfTheTestExpresions, "|");
-        for (size_t A_Index9 = 0; A_Index9 < items9.size() + 0; A_Index9++) {
-            std::string A_LoopField9 = items9[A_Index9 - 0];
-            if (A_Index9 == testIndexTestExpresions) {
-                TEMPanswersOfTheTestExpresions = A_LoopField9;
+        testIndexTestExpresions = A_Index10;
+        std::vector<std::string> items11 = LoopParseFunc(answersOfTheTestExpresions, "|");
+        for (size_t A_Index11 = 0; A_Index11 < items11.size() + 0; A_Index11++) {
+            std::string A_LoopField11 = items11[A_Index11 - 0];
+            if (A_Index11 == testIndexTestExpresions) {
+                TEMPanswersOfTheTestExpresions = A_LoopField11;
             }
         }
-        print(STR(A_Index8 + 1) + " ===============================");
-        print(A_LoopField8);
-        print(expresionEval(A_LoopField8));
-        if (FLOAT(expresionEval(A_LoopField8)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
+        print(STR(A_Index10 + 1) + " ===============================");
+        print(A_LoopField10);
+        print(expresionEval(A_LoopField10));
+        if (FLOAT(expresionEval(A_LoopField10)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
             print("true");
         } else {
             print("false");
@@ -407,5 +457,9 @@ int main(int argc, char* argv[]) {
     print(expresionEval("5+(5+5)*1"));
     print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)");
     print(expresionEval("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"));
+    print("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3");
+    print(expresionEval("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"));
+    print("-((1+2)/((6*-7)+(7*-4)/2)-3)");
+    print(FLOAT(expresionEval("-((1+2)/((6*-7)+(7*-4)/2)-3)")));
     return 0;
 }
