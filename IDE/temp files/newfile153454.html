@@ -46,6 +46,34 @@ function print(value) {
     console.log(value)
 }
 
+// Convert value to string
+function STR(value) {
+    if (value === null || value === undefined) {
+        return ""; // Return a string for null or undefined
+    } else if (typeof value === 'number') {
+        return value.toString();
+    } else if (typeof value === 'boolean') {
+        return value ? "1" : "0";
+    } else if (typeof value === 'string') {
+        return value; // Return the string as is
+    } else {
+        // Handle any unexpected types gracefully
+        return String(value); // Convert any other type to a string
+    }
+}
+
+// Function to find the position of needle in haystack (string overload)
+function InStr(haystack, needle) {
+    const pos = haystack.indexOf(needle);
+    return (pos !== -1) ? pos + 1 : 0;
+}
+
+// Function to generate a random integer between min and max (inclusive)
+function Random(min, max) {
+    // Generate and return a random number within the specified range
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function Trim(inputString) {
     return inputString ? inputString.trim() : "";
 }
@@ -54,28 +82,23 @@ function StrReplace(originalString, find, replaceWith) {
     return originalString.split(find).join(replaceWith);
 }
 
-      // RegExMatch
-      function RegExMatch(Haystack, NeedleRegEx, OutputVar, StartingPos) {
-          if (Haystack === null || NeedleRegEx === null) return null;
-          const regex = new RegExp(NeedleRegEx);
-          let match;
-          if (typeof Haystack === 'string') {
-              match = Haystack.match(regex);
-          }
-          if (match) {
-              if (OutputVar) {
-                  OutputVar.push(match[0]);
-              }
-              return match.index + 1;
-          } else {
-              return 0;
-          }
-      }
+// RegExMatch
+function RegExMatch(haystack, needle) {
+    const regex = new RegExp(needle);
+    const match = haystack.match(regex);
+    return match ? match.index + 1 : 0; // 1-based index or 0 if no match
+}
 
 
 
+async function callFunc(funcParams) {
+    // just test
+    return STR(Random(12345, 1234567));
+}
 async function parseFunc(expresion) {
-    var expresionOut = "";
+    print("=========================");
+    print(expresion);
+    print("=========================");
     var expresion = Trim(StrReplace(expresion, " ", ""));
     expresion = Trim(StrReplace(expresion, "(", " ( "));
     expresion = Trim(StrReplace(expresion, ")", " ) "));
@@ -84,22 +107,110 @@ async function parseFunc(expresion) {
     expresion = Trim(StrReplace(expresion, "/", " / "));
     expresion = Trim(StrReplace(expresion, "*", " * "));
     expresion = Trim(StrReplace(expresion, ",", " , "));
-    let expresionForFuncLookInF = "";
+    let expresionForFuncLookInF = [];
     items1 = LoopParseFunc(expresion, " ")
     for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
         const A_LoopField1 = items1[A_Index1 - 0];
         expresionForFuncLookInF.push(A_LoopField1);
     }
     expresionForFuncLookInF.push("");
-    items2 = LoopParseFunc(expresion, " ")
-    for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
-        const A_LoopField2 = items2[A_Index2 - 0];
-        // Check if the variable matches the regex pattern
-        if (RegExMatch(A_LoopField2, "^[A-Za-z_][A-Za-z0-9_]*$")) {
-            print(A_LoopField2);
+    var foundFunc = 0;
+    var foundFunc2 = 0;
+    var didWeSeeAfunc = 0;
+    var countParentheses = 0;
+    var countParenthesesOnceHelper = 0;
+    var funcEndEnd = 0;
+    var funcPosIndex1 = 0;
+    var funcPosIndex2 = 0;
+    var expresionReplaceHelper = "";
+    var expresionReplaceHelper1 = "";
+    for (let A_Index2 = 0; A_Index2 < 20 + 0; A_Index2++) {
+        foundFunc = 0;
+        foundFunc2 = 0;
+        didWeSeeAfunc = 0;
+        countParentheses = 0;
+        countParenthesesOnceHelper = 0;
+        funcEndEnd = 0;
+        funcPosIndex1 = 0;
+        funcPosIndex2 = 0;
+        items3 = LoopParseFunc(expresion, " ")
+        for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
+            const A_LoopField3 = items3[A_Index3 - 0];
+            if (foundFunc == 1) {
+                if (RegExMatch(A_LoopField3, "^[A-Za-z_][A-Za-z0-9_]*$") && expresionForFuncLookInF[A_Index3 + 1] == "(" && foundFunc == 1) {
+                    foundFunc2 = 1;
+                    funcPosIndex1 = A_Index3;
+                    countParentheses = 0;
+                    countParenthesesOnceHelper = 0;
+                    print("debug in: " + A_LoopField3);
+                }
+                if (A_LoopField3 == "(") {
+                    countParentheses++;
+                    countParenthesesOnceHelper++;
+                }
+                if (A_LoopField3 == ")") {
+                    countParentheses--;
+                }
+                if (countParenthesesOnceHelper != 0) {
+                    if (countParentheses == 0) {
+                        funcEndEnd = 1;
+                        funcPosIndex2 = A_Index3;
+                        break;
+                    }
+                }
+            }
+            // Check if the variable matches the regex pattern
+            if (RegExMatch(A_LoopField3, "^[A-Za-z_][A-Za-z0-9_]*$") && expresionForFuncLookInF[A_Index3 + 1] == "(" && foundFunc == 0) {
+                foundFunc = 1;
+                funcPosIndex1 = A_Index3;
+                //print(A_LoopField3)
+            }
+        }
+        if (foundFunc != 1) {
+            print("no more funcs");
+            expresion = Trim(expresion);
+            // eval
+            // eval
+            // eval
+            // eval
+            // eval
+            // eval
+            break;
+        }
+        expresionReplaceHelper1 = "";
+        expresionReplaceHelper = "";
+        items4 = LoopParseFunc(expresion, " ")
+        for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
+            const A_LoopField4 = items4[A_Index4 - 0];
+            if (A_Index4 >= funcPosIndex1 && A_Index4 < funcPosIndex2) {
+                expresionReplaceHelper1 += A_LoopField4 + " ";
+                print("found: " + A_LoopField4);
+            }
+            else if (A_Index4 == funcPosIndex2) {
+                expresionReplaceHelper1 += A_LoopField4 + " ";
+                print("found: " + A_LoopField4);
+                expresionReplaceHelper += await callFunc(Trim(expresionReplaceHelper1)) + " ";
+            } else {
+                expresionReplaceHelper += A_LoopField4 + " ";
+            }
+        }
+        expresion = Trim(expresionReplaceHelper);
+        print("=========================");
+        print(expresion);
+        print("=========================");
+        if (InStr(Trim(expresion), " ")) {
+            continue;
+        } else {
+            break;
         }
     }
-    return expresionOut;
+    // eval too
+    // eval too
+    // eval too
+    // eval too
+    expresion = Trim(expresion);
+    // eval too
+    return expresion;
 }
 async function main() {
     print(await parseFunc("-5+func1(bar1, 5+5+(58+5/2--2), func2(VAR1234R, func3(func4(5))))"));
