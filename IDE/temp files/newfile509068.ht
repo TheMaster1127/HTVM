@@ -327,7 +327,7 @@ return expresionOut
 
 
     
-func str expresionEval(str expression)
+func str expresionEvalHelp(str expression)
 {
 int startIndex := 0
 int endIndex := 0
@@ -368,7 +368,7 @@ str char123 := ""
         innerExpression := SubStr(expression, startIndex + 1, endIndex - startIndex - 2)
         print(innerExpression)
         ; Evaluate the inner expression (this is where recursion handles nested parentheses)
-        innerResult := await expresionEval(innerExpression)
+        innerResult := await expresionEvalHelp(innerExpression)
 
         ; Replace the entire parentheses with the result
         expression := SubStr(expression, 1, startIndex - 1) . innerResult . SubStr(expression, endIndex)
@@ -402,17 +402,17 @@ funcParamsOut := ""
 
 Loop, Parse, funcParams, `,
 {
-funcParamsOut .= expresionEval(A_LoopField) . "+"
+funcParamsOut .= await expresionEvalHelp(A_LoopField) . "+"
 }
 StringTrimRight, funcParamsOut, funcParamsOut, 1
 
 
 
-return expresionEval(funcParamsOut)
+return await expresionEvalHelp(funcParamsOut)
 }
 
 
-func str parseFunc(str expresion)
+func str expresionEval(str expresion)
 {
 
 print("=========================")
@@ -527,7 +527,7 @@ if (foundFunc != 1)
 print("no more funcs")
 
 expresion := Trim(expresion)
-
+expresion := Trim(await expresionEvalHelp(expresion))
 ; eval
 ; eval
 ; eval
@@ -589,7 +589,7 @@ break
 ; eval too
 expresion := Trim(expresion)
 ; eval too
-
+expresion := Trim(await expresionEvalHelp(expresion))
 
 
 return expresion
@@ -605,7 +605,7 @@ main
 print("Shunting Yard Algorithm")
 
 str expresion := "1+2*4-3"
-print(await expresionEval(expresion))
+print(await expresionEvalHelp(expresion))
 
 str testExpresions := "3+5|12-4|7*3|18/6|4+92|10-23|15+3-2|87-9|6+8/4|32+5|18-4/2|6/3+8|14-62|5+9/3|75-3|8+43|9/3+42|12+6*2-3|16-4/2+3|1+2*4-3"
 str answersOfTheTestExpresions := "8|8|21|3|96|-13|16|78|8|37|16|10|-48|8|72|51|45|21|17|6"
@@ -629,8 +629,8 @@ TEMPanswersOfTheTestExpresions := A_LoopField
 }
 print(STR(A_Index + 1) . " ===============================")
 print(A_LoopField)
-print(await expresionEval(A_LoopField))
-if (FLOAT(await expresionEval(A_LoopField)) = FLOAT(TEMPanswersOfTheTestExpresions))
+print(await expresionEvalHelp(A_LoopField))
+if (FLOAT(await expresionEvalHelp(A_LoopField)) = FLOAT(TEMPanswersOfTheTestExpresions))
 {
 print("true")
 }
@@ -655,12 +655,20 @@ else
 print("TestExpresions PASSED!!!" . STR(DidWePassTheTestExpresionsCOUNT) . "/" . STR(DidWePassTheTestExpresionsCOUNTMAX))
 }
 print("5+(5+5)*1")
-print(await expresionEval("5+(5+5)*1"))
+print(await expresionEvalHelp("5+(5+5)*1"))
 print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)")
-print(await expresionEval("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"))
+print(await expresionEvalHelp("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"))
 print("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3")
-print(await expresionEval("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"))
+print(await expresionEvalHelp("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"))
 
 print("-((1+2)/((6*-7)+(7*-4)/2)-3)")
-print(FLOAT(await expresionEval("-((1+2)/((6*-7)+(7*-4)/2)-3)")))
+print(FLOAT(await expresionEvalHelp("-((1+2)/((6*-7)+(7*-4)/2)-3)")))
+
+
+
+print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+print(await expresionEval("-5+func1(45+1, 5+5+(58+5/2--2), func2(56, func3(func4(5))))"))
+
 

@@ -67,6 +67,10 @@ def StringTrimLeft(input, numChars):
 def StringTrimRight(input, numChars):
     return input[:-numChars] if numChars <= len(input) else input
 
+def RegExMatch(haystack, needle):
+    match = re.search(needle, haystack)
+    return match.start() + 1 if match else 0 # 1-based index or 0 if no match
+
 
 #Shunting Yard Algorithm
 str1 = ""
@@ -236,7 +240,7 @@ def ExpresionEvalNoParentesis(expresion):
 #;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-def expresionEval(expression):
+def expresionEvalHelp(expression):
     startIndex = 0
     endIndex = 0
     innerExpression = ""
@@ -264,18 +268,135 @@ def expresionEval(expression):
         innerExpression = SubStr(expression, startIndex + 1, endIndex - startIndex - 2)
         print(innerExpression)
         # Evaluate the inner expression (this is where recursion handles nested parentheses)
-        innerResult = expresionEval(innerExpression)
+        innerResult = expresionEvalHelp(innerExpression)
         # Replace the entire parentheses with the result
         expression = SubStr(expression, 1, startIndex - 1) + innerResult + SubStr(expression, endIndex)
     # Now evaluate the expression without parentheses
     return ExpresionEvalNoParentesis(expression)
+def callFunc(funcParams):
+    # just test
+    funcParamsOut = ""
+    funcParams = Trim(funcParams)
+    funcParams = StringTrimRight(funcParams, 1)
+    items10 = LoopParseFunc(funcParams, " ")
+    for A_Index10 , A_LoopField10 in enumerate(items10, start=0):
+        if (A_Index10 > 1):
+            funcParamsOut += A_LoopField10 + " "
+    funcParamsOut = StringTrimRight(funcParamsOut, 1)
+    funcParams = Trim(StrReplace(Trim(funcParamsOut), " ", ""))
+    funcParamsOut = ""
+    items11 = LoopParseFunc(funcParams, ",")
+    for A_Index11 , A_LoopField11 in enumerate(items11, start=0):
+        funcParamsOut += expresionEvalHelp(A_LoopField11) + "+"
+    funcParamsOut = StringTrimRight(funcParamsOut, 1)
+    return expresionEvalHelp(funcParamsOut)
+def expresionEval(expresion):
+    print("=========================")
+    print(expresion)
+    print("=========================")
+    expresion = Trim(StrReplace(expresion, " ", ""))
+    expresion = Trim(StrReplace(expresion, "(", " ( "))
+    expresion = Trim(StrReplace(expresion, ")", " ) "))
+    expresion = Trim(StrReplace(expresion, "+", " + "))
+    expresion = Trim(StrReplace(expresion, "-", " - "))
+    expresion = Trim(StrReplace(expresion, "/", " / "))
+    expresion = Trim(StrReplace(expresion, "*", " * "))
+    expresion = Trim(StrReplace(expresion, ",", " , "))
+    expresionForFuncLookInF = []
+    items12 = LoopParseFunc(expresion, " ")
+    for A_Index12 , A_LoopField12 in enumerate(items12, start=0):
+        expresionForFuncLookInF.append(A_LoopField12)
+    expresionForFuncLookInF.append("")
+    foundFunc = 0
+    foundFunc2 = 0
+    didWeSeeAfunc = 0
+    countParentheses = 0
+    countParenthesesOnceHelper = 0
+    funcEndEnd = 0
+    funcPosIndex1 = 0
+    funcPosIndex2 = 0
+    expresionReplaceHelper = ""
+    expresionReplaceHelper1 = ""
+    for A_Index13 in range(0, 20 + 0):
+        foundFunc = 0
+        foundFunc2 = 0
+        didWeSeeAfunc = 0
+        countParentheses = 0
+        countParenthesesOnceHelper = 0
+        funcEndEnd = 0
+        funcPosIndex1 = 0
+        funcPosIndex2 = 0
+        items14 = LoopParseFunc(expresion, " ")
+        for A_Index14 , A_LoopField14 in enumerate(items14, start=0):
+            if (foundFunc == 1):
+                if (RegExMatch(A_LoopField14, "^[A-Za-z_][A-Za-z0-9_]*$") and expresionForFuncLookInF[A_Index14 + 1] == "(" and foundFunc == 1):
+                    foundFunc2 = 1
+                    funcPosIndex1 = A_Index14
+                    countParentheses = 0
+                    countParenthesesOnceHelper = 0
+                    print("debug in: " + A_LoopField14)
+                if (A_LoopField14 == "("):
+                    countParentheses = countParentheses + 1
+                    countParenthesesOnceHelper = countParenthesesOnceHelper + 1
+                if (A_LoopField14 == ")"):
+                    countParentheses = countParentheses - 1
+                if (countParenthesesOnceHelper != 0):
+                    if (countParentheses == 0):
+                        funcEndEnd = 1
+                        funcPosIndex2 = A_Index14
+                        break
+            # Check if the variable matches the regex pattern
+            if (RegExMatch(A_LoopField14, "^[A-Za-z_][A-Za-z0-9_]*$") and expresionForFuncLookInF[A_Index14 + 1] == "(" and foundFunc == 0):
+                foundFunc = 1
+                funcPosIndex1 = A_Index14
+                #print(A_LoopField14)
+        if (foundFunc != 1):
+            print("no more funcs")
+            expresion = Trim(expresion)
+            expresion = Trim(expresionEvalHelp(expresion))
+            # eval
+            # eval
+            # eval
+            # eval
+            # eval
+            # eval
+            break
+        expresionReplaceHelper1 = ""
+        expresionReplaceHelper = ""
+        items15 = LoopParseFunc(expresion, " ")
+        for A_Index15 , A_LoopField15 in enumerate(items15, start=0):
+            if (A_Index15 >= funcPosIndex1 and A_Index15 < funcPosIndex2):
+                expresionReplaceHelper1 += A_LoopField15 + " "
+                print("found: " + A_LoopField15)
+            elif (A_Index15 == funcPosIndex2):
+                expresionReplaceHelper1 += A_LoopField15 + " "
+                print("found: " + A_LoopField15)
+                expresionReplaceHelper += callFunc(Trim(expresionReplaceHelper1)) + " "
+            else:
+                expresionReplaceHelper += A_LoopField15 + " "
+        expresion = Trim(expresionReplaceHelper)
+        print("=========================")
+        print(expresion)
+        print("=========================")
+        if (InStr(Trim(expresion), " ")):
+            continue
+        else:
+            break
+    # eval too
+    # eval too
+    # eval too
+    # eval too
+    expresion = Trim(expresion)
+    # eval too
+    expresion = Trim(expresionEvalHelp(expresion))
+    return expresion
 #;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 print("Shunting Yard Algorithm")
 expresion = "1+2*4-3"
-print(expresionEval(expresion))
+print(expresionEvalHelp(expresion))
 testExpresions = "3+5|12-4|7*3|18/6|4+92|10-23|15+3-2|87-9|6+8/4|32+5|18-4/2|6/3+8|14-62|5+9/3|75-3|8+43|9/3+42|12+6*2-3|16-4/2+3|1+2*4-3"
 answersOfTheTestExpresions = "8|8|21|3|96|-13|16|78|8|37|16|10|-48|8|72|51|45|21|17|6"
 testIndexTestExpresions = 0
@@ -283,19 +404,19 @@ TEMPanswersOfTheTestExpresions = ""
 DidWePassTheTestExpresions = 1
 DidWePassTheTestExpresionsCOUNT = 0
 DidWePassTheTestExpresionsCOUNTMAX = 0
-items10 = LoopParseFunc(testExpresions, "|")
-for A_Index10 , A_LoopField10 in enumerate(items10, start=0):
+items16 = LoopParseFunc(testExpresions, "|")
+for A_Index16 , A_LoopField16 in enumerate(items16, start=0):
     DidWePassTheTestExpresionsCOUNT = DidWePassTheTestExpresionsCOUNT + 1
     DidWePassTheTestExpresionsCOUNTMAX = DidWePassTheTestExpresionsCOUNTMAX + 1
-    testIndexTestExpresions = A_Index10
-    items11 = LoopParseFunc(answersOfTheTestExpresions, "|")
-    for A_Index11 , A_LoopField11 in enumerate(items11, start=0):
-        if (A_Index11 == testIndexTestExpresions):
-            TEMPanswersOfTheTestExpresions = A_LoopField11
-    print(STR(A_Index10 + 1) + " ===============================")
-    print(A_LoopField10)
-    print(expresionEval(A_LoopField10))
-    if (FLOAT(expresionEval(A_LoopField10)) == FLOAT(TEMPanswersOfTheTestExpresions)):
+    testIndexTestExpresions = A_Index16
+    items17 = LoopParseFunc(answersOfTheTestExpresions, "|")
+    for A_Index17 , A_LoopField17 in enumerate(items17, start=0):
+        if (A_Index17 == testIndexTestExpresions):
+            TEMPanswersOfTheTestExpresions = A_LoopField17
+    print(STR(A_Index16 + 1) + " ===============================")
+    print(A_LoopField16)
+    print(expresionEvalHelp(A_LoopField16))
+    if (FLOAT(expresionEvalHelp(A_LoopField16)) == FLOAT(TEMPanswersOfTheTestExpresions)):
         print("true")
     else:
         print("false")
@@ -308,10 +429,14 @@ if (DidWePassTheTestExpresions == 0):
 else:
     print("TestExpresions PASSED!!!" + STR(DidWePassTheTestExpresionsCOUNT) + "/" + STR(DidWePassTheTestExpresionsCOUNTMAX))
 print("5+(5+5)*1")
-print(expresionEval("5+(5+5)*1"))
+print(expresionEvalHelp("5+(5+5)*1"))
 print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)")
-print(expresionEval("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"))
+print(expresionEvalHelp("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"))
 print("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3")
-print(expresionEval("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"))
+print(expresionEvalHelp("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"))
 print("-((1+2)/((6*-7)+(7*-4)/2)-3)")
-print(FLOAT(expresionEval("-((1+2)/((6*-7)+(7*-4)/2)-3)")))
+print(FLOAT(expresionEvalHelp("-((1+2)/((6*-7)+(7*-4)/2)-3)")))
+print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+print(expresionEval("-5+func1(45+1, 5+5+(58+5/2--2), func2(56, func3(func4(5))))"))

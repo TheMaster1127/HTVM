@@ -165,6 +165,15 @@ std::string StringTrimRight(const std::string &input, int numChars) {
     return (numChars <= input.length()) ? input.substr(0, input.length() - numChars) : input;
 }
 
+int RegExMatch(const std::string& haystack, const std::string& needle) {
+    std::regex re(needle);
+    std::smatch match;
+    if (std::regex_search(haystack, match, re)) {
+        return match.position(0) + 1; // 1-based index
+    }
+    return 0; // No match
+}
+
 
 //Shunting Yard Algorithm
 std::string str1 = "";
@@ -370,7 +379,7 @@ std::string ExpresionEvalNoParentesis(std::string expresion) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-std::string expresionEval(std::string expression) {
+std::string expresionEvalHelp(std::string expression) {
     int startIndex = 0;
     int endIndex = 0;
     std::string innerExpression = "";
@@ -401,12 +410,154 @@ std::string expresionEval(std::string expression) {
         innerExpression = SubStr(expression, startIndex + 1, endIndex - startIndex - 2);
         print(innerExpression);
         // Evaluate the inner expression (this is where recursion handles nested parentheses)
-        innerResult = expresionEval(innerExpression);
+        innerResult = expresionEvalHelp(innerExpression);
         // Replace the entire parentheses with the result
         expression = SubStr(expression, 1, startIndex - 1) + innerResult + SubStr(expression, endIndex);
     }
     // Now evaluate the expression without parentheses
     return ExpresionEvalNoParentesis(expression);
+}
+std::string callFunc(std::string funcParams) {
+    // just test
+    std::string funcParamsOut = "";
+    funcParams = Trim(funcParams);
+    funcParams = StringTrimRight(funcParams, 1);
+    std::vector<std::string> items10 = LoopParseFunc(funcParams, " ");
+    for (size_t A_Index10 = 0; A_Index10 < items10.size() + 0; A_Index10++) {
+        std::string A_LoopField10 = items10[A_Index10 - 0];
+        if (A_Index10 > 1) {
+            funcParamsOut += A_LoopField10 + " ";
+        }
+    }
+    funcParamsOut = StringTrimRight(funcParamsOut, 1);
+    funcParams = Trim(StrReplace(Trim(funcParamsOut), " ", ""));
+    funcParamsOut = "";
+    std::vector<std::string> items11 = LoopParseFunc(funcParams, ",");
+    for (size_t A_Index11 = 0; A_Index11 < items11.size() + 0; A_Index11++) {
+        std::string A_LoopField11 = items11[A_Index11 - 0];
+        funcParamsOut += expresionEvalHelp(A_LoopField11) + "+";
+    }
+    funcParamsOut = StringTrimRight(funcParamsOut, 1);
+    return expresionEvalHelp(funcParamsOut);
+}
+std::string expresionEval(std::string expresion) {
+    print("=========================");
+    print(expresion);
+    print("=========================");
+    expresion = Trim(StrReplace(expresion, " ", ""));
+    expresion = Trim(StrReplace(expresion, "(", " ( "));
+    expresion = Trim(StrReplace(expresion, ")", " ) "));
+    expresion = Trim(StrReplace(expresion, "+", " + "));
+    expresion = Trim(StrReplace(expresion, "-", " - "));
+    expresion = Trim(StrReplace(expresion, "/", " / "));
+    expresion = Trim(StrReplace(expresion, "*", " * "));
+    expresion = Trim(StrReplace(expresion, ",", " , "));
+    std::vector<std::string> expresionForFuncLookInF;
+    std::vector<std::string> items12 = LoopParseFunc(expresion, " ");
+    for (size_t A_Index12 = 0; A_Index12 < items12.size() + 0; A_Index12++) {
+        std::string A_LoopField12 = items12[A_Index12 - 0];
+        expresionForFuncLookInF.push_back(A_LoopField12);
+    }
+    expresionForFuncLookInF.push_back("");
+    int foundFunc = 0;
+    int foundFunc2 = 0;
+    int didWeSeeAfunc = 0;
+    int countParentheses = 0;
+    int countParenthesesOnceHelper = 0;
+    int funcEndEnd = 0;
+    int funcPosIndex1 = 0;
+    int funcPosIndex2 = 0;
+    std::string expresionReplaceHelper = "";
+    std::string expresionReplaceHelper1 = "";
+    for (int A_Index13 = 0; A_Index13 < 20 + 0; A_Index13++) {
+        foundFunc = 0;
+        foundFunc2 = 0;
+        didWeSeeAfunc = 0;
+        countParentheses = 0;
+        countParenthesesOnceHelper = 0;
+        funcEndEnd = 0;
+        funcPosIndex1 = 0;
+        funcPosIndex2 = 0;
+        std::vector<std::string> items14 = LoopParseFunc(expresion, " ");
+        for (size_t A_Index14 = 0; A_Index14 < items14.size() + 0; A_Index14++) {
+            std::string A_LoopField14 = items14[A_Index14 - 0];
+            if (foundFunc == 1) {
+                if (RegExMatch(A_LoopField14, "^[A-Za-z_][A-Za-z0-9_]*$") && expresionForFuncLookInF[A_Index14 + 1] == "(" && foundFunc == 1) {
+                    foundFunc2 = 1;
+                    funcPosIndex1 = A_Index14;
+                    countParentheses = 0;
+                    countParenthesesOnceHelper = 0;
+                    print("debug in: " + A_LoopField14);
+                }
+                if (A_LoopField14 == "(") {
+                    countParentheses++;
+                    countParenthesesOnceHelper++;
+                }
+                if (A_LoopField14 == ")") {
+                    countParentheses--;
+                }
+                if (countParenthesesOnceHelper != 0) {
+                    if (countParentheses == 0) {
+                        funcEndEnd = 1;
+                        funcPosIndex2 = A_Index14;
+                        break;
+                    }
+                }
+            }
+            // Check if the variable matches the regex pattern
+            if (RegExMatch(A_LoopField14, "^[A-Za-z_][A-Za-z0-9_]*$") && expresionForFuncLookInF[A_Index14 + 1] == "(" && foundFunc == 0) {
+                foundFunc = 1;
+                funcPosIndex1 = A_Index14;
+                //print(A_LoopField14)
+            }
+        }
+        if (foundFunc != 1) {
+            print("no more funcs");
+            expresion = Trim(expresion);
+            expresion = Trim(expresionEvalHelp(expresion));
+            // eval
+            // eval
+            // eval
+            // eval
+            // eval
+            // eval
+            break;
+        }
+        expresionReplaceHelper1 = "";
+        expresionReplaceHelper = "";
+        std::vector<std::string> items15 = LoopParseFunc(expresion, " ");
+        for (size_t A_Index15 = 0; A_Index15 < items15.size() + 0; A_Index15++) {
+            std::string A_LoopField15 = items15[A_Index15 - 0];
+            if (A_Index15 >= funcPosIndex1 && A_Index15 < funcPosIndex2) {
+                expresionReplaceHelper1 += A_LoopField15 + " ";
+                print("found: " + A_LoopField15);
+            }
+            else if (A_Index15 == funcPosIndex2) {
+                expresionReplaceHelper1 += A_LoopField15 + " ";
+                print("found: " + A_LoopField15);
+                expresionReplaceHelper += callFunc(Trim(expresionReplaceHelper1)) + " ";
+            } else {
+                expresionReplaceHelper += A_LoopField15 + " ";
+            }
+        }
+        expresion = Trim(expresionReplaceHelper);
+        print("=========================");
+        print(expresion);
+        print("=========================");
+        if (InStr(Trim(expresion), " ")) {
+            continue;
+        } else {
+            break;
+        }
+    }
+    // eval too
+    // eval too
+    // eval too
+    // eval too
+    expresion = Trim(expresion);
+    // eval too
+    expresion = Trim(expresionEvalHelp(expresion));
+    return expresion;
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -415,7 +566,7 @@ std::string expresionEval(std::string expression) {
 int main(int argc, char* argv[]) {
     print("Shunting Yard Algorithm");
     std::string expresion = "1+2*4-3";
-    print(expresionEval(expresion));
+    print(expresionEvalHelp(expresion));
     std::string testExpresions = "3+5|12-4|7*3|18/6|4+92|10-23|15+3-2|87-9|6+8/4|32+5|18-4/2|6/3+8|14-62|5+9/3|75-3|8+43|9/3+42|12+6*2-3|16-4/2+3|1+2*4-3";
     std::string answersOfTheTestExpresions = "8|8|21|3|96|-13|16|78|8|37|16|10|-48|8|72|51|45|21|17|6";
     int testIndexTestExpresions = 0;
@@ -423,23 +574,23 @@ int main(int argc, char* argv[]) {
     int DidWePassTheTestExpresions = 1;
     int DidWePassTheTestExpresionsCOUNT = 0;
     int DidWePassTheTestExpresionsCOUNTMAX = 0;
-    std::vector<std::string> items10 = LoopParseFunc(testExpresions, "|");
-    for (size_t A_Index10 = 0; A_Index10 < items10.size() + 0; A_Index10++) {
-        std::string A_LoopField10 = items10[A_Index10 - 0];
+    std::vector<std::string> items16 = LoopParseFunc(testExpresions, "|");
+    for (size_t A_Index16 = 0; A_Index16 < items16.size() + 0; A_Index16++) {
+        std::string A_LoopField16 = items16[A_Index16 - 0];
         DidWePassTheTestExpresionsCOUNT++;
         DidWePassTheTestExpresionsCOUNTMAX++;
-        testIndexTestExpresions = A_Index10;
-        std::vector<std::string> items11 = LoopParseFunc(answersOfTheTestExpresions, "|");
-        for (size_t A_Index11 = 0; A_Index11 < items11.size() + 0; A_Index11++) {
-            std::string A_LoopField11 = items11[A_Index11 - 0];
-            if (A_Index11 == testIndexTestExpresions) {
-                TEMPanswersOfTheTestExpresions = A_LoopField11;
+        testIndexTestExpresions = A_Index16;
+        std::vector<std::string> items17 = LoopParseFunc(answersOfTheTestExpresions, "|");
+        for (size_t A_Index17 = 0; A_Index17 < items17.size() + 0; A_Index17++) {
+            std::string A_LoopField17 = items17[A_Index17 - 0];
+            if (A_Index17 == testIndexTestExpresions) {
+                TEMPanswersOfTheTestExpresions = A_LoopField17;
             }
         }
-        print(STR(A_Index10 + 1) + " ===============================");
-        print(A_LoopField10);
-        print(expresionEval(A_LoopField10));
-        if (FLOAT(expresionEval(A_LoopField10)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
+        print(STR(A_Index16 + 1) + " ===============================");
+        print(A_LoopField16);
+        print(expresionEvalHelp(A_LoopField16));
+        if (FLOAT(expresionEvalHelp(A_LoopField16)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
             print("true");
         } else {
             print("false");
@@ -455,12 +606,16 @@ int main(int argc, char* argv[]) {
         print("TestExpresions PASSED!!!" + STR(DidWePassTheTestExpresionsCOUNT) + "/" + STR(DidWePassTheTestExpresionsCOUNTMAX));
     }
     print("5+(5+5)*1");
-    print(expresionEval("5+(5+5)*1"));
+    print(expresionEvalHelp("5+(5+5)*1"));
     print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)");
-    print(expresionEval("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"));
+    print(expresionEvalHelp("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"));
     print("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3");
-    print(expresionEval("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"));
+    print(expresionEvalHelp("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"));
     print("-((1+2)/((6*-7)+(7*-4)/2)-3)");
-    print(FLOAT(expresionEval("-((1+2)/((6*-7)+(7*-4)/2)-3)")));
+    print(FLOAT(expresionEvalHelp("-((1+2)/((6*-7)+(7*-4)/2)-3)")));
+    print("=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+    print("=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+    print("=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+    print(expresionEval("-5+func1(45+1, 5+5+(58+5/2--2), func2(56, func3(func4(5))))"));
     return 0;
 }
