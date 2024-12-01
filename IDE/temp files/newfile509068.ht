@@ -366,7 +366,7 @@ str char123 := ""
 
         ; Extract the inner expression
         innerExpression := SubStr(expression, startIndex + 1, endIndex - startIndex - 2)
-
+        print(innerExpression)
         ; Evaluate the inner expression (this is where recursion handles nested parentheses)
         innerResult := await expresionEval(innerExpression)
 
@@ -376,6 +376,35 @@ str char123 := ""
 
     ; Now evaluate the expression without parentheses
     return await ExpresionEvalNoParentesis(expression)
+}
+
+
+func str evalWhitFuncs(str expresion)
+{
+expresion := StrReplace(expresion, " ", "")
+
+expresion := StrReplace(expresion, ")", " ) ")
+expresion := Trim(StrReplace(expresion, "(", " ( "))
+
+arr str funcStack
+
+arr str funcLookInTheFurture
+
+Loop, Parse, expresion, " "
+{
+funcLookInTheFurture.add(A_LoopField)
+}
+funcLookInTheFurture.add("")
+
+func1 ( var5, 6+ ( 7/-5 ) , func2 ( var5, 6+ ( 7/-5 ) , func3 ( var5, 6+ ( 7/-5 ) ) ) )
+
+Loop, Parse, expresion, " "
+{
+print(A_LoopField)
+
+}
+
+
 }
 
 

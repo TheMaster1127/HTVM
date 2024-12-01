@@ -1095,21 +1095,15 @@ funcEND======================funcEND==============
 func======================func==============
 lang: cpp
 name: RegExMatch
-libs: #include <iostream>|#include <string>|#include <regex>
-description: string~~~RegExMatch is a function that matches a regular expression pattern within a string and optionally stores the match in an output variable, returning the position of the match or 0 if no match is found.~~~here is how the func looks like:~~~```~~~RegExMatch(str Haystack, str NeedleRegEx, arr str OutputVar, int StartingPos [optional = 0])~~~```~~~
-int RegExMatch(const std::string& haystack, const std::string& needleRegEx, std::string* outputVar = nullptr, int startingPos = 0) {
-    if (haystack.empty() || needleRegEx.empty()) {
-        return 0;
-    }
-    std::regex re(needleRegEx);
+libs: #include <regex>|#include <string>|#include <iostream>
+description: string~~~RegExMatch is a function that returns the 1-based index of the first regex match or 0 if no match is found.~~~here is how the func looks like:~~~```~~~RegExMatch(str haystack, str needle)~~~```~~~
+int RegExMatch(const std::string& haystack, const std::string& needle) {
+    std::regex re(needle);
     std::smatch match;
-    if (std::regex_search(haystack.begin() + startingPos, haystack.end(), match, re)) {
-        if (outputVar != nullptr) {
-            *outputVar = match.str(0);
-        }
-        return match.position(0) + 1; // To make it 1-based index
+    if (std::regex_search(haystack, match, re)) {
+        return match.position(0) + 1; // 1-based index
     }
-    return 0;
+    return 0; // No match
 }
 funcEND======================funcEND==============
 func======================func==============
@@ -1929,18 +1923,10 @@ func======================func==============
 lang: py
 name: RegExMatch
 libs: import re
-description: string~~~RegExMatch is a function that matches a regular expression pattern within a string and optionally stores the match in an output variable, returning the position of the match or 0 if no match is found.~~~here is how the func looks like:~~~```~~~RegExMatch(str Haystack, str NeedleRegEx, arr str OutputVar, int StartingPos [optional = 0])~~~```~~~
-def RegExMatch(Haystack, NeedleRegEx, OutputVar=None, StartingPos=0):
-    if Haystack is None or NeedleRegEx is None:
-        return None
-    regex = re.compile(NeedleRegEx)
-    match = regex.search(Haystack)
-    if match:
-        if OutputVar is not None:
-            OutputVar.append(match.group(0))
-        return match.start() + 1
-    else:
-        return 0
+description: string~~~RegExMatch is a function that returns the 1-based index of the first regex match or 0 if no match is found.~~~here is how the func looks like:~~~```~~~RegExMatch(str haystack, str needle)~~~```~~~
+def RegExMatch(haystack, needle):
+    match = re.search(needle, haystack)
+    return match.start() + 1 if match else 0 # 1-based index or 0 if no match
 funcEND======================funcEND==============
 func======================func==============
 lang: py
@@ -2169,24 +2155,13 @@ func======================func==============
 lang: js
 name: RegExMatch
 libs: null
-description: string~~~RegExMatch is a function that matches a regular expression pattern within a string and optionally stores the match in an output variable, returning the position of the match or 0 if no match is found.~~~here is how the func looks like:~~~```~~~RegExMatch(str Haystack, str NeedleRegEx, arr str OutputVar, int StartingPos [optional = 0])~~~```~~~
-      // RegExMatch
-      function RegExMatch(Haystack, NeedleRegEx, OutputVar, StartingPos) {
-          if (Haystack === null || NeedleRegEx === null) return null;
-          const regex = new RegExp(NeedleRegEx);
-          let match;
-          if (typeof Haystack === 'string') {
-              match = Haystack.match(regex);
-          }
-          if (match) {
-              if (OutputVar) {
-                  OutputVar.push(match[0]);
-              }
-              return match.index + 1;
-          } else {
-              return 0;
-          }
-      }
+description: string~~~RegExMatch is a function that returns the 1-based index of the first regex match or 0 if no match is found.~~~here is how the func looks like:~~~```~~~RegExMatch(str haystack, str needle)~~~```~~~
+// RegExMatch
+function RegExMatch(haystack, needle) {
+    const regex = new RegExp(needle);
+    const match = haystack.match(regex);
+    return match ? match.index + 1 : 0; // 1-based index or 0 if no match
+}
 funcEND======================funcEND==============
 func======================func==============
 lang: js

@@ -1,0 +1,45 @@
+
+
+
+
+func str parseFunc(str expresion)
+{
+str expresionOut := ""
+
+expresion := Trim(StrReplace(expresion, " ", ""))
+expresion := Trim(StrReplace(expresion, "(", " ( "))
+expresion := Trim(StrReplace(expresion, ")", " ) "))
+expresion := Trim(StrReplace(expresion, "+", " + "))
+expresion := Trim(StrReplace(expresion, "-", " - "))
+expresion := Trim(StrReplace(expresion, "/", " / "))
+expresion := Trim(StrReplace(expresion, "*", " * "))
+expresion := Trim(StrReplace(expresion, ",", " , "))
+
+arr str expresionForFuncLookInF := ""
+
+Loop, Parse, expresion, " "
+{
+expresionForFuncLookInF.add(A_LoopField)
+}
+expresionForFuncLookInF.add("")
+
+Loop, Parse, expresion, " "
+{
+
+; Check if the variable matches the regex pattern
+if (RegExMatch(A_LoopField, "^[A-Za-z_][A-Za-z0-9_]*$"))
+{
+print(A_LoopField)
+}
+
+
+
+}
+
+
+return expresionOut
+}
+main
+
+print(await parseFunc("-5+func1(bar1, 5+5+(58+5/2--2), func2(VAR1234R, func3(func4(5))))"))
+

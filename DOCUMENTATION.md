@@ -1036,10 +1036,10 @@ InStr(str haystack, str needle)
 |----------|----------|----------|----------|
 | RegExMatch | Yes | Yes | Yes |
 
-RegExMatch is a function that matches a regular expression pattern within a string and optionally stores the match in an output variable, returning the position of the match or 0 if no match is found.
+RegExMatch is a function that returns the 1-based index of the first regex match or 0 if no match is found.
 here is how the func looks like:
 ```
-RegExMatch(str Haystack, str NeedleRegEx, arr str OutputVar, int StartingPos [optional = 0])
+RegExMatch(str haystack, str needle)
 ```
 
 ---

@@ -262,6 +262,7 @@ def expresionEval(expression):
             endIndex = endIndex + 1
         # Extract the inner expression
         innerExpression = SubStr(expression, startIndex + 1, endIndex - startIndex - 2)
+        print(innerExpression)
         # Evaluate the inner expression (this is where recursion handles nested parentheses)
         innerResult = expresionEval(innerExpression)
         # Replace the entire parentheses with the result
