@@ -620,9 +620,9 @@ Loop, Parse, testExpresions, "|"
 DidWePassTheTestExpresionsCOUNT++
 DidWePassTheTestExpresionsCOUNTMAX++
 testIndexTestExpresions := A_Index
-Loop, Parse, answersOfTheTestExpresions, "|" 
+Loop, Parse, answersOfTheTestExpresions, "|"
 {
-if (A_Index = testIndexTestExpresions) 
+if (A_Index = testIndexTestExpresions)
 {
 TEMPanswersOfTheTestExpresions := A_LoopField
 }
@@ -670,5 +670,6 @@ print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
 print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
 print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
 print(await expresionEval("-5+func1(45+1, 5+5+(58+5/2--2), func2(56, func3(func4(5))))"))
+
 
 
