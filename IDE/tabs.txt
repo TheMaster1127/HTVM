@@ -61,7 +61,6 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\CPU-ASM-EMULATOR.cpp
 C:\Users\The_M\OneDrive\Desktop\temp Projects\qawsdfawedgd\stringManipulate.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Home-Control-pi\Home-Control-pi-BACKEND.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Home-Control-pi\Home-Control-pi-FRONTEND.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Home-Control-pi\Home-Control-pi-POWER.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile661514.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile918326.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile32757.ht
@@ -71,3 +70,6 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HT-Interpreter.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HT-Interpreter.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HT-Interpreter.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HT-Interpreter.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\test.hti
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\hti.htpr
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\hti.htpc

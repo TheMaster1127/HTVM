@@ -88,6 +88,11 @@ function StrLen(s) {
     return s.length;
 }
 
+function Chr(number) {
+    // Return the character corresponding to the Unicode code point, or an empty string if out of range
+    return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
+}
+
 function Exp(value) {
     return Math.exp(value);
 }
@@ -125,6 +130,10 @@ function StringTrimRight(input, numChars) {
     return (numChars <= input.length) ? input.substring(0, input.length - numChars) : input;
 }
 
+function Mod(dividend, divisor) {
+    return dividend % divisor;
+}
+
 // RegExMatch
 function RegExMatch(haystack, needle) {
     const regex = new RegExp(needle);
@@ -144,6 +153,7 @@ var str7 = "";
 var str8 = "";
 var str9 = "";
 var str10 = "";
+var str11 = "";
 var int1 = 0;
 var int2 = 0;
 var int3 = 0;
@@ -156,6 +166,8 @@ var float2 = 0.0;
 var float3 = 0.0;
 var float4 = 0.0;
 var float5 = 0.0;
+let theIdNumOfThe34theVar = [];
+var theIdNumOfThe34 = 0;
 async function  swapLast2StrArrayElement(theStrArray) {
     // Check if the array has at least two elements
     if (theStrArray.length < 2) {
@@ -287,7 +299,7 @@ async function ExpresionEvalNoParentesis(expresion) {
         }
     }
     outputTemp = outputTemp2;
-    print(outputTemp);
+    //print(outputTemp)
     for (let A_Index9 = 0; ; A_Index9++) {
         if (outputTemp.length == 0 || STR(outputTemp.length) == "") {
             break;
@@ -366,7 +378,7 @@ async function expresionEvalHelp(expression) {
         }
         // Extract the inner expression
         innerExpression = SubStr(expression, startIndex + 1, endIndex - startIndex - 2);
-        print(innerExpression);
+        //print(innerExpression)
         // Evaluate the inner expression (this is where recursion handles nested parentheses)
         innerResult = await expresionEvalHelp(innerExpression);
         // Replace the entire parentheses with the result
@@ -375,33 +387,108 @@ async function expresionEvalHelp(expression) {
     // Now evaluate the expression without parentheses
     return await ExpresionEvalNoParentesis(expression);
 }
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 async function callFunc(funcParams) {
-    // just test
     var funcParamsOut = "";
     var funcParams = Trim(funcParams);
     funcParams = StringTrimRight(funcParams, 1);
+    var funcName = "";
     items10 = LoopParseFunc(funcParams, " ")
     for (let A_Index10 = 0; A_Index10 < items10.length + 0; A_Index10++) {
         const A_LoopField10 = items10[A_Index10 - 0];
+        if (A_Index10 == 0) {
+            funcName = Trim(A_LoopField10);
+        }
         if (A_Index10 > 1) {
             funcParamsOut += A_LoopField10 + " ";
         }
     }
+    //print("debug funcname: " . funcName)
     funcParamsOut = StringTrimRight(funcParamsOut, 1);
     funcParams = Trim(StrReplace(Trim(funcParamsOut), " ", ""));
     funcParamsOut = "";
-    items11 = LoopParseFunc(funcParams, ",")
-    for (let A_Index11 = 0; A_Index11 < items11.length + 0; A_Index11++) {
-        const A_LoopField11 = items11[A_Index11 - 0];
-        funcParamsOut += await expresionEvalHelp(A_LoopField11) + "+";
+    if (funcName == "INT") {
+        items11 = LoopParseFunc(funcParams, ",")
+        for (let A_Index11 = 0; A_Index11 < items11.length + 0; A_Index11++) {
+            const A_LoopField11 = items11[A_Index11 - 0];
+            funcParamsOut += await expresionEvalHelp(StringTrimRight(StringTrimLeft(A_LoopField11, 1), 1)) + "+";
+        }
+    }
+    else if (funcName == "STR") {
+        items12 = LoopParseFunc(funcParams, ",")
+        for (let A_Index12 = 0; A_Index12 < items12.length + 0; A_Index12++) {
+            const A_LoopField12 = items12[A_Index12 - 0];
+            funcParamsOut += await expresionEvalHelp(Chr(34) + A_LoopField12 + Chr(34)) + "+";
+        }
+    }
+    else if (funcName == "print") {
+        print(await expresionEvalHelp(Trim(funcParams)));
+        return "null";
+    } else {
+        items13 = LoopParseFunc(funcParams, ",")
+        for (let A_Index13 = 0; A_Index13 < items13.length + 0; A_Index13++) {
+            const A_LoopField13 = items13[A_Index13 - 0];
+            funcParamsOut += await expresionEvalHelp(A_LoopField13) + "+";
+        }
     }
     funcParamsOut = StringTrimRight(funcParamsOut, 1);
     return await expresionEvalHelp(funcParamsOut);
 }
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 async function expresionEval(expresion) {
-    print("=========================");
-    print(expresion);
-    print("=========================");
+    //print("=========================")
+    //print(expresion)
+    //print("=========================")
+    var HTpyCodeOUT754754 = "";
+    var areWEinSome34sNum = 0;
+    items14 = LoopParseFunc(expresion)
+    for (let A_Index14 = 0; A_Index14 < items14.length + 0; A_Index14++) {
+        const A_LoopField14 = items14[A_Index14 - 0];
+        theIdNumOfThe34theVar.push("");
+        theIdNumOfThe34theVar[A_Index14] = Chr(34);
+    }
+    items15 = LoopParseFunc(expresion)
+    for (let A_Index15 = 0; A_Index15 < items15.length + 0; A_Index15++) {
+        const A_LoopField15 = items15[A_Index15 - 0];
+        if (A_LoopField15 == Chr(34)) {
+            areWEinSome34sNum++;
+        }
+        if (areWEinSome34sNum == 1) {
+            if (A_LoopField15 != Chr(34)) {
+                if (A_LoopField15 == Chr(96)) {
+                    theIdNumOfThe34theVar[theIdNumOfThe34] += Chr(92);
+                } else {
+                    theIdNumOfThe34theVar[theIdNumOfThe34] += A_LoopField15;
+                }
+            } else {
+                theIdNumOfThe34++;
+                HTpyCodeOUT754754 += "ihuiuuhuuhtheidFor|||||||||||asas|||||||||||theuhturtyphoutr|||||||||||" + str11 + Chr(65) + Chr(65) + STR(theIdNumOfThe34) + Chr(65) + Chr(65);
+            }
+        }
+        if (areWEinSome34sNum == 2 || areWEinSome34sNum == 0) {
+            if (A_LoopField15 != Chr(34)) {
+                HTpyCodeOUT754754 += A_LoopField15;
+            }
+            areWEinSome34sNum = 0;
+        }
+    }
+    expresion = HTpyCodeOUT754754;
+    for (let A_Index16 = 0; A_Index16 < theIdNumOfThe34 + 0; A_Index16++) {
+        theIdNumOfThe34theVar[A_Index16 + 1] += Chr(34);
+    }
+    for (let A_Index17 = 0; A_Index17 < theIdNumOfThe34 + 0; A_Index17++) {
+        expresion = StrReplace(expresion, "ihuiuuhuuhtheidFor|||||||||||asas|||||||||||theuhturtyphoutr|||||||||||AA" + STR(A_Index17 + 1) + "AA", theIdNumOfThe34theVar[A_Index17 + 1]);
+    }
     expresion = Trim(StrReplace(expresion, " ", ""));
     expresion = Trim(StrReplace(expresion, "(", " ( "));
     expresion = Trim(StrReplace(expresion, ")", " ) "));
@@ -411,10 +498,10 @@ async function expresionEval(expresion) {
     expresion = Trim(StrReplace(expresion, "*", " * "));
     expresion = Trim(StrReplace(expresion, ",", " , "));
     let expresionForFuncLookInF = [];
-    items12 = LoopParseFunc(expresion, " ")
-    for (let A_Index12 = 0; A_Index12 < items12.length + 0; A_Index12++) {
-        const A_LoopField12 = items12[A_Index12 - 0];
-        expresionForFuncLookInF.push(A_LoopField12);
+    items18 = LoopParseFunc(expresion, " ")
+    for (let A_Index18 = 0; A_Index18 < items18.length + 0; A_Index18++) {
+        const A_LoopField18 = items18[A_Index18 - 0];
+        expresionForFuncLookInF.push(A_LoopField18);
     }
     expresionForFuncLookInF.push("");
     var foundFunc = 0;
@@ -427,7 +514,7 @@ async function expresionEval(expresion) {
     var funcPosIndex2 = 0;
     var expresionReplaceHelper = "";
     var expresionReplaceHelper1 = "";
-    for (let A_Index13 = 0; A_Index13 < 20 + 0; A_Index13++) {
+    for (let A_Index19 = 0; A_Index19 < 20 + 0; A_Index19++) {
         foundFunc = 0;
         foundFunc2 = 0;
         didWeSeeAfunc = 0;
@@ -436,41 +523,41 @@ async function expresionEval(expresion) {
         funcEndEnd = 0;
         funcPosIndex1 = 0;
         funcPosIndex2 = 0;
-        items14 = LoopParseFunc(expresion, " ")
-        for (let A_Index14 = 0; A_Index14 < items14.length + 0; A_Index14++) {
-            const A_LoopField14 = items14[A_Index14 - 0];
+        items20 = LoopParseFunc(expresion, " ")
+        for (let A_Index20 = 0; A_Index20 < items20.length + 0; A_Index20++) {
+            const A_LoopField20 = items20[A_Index20 - 0];
             if (foundFunc == 1) {
-                if (RegExMatch(A_LoopField14, "^[A-Za-z_][A-Za-z0-9_]*$") && expresionForFuncLookInF[A_Index14 + 1] == "(" && foundFunc == 1) {
+                if (RegExMatch(A_LoopField20, "^[A-Za-z_][A-Za-z0-9_]*$") && expresionForFuncLookInF[A_Index20 + 1] == "(" && foundFunc == 1) {
                     foundFunc2 = 1;
-                    funcPosIndex1 = A_Index14;
+                    funcPosIndex1 = A_Index20;
                     countParentheses = 0;
                     countParenthesesOnceHelper = 0;
-                    print("debug in: " + A_LoopField14);
+                    //print("debug in: " + A_LoopField20)
                 }
-                if (A_LoopField14 == "(") {
+                if (A_LoopField20 == "(") {
                     countParentheses++;
                     countParenthesesOnceHelper++;
                 }
-                if (A_LoopField14 == ")") {
+                if (A_LoopField20 == ")") {
                     countParentheses--;
                 }
                 if (countParenthesesOnceHelper != 0) {
                     if (countParentheses == 0) {
                         funcEndEnd = 1;
-                        funcPosIndex2 = A_Index14;
+                        funcPosIndex2 = A_Index20;
                         break;
                     }
                 }
             }
             // Check if the variable matches the regex pattern
-            if (RegExMatch(A_LoopField14, "^[A-Za-z_][A-Za-z0-9_]*$") && expresionForFuncLookInF[A_Index14 + 1] == "(" && foundFunc == 0) {
+            if (RegExMatch(A_LoopField20, "^[A-Za-z_][A-Za-z0-9_]*$") && expresionForFuncLookInF[A_Index20 + 1] == "(" && foundFunc == 0) {
                 foundFunc = 1;
-                funcPosIndex1 = A_Index14;
-                //print(A_LoopField14)
+                funcPosIndex1 = A_Index20;
+                //print(A_LoopField20)
             }
         }
         if (foundFunc != 1) {
-            print("no more funcs");
+            //print("no more funcs")
             expresion = Trim(expresion);
             expresion = Trim(await expresionEvalHelp(expresion));
             // eval
@@ -483,25 +570,25 @@ async function expresionEval(expresion) {
         }
         expresionReplaceHelper1 = "";
         expresionReplaceHelper = "";
-        items15 = LoopParseFunc(expresion, " ")
-        for (let A_Index15 = 0; A_Index15 < items15.length + 0; A_Index15++) {
-            const A_LoopField15 = items15[A_Index15 - 0];
-            if (A_Index15 >= funcPosIndex1 && A_Index15 < funcPosIndex2) {
-                expresionReplaceHelper1 += A_LoopField15 + " ";
-                print("found: " + A_LoopField15);
+        items21 = LoopParseFunc(expresion, " ")
+        for (let A_Index21 = 0; A_Index21 < items21.length + 0; A_Index21++) {
+            const A_LoopField21 = items21[A_Index21 - 0];
+            if (A_Index21 >= funcPosIndex1 && A_Index21 < funcPosIndex2) {
+                expresionReplaceHelper1 += A_LoopField21 + " ";
+                //print("found: " . A_LoopField21)
             }
-            else if (A_Index15 == funcPosIndex2) {
-                expresionReplaceHelper1 += A_LoopField15 + " ";
-                print("found: " + A_LoopField15);
+            else if (A_Index21 == funcPosIndex2) {
+                expresionReplaceHelper1 += A_LoopField21 + " ";
+                //print("found: " . A_LoopField21)
                 expresionReplaceHelper += await callFunc(Trim(expresionReplaceHelper1)) + " ";
             } else {
-                expresionReplaceHelper += A_LoopField15 + " ";
+                expresionReplaceHelper += A_LoopField21 + " ";
             }
         }
         expresion = Trim(expresionReplaceHelper);
-        print("=========================");
-        print(expresion);
-        print("=========================");
+        //print("=========================")
+        //print(expresion)
+        //print("=========================")
         if (InStr(Trim(expresion), " ")) {
             continue;
         } else {
@@ -517,64 +604,143 @@ async function expresionEval(expresion) {
     expresion = Trim(await expresionEvalHelp(expresion));
     return expresion;
 }
+async function interpreter() {
+    var HTIcode = "";
+    var params = GetParams();
+    if (params == "") {
+        print("Usage:\nHT-Interpreter yourFile.hti\nOr use -c to open console mode.");
+        return;
+    }
+    var fileName = "";
+    fileName = Trim(params);
+    print(fileName);
+    var consoleMode = 0;
+    if (fileName == "-c") {
+        consoleMode = 1;
+    } else {
+        HTIcode = FileRead(Trim(fileName));
+        HTIcode = StrReplace(HTIcode, Chr(13), "");
+    }
+    var consoleModeInput = "";
+    var consoleModeInputHelp = "";
+    if (consoleMode == 1) {
+        for (let A_Index22 = 0; ; A_Index22++) {
+            consoleModeInput = Trim(input(">>> "));
+            if (consoleModeInput == "exit()") {
+                break;
+            } else {
+                consoleModeInputHelp = Trim(await expresionEval(consoleModeInput));
+                if (consoleModeInputHelp != "null") {
+                    print(consoleModeInputHelp);
+                }
+            }
+        }
+    } else {
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        items23 = LoopParseFunc(HTIcode, "\n", "\r")
+        for (let A_Index23 = 0; A_Index23 < items23.length + 0; A_Index23++) {
+            const A_LoopField23 = items23[A_Index23 - 0];
+            if (Trim(A_LoopField23) != "") {
+                await expresionEval(Trim(A_LoopField23));
+            }
+        }
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    }
+}
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 async function main() {
-    print("Shunting Yard Algorithm");
-    var expresion = "1+2*4-3";
-    print(await expresionEvalHelp(expresion));
-    var testExpresions = "3+5|12-4|7*3|18/6|4+92|10-23|15+3-2|87-9|6+8/4|32+5|18-4/2|6/3+8|14-62|5+9/3|75-3|8+43|9/3+42|12+6*2-3|16-4/2+3|1+2*4-3";
-    var answersOfTheTestExpresions = "8|8|21|3|96|-13|16|78|8|37|16|10|-48|8|72|51|45|21|17|6";
-    var testIndexTestExpresions = 0;
-    var TEMPanswersOfTheTestExpresions = "";
-    var DidWePassTheTestExpresions = 1;
-    var DidWePassTheTestExpresionsCOUNT = 0;
-    var DidWePassTheTestExpresionsCOUNTMAX = 0;
-    items16 = LoopParseFunc(testExpresions, "|")
-    for (let A_Index16 = 0; A_Index16 < items16.length + 0; A_Index16++) {
-        const A_LoopField16 = items16[A_Index16 - 0];
-        DidWePassTheTestExpresionsCOUNT++;
-        DidWePassTheTestExpresionsCOUNTMAX++;
-        testIndexTestExpresions = A_Index16;
-        items17 = LoopParseFunc(answersOfTheTestExpresions, "|")
-        for (let A_Index17 = 0; A_Index17 < items17.length + 0; A_Index17++) {
-            const A_LoopField17 = items17[A_Index17 - 0];
-            if (A_Index17 == testIndexTestExpresions) {
-                TEMPanswersOfTheTestExpresions = A_LoopField17;
+    var test1 = 0;
+    if (test1 == 1) {
+        print("Shunting Yard Algorithm");
+        var expresion = "1+2*4-3";
+        print(await expresionEvalHelp(expresion));
+        var testExpresions = "3+5|12-4|7*3|18/6|4+92|10-23|15+3-2|87-9|6+8/4|32+5|18-4/2|6/3+8|14-62|5+9/3|75-3|8+43|9/3+42|12+6*2-3|16-4/2+3|1+2*4-3";
+        var answersOfTheTestExpresions = "8|8|21|3|96|-13|16|78|8|37|16|10|-48|8|72|51|45|21|17|6";
+        var testIndexTestExpresions = 0;
+        var TEMPanswersOfTheTestExpresions = "";
+        var DidWePassTheTestExpresions = 1;
+        var DidWePassTheTestExpresionsCOUNT = 0;
+        var DidWePassTheTestExpresionsCOUNTMAX = 0;
+        items24 = LoopParseFunc(testExpresions, "|")
+        for (let A_Index24 = 0; A_Index24 < items24.length + 0; A_Index24++) {
+            const A_LoopField24 = items24[A_Index24 - 0];
+            DidWePassTheTestExpresionsCOUNT++;
+            DidWePassTheTestExpresionsCOUNTMAX++;
+            testIndexTestExpresions = A_Index24;
+            items25 = LoopParseFunc(answersOfTheTestExpresions, "|")
+            for (let A_Index25 = 0; A_Index25 < items25.length + 0; A_Index25++) {
+                const A_LoopField25 = items25[A_Index25 - 0];
+                if (A_Index25 == testIndexTestExpresions) {
+                    TEMPanswersOfTheTestExpresions = A_LoopField25;
+                }
+            }
+            print(STR(A_Index24 + 1) + " ===============================");
+            print(A_LoopField24);
+            print(await expresionEvalHelp(A_LoopField24));
+            if (FLOAT(await expresionEvalHelp(A_LoopField24)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
+                print("true");
+            } else {
+                print("false");
+                DidWePassTheTestExpresionsCOUNT--;
+                DidWePassTheTestExpresions = 0;
             }
         }
-        print(STR(A_Index16 + 1) + " ===============================");
-        print(A_LoopField16);
-        print(await expresionEvalHelp(A_LoopField16));
-        if (FLOAT(await expresionEvalHelp(A_LoopField16)) == FLOAT(TEMPanswersOfTheTestExpresions)) {
-            print("true");
+        print("==================================");
+        print("==================================");
+        if (DidWePassTheTestExpresions == 0) {
+            print("TestExpresions NOT PASSED!!! " + STR(DidWePassTheTestExpresionsCOUNT) + "/" + STR(DidWePassTheTestExpresionsCOUNTMAX));
         } else {
-            print("false");
-            DidWePassTheTestExpresionsCOUNT--;
-            DidWePassTheTestExpresions = 0;
+            print("TestExpresions PASSED!!!" + STR(DidWePassTheTestExpresionsCOUNT) + "/" + STR(DidWePassTheTestExpresionsCOUNTMAX));
         }
+        print("5+(5+5)*1");
+        print(await expresionEvalHelp("5+(5+5)*1"));
+        print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)");
+        print(await expresionEvalHelp("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"));
+        print("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3");
+        print(await expresionEvalHelp("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"));
+        print("-((1+2)/((6*-7)+(7*-4)/2)-3)");
+        print(FLOAT(await expresionEvalHelp("-((1+2)/((6*-7)+(7*-4)/2)-3)")));
+        print("=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        print("=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        print("=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        print(await expresionEval("-5+func1(45+1, 5+5+(58+5/2--2), func2(56, func3(func4(5))))"));
     }
-    print("==================================");
-    print("==================================");
-    if (DidWePassTheTestExpresions == 0) {
-        print("TestExpresions NOT PASSED!!! " + STR(DidWePassTheTestExpresionsCOUNT) + "/" + STR(DidWePassTheTestExpresionsCOUNTMAX));
-    } else {
-        print("TestExpresions PASSED!!!" + STR(DidWePassTheTestExpresionsCOUNT) + "/" + STR(DidWePassTheTestExpresionsCOUNTMAX));
-    }
-    print("5+(5+5)*1");
-    print(await expresionEvalHelp("5+(5+5)*1"));
-    print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)");
-    print(await expresionEvalHelp("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"));
-    print("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3");
-    print(await expresionEvalHelp("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"));
-    print("-((1+2)/((6*-7)+(7*-4)/2)-3)");
-    print(FLOAT(await expresionEvalHelp("-((1+2)/((6*-7)+(7*-4)/2)-3)")));
-    print("=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-    print("=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-    print("=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-    print(await expresionEval("-5+func1(45+1, 5+5+(58+5/2--2), func2(56, func3(func4(5))))"));
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    // runing the interpreter
+    await interpreter();
 }
 main();
 </script>

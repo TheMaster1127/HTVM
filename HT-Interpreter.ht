@@ -11,6 +11,7 @@ str str7 := ""
 str str8 := ""
 str str9 := ""
 str str10 := ""
+str str11 := ""
 
 int int1 := 0
 int int2 := 0
@@ -25,6 +26,9 @@ float float3 := 0.0
 float float4 := 0.0
 float float5 := 0.0
 
+
+arr str theIdNumOfThe34theVar
+int theIdNumOfThe34 := 0
 
 
 func arr str swapLast2StrArrayElement(arr str theStrArray)
@@ -234,7 +238,7 @@ outputTemp2.add(outputTemp[A_Index])
 outputTemp := outputTemp2
 
 
-print(outputTemp)
+;print(outputTemp)
  
 
 Loop
@@ -366,7 +370,7 @@ str char123 := ""
 
         ; Extract the inner expression
         innerExpression := SubStr(expression, startIndex + 1, endIndex - startIndex - 2)
-        print(innerExpression)
+        ;print(innerExpression)
         ; Evaluate the inner expression (this is where recursion handles nested parentheses)
         innerResult := await expresionEvalHelp(innerExpression)
 
@@ -378,32 +382,78 @@ str char123 := ""
     return await ExpresionEvalNoParentesis(expression)
 }
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 func str callFunc(str funcParams)
 {
-; just test
-
 str funcParamsOut := ""
 funcParams := Trim(funcParams)
 StringTrimRight, funcParams, funcParams, 1
 
+str funcName := ""
+
 Loop, Parse, funcParams, " "
 {
+if (A_Index = 0)
+{
+funcName := Trim(A_LoopField)
+}
 if (A_Index > 1)
 {
 funcParamsOut .= A_LoopField . " "
 }
 }
+;print("debug funcname: " . funcName)
+
 
 StringTrimRight, funcParamsOut, funcParamsOut, 1
 funcParams := Trim(StrReplace(Trim(funcParamsOut), " ", ""))
 funcParamsOut := ""
 
+
+
+
+
+if (funcName = "INT")
+{
+Loop, Parse, funcParams, `,
+{
+funcParamsOut .= await expresionEvalHelp(StringTrimRight(StringTrimLeft(A_LoopField, 1), 1)) . "+"
+}
+
+}
+else if (funcName = "STR")
+{
+
+Loop, Parse, funcParams, `,
+{
+funcParamsOut .= await expresionEvalHelp(Chr(34) . A_LoopField . Chr(34)) . "+"
+}
+}
+else if (funcName = "print")
+{
+print(await expresionEvalHelp(Trim(funcParams)))
+return "null"
+}
+else
+{
 Loop, Parse, funcParams, `,
 {
 funcParamsOut .= await expresionEvalHelp(A_LoopField) . "+"
 }
+}
+
+
+
+
+
+
+
 StringTrimRight, funcParamsOut, funcParamsOut, 1
 
 
@@ -411,13 +461,98 @@ StringTrimRight, funcParamsOut, funcParamsOut, 1
 return await expresionEvalHelp(funcParamsOut)
 }
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;; call func ;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 func str expresionEval(str expresion)
 {
 
-print("=========================")
-print(expresion)
-print("=========================")
+;print("=========================")
+;print(expresion)
+;print("=========================")
+global theIdNumOfThe34
+global theIdNumOfThe34theVar
+
+
+
+
+str HTpyCodeOUT754754 := ""
+int areWEinSome34sNum := 0
+
+
+Loop, Parse, expresion
+{
+theIdNumOfThe34theVar.add("")
+theIdNumOfThe34theVar[A_Index] := Chr(34)
+}
+
+Loop, Parse, expresion
+{
+if (A_LoopField = Chr(34))
+{
+areWEinSome34sNum++
+}
+
+
+if (areWEinSome34sNum = 1)
+{
+
+
+
+if (A_LoopField != Chr(34))
+{
+if (A_LoopField = Chr(96))
+{
+theIdNumOfThe34theVar[theIdNumOfThe34] .= Chr(92)
+}
+else
+{
+theIdNumOfThe34theVar[theIdNumOfThe34] .= A_LoopField
+}
+}
+else
+{
+theIdNumOfThe34++
+HTpyCodeOUT754754 .= "ihuiuuhuuhtheidFor|||||||||||asas|||||||||||theuhturtyphoutr|||||||||||" . str11 . Chr(65) . Chr(65) . STR(theIdNumOfThe34) . Chr(65) . Chr(65)
+}
+
+}
+
+
+if (areWEinSome34sNum = 2) or (areWEinSome34sNum = 0)
+{
+if (A_LoopField != Chr(34))
+{
+HTpyCodeOUT754754 .= A_LoopField
+}
+
+areWEinSome34sNum := 0
+}
+
+
+
+}
+expresion := HTpyCodeOUT754754
+
+Loop, % theIdNumOfThe34
+{
+theIdNumOfThe34theVar[A_Index + 1] .= Chr(34)
+}
+
+
+
+Loop, % theIdNumOfThe34
+{
+expresion := StrReplace(expresion, "ihuiuuhuuhtheidFor|||||||||||asas|||||||||||theuhturtyphoutr|||||||||||AA" . STR(A_Index + 1) . "AA", theIdNumOfThe34theVar[A_Index + 1])
+}
+
+
+
 
 
 expresion := Trim(StrReplace(expresion, " ", ""))
@@ -481,7 +616,7 @@ foundFunc2 := 1
 funcPosIndex1 := A_Index
 countParentheses := 0
 countParenthesesOnceHelper := 0
-print("debug in: " + A_LoopField)
+;print("debug in: " + A_LoopField)
 }
 
 
@@ -524,7 +659,7 @@ funcPosIndex1 := A_Index
 
 if (foundFunc != 1)
 {
-print("no more funcs")
+;print("no more funcs")
 
 expresion := Trim(expresion)
 expresion := Trim(await expresionEvalHelp(expresion))
@@ -547,12 +682,12 @@ Loop, Parse, expresion, " "
 if (A_Index >= funcPosIndex1) and (A_Index < funcPosIndex2)
 {
 expresionReplaceHelper1 .= A_LoopField . " "
-print("found: " . A_LoopField)
+;print("found: " . A_LoopField)
 }
 else if (A_Index = funcPosIndex2)
 {
 expresionReplaceHelper1 .= A_LoopField . " "
-print("found: " . A_LoopField)
+;print("found: " . A_LoopField)
 
 expresionReplaceHelper .= await callFunc(Trim(expresionReplaceHelper1)) . " "
 }
@@ -565,9 +700,9 @@ expresionReplaceHelper .= A_LoopField . " "
 }
 expresion := Trim(expresionReplaceHelper)
 
-print("=========================")
-print(expresion)
-print("=========================")
+;print("=========================")
+;print(expresion)
+;print("=========================")
 
 
 if (InStr(Trim(expresion), " "))
@@ -596,12 +731,119 @@ return expresion
 }
 
 
+func void interpreter()
+{
+str HTIcode := ""
+str params := GetParams()
+
+if (params = "")
+{
+print("Usage:`nHT-Interpreter yourFile.hti`nOr use -c to open console mode.")
+return
+}
+
+str fileName := ""
+
+fileName := Trim(params)
+print(fileName)
+int consoleMode := 0
+if (fileName = "-c")
+{
+consoleMode := 1
+}
+else
+{
+
+HTIcode := FileRead(Trim(fileName))
+HTIcode := StrReplace(HTIcode, Chr(13), "")
+}
+
+str consoleModeInput := ""
+str consoleModeInputHelp := ""
+
+if (consoleMode = 1)
+{
+
+Loop
+{
+
+consoleModeInput := Trim(input(">>> "))
+
+if (consoleModeInput = "exit()")
+{
+break
+}
+else
+{
+
+consoleModeInputHelp := Trim(await expresionEval(consoleModeInput))
+if (consoleModeInputHelp != "null")
+{
+print(consoleModeInputHelp)
+}
+
+
+}
+
+
+}
+
+
+}
+else
+{
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+Loop, Parse, HTIcode, `n, `r
+{
+if (Trim(A_LoopField) != "")
+{
+await expresionEval(Trim(A_LoopField))
+}
+}
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; main ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+}
+
+
+}
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 main
+
+int test1 := 0
+if (test1 = 1)
+{
 print("Shunting Yard Algorithm")
 
 str expresion := "1+2*4-3"
@@ -665,11 +907,23 @@ print("-((1+2)/((6*-7)+(7*-4)/2)-3)")
 print(FLOAT(await expresionEvalHelp("-((1+2)/((6*-7)+(7*-4)/2)-3)")))
 
 
-
 print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
 print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
 print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
 print(await expresionEval("-5+func1(45+1, 5+5+(58+5/2--2), func2(56, func3(func4(5))))"))
+}
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+; runing the interpreter
+await interpreter()
 
 
