@@ -66,10 +66,7 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile32757.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile466329.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HT-Interpreter.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HT-Interpreter.cpp
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HT-Interpreter.html
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HT-Interpreter.py
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\test.hti
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\hti.htpr
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\hti.htpc
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\test.hti
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\Documentation-Generation.ht
