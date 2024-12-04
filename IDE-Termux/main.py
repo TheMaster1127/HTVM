@@ -68,11 +68,14 @@ def check_file_existence():
 def run_cmd():
     data = request.json
     command = data['command']
+    current_dir = os.getcwd()
+    print(f"Current Working Directory: {current_dir}")  # Debug log
     try:
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
         return jsonify({"status": "success", "output": result.stdout, "error": result.stderr})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
 
 @app.route('/run-cmd-args', methods=['POST'])
 def run_cmd_with_args():
