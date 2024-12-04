@@ -1,0 +1,674 @@
+;Shunting Yard Algorithm
+
+
+str str1 := ""
+str str2 := ""
+str str3 := ""
+str str4 := ""
+str str5 := ""
+str str6 := ""
+str str7 := ""
+str str8 := ""
+str str9 := ""
+str str10 := ""
+
+int int1 := 0
+int int2 := 0
+int int3 := 0
+int int4 := 0
+int int5 := 0
+int int6 := 0
+int int7 := 0
+float float1 := 0.0
+float float2 := 0.0
+float float3 := 0.0
+float float4 := 0.0
+float float5 := 0.0
+
+
+
+func arr str swapLast2StrArrayElement(arr str theStrArray)
+{
+    ; Check if the array has at least two elements
+    if (theStrArray.size() < 2)
+    {
+        return theStrArray ; If not, return the array as is
+    }
+
+    ; Get the indices of the last two elements
+    int lastIndex := theStrArray.size() - 1
+    int secondLastIndex := lastIndex - 1
+
+    ; Swap the last two elements
+    str temp := theStrArray[lastIndex]
+    theStrArray[lastIndex] := theStrArray[secondLastIndex]
+    theStrArray[secondLastIndex] := temp
+
+    ; Return the modified array
+    return theStrArray
+}
+
+func arr str popFirstStrArrayElement(arr str theStrArray)
+{
+arr str out123
+Loop, % theStrArray.size()
+{
+if (A_Index > 0)
+{
+out123.add(theStrArray[A_Index])
+}
+}
+
+return out123
+}
+
+func str ExpresionEvalNoParentesis(str expresion)
+{
+str expresionOut := ""
+
+
+arr str holdingStack
+arr str outputTemp
+arr str solvingStack
+
+str input := "0"
+
+str arithmeticOperations := "+-/*"
+int arithmeticOperationStrength := 0
+
+str tempPopHoldingStack := ""
+int indexOfexpresionLoop := 0
+
+int tempHoldingStackNumFIX := 0
+
+expresion := StrReplace(expresion, " ", "")
+
+expresion := StrReplace(expresion, "-", " - ")
+expresion := StrReplace(expresion, "+", " + ")
+expresion := StrReplace(expresion, "*", " * ")
+expresion := StrReplace(expresion, "/", " / ")
+expresion := StrReplace(expresion, "(", " ( ")
+expresion := StrReplace(expresion, ")", " ) ")
+
+str addNegativeNums := ""
+arr str addNegativeNumsFurture
+
+expresion := Trim(expresion)
+Loop, Parse, expresion, " "
+{
+addNegativeNumsFurture.add(A_LoopField)
+}
+int skip := 0
+
+addNegativeNumsFurture.add("")
+Loop, Parse, expresion, " "
+{
+
+
+if (A_Index = 0) and (A_LoopField = "-")
+{
+addNegativeNums .= Trim(A_LoopField) . addNegativeNumsFurture[A_Index + 1] . " "
+skip := 1
+}
+else if (A_LoopField = "-") and ((addNegativeNumsFurture[A_Index - 1] = "*") or (addNegativeNumsFurture[A_Index - 1] = "/") or (addNegativeNumsFurture[A_Index - 1] = "-") or (addNegativeNumsFurture[A_Index - 1] = "+"))
+{
+
+addNegativeNums .= Trim(A_LoopField) . addNegativeNumsFurture[A_Index + 1] . " "
+skip := 1
+}
+else
+{
+if (skip != 1)
+{
+addNegativeNums .= A_LoopField . " "
+skip := 0
+}
+else
+{
+skip := 0
+}
+
+}
+
+}
+StringTrimRight, expresion, addNegativeNums, 1
+expresion := Trim(expresion)
+;print("DEBUGGGGGGGGGGGG:" . expresion)
+
+arr str output234543 
+Loop, Parse, expresion, " "
+{
+indexOfexpresionLoop := A_Index + 1
+input := A_LoopField 
+if (InStr(arithmeticOperations, input) = 0)
+{
+; numbers
+;print(input)
+outputTemp.add(input)
+}
+else
+{
+; arithmeticOperation
+;print(input)
+
+
+if (holdingStack.size() = 0)
+{
+holdingStack.add(input)
+}
+else
+{
+
+if (InStr(arithmeticOperations, input) = InStr(arithmeticOperations, holdingStack[holdingStack.size() - 1]))
+{
+outputTemp.add(input)
+}
+else if (InStr(arithmeticOperations, holdingStack[holdingStack.size() - 1]) < InStr(arithmeticOperations, input))
+{
+holdingStack.add(input)
+}
+else
+{
+; what do we do
+
+; add the last 
+Loop
+{
+
+if (holdingStack.size() > 0) and (InStr(arithmeticOperations, holdingStack[holdingStack.size() - 1]) > InStr(arithmeticOperations, input))
+{
+
+tempHoldingStackNumFIX := holdingStack.size()
+Loop, % tempHoldingStackNumFIX
+{
+tempPopHoldingStack := holdingStack[holdingStack.size() - 1]
+holdingStack.pop()
+outputTemp.add(tempPopHoldingStack)
+}
+
+}
+else
+{
+break
+}
+}
+
+holdingStack.add(input)
+
+
+}
+
+
+; 2 else and 1 loop end
+}
+}
+}
+
+
+
+if (holdingStack.size() != 0) or (STR(holdingStack.size()) != "")
+{
+Loop, % holdingStack.size()
+{
+
+if (Trim(holdingStack[holdingStack.size() - 1 - A_Index]) != "")
+{
+outputTemp.add(holdingStack[holdingStack.size() - 1 - A_Index])
+}
+
+}
+
+}
+
+
+int fixOutputTempRMparanesises := outputTemp.size()
+arr str outputTemp2
+Loop, % fixOutputTempRMparanesises
+{
+
+if (Trim(outputTemp[A_Index]) != "")
+{
+outputTemp2.add(outputTemp[A_Index])
+}
+}
+outputTemp := outputTemp2
+
+
+print(outputTemp)
+ 
+
+Loop
+{
+if (outputTemp.size() = 0) or (STR(outputTemp.size()) = "")
+{
+break
+}
+
+tempPopHoldingStack := outputTemp[0]
+
+outputTemp := await popFirstStrArrayElement(outputTemp)
+
+
+solvingStack.add(tempPopHoldingStack)
+
+
+if (InStr(arithmeticOperations, solvingStack[solvingStack.size() - 1]) != 0) 
+{
+solvingStack := await swapLast2StrArrayElement(solvingStack)
+
+float1 := FLOAT(solvingStack[solvingStack.size() - 3])
+str2 := solvingStack[solvingStack.size() - 2]
+float3 := FLOAT(solvingStack[solvingStack.size() - 1])
+
+solvingStack.pop()
+solvingStack.pop()
+solvingStack.pop()
+if (str2 = "-")
+{
+float4 := float1 - float3
+solvingStack.add(STR(float4))
+}
+if (str2 = "+")
+{
+float4 := float1 + float3
+solvingStack.add(STR(float4))
+}
+if (str2 = "*")
+{
+float4 := float1 * float3
+solvingStack.add(STR(float4))
+}
+if (str2 = "/")
+{
+float4 := float1 / float3
+solvingStack.add(STR(float4))
+}
+
+
+
+
+}
+
+}
+
+expresionOut := Trim(solvingStack[solvingStack.size() - 1])
+
+
+if (SubStr(expresionOut, 1, 2) = "- ")
+{
+StringTrimLeft, expresionOut, expresionOut, 2
+expresionOut := "-" . expresionOut
+}
+
+
+if (Trim(expresionOut) = "")
+{
+expresionOut := "null"
+}
+
+return expresionOut
+}
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+   
+
+
+
+
+
+    
+func str expresionEvalHelp(str expression)
+{
+int startIndex := 0
+int endIndex := 0
+str innerExpression := ""
+str innerResult := ""
+int openCount := 0
+str char123 := ""
+
+    ; Remove spaces for consistency
+    expression := StrReplace(expression, " ", "")
+
+    ; Loop until no more parentheses are left
+    while (InStr(expression, "(")) ; Find the first '('
+    {
+        ; Find the position of the first '('
+        startIndex := InStr(expression, "(")
+
+        ; Now, find the matching closing ')'
+        openCount := 1  ; One open parenthesis found
+        endIndex := startIndex + 1  ; Start searching right after the '('
+
+        ; Loop to find the matching closing ')'
+        while (openCount > 0 and endIndex <= StrLen(expression))
+        {
+            char123 := SubStr(expression, endIndex, 1)
+            if (char123 = "(")
+            {
+                openCount++
+            }
+            else if (char123 = ")")
+            {
+                openCount--
+            }
+            endIndex++
+        }
+
+        ; Extract the inner expression
+        innerExpression := SubStr(expression, startIndex + 1, endIndex - startIndex - 2)
+        print(innerExpression)
+        ; Evaluate the inner expression (this is where recursion handles nested parentheses)
+        innerResult := await expresionEvalHelp(innerExpression)
+
+        ; Replace the entire parentheses with the result
+        expression := SubStr(expression, 1, startIndex - 1) . innerResult . SubStr(expression, endIndex)
+    }
+
+    ; Now evaluate the expression without parentheses
+    return await ExpresionEvalNoParentesis(expression)
+}
+
+
+
+func str callFunc(str funcParams)
+{
+; just test
+
+str funcParamsOut := ""
+funcParams := Trim(funcParams)
+StringTrimRight, funcParams, funcParams, 1
+
+Loop, Parse, funcParams, " "
+{
+if (A_Index > 1)
+{
+funcParamsOut .= A_LoopField . " "
+}
+}
+
+StringTrimRight, funcParamsOut, funcParamsOut, 1
+funcParams := Trim(StrReplace(Trim(funcParamsOut), " ", ""))
+funcParamsOut := ""
+
+Loop, Parse, funcParams, `,
+{
+funcParamsOut .= await expresionEvalHelp(A_LoopField) . "+"
+}
+StringTrimRight, funcParamsOut, funcParamsOut, 1
+
+
+
+return await expresionEvalHelp(funcParamsOut)
+}
+
+
+func str expresionEval(str expresion)
+{
+
+print("=========================")
+print(expresion)
+print("=========================")
+
+
+expresion := Trim(StrReplace(expresion, " ", ""))
+expresion := Trim(StrReplace(expresion, "(", " ( "))
+expresion := Trim(StrReplace(expresion, ")", " ) "))
+expresion := Trim(StrReplace(expresion, "+", " + "))
+expresion := Trim(StrReplace(expresion, "-", " - "))
+expresion := Trim(StrReplace(expresion, "/", " / "))
+expresion := Trim(StrReplace(expresion, "*", " * "))
+expresion := Trim(StrReplace(expresion, ",", " , "))
+
+arr str expresionForFuncLookInF
+
+Loop, Parse, expresion, " "
+{
+expresionForFuncLookInF.add(A_LoopField)
+}
+expresionForFuncLookInF.add("")
+
+
+int foundFunc := 0
+int foundFunc2 := 0
+int didWeSeeAfunc := 0
+int countParentheses := 0
+int countParenthesesOnceHelper := 0
+int funcEndEnd := 0
+
+int funcPosIndex1 := 0
+int funcPosIndex2 := 0
+
+str expresionReplaceHelper := ""
+str expresionReplaceHelper1 := ""
+
+Loop, 20
+{
+
+foundFunc := 0
+foundFunc2 := 0
+didWeSeeAfunc := 0
+countParentheses := 0
+countParenthesesOnceHelper := 0
+funcEndEnd := 0
+funcPosIndex1 := 0
+funcPosIndex2 := 0
+
+
+Loop, Parse, expresion, " "
+{
+
+
+
+
+
+
+if (foundFunc = 1)
+{
+
+if (RegExMatch(A_LoopField, "^[A-Za-z_][A-Za-z0-9_]*$")) and (expresionForFuncLookInF[A_Index + 1] = "(") and (foundFunc = 1)
+{
+foundFunc2 := 1
+funcPosIndex1 := A_Index
+countParentheses := 0
+countParenthesesOnceHelper := 0
+print("debug in: " + A_LoopField)
+}
+
+
+if (A_LoopField = "(")
+{
+countParentheses++
+countParenthesesOnceHelper++
+}
+if (A_LoopField = ")")
+{
+countParentheses--
+}
+if (countParenthesesOnceHelper != 0)
+{
+if (countParentheses = 0)
+{
+funcEndEnd := 1
+funcPosIndex2 := A_Index
+break
+}
+}
+
+
+}
+
+
+; Check if the variable matches the regex pattern
+if (RegExMatch(A_LoopField, "^[A-Za-z_][A-Za-z0-9_]*$")) and (expresionForFuncLookInF[A_Index + 1] = "(") and (foundFunc = 0)
+{
+foundFunc := 1
+funcPosIndex1 := A_Index
+;print(A_LoopField)
+}
+
+
+
+
+
+}
+
+if (foundFunc != 1)
+{
+print("no more funcs")
+
+expresion := Trim(expresion)
+expresion := Trim(await expresionEvalHelp(expresion))
+; eval
+; eval
+; eval
+; eval
+; eval
+; eval
+
+break
+}
+
+expresionReplaceHelper1 := ""
+expresionReplaceHelper := ""
+
+Loop, Parse, expresion, " "
+{
+
+if (A_Index >= funcPosIndex1) and (A_Index < funcPosIndex2)
+{
+expresionReplaceHelper1 .= A_LoopField . " "
+print("found: " . A_LoopField)
+}
+else if (A_Index = funcPosIndex2)
+{
+expresionReplaceHelper1 .= A_LoopField . " "
+print("found: " . A_LoopField)
+
+expresionReplaceHelper .= await callFunc(Trim(expresionReplaceHelper1)) . " "
+}
+else
+{
+expresionReplaceHelper .= A_LoopField . " "
+}
+
+
+}
+expresion := Trim(expresionReplaceHelper)
+
+print("=========================")
+print(expresion)
+print("=========================")
+
+
+if (InStr(Trim(expresion), " "))
+{
+continue
+}
+else
+{
+break
+}
+
+
+}
+
+
+; eval too
+; eval too
+; eval too
+; eval too
+expresion := Trim(expresion)
+; eval too
+expresion := Trim(await expresionEvalHelp(expresion))
+
+
+return expresion
+}
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+main
+print("Shunting Yard Algorithm")
+
+str expresion := "1+2*4-3"
+print(await expresionEvalHelp(expresion))
+
+str testExpresions := "3+5|12-4|7*3|18/6|4+92|10-23|15+3-2|87-9|6+8/4|32+5|18-4/2|6/3+8|14-62|5+9/3|75-3|8+43|9/3+42|12+6*2-3|16-4/2+3|1+2*4-3"
+str answersOfTheTestExpresions := "8|8|21|3|96|-13|16|78|8|37|16|10|-48|8|72|51|45|21|17|6"
+int testIndexTestExpresions := 0
+str TEMPanswersOfTheTestExpresions := ""
+
+int DidWePassTheTestExpresions := 1
+int DidWePassTheTestExpresionsCOUNT := 0
+int DidWePassTheTestExpresionsCOUNTMAX := 0
+Loop, Parse, testExpresions, "|"
+{
+DidWePassTheTestExpresionsCOUNT++
+DidWePassTheTestExpresionsCOUNTMAX++
+testIndexTestExpresions := A_Index
+Loop, Parse, answersOfTheTestExpresions, "|" 
+{
+if (A_Index = testIndexTestExpresions) 
+{
+TEMPanswersOfTheTestExpresions := A_LoopField
+}
+}
+print(STR(A_Index + 1) . " ===============================")
+print(A_LoopField)
+print(await expresionEvalHelp(A_LoopField))
+if (FLOAT(await expresionEvalHelp(A_LoopField)) = FLOAT(TEMPanswersOfTheTestExpresions))
+{
+print("true")
+}
+else
+{
+print("false")
+DidWePassTheTestExpresionsCOUNT--
+DidWePassTheTestExpresions := 0
+}
+
+}
+
+
+print("==================================")
+print("==================================")
+if (DidWePassTheTestExpresions = 0)
+{
+print("TestExpresions NOT PASSED!!! " . STR(DidWePassTheTestExpresionsCOUNT) . "/" . STR(DidWePassTheTestExpresionsCOUNTMAX))
+}
+else
+{
+print("TestExpresions PASSED!!!" . STR(DidWePassTheTestExpresionsCOUNT) . "/" . STR(DidWePassTheTestExpresionsCOUNTMAX))
+}
+print("5+(5+5)*1")
+print(await expresionEvalHelp("5+(5+5)*1"))
+print("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)")
+print(await expresionEvalHelp("6+((8/2+6+((8/2)*3+6+((8+6+((8/2+6+((8/2)*3+6+((8/2)*3)))*3)/2)*3)))*3)"))
+print("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3")
+print(await expresionEvalHelp("((3 + 5) * (10 - 4) / 2) + (-7 * (3 + 2)) - (4 / (6 - 2)) * -3"))
+
+print("-((1+2)/((6*-7)+(7*-4)/2)-3)")
+print(FLOAT(await expresionEvalHelp("-((1+2)/((6*-7)+(7*-4)/2)-3)")))
+
+
+
+print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+print("=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+print(await expresionEval("-5+func1(45+1, 5+5+(58+5/2--2), func2(56, func3(func4(5))))"))
+
+

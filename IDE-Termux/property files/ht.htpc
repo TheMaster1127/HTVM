@@ -1,0 +1,9 @@
+HTVM "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HT-instructions.txt" "cpp"
+
+g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
+
+
+
+
+
+

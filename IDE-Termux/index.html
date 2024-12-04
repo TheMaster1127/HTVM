@@ -1,0 +1,2741 @@
+<!doctype html>
+<html
+  lang="en"
+>
+  <head>
+    <meta
+      charset="UTF-8"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>
+      HTVM
+      IDE
+    </title>
+    <style>
+      body {
+        background-color: #1e1e1e; /* Background color for the body */
+        font-family:
+          "Open Sans",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Oxygen-Sans,
+          Ubuntu,
+          Cantarell,
+          "Helvetica Neue",
+          Helvetica,
+          Arial,
+          sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      /* Responsive styles for Gui1 */
+      #Gui1 {
+        position: absolute;
+        width: 99vw; /* 99% of the viewport width */
+        height: 99vh; /* 99% of the viewport height */
+        background: linear-gradient(
+          90deg,
+          #121212
+            0%,
+          #121212
+            100%
+        );
+        color: white;
+        font-size: 2vw; /* Font size scales with viewport width */
+        padding: 10px;
+        border-radius: 5px;
+        font-family: sans-serif; /* Font style */
+        z-index: 10;
+        display: flex;
+        box-sizing: border-box; /* Include padding and border in width/height calculations */
+        overflow: hidden; /* Prevent overflow */
+      }
+
+      /* Tabs styling */
+      #tabs {
+        display: flex; /* Flexbox for horizontal alignment */
+        background-color: #2b2b2b; /* Background color for tabs */
+        padding: 5px; /* Padding around tabs */
+        z-index: 20; /* Ensure tabs are above the IDE */
+        overflow-x: scroll; /* Allow scrolling */
+        align-items: baseline;
+        scrollbar-width: none; /* Firefox */
+      }
+
+      #tabs::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+      }
+
+      /* IDE container style */
+/* IDE container style */
+  /* IDE container style */
+      #Gui1IDE1 {
+        position: absolute; /* Positioned absolutely to fill parent */
+        top: 40px; /* Space for tabs, adjust as needed */
+        left: 0; /* Align to left */
+        right: 0; /* Align to right */
+        width: 20px; /* Align to right */
+        height: 75vh;
+    
+        box-sizing: border-box; /* Include padding and border in width/height calculations */
+        font-size: 18px; /* Default font size */
+        overflow-y: absolute; /* Allow scrolling if content overflows */
+      }
+      
+     @media (max-width: 600px) {
+        #Gui1 {
+          width: 100%; /* Full width on small screens */
+          height: auto; /* Adjust height as necessary */
+          font-size: 4vw; /* Scaled font size for mobile */
+          padding: 5px; /* Adjust padding for smaller screens */
+        }
+        #Gui1IDE1 {
+          font-size: 14px; /* Smaller font size for IDE on mobile */
+        }
+      }
+
+      @media (min-width: 601px) {
+        #Gui1 {
+          width: 99%; /* Set width for larger screens */
+          height: auto; /* Adjust height as necessary */
+          font-size: 16px; /* Default font size */
+        }
+      }
+
+      /* Console styling */
+      #console {
+        background-color: #121212; /* Console background */
+        color: white; /* Console text color */
+        padding: 10px; /* Padding inside console */
+        height: 9vw; /* Fixed height for console */
+        overflow-y: absolute; /* Scroll if content overflows */
+        position: absolute; /* Keep console at bottom */
+        bottom: 0; /* Position at the bottom */
+        left: 0; /* Align left */
+        right: 0; /* Align right */
+      }
+
+      /* Additional styling if needed */
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Include Ace Editor CDN -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.2/ace.js"
+      integrity="sha512-JLIRlxWh96sND3uUgI2RVHZJpgkWHg3+xoUY8XkgTPKpqRaqdk7zD/ck/XHXFSMW84o6GrP67dlqN3b98NB/yA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-language_tools.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="htvm_syntax_highlighting_and_autocomplete.js"></script>
+  </head>
+  <body>
+    <script>
+          // Import required modules from Electron
+          const { ipcRenderer, webUtils } = require("electron");
+
+          // Save data to a file (either in the same directory or a full path)
+          function saveData(data, place) {
+            logToConsole(`Saving data to ${place}`);
+            ipcRenderer.send("save-data", { data, place });
+          }
+
+          // Get data from a file (either in the same directory or a full path)
+          function getData(place) {
+            logToConsole(`Getting data from ${place}`);
+            ipcRenderer.send("get-data", place);
+          }
+      let fullPathOfTheIDEdir = '';
+
+
+
+        // Get the IDE directory path when the page loads
+        async function getIdeDirPath() {
+            try {
+                // Get the IDE folder path from the main process
+                fullPathOfTheIDEdir = await ipcRenderer.invoke('get-ide-dir-path');
+                console.log("Full Path of IDE Directory:", fullPathOfTheIDEdir);
+            } catch (error) {
+                console.error('Error getting IDE directory path:', error);
+            }
+        }
+
+
+        // Example of opening a file
+        async function openFile(fileName) {
+            try {
+                const fileContent = await ipcRenderer.invoke('open-file', fileName);
+                console.log('File Content:', fileContent);
+            } catch (error) {
+                console.error('Error opening file:', error);
+            }
+        }
+
+        // For testing, you can call this function with a file name
+        // Example call:
+        // openFile('newfile771853.ht');
+        
+        window.onload = getIdeDirPath;
+
+
+
+
+          function changeFaviconAtTheBeginning(faviconUrl) {
+            // Create a new favicon link element
+            const newFavicon = document.createElement("link");
+            newFavicon.rel = "icon";
+            newFavicon.href = faviconUrl;
+
+            // Get the current favicon element (if exists)
+            const existingFavicon = document.querySelector('link[rel="icon"]');
+
+            // Replace the current favicon with the new one
+            if (existingFavicon) {
+              // If a favicon exists, replace it
+              document.head.removeChild(existingFavicon); // Remove the existing favicon
+            }
+
+            // Append the new favicon to the head
+            document.head.appendChild(newFavicon);
+          }
+
+          // Call the function with the desired favicon URL
+          changeFaviconAtTheBeginning("https://i.ibb.co/Jpty1B8/305182938-1a0efe63-726e-49ca-a13c-d0ed627f2ea7.png");
+
+          function showCustomMessageBox(options, title, text, value, timeout) {
+            return new Promise((resolve) => {
+              // Define default options for the message box
+              let defaultOptions = {
+                title: title || "", // Default title is empty
+                text: text || "Press OK to continue.", // Default text if not provided
+                showCancelButton: false, // Default is to not show Cancel button
+                showDenyButton: false, // Default is to not show Deny button
+                confirmButtonText: "OK", // Default text for OK button
+                focusConfirm: true, // Default focus on OK button
+              };
+
+              let numOriginal = value;
+
+              let num = numOriginal;
+
+              let done1 = 0;
+
+              let done2 = 0;
+
+              let done3 = 0;
+
+              let AIndex = 0;
+
+              for (AIndex = 1; AIndex <= 1; AIndex++) {
+                // this is about if you add always on top in a msgbox it will be removed in js cuz its kinda useless...
+                // becouse if you like adding always on top in ahk in js we dont realy do it so yeah
+                if (num >= 262144) {
+                  num = num - 262144;
+                  numOriginal = numOriginal - 262144;
+                }
+
+                if (num >= 256 && num < 500) {
+                  num = num - 256;
+
+                  done3 = 256;
+                }
+
+                if (num >= 512) {
+                  num = num - 512;
+
+                  done3 = 512;
+                }
+
+                if (num == 0) {
+                  done1 = 0;
+
+                  break;
+                }
+
+                if (num <= 6) {
+                  done1 = num;
+
+                  break;
+                }
+
+                if (num >= 64 && num < 64 * 2) {
+                  done2 = 64;
+
+                  if (num == 64) {
+                    done1 = 0;
+
+                    break;
+                  } else {
+                    done1 = num - 64;
+
+                    break;
+                  }
+                }
+
+                if (num >= 48 && num < 63) {
+                  done2 = 48;
+
+                  if (num == 48) {
+                    done1 = 0;
+
+                    break;
+                  } else {
+                    done1 = num - 48;
+
+                    break;
+                  }
+                }
+
+                if (num >= 32 && num < 47) {
+                  done2 = 32;
+
+                  if (num == 32) {
+                    done1 = 0;
+
+                    break;
+                  } else {
+                    done1 = num - 32;
+
+                    break;
+                  }
+                }
+
+                if (num >= 16 && num < 30) {
+                  done2 = 16;
+
+                  if (num == 16) {
+                    done1 = 0;
+
+                    break;
+                  } else {
+                    done1 = num - 16;
+
+                    break;
+                  }
+                }
+              }
+
+              let doneAdded = done1 + done2 + done3;
+
+              if (doneAdded !== numOriginal) {
+                // displayMessage("The calc was wrong!");
+              } else {
+                // displayMessage("num was: " + numOriginal + "\ndone1: " + done1 + "\ndone2: " + done2 + "\ndone3: " + done3);
+              }
+
+              // Parse the value to determine the options for the message box
+              if (done1 === 1) defaultOptions.showCancelButton = true; // OK/Cancel in ahk but here it will show Ok/Cancel wiat its same haha
+
+              // not gonna work if you can make it work i will appreciate
+              //   if (done1 === 2) {
+              //     defaultOptions.showCancelButton = true; // Abort/Retry/Ignore
+              //     defaultOptions.showDenyButton = true;
+              //   }
+              if (done1 === 3) {
+                defaultOptions.showCancelButton = true; // Yes/No/Cancel in ahk but here it will show Ok/No/Cancel
+                defaultOptions.showDenyButton = true;
+              }
+              if (done1 === 4) {
+                // defaultOptions.showCancelButton = true;
+                defaultOptions.showDenyButton = true; // Yes/No in ahk but here it will show Ok/No
+              }
+              if (done1 === 5) {
+                defaultOptions.showCancelButton = true; // Retry/Cancel in ahk but here it will show Ok/Cancel tip you can write in the Msgbox press ok to retry
+              }
+              // not gonna work if you can make it work i will appreciate
+              //   if (done1 === 6) {
+              //     defaultOptions.showCancelButton = true; // Cancel/Try Again/Continue
+              //     defaultOptions.showDenyButton = true;
+              //   }
+
+              if (done2 === 16) defaultOptions.icon = "error"; // Icon Hand (stop/error)
+              if (done2 === 32) defaultOptions.icon = "question"; // Icon Question
+              if (done2 === 48) defaultOptions.icon = "warning"; // Icon Exclamation
+              if (done2 === 64) defaultOptions.icon = "info"; // Icon Asterisk (info)
+
+              if (done3 === 256) defaultOptions.focusDeny = true; // Makes the 3rd button the default
+              if (done3 === 512) defaultOptions.focusCancel = true; // Makes the 2nd button the default
+
+              // Set timeout if provided
+              if (timeout) {
+                defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds
+              }
+
+              // Merge default options with provided options
+              Object.assign(defaultOptions, options);
+
+              // Display the message box with the constructed options
+              Swal.fire(defaultOptions).then((result) => {
+                if (result.isConfirmed) {
+                  resolve("OK");
+                } else if (result.isDenied) {
+                  resolve("No");
+                } else {
+                  resolve("Cancel");
+                }
+              });
+            });
+          }
+
+          var lastKeyPressed = "";
+
+          function trackLastKeyPressed() {
+            document.addEventListener("keydown", function (event) {
+              lastKeyPressed = event.key;
+              // console.log(lastKeyPressed);
+            });
+          }
+
+          function getLastKeyPressed() {
+            return lastKeyPressed;
+          }
+
+          // Call the trackLastKeyPressed function to start tracking key presses
+          trackLastKeyPressed();
+
+          let lastInputTime = Date.now(); // Initialize with current timestamp
+          let startTimestamp = Date.now(); // Initialize with current timestamp
+
+          // Event listener to track user activity
+          function resetIdleTimer() {
+            lastInputTime = Date.now(); // Update last input time
+          }
+
+          document.addEventListener("mousemove", resetIdleTimer);
+          document.addEventListener("keypress", resetIdleTimer);
+
+          // Function to calculate time since last input event
+          function A_TimeIdle() {
+            return Date.now() - lastInputTime; // Calculate time difference
+          }
+
+          // Function to calculate tick count in milliseconds
+          function A_TickCount() {
+            return Date.now() - startTimestamp;
+          }
+
+          function GuiControl(action, id, param1, param2, param3, param4) {
+            const element = document.getElementById(id);
+            if (element) {
+              // Handle DOM elements
+              if (action === "move") {
+                // Set position and size
+                element.style.left = param1 + "px";
+                element.style.top = param2 + "px";
+                element.style.width = param3 + "px";
+                element.style.height = param4 + "px";
+              } else if (action === "focus" && (element instanceof HTMLInputElement || element instanceof HTMLElement)) {
+                // Focus on the element
+                element.focus();
+              } else if (action === "text") {
+                // Set new text content
+                element.textContent = param1;
+              } else if (action === "hide") {
+                // Hide the element
+                element.style.display = "none";
+              } else if (action === "show") {
+                // Show the element
+                element.style.display = "";
+              } else if (action === "enable") {
+                // Enable the element
+                element.disabled = false;
+              } else if (action === "disable") {
+                // Disable the element
+                element.disabled = true;
+              } else if (action === "font") {
+                // Set font size
+                element.style.fontSize = param1 + "px";
+              } else if (action === "destroy") {
+                // Remove the element from the DOM
+                element.parentNode.removeChild(element);
+              } else if (action === "color") {
+                // Set color
+                element.style.color = param1;
+              } else if (action === "picture") {
+                // Change the image source
+                if (element instanceof HTMLImageElement) {
+                  element.src = param1;
+                } else {
+                  console.error("Element is not an <img> tag, cannot change picture.");
+                }
+              } else if (action === "textide") {
+                // Set value for Ace editor
+                var editor = ace.edit(id); // Access the Ace editor instance using its ID
+                if (editor && param1) {
+                  editor.session.setValue(param1);
+                } else {
+                  console.error("Element is not an Ace editor or parameter is missing.");
+                }
+              }
+            } else {
+              // Handle canvas or non-existing element
+              if (action === "move") {
+                // Update position and size of the rectangle
+                updateRectangle(id, param1, param2, param3, param4);
+                redrawCanvas(); // Redraw the canvas with updated rectangles
+              } else if (action === "color") {
+                // Update color of the rectangle
+                updateRectangleColor(id, param1);
+                redrawCanvas(); // Redraw the canvas with updated rectangles
+              }
+            }
+          }
+
+          function BuildInVars(varName) {
+            switch (varName) {
+              case "A_ScreenWidth":
+                // Return screen width
+                return window.innerWidth;
+              case "A_LastKey":
+                // Return screen width
+                return getLastKeyPressed();
+              case "A_ScreenHeight":
+                // Return screen height
+                return window.innerHeight;
+              case "A_TimeIdle":
+                // Return time idle
+                return A_TimeIdle();
+              case "A_TickCount":
+                // Return tick count in milliseconds
+                return A_TickCount();
+              case "A_Now":
+                // Return current local timestamp
+                return new Date().toLocaleString();
+              case "A_YYYY":
+                // Return current year
+                return new Date().getFullYear();
+              case "A_MM":
+                // Return current month
+                return (new Date().getMonth() + 1).toString().padStart(2, "0");
+              case "A_DD":
+                // Return current day
+                return new Date().getDate().toString().padStart(2, "0");
+              case "A_MMMM":
+                // Return full month name
+                return new Date().toLocaleDateString(undefined, { month: "long" });
+              case "A_MMM":
+                // Return short month name
+                return new Date().toLocaleDateString(undefined, { month: "short" });
+              case "A_DDDD":
+                // Return full day name
+                return new Date().toLocaleDateString(undefined, { weekday: "long" });
+              case "A_DDD":
+                // Return short day name
+                return new Date().toLocaleDateString(undefined, { weekday: "short" });
+              case "A_Hour":
+                // Return current hour
+                return new Date().getHours().toString().padStart(2, "0");
+              case "A_Min":
+                // Return current minute
+                return new Date().getMinutes().toString().padStart(2, "0");
+              case "A_Sec":
+                // Return current second
+                return new Date().getSeconds().toString().padStart(2, "0");
+              case "A_Space":
+                // Return space character
+                return " ";
+              case "A_Tab":
+                // Return tab character
+                return "\t";
+
+              default:
+                // Handle unknown variable names
+                return null;
+            }
+          }
+
+          function Chr(number) {
+            // Check if the number is null
+            if (number === null) {
+              // Return an empty string
+              return "";
+            }
+
+            // Check if the number is within the valid range
+            if (number >= 0 && number <= 0x10ffff) {
+              // Convert the number to a character using String.fromCharCode
+              return String.fromCharCode(number);
+            } else {
+              // Return an empty string for invalid numbers
+              return "";
+            }
+          }
+
+
+          let allKeyWords = [{ name: "~~~~hewuaesdyuyiaqwes7dy8s7qwr9styqwa7sdys7cyy767^*&]]]]]]]]]][pwaoidgu8wserdgfyieusdfucufaweyr]" }];
+
+          function AddIDE(parent, xPos, yPos, w, h, id, font = 18, langName = "autohotkey", onChangeFunc, initialText = "") {
+            var langTools = ace.require("ace/ext/language_tools");
+
+            let Completer = {
+              getCompletions: function (editor, session, pos, prefix, callback) {
+                if (prefix.startsWith("p")) {
+                  // Continue executing if the prefix starts with "p"
+                } else {
+                  // Return early if the prefix does not start with "p" and its length is not greater than 1
+                  if (prefix.length <= 1) {
+                    callback(null, []); // Return an empty array of completions
+                    return;
+                  }
+                }
+
+                let prefixLower = prefix.toLowerCase();
+                let filteredTables = allKeyWords.filter(function (table) {
+                  return table.name.toLowerCase().startsWith(prefixLower);
+                });
+                // filteredTables.sort(function(a, b) {
+                //     return a.name.length - b.name.length;
+                // });
+                let limitedTables = filteredTables; //.slice(-10);
+
+                callback(
+                  null,
+                  limitedTables.map(function (table) {
+                    return {
+                      caption: table.name,
+                      value: table.name,
+                    };
+                  }),
+                );
+              },
+            };
+
+            // Create a new div element for the editor
+            var editorDiv = document.createElement("div");
+            editorDiv.id = id;
+            editorDiv.style.position = "absolute";
+            editorDiv.style.left = xPos + "px";
+            editorDiv.style.top = yPos + "px";
+            editorDiv.style.width = w + "px";
+            editorDiv.style.height = h + "px";
+            editorDiv.style.fontSize = font + "px";
+
+            // Append the editor div to the parent
+            parent.appendChild(editorDiv);
+
+            // Create a new editor instance inside the div
+            var editor = ace.edit(id);
+            editor.setTheme("ace/theme/monokai");
+            editor.session.setMode("ace/mode/" + langName);
+            // editor.setOptions({
+            //   enableBasicAutocompletion: true,
+            //   enableLiveAutocompletion: true,
+            //   behavioursEnabled: false, // Disable auto-pairing of characters
+            // });
+
+            editor.setOptions({
+              enableBasicAutocompletion: false,
+              enableSnippets: false,
+              enableLiveAutocompletion: true,
+              behavioursEnabled: false,
+              showPrintMargin: false,
+            });
+
+            langTools.setCompleters([]);
+            langTools.addCompleter(Completer);
+
+            // Set initial text if provided
+            if (initialText) {
+              editor.setValue(initialText, -1); // -1 to move cursor to the beginning
+            }
+
+            // Track Vim mode status
+            var isVimMode = false;
+
+            // Hotkey to toggle Vim mode on/off (Ctrl + Alt + Shift + V)
+            editor.commands.addCommand({
+              name: "toggleVimMode",
+              bindKey: { win: "Ctrl-Alt-Shift-V", mac: "Command-Alt-Shift-V" },
+              exec: function () {
+                if (isVimMode) {
+                  editor.setKeyboardHandler(null); // Disable Vim (back to default)
+                  isVimMode = false;
+                  console.log("Vim mode disabled");
+                } else {
+                  editor.setKeyboardHandler("ace/keyboard/vim"); // Enable Vim
+                  isVimMode = true;
+                  console.log("Vim mode enabled");
+                }
+              },
+            });
+
+            // Apply CSS styles for the editor
+
+            var css = `
+                            body {
+                              font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                              background-color: #1a1818;
+                              color: #ffffff;
+                              display: flex;
+                              flex-direction: column;
+                              align-items: center;
+                              height: 100vh;
+                              margin: 0;
+                            }
+
+                            .controls {
+                              display: flex;
+                              justify-content: center;
+                              gap: 1rem;
+                              margin: 1rem;
+                              padding: 1rem;
+                            }
+
+                            button {
+                              padding: 0.7rem;
+                              font-size: 1.2em;
+                              cursor: pointer;
+                              background-color: #bababa;
+                              color: #000000;
+                              border: none;
+                              border-radius: 0.2rem;
+                              transition: background-color 0.3s;
+                            }
+
+                            button:hover {
+                              background-color: #27ae60;
+                            }
+
+                            #${id} {
+                              width: ${w}px;
+                              height: ${h}px;
+                              font-size: 1em;
+                              border-radius: 0.3rem;
+                            }
+
+                            #result {
+                              margin-top: 1rem;
+                              font-size: 1.2em;
+                              color: #999c9a;
+                              font-weight: bold;
+                              text-align: center;
+                            }
+
+                            .ace-monokai .ace_marker-layer .ace_active-line {
+                              background-color: #103010 !important;
+                            }
+
+                            .ace-monokai {
+                              background-color: #050505 !important;
+                              color: #f8f8f2;
+                            }
+
+                            .ace-monokai .ace_gutter {
+                              background: #204020 !important;
+                              color: #cbcdc3 !important;
+                            }
+
+                            .ace-monokai .ace_gutter-active-line {
+                              background-color: transparent !important;
+                            }
+
+                            .ace-monokai .ace_entity.ace_name.ace_tag,
+                            .ace-monokai .ace_keyword,
+                            .ace-monokai .ace_meta.ace_tag,
+                            .ace-monokai .ace_storage {
+                              color: #40a0e0 !important;
+                            }
+
+                            .ace-monokai .ace_entity.ace_name.ace_function,
+                            .ace-monokai .ace_entity.ace_other,
+                            .ace-monokai .ace_entity.ace_other.ace_attribute-name,
+                            .ace-monokai .ace_variable {
+                              color: #ff80df !important;
+                            }
+
+                            .ace-monokai .ace_comment {
+                              color: #40d080 !important;
+                              font-weight: line-through !important;
+                            }
+
+                            .ace-monokai .ace_commentOpen_Close {
+                              color: #40d080 !important;
+                              font-weight: line-through !important;
+                            }
+
+                            .ace-monokai .ace_variables {
+                              color: #ffffff !important;
+                            }
+
+                            .ace-monokai .ace_functions {
+                              color: #80dfff !important;
+                            }
+
+                          .ace-monokai .ace_keywords {
+                      color: #8080e0 !important; /* Customize color as needed */
+                      font-weight: bold !important;
+                  }
+                            .ace-monokai .ace_braces_Open {
+                              color: #FFFFff !important;
+                            }
+
+                            .ace-monokai .ace_braces_Close {
+                              color: #FFFFff !important;
+                            }
+
+                            .ace-monokai .ace_arrayMethods {
+                              color: #FAB820 !important;
+                            }
+
+                            .ace-monokai .ace_BuildInFunc {
+                              color: #ff80df !important;
+                            }
+
+                            .ace-monokai .ace_command {
+                              color: #40a0e0 !important;
+                              font-weight: bold !important;
+                            }
+
+                            .ace-monokai .ace_static_types {
+                              color: #569cd6 !important;
+                              font-weight: bold !important;
+                            }
+
+                            .ace-monokai .ace_string {
+                              color: #ffa0a0 !important;
+                              font-weight: lighter !important;
+                            }
+
+                            .ace-monokai .ace_operators {
+                              color: #00ffff !important;
+                              font-weight: lighter !important;
+                            }
+
+
+                            .ace-monokai .ace_trueANDfalse {
+                              color: #00ffff !important;
+                              font-weight: lighter !important;
+                            }
+
+                            .ace-monokai .ace_escape-char {
+                              color: #ff8000 !important;
+                              font-weight: bold !important;
+                            }
+
+                            .ace-monokai .ace_punctuation,
+                            .ace-monokai .ace_punctuation.ace _tag {
+                              color: #ffa0a0 !important;
+                            }
+
+                            *::-webkit-scrollbar {
+                              width: 1em;
+                            }
+
+                            *::-webkit-scrollbar-track {
+                              box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                            }
+
+                            *::-webkit-scrollbar-thumb {
+                              background-color: darkgrey;
+                              outline: 1px solid slategrey;
+                            }
+                          `;
+
+            var style = document.createElement("style");
+            style.type = "text/css";
+            if (style.styleSheet) {
+              style.styleSheet.cssText = css;
+            } else {
+              style.appendChild(document.createTextNode(css));
+            }
+            document.head.appendChild(style);
+
+            // Bind change event listener to the editor
+            editor.getSession().on("change", function () {
+              var code = editor.getValue();
+              if (typeof onChangeFunc === "function") {
+                onChangeFunc(code);
+              }
+            });
+          }
+
+          // Helper function to set the internal array's size as a string
+          function setInternalArraySize(element, size) {
+            if (typeof element === "string") {
+              return size.toString();
+            }
+            return size;
+          }
+
+          // Convert string to int
+          function INT(str) {
+            return str;
+          }
+
+          // Convert various types to string
+          function STR(value) {
+            return value;
+          }
+
+          // Exponential
+          function Exp(num) {
+            if (num === null || isNaN(num)) return null;
+            return Math.exp(num);
+          }
+
+          // Base-10 logarithm
+          function Log(num) {
+            if (num === null || isNaN(num)) return null;
+            return Math.log10(num);
+          }
+
+          function Chr(number) {
+            // Check if the number is null
+            if (number === null) {
+              // Return an empty string
+              return "";
+            }
+
+            // Check if the number is within the valid range
+            if (number >= 0 && number <= 0x10ffff) {
+              // Convert the number to a character using String.fromCharCode
+              return String.fromCharCode(number);
+            } else {
+              // Return an empty string for invalid numbers
+              return "";
+            }
+          }
+
+          // InStr
+          function InStr(Haystack, Needle, CaseSensitive = true, StartingPos = 1, Occurrence = 1) {
+            if (Haystack === null || Needle === null) return false;
+
+            // Adjust starting position if less than 1
+            StartingPos = Math.max(StartingPos, 1);
+
+            // Case-sensitive search by default
+            if (!CaseSensitive) {
+              Haystack = Haystack.toLowerCase();
+              Needle = Needle.toLowerCase();
+            }
+
+            let pos = -1;
+            let count = 0;
+            for (let i = StartingPos - 1; i < Haystack.length; i++) {
+              if (Haystack.substring(i, i + Needle.length) === Needle) {
+                count++;
+                if (count === Occurrence) {
+                  pos = i + 1;
+                  break;
+                }
+              }
+            }
+
+            return pos > 0; // Return true if the substring is found, false otherwise
+          }
+
+          // RegExMatch
+          function RegExMatch(Haystack, NeedleRegEx, OutputVar, StartingPos) {
+            if (Haystack === null || NeedleRegEx === null) return null;
+
+            const regex = new RegExp(NeedleRegEx);
+            let match;
+
+            if (typeof Haystack === "string") {
+              match = Haystack.match(regex);
+            }
+
+            if (match) {
+              if (OutputVar) {
+                OutputVar.push(match[0]);
+              }
+              return match.index + 1;
+            } else {
+              return 0;
+            }
+          }
+
+          // StrLen
+          function StrLen(str) {
+            if (typeof str !== "string") {
+              console.error("Invalid input: expected a string but received:", str);
+              return 0; // Return 0 or handle as needed
+            }
+            return str.length;
+          }
+
+          function SubStr(str, startPos, length) {
+            // If str is null or undefined, return an empty string
+            if (str === null || str === undefined) {
+              return "";
+            }
+
+            // If length is not provided or is blank, default to "all characters"
+            if (length === undefined || length === "") {
+              length = str.length - startPos + 1;
+            }
+
+            // If startPos is less than 1, adjust it to start from the end of the string
+            if (startPos < 1) {
+              startPos = str.length + startPos;
+            }
+
+            // Extract the substring based on startPos and length
+            return str.substr(startPos - 1, length);
+          }
+
+          function Trim(inputString) {
+            // Check if inputString is null or undefined
+            if (inputString == null) {
+              return ""; // Return an empty string if inputString is null or undefined
+            }
+            return inputString.replace(/^\s+|\s+$/g, ""); // Removes leading and trailing whitespace
+          }
+
+          async function ParseInt(num) {
+            if (num === null) {
+              return null;
+            }
+
+            num = num.trim();
+            num++;
+            num--;
+
+            return num;
+          }
+
+          function StrReplace(originalString, find, replaceWith) {
+            // Check if originalString is a string
+            if (typeof originalString !== "string") {
+              return originalString; // Return originalString as is
+            }
+
+            // Escape special characters in the 'find' string to be used literally
+            const escapedFind = find.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+            // Use replace method to replace all occurrences of 'find' with 'replaceWith'
+            return originalString.replace(new RegExp(escapedFind, "g"), replaceWith);
+          }
+
+          // Custom Mod function
+          function Mod(dividend, divisor) {
+            return dividend % divisor;
+          }
+
+          // Function to trim specified number of characters from the left side of a string
+          function StringTrimLeft(input, numChars) {
+            if (typeof input === "string" && typeof numChars === "number" && numChars >= 0) {
+              return input.length > numChars ? input.substring(numChars) : "";
+            } else {
+              console.error("Invalid input provided.");
+              return input; // Return original input if trimming is not possible
+            }
+          }
+
+          // Function to trim specified number of characters from the right side of a string
+          function StringTrimRight(input, numChars) {
+            if (typeof input === "string" && typeof numChars === "number" && numChars >= 0) {
+              return input.length > numChars ? input.substring(0, input.length - numChars) : "";
+            } else {
+              console.error("Invalid input provided.");
+              return input; // Return original input if trimming is not possible
+            }
+          }
+
+          function StrLower(string) {
+            if (typeof string !== "string") {
+              console.error("Invalid input: expected a string but received:", string);
+              return ""; // Return an empty string or handle as needed
+            }
+            return string.toLowerCase();
+          }
+
+          function StrSplit(inputStr, delimiter, num) {
+            // Check if inputStr is a valid string
+            if (typeof inputStr !== "string") {
+              return ""; // Return empty string for invalid input
+            }
+
+            // Split the input string based on the delimiter
+            const parts = inputStr.split(delimiter);
+
+            // Return the part specified by the num parameter (1-based index)
+            if (num > 0 && num <= parts.length) {
+              return parts[num - 1]; // Return the specified part (0-based index)
+            } else {
+              return ""; // Return an empty string if num is out of range
+            }
+          }
+
+          // Function to simulate AutoHotkey's RegExReplace in JavaScript
+          function RegExReplace(inputStr, regexPattern, replacement) {
+            // Create a regular expression object using the provided pattern
+            const regex = new RegExp(regexPattern, "g"); // 'g' flag for global match
+
+            // Use the replace() method to perform the regex replacement
+            const resultStr = inputStr.replace(regex, replacement);
+
+            // Return the modified string
+            return resultStr;
+          }
+
+          // Function to escape special characters for regex
+          function escapeRegex(str) {
+            if (typeof str !== "string") {
+              console.error("Invalid input for escapeRegex: expected a string but received:", str);
+              return "";
+            }
+            return str.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+          }
+
+          // Function to split a string based on delimiters
+          function LoopParseFunc(var_, delimiter1 = "", delimiter2 = "") {
+            if (typeof var_ !== "string") {
+              console.error("Invalid input: expected a string but received:", var_);
+              return []; // Return an empty array or handle as needed
+            }
+
+            if (!delimiter1 && !delimiter2) {
+              return var_.split("");
+            } else {
+              const escapedDelimiters = escapeRegex(delimiter1 + delimiter2);
+              const pattern = new RegExp(`[${escapedDelimiters}]+`);
+              return var_.split(pattern).filter(Boolean);
+            }
+          }
+
+          // MsgBox function
+          function MsgBox(value) {
+            console.log(value.toString());
+          }
+
+          // Sorting function
+
+          function SortLikeAHK(varName, options = "") {
+            let delimiter = "\n"; // Default delimiter
+            let delimiterIndex = options.indexOf("D");
+
+            if (delimiterIndex !== -1) {
+              let delimiterChar = options[delimiterIndex + 1];
+              delimiter = delimiterChar === "" ? "," : delimiterChar;
+            }
+
+            let items = varName.split(new RegExp(delimiter === "," ? "," : "\\" + delimiter));
+
+            // Remove empty items and trim whitespace
+            items = items.filter((item) => item.trim() !== "");
+
+            // Apply sorting based on options
+            if (options.includes("N")) {
+              // Numeric sort
+              items.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
+            } else if (options.includes("Random")) {
+              // Random sort
+              for (let i = items.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [items[i], items[j]] = [items[j], items[i]];
+              }
+            } else {
+              // Default alphabetical sort
+              items.sort((a, b) => {
+                const keyA = options.includes("C") ? a : a.toLowerCase();
+                const keyB = options.includes("C") ? b : b.toLowerCase();
+                if (keyA < keyB) return -1;
+                if (keyA > keyB) return 1;
+                return 0;
+              });
+            }
+
+            // Reverse if 'R' option is present
+            if (options.includes("R")) {
+              items.reverse();
+            }
+
+            // Remove duplicates if 'U' option is present
+            if (options.includes("U")) {
+              const seen = new Map();
+              items = items.filter((item) => {
+                const key = options.includes("C") ? item : item.toLowerCase();
+                if (!seen.has(key)) {
+                  seen.set(key, item);
+                  return true;
+                }
+                return false;
+              });
+            }
+
+            // Join the sorted items back into a string
+            const sortedVar = items.join(delimiter === "," ? "," : "\n");
+
+            return sortedVar;
+          }
+
+          function MakeHotKey(hotkey, callback) {
+            document.addEventListener("keydown", function (event) {
+              const keys = hotkey.split("+").map((key) => key.trim().toLowerCase());
+              const modifiers = {
+                ctrl: event.ctrlKey,
+                shift: event.shiftKey,
+                alt: event.altKey,
+              };
+
+              let hotkeyPressed = true;
+              keys.forEach((key) => {
+                if (key === "ctrl" || key === "shift" || key === "alt") {
+                  if (!modifiers[key]) {
+                    hotkeyPressed = false;
+                  }
+                } else if (key === "backspace") {
+                  if (event.key !== "Backspace") {
+                    hotkeyPressed = false;
+                  }
+                } else if (key.startsWith("arrow")) {
+                  const arrowDirection = key.replace("arrow", "");
+                  if (arrowDirection === "up" && event.key !== "ArrowUp") {
+                    hotkeyPressed = false;
+                  } else if (arrowDirection === "down" && event.key !== "ArrowDown") {
+                    hotkeyPressed = false;
+                  } else if (arrowDirection === "left" && event.key !== "ArrowLeft") {
+                    hotkeyPressed = false;
+                  } else if (arrowDirection === "right" && event.key !== "ArrowRight") {
+                    hotkeyPressed = false;
+                  }
+                } else if (key === "enter") {
+                  if (event.key !== "Enter") {
+                    hotkeyPressed = false;
+                  }
+                } else if (!event.key.match(/^[0-9a-zA-Z]$/) && event.key !== key) {
+                  hotkeyPressed = false;
+                } else if (event.key.toLowerCase() !== key && event.key.match(/^[a-zA-Z]$/)) {
+                  hotkeyPressed = false;
+                }
+              });
+
+              if (hotkeyPressed) {
+                if (modifiers["shift"]) {
+                  callback(hotkey.toUpperCase());
+                } else {
+                  callback(hotkey.toLowerCase());
+                }
+              }
+            });
+          }
+
+          // InStr
+          function InStr(Haystack, Needle, CaseSensitive = true, StartingPos = 1, Occurrence = 1) {
+            if (Haystack === null || Needle === null) return false;
+
+            // Adjust starting position if less than 1
+            StartingPos = Math.max(StartingPos, 1);
+
+            // Case-sensitive search by default
+            if (!CaseSensitive) {
+              Haystack = Haystack.toLowerCase();
+              Needle = Needle.toLowerCase();
+            }
+
+            let pos = -1;
+            let count = 0;
+            for (let i = StartingPos - 1; i < Haystack.length; i++) {
+              if (Haystack.substring(i, i + Needle.length) === Needle) {
+                count++;
+                if (count === Occurrence) {
+                  pos = i + 1;
+                  break;
+                }
+              }
+            }
+
+            return pos > 0; // Return true if the substring is found, false otherwise
+          }
+
+          function Trim(inputString) {
+            // Check if inputString is null or undefined
+            if (inputString == null) {
+              return ""; // Return an empty string if inputString is null or undefined
+            }
+            return inputString.replace(/^\s+|\s+$/g, ""); // Removes leading and trailing whitespace
+          }
+
+          function StrReplace(originalString, find, replaceWith) {
+            // Check if originalString is a string
+            if (typeof originalString !== "string") {
+              return originalString; // Return originalString as is
+            }
+
+            // Escape special characters in the 'find' string to be used literally
+            const escapedFind = find.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+            // Use replace method to replace all occurrences of 'find' with 'replaceWith'
+            return originalString.replace(new RegExp(escapedFind, "g"), replaceWith);
+          }
+
+          // Function to trim specified number of characters from the right side of a string
+          function StringTrimRight(input, numChars) {
+            if (typeof input === "string" && typeof numChars === "number" && numChars >= 0) {
+              return input.length > numChars ? input.substring(0, input.length - numChars) : "";
+            } else {
+              console.error("Invalid input provided.");
+              return input; // Return original input if trimming is not possible
+            }
+          }
+
+          // Define the str function
+          function str(value) {
+            return String(value);
+          }
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////////////////////
+
+          // Save data to a file and return result
+          function saveData(data, place) {
+            return ipcRenderer.sendSync("save-data", { data, place }); // Use sendSync to get the return value immediately
+          }
+
+          // Get data from a file, return result, and remove only one trailing newline
+          function getData(place) {
+            let data = ipcRenderer.sendSync("get-data", place); // Get the return value immediately
+
+            // Remove only one trailing newline, if present
+            if (data.endsWith("\n")) {
+              data = data.slice(0, -1); // Remove the last newline character
+            }
+            if (data) {
+              return data;
+            } else {
+              return "[empty file]";
+            }
+          }
+
+          // Single async function to structure the entire script
+          async function runScript() {
+            // Declare and assign a variable
+         
+
+            MakeHotKey("Alt+Shift+Ctrl+F", function (hotkey) {
+              HotKeyCalledAltShiftCtrlF();
+            });
+
+            MakeHotKey("Alt+Shift+Ctrl+G", function (hotkey) {
+              HotKeyCalledAltShiftCtrlG();
+            });
+
+            var Gui1 = {};
+            Gui1 = document.createElement("div");
+            Gui1.id = "Gui1";
+            Gui1.style.display = "block";
+
+            // Create tabs container
+            var tabs = document.createElement("div");
+            tabs.id = "tabs";
+            Gui1.appendChild(tabs);
+
+            // Create console container
+            var consoleElement = document.createElement("div");
+            consoleElement.id = "console";
+            Gui1.appendChild(consoleElement);
+
+            // Declare and assign a variable
+            let variables = {
+              null: null,
+            };
+
+            // Create an editable output textarea in the console
+            var outputArea = document.createElement("textarea");
+            outputArea.id = "outputArea";
+            outputArea.style.width = "100%"; // Full width
+            outputArea.style.height = "100%"; // Full height of the console
+            outputArea.style.background = "#121212"; // Background color
+            outputArea.style.color = "white"; // Text color
+            outputArea.style.border = "none"; // No border
+            outputArea.style.resize = "none"; // Prevent resizing
+            outputArea.style.fontSize = "15px"; // Set font size (change value as needed)
+            outputArea.readOnly = true; // Make it read-only for now
+            consoleElement.appendChild(outputArea); // Add textarea to the console
+
+            Gui1.style.position = "absolute";
+            Gui1.style.width = "100vw"; // Set width to 80% of the viewport width
+            Gui1.style.height = "100vh"; // Set height to 80% of the viewport height
+            Gui1.style.background = "linear-gradient(90deg, #121212 0%, #121212 100%)";
+            Gui1.style.color = "white";
+            Gui1.style.fontSize = "2vw"; // Set font size to a percentage of the viewport width
+            Gui1.style.padding = "0px";
+            Gui1.style.borderRadius = "0px";
+            Gui1.style.fontFamily = "sans-serif"; // Specify your desired font here
+            Gui1.style.zIndex = "10";
+            document.body.appendChild(Gui1); // Append the GUI window to the body
+
+            let textOldSave;
+            document.documentElement.setAttribute("style", "padding: 0; margin: 0;");
+            document.head.setAttribute("style", "padding: 0; margin: 0;");
+            document.body.setAttribute("style", "overflow-x: hidden; padding: 0; margin: 0;");
+            variables.ideTEXT = `[empty]`;
+
+            // Assuming variables.theSHA is already set
+            const shaKey = "HTVM-IDE-23149d896897dfb20b8b202dc2e56366f19011600cad3d193a684562cc978d51";
+
+            // Retrieve the plain text from local storage
+            variables.idetext = localStorage.getItem(shaKey) || variables.ideTEXT;
+            variables.AScreenHeight = window.innerHeight * 0.99; // Adjust height dynamically
+            variables.AScreenWidth = window.innerWidth * 0.99; // Adjust width dynamically
+            var saveBackCodeBugFix = variables.ideTEXT;
+
+            AddIDE(Gui1, 10, 10, variables.AScreenWidth, variables.AScreenHeight, "Gui1IDE1", 18, "ht", IDE1, variables.idetext);
+            var editor = ace.edit("Gui1IDE1");
+            // Ensure IDE1 adjusts to its container
+            async function IDE1(A_GuiControl) {
+              variables.idetext = A_GuiControl;
+              localStorage.setItem(shaKey, variables.idetext);
+            }
+// Function to update dimensions on window resize
+function updateDimensions() {
+    const ideElement = document.getElementById("Gui1IDE1");
+    if (ideElement) {
+        ideElement.style.width = "99%";
+        
+        // Adjust height based on window height
+        if (window.innerHeight < 10) {
+            ideElement.style.height = (window.innerHeight * 0.10) + "px";
+        } else if (window.innerHeight < 50) {
+            ideElement.style.height = (window.innerHeight * 0.30) + "px";
+        } else if (window.innerHeight < 100) {
+            ideElement.style.height = (window.innerHeight * 0.35) + "px";
+        } else if (window.innerHeight < 200) {
+            ideElement.style.height = (window.innerHeight * 0.38) + "px";
+        } else if (window.innerHeight < 300) {
+            ideElement.style.height = (window.innerHeight * 0.40) + "px";
+        } else if (window.innerHeight < 400) {
+            ideElement.style.height = (window.innerHeight * 0.45) + "px";
+        } else if (window.innerHeight < 500) {
+            ideElement.style.height = (window.innerHeight * 0.50) + "px";
+        } else if (window.innerHeight < 600) {
+            ideElement.style.height = (window.innerHeight * 0.55) + "px";
+        } else if (window.innerHeight < 700) {
+            ideElement.style.height = (window.innerHeight * 0.60) + "px";
+        } else {
+            ideElement.style.height = (window.innerHeight * 0.75) + "px";
+        }
+
+        ideElement.style.top = "60px"; // Set top position
+    }
+}
+
+// Event listener for window resize
+window.addEventListener("resize", updateDimensions);
+
+// Call it initially to set dimensions
+updateDimensions();
+
+
+
+            // Create the tab container
+            const tabContainer = document.createElement("div");
+            tabContainer.id = "tab-container";
+            tabContainer.style.display = "flex"; // Use flexbox for layout
+            //tabContainer.style.flexWrap = "wrap"; // Allow tabs to wrap to a new row
+            //tabContainer.style.overflowX = "auto"; // Enable horizontal scrolling
+            tabContainer.style.whiteSpace = "nowrap"; // Prevent wrapping of tab buttons
+            tabContainer.style.padding = "5px"; // Optional padding
+            tabContainer.style.backgroundColor = "#f0f0f0"; // Background color for the tab container
+
+            // Append the tab container to the body or a specific section of your HTML
+            document.body.appendChild(tabContainer);
+
+            let currentTabFullPath = "";
+            let lastFileToOpen = "";
+            let currentTab = null;
+            const files = []; // Store full paths for the files
+            let FullPathfiles = []; // Store full paths for the files
+            let currentTabIndex = 0; // To track the current tab index
+            let ctrlPressed = false; // To track if Ctrl is held down
+            let cyclingTabs = false; // To track if we are cycling through tabs
+            let latestTabsUsed = [];
+            let lastTabIndex = -1; // To store the index of the last active tab
+            let lastTabUsed = getData("last_tab.txt");
+
+            // Declare scrollPosArray globally
+            var scrollPosArray = [];
+
+            // Assuming getData is a function that reads the content of the file and returns it as a string.
+            var scrollPosArrayTEMP = getData("scrollPosArray.txt");
+
+            // Split the string by newlines and loop through each line.
+            scrollPosArrayTEMP.split("\n").forEach(function (line) {
+              scrollPosArray.push(line); // Add each line to the global scrollPosArray
+            });
+
+            // Function to add a new tab
+            function addTab(fullPath) {
+              currentTabFullPath = fullPath;
+              FullPathfiles.push(fullPath);
+              const normalizedPath = fullPath.replace(/\\/g, "/"); // Normalize backslashes to forward slashes
+              const fileName = normalizedPath.split("/").pop(); // Extract file name from full path
+
+              const tab = document.createElement("button"); // Create a button for the tab
+              tab.className = "tab";
+              tab.textContent = fileName;
+              tab.style.backgroundColor = "#0b0c0d"; // Tab background color
+              tab.style.color = "white"; // Tab text color
+              tab.style.border = "none"; // Remove border
+              tab.style.padding = "10px 15px"; // Padding inside tabs
+              tab.style.marginRight = "5px"; // Space between tabs
+              tab.style.whiteSpace = "nowrap"; // Prevent wrapping of tab buttons
+              tab.style.cursor = "pointer"; // Pointer cursor on hover
+              tab.style.borderRadius = "5px"; // Rounded corners
+              tab.style.fontSize = "14px"; // Font size
+              tab.style.fontFamily = "Courier"; // Set the font to Courier
+
+              tab.style.transition = "background-color 0.3s"; // Smooth transition on hover
+
+              tab.onmouseover = () => (tab.style.backgroundColor = "#0056b3"); // Darker color on hover
+              tab.onmouseout = () => (tab.style.backgroundColor = "#0b0c0d"); // Reset color
+              tab.onclick = () => handleTabClick(fullPath); // Call function with full path on click
+
+              // Right-click context menu for closing tabs
+              tab.oncontextmenu = (event) => {
+                event.preventDefault(); // Prevent the default context menu from appearing
+                showContextMenu(event, tab);
+              };
+
+              tabs.appendChild(tab);
+              files.push(fullPath); // Store full path for the file
+              if (!currentTab) {
+                currentTab = fullPath;
+                tab.classList.add("active");
+              }
+
+              logToOutput(`Added tab: ${fullPath}`); // Log the addition of the tab
+              //logToOutput(`Added tab: ${fileName}`); // Log the addition of the tab
+              currentTabFullPath = fullPath;
+            }
+
+            // Function to save the current state (replace with your actual save logic)
+            function saveCurrentState(dataToSave, theFULLpath, dontLog = 0) {
+              // Implement your save logic here, e.g., saving tabs, current file, etc.
+
+              // if (!InStr(tabsData, theFULLpath)) {
+              //   logToOutput("ERROR: Current state CAN'T be saved!"); // Placeholder for demonstration
+              //   console.log("ERROR: Current state CAN'T be saved!"); // Placeholder for demonstration
+              //   return;
+              // }
+
+              if (dontLog != 1) {
+                logToOutput("Current state saved!"); // Placeholder for demonstration
+              }
+              saveData(dataToSave, theFULLpath);
+            }
+
+            // Function to switch between tabs
+            function switchTab(fullPath) {
+              const allTabs = document.querySelectorAll(".tab");
+              allTabs.forEach((tab) => tab.classList.remove("active"));
+
+              currentTab = fullPath;
+              currentTabFullPath = fullPath;
+              const activeTab = [...allTabs].find((tab) => tab.textContent === normalizedPath.split("/").pop());
+
+              if (activeTab) activeTab.classList.add("active");
+              
+
+              
+            }
+
+            // Function to handle tab click and pass full path to another function
+            function handleTabClick(fullPath) {
+              saveCurrentState(variables.idetext, currentTabFullPath, 1);
+              logToOutput(`Clicked tab: ${fullPath}`); // Log the full path of the clicked tab
+              currentTabFullPath = fullPath;
+
+              // Call another function here and pass the full path
+              openThisTabFile(currentTabFullPath);
+              saveData(fullPath, "last_tab.txt");
+              
+
+            }
+
+            // Function to update scroll position and save data
+            function updateScrollPosition() {
+              // Select all tabs with .tab or .tab.active classes
+              const allTabs = document.querySelectorAll(".tab, .tab.active");
+
+              // Loop through all tabs
+              for (let i = 0; i < allTabs.length; i++) {
+                const tab = allTabs[i];
+
+                // Check if the tab's text matches the current path
+                if (tab.textContent === currentTabFullPath.replace(/\\/g, "/").split("/").pop()) {
+                  //console.log(i);
+
+                  // Update scrollPosArray for the matched tab
+                  scrollPosArray[i] = editor.session.getScrollTop();
+
+                  // Initialize tempDataOut as an empty string
+                  let tempDataOut = "";
+
+                  // Loop through scrollPosArray and concatenate each element with a newline
+                  for (let index = 0; index < scrollPosArray.length; index++) {
+                    tempDataOut += scrollPosArray[index] + "\n";
+                  }
+
+                  // Trim the last newline character from tempDataOut
+                  tempDataOut = tempDataOut.trimEnd();
+
+                  // Save the data to the file
+                  saveData(tempDataOut, "scrollPosArray.txt");
+                }
+              }
+            }
+
+            // Attach the scroll event listener to the editor session
+            editor.session.on("changeScrollTop", updateScrollPosition);
+
+
+
+
+
+            function fileExtensionToLangName(extension) {
+              // Mapping of file extensions to language names
+              const extToLangMap = {
+                abap: [".abap"],
+                abc: [".abc"],
+                actionscript: [".as"],
+                ada: [".ada"],
+                apache_conf: [".conf"],
+                asciidoc: [".adoc", ".asciidoc"],
+                assembly_x86: [".asm"],
+                autohotkey: [".ahk"],
+                batchfile: [".bat"],
+                c9search: [".c9"],
+                c_cpp: [".c", ".cpp"],
+                cirru: [".cirru"],
+                clojure: [".clj"],
+                cobol: [".cob"],
+                coffee: [".coffee"],
+                coldfusion: [".cfm"],
+                csharp: [".cs"],
+                css: [".css"],
+                curly: [".curl"],
+                d: [".d"],
+                dart: [".dart"],
+                diff: [".diff", ".patch"],
+                dockerfile: ["Dockerfile"],
+                dot: [".dot"],
+                dummy: [".dummy"],
+                dummysyntax: [".dummysyntax"],
+                eiffel: [".e"],
+                ejs: [".ejs"],
+                elixir: [".ex", ".exs"],
+                elm: [".elm"],
+                erlang: [".erl", ".hrl"],
+                forth: [".fs", ".fth"],
+                ftl: [".ftl"],
+                gcode: [".gcode"],
+                gherkin: [".feature"],
+                gitignore: [".gitignore"],
+                glsl: [".glsl"],
+                golang: [".go"],
+                groovy: [".groovy"],
+                haml: [".haml"],
+                handlebars: [".hbs", ".handlebars"],
+                haskell: [".hs"],
+                haxe: [".hx"],
+                html: [".html", ".htm"],
+                html_ruby: [".html.erb"],
+                ini: [".ini"],
+                io: [".io"],
+                jack: [".jack"],
+                jade: [".jade"],
+                java: [".java"],
+                javascript: [".js"],
+                json: [".json"],
+                jsoniq: [".jsoniq"],
+                jsp: [".jsp"],
+                jsx: [".jsx"],
+                julia: [".jl"],
+                latex: [".tex"],
+                less: [".less"],
+                liquid: [".liquid"],
+                lisp: [".lisp", ".lsp"],
+                livescript: [".ls"],
+                logiql: [".logic"],
+                lsl: [".lsl"],
+                lua: [".lua"],
+                luapage: [".lp"],
+                lucene: [".lucene"],
+                makefile: ["Makefile"],
+                markdown: [".md", ".markdown"],
+                mask: [".mask"],
+                matlab: [".m"],
+                mel: [".mel"],
+                mushcode: [".mc"],
+                mysql: [".sql"],
+                nix: [".nix"],
+                objectivec: [".m", ".h"],
+                ocaml: [".ml", ".mli"],
+                pascal: [".pas"],
+                perl: [".pl", ".pm"],
+                pgsql: [".pgsql"],
+                php: [".php"],
+                powershell: [".ps1"],
+                praat: [".praat"],
+                prolog: [".pl"],
+                properties: [".properties"],
+                protobuf: [".proto"],
+                python: [".py"],
+                r: [".r"],
+                rdoc: [".rdoc"],
+                rhtml: [".rhtml"],
+                ruby: [".rb"],
+                rust: [".rs"],
+                sass: [".sass", ".scss"],
+                scad: [".scad"],
+                scala: [".scala"],
+                scheme: [".scm"],
+                scss: [".scss"],
+                sh: [".sh"],
+                sjs: [".sjs"],
+                smarty: [".tpl"],
+                snippets: [".sublime-snippet"],
+                soy_template: [".soy"],
+                space: [".space"],
+                sql: [".sql"],
+                stylus: [".styl"],
+                svg: [".svg"],
+                tcl: [".tcl"],
+                tex: [".tex"],
+                text: [".txt"],
+                textile: [".textile"],
+                toml: [".toml"],
+                twig: [".twig"],
+                typescript: [".ts"],
+                vala: [".vala"],
+                vbscript: [".vbs"],
+                velocity: [".vm"],
+                verilog: [".v"],
+                vhdl: [".vhd"],
+                xml: [".xml"],
+                xquery: [".xq", ".xquery"],
+                yaml: [".yaml", ".yml"],
+                ht: [".ht"],
+                ht: [".hti"],
+                autohotkey: [".htpy"],
+                autohotkey: [".hth"],
+              };
+
+              // Normalize the extension to lower case
+              const normalizedExt = extension.toLowerCase();
+
+              // Loop through the mapping to find the language
+              for (const [lang, exts] of Object.entries(extToLangMap)) {
+                if (exts.includes(normalizedExt)) {
+                  return lang; // Return the language if a match is found
+                }
+              }
+
+              return "ht"; // Return ht if not found
+            }
+
+            function openThisTabFile(currentTabFullPathPATH) {
+              // Extract the file extension from the full path
+              let hth = [{ name: "break" }, { name: "case" }, { name: "catch" }, { name: "continue" }, { name: "else" }, { name: "finally" }, { name: "for" }, { name: "gosub" }, { name: "goto" }, { name: "if" }, { name: "IfEqual" }, { name: "IfExist" }, { name: "IfGreater" }, { name: "IfGreaterOrEqual" }, { name: "IfInString" }, { name: "IfLess" }, { name: "IfMsgBox" }, { name: "Loop" }, { name: "return" }, { name: "switch" }, { name: "throw" }, { name: "try" }, { name: "while" }, { name: "and" }, { name: "base" }, { name: "ByRef" }, { name: "false" }, { name: "Files" }, { name: "global" }, { name: "local" }, { name: "new" }, { name: "not" }, { name: "or" }, { name: "Parse" }, { name: "ParseInt" }, { name: "Read" }, { name: "Reg" }, { name: "static" }, { name: "true" }, { name: "A_DD" }, { name: "A_DDD" }, { name: "A_DDDD" }, { name: "A_GuiControl" }, { name: "A_Hour" }, { name: "A_Index" }, { name: "A_LastKey" }, { name: "A_MDay" }, { name: "A_Min" }, { name: "A_MM" }, { name: "A_MMM" }, { name: "A_MMMM" }, { name: "A_Mon" }, { name: "A_Now" }, { name: "A_NowUTC" }, { name: "A_ScreenHeight" }, { name: "A_Sec" }, { name: "A_Space" }, { name: "A_Tab" }, { name: "A_ThisHotkey" }, { name: "A_TickCount" }, { name: "A_TimeIdle" }, { name: "A_YDay" }, { name: "A_Year" }, { name: "A_YWeek" }, { name: "A_YYYY" }, { name: "Clipboard" }, { name: "ComSpec" }, { name: "ErrorLevel" }, { name: "ProgramFiles" }, { name: "this" }, { name: "Abs" }, { name: "ACos" }, { name: "Array" }, { name: "Asc" }, { name: "ASin" }, { name: "ATan" }, { name: "Ceil" }, { name: "Chr" }, { name: "Cos" }, { name: "FileExist" }, { name: "FileOpen" }, { name: "Floor" }, { name: "Func" }, { name: "getDataFromEndpoint" }, { name: "GetKeyState" }, { name: "Icon" }, { name: "InStr" }, { name: "isConnectedToBackend" }, { name: "IsFunc" }, { name: "isMobileDevice" }, { name: "Ln" }, { name: "Log" }, { name: "RegExMatch" }, { name: "RegExReplace" }, { name: "Round" }, { name: "RTrim" }, { name: "StoreLocally" }, { name: "Sin" }, { name: "Sqrt" }, { name: "StrGet" }, { name: "StrLen" }, { name: "StrLower" }, { name: "StrPut" }, { name: "StrReplace" }, { name: "StrSplit" }, { name: "SubStr" }, { name: "Tan" }, { name: "Title" }, { name: "Trim" }, { name: "Click" }, { name: "Edit" }, { name: "Endpoint" }, { name: "Exit" }, { name: "ExitApp" }, { name: "FileAppend" }, { name: "FileDelete" }, { name: "FileRead" }, { name: "getDataFromAPI" }, { name: "getDataFromJSON" }, { name: "GetKeyState" }, { name: "getUrlParams" }, { name: "Gui" }, { name: "GuiControl" }, { name: "Input" }, { name: "InputBox" }, { name: "MouseClick" }, { name: "MouseGetPos" }, { name: "MouseMove" }, { name: "MsgBox" }, { name: "reloadWithParams" }, { name: "Run" }, { name: "Send" }, { name: "SetTimer" }, { name: "Sleep" }, { name: "Sort" }, { name: "SoundPlay" }, { name: "StringLower" }, { name: "StringReplace" }, { name: "StringSplit" }, { name: "StringTrimLeft" }, { name: "StringTrimRight" }];
+
+              let fileExtension = currentTabFullPathPATH.split(".").pop().toLowerCase();
+              if (fileExtension === "ht" || fileExtension === "htpy" || fileExtension === "hth" || fileExtension === "hti") {
+                // Combined keywords
+                allKeyWords = HTVM_Syntax_AutoComplete
+                } else {
+                allKeyWords = [{ name: "~~~hewuaesdyuyiaqwes7dy8s7qwr9styqwa7sdys7cyy767^*&]]]]]]]]]][pwaoidgu8wserdgfyieusdfucufaweyr]" }];
+              }
+              // Use the file extension to get the corresponding language name
+              let langName = fileExtensionToLangName(`.${fileExtension}`);
+
+              // Call GuiControl with the data
+              GuiControl("textide", "Gui1IDE1", getData(currentTabFullPathPATH));
+
+              if (fileExtension === "ahk") {
+                langName = "autohotkey";
+                allKeyWords = hth;
+              }
+              if (fileExtension === "hth") {
+                langName = "autohotkey";
+                allKeyWords = hth;
+              }
+              if (fileExtension === "htpy") {
+                langName = "autohotkey";
+                allKeyWords = hth;
+              }
+
+              // Set the editor mode based on the language name
+              editor.session.setMode("ace/mode/" + langName);
+
+              latestTabsUsed.push(currentTabFullPathPATH);
+              lastTabIndex = FullPathfiles.indexOf(latestTabsUsed[latestTabsUsed.length - 2]);
+
+              editor.session.setScrollTop(scrollPosArray[FullPathfiles.indexOf(latestTabsUsed[latestTabsUsed.length - 1])]);
+            }
+
+            // Function to log messages to the output area
+            function logToOutput(message, del = 0) {
+              if (del == 1) {
+                outputArea.value = "Running...\n"; // Append message to the output area
+                outputArea.scrollTop = outputArea.scrollHeight; // Auto-scroll to the bottom
+                return;
+              }
+              if (del == 2) {
+                outputArea.value = "Compiling...\n"; // Append message to the output area
+                outputArea.scrollTop = outputArea.scrollHeight; // Auto-scroll to the bottom
+                return;
+              }
+              outputArea.value += message + "\n"; // Append message to the output area
+              outputArea.scrollTop = outputArea.scrollHeight; // Auto-scroll to the bottom
+            }
+
+            let tabsData = "";
+            items100 = LoopParseFunc(getData("tabs.txt"), "\n", "\r");
+            for (let A_Index100 = 0; A_Index100 < items100.length + 0; A_Index100++) {
+              const A_LoopField100 = items100[A_Index100 - 0];
+              //console.log(A_LoopField100);
+              addTab(A_LoopField100);
+              tabsData += A_LoopField100 + "\n";
+              currentTabFullPath = A_LoopField100;
+            }
+            openThisTabFile(currentTabFullPath);
+            tabsData = StringTrimRight(tabsData, 1);
+
+            handleTabClick(getData("last_tab.txt"));
+
+            // Log an example message to the output area
+            logToOutput("Welcome to the IDE!");
+
+            // Create the Add Tab button and add it to the tabs container
+            const addTabButton = document.createElement("button");
+            addTabButton.id = "add-tab-button";
+            addTabButton.textContent = "Add Tab";
+            addTabButton.style.backgroundColor = "#28a745"; // Button background color
+            addTabButton.style.color = "white"; // Button text color
+            addTabButton.style.border = "none"; // Remove border
+            addTabButton.style.whiteSpace = "nowrap"; // Prevent wrapping of tab buttons
+            addTabButton.style.padding = "10px"; // Padding inside button
+            addTabButton.style.marginRight = "5px"; // Space between button and tabs
+            addTabButton.style.cursor = "pointer"; // Pointer cursor on hover
+            addTabButton.style.borderRadius = "5px"; // Rounded corners
+            addTabButton.style.fontSize = "14px"; // Font size
+
+            // Button hover effects
+            addTabButton.onmouseover = () => (addTabButton.style.backgroundColor = "#218838"); // Darker color on hover
+            addTabButton.onmouseout = () => (addTabButton.style.backgroundColor = "#28a745"); // Reset color
+
+            // Function to add a new tab when the Add button is clicked
+            addTabButton.onclick = function () {
+              const randomNumber = Math.floor(Math.random() * 1000000); // Generates a random number between 0 and 9999
+              const newFullPath = `temp files/newfile${randomNumber}.txt`; // Create a unique full path
+              addTab(newFullPath); // Add the new tab
+              currentTabFullPath = newFullPath;
+              tabsData += "\n" + newFullPath;
+              saveData(tabsData, "tabs.txt");
+              openThisTabFile(currentTabFullPath);
+            };
+
+            // Insert the Add Tab button at the beginning of the tabs container
+            tabs.prepend(addTabButton);
+
+            // Context menu for closing tabs
+            const contextMenu = document.createElement("div");
+            contextMenu.id = "context-menu";
+            contextMenu.style.position = "absolute";
+            contextMenu.style.display = "none"; // Hidden by default
+            contextMenu.style.backgroundColor = "#ffffff"; // Background color for context menu
+            contextMenu.style.border = "1px solid #cccccc"; // Border for context menu
+            contextMenu.style.boxShadow = "2px 2px 10px rgba(0,0,0,0.2)"; // Shadow effect
+            contextMenu.style.zIndex = "1000"; // Make sure it appears above other elements
+
+            // Close option in context menu
+            const closeOption = document.createElement("div");
+            closeOption.textContent = "Close";
+            closeOption.style.padding = "5px 10px"; // Padding for the menu option
+            closeOption.style.cursor = "pointer"; // Pointer cursor on hover
+            closeOption.style.color = "black"; // Set text color to black
+
+            closeOption.onmouseover = () => (closeOption.style.backgroundColor = "#f0f0f0"); // Highlight on hover
+            closeOption.onmouseout = () => (closeOption.style.backgroundColor = ""); // Reset color
+            closeOption.onclick = () => {
+              const allTabs = document.querySelectorAll(".tab");
+              var outDataTabs = "";
+              var indexLoopDel = 0; // This will be used to track the index of the tabs
+
+              lastFileToOpen = currentTabFullPath;
+
+              // First loop to remove the tab and update FullPathfiles
+              allTabs.forEach((tab) => {
+                // Compare with displayed file name
+                if (tab.textContent === currentTab.replace(/\\/g, "/").split("/").pop()) {
+                  tab.remove(); // Remove the tab
+
+                  // Remove the corresponding entry from FullPathfiles
+                  FullPathfiles = FullPathfiles.filter((_, index) => index !== indexLoopDel);
+                  currentTabFullPath = FullPathfiles.length > 0 ? FullPathfiles[FullPathfiles.length - 1] : null;
+                  openThisTabFile(currentTabFullPath);
+                  handleTabClick(currentTabFullPath);
+                } else {
+                  indexLoopDel++; // Increment only if the tab is not removed
+                }
+              });
+
+              // Second loop to collect the remaining paths in FullPathfiles
+              FullPathfiles.forEach((filePath) => {
+                outDataTabs += filePath + "\n";
+              });
+
+              // Trim the collected tab data to remove the last newline
+              tabsData = StringTrimRight(outDataTabs, 1);
+              saveData(tabsData, "tabs.txt");
+              contextMenu.style.display = "none"; // Hide the context menu
+            };
+
+            // Append the close option to the context menu
+            contextMenu.appendChild(closeOption);
+
+            // New option to open file location
+            const openLocationOption = document.createElement("div");
+            openLocationOption.textContent = "Open Location";
+            openLocationOption.style.padding = "5px 10px"; // Padding for the menu option
+            openLocationOption.style.cursor = "pointer"; // Pointer cursor on hover
+            openLocationOption.style.color = "black"; // Set text color to black
+
+            openLocationOption.onmouseover = () => (openLocationOption.style.backgroundColor = "#f0f0f0"); // Highlight on hover
+            openLocationOption.onmouseout = () => (openLocationOption.style.backgroundColor = ""); // Reset color
+            openLocationOption.onclick = () => {
+              // Use the current tab's index to get the correct path from FullPathfiles
+              const currentTabIndex = [...document.querySelectorAll(".tab")].findIndex((tab) => tab.textContent === currentTab.replace(/\\/g, "/").split("/").pop());
+              const filePath = FullPathfiles[currentTabIndex]; // Get the file path based on the clicked tab index
+
+              if (filePath) {
+                // Open the location of the file in the file explorer
+                ipcRenderer
+                  .invoke("open-file-location", filePath) // Ensure you have an IPC handler in your main process
+                  .then(() => {
+                    console.log(`Opened location for: ${filePath}`);
+                  })
+                  .catch((err) => {
+                    console.error(`Failed to open file location: ${err.message}`);
+                  });
+              } else {
+                logToOutput("ERROR: No file location found for the current tab.");
+              }
+            };
+
+            // Append the open location option to the context menu
+            contextMenu.appendChild(openLocationOption);
+
+            document.body.appendChild(contextMenu);
+
+            // Function to show the context menu
+            function showContextMenu(event, tab) {
+              contextMenu.style.display = "block"; // Show the context menu
+              contextMenu.style.left = `${event.pageX}px`; // Position the menu at the mouse cursor
+              contextMenu.style.top = `${event.pageY}px`; // Position the menu at the mouse cursor
+              currentTab = tab.textContent; // Set the current tab to the one right-clicked
+            }
+
+            // Hide context menu on click outside
+            window.onclick = function (event) {
+              if (!contextMenu.contains(event.target)) {
+                contextMenu.style.display = "none"; // Hide the context menu
+              }
+            };
+
+            // Function to create and return a tooltip element
+            function createTooltip() {
+              const tooltip = document.createElement("div");
+              tooltip.style.position = "absolute";
+
+              tooltip.style.backgroundColor = "#000000"; // Background color
+              tooltip.style.color = "#ffffff"; // color
+              tooltip.style.border = "1px solid #ccc"; // Border style
+              tooltip.style.padding = "5px"; // Padding for the tooltip
+              tooltip.style.zIndex = "1000"; // Ensure it appears above other elements
+              tooltip.style.display = "none"; // Initially hidden
+              tooltip.style.whiteSpace = "nowrap"; // Prevent line breaks in tooltip
+              document.body.appendChild(tooltip); // Append to the body
+              return tooltip;
+            }
+
+            // Function to adjust tooltip position to stay within window bounds
+            function adjustTooltipPosition(tooltip, rect) {
+              const tooltipRect = tooltip.getBoundingClientRect();
+              const viewportWidth = window.innerWidth;
+              const viewportHeight = window.innerHeight;
+
+              // Adjust tooltip position if it overflows on the right
+              if (tooltipRect.right > viewportWidth) {
+                tooltip.style.left = `${viewportWidth - tooltipRect.width}px`;
+              }
+
+              // Adjust tooltip position if it overflows on the bottom
+              if (tooltipRect.bottom > viewportHeight) {
+                tooltip.style.top = `${rect.top - tooltipRect.height + window.scrollY}px`; // Position it above the tab if it goes offscreen at the bottom
+              }
+
+              // Adjust tooltip position if it overflows on the left
+              if (tooltipRect.left < 0) {
+                tooltip.style.left = `0px`;
+              }
+
+              // Adjust tooltip position if it overflows on the top
+              if (tooltipRect.top < 0) {
+                tooltip.style.top = `0px`;
+              }
+            }
+
+            // Create a tooltip element
+            const fileTooltip = createTooltip();
+
+            // Variable to hold the timeout reference
+            let hoverTimeout;
+
+
+
+            // Function to update the tab colors
+            function updateTabColors() {
+              const allTabs = document.querySelectorAll(".tab, .tab.active"); // Select both classes
+
+              // Loop through all tabs
+              for (let i = 0; i < allTabs.length; i++) {
+                const tab = allTabs[i];
+
+                // Log the text content for debugging
+                //console.log(tab.textContent);
+                //console.log(currentTabFullPath.replace(/\\/g, "/").split("/").pop());
+                
+
+                // Check if the tab's text matches the current path
+                if (tab.textContent === currentTabFullPath.replace(/\\/g, "/").split("/").pop()) {
+                  // Change background color
+                  tab.style.backgroundColor = "#2B2B2B"; // Set background color to #2B2B2B       
+                } else {
+                  // Reset background color for other tabs
+                  tab.style.backgroundColor = "rgb(11, 12, 13)"; // Reset to original color
+                }
+              }
+                              
+                document.querySelectorAll("button").forEach((button) => {
+                    const style = window.getComputedStyle(button);
+                
+                    // Check if the mouse is not over #tabs before scrolling
+                    const tabsElement = document.getElementById("tabs");
+                    const isHoveringTabs = tabsElement && tabsElement.matches(':hover');
+                
+                    if (!isHoveringTabs && style.backgroundColor === "rgb(43, 43, 43)") {
+                        button.scrollIntoView({ block: "end" });
+                    }
+                });
+
+            }
+
+            // Attach hover event listeners to each tab
+            Array.from(document.querySelectorAll(".tab")).forEach((tab, index) => {
+              tab.onmouseover = () => {
+                // Change button color to blue
+                tab.style.transition = "background-color 0.3s"; // Transition for smooth color change
+                tab.style.backgroundColor = "#116fd6"; // Change color to blue
+
+                // Set timeout to show tooltip after 1 second
+                hoverTimeout = setTimeout(() => {
+                  const filePath = FullPathfiles[index]; // Get the file path based on the tab index
+                  if (filePath) {
+                    fileTooltip.textContent = filePath; // Set tooltip text
+                    fileTooltip.style.display = "block"; // Show the tooltip
+                    const rect = tab.getBoundingClientRect(); // Get button position
+                    fileTooltip.style.left = `${rect.left}px`; // Position tooltip horizontally
+                    fileTooltip.style.top = `${rect.bottom + window.scrollY}px`; // Position tooltip below the button
+
+                    // Adjust tooltip position to make sure it stays within window bounds
+                    adjustTooltipPosition(fileTooltip, rect);
+                  }
+                }, 1000); // 1 second delay
+              };
+
+              tab.onmouseout = () => {
+                // Hide the tooltip and clear timeout
+                fileTooltip.style.display = "none"; // Hide the tooltip
+                clearTimeout(hoverTimeout); // Clear the timeout
+
+                // Call updateTabColors to reset tab colors after mouseout
+                updateTabColors();
+              };
+            });
+
+            // Run the updateTabColors function every second (111 milliseconds)
+            setInterval(updateTabColors, 111);
+
+            // Call it initially to set the colors based on the current tab
+            updateTabColors();
+
+            // Register event listeners ONCE
+            ipcRenderer.on("command-output", (event, data) => {
+              console.log("Command Output:", data); // Print to console
+              logToOutput(data); // Use your logToOutput function here
+            });
+
+            ipcRenderer.on("command-error", (event, error) => {
+              console.error("Command Error:", error);
+              logToOutput("ERROR: " + error);
+            });
+
+            ipcRenderer.on("command-close", (event, code) => {
+              console.log(`Command exited with code: ${code}`);
+              logToOutput("===execution is over===");
+            });
+
+            // Function to check if a file exists
+            async function isFileExist(filePath) {
+              return await ipcRenderer.invoke("check-file-existence", filePath);
+            }
+
+            // Function to run the command without re-adding listeners
+            async function runCMD(command) {
+              // Invoke the command
+              await ipcRenderer.invoke("run-cmd", command);
+            }
+
+            async function runCMDWithArgs(command, args = "") {
+              if (args == "") {
+                return runCMD(command);
+              }
+
+              // Invoke the command with arguments passed as an array
+              await ipcRenderer.invoke("run-cmd-args", command, args);
+            }
+
+            // Function to parse the args and commands, replacing '~~~' with space, %FILENAME% with fullFilePath, and %ONLYFILENAME% with filename without extension
+            function parseTheArgsAndCommands(propertyFileData, fullFilePath) {
+              const lines = propertyFileData.split("\n"); // Split the file data by lines
+
+              // Extract only the filename without the extension
+              const onlyFileName = fullFilePath.substring(0, fullFilePath.lastIndexOf(".")); // Get full path without extension
+              const dirFullPath = fullFilePath.substring(0, fullFilePath.lastIndexOf(fullFilePath.includes("\\") ? "\\" : "/"));
+
+              const parsedLines = lines
+                .filter((line) => !line.trim().startsWith(";")) // Ignore lines that start with ';'
+                .map(
+                  (line) =>
+                    line
+                      .replace(/~~~/g, " ") // Replace '~~~' with space
+                      .replace(/%FILENAME%/g, fullFilePath) // Replace '%FILENAME%' with fullFilePath
+                      .replace(/%ONLYFILENAME%/g, onlyFileName) // Replace '%ONLYFILENAME%' with filename without extension
+                      .replace(/%DIRFULLPATH%/g, dirFullPath), // Replace '%DIRFULLPATH%' with the full directory path
+                );
+
+              return parsedLines.filter((line) => line.trim() !== ""); // Filter out any empty lines
+            }
+
+            async function RunORcompile(fullPath, RunORcompileNum) {
+              const fileExtension = fullPath.substring(fullPath.lastIndexOf(".") + 1);
+
+              // Determine file type based on RunORcompileNum
+              const propertyFileType = RunORcompileNum == 1 ? ".htpr" : ".htpc";
+              const propertyFilePath = "property files/" + fileExtension + propertyFileType;
+
+              // Check if the property file exists
+              const fileExists = await isFileExist(propertyFilePath);
+
+              if (!fileExists) {
+                logToOutput(`ERROR: The property file does not exist for .${fileExtension} files!!!`);
+                return; // Stop execution if the file does not exist
+              }
+
+              // Get the property file data
+              const propertyFileData = getData(propertyFilePath);
+
+              // Parse and run/compile commands
+              const parsedArgs = parseTheArgsAndCommands(propertyFileData, fullPath);
+
+              // Run based on RunORcompileNum
+              if (RunORcompileNum == 1) {
+                logToOutput(`Running: ${fullPath}`);
+
+                for (const line of parsedArgs) {
+                  const [command, ...args] = line.split(" "); // First part is the command, the rest are args
+                  logToOutput(`Executing command: ${command} ${args.join(" ")}`); // Log the full command and args
+                  await runCMDWithArgs(command, args);
+                }
+              }
+
+              if (RunORcompileNum == 2) {
+                logToOutput(`Compiling: ${fullPath}`);
+
+                for (const line of parsedArgs) {
+                  const [command, ...args] = line.split(" "); // First part is the command, the rest are args
+                  logToOutput(`Executing command: ${command} ${args.join(" ")}`); // Log the full command and args
+                  await runCMDWithArgs(command, args);
+                }
+              }
+              logToOutput("===execution is over===");
+            }
+
+
+            
+
+     // Function to create a new file tab
+        async function createNewFile() {
+            try {
+                // Ensure fullPathOfTheIDEdir is defined before using it
+                if (!fullPathOfTheIDEdir) {
+                    throw new Error("IDE directory path is not set.");
+                }
+
+                // Generate a random number for the new file
+                const randomNumber = Math.floor(Math.random() * 1000000); 
+
+                // Create the new file path using the IDE directory and temp files folder
+                const path = require('path'); // Ensure you are using the Node 'path' module
+                const newFullPath = path.join(fullPathOfTheIDEdir, 'temp files', `newfile${randomNumber}.ht`);
+
+                console.log('New file path:', newFullPath); // For debugging, log the full path
+
+                // Call the function to add the new tab with the new file path
+                addTab(newFullPath);
+
+                // Update the current tab's path and save data to a file (tabs.txt)
+                currentTabFullPath = newFullPath;
+                tabsData += "\n" + currentTabFullPath;
+                saveData(tabsData, "tabs.txt");
+
+                // Open the new tab file
+                openThisTabFile(currentTabFullPath);
+            } catch (error) {
+                console.error('Error creating new file:', error);
+            }
+            saveCurrentState(variables.idetext, currentTabFullPath, 1); // Call your save function here
+        }
+
+
+            function openExistingFile() {
+              // Create an input element for file selection
+              const input = document.createElement("input");
+              input.type = "file";
+              input.accept = "*."; // Specify the file types you want to allow
+              input.onchange = (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                  const fullPath = webUtils.getPathForFile(file); // Get the full path using webUtils
+
+                  const reader = new FileReader();
+                  reader.onload = (e) => {
+                    const content = e.target.result; // Get file content
+                    addTab(fullPath); // Call your function to add a new tab with the full path
+                    currentTabFullPath = fullPath;
+                    tabsData += "\n" + currentTabFullPath;
+                    saveData(tabsData, "tabs.txt");
+                    openThisTabFile(currentTabFullPath);
+                    // Optionally, you can set the content in the new tab if your addTab function supports that
+                  };
+                  reader.readAsText(file); // Read the file as text
+                }
+              };
+              input.click(); // Trigger the file input dialog
+            }
+
+            // Event listener for Ctrl + S key to save output
+            window.addEventListener("keydown", function (event) {
+              // Existing F5 key listener
+              if (event.key === "F5") {
+                event.preventDefault(); // Prevent default behavior
+                logToOutput("Output after pressing F5!", 1); // Example output
+                saveCurrentState(variables.idetext, currentTabFullPath, 1); // Call your save function here
+                RunORcompile(currentTabFullPath, 1);
+              }
+
+              // Existing Ctrl + F7 key listener
+              if (event.ctrlKey && event.key === "F7") {
+                event.preventDefault(); // Prevent default behavior
+                logToOutput("Output after pressing Ctrl + F7!", 2); // Example output
+                saveCurrentState(variables.idetext, currentTabFullPath, 1); // Call your save function here
+                RunORcompile(currentTabFullPath, 2);
+              }
+
+              // New Ctrl + S key listener
+              if (event.ctrlKey && (event.key === "s" || event.key === "S")) {
+                // Check if Ctrl is pressed along with S
+                event.preventDefault(); // Prevent default behavior
+                saveCurrentState(variables.idetext, currentTabFullPath, 0); // Call your save function here
+              }
+
+
+
+
+
+// Check for Alt + S key press
+if (event.altKey && (event.key === "s" || event.key === "S")) {
+  event.preventDefault(); // Prevent default behavior
+
+  // Create iframe container if not already present
+  let iframeContainer = document.getElementById('iframeContainer');
+  if (!iframeContainer) {
+    iframeContainer = document.createElement('div');
+    iframeContainer.id = 'iframeContainer';
+    document.body.appendChild(iframeContainer); // You can append it where you want on the page
+  }
+
+  // Create the iframe
+  const iframe = document.createElement('iframe');
+  iframe.src = `file://${__dirname}/settings-iframe.html`;  // Load local settings-iframe.html
+  iframe.style.width = '80%';  // Adjust the width to fit within the screen
+  iframe.style.height = '80%';  // Adjust the height
+  iframe.style.border = 'none';
+  iframe.style.position = 'fixed';  // Fix it to the viewport
+  iframe.style.top = '50%';  // Position it in the center vertically
+  iframe.style.left = '50%';  // Position it in the center horizontally
+  iframe.style.transform = 'translate(-50%, -50%)';  // Adjust to center exactly
+  iframe.style.zIndex = '1000';  // Ensure it's on top
+
+  // Create a close button
+  const closeButton = document.createElement('button');
+  closeButton.textContent = 'X';
+  closeButton.style.position = 'absolute';
+  closeButton.style.top = '10px';
+  closeButton.style.right = '10px';
+  closeButton.style.padding = '5px';
+  closeButton.style.backgroundColor = 'red';
+  closeButton.style.color = 'white';
+  closeButton.style.border = 'none';
+  closeButton.style.borderRadius = '50%';
+  closeButton.style.zIndex = '1001';  // Make sure the close button is above the iframe
+
+  // Append iframe and close button
+  iframeContainer.appendChild(iframe);
+  iframeContainer.appendChild(closeButton);
+
+  // Close button functionality
+  closeButton.addEventListener('click', () => {
+    iframe.remove();
+    closeButton.remove();
+  });
+}
+
+
+
+
+
+
+
+              // New Ctrl + N key listener
+              if (event.ctrlKey && (event.key === "n" || event.key === "N")) {
+                event.preventDefault(); // Prevent default behavior
+                createNewFile(); // Function to create a new file (you'll need to implement this)
+              }
+
+              // New Ctrl + O key listener
+              if (event.ctrlKey && (event.key === "o" || event.key === "O")) {
+                event.preventDefault(); // Prevent default behavior
+                openExistingFile(); // Function to open an existing file (you'll need to implement this)
+              }
+
+              // New Ctrl + W key listener
+              if (event.ctrlKey && (event.key === "w" || event.key === "W")) {
+                event.preventDefault(); // Prevent default behavior
+                saveCurrentState(variables.idetext, currentTabFullPath, 0); // Call your save function here
+                const allTabs = document.querySelectorAll(".tab");
+                var outDataTabs = "";
+                var indexLoopDel = 0; // This will be used to track the index of the tabs
+
+                lastFileToOpen = currentTabFullPath;
+
+                // First loop to remove the tab and update FullPathfiles
+                for (let i = 0; i < allTabs.length; i++) {
+                  const tab = allTabs[i];
+
+                  //console.log(tab.textContent);
+                  // console.log(currentTabFullPath.replace(/\\/g, "/").split("/").pop());
+
+                  if (tab.textContent === currentTabFullPath.replace(/\\/g, "/").split("/").pop()) {
+                    tab.remove(); // Remove the tab
+
+                    // Remove the corresponding entry from FullPathfiles
+                    FullPathfiles = FullPathfiles.filter((_, index) => index !== indexLoopDel);
+                    currentTabFullPath = FullPathfiles.length > 0 ? FullPathfiles[FullPathfiles.length - 1] : null;
+                    openThisTabFile(currentTabFullPath);
+                    handleTabClick(currentTabFullPath);
+
+                    break; // Break out of the loop
+                  } else {
+                    indexLoopDel++; // Increment only if the tab is not removed
+                  }
+                }
+
+                // Second loop to collect the remaining paths in FullPathfiles
+                FullPathfiles.forEach((filePath) => {
+                  outDataTabs += filePath + "\n";
+                });
+
+                // Trim the collected tab data to remove the last newline
+                tabsData = StringTrimRight(outDataTabs, 1);
+                saveData(tabsData, "tabs.txt");
+                contextMenu.style.display = "none"; // Hide the context menu
+              }
+
+              // Ctrl + Shift + T key listener to reopen the last closed tab
+              if (event.ctrlKey && event.shiftKey && (event.key === "t" || event.key === "T")) {
+                event.preventDefault(); // Prevent default behavior
+                // console.log(lastFileToOpen);
+                if (lastFileToOpen) {
+                  addTab(lastFileToOpen);
+                  openThisTabFile(lastFileToOpen);
+                  handleTabClick(currentTabFullPath);
+                  currentTabFullPath = lastFileToOpen;
+                  tabsData += "\n" + lastFileToOpen;
+                  saveData(tabsData, "tabs.txt");
+                } else {
+                  console.log("No file to reopen.");
+                  logToOutput("No file to reopen.");
+                }
+              }
+
+              if (event.key === "Control") {
+                ctrlPressed = true;
+              }
+
+              // Ctrl + Tab to switch between tabs
+              if (ctrlPressed && event.key === "Tab") {
+                event.preventDefault(); // Prevent default behavior
+
+                if (!cyclingTabs) {
+                  // Single press: Switch to the most recent tab
+                  if (lastTabIndex !== -1) {
+                    let temp = currentTabIndex;
+                    currentTabIndex = lastTabIndex;
+                    lastTabIndex = temp;
+                  }
+                  cyclingTabs = true; // Now we start cycling
+                } else {
+                  // Cycle through all tabs when repeatedly pressing Tab
+                  lastTabIndex = currentTabIndex;
+                  currentTabIndex = (currentTabIndex + 1) % FullPathfiles.length; // Move to the next tab, wrap around if needed
+                }
+
+                handleTabClick(FullPathfiles[currentTabIndex]); // Activate the selected tab
+              }
+            });
+
+            // Detect when Ctrl is released
+            window.addEventListener("keyup", function (event) {
+              if (event.key === "Control") {
+                ctrlPressed = false;
+                cyclingTabs = false; // Reset cycling state when Ctrl is released
+              }
+            });
+
+            document.addEventListener("dragover", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            });
+
+            document.addEventListener("drop", (event) => {
+              event.preventDefault();
+              event.stopPropagation();
+
+              const filePaths = []; // Array to hold file paths
+              for (let i = 0; i < event.dataTransfer.files.length; i++) {
+                const file = event.dataTransfer.files[i];
+
+                // Use webUtils to get the full path
+                const fullPath = webUtils.getPathForFile(file);
+
+                // Push the full path into the array
+                filePaths.push(fullPath);
+
+                // Call addTab with the full path here
+                addTab(fullPath);
+                openThisTabFile(fullPath);
+                currentTabFullPath = fullPath;
+                tabsData += "\n" + fullPath;
+                saveData(tabsData, "tabs.txt");
+              }
+
+              // console.log(filePaths); // Log the array of file paths
+            });
+            
+            
+            
+
+
+window.addEventListener('message', (event) => {
+  // Optional: Verify the origin
+  // if (event.origin !== "http://your-allowed-origin") return;
+
+  const data = event.data;
+
+  // Check if the data is the string 'close'
+  if (data === 'close') {
+    // Handle the close action from iframe
+    const iframe = document.getElementById('iframeContainer');
+    iframe.remove(); // Removes the iframe, or you can hide it
+  }
+  
+  
+if (SubStr(Trim(data), 1, 5) == "save|") {
+
+
+}
+
+  console.log('Received message from iframe:', data);
+});
+
+
+
+
+
+
+
+  // Function to update the position and size of the console
+  function updateConsolePosition() {
+    // Get the elements
+    const gui1IDE1 = document.getElementById('Gui1IDE1');
+    const consoleDiv = document.getElementById('console');
+
+    // Calculate new position and size
+    const gui1IDE1Rect = gui1IDE1.getBoundingClientRect();
+    const newY = gui1IDE1Rect.top + gui1IDE1Rect.height + 1; // Add 10px margin
+    const parent = document.getElementById('Gui1');
+    const parentRect = parent.getBoundingClientRect();
+    const newHeight = parentRect.height - newY - 25; // Padding of 5px
+
+    // Apply the new styles
+    consoleDiv.style.position = 'absolute';
+    consoleDiv.style.top = `${newY}px`;
+    consoleDiv.style.left = '1px'; // Align with Gui1IDE1
+    consoleDiv.style.width = 'calc(99% - 0px)'; // Keep the same width as Gui1IDE1
+    consoleDiv.style.height = `${newHeight}px`; // Adjust height dynamically
+  }
+
+  // Set up listeners for changes
+  window.addEventListener('resize', updateConsolePosition); // Update on window resize
+
+  // Initial update
+  updateConsolePosition();
+
+            async function HotKeyCalledAltShiftCtrlF() {
+              // console.log("HotKeyCalled AltShiftCtrlF")
+              textOldSave = variables.idetext;
+              variables.TextData = "";
+              variables.out = "";
+              variables.base64ImageData = "";
+              variables.base64soundList = "";
+              variables.base64iconList = "";
+              variables.base64VideoData = "";
+              variables.jsCode01CanvasW = "";
+              variables.jsCode01CanvasH = "";
+              variables.skipLeftCuleyForFuncPLS = 0;
+              variables.eavbnsalvbaslv = 0;
+              variables.ifWeUseCanvas = 0;
+              variables.weUseCnanvasAtALL = 0;
+              variables.numOfTextData = 0;
+              variables.funcs = "let funcs = {\n";
+              variables.doWeEvenDecAnyFuncHUH = 0;
+              variables.onKeyPress = "";
+              variables.jsCodeGui = "";
+              variables.isFullScrenOnce = 0;
+              variables.HotKeyCalledHotKyes = "";
+              variables.jsCode = "";
+              variables.outAHKCodeTrimed = "";
+              variables.idetext = await StrReplace(variables.idetext, await Chr(13), "");
+              var items1 = LoopParseFunc(variables.idetext, "\n", "\r");
+              for (/* Loop Parse */ let A_Index1 = 1; A_Index1 <= items1.length; A_Index1++) {
+                variables.A_Index1 = A_Index1;
+                variables.A_LoopField1 = items1[A_Index1 - 1];
+                variables.outAHKCodeTrimed += (await Trim(variables.A_LoopField1)) + "\n";
+              }
+              variables.idetext = StringTrimRight(variables.outAHKCodeTrimed, 1);
+              variables.AHKcodeOUT754754 = "";
+              variables.areWEinSome34sNum = 0;
+              variables.theIdNumOfThe34 = 0;
+              var items2 = LoopParseFunc(variables.idetext);
+              for (/* Loop Parse */ let A_Index2 = 1; A_Index2 <= items2.length; A_Index2++) {
+                variables.A_Index2 = A_Index2;
+                variables.A_LoopField2 = items2[A_Index2 - 1];
+                variables["theIdNumOfThe34theVar" + variables.A_Index2] = await Chr(34);
+              }
+              var items3 = LoopParseFunc(variables.idetext);
+              for (/* Loop Parse */ let A_Index3 = 1; A_Index3 <= items3.length; A_Index3++) {
+                variables.A_Index3 = A_Index3;
+                variables.A_LoopField3 = items3[A_Index3 - 1];
+                if (variables.A_LoopField3 == (await Chr(34))) {
+                  variables.areWEinSome34sNum += 1;
+                }
+                if (variables.areWEinSome34sNum == 1) {
+                  if (variables.A_LoopField3 != (await Chr(34))) {
+                    variables["theIdNumOfThe34theVar" + variables.theIdNumOfThe34] += variables.A_LoopField3;
+                  } else {
+                    variables.theIdNumOfThe34 += 1;
+                    variables.AHKcodeOUT754754 += "ihuiuuhuuhtheidFor--asas-theuhturtyphoutr-" + (await Chr(65)) + (await Chr(65)) + (await str(variables.theIdNumOfThe34)) + (await Chr(65)) + (await Chr(65));
+                  }
+                }
+                if (variables.areWEinSome34sNum == 2 || variables.areWEinSome34sNum == 0) {
+                  if (variables.A_LoopField3 != (await Chr(34))) {
+                    variables.AHKcodeOUT754754 += variables.A_LoopField3;
+                  }
+                  variables.areWEinSome34sNum = 0;
+                }
+              }
+              variables.idetext = variables.AHKcodeOUT754754;
+              for (/* Normal Loop */ variables.A_Index4 = 1; variables.A_Index4 <= variables.theIdNumOfThe34; variables.A_Index4++) {
+                variables["theIdNumOfThe34theVar" + variables.A_Index4] += await Chr(34);
+              }
+              variables.sstr23IfFuncInNAMEnum = 0;
+              variables.outCodeFixBraces = "";
+              for (/* Normal Loop */ variables.A_Index5 = 1; variables.A_Index5 <= 2; variables.A_Index5++) {
+                variables.outCodeFixBraces = "";
+                var items6 = LoopParseFunc(variables.idetext, "\n", "\r");
+                for (/* Loop Parse */ let A_Index6 = 1; A_Index6 <= items6.length; A_Index6++) {
+                  variables.A_Index6 = A_Index6;
+                  variables.A_LoopField6 = items6[A_Index6 - 1];
+                  if ((await InStr(await Trim(variables.A_LoopField6), "{")) && (await Trim(variables.A_LoopField6)) != "{") {
+                    variables.outCodeFixBraces += (await Trim(await StrReplace(await Trim(variables.A_LoopField6), "{", ""))) + "\n{\n";
+                  } else if ((await InStr(await Trim(variables.A_LoopField6), "}")) && (await Trim(variables.A_LoopField6)) != "}") {
+                    variables.outCodeFixBraces += "}\n" + (await Trim(await StrReplace(await Trim(variables.A_LoopField6), "}", ""))) + "\n";
+                  } else {
+                    variables.outCodeFixBraces += (await Trim(variables.A_LoopField6)) + "\n";
+                  }
+                }
+                variables.idetext = StringTrimRight(variables.outCodeFixBraces, 1);
+              }
+              variables.idetext = await KandRstyleFormat(await indent_nested_curly_braces(variables.idetext));
+              for (/* Normal Loop */ variables.A_Index7 = 1; variables.A_Index7 <= variables.theIdNumOfThe34; variables.A_Index7++) {
+                variables.idetext = await StrReplace(variables.idetext, "ihuiuuhuuhtheidFor--asas-theuhturtyphoutr-" + (await Chr(65)) + (await Chr(65)) + (await str(variables.A_Index7)) + (await Chr(65)) + (await Chr(65)), variables["theIdNumOfThe34theVar" + variables.A_Index7]);
+              }
+              GuiControl("textide", "Gui1IDE1", variables.idetext);
+            }
+            async function KandRstyleFormat(code) {
+              variables.code = code;
+              variables.codeOut = "";
+              var items8 = LoopParseFunc(variables.code, "\n", "\r");
+              for (/* Loop Parse */ let A_Index8 = 1; A_Index8 <= items8.length; A_Index8++) {
+                variables.A_Index8 = A_Index8;
+                variables.A_LoopField8 = items8[A_Index8 - 1];
+                variables["lookInTheFurtre" + variables.A_Index8] = await Trim(variables.A_LoopField8);
+              }
+              variables["lookInTheFurtre" + variables.A_Index] = " ";
+              variables.skipLine = 0;
+              var items9 = LoopParseFunc(variables.code, "\n", "\r");
+              for (/* Loop Parse */ let A_Index9 = 1; A_Index9 <= items9.length; A_Index9++) {
+                variables.A_Index9 = A_Index9;
+                variables.A_LoopField9 = items9[A_Index9 - 1];
+                variables.AIndex = variables.A_Index9 + 1;
+                if (variables.skipLine == 1) {
+                  variables.skipLine = 0;
+                } else {
+                  if (variables["lookInTheFurtre" + variables.AIndex] != "{") {
+                    variables.codeOut += variables.A_LoopField9 + "\n";
+                  }
+                }
+                if (variables["lookInTheFurtre" + variables.AIndex] == "{") {
+                  variables.skipLine = 1;
+                  variables.codeOut += variables.A_LoopField9 + " {\n";
+                }
+              }
+              variables.codeOut = StringTrimRight(variables.codeOut, 1);
+              variables.codeOut2 = "";
+              var items10 = LoopParseFunc(variables.codeOut, "\n", "\r");
+              for (/* Loop Parse */ let A_Index10 = 1; A_Index10 <= items10.length; A_Index10++) {
+                variables.A_Index10 = A_Index10;
+                variables.A_LoopField10 = items10[A_Index10 - 1];
+                variables["lookInTheFurtre" + variables.A_Index10] = await Trim(variables.A_LoopField10);
+              }
+              variables["lookInTheFurtre" + variables.A_Index] = " ";
+              variables.skipLine = 0;
+              var items11 = LoopParseFunc(variables.codeOut, "\n", "\r");
+              for (/* Loop Parse */ let A_Index11 = 1; A_Index11 <= items11.length; A_Index11++) {
+                variables.A_Index11 = A_Index11;
+                variables.A_LoopField11 = items11[A_Index11 - 1];
+                variables.AIndex = variables.A_Index11 + 1;
+                if (variables.skipLine == 1) {
+                  variables.skipLine = 0;
+                } else {
+                  if (variables["lookInTheFurtre" + variables.AIndex] != "else {") {
+                    variables.codeOut2 += variables.A_LoopField11 + "\n";
+                  }
+                }
+                if (variables["lookInTheFurtre" + variables.AIndex] == "else {") {
+                  variables.skipLine = 1;
+                  variables.scoaceses = "";
+                  var items12 = LoopParseFunc(variables.A_LoopField11);
+                  for (/* Loop Parse */ let A_Index12 = 1; A_Index12 <= items12.length; A_Index12++) {
+                    variables.A_Index12 = A_Index12;
+                    variables.A_LoopField12 = items12[A_Index12 - 1];
+                    if (variables.A_LoopField12 != " ") {
+                      break;
+                    } else {
+                      variables.scoaceses += " ";
+                    }
+                  }
+                  variables.codeOut2 += variables.scoaceses + "} else" + " {\n";
+                }
+              }
+              variables.codeOut = StringTrimRight(variables.codeOut2, 1);
+              return variables.codeOut;
+            }
+            async function RepeatSpaces(count) {
+              variables.count = count;
+              variables.spaces = "";
+              for (/* Normal Loop */ variables.A_Index10 = 1; variables.A_Index10 <= variables.count; variables.A_Index10++) {
+                variables.spaces += " ";
+              }
+              return variables.spaces;
+            }
+            async function indent_nested_curly_braces(input_string) {
+              variables.input_string = input_string;
+              variables.indent_size = 4;
+              variables.current_indent = 0;
+              variables.result = "";
+              var items11 = variables.input_string.split(/\r?\n|\r/);
+              for (/* Loop Parse */ let A_Index11 = 1; A_Index11 <= items11.length; A_Index11++) {
+                variables.A_Index11 = A_Index11;
+                variables.A_LoopField11 = items11[A_Index11 - 1];
+                variables.trimmed_line = await Trim(variables.A_LoopField11);
+                if (variables.trimmed_line == (await Chr(123))) {
+                  variables.result += (await RepeatSpaces(variables.current_indent)) + (variables.trimmed_line + "\n");
+                  variables.current_indent = variables.current_indent + variables.indent_size;
+                } else if (variables.trimmed_line == (await Chr(125))) {
+                  variables.current_indent = variables.current_indent - variables.indent_size;
+                  variables.result += (await RepeatSpaces(variables.current_indent)) + (variables.trimmed_line + "\n");
+                } else {
+                  variables.result += (await RepeatSpaces(variables.current_indent)) + (variables.trimmed_line + "\n");
+                }
+              }
+              variables.result = StringTrimRight(variables.result, 1);
+              // Return the result
+              return variables.result;
+            }
+          }
+
+          // Call the async function to start the script
+          runScript();
+    </script>
+  </body>
+</html>
+
+
+
