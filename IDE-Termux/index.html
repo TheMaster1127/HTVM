@@ -1525,9 +1525,13 @@ updateDimensions();
             var scrollPosArrayTEMP = getData("scrollPosArray.txt");
 
             // Split the string by newlines and loop through each line.
-            scrollPosArrayTEMP.split("\n").forEach(function (line) {
-              scrollPosArray.push(line); // Add each line to the global scrollPosArray
-            });
+            if (typeof scrollPosArrayTEMP === 'string') {
+    scrollPosArrayTEMP.split("\n").forEach(function (line) {
+        scrollPosArray.push(line); // Add each line to the global scrollPosArray
+    });
+} else {
+    console.error('Expected scrollPosArrayTEMP to be a string, but got:', typeof scrollPosArrayTEMP);
+}
 
             // Function to add a new tab
             function addTab(fullPath) {
