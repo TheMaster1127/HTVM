@@ -28,6 +28,16 @@ def get_data():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+
+@app.route('/htvm_syntax_highlighting_and_autocomplete.js')
+def serve_js():
+    return send_from_directory(os.getcwd(), 'htvm_syntax_highlighting_and_autocomplete.js')
+
+
+
+
+
+
 @app.route('/get-ide-dir-path', methods=['GET'])
 def get_ide_dir_path():
     try:
@@ -63,6 +73,22 @@ def run_cmd():
         return jsonify({"status": "success", "output": result.stdout, "error": result.stderr})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route('/run-cmd-args', methods=['POST'])
+def run_cmd_with_args():
+    data = request.json
+    command = data['command']
+    args = data['args']
+    
+    # Join the command with arguments (assuming args is a list)
+    full_command = f"{command} {' '.join(args)}"
+    
+    try:
+        result = subprocess.run(full_command, shell=True, capture_output=True, text=True)
+        return jsonify({"status": "success", "output": result.stdout, "error": result.stderr})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 
 @app.route('/api/open-file-location', methods=['POST'])
 def open_file_location():

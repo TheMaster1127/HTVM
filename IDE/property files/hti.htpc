@@ -1,1 +1,132 @@
-HT-Interpreter.py "%FILENAME%"
+let dataToSend := ""
+let displayData := ""
+let canSend := 1
+
+
+AScreenWidth := BuildInVars("A_ScreenWidth") - 10
+AScreenHeight := BuildInVars("A_ScreenHeight") - 10
+
+
+Gui_Show("upDiv", 5, 10, AScreenWidth, 150, true, "#2E2E4E", 10, null)
+
+
+
+
+
+;Gui_Text(str guiID, str textID, str text, [int x = null], [int y = null], [str color = '#FFFFFF'], [int roundness = null], [int zIndex = null])
+
+text1_0x := 50
+text1_0y := 25
+Gui_Text("upDiv", "text1_0", "text1", text1_0x, text1_0y, "#197AE1")
+Gui_Size_Id("upDiv", "text1_0", 20)
+Gui_Font_Id("upDiv", "text1_0", "Arial Black")
+
+text1_1x := 50
+text1_1y := 75
+Gui_Text("upDiv", "text1_1", "text1", text1_1x, text1_1y, "#FFFFFF")
+Gui_Size_Id("upDiv", "text1_1", 20)
+Gui_Font_Id("upDiv", "text1_1", "Arial")
+
+
+text2_0x := (AScreenWidth / 2) - (100 / 2)
+text2_0y := 25
+Gui_Text("upDiv", "text2_0", "text2", text2_0x, text2_0y, "#197AE1")
+Gui_Size_Id("upDiv", "text2_0", 20)
+Gui_Font_Id("upDiv", "text2_0", "Arial Black")
+
+text2_1x := (AScreenWidth / 2) - (100 / 2)
+text2_1y := 75
+Gui_Text("upDiv", "text2_1", "text2", text2_1x, text2_1y, "#FFFFFF")
+Gui_Size_Id("upDiv", "text2_1", 20)
+Gui_Font_Id("upDiv", "text2_1", "Arial")
+
+
+text3_0x := AScreenWidth - 100
+text3_0y := 25
+Gui_Text("upDiv", "text3_0", "text3", text3_0x, text3_0y, "#197AE1")
+Gui_Size_Id("upDiv", "text3_0", 20)
+Gui_Font_Id("upDiv", "text3_0", "Arial Black")
+
+text3_1x := AScreenWidth - 100
+text3_1y := 75
+Gui_Text("upDiv", "text3_1", "text3", text3_1x, text3_1y, "#FFFFFF")
+Gui_Size_Id("upDiv", "text3_1", 20)
+Gui_Font_Id("upDiv", "text3_1", "Arial")
+
+
+
+if (AScreenWidth < AScreenHeight)
+{
+gridRow := 10
+gridColumns := 1
+}
+else
+{
+gridRow := 2
+gridColumns := 5
+}
+isGrid := 1
+
+
+howManyMidDivs := 7 ; we will ignore this if isGrid = 1
+
+midDivX := 10
+midDivY := 170
+midDivW := (AScreenWidth - (gridColumns * 10)) / gridColumns
+midDivH := 140
+
+if (isGrid != 1)
+{
+    Loop, % howManyMidDivs
+    {
+        if (A_Index > 0) ; Increment position from the second div
+        {
+            midDivX := midDivX + midDivW + 10
+        }
+        Gui_Show("midDiv" . (A_Index - 1), midDivX, midDivY, midDivW, midDivH, true, "#2E2E4E", 10, null)
+    }
+}
+else
+{
+    Loop, % gridRow
+    {
+    rowIndex := A_Index
+        midDivX := 10 ; Reset X for each row
+        Loop, % gridColumns
+        {
+        
+            if (A_Index > 0) ; Increment position from the second column
+            {
+                midDivX := midDivX + midDivW + 10
+            }
+            Gui_Show("midDiv" . (((A_Index - 1) * gridColumns) + (rowIndex - 1)), midDivX, midDivY, midDivW, midDivH, true, "#2E2E4E", 10, null)
+        }
+        midDivY := midDivY + midDivH + 10 ; Move to the next row
+    }
+}
+
+; AScreenWidth
+; AScreenHeight
+
+;EditBoxDISPLAY_x := 5
+;EditBoxDISPLAY_y := 5
+;EditBoxDISPLAY_w := AScreenWidth - 20
+;EditBoxDISPLAY_h := AScreenHeight - 20 - 160
+;Gui_Edit("gui1", "EditBoxDISPLAY", "", EditBoxDISPLAY_x, EditBoxDISPLAY_y, EditBoxDISPLAY_w, EditBoxDISPLAY_h, "#121212", "#FFFFFF", null, null, null, null)
+
+SendButton_w := 140
+SendButton_h := 40
+SendButton_x := (AScreenWidth / 2) - (SendButton_w / 2)
+SendButton_y := (AScreenHeight / 2) - (SendButton_h / 2)
+;Gui_Button("gui1", "SendButton", "Send", SendButton_x, SendButton_y, SendButton_w, SendButton_h, "#4CAF50", "#FFFFFF", true, 5, null, send)
+
+
+;Gui_Size_Id("gui1", "SendButton", 20)
+
+
+
+func send(data)
+{
+await MsgBox("hi")
+}
+
