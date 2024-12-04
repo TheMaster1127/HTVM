@@ -5,6 +5,12 @@ import sys
 
 app = Flask(__name__)
 
+
+@app.route('/')
+def serve_index():
+    return send_from_directory('static', 'index.html')
+
+
 @app.route('/save-data', methods=['POST'])
 def save_data():
     data = request.json
