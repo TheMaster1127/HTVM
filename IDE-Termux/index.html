@@ -1949,7 +1949,7 @@ updateDimensions();
         }
         async function browseFilesAndSelect() {
   return new Promise((resolve) => {
-    let currentPath = "/"; // Start from the root directory
+    let currentPath = "/"; // Default to the root directory
     let uiContainer, fileList, pathDisplay, closeButton;
 
     // Helper to log messages
@@ -1970,6 +1970,9 @@ updateDimensions();
       runCmd(`cd ${currentPath} && ls`, (data) => {
         if (data.error) {
           logToUI(`Error: ${data.error}`);
+          if (data.error.includes("Permission denied")) {
+            logToUI("You do not have permission to access this directory. Please choose another one.");
+          }
         } else {
           const items = data.output.split("\n").filter(Boolean);
           items.forEach((item) => {
@@ -2039,27 +2042,33 @@ updateDimensions();
 }
 
 
-         // Function to add a new tab when the Add button is clicked
+// Function to add a new tab when the Add button is clicked
 addTabButton.onclick = async function () {
- 
-const fullPath = "";
-  browseFilesAndSelect().then((fullPath) => {
-  if (fullPath) {
-    console.log("Selected file:", fullPath);
-  } else {
-    console.log("No file selected.");
+  try {
+    // Wait for the user to select a file
+    const fullPath = await browseFilesAndSelect();
+
+    if (fullPath) {
+      console.log("Selected file:", fullPath);
+
+      // Add a new tab with the selected file's path
+      addTab(fullPath);
+
+      // Update current tab's full path and save the tabs data
+      currentTabFullPath = fullPath;
+      tabsData += "\n" + currentTabFullPath;
+      await saveData(tabsData, "tabs.txt");
+
+      // Open the selected tab file
+      openThisTabFile(currentTabFullPath);
+    } else {
+      console.log("No file selected.");
+    }
+  } catch (error) {
+    console.error("Error adding new tab:", error);
   }
-});
-
-
-addTab(fullPath); // Call your function to add a new tab with the full path
-                    currentTabFullPath = fullPath;
-                    tabsData += "\n" + currentTabFullPath;
-                   await saveData(tabsData, "tabs.txt");
-                    openThisTabFile(currentTabFullPath);
-
-
 };
+
 
 
             // Insert the Add Tab button at the beginning of the tabs container
