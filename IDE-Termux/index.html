@@ -144,35 +144,57 @@
   </head>
   <body>
     <script>
-          // Import required modules from Electron
-          const { ipcRenderer, webUtils } = require("electron");
+        
+    // Save data to a file
+async function saveData(data, place) {
+    logToConsole(`Saving data to ${place}`);
+    const response = await fetch('/save-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data, place }),
+    });
+    const result = await response.json();
+    if (result.status === "success") {
+        logToConsole(`Data saved successfully to ${place}`);
+    } else {
+        console.error(`Error saving data: ${result.message}`);
+    }
+}
 
-          // Save data to a file (either in the same directory or a full path)
-          function saveData(data, place) {
-            logToConsole(`Saving data to ${place}`);
-            ipcRenderer.send("save-data", { data, place });
-          }
-
-          // Get data from a file (either in the same directory or a full path)
-          function getData(place) {
-            logToConsole(`Getting data from ${place}`);
-            ipcRenderer.send("get-data", place);
-          }
+// Get data from a file
+async function getData(place) {
+    logToConsole(`Getting data from ${place}`);
+    const response = await fetch('/get-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ place }),
+    });
+    const result = await response.json();
+    if (result.status === "success") {
+        return result.data;
+    } else {
+        console.error(`Error getting data: ${result.message}`);
+    }
+}
       let fullPathOfTheIDEdir = '';
 
 
 
-        // Get the IDE directory path when the page loads
-        async function getIdeDirPath() {
-            try {
-                // Get the IDE folder path from the main process
-                fullPathOfTheIDEdir = await ipcRenderer.invoke('get-ide-dir-path');
-                console.log("Full Path of IDE Directory:", fullPathOfTheIDEdir);
-            } catch (error) {
-                console.error('Error getting IDE directory path:', error);
-            }
+       // Get the IDE directory path
+async function getIdeDirPath() {
+    try {
+        const response = await fetch('/get-ide-dir-path');
+        const result = await response.json();
+        if (result.status === "success") {
+            fullPathOfTheIDEdir = result.path;
+            console.log("Full Path of IDE Directory:", fullPathOfTheIDEdir);
+        } else {
+            console.error(`Error getting IDE directory path: ${result.message}`);
         }
-
+    } catch (error) {
+        console.error('Error fetching IDE directory path:', error);
+    }
+}
 
         // Example of opening a file
         async function openFile(fileName) {
@@ -1311,24 +1333,37 @@
           ////////////////////////////////////////////////////////////////////////////////////////////////
 
           // Save data to a file and return result
-          function saveData(data, place) {
-            return ipcRenderer.sendSync("save-data", { data, place }); // Use sendSync to get the return value immediately
-          }
+       // Save data to a file
+async function saveData(data, place) {
+    logToConsole(`Saving data to ${place}`);
+    const response = await fetch('/save-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data, place }),
+    });
+    const result = await response.json();
+    if (result.status === "success") {
+        logToConsole(`Data saved successfully to ${place}`);
+    } else {
+        console.error(`Error saving data: ${result.message}`);
+    }
+}
 
-          // Get data from a file, return result, and remove only one trailing newline
-          function getData(place) {
-            let data = ipcRenderer.sendSync("get-data", place); // Get the return value immediately
-
-            // Remove only one trailing newline, if present
-            if (data.endsWith("\n")) {
-              data = data.slice(0, -1); // Remove the last newline character
-            }
-            if (data) {
-              return data;
-            } else {
-              return "[empty file]";
-            }
-          }
+// Get data from a file
+async function getData(place) {
+    logToConsole(`Getting data from ${place}`);
+    const response = await fetch('/get-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ place }),
+    });
+    const result = await response.json();
+    if (result.status === "success") {
+        return result.data;
+    } else {
+        console.error(`Error getting data: ${result.message}`);
+    }
+}
 
           // Single async function to structure the entire script
           async function runScript() {
@@ -1928,24 +1963,36 @@ updateDimensions();
             openLocationOption.onmouseover = () => (openLocationOption.style.backgroundColor = "#f0f0f0"); // Highlight on hover
             openLocationOption.onmouseout = () => (openLocationOption.style.backgroundColor = ""); // Reset color
             openLocationOption.onclick = () => {
-              // Use the current tab's index to get the correct path from FullPathfiles
-              const currentTabIndex = [...document.querySelectorAll(".tab")].findIndex((tab) => tab.textContent === currentTab.replace(/\\/g, "/").split("/").pop());
-              const filePath = FullPathfiles[currentTabIndex]; // Get the file path based on the clicked tab index
+    // Use the current tab's index to get the correct path from FullPathfiles
+    const currentTabIndex = [...document.querySelectorAll(".tab")].findIndex((tab) => tab.textContent === currentTab.replace(/\\/g, "/").split("/").pop());
+    const filePath = FullPathfiles[currentTabIndex]; // Get the file path based on the clicked tab index
 
-              if (filePath) {
-                // Open the location of the file in the file explorer
-                ipcRenderer
-                  .invoke("open-file-location", filePath) // Ensure you have an IPC handler in your main process
-                  .then(() => {
-                    console.log(`Opened location for: ${filePath}`);
-                  })
-                  .catch((err) => {
-                    console.error(`Failed to open file location: ${err.message}`);
-                  });
-              } else {
-                logToOutput("ERROR: No file location found for the current tab.");
-              }
-            };
+    if (filePath) {
+        // Send a request to the Flask server to open the file location
+        fetch('/api/open-file-location', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ filePath: filePath }), // Send the file path in the request body
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(`Opened location for: ${filePath}`, data.message);
+            })
+            .catch((err) => {
+                console.error(`Failed to open file location: ${err.message}`);
+            });
+    } else {
+        logToOutput("ERROR: No file location found for the current tab.");
+    }
+};
+
 
             // Append the open location option to the context menu
             contextMenu.appendChild(openLocationOption);
@@ -2110,16 +2157,35 @@ updateDimensions();
               logToOutput("===execution is over===");
             });
 
-            // Function to check if a file exists
-            async function isFileExist(filePath) {
-              return await ipcRenderer.invoke("check-file-existence", filePath);
-            }
+            // Check if a file exists
+async function isFileExist(filePath) {
+    const response = await fetch('/check-file-existence', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ file_path: filePath }),
+    });
+    const result = await response.json();
+    return result.status === "success" && result.exists;
+}
 
-            // Function to run the command without re-adding listeners
-            async function runCMD(command) {
-              // Invoke the command
-              await ipcRenderer.invoke("run-cmd", command);
-            }
+// Run a command
+async function runCMD(command) {
+    try {
+        const response = await fetch('/run-cmd', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ command }),
+        });
+        const result = await response.json();
+        if (result.status === "success") {
+            logToOutput(result.output);
+        } else {
+            console.error(`Command error: ${result.message}`);
+        }
+    } catch (error) {
+        console.error('Error running command:', error);
+    }
+}
 
             async function runCMDWithArgs(command, args = "") {
               if (args == "") {
