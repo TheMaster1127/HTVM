@@ -1947,11 +1947,118 @@ updateDimensions();
             }
             saveCurrentState(variables.idetext, currentTabFullPath, 1); // Call your save function here
         }
+        async function browseFilesAndSelect() {
+  return new Promise((resolve) => {
+    let currentPath = "/"; // Start from the root directory
+    let uiContainer, fileList, pathDisplay, closeButton;
+
+    // Helper to log messages
+    function logToUI(message) {
+      const log = document.createElement("div");
+      log.textContent = message;
+      log.style.padding = "5px";
+      log.style.borderBottom = "1px solid #ccc";
+      fileList.appendChild(log);
+    }
+
+    // Function to update the UI with the current path and contents
+    async function updateUI() {
+      pathDisplay.textContent = `Current Path: ${currentPath}`;
+      fileList.innerHTML = ""; // Clear previous entries
+
+      // Fetch directory listing
+      runCmd(`cd ${currentPath} && ls`, (data) => {
+        if (data.error) {
+          logToUI(`Error: ${data.error}`);
+        } else {
+          const items = data.output.split("\n").filter(Boolean);
+          items.forEach((item) => {
+            const listItem = document.createElement("div");
+            listItem.textContent = item;
+            listItem.style.cursor = "pointer";
+            listItem.onclick = async () => {
+              const newPath = `${currentPath}/${item}`;
+              // Check if it's a directory
+              runCmd(`cd ${newPath} && ls`, (result) => {
+                if (result.error) {
+                  // It's not a directory, select the file
+                  if (confirm(`Select this file? ${newPath}`)) {
+                    resolve(newPath);
+                    document.body.removeChild(uiContainer);
+                  }
+                } else {
+                  // It's a directory, navigate into it
+                  currentPath = newPath;
+                  updateUI();
+                }
+              });
+            };
+            fileList.appendChild(listItem);
+          });
+        }
+      });
+    }
+
+    // Create UI elements
+    uiContainer = document.createElement("div");
+    uiContainer.style.position = "fixed";
+    uiContainer.style.top = "10%";
+    uiContainer.style.left = "10%";
+    uiContainer.style.width = "80%";
+    uiContainer.style.height = "80%";
+    uiContainer.style.border = "1px solid #000";
+    uiContainer.style.background = "#fff";
+    uiContainer.style.zIndex = "10000";
+    uiContainer.style.display = "flex";
+    uiContainer.style.flexDirection = "column";
+
+    pathDisplay = document.createElement("div");
+    pathDisplay.style.padding = "10px";
+    pathDisplay.style.fontWeight = "bold";
+    uiContainer.appendChild(pathDisplay);
+
+    fileList = document.createElement("div");
+    fileList.style.flex = "1";
+    fileList.style.overflowY = "auto";
+    fileList.style.padding = "10px";
+    fileList.style.borderTop = "1px solid #ccc";
+    uiContainer.appendChild(fileList);
+
+    closeButton = document.createElement("button");
+    closeButton.textContent = "Close";
+    closeButton.style.margin = "10px";
+    closeButton.onclick = () => {
+      document.body.removeChild(uiContainer);
+      resolve(null);
+    };
+    uiContainer.appendChild(closeButton);
+
+    document.body.appendChild(uiContainer);
+    updateUI(); // Initial load
+  });
+}
 
 
          // Function to add a new tab when the Add button is clicked
 addTabButton.onclick = async function () {
-  await createNewFile()
+ 
+const fullPath = "";
+  browseFilesAndSelect().then((fullPath) => {
+  if (fullPath) {
+    console.log("Selected file:", fullPath);
+  } else {
+    console.log("No file selected.");
+  }
+});
+
+
+addTab(fullPath); // Call your function to add a new tab with the full path
+                    currentTabFullPath = fullPath;
+                    tabsData += "\n" + currentTabFullPath;
+                   await saveData(tabsData, "tabs.txt");
+                    openThisTabFile(currentTabFullPath);
+
+
 };
 
 
@@ -2289,6 +2396,7 @@ async function runCMDWithArgs(command, args = "") {
     const result = await response.json();
 
     console.log('Command with Args Result:', result);
+    logToOutput(result.output);
   } catch (error) {
     console.error('Error running command with arguments:', error);
   }
