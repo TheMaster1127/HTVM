@@ -5,12 +5,6 @@ import sys
 
 app = Flask(__name__)
 
-
-@app.route('/')
-def serve_index():
-    return send_from_directory('static', 'index.html')
-
-
 @app.route('/save-data', methods=['POST'])
 def save_data():
     data = request.json
@@ -88,6 +82,11 @@ def open_file_location():
         return jsonify({"message": f"Opened location for: {file_path}"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+# Serve the index.html file from the root directory
+@app.route('/')
+def serve_index():
+    return send_from_directory(os.getcwd(), 'index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
