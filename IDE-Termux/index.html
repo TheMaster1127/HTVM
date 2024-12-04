@@ -1679,6 +1679,39 @@ updateDimensions();
 
 
 
+     // Function to create a new file tab
+     async function createNewFile() {
+            try {
+                // Ensure fullPathOfTheIDEdir is defined before using it
+                if (!fullPathOfTheIDEdir) {
+                    throw new Error("IDE directory path is not set.");
+                }
+
+                // Generate a random number for the new file
+                const randomNumber = Math.floor(Math.random() * 1000000); 
+
+                // Create the new file path using the IDE directory and temp files folder
+                const path = require('path'); // Ensure you are using the Node 'path' module
+                const newFullPath = path.join(fullPathOfTheIDEdir, 'temp files', `newfile${randomNumber}.ht`);
+
+                console.log('New file path:', newFullPath); // For debugging, log the full path
+
+                // Call the function to add the new tab with the new file path
+                addTab(newFullPath);
+
+                // Update the current tab's path and save data to a file (tabs.txt)
+                currentTabFullPath = newFullPath;
+                tabsData += "\n" + currentTabFullPath;
+               await saveData(tabsData, "tabs.txt");
+
+                // Open the new tab file
+                openThisTabFile(currentTabFullPath);
+            } catch (error) {
+                console.error('Error creating new file:', error);
+            }
+            saveCurrentState(variables.idetext, currentTabFullPath, 1); // Call your save function here
+        }
+
 
 
             function fileExtensionToLangName(extension) {
@@ -2327,39 +2360,6 @@ async function runCMDWithArgs(command, args = "") {
 
 
             
-
-     // Function to create a new file tab
-        async function createNewFile() {
-            try {
-                // Ensure fullPathOfTheIDEdir is defined before using it
-                if (!fullPathOfTheIDEdir) {
-                    throw new Error("IDE directory path is not set.");
-                }
-
-                // Generate a random number for the new file
-                const randomNumber = Math.floor(Math.random() * 1000000); 
-
-                // Create the new file path using the IDE directory and temp files folder
-                const path = require('path'); // Ensure you are using the Node 'path' module
-                const newFullPath = path.join(fullPathOfTheIDEdir, 'temp files', `newfile${randomNumber}.ht`);
-
-                console.log('New file path:', newFullPath); // For debugging, log the full path
-
-                // Call the function to add the new tab with the new file path
-                addTab(newFullPath);
-
-                // Update the current tab's path and save data to a file (tabs.txt)
-                currentTabFullPath = newFullPath;
-                tabsData += "\n" + currentTabFullPath;
-               await saveData(tabsData, "tabs.txt");
-
-                // Open the new tab file
-                openThisTabFile(currentTabFullPath);
-            } catch (error) {
-                console.error('Error creating new file:', error);
-            }
-            saveCurrentState(variables.idetext, currentTabFullPath, 1); // Call your save function here
-        }
 
 
            async function openExistingFile() {
