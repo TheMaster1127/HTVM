@@ -1915,18 +1915,7 @@ updateDimensions();
 
          // Function to add a new tab when the Add button is clicked
 addTabButton.onclick = async function () {
-    const randomNumber = Math.floor(Math.random() * 1000000); // Generates a random number between 0 and 9999
-    const newFullPath = `temp files/newfile${randomNumber}.txt`; // Create a unique full path
-    addTab(newFullPath); // Add the new tab
-    currentTabFullPath = newFullPath;
-    tabsData += "\n" + newFullPath;
-
-    try {
-        await saveData(tabsData, "tabs.txt"); // Save the updated tabs data asynchronously
-        openThisTabFile(currentTabFullPath); // Open the new tab
-    } catch (error) {
-        console.error('Error saving data:', error);
-    }
+  await createNewFile()
 };
 
 
