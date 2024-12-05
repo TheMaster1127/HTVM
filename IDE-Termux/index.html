@@ -1484,7 +1484,7 @@ async function getData(place) {
             variables.AScreenWidth = window.innerWidth * 0.99; // Adjust width dynamically
             var saveBackCodeBugFix = variables.ideTEXT;
 
-            AddIDE(Gui1, 10, 10, variables.AScreenWidth, variables.AScreenHeight, "Gui1IDE1", 18, "ht", IDE1, variables.idetext);
+            AddIDE(Gui1, 10, 10, variables.AScreenWidth, variables.AScreenHeight, "Gui1IDE1", 14, "ht", IDE1, variables.idetext);
             var editor = ace.edit("Gui1IDE1");
             // Ensure IDE1 adjusts to its container
             async function IDE1(A_GuiControl) {
@@ -2192,8 +2192,8 @@ addTabButton.onclick = async function () {
                   // Remove the corresponding entry from FullPathfiles
                   FullPathfiles = FullPathfiles.filter((_, index) => index !== indexLoopDel);
                   currentTabFullPath = FullPathfiles.length > 0 ? FullPathfiles[FullPathfiles.length - 1] : null;
-                  handleTabClick(currentTabFullPath);
                   openThisTabFile(currentTabFullPath);
+                  handleTabClick(currentTabFullPath);
                 } else {
                   indexLoopDel++; // Increment only if the tab is not removed
                 }
@@ -2641,6 +2641,7 @@ async function runCMDWithArgs(command, args = "") {
                     currentTabFullPath = FullPathfiles.length > 0 ? FullPathfiles[FullPathfiles.length - 1] : null;
                     openThisTabFile(currentTabFullPath);
                     handleTabClick(currentTabFullPath);
+
 
                     break; // Break out of the loop
                   } else {
