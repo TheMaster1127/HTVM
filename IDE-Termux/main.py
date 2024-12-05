@@ -3,6 +3,8 @@ import os
 import subprocess
 import sys
 
+
+      
 app = Flask(__name__)
 
 @app.route('/save-data', methods=['POST'])
@@ -64,17 +66,35 @@ def check_file_existence():
     exists = os.path.isfile(file_path)
     return jsonify({"status": "success", "exists": exists})
 
+def RunCMD(command, working_dir=None):
+    try:
+        if working_dir:
+            os.chdir(working_dir)  # Change the working directory if specified
+        result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
+        return {"status": "success", "stdout": result.stdout, "stderr": ""}
+    except subprocess.CalledProcessError as e:
+        print(f"Command failed: {command}")
+        return {"status": "error", "stdout": e.stdout, "stderr": e.stderr}
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return {"status": "error", "stdout": "", "stderr": str(e)}
+
 @app.route('/run-cmd', methods=['POST'])
 def run_cmd():
     data = request.json
     command = data['command']
-    current_dir = os.getcwd()
-    print(f"Current Working Directory: {current_dir}")  # Debug log
+    working_dir = data.get('working_dir')  # Optionally provide a working directory
+    print(f"Current Working Directory: {os.getcwd()}")  # Debug log
     try:
-        result = subprocess.run(command, shell=True, capture_output=True, text=True)
-        return jsonify({"status": "success", "output": result.stdout, "error": result.stderr})
+        result = RunCMD(command, working_dir)
+        if result["status"] == "success":
+            return jsonify({"status": "success", "output": result["stdout"], "error": result["stderr"]})
+        else:
+            return jsonify({"status": "error", "output": result["stdout"], "error": result["stderr"]}), 400
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+
+
 
 
 @app.route('/run-cmd-args', methods=['POST'])

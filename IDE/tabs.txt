@@ -67,3 +67,8 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\hti.htpr
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\hti.htpc
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile938915.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile938915.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile938915.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile938915.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile938915.html

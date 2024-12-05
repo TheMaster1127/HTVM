@@ -1947,127 +1947,169 @@ updateDimensions();
             }
             saveCurrentState(variables.idetext, currentTabFullPath, 1); // Call your save function here
         }
-        async function browseFilesAndSelect() {
-  return new Promise((resolve) => {
-    let currentPath = "/"; // Default to the root directory
-    let uiContainer, fileList, pathDisplay, closeButton;
+    
 
-    // Helper to log messages
-    function logToUI(message) {
-      const log = document.createElement("div");
-      log.textContent = message;
-      log.style.padding = "5px";
-      log.style.borderBottom = "1px solid #ccc";
-      fileList.appendChild(log);
-    }
 
-    // Function to update the UI with the current path and contents
-    async function updateUI() {
+
+
+
+
+
+
+
+        async function browseFiles() {
+  return new Promise((resolve, reject) => {
+    let currentPath = "/";
+    let selectedFile = null;
+
+    // Create a simple UI container
+    const container = document.createElement("div");
+    container.style.position = "fixed";
+    container.style.top = "10%";
+    container.style.left = "10%";
+    container.style.width = "80%";
+    container.style.height = "80%";
+    container.style.backgroundColor = "#fff";
+    container.style.border = "2px solid #000";
+    container.style.padding = "10px";
+    container.style.overflowY = "auto";
+    container.style.zIndex = "1000";
+    container.style.fontFamily = "Arial, sans-serif";
+
+    const pathDisplay = document.createElement("div");
+    pathDisplay.style.marginBottom = "10px";
+    const outputArea = document.createElement("div");
+    const inputArea = document.createElement("div");
+    inputArea.style.marginTop = "10px";
+
+    const commandInput = document.createElement("input");
+    commandInput.type = "text";
+    commandInput.style.width = "calc(100% - 100px)";
+    commandInput.placeholder = "Enter command (ls, cd, cd ..)";
+    const runButton = document.createElement("button");
+    runButton.textContent = "Run";
+    runButton.style.marginLeft = "10px";
+
+    const selectButton = document.createElement("button");
+    selectButton.textContent = "Select File";
+    selectButton.style.display = "none";
+    selectButton.style.marginTop = "10px";
+
+    container.appendChild(pathDisplay);
+    container.appendChild(outputArea);
+    inputArea.appendChild(commandInput);
+    inputArea.appendChild(runButton);
+    container.appendChild(inputArea);
+    container.appendChild(selectButton);
+    document.body.appendChild(container);
+
+    function updatePathDisplay() {
       pathDisplay.textContent = `Current Path: ${currentPath}`;
-      fileList.innerHTML = ""; // Clear previous entries
-
-      // Fetch directory listing
-      runCmd(`cd ${currentPath} && ls`, (data) => {
-        if (data.error) {
-          logToUI(`Error: ${data.error}`);
-          if (data.error.includes("Permission denied")) {
-            logToUI("You do not have permission to access this directory. Please choose another one.");
-          }
-        } else {
-          const items = data.output.split("\n").filter(Boolean);
-          items.forEach((item) => {
-            const listItem = document.createElement("div");
-            listItem.textContent = item;
-            listItem.style.cursor = "pointer";
-            listItem.onclick = async () => {
-              const newPath = `${currentPath}/${item}`;
-              // Check if it's a directory
-              runCmd(`cd ${newPath} && ls`, (result) => {
-                if (result.error) {
-                  // It's not a directory, select the file
-                  if (confirm(`Select this file? ${newPath}`)) {
-                    resolve(newPath);
-                    document.body.removeChild(uiContainer);
-                  }
-                } else {
-                  // It's a directory, navigate into it
-                  currentPath = newPath;
-                  updateUI();
-                }
-              });
-            };
-            fileList.appendChild(listItem);
-          });
-        }
-      });
     }
 
-    // Create UI elements
-    uiContainer = document.createElement("div");
-    uiContainer.style.position = "fixed";
-    uiContainer.style.top = "10%";
-    uiContainer.style.left = "10%";
-    uiContainer.style.width = "80%";
-    uiContainer.style.height = "80%";
-    uiContainer.style.border = "1px solid #000";
-    uiContainer.style.background = "#fff";
-    uiContainer.style.zIndex = "10000";
-    uiContainer.style.display = "flex";
-    uiContainer.style.flexDirection = "column";
+    function logToUI(message) {
+      const entry = document.createElement("div");
+      entry.textContent = message;
+      outputArea.appendChild(entry);
+      outputArea.scrollTop = outputArea.scrollHeight;
+    }
 
-    pathDisplay = document.createElement("div");
-    pathDisplay.style.padding = "10px";
-    pathDisplay.style.fontWeight = "bold";
-    uiContainer.appendChild(pathDisplay);
+    function executeCommand(command) {
+      runCmd(command)
+        .then((response) => {
+          if (command.startsWith("ls")) {
+            logToUI("Directory Contents:");
+            response.output.split("\n").forEach((item) => logToUI(item));
+          } else if (command.startsWith("cd")) {
+            if (response.error) {
+              logToUI("ERROR: " + response.error);
+            } else {
+              currentPath = response.output.trim();
+              updatePathDisplay();
+            }
+          }
+        })
+        .catch((error) => logToUI("ERROR: " + error));
+    }
 
-    fileList = document.createElement("div");
-    fileList.style.flex = "1";
-    fileList.style.overflowY = "auto";
-    fileList.style.padding = "10px";
-    fileList.style.borderTop = "1px solid #ccc";
-    uiContainer.appendChild(fileList);
+    // Initialize display
+    updatePathDisplay();
 
-    closeButton = document.createElement("button");
-    closeButton.textContent = "Close";
-    closeButton.style.margin = "10px";
-    closeButton.onclick = () => {
-      document.body.removeChild(uiContainer);
-      resolve(null);
-    };
-    uiContainer.appendChild(closeButton);
+    runButton.addEventListener("click", () => {
+      const command = commandInput.value.trim();
+      if (command) {
+        if (command.startsWith("cd") || command === "ls") {
+          executeCommand(`${command} ${currentPath}`);
+        } else {
+          logToUI("Unsupported command. Use 'cd', 'cd ..', or 'ls'.");
+        }
+        commandInput.value = "";
+      }
+    });
 
-    document.body.appendChild(uiContainer);
-    updateUI(); // Initial load
+    outputArea.addEventListener("click", (e) => {
+      if (e.target.tagName === "DIV") {
+        const fileName = e.target.textContent.trim();
+        selectedFile = `${currentPath}/${fileName}`;
+        selectButton.style.display = "block";
+        logToUI(`Selected: ${fileName}`);
+      }
+    });
+
+    selectButton.addEventListener("click", () => {
+      if (selectedFile) {
+        resolve(selectedFile);
+        document.body.removeChild(container); // Close UI
+      }
+    });
+
+    // Handle cancellation
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        document.body.removeChild(container);
+        reject("File selection canceled");
+      }
+    });
   });
 }
+
+
+
+
+
+
+
+
 
 
 // Function to add a new tab when the Add button is clicked
 addTabButton.onclick = async function () {
   try {
     // Wait for the user to select a file
-    const fullPath = await browseFilesAndSelect();
+    const fullPath = await browseFiles();
 
-    if (fullPath) {
-      console.log("Selected file:", fullPath);
-
-      // Add a new tab with the selected file's path
-      addTab(fullPath);
-
-      // Update current tab's full path and save the tabs data
-      currentTabFullPath = fullPath;
-      tabsData += "\n" + currentTabFullPath;
-      await saveData(tabsData, "tabs.txt");
-
-      // Open the selected tab file
-      openThisTabFile(currentTabFullPath);
-    } else {
+    if (!fullPath) {
       console.log("No file selected.");
+      return;
     }
+
+    console.log("Selected file:", fullPath);
+
+    // Add a new tab with the selected file's path
+    addTab(fullPath);
+
+    // Update current tab's full path and save the tabs data
+    currentTabFullPath = fullPath;
+    tabsData += `\n${currentTabFullPath}`;
+    await saveData(tabsData, "tabs.txt");
+
+    // Open the selected tab file
+    openThisTabFile(currentTabFullPath);
   } catch (error) {
     console.error("Error adding new tab:", error);
   }
 };
+
 
 
 
