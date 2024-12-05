@@ -28,8 +28,11 @@ def RunCMD(command):
         return ""
 @app.route('/getFilesPathsAndStuff', methods=['POST'])
 def getFilesPathsAndStuff():
-    variables['data'] = request.get_json()
-    return RunCMD(Trim(variables['command']))
+    data = request.get_json()
+    command = Trim(data.get('command', ''))
+    if not command:
+        return jsonify({"status": "error", "message": "Command not provided"}), 400
+    return RunCMD(command)
 
 
 
