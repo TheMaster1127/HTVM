@@ -1453,7 +1453,7 @@ async function getData(place) {
             outputArea.style.color = "white"; // Text color
             outputArea.style.border = "none"; // No border
             outputArea.style.resize = "none"; // Prevent resizing
-            outputArea.style.fontSize = "15px"; // Set font size (change value as needed)
+            outputArea.style.fontSize = "11px"; // Set font size (change value as needed)
             outputArea.readOnly = true; // Make it read-only for now
             consoleElement.appendChild(outputArea); // Add textarea to the console
 
@@ -2192,8 +2192,8 @@ addTabButton.onclick = async function () {
                   // Remove the corresponding entry from FullPathfiles
                   FullPathfiles = FullPathfiles.filter((_, index) => index !== indexLoopDel);
                   currentTabFullPath = FullPathfiles.length > 0 ? FullPathfiles[FullPathfiles.length - 1] : null;
-                  openThisTabFile(currentTabFullPath);
                   handleTabClick(currentTabFullPath);
+                  openThisTabFile(currentTabFullPath);
                 } else {
                   indexLoopDel++; // Increment only if the tab is not removed
                 }
@@ -2211,7 +2211,7 @@ addTabButton.onclick = async function () {
             };
 
             // Append the close option to the context menu
-            contextMenu.appendChild(closeOption);
+            //contextMenu.appendChild(closeOption);
 
             // New option to open file location
             const openLocationOption = document.createElement("div");
@@ -2255,7 +2255,7 @@ addTabButton.onclick = async function () {
 
 
             // Append the open location option to the context menu
-            contextMenu.appendChild(openLocationOption);
+            //contextMenu.appendChild(openLocationOption);
 
             document.body.appendChild(contextMenu);
 
@@ -2348,17 +2348,7 @@ addTabButton.onclick = async function () {
                 }
               }
                               
-                document.querySelectorAll("button").forEach((button) => {
-                    const style = window.getComputedStyle(button);
-                
-                    // Check if the mouse is not over #tabs before scrolling
-                    const tabsElement = document.getElementById("tabs");
-                    const isHoveringTabs = tabsElement && tabsElement.matches(':hover');
-                
-                    if (!isHoveringTabs && style.backgroundColor === "rgb(43, 43, 43)") {
-                        button.scrollIntoView({ block: "end" });
-                    }
-                });
+           
 
             }
 
@@ -2591,7 +2581,7 @@ async function runCMDWithArgs(command, args = "") {
               input.click(); // Trigger the file input dialog
             }
 
-            // Event listener for Ctrl + S key to save output
+            // Event listener for Ctrl + key to save output
             window.addEventListener("keydown", async function (event) {
               // Existing F5 key listener
               if (event.key === "F5") {
@@ -2620,71 +2610,11 @@ async function runCMDWithArgs(command, args = "") {
 
 
 
-// Check for Alt + S key press
-if (event.altKey && (event.key === "s" || event.key === "S")) {
-  event.preventDefault(); // Prevent default behavior
-
-  // Create iframe container if not already present
-  let iframeContainer = document.getElementById('iframeContainer');
-  if (!iframeContainer) {
-    iframeContainer = document.createElement('div');
-    iframeContainer.id = 'iframeContainer';
-    document.body.appendChild(iframeContainer); // You can append it where you want on the page
-  }
-
-  // Create the iframe
-  const iframe = document.createElement('iframe');
-  iframe.src = `file://${__dirname}/settings-iframe.html`;  // Load local settings-iframe.html
-  iframe.style.width = '80%';  // Adjust the width to fit within the screen
-  iframe.style.height = '80%';  // Adjust the height
-  iframe.style.border = 'none';
-  iframe.style.position = 'fixed';  // Fix it to the viewport
-  iframe.style.top = '50%';  // Position it in the center vertically
-  iframe.style.left = '50%';  // Position it in the center horizontally
-  iframe.style.transform = 'translate(-50%, -50%)';  // Adjust to center exactly
-  iframe.style.zIndex = '1000';  // Ensure it's on top
-
-  // Create a close button
-  const closeButton = document.createElement('button');
-  closeButton.textContent = 'X';
-  closeButton.style.position = 'absolute';
-  closeButton.style.top = '10px';
-  closeButton.style.right = '10px';
-  closeButton.style.padding = '5px';
-  closeButton.style.backgroundColor = 'red';
-  closeButton.style.color = 'white';
-  closeButton.style.border = 'none';
-  closeButton.style.borderRadius = '50%';
-  closeButton.style.zIndex = '1001';  // Make sure the close button is above the iframe
-
-  // Append iframe and close button
-  iframeContainer.appendChild(iframe);
-  iframeContainer.appendChild(closeButton);
-
-  // Close button functionality
-  closeButton.addEventListener('click', () => {
-    iframe.remove();
-    closeButton.remove();
-  });
-}
 
 
 
 
 
-
-
-              // New Ctrl + N key listener
-              if (event.ctrlKey && (event.key === "n" || event.key === "N")) {
-                event.preventDefault(); // Prevent default behavior
-                createNewFile(); // Function to create a new file (you'll need to implement this)
-              }
-
-              // New Ctrl + O key listener
-              if (event.ctrlKey && (event.key === "o" || event.key === "O")) {
-                event.preventDefault(); // Prevent default behavior
-                openExistingFile(); // Function to open an existing file (you'll need to implement this)
-              }
 
               // New Ctrl + W key listener
               if (event.ctrlKey && (event.key === "w" || event.key === "W")) {
