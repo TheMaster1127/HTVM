@@ -1,31 +1,55 @@
-import re
-
-def LoopParseFunc(var, delimiter1="", delimiter2=""):
-    if not delimiter1 and not delimiter2:
-        # If no delimiters are provided, return a list of characters
-        items = list(var)
-    else:
-        # Construct the regular expression pattern for splitting the string
-        pattern = r'[' + re.escape(delimiter1) + re.escape(delimiter2) + r']+'
-        # Split the string using the constructed pattern
-        items = re.split(pattern, var)
-    return items
+from flask import Flask, request, send_file
+import os
+import subprocess
 
 def Trim(inputString):
     return inputString.strip() if inputString else ""
 
-def StringTrimRight(input, numChars):
-    return input[:-numChars] if numChars <= len(input) else input
+def RunCMD(command):
+    try:
+        result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
+        return result.stdout
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e}")
+        return e.stdout + "\n" + e.stderr
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return ""
+
+def addEndpoint(func, method="POST"):
+    """Register a function as an endpoint with a single HTTP method."""
+    endpoint = f"/{func.__name__}"
+    
+    def handle_request():
+        if request.method == "GET":
+            # Extract raw query string
+            raw_query = request.query_string.decode('utf-8')  # Get query string like "WAESRDG="
+            if raw_query:
+                # Split by "=" and get everything before the "="
+                key = raw_query.split('=')[0]
+                return func(key)  # Pass the extracted key to the function
+            else:
+                return "No query string provided", 400
+        
+        elif request.method in {"POST", "PUT", "PATCH"}:
+            data = request.get_json()
+            return func(data)
+        
+        elif request.method == "DELETE":
+            data = request.args.to_dict() if not request.is_json else request.get_json()
+            return func(data)
+        
+        else:
+            return f"Method {request.method} not supported", 405
+    app.add_url_rule(
+        endpoint,
+        endpoint,
+        handle_request,
+        methods=[method]
+    )
 
 
 
 def getFilesPathsAndStuff(command):
-    files = ""
-    filesOut = ""
-    files = Trim(getDataFromEndpoint(Trim(command), "/getFilesPathsAndStuff"))
-    items1 = LoopParseFunc(files, "\n", "\r")
-    for A_Index1 , A_LoopField1 in enumerate(items1, start=0):
-        if (Trim(A_LoopField1) != ""):
-            filesOut += Trim(A_LoopField1) + "\n"
-    filesOut = StringTrimRight(filesOut, 1)
-    return filesOut
+    return RunCMD(Trim(command))
+addEndpoint(getFilesPathsAndStuff)

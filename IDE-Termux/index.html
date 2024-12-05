@@ -1987,7 +1987,7 @@ updateDimensions();
         async function getFilesPathsAndStuff(command) {
         let files = "";
         let filesOut = "";
-        files = Trim(getDataFromEndpoint(Trim(command), "/getFilesPathsAndStuff"));
+        files = Trim(await getDataFromEndpoint(Trim(command)), "/getFilesPathsAndStuff");
         items1 = LoopParseFunc(files, "\n", "\r")
         for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
             const A_LoopField1 = items1[A_Index1 - 0];
