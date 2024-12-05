@@ -1,0 +1,22 @@
+
+
+func str getFilesPathsAndStuff(command)
+{
+
+
+let files := ""
+let filesOut := ""
+files := Trim(getDataFromEndpoint(Trim(command), "/getFilesPathsAndStuff"))
+
+Loop, Parse, files, `n, `r
+{
+if (Trim(A_LoopField) != "")
+{
+filesOut .= Trim(A_LoopField) . "`n"
+}
+
+}
+StringTrimRight, filesOut, filesOut, 1
+
+return filesOut 
+}
