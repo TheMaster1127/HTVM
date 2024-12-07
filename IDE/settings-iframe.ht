@@ -1,8 +1,10 @@
-
-
-
-
-
+let initData := ""
+window.onmessage = event => initData = event.data;
+main
+await 
+Sleep, 150
+;await MsgBox(initData)
+print(initData)
 AScreenWidth := BuildInVars("A_ScreenWidth") - 10   
 AScreenHeight := BuildInVars("A_ScreenHeight") - 10
 

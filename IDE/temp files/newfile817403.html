@@ -28,74 +28,49 @@
 <script>
 
 
-function LoopParseFunc(varString, delimiter1="", delimiter2="") {
-    let items;
-    if (!delimiter1 && !delimiter2) {
-        // If no delimiters are provided, return an array of characters
-        items = [...varString];
+function print(value) {
+    console.log(value)
+}
+
+// Convert value to string
+function STR(value) {
+    if (value === null || value === undefined) {
+        return ""; // Return a string for null or undefined
+    } else if (typeof value === 'number') {
+        return value.toString();
+    } else if (typeof value === 'boolean') {
+        return value ? "1" : "0";
+    } else if (typeof value === 'string') {
+        return value; // Return the string as is
     } else {
-        // Construct the regular expression pattern for splitting the string
-        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + delimiter2.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ']+');
-        // Split the string using the constructed pattern
-        items = varString.split(pattern);
+        // Handle any unexpected types gracefully
+        return String(value); // Convert any other type to a string
     }
-    return items;
-}
-
-function Trim(inputString) {
-    return inputString ? inputString.trim() : "";
-}
-
-function StringTrimRight(input, numChars) {
-    return (numChars <= input.length) ? input.substring(0, input.length - numChars) : input;
-}
-
-async function getDataFromEndpoint(data, endpoint, method = "POST") {
-  let url = endpoint;
-  let requestOptions = {
-    method, // Use the provided method
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  // If the method is GET, append data as query parameters
-  if (method === "GET") {
-    const queryParams = new URLSearchParams(data).toString();
-    url += `?${queryParams}`;
-  } else {
-    // For POST/PUT, include the body
-    requestOptions.body = JSON.stringify(data);
-  }
-  // Fetch data
-  const response = await fetch(url, requestOptions);
-  // Handle response
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data from ${url}. Status: ${response.status}`);
-  }
-  const contentType = response.headers.get("content-type");
-  if (contentType && contentType.includes("application/json")) {
-    return response.json();
-  } else {
-    return response.text();
-  }
 }
 
 
+let copyTemp1 = [];
+let copyTemp2 = [];
+let OSPHTVMOSP_someObj = [
+"someObj",
+copyTemp1,
+]
+let OSPHTVMOSP_someObj2 = [
+"someObj2",
+copyTemp2,
+]
+let OSPHTVMOSP_main1_main2_main3_main4_main1_main = [
+"main1.main2.main3.main4.main1.main",
+"hello BOWAH",
+]
 async function main() {
-    async function getFilesPathsAndStuff(command) {
-        let files = "";
-        let filesOut = "";
-        files = Trim(getDataFromEndpoint(Trim(command), "/getFilesPathsAndStuff"));
-        items1 = LoopParseFunc(files, "\n", "\r")
-        for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
-            const A_LoopField1 = items1[A_Index1 - 0];
-            if (Trim(A_LoopField1) != "") {
-                filesOut += Trim(A_LoopField1) + "\n";
-            }
-        }
-        filesOut = StringTrimRight(filesOut, 1);
-        return filesOut;
+    for (let A_Index1 = 0; A_Index1 < 7 + 0; A_Index1++) {
+        OSPHTVMOSP_someObj[1].push("hello" + STR(A_Index1));
+        OSPHTVMOSP_someObj2[1].push("hello" + STR(A_Index1));
     }
+    print(OSPHTVMOSP_main1_main2_main3_main4_main1_main[1]);
+    print(OSPHTVMOSP_someObj[1][5]);
+    print(OSPHTVMOSP_someObj2[1][5]);
 }
 main();
 </script>

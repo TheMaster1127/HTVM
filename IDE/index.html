@@ -2285,32 +2285,41 @@ updateDimensions();
               }
 
 
-
-
-
 // Check for Alt + S key press
 if (event.altKey && (event.key === "s" || event.key === "S")) {
-  event.preventDefault(); // Prevent default behavior
+  event.preventDefault(); 
 
   // Create iframe container if not already present
   let iframeContainer = document.getElementById('iframeContainer');
   if (!iframeContainer) {
     iframeContainer = document.createElement('div');
     iframeContainer.id = 'iframeContainer';
-    document.body.appendChild(iframeContainer); // You can append it where you want on the page
+    document.body.appendChild(iframeContainer);
   }
 
   // Create the iframe
   const iframe = document.createElement('iframe');
-  iframe.src = `file://${__dirname}/settings-iframe.html`;  // Load local settings-iframe.html
-  iframe.style.width = '80%';  // Adjust the width to fit within the screen
-  iframe.style.height = '80%';  // Adjust the height
+  iframe.src = `file://${__dirname}/settings-iframe.html`;
+
+  iframe.style.width = '80%';
+  iframe.style.height = '80%';
   iframe.style.border = 'none';
-  iframe.style.position = 'fixed';  // Fix it to the viewport
-  iframe.style.top = '50%';  // Position it in the center vertically
-  iframe.style.left = '50%';  // Position it in the center horizontally
-  iframe.style.transform = 'translate(-50%, -50%)';  // Adjust to center exactly
-  iframe.style.zIndex = '1000';  // Ensure it's on top
+  iframe.style.position = 'fixed';
+  iframe.style.top = '50%';
+  iframe.style.left = '50%';
+  iframe.style.transform = 'translate(-50%, -50%)';
+  iframe.style.zIndex = '1000';
+
+  // Ensure communication only happens after iframe loads
+  iframe.onload = () => {
+    try {
+      const plainText = 'Hello, iframe!';
+      iframe.contentWindow.postMessage(plainText, '*');
+      console.log('Message sent to iframe:', plainText);
+    } catch (e) {
+      console.error('Failed to communicate with iframe:', e);
+    }
+  };
 
   // Create a close button
   const closeButton = document.createElement('button');
@@ -2323,20 +2332,16 @@ if (event.altKey && (event.key === "s" || event.key === "S")) {
   closeButton.style.color = 'white';
   closeButton.style.border = 'none';
   closeButton.style.borderRadius = '50%';
-  closeButton.style.zIndex = '1001';  // Make sure the close button is above the iframe
+  closeButton.style.zIndex = '1001';
 
-  // Append iframe and close button
   iframeContainer.appendChild(iframe);
   iframeContainer.appendChild(closeButton);
 
-  // Close button functionality
   closeButton.addEventListener('click', () => {
     iframe.remove();
     closeButton.remove();
   });
 }
-
-
 
 
 

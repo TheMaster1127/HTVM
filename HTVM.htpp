@@ -6974,6 +6974,10 @@ addOSPtoHTVM .= str2 . str4 . "]`n"
 }
 
 }
+else
+{
+statckOSPgetData.pop_back()
+}
 
 }
 else if (InStr(A_LoopField, "method|end|"))

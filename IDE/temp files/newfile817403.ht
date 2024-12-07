@@ -1,7 +1,45 @@
+arr str copyTemp1
+arr str copyTemp2
 
-func getFilesPathsAndStuff(command)
-{
-return RunCMD(Trim(command))
+def obj someObj {
+prop arr str prop1 := copyTemp1
 }
- 
-addEndpoint(getFilesPathsAndStuff)
+
+def obj someObj2 {
+prop arr str prop1 := copyTemp2
+}
+
+
+
+
+alliance main1 {
+    alliance main2 {
+        alliance main3 {
+            alliance main4 {
+                crew main1 {
+                    def obj main {
+                        prop str name1 := "hello BOWAH"
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+main
+
+Loop, 7
+{
+someObj.prop1.add("hello" . STR(A_Index))
+someObj2.prop1.add("hello" . STR(A_Index))
+}
+
+
+print(main1.main2.main3.main4.main1.main.name1)
+print(someObj.prop1[5])
+print(someObj2.prop1[5])
