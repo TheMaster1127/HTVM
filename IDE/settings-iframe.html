@@ -664,6 +664,12 @@ async function main() {
     Gui_Text("gui1", "explainText4", "Ctrl+F7 mode", 150, 190, "#FFFFFF", null, null);
     Gui_Size_Id("gui1", "explainText3", 25);
     Gui_Size_Id("gui1", "explainText4", 25);
+    Gui_Button("gui1", "buttonCPP1", "cpp", 5, 225, 100, 40, null, null, true, 5, null, buttonCPP1);
+    Gui_Button("gui1", "buttonPY1", "py", 110, 225, 100, 40, null, null, true, 5, null, buttonPY1);
+    Gui_Button("gui1", "buttonJS1", "js", 215, 225, 100, 40, null, null, true, 5, null, buttonJS1);
+    Gui_Size_Id("gui1", "buttonCPP1", 20);
+    Gui_Size_Id("gui1", "buttonPY1", 20);
+    Gui_Size_Id("gui1", "buttonJS1", 20);
     MakeHotKey("Esc", handleEscapeKey);
     async function handleEscapeKey() {
         window.parent.postMessage("clo" + "se", "*");
@@ -685,6 +691,21 @@ async function main() {
         GuiControl("enable", "gui1", "buttonCPP");
         GuiControl("enable", "gui1", "buttonPY");
         GuiControl("disable", "gui1", "buttonJS");
+    }
+    async function buttonCPP1(data) {
+        GuiControl("disable", "gui1", "buttonCPP1");
+        GuiControl("enable", "gui1", "buttonPY1");
+        GuiControl("enable", "gui1", "buttonJS1");
+    }
+    async function buttonPY1(data) {
+        GuiControl("enable", "gui1", "buttonCPP1");
+        GuiControl("disable", "gui1", "buttonPY1");
+        GuiControl("enable", "gui1", "buttonJS1");
+    }
+    async function buttonJS1(data) {
+        GuiControl("enable", "gui1", "buttonCPP1");
+        GuiControl("enable", "gui1", "buttonPY1");
+        GuiControl("disable", "gui1", "buttonJS1");
     }
     async function send(data) {
         window.parent.postMessage("clo" + "se", "*");
