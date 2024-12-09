@@ -1,0 +1,21 @@
+func str strReverse(str theString) {
+    str outStr := ""
+    arr str theArrStr
+    Loop, Parse, theString {
+        theArrStr.add(A_LoopField)
+    }
+    Loop, % theArrStr.size() {
+        outStr += theArrStr[theArrStr.size() - (A_Index + 1)]
+    }
+    return outStr
+}
+func bool isPalindrome(str theString) {
+    if (Trim(await strReverse(theString)) = Trim(theString)) {
+        return true
+    }
+    return false
+}
+main
+print(await isPalindrome("123"))
+print(await isPalindrome("121"))
+print(await isPalindrome("bob"))

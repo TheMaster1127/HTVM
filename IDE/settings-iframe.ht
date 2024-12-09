@@ -29,23 +29,82 @@ SendButton_y := AScreenHeight - 20 - 160 + 20
 SendButton_w := 150
 SendButton_h := 150
 
+Gui_Text("gui1", "topText", "HTVM IDE SETTINGS", 4, 4, "#FFFFFF", null, null)
+Gui_Size_Id("gui1", "topText", 30)
 
-
-Gui_Edit("gui1", "EditBoxDISPLAY", "", EditBoxDISPLAY_x, EditBoxDISPLAY_y, EditBoxDISPLAY_w, EditBoxDISPLAY_h, "#121212", "#FFFFFF", null, null, null, null)
+;Gui_Edit("gui1", "EditBoxDISPLAY", "", EditBoxDISPLAY_x, EditBoxDISPLAY_y, EditBoxDISPLAY_w, EditBoxDISPLAY_h, "#121212", "#FFFFFF", null, null, null, null)
 ;Gui_Edit("gui1", "EditBoxUserInput", "", EditBoxUserInput_x, EditBoxUserInput_y, EditBoxUserInput_w, EditBoxUserInput_h, "#121212", "#FFFFFF", null, null, null, EditBoxUserInputCallBack)
-Gui_Button("gui1", "SendButton", "Send", SendButton_x, SendButton_y, SendButton_w, SendButton_h, "#4CAF50", "#FFFFFF", true, 5, null, send)
+Gui_Button("gui1", "SendButton", "Save/Close", SendButton_x, SendButton_y, SendButton_w, SendButton_h, "#4CAF50", "#FFFFFF", true, 5, null, send)
+Gui_Size_Id("gui1", "SendButton", 24)
 
 ;Gui_Size_Id("gui1", "EditBoxDISPLAY", 16)
 ;Gui_Size_Id("gui1", "EditBoxUserInput", 20)
-;Gui_Size_Id("gui1", "SendButton", 29)
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;window.parent.postMessage("close", '*')
+let EditBoxHTVMpathSTR := ""
 
+Gui_Button("gui1", "buttonCPP", "cpp", 5, 50, 100, 40, null, null, true, 5, null, buttonCPP)
+Gui_Button("gui1", "buttonPY", "py", 110, 50, 100, 40, null, null, true, 5, null, buttonPY)
+Gui_Button("gui1", "buttonJS", "js", 215, 50, 100, 40, null, null, true, 5, null, buttonJS)
+Gui_Size_Id("gui1", "buttonCPP", 20)
+Gui_Size_Id("gui1", "buttonPY", 20)
+Gui_Size_Id("gui1", "buttonJS", 20)
+Gui_Text("gui1", "explainButtonCPPPYJS", "explain here", 325, 55, "#FFFFFF", null, null)
+Gui_Size_Id("gui1", "explainButtonCPPPYJS", 20)
+
+Gui_Edit("gui1", "EditBoxHTVMpath", "Enter HTVM compiler path (e.g., %HTVM%/HTVM)", 5, 100, 650, 20, "#121212", "#FFFFFF", null, null, null, EditBoxHTVMpathCallBack)
+Gui_Size_Id("gui1", "EditBoxHTVMpath", 15)
+Gui_Edit("gui1", "EditBoxHTinstPath", "Enter HT-instructions.txt path (e.g., %HTVM%/HT-instructions.txt)", 5, 130, 650, 20, "#121212", "#FFFFFF", null, null, null, EditBoxHTVMpathCallBack)
+Gui_Size_Id("gui1", "EditBoxHTinstPath", 15)
+
+Gui_Text("gui1", "explainText2", "Do you want to run the code after HTVM converts it", 5, 160, "#FFFFFF", null, null)
+Gui_Size_Id("gui1", "explainText2", 25)
+
+Gui_Text("gui1", "explainText3", "F5 mode", 5, 190, "#FFFFFF", null, null)
+Gui_Text("gui1", "explainText4", "Ctrl+F7 mode", 150, 190, "#FFFFFF", null, null)
+Gui_Size_Id("gui1", "explainText3", 25)
+Gui_Size_Id("gui1", "explainText4", 25)
+
+MakeHotKey("Esc", handleEscapeKey)
+
+func handleEscapeKey()
+{
+window.parent.postMessage("clo" . "se", "*")
+}
+
+func EditBoxHTVMpathCallBack(data)
+{
+EditBoxHTVMpathSTR := data
+}
+
+func buttonCPP(data)
+{
+GuiControl("disable", "gui1", "buttonCPP")
+GuiControl("enable", "gui1", "buttonPY")
+GuiControl("enable", "gui1", "buttonJS")
+}
+func buttonPY(data)
+{
+GuiControl("enable", "gui1", "buttonCPP")
+GuiControl("disable", "gui1", "buttonPY")
+GuiControl("enable", "gui1", "buttonJS")
+}
+func buttonJS(data)
+{
+GuiControl("enable", "gui1", "buttonCPP")
+GuiControl("enable", "gui1", "buttonPY")
+GuiControl("disable", "gui1", "buttonJS")
+}
 
 
 func send(data)
 {
 window.parent.postMessage("clo" . "se", "*")
 }
+
+
+

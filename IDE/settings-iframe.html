@@ -32,6 +32,22 @@ function print(value) {
     console.log(value)
 }
 
+// Convert value to string
+function STR(value) {
+    if (value === null || value === undefined) {
+        return ""; // Return a string for null or undefined
+    } else if (typeof value === 'number') {
+        return value.toString();
+    } else if (typeof value === 'boolean') {
+        return value ? "1" : "0";
+    } else if (typeof value === 'string') {
+        return value; // Return the string as is
+    } else {
+        // Handle any unexpected types gracefully
+        return String(value); // Convert any other type to a string
+    }
+}
+
 function Sleep(milliseconds) {
     // Sleep for the specified number of milliseconds
     return new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -399,6 +415,45 @@ function Gui_Edit(guiID, editID, placeholderText, x = null, y = null, w = null, 
     div.appendChild(textarea);
 }
 
+function Gui_Text(guiID, textID, text, x = null, y = null, color = '#FFFFFF', roundness = null, zIndex = null) {
+    // Check if the div with the given guiID exists
+    let div = HTVM_guiElements[guiID];
+    if (!div) {
+        // If it doesn't exist, create a new div
+        div = document.createElement('div');
+        div.id = guiID;
+        // Store the newly created div in the global object
+        HTVM_guiElements[guiID] = div;
+        // Append the div to the body
+        document.body.appendChild(div);
+    }
+    // Create the text element
+    const textElement = document.createElement('span'); // Use span for inline text
+    // Set the text content
+    textElement.textContent = text;
+    // Set the ID of the text element
+    textElement.id = textID;
+    // Set default position if x or y is not provided
+    if (x === null || x === undefined || y === null || y === undefined) {
+        x = (div.clientWidth - 100) / 2; // Center horizontally (default width of 100px)
+        y = (div.clientHeight - 20) / 2; // Center vertically (default height of 20px)
+    }
+    // Set the text styles
+    textElement.style.position = 'absolute';
+    textElement.style.left = `${x}px`;
+    textElement.style.top = `${y}px`;
+    textElement.style.color = color; // Set text color
+    textElement.style.border = 'none'; // No border
+    textElement.style.backgroundColor = 'transparent'; // No background
+    textElement.style.borderRadius = roundness ? `${roundness}px` : '0px'; // Optional rounding
+    // Set z-index if provided
+    if (zIndex !== null && zIndex !== undefined) {
+        textElement.style.zIndex = zIndex;
+    }
+    // Append the text element to the specified div
+    div.appendChild(textElement);
+}
+
 function Gui_Size(divID, fontSize) {
     document.querySelectorAll(`#${divID}, #${divID} *, #${divID} button, #${divID} input, #${divID} textarea`).forEach(el => el.style.fontSize = `${fontSize}px`);
 }
@@ -414,6 +469,144 @@ function Gui_Size_Id(divID, elementID, fontSize) {
     if (specificElement) {
         specificElement.style.fontSize = `${fontSize}px`;
     }
+}
+
+function GuiControl(action, divId, id, param1, param2, param3, param4) {
+    // Convert action to lowercase to handle case insensitivity
+    const actionLower = action.toLowerCase();
+    const element = document.getElementById(id);
+    const divElement = document.getElementById(divId);
+    
+    if (element) {
+        // Handle DOM elements
+        if (actionLower === "move") {
+            // Set position and size
+            element.style.left = param1 + "px";
+            element.style.top = param2 + "px";
+            element.style.width = param3 + "px";
+            element.style.height = param4 + "px";
+        } else if (actionLower === "focus" && (element instanceof HTMLInputElement || element instanceof HTMLElement)) {
+            // Focus on the element
+            element.focus();
+        } else if (actionLower === "text") {
+            // Set new text content
+            element.textContent = param1;
+        } else if (actionLower === "hide") {
+            // Hide the element
+            element.style.display = "none";
+        } else if (actionLower === "show") {
+            // Show the element
+            element.style.display = "";
+        } else if (actionLower === "enable") {
+            // Enable the element
+            element.disabled = false;
+        } else if (actionLower === "disable") {
+            // Disable the element
+            element.disabled = true;
+        } else if (actionLower === "font") {
+            // Set font size
+            element.style.fontSize = param1 + "px";
+        } else if (actionLower === "destroy") {
+            // Remove the element from the DOM
+            element.parentNode.removeChild(element);
+        } else if (actionLower === "color") {
+            // Set color
+            element.style.color = param1;
+        } else if (actionLower === "picture") {
+            // Change the image source
+            if (element instanceof HTMLImageElement) {
+                element.src = param1;
+            } else {
+                console.error("Element is not an <img> tag, cannot change picture.");
+            }
+        } else if (actionLower === "textide") {
+            // Set value for Ace editor
+            var editor = ace.edit(id); // Access the Ace editor instance using its ID
+            if (editor && param1) {
+                editor.session.setValue(param1);
+            } else {
+                console.error("Element is not an Ace editor or parameter is missing.");
+            }
+        }
+    } else if (divElement) {
+        // Handle actions specifically for the div element
+        if (actionLower === "move") {
+            // Set position and size for the div
+            divElement.style.left = param1 + "px";
+            divElement.style.top = param2 + "px";
+            divElement.style.width = param3 + "px";
+            divElement.style.height = param4 + "px";
+        } else if (actionLower === "color") {
+            // Set background color for the div
+            divElement.style.backgroundColor = param1;
+        }
+        // Add more actions for divElement as needed
+    } else {
+        // Handle canvas or non-existing element
+        if (actionLower === "move") {
+            // Update position and size of the rectangle
+            updateRectangle(id, param1, param2, param3, param4);
+            redrawCanvas(); // Redraw the canvas with updated rectangles
+        } else if (actionLower === "color") {
+            // Update color of the rectangle
+            updateRectangleColor(id, param1);
+            redrawCanvas(); // Redraw the canvas with updated rectangles
+        }
+    }
+}
+
+// Define the MakeHotKey function separately
+function MakeHotKey(hotkey, callback) {
+    document.addEventListener("keydown", function (event) {
+        const keys = hotkey.split("+").map((key) => key.trim().toLowerCase());
+        const modifiers = {
+            ctrl: event.ctrlKey,
+            shift: event.shiftKey,
+            alt: event.altKey,
+        };
+        let hotkeyPressed = true;
+        keys.forEach((key) => {
+            if (key === "ctrl" || key === "shift" || key === "alt") {
+                if (!modifiers[key]) {
+                    hotkeyPressed = false;
+                }
+            } else if (key === "backspace") {
+                if (event.key !== "Backspace") {
+                    hotkeyPressed = false;
+                }
+            } else if (key === "esc" || key === "escape") {
+                if (event.key !== "Escape") {
+                    hotkeyPressed = false;
+                }
+            } else if (key.startsWith("arrow")) {
+                const arrowDirection = key.replace("arrow", "");
+                if (arrowDirection === "up" && event.key !== "ArrowUp") {
+                    hotkeyPressed = false;
+                } else if (arrowDirection === "down" && event.key !== "ArrowDown") {
+                    hotkeyPressed = false;
+                } else if (arrowDirection === "left" && event.key !== "ArrowLeft") {
+                    hotkeyPressed = false;
+                } else if (arrowDirection === "right" && event.key !== "ArrowRight") {
+                    hotkeyPressed = false;
+                }
+            } else if (key === "enter") {
+                if (event.key !== "Enter") {
+                    hotkeyPressed = false;
+                }
+            } else if (!event.key.match(/^[0-9a-zA-Z]$/) && event.key !== key) {
+                hotkeyPressed = false;
+            } else if (event.key.toLowerCase() !== key && event.key.match(/^[a-zA-Z]$/)) {
+                hotkeyPressed = false;
+            }
+        });
+        if (hotkeyPressed) {
+            if (modifiers["shift"]) {
+                callback(hotkey.toUpperCase());
+            } else {
+                callback(hotkey.toLowerCase());
+            }
+        }
+    });
 }
 
 
@@ -441,13 +634,58 @@ async function main() {
     var SendButton_y = AScreenHeight - 20 - 160 + 20;
     var SendButton_w = 150;
     var SendButton_h = 150;
-    Gui_Edit("gui1", "EditBoxDISPLAY", "", EditBoxDISPLAY_x, EditBoxDISPLAY_y, EditBoxDISPLAY_w, EditBoxDISPLAY_h, "#121212", "#FFFFFF", null, null, null, null);
+    Gui_Text("gui1", "topText", "HTVM IDE SETTINGS", 4, 4, "#FFFFFF", null, null);
+    Gui_Size_Id("gui1", "topText", 30);
+    //Gui_Edit("gui1", "EditBoxDISPLAY", "", EditBoxDISPLAY_x, EditBoxDISPLAY_y, EditBoxDISPLAY_w, EditBoxDISPLAY_h, "#121212", "#FFFFFF", null, null, null, null)
     //Gui_Edit("gui1", "EditBoxUserInput", "", EditBoxUserInput_x, EditBoxUserInput_y, EditBoxUserInput_w, EditBoxUserInput_h, "#121212", "#FFFFFF", null, null, null, EditBoxUserInputCallBack)
-    Gui_Button("gui1", "SendButton", "Send", SendButton_x, SendButton_y, SendButton_w, SendButton_h, "#4CAF50", "#FFFFFF", true, 5, null, send);
+    Gui_Button("gui1", "SendButton", "Save/Close", SendButton_x, SendButton_y, SendButton_w, SendButton_h, "#4CAF50", "#FFFFFF", true, 5, null, send);
+    Gui_Size_Id("gui1", "SendButton", 24);
     //Gui_Size_Id("gui1", "EditBoxDISPLAY", 16)
     //Gui_Size_Id("gui1", "EditBoxUserInput", 20)
-    //Gui_Size_Id("gui1", "SendButton", 29)
-    //window.parent.postMessage("close", '*')
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    let EditBoxHTVMpathSTR = "";
+    Gui_Button("gui1", "buttonCPP", "cpp", 5, 50, 100, 40, null, null, true, 5, null, buttonCPP);
+    Gui_Button("gui1", "buttonPY", "py", 110, 50, 100, 40, null, null, true, 5, null, buttonPY);
+    Gui_Button("gui1", "buttonJS", "js", 215, 50, 100, 40, null, null, true, 5, null, buttonJS);
+    Gui_Size_Id("gui1", "buttonCPP", 20);
+    Gui_Size_Id("gui1", "buttonPY", 20);
+    Gui_Size_Id("gui1", "buttonJS", 20);
+    Gui_Text("gui1", "explainButtonCPPPYJS", "explain here", 325, 55, "#FFFFFF", null, null);
+    Gui_Size_Id("gui1", "explainButtonCPPPYJS", 20);
+    Gui_Edit("gui1", "EditBoxHTVMpath", "Enter HTVM compiler path (e.g., %HTVM%/HTVM)", 5, 100, 650, 20, "#121212", "#FFFFFF", null, null, null, EditBoxHTVMpathCallBack);
+    Gui_Size_Id("gui1", "EditBoxHTVMpath", 15);
+    Gui_Edit("gui1", "EditBoxHTinstPath", "Enter HT-instructions.txt path (e.g., %HTVM%/HT-instructions.txt)", 5, 130, 650, 20, "#121212", "#FFFFFF", null, null, null, EditBoxHTVMpathCallBack);
+    Gui_Size_Id("gui1", "EditBoxHTinstPath", 15);
+    Gui_Text("gui1", "explainText2", "Do you want to run the code after HTVM converts it", 5, 160, "#FFFFFF", null, null);
+    Gui_Size_Id("gui1", "explainText2", 25);
+    Gui_Text("gui1", "explainText3", "F5 mode", 5, 190, "#FFFFFF", null, null);
+    Gui_Text("gui1", "explainText4", "Ctrl+F7 mode", 150, 190, "#FFFFFF", null, null);
+    Gui_Size_Id("gui1", "explainText3", 25);
+    Gui_Size_Id("gui1", "explainText4", 25);
+    MakeHotKey("Esc", handleEscapeKey);
+    async function handleEscapeKey() {
+        window.parent.postMessage("clo" + "se", "*");
+    }
+    async function EditBoxHTVMpathCallBack(data) {
+        EditBoxHTVMpathSTR = data;
+    }
+    async function buttonCPP(data) {
+        GuiControl("disable", "gui1", "buttonCPP");
+        GuiControl("enable", "gui1", "buttonPY");
+        GuiControl("enable", "gui1", "buttonJS");
+    }
+    async function buttonPY(data) {
+        GuiControl("enable", "gui1", "buttonCPP");
+        GuiControl("disable", "gui1", "buttonPY");
+        GuiControl("enable", "gui1", "buttonJS");
+    }
+    async function buttonJS(data) {
+        GuiControl("enable", "gui1", "buttonCPP");
+        GuiControl("enable", "gui1", "buttonPY");
+        GuiControl("disable", "gui1", "buttonJS");
+    }
     async function send(data) {
         window.parent.postMessage("clo" + "se", "*");
     }

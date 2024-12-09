@@ -3002,6 +3002,10 @@ function MakeHotKey(hotkey, callback) {
                 if (event.key !== "Backspace") {
                     hotkeyPressed = false;
                 }
+            } else if (key === "esc" || key === "escape") {
+                if (event.key !== "Escape") {
+                    hotkeyPressed = false;
+                }
             } else if (key.startsWith("arrow")) {
                 const arrowDirection = key.replace("arrow", "");
                 if (arrowDirection === "up" && event.key !== "ArrowUp") {
