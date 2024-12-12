@@ -1,0 +1,236 @@
+
+func str detectWin(str board)
+{
+arr int arrPosPlayer1
+arr int arrPosPlayer2
+
+str temp1 := ""
+
+Loop, Parse, board, "|"
+{
+if (Trim(A_LoopField) = "x")
+{
+arrPosPlayer1.add(1)
+}
+else
+{
+arrPosPlayer1.add(0)
+}
+}
+
+Loop, Parse, board, "|"
+{
+if (Trim(A_LoopField) = "o")
+{
+arrPosPlayer2.add(1)
+}
+else
+{
+arrPosPlayer2.add(0)
+}
+}
+
+
+Loop, 3
+{
+    if (arrPosPlayer1[0 + (A_Index * 3)] = 1) and (arrPosPlayer1[1 + (A_Index * 3)] = 1) and (arrPosPlayer1[2 + (A_Index * 3)] = 1)
+    {
+        return temp1 . "player 1 won!!!"
+    }
+}
+Loop, 3
+{
+    if (arrPosPlayer1[A_Index] = 1) and (arrPosPlayer1[A_Index + 3] = 1) and (arrPosPlayer1[A_Index + 6] = 1)
+    {
+        return temp1 . "player 1 won!!!"
+    }
+}
+if (arrPosPlayer1[0] = 1) and (arrPosPlayer1[4] = 1) and (arrPosPlayer1[8] = 1)
+{
+    return temp1 . "player 1 won!!!"
+}
+if (arrPosPlayer1[2] = 1) and (arrPosPlayer1[4] = 1) and (arrPosPlayer1[6] = 1)
+{
+    return temp1 . "player 1 won!!!"
+}
+
+
+
+Loop, 3
+{
+    if (arrPosPlayer2[0 + (A_Index * 3)] = 1) and (arrPosPlayer2[1 + (A_Index * 3)] = 1) and (arrPosPlayer2[2 + (A_Index * 3)] = 1)
+    {
+        return temp1 . "player 2 won!!!"
+    }
+}
+Loop, 3
+{
+    if (arrPosPlayer2[A_Index] = 1) and (arrPosPlayer2[A_Index + 3] = 1) and (arrPosPlayer2[A_Index + 6] = 1)
+    {
+        return temp1 . "player 2 won!!!"
+    }
+}
+if (arrPosPlayer2[0] = 1) and (arrPosPlayer2[4] = 1) and (arrPosPlayer2[8] = 1)
+{
+    return temp1 . "player 2 won!!!"
+}
+if (arrPosPlayer2[2] = 1) and (arrPosPlayer2[4] = 1) and (arrPosPlayer2[6] = 1)
+{
+    return temp1 . "player 2 won!!!"
+}
+
+
+
+return temp1 . "null"
+}
+
+main
+str tabel := "0|0|0|0|0|0|0|0|0"
+str tabelTemp := ""
+int turn := 0
+int pos := 0
+
+str tempHoldToPrint := ""
+int tempHoldToPrintINT := 0
+int error := 0
+
+int index := 0
+Loop, 1000
+{
+index++
+
+if (Mod(index, 2))
+{
+
+Loop
+{
+pos := INT(Trim(await input("PLAYER 2 make a move from pos 1 to 9: ")))
+Sleep, 10
+if (pos <= 0) or (pos >= 10)
+{
+print("error cant play this move!!!")
+}
+else
+{
+break
+}
+}
+
+
+tabelTemp := ""
+Loop, Parse, tabel, "|"
+{
+if (A_Index + 1 = pos)
+{
+if (Trim(A_LoopField) = "x") or (Trim(A_LoopField) = "o")
+{
+error := 1
+index--
+print("error cant play this move!!!")
+break
+}
+tabelTemp .= "o|"
+}
+else
+{
+tabelTemp .= A_LoopField . "|"
+}
+}
+if (error = 0)
+{
+error := 0
+StringTrimRight, tabel, tabelTemp, 1
+}
+else
+{
+error := 0
+continue
+}
+
+
+
+}
+else
+{
+Loop
+{
+pos := INT(Trim(await input("PLAYER 1 make a move from pos 1 to 9: ")))
+Sleep, 10
+if (pos <= 0) or (pos >= 10)
+{
+print("error cant play this move!!!")
+}
+else
+{
+break
+}
+}
+
+
+tabelTemp := ""
+Loop, Parse, tabel, "|"
+{
+if (A_Index + 1 = pos)
+{
+if (Trim(A_LoopField) = "x") or (Trim(A_LoopField) = "o")
+{
+error := 1
+index--
+print("error cant play this move!!!")
+break
+}
+tabelTemp .= "x|"
+}
+else
+{
+tabelTemp .= A_LoopField . "|"
+}
+}
+if (error = 0)
+{
+error := 0
+StringTrimRight, tabel, tabelTemp, 1
+}
+else
+{
+error := 0
+continue
+}
+
+
+
+
+}
+tempHoldToPrint := ""
+tempHoldToPrintINT := 0
+Loop, Parse, tabel, "|"
+{
+tempHoldToPrintINT++
+tempHoldToPrint .= A_LoopField . "|"
+if (tempHoldToPrintINT = 3)
+{ 
+tempHoldToPrintINT := 0
+tempHoldToPrint .= "`n"
+}
+
+
+}
+
+StringTrimRight, tempHoldToPrint, tempHoldToPrint, 1
+print(tempHoldToPrint)
+
+if (detectWin(tempHoldToPrint) = "player 1 won!!!")
+{
+print("player 1 won!!!")
+break
+}
+
+if (detectWin(tempHoldToPrint) = "player 2 won!!!")
+{
+print("player 2 won!!!")
+break
+}
+}
+
+print("GAME OVER!!!")
+

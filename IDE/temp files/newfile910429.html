@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HTVM</title>
+        <style>
+            body {
+                background-color: #202020;
+                font-family:
+                    "Open Sans",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    Oxygen-Sans,
+                    Ubuntu,
+                    Cantarell,
+                    "Helvetica Neue",
+                    Helvetica,
+                    Arial,
+                    sans-serif;
+            }
+        </style>
+
+</head>
+    <body>
+<script>
+
+
+function LoopParseFunc(varString, delimiter1="", delimiter2="") {
+    let items;
+    if (!delimiter1 && !delimiter2) {
+        // If no delimiters are provided, return an array of characters
+        items = [...varString];
+    } else {
+        // Construct the regular expression pattern for splitting the string
+        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + delimiter2.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ']+');
+        // Split the string using the constructed pattern
+        items = varString.split(pattern);
+    }
+    return items;
+}
+
+function print(value) {
+    console.log(value)
+}
+
+// Convert value to integer
+function INT(value) {
+    const intValue = parseInt(value, 10);
+    if (Number.isNaN(intValue)) {
+        console.warn(`Invalid input: ${value} cannot be converted to an integer.`);
+        return 0;  // Or any other default value
+    }
+    return intValue;
+}
+
+function Sleep(milliseconds) {
+    // Sleep for the specified number of milliseconds
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
+// Function to simulate input() in JavaScript
+function input(promptText) {
+    // Display the prompt and get user input
+    return prompt(promptText);
+}
+
+function Trim(inputString) {
+    return inputString ? inputString.trim() : "";
+}
+
+function StringTrimRight(input, numChars) {
+    return (numChars <= input.length) ? input.substring(0, input.length - numChars) : input;
+}
+
+function Mod(dividend, divisor) {
+    return dividend % divisor;
+}
+
+
+
+async function detectWin(board) {
+    let arrPosPlayer1 = [];
+    let arrPosPlayer2 = [];
+    var temp1 = "";
+    items1 = LoopParseFunc(board, "|")
+    for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
+        const A_LoopField1 = items1[A_Index1 - 0];
+        if (Trim(A_LoopField1) == "x") {
+            arrPosPlayer1.push(1);
+        } else {
+            arrPosPlayer1.push(0);
+        }
+    }
+    items2 = LoopParseFunc(board, "|")
+    for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
+        const A_LoopField2 = items2[A_Index2 - 0];
+        if (Trim(A_LoopField2) == "o") {
+            arrPosPlayer2.push(1);
+        } else {
+            arrPosPlayer2.push(0);
+        }
+    }
+    for (let A_Index3 = 0; A_Index3 < 3 + 0; A_Index3++) {
+        if (arrPosPlayer1[0 + (A_Index3 * 3)] == 1 && arrPosPlayer1[1 + (A_Index3 * 3)] == 1 && arrPosPlayer1[2 + (A_Index3 * 3)] == 1) {
+            return temp1 + "player 1 won!!!";
+        }
+    }
+    for (let A_Index4 = 0; A_Index4 < 3 + 0; A_Index4++) {
+        if (arrPosPlayer1[A_Index4] == 1 && arrPosPlayer1[A_Index4 + 3] == 1 && arrPosPlayer1[A_Index4 + 6] == 1) {
+            return temp1 + "player 1 won!!!";
+        }
+    }
+    if (arrPosPlayer1[0] == 1 && arrPosPlayer1[4] == 1 && arrPosPlayer1[8] == 1) {
+        return temp1 + "player 1 won!!!";
+    }
+    if (arrPosPlayer1[2] == 1 && arrPosPlayer1[4] == 1 && arrPosPlayer1[6] == 1) {
+        return temp1 + "player 1 won!!!";
+    }
+    for (let A_Index5 = 0; A_Index5 < 3 + 0; A_Index5++) {
+        if (arrPosPlayer2[0 + (A_Index5 * 3)] == 1 && arrPosPlayer2[1 + (A_Index5 * 3)] == 1 && arrPosPlayer2[2 + (A_Index5 * 3)] == 1) {
+            return temp1 + "player 2 won!!!";
+        }
+    }
+    for (let A_Index6 = 0; A_Index6 < 3 + 0; A_Index6++) {
+        if (arrPosPlayer2[A_Index6] == 1 && arrPosPlayer2[A_Index6 + 3] == 1 && arrPosPlayer2[A_Index6 + 6] == 1) {
+            return temp1 + "player 2 won!!!";
+        }
+    }
+    if (arrPosPlayer2[0] == 1 && arrPosPlayer2[4] == 1 && arrPosPlayer2[8] == 1) {
+        return temp1 + "player 2 won!!!";
+    }
+    if (arrPosPlayer2[2] == 1 && arrPosPlayer2[4] == 1 && arrPosPlayer2[6] == 1) {
+        return temp1 + "player 2 won!!!";
+    }
+    return temp1 + "null";
+}
+async function main() {
+    var tabel = "0|0|0|0|0|0|0|0|0";
+    var tabelTemp = "";
+    var turn = 0;
+    var pos = 0;
+    var tempHoldToPrint = "";
+    var tempHoldToPrintINT = 0;
+    var error = 0;
+    var index = 0;
+    for (let A_Index7 = 0; A_Index7 < 1000 + 0; A_Index7++) {
+        index++;
+        if (Mod(index, 2)) {
+            for (let A_Index8 = 0; ; A_Index8++) {
+                pos = INT(Trim(await input("PLAYER 2 make a move from pos 1 to 9: ")));
+                Sleep(10);
+                if (pos <= 0 || pos >= 10) {
+                    print("error cant play this move!!!");
+                } else {
+                    break;
+                }
+            }
+            tabelTemp = "";
+            items9 = LoopParseFunc(tabel, "|")
+            for (let A_Index9 = 0; A_Index9 < items9.length + 0; A_Index9++) {
+                const A_LoopField9 = items9[A_Index9 - 0];
+                if (A_Index9 + 1 == pos) {
+                    if (Trim(A_LoopField9) == "x" || Trim(A_LoopField9) == "o") {
+                        error = 1;
+                        index--;
+                        print("error cant play this move!!!");
+                        break;
+                    }
+                    tabelTemp += "o|";
+                } else {
+                    tabelTemp += A_LoopField9 + "|";
+                }
+            }
+            if (error == 0) {
+                error = 0;
+                tabel = StringTrimRight(tabelTemp, 1);
+            } else {
+                error = 0;
+                continue;
+            }
+        } else {
+            for (let A_Index10 = 0; ; A_Index10++) {
+                pos = INT(Trim(await input("PLAYER 1 make a move from pos 1 to 9: ")));
+                Sleep(10);
+                if (pos <= 0 || pos >= 10) {
+                    print("error cant play this move!!!");
+                } else {
+                    break;
+                }
+            }
+            tabelTemp = "";
+            items11 = LoopParseFunc(tabel, "|")
+            for (let A_Index11 = 0; A_Index11 < items11.length + 0; A_Index11++) {
+                const A_LoopField11 = items11[A_Index11 - 0];
+                if (A_Index11 + 1 == pos) {
+                    if (Trim(A_LoopField11) == "x" || Trim(A_LoopField11) == "o") {
+                        error = 1;
+                        index--;
+                        print("error cant play this move!!!");
+                        break;
+                    }
+                    tabelTemp += "x|";
+                } else {
+                    tabelTemp += A_LoopField11 + "|";
+                }
+            }
+            if (error == 0) {
+                error = 0;
+                tabel = StringTrimRight(tabelTemp, 1);
+            } else {
+                error = 0;
+                continue;
+            }
+        }
+        tempHoldToPrint = "";
+        tempHoldToPrintINT = 0;
+        items12 = LoopParseFunc(tabel, "|")
+        for (let A_Index12 = 0; A_Index12 < items12.length + 0; A_Index12++) {
+            const A_LoopField12 = items12[A_Index12 - 0];
+            tempHoldToPrintINT++;
+            tempHoldToPrint += A_LoopField12 + "|";
+            if (tempHoldToPrintINT == 3) {
+                tempHoldToPrintINT = 0;
+                tempHoldToPrint += "\n";
+            }
+        }
+        tempHoldToPrint = StringTrimRight(tempHoldToPrint, 1);
+        print(tempHoldToPrint);
+        if (detectWin(tempHoldToPrint) == "player 1 won!!!") {
+            print("player 1 won!!!");
+            break;
+        }
+        if (detectWin(tempHoldToPrint) == "player 2 won!!!") {
+            print("player 2 won!!!");
+            break;
+        }
+    }
+    print("GAME OVER!!!");
+}
+main();
+</script>
+</body>
+</html>
