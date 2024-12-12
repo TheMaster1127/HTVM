@@ -61,15 +61,7 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\CPU-ASM-EMULATOR.cpp
 C:\Users\The_M\OneDrive\Desktop\temp Projects\qawsdfawedgd\stringManipulate.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Home-Control-pi\Home-Control-pi-BACKEND.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Home-Control-pi\Home-Control-pi-FRONTEND.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile661514.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile918326.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile32757.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile466329.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile817403.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile817403.py
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile817403.cpp
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile817403.html
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile914.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile914.html
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile914.py
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile914.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM v2\HTVM.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM v2\HTVM.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM v2\HTVM.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM v2\HTVM.html

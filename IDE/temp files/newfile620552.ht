@@ -1,0 +1,30 @@
+alliance main1 {
+    crew crew1 {
+        arr str temp
+        def obj obj1 {
+            prop int prop1 := 5
+            prop str prop2 := "hello"
+            prop arr str prop2 := temp
+        }
+        def obj obj2 {
+            prop int prop1 := 6
+            prop str prop2 := "hello2"
+            prop arr str prop2 := temp
+        }
+        method void method1(this) {
+            if (this = "main1.crew1.obj1") {
+                main1.crew1.obj1.prop1 := main1.crew1.obj1.prop1 + 1 
+            }
+            if (this = "main1.crew1.obj2") {
+                main1.crew1.obj2.prop1 := main1.crew1.obj2.prop1 + 1
+            }
+        }
+    }
+}
+
+main
+main1.crew1.method1(main1.crew1.obj1) 
+main1.crew1.method1(main1.crew1.obj2)
+print(main1.crew1.obj1.prop1)
+print(main1.crew1.obj2.prop1)
+
