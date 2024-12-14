@@ -1,7 +1,9 @@
+/data/data/com.termux/files/home/HTVM/HTVM "%FILENAME%" "/data/data/com.termux/files/home/HTVM/HT-instructions.txt" "cpp"
 
-Loop, 6
-{
-print("hello ide: " . STR(A_Index))
-}
+g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
+cd "%DIRFULLPATH%" && "%ONLYFILENAME%"
 
-print("hello")
+
+
+
+
