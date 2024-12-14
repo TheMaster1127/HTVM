@@ -60,12 +60,12 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTLL\HTLL\CPU-ASM-EMULATOR.cpp
 C:\Users\The_M\OneDrive\Desktop\temp Projects\qawsdfawedgd\stringManipulate.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Home-Control-pi\Home-Control-pi-BACKEND.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\Home-Control-pi\Home-Control-pi-FRONTEND.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM v2\HTVM.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM v2\HTVM.cpp
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM v2\HTVM.py
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM v2\HTVM.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile910429.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile910429.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile910429.py
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile910429.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.html
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.py
