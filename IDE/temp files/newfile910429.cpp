@@ -102,11 +102,10 @@ int Mod(int dividend, int divisor) {
 }
 
 
-
 std::string detectWin(std::string board) {
     std::vector<int> arrPosPlayer1;
     std::vector<int> arrPosPlayer2;
-    std::string temp1 = "";
+    std::string temp1 = "player";
     std::vector<std::string> items1 = LoopParseFunc(board, "|");
     for (size_t A_Index1 = 0; A_Index1 < items1.size() + 0; A_Index1++) {
         std::string A_LoopField1 = items1[A_Index1 - 0];
@@ -127,35 +126,35 @@ std::string detectWin(std::string board) {
     }
     for (int A_Index3 = 0; A_Index3 < 3 + 0; A_Index3++) {
         if (arrPosPlayer1[0 + (A_Index3 * 3)] == 1 && arrPosPlayer1[1 + (A_Index3 * 3)] == 1 && arrPosPlayer1[2 + (A_Index3 * 3)] == 1) {
-            return temp1 + "player 1 won!!!";
+            return temp1 + " 1 won!!!";
         }
     }
     for (int A_Index4 = 0; A_Index4 < 3 + 0; A_Index4++) {
         if (arrPosPlayer1[A_Index4] == 1 && arrPosPlayer1[A_Index4 + 3] == 1 && arrPosPlayer1[A_Index4 + 6] == 1) {
-            return temp1 + "player 1 won!!!";
+            return temp1 + " 1 won!!!";
         }
     }
     if (arrPosPlayer1[0] == 1 && arrPosPlayer1[4] == 1 && arrPosPlayer1[8] == 1) {
-        return temp1 + "player 1 won!!!";
+        return temp1 + " 1 won!!!";
     }
     if (arrPosPlayer1[2] == 1 && arrPosPlayer1[4] == 1 && arrPosPlayer1[6] == 1) {
-        return temp1 + "player 1 won!!!";
+        return temp1 + " 1 won!!!";
     }
     for (int A_Index5 = 0; A_Index5 < 3 + 0; A_Index5++) {
         if (arrPosPlayer2[0 + (A_Index5 * 3)] == 1 && arrPosPlayer2[1 + (A_Index5 * 3)] == 1 && arrPosPlayer2[2 + (A_Index5 * 3)] == 1) {
-            return temp1 + "player 2 won!!!";
+            return temp1 + " 2 won!!!";
         }
     }
     for (int A_Index6 = 0; A_Index6 < 3 + 0; A_Index6++) {
         if (arrPosPlayer2[A_Index6] == 1 && arrPosPlayer2[A_Index6 + 3] == 1 && arrPosPlayer2[A_Index6 + 6] == 1) {
-            return temp1 + "player 2 won!!!";
+            return temp1 + " 2 won!!!";
         }
     }
     if (arrPosPlayer2[0] == 1 && arrPosPlayer2[4] == 1 && arrPosPlayer2[8] == 1) {
-        return temp1 + "player 2 won!!!";
+        return temp1 + " 2 won!!!";
     }
     if (arrPosPlayer2[2] == 1 && arrPosPlayer2[4] == 1 && arrPosPlayer2[6] == 1) {
-        return temp1 + "player 2 won!!!";
+        return temp1 + " 2 won!!!";
     }
     return temp1 + "null";
 }
@@ -251,6 +250,7 @@ int main(int argc, char* argv[]) {
         }
         tempHoldToPrint = StringTrimRight(tempHoldToPrint, 1);
         print(tempHoldToPrint);
+        Sleep(10);
         if (detectWin(tempHoldToPrint) == "player 1 won!!!") {
             print("player 1 won!!!");
             break;

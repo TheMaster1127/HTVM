@@ -39,11 +39,10 @@ def Mod(dividend, divisor):
     return dividend % divisor
 
 
-
 def detectWin(board):
     arrPosPlayer1 = []
     arrPosPlayer2 = []
-    temp1 = ""
+    temp1 = "player"
     items1 = LoopParseFunc(board, "|")
     for A_Index1 , A_LoopField1 in enumerate(items1, start=0):
         if (Trim(A_LoopField1) == "x"):
@@ -58,24 +57,24 @@ def detectWin(board):
             arrPosPlayer2.append(0)
     for A_Index3 in range(0, 3 + 0):
         if (arrPosPlayer1[0 + (A_Index3 * 3)] == 1 and arrPosPlayer1[1 + (A_Index3 * 3)] == 1 and arrPosPlayer1[2 + (A_Index3 * 3)] == 1):
-            return temp1 + "player 1 won!!!"
+            return temp1 + " 1 won!!!"
     for A_Index4 in range(0, 3 + 0):
         if (arrPosPlayer1[A_Index4] == 1 and arrPosPlayer1[A_Index4 + 3] == 1 and arrPosPlayer1[A_Index4 + 6] == 1):
-            return temp1 + "player 1 won!!!"
+            return temp1 + " 1 won!!!"
     if (arrPosPlayer1[0] == 1 and arrPosPlayer1[4] == 1 and arrPosPlayer1[8] == 1):
-        return temp1 + "player 1 won!!!"
+        return temp1 + " 1 won!!!"
     if (arrPosPlayer1[2] == 1 and arrPosPlayer1[4] == 1 and arrPosPlayer1[6] == 1):
-        return temp1 + "player 1 won!!!"
+        return temp1 + " 1 won!!!"
     for A_Index5 in range(0, 3 + 0):
         if (arrPosPlayer2[0 + (A_Index5 * 3)] == 1 and arrPosPlayer2[1 + (A_Index5 * 3)] == 1 and arrPosPlayer2[2 + (A_Index5 * 3)] == 1):
-            return temp1 + "player 2 won!!!"
+            return temp1 + " 2 won!!!"
     for A_Index6 in range(0, 3 + 0):
         if (arrPosPlayer2[A_Index6] == 1 and arrPosPlayer2[A_Index6 + 3] == 1 and arrPosPlayer2[A_Index6 + 6] == 1):
-            return temp1 + "player 2 won!!!"
+            return temp1 + " 2 won!!!"
     if (arrPosPlayer2[0] == 1 and arrPosPlayer2[4] == 1 and arrPosPlayer2[8] == 1):
-        return temp1 + "player 2 won!!!"
+        return temp1 + " 2 won!!!"
     if (arrPosPlayer2[2] == 1 and arrPosPlayer2[4] == 1 and arrPosPlayer2[6] == 1):
-        return temp1 + "player 2 won!!!"
+        return temp1 + " 2 won!!!"
     return temp1 + "null"
 tabel = "0|0|0|0|0|0|0|0|0"
 tabelTemp = ""
@@ -150,6 +149,7 @@ for A_Index7 in range(0, 1000 + 0):
             tempHoldToPrint += "\n"
     tempHoldToPrint = StringTrimRight(tempHoldToPrint, 1)
     print(tempHoldToPrint)
+    Sleep(10)
     if (detectWin(tempHoldToPrint) == "player 1 won!!!"):
         print("player 1 won!!!")
         break

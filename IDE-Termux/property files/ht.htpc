@@ -1,7 +1,7 @@
-HTVM "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HT-instructions.txt" "cpp"
+/data/data/com.termux/files/home/HTVM/HTVM "%FILENAME%" "/data/data/com.termux/files/home/HTVM/HT-instructions.txt" "cpp"
 
 g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
-
+;cd "%DIRFULLPATH%" && "%ONLYFILENAME%"
 
 
 
