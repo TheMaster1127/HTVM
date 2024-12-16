@@ -1,0 +1,1 @@
+cd "%DIRFULLPATH%" && node "%ONLYFILENAME%.js"

@@ -1,0 +1,125 @@
+langToConvertTo
+langFileExtension
+keyWordAlliance
+keyWordCrew
+keyWordMethod
+keyWordDefObj
+keyWordPorp
+keyWordThis
+keyWordInclude
+keyWordCodeInTheTranspiledLangStart
+keyWordCodeInTheTranspiledLangEnd
+keyWordCurlyBraceOpen
+keyWordCurlyBraceClose
+keyWordNull
+keyWordVoid
+keyWordDouble
+keyWordChar
+keyWordUint8
+keyWordUint16
+keyWordUint32
+keyWordUint64
+keyWordINT
+keyWordSTR
+keyWordBOOL
+keyWordFLOAT
+keyWordINT8
+keyWordINT16
+keyWordINT32
+keyWordINT64
+keyWordIF
+keyWordElseIf
+keyWordElse
+keyWordSwitch
+keyWordSwitchCase
+keyWordSwitchDefault
+keyWordWhileLoop
+keyWordForLoop
+keyWordLoopInfinite
+keyWordLoop
+keyWordLoopParse
+keyWordContinue
+keyWordBreak
+keyWordFunc
+keyWordAwait
+keyWordAsync
+keyWordThrow
+keyWordErrorMsg
+keyWordTry
+keyWordCatch
+keyWordFinally
+keyWordReturnStatement
+keyWordArrayAppend
+keyWordArrayPop
+keyWordArraySize
+keyWordArrayInsert
+keyWordArrayRemove
+keyWordArrayIndexOf
+keyWordArrayDefinition
+keyWordArrayOfIntegersDefinition
+keyWordArrayOfStringsDefinition
+keyWordArrayOfFloatingPointNumbersDefinition
+keyWordArrayOfBooleansDefinition
+keyWordJavaScriptVar
+keyWordJavaScriptLet
+keyWordJavaScriptConst
+keyWordGlobal
+keyWordComment
+keyWordCommentOpenMultiLine
+keyWordCommentCloseMultiLine
+keyWordEscpaeChar
+keyWordMainLabel
+keyWordConcat .
+keyWordAdd +
+keyWordSub -
+keyWordMul *
+keyWordDiv /
+keyWordMod %
+keyWordExp **
+keyWordEqual ==
+keyWordStrictEqual ===
+keyWordNotEqual !=
+keyWordGreater >
+keyWordLess <
+keyWordGreaterEqual >=
+keyWordLessEqual <=
+keyWordAnd &&
+keyWordOr ||
+keyWordNot !
+keyWordBitAnd &
+keyWordBitOr |
+keyWordBitXor ^
+keyWordBitNot ~
+keyWordShiftLeft <<
+keyWordShiftRight >>
+keyWordShiftUnsignedRight >>>
+keyWordAssign =
+keyWordAssignAdd +=
+keyWordAssignConcat .=
+keyWordAssignSub -=
+keyWordAssignMul *=
+keyWordAssignDiv /=
+keyWordAssignMod %=
+keyWordAssignShiftLeft <<=
+keyWordAssignShiftRight >>=
+keyWordAssignBitAnd &=
+keyWordAssignBitOr |=
+keyWordAssignBitXor ^=
+keyWordTernary1 ?
+keyWordTernary2 :
+keyWordInc ++
+keyWordDec --
+AHKlikeLoopsIndexedAt
+keyWordAIndex
+keyWordALoopField
+useFuncKeyWord
+useCurlyBraces
+useEnd
+useEndExtraInfo
+useSemicolon
+useParentheses
+usePythonicColonSyntax
+forLoopLang
+useInJavaScriptAlwaysUseVar
+useJavaScriptInAfullHTMLfile
+useJavaScriptAmainFuncDef

@@ -35,8 +35,7 @@ void print(const T& value) {
 }
 
 
-
 int main(int argc, char* argv[]) {
-    print("HTVM v2");
+    print("waesdtftre5");
     return 0;
 }
