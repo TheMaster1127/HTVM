@@ -1,0 +1,31 @@
+arr int theArr
+theArr.add(1)
+theArr.add(2)
+theArr.add(2)
+theArr.add(3)
+theArr.add(3)
+theArr.add(3)
+arr int tempArr
+arr int outArr
+int currnet := 0
+int found := 0
+Loop, % theArr.size() {
+    if (A_Index != 0) {
+        currnet := A_Index
+        Loop, % tempArr.size() {
+            if (tempArr[A_Index] = theArr[currnet]) {
+                found := 1
+                break
+            }
+        }
+        if (found != 1) {
+            outArr.add(theArr[A_Index])
+        }
+        tempArr.add(theArr[A_Index])
+        found := 0
+    } else {
+        tempArr.add(theArr[A_Index])
+        outArr.add(theArr[A_Index])
+    }
+}
+print(outArr)
