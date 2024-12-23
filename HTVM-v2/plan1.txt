@@ -179,6 +179,8 @@ useEnd
 useEndExtraInfo
 useSemicolon
 useParentheses
+usePrefixTypeForTypeDefinition
+usePostfixTypeForTypeDefinition
 usePythonicColonSyntax
 useInJavaScriptAlwaysUseVar
 useJavaScriptInAfullHTMLfile
