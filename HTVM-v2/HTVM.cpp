@@ -34,9 +34,22 @@ void print(const T& value) {
     }
 }
 
+std::string HTVM_getLang_HTVM() {
+    return "cpp";
+}
+
 
 
 int main(int argc, char* argv[]) {
     print("HTVM v2");
+    if (HTVM_getLang_HTVM() == "cpp") {
+        print("CPP");
+    }
+    if (HTVM_getLang_HTVM() == "py") {
+        print("PY");
+    }
+    if (HTVM_getLang_HTVM() == "js") {
+        print("JS");
+    }
     return 0;
 }

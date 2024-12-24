@@ -3300,9 +3300,31 @@ async function getDataFromEndpoint(data, endpoint, method = "POST") {
     return response.text();
   }
 }
-
-
 funcEND======================funcEND==============
-
-
+func======================func==============
+lang: cpp
+name: HTVM_getLang_HTVM
+libs: null
+description: string~~~HTVM_getLang_HTVM is a func that returns the current language of HTVM as a string~~~here is how the func looks like:~~~```~~~HTVM_getLang_HTVM()~~~```~~~
+std::string HTVM_getLang_HTVM() {
+    return "cpp";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: HTVM_getLang_HTVM
+libs: null
+description: string~~~HTVM_getLang_HTVM is a func that returns the current language of HTVM as a string~~~here is how the func looks like:~~~```~~~HTVM_getLang_HTVM()~~~```~~~
+def HTVM_getLang_HTVM():
+    return "py"
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: HTVM_getLang_HTVM
+libs: null
+description: string~~~HTVM_getLang_HTVM is a func that returns the current language of HTVM as a string~~~here is how the func looks like:~~~```~~~HTVM_getLang_HTVM()~~~```~~~
+function HTVM_getLang_HTVM() {
+    return "js";
+}
+funcEND======================funcEND==============
 
