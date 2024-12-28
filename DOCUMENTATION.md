@@ -885,25 +885,24 @@ Tan(float)
 1. [Asc](#asc)
 2. [Chr](#chr)
 3. [FLOAT](#float)
-4. [HTVM_getLang_HTVM](#htvm_getlang_htvm)
-5. [INT](#int)
-6. [InStr](#instr)
-7. [RegExMatch](#regexmatch)
-8. [RegExReplace](#regexreplace)
-9. [STR](#str)
-10. [Sort](#sort)
-11. [StrLen](#strlen)
-12. [StrLower](#strlower)
-13. [StrReplace](#strreplace)
-14. [StrSplit](#strsplit)
-15. [StrTitleCase](#strtitlecase)
-16. [StringTrimLeft](#stringtrimleft)
-17. [StringTrimRight](#stringtrimright)
-18. [SubStr](#substr)
-19. [Trim](#trim)
-20. [countChars](#countchars)
-21. [getUrlParams](#geturlparams)
-22. [sortArr](#sortarr)
+4. [INT](#int)
+5. [InStr](#instr)
+6. [RegExMatch](#regexmatch)
+7. [RegExReplace](#regexreplace)
+8. [STR](#str)
+9. [Sort](#sort)
+10. [StrLen](#strlen)
+11. [StrLower](#strlower)
+12. [StrReplace](#strreplace)
+13. [StrSplit](#strsplit)
+14. [StrTitleCase](#strtitlecase)
+15. [StringTrimLeft](#stringtrimleft)
+16. [StringTrimRight](#stringtrimright)
+17. [SubStr](#substr)
+18. [Trim](#trim)
+19. [countChars](#countchars)
+20. [getUrlParams](#geturlparams)
+21. [sortArr](#sortarr)
 
 ---
 
@@ -916,7 +915,6 @@ Tan(float)
 | Asc | Yes | Yes | Yes |
 | Chr | Yes | Yes | Yes |
 | FLOAT | Yes | Yes | Yes |
-| HTVM_getLang_HTVM | Yes | Yes | Yes |
 | INT | Yes | Yes | Yes |
 | InStr | Yes | Yes | Yes |
 | RegExMatch | Yes | Yes | Yes |
@@ -988,24 +986,6 @@ FLOAT is a function that converts a given value to a float and throws an error i
 here is how the func looks like:
 ```
 FLOAT(str value)
-```
-
----
-
-### HTVM_getLang_HTVM
-
-[Go back](#string-functions)
-
-**HTVM build-in functions availability.**
-
-| Function | C++ | Python | JavaScript |
-|----------|----------|----------|----------|
-| HTVM_getLang_HTVM | Yes | Yes | Yes |
-
-HTVM_getLang_HTVM is a func that returns the current language of HTVM as a string
-here is how the func looks like:
-```
-HTVM_getLang_HTVM()
 ```
 
 ---
@@ -1340,7 +1320,8 @@ sortArr(arr str stringArray)
 
 1. [BuildInVars](#buildinvars)
 2. [ExitApp](#exitapp)
-3. [Sleep](#sleep)
+3. [HTVM_getLang_HTVM](#htvm_getlang_htvm)
+4. [Sleep](#sleep)
 
 ---
 
@@ -1352,6 +1333,7 @@ sortArr(arr str stringArray)
 |----------|----------|----------|----------|
 | BuildInVars | Yes | Yes | Yes |
 | ExitApp | Yes | Yes | No |
+| HTVM_getLang_HTVM | Yes | Yes | Yes |
 | Sleep | Yes | Yes | Yes |
 
 ---
@@ -1388,6 +1370,24 @@ ExitApp is a function that terminates the application immediately.
 here is how the func looks like:
 ```
 ExitApp()
+```
+
+---
+
+### HTVM_getLang_HTVM
+
+[Go back](#system-functions)
+
+**HTVM build-in functions availability.**
+
+| Function | C++ | Python | JavaScript |
+|----------|----------|----------|----------|
+| HTVM_getLang_HTVM | Yes | Yes | Yes |
+
+HTVM_getLang_HTVM is a func that returns the current language of HTVM as a string
+here is how the func looks like:
+```
+HTVM_getLang_HTVM()
 ```
 
 ---
