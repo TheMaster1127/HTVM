@@ -1,0 +1,95 @@
+func str HTVMmatchStrRrplace(str line, str matchString, str replaceString)
+{
+str lineOut := ""
+if (!InStr(line, matchString))
+{
+return line
+}
+
+str allDelimiters := " ()[]."
+
+arr str lineArr
+
+Loop, Parse, line
+{
+lineArr.add(A_LoopField)
+}
+
+int matchStringLEN := StrLen(matchString)
+
+
+
+
+str sildingLine := ""
+
+int isStart := 1
+int isEnd := 0
+
+int i1 := 0
+
+int hasFound := 0
+
+Loop
+{
+
+sildingLine := ""
+isStart := 1
+isEnd := 0
+i1 := 0
+hasFound := 0
+
+Loop, % lineArr.size()
+{
+if (A_Index = lineArr.size() - 1)
+{
+isEnd := 1
+}
+if (A_Index != 0)
+{
+isStart := 0
+} 
+sildingLine := ""
+Loop, % matchStringLEN
+{
+if (A_Index + i1 <= lineArr.size() - 1)
+{
+sildingLine .= lineArr[A_Index + i1]
+}
+}
+if (StrLen(sildingLine) < matchStringLEN)
+{
+break
+}
+
+
+print(sildingLine)
+
+if (sildingLine = matchString)
+{
+
+
+hasFound := 1
+}
+
+
+i1++
+}
+
+if (hasFound = 0)
+{
+return lineOut
+}
+
+}
+
+
+
+}
+
+main
+print(HTVMmatchStrRrplace("hi man", "hi", "hello"))
+print(HTVMmatchStrRrplace("hi man", "man", "woman"))
+
+print(HTVMmatchStrRrplace("func1(man.hello())", ".hello", ".mello"))
+print(HTVMmatchStrRrplace("func1(var1 plus plus var2)", "plus plus", "+"))
+
