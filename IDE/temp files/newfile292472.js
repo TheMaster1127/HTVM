@@ -31,8 +31,8 @@ function StrLen(s) {
 
 
 async function HTVMmatchStrRrplace(line, matchString, replaceString) {
+    var lineOut = "";
     if (!InStr(line, matchString)) {
-        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         return line;
     }
     var allDelimiters = " ()[].";
@@ -45,30 +45,55 @@ async function HTVMmatchStrRrplace(line, matchString, replaceString) {
     var matchStringLEN = StrLen(matchString);
     var sildingLine = "";
     var isStart = 1;
-    var isEnd = 0;
     var i1 = 0;
-    for (let A_Index2 = 0; A_Index2 < lineArr.length + 0; A_Index2++) {
-        if (A_Index2 == lineArr.length - 1) {
-            isEnd = 1;
-        }
-        if (A_Index2 != 0) {
-            isStart = 0;
-        }
+    var hasFound = 0;
+    var hasFound2 = 0;
+    for (let A_Index2 = 0; A_Index2 < 1 + 0; A_Index2++) {
         sildingLine = "";
-        for (let A_Index3 = 0; A_Index3 < matchStringLEN + 0; A_Index3++) {
-            if (A_Index3 + i1 <= lineArr.length - 1) {
-                sildingLine += lineArr[A_Index3 + i1];
+        isStart = 1;
+        i1 = 0;
+        hasFound = 0;
+        hasFound2 = 0;
+        for (let A_Index3 = 0; A_Index3 < lineArr.length + 0; A_Index3++) {
+            if (A_Index3 != 0) {
+                isStart = 0;
             }
+            sildingLine = "";
+            for (let A_Index4 = 0; A_Index4 < matchStringLEN + 0; A_Index4++) {
+                if (A_Index4 + i1 <= lineArr.length - 1) {
+                    sildingLine += lineArr[A_Index4 + i1];
+                }
+            }
+            if (StrLen(sildingLine) < matchStringLEN) {
+                break;
+            }
+            print("!!!!111111111!!!!!!: " + sildingLine);
+            if (sildingLine == matchString) {
+                hasFound = 1;
+                if (isStart != 1) {
+                    print("!!!!2222222222!!!!!!: " + lineArr[i1 - 1]);
+                    print("!!!!2222222222.555555555!!!!!!: " + lineArr[i1]);
+                }
+                if (i1 + matchStringLEN < lineArr.length) {
+                    print("!!!!3333333333.5555555555!!!!!!: " + lineArr[i1 + matchStringLEN - 1]);
+                    print("!!!!3333333333!!!!!!: " + lineArr[i1 + matchStringLEN]);
+                }
+            }
+            if (hasFound == 1) {
+                hasFound2 = 0;
+            }
+            i1++;
         }
-        if (StrLen(sildingLine) < matchStringLEN) {
-            break;
+        if (hasFound == 0) {
+            return lineOut;
         }
-        print(sildingLine);
-        i1++;
     }
-    return "0";
+    return lineOut;
 }
-print(HTVMmatchStrRrplace("hi man", "hi", "hello"));
-print(HTVMmatchStrRrplace("hi man", "man", "woman"));
-print(HTVMmatchStrRrplace("func1(man.hello())", ".hello", ".mello"));
-print(HTVMmatchStrRrplace("func1(var1 plus plus var2)", "plus plus", "+"));
+async function main() {
+    print(await HTVMmatchStrRrplace("hi man", "hi", "hello"));
+    print(await HTVMmatchStrRrplace("hi man", "man", "woman"));
+    print(await HTVMmatchStrRrplace("func1(man.hello())", ".hello", ".mello"));
+    print(await HTVMmatchStrRrplace("func1(var1 plus plus var2)", "plus plus", "+"));
+}
+main();

@@ -75,8 +75,8 @@ size_t StrLen(const std::string& str) {
 
 
 std::string HTVMmatchStrRrplace(std::string line, std::string matchString, std::string replaceString) {
+    std::string lineOut = "";
     if (!InStr(line, matchString)) {
-        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         return line;
     }
     std::string allDelimiters = " ()[].";
@@ -91,26 +91,47 @@ std::string HTVMmatchStrRrplace(std::string line, std::string matchString, std::
     int isStart = 1;
     int isEnd = 0;
     int i1 = 0;
-    for (int A_Index2 = 0; A_Index2 < lineArr.size() + 0; A_Index2++) {
-        if (A_Index2 == lineArr.size() - 1) {
-            isEnd = 1;
-        }
-        if (A_Index2 != 0) {
-            isStart = 0;
-        }
+    int hasFound = 0;
+    int hasFound2 = 0;
+    for (int A_Index2 = 0; A_Index2 < 1 + 0; A_Index2++) {
         sildingLine = "";
-        for (int A_Index3 = 0; A_Index3 < matchStringLEN + 0; A_Index3++) {
-            if (A_Index3 + i1 <= lineArr.size() - 1) {
-                sildingLine += lineArr[A_Index3 + i1];
+        isStart = 1;
+        isEnd = 0;
+        i1 = 0;
+        hasFound = 0;
+        hasFound2 = 0;
+        for (int A_Index3 = 0; A_Index3 < lineArr.size() + 0; A_Index3++) {
+            if (A_Index3 == lineArr.size() - 1) {
+                isEnd = 1;
             }
+            if (A_Index3 != 0) {
+                isStart = 0;
+            }
+            sildingLine = "";
+            for (int A_Index4 = 0; A_Index4 < matchStringLEN + 0; A_Index4++) {
+                if (A_Index4 + i1 <= lineArr.size() - 1) {
+                    sildingLine += lineArr[A_Index4 + i1];
+                }
+            }
+            if (StrLen(sildingLine) < matchStringLEN) {
+                break;
+            }
+            print("!!!!111111111!!!!!!: " + sildingLine);
+            if (sildingLine == matchString) {
+                hasFound = 1;
+                print("!!!!2222222222!!!!!!: " + lineArr[i1 - 1]);
+                print("!!!!3333333333!!!!!!: " + lineArr[i1 + matchStringLEN]);
+            }
+            if (hasFound == 1) {
+                hasFound2 = 0;
+            }
+            i1++;
         }
-        if (StrLen(sildingLine) < matchStringLEN) {
-            break;
+        if (hasFound == 0) {
+            return lineOut;
         }
-        print(sildingLine);
-        i1++;
     }
-    return "0";
+    return lineOut;
 }
 int main(int argc, char* argv[]) {
     print(HTVMmatchStrRrplace("hi man", "hi", "hello"));

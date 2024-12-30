@@ -23,27 +23,26 @@ int matchStringLEN := StrLen(matchString)
 str sildingLine := ""
 
 int isStart := 1
-int isEnd := 0
+
 
 int i1 := 0
 
 int hasFound := 0
+int hasFound2 := 0
 
-Loop
+
+Loop, 1
 {
 
 sildingLine := ""
 isStart := 1
-isEnd := 0
 i1 := 0
 hasFound := 0
+hasFound2 := 0
 
 Loop, % lineArr.size()
 {
-if (A_Index = lineArr.size() - 1)
-{
-isEnd := 1
-}
+
 if (A_Index != 0)
 {
 isStart := 0
@@ -62,13 +61,35 @@ break
 }
 
 
-print(sildingLine)
+print("!!!!111111111!!!!!!: " . sildingLine)
 
 if (sildingLine = matchString)
 {
-
-
 hasFound := 1
+
+if (isStart != 1)
+{
+print("!!!!2222222222!!!!!!: " . lineArr[i1 - 1])
+print("!!!!2222222222.555555555!!!!!!: " . lineArr[i1])
+}
+if (i1 + matchStringLEN < lineArr.size())
+{
+
+print("!!!!3333333333.5555555555!!!!!!: " . lineArr[i1 + matchStringLEN - 1])
+print("!!!!3333333333!!!!!!: " . lineArr[i1 + matchStringLEN])
+}
+
+
+
+
+
+}
+
+
+
+if (hasFound = 1)
+{
+hasFound2 := 0
 }
 
 
@@ -83,13 +104,13 @@ return lineOut
 }
 
 
-
+return lineOut
 }
 
 main
-print(HTVMmatchStrRrplace("hi man", "hi", "hello"))
-print(HTVMmatchStrRrplace("hi man", "man", "woman"))
+print(await HTVMmatchStrRrplace("hi man", "hi", "hello"))
+print(await HTVMmatchStrRrplace("hi man", "man", "woman"))
 
-print(HTVMmatchStrRrplace("func1(man.hello())", ".hello", ".mello"))
-print(HTVMmatchStrRrplace("func1(var1 plus plus var2)", "plus plus", "+"))
+print(await HTVMmatchStrRrplace("func1(man.hello())", ".hello", ".mello"))
+print(await HTVMmatchStrRrplace("func1(var1 plus plus var2)", "plus plus", "+"))
 
