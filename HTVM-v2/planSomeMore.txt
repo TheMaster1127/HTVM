@@ -18,7 +18,6 @@
 15 | Scala          | .scala             |
 16 | Groovy         | .groovy            |
 
-
 Each language you listed is well-known and widely supported across development environments. This means you'll have a good foundation for creating a robust HTVM version 2 with conversions across these 11 languages.
 
 All Langs

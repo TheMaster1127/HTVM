@@ -1,0 +1,18 @@
+func str SubStrLastChars(str text, int numOfChars) {
+    str LastOut := ""
+    int NumOfChars := 0
+    Loop, Parse, text {
+        NumOfChars++
+    }
+    Loop, % numOfChars {
+        NumOfChars--
+    }
+    Loop, Parse, text {
+        if (A_Index >= NumOfChars) {
+            LastOut .= A_LoopField
+        }
+    }
+    return LastOut
+}
+main
+print(await SubStrLastChars("hello", 2))

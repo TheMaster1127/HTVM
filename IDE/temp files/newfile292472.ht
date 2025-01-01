@@ -1,116 +1,154 @@
-func str HTVMmatchStrRrplace(str line, str matchString, str replaceString)
-{
-str lineOut := ""
-if (!InStr(line, matchString))
-{
-return line
+func str HTVMmatchStrRrplace(str line, str matchString, str replaceString) {
+    str lineOut := ""
+    if (!InStr(line, matchString)) {
+        return line
+    }
+    str allDelimiters := " ()[].,;:'!&|=<>+-*/^%~" . Chr(34)
+    arr str lineArr
+    Loop, Parse, line {
+        lineArr.add(A_LoopField)
+    }
+    int matchStringLEN := StrLen(matchString)
+    int replaceStringLEN := StrLen(replaceString)
+    arr int allPosForReplacing
+    str sildingLine := ""
+    int isStart := 1
+    int i1 := 0
+    int hasFound := 0
+    int hasFound2 := 0
+    int isStartTrue := 0
+    int isEndTrue := 0
+    ; char1 is for text outside the start
+    str char1 := ""
+    ; char2 is for text inside the start
+    str char2 := ""
+    ; char3 is for text inside the end
+    str char3 := ""
+    ; char4 is for text outside the end
+    str char4 := ""
+    int isMatch := 0
+    sildingLine := ""
+    isStart := 1
+    i1 := 0
+    hasFound := 0
+    hasFound2 := 0
+    isStartTrue := 0
+    isEndTrue := 0
+    Loop, % lineArr.size() {
+        char1 := ""
+        char2 := ""
+        char3 := ""
+        char4 := ""
+        isMatch := 0
+        if (A_Index != 0) {
+            isStart := 0
+        }
+        sildingLine := ""
+        Loop, % matchStringLEN {
+            if (A_Index + i1 <= lineArr.size() - 1) {
+                sildingLine .= lineArr[A_Index + i1]
+            }
+        }
+        if (StrLen(sildingLine) < matchStringLEN) {
+            break
+        }
+        ;print("!!!!111111111!!!!!!: " . sildingLine)
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;==================
+        if (sildingLine = matchString) {
+            hasFound := 1
+            if (isStart != 1) {
+                ;print("!!!!2222222222!!!!!!: " . lineArr[i1 - 1])
+                char1 := lineArr[i1 - 1]
+                ;print("!!!!2222222222.555555555!!!!!!: " . lineArr[i1])
+                char2 := lineArr[i1]
+            } else {
+                isStartTrue := 1
+            }
+            if (i1 + matchStringLEN < lineArr.size()) {
+                ;print("!!!!3333333333.5555555555!!!!!!: " . lineArr[i1 + matchStringLEN - 1])
+                char3 := lineArr[i1 + matchStringLEN - 1]
+                ;print("!!!!3333333333!!!!!!: " . lineArr[i1 + matchStringLEN])
+                char4 := lineArr[i1 + matchStringLEN]
+            } else {
+                isEndTrue := 1
+            }
+            if (InStr(allDelimiters, char1)) or (InStr(allDelimiters, char2)) {
+                isStartTrue := 1
+            }
+            if (InStr(allDelimiters, char3)) or (InStr(allDelimiters, char4)) {
+                isEndTrue := 1
+            }
+            if (isStartTrue = 1) and (isEndTrue = 1) {
+                isMatch := 1
+            }
+        }
+        ;;;;;;;;;;;;;;;;;;;;===============
+        if (isMatch = 1) {
+            if (allPosForReplacing.size() > 0) {
+                Loop, % allPosForReplacing.size() {
+                    if (i1 + 1 != allPosForReplacing[A_Index]) {
+                        allPosForReplacing.add(i1 + 1)
+                        break
+                    }
+                }
+            } else {
+                allPosForReplacing.add(i1 + 1)
+            }
+        }
+        i1++
+    }
+    str lineTEMP := ""
+    lineOut := line
+    ;print(allPosForReplacing)
+    if (allPosForReplacing.size() > 0) {
+        ; matchStringLEN
+        ; replaceStringLEN
+        int l2 := 0
+        int currentPos := 0
+        int onceEnd := 0
+        Loop, % allPosForReplacing.size() {
+            if (A_Index = 0) {
+                currentPos := allPosForReplacing[A_Index]
+            } else {
+                currentPos := allPosForReplacing[A_Index] - (matchStringLEN - replaceStringLEN)
+            }
+            onceEnd := 0
+            Loop, Parse, lineOut {
+                if (A_Index + 2 > currentPos) and (A_Index + 1 < currentPos + matchStringLEN) {
+                    onceEnd++
+                    ;print("DDDDDDDDDDD" . STR(A_Index))
+                    if (onceEnd = 1) {
+                        lineTEMP .= replaceString
+                    }
+                } else {
+                    lineTEMP .= A_LoopField
+                }
+            }
+            lineOut := lineTEMP
+            lineTEMP := ""
+            ;print(lineTEMP)
+            l2++
+        }
+    } else {
+        return line
+    }
+    return lineOut
 }
-
-str allDelimiters := " ()[]."
-
-arr str lineArr
-
-Loop, Parse, line
-{
-lineArr.add(A_LoopField)
-}
-
-int matchStringLEN := StrLen(matchString)
-
-
-
-
-str sildingLine := ""
-
-int isStart := 1
-
-
-int i1 := 0
-
-int hasFound := 0
-int hasFound2 := 0
-
-
-Loop, 1
-{
-
-sildingLine := ""
-isStart := 1
-i1 := 0
-hasFound := 0
-hasFound2 := 0
-
-Loop, % lineArr.size()
-{
-
-if (A_Index != 0)
-{
-isStart := 0
-} 
-sildingLine := ""
-Loop, % matchStringLEN
-{
-if (A_Index + i1 <= lineArr.size() - 1)
-{
-sildingLine .= lineArr[A_Index + i1]
-}
-}
-if (StrLen(sildingLine) < matchStringLEN)
-{
-break
-}
-
-
-print("!!!!111111111!!!!!!: " . sildingLine)
-
-if (sildingLine = matchString)
-{
-hasFound := 1
-
-if (isStart != 1)
-{
-print("!!!!2222222222!!!!!!: " . lineArr[i1 - 1])
-print("!!!!2222222222.555555555!!!!!!: " . lineArr[i1])
-}
-if (i1 + matchStringLEN < lineArr.size())
-{
-
-print("!!!!3333333333.5555555555!!!!!!: " . lineArr[i1 + matchStringLEN - 1])
-print("!!!!3333333333!!!!!!: " . lineArr[i1 + matchStringLEN])
-}
-
-
-
-
-
-}
-
-
-
-if (hasFound = 1)
-{
-hasFound2 := 0
-}
-
-
-i1++
-}
-
-if (hasFound = 0)
-{
-return lineOut
-}
-
-}
-
-
-return lineOut
-}
-
 main
-print(await HTVMmatchStrRrplace("hi man", "hi", "hello"))
-print(await HTVMmatchStrRrplace("hi man", "man", "woman"))
-
-print(await HTVMmatchStrRrplace("func1(man.hello())", ".hello", ".mello"))
-print(await HTVMmatchStrRrplace("func1(var1 plus plus var2)", "plus plus", "+"))
-
+str varQYTYWAEUSR := ""
+print(await HTVMmatchStrRrplace("hi man", "hi", "hello"));
+print(await HTVMmatchStrRrplace("hi man", "man", "woman"));
+print(await HTVMmatchStrRrplace("func1(man.hello()) func1(man.hello())", ".hello", ".mello"));
+print(await HTVMmatchStrRrplace("func1(var1 plus plus var2 plus plus var34)", "plus plus", "+"));
+print(await HTVMmatchStrRrplace("var1.add() + var12.add()", ".add()", ".push()"));
+print(await HTVMmatchStrRrplace("var1.add() + var12.add()", ".add()", ".pu()"));
+Loop, 10000
+{
+varQYTYWAEUSR .= await HTVMmatchStrRrplace("hi man", "hi", "hello") . "`n"
+varQYTYWAEUSR .= await HTVMmatchStrRrplace("hi man", "man", "woman") . "`n"
+varQYTYWAEUSR .= await HTVMmatchStrRrplace("func1(man.hello()) func1(man.hello())", ".hello", ".mello") . "`n"
+varQYTYWAEUSR .= await HTVMmatchStrRrplace("func1(var1 plus plus var2 plus plus var34)", "plus plus", "+") . "`n"
+varQYTYWAEUSR .= await HTVMmatchStrRrplace("var1.add() + var12.add()", ".add()", ".push()") . "`n"
+varQYTYWAEUSR .= await HTVMmatchStrRrplace("var1.add() + var12.add()", ".add()", ".pu()") . "`n"
+}
+StringTrimRight, varQYTYWAEUSR, varQYTYWAEUSR, 1
