@@ -2953,11 +2953,6 @@ outCodeFixBraces .= Trim(A_LoopField) . "`n"
 
 StringTrimRight, code, outCodeFixBraces, 1
 }
-;MsgBox, % code
-
-
-
-
 
 
 ;;; main loop ;;;
