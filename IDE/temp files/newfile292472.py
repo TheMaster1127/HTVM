@@ -11,8 +11,6 @@ def LoopParseFunc(var, delimiter1="", delimiter2=""):
         items = re.split(pattern, var)
     return items
 
-# used the print func
-
 # Convert value to string
 def STR(value):
     if isinstance(value, (int, float)):
@@ -24,10 +22,7 @@ def STR(value):
     else:
         raise TypeError("Unsupported type")
 
-# Function to find the position of needle in haystack (str overload)
-def InStr(haystack: str, needle: str) -> int:
-    pos = haystack.find(needle)
-    return pos + 1 if pos != -1 else 0
+# used imput func
 
 def StrLen(s: str) -> int:
     # Return the length of the given string
@@ -37,139 +32,195 @@ def Chr(number: int) -> str:
     # Return the character corresponding to the Unicode code point, or an empty string if out of range
     return chr(number) if 0 <= number <= 0x10FFFF else ""
 
+def SubStr(s, startPos, length=None):
+    if s is None or s == "":
+        return ""
+    if length is None or length == "":
+        length = len(s) - startPos + 1
+    if startPos < 1:
+        startPos = len(s) + startPos
+    return s[startPos - 1:startPos - 1 + length]
+
 def Trim(inputString):
     return inputString.strip() if inputString else ""
+
+def StrReplace(originalString, find, replaceWith):
+    return originalString.replace(find, replaceWith)
+
+def StringTrimLeft(input, numChars):
+    return input[numChars:] if numChars <= len(input) else input
 
 def StringTrimRight(input, numChars):
     return input[:-numChars] if numChars <= len(input) else input
 
+def StrLower(string):
+    return string.lower()
 
-def HTVMmatchStrRrplace(line, matchString, replaceString):
-    lineOut = ""
-    if (not InStr(line, matchString)):
-        return line
-    allDelimiters = " ()[].,;:'!&|=<>+-*/^%~" + Chr(34)
-    lineArr = []
-    items1 = LoopParseFunc(line)
-    for A_Index1 , A_LoopField1 in enumerate(items1, start=0):
-        lineArr.append(A_LoopField1)
-    matchStringLEN = StrLen(matchString)
-    replaceStringLEN = StrLen(replaceString)
-    allPosForReplacing = []
-    sildingLine = ""
-    isStart = 1
-    i1 = 0
-    hasFound = 0
-    hasFound2 = 0
-    isStartTrue = 0
-    isEndTrue = 0
-    # char1 is for text outside the start
-    char1 = ""
-    # char2 is for text inside the start
-    char2 = ""
-    # char3 is for text inside the end
-    char3 = ""
-    # char4 is for text outside the end
-    char4 = ""
-    isMatch = 0
-    sildingLine = ""
-    isStart = 1
-    i1 = 0
-    hasFound = 0
-    hasFound2 = 0
-    isStartTrue = 0
-    isEndTrue = 0
-    for A_Index2 in range(0, len(lineArr) + 0):
-        char1 = ""
-        char2 = ""
-        char3 = ""
-        char4 = ""
-        isMatch = 0
-        if (A_Index2 != 0):
-            isStart = 0
-        sildingLine = ""
-        for A_Index3 in range(0, matchStringLEN + 0):
-            if (A_Index3 + i1 <= len(lineArr) - 1):
-                sildingLine += lineArr[A_Index3 + i1]
-        if (StrLen(sildingLine) < matchStringLEN):
+def Mod(dividend, divisor):
+    return dividend % divisor
+
+
+
+# Helper function to create spaces
+def spaces(n):
+    s = ""
+    if (n != 0):
+        for A_Index1 in range(0, n + 0):
+            s += " "
+    return s
+# Define the function to check odd spaces at the beginning
+def CheckOddLeadingSpaces(string123):
+    # Initialize a variable to count the spaces
+    spaceCount = 0
+    # Loop through the string one character at a time
+    items2 = LoopParseFunc(string123)
+    for A_Index2 , A_LoopField2 in enumerate(items2, start=0):
+        # Check if the current character is a space
+        if (A_LoopField2 == Chr(32)):
+            spaceCount = spaceCount + 1
+        else:
+            # When we hit a non-space character, break the loop
             break
-        #print("!!!!111111111!!!!!!: " . sildingLine)
-        #;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;==================
-        if (sildingLine == matchString):
-            hasFound = 1
-            if (isStart != 1):
-                #print("!!!!2222222222!!!!!!: " . lineArr[i1 - 1])
-                char1 = lineArr[i1 - 1]
-                #print("!!!!2222222222.555555555!!!!!!: " . lineArr[i1])
-                char2 = lineArr[i1]
-            else:
-                isStartTrue = 1
-            if (i1 + matchStringLEN < len(lineArr)):
-                #print("!!!!3333333333.5555555555!!!!!!: " . lineArr[i1 + matchStringLEN - 1])
-                char3 = lineArr[i1 + matchStringLEN - 1]
-                #print("!!!!3333333333!!!!!!: " . lineArr[i1 + matchStringLEN])
-                char4 = lineArr[i1 + matchStringLEN]
-            else:
-                isEndTrue = 1
-            if (InStr(allDelimiters, char1) or InStr(allDelimiters, char2)):
-                isStartTrue = 1
-            if (InStr(allDelimiters, char3) or InStr(allDelimiters, char4)):
-                isEndTrue = 1
-            if (isStartTrue == 1 and isEndTrue == 1):
-                isMatch = 1
-        #;;;;;;;;;;;;;;;;;;;===============
-        if (isMatch == 1):
-            if (len(allPosForReplacing) > 0):
-                for A_Index4 in range(0, len(allPosForReplacing) + 0):
-                    if (i1 + 1 != allPosForReplacing[A_Index4]):
-                        allPosForReplacing.append(i1 + 1)
-                        break
-            else:
-                allPosForReplacing.append(i1 + 1)
-        i1 = i1 + 1
-    lineTEMP = ""
-    lineOut = line
-    #print(allPosForReplacing)
-    if (len(allPosForReplacing) > 0):
-        # matchStringLEN
-        # replaceStringLEN
-        l2 = 0
-        currentPos = 0
-        onceEnd = 0
-        for A_Index5 in range(0, len(allPosForReplacing) + 0):
-            if (A_Index5 == 0):
-                currentPos = allPosForReplacing[A_Index5]
-            else:
-                currentPos = allPosForReplacing[A_Index5] - (matchStringLEN - replaceStringLEN)
-            onceEnd = 0
-            items6 = LoopParseFunc(lineOut)
-            for A_Index6 , A_LoopField6 in enumerate(items6, start=0):
-                if (A_Index6 + 2 > currentPos and A_Index6 + 1 < currentPos + matchStringLEN):
-                    onceEnd = onceEnd + 1
-                    #print("DDDDDDDDDDD" . STR(A_Index6))
-                    if (onceEnd == 1):
-                        lineTEMP += replaceString
-                else:
-                    lineTEMP += A_LoopField6
-            lineOut = lineTEMP
-            lineTEMP = ""
-            #print(lineTEMP)
-            l2 = l2 + 1
+    # Return true if the number of spaces is odd, false otherwise
+    sdsfawasd = STR(Mod(spaceCount, 2) == 1)
+    #MsgBox, % sdsfawasd
+    return sdsfawasd
+def LTrim(input):
+    result = ""
+    foundNonSpace = False
+    items3 = LoopParseFunc(input)
+    for A_Index3 , A_LoopField3 in enumerate(items3, start=0):
+        if (A_LoopField3 != " " || foundNonSpace):
+            result += A_LoopField3
+            foundNonSpace = True
+    return result
+def getLastChar(strippedString):
+    lastChar = None
+    items4 = LoopParseFunc(strippedString)
+    for A_Index4 , A_LoopField4 in enumerate(items4, start=0):
+        lastChar = A_LoopField4
+    return lastChar
+def AddCurlyBraces(pythonCode):
+    pythonCode = StrReplace(pythonCode, A_Tab, "    ")
+    result = ""
+    indentLevel = 0
+    indent = None
+    line = None
+    stripped = None
+    items5 = LoopParseFunc(pythonCode, "\n", "\r")
+    for A_Index5 , A_LoopField5 in enumerate(items5, start=0):
+        line = A_LoopField5
+        stripped = Trim(line)
+        if (stripped == ""):
+            result += line + "\n"
+            continue
+        # Count leading spaces
+        indent = StrLen(line) - StrLen(LTrim(line))
+        #MsgBox, % indent
+        # Close braces for unindents
+        for A_Index6 , value in enumerate(iter(int, 1), start=0):
+            if (indentLevel <= indent):
+                break
+            indentLevel -= 4
+            result += spaces(indentLevel) + "}\n"
+        # Add opening brace for new blocks
+        if (getLastChar(stripped) == ":") && (SubStr(StrLower(Trim(A_LoopField5)), 1, StrLen(StrLower(keyWordComment))) != StrLower(keyWordComment)):
+            result += SubStr(line, 1, -1) + " {\n"
+            indentLevel += 4
+        else:
+            result += line + "\n"
+    # Close any remaining open braces
+    for A_Index7 , value in enumerate(iter(int, 1), start=0):
+        if (indentLevel <= 0):
+            break
+        indentLevel -= 4
+        result += spaces(indentLevel) + "}\n"
+    return result
+def RepeatSpaces(count):
+    spaces = ""
+    for A_Index8 in range(0, count + 0):
+        spaces += Chr(32)
+    return spaces
+def indent_nested_curly_braces(input_string, modeCurlyBracesOn):
+    indent_size = 4
+    current_indent = 0
+    result = None
+    trimmed_line = None
+    resultOut = None
+    #MsgBox, % input_string
+    items9 = LoopParseFunc(input_string, "\n", "\r")
+    for A_Index9 , A_LoopField9 in enumerate(items9, start=0):
+        trimmed_line = Trim(A_LoopField9)
+        if (trimmed_line == Chr(123)):
+            result += Chr(32) + RepeatSpaces(current_indent) + trimmed_line + "\n"
+            current_indent = current_indent + indent_size
+        elif (trimmed_line == Chr(125)):
+            current_indent = current_indent - indent_size
+            result += Chr(32) + RepeatSpaces(current_indent) + trimmed_line + "\n"
+        else:
+            result += Chr(32) + RepeatSpaces(current_indent) + trimmed_line + "\n"
+    if (modeCurlyBracesOn == 0):
+        resultOut = None
+        items10 = LoopParseFunc(result, "\n", "\r")
+        for A_Index10 , A_LoopField10 in enumerate(items10, start=0):
+            if (Trim(A_LoopField10) != "{") && (Trim(A_LoopField10) != "}"):
+                resultOut += A_LoopField10 + "\n"
+        result = StringTrimRight(resultOut, 1)
     else:
-        return line
-    return lineOut
-varQYTYWAEUSR = ""
-print(HTVMmatchStrRrplace("hi man", "hi", "hello"))
-print(HTVMmatchStrRrplace("hi man", "man", "woman"))
-print(HTVMmatchStrRrplace("func1(man.hello()) func1(man.hello())", ".hello", ".mello"))
-print(HTVMmatchStrRrplace("func1(var1 plus plus var2 plus plus var34)", "plus plus", "+"))
-print(HTVMmatchStrRrplace("var1.add() + var12.add()", ".add()", ".push()"))
-print(HTVMmatchStrRrplace("var1.add() + var12.add()", ".add()", ".pu()"))
-for A_Index7 in range(0, 10000 + 0):
-    varQYTYWAEUSR += HTVMmatchStrRrplace("hi man", "hi", "hello") + "\n"
-    varQYTYWAEUSR += HTVMmatchStrRrplace("hi man", "man", "woman") + "\n"
-    varQYTYWAEUSR += HTVMmatchStrRrplace("func1(man.hello()) func1(man.hello())", ".hello", ".mello") + "\n"
-    varQYTYWAEUSR += HTVMmatchStrRrplace("func1(var1 plus plus var2 plus plus var34)", "plus plus", "+") + "\n"
-    varQYTYWAEUSR += HTVMmatchStrRrplace("var1.add() + var12.add()", ".add()", ".push()") + "\n"
-    varQYTYWAEUSR += HTVMmatchStrRrplace("var1.add() + var12.add()", ".add()", ".pu()") + "\n"
-varQYTYWAEUSR = StringTrimRight(varQYTYWAEUSR, 1)
+        # format curly braces in a K&R style
+        lookIntoFurture = []
+        items11 = LoopParseFunc(result, "\n", "\r")
+        for A_Index11 , A_LoopField11 in enumerate(items11, start=0):
+            lookIntoFurture += Trim(A_LoopField11)
+        lookIntoFurture += " "
+        resultOut = None
+        skipNext = 0
+        items12 = LoopParseFunc(result, "\n", "\r")
+        for A_Index12 , A_LoopField12 in enumerate(items12, start=0):
+            skipNext = skipNext - 1
+            if (skipNext <= 0):
+                skipNext = 0
+            if (Trim(lookIntoFurture[A_Index12 + 1]) == "{"):
+                resultOut += A_LoopField12 + " {\n"
+                skipNext = 2
+            if (skipNext == 0):
+                resultOut += A_LoopField12 + "\n"
+        result = StringTrimRight(resultOut, 1)
+        lookIntoFurture2 = []
+        items13 = LoopParseFunc(result, "\n", "\r")
+        for A_Index13 , A_LoopField13 in enumerate(items13, start=0):
+            lookIntoFurture2 += Trim(A_LoopField13)
+        lookIntoFurture2 += " "
+        resultOut = ""
+        skipNext = 0
+        addSpacesAtTheBegginig = None
+        items14 = LoopParseFunc(result, "\n", "\r")
+        for A_Index14 , A_LoopField14 in enumerate(items14, start=0):
+            skipNext = skipNext - 1
+            if (skipNext <= 0):
+                skipNext = 0
+            if (Trim(A_LoopField14) == "}") && (Trim(lookIntoFurture2[A_Index14 + 1]) == "else {"):
+                skipNext = 2
+                addSpacesAtTheBegginig = ""
+                items15 = LoopParseFunc(A_LoopField14)
+                for A_Index15 , A_LoopField15 in enumerate(items15, start=0):
+                    if (A_LoopField15 == " "):
+                        if (A_LoopField15 != " "):
+                            break
+                        addSpacesAtTheBegginig += A_LoopField15
+                resultOut += addSpacesAtTheBegginig + "} else {\n"
+            if (skipNext == 0):
+                resultOut += A_LoopField14 + "\n"
+        result = StringTrimRight(resultOut, 1)
+    resultOut = ""
+    ALoopField = None
+    items16 = LoopParseFunc(result, "\n", "\r")
+    for A_Index16 , A_LoopField16 in enumerate(items16, start=0):
+        if (CheckOddLeadingSpaces(A_LoopField16) == "1"):
+            ALoopField = StringTrimLeft(A_LoopField16, 1)
+            resultOut += ALoopField + "\n"
+        else:
+            resultOut += A_LoopField16 + "\n"
+    result = StringTrimRight(resultOut, 1)
+    # Return the result
+    return result

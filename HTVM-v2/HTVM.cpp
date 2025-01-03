@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <any>
+#include <cctype>
 #include <cmath>
 #include <cstdint>
 #include <filesystem>
@@ -11,6 +12,7 @@
 #include <stdexcept>
 #include <string>
 #include <type_traits>
+#include <unordered_set>
 #include <vector>
 
 // Function to escape special characters for regex
@@ -107,6 +109,20 @@ float FLOAT(const std::string& str) {
     return value;
 }
 
+// Function to find the position of needle in haystack (std::string overload)
+int InStr(const std::string& haystack, const std::string& needle) {
+    size_t pos = haystack.find(needle);
+    return (pos != std::string::npos) ? static_cast<int>(pos) + 1 : 0;
+}
+
+// Function to get input from the user, similar to Python's input() function
+std::string input(const std::string& prompt) {
+    std::string userInput;
+    std::cout << prompt; // Display the prompt to the user
+    std::getline(std::cin, userInput); // Get the entire line of input
+    return userInput;
+}
+
 std::string FileRead(const std::string& path) {
     std::ifstream file;
     std::filesystem::path full_path;
@@ -168,6 +184,28 @@ double Exp(double value) {
     return std::exp(value);
 }
 
+std::string SubStr(const std::string& str, int startPos, int length = -1) {
+    std::string result;
+    size_t strLen = str.size();
+    // Handle negative starting positions
+    if (startPos < 0) {
+        startPos += strLen;
+        if (startPos < 0) startPos = 0;
+    } else {
+        if (startPos > static_cast<int>(strLen)) return ""; // Starting position beyond string length
+        startPos -= 1; // Convert to 0-based index
+    }
+    // Handle length
+    if (length < 0) {
+        length = strLen - startPos; // Length to end of string
+    } else if (startPos + length > static_cast<int>(strLen)) {
+        length = strLen - startPos; // Adjust length to fit within the string
+    }
+    // Extract substring
+    result = str.substr(startPos, length);
+    return result;
+}
+
 std::string Trim(const std::string &inputString) {
     if (inputString.empty()) return "";
     size_t start = inputString.find_first_not_of(" \t\n\r\f\v");
@@ -175,12 +213,176 @@ std::string Trim(const std::string &inputString) {
     return (start == std::string::npos) ? "" : inputString.substr(start, end - start + 1);
 }
 
+std::string StrReplace(const std::string &originalString, const std::string &find, const std::string &replaceWith) {
+    std::string result = originalString;
+    size_t pos = 0;
+    while ((pos = result.find(find, pos)) != std::string::npos) {
+        result.replace(pos, find.length(), replaceWith);
+        pos += replaceWith.length();
+    }
+    return result;
+}
+
+std::string StringTrimLeft(const std::string &input, int numChars) {
+    return (numChars <= input.length()) ? input.substr(numChars) : input;
+}
+
 std::string StringTrimRight(const std::string &input, int numChars) {
     return (numChars <= input.length()) ? input.substr(0, input.length() - numChars) : input;
 }
 
+std::string StrLower(const std::string &string) {
+    std::string result = string;
+    std::transform(result.begin(), result.end(), result.begin(), ::tolower);
+    return result;
+}
+
+std::string StrSplit(const std::string &inputStr, const std::string &delimiter, int num) {
+    size_t start = 0, end = 0, count = 0;
+    while ((end = inputStr.find(delimiter, start)) != std::string::npos) {
+        if (++count == num) {
+            return inputStr.substr(start, end - start);
+        }
+        start = end + delimiter.length();
+    }
+    if (count + 1 == num) {
+        return inputStr.substr(start);
+    }
+    return "";
+}
+
+std::string Chr(int number) {
+    return (number >= 0 && number <= 0x10FFFF) ? std::string(1, static_cast<char>(number)) : "";
+}
+
 int Mod(int dividend, int divisor) {
     return dividend % divisor;
+}
+
+// Helper function to trim whitespace from both ends of a string
+std::string trim(const std::string& str) {
+    const std::string whitespace = " \t\n\r\f\v";
+    size_t start = str.find_first_not_of(whitespace);
+    if (start == std::string::npos) return "";
+    size_t end = str.find_last_not_of(whitespace);
+    return str.substr(start, end - start + 1);
+}
+// Helper function to convert string to lowercase
+std::string toLower(const std::string& str) {
+    std::string lowerStr = str;
+    std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), ::tolower);
+    return lowerStr;
+}
+// Function to sort case-insensitively but ensure lowercase items come last
+bool customSortCompare(const std::string& a, const std::string& b) {
+    std::string lowerA = toLower(a);
+    std::string lowerB = toLower(b);
+    if (lowerA == lowerB) {
+        // If case-insensitive equivalent, ensure lowercase items come last
+        if (std::islower(a[0]) && std::isupper(b[0])) {
+            return false; // a should come after b
+        } else if (std::isupper(a[0]) && std::islower(b[0])) {
+            return true; // a should come before b
+        }
+        return a < b; // Otherwise, sort lexicographically
+    }
+    return lowerA < lowerB;
+}
+// Function to remove exact duplicates (case-sensitive)
+std::vector<std::string> removeExactDuplicates(const std::vector<std::string>& items) {
+    std::unordered_set<std::string> seen;
+    std::vector<std::string> uniqueItems;
+    for (const auto& item : items) {
+        if (seen.find(item) == seen.end()) {
+            seen.insert(item);
+            uniqueItems.push_back(item);
+        }
+    }
+    return uniqueItems;
+}
+// Main sorting function
+std::string Sort(const std::string& input, const std::string& options) {
+    std::string delimiter = "\n";
+    bool caseInsensitive = options.find('C') != std::string::npos;
+    bool unique = options.find('U') != std::string::npos;
+    bool reverse = options.find('R') != std::string::npos;
+    bool random = options.find("Random") != std::string::npos;
+    bool numeric = options.find('N') != std::string::npos;
+    // Custom delimiter
+    if (options.find('D') != std::string::npos) {
+        size_t delimiterPos = options.find('D') + 1;
+        if (delimiterPos < options.size()) {
+            delimiter = options.substr(delimiterPos, 1);
+        }
+    }
+    // Split input by delimiter
+    std::vector<std::string> items;
+    std::stringstream ss(input);
+    std::string item;
+    while (std::getline(ss, item, delimiter[0])) {
+        item = trim(item);  // Trim whitespace from each item
+        if (!item.empty()) {
+            items.push_back(item);
+        }
+    }
+    // Sort items
+    if (numeric) {
+        std::sort(items.begin(), items.end(), [](const std::string& a, const std::string& b) {
+            return std::stoi(a) < std::stoi(b);
+        });
+    } else {
+        std::sort(items.begin(), items.end(), customSortCompare);
+    }
+    // Remove exact duplicates if needed
+    if (unique) {
+        items = removeExactDuplicates(items);
+    }
+    // Apply reverse order if needed
+    if (reverse) {
+        std::reverse(items.begin(), items.end());
+    }
+    // Separate uppercase and lowercase items
+    std::vector<std::string> uppercaseItems;
+    std::vector<std::string> lowercaseItems;
+    
+    for (const auto& item : items) {
+        if (std::isupper(item[0])) {
+            uppercaseItems.push_back(item);
+        } else {
+            lowercaseItems.push_back(item);
+        }
+    }
+    // Combine sorted uppercase items with sorted lowercase items
+    std::string result;
+    for (const auto& item : uppercaseItems) {
+        result += item;
+        result += delimiter;
+    }
+    for (const auto& item : lowercaseItems) {
+        result += item;
+        if (&item != &lowercaseItems.back()) {
+            result += delimiter;
+        }
+    }
+    // Remove trailing delimiter if necessary
+    if (!result.empty() && result.back() == delimiter[0]) {
+        result.pop_back();
+    }
+    return result;
+}
+
+std::string RegExReplace(const std::string& inputStr, const std::string& regexPattern, const std::string& replacement) {
+    std::regex re(regexPattern, std::regex_constants::ECMAScript | std::regex_constants::multiline);
+    return std::regex_replace(inputStr, re, replacement);
+}
+
+int RegExMatch(const std::string& haystack, const std::string& needle) {
+    std::regex re(needle);
+    std::smatch match;
+    if (std::regex_search(haystack, match, re)) {
+        return match.position(0) + 1; // 1-based index
+    }
+    return 0; // No match
 }
 
 std::string HTVM_getLang_HTVM() {
@@ -256,592 +458,1818 @@ std::string str11 = "";
 std::string str12 = "";
 std::string str13 = "";
 std::string str14 = "";
+int int0 = 0;
+int int1 = 0;
+int int2 = 0;
+int int3 = 0;
+int int4 = 0;
+int int5 = 0;
+int int6 = 0;
+int int7 = 0;
 std::vector<std::string> argHTVMinstrMOVE;
 std::string extraCodeReturned = "";
 std::string langToConvertTo = "";
 std::string langFileExtension = "";
-std::string compiler(std::string code, std::string instructionFile, std::string mode, std::string langToConvertToParam = "") {
+std::string commands = "";
+std::string keyWordAlliance = "";
+std::string keyWordCrew = "";
+std::string keyWordMethod = "";
+std::string keyWordDefObj = "";
+std::string keyWordPorp = "";
+std::string keyWordThis = "";
+std::string keyWordInclude = "";
+std::string keyWordIncludeInTheTranspiledLang = "";
+std::string keyWordCodeInTheTranspiledLangStart = "";
+std::string keyWordCodeInTheTranspiledLangEnd = "";
+std::string keyWordCodeInTheTranspiledLangStartCPP = "";
+std::string keyWordCodeInTheTranspiledLangEndCPP = "";
+std::string keyWordCodeInTheTranspiledLangStartPY = "";
+std::string keyWordCodeInTheTranspiledLangEndPY = "";
+std::string keyWordCodeInTheTranspiledLangStartJS = "";
+std::string keyWordCodeInTheTranspiledLangEndJS = "";
+std::string keyWordCodeInTheTranspiledLangStartGO = "";
+std::string keyWordCodeInTheTranspiledLangEndGO = "";
+std::string keyWordCodeInTheTranspiledLangStartLUA = "";
+std::string keyWordCodeInTheTranspiledLangEndLUA = "";
+std::string keyWordCodeInTheTranspiledLangStartCS = "";
+std::string keyWordCodeInTheTranspiledLangEndCS = "";
+std::string keyWordCodeInTheTranspiledLangStartJAVA = "";
+std::string keyWordCodeInTheTranspiledLangEndJAVA = "";
+std::string keyWordCodeInTheTranspiledLangStartKT = "";
+std::string keyWordCodeInTheTranspiledLangEndKT = "";
+std::string keyWordCodeInTheTranspiledLangStartRB = "";
+std::string keyWordCodeInTheTranspiledLangEndRB = "";
+std::string keyWordCodeInTheTranspiledLangStartNIM = "";
+std::string keyWordCodeInTheTranspiledLangEndNIM = "";
+std::string keyWordCodeInTheTranspiledLangStartAHK = "";
+std::string keyWordCodeInTheTranspiledLangEndAHK = "";
+std::string keyWordCodeInTheTranspiledLangStartSWIFT = "";
+std::string keyWordCodeInTheTranspiledLangEndSWIFT = "";
+std::string keyWordCodeInTheTranspiledLangStartDART = "";
+std::string keyWordCodeInTheTranspiledLangEndDART = "";
+std::string keyWordCodeInTheTranspiledLangStartTS = "";
+std::string keyWordCodeInTheTranspiledLangEndTS = "";
+std::string keyWordCodeInTheTranspiledLangStartSCALA = "";
+std::string keyWordCodeInTheTranspiledLangEndSCALA = "";
+std::string keyWordCodeInTheTranspiledLangStartGROOVY = "";
+std::string keyWordCodeInTheTranspiledLangEndGROOVY = "";
+std::string keyWordCodeInTheTranspiledLangStartHTVM = "";
+std::string keyWordCodeInTheTranspiledLangEndHTVM = "";
+std::string keyWordCodeInHTVMstart = "";
+std::string keyWordCodeInHTVMend = "";
+std::string keyWordCodeInOtherHTVMsyntaxStart = "";
+std::string keyWordCodeInOtherHTVMsyntaxEnd = "";
+std::string keyWordCurlyBraceOpen = "";
+std::string keyWordCurlyBraceClose = "";
+std::string keyWordNull = "";
+std::string keyWordTrue = "";
+std::string keyWordFalse = "";
+std::string keyWordVoid = "";
+std::string keyWordDouble = "";
+std::string keyWordChar = "";
+std::string keyWordUint8 = "";
+std::string keyWordUint16 = "";
+std::string keyWordUint32 = "";
+std::string keyWordUint64 = "";
+std::string keyWordINT = "";
+std::string keyWordSTR = "";
+std::string keyWordBOOL = "";
+std::string keyWordFLOAT = "";
+std::string keyWordINT8 = "";
+std::string keyWordINT16 = "";
+std::string keyWordINT32 = "";
+std::string keyWordINT64 = "";
+std::string keyWordIF = "";
+std::string keyWordElseIf = "";
+std::string keyWordElse = "";
+std::string keyWordSwitch = "";
+std::string keyWordSwitchCase = "";
+std::string keyWordSwitchDefault = "";
+std::string keyWordWhileLoop = "";
+std::string keyWordForLoop = "";
+std::string keyWordLoopInfinite = "";
+std::string keyWordLoop = "";
+std::string keyWordLoopParse = "";
+std::string keyWordContinue = "";
+std::string keyWordBreak = "";
+std::string keyWordFunc = "";
+std::string keyWordAwait = "";
+std::string keyWordAsync = "";
+std::string keyWordThrow = "";
+std::string keyWordErrorMsg = "";
+std::string keyWordTry = "";
+std::string keyWordCatch = "";
+std::string keyWordFinally = "";
+std::string keyWordReturnStatement = "";
+std::string keyWordArrayAppend = "";
+std::string keyWordArrayPop = "";
+std::string keyWordArraySize = "";
+std::string keyWordArrayInsert = "";
+std::string keyWordArrayRemove = "";
+std::string keyWordArrayIndexOf = "";
+std::string keyWordArrayDefinition = "";
+std::string keyWordArrayOfIntegersDefinition = "";
+std::string keyWordArrayOfStringsDefinition = "";
+std::string keyWordArrayOfFloatingPointNumbersDefinition = "";
+std::string keyWordArrayOfBooleansDefinition = "";
+std::string keyWordJavaScriptVar = "";
+std::string keyWordJavaScriptLet = "";
+std::string keyWordJavaScriptConst = "";
+std::string keyWordEnd = "";
+std::string keyWordGlobal = "";
+std::string keyWordComment = "";
+std::string keyWordCommentOpenMultiLine = "";
+std::string keyWordCommentCloseMultiLine = "";
+std::string keyWordEscpaeChar = "";
+std::string keyWordMainLabel = "";
+std::string keyWordConcat = "";
+std::string keyWordAdd = "";
+std::string keyWordSub = "";
+std::string keyWordMul = "";
+std::string keyWordDiv = "";
+std::string keyWordMod = "";
+std::string keyWordExp = "";
+std::string keyWordEqual = "";
+std::string keyWordStrictEqual = "";
+std::string keyWordNotEqual = "";
+std::string keyWordGreater = "";
+std::string keyWordLess = "";
+std::string keyWordGreaterEqual = "";
+std::string keyWordLessEqual = "";
+std::string keyWordAnd = "";
+std::string keyWordOr = "";
+std::string keyWordNot = "";
+std::string keyWordBitAnd = "";
+std::string keyWordBitOr = "";
+std::string keyWordBitXor = "";
+std::string keyWordBitNot = "";
+std::string keyWordShiftLeft = "";
+std::string keyWordShiftRight = "";
+std::string keyWordShiftUnsignedRight = "";
+std::string keyWordAssign = "";
+std::string keyWordAssignAdd = "";
+std::string keyWordAssignConcat = "";
+std::string keyWordAssignSub = "";
+std::string keyWordAssignMul = "";
+std::string keyWordAssignDiv = "";
+std::string keyWordAssignMod = "";
+std::string keyWordAssignShiftLeft = "";
+std::string keyWordAssignShiftRight = "";
+std::string keyWordAssignBitAnd = "";
+std::string keyWordAssignBitOr = "";
+std::string keyWordAssignBitXor = "";
+std::string keyWordTernary1 = "";
+std::string keyWordTernary2 = "";
+std::string keyWordInc = "";
+std::string keyWordDec = "";
+std::string AHKlikeLoopsIndexedAt = "";
+std::string keyWordAIndex = "";
+std::string keyWordALoopField = "";
+std::string keyWordAllianceEndExtraInfo = "";
+std::string keyWordCrewEndExtraInfo = "";
+std::string keyWordMethodEndExtraInfo = "";
+std::string keyWordDefObjEndExtraInfo = "";
+std::string keyWordIFEndExtraInfo = "";
+std::string keyWordElseIfEndExtraInfo = "";
+std::string keyWordElseEndExtraInfo = "";
+std::string keyWordSwitchEndExtraInfo = "";
+std::string keyWordSwitchCaseEndExtraInfo = "";
+std::string keyWordWhileLoopEndExtraInfo = "";
+std::string keyWordForLoopEndExtraInfo = "";
+std::string keyWordLoopInfiniteEndExtraInfo = "";
+std::string keyWordLoopEndExtraInfo = "";
+std::string keyWordLoopParseEndExtraInfo = "";
+std::string keyWordFuncEndExtraInfo = "";
+std::string keyWordTryEndExtraInfo = "";
+std::string keyWordCatchEndExtraInfo = "";
+std::string keyWordFinallyEndExtraInfo = "";
+std::string useFuncKeyWord = "";
+std::string useCurlyBraces = "";
+std::string useEnd = "";
+std::string useEndExtraInfo = "";
+std::string useSemicolon = "";
+std::string theSemicolon = "";
+std::string theColon = "";
+std::string useParentheses = "";
+std::string usePrefixTypeForTypeDefinition = "";
+std::string usePostfixTypeForTypeDefinition = "";
+std::string usePythonicColonSyntax = "";
+std::string useInJavaScriptAlwaysUseVar = "";
+std::string useJavaScriptInAfullHTMLfile = "";
+std::string useJavaScriptAmainFuncDef = "";
+std::string useJavaScriptAllFuncsAreAsync = "";
+std::string useJavaScriptAlwaysTripleEqual = "";
+std::string out_KeyWordsCommands;
+std::string outTrimCode;
+std::string htCode;
+std::string outVarOperator = "";
+int lineDone = 0;
+int areWeInAFuncFromInstructions = 0;
+int areWeInAFuncFromInstructionsLineNum = 0;
+std::string theCppVarForErrors = "jhku-dfsds-ds-d-ffdsf-sdfsfdsedsf";
+std::string theJSvarDeclaredVarsBugFix = "|";
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std::string keyWordsCommands, std::string langToConvertTo) {
+    theCodeCommands = StrReplace(theCodeCommands, "%", "");
+    if (mode == "check") {
+        std::vector<std::string> items1 = LoopParseFunc(keyWordsCommands, "|");
+        for (size_t A_Index1 = 0; A_Index1 < items1.size() + 0; A_Index1++) {
+            std::string A_LoopField1 = items1[A_Index1 - 0];
+            std::vector<std::string> items2 = LoopParseFunc(A_LoopField1, ",");
+            for (size_t A_Index2 = 0; A_Index2 < items2.size() + 0; A_Index2++) {
+                std::string A_LoopField2 = items2[A_Index2 - 0];
+                if (A_Index2 == 1) {
+                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField2 + ", ")) == StrLower(A_LoopField2 + ", ")) {
+                        //MsgBox, true
+                        return "true";
+                    }
+                }
+                if (A_Index2 == 1) {
+                    if (theCodeCommands == A_LoopField2) {
+                        //MsgBox, true
+                        return "true";
+                    }
+                }
+            }
+        }
+        //MsgBox, false
+        return "false";
+    }
+    int AIndex = 0;
+    if (mode == "transpile") {
+        int keyWordsCommandsNumLine = 1;
+        std::vector<std::string> items3 = LoopParseFunc(keyWordsCommands, "|");
+        for (size_t A_Index3 = 0; A_Index3 < items3.size() + 0; A_Index3++) {
+            std::string A_LoopField3 = items3[A_Index3 - 0];
+            AIndex = A_Index3;
+            std::vector<std::string> items4 = LoopParseFunc(A_LoopField3, ",");
+            for (size_t A_Index4 = 0; A_Index4 < items4.size() + 0; A_Index4++) {
+                std::string A_LoopField4 = items4[A_Index4 - 0];
+                if (A_Index4 == 1) {
+                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField4 + ", ")) == StrLower(A_LoopField4 + ", ")) {
+                        //MsgBox, true
+                        keyWordsCommandsNumLine = AIndex;
+                        break;
+                    }
+                }
+                if (A_Index4 == 1) {
+                    //MsgBox, %theCodeCommands% = %A_LoopField4%
+                    if (theCodeCommands == A_LoopField4) {
+                        //MsgBox, true
+                        keyWordsCommandsNumLine = AIndex;
+                        break;
+                    }
+                }
+            }
+        }
+        std::string outConstuctTheOutFromTheCommands = "";
+        std::string outConstuctTheOutFromTheCommandsFucnName = "";
+        std::string outConstuctTheOutFromTheCommandsParams = "";
+        std::string outConstuctTheOutFromTheCommandsOutVar = "";
+        std::string outConstuctTheOutFromTheCommandsInVar = "";
+        int theCodeCommandNum = 1;
+        int outConstuctTheOutFromTheCommandsLineTranspile = 0;
+        std::string outConstuctTheOutFromTheCommandsLineTranspileText = "";
+        std::string semicolon = "";
+        if (langToConvertTo != "py") {
+            semicolon = ";";
+        }
+        std::vector<std::string> theCodeCommand;
+        theCodeCommands = Trim(theCodeCommands);
+        std::vector<std::string> items5 = LoopParseFunc(theCodeCommands, ",");
+        for (size_t A_Index5 = 0; A_Index5 < items5.size() + 0; A_Index5++) {
+            std::string A_LoopField5 = items5[A_Index5 - 0];
+            theCodeCommand.push_back(Trim(A_LoopField5));
+            //MsgBox, % A_LoopField5
+        }
+        std::vector<std::string> items6 = LoopParseFunc(keyWordsCommands, "|");
+        for (size_t A_Index6 = 0; A_Index6 < items6.size() + 0; A_Index6++) {
+            std::string A_LoopField6 = items6[A_Index6 - 0];
+            if (keyWordsCommandsNumLine == A_Index6) {
+                //MsgBox, % A_LoopField6
+                std::vector<std::string> items7 = LoopParseFunc(A_LoopField6, ",");
+                for (size_t A_Index7 = 0; A_Index7 < items7.size() + 0; A_Index7++) {
+                    std::string A_LoopField7 = items7[A_Index7 - 0];
+                    if (A_Index7 == 1) {
+                        outConstuctTheOutFromTheCommandsFucnName = A_LoopField7;
+                    }
+                    else if (A_Index7 == 2) {
+                        //MsgBox, % A_LoopField7
+                        if (A_LoopField7 == "lineTranspile") {
+                            outConstuctTheOutFromTheCommandsLineTranspile = 1;
+                        }
+                        if (A_LoopField7 == "OUTVAR") {
+                            outConstuctTheOutFromTheCommandsOutVar = theCodeCommand[theCodeCommandNum];
+                        }
+                        else if (A_LoopField7 == "INOUTVAR") {
+                            outConstuctTheOutFromTheCommandsOutVar = theCodeCommand[theCodeCommandNum];
+                            outConstuctTheOutFromTheCommandsInVar = theCodeCommand[theCodeCommandNum];
+                        }
+                        else if (A_LoopField7 == "INVAR") {
+                            outConstuctTheOutFromTheCommandsInVar = theCodeCommand[theCodeCommandNum];
+                        } else {
+                            if (InStr(A_LoopField7, Chr(39))) {
+                                outConstuctTheOutFromTheCommandsParams += Chr(34) + theCodeCommand[theCodeCommandNum] + Chr(34) + ", ";
+                            } else {
+                                outConstuctTheOutFromTheCommandsParams += theCodeCommand[theCodeCommandNum] + ", ";
+                            }
+                        }
+                    }
+                    else if (A_Index7 == 3) {
+                        if (outConstuctTheOutFromTheCommandsLineTranspile == 1) {
+                            outConstuctTheOutFromTheCommandsLineTranspileText = A_LoopField7;
+                        }
+                        if (A_LoopField7 == "INVAR") {
+                            outConstuctTheOutFromTheCommandsInVar = theCodeCommand[theCodeCommandNum];
+                        } else {
+                            if (InStr(A_LoopField7, Chr(39))) {
+                                outConstuctTheOutFromTheCommandsParams += Chr(34) + theCodeCommand[theCodeCommandNum] + Chr(34) + ", ";
+                            } else {
+                                outConstuctTheOutFromTheCommandsParams += theCodeCommand[theCodeCommandNum] + ", ";
+                            }
+                        }
+                    } else {
+                        //MsgBox, % theCodeCommand[theCodeCommandNum]
+                        if (InStr(A_LoopField7, Chr(39))) {
+                            if (Trim(theCodeCommand[theCodeCommandNum]) != "") {
+                                outConstuctTheOutFromTheCommandsParams += Chr(34) + theCodeCommand[theCodeCommandNum] + Chr(34) + ", ";
+                            }
+                        } else {
+                            if (Trim(theCodeCommand[theCodeCommandNum]) != "") {
+                                outConstuctTheOutFromTheCommandsParams += theCodeCommand[theCodeCommandNum] + ", ";
+                            }
+                        }
+                    }
+                    theCodeCommandNum++;
+                }
+                break;
+            }
+        }
+        outConstuctTheOutFromTheCommandsParams = StringTrimRight(outConstuctTheOutFromTheCommandsParams, 2);
+        if (outConstuctTheOutFromTheCommandsOutVar != "") {
+            if (outConstuctTheOutFromTheCommandsParams == "") {
+                outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsOutVar + " = " + outConstuctTheOutFromTheCommandsFucnName + "(" + outConstuctTheOutFromTheCommandsInVar + ")" + semicolon;
+            } else {
+                outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsOutVar + " = " + outConstuctTheOutFromTheCommandsFucnName + "(" + outConstuctTheOutFromTheCommandsInVar + ", " + outConstuctTheOutFromTheCommandsParams + ")" + semicolon;
+            }
+        }
+        if (outConstuctTheOutFromTheCommandsOutVar == "") {
+            if (outConstuctTheOutFromTheCommandsParams == "") {
+                outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsFucnName + "(" + outConstuctTheOutFromTheCommandsInVar + ")" + semicolon;
+            } else {
+                outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsFucnName + "(" + outConstuctTheOutFromTheCommandsInVar + ", " + outConstuctTheOutFromTheCommandsParams + ")" + semicolon;
+            }
+        }
+        if (outConstuctTheOutFromTheCommandsLineTranspile == 1) {
+            outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsLineTranspileText;
+        }
+        outConstuctTheOutFromTheCommands = StrReplace(outConstuctTheOutFromTheCommands, "(, ", "( ");
+        outConstuctTheOutFromTheCommands = StrReplace(outConstuctTheOutFromTheCommands, "(,", "(");
+        return outConstuctTheOutFromTheCommands;
+    }
+    return "false";
+}
+std::string HTVMmatchStrRrplace(std::string line, std::string matchString, std::string replaceString) {
+    std::string lineOut = "";
+    if (!InStr(line, matchString)) {
+        return line;
+    }
+    std::string allDelimiters = " ()[].,;:'!&|=<>+-*/^%~" + Chr(34);
+    std::vector<std::string> lineArr;
+    std::vector<std::string> items8 = LoopParseFunc(line);
+    for (size_t A_Index8 = 0; A_Index8 < items8.size() + 0; A_Index8++) {
+        std::string A_LoopField8 = items8[A_Index8 - 0];
+        lineArr.push_back(A_LoopField8);
+    }
+    int matchStringLEN = StrLen(matchString);
+    int replaceStringLEN = StrLen(replaceString);
+    std::vector<int> allPosForReplacing;
+    std::string sildingLine = "";
+    int isStart = 1;
+    int i1 = 0;
+    int hasFound = 0;
+    int hasFound2 = 0;
+    int isStartTrue = 0;
+    int isEndTrue = 0;
+    // char1 is for text outside the start
+    std::string char1 = "";
+    // char2 is for text inside the start
+    std::string char2 = "";
+    // char3 is for text inside the end
+    std::string char3 = "";
+    // char4 is for text outside the end
+    std::string char4 = "";
+    int isMatch = 0;
+    sildingLine = "";
+    isStart = 1;
+    i1 = 0;
+    hasFound = 0;
+    hasFound2 = 0;
+    isStartTrue = 0;
+    isEndTrue = 0;
+    for (int A_Index9 = 0; A_Index9 < lineArr.size() + 0; A_Index9++) {
+        char1 = "";
+        char2 = "";
+        char3 = "";
+        char4 = "";
+        isMatch = 0;
+        if (A_Index9 != 0) {
+            isStart = 0;
+        }
+        sildingLine = "";
+        for (int A_Index10 = 0; A_Index10 < matchStringLEN + 0; A_Index10++) {
+            if (A_Index10 + i1 <= lineArr.size() - 1) {
+                sildingLine += lineArr[A_Index10 + i1];
+            }
+        }
+        if (StrLen(sildingLine) < matchStringLEN) {
+            break;
+        }
+        //print("!!!!111111111!!!!!!: " . sildingLine)
+        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;==================
+        if (sildingLine == matchString) {
+            hasFound = 1;
+            if (isStart != 1) {
+                //print("!!!!2222222222!!!!!!: " . lineArr[i1 - 1])
+                char1 = lineArr[i1 - 1];
+                //print("!!!!2222222222.555555555!!!!!!: " . lineArr[i1])
+                char2 = lineArr[i1];
+            } else {
+                isStartTrue = 1;
+            }
+            if (i1 + matchStringLEN < lineArr.size()) {
+                //print("!!!!3333333333.5555555555!!!!!!: " . lineArr[i1 + matchStringLEN - 1])
+                char3 = lineArr[i1 + matchStringLEN - 1];
+                //print("!!!!3333333333!!!!!!: " . lineArr[i1 + matchStringLEN])
+                char4 = lineArr[i1 + matchStringLEN];
+            } else {
+                isEndTrue = 1;
+            }
+            if (InStr(allDelimiters, char1) || InStr(allDelimiters, char2)) {
+                isStartTrue = 1;
+            }
+            if (InStr(allDelimiters, char3) || InStr(allDelimiters, char4)) {
+                isEndTrue = 1;
+            }
+            if (isStartTrue == 1 && isEndTrue == 1) {
+                isMatch = 1;
+            }
+        }
+        //;;;;;;;;;;;;;;;;;;;===============
+        if (isMatch == 1) {
+            if (allPosForReplacing.size() > 0) {
+                for (int A_Index11 = 0; A_Index11 < allPosForReplacing.size() + 0; A_Index11++) {
+                    if (i1 + 1 != allPosForReplacing[A_Index11]) {
+                        allPosForReplacing.push_back(i1 + 1);
+                        break;
+                    }
+                }
+            } else {
+                allPosForReplacing.push_back(i1 + 1);
+            }
+        }
+        i1++;
+    }
+    std::string lineTEMP = "";
+    lineOut = line;
+    //print(allPosForReplacing)
+    if (allPosForReplacing.size() > 0) {
+        // matchStringLEN
+        // replaceStringLEN
+        int l2 = 0;
+        int currentPos = 0;
+        int onceEnd = 0;
+        for (int A_Index12 = 0; A_Index12 < allPosForReplacing.size() + 0; A_Index12++) {
+            if (A_Index12 == 0) {
+                currentPos = allPosForReplacing[A_Index12];
+            } else {
+                currentPos = allPosForReplacing[A_Index12] - (matchStringLEN - replaceStringLEN);
+            }
+            onceEnd = 0;
+            std::vector<std::string> items13 = LoopParseFunc(lineOut);
+            for (size_t A_Index13 = 0; A_Index13 < items13.size() + 0; A_Index13++) {
+                std::string A_LoopField13 = items13[A_Index13 - 0];
+                if (A_Index13 + 2 > currentPos && A_Index13 + 1 < currentPos + matchStringLEN) {
+                    onceEnd++;
+                    //print("DDDDDDDDDDD" . STR(A_Index13))
+                    if (onceEnd == 1) {
+                        lineTEMP += replaceString;
+                    }
+                } else {
+                    lineTEMP += A_LoopField13;
+                }
+            }
+            lineOut = lineTEMP;
+            lineTEMP = "";
+            //print(lineTEMP)
+            l2++;
+        }
+    } else {
+        return line;
+    }
+    return lineOut;
+}
+std::string SubStrLastChars(std::string text, int numOfChars) {
+    std::string LastOut = "";
+    int NumOfChars = 0;
+    std::vector<std::string> items14 = LoopParseFunc(text);
+    for (size_t A_Index14 = 0; A_Index14 < items14.size() + 0; A_Index14++) {
+        std::string A_LoopField14 = items14[A_Index14 - 0];
+        NumOfChars++;
+    }
+    for (int A_Index15 = 0; A_Index15 < numOfChars + 0; A_Index15++) {
+        NumOfChars--;
+    }
+    std::vector<std::string> items16 = LoopParseFunc(text);
+    for (size_t A_Index16 = 0; A_Index16 < items16.size() + 0; A_Index16++) {
+        std::string A_LoopField16 = items16[A_Index16 - 0];
+        if (A_Index16 >= NumOfChars) {
+            LastOut += A_LoopField16;
+        }
+    }
+    return LastOut;
+}
+std::string ExtractDigits(std::string inputString) {
+    std::string digits = "";
+    std::vector<std::string> items17 = LoopParseFunc(inputString);
+    for (size_t A_Index17 = 0; A_Index17 < items17.size() + 0; A_Index17++) {
+        std::string A_LoopField17 = items17[A_Index17 - 0];
+        if (RegExMatch(A_LoopField17, "\\d")) {
+            digits += A_LoopField17;
+        }
+    }
+    return digits;
+}
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+// Helper function to create spaces
+std::string spaces(int n) {
+    std::string s = "";
+    if (n != 0) {
+        for (int A_Index18 = 0; A_Index18 < n + 0; A_Index18++) {
+            s += " ";
+        }
+    }
+    return s;
+}
+// Define the function to check odd spaces at the beginning
+std::string CheckOddLeadingSpaces(std::string string123) {
+    // Initialize a variable to count the spaces
+    int spaceCount = 0;
+    // Loop through the string one character at a time
+    std::vector<std::string> items19 = LoopParseFunc(string123);
+    for (size_t A_Index19 = 0; A_Index19 < items19.size() + 0; A_Index19++) {
+        std::string A_LoopField19 = items19[A_Index19 - 0];
+        // Check if the current character is a space
+        if (A_LoopField19 == Chr(32)) {
+            spaceCount++;
+        } else {
+            // When we hit a non-space character, break the loop
+            break;
+        }
+    }
+    // Return true if the number of spaces is odd, false otherwise
+    std::string sdsfawasd = STR(Mod(spaceCount, 2) == 1);
+    //MsgBox, % sdsfawasd
+    return sdsfawasd;
+}
+std::string LTrim(std::string input) {
+    std::string result = "";
+    bool foundNonSpace = false;
+    std::vector<std::string> items20 = LoopParseFunc(input);
+    for (size_t A_Index20 = 0; A_Index20 < items20.size() + 0; A_Index20++) {
+        std::string A_LoopField20 = items20[A_Index20 - 0];
+        if (A_LoopField20 != " " || foundNonSpace) {
+            result += A_LoopField20;
+            foundNonSpace = true;
+        }
+    }
+    return result;
+}
+std::string getLastChar(std::string strippedString) {
+    std::string lastChar;
+    std::vector<std::string> items21 = LoopParseFunc(strippedString);
+    for (size_t A_Index21 = 0; A_Index21 < items21.size() + 0; A_Index21++) {
+        std::string A_LoopField21 = items21[A_Index21 - 0];
+        lastChar = A_LoopField21;
+    }
+    return lastChar;
+}
+std::string AddCurlyBraces(std::string pythonCode) {
+    pythonCode = StrReplace(pythonCode, Chr(9), "    ");
+    std::string result = "";
+    int indentLevel = 0;
+    int indent = 0;
+    std::string line = 0;
+    std::string stripped = 0;
+    std::vector<std::string> items22 = LoopParseFunc(pythonCode, "\n", "\r");
+    for (size_t A_Index22 = 0; A_Index22 < items22.size() + 0; A_Index22++) {
+        std::string A_LoopField22 = items22[A_Index22 - 0];
+        line = A_LoopField22;
+        stripped = Trim(line);
+        if (stripped == "") {
+            result += line + "\n";
+            continue;
+        }
+        // Count leading spaces
+        indent = StrLen(line) - StrLen(LTrim(line));
+        //MsgBox, % indent
+        // Close braces for unindents
+        for (int A_Index23 = 0; ; A_Index23++) {
+            if (indentLevel <= indent) {
+                break;
+            }
+            indentLevel -= 4;
+            result += spaces(indentLevel) + "}\n";
+        }
+        // Add opening brace for new blocks
+        if (getLastChar(stripped) == ":" && SubStr(StrLower(Trim(A_LoopField22)), 1, StrLen(StrLower(keyWordComment))) != StrLower(keyWordComment)) {
+            result += SubStr(line, 1, -1) + " {\n";
+            indentLevel += 4;
+        } else {
+            result += line + "\n";
+        }
+    }
+    // Close any remaining open braces
+    for (int A_Index24 = 0; ; A_Index24++) {
+        if (indentLevel <= 0) {
+            break;
+        }
+        indentLevel -= 4;
+        result += spaces(indentLevel) + "}\n";
+    }
+    return result;
+}
+std::string RepeatSpaces(int count) {
+    std::string spaces = "";
+    for (int A_Index25 = 0; A_Index25 < count + 0; A_Index25++) {
+        spaces += Chr(32);
+    }
+    return spaces;
+}
+std::string indent_nested_curly_braces(std::string input_string, int modeCurlyBracesOn) {
+    int indent_size = 4;
+    int current_indent = 0;
+    std::string result = "";
+    std::string trimmed_line = "";
+    std::string resultOut = "";
+    //MsgBox, % input_string
+    std::vector<std::string> items26 = LoopParseFunc(input_string, "\n", "\r");
+    for (size_t A_Index26 = 0; A_Index26 < items26.size() + 0; A_Index26++) {
+        std::string A_LoopField26 = items26[A_Index26 - 0];
+        trimmed_line = Trim(A_LoopField26);
+        if (trimmed_line == Chr(123)) {
+            result += Chr(32) + RepeatSpaces(current_indent) + trimmed_line + "\n";
+            current_indent = current_indent + indent_size;
+        }
+        else if (trimmed_line == Chr(125)) {
+            current_indent = current_indent - indent_size;
+            result += Chr(32) + RepeatSpaces(current_indent) + trimmed_line + "\n";
+        } else {
+            result += Chr(32) + RepeatSpaces(current_indent) + trimmed_line + "\n";
+        }
+    }
+    if (modeCurlyBracesOn == 0) {
+        std::string resultOut = "";
+        std::vector<std::string> items27 = LoopParseFunc(result, "\n", "\r");
+        for (size_t A_Index27 = 0; A_Index27 < items27.size() + 0; A_Index27++) {
+            std::string A_LoopField27 = items27[A_Index27 - 0];
+            if (Trim(A_LoopField27) != "{" && Trim(A_LoopField27) != "}") {
+                resultOut += A_LoopField27 + "\n";
+            }
+        }
+        result = StringTrimRight(resultOut, 1);
+    } else {
+        // format curly braces in a K&R style
+        std::vector<std::string> lookIntoFurture;
+        std::vector<std::string> items28 = LoopParseFunc(result, "\n", "\r");
+        for (size_t A_Index28 = 0; A_Index28 < items28.size() + 0; A_Index28++) {
+            std::string A_LoopField28 = items28[A_Index28 - 0];
+            lookIntoFurture.push_back(Trim(A_LoopField28));
+        }
+        lookIntoFurture.push_back(" ");
+        std::string resultOut = "";
+        int skipNext = 0;
+        std::vector<std::string> items29 = LoopParseFunc(result, "\n", "\r");
+        for (size_t A_Index29 = 0; A_Index29 < items29.size() + 0; A_Index29++) {
+            std::string A_LoopField29 = items29[A_Index29 - 0];
+            skipNext--;
+            if (skipNext <= 0) {
+                skipNext = 0;
+            }
+            if (Trim(lookIntoFurture[A_Index29 + 1]) == "{") {
+                resultOut += A_LoopField29 + " {\n";
+                skipNext = 2;
+            }
+            if (skipNext == 0) {
+                resultOut += A_LoopField29 + "\n";
+            }
+        }
+        result = StringTrimRight(resultOut, 1);
+        std::vector<std::string> lookIntoFurture2;
+        std::vector<std::string> items30 = LoopParseFunc(result, "\n", "\r");
+        for (size_t A_Index30 = 0; A_Index30 < items30.size() + 0; A_Index30++) {
+            std::string A_LoopField30 = items30[A_Index30 - 0];
+            lookIntoFurture2.push_back(Trim(A_LoopField30));
+        }
+        lookIntoFurture2.push_back(" ");
+        resultOut = "";
+        skipNext = 0;
+        std::string addSpacesAtTheBegginig;
+        std::vector<std::string> items31 = LoopParseFunc(result, "\n", "\r");
+        for (size_t A_Index31 = 0; A_Index31 < items31.size() + 0; A_Index31++) {
+            std::string A_LoopField31 = items31[A_Index31 - 0];
+            skipNext--;
+            if (skipNext <= 0) {
+                skipNext = 0;
+            }
+            if (Trim(A_LoopField31) == "}" && Trim(lookIntoFurture2[A_Index31 + 1]) == "else {") {
+                skipNext = 2;
+                addSpacesAtTheBegginig = "";
+                std::vector<std::string> items32 = LoopParseFunc(A_LoopField31);
+                for (size_t A_Index32 = 0; A_Index32 < items32.size() + 0; A_Index32++) {
+                    std::string A_LoopField32 = items32[A_Index32 - 0];
+                    if (A_LoopField32 == " ") {
+                        if (A_LoopField32 != " ") {
+                            break;
+                        }
+                        addSpacesAtTheBegginig += A_LoopField32;
+                    }
+                }
+                resultOut += addSpacesAtTheBegginig + "} else {\n";
+            }
+            if (skipNext == 0) {
+                resultOut += A_LoopField31 + "\n";
+            }
+        }
+        result = StringTrimRight(resultOut, 1);
+    }
+    resultOut = "";
+    std::string ALoopField;
+    std::vector<std::string> items33 = LoopParseFunc(result, "\n", "\r");
+    for (size_t A_Index33 = 0; A_Index33 < items33.size() + 0; A_Index33++) {
+        std::string A_LoopField33 = items33[A_Index33 - 0];
+        if (CheckOddLeadingSpaces(A_LoopField33) == "1") {
+            ALoopField = StringTrimLeft(A_LoopField33, 1);
+            resultOut += ALoopField + "\n";
+        } else {
+            resultOut += A_LoopField33 + "\n";
+        }
+    }
+    result = StringTrimRight(resultOut, 1);
+    // Return the result
+    return result;
+}
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+// path.path.path:propName1[str],propName2[bool],propName3[str array]|path.path.path:propName1[str],propName2[bool],propName3[str array]
+std::string OSPstrArrayStrALLobjInOSP = "";
+std::string HoldOSPdethodNamePath = "";
+std::string findTypeOfOSPprop(std::string fullARRAYstr, std::string FromPath) {
+    std::string outType = "";
+    // if the fullARRAYstr is in this format
+    // path.path.path:propName1[str],propName2[bool],propName3[str array]|path.path.path:propName1[str],propName2[bool],propName3[str array]
+    std::string outFormat = "";
+    std::string outFormatHELP1 = "";
+    std::string outFormatHELP2 = "";
+    std::vector<std::string> items34 = LoopParseFunc(fullARRAYstr, "|");
+    for (size_t A_Index34 = 0; A_Index34 < items34.size() + 0; A_Index34++) {
+        std::string A_LoopField34 = items34[A_Index34 - 0];
+        if (Trim(A_LoopField34) != "") {
+            outFormatHELP1 = StrSplit(A_LoopField34, ":", 1);
+            outFormatHELP2 = StrSplit(A_LoopField34, ":", 2);
+            std::vector<std::string> items35 = LoopParseFunc(outFormatHELP2, ",");
+            for (size_t A_Index35 = 0; A_Index35 < items35.size() + 0; A_Index35++) {
+                std::string A_LoopField35 = items35[A_Index35 - 0];
+                outFormat += outFormatHELP1 + "." + A_LoopField35 + "|";
+            }
+        }
+    }
+    outFormat = StringTrimRight(outFormat, 1);
+    std::vector<std::string> items36 = LoopParseFunc(outFormat, "|");
+    for (size_t A_Index36 = 0; A_Index36 < items36.size() + 0; A_Index36++) {
+        std::string A_LoopField36 = items36[A_Index36 - 0];
+        if (Trim(A_LoopField36) != "") {
+            if (StrSplit(Trim(A_LoopField36), "[", 1) == Trim(FromPath)) {
+                outType = StrSplit(Trim(A_LoopField36), "[", 2);
+                outType = StringTrimRight(outType, 1);
+                break;
+            }
+        }
+    }
+    if (outType == "vector<int>") {
+        outType = "std::vector<int>&";
+    }
+    else if (outType == "vector<string>") {
+        outType = "std::vector<std::string>&";
+    }
+    else if (outType == "vector<string>") {
+        outType = "std::vector<std::string>&";
+    }
+    else if (outType == "vector<float>") {
+        outType = "std::vector<float>&";
+    }
+    else if (outType == "vector<bool>") {
+        outType = "std::vector<bool>&";
+    }
+    else if (outType == Trim(keyWordINT)) {
+        outType = "int";
+    }
+    else if (outType == Trim(keyWordSTR)) {
+        outType = "std::string";
+    }
+    else if (outType == Trim(keyWordFLOAT)) {
+        outType = "float";
+    }
+    else if (outType == Trim(keyWordBOOL)) {
+        outType = "bool";
+    }
+    else if (outType == Trim(keyWordINT8)) {
+        outType = "int8_t";
+    }
+    else if (outType == Trim(keyWordINT16)) {
+        outType = "int16_t";
+    }
+    else if (outType == Trim(keyWordINT32)) {
+        outType = "int32_t";
+    }
+    else if (outType == Trim(keyWordINT64)) {
+        outType = "int64_t";
+    }
+    return outType;
+}
+std::string REMOVELastSTRfromDOT(std::string THESTR) {
+    std::string THESTRout = "";
+    if (Trim(THESTR) == "") {
+        return "";
+    }
+    int count12345 = 0;
+    std::vector<std::string> items37 = LoopParseFunc(THESTR, ".");
+    for (size_t A_Index37 = 0; A_Index37 < items37.size() + 0; A_Index37++) {
+        std::string A_LoopField37 = items37[A_Index37 - 0];
+        count12345++;
+    }
+    std::vector<std::string> items38 = LoopParseFunc(THESTR, ".");
+    for (size_t A_Index38 = 0; A_Index38 < items38.size() + 0; A_Index38++) {
+        std::string A_LoopField38 = items38[A_Index38 - 0];
+        if (count12345 == A_Index38) {
+            break;
+        } else {
+            THESTRout += Trim(A_LoopField38) + ".";
+        }
+    }
+    THESTRout = StringTrimRight(THESTRout, 1);
+    return THESTRout;
+}
+//;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;
+std::string replaceTheOSPpathsPY_JS(std::string theSTR123, std::string ALoopFieldIN) {
+    if (Trim(theSTR123) == "") {
+        return "";
+    }
+    if (Trim(ALoopFieldIN) == "") {
+        return "";
+    }
+    std::string type = "";
+    std::string theSTR123out = "";
+    std::string ALoopField = "";
+    std::string ALoopField1 = "";
+    std::string ALoopField11 = "";
+    if (InStr(ALoopFieldIN, "[")) {
+        // ALoopFieldIN
+        // animalsKingdom.animals.Dog.typeOf2[2]
+        ALoopField = StrSplit(Trim(ALoopFieldIN), "[", 1);
+        ALoopField1 = StrSplit(Trim(ALoopFieldIN), "[", 1);
+        ALoopField11 = StrSplit(Trim(ALoopFieldIN), "[", 2);
+        ALoopField1 = REMOVELastSTRfromDOT(ALoopField1) + "[" + ALoopField11;
+        // REMOVELastSTRfromDOT(param1)
+        theSTR123 = StrReplace(theSTR123, Trim(ALoopField), "OSPHTVMOSP_" + StrReplace(ALoopField1, ".", "_"));
+    } else {
+        ALoopField = StrSplit(Trim(ALoopFieldIN), "[", 1);
+        ALoopField1 = StrSplit(Trim(ALoopFieldIN), "[", 2);
+        ALoopField1 = REMOVELastSTRfromDOT(StrSplit(Trim(ALoopFieldIN), "]", 1));
+        ALoopField1 = "[" + Trim(StrSplit(ALoopField1, "[", 2)) + "]";
+        theSTR123 = StrReplace(theSTR123, Trim(ALoopFieldIN), "OSPHTVMOSP_" + StrReplace(ALoopFieldIN, ".", "_"));
+    }
+    //this__OSP__this
+    theSTR123 = RegExReplace(theSTR123, "\\bthis\\b", "this__OSP__this[0]");
+    theSTR123 = StrReplace(theSTR123, "OSPHTVMOSP_OSPHTVMOSP_", "OSPHTVMOSP_");
+    return theSTR123;
+}
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+std::string replaceTheOSPpathsLEFT(std::string theSTR123, std::string ALoopFieldIN) {
+    if (Trim(theSTR123) == "") {
+        return "";
+    }
+    if (Trim(ALoopFieldIN) == "") {
+        return "";
+    }
+    std::string type = "";
+    std::string theSTR123out = "";
+    std::string ALoopField = "";
+    std::string ALoopField1 = "";
+    std::string ALoopField11 = "";
+    if (InStr(ALoopFieldIN, "[")) {
+        // ALoopFieldIN
+        // animalsKingdom.animals.Dog.typeOf2[2]
+        ALoopField = StrSplit(Trim(ALoopFieldIN), "[", 1);
+        ALoopField1 = StrSplit(Trim(ALoopFieldIN), "[", 1);
+        ALoopField11 = StrSplit(Trim(ALoopFieldIN), "[", 2);
+        ALoopField1 = REMOVELastSTRfromDOT(ALoopField1) + "[" + ALoopField11;
+        // REMOVELastSTRfromDOT(param1)
+        theSTR123 = StrReplace(theSTR123, Trim(ALoopField), "OSPHTVMOSP_" + StrReplace(ALoopField1, ".", "_"));
+    } else {
+        ALoopField = StrSplit(Trim(ALoopFieldIN), "[", 1);
+        ALoopField1 = StrSplit(Trim(ALoopFieldIN), "[", 2);
+        ALoopField1 = REMOVELastSTRfromDOT(StrSplit(Trim(ALoopFieldIN), "]", 1));
+        ALoopField1 = "[" + Trim(StrSplit(ALoopField1, "[", 2)) + "]";
+        theSTR123 = StrReplace(theSTR123, Trim(ALoopFieldIN), "OSPHTVMOSP_" + StrReplace(ALoopFieldIN, ".", "_"));
+    }
+    //this__OSP__this
+    theSTR123 = RegExReplace(theSTR123, "\\bthis\\b", "std::any_cast<std::string>((*this__OSP__this)[0])");
+    theSTR123 = StrReplace(theSTR123, "OSPHTVMOSP_OSPHTVMOSP_", "OSPHTVMOSP_");
+    return theSTR123;
+}
+std::string replaceTheOSPpathsRIGHT(std::string theSTR123, std::string ALoopFieldIN) {
+    if (Trim(theSTR123) == "") {
+        return "";
+    }
+    if (Trim(ALoopFieldIN) == "") {
+        return "";
+    }
+    std::string type = "";
+    std::string theSTR123out = "";
+    std::string ALoopField = "";
+    std::string ALoopField1 = "";
+    std::string ALoopField11 = "";
+    if (InStr(ALoopFieldIN, "[")) {
+        // ALoopFieldIN
+        // animalsKingdom.animals.Dog.typeOf2[2]
+        ALoopField = StrSplit(Trim(ALoopFieldIN), "[", 1);
+        ALoopField1 = StrSplit(Trim(ALoopFieldIN), "[", 1);
+        ALoopField11 = StrSplit(Trim(ALoopFieldIN), "[", 2);
+        ALoopField1 = REMOVELastSTRfromDOT(ALoopField1) + "[" + ALoopField11;
+        // REMOVELastSTRfromDOT(param1)
+        type = findTypeOfOSPprop(OSPstrArrayStrALLobjInOSP, ALoopField);
+        //MsgBox, % type
+        theSTR123 = StrReplace(theSTR123, Trim(ALoopField), "std::any_cast<" + type + ">(OSPHTVMOSP_" + StrReplace(ALoopField1, ".", "_") + ")");
+    } else {
+        ALoopField = StrSplit(Trim(ALoopFieldIN), "[", 1);
+        ALoopField1 = StrSplit(Trim(ALoopFieldIN), "[", 2);
+        ALoopField1 = REMOVELastSTRfromDOT(StrSplit(Trim(ALoopFieldIN), "]", 1));
+        ALoopField1 = "[" + Trim(StrSplit(ALoopField1, "[", 2)) + "]";
+        theSTR123 = StrReplace(theSTR123, Trim(ALoopFieldIN), "OSPHTVMOSP_" + StrReplace(ALoopFieldIN, ".", "_"));
+    }
+    //this__OSP__this
+    theSTR123 = RegExReplace(theSTR123, "\\bthis\\b", "std::any_cast<std::string>((*this__OSP__this)[0])");
+    theSTR123 = StrReplace(theSTR123, "OSPHTVMOSP_OSPHTVMOSP_", "OSPHTVMOSP_");
+    return theSTR123;
+}
+std::string CheckStringPosition(std::string text, std::string target, std::string reference) {
+    std::string posReference = SubStr(text, 1, StrLen(reference));
+    std::string posTarget = SubStr(text, 1, StrLen(target));
+    // Check if both strings are found (not using InStr)
+    if (posReference != "" && posTarget != "") {
+        // Manually find the positions of the target and reference
+        posTarget = RegExMatch(text, target);
+        posReference = RegExMatch(text, reference);
+        // Compare positions of target and reference
+        if (posTarget < posReference) {
+            return "left";
+        }
+        else if (posTarget > posReference) {
+            return "not left";
+        } else {
+            return "uuh";
+        }
+    } else {
+        return "One or both strings not found.";
+    }
+    return "huh";
+}
+std::string getIndexOfTheStrArrayStrOST(std::string ALoopField, std::string theSringOSPlineARRAYstrstrSTR) {
+    std::vector<std::string> items39 = LoopParseFunc(theSringOSPlineARRAYstrstrSTR, "|");
+    for (size_t A_Index39 = 0; A_Index39 < items39.size() + 0; A_Index39++) {
+        std::string A_LoopField39 = items39[A_Index39 - 0];
+        if (Trim(StrSplit(A_LoopField39, ":", 1)) == Trim(ALoopField)) {
+            return STR(A_Index39);
+        }
+    }
+    return "0";
+}
+std::string parserOSPgloabl(std::string theSringOSPline, std::string str123) {
+    std::string str_1 = "";
+    std::string str_2 = "";
+    std::string str_3 = "";
+    std::string str_4 = "";
+    std::string str_5 = "";
+    std::string str_6 = "";
+    std::string HELPHoldOSPdethodNamePath = "";
+    HELPHoldOSPdethodNamePath = StringTrimRight(HoldOSPdethodNamePath, 1);
+    std::vector<std::string> items40 = LoopParseFunc(theSringOSPline, "|");
+    for (size_t A_Index40 = 0; A_Index40 < items40.size() + 0; A_Index40++) {
+        std::string A_LoopField40 = items40[A_Index40 - 0];
+        str_1 += Trim(StrSplit(A_LoopField40, ":", 1)) + "\n";
+        str_5 = Trim(StrSplit(A_LoopField40, ":", 1));
+        str_6 = Trim(StrSplit(A_LoopField40, ":", 2));
+        std::vector<std::string> items41 = LoopParseFunc(str_6, ",");
+        for (size_t A_Index41 = 0; A_Index41 < items41.size() + 0; A_Index41++) {
+            std::string A_LoopField41 = items41[A_Index41 - 0];
+            str_1 += str_5 + "." + Trim(StrSplit(A_LoopField41, "[", 1)) + "[" + STR(A_Index41) + "]\n";
+        }
+    }
+    str_1 += StrReplace(HELPHoldOSPdethodNamePath, "|", "\n");
+    std::string shortestLine = "";
+    std::string currentLine = "";
+    int currentLength = 0;
+    int minLength = 0;
+    std::string tempStr = "";
+    // Sorting by repeatedly finding and appending the shortest line
+    for (int A_Index42 = 0; ; A_Index42++) {
+        // Initialize variables to track the shortest line in this pass
+        shortestLine = "";
+        minLength = 999999;
+        // Find the shortest line in str_1
+        std::vector<std::string> items43 = LoopParseFunc(str_1, "\n", "\r");
+        for (size_t A_Index43 = 0; A_Index43 < items43.size() + 0; A_Index43++) {
+            std::string A_LoopField43 = items43[A_Index43 - 0];
+            currentLine = A_LoopField43;
+            currentLength = StrLen(currentLine);
+            if (currentLength < minLength) {
+                minLength = currentLength;
+                shortestLine = currentLine;
+            }
+        }
+        // If no shortest line is found, break (str_1 is empty)
+        if (shortestLine == "") {
+            break;
+        }
+        // Add the shortest line to the sorted result
+        str_2 += shortestLine + "\n";
+        // Rebuild str_1 without the shortest line
+        tempStr = "";
+        std::vector<std::string> items44 = LoopParseFunc(str_1, "\n", "\r");
+        for (size_t A_Index44 = 0; A_Index44 < items44.size() + 0; A_Index44++) {
+            std::string A_LoopField44 = items44[A_Index44 - 0];
+            if (A_LoopField44 != shortestLine) {
+                tempStr += A_LoopField44 + "\n";
+            }
+        }
+        tempStr = StringTrimRight(tempStr, 1);
+        str_1 = tempStr;
+    }
+    // Trim the final trailing newline from str_2
+    str_2 = StringTrimRight(str_2, 1);
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    // Initialize an empty result for the reversed lines
+    std::string reversedStr = "";
+    // Count the number of lines
+    int lineCount = 0;
+    int index = 0;
+    int lineNum = 0;
+    std::vector<std::string> items45 = LoopParseFunc(str_2, "\n", "\r");
+    for (size_t A_Index45 = 0; A_Index45 < items45.size() + 0; A_Index45++) {
+        std::string A_LoopField45 = items45[A_Index45 - 0];
+        lineCount++;
+    }
+    // Reverse the order by re-parsing and appending lines in reverse order
+    for (int A_Index46 = 0; A_Index46 < lineCount + 0; A_Index46++) {
+        // Inner loop to find the (lineCount - A_Index46 + 1)-th line
+        index = lineCount - A_Index46 + 1;
+        currentLine = "";
+        lineNum = 0;
+        std::vector<std::string> items47 = LoopParseFunc(str_2, "\n", "\r");
+        for (size_t A_Index47 = 0; A_Index47 < items47.size() + 0; A_Index47++) {
+            std::string A_LoopField47 = items47[A_Index47 - 0];
+            lineNum++;
+            if (lineNum == index) {
+                currentLine = A_LoopField47;
+                break;
+            }
+        }
+        // Append the line in reverse order
+        reversedStr += currentLine + "\n";
+    }
+    // Trim the final trailing newline
+    str_2 = StringTrimRight(reversedStr, 1);
+    // Display the sorted result
+    //MsgBox, % str_2
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //CheckStringPosition(text, target, reference)
+    std::string ALoopField = "";
+    std::string ALoopField1 = "";
+    std::vector<std::string> items48 = LoopParseFunc(str_2, "\n", "\r");
+    for (size_t A_Index48 = 0; A_Index48 < items48.size() + 0; A_Index48++) {
+        std::string A_LoopField48 = items48[A_Index48 - 0];
+        if (SubStr(A_LoopField48, 1, StrLen(keyWordFunc)) != keyWordFunc) {
+            if (langToConvertTo == "cpp") {
+                if (Trim(A_LoopField48) != "") {
+                    if (InStr(str123, " += ")) {
+                        str6 = " += ";
+                        str1 = "";
+                        str2 = "";
+                        str3 = "";
+                        str4 = "";
+                        str5 = "";
+                        str1 = Trim(StrSplit(str123, str6, 1));
+                        str2 = Trim(StrSplit(str123, str6, 2));
+                        str3 = Trim(replaceTheOSPpathsLEFT(str1, A_LoopField48));
+                        str4 = Trim(replaceTheOSPpathsRIGHT(str2, A_LoopField48));
+                        str5 = str3 + str6 + str4;
+                        str123 = Trim(str5);
+                    }
+                    else if (InStr(str123, " = ")) {
+                        str6 = " = ";
+                        str1 = "";
+                        str2 = "";
+                        str3 = "";
+                        str4 = "";
+                        str5 = "";
+                        str1 = Trim(StrSplit(str123, str6, 1));
+                        str2 = Trim(StrSplit(str123, str6, 2));
+                        str3 = Trim(replaceTheOSPpathsLEFT(str1, A_LoopField48));
+                        str4 = Trim(replaceTheOSPpathsRIGHT(str2, A_LoopField48));
+                        str5 = str3 + str6 + str4;
+                        str123 = Trim(str5);
+                    }
+                    else if (InStr(str123, " -= ")) {
+                        str6 = " -= ";
+                        str1 = "";
+                        str2 = "";
+                        str3 = "";
+                        str4 = "";
+                        str5 = "";
+                        str1 = Trim(StrSplit(str123, str6, 1));
+                        str2 = Trim(StrSplit(str123, str6, 2));
+                        str3 = Trim(replaceTheOSPpathsLEFT(str1, A_LoopField48));
+                        str4 = Trim(replaceTheOSPpathsRIGHT(str2, A_LoopField48));
+                        str5 = str3 + str6 + str4;
+                        str123 = Trim(str5);
+                    }
+                    else if (InStr(str123, " *= ")) {
+                        str6 = " *= ";
+                        str1 = "";
+                        str2 = "";
+                        str3 = "";
+                        str4 = "";
+                        str5 = "";
+                        str1 = Trim(StrSplit(str123, str6, 1));
+                        str2 = Trim(StrSplit(str123, str6, 2));
+                        str3 = Trim(replaceTheOSPpathsLEFT(str1, A_LoopField48));
+                        str4 = Trim(replaceTheOSPpathsRIGHT(str2, A_LoopField48));
+                        str5 = str3 + str6 + str4;
+                        str123 = Trim(str5);
+                    }
+                    else if (InStr(str123, " /= ")) {
+                        str6 = " /= ";
+                        str1 = "";
+                        str2 = "";
+                        str3 = "";
+                        str4 = "";
+                        str5 = "";
+                        str1 = Trim(StrSplit(str123, str6, 1));
+                        str2 = Trim(StrSplit(str123, str6, 2));
+                        str3 = Trim(replaceTheOSPpathsLEFT(str1, A_LoopField48));
+                        str4 = Trim(replaceTheOSPpathsRIGHT(str2, A_LoopField48));
+                        str5 = str3 + str6 + str4;
+                        str123 = Trim(str5);
+                    } else {
+                        str123 = replaceTheOSPpathsRIGHT(str123, A_LoopField48);
+                    }
+                    //;;;;
+                }
+            } else {
+                if (Trim(A_LoopField48) != "") {
+                    str123 = replaceTheOSPpathsPY_JS(str123, A_LoopField48);
+                }
+            }
+        }
+    }
+    return str123;
+}
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+std::string compiler(std::string htCode, std::string instructionFile, std::string mode, std::string langToConvertToParam = "") {
     extraCodeReturned = "";
     std::string allInstructionFile = Trim(FileRead(instructionFile));
-    std::vector<std::string> items1 = LoopParseFunc(allInstructionFile, "\n", "\r");
-    for (size_t A_Index1 = 0; A_Index1 < items1.size() + 0; A_Index1++) {
-        std::string A_LoopField1 = items1[A_Index1 - 0];
-        if (A_Index1 == 0) {
-            langToConvertTo = Trim(A_LoopField1);
+    std::vector<std::string> items49 = LoopParseFunc(allInstructionFile, "\n", "\r");
+    for (size_t A_Index49 = 0; A_Index49 < items49.size() + 0; A_Index49++) {
+        std::string A_LoopField49 = items49[A_Index49 - 0];
+        if (A_Index49 == 0) {
+            langToConvertTo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 1) {
-            langFileExtension = Trim(A_LoopField1);
+        if (A_Index49 == 1) {
+            langFileExtension = Trim(A_LoopField49);
         }
-        if (A_Index1 == 2) {
-            std::string commands = Trim(A_LoopField1);
+        if (A_Index49 == 2) {
+            commands = Trim(A_LoopField49);
         }
-        if (A_Index1 == 3) {
-            std::string keyWordAlliance = Trim(A_LoopField1);
+        if (A_Index49 == 3) {
+            keyWordAlliance = Trim(A_LoopField49);
         }
-        if (A_Index1 == 4) {
-            std::string keyWordCrew = Trim(A_LoopField1);
+        if (A_Index49 == 4) {
+            keyWordCrew = Trim(A_LoopField49);
         }
-        if (A_Index1 == 5) {
-            std::string keyWordMethod = Trim(A_LoopField1);
+        if (A_Index49 == 5) {
+            keyWordMethod = Trim(A_LoopField49);
         }
-        if (A_Index1 == 6) {
-            std::string keyWordDefObj = Trim(A_LoopField1);
+        if (A_Index49 == 6) {
+            keyWordDefObj = Trim(A_LoopField49);
         }
-        if (A_Index1 == 7) {
-            std::string keyWordPorp = Trim(A_LoopField1);
+        if (A_Index49 == 7) {
+            keyWordPorp = Trim(A_LoopField49);
         }
-        if (A_Index1 == 8) {
-            std::string keyWordThis = Trim(A_LoopField1);
+        if (A_Index49 == 8) {
+            keyWordThis = Trim(A_LoopField49);
         }
-        if (A_Index1 == 9) {
-            std::string keyWordInclude = Trim(A_LoopField1);
+        if (A_Index49 == 9) {
+            keyWordInclude = Trim(A_LoopField49);
         }
-        if (A_Index1 == 10) {
-            std::string keyWordIncludeInTheTranspiledLang = Trim(A_LoopField1);
+        if (A_Index49 == 10) {
+            keyWordIncludeInTheTranspiledLang = Trim(A_LoopField49);
         }
-        if (A_Index1 == 11) {
-            std::string keyWordCodeInTheTranspiledLangStart = Trim(A_LoopField1);
+        if (A_Index49 == 11) {
+            keyWordCodeInTheTranspiledLangStart = Trim(A_LoopField49);
         }
-        if (A_Index1 == 12) {
-            std::string keyWordCodeInTheTranspiledLangEnd = Trim(A_LoopField1);
+        if (A_Index49 == 12) {
+            keyWordCodeInTheTranspiledLangEnd = Trim(A_LoopField49);
         }
-        if (A_Index1 == 13) {
-            std::string keyWordCodeInTheTranspiledLangStartCPP = Trim(A_LoopField1);
+        if (A_Index49 == 13) {
+            keyWordCodeInTheTranspiledLangStartCPP = Trim(A_LoopField49);
         }
-        if (A_Index1 == 14) {
-            std::string keyWordCodeInTheTranspiledLangEndCPP = Trim(A_LoopField1);
+        if (A_Index49 == 14) {
+            keyWordCodeInTheTranspiledLangEndCPP = Trim(A_LoopField49);
         }
-        if (A_Index1 == 15) {
-            std::string keyWordCodeInTheTranspiledLangStartPY = Trim(A_LoopField1);
+        if (A_Index49 == 15) {
+            keyWordCodeInTheTranspiledLangStartPY = Trim(A_LoopField49);
         }
-        if (A_Index1 == 16) {
-            std::string keyWordCodeInTheTranspiledLangEndPY = Trim(A_LoopField1);
+        if (A_Index49 == 16) {
+            keyWordCodeInTheTranspiledLangEndPY = Trim(A_LoopField49);
         }
-        if (A_Index1 == 17) {
-            std::string keyWordCodeInTheTranspiledLangStartJS = Trim(A_LoopField1);
+        if (A_Index49 == 17) {
+            keyWordCodeInTheTranspiledLangStartJS = Trim(A_LoopField49);
         }
-        if (A_Index1 == 18) {
-            std::string keyWordCodeInTheTranspiledLangEndJS = Trim(A_LoopField1);
+        if (A_Index49 == 18) {
+            keyWordCodeInTheTranspiledLangEndJS = Trim(A_LoopField49);
         }
-        if (A_Index1 == 19) {
-            std::string keyWordCodeInTheTranspiledLangStartGO = Trim(A_LoopField1);
+        if (A_Index49 == 19) {
+            keyWordCodeInTheTranspiledLangStartGO = Trim(A_LoopField49);
         }
-        if (A_Index1 == 20) {
-            std::string keyWordCodeInTheTranspiledLangEndGO = Trim(A_LoopField1);
+        if (A_Index49 == 20) {
+            keyWordCodeInTheTranspiledLangEndGO = Trim(A_LoopField49);
         }
-        if (A_Index1 == 21) {
-            std::string keyWordCodeInTheTranspiledLangStartLUA = Trim(A_LoopField1);
+        if (A_Index49 == 21) {
+            keyWordCodeInTheTranspiledLangStartLUA = Trim(A_LoopField49);
         }
-        if (A_Index1 == 22) {
-            std::string keyWordCodeInTheTranspiledLangEndLUA = Trim(A_LoopField1);
+        if (A_Index49 == 22) {
+            keyWordCodeInTheTranspiledLangEndLUA = Trim(A_LoopField49);
         }
-        if (A_Index1 == 23) {
-            std::string keyWordCodeInTheTranspiledLangStartCS = Trim(A_LoopField1);
+        if (A_Index49 == 23) {
+            keyWordCodeInTheTranspiledLangStartCS = Trim(A_LoopField49);
         }
-        if (A_Index1 == 24) {
-            std::string keyWordCodeInTheTranspiledLangEndCS = Trim(A_LoopField1);
+        if (A_Index49 == 24) {
+            keyWordCodeInTheTranspiledLangEndCS = Trim(A_LoopField49);
         }
-        if (A_Index1 == 25) {
-            std::string keyWordCodeInTheTranspiledLangStartJAVA = Trim(A_LoopField1);
+        if (A_Index49 == 25) {
+            keyWordCodeInTheTranspiledLangStartJAVA = Trim(A_LoopField49);
         }
-        if (A_Index1 == 26) {
-            std::string keyWordCodeInTheTranspiledLangEndJAVA = Trim(A_LoopField1);
+        if (A_Index49 == 26) {
+            keyWordCodeInTheTranspiledLangEndJAVA = Trim(A_LoopField49);
         }
-        if (A_Index1 == 27) {
-            std::string keyWordCodeInTheTranspiledLangStartKT = Trim(A_LoopField1);
+        if (A_Index49 == 27) {
+            keyWordCodeInTheTranspiledLangStartKT = Trim(A_LoopField49);
         }
-        if (A_Index1 == 28) {
-            std::string keyWordCodeInTheTranspiledLangEndKT = Trim(A_LoopField1);
+        if (A_Index49 == 28) {
+            keyWordCodeInTheTranspiledLangEndKT = Trim(A_LoopField49);
         }
-        if (A_Index1 == 29) {
-            std::string keyWordCodeInTheTranspiledLangStartRB = Trim(A_LoopField1);
+        if (A_Index49 == 29) {
+            keyWordCodeInTheTranspiledLangStartRB = Trim(A_LoopField49);
         }
-        if (A_Index1 == 30) {
-            std::string keyWordCodeInTheTranspiledLangEndRB = Trim(A_LoopField1);
+        if (A_Index49 == 30) {
+            keyWordCodeInTheTranspiledLangEndRB = Trim(A_LoopField49);
         }
-        if (A_Index1 == 31) {
-            std::string keyWordCodeInTheTranspiledLangStartNIM = Trim(A_LoopField1);
+        if (A_Index49 == 31) {
+            keyWordCodeInTheTranspiledLangStartNIM = Trim(A_LoopField49);
         }
-        if (A_Index1 == 32) {
-            std::string keyWordCodeInTheTranspiledLangEndNIM = Trim(A_LoopField1);
+        if (A_Index49 == 32) {
+            keyWordCodeInTheTranspiledLangEndNIM = Trim(A_LoopField49);
         }
-        if (A_Index1 == 33) {
-            std::string keyWordCodeInTheTranspiledLangStartAHK = Trim(A_LoopField1);
+        if (A_Index49 == 33) {
+            keyWordCodeInTheTranspiledLangStartAHK = Trim(A_LoopField49);
         }
-        if (A_Index1 == 34) {
-            std::string keyWordCodeInTheTranspiledLangEndAHK = Trim(A_LoopField1);
+        if (A_Index49 == 34) {
+            keyWordCodeInTheTranspiledLangEndAHK = Trim(A_LoopField49);
         }
-        if (A_Index1 == 35) {
-            std::string keyWordCodeInTheTranspiledLangStartSWIFT = Trim(A_LoopField1);
+        if (A_Index49 == 35) {
+            keyWordCodeInTheTranspiledLangStartSWIFT = Trim(A_LoopField49);
         }
-        if (A_Index1 == 36) {
-            std::string keyWordCodeInTheTranspiledLangEndSWIFT = Trim(A_LoopField1);
+        if (A_Index49 == 36) {
+            keyWordCodeInTheTranspiledLangEndSWIFT = Trim(A_LoopField49);
         }
-        if (A_Index1 == 37) {
-            std::string keyWordCodeInTheTranspiledLangStartDART = Trim(A_LoopField1);
+        if (A_Index49 == 37) {
+            keyWordCodeInTheTranspiledLangStartDART = Trim(A_LoopField49);
         }
-        if (A_Index1 == 38) {
-            std::string keyWordCodeInTheTranspiledLangEndDART = Trim(A_LoopField1);
+        if (A_Index49 == 38) {
+            keyWordCodeInTheTranspiledLangEndDART = Trim(A_LoopField49);
         }
-        if (A_Index1 == 39) {
-            std::string keyWordCodeInTheTranspiledLangStartTS = Trim(A_LoopField1);
+        if (A_Index49 == 39) {
+            keyWordCodeInTheTranspiledLangStartTS = Trim(A_LoopField49);
         }
-        if (A_Index1 == 40) {
-            std::string keyWordCodeInTheTranspiledLangEndTS = Trim(A_LoopField1);
+        if (A_Index49 == 40) {
+            keyWordCodeInTheTranspiledLangEndTS = Trim(A_LoopField49);
         }
-        if (A_Index1 == 41) {
-            std::string keyWordCodeInTheTranspiledLangStartSCALA = Trim(A_LoopField1);
+        if (A_Index49 == 41) {
+            keyWordCodeInTheTranspiledLangStartSCALA = Trim(A_LoopField49);
         }
-        if (A_Index1 == 42) {
-            std::string keyWordCodeInTheTranspiledLangEndSCALA = Trim(A_LoopField1);
+        if (A_Index49 == 42) {
+            keyWordCodeInTheTranspiledLangEndSCALA = Trim(A_LoopField49);
         }
-        if (A_Index1 == 43) {
-            std::string keyWordCodeInTheTranspiledLangStartGROOVY = Trim(A_LoopField1);
+        if (A_Index49 == 43) {
+            keyWordCodeInTheTranspiledLangStartGROOVY = Trim(A_LoopField49);
         }
-        if (A_Index1 == 44) {
-            std::string keyWordCodeInTheTranspiledLangEndGROOVY = Trim(A_LoopField1);
+        if (A_Index49 == 44) {
+            keyWordCodeInTheTranspiledLangEndGROOVY = Trim(A_LoopField49);
         }
-        if (A_Index1 == 45) {
-            std::string keyWordCodeInTheTranspiledLangStartHTVM = Trim(A_LoopField1);
+        if (A_Index49 == 45) {
+            keyWordCodeInTheTranspiledLangStartHTVM = Trim(A_LoopField49);
         }
-        if (A_Index1 == 46) {
-            std::string keyWordCodeInTheTranspiledLangEndHTVM = Trim(A_LoopField1);
+        if (A_Index49 == 46) {
+            keyWordCodeInTheTranspiledLangEndHTVM = Trim(A_LoopField49);
         }
-        if (A_Index1 == 47) {
-            std::string keyWordCodeInHTVMstart = Trim(A_LoopField1);
+        if (A_Index49 == 47) {
+            keyWordCodeInHTVMstart = Trim(A_LoopField49);
         }
-        if (A_Index1 == 48) {
-            std::string keyWordCodeInHTVMend = Trim(A_LoopField1);
+        if (A_Index49 == 48) {
+            keyWordCodeInHTVMend = Trim(A_LoopField49);
         }
-        if (A_Index1 == 49) {
-            std::string keyWordCodeInOtherHTVMsyntaxStart = Trim(A_LoopField1);
+        if (A_Index49 == 49) {
+            keyWordCodeInOtherHTVMsyntaxStart = Trim(A_LoopField49);
         }
-        if (A_Index1 == 50) {
-            std::string keyWordCodeInOtherHTVMsyntaxStart = Trim(A_LoopField1);
+        if (A_Index49 == 50) {
+            keyWordCodeInOtherHTVMsyntaxEnd = Trim(A_LoopField49);
         }
-        if (A_Index1 == 51) {
-            std::string keyWordCurlyBraceOpen = Trim(A_LoopField1);
+        if (A_Index49 == 51) {
+            keyWordCurlyBraceOpen = Trim(A_LoopField49);
         }
-        if (A_Index1 == 52) {
-            std::string keyWordCurlyBraceClose = Trim(A_LoopField1);
+        if (A_Index49 == 52) {
+            keyWordCurlyBraceClose = Trim(A_LoopField49);
         }
-        if (A_Index1 == 53) {
-            std::string keyWordNull = Trim(A_LoopField1);
+        if (A_Index49 == 53) {
+            keyWordNull = Trim(A_LoopField49);
         }
-        if (A_Index1 == 54) {
-            std::string keyWordTrue = Trim(A_LoopField1);
+        if (A_Index49 == 54) {
+            keyWordTrue = Trim(A_LoopField49);
         }
-        if (A_Index1 == 55) {
-            std::string keyWordFalse = Trim(A_LoopField1);
+        if (A_Index49 == 55) {
+            keyWordFalse = Trim(A_LoopField49);
         }
-        if (A_Index1 == 56) {
-            std::string keyWordVoid = Trim(A_LoopField1);
+        if (A_Index49 == 56) {
+            keyWordVoid = Trim(A_LoopField49);
         }
-        if (A_Index1 == 57) {
-            std::string keyWordDouble = Trim(A_LoopField1);
+        if (A_Index49 == 57) {
+            keyWordDouble = Trim(A_LoopField49);
         }
-        if (A_Index1 == 58) {
-            std::string keyWordChar = Trim(A_LoopField1);
+        if (A_Index49 == 58) {
+            keyWordChar = Trim(A_LoopField49);
         }
-        if (A_Index1 == 59) {
-            std::string keyWordUint8 = Trim(A_LoopField1);
+        if (A_Index49 == 59) {
+            keyWordUint8 = Trim(A_LoopField49);
         }
-        if (A_Index1 == 60) {
-            std::string keyWordUint16 = Trim(A_LoopField1);
+        if (A_Index49 == 60) {
+            keyWordUint16 = Trim(A_LoopField49);
         }
-        if (A_Index1 == 61) {
-            std::string keyWordUint32 = Trim(A_LoopField1);
+        if (A_Index49 == 61) {
+            keyWordUint32 = Trim(A_LoopField49);
         }
-        if (A_Index1 == 62) {
-            std::string keyWordUint64 = Trim(A_LoopField1);
+        if (A_Index49 == 62) {
+            keyWordUint64 = Trim(A_LoopField49);
         }
-        if (A_Index1 == 63) {
-            std::string keyWordINT = Trim(A_LoopField1);
+        if (A_Index49 == 63) {
+            keyWordINT = Trim(A_LoopField49);
         }
-        if (A_Index1 == 64) {
-            std::string keyWordSTR = Trim(A_LoopField1);
+        if (A_Index49 == 64) {
+            keyWordSTR = Trim(A_LoopField49);
         }
-        if (A_Index1 == 65) {
-            std::string keyWordBOOL = Trim(A_LoopField1);
+        if (A_Index49 == 65) {
+            keyWordBOOL = Trim(A_LoopField49);
         }
-        if (A_Index1 == 66) {
-            std::string keyWordFLOAT = Trim(A_LoopField1);
+        if (A_Index49 == 66) {
+            keyWordFLOAT = Trim(A_LoopField49);
         }
-        if (A_Index1 == 67) {
-            std::string keyWordINT8 = Trim(A_LoopField1);
+        if (A_Index49 == 67) {
+            keyWordINT8 = Trim(A_LoopField49);
         }
-        if (A_Index1 == 68) {
-            std::string keyWordINT16 = Trim(A_LoopField1);
+        if (A_Index49 == 68) {
+            keyWordINT16 = Trim(A_LoopField49);
         }
-        if (A_Index1 == 69) {
-            std::string keyWordINT32 = Trim(A_LoopField1);
+        if (A_Index49 == 69) {
+            keyWordINT32 = Trim(A_LoopField49);
         }
-        if (A_Index1 == 70) {
-            std::string keyWordINT64 = Trim(A_LoopField1);
+        if (A_Index49 == 70) {
+            keyWordINT64 = Trim(A_LoopField49);
         }
-        if (A_Index1 == 71) {
-            std::string keyWordIF = Trim(A_LoopField1);
+        if (A_Index49 == 71) {
+            keyWordIF = Trim(A_LoopField49);
         }
-        if (A_Index1 == 72) {
-            std::string keyWordElseIf = Trim(A_LoopField1);
+        if (A_Index49 == 72) {
+            keyWordElseIf = Trim(A_LoopField49);
         }
-        if (A_Index1 == 73) {
-            std::string keyWordElse = Trim(A_LoopField1);
+        if (A_Index49 == 73) {
+            keyWordElse = Trim(A_LoopField49);
         }
-        if (A_Index1 == 74) {
-            std::string keyWordSwitch = Trim(A_LoopField1);
+        if (A_Index49 == 74) {
+            keyWordSwitch = Trim(A_LoopField49);
         }
-        if (A_Index1 == 75) {
-            std::string keyWordSwitchCase = Trim(A_LoopField1);
+        if (A_Index49 == 75) {
+            keyWordSwitchCase = Trim(A_LoopField49);
         }
-        if (A_Index1 == 76) {
-            std::string keyWordSwitchDefault = Trim(A_LoopField1);
+        if (A_Index49 == 76) {
+            keyWordSwitchDefault = Trim(A_LoopField49);
         }
-        if (A_Index1 == 77) {
-            std::string keyWordWhileLoop = Trim(A_LoopField1);
+        if (A_Index49 == 77) {
+            keyWordWhileLoop = Trim(A_LoopField49);
         }
-        if (A_Index1 == 78) {
-            std::string keyWordForLoop = Trim(A_LoopField1);
+        if (A_Index49 == 78) {
+            keyWordForLoop = Trim(A_LoopField49);
         }
-        if (A_Index1 == 79) {
-            std::string keyWordLoopInfinite = Trim(A_LoopField1);
+        if (A_Index49 == 79) {
+            keyWordLoopInfinite = Trim(A_LoopField49);
         }
-        if (A_Index1 == 80) {
-            std::string keyWordLoop = Trim(A_LoopField1);
+        if (A_Index49 == 80) {
+            keyWordLoop = Trim(A_LoopField49);
         }
-        if (A_Index1 == 81) {
-            std::string keyWordLoopParse = Trim(A_LoopField1);
+        if (A_Index49 == 81) {
+            keyWordLoopParse = Trim(A_LoopField49);
         }
-        if (A_Index1 == 82) {
-            std::string keyWordContinue = Trim(A_LoopField1);
+        if (A_Index49 == 82) {
+            keyWordContinue = Trim(A_LoopField49);
         }
-        if (A_Index1 == 83) {
-            std::string keyWordBreak = Trim(A_LoopField1);
+        if (A_Index49 == 83) {
+            keyWordBreak = Trim(A_LoopField49);
         }
-        if (A_Index1 == 84) {
-            std::string keyWordFunc = Trim(A_LoopField1);
+        if (A_Index49 == 84) {
+            keyWordFunc = Trim(A_LoopField49);
         }
-        if (A_Index1 == 85) {
-            std::string keyWordAwait = Trim(A_LoopField1);
+        if (A_Index49 == 85) {
+            keyWordAwait = Trim(A_LoopField49);
         }
-        if (A_Index1 == 86) {
-            std::string keyWordAsync = Trim(A_LoopField1);
+        if (A_Index49 == 86) {
+            keyWordAsync = Trim(A_LoopField49);
         }
-        if (A_Index1 == 87) {
-            std::string keyWordThrow = Trim(A_LoopField1);
+        if (A_Index49 == 87) {
+            keyWordThrow = Trim(A_LoopField49);
         }
-        if (A_Index1 == 88) {
-            std::string keyWordErrorMsg = Trim(A_LoopField1);
+        if (A_Index49 == 88) {
+            keyWordErrorMsg = Trim(A_LoopField49);
         }
-        if (A_Index1 == 89) {
-            std::string keyWordTry = Trim(A_LoopField1);
+        if (A_Index49 == 89) {
+            keyWordTry = Trim(A_LoopField49);
         }
-        if (A_Index1 == 90) {
-            std::string keyWordCatch = Trim(A_LoopField1);
+        if (A_Index49 == 90) {
+            keyWordCatch = Trim(A_LoopField49);
         }
-        if (A_Index1 == 91) {
-            std::string keyWordFinally = Trim(A_LoopField1);
+        if (A_Index49 == 91) {
+            keyWordFinally = Trim(A_LoopField49);
         }
-        if (A_Index1 == 92) {
-            std::string keyWordReturnStatement = Trim(A_LoopField1);
+        if (A_Index49 == 92) {
+            keyWordReturnStatement = Trim(A_LoopField49);
         }
-        if (A_Index1 == 93) {
-            std::string keyWordArrayAppend = Trim(A_LoopField1);
+        if (A_Index49 == 93) {
+            keyWordArrayAppend = Trim(A_LoopField49);
         }
-        if (A_Index1 == 94) {
-            std::string keyWordArrayPop = Trim(A_LoopField1);
+        if (A_Index49 == 94) {
+            keyWordArrayPop = Trim(A_LoopField49);
         }
-        if (A_Index1 == 95) {
-            std::string keyWordArraySize = Trim(A_LoopField1);
+        if (A_Index49 == 95) {
+            keyWordArraySize = Trim(A_LoopField49);
         }
-        if (A_Index1 == 96) {
-            std::string keyWordArrayInsert = Trim(A_LoopField1);
+        if (A_Index49 == 96) {
+            keyWordArrayInsert = Trim(A_LoopField49);
         }
-        if (A_Index1 == 97) {
-            std::string keyWordArrayRemove = Trim(A_LoopField1);
+        if (A_Index49 == 97) {
+            keyWordArrayRemove = Trim(A_LoopField49);
         }
-        if (A_Index1 == 98) {
-            std::string keyWordArrayIndexOf = Trim(A_LoopField1);
+        if (A_Index49 == 98) {
+            keyWordArrayIndexOf = Trim(A_LoopField49);
         }
-        if (A_Index1 == 99) {
-            std::string keyWordArrayDefinition = Trim(A_LoopField1);
+        if (A_Index49 == 99) {
+            keyWordArrayDefinition = Trim(A_LoopField49);
         }
-        if (A_Index1 == 100) {
-            std::string keyWordArrayOfIntegersDefinition = Trim(A_LoopField1);
+        if (A_Index49 == 100) {
+            keyWordArrayOfIntegersDefinition = Trim(A_LoopField49);
         }
-        if (A_Index1 == 101) {
-            std::string keyWordArrayOfStringsDefinition = Trim(A_LoopField1);
+        if (A_Index49 == 101) {
+            keyWordArrayOfStringsDefinition = Trim(A_LoopField49);
         }
-        if (A_Index1 == 102) {
-            std::string keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField1);
+        if (A_Index49 == 102) {
+            keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField49);
         }
-        if (A_Index1 == 103) {
-            std::string keyWordArrayOfBooleansDefinition = Trim(A_LoopField1);
+        if (A_Index49 == 103) {
+            keyWordArrayOfBooleansDefinition = Trim(A_LoopField49);
         }
-        if (A_Index1 == 104) {
-            std::string keyWordJavaScriptVar = Trim(A_LoopField1);
+        if (A_Index49 == 104) {
+            keyWordJavaScriptVar = Trim(A_LoopField49);
         }
-        if (A_Index1 == 105) {
-            std::string keyWordJavaScriptLet = Trim(A_LoopField1);
+        if (A_Index49 == 105) {
+            keyWordJavaScriptLet = Trim(A_LoopField49);
         }
-        if (A_Index1 == 106) {
-            std::string keyWordJavaScriptConst = Trim(A_LoopField1);
+        if (A_Index49 == 106) {
+            keyWordJavaScriptConst = Trim(A_LoopField49);
         }
-        if (A_Index1 == 107) {
-            std::string keyWordEnd = Trim(A_LoopField1);
+        if (A_Index49 == 107) {
+            keyWordEnd = Trim(A_LoopField49);
         }
-        if (A_Index1 == 108) {
-            std::string keyWordGlobal = Trim(A_LoopField1);
+        if (A_Index49 == 108) {
+            keyWordGlobal = Trim(A_LoopField49);
         }
-        if (A_Index1 == 109) {
-            std::string keyWordComment = Trim(A_LoopField1);
+        if (A_Index49 == 109) {
+            keyWordComment = Trim(A_LoopField49);
         }
-        if (A_Index1 == 110) {
-            std::string keyWordCommentOpenMultiLine = Trim(A_LoopField1);
+        if (A_Index49 == 110) {
+            keyWordCommentOpenMultiLine = Trim(A_LoopField49);
         }
-        if (A_Index1 == 111) {
-            std::string keyWordCommentCloseMultiLine = Trim(A_LoopField1);
+        if (A_Index49 == 111) {
+            keyWordCommentCloseMultiLine = Trim(A_LoopField49);
         }
-        if (A_Index1 == 112) {
-            std::string keyWordEscpaeChar = Trim(A_LoopField1);
+        if (A_Index49 == 112) {
+            keyWordEscpaeChar = Trim(A_LoopField49);
         }
-        if (A_Index1 == 113) {
-            std::string keyWordMainLabel = Trim(A_LoopField1);
+        if (A_Index49 == 113) {
+            keyWordMainLabel = Trim(A_LoopField49);
         }
-        if (A_Index1 == 114) {
-            std::string keyWordConcat = Trim(A_LoopField1);
+        if (A_Index49 == 114) {
+            keyWordConcat = Trim(A_LoopField49);
         }
-        if (A_Index1 == 115) {
-            std::string keyWordAdd = Trim(A_LoopField1);
+        if (A_Index49 == 115) {
+            keyWordAdd = Trim(A_LoopField49);
         }
-        if (A_Index1 == 116) {
-            std::string keyWordSub = Trim(A_LoopField1);
+        if (A_Index49 == 116) {
+            keyWordSub = Trim(A_LoopField49);
         }
-        if (A_Index1 == 117) {
-            std::string keyWordMul = Trim(A_LoopField1);
+        if (A_Index49 == 117) {
+            keyWordMul = Trim(A_LoopField49);
         }
-        if (A_Index1 == 118) {
-            std::string keyWordDiv = Trim(A_LoopField1);
+        if (A_Index49 == 118) {
+            keyWordDiv = Trim(A_LoopField49);
         }
-        if (A_Index1 == 119) {
-            std::string keyWordMod = Trim(A_LoopField1);
+        if (A_Index49 == 119) {
+            keyWordMod = Trim(A_LoopField49);
         }
-        if (A_Index1 == 120) {
-            std::string keyWordExp = Trim(A_LoopField1);
+        if (A_Index49 == 120) {
+            keyWordExp = Trim(A_LoopField49);
         }
-        if (A_Index1 == 121) {
-            std::string keyWordEqual = Trim(A_LoopField1);
+        if (A_Index49 == 121) {
+            keyWordEqual = Trim(A_LoopField49);
         }
-        if (A_Index1 == 122) {
-            std::string keyWordStrictEqual = Trim(A_LoopField1);
+        if (A_Index49 == 122) {
+            keyWordStrictEqual = Trim(A_LoopField49);
         }
-        if (A_Index1 == 123) {
-            std::string keyWordNotEqual = Trim(A_LoopField1);
+        if (A_Index49 == 123) {
+            keyWordNotEqual = Trim(A_LoopField49);
         }
-        if (A_Index1 == 124) {
-            std::string keyWordGreater = Trim(A_LoopField1);
+        if (A_Index49 == 124) {
+            keyWordGreater = Trim(A_LoopField49);
         }
-        if (A_Index1 == 125) {
-            std::string keyWordLess = Trim(A_LoopField1);
+        if (A_Index49 == 125) {
+            keyWordLess = Trim(A_LoopField49);
         }
-        if (A_Index1 == 126) {
-            std::string keyWordGreaterEqual = Trim(A_LoopField1);
+        if (A_Index49 == 126) {
+            keyWordGreaterEqual = Trim(A_LoopField49);
         }
-        if (A_Index1 == 127) {
-            std::string keyWordLessEqual = Trim(A_LoopField1);
+        if (A_Index49 == 127) {
+            keyWordLessEqual = Trim(A_LoopField49);
         }
-        if (A_Index1 == 128) {
-            std::string keyWordAnd = Trim(A_LoopField1);
+        if (A_Index49 == 128) {
+            keyWordAnd = Trim(A_LoopField49);
         }
-        if (A_Index1 == 129) {
-            std::string keyWordOr = Trim(A_LoopField1);
+        if (A_Index49 == 129) {
+            keyWordOr = Trim(A_LoopField49);
         }
-        if (A_Index1 == 130) {
-            std::string keyWordNot = Trim(A_LoopField1);
+        if (A_Index49 == 130) {
+            keyWordNot = Trim(A_LoopField49);
         }
-        if (A_Index1 == 131) {
-            std::string keyWordBitAnd = Trim(A_LoopField1);
+        if (A_Index49 == 131) {
+            keyWordBitAnd = Trim(A_LoopField49);
         }
-        if (A_Index1 == 132) {
-            std::string keyWordBitOr = Trim(A_LoopField1);
+        if (A_Index49 == 132) {
+            keyWordBitOr = Trim(A_LoopField49);
         }
-        if (A_Index1 == 133) {
-            std::string keyWordBitXor = Trim(A_LoopField1);
+        if (A_Index49 == 133) {
+            keyWordBitXor = Trim(A_LoopField49);
         }
-        if (A_Index1 == 134) {
-            std::string keyWordBitNot = Trim(A_LoopField1);
+        if (A_Index49 == 134) {
+            keyWordBitNot = Trim(A_LoopField49);
         }
-        if (A_Index1 == 135) {
-            std::string keyWordShiftLeft = Trim(A_LoopField1);
+        if (A_Index49 == 135) {
+            keyWordShiftLeft = Trim(A_LoopField49);
         }
-        if (A_Index1 == 136) {
-            std::string keyWordShiftRight = Trim(A_LoopField1);
+        if (A_Index49 == 136) {
+            keyWordShiftRight = Trim(A_LoopField49);
         }
-        if (A_Index1 == 137) {
-            std::string keyWordShiftUnsignedRight = Trim(A_LoopField1);
+        if (A_Index49 == 137) {
+            keyWordShiftUnsignedRight = Trim(A_LoopField49);
         }
-        if (A_Index1 == 138) {
-            std::string keyWordAssign = Trim(A_LoopField1);
+        if (A_Index49 == 138) {
+            keyWordAssign = Trim(A_LoopField49);
         }
-        if (A_Index1 == 139) {
-            std::string keyWordAssignAdd = Trim(A_LoopField1);
+        if (A_Index49 == 139) {
+            keyWordAssignAdd = Trim(A_LoopField49);
         }
-        if (A_Index1 == 140) {
-            std::string keyWordAssignConcat = Trim(A_LoopField1);
+        if (A_Index49 == 140) {
+            keyWordAssignConcat = Trim(A_LoopField49);
         }
-        if (A_Index1 == 141) {
-            std::string keyWordAssignSub = Trim(A_LoopField1);
+        if (A_Index49 == 141) {
+            keyWordAssignSub = Trim(A_LoopField49);
         }
-        if (A_Index1 == 142) {
-            std::string keyWordAssignMul = Trim(A_LoopField1);
+        if (A_Index49 == 142) {
+            keyWordAssignMul = Trim(A_LoopField49);
         }
-        if (A_Index1 == 143) {
-            std::string keyWordAssignDiv = Trim(A_LoopField1);
+        if (A_Index49 == 143) {
+            keyWordAssignDiv = Trim(A_LoopField49);
         }
-        if (A_Index1 == 144) {
-            std::string keyWordAssignMod = Trim(A_LoopField1);
+        if (A_Index49 == 144) {
+            keyWordAssignMod = Trim(A_LoopField49);
         }
-        if (A_Index1 == 145) {
-            std::string keyWordAssignShiftLeft = Trim(A_LoopField1);
+        if (A_Index49 == 145) {
+            keyWordAssignShiftLeft = Trim(A_LoopField49);
         }
-        if (A_Index1 == 146) {
-            std::string keyWordAssignShiftRight = Trim(A_LoopField1);
+        if (A_Index49 == 146) {
+            keyWordAssignShiftRight = Trim(A_LoopField49);
         }
-        if (A_Index1 == 147) {
-            std::string keyWordAssignBitAnd = Trim(A_LoopField1);
+        if (A_Index49 == 147) {
+            keyWordAssignBitAnd = Trim(A_LoopField49);
         }
-        if (A_Index1 == 148) {
-            std::string keyWordAssignBitOr = Trim(A_LoopField1);
+        if (A_Index49 == 148) {
+            keyWordAssignBitOr = Trim(A_LoopField49);
         }
-        if (A_Index1 == 149) {
-            std::string keyWordAssignBitXor = Trim(A_LoopField1);
+        if (A_Index49 == 149) {
+            keyWordAssignBitXor = Trim(A_LoopField49);
         }
-        if (A_Index1 == 150) {
-            std::string keyWordTernary1 = Trim(A_LoopField1);
+        if (A_Index49 == 150) {
+            keyWordTernary1 = Trim(A_LoopField49);
         }
-        if (A_Index1 == 151) {
-            std::string keyWordTernary2 = Trim(A_LoopField1);
+        if (A_Index49 == 151) {
+            keyWordTernary2 = Trim(A_LoopField49);
         }
-        if (A_Index1 == 152) {
-            std::string keyWordInc = Trim(A_LoopField1);
+        if (A_Index49 == 152) {
+            keyWordInc = Trim(A_LoopField49);
         }
-        if (A_Index1 == 153) {
-            std::string keyWordDec = Trim(A_LoopField1);
+        if (A_Index49 == 153) {
+            keyWordDec = Trim(A_LoopField49);
         }
-        if (A_Index1 == 154) {
-            std::string AHKlikeLoopsIndexedAt = Trim(A_LoopField1);
+        if (A_Index49 == 154) {
+            AHKlikeLoopsIndexedAt = Trim(A_LoopField49);
         }
-        if (A_Index1 == 155) {
-            std::string keyWordAIndex = Trim(A_LoopField1);
+        if (A_Index49 == 155) {
+            keyWordAIndex = Trim(A_LoopField49);
         }
-        if (A_Index1 == 156) {
-            std::string keyWordALoopField = Trim(A_LoopField1);
+        if (A_Index49 == 156) {
+            keyWordALoopField = Trim(A_LoopField49);
         }
-        if (A_Index1 == 157) {
-            std::string keyWordAllianceEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 157) {
+            keyWordAllianceEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 158) {
-            std::string keyWordCrewEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 158) {
+            keyWordCrewEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 159) {
-            std::string keyWordMethodEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 159) {
+            keyWordMethodEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 160) {
-            std::string keyWordDefObjEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 160) {
+            keyWordDefObjEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 161) {
-            std::string keyWordIFEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 161) {
+            keyWordIFEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 162) {
-            std::string keyWordElseIfEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 162) {
+            keyWordElseIfEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 163) {
-            std::string keyWordElseEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 163) {
+            keyWordElseEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 164) {
-            std::string keyWordSwitchEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 164) {
+            keyWordSwitchEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 165) {
-            std::string keyWordSwitchCaseEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 165) {
+            keyWordSwitchCaseEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 166) {
-            std::string keyWordWhileLoopEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 166) {
+            keyWordWhileLoopEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 167) {
-            std::string keyWordForLoopEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 167) {
+            keyWordForLoopEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 168) {
-            std::string keyWordLoopInfiniteEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 168) {
+            keyWordLoopInfiniteEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 169) {
-            std::string keyWordLoopEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 169) {
+            keyWordLoopEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 170) {
-            std::string keyWordLoopParseEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 170) {
+            keyWordLoopParseEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 171) {
-            std::string keyWordFuncEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 171) {
+            keyWordFuncEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 172) {
-            std::string keyWordTryEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 172) {
+            keyWordTryEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 173) {
-            std::string keyWordCatchEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 173) {
+            keyWordCatchEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 174) {
-            std::string keyWordFinallyEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 174) {
+            keyWordFinallyEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 175) {
-            std::string useFuncKeyWord = Trim(A_LoopField1);
+        if (A_Index49 == 175) {
+            useFuncKeyWord = Trim(A_LoopField49);
         }
-        if (A_Index1 == 176) {
-            std::string useCurlyBraces = Trim(A_LoopField1);
+        if (A_Index49 == 176) {
+            useCurlyBraces = Trim(A_LoopField49);
         }
-        if (A_Index1 == 177) {
-            std::string useEnd = Trim(A_LoopField1);
+        if (A_Index49 == 177) {
+            useEnd = Trim(A_LoopField49);
         }
-        if (A_Index1 == 178) {
-            std::string useEndExtraInfo = Trim(A_LoopField1);
+        if (A_Index49 == 178) {
+            useEndExtraInfo = Trim(A_LoopField49);
         }
-        if (A_Index1 == 179) {
-            std::string useSemicolon = Trim(A_LoopField1);
+        if (A_Index49 == 179) {
+            useSemicolon = Trim(A_LoopField49);
         }
-        if (A_Index1 == 180) {
-            std::string useParentheses = Trim(A_LoopField1);
+        if (A_Index49 == 180) {
+            useParentheses = Trim(A_LoopField49);
         }
-        if (A_Index1 == 181) {
-            std::string usePrefixTypeForTypeDefinition = Trim(A_LoopField1);
+        if (A_Index49 == 181) {
+            usePrefixTypeForTypeDefinition = Trim(A_LoopField49);
         }
-        if (A_Index1 == 182) {
-            std::string usePostfixTypeForTypeDefinition = Trim(A_LoopField1);
+        if (A_Index49 == 182) {
+            usePostfixTypeForTypeDefinition = Trim(A_LoopField49);
         }
-        if (A_Index1 == 183) {
-            std::string usePythonicColonSyntax = Trim(A_LoopField1);
+        if (A_Index49 == 183) {
+            usePythonicColonSyntax = Trim(A_LoopField49);
         }
-        if (A_Index1 == 184) {
-            std::string useInJavaScriptAlwaysUseVar = Trim(A_LoopField1);
+        if (A_Index49 == 184) {
+            useInJavaScriptAlwaysUseVar = Trim(A_LoopField49);
         }
-        if (A_Index1 == 185) {
-            std::string useJavaScriptInAfullHTMLfile = Trim(A_LoopField1);
+        if (A_Index49 == 185) {
+            useJavaScriptInAfullHTMLfile = Trim(A_LoopField49);
         }
-        if (A_Index1 == 186) {
-            std::string useJavaScriptAmainFuncDef = Trim(A_LoopField1);
+        if (A_Index49 == 186) {
+            useJavaScriptAmainFuncDef = Trim(A_LoopField49);
         }
-        if (A_Index1 == 187) {
-            std::string useJavaScriptAllFuncsAreAsync = Trim(A_LoopField1);
+        if (A_Index49 == 187) {
+            useJavaScriptAllFuncsAreAsync = Trim(A_LoopField49);
         }
-        if (A_Index1 == 188) {
-            std::string useJavaScriptAlwaysTripleEqual = Trim(A_LoopField1);
+        if (A_Index49 == 188) {
+            useJavaScriptAlwaysTripleEqual = Trim(A_LoopField49);
         }
     }
     if (Trim(langToConvertToParam) != "") {
         langToConvertTo = Trim(langToConvertToParam);
     }
     int isFullHTVMCode = 0;
+    int isNotHTVMfile = 0;
     if (Trim(mode) == "full") {
         isFullHTVMCode = 1;
     } else {
         isFullHTVMCode = 0;
+    }
+    if (Trim(mode) == "notHTVM") {
+        isNotHTVMfile = 1;
+    } else {
+        isNotHTVMfile = 0;
     }
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -890,7 +2318,7 @@ std::string compiler(std::string code, std::string instructionFile, std::string 
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     std::string HTVMout = "";
-    code = Trim(code);
+    htCode = Trim(StrReplace(htCode, Chr(13), ""));
     if (langToConvertTo == "htvm") {
         HTVMout = "0";
     }
@@ -942,7 +2370,9 @@ std::string compiler(std::string code, std::string instructionFile, std::string 
     if (langToConvertTo == "groovy") {
         HTVMout = "0";
     }
-    print(code);
+    std::string code = "";
+    print(htCode);
+    code = htCode;
     print(instructionFile);
     print(mode);
     print(langToConvertTo);
@@ -951,15 +2381,408 @@ std::string compiler(std::string code, std::string instructionFile, std::string 
     print("==================================");
     print("==================================");
     print("==================================");
-    print(allInstructionFile);
+    //print(allInstructionFile)
     std::string codeOutFix1 = "";
-    std::vector<std::string> items2 = LoopParseFunc(code, "\n", "\r");
-    for (size_t A_Index2 = 0; A_Index2 < items2.size() + 0; A_Index2++) {
-        std::string A_LoopField2 = items2[A_Index2 - 0];
-        codeOutFix1 += Trim(A_LoopField2) + "\n";
+    std::vector<std::string> items50 = LoopParseFunc(code, "\n", "\r");
+    for (size_t A_Index50 = 0; A_Index50 < items50.size() + 0; A_Index50++) {
+        std::string A_LoopField50 = items50[A_Index50 - 0];
+        codeOutFix1 += Trim(A_LoopField50) + "\n";
     }
-    codeOutFix1 = StringTrimRight(codeOutFix1, 1);
-    return HTVMout;
+    code = StringTrimRight(codeOutFix1, 1);
+    int haveWeEverUsedAloop = 0;
+    int lineDone = 0;
+    std::string var1 = "";
+    std::string nothing = "";
+    int AindexcharLength = 1;
+    std::string AindexcharLengthStr = "";
+    std::string theFixTextLoopNL = "";
+    int htCodeAcurlyBraceAddSomeVrasFixNL = 0;
+    std::string htCodeLoopfixa = "";
+    std::string htCodeLoopfixa1 = "";
+    std::string str123 = "";
+    std::string out2 = "";
+    std::string myVar = "";
+    std::string lineYGI = "";
+    std::string line = "";
+    std::string line1 = "";
+    std::string line2 = "";
+    std::string line3 = "";
+    std::string itemsOut = "";
+    std::string var1out = "";
+    std::string theFixTextLoopLP = "";
+    int htCodeAcurlyBraceAddSomeVrasFixLP = 0;
+    int AIndexLoopCurlyFix = 0;
+    std::string sstr123 = "";
+    std::string fixLoopLokingFor = "";
+    int fixLoopLokingForfound = 0;
+    std::string out1 = "";
+    int wasAtanyIfsElseAddAIndexLoopCurlyFix = 0;
+    int inTarget = 0;
+    int insideBracket = 0;
+    int netsedCurly = 0;
+    int eldLoopNestedBADlol = 0;
+    int readyToEnd = 0;
+    int endBracketDOntPutThere = 0;
+    int dontSaveStr = 0;
+    int weAreDoneHereCurly = 0;
+    int DeleayOneCuzOfLoopParse = 0;
+    int fixLoopLokingForNum = 0;
+    int insdeAnestedLoopBAD = 0;
+    int foundTheTopLoop = 0;
+    std::string out4758686d86d86d86578991a;
+    std::string ALoopField = "";
+    std::string out1z = "";
+    int insideBracket1 = 0;
+    int netsedCurly1 = 0;
+    int readyToEnd1 = 0;
+    std::string strstysrstsytTRIMHELP = "";
+    std::string out4758686d86dgt8r754444444 = "";
+    int hold = 0;
+    std::string holdText = "";
+    int ignore = 0;
+    std::string htCodeOut1234565432 = "";
+    std::string out = "";
+    std::string s = "";
+    int skipLeftCuleyForFuncPLS = 0;
+    std::string htCodeOUT754754 = "";
+    int areWEinSome34sNum = 0;
+    int theIdNumOfThe34 = 0;
+    std::vector<std::string> theIdNumOfThe34theVar;
+    std::string ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes = "";
+    std::vector<std::string> getAllCharForTheFurtureSoIcanAddEscapeChar;
+    int removeNexFixkeyWordEscpaeChar = 0;
+    std::vector<std::string> items51 = LoopParseFunc(code);
+    for (size_t A_Index51 = 0; A_Index51 < items51.size() + 0; A_Index51++) {
+        std::string A_LoopField51 = items51[A_Index51 - 0];
+        theIdNumOfThe34theVar.push_back("");
+        theIdNumOfThe34theVar.push_back("");
+    }
+    std::vector<std::string> items52 = LoopParseFunc(code);
+    for (size_t A_Index52 = 0; A_Index52 < items52.size() + 0; A_Index52++) {
+        std::string A_LoopField52 = items52[A_Index52 - 0];
+        theIdNumOfThe34theVar[A_Index52] = theIdNumOfThe34theVar[A_Index52] + Chr(34);
+        getAllCharForTheFurtureSoIcanAddEscapeChar.push_back(A_LoopField52);
+    }
+    getAllCharForTheFurtureSoIcanAddEscapeChar.push_back(" ");
+    ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes = Chr(34) + "ihuiuusgfgesrheidFor-aasdsas-theuhtuwaesphoutr" + Chr(34);
+    std::string OutFixDoubleQuotesInsideDoubleQuotes = "";
+    int fixOutFixDoubleQuotesInsideDoubleQuotesFIXok = 0;
+    std::vector<std::string> items53 = LoopParseFunc(code);
+    for (size_t A_Index53 = 0; A_Index53 < items53.size() + 0; A_Index53++) {
+        std::string A_LoopField53 = items53[A_Index53 - 0];
+        if (A_LoopField53 == keyWordEscpaeChar && getAllCharForTheFurtureSoIcanAddEscapeChar[A_Index53 + 1] == Chr(34)) {
+            fixOutFixDoubleQuotesInsideDoubleQuotesFIXok = 1;
+            OutFixDoubleQuotesInsideDoubleQuotes += ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes;
+        } else {
+            if (fixOutFixDoubleQuotesInsideDoubleQuotesFIXok != 1) {
+                OutFixDoubleQuotesInsideDoubleQuotes += A_LoopField53;
+            } else {
+                fixOutFixDoubleQuotesInsideDoubleQuotesFIXok = 0;
+            }
+        }
+    }
+    code = OutFixDoubleQuotesInsideDoubleQuotes;
+    if (keyWordEscpaeChar != Chr(92)) {
+        code = StrReplace(code, Chr(92), Chr(92) + Chr(92));
+    }
+    if (keyWordEscpaeChar == Chr(92)) {
+        std::vector<std::string> items54 = LoopParseFunc(code);
+        for (size_t A_Index54 = 0; A_Index54 < items54.size() + 0; A_Index54++) {
+            std::string A_LoopField54 = items54[A_Index54 - 0];
+            if (A_LoopField54 == Chr(34)) {
+                areWEinSome34sNum++;
+            }
+            if (areWEinSome34sNum == 1) {
+                if (A_LoopField54 != Chr(34)) {
+                    if (A_LoopField54 == keyWordEscpaeChar) {
+                        theIdNumOfThe34theVar[theIdNumOfThe34] = theIdNumOfThe34theVar[theIdNumOfThe34] + Chr(92);
+                    } else {
+                        theIdNumOfThe34theVar[theIdNumOfThe34] = theIdNumOfThe34theVar[theIdNumOfThe34] + A_LoopField54;
+                    }
+                } else {
+                    theIdNumOfThe34++;
+                    htCodeOUT754754 += "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" + Chr(65) + Chr(65) + STR(theIdNumOfThe34) + Chr(65) + Chr(65);
+                }
+            }
+            if (areWEinSome34sNum == 2 || areWEinSome34sNum == 0) {
+                if (A_LoopField54 != Chr(34)) {
+                    htCodeOUT754754 += A_LoopField54;
+                }
+                areWEinSome34sNum = 0;
+            }
+        }
+    } else {
+        std::vector<std::string> items55 = LoopParseFunc(code);
+        for (size_t A_Index55 = 0; A_Index55 < items55.size() + 0; A_Index55++) {
+            std::string A_LoopField55 = items55[A_Index55 - 0];
+            if (A_LoopField55 == Chr(34)) {
+                areWEinSome34sNum++;
+            }
+            if (areWEinSome34sNum == 1) {
+                if (A_LoopField55 != Chr(34)) {
+                    if (A_LoopField55 == keyWordEscpaeChar && keyWordEscpaeChar == getAllCharForTheFurtureSoIcanAddEscapeChar[A_Index55 + 1]) {
+                        theIdNumOfThe34theVar[theIdNumOfThe34] = theIdNumOfThe34theVar[theIdNumOfThe34] + keyWordEscpaeChar;
+                        removeNexFixkeyWordEscpaeChar = 1;
+                    }
+                    else if (A_LoopField55 == keyWordEscpaeChar) {
+                        if (removeNexFixkeyWordEscpaeChar != 1) {
+                            theIdNumOfThe34theVar[theIdNumOfThe34] = theIdNumOfThe34theVar[theIdNumOfThe34] + Chr(92);
+                        } else {
+                            removeNexFixkeyWordEscpaeChar = 0;
+                        }
+                    } else {
+                        theIdNumOfThe34theVar[theIdNumOfThe34] = theIdNumOfThe34theVar[theIdNumOfThe34] + A_LoopField55;
+                    }
+                } else {
+                    theIdNumOfThe34++;
+                    htCodeOUT754754 += "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" + Chr(65) + Chr(65) + STR(theIdNumOfThe34) + Chr(65) + Chr(65);
+                }
+            }
+            if (areWEinSome34sNum == 2 || areWEinSome34sNum == 0) {
+                if (A_LoopField55 != Chr(34)) {
+                    htCodeOUT754754 += A_LoopField55;
+                }
+                areWEinSome34sNum = 0;
+            }
+        }
+    }
+    code = htCodeOUT754754;
+    for (int A_Index56 = 0; A_Index56 < theIdNumOfThe34 + 0; A_Index56++) {
+        theIdNumOfThe34theVar[A_Index56] = theIdNumOfThe34theVar[A_Index56] + Chr(34);
+    }
+    code = StrReplace(code, Chr(13), "");
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    if (langToConvertTo != "py" && useSemicolon == "off") {
+        theSemicolon = ";";
+    } else {
+        theSemicolon = "";
+    }
+    if (langToConvertTo != "py" && usePythonicColonSyntax == "off") {
+        theColon = "";
+    } else {
+        theColon = ":";
+    }
+    std::string beforeKeywordForRemoveCommentsOnTheEndOfTheLine = "";
+    std::string newStringOutCode = "";
+    int posForRemoveCommentsOnTheEndOfTheLine = 0;
+    std::string originalStringForRemoveCommentsOnTheEndOfTheLine = "";
+    std::vector<std::string> items57 = LoopParseFunc(code, "\n", "\r");
+    for (size_t A_Index57 = 0; A_Index57 < items57.size() + 0; A_Index57++) {
+        std::string A_LoopField57 = items57[A_Index57 - 0];
+        // Define the original string
+        originalStringForRemoveCommentsOnTheEndOfTheLine = A_LoopField57;
+        // Find the position of the keyword in the original string
+        posForRemoveCommentsOnTheEndOfTheLine = InStr(originalStringForRemoveCommentsOnTheEndOfTheLine, " " + keyWordComment);
+        if (SubStr(Trim(A_LoopField57), 1, StrLen(keyWordComment)) != keyWordComment) {
+            if (posForRemoveCommentsOnTheEndOfTheLine > 0) {
+                // Extract the part of the string before the keyword
+                if (SubStr(StrLower(A_LoopField57), 1, StrLen(StrLower(keyWordForLoop))) != StrLower(keyWordForLoop)) {
+                    beforeKeywordForRemoveCommentsOnTheEndOfTheLine = SubStr(originalStringForRemoveCommentsOnTheEndOfTheLine, 1, posForRemoveCommentsOnTheEndOfTheLine - 1);
+                } else {
+                    beforeKeywordForRemoveCommentsOnTheEndOfTheLine = A_LoopField57;
+                }
+                // Construct the new string with everything before the keyword
+                newStringOutCode += beforeKeywordForRemoveCommentsOnTheEndOfTheLine + "\n";
+            } else {
+                newStringOutCode += A_LoopField57 + "\n";
+            }
+        } else {
+            newStringOutCode += A_LoopField57 + "\n";
+        }
+    }
+    code = StringTrimRight(newStringOutCode, 1);
+    //MsgBox, % code
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    std::string htCodeOutFixEnd = "";
+    if (useEnd == "on") {
+        std::vector<std::string> items58 = LoopParseFunc(code, "\n", "\r");
+        for (size_t A_Index58 = 0; A_Index58 < items58.size() + 0; A_Index58++) {
+            std::string A_LoopField58 = items58[A_Index58 - 0];
+            if (StrLower(Trim(A_LoopField58)) == StrLower(keyWordEnd)) {
+                htCodeOutFixEnd += str10 + "}" + "\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf)) {
+                htCodeOutFixEnd += "\n}\n" + A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordElse))) == StrLower(keyWordElse)) {
+                htCodeOutFixEnd += "\n}\n" + A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordForLoop))) == StrLower(keyWordForLoop)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordLoopInfinite))) == StrLower(keyWordLoopInfinite)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordLoop))) == StrLower(keyWordLoop)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordLoopParse))) == StrLower(keyWordLoopParse)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordSwitch))) == StrLower(keyWordSwitch)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordSwitchCase))) == StrLower(keyWordSwitchCase)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordSwitchDefault))) == StrLower(keyWordSwitchDefault)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordTry))) == StrLower(keyWordTry)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordAlliance))) == StrLower(keyWordAlliance)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordCrew))) == StrLower(keyWordCrew)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordDefObj))) == StrLower(keyWordDefObj)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch)) {
+                htCodeOutFixEnd += "\n}\n" + A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordFinally))) == StrLower(keyWordFinally)) {
+                htCodeOutFixEnd += "\n}\n" + A_LoopField58 + "\n{\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField58)), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc)) {
+                htCodeOutFixEnd += A_LoopField58 + "\n{\n";
+            } else {
+                htCodeOutFixEnd += A_LoopField58 + "\n";
+            }
+        }
+        code = StringTrimRight(htCodeOutFixEnd, 1);
+    }
+    if (useEnd == "off" && useCurlyBraces == "off") {
+        htCodeOutFixEnd = "";
+        std::vector<std::string> items59 = LoopParseFunc(code, "\n", "\r");
+        for (size_t A_Index59 = 0; A_Index59 < items59.size() + 0; A_Index59++) {
+            std::string A_LoopField59 = items59[A_Index59 - 0];
+            if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordElse))) == StrLower(keyWordElse)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordForLoop))) == StrLower(keyWordForLoop)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordLoopInfinite))) == StrLower(keyWordLoopInfinite)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordLoop))) == StrLower(keyWordLoop)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordLoopParse))) == StrLower(keyWordLoopParse)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordSwitch))) == StrLower(keyWordSwitch)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordSwitchCase))) == StrLower(keyWordSwitchCase)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordSwitchDefault))) == StrLower(keyWordSwitchDefault)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordTry))) == StrLower(keyWordTry)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordAlliance))) == StrLower(keyWordAlliance)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordCrew))) == StrLower(keyWordCrew)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordDefObj))) == StrLower(keyWordDefObj)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordFinally))) == StrLower(keyWordFinally)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField59)), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc)) {
+                htCodeOutFixEnd += A_LoopField59 + ":\n";
+            } else {
+                htCodeOutFixEnd += A_LoopField59 + "\n";
+            }
+        }
+        code = StringTrimRight(htCodeOutFixEnd, 1);
+    }
+    if (useCurlyBraces == "off" && useEnd == "off") {
+        code = AddCurlyBraces(code);
+    }
+    std::vector<std::string> items60 = LoopParseFunc(code, "\n", "\r");
+    for (size_t A_Index60 = 0; A_Index60 < items60.size() + 0; A_Index60++) {
+        std::string A_LoopField60 = items60[A_Index60 - 0];
+        outTrimCode += Trim(A_LoopField60) + "\n";
+    }
+    code = StringTrimRight(outTrimCode, 1);
+    // for converting c++ to js and py
+    code = StrReplace(code, "{}", "[]");
+    std::string outCodeFixBraces = "";
+    for (int A_Index61 = 0; A_Index61 < 2 + 0; A_Index61++) {
+        outCodeFixBraces = "";
+        std::vector<std::string> items62 = LoopParseFunc(code, "\n", "\r");
+        for (size_t A_Index62 = 0; A_Index62 < items62.size() + 0; A_Index62++) {
+            std::string A_LoopField62 = items62[A_Index62 - 0];
+            if (InStr(Trim(A_LoopField62), "{") && Trim(A_LoopField62) != "{") {
+                outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField62), "{", "")) + "\n{\n";
+            }
+            else if (InStr(Trim(A_LoopField62), "}") && Trim(A_LoopField62) != "}") {
+                outCodeFixBraces += "}\n" + Trim(StrReplace(Trim(A_LoopField62), "}", "")) + "\n";
+            } else {
+                outCodeFixBraces += Trim(A_LoopField62) + "\n";
+            }
+        }
+        code = StringTrimRight(outCodeFixBraces, 1);
+    }
+    //MsgBox, % code
+    //;; main loop ;;;
+    //;; main loop ;;;
+    //;; main loop ;;;
+    //;; main loop ;;;
+    int didWeUseMainLabel = 0;
+    std::string codeOutFixAndAddMainFunc = "";
+    print(code);
+    std::vector<std::string> items63 = LoopParseFunc(code, "\n", "\r");
+    for (size_t A_Index63 = 0; A_Index63 < items63.size() + 0; A_Index63++) {
+        std::string A_LoopField63 = items63[A_Index63 - 0];
+        htCode = A_LoopField63 + "\n";
+    }
+    htCode = StringTrimRight(htCode, 1);
+    for (int A_Index64 = 0; A_Index64 < theIdNumOfThe34 + 0; A_Index64++) {
+        htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" + Chr(65) + Chr(65) + STR(A_Index64 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index64 + 1] + Chr(34));
+    }
+    print(htCode);
+    return htCode;
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -982,10 +2805,10 @@ void HTVMv2() {
     if (noParams == true) {
         return;
     }
-    std::vector<std::string> items3 = LoopParseFunc(str0);
-    for (size_t A_Index3 = 0; A_Index3 < items3.size() + 0; A_Index3++) {
-        std::string A_LoopField3 = items3[A_Index3 - 0];
-        str00 = Trim(A_LoopField3);
+    std::vector<std::string> items65 = LoopParseFunc(str0);
+    for (size_t A_Index65 = 0; A_Index65 < items65.size() + 0; A_Index65++) {
+        std::string A_LoopField65 = items65[A_Index65 - 0];
+        str00 = Trim(A_LoopField65);
         str00 = StringTrimRight(str00, 1);
     }
     print("HTVM v2");
@@ -996,27 +2819,37 @@ void HTVMv2() {
         if (HTVM_getLang_HTVM() == "py") {
             print("PY");
         }
-        std::vector<std::string> items4 = LoopParseFunc(allArgs, "\n", "\r");
-        for (size_t A_Index4 = 0; A_Index4 < items4.size() + 0; A_Index4++) {
-            std::string A_LoopField4 = items4[A_Index4 - 0];
-            if (A_Index4 == 0) {
-                argCODE = FileRead(Trim(A_LoopField4));
-                argCODEfile = Trim(A_LoopField4);
+        std::vector<std::string> items66 = LoopParseFunc(allArgs, "\n", "\r");
+        for (size_t A_Index66 = 0; A_Index66 < items66.size() + 0; A_Index66++) {
+            std::string A_LoopField66 = items66[A_Index66 - 0];
+            if (A_Index66 == 0) {
+                argCODE = FileRead(Trim(A_LoopField66));
+                argCODEfile = Trim(A_LoopField66);
             }
-            else if (A_Index4 == 1) {
-                argHTVMinstr = Trim(A_LoopField4);
+            else if (A_Index66 == 1) {
+                argHTVMinstr = Trim(A_LoopField66);
             }
-            else if (A_Index4 == 2) {
-                argLangTo = Trim(A_LoopField4);
+            else if (A_Index66 == 2) {
+                argLangTo = Trim(A_LoopField66);
             } else {
-                argHTVMinstrMOVE.push_back(Trim(A_LoopField4));
+                argHTVMinstrMOVE.push_back(Trim(A_LoopField66));
             }
         }
-        if (argLangTo != "") {
-            OUTCODE = compiler(argCODE, argHTVMinstr, "full", argLangTo);
+        print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) + langToConvertTo);
+        if (SubStrLastChars(argCODEfile, 4) == ".cpp" || SubStrLastChars(argCODEfile, 3) == ".py" || SubStrLastChars(argCODEfile, 3) == ".js" || SubStrLastChars(argCODEfile, 3) == ".go" || SubStrLastChars(argCODEfile, 4) == ".lua" || SubStrLastChars(argCODEfile, 3) == ".cs" || SubStrLastChars(argCODEfile, 5) == ".java" || SubStrLastChars(argCODEfile, 3) == ".kt" || SubStrLastChars(argCODEfile, 3) == ".rb" || SubStrLastChars(argCODEfile, 4) == ".nim" || SubStrLastChars(argCODEfile, 4) == ".ahk" || SubStrLastChars(argCODEfile, 6) == ".swift" || SubStrLastChars(argCODEfile, 5) == ".dart" || SubStrLastChars(argCODEfile, 3) == ".ts" || SubStrLastChars(argCODEfile, 6) == ".scala" || SubStrLastChars(argCODEfile, 7) == ".groovy") {
+            if (argLangTo != "") {
+                OUTCODE = compiler(argCODE, argHTVMinstr, "notHTVM", argLangTo);
+            } else {
+                OUTCODE = compiler(argCODE, argHTVMinstr, "notHTVM");
+            }
         } else {
-            OUTCODE = compiler(argCODE, argHTVMinstr, "full");
+            if (argLangTo != "") {
+                OUTCODE = compiler(argCODE, argHTVMinstr, "full", argLangTo);
+            } else {
+                OUTCODE = compiler(argCODE, argHTVMinstr, "full");
+            }
         }
+        print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) + langToConvertTo);
         FileDelete(StringTrimRight(argCODEfile, StrLen(langFileExtension)) + langToConvertTo);
         FileAppend(OUTCODE, StringTrimRight(argCODEfile, StrLen(langFileExtension)) + langToConvertTo);
     }

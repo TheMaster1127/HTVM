@@ -14,10 +14,6 @@ function LoopParseFunc(varString, delimiter1="", delimiter2="") {
     return items;
 }
 
-function print(value) {
-    console.log(value)
-}
-
 // Convert value to string
 function STR(value) {
     if (value === null || value === undefined) {
@@ -34,10 +30,10 @@ function STR(value) {
     }
 }
 
-// Function to find the position of needle in haystack (string overload)
-function InStr(haystack, needle) {
-    const pos = haystack.indexOf(needle);
-    return (pos !== -1) ? pos + 1 : 0;
+// Function to simulate input() in JavaScript
+function input(promptText) {
+    // Display the prompt and get user input
+    return prompt(promptText);
 }
 
 function StrLen(s) {
@@ -50,171 +46,388 @@ function Chr(number) {
     return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
 }
 
+function SubStr(str, startPos, length) {
+    // If str is null or undefined, return an empty string
+    if (str === null || str === undefined) {
+        return "";
+    }
+    // If length is not provided or is blank, default to "all characters"
+    if (length === undefined || length === "") {
+        length = str.length - startPos + 1;
+    }
+    // If startPos is less than 1, adjust it to start from the end of the string
+    if (startPos < 1) {
+        startPos = str.length + startPos;
+    }
+    // Extract the substring based on startPos and length
+    return str.substr(startPos - 1, length);
+}
+
 function Trim(inputString) {
     return inputString ? inputString.trim() : "";
+}
+
+function StrReplace(originalString, find, replaceWith) {
+    return originalString.split(find).join(replaceWith);
+}
+
+function StringTrimLeft(input, numChars) {
+    return (numChars <= input.length) ? input.substring(numChars) : input;
 }
 
 function StringTrimRight(input, numChars) {
     return (numChars <= input.length) ? input.substring(0, input.length - numChars) : input;
 }
 
+function StrLower(string) {
+    return string.toLowerCase();
+}
 
-async function HTVMmatchStrRrplace(line, matchString, replaceString) {
-    var lineOut = "";
-    if (!InStr(line, matchString)) {
-        return line;
-    }
-    var allDelimiters = " ()[].,;:'!&|=<>+-*/^%~" + Chr(34);
-    let lineArr = [];
-    items1 = LoopParseFunc(line)
-    for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
-        const A_LoopField1 = items1[A_Index1 - 0];
-        lineArr.push(A_LoopField1);
-    }
-    var matchStringLEN = StrLen(matchString);
-    var replaceStringLEN = StrLen(replaceString);
-    let allPosForReplacing = [];
-    var sildingLine = "";
-    var isStart = 1;
-    var i1 = 0;
-    var hasFound = 0;
-    var hasFound2 = 0;
-    var isStartTrue = 0;
-    var isEndTrue = 0;
-    // char1 is for text outside the start
-    var char1 = "";
-    // char2 is for text inside the start
-    var char2 = "";
-    // char3 is for text inside the end
-    var char3 = "";
-    // char4 is for text outside the end
-    var char4 = "";
-    var isMatch = 0;
-    sildingLine = "";
-    isStart = 1;
-    i1 = 0;
-    hasFound = 0;
-    hasFound2 = 0;
-    isStartTrue = 0;
-    isEndTrue = 0;
-    for (let A_Index2 = 0; A_Index2 < lineArr.length + 0; A_Index2++) {
-        char1 = "";
-        char2 = "";
-        char3 = "";
-        char4 = "";
-        isMatch = 0;
-        if (A_Index2 != 0) {
-            isStart = 0;
-        }
-        sildingLine = "";
-        for (let A_Index3 = 0; A_Index3 < matchStringLEN + 0; A_Index3++) {
-            if (A_Index3 + i1 <= lineArr.length - 1) {
-                sildingLine += lineArr[A_Index3 + i1];
+function Mod(dividend, divisor) {
+    return dividend % divisor;
+}
+
+function MsgBox(text, title = " ", value = 0, timeout = null) {
+    return new Promise((resolve) => {
+        // Define default options for the message box
+        let defaultOptions = {
+            title: title || " ", // Default title is empty
+            text: text || "Press OK to continue.", // Default text if not provided
+            showCancelButton: false, // Default is to not show Cancel button
+            showDenyButton: false, // Default is to not show Deny button
+            confirmButtonText: "OK", // Default text for OK button
+            focusConfirm: true, // Default focus on OK button
+        };
+        let numOriginal = value;
+        let num = numOriginal;
+        let done1 = 0;
+        let done2 = 0;
+        let done3 = 0;
+        let AIndex = 0;
+        for (AIndex = 1; AIndex <= 1; AIndex++) {
+            // Handle special case for value adjustments
+            if (num >= 262144) {
+                num = num - 262144;
+                numOriginal = numOriginal - 262144;
+            }
+            if (num >= 256 && num < 500) {
+                num = num - 256;
+                done3 = 256;
+            }
+            if (num >= 512) {
+                num = num - 512;
+                done3 = 512;
+            }
+            if (num == 0) {
+                done1 = 0;
+                break;
+            }
+            if (num <= 6) {
+                done1 = num;
+                break;
+            }
+            if (num >= 64 && num < 64 * 2) {
+                done2 = 64;
+                if (num == 64) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 64;
+                    break;
+                }
+            }
+            if (num >= 48 && num < 63) {
+                done2 = 48;
+                if (num == 48) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 48;
+                    break;
+                }
+            }
+            if (num >= 32 && num < 47) {
+                done2 = 32;
+                if (num == 32) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 32;
+                    break;
+                }
+            }
+            if (num >= 16 && num < 30) {
+                done2 = 16;
+                if (num == 16) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 16;
+                    break;
+                }
             }
         }
-        if (StrLen(sildingLine) < matchStringLEN) {
+        let doneAdded = done1 + done2 + done3;
+        if (doneAdded !== numOriginal) {
+            // displayMessage("The calc was wrong!");
+        } else {
+            // displayMessage("num was: " + numOriginal + "\ndone1: " + done1 + "\ndone2: " + done2 + "\ndone3: " + done3);
+        }
+        // Parse the value to determine the options for the message box
+        if (done1 === 1) defaultOptions.showCancelButton = true;
+        if (done1 === 3) {
+            defaultOptions.showCancelButton = true;
+            defaultOptions.showDenyButton = true;
+        }
+        if (done1 === 4) {
+            defaultOptions.showDenyButton = true;
+        }
+        if (done1 === 5) {
+            defaultOptions.showCancelButton = true;
+        }
+        if (done2 === 16) defaultOptions.icon = "error";
+        if (done2 === 32) defaultOptions.icon = "question";
+        if (done2 === 48) defaultOptions.icon = "warning";
+        if (done2 === 64) defaultOptions.icon = "info";
+        if (done3 === 256) defaultOptions.focusDeny = true;
+        if (done3 === 512) defaultOptions.focusCancel = true;
+        // Set timeout if provided
+        if (timeout) {
+            defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds
+        }
+        // Display the message box with the constructed options
+        Swal.fire(defaultOptions).then((result) => {
+            if (result.isConfirmed) {
+                resolve("OK");
+            } else if (result.isDenied) {
+                resolve("No");
+            } else {
+                resolve("Cancel");
+            }
+        });
+    });
+}
+
+
+
+// Helper function to create spaces
+async function spaces(n) {
+    var s = "";
+    if (n != 0) {
+        for (let A_Index1 = 0; A_Index1 < n + 0; A_Index1++) {
+            s += " ";
+        }
+    }
+    return s;
+}
+// Define the function to check odd spaces at the beginning
+async function CheckOddLeadingSpaces(string123) {
+    // Initialize a variable to count the spaces
+    var spaceCount = 0;
+    // Loop through the string one character at a time
+    items2 = LoopParseFunc(string123)
+    for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
+        const A_LoopField2 = items2[A_Index2 - 0];
+        // Check if the current character is a space
+        if (A_LoopField2 == Chr(32)) {
+            spaceCount++;
+        } else {
+            // When we hit a non-space character, break the loop
             break;
         }
-        //print("!!!!111111111!!!!!!: " . sildingLine)
-        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;==================
-        if (sildingLine == matchString) {
-            hasFound = 1;
-            if (isStart != 1) {
-                //print("!!!!2222222222!!!!!!: " . lineArr[i1 - 1])
-                char1 = lineArr[i1 - 1];
-                //print("!!!!2222222222.555555555!!!!!!: " . lineArr[i1])
-                char2 = lineArr[i1];
-            } else {
-                isStartTrue = 1;
-            }
-            if (i1 + matchStringLEN < lineArr.length) {
-                //print("!!!!3333333333.5555555555!!!!!!: " . lineArr[i1 + matchStringLEN - 1])
-                char3 = lineArr[i1 + matchStringLEN - 1];
-                //print("!!!!3333333333!!!!!!: " . lineArr[i1 + matchStringLEN])
-                char4 = lineArr[i1 + matchStringLEN];
-            } else {
-                isEndTrue = 1;
-            }
-            if (InStr(allDelimiters, char1) || InStr(allDelimiters, char2)) {
-                isStartTrue = 1;
-            }
-            if (InStr(allDelimiters, char3) || InStr(allDelimiters, char4)) {
-                isEndTrue = 1;
-            }
-            if (isStartTrue == 1 && isEndTrue == 1) {
-                isMatch = 1;
-            }
-        }
-        //;;;;;;;;;;;;;;;;;;;===============
-        if (isMatch == 1) {
-            if (allPosForReplacing.length > 0) {
-                for (let A_Index4 = 0; A_Index4 < allPosForReplacing.length + 0; A_Index4++) {
-                    if (i1 + 1 != allPosForReplacing[A_Index4]) {
-                        allPosForReplacing.push(i1 + 1);
-                        break;
-                    }
-                }
-            } else {
-                allPosForReplacing.push(i1 + 1);
-            }
-        }
-        i1++;
     }
-    var lineTEMP = "";
-    lineOut = line;
-    //print(allPosForReplacing)
-    if (allPosForReplacing.length > 0) {
-        // matchStringLEN
-        // replaceStringLEN
-        var l2 = 0;
-        var currentPos = 0;
-        var onceEnd = 0;
-        for (let A_Index5 = 0; A_Index5 < allPosForReplacing.length + 0; A_Index5++) {
-            if (A_Index5 == 0) {
-                currentPos = allPosForReplacing[A_Index5];
-            } else {
-                currentPos = allPosForReplacing[A_Index5] - (matchStringLEN - replaceStringLEN);
-            }
-            onceEnd = 0;
-            items6 = LoopParseFunc(lineOut)
-            for (let A_Index6 = 0; A_Index6 < items6.length + 0; A_Index6++) {
-                const A_LoopField6 = items6[A_Index6 - 0];
-                if (A_Index6 + 2 > currentPos && A_Index6 + 1 < currentPos + matchStringLEN) {
-                    onceEnd++;
-                    //print("DDDDDDDDDDD" . STR(A_Index6))
-                    if (onceEnd == 1) {
-                        lineTEMP += replaceString;
-                    }
-                } else {
-                    lineTEMP += A_LoopField6;
-                }
-            }
-            lineOut = lineTEMP;
-            lineTEMP = "";
-            //print(lineTEMP)
-            l2++;
+    // Return true if the number of spaces is odd, false otherwise
+    var sdsfawasd = STR(Mod(spaceCount, 2) == 1);
+    //MsgBox, % sdsfawasd
+    return sdsfawasd;
+}
+async function LTrim(input) {
+    var result = "";
+    var foundNonSpace = false;
+    items3 = LoopParseFunc(input)
+    for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
+        const A_LoopField3 = items3[A_Index3 - 0];
+        if (A_LoopField3 != " " || foundNonSpace) {
+            result += A_LoopField3;
+            foundNonSpace = true;
         }
+    }
+    return result;
+}
+async function getLastChar(strippedString) {
+    var lastChar;
+    items4 = LoopParseFunc(strippedString)
+    for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
+        const A_LoopField4 = items4[A_Index4 - 0];
+        lastChar = A_LoopField4;
+    }
+    return lastChar;
+}
+async function AddCurlyBraces(pythonCode) {
+    var pythonCode = StrReplace(pythonCode, A_Tab, "    ");
+    var result = "";
+    var indentLevel = 0;
+    var indent;
+    var line;
+    var stripped;
+    items5 = LoopParseFunc(pythonCode, "\n", "\r")
+    for (let A_Index5 = 0; A_Index5 < items5.length + 0; A_Index5++) {
+        const A_LoopField5 = items5[A_Index5 - 0];
+        line = A_LoopField5;
+        stripped = Trim(line);
+        if (stripped == "") {
+            result += line + "\n";
+            continue;
+        }
+        // Count leading spaces
+        indent = StrLen(line) - StrLen(LTrim(line));
+        //MsgBox, % indent
+        // Close braces for unindents
+        for (let A_Index6 = 0; ; A_Index6++) {
+            if (indentLevel <= indent) {
+                break;
+            }
+            indentLevel -= 4;
+            result += spaces(indentLevel) + "}\n";
+        }
+        // Add opening brace for new blocks
+        if (getLastChar(stripped) == ":" && SubStr(StrLower(Trim(A_LoopField5)), 1, StrLen(StrLower(keyWordComment))) != StrLower(keyWordComment)) {
+            result += SubStr(line, 1, -1) + " {\n";
+            indentLevel += 4;
+        } else {
+            result += line + "\n";
+        }
+    }
+    // Close any remaining open braces
+    for (let A_Index7 = 0; ; A_Index7++) {
+        if (indentLevel <= 0) {
+            break;
+        }
+        indentLevel -= 4;
+        result += spaces(indentLevel) + "}\n";
+    }
+    return result;
+}
+async function RepeatSpaces(count) {
+    var spaces = "";
+    for (let A_Index8 = 0; A_Index8 < count + 0; A_Index8++) {
+        spaces += Chr(32);
+    }
+    return spaces;
+}
+async function indent_nested_curly_braces(input_string, modeCurlyBracesOn) {
+    var indent_size = 4;
+    var current_indent = 0;
+    var result;
+    var trimmed_line;
+    var resultOut;
+    //MsgBox, % input_string
+    items9 = LoopParseFunc(input_string, "\n", "\r")
+    for (let A_Index9 = 0; A_Index9 < items9.length + 0; A_Index9++) {
+        const A_LoopField9 = items9[A_Index9 - 0];
+        trimmed_line = Trim(A_LoopField9);
+        if (trimmed_line == Chr(123)) {
+            result += Chr(32) + RepeatSpaces(current_indent) + trimmed_line + "\n";
+            current_indent = current_indent + indent_size;
+        }
+        else if (trimmed_line == Chr(125)) {
+            current_indent = current_indent - indent_size;
+            result += Chr(32) + RepeatSpaces(current_indent) + trimmed_line + "\n";
+        } else {
+            result += Chr(32) + RepeatSpaces(current_indent) + trimmed_line + "\n";
+        }
+    }
+    if (modeCurlyBracesOn == 0) {
+        var resultOut;
+        items10 = LoopParseFunc(result, "\n", "\r")
+        for (let A_Index10 = 0; A_Index10 < items10.length + 0; A_Index10++) {
+            const A_LoopField10 = items10[A_Index10 - 0];
+            if (Trim(A_LoopField10) != "{" && Trim(A_LoopField10) != "}") {
+                resultOut += A_LoopField10 + "\n";
+            }
+        }
+        result = StringTrimRight(resultOut, 1);
     } else {
-        return line;
+        // format curly braces in a K&R style
+        let lookIntoFurture = [];
+        items11 = LoopParseFunc(result, "\n", "\r")
+        for (let A_Index11 = 0; A_Index11 < items11.length + 0; A_Index11++) {
+            const A_LoopField11 = items11[A_Index11 - 0];
+            let lookIntoFurture += Trim(A_LoopField11);
+        }
+        let lookIntoFurture += " ";
+        var resultOut;
+        var skipNext = 0;
+        items12 = LoopParseFunc(result, "\n", "\r")
+        for (let A_Index12 = 0; A_Index12 < items12.length + 0; A_Index12++) {
+            const A_LoopField12 = items12[A_Index12 - 0];
+            skipNext--;
+            if (skipNext <= 0) {
+                skipNext = 0;
+            }
+            if (Trim(lookIntoFurture[A_Index12 + 1]) == "{") {
+                resultOut += A_LoopField12 + " {\n";
+                skipNext = 2;
+            }
+            if (skipNext == 0) {
+                resultOut += A_LoopField12 + "\n";
+            }
+        }
+        result = StringTrimRight(resultOut, 1);
+        let lookIntoFurture2 = [];
+        items13 = LoopParseFunc(result, "\n", "\r")
+        for (let A_Index13 = 0; A_Index13 < items13.length + 0; A_Index13++) {
+            const A_LoopField13 = items13[A_Index13 - 0];
+            let lookIntoFurture2 += Trim(A_LoopField13);
+        }
+        let lookIntoFurture2 += " ";
+        resultOut = "";
+        skipNext = 0;
+        var addSpacesAtTheBegginig;
+        items14 = LoopParseFunc(result, "\n", "\r")
+        for (let A_Index14 = 0; A_Index14 < items14.length + 0; A_Index14++) {
+            const A_LoopField14 = items14[A_Index14 - 0];
+            skipNext--;
+            if (skipNext <= 0) {
+                skipNext = 0;
+            }
+            if (Trim(A_LoopField14) == "}" && Trim(lookIntoFurture2[A_Index14 + 1]) == "else {") {
+                skipNext = 2;
+                addSpacesAtTheBegginig = "";
+                items15 = LoopParseFunc(A_LoopField14)
+                for (let A_Index15 = 0; A_Index15 < items15.length + 0; A_Index15++) {
+                    const A_LoopField15 = items15[A_Index15 - 0];
+                    if (A_LoopField15 == " ") {
+                        if (A_LoopField15 != " ") {
+                            break;
+                        }
+                        addSpacesAtTheBegginig += A_LoopField15;
+                    }
+                }
+                resultOut += addSpacesAtTheBegginig + "} else {\n";
+            }
+            if (skipNext == 0) {
+                resultOut += A_LoopField14 + "\n";
+            }
+        }
+        result = StringTrimRight(resultOut, 1);
     }
-    return lineOut;
+    resultOut = "";
+    var ALoopField;
+    items16 = LoopParseFunc(result, "\n", "\r")
+    for (let A_Index16 = 0; A_Index16 < items16.length + 0; A_Index16++) {
+        const A_LoopField16 = items16[A_Index16 - 0];
+        if (CheckOddLeadingSpaces(A_LoopField16) == "1") {
+            ALoopField = StringTrimLeft(A_LoopField16, 1);
+            resultOut += ALoopField + "\n";
+        } else {
+            resultOut += A_LoopField16 + "\n";
+        }
+    }
+    result = StringTrimRight(resultOut, 1);
+    // Return the result
+    return result;
 }
 async function main() {
-    var varQYTYWAEUSR = "";
-    print(await HTVMmatchStrRrplace("hi man", "hi", "hello"));
-    print(await HTVMmatchStrRrplace("hi man", "man", "woman"));
-    print(await HTVMmatchStrRrplace("func1(man.hello()) func1(man.hello())", ".hello", ".mello"));
-    print(await HTVMmatchStrRrplace("func1(var1 plus plus var2 plus plus var34)", "plus plus", "+"));
-    print(await HTVMmatchStrRrplace("var1.add() + var12.add()", ".add()", ".push()"));
-    print(await HTVMmatchStrRrplace("var1.add() + var12.add()", ".add()", ".pu()"));
-    for (let A_Index7 = 0; A_Index7 < 10000 + 0; A_Index7++) {
-        varQYTYWAEUSR += await HTVMmatchStrRrplace("hi man", "hi", "hello") + "\n";
-        varQYTYWAEUSR += await HTVMmatchStrRrplace("hi man", "man", "woman") + "\n";
-        varQYTYWAEUSR += await HTVMmatchStrRrplace("func1(man.hello()) func1(man.hello())", ".hello", ".mello") + "\n";
-        varQYTYWAEUSR += await HTVMmatchStrRrplace("func1(var1 plus plus var2 plus plus var34)", "plus plus", "+") + "\n";
-        varQYTYWAEUSR += await HTVMmatchStrRrplace("var1.add() + var12.add()", ".add()", ".push()") + "\n";
-        varQYTYWAEUSR += await HTVMmatchStrRrplace("var1.add() + var12.add()", ".add()", ".pu()") + "\n";
-    }
-    varQYTYWAEUSR = StringTrimRight(varQYTYWAEUSR, 1);
 }
 main();

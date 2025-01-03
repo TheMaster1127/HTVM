@@ -110,7 +110,7 @@ keyWordGlobal
 keyWordComment
 keyWordCommentOpenMultiLine
 keyWordCommentCloseMultiLine
-keyWordEscpaeChar
+`
 keyWordMainLabel
 keyWordConcat
 keyWordAdd

@@ -1,7 +1,7 @@
 ; for cpp
 
-HTVM "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HT-instructions.txt" "cpp"
-g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
+"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM-instructions.txt" "cpp"
+;g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
 ;cd "%DIRFULLPATH%" && "%ONLYFILENAME%.exe"
 
 ; for python

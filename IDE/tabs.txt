@@ -65,7 +65,9 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile910429.py
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile910429.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\htvm.htpr
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.py
@@ -77,7 +79,3 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile638232.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Game\game.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Game\game.html
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile292472.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile292472.cpp
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile292472.js
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile243366.ht

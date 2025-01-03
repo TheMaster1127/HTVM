@@ -1,0 +1,12 @@
+
+str out_KeyWordsCommands
+str outTrimCode
+str htCode
+
+str outVarOperator := ""
+int lineDone := ""
+int areWeInAFuncFromInstructions := ""
+int areWeInAFuncFromInstructionsLineNum := ""
+
+str theCppVarForErrors := "jhku-dfsds-ds-d-ffdsf-sdfsfdsedsf"
+str theJSvarDeclaredVarsBugFix := "|"
