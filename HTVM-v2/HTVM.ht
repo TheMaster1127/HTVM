@@ -224,9 +224,9 @@ str useJavaScriptAllFuncsAreAsync := ""
 str useJavaScriptAlwaysTripleEqual := ""
 
 
-str out_KeyWordsCommands
-str outTrimCode
-str htCode
+str out_KeyWordsCommands := ""
+str outTrimCode := ""
+str htCode := ""
 
 str outVarOperator := ""
 int lineDone := 0

@@ -1,0 +1,12 @@
+1. Add all the loops (regular loop, percent loop, loop parse, loop part with AutoHotkey check)
+2. Handle the main stuff (main label and main function for all languages)
+3. Add the two ways to make arrays (curly braces and regular braces)
+4. Make sure it formats back to each language's style (C++ curly braces, Python indent, Lua end keyword)
+5. Handle the imports and libraries with instruction file stuff
+6. Add functions to instruction file and make it work in HTVM
+7. Handle programming blocks
+8. Handle the end extra info keyword (like VBScript's end if, end function)
+9. Handle OSP (at the bottom like you wanted)
+
+First test would be:
+Make a loop that goes 5 times and prints the index, test it works in C++ and more langs
