@@ -2654,24 +2654,20 @@ code := StrReplace(code, Chr(13), "")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-if (langToConvertTo != "py") and (useSemicolon = "off")
-{
-theSemicolon := ";"
-}
-else
-{
-theSemicolon := ""
+if (langToConvertTo != "py") and (langToConvertTo != "nim") and (langToConvertTo != "lua") and (langToConvertTo != "rb") and (langToConvertTo != "go") and (langToConvertTo != "swift") and (useSemicolon = "off") {
+    theSemicolon := ";"
+} else {
+    theSemicolon := ""
 }
 
 
-if (langToConvertTo != "py") and (usePythonicColonSyntax = "off")
-{
-theColon := ""
+
+if (langToConvertTo != "py") and (langToConvertTo != "nim") and (usePythonicColonSyntax = "off") {
+    theColon := ""
+} else {
+    theColon := ":"
 }
-else
-{
-theColon := ":"
-}
+
 
 
 
@@ -2730,7 +2726,7 @@ StringTrimRight, code, newStringOutCode, 1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 str htCodeOutFixEnd := ""
-if (useEnd = "on")
+if (useEnd = "on") or (useEndExtraInfo = "on")
 {
 Loop, Parse, code, `n, `r
 {
@@ -2823,7 +2819,7 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 }
 
 
-if (useEnd = "off") and (useCurlyBraces = "off")
+if (useEnd = "off") and (useEndExtraInfo = "off") and (useCurlyBraces = "off")
 {
 htCodeOutFixEnd := ""
 Loop, Parse, code, `n, `r
@@ -2914,7 +2910,7 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 }
 
 
-if (useCurlyBraces = "off") and (useEnd = "off")
+if (useCurlyBraces = "off") and (useEnd = "off") and (useEndExtraInfo = "off")
 {
 code := AddCurlyBraces(code)
 }
@@ -2928,7 +2924,7 @@ StringTrimRight, code, outTrimCode, 1
 
 
 ; for converting c++ to js and py
-code := StrReplace(code, "{}", "[]")
+;code := StrReplace(code, "{}", "[]")
 
 str outCodeFixBraces := ""
 Loop, 2
@@ -2964,13 +2960,17 @@ int didWeUseMainLabel := 0
 str codeOutFixAndAddMainFunc := ""
 
 print(code)
+print("WAEFDGSERDGFHESDFDGFSDFX=============")
+htCode := ""
 Loop, Parse, code, `n ,`r
 {
 
-htCode := A_LoopField . "`n"
+htCode .= A_LoopField . "`n"
 }
 StringTrimRight, htCode, htCode, 1
-
+print("WAEFDGSERDGFHESDFDGFSDFX=============")
+print(htCode)
+print("WAEFDGSERDGFHESDFDGFSDFX=============")
 Loop, % theIdNumOfThe34
 {
 htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index + 1] . Chr(34))

@@ -2555,12 +2555,12 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    if (langToConvertTo != "py" && useSemicolon == "off") {
+    if (langToConvertTo != "py" && langToConvertTo != "nim" && langToConvertTo != "lua" && langToConvertTo != "rb" && langToConvertTo != "go" && langToConvertTo != "swift" && useSemicolon == "off") {
         theSemicolon = ";";
     } else {
         theSemicolon = "";
     }
-    if (langToConvertTo != "py" && usePythonicColonSyntax == "off") {
+    if (langToConvertTo != "py" && langToConvertTo != "nim" && usePythonicColonSyntax == "off") {
         theColon = "";
     } else {
         theColon = ":";
@@ -2600,7 +2600,7 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     std::string htCodeOutFixEnd = "";
-    if (useEnd == "on") {
+    if (useEnd == "on" || useEndExtraInfo == "on") {
         std::vector<std::string> items58 = LoopParseFunc(code, "\n", "\r");
         for (size_t A_Index58 = 0; A_Index58 < items58.size() + 0; A_Index58++) {
             std::string A_LoopField58 = items58[A_Index58 - 0];
@@ -2669,7 +2669,7 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
         }
         code = StringTrimRight(htCodeOutFixEnd, 1);
     }
-    if (useEnd == "off" && useCurlyBraces == "off") {
+    if (useEnd == "off" && useEndExtraInfo == "off" && useCurlyBraces == "off") {
         htCodeOutFixEnd = "";
         std::vector<std::string> items59 = LoopParseFunc(code, "\n", "\r");
         for (size_t A_Index59 = 0; A_Index59 < items59.size() + 0; A_Index59++) {
@@ -2736,7 +2736,7 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
         }
         code = StringTrimRight(htCodeOutFixEnd, 1);
     }
-    if (useCurlyBraces == "off" && useEnd == "off") {
+    if (useCurlyBraces == "off" && useEnd == "off" && useEndExtraInfo == "off") {
         code = AddCurlyBraces(code);
     }
     std::vector<std::string> items60 = LoopParseFunc(code, "\n", "\r");
@@ -2746,7 +2746,7 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
     }
     code = StringTrimRight(outTrimCode, 1);
     // for converting c++ to js and py
-    code = StrReplace(code, "{}", "[]");
+    //code := StrReplace(code, "{}", "[]")
     std::string outCodeFixBraces = "";
     for (int A_Index61 = 0; A_Index61 < 2 + 0; A_Index61++) {
         outCodeFixBraces = "";
@@ -2764,7 +2764,6 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
         }
         code = StringTrimRight(outCodeFixBraces, 1);
     }
-    //MsgBox, % code
     //;; main loop ;;;
     //;; main loop ;;;
     //;; main loop ;;;
@@ -2772,12 +2771,17 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
     int didWeUseMainLabel = 0;
     std::string codeOutFixAndAddMainFunc = "";
     print(code);
+    print("WAEFDGSERDGFHESDFDGFSDFX=============");
+    htCode = "";
     std::vector<std::string> items63 = LoopParseFunc(code, "\n", "\r");
     for (size_t A_Index63 = 0; A_Index63 < items63.size() + 0; A_Index63++) {
         std::string A_LoopField63 = items63[A_Index63 - 0];
-        htCode = A_LoopField63 + "\n";
+        htCode += A_LoopField63 + "\n";
     }
     htCode = StringTrimRight(htCode, 1);
+    print("WAEFDGSERDGFHESDFDGFSDFX=============");
+    print(htCode);
+    print("WAEFDGSERDGFHESDFDGFSDFX=============");
     for (int A_Index64 = 0; A_Index64 < theIdNumOfThe34 + 0; A_Index64++) {
         htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" + Chr(65) + Chr(65) + STR(A_Index64 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index64 + 1] + Chr(34));
     }

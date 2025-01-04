@@ -182,6 +182,7 @@ useParentheses
 usePrefixTypeForTypeDefinition
 usePostfixTypeForTypeDefinition
 usePythonicColonSyntax
+useCurlyBracesSyntaxForArrayDef
 useInJavaScriptAlwaysUseVar
 useJavaScriptInAfullHTMLfile
 useJavaScriptAmainFuncDef

@@ -1,1 +1,5 @@
-print("hello HTVM v2")
+
+Loop, 5 {
+            print("hello HTVM v2")
+}
+
