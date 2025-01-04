@@ -216,6 +216,7 @@ str useParentheses := ""
 str usePrefixTypeForTypeDefinition := ""
 str usePostfixTypeForTypeDefinition := ""
 str usePythonicColonSyntax := ""
+str useCurlyBracesSyntaxForArrayDef := "" 
 str useInJavaScriptAlwaysUseVar := ""
 str useJavaScriptInAfullHTMLfile := ""
 str useJavaScriptAmainFuncDef := ""
@@ -1972,13 +1973,13 @@ Loop, Parse, allInstructionFile, `n, `r
 		keyWordArrayOfBooleansDefinition := Trim(A_LoopField)
 	}
 	if (A_Index = 104) {
-		keyWordJavaScriptVar := Trim(A_LoopField)
+		keyWordVar := Trim(A_LoopField)
 	}
 	if (A_Index = 105) {
-		keyWordJavaScriptLet := Trim(A_LoopField)
+		keyWordLet := Trim(A_LoopField)
 	}
 	if (A_Index = 106) {
-		keyWordJavaScriptConst := Trim(A_LoopField)
+		keyWordConst := Trim(A_LoopField)
 	}
 	if (A_Index = 107) {
 		keyWordEnd := Trim(A_LoopField)
@@ -2212,18 +2213,21 @@ Loop, Parse, allInstructionFile, `n, `r
 		usePythonicColonSyntax := Trim(A_LoopField)
 	}
 	if (A_Index = 184) {
-		useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
+		useCurlyBracesSyntaxForArrayDef := Trim(A_LoopField)
 	}
 	if (A_Index = 185) {
-		useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
+		useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
 	}
 	if (A_Index = 186) {
-		useJavaScriptAmainFuncDef := Trim(A_LoopField)
+		useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
 	}
 	if (A_Index = 187) {
-		useJavaScriptAllFuncsAreAsync := Trim(A_LoopField)
+		useJavaScriptAmainFuncDef := Trim(A_LoopField)
 	}
 	if (A_Index = 188) {
+		useJavaScriptAllFuncsAreAsync := Trim(A_LoopField)
+	}
+	if (A_Index = 189) {
 		useJavaScriptAlwaysTripleEqual := Trim(A_LoopField)
 	}
 }
