@@ -1,0 +1,19 @@
+   |   Language     |   File Extension   |
+   |----------------|--------------------|
+0. | HTVM           | .htvm              |
+1. | C++            | .cpp               |
+2. | Python         | .py                |
+3. | JavaScript     | .js                |
+4. | Go             | .go                |
+5. | Lua            | .lua               |
+6. | C#             | .cs                |
+7. | Java           | .java              |
+8. | Kotlin         | .kt                |
+9. | Ruby           | .rb                |
+10 | Nim            | .nim               |
+11 | AutoHotKey     | .ahk               |
+12 | Swift          | .swift             |
+13 | Dart           | .dart              |
+14 | TypeScript     | .ts                |
+15 | Scala          | .scala             |
+16 | Groovy         | .groovy            |
