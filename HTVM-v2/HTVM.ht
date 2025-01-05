@@ -177,6 +177,7 @@ str keyWordAssignDiv := ""
 str keyWordAssignMod := ""
 str keyWordAssignShiftLeft := ""
 str keyWordAssignShiftRight := ""
+str keyWordLogicalAssignShiftRight := ""
 str keyWordAssignBitAnd := ""
 str keyWordAssignBitOr := ""
 str keyWordAssignBitXor := ""
@@ -196,6 +197,7 @@ str keyWordElseIfEndExtraInfo := ""
 str keyWordElseEndExtraInfo := ""
 str keyWordSwitchEndExtraInfo := ""
 str keyWordSwitchCaseEndExtraInfo := ""
+str keyWordSwitchDefaultEndExtraInfo := ""
 str keyWordWhileLoopEndExtraInfo := ""
 str keyWordForLoopEndExtraInfo := ""
 str keyWordLoopInfiniteEndExtraInfo := ""
@@ -1811,7 +1813,7 @@ Loop, Parse, allInstructionFile, `n, `r
 		keyWordCodeInOtherHTVMsyntaxStart := Trim(A_LoopField)
 	}
 	if (A_Index = 50) {
-		keyWordCodeInOtherHTVMsyntaxEnd := Trim(A_LoopField)
+		keyWordCodeInOtherHTVMsyntaxStart := Trim(A_LoopField)
 	}
 	if (A_Index = 51) {
 		keyWordCurlyBraceOpen := Trim(A_LoopField)
@@ -2102,134 +2104,141 @@ Loop, Parse, allInstructionFile, `n, `r
 		keyWordAssignShiftRight := Trim(A_LoopField)
 	}
 	if (A_Index = 147) {
-		keyWordAssignBitAnd := Trim(A_LoopField)
+		keyWordLogicalAssignShiftRight := Trim(A_LoopField)
 	}
 	if (A_Index = 148) {
-		keyWordAssignBitOr := Trim(A_LoopField)
+		keyWordAssignBitAnd := Trim(A_LoopField)
 	}
 	if (A_Index = 149) {
-		keyWordAssignBitXor := Trim(A_LoopField)
+		keyWordAssignBitOr := Trim(A_LoopField)
 	}
 	if (A_Index = 150) {
-		keyWordTernary1 := Trim(A_LoopField)
+		keyWordAssignBitXor := Trim(A_LoopField)
 	}
 	if (A_Index = 151) {
-		keyWordTernary2 := Trim(A_LoopField)
+		keyWordTernary1 := Trim(A_LoopField)
 	}
 	if (A_Index = 152) {
-		keyWordInc := Trim(A_LoopField)
+		keyWordTernary2 := Trim(A_LoopField)
 	}
 	if (A_Index = 153) {
-		keyWordDec := Trim(A_LoopField)
+		keyWordInc := Trim(A_LoopField)
 	}
 	if (A_Index = 154) {
-		AHKlikeLoopsIndexedAt := Trim(A_LoopField)
+		keyWordDec := Trim(A_LoopField)
 	}
 	if (A_Index = 155) {
-		keyWordAIndex := Trim(A_LoopField)
+		AHKlikeLoopsIndexedAt := Trim(A_LoopField)
 	}
 	if (A_Index = 156) {
-		keyWordALoopField := Trim(A_LoopField)
+		keyWordAIndex := Trim(A_LoopField)
 	}
 	if (A_Index = 157) {
-		keyWordAllianceEndExtraInfo := Trim(A_LoopField)
+		keyWordALoopField := Trim(A_LoopField)
 	}
 	if (A_Index = 158) {
-		keyWordCrewEndExtraInfo := Trim(A_LoopField)
+		keyWordAllianceEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 159) {
-		keyWordMethodEndExtraInfo := Trim(A_LoopField)
+		keyWordCrewEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 160) {
-		keyWordDefObjEndExtraInfo := Trim(A_LoopField)
+		keyWordMethodEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 161) {
-		keyWordIFEndExtraInfo := Trim(A_LoopField)
+		keyWordDefObjEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 162) {
-		keyWordElseIfEndExtraInfo := Trim(A_LoopField)
+		keyWordIFEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 163) {
-		keyWordElseEndExtraInfo := Trim(A_LoopField)
+		keyWordElseIfEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 164) {
-		keyWordSwitchEndExtraInfo := Trim(A_LoopField)
+		keyWordElseEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 165) {
-		keyWordSwitchCaseEndExtraInfo := Trim(A_LoopField)
+		keyWordSwitchEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 166) {
-		keyWordWhileLoopEndExtraInfo := Trim(A_LoopField)
+		keyWordSwitchCaseEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 167) {
-		keyWordForLoopEndExtraInfo := Trim(A_LoopField)
+		keyWordSwitchDefaultEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 168) {
-		keyWordLoopInfiniteEndExtraInfo := Trim(A_LoopField)
+		keyWordWhileLoopEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 169) {
-		keyWordLoopEndExtraInfo := Trim(A_LoopField)
+		keyWordForLoopEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 170) {
-		keyWordLoopParseEndExtraInfo := Trim(A_LoopField)
+		keyWordLoopInfiniteEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 171) {
-		keyWordFuncEndExtraInfo := Trim(A_LoopField)
+		keyWordLoopEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 172) {
-		keyWordTryEndExtraInfo := Trim(A_LoopField)
+		keyWordLoopParseEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 173) {
-		keyWordCatchEndExtraInfo := Trim(A_LoopField)
+		keyWordFuncEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 174) {
-		keyWordFinallyEndExtraInfo := Trim(A_LoopField)
+		keyWordTryEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 175) {
-		useFuncKeyWord := Trim(A_LoopField)
+		keyWordCatchEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 176) {
-		useCurlyBraces := Trim(A_LoopField)
+		keyWordFinallyEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 177) {
-		useEnd := Trim(A_LoopField)
+		useFuncKeyWord := Trim(A_LoopField)
 	}
 	if (A_Index = 178) {
-		useEndExtraInfo := Trim(A_LoopField)
+		useCurlyBraces := Trim(A_LoopField)
 	}
 	if (A_Index = 179) {
-		useSemicolon := Trim(A_LoopField)
+		useEnd := Trim(A_LoopField)
 	}
 	if (A_Index = 180) {
-		useParentheses := Trim(A_LoopField)
+		useEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 181) {
-		usePrefixTypeForTypeDefinition := Trim(A_LoopField)
+		useSemicolon := Trim(A_LoopField)
 	}
 	if (A_Index = 182) {
-		usePostfixTypeForTypeDefinition := Trim(A_LoopField)
+		useParentheses := Trim(A_LoopField)
 	}
 	if (A_Index = 183) {
-		usePythonicColonSyntax := Trim(A_LoopField)
+		usePrefixTypeForTypeDefinition := Trim(A_LoopField)
 	}
 	if (A_Index = 184) {
-		useCurlyBracesSyntaxForArrayDef := Trim(A_LoopField)
+		usePostfixTypeForTypeDefinition := Trim(A_LoopField)
 	}
 	if (A_Index = 185) {
-		useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
+		usePythonicColonSyntax := Trim(A_LoopField)
 	}
 	if (A_Index = 186) {
-		useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
+		useCurlyBracesSyntaxForArrayDef := Trim(A_LoopField)
 	}
 	if (A_Index = 187) {
-		useJavaScriptAmainFuncDef := Trim(A_LoopField)
+		useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
 	}
 	if (A_Index = 188) {
-		useJavaScriptAllFuncsAreAsync := Trim(A_LoopField)
+		useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
 	}
 	if (A_Index = 189) {
+		useJavaScriptAmainFuncDef := Trim(A_LoopField)
+	}
+	if (A_Index = 190) {
+		useJavaScriptAllFuncsAreAsync := Trim(A_LoopField)
+	}
+	if (A_Index = 191) {
 		useJavaScriptAlwaysTripleEqual := Trim(A_LoopField)
 	}
+
 }
 
 if (Trim(langToConvertToParam) != "") {

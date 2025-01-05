@@ -184,6 +184,10 @@ double Exp(double value) {
     return std::exp(value);
 }
 
+double Log(double value) {
+    return std::log10(value);
+}
+
 std::string SubStr(const std::string& str, int startPos, int length = -1) {
     std::string result;
     size_t strLen = str.size();
@@ -615,6 +619,7 @@ std::string keyWordAssignDiv = "";
 std::string keyWordAssignMod = "";
 std::string keyWordAssignShiftLeft = "";
 std::string keyWordAssignShiftRight = "";
+std::string keyWordLogicalAssignShiftRight = "";
 std::string keyWordAssignBitAnd = "";
 std::string keyWordAssignBitOr = "";
 std::string keyWordAssignBitXor = "";
@@ -1840,7 +1845,7 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
             keyWordCodeInOtherHTVMsyntaxStart = Trim(A_LoopField49);
         }
         if (A_Index49 == 50) {
-            keyWordCodeInOtherHTVMsyntaxEnd = Trim(A_LoopField49);
+            keyWordCodeInOtherHTVMsyntaxStart = Trim(A_LoopField49);
         }
         if (A_Index49 == 51) {
             keyWordCurlyBraceOpen = Trim(A_LoopField49);
@@ -2131,132 +2136,135 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
             keyWordAssignShiftRight = Trim(A_LoopField49);
         }
         if (A_Index49 == 147) {
-            keyWordAssignBitAnd = Trim(A_LoopField49);
+            keyWordLogicalAssignShiftRight = Trim(A_LoopField49);
         }
         if (A_Index49 == 148) {
-            keyWordAssignBitOr = Trim(A_LoopField49);
+            keyWordAssignBitAnd = Trim(A_LoopField49);
         }
         if (A_Index49 == 149) {
-            keyWordAssignBitXor = Trim(A_LoopField49);
+            keyWordAssignBitOr = Trim(A_LoopField49);
         }
         if (A_Index49 == 150) {
-            keyWordTernary1 = Trim(A_LoopField49);
+            keyWordAssignBitXor = Trim(A_LoopField49);
         }
         if (A_Index49 == 151) {
-            keyWordTernary2 = Trim(A_LoopField49);
+            keyWordTernary1 = Trim(A_LoopField49);
         }
         if (A_Index49 == 152) {
-            keyWordInc = Trim(A_LoopField49);
+            keyWordTernary2 = Trim(A_LoopField49);
         }
         if (A_Index49 == 153) {
-            keyWordDec = Trim(A_LoopField49);
+            keyWordInc = Trim(A_LoopField49);
         }
         if (A_Index49 == 154) {
-            AHKlikeLoopsIndexedAt = Trim(A_LoopField49);
+            keyWordDec = Trim(A_LoopField49);
         }
         if (A_Index49 == 155) {
-            keyWordAIndex = Trim(A_LoopField49);
+            AHKlikeLoopsIndexedAt = Trim(A_LoopField49);
         }
         if (A_Index49 == 156) {
-            keyWordALoopField = Trim(A_LoopField49);
+            keyWordAIndex = Trim(A_LoopField49);
         }
         if (A_Index49 == 157) {
-            keyWordAllianceEndExtraInfo = Trim(A_LoopField49);
+            keyWordALoopField = Trim(A_LoopField49);
         }
         if (A_Index49 == 158) {
-            keyWordCrewEndExtraInfo = Trim(A_LoopField49);
+            keyWordAllianceEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 159) {
-            keyWordMethodEndExtraInfo = Trim(A_LoopField49);
+            keyWordCrewEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 160) {
-            keyWordDefObjEndExtraInfo = Trim(A_LoopField49);
+            keyWordMethodEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 161) {
-            keyWordIFEndExtraInfo = Trim(A_LoopField49);
+            keyWordDefObjEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 162) {
-            keyWordElseIfEndExtraInfo = Trim(A_LoopField49);
+            keyWordIFEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 163) {
-            keyWordElseEndExtraInfo = Trim(A_LoopField49);
+            keyWordElseIfEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 164) {
-            keyWordSwitchEndExtraInfo = Trim(A_LoopField49);
+            keyWordElseEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 165) {
-            keyWordSwitchCaseEndExtraInfo = Trim(A_LoopField49);
+            keyWordSwitchEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 166) {
-            keyWordWhileLoopEndExtraInfo = Trim(A_LoopField49);
+            keyWordSwitchCaseEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 167) {
-            keyWordForLoopEndExtraInfo = Trim(A_LoopField49);
+            keyWordWhileLoopEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 168) {
-            keyWordLoopInfiniteEndExtraInfo = Trim(A_LoopField49);
+            keyWordForLoopEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 169) {
-            keyWordLoopEndExtraInfo = Trim(A_LoopField49);
+            keyWordLoopInfiniteEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 170) {
-            keyWordLoopParseEndExtraInfo = Trim(A_LoopField49);
+            keyWordLoopEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 171) {
-            keyWordFuncEndExtraInfo = Trim(A_LoopField49);
+            keyWordLoopParseEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 172) {
-            keyWordTryEndExtraInfo = Trim(A_LoopField49);
+            keyWordFuncEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 173) {
-            keyWordCatchEndExtraInfo = Trim(A_LoopField49);
+            keyWordTryEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 174) {
-            keyWordFinallyEndExtraInfo = Trim(A_LoopField49);
+            keyWordCatchEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 175) {
-            useFuncKeyWord = Trim(A_LoopField49);
+            keyWordFinallyEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 176) {
-            useCurlyBraces = Trim(A_LoopField49);
+            useFuncKeyWord = Trim(A_LoopField49);
         }
         if (A_Index49 == 177) {
-            useEnd = Trim(A_LoopField49);
+            useCurlyBraces = Trim(A_LoopField49);
         }
         if (A_Index49 == 178) {
-            useEndExtraInfo = Trim(A_LoopField49);
+            useEnd = Trim(A_LoopField49);
         }
         if (A_Index49 == 179) {
-            useSemicolon = Trim(A_LoopField49);
+            useEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 180) {
-            useParentheses = Trim(A_LoopField49);
+            useSemicolon = Trim(A_LoopField49);
         }
         if (A_Index49 == 181) {
-            usePrefixTypeForTypeDefinition = Trim(A_LoopField49);
+            useParentheses = Trim(A_LoopField49);
         }
         if (A_Index49 == 182) {
-            usePostfixTypeForTypeDefinition = Trim(A_LoopField49);
+            usePrefixTypeForTypeDefinition = Trim(A_LoopField49);
         }
         if (A_Index49 == 183) {
-            usePythonicColonSyntax = Trim(A_LoopField49);
+            usePostfixTypeForTypeDefinition = Trim(A_LoopField49);
         }
         if (A_Index49 == 184) {
-            useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField49);
+            usePythonicColonSyntax = Trim(A_LoopField49);
         }
         if (A_Index49 == 185) {
-            useInJavaScriptAlwaysUseVar = Trim(A_LoopField49);
+            useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField49);
         }
         if (A_Index49 == 186) {
-            useJavaScriptInAfullHTMLfile = Trim(A_LoopField49);
+            useInJavaScriptAlwaysUseVar = Trim(A_LoopField49);
         }
         if (A_Index49 == 187) {
-            useJavaScriptAmainFuncDef = Trim(A_LoopField49);
+            useJavaScriptInAfullHTMLfile = Trim(A_LoopField49);
         }
         if (A_Index49 == 188) {
-            useJavaScriptAllFuncsAreAsync = Trim(A_LoopField49);
+            useJavaScriptAmainFuncDef = Trim(A_LoopField49);
         }
         if (A_Index49 == 189) {
+            useJavaScriptAllFuncsAreAsync = Trim(A_LoopField49);
+        }
+        if (A_Index49 == 190) {
             useJavaScriptAlwaysTripleEqual = Trim(A_LoopField49);
         }
     }

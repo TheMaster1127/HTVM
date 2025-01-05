@@ -102,9 +102,9 @@ keyWordArrayOfIntegersDefinition
 keyWordArrayOfStringsDefinition
 keyWordArrayOfFloatingPointNumbersDefinition
 keyWordArrayOfBooleansDefinition
-keyWordJavaScriptVar
-keyWordJavaScriptLet
-keyWordJavaScriptConst
+keyWordVar
+keyWordLet
+keyWordConst
 keyWordEnd
 keyWordGlobal
 keyWordComment
@@ -145,6 +145,7 @@ keyWordAssignDiv /=
 keyWordAssignMod %=
 keyWordAssignShiftLeft <<=
 keyWordAssignShiftRight >>=
+keyWordLogicalAssignShiftRight >>>=
 keyWordAssignBitAnd &=
 keyWordAssignBitOr |=
 keyWordAssignBitXor ^=
@@ -164,6 +165,7 @@ keyWordElseIfEndExtraInfo
 keyWordElseEndExtraInfo
 keyWordSwitchEndExtraInfo
 keyWordSwitchCaseEndExtraInfo
+keyWordSwitchDefaultEndExtraInfo
 keyWordWhileLoopEndExtraInfo
 keyWordForLoopEndExtraInfo
 keyWordLoopInfiniteEndExtraInfo
