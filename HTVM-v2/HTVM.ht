@@ -134,9 +134,9 @@ str keyWordArrayOfIntegersDefinition := ""
 str keyWordArrayOfStringsDefinition := ""
 str keyWordArrayOfFloatingPointNumbersDefinition := ""
 str keyWordArrayOfBooleansDefinition := ""
-str keyWordJavaScriptVar := ""
-str keyWordJavaScriptLet := ""
-str keyWordJavaScriptConst := ""
+str keyWordVar := ""
+str keyWordLet := ""
+str keyWordConst := ""
 str keyWordEnd := ""
 str keyWordGlobal := ""
 str keyWordComment := ""
@@ -2648,6 +2648,8 @@ Loop, % theIdNumOfThe34
 theIdNumOfThe34theVar[A_Index] := theIdNumOfThe34theVar[A_Index] . Chr(34)
 }
 
+theIdNumOfThe34theVar.add(Chr(34))
+
 
 
 code := StrReplace(code, Chr(13), "")
@@ -2977,7 +2979,16 @@ print(htCode)
 print("WAEFDGSERDGFHESDFDGFSDFX=============")
 Loop, % theIdNumOfThe34
 {
+
+if (theIdNumOfThe34 = A_Index + 1)
+{
 htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index + 1] . Chr(34))
+}
+else
+{
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index + 1])
+}
+
 }
 print(htCode)
 return htCode

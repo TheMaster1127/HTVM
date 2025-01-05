@@ -572,9 +572,9 @@ std::string keyWordArrayOfIntegersDefinition = "";
 std::string keyWordArrayOfStringsDefinition = "";
 std::string keyWordArrayOfFloatingPointNumbersDefinition = "";
 std::string keyWordArrayOfBooleansDefinition = "";
-std::string keyWordJavaScriptVar = "";
-std::string keyWordJavaScriptLet = "";
-std::string keyWordJavaScriptConst = "";
+std::string keyWordVar = "";
+std::string keyWordLet = "";
+std::string keyWordConst = "";
 std::string keyWordEnd = "";
 std::string keyWordGlobal = "";
 std::string keyWordComment = "";
@@ -654,14 +654,15 @@ std::string useParentheses = "";
 std::string usePrefixTypeForTypeDefinition = "";
 std::string usePostfixTypeForTypeDefinition = "";
 std::string usePythonicColonSyntax = "";
+std::string useCurlyBracesSyntaxForArrayDef = "";
 std::string useInJavaScriptAlwaysUseVar = "";
 std::string useJavaScriptInAfullHTMLfile = "";
 std::string useJavaScriptAmainFuncDef = "";
 std::string useJavaScriptAllFuncsAreAsync = "";
 std::string useJavaScriptAlwaysTripleEqual = "";
-std::string out_KeyWordsCommands;
-std::string outTrimCode;
-std::string htCode;
+std::string out_KeyWordsCommands = "";
+std::string outTrimCode = "";
+std::string htCode = "";
 std::string outVarOperator = "";
 int lineDone = 0;
 int areWeInAFuncFromInstructions = 0;
@@ -2001,13 +2002,13 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
             keyWordArrayOfBooleansDefinition = Trim(A_LoopField49);
         }
         if (A_Index49 == 104) {
-            keyWordJavaScriptVar = Trim(A_LoopField49);
+            keyWordVar = Trim(A_LoopField49);
         }
         if (A_Index49 == 105) {
-            keyWordJavaScriptLet = Trim(A_LoopField49);
+            keyWordLet = Trim(A_LoopField49);
         }
         if (A_Index49 == 106) {
-            keyWordJavaScriptConst = Trim(A_LoopField49);
+            keyWordConst = Trim(A_LoopField49);
         }
         if (A_Index49 == 107) {
             keyWordEnd = Trim(A_LoopField49);
@@ -2241,18 +2242,21 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
             usePythonicColonSyntax = Trim(A_LoopField49);
         }
         if (A_Index49 == 184) {
-            useInJavaScriptAlwaysUseVar = Trim(A_LoopField49);
+            useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField49);
         }
         if (A_Index49 == 185) {
-            useJavaScriptInAfullHTMLfile = Trim(A_LoopField49);
+            useInJavaScriptAlwaysUseVar = Trim(A_LoopField49);
         }
         if (A_Index49 == 186) {
-            useJavaScriptAmainFuncDef = Trim(A_LoopField49);
+            useJavaScriptInAfullHTMLfile = Trim(A_LoopField49);
         }
         if (A_Index49 == 187) {
-            useJavaScriptAllFuncsAreAsync = Trim(A_LoopField49);
+            useJavaScriptAmainFuncDef = Trim(A_LoopField49);
         }
         if (A_Index49 == 188) {
+            useJavaScriptAllFuncsAreAsync = Trim(A_LoopField49);
+        }
+        if (A_Index49 == 189) {
             useJavaScriptAlwaysTripleEqual = Trim(A_LoopField49);
         }
     }
@@ -2550,6 +2554,7 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
     for (int A_Index56 = 0; A_Index56 < theIdNumOfThe34 + 0; A_Index56++) {
         theIdNumOfThe34theVar[A_Index56] = theIdNumOfThe34theVar[A_Index56] + Chr(34);
     }
+    theIdNumOfThe34theVar.push_back(Chr(34));
     code = StrReplace(code, Chr(13), "");
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2783,7 +2788,11 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
     print(htCode);
     print("WAEFDGSERDGFHESDFDGFSDFX=============");
     for (int A_Index64 = 0; A_Index64 < theIdNumOfThe34 + 0; A_Index64++) {
-        htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" + Chr(65) + Chr(65) + STR(A_Index64 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index64 + 1] + Chr(34));
+        if (theIdNumOfThe34 == A_Index64 + 1) {
+            htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" + Chr(65) + Chr(65) + STR(A_Index64 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index64 + 1] + Chr(34));
+        } else {
+            htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" + Chr(65) + Chr(65) + STR(A_Index64 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index64 + 1]);
+        }
     }
     print(htCode);
     return htCode;
