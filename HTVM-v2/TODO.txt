@@ -2,8 +2,8 @@
 2. Handle the main stuff (main label and main function for all languages)
 3. Add the two ways to make arrays (curly braces and regular braces)
 4. Make sure it formats back to each language's style (C++ curly braces, Python indent, Lua end keyword)
-5. Handle the imports and libraries with instruction file stuff
-6. Add functions to instruction file and make it work in HTVM
+5. Add functions to instruction file and make it work in HTVM
+6. Handle the imports and libraries with instruction file stuff
 7. Handle programming blocks
 8. Handle the end extra info keyword (like VBScript's end if, end function)
 9. Handle OSP (at the bottom like you wanted)
