@@ -639,6 +639,7 @@ std::string keyWordElseIfEndExtraInfo = "";
 std::string keyWordElseEndExtraInfo = "";
 std::string keyWordSwitchEndExtraInfo = "";
 std::string keyWordSwitchCaseEndExtraInfo = "";
+std::string keyWordSwitchDefaultEndExtraInfo = "";
 std::string keyWordWhileLoopEndExtraInfo = "";
 std::string keyWordForLoopEndExtraInfo = "";
 std::string keyWordLoopInfiniteEndExtraInfo = "";
@@ -1688,9 +1689,8 @@ std::string parserOSPgloabl(std::string theSringOSPline, std::string str123) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-std::string compiler(std::string htCode, std::string instructionFile, std::string mode, std::string langToConvertToParam = "") {
+std::string compiler(std::string htCode, std::string allInstructionFile, std::string mode, std::string langToConvertToParam = "") {
     extraCodeReturned = "";
-    std::string allInstructionFile = Trim(FileRead(instructionFile));
     std::vector<std::string> items49 = LoopParseFunc(allInstructionFile, "\n", "\r");
     for (size_t A_Index49 = 0; A_Index49 < items49.size() + 0; A_Index49++) {
         std::string A_LoopField49 = items49[A_Index49 - 0];
@@ -2196,75 +2196,78 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
             keyWordSwitchCaseEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 167) {
-            keyWordWhileLoopEndExtraInfo = Trim(A_LoopField49);
+            keyWordSwitchDefaultEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 168) {
-            keyWordForLoopEndExtraInfo = Trim(A_LoopField49);
+            keyWordWhileLoopEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 169) {
-            keyWordLoopInfiniteEndExtraInfo = Trim(A_LoopField49);
+            keyWordForLoopEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 170) {
-            keyWordLoopEndExtraInfo = Trim(A_LoopField49);
+            keyWordLoopInfiniteEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 171) {
-            keyWordLoopParseEndExtraInfo = Trim(A_LoopField49);
+            keyWordLoopEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 172) {
-            keyWordFuncEndExtraInfo = Trim(A_LoopField49);
+            keyWordLoopParseEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 173) {
-            keyWordTryEndExtraInfo = Trim(A_LoopField49);
+            keyWordFuncEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 174) {
-            keyWordCatchEndExtraInfo = Trim(A_LoopField49);
+            keyWordTryEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 175) {
-            keyWordFinallyEndExtraInfo = Trim(A_LoopField49);
+            keyWordCatchEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 176) {
-            useFuncKeyWord = Trim(A_LoopField49);
+            keyWordFinallyEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 177) {
-            useCurlyBraces = Trim(A_LoopField49);
+            useFuncKeyWord = Trim(A_LoopField49);
         }
         if (A_Index49 == 178) {
-            useEnd = Trim(A_LoopField49);
+            useCurlyBraces = Trim(A_LoopField49);
         }
         if (A_Index49 == 179) {
-            useEndExtraInfo = Trim(A_LoopField49);
+            useEnd = Trim(A_LoopField49);
         }
         if (A_Index49 == 180) {
-            useSemicolon = Trim(A_LoopField49);
+            useEndExtraInfo = Trim(A_LoopField49);
         }
         if (A_Index49 == 181) {
-            useParentheses = Trim(A_LoopField49);
+            useSemicolon = Trim(A_LoopField49);
         }
         if (A_Index49 == 182) {
-            usePrefixTypeForTypeDefinition = Trim(A_LoopField49);
+            useParentheses = Trim(A_LoopField49);
         }
         if (A_Index49 == 183) {
-            usePostfixTypeForTypeDefinition = Trim(A_LoopField49);
+            usePrefixTypeForTypeDefinition = Trim(A_LoopField49);
         }
         if (A_Index49 == 184) {
-            usePythonicColonSyntax = Trim(A_LoopField49);
+            usePostfixTypeForTypeDefinition = Trim(A_LoopField49);
         }
         if (A_Index49 == 185) {
-            useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField49);
+            usePythonicColonSyntax = Trim(A_LoopField49);
         }
         if (A_Index49 == 186) {
-            useInJavaScriptAlwaysUseVar = Trim(A_LoopField49);
+            useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField49);
         }
         if (A_Index49 == 187) {
-            useJavaScriptInAfullHTMLfile = Trim(A_LoopField49);
+            useInJavaScriptAlwaysUseVar = Trim(A_LoopField49);
         }
         if (A_Index49 == 188) {
-            useJavaScriptAmainFuncDef = Trim(A_LoopField49);
+            useJavaScriptInAfullHTMLfile = Trim(A_LoopField49);
         }
         if (A_Index49 == 189) {
-            useJavaScriptAllFuncsAreAsync = Trim(A_LoopField49);
+            useJavaScriptAmainFuncDef = Trim(A_LoopField49);
         }
         if (A_Index49 == 190) {
+            useJavaScriptAllFuncsAreAsync = Trim(A_LoopField49);
+        }
+        if (A_Index49 == 191) {
             useJavaScriptAlwaysTripleEqual = Trim(A_LoopField49);
         }
     }
@@ -2385,7 +2388,6 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
     std::string code = "";
     print(htCode);
     code = htCode;
-    print(instructionFile);
     print(mode);
     print(langToConvertTo);
     print("==================================");
@@ -2783,8 +2785,6 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
     //;; main loop ;;;
     int didWeUseMainLabel = 0;
     std::string codeOutFixAndAddMainFunc = "";
-    print(code);
-    print("WAEFDGSERDGFHESDFDGFSDFX=============");
     htCode = "";
     std::vector<std::string> items63 = LoopParseFunc(code, "\n", "\r");
     for (size_t A_Index63 = 0; A_Index63 < items63.size() + 0; A_Index63++) {
@@ -2792,9 +2792,6 @@ std::string compiler(std::string htCode, std::string instructionFile, std::strin
         htCode += A_LoopField63 + "\n";
     }
     htCode = StringTrimRight(htCode, 1);
-    print("WAEFDGSERDGFHESDFDGFSDFX=============");
-    print(htCode);
-    print("WAEFDGSERDGFHESDFDGFSDFX=============");
     for (int A_Index64 = 0; A_Index64 < theIdNumOfThe34 + 0; A_Index64++) {
         if (theIdNumOfThe34 == A_Index64 + 1) {
             htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" + Chr(65) + Chr(65) + STR(A_Index64 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index64 + 1] + Chr(34));
@@ -2859,15 +2856,15 @@ void HTVMv2() {
         print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) + langToConvertTo);
         if (SubStrLastChars(argCODEfile, 4) == ".cpp" || SubStrLastChars(argCODEfile, 3) == ".py" || SubStrLastChars(argCODEfile, 3) == ".js" || SubStrLastChars(argCODEfile, 3) == ".go" || SubStrLastChars(argCODEfile, 4) == ".lua" || SubStrLastChars(argCODEfile, 3) == ".cs" || SubStrLastChars(argCODEfile, 5) == ".java" || SubStrLastChars(argCODEfile, 3) == ".kt" || SubStrLastChars(argCODEfile, 3) == ".rb" || SubStrLastChars(argCODEfile, 4) == ".nim" || SubStrLastChars(argCODEfile, 4) == ".ahk" || SubStrLastChars(argCODEfile, 6) == ".swift" || SubStrLastChars(argCODEfile, 5) == ".dart" || SubStrLastChars(argCODEfile, 3) == ".ts" || SubStrLastChars(argCODEfile, 6) == ".scala" || SubStrLastChars(argCODEfile, 7) == ".groovy") {
             if (argLangTo != "") {
-                OUTCODE = compiler(argCODE, argHTVMinstr, "notHTVM", argLangTo);
+                OUTCODE = compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", argLangTo);
             } else {
-                OUTCODE = compiler(argCODE, argHTVMinstr, "notHTVM");
+                OUTCODE = compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM");
             }
         } else {
             if (argLangTo != "") {
-                OUTCODE = compiler(argCODE, argHTVMinstr, "full", argLangTo);
+                OUTCODE = compiler(argCODE, Trim(FileRead(argHTVMinstr)), "full", argLangTo);
             } else {
-                OUTCODE = compiler(argCODE, argHTVMinstr, "full");
+                OUTCODE = compiler(argCODE, Trim(FileRead(argHTVMinstr)), "full");
             }
         }
         print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) + langToConvertTo);

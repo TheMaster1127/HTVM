@@ -1654,11 +1654,10 @@ return str123
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-func str compiler(str htCode, str instructionFile, str mode, str langToConvertToParam := "")
+func str compiler(str htCode, str allInstructionFile, str mode, str langToConvertToParam := "")
 {
 extraCodeReturned := ""
 
-str allInstructionFile := Trim(FileRead(instructionFile))
 
 Loop, Parse, allInstructionFile, `n, `r
 {
@@ -2383,7 +2382,6 @@ str code := ""
 
 print(htCode)
 code := htCode
-print(instructionFile)
 print(mode)
 print(langToConvertTo)
 print("==================================")
@@ -2974,8 +2972,6 @@ StringTrimRight, code, outCodeFixBraces, 1
 int didWeUseMainLabel := 0
 str codeOutFixAndAddMainFunc := ""
 
-print(code)
-print("WAEFDGSERDGFHESDFDGFSDFX=============")
 htCode := ""
 Loop, Parse, code, `n ,`r
 {
@@ -2983,9 +2979,7 @@ Loop, Parse, code, `n ,`r
 htCode .= A_LoopField . "`n"
 }
 StringTrimRight, htCode, htCode, 1
-print("WAEFDGSERDGFHESDFDGFSDFX=============")
-print(htCode)
-print("WAEFDGSERDGFHESDFDGFSDFX=============")
+
 Loop, % theIdNumOfThe34
 {
 
@@ -3078,11 +3072,11 @@ if (SubStrLastChars(argCODEfile, 4) = ".cpp") or (SubStrLastChars(argCODEfile, 3
 
 if (argLangTo != "")
 {
-OUTCODE := compiler(argCODE, argHTVMinstr, "notHTVM", argLangTo)
+OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", argLangTo)
 }
 else
 {
-OUTCODE := compiler(argCODE, argHTVMinstr, "notHTVM")
+OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM")
 }
 }
 else
@@ -3091,11 +3085,11 @@ else
 
 if (argLangTo != "")
 {
-OUTCODE := compiler(argCODE, argHTVMinstr, "full", argLangTo)
+OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "full", argLangTo)
 }
 else
 {
-OUTCODE := compiler(argCODE, argHTVMinstr, "full")
+OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "full")
 }
 }   
 

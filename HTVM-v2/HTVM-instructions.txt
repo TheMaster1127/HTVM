@@ -165,6 +165,7 @@ keyWordElseIfEndExtraInfo
 keyWordElseEndExtraInfo
 keyWordSwitchEndExtraInfo
 keyWordSwitchCaseEndExtraInfo
+keyWordSwitchDefaultEndExtraInfo
 keyWordWhileLoopEndExtraInfo
 keyWordForLoopEndExtraInfo
 keyWordLoopInfiniteEndExtraInfo
