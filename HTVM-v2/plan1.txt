@@ -76,7 +76,6 @@ keyWordSwitch
 keyWordSwitchCase
 keyWordSwitchDefault
 keyWordWhileLoop
-keyWordForLoop
 keyWordLoopInfinite
 keyWordLoop
 keyWordLoopParse
@@ -112,47 +111,47 @@ keyWordCommentOpenMultiLine
 keyWordCommentCloseMultiLine
 keyWordEscpaeChar
 keyWordMainLabel
-keyWordConcat .
-keyWordAdd +
-keyWordSub -
-keyWordMul *
-keyWordDiv /
-keyWordMod %
-keyWordExp **
-keyWordEqual ==
-keyWordStrictEqual ===
-keyWordNotEqual !=
-keyWordGreater >
-keyWordLess <
-keyWordGreaterEqual >=
-keyWordLessEqual <=
-keyWordAnd &&
-keyWordOr ||
-keyWordNot !
-keyWordBitAnd &
-keyWordBitOr |
-keyWordBitXor ^
-keyWordBitNot ~
-keyWordShiftLeft <<
-keyWordShiftRight >>
-keyWordShiftUnsignedRight >>>
-keyWordAssign =
-keyWordAssignAdd +=
-keyWordAssignConcat .=
-keyWordAssignSub -=
-keyWordAssignMul *=
-keyWordAssignDiv /=
-keyWordAssignMod %=
-keyWordAssignShiftLeft <<=
-keyWordAssignShiftRight >>=
-keyWordLogicalAssignShiftRight >>>=
-keyWordAssignBitAnd &=
-keyWordAssignBitOr |=
-keyWordAssignBitXor ^=
-keyWordTernary1 ?
-keyWordTernary2 :
-keyWordInc ++
-keyWordDec --
+keyWordConcat
+keyWordAdd
+keyWordSub
+keyWordMul
+keyWordDiv
+keyWordMod
+keyWordExp
+keyWordEqual
+keyWordStrictEqual
+keyWordNotEqual
+keyWordGreater
+keyWordLess
+keyWordGreaterEqual
+keyWordLessEqual
+keyWordAnd
+keyWordOr
+keyWordNot
+keyWordBitAnd
+keyWordBitOr
+keyWordBitXor
+keyWordBitNot
+keyWordShiftLeft
+keyWordShiftRight
+keyWordShiftUnsignedRight
+keyWordAssign
+keyWordAssignAdd
+keyWordAssignConcat
+keyWordAssignSub
+keyWordAssignMul
+keyWordAssignDiv
+keyWordAssignMod
+keyWordAssignShiftLeft
+keyWordAssignShiftRight
+keyWordLogicalAssignShiftRight
+keyWordAssignBitAnd
+keyWordAssignBitOr
+keyWordAssignBitXor
+keyWordTernary1
+keyWordTernary2
+keyWordInc
+keyWordDec
 AHKlikeLoopsIndexedAt
 keyWordAIndex
 keyWordALoopField

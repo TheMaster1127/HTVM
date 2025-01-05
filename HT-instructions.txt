@@ -3417,7 +3417,7 @@ def GetParams():
     return "\\n".join(params)
 
 def HTVM_v2_HTVM():
-    global noParams
+    global noParams, allArgs
     params = Trim(GetParams())
     if (params == ""):
         noParams = True

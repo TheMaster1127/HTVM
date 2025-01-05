@@ -6,9 +6,9 @@
 
 ; for python
 
-;HTVM "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HT-instructions.txt" "py"
+"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM-instructions.txt" "cpp"
 ;cd "%DIRFULLPATH%" && python "%ONLYFILENAME%.py"
 
 ; for js
-;HTVM "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HT-instructions.txt" "js"
+"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM-instructions.txt" "js"
 ;cd "%DIRFULLPATH%" && node "%ONLYFILENAME%.js"

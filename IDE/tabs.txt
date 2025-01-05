@@ -68,9 +68,10 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\htvm.htpr
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.py
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.cpp
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.py
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\js.htpr
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile638232.ht

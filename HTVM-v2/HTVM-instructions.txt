@@ -76,7 +76,6 @@ switch
 case
 default
 while
-for
 Loop
 Loop,
 Loop, Parse,
