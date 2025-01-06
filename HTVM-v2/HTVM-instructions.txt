@@ -185,7 +185,3369 @@ off
 off
 off
 on
-on
+off
 on
 on
 off
+
+
+func======================func==============
+lang: cpp
+name: HTVM_func1
+libs: null
+description: null
+
+// add the function here
+
+funcEND======================funcEND==============
+
+
+
+func======================func==============
+lang: cpp
+name: HTVM_func1
+libs: null
+description: null
+// add the function here
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: HTVM_func1
+libs: null
+description: null
+// add the function here
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: LoopParseFunc
+libs: #include <vector>|#include <string>|#include <regex>
+description: null
+// Function to escape special characters for regex
+std::string escapeRegex(const std::string& str) {
+    static const std::regex specialChars{R"([-[\]{}()*+?.,\^$|#\s])"};
+    return std::regex_replace(str, specialChars, R"(\$&)");
+}
+// Function to split a string based on delimiters
+std::vector<std::string> LoopParseFunc(const std::string& var, const std::string& delimiter1 = "", const std::string& delimiter2 = "") {
+    std::vector<std::string> items;
+    if (delimiter1.empty() && delimiter2.empty()) {
+        // If no delimiters are provided, return a list of characters
+        for (char c : var) {
+            items.push_back(std::string(1, c));
+        }
+    } else {
+        // Escape delimiters for regex
+        std::string escapedDelimiters = escapeRegex(delimiter1 + delimiter2);
+        // Construct the regular expression pattern for splitting the string
+        std::string pattern = "[" + escapedDelimiters + "]+";
+        std::regex regexPattern(pattern);
+        std::sregex_token_iterator iter(var.begin(), var.end(), regexPattern, -1);
+        std::sregex_token_iterator end;
+        while (iter != end) {
+            items.push_back(*iter++);
+        }
+    }
+    return items;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: LoopParseFunc
+libs: null
+description: null
+function LoopParseFunc(varString, delimiter1="", delimiter2="") {
+    let items;
+    if (!delimiter1 && !delimiter2) {
+        // If no delimiters are provided, return an array of characters
+        items = [...varString];
+    } else {
+        // Construct the regular expression pattern for splitting the string
+        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + delimiter2.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ']+');
+        // Split the string using the constructed pattern
+        items = varString.split(pattern);
+    }
+    return items;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: LoopParseFunc
+libs: import re
+description: null
+def LoopParseFunc(var, delimiter1="", delimiter2=""):
+    if not delimiter1 and not delimiter2:
+        # If no delimiters are provided, return a list of characters
+        items = list(var)
+    else:
+        # Construct the regular expression pattern for splitting the string
+        pattern = r'[' + re.escape(delimiter1) + re.escape(delimiter2) + r']+'
+        # Split the string using the constructed pattern
+        items = re.split(pattern, var)
+    return items
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: print
+libs: #include <iostream>|#include <string>|#include <type_traits>
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+// Print function for const char* specifically
+void print(const char* value) {
+    std::cout << std::string(value) << std::endl;  // Convert const char* to std::string
+}
+// Print function that converts all types to string if needed
+template <typename T>
+void print(const T& value) {
+    if constexpr (std::is_same_v<T, std::string>) {
+        std::cout << value << std::endl;
+    } else if constexpr (std::is_same_v<T, char>) {
+        std::cout << value << std::endl;
+    } else if constexpr (std::is_same_v<T, int>) {
+        std::cout << std::to_string(value) << std::endl;
+    } else if constexpr (std::is_same_v<T, float>) {
+        std::cout << std::to_string(value) << std::endl;
+    } else if constexpr (std::is_same_v<T, double>) {
+        std::cout << std::to_string(value) << std::endl;
+    } else if constexpr (std::is_same_v<T, size_t>) {
+        std::cout << std::to_string(value) << std::endl;
+    } else if constexpr (std::is_same_v<T, bool>) {
+        std::cout << (value ? "1" : "0") << std::endl;
+    } else {
+        std::cout << "Unsupported type" << std::endl;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+function print(value) {
+    console.log(value)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the 
+# used the print func
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+// Convert value to string
+function STR(value) {
+    if (value === null || value === undefined) {
+        return ""; // Return a string for null or undefined
+    } else if (typeof value === 'number') {
+        return value.toString();
+    } else if (typeof value === 'boolean') {
+        return value ? "1" : "0";
+    } else if (typeof value === 'string') {
+        return value; // Return the string as is
+    } else {
+        // Handle any unexpected types gracefully
+        return String(value); // Convert any other type to a string
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: INT
+libs: null
+description: string~~~INT is a function that converts a value to an integer, throwing an error if the conversion fails.~~~here is how the func looks like:~~~```~~~INT(str value)~~~```~~~
+// Convert value to integer
+function INT(value) {
+    const intValue = parseInt(value, 10);
+    if (Number.isNaN(intValue)) {
+        console.warn(`Invalid input: ${value} cannot be converted to an integer.`);
+        return 0;  // Or any other default value
+    }
+    return intValue;
+}
+
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: FLOAT
+libs: null
+description: string~~~FLOAT is a function that converts a given value to a float and throws an error if the value cannot be converted.~~~here is how the func looks like:~~~```~~~FLOAT(str value)~~~```~~~
+// Convert value to float
+function FLOAT(value) {
+    const floatValue = parseFloat(value);
+    if (isNaN(floatValue)) {
+        throw new TypeError("Cannot convert to float");
+    }
+    return floatValue;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+# Convert value to string
+def STR(value):
+    if isinstance(value, (int, float)):
+        return str(value)
+    elif isinstance(value, bool):
+        return "1" if value else "0"
+    elif isinstance(value, str):
+        return value  # If the value is already a string, return it as-is
+    else:
+        raise TypeError("Unsupported type")
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: INT
+libs: null
+description: string~~~INT is a function that converts a value to an integer, throwing an error if the conversion fails.~~~here is how the func looks like:~~~```~~~INT(str value)~~~```~~~
+# Convert value to integer
+def INT(value):
+    try:
+        # Try converting the value to an integer
+        return int(float(value))
+    except ValueError:
+        # If conversion fails, raise a TypeError
+        raise TypeError("Cannot convert to integer")
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: FLOAT
+libs: null
+description: string~~~FLOAT is a function that converts a given value to a float and throws an error if the value cannot be converted.~~~here is how the func looks like:~~~```~~~FLOAT(str value)~~~```~~~
+# Convert value to float
+def FLOAT(value):
+    try:
+        return float(value)
+    except ValueError:
+        raise TypeError("Cannot convert to float")
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: INT
+libs: #include <string>|#include <sstream>
+description: string~~~INT is a function that converts a value to an integer, throwing an error if the conversion fails.~~~here is how the func looks like:~~~```~~~INT(str value)~~~```~~~
+// Convert std::string to int
+int INT(const std::string& str) {
+    std::istringstream iss(str);
+    int value;
+    iss >> value;
+    return value;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: STR
+libs: #include <string>
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+// Convert various types to std::string
+std::string STR(int value) {
+    return std::to_string(value);
+}
+// Convert various types to std::string
+std::string STR(long long value) {
+    return std::to_string(value);
+}
+std::string STR(float value) {
+    return std::to_string(value);
+}
+std::string STR(double value) {
+    return std::to_string(value);
+}
+std::string STR(size_t value) {
+    return std::to_string(value);
+}
+std::string STR(bool value) {
+    return value ? "1" : "0";
+}
+std::string STR(const char* value) {
+    return std::string(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: FLOAT
+libs: #include <string>|#include <sstream>
+description: string~~~FLOAT is a function that converts a given value to a float and throws an error if the value cannot be converted.~~~here is how the func looks like:~~~```~~~FLOAT(str value)~~~```~~~
+// Convert std::string to float
+float FLOAT(const std::string& str) {
+    std::istringstream iss(str);
+    float value;
+    iss >> value;
+    return value;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: InStr
+libs: #include <string>
+description: string~~~InStr is a function that finds the position of the substring needle within the string haystack and returns its position (1-based index), or 0 if the substring is not found.~~~here is how the func looks like:~~~```~~~InStr(str haystack, str needle)~~~```~~~
+// Function to find the position of needle in haystack (std::string overload)
+int InStr(const std::string& haystack, const std::string& needle) {
+    size_t pos = haystack.find(needle);
+    return (pos != std::string::npos) ? static_cast<int>(pos) + 1 : 0;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Random
+libs: #include <cstdlib>|#include <ctime>|#include <random>
+description: math~~~Random is a function that generates and returns a random integer between a specified minimum and maximum value, inclusive.~~~here is how the func looks like:~~~```~~~Random(min, max)~~~```~~~
+int Random(int min, int max) {
+    // Create a random device to seed the generator
+    std::random_device rd;
+    
+    // Create a generator seeded with the random device
+    std::mt19937 gen(rd());
+    
+    // Define a distribution within the specified range
+    std::uniform_int_distribution<> dis(min, max);
+    
+    // Generate and return a random number within the specified range
+    return dis(gen);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Sleep
+libs: #include <thread>|#include <chrono>
+description: system~~~Sleep is a function that pauses execution for a specified number of milliseconds.~~~here is how the func looks like:~~~```~~~Sleep(int milliseconds)~~~```~~~
+// Function to sleep for a specified number of milliseconds
+void Sleep(int milliseconds) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: input
+libs: #include <iostream>|#include <string>
+description: io~~~input is a function that displays a prompt with the given text and returns the user's input.~~~here is how the func looks like:~~~```~~~input(str promptText)~~~```~~~
+// Function to get input from the user, similar to Python's input() function
+std::string input(const std::string& prompt) {
+    std::string userInput;
+    std::cout << prompt; // Display the prompt to the user
+    std::getline(std::cin, userInput); // Get the entire line of input
+    return userInput;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: FileRead
+libs: #include <fstream>|#include <string>|#include <filesystem>|#include <stdexcept>
+description: file~~~FileRead is a function that reads the content of a file given a path, prepends the current working directory if the path is not absolute, and returns the file content as a string.~~~here is how the func looks like:~~~```~~~FileRead(path: str)~~~```~~~
+std::string FileRead(const std::string& path) {
+    std::ifstream file;
+    std::filesystem::path full_path;
+    // Check if the file path is an absolute path
+    if (std::filesystem::path(path).is_absolute()) {
+        full_path = path;
+    } else {
+        // If it's not a full path, prepend the current working directory
+        full_path = std::filesystem::current_path() / path;
+    }
+    // Open the file
+    file.open(full_path);
+    if (!file.is_open()) {
+        throw std::runtime_error("Error: Could not open the file.");
+    }
+    // Read the file content into a string
+    std::string content;
+    std::string line;
+    while (std::getline(file, line)) {
+        content += line + '\n';
+    }
+    file.close();
+    return content;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: FileAppend
+libs: #include <fstream>|#include <iostream>|#include <string>|#include <filesystem>
+description: file~~~FileAppend is a function that appends the given content to a file at the specified path and returns a boolean indicating success or failure.~~~here is how the func looks like:~~~```~~~FileAppend(str content, str path)~~~```~~~
+bool FileAppend(const std::string& content, const std::string& path) {
+    std::ofstream file;
+    // Open the file in append mode
+    file.open(path, std::ios::app);
+    if (!file.is_open()) {
+        std::cerr << "Error: Could not open the file for appending." << std::endl;
+        return false;
+    }
+    // Append the content to the file
+    file << content;
+    // Close the file
+    file.close();
+    return true;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: FileDelete
+libs: #include <fstream>|#include <iostream>|#include <string>|#include <filesystem>
+description: file~~~FileDelete is a function that checks if a file exists at the given path and deletes it if found, returning True if the file is deleted, otherwise False.~~~here is how the func looks like:~~~```~~~FileDelete(str path)~~~```~~~
+bool FileDelete(const std::string& path) {
+    std::filesystem::path file_path(path);
+    // Check if the file exists
+    if (!std::filesystem::exists(file_path)) {
+        return false;
+    }
+    // Attempt to remove the file
+    if (!std::filesystem::remove(file_path)) {
+        return false;
+    }
+    return true;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: StrLen
+libs: #include <string>
+description: string~~~StrLen is a function that takes a string as input and returns its length as a size_t value.~~~here is how the func looks like:~~~```~~~StrLen(str)~~~```~~~
+size_t StrLen(const std::string& str) {
+    return str.length();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Asc
+libs: #include <string>
+description: string~~~Asc is a function that takes a string and returns the ASCII value of its first character, or -1 if the string is empty.~~~here is how the func looks like:~~~```~~~Asc(str s)~~~```~~~
+int Asc(const std::string& str) {
+    if (!str.empty()) {
+        return static_cast<int>(str[0]);
+    }
+    return -1; // Return -1 if the string is empty
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Abs
+libs: #include <string>
+description: math~~~Abs is a function that returns the absolute value of the provided number.~~~here is how the func looks like:~~~```~~~Abs(int value)~~~```~~~
+double Abs(double value) {
+    return std::fabs(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: ACos
+libs: #include <cmath>
+description: math~~~ACos is a function that returns the arc cosine (inverse cosine) of a number, which must be between -1 and 1.~~~here is how the func looks like:~~~```~~~ACos(float)~~~```~~~
+double ACos(double value) {
+    return std::acos(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: ASin
+libs: #include <cmath>
+description: math~~~ASin is a function that calculates the arcsine (inverse sine) of a given value, throwing an error if the value is outside the range of -1 to 1.~~~here is how the func looks like:~~~```~~~ASin(float value)~~~```~~~
+double ASin(double value) {
+    if (value < -1.0 || value > 1.0) {
+        std::cerr << "Error: Value out of range for arcsine function." << std::endl;
+        return NAN;
+    }
+    return asin(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: ATan
+libs: #include <cmath>
+description: math~~~ATan is a function that calculates the arctangent of a number, returning the angle in radians.~~~here is how the func looks like:~~~```~~~ATan(float)~~~```~~~
+double ATan(double value) {
+    return std::atan(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Ceil
+libs: #include <cmath>
+description: math~~~Ceil is a function that takes a numerical value and returns the smallest integer greater than or equal to that value.~~~here is how the func looks like:~~~```~~~Ceil(num)~~~```~~~
+double Ceil(double value) {
+    return std::ceil(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Cos
+libs: #include <cmath>
+description: math~~~Cos is a function that calculates the cosine of a given angle in radians.~~~here is how the func looks like:~~~```~~~Cos(float angle)~~~```~~~
+double Cos(double angle) {
+    return std::cos(angle);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Exp
+libs: #include <cmath>
+description: math~~~Exp is a function that takes a numeric value and returns the value of e raised to the power of the given value using the Math.exp() function.~~~here is how the func looks like:~~~```~~~Exp(value)~~~```~~~
+double Exp(double value) {
+    return std::exp(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Ln
+libs: #include <cmath>
+description: math~~~Ln is a function that calculates the natural logarithm (base e) of a given value.~~~here is how the func looks like:~~~```~~~Ln(int value)~~~```~~~
+double Ln(double value) {
+    return std::log(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Log
+libs: #include <cmath>
+description: math~~~Log is a function that calculates the base 10 logarithm of a given value.~~~here is how the func looks like:~~~```~~~Log(int value)~~~```~~~
+double Log(double value) {
+    return std::log10(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Round
+libs: #include <cmath>
+description: math~~~Round is a function that rounds a given numeric value to the nearest integer.~~~here is how the func looks like:~~~```~~~Round(num)~~~```~~~
+double Round(double value) {
+    return std::round(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Sin
+libs: #include <cmath>
+description: math~~~Sin is a function that takes an angle (in radians) and returns the sine of that angle.~~~here is how the func looks like:~~~```~~~Sin(float)~~~```~~~
+double Sin(double angle) {
+    return std::sin(angle);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Sqrt
+libs: #include <cmath>
+description: math~~~Sqrt is a function that calculates the square root of a given numeric value.~~~here is how the func looks like:~~~```~~~Sqrt(num)~~~```~~~
+double Sqrt(double value) {
+    return std::sqrt(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Tan
+libs: #include <cmath>
+description: math~~~Tan is a function that calculates the tangent of the given angle (in radians).~~~here is how the func looks like:~~~```~~~Tan(float)~~~```~~~
+double Tan(double angle) {
+    return std::tan(angle);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: SubStr
+libs: #include <string>
+description: string~~~SubStr is a function that extracts a substring from a given string, starting from a specified position and for a specified length, adjusting for edge cases like null inputs or missing parameters.~~~here is how the func looks like:~~~```~~~SubStr(str, int startPos, int length [= str.length - startPos + 1])~~~```~~~
+std::string SubStr(const std::string& str, int startPos, int length = -1) {
+    std::string result;
+    size_t strLen = str.size();
+    // Handle negative starting positions
+    if (startPos < 0) {
+        startPos += strLen;
+        if (startPos < 0) startPos = 0;
+    } else {
+        if (startPos > static_cast<int>(strLen)) return ""; // Starting position beyond string length
+        startPos -= 1; // Convert to 0-based index
+    }
+    // Handle length
+    if (length < 0) {
+        length = strLen - startPos; // Length to end of string
+    } else if (startPos + length > static_cast<int>(strLen)) {
+        length = strLen - startPos; // Adjust length to fit within the string
+    }
+    // Extract substring
+    result = str.substr(startPos, length);
+    return result;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Trim
+libs: #include <string>
+description: string~~~Trim is a function that removes leading and trailing whitespace from the input string.~~~here is how the func looks like:~~~```~~~Trim(string)~~~```~~~
+std::string Trim(const std::string &inputString) {
+    if (inputString.empty()) return "";
+    size_t start = inputString.find_first_not_of(" \t\n\r\f\v");
+    size_t end = inputString.find_last_not_of(" \t\n\r\f\v");
+    return (start == std::string::npos) ? "" : inputString.substr(start, end - start + 1);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: StrReplace
+libs: #include <string>
+description: string~~~StrReplace is a function that takes an original string, a substring to find, and a substring to replace it with, returning the modified string.~~~here is how the func looks like:~~~```~~~StrReplace(str originalString, str find, str replaceWith)~~~```~~~
+std::string StrReplace(const std::string &originalString, const std::string &find, const std::string &replaceWith) {
+    std::string result = originalString;
+    size_t pos = 0;
+    while ((pos = result.find(find, pos)) != std::string::npos) {
+        result.replace(pos, find.length(), replaceWith);
+        pos += replaceWith.length();
+    }
+    return result;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: StringTrimLeft
+libs: #include <string>
+description: string~~~StringTrimLeft is a function that trims a specified number of characters from the left side of a given string.~~~here is how the func looks like:~~~```~~~StringTrimLeft(str input, int numChars)~~~```~~~
+std::string StringTrimLeft(const std::string &input, int numChars) {
+    return (numChars <= input.length()) ? input.substr(numChars) : input;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: StringTrimRight
+libs: #include <string>
+description: string~~~StringTrimRight is a function that trims a specified number of characters from the right side of a given string.~~~here is how the func looks like:~~~```~~~StringTrimRight(str input, int numChars)~~~```~~~
+std::string StringTrimRight(const std::string &input, int numChars) {
+    return (numChars <= input.length()) ? input.substr(0, input.length() - numChars) : input;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: StrLower
+libs: #include <algorithm>|#include <cctype>|#include <string>
+description: string~~~StrLower is a function that takes a string as input and converts all characters to lowercase.~~~here is how the func looks like:~~~```~~~StrLower(string)~~~```~~~
+std::string StrLower(const std::string &string) {
+    std::string result = string;
+    std::transform(result.begin(), result.end(), result.begin(), ::tolower);
+    return result;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: StrSplit
+libs: #include <string>
+description: string~~~StrSplit is a function that splits an input string by a specified delimiter and returns the part at the specified index, or an empty string if the index is out of range.~~~here is how the func looks like:~~~```~~~StrSplit(str inputStr, str delimiter, int num)~~~```~~~
+std::string StrSplit(const std::string &inputStr, const std::string &delimiter, int num) {
+    size_t start = 0, end = 0, count = 0;
+    while ((end = inputStr.find(delimiter, start)) != std::string::npos) {
+        if (++count == num) {
+            return inputStr.substr(start, end - start);
+        }
+        start = end + delimiter.length();
+    }
+    if (count + 1 == num) {
+        return inputStr.substr(start);
+    }
+    return "";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Chr
+libs: #include <string>
+description: string~~~Chr is a function that returns the character corresponding to the given Unicode code point or an empty string if the number is out of range.~~~here is how the func looks like:~~~```~~~Chr(int number)~~~```~~~
+std::string Chr(int number) {
+    return (number >= 0 && number <= 0x10FFFF) ? std::string(1, static_cast<char>(number)) : "";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Mod
+libs: #include <string>
+description: math~~~Mod is a function that returns the remainder when the dividend is divided by the divisor.~~~here is how the func looks like:~~~```~~~Mod(int dividend, int divisor)~~~```~~~
+int Mod(int dividend, int divisor) {
+    return dividend % divisor;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Floor
+libs: #include <cmath>|#include <limits>
+description: math~~~Floor is a function that returns the largest integer less than or equal to a given number, or NaN if the input is not a number.~~~here is how the func looks like:~~~```~~~Floor(num)~~~```~~~
+double Floor(double num) {
+    if (std::isnan(num)) {
+        return std::numeric_limits<double>::quiet_NaN();
+    }
+    return std::floor(num);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: Sort
+libs: #include <string>|#include <vector>|#include <algorithm>|#include <sstream>|#include <unordered_set>|#include <cctype>
+description: string~~~Sort is a function that takes a string and optional options to sort its elements based on various criteria such as numeric, random, alphabetical, case sensitivity, and more, with support for delimiters and unique filtering.~~~here is how the func looks like:~~~```~~~Sort(str varName, [str options = ""])~~~```~~~
+// Helper function to trim whitespace from both ends of a string
+std::string trim(const std::string& str) {
+    const std::string whitespace = " \t\n\r\f\v";
+    size_t start = str.find_first_not_of(whitespace);
+    if (start == std::string::npos) return "";
+    size_t end = str.find_last_not_of(whitespace);
+    return str.substr(start, end - start + 1);
+}
+// Helper function to convert string to lowercase
+std::string toLower(const std::string& str) {
+    std::string lowerStr = str;
+    std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), ::tolower);
+    return lowerStr;
+}
+// Function to sort case-insensitively but ensure lowercase items come last
+bool customSortCompare(const std::string& a, const std::string& b) {
+    std::string lowerA = toLower(a);
+    std::string lowerB = toLower(b);
+    if (lowerA == lowerB) {
+        // If case-insensitive equivalent, ensure lowercase items come last
+        if (std::islower(a[0]) && std::isupper(b[0])) {
+            return false; // a should come after b
+        } else if (std::isupper(a[0]) && std::islower(b[0])) {
+            return true; // a should come before b
+        }
+        return a < b; // Otherwise, sort lexicographically
+    }
+    return lowerA < lowerB;
+}
+// Function to remove exact duplicates (case-sensitive)
+std::vector<std::string> removeExactDuplicates(const std::vector<std::string>& items) {
+    std::unordered_set<std::string> seen;
+    std::vector<std::string> uniqueItems;
+    for (const auto& item : items) {
+        if (seen.find(item) == seen.end()) {
+            seen.insert(item);
+            uniqueItems.push_back(item);
+        }
+    }
+    return uniqueItems;
+}
+// Main sorting function
+std::string Sort(const std::string& input, const std::string& options) {
+    std::string delimiter = "\n";
+    bool caseInsensitive = options.find('C') != std::string::npos;
+    bool unique = options.find('U') != std::string::npos;
+    bool reverse = options.find('R') != std::string::npos;
+    bool random = options.find("Random") != std::string::npos;
+    bool numeric = options.find('N') != std::string::npos;
+    // Custom delimiter
+    if (options.find('D') != std::string::npos) {
+        size_t delimiterPos = options.find('D') + 1;
+        if (delimiterPos < options.size()) {
+            delimiter = options.substr(delimiterPos, 1);
+        }
+    }
+    // Split input by delimiter
+    std::vector<std::string> items;
+    std::stringstream ss(input);
+    std::string item;
+    while (std::getline(ss, item, delimiter[0])) {
+        item = trim(item);  // Trim whitespace from each item
+        if (!item.empty()) {
+            items.push_back(item);
+        }
+    }
+    // Sort items
+    if (numeric) {
+        std::sort(items.begin(), items.end(), [](const std::string& a, const std::string& b) {
+            return std::stoi(a) < std::stoi(b);
+        });
+    } else {
+        std::sort(items.begin(), items.end(), customSortCompare);
+    }
+    // Remove exact duplicates if needed
+    if (unique) {
+        items = removeExactDuplicates(items);
+    }
+    // Apply reverse order if needed
+    if (reverse) {
+        std::reverse(items.begin(), items.end());
+    }
+    // Separate uppercase and lowercase items
+    std::vector<std::string> uppercaseItems;
+    std::vector<std::string> lowercaseItems;
+    
+    for (const auto& item : items) {
+        if (std::isupper(item[0])) {
+            uppercaseItems.push_back(item);
+        } else {
+            lowercaseItems.push_back(item);
+        }
+    }
+    // Combine sorted uppercase items with sorted lowercase items
+    std::string result;
+    for (const auto& item : uppercaseItems) {
+        result += item;
+        result += delimiter;
+    }
+    for (const auto& item : lowercaseItems) {
+        result += item;
+        if (&item != &lowercaseItems.back()) {
+            result += delimiter;
+        }
+    }
+    // Remove trailing delimiter if necessary
+    if (!result.empty() && result.back() == delimiter[0]) {
+        result.pop_back();
+    }
+    return result;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: getDataFromAPI
+libs: #include <string>|#include <array>|#include <memory>|#include <stdexcept>| #include <cstdio>
+description: io~~~getDataFromAPI is a function that asynchronously fetches JSON data from a given URL and returns it, handling errors and non-OK responses.~~~here is how the func looks like:~~~```~~~getDataFromAPI(str url)~~~```~~~
+// Function to run a system command
+std::string getDataFromAPIRunCMD(const std::string& command) {
+    std::array<char, 128> buffer;
+    std::string result;
+#if defined(_WIN32)
+    std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(command.c_str(), "r"), _pclose);
+#else
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"), pclose);
+#endif
+    if (!pipe) {
+        throw std::runtime_error("popen() failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+    return result;
+}
+// Function to fetch data from API
+std::string getDataFromAPI(const std::string& url) {
+    std::string command = "curl -s " + url;
+    return getDataFromAPIRunCMD(command);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: FileCreateDir
+libs: #include <filesystem>|#include <system_error>
+description: file~~~FileCreateDir is a function that checks if a directory exists, and if not, it creates the directory.~~~here is how the func looks like:~~~```~~~FileCreateDir(str directory)~~~```~~~
+// Creates a directory if it does not exist
+void FileCreateDir(const std::string& path) {
+    try {
+        std::filesystem::create_directory(path);
+    } catch (const std::filesystem::filesystem_error&) {
+        // Handle errors silently
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: FileRemoveDir
+libs: #include <filesystem>|#include <system_error>
+description: file~~~FileRemoveDir is a function that removes a directory and its contents if the directory exists.~~~here is how the func looks like:~~~```~~~FileRemoveDir(str directory)~~~```~~~
+// Removes a directory if it exists
+void FileRemoveDir(const std::string& path) {
+    try {
+        if (std::filesystem::exists(path) && std::filesystem::is_directory(path)) {
+            std::filesystem::remove_all(path);
+        }
+    } catch (const std::filesystem::filesystem_error&) {
+        // Handle errors silently
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: FileExist
+libs: #include <filesystem>|#include <system_error>
+description: file~~~FileExist is a function that checks if a file or directory exists at the specified path.~~~here is how the func looks like:~~~```~~~FileExist(str path)~~~```~~~
+// Checks if a file or directory exists
+bool FileExist(const std::string& path) {
+    try {
+        return std::filesystem::exists(path);
+    } catch (const std::filesystem::filesystem_error&) {
+        // Handle errors silently; return false if an error occurs
+        return false;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: isWindows
+libs: #include <iostream>
+description: other~~~isWindows is a function that checks if the current operating system is Windows by comparing the system name to "windows".~~~here is how the func looks like:~~~```~~~isWindows()~~~```~~~
+// Function to check if the operating system is Windows
+bool isWindows() {
+    #ifdef _WIN32
+        return true;
+    #else
+        return false;
+    #endif
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: GetParams
+libs: #include <iostream>|#include <vector>|#include <string>|#include <filesystem>
+description: io~~~GetParams is a function that retrieves command line arguments, checks if they correspond to existing paths, and returns them as absolute paths in new lines, or as they are if they do not exist.~~~here is how the func looks like:~~~```~~~GetParams()~~~```~~~
+#ifdef _WIN32
+    #define ARGC __argc
+    #define ARGV __argv
+#else
+    extern char **environ;
+    int ARGC;
+    char** ARGV;
+    __attribute__((constructor)) void init_args(int argc, char* argv[], char* envp[]) {
+        ARGC = argc;
+        ARGV = argv;
+    }
+#endif
+std::string GetParams() {
+    std::vector<std::string> params;
+    for (int i = 1; i < ARGC; ++i) {
+        std::string arg = ARGV[i];
+        if (std::filesystem::exists(arg)) {
+            arg = std::filesystem::absolute(arg).string();
+        }
+        params.push_back(arg);
+    }
+    std::string result;
+    for (const auto& param : params) {
+        result += param + "\n";
+    }
+    return result;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: BuildInVars
+libs: #include <iostream>|#include <chrono>|#include <ctime>|#include <sstream>|#include <iomanip>|#include <string>|#include <limits>
+description: system~~~BuildInVars is a function that retrieves various system-related values or states, including screen dimensions, timestamps, key presses, and more, based on the specified variable name.~~~here is how the func looks like:~~~```~~~BuildInVars(str varName)~~~```~~~
+// Store the start time as a global variable
+std::chrono::time_point<std::chrono::steady_clock> programStartTime = std::chrono::steady_clock::now();
+// Function to get built-in variables
+std::string BuildInVars(const std::string& varName) {
+    auto now = std::chrono::system_clock::now();
+    std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
+    std::tm* localTime = std::localtime(&currentTime);
+    std::ostringstream oss;
+    if (varName == "A_TickCount") {
+        // Calculate milliseconds since program start
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - programStartTime).count();
+        if (duration > std::numeric_limits<int>::max()) {
+            // Handle overflow case
+            return "Value too large";
+        } else {
+            return std::to_string(static_cast<int>(duration));
+        }
+    } else if (varName == "A_Now") {
+        oss << std::put_time(localTime, "%Y-%m-%d %H:%M:%S");
+    } else if (varName == "A_YYYY") {
+        oss << std::put_time(localTime, "%Y");
+    } else if (varName == "A_MM") {
+        oss << std::put_time(localTime, "%m");
+    } else if (varName == "A_DD") {
+        oss << std::put_time(localTime, "%d");
+    } else if (varName == "A_MMMM") {
+        oss << std::put_time(localTime, "%B");
+    } else if (varName == "A_MMM") {
+        oss << std::put_time(localTime, "%b");
+    } else if (varName == "A_DDDD") {
+        oss << std::put_time(localTime, "%A");
+    } else if (varName == "A_DDD") {
+        oss << std::put_time(localTime, "%a");
+    } else if (varName == "A_Hour") {
+        oss << std::put_time(localTime, "%H");
+    } else if (varName == "A_Min") {
+        oss << std::put_time(localTime, "%M");
+    } else if (varName == "A_Sec") {
+        oss << std::put_time(localTime, "%S");
+    } else if (varName == "A_Space") {
+        return " ";
+    } else if (varName == "A_Tab") {
+        return "\t";
+    } else {
+        return "";
+    }
+    return oss.str();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: RegExReplace
+libs: #include <string>|#include <regex>|#include <iostream>
+description: string~~~RegExReplace is a function that performs a regular expression-based replacement on a string using a given pattern and replacement string.~~~here is how the func looks like:~~~```~~~RegExReplace(str inputStr, str regexPattern, str replacement)~~~```~~~
+std::string RegExReplace(const std::string& inputStr, const std::string& regexPattern, const std::string& replacement) {
+    std::regex re(regexPattern, std::regex_constants::ECMAScript | std::regex_constants::multiline);
+    return std::regex_replace(inputStr, re, replacement);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: RunCMD
+libs: #include <iostream>|#include <stdexcept>|#include <string>|#include <array>|#include <memory>|#include <cstdio>
+description: io~~~RunCMD is a function that executes a shell command and captures its output or errors.~~~here is how the func looks like:~~~```~~~RunCMD(str command)~~~```~~~
+std::string RunCMD(const std::string& command) {
+    std::array<char, 128> buffer;
+    std::string result;
+#if defined(_WIN32)
+    std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(command.c_str(), "r"), _pclose);
+#else
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"), pclose);
+#endif
+    if (!pipe) {
+        throw std::runtime_error("popen() failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+    return result;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: RegExMatch
+libs: #include <regex>|#include <string>|#include <iostream>
+description: string~~~RegExMatch is a function that returns the 1-based index of the first regex match or 0 if no match is found.~~~here is how the func looks like:~~~```~~~RegExMatch(str haystack, str needle)~~~```~~~
+int RegExMatch(const std::string& haystack, const std::string& needle) {
+    std::regex re(needle);
+    std::smatch match;
+    if (std::regex_search(haystack, match, re)) {
+        return match.position(0) + 1; // 1-based index
+    }
+    return 0; // No match
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: ExitApp
+libs: #include <iostream>|#include <cstdlib>
+description: system~~~ExitApp is a function that terminates the application immediately.~~~here is how the func looks like:~~~```~~~ExitApp()~~~```~~~
+void ExitApp() {
+    std::exit(0);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: InStr
+libs: null
+description: string~~~InStr is a function that finds the position of the substring needle within the string haystack and returns its position (1-based index), or 0 if the substring is not found.~~~here is how the func looks like:~~~```~~~InStr(str haystack, str needle)~~~```~~~
+# Function to find the position of needle in haystack (str overload)
+def InStr(haystack: str, needle: str) -> int:
+    pos = haystack.find(needle)
+    return pos + 1 if pos != -1 else 0
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: InStr
+libs: null
+description: string~~~InStr is a function that finds the position of the substring needle within the string haystack and returns its position (1-based index), or 0 if the substring is not found.~~~here is how the func looks like:~~~```~~~InStr(str haystack, str needle)~~~```~~~
+// Function to find the position of needle in haystack (string overload)
+function InStr(haystack, needle) {
+    const pos = haystack.indexOf(needle);
+    return (pos !== -1) ? pos + 1 : 0;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Random
+libs: import random
+description: math~~~Random is a function that generates and returns a random integer between a specified minimum and maximum value, inclusive.~~~here is how the func looks like:~~~```~~~Random(min, max)~~~```~~~
+def Random(min: int, max: int) -> int:
+    # Generate and return a random number within the specified range
+    return random.randint(min, max)
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Random
+libs: null
+description: math~~~Random is a function that generates and returns a random integer between a specified minimum and maximum value, inclusive.~~~here is how the func looks like:~~~```~~~Random(min, max)~~~```~~~
+// Function to generate a random integer between min and max (inclusive)
+function Random(min, max) {
+    // Generate and return a random number within the specified range
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Sleep
+libs: import time
+description: system~~~Sleep is a function that pauses execution for a specified number of milliseconds.~~~here is how the func looks like:~~~```~~~Sleep(int milliseconds)~~~```~~~
+def Sleep(milliseconds: int) -> None:
+    # Sleep for the specified number of milliseconds
+    time.sleep(milliseconds / 1000)
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Sleep
+libs: null
+description: system~~~Sleep is a function that pauses execution for a specified number of milliseconds.~~~here is how the func looks like:~~~```~~~Sleep(int milliseconds)~~~```~~~
+function Sleep(milliseconds) {
+    // Sleep for the specified number of milliseconds
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: input
+libs: null
+description: io~~~input is a function that displays a prompt with the given text and returns the user's input.~~~here is how the func looks like:~~~```~~~input(str promptText)~~~```~~~
+// Function to simulate input() in JavaScript
+function input(promptText) {
+    // Display the prompt and get user input
+    return prompt(promptText);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: input
+libs: null
+description: io~~~input is a function that displays a prompt with the given text and returns the user's input.~~~here is how the func looks like:~~~```~~~input(str promptText)~~~```~~~
+# used imput func
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: FileAppendJs
+libs: null
+description: file~~~FileAppendJs is a function that appends content to a file by creating a Blob, generating a download link, and triggering a download with the specified filename.~~~here is how the func looks like:~~~```~~~FileAppendJs(str content, str filename)~~~```~~~
+function FileAppendJs(content, filename) {
+    // Create a Blob from the content
+    const blob = new Blob([content], { type: 'text/plain' });
+    const link = document.createElement('a');
+    // Set the download attribute with the filename
+    link.download = filename;
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    // Clean up the URL object
+    URL.revokeObjectURL(link.href);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: FileDelete
+libs: import os
+description: file~~~FileDelete is a function that checks if a file exists at the given path and deletes it if found, returning True if the file is deleted, otherwise False.~~~here is how the func looks like:~~~```~~~FileDelete(str path)~~~```~~~
+def FileDelete(path: str) -> bool:
+    # Check if the file exists and remove it
+    if os.path.exists(path):
+        os.remove(path)
+        return True
+    return False
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: FileAppend
+libs: null
+description: file~~~FileAppend is a function that appends the given content to a file at the specified path and returns a boolean indicating success or failure.~~~here is how the func looks like:~~~```~~~FileAppend(str content, str path)~~~```~~~
+def FileAppend(content: str, path: str) -> bool:
+    # Open the file in append mode and write the content
+    try:
+        with open(path, 'a') as file:
+            file.write(content)
+        return True
+    except IOError:
+        print("Error: Could not open the file for appending.")
+        return False
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: FileRead
+libs: import os
+description: file~~~FileRead is a function that reads the content of a file given a path, prepends the current working directory if the path is not absolute, and returns the file content as a string.~~~here is how the func looks like:~~~```~~~FileRead(path: str)~~~```~~~
+def FileRead(path: str) -> str:
+    # Check if the path is absolute, if not prepend the current working directory
+    if not os.path.isabs(path):
+        path = os.path.join(os.getcwd(), path)
+    # Open and read the file content
+    with open(path, 'r') as file:
+        return file.read()
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: StrLen
+libs: null
+description: string~~~StrLen is a function that takes a string as input and returns its length as a size_t value.~~~here is how the func looks like:~~~```~~~StrLen(str)~~~```~~~
+def StrLen(s: str) -> int:
+    # Return the length of the given string
+    return len(s)
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: StrLen
+libs: null
+description: string~~~StrLen is a function that takes a string as input and returns its length as a size_t value.~~~here is how the func looks like:~~~```~~~StrLen(str)~~~```~~~
+function StrLen(s) {
+    // Return the length of the given string
+    return s.length;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Chr
+libs: null
+description: string~~~Chr is a function that returns the character corresponding to the given Unicode code point or an empty string if the number is out of range.~~~here is how the func looks like:~~~```~~~Chr(int number)~~~```~~~
+def Chr(number: int) -> str:
+    # Return the character corresponding to the Unicode code point, or an empty string if out of range
+    return chr(number) if 0 <= number <= 0x10FFFF else ""
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Chr
+libs: null
+description: string~~~Chr is a function that returns the character corresponding to the given Unicode code point or an empty string if the number is out of range.~~~here is how the func looks like:~~~```~~~Chr(int number)~~~```~~~
+function Chr(number) {
+    // Return the character corresponding to the Unicode code point, or an empty string if out of range
+    return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Asc
+libs: null
+description: string~~~Asc is a function that takes a string and returns the ASCII value of its first character, or -1 if the string is empty.~~~here is how the func looks like:~~~```~~~Asc(str s)~~~```~~~
+def Asc(s: str) -> int:
+    return ord(s[0]) if s else -1
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Abs
+libs: null
+description: math~~~Abs is a function that returns the absolute value of the provided number.~~~here is how the func looks like:~~~```~~~Abs(int value)~~~```~~~
+def Abs(value: float) -> float:
+    return abs(value)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: ACos
+libs: import math
+description: math~~~ACos is a function that returns the arc cosine (inverse cosine) of a number, which must be between -1 and 1.~~~here is how the func looks like:~~~```~~~ACos(float)~~~```~~~
+def ACos(value: float) -> float:
+    return math.acos(value)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: ASin
+libs: import math
+description: math~~~ASin is a function that calculates the arcsine (inverse sine) of a given value, throwing an error if the value is outside the range of -1 to 1.~~~here is how the func looks like:~~~```~~~ASin(float value)~~~```~~~
+def ASin(value: float) -> float:
+    if value < -1.0 or value > 1.0:
+        raise ValueError("Error: Value out of range for arcsine function.")
+    return math.asin(value)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: ATan
+libs: import math
+description: math~~~ATan is a function that calculates the arctangent of a number, returning the angle in radians.~~~here is how the func looks like:~~~```~~~ATan(float)~~~```~~~
+def ATan(value: float) -> float:
+    return math.atan(value)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Ceil
+libs: import math
+description: math~~~Ceil is a function that takes a numerical value and returns the smallest integer greater than or equal to that value.~~~here is how the func looks like:~~~```~~~Ceil(num)~~~```~~~
+def Ceil(value: float) -> float:
+    return math.ceil(value)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Cos
+libs: import math
+description: math~~~Cos is a function that calculates the cosine of a given angle in radians.~~~here is how the func looks like:~~~```~~~Cos(float angle)~~~```~~~
+def Cos(angle: float) -> float:
+    return math.cos(angle)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Exp
+libs: import math
+description: math~~~Exp is a function that takes a numeric value and returns the value of e raised to the power of the given value using the Math.exp() function.~~~here is how the func looks like:~~~```~~~Exp(value)~~~```~~~
+def Exp(value: float) -> float:
+    return math.exp(value)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Ln
+libs: import math
+description: math~~~Ln is a function that calculates the natural logarithm (base e) of a given value.~~~here is how the func looks like:~~~```~~~Ln(int value)~~~```~~~
+def Ln(value: float) -> float:
+    return math.log(value)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Log
+libs: import math
+description: math~~~Log is a function that calculates the base 10 logarithm of a given value.~~~here is how the func looks like:~~~```~~~Log(int value)~~~```~~~
+def Log(value: float) -> float:
+    return math.log10(value)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Round
+libs: null
+description: math~~~Round is a function that rounds a given numeric value to the nearest integer.~~~here is how the func looks like:~~~```~~~Round(num)~~~```~~~
+def Round(value: float) -> float:
+    return round(value)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Sin
+libs: import math
+description: math~~~Sin is a function that takes an angle (in radians) and returns the sine of that angle.~~~here is how the func looks like:~~~```~~~Sin(float)~~~```~~~
+def Sin(angle: float) -> float:
+    return math.sin(angle)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Sqrt
+libs: import math
+description: math~~~Sqrt is a function that calculates the square root of a given numeric value.~~~here is how the func looks like:~~~```~~~Sqrt(num)~~~```~~~
+def Sqrt(value: float) -> float:
+    return math.sqrt(value)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Tan
+libs: import math
+description: math~~~Tan is a function that calculates the tangent of the given angle (in radians).~~~here is how the func looks like:~~~```~~~Tan(float)~~~```~~~
+def Tan(angle: float) -> float:
+    return math.tan(angle)
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Asc
+libs: null
+description: string~~~Asc is a function that takes a string and returns the ASCII value of its first character, or -1 if the string is empty.~~~here is how the func looks like:~~~```~~~Asc(str s)~~~```~~~
+function Asc(s) {
+    return s.length > 0 ? s.charCodeAt(0) : -1;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Abs
+libs: import math
+description: math~~~Abs is a function that returns the absolute value of the provided number.~~~here is how the func looks like:~~~```~~~Abs(int value)~~~```~~~
+function Abs(value) {
+    return Math.abs(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: ACos
+libs: import math
+description: math~~~ACos is a function that returns the arc cosine (inverse cosine) of a number, which must be between -1 and 1.~~~here is how the func looks like:~~~```~~~ACos(float)~~~```~~~
+function ACos(value) {
+    return Math.acos(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: ASin
+libs: null
+description: math~~~ASin is a function that calculates the arcsine (inverse sine) of a given value, throwing an error if the value is outside the range of -1 to 1.~~~here is how the func looks like:~~~```~~~ASin(float value)~~~```~~~
+function ASin(value) {
+    if (value < -1.0 || value > 1.0) {
+        throw new RangeError("Error: Value out of range for arcsine function.");
+    }
+    return Math.asin(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: ATan
+libs: null
+description: math~~~ATan is a function that calculates the arctangent of a number, returning the angle in radians.~~~here is how the func looks like:~~~```~~~ATan(float)~~~```~~~
+function ATan(value) {
+    return Math.atan(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Ceil
+libs: null
+description: math~~~Ceil is a function that takes a numerical value and returns the smallest integer greater than or equal to that value.~~~here is how the func looks like:~~~```~~~Ceil(num)~~~```~~~
+function Ceil(value) {
+    return Math.ceil(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Cos
+libs: null
+description: math~~~Cos is a function that calculates the cosine of a given angle in radians.~~~here is how the func looks like:~~~```~~~Cos(float angle)~~~```~~~
+function Cos(angle) {
+    return Math.cos(angle);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Exp
+libs: null
+description: math~~~Exp is a function that takes a numeric value and returns the value of e raised to the power of the given value using the Math.exp() function.~~~here is how the func looks like:~~~```~~~Exp(value)~~~```~~~
+function Exp(value) {
+    return Math.exp(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Ln
+libs: null
+description: math~~~Ln is a function that calculates the natural logarithm (base e) of a given value.~~~here is how the func looks like:~~~```~~~Ln(int value)~~~```~~~
+function Ln(value) {
+    return Math.log(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Log
+libs: null
+description: math~~~Log is a function that calculates the base 10 logarithm of a given value.~~~here is how the func looks like:~~~```~~~Log(int value)~~~```~~~
+function Log(value) {
+    return Math.log10(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Round
+libs: null
+description: math~~~Round is a function that rounds a given numeric value to the nearest integer.~~~here is how the func looks like:~~~```~~~Round(num)~~~```~~~
+function Round(value) {
+    return Math.round(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Sin
+libs: null
+description: math~~~Sin is a function that takes an angle (in radians) and returns the sine of that angle.~~~here is how the func looks like:~~~```~~~Sin(float)~~~```~~~
+function Sin(angle) {
+    return Math.sin(angle);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Sqrt
+libs: null
+description: math~~~Sqrt is a function that calculates the square root of a given numeric value.~~~here is how the func looks like:~~~```~~~Sqrt(num)~~~```~~~
+function Sqrt(value) {
+    return Math.sqrt(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Tan
+libs: null
+description: math~~~Tan is a function that calculates the tangent of the given angle (in radians).~~~here is how the func looks like:~~~```~~~Tan(float)~~~```~~~
+function Tan(angle) {
+    return Math.tan(angle);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: SubStr
+libs: null
+description: string~~~SubStr is a function that extracts a substring from a given string, starting from a specified position and for a specified length, adjusting for edge cases like null inputs or missing parameters.~~~here is how the func looks like:~~~```~~~SubStr(str, int startPos, int length [= str.length - startPos + 1])~~~```~~~
+def SubStr(s, startPos, length=None):
+    if s is None or s == "":
+        return ""
+    if length is None or length == "":
+        length = len(s) - startPos + 1
+    if startPos < 1:
+        startPos = len(s) + startPos
+    return s[startPos - 1:startPos - 1 + length]
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: SubStr
+libs: null
+description: string~~~SubStr is a function that extracts a substring from a given string, starting from a specified position and for a specified length, adjusting for edge cases like null inputs or missing parameters.~~~here is how the func looks like:~~~```~~~SubStr(str, int startPos, int length [= str.length - startPos + 1])~~~```~~~
+function SubStr(str, startPos, length) {
+    // If str is null or undefined, return an empty string
+    if (str === null || str === undefined) {
+        return "";
+    }
+    // If length is not provided or is blank, default to "all characters"
+    if (length === undefined || length === "") {
+        length = str.length - startPos + 1;
+    }
+    // If startPos is less than 1, adjust it to start from the end of the string
+    if (startPos < 1) {
+        startPos = str.length + startPos;
+    }
+    // Extract the substring based on startPos and length
+    return str.substr(startPos - 1, length);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Trim
+libs: null
+description: string~~~Trim is a function that removes leading and trailing whitespace from the input string.~~~here is how the func looks like:~~~```~~~Trim(string)~~~```~~~
+def Trim(inputString):
+    return inputString.strip() if inputString else ""
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: StrReplace
+libs: null
+description: string~~~StrReplace is a function that takes an original string, a substring to find, and a substring to replace it with, returning the modified string.~~~here is how the func looks like:~~~```~~~StrReplace(str originalString, str find, str replaceWith)~~~```~~~
+def StrReplace(originalString, find, replaceWith):
+    return originalString.replace(find, replaceWith)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: StringTrimLeft
+libs: null
+description: string~~~StringTrimLeft is a function that trims a specified number of characters from the left side of a given string.~~~here is how the func looks like:~~~```~~~StringTrimLeft(str input, int numChars)~~~```~~~
+def StringTrimLeft(input, numChars):
+    return input[numChars:] if numChars <= len(input) else input
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: StringTrimRight
+libs: null
+description: string~~~StringTrimRight is a function that trims a specified number of characters from the right side of a given string.~~~here is how the func looks like:~~~```~~~StringTrimRight(str input, int numChars)~~~```~~~
+def StringTrimRight(input, numChars):
+    return input[:-numChars] if numChars <= len(input) else input
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: StrLower
+libs: null
+description: string~~~StrLower is a function that takes a string as input and converts all characters to lowercase.~~~here is how the func looks like:~~~```~~~StrLower(string)~~~```~~~
+def StrLower(string):
+    return string.lower()
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: StrSplit
+libs: null
+description: string~~~StrSplit is a function that splits an input string by a specified delimiter and returns the part at the specified index, or an empty string if the index is out of range.~~~here is how the func looks like:~~~```~~~StrSplit(str inputStr, str delimiter, int num)~~~```~~~
+def StrSplit(inputStr, delimiter, num):
+    parts = inputStr.split(delimiter)
+    return parts[num - 1] if 0 < num <= len(parts) else ""
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Mod
+libs: null
+description: math~~~Mod is a function that returns the remainder when the dividend is divided by the divisor.~~~here is how the func looks like:~~~```~~~Mod(int dividend, int divisor)~~~```~~~
+def Mod(dividend, divisor):
+    return dividend % divisor
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Floor
+libs: import math
+description: math~~~Floor is a function that returns the largest integer less than or equal to a given number, or NaN if the input is not a number.~~~here is how the func looks like:~~~```~~~Floor(num)~~~```~~~
+def Floor(num):
+    return math.floor(num) if not math.isnan(num) else float('nan')
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Trim
+libs: null
+description: string~~~Trim is a function that removes leading and trailing whitespace from the input string.~~~here is how the func looks like:~~~```~~~Trim(string)~~~```~~~
+function Trim(inputString) {
+    return inputString ? inputString.trim() : "";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: StrReplace
+libs: null
+description: string~~~StrReplace is a function that takes an original string, a substring to find, and a substring to replace it with, returning the modified string.~~~here is how the func looks like:~~~```~~~StrReplace(str originalString, str find, str replaceWith)~~~```~~~
+function StrReplace(originalString, find, replaceWith) {
+    return originalString.split(find).join(replaceWith);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: StringTrimLeft
+libs: null
+description: string~~~StringTrimLeft is a function that trims a specified number of characters from the left side of a given string.~~~here is how the func looks like:~~~```~~~StringTrimLeft(str input, int numChars)~~~```~~~
+function StringTrimLeft(input, numChars) {
+    return (numChars <= input.length) ? input.substring(numChars) : input;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: StringTrimRight
+libs: null
+description: string~~~StringTrimRight is a function that trims a specified number of characters from the right side of a given string.~~~here is how the func looks like:~~~```~~~StringTrimRight(str input, int numChars)~~~```~~~
+function StringTrimRight(input, numChars) {
+    return (numChars <= input.length) ? input.substring(0, input.length - numChars) : input;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: StrLower
+libs: null
+description: string~~~StrLower is a function that takes a string as input and converts all characters to lowercase.~~~here is how the func looks like:~~~```~~~StrLower(string)~~~```~~~
+function StrLower(string) {
+    return string.toLowerCase();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: StrSplit
+libs: null
+description: string~~~StrSplit is a function that splits an input string by a specified delimiter and returns the part at the specified index, or an empty string if the index is out of range.~~~here is how the func looks like:~~~```~~~StrSplit(str inputStr, str delimiter, int num)~~~```~~~
+function StrSplit(inputStr, delimiter, num) {
+    const parts = inputStr.split(delimiter);
+    return (num > 0 && num <= parts.length) ? parts[num - 1] : "";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Mod
+libs: null
+description: math~~~Mod is a function that returns the remainder when the dividend is divided by the divisor.~~~here is how the func looks like:~~~```~~~Mod(int dividend, int divisor)~~~```~~~
+function Mod(dividend, divisor) {
+    return dividend % divisor;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Floor
+libs: null
+description: math~~~Floor is a function that returns the largest integer less than or equal to a given number, or NaN if the input is not a number.~~~here is how the func looks like:~~~```~~~Floor(num)~~~```~~~
+function Floor(num) {
+    return isNaN(num) ? NaN : Math.floor(num);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: Sort
+libs: import random
+description: string~~~Sort is a function that takes a string and optional options to sort its elements based on various criteria such as numeric, random, alphabetical, case sensitivity, and more, with support for delimiters and unique filtering.~~~here is how the func looks like:~~~```~~~Sort(str varName, [str options = ""])~~~```~~~
+def Sort(var_name, options):
+    # Determine delimiter based on options
+    delimiter = '\n'
+    if 'D' in options:
+        delimiter = options[options.index('D') + 1]
+    
+    # Split the input variable by delimiter
+    items = var_name.split(delimiter)
+    
+    # Remove empty items and strip whitespace
+    items = [item.strip() for item in items if item.strip()]
+    
+    # Apply sorting based on options
+    if 'N' in options:
+        # Numeric sort
+        items.sort(key=lambda x: int(x))
+    elif 'Random' in options:
+        # Random sort
+        random.shuffle(items)
+    else:
+        # Default alphabetical sort
+        items.sort(key=lambda x: x.lower() if 'C' not in options else x)
+    
+    # Reverse if 'R' option is present
+    if 'R' in options:
+        items.reverse()
+    
+    # Remove duplicates if 'U' option is present
+    if 'U' in options:
+        seen = set()
+        unique_items = []
+        for item in items:
+            lower_item = item.lower() if 'C' not in options else item
+            if lower_item not in seen:
+                seen.add(lower_item)
+                unique_items.append(item)
+        items = unique_items
+    
+    # Join the sorted items back into a string
+    sorted_var = delimiter.join(items)
+    
+    return sorted_var
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: getDataFromAPI
+libs: import json|import urllib.request|import urllib.error
+description: io~~~getDataFromAPI is a function that asynchronously fetches JSON data from a given URL and returns it, handling errors and non-OK responses.~~~here is how the func looks like:~~~```~~~getDataFromAPI(str url)~~~```~~~
+def getDataFromAPI(url):
+    try:
+        with urllib.request.urlopen(url) as response:
+            if response.getcode() == 200:
+                return response.read()
+            else:
+                return None
+    except urllib.error.URLError as e:
+        print(f"Error accessing URL: {e.reason}")
+        return None
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: FileCreateDir
+libs: import os
+description: file~~~FileCreateDir is a function that checks if a directory exists, and if not, it creates the directory.~~~here is how the func looks like:~~~```~~~FileCreateDir(str directory)~~~```~~~
+def FileCreateDir(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: FileRemoveDir
+libs: import shutil
+description: file~~~FileRemoveDir is a function that removes a directory and its contents if the directory exists.~~~here is how the func looks like:~~~```~~~FileRemoveDir(str directory)~~~```~~~
+def FileRemoveDir(directory):
+    if os.path.exists(directory):
+        shutil.rmtree(directory)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: FileExist
+libs: import os
+description: file~~~FileExist is a function that checks if a file or directory exists at the specified path.~~~here is how the func looks like:~~~```~~~FileExist(str path)~~~```~~~
+def FileExist(path):
+    return os.path.exists(path)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: isWindows
+libs: import platform
+description: other~~~isWindows is a function that checks if the current operating system is Windows by comparing the system name to "windows".~~~here is how the func looks like:~~~```~~~isWindows()~~~```~~~
+def isWindows():
+    return platform.system().lower() == "windows"
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: GetParams
+libs: import os|import sys
+description: io~~~GetParams is a function that retrieves command line arguments, checks if they correspond to existing paths, and returns them as absolute paths in new lines, or as they are if they do not exist.~~~here is how the func looks like:~~~```~~~GetParams()~~~```~~~
+def GetParams():
+    # Check if any command line arguments are provided
+    if len(sys.argv) < 2:
+        return ""
+    # Store the provided command line arguments
+    params = []
+    for arg in sys.argv[1:]:
+        if os.path.exists(arg):
+            arg = os.path.abspath(arg)
+        params.append(arg)
+    return "\\n".join(params)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: BuildInVars
+libs: import time|from datetime import datetime
+description: system~~~BuildInVars is a function that retrieves various system-related values or states, including screen dimensions, timestamps, key presses, and more, based on the specified variable name.~~~here is how the func looks like:~~~```~~~BuildInVars(str varName)~~~```~~~
+# Initialize with current timestamp
+last_input_time = time.time() * 1000  # Convert to milliseconds
+start_timestamp = time.time() * 1000  # Convert to milliseconds
+# Function to reset the idle timer
+def reset_idle_timer():
+    global last_input_time
+    last_input_time = time.time() * 1000  # Update last input time in milliseconds
+# Function to calculate tick count in milliseconds
+def A_TickCount():
+    return int(time.time() * 1000 - start_timestamp)
+# Function to build in variables
+def BuildInVars(varName):
+    now = datetime.now()
+    if varName == "A_TickCount":
+        # Return tick count in milliseconds
+        return A_TickCount()
+    elif varName == "A_Now":
+        # Return current local timestamp
+        return now.strftime("%Y-%m-%d %H:%M:%S")
+    elif varName == "A_YYYY":
+        # Return current year
+        return now.strftime("%Y")
+    elif varName == "A_MM":
+        # Return current month
+        return now.strftime("%m")
+    elif varName == "A_DD":
+        # Return current day
+        return now.strftime("%d")
+    elif varName == "A_MMMM":
+        # Return full month name
+        return now.strftime("%B")
+    elif varName == "A_MMM":
+        # Return short month name
+        return now.strftime("%b")
+    elif varName == "A_DDDD":
+        # Return full day name
+        return now.strftime("%A")
+    elif varName == "A_DDD":
+        # Return short day name
+        return now.strftime("%a")
+    elif varName == "A_Hour":
+        # Return current hour
+        return now.strftime("%H")
+    elif varName == "A_Min":
+        # Return current minute
+        return now.strftime("%M")
+    elif varName == "A_Sec":
+        # Return current second
+        return now.strftime("%S")
+    elif varName == "A_Space":
+        # Return space character
+        return " "
+    elif varName == "A_Tab":
+        # Return tab character
+        return "\t"
+    else:
+        # Handle unknown variable names
+        return None
+def Floor(number):
+    if number > 0:
+        return int(number)
+    else:
+        return int(number) - (1 if number != int(number) else 0)
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: RegExReplace
+libs: import re
+description: string~~~RegExReplace is a function that performs a regular expression-based replacement on a string using a given pattern and replacement string.~~~here is how the func looks like:~~~```~~~RegExReplace(str inputStr, str regexPattern, str replacement)~~~```~~~
+def RegExReplace(inputStr, regexPattern, replacement):
+    # Create a regular expression object using the provided pattern
+    
+    regex = re.compile(regexPattern, re.MULTILINE)  # re.MULTILINE for multi-line matching
+    # Use the sub() method to perform the regex replacement
+    resultStr = regex.sub(replacement, inputStr)
+    # Return the modified string
+    return resultStr
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: RunCMD
+libs: import subprocess
+description: io~~~RunCMD is a function that executes a shell command and captures its output or errors.~~~here is how the func looks like:~~~```~~~RunCMD(str command)~~~```~~~
+def RunCMD(command):
+    try:
+        result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
+        return result.stdout
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e}")
+        return e.stdout + "\n" + e.stderr
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        return ""
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: RegExMatch
+libs: import re
+description: string~~~RegExMatch is a function that returns the 1-based index of the first regex match or 0 if no match is found.~~~here is how the func looks like:~~~```~~~RegExMatch(str haystack, str needle)~~~```~~~
+def RegExMatch(haystack, needle):
+    match = re.search(needle, haystack)
+    return match.start() + 1 if match else 0 # 1-based index or 0 if no match
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: ExitApp
+libs: import os
+description: system~~~ExitApp is a function that terminates the application immediately.~~~here is how the func looks like:~~~```~~~ExitApp()~~~```~~~
+# Function to handle application termination
+def ExitApp():
+    os._exit(1)
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Sort
+libs: null
+description: string~~~Sort is a function that takes a string and optional options to sort its elements based on various criteria such as numeric, random, alphabetical, case sensitivity, and more, with support for delimiters and unique filtering.~~~here is how the func looks like:~~~```~~~Sort(str varName, [str options = ""])~~~```~~~
+function Sort(varName, options = "") {
+    let delimiter = '\n'; // Default delimiter
+    let delimiterIndex = options.indexOf('D');
+    if (delimiterIndex !== -1) {
+        let delimiterChar = options[delimiterIndex + 1];
+        delimiter = delimiterChar === '' ? ',' : delimiterChar;
+    }
+    let items = varName.split(new RegExp(delimiter === ',' ? ',' : '\\' + delimiter));
+    // Remove empty items and trim whitespace
+    items = items.filter(item => item.trim() !== '');
+    // Apply sorting based on options
+    if (options.includes('N')) {
+        // Numeric sort
+        items.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
+    } else if (options.includes('Random')) {
+        // Random sort
+        for (let i = items.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [items[i], items[j]] = [items[j], items[i]];
+        }
+    } else {
+        // Default alphabetical sort
+        items.sort((a, b) => {
+            const keyA = options.includes('C') ? a : a.toLowerCase();
+            const keyB = options.includes('C') ? b : b.toLowerCase();
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+        });
+    }
+    // Reverse if 'R' option is present
+    if (options.includes('R')) {
+        items.reverse();
+    }
+    // Remove duplicates if 'U' option is present
+    if (options.includes('U')) {
+        const seen = new Map();
+        items = items.filter(item => {
+            const key = options.includes('C') ? item : item.toLowerCase();
+            if (!seen.has(key)) {
+                seen.set(key, item);
+                return true;
+            }
+            return false;
+        });
+    }
+    // Join the sorted items back into a string
+    const sortedVar = items.join(delimiter === ',' ? ',' : '\n');
+    return sortedVar;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: getDataFromAPI
+libs: null
+description: io~~~getDataFromAPI is a function that asynchronously fetches JSON data from a given URL and returns it, handling errors and non-OK responses.~~~here is how the func looks like:~~~```~~~getDataFromAPI(str url)~~~```~~~
+async function getDataFromAPI(url) {
+	try {
+	    const response = await fetch(url);
+	    if (!response.ok) {
+		    throw new Error("Network response was not ok");
+	    }
+	    const data = await response.json();
+	    return data;
+	} catch (error) {
+	    console.error("Error fetching data:", error);
+	    return null;
+	}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: getUrlParams
+libs: null
+description: string~~~getUrlParams is a function that extracts and decodes parameter values from the URL query string, returning a combined string of values separated by '&'.~~~here is how the func looks like:~~~```~~~getUrlParams()~~~```~~~
+      function getUrlParams() {
+        const queryString = window.location.search.substring(1); // Get the query string without the leading '?'
+        const paramPairs = queryString.split("&"); // Split the query string into parameter key-value pairs
+        // Array to store parameter values starting from the first key's value
+        const paramValues = [];
+        // Iterate over each parameter pair
+        paramPairs.forEach((pair, index) => {
+          const pairParts = pair.split("=");
+          if (index === 0 && pairParts.length === 2) {
+            // For the first parameter pair (index === 0), add the value directly
+            const firstValue = decodeURIComponent(pairParts[1]);
+            paramValues.push(firstValue);
+          } else if (pairParts.length === 1) {
+            // For subsequent parameter pairs (values without keys), add the value directly
+            const value = decodeURIComponent(pairParts[0]);
+            paramValues.push(value);
+          }
+        });
+        // Join the parameter values into a single string separated by '&'
+        const resultString = paramValues.join("&");
+        return resultString;
+      }
+ 
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: BuildInVars
+libs: null
+description: system~~~BuildInVars is a function that retrieves various system-related values or states, including screen dimensions, timestamps, key presses, and more, based on the specified variable name.~~~here is how the func looks like:~~~```~~~BuildInVars(str varName)~~~```~~~
+      var lastKeyPressed = "";
+      function trackLastKeyPressed() {
+        document.addEventListener("keydown", function (event) {
+          lastKeyPressed = event.key;
+          // console.log(lastKeyPressed);
+        });
+      }
+      function getLastKeyPressed() {
+        return lastKeyPressed;
+      }
+      // Call the trackLastKeyPressed function to start tracking key presses
+      trackLastKeyPressed();
+      let lastInputTime = Date.now(); // Initialize with current timestamp
+      let startTimestamp = Date.now(); // Initialize with current timestamp
+      // Event listener to track user activity
+      function resetIdleTimer() {
+        lastInputTime = Date.now(); // Update last input time
+      }
+      document.addEventListener("mousemove", resetIdleTimer);
+      document.addEventListener("keypress", resetIdleTimer);
+      // Function to calculate time since last input event
+      function A_TimeIdle() {
+        return Date.now() - lastInputTime; // Calculate time difference
+      }
+      // Function to calculate tick count in milliseconds
+      function A_TickCount() {
+        return Date.now() - startTimestamp;
+      }
+      function BuildInVars(varName) {
+        switch (varName) {
+          case "A_ScreenWidth":
+            // Return screen width
+            return window.innerWidth;
+          case "A_LastKey":
+            // Return screen width
+            return getLastKeyPressed();
+          case "A_ScreenHeight":
+            // Return screen height
+            return window.innerHeight;
+          case "A_TimeIdle":
+            // Return time idle
+            return A_TimeIdle();
+          case "A_TickCount":
+            // Return tick count in milliseconds
+            return A_TickCount();
+          case "A_Now":
+            // Return current local timestamp
+            return new Date().toLocaleString();
+          case "A_YYYY":
+            // Return current year
+            return new Date().getFullYear();
+          case "A_MM":
+            // Return current month
+            return (new Date().getMonth() + 1).toString().padStart(2, "0");
+          case "A_DD":
+            // Return current day
+            return new Date().getDate().toString().padStart(2, "0");
+          case "A_MMMM":
+            // Return full month name
+            return new Date().toLocaleDateString(undefined, { month: "long" });
+          case "A_MMM":
+            // Return short month name
+            return new Date().toLocaleDateString(undefined, { month: "short" });
+          case "A_DDDD":
+            // Return full day name
+            return new Date().toLocaleDateString(undefined, { weekday: "long" });
+          case "A_DDD":
+            // Return short day name
+            return new Date().toLocaleDateString(undefined, { weekday: "short" });
+          case "A_Hour":
+            // Return current hour
+            return new Date().getHours().toString().padStart(2, "0");
+          case "A_Min":
+            // Return current minute
+            return new Date().getMinutes().toString().padStart(2, "0");
+          case "A_Sec":
+            // Return current second
+            return new Date().getSeconds().toString().padStart(2, "0");
+          case "A_Space":
+            // Return space character
+            return " ";
+          case "A_Tab":
+            // Return tab character
+            return "\t";
+          default:
+            // Handle unknown variable names
+            return null;
+        }
+      }
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: RegExReplace
+libs: null
+description: string~~~RegExReplace is a function that performs a regular expression-based replacement on a string using a given pattern and replacement string.~~~here is how the func looks like:~~~```~~~RegExReplace(str inputStr, str regexPattern, str replacement)~~~```~~~
+      // Function to simulate AutoHotkey's RegExReplace in JavaScript
+      function RegExReplace(inputStr, regexPattern, replacement) {
+          // Create a regular expression object using the provided pattern
+          const regex = new RegExp(regexPattern, 'g'); // 'g' flag for global match
+          // Use the replace() method to perform the regex replacement
+          const resultStr = inputStr.replace(regex, replacement);
+          // Return the modified string
+          return resultStr;
+      }
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: RegExMatch
+libs: null
+description: string~~~RegExMatch is a function that returns the 1-based index of the first regex match or 0 if no match is found.~~~here is how the func looks like:~~~```~~~RegExMatch(str haystack, str needle)~~~```~~~
+// RegExMatch
+function RegExMatch(haystack, needle) {
+    const regex = new RegExp(needle);
+    const match = haystack.match(regex);
+    return match ? match.index + 1 : 0; // 1-based index or 0 if no match
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: MsgBox
+libs: <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+description: gui~~~MsgBox is a function that displays a message box with customizable text, title, buttons, and icons, handling various options based on the provided value and timeout.~~~here is how the func looks like:~~~```~~~MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])~~~```~~~
+function MsgBox(text, title = " ", value = 0, timeout = null) {
+    return new Promise((resolve) => {
+        // Define default options for the message box
+        let defaultOptions = {
+            title: title || " ", // Default title is empty
+            text: text || "Press OK to continue.", // Default text if not provided
+            showCancelButton: false, // Default is to not show Cancel button
+            showDenyButton: false, // Default is to not show Deny button
+            confirmButtonText: "OK", // Default text for OK button
+            focusConfirm: true, // Default focus on OK button
+        };
+        let numOriginal = value;
+        let num = numOriginal;
+        let done1 = 0;
+        let done2 = 0;
+        let done3 = 0;
+        let AIndex = 0;
+        for (AIndex = 1; AIndex <= 1; AIndex++) {
+            // Handle special case for value adjustments
+            if (num >= 262144) {
+                num = num - 262144;
+                numOriginal = numOriginal - 262144;
+            }
+            if (num >= 256 && num < 500) {
+                num = num - 256;
+                done3 = 256;
+            }
+            if (num >= 512) {
+                num = num - 512;
+                done3 = 512;
+            }
+            if (num == 0) {
+                done1 = 0;
+                break;
+            }
+            if (num <= 6) {
+                done1 = num;
+                break;
+            }
+            if (num >= 64 && num < 64 * 2) {
+                done2 = 64;
+                if (num == 64) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 64;
+                    break;
+                }
+            }
+            if (num >= 48 && num < 63) {
+                done2 = 48;
+                if (num == 48) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 48;
+                    break;
+                }
+            }
+            if (num >= 32 && num < 47) {
+                done2 = 32;
+                if (num == 32) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 32;
+                    break;
+                }
+            }
+            if (num >= 16 && num < 30) {
+                done2 = 16;
+                if (num == 16) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 16;
+                    break;
+                }
+            }
+        }
+        let doneAdded = done1 + done2 + done3;
+        if (doneAdded !== numOriginal) {
+            // displayMessage("The calc was wrong!");
+        } else {
+            // displayMessage("num was: " + numOriginal + "\ndone1: " + done1 + "\ndone2: " + done2 + "\ndone3: " + done3);
+        }
+        // Parse the value to determine the options for the message box
+        if (done1 === 1) defaultOptions.showCancelButton = true;
+        if (done1 === 3) {
+            defaultOptions.showCancelButton = true;
+            defaultOptions.showDenyButton = true;
+        }
+        if (done1 === 4) {
+            defaultOptions.showDenyButton = true;
+        }
+        if (done1 === 5) {
+            defaultOptions.showCancelButton = true;
+        }
+        if (done2 === 16) defaultOptions.icon = "error";
+        if (done2 === 32) defaultOptions.icon = "question";
+        if (done2 === 48) defaultOptions.icon = "warning";
+        if (done2 === 64) defaultOptions.icon = "info";
+        if (done3 === 256) defaultOptions.focusDeny = true;
+        if (done3 === 512) defaultOptions.focusCancel = true;
+        // Set timeout if provided
+        if (timeout) {
+            defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds
+        }
+        // Display the message box with the constructed options
+        Swal.fire(defaultOptions).then((result) => {
+            if (result.isConfirmed) {
+                resolve("OK");
+            } else if (result.isDenied) {
+                resolve("No");
+            } else {
+                resolve("Cancel");
+            }
+        });
+    });
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Show
+libs: null
+description: gui~~~Gui_Show is a function that displays a div element on the screen with customizable properties such as position, size, border, background color, and z-index. It creates the div if it doesn't exist and centers it by default.~~~here is how the func looks like:~~~```~~~Gui_Show(guiID, [x], [y], [w], [h], [removeBorder = false], [color = '#121212'], [roundness], [zIndex])~~~```~~~
+// Global object to hold references to all created divs
+const HTVM_guiElements = {};
+function Gui_Show(guiID, x = null, y = null, w = null, h = null, removeBorder = false, color = '#121212', roundness = null, zIndex = null) {
+    // Check if the div with the given ID already exists
+    let div = document.getElementById(guiID);
+    if (div) {
+        // If only the first parameter is provided, simply show the existing div
+        if (arguments.length === 1) {
+            div.style.display = "block"; // Show the div
+            return;
+        }
+    } else {
+        // Create a new div element if it doesn't exist
+        div = document.createElement('div');
+        div.id = guiID;
+        // Store the div in the global object for future access
+        HTVM_guiElements[guiID] = div;
+        // Append the div to the body
+        document.body.appendChild(div);
+    }
+    // Set default width and height if not provided
+    w = (w === null || w === undefined) ? 450 : w; // Default width
+    h = (h === null || h === undefined) ? 450 : h; // Default height
+    // Set default position if x or y is not provided
+    if (x === null || x === undefined || y === null || y === undefined) {
+        x = (window.innerWidth - w) / 2; // Center horizontally
+        y = (window.innerHeight - h) / 2; // Center vertically
+    }
+    // Set the dimensions and position
+    div.style.position = 'absolute';
+    div.style.left = `${x}px`;
+    div.style.top = `${y}px`;
+    div.style.width = `${w}px`;
+    div.style.height = `${h}px`;
+    // Set styles
+    div.style.backgroundColor = color;
+    div.style.border = removeBorder ? 'none' : '2px solid #ffffff'; // default border color
+    div.style.borderRadius = roundness ? `${roundness}px` : '0px';
+    // Set z-index if provided
+    if (zIndex !== null && zIndex !== undefined) {
+        div.style.zIndex = zIndex;
+    }
+    // Ensure the div is visible
+    div.style.display = "block";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Update
+libs: null
+description: gui~~~Gui_Update is a function that updates or creates a div element based on the provided guiID, setting its dimensions, position, background color, border, border-radius, and z-index, with optional parameters for customization.~~~here is how the func looks like:~~~```~~~Gui_Update(str guiID, [int x = null], [int y = null], [int w = 450], [int h = 450], [bool removeBorder = false], [str color = '#121212'], [int roundness = null], [int zIndex = null])~~~```~~~
+function Gui_Update(guiID, x = null, y = null, w = null, h = null, removeBorder = false, color = '#121212', roundness = null, zIndex = null) {
+    // Check if the div with the given guiID exists
+    let div = HTVM_guiElements[guiID];
+    if (!div) {
+        // If it doesn't exist, create a new div
+        div = document.createElement('div');
+        div.id = guiID;
+        // Store the newly created div in the global object
+        HTVM_guiElements[guiID] = div;
+        // Append the div to the body
+        document.body.appendChild(div);
+    }
+    // Set default width and height if not provided
+    w = (w === null || w === undefined) ? 450 : w; // Default width
+    h = (h === null || h === undefined) ? 450 : h; // Default height
+    // Set default position if x or y is not provided
+    if (x === null || x === undefined || y === null || y === undefined) {
+        x = (window.innerWidth - w) / 2; // Center horizontally
+        y = (window.innerHeight - h) / 2; // Center vertically
+    }
+    // Update the dimensions and position
+    div.style.position = 'absolute'; // Ensure the position is absolute
+    div.style.left = `${x}px`;
+    div.style.top = `${y}px`;
+    div.style.width = `${w}px`;
+    div.style.height = `${h}px`;
+    // Update styles
+    div.style.backgroundColor = color;
+    div.style.border = removeBorder ? 'none' : '2px solid #ffffff'; // default border color
+    div.style.borderRadius = roundness ? `${roundness}px` : '0px';
+    // Update z-index if provided
+    if (zIndex !== null && zIndex !== undefined) {
+        div.style.zIndex = zIndex;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Button
+libs: null
+description: gui~~~Gui_Button is a function that creates a button inside a specified div and allows customization of its position, size, color, and click behavior.~~~here is how the func looks like:~~~```~~~Gui_Button(str guiID, str buttonID, str buttonText, [int x = null], [int y = null], [int w = 150], [int h = 50], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onClickCallback = null])~~~```~~~
+function Gui_Button(guiID, buttonID, buttonText, x = null, y = null, w = null, h = null, color = '#121212', textColor = '#FFFFFF', removeBorder = false, roundness = null, zIndex = null, onClickCallback = null) {
+    // Check if the div with the given guiID exists
+    let div = HTVM_guiElements[guiID];
+    if (!div) {
+        // If it doesn't exist, create a new div
+        div = document.createElement('div');
+        div.id = guiID;
+        // Store the newly created div in the global object
+        HTVM_guiElements[guiID] = div;
+        // Append the div to the body
+        document.body.appendChild(div);
+    }
+    // Create the button element
+    const button = document.createElement('button');
+    button.innerText = buttonText;
+    // Set the ID of the button
+    button.id = buttonID;
+    // Set default width and height for the button if not provided
+    w = (w === null || w === undefined) ? 150 : w; // Default width
+    h = (h === null || h === undefined) ? 50 : h; // Default height
+    // Set default position if x or y is not provided
+    if (x === null || x === undefined || y === null || y === undefined) {
+        x = (div.clientWidth - w) / 2; // Center horizontally within the div
+        y = (div.clientHeight - h) / 2; // Center vertically within the div
+    }
+    // Set the button's styles
+    button.style.position = 'absolute';
+    button.style.left = `${x}px`;
+    button.style.top = `${y}px`;
+    button.style.width = `${w}px`;
+    button.style.height = `${h}px`;
+    button.style.backgroundColor = color;
+    button.style.color = textColor; // Set button text color
+    button.style.border = removeBorder ? 'none' : '2px solid #ffffff'; // default border color
+    button.style.borderRadius = roundness ? `${roundness}px` : '0px';
+    // Change cursor to pointer on hover
+    button.style.cursor = 'pointer';
+    // Set z-index if provided
+    if (zIndex !== null && zIndex !== undefined) {
+        button.style.zIndex = zIndex;
+    }
+    // Add the click event listener to the button
+    if (onClickCallback) {
+        button.addEventListener('click', () => onClickCallback(buttonID));
+    }
+    // Append the button to the specified div
+    div.appendChild(button);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Edit
+libs: null
+description: gui~~~Gui_Edit is a function that creates a textarea element within a div, allowing customization of its appearance, position, and behavior, with optional parameters for width, height, colors, borders, and a callback for input changes.~~~here is how the func looks like:~~~```~~~Gui_Edit(str guiID, str editID, str placeholderText, [int x = null], [int y = null], [int w = null], [int h = null], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onChangeCallback = null])~~~```~~~
+function Gui_Edit(guiID, editID, placeholderText, x = null, y = null, w = null, h = null, color = '#121212', textColor = '#FFFFFF', removeBorder = false, roundness = null, zIndex = null, onChangeCallback = null) {
+    // Check if the div with the given guiID exists
+    let div = HTVM_guiElements[guiID];
+    if (!div) {
+        // If it doesn't exist, create a new div
+        div = document.createElement('div');
+        div.id = guiID;
+        // Store the newly created div in the global object
+        HTVM_guiElements[guiID] = div;
+        // Append the div to the body
+        document.body.appendChild(div);
+    }
+    // Create the textarea element
+    const textarea = document.createElement('textarea');
+    textarea.placeholder = placeholderText;
+    // Set the ID of the textarea
+    textarea.id = editID;
+    // Set default width and height for the textarea if not provided
+    w = (w === null || w === undefined) ? 300 : w; // Default width
+    h = (h === null || h === undefined) ? 100 : h; // Default height
+    // Set default position if x or y is not provided
+    if (x === null || x === undefined || y === null || y === undefined) {
+        x = (div.clientWidth - w) / 2; // Center horizontally within the div
+        y = (div.clientHeight - h) / 2; // Center vertically within the div
+    }
+    // Set the textarea's styles
+    textarea.style.position = 'absolute';
+    textarea.style.left = `${x}px`;
+    textarea.style.top = `${y}px`;
+    textarea.style.width = `${w}px`;
+    textarea.style.height = `${h}px`;
+    textarea.style.backgroundColor = color;
+    textarea.style.color = textColor; // Set textarea text color
+    textarea.style.border = removeBorder ? 'none' : '2px solid #ffffff'; // Default border color
+    textarea.style.borderRadius = roundness ? `${roundness}px` : '0px';
+    // Prevent textarea from being draggable
+    textarea.style.resize = 'none'; // Disable resizing
+    textarea.style.pointerEvents = 'none'; // Disable all mouse events
+    // Change cursor to text on hover
+    textarea.style.cursor = 'text';
+    // Set z-index if provided
+    if (zIndex !== null && zIndex !== undefined) {
+        textarea.style.zIndex = zIndex;
+    }
+    // Enable pointer events for text editing only, if a callback is provided
+    textarea.style.pointerEvents = 'auto'; // Enable pointer events for user input only
+    // Add the change event listener to the textarea
+    if (onChangeCallback) {
+        textarea.addEventListener('input', function() {
+            onChangeCallback(textarea.value); // Pass the current value
+        });
+    }
+    // Append the textarea to the specified div
+    div.appendChild(textarea);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Text
+libs: null
+description: gui~~~Gui_Text is a function that creates and inserts a text element into a specified GUI container, with optional parameters for positioning, color, roundness, and z-index.~~~here is how the func looks like:~~~```~~~Gui_Text(str guiID, str textID, str text, [int x = null], [int y = null], [str color = '#FFFFFF'], [int roundness = null], [int zIndex = null])~~~```~~~
+function Gui_Text(guiID, textID, text, x = null, y = null, color = '#FFFFFF', roundness = null, zIndex = null) {
+    // Check if the div with the given guiID exists
+    let div = HTVM_guiElements[guiID];
+    if (!div) {
+        // If it doesn't exist, create a new div
+        div = document.createElement('div');
+        div.id = guiID;
+        // Store the newly created div in the global object
+        HTVM_guiElements[guiID] = div;
+        // Append the div to the body
+        document.body.appendChild(div);
+    }
+    // Create the text element
+    const textElement = document.createElement('span'); // Use span for inline text
+    // Set the text content
+    textElement.textContent = text;
+    // Set the ID of the text element
+    textElement.id = textID;
+    // Set default position if x or y is not provided
+    if (x === null || x === undefined || y === null || y === undefined) {
+        x = (div.clientWidth - 100) / 2; // Center horizontally (default width of 100px)
+        y = (div.clientHeight - 20) / 2; // Center vertically (default height of 20px)
+    }
+    // Set the text styles
+    textElement.style.position = 'absolute';
+    textElement.style.left = `${x}px`;
+    textElement.style.top = `${y}px`;
+    textElement.style.color = color; // Set text color
+    textElement.style.border = 'none'; // No border
+    textElement.style.backgroundColor = 'transparent'; // No background
+    textElement.style.borderRadius = roundness ? `${roundness}px` : '0px'; // Optional rounding
+    // Set z-index if provided
+    if (zIndex !== null && zIndex !== undefined) {
+        textElement.style.zIndex = zIndex;
+    }
+    // Append the text element to the specified div
+    div.appendChild(textElement);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Size
+libs: null
+description: gui~~~Gui_Size is a function that adjusts the font size of the specified HTML element and its children based on the given font size value.~~~here is how the func looks like:~~~```~~~Gui_Size(str divID, int fontSize)~~~```~~~
+function Gui_Size(divID, fontSize) {
+    document.querySelectorAll(`#${divID}, #${divID} *, #${divID} button, #${divID} input, #${divID} textarea`).forEach(el => el.style.fontSize = `${fontSize}px`);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Font
+libs: null
+description: gui~~~Gui_Font is a function that sets the font family for a specified element and all its descendants, including buttons, inputs, and textareas.~~~here is how the func looks like:~~~```~~~Gui_Font(str divID, str fontFamily)~~~```~~~
+function Gui_Font(divID, fontFamily) {
+    // Use querySelectorAll to select the target element and all its descendants
+    document.querySelectorAll(`#${divID}, #${divID} *, #${divID} button, #${divID} input, #${divID} textarea`).forEach(el => {
+        el.style.fontFamily = fontFamily; // Set the font family for each selected element
+    });
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Font_Id
+libs: null
+description: gui~~~Gui_Font_Id is a function that changes the font family of specified elements in the HTML document based on provided div and element IDs.~~~here is how the func looks like:~~~```~~~Gui_Font_Id(str divID, str elementID, str fontFamily)~~~```~~~
+function Gui_Font_Id(divID, elementID, fontFamily) {
+    const divElement = document.getElementById(divID);
+    const specificElement = document.getElementById(elementID);
+    if (divElement) divElement.style.fontFamily = fontFamily;
+    if (specificElement) specificElement.style.fontFamily = fontFamily;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Size_Id
+libs: null
+description: gui~~~Gui_Size_Id is a function that changes the font size of a specified div and another specified element by their respective IDs.~~~here is how the func looks like:~~~```~~~Gui_Size_Id(str divID, str elementID, int fontSize)~~~```~~~
+function Gui_Size_Id(divID, elementID, fontSize) {
+    // Change font size for the specified div
+    const divElement = document.getElementById(divID);
+    if (divElement) {
+        divElement.style.fontSize = `${fontSize}px`;
+    }
+    // Change font size for the specific element by ID
+    const specificElement = document.getElementById(elementID);
+    if (specificElement) {
+        specificElement.style.fontSize = `${fontSize}px`;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: GuiControl
+libs: null
+description: gui~~~GuiControl is a function that handles various DOM manipulations like moving, showing, hiding, and modifying elements based on the provided action and parameters.~~~here is how the func looks like:~~~```~~~GuiControl(str action, str divId, str id, [any param1 = ?], [any param2 = ?], [any param3 = ?], [any param4 = ?])~~~```~~~
+function GuiControl(action, divId, id, param1, param2, param3, param4) {
+    // Convert action to lowercase to handle case insensitivity
+    const actionLower = action.toLowerCase();
+    const element = document.getElementById(id);
+    const divElement = document.getElementById(divId);
+    
+    if (element) {
+        // Handle DOM elements
+        if (actionLower === "move") {
+            // Set position and size
+            element.style.left = param1 + "px";
+            element.style.top = param2 + "px";
+            element.style.width = param3 + "px";
+            element.style.height = param4 + "px";
+        } else if (actionLower === "focus" && (element instanceof HTMLInputElement || element instanceof HTMLElement)) {
+            // Focus on the element
+            element.focus();
+        } else if (actionLower === "text") {
+            // Set new text content
+            element.textContent = param1;
+        } else if (actionLower === "hide") {
+            // Hide the element
+            element.style.display = "none";
+        } else if (actionLower === "show") {
+            // Show the element
+            element.style.display = "";
+        } else if (actionLower === "enable") {
+            // Enable the element
+            element.disabled = false;
+        } else if (actionLower === "disable") {
+            // Disable the element
+            element.disabled = true;
+        } else if (actionLower === "font") {
+            // Set font size
+            element.style.fontSize = param1 + "px";
+        } else if (actionLower === "destroy") {
+            // Remove the element from the DOM
+            element.parentNode.removeChild(element);
+        } else if (actionLower === "color") {
+            // Set color
+            element.style.color = param1;
+        } else if (actionLower === "picture") {
+            // Change the image source
+            if (element instanceof HTMLImageElement) {
+                element.src = param1;
+            } else {
+                console.error("Element is not an <img> tag, cannot change picture.");
+            }
+        } else if (actionLower === "textide") {
+            // Set value for Ace editor
+            var editor = ace.edit(id); // Access the Ace editor instance using its ID
+            if (editor && param1) {
+                editor.session.setValue(param1);
+            } else {
+                console.error("Element is not an Ace editor or parameter is missing.");
+            }
+        }
+    } else if (divElement) {
+        // Handle actions specifically for the div element
+        if (actionLower === "move") {
+            // Set position and size for the div
+            divElement.style.left = param1 + "px";
+            divElement.style.top = param2 + "px";
+            divElement.style.width = param3 + "px";
+            divElement.style.height = param4 + "px";
+        } else if (actionLower === "color") {
+            // Set background color for the div
+            divElement.style.backgroundColor = param1;
+        }
+        // Add more actions for divElement as needed
+    } else {
+        // Handle canvas or non-existing element
+        if (actionLower === "move") {
+            // Update position and size of the rectangle
+            updateRectangle(id, param1, param2, param3, param4);
+            redrawCanvas(); // Redraw the canvas with updated rectangles
+        } else if (actionLower === "color") {
+            // Update color of the rectangle
+            updateRectangleColor(id, param1);
+            redrawCanvas(); // Redraw the canvas with updated rectangles
+        }
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_DropDownList
+libs: null
+description: gui~~~Gui_DropDownList is a function that creates a dropdown list (select element) with options from a string, sets styles, attaches an event listener for selection changes, and appends it to a specified parent element.~~~here is how the func looks like:~~~```~~~Gui_DropDownList(parent, str id, str data, int leftPos, int topPos, int width, int height, str color, func onChangeFunction)~~~```~~~
+function Gui_DropDownList(parent, id, data, leftPos, topPos, width, height, color, onChangeFunction) {
+    // Split the data string into an array of options
+    const options = data.split("|").map((option) => option.trim());
+    
+    // Create a select element (dropdown)
+    const selectElement = document.createElement("select");
+    
+    // Set attributes and styles for the select element
+    selectElement.id = id;
+    selectElement.style.width = width + "px";
+    selectElement.style.height = height + "px";
+    selectElement.style.left = leftPos + "px";
+    selectElement.style.top = topPos + "px";
+    selectElement.style.position = "absolute";
+    selectElement.style.backgroundColor = color;
+    selectElement.style.color = "white"; // Set text color to white
+    selectElement.style.border = "none"; // Remove default border
+    selectElement.style.borderRadius = "5px"; // Add border radius
+    selectElement.style.padding = "5px"; // Add padding
+    selectElement.style.cursor = "pointer"; // Change cursor on hover
+    
+    // Populate the dropdown with options
+    options.forEach((optionText) => {
+      const optionElement = document.createElement("option");
+      optionElement.textContent = optionText;
+      selectElement.appendChild(optionElement);
+    });
+    
+    // Add event listener to handle option selection
+    selectElement.addEventListener("change", function () {
+      const selectedText = this.options[this.selectedIndex].textContent;
+      onChangeFunction(selectedText);
+    });
+    
+    // Append the dropdown to the specified parent element (Gui1 div)
+    const parentElement = parent instanceof HTMLElement ? parent : document.getElementById(parent);
+    if (parentElement) {
+      parentElement.appendChild(selectElement);
+    } else {
+        console.error(`Parent element "${parent}" not found.`);
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Hide
+libs: null
+description: gui~~~Gui_Hide is a function that hides an HTML element by setting its display style to "none" based on the provided element ID.~~~here is how the func looks like:~~~```~~~Gui_Hide(str elementId)~~~```~~~
+function Gui_Hide(elementId) {
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.style.display = "none";
+  } else {
+    console.warn(`Element with ID '${elementId}' not found.`);
+  }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Move
+libs: null
+description: gui~~~Gui_Move is a function that moves or resizes a GUI element by modifying its position and dimensions based on the provided parameters.~~~here is how the func looks like:~~~```~~~Gui_Move(str guiID, [int x = null], [int y = null], [int w = null], [int h = null])~~~```~~~
+function Gui_Move(guiID, x = null, y = null, w = null, h = null) {
+    let div = HTVM_guiElements[guiID];
+    
+    if (!div) {
+        console.warn(`Element with ID '${guiID}' not found in HTVM_guiElements.`);
+        return;
+    }
+    
+    // Set position if x or y is provided
+    if (x !== null && x !== undefined) {
+        div.style.left = `${x}px`;
+    }
+    if (y !== null && y !== undefined) {
+        div.style.top = `${y}px`;
+    }
+    // Set dimensions if w or h is provided
+    if (w !== null && w !== undefined) {
+        div.style.width = `${w}px`;
+    }
+    if (h !== null && h !== undefined) {
+        div.style.height = `${h}px`;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Color
+libs: null
+description: gui~~~Gui_Color is a function that sets the background color of a specific HTML element identified by the given guiID. If the element is not found, it logs a warning.~~~here is how the func looks like:~~~```~~~Gui_Color(str guiID, str color)~~~```~~~
+function Gui_Color(guiID, color) {
+    let div = HTVM_guiElements[guiID];
+    
+    if (!div) {
+        console.warn(`Element with ID '${guiID}' not found in HTVM_guiElements.`);
+        return;
+    }
+    
+    // Set background color
+    div.style.backgroundColor = color;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Image
+libs: null
+description: gui~~~Gui_Image is a function that creates and displays an image within a specified div element on the webpage. It optionally sets the image's position, size, and corner roundness, while ensuring that the image maintains its aspect ratio if only one dimension is provided.~~~here is how the func looks like:~~~```~~~Gui_Image(str guiID, str imageID, str imageUrl, [int x = null], [int y = null], [int w = null], [int h = null], [int roundness = null])~~~```~~~
+function Gui_Image(guiID, imageID, imageUrl, x = null, y = null, w = null, h = null, roundness = null) {
+    // Check if the div with the given guiID exists
+    let div = HTVM_guiElements[guiID];
+    if (!div) {
+        // If it doesn't exist, create a new div
+        div = document.createElement('div');
+        div.id = guiID;
+        // Store the newly created div in the global object
+        HTVM_guiElements[guiID] = div;
+        // Append the div to the body
+        document.body.appendChild(div);
+    }
+    // Create the image element
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.id = imageID;
+    img.onload = function() {
+        // Use natural width and height if not provided
+        const naturalWidth = img.naturalWidth;
+        const naturalHeight = img.naturalHeight;
+        // Maintain aspect ratio if only one dimension is provided
+        if (w === null && h === null) {
+            w = naturalWidth;
+            h = naturalHeight;
+        } else if (w !== null && h === null) {
+            h = (w / naturalWidth) * naturalHeight; // Calculate height based on width
+        } else if (h !== null && w === null) {
+            w = (h / naturalHeight) * naturalWidth; // Calculate width based on height
+        }
+        // Set default position if x or y is not provided
+        if (x === null || x === undefined || y === null || y === undefined) {
+            x = (div.clientWidth - w) / 2; // Center horizontally within the div
+            y = (div.clientHeight - h) / 2; // Center vertically within the div
+        }
+        // Set image styles without borders
+        img.style.position = 'absolute';
+        img.style.left = `${x}px`;
+        img.style.top = `${y}px`;
+        img.style.width = `${w}px`;
+        img.style.height = `${h}px`;
+        img.style.borderRadius = roundness ? `${roundness}px` : '0px'; // Allow rounded corners
+        // Append the image to the specified div
+        div.appendChild(img);
+    };
+    // Optional: handle errors in loading the image
+    img.onerror = function() {
+        console.error(`Failed to load image from ${imageUrl}`);
+    };
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_Toggle
+libs: null
+description: gui~~~Gui_Toggle is a function that creates a toggle switch UI element, allowing users to toggle between two states (on/off) with customizable properties such as label, position, size, and color. It also includes a callback function to handle the state change.~~~here is how the func looks like:~~~```~~~Gui_Toggle(str guiID, str id, str label, str [color = null], int leftPos, int topPos, [int width = null], [int height = null], func switchFunction, bool [isToggledAtTheBeginning = false])~~~```~~~
+function Gui_Toggle(guiID, id, label, color = null, leftPos, topPos, width = null, height = null, switchFunction, isToggledAtTheBeginning = false) {
+    // Check if the div with the given guiID exists
+    let parentDiv = HTVM_guiElements[guiID];
+    if (!parentDiv) {
+        // If it doesn't exist, create a new div
+        parentDiv = document.createElement('div');
+        parentDiv.id = guiID;
+        // Store the newly created div in the global object
+        HTVM_guiElements[guiID] = parentDiv;
+        // Append the div to the body
+        document.body.appendChild(parentDiv);
+    }
+    
+    if (width == null || width == undefined) {
+    width = 60; // Default width
+    }
+    
+    if (height == null || height == undefined) {
+        height = 30; // Default height - this was incorrectly set to width before
+    }
+        
+    if (color == null || color == undefined) {
+       color = "#2196F3";
+    }
+    // Create the toggle switch
+    const toggleSwitch = document.createElement("div");
+    toggleSwitch.id = id;
+    toggleSwitch.dataset.isOn = "false"; // Default state is off
+    toggleSwitch.style.width = width + "px"; // Set width
+    toggleSwitch.style.height = height + "px"; // Set height
+    toggleSwitch.style.backgroundColor = "#ccc"; // Default background color
+    toggleSwitch.style.borderRadius = height / 2 + "px"; // Make border radius proportional to height
+    toggleSwitch.style.position = "absolute";
+    toggleSwitch.style.left = leftPos + "px";
+    toggleSwitch.style.top = topPos + "px";
+    toggleSwitch.style.cursor = "pointer"; // Pointer cursor for the toggle switch
+    // Create knob for the toggle switch
+    const knob = document.createElement("div");
+    knob.style.width = (height - 4) + "px"; // Set knob width
+    knob.style.height = (height - 4) + "px"; // Set knob height
+    knob.style.backgroundColor = "#ffffff"; // Knob color
+    knob.style.borderRadius = "50%"; // Circular knob
+    knob.style.position = "absolute";
+    knob.style.top = "50%";
+    knob.style.left = "2px"; // Start position
+    knob.style.transform = "translateY(-50%)"; // Center vertically
+    knob.style.transition = "left 0.3s ease"; // Transition for smooth movement
+    toggleSwitch.appendChild(knob); // Append knob to toggle switch
+    parentDiv.appendChild(toggleSwitch); // Append toggle switch to the specified parent div
+    // Create label for the toggle switch
+    const toggleLabel = document.createElement("div");
+    toggleLabel.textContent = label;
+    toggleLabel.style.position = "absolute";
+    toggleLabel.style.left = (leftPos + width + 10) + "px"; // Position label relative to switch
+    toggleLabel.style.top = (topPos + 5) + "px";
+    parentDiv.appendChild(toggleLabel); // Append label to the parent div
+    // Function to handle the toggle switch click event
+    function toggleSwitchClick() {
+        let isOn = toggleSwitch.dataset.isOn === "true";
+        toggleSwitch.dataset.isOn = String(!isOn); // Toggle the state
+        // Move the knob based on state
+        knob.style.left = isOn ? "2px" : (width - height + 2) + "px";
+        toggleSwitch.style.backgroundColor = isOn ? "#ccc" : color; // Update background color
+        // Call the switch function with toggle state
+        switchFunction(isOn ? "0" : "1");
+    }
+    // Add click event listener
+    toggleSwitch.addEventListener("click", toggleSwitchClick);
+    // Set initial state if isToggledAtTheBeginning is true
+    if (isToggledAtTheBeginning) {
+        toggleSwitch.dataset.isOn = "true"; // Set state to on
+        knob.style.left = (width - height + 2) + "px"; // Move knob to the right
+        toggleSwitch.style.backgroundColor = color; // Set background color to toggled color
+        switchFunction("1"); // Call the switch function with initial state
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: Gui_CheckBox
+libs: null
+description: gui~~~Gui_CheckBox is a function that creates a checkbox within a specified GUI element, allowing for custom label, position, color, initial checked state, and scaling. The checkbox is added to a specified parent div, and a callback function is executed when the checkbox state changes.~~~here is how the func looks like:~~~```~~~Gui_CheckBox(str guiID, str id, str label, [str color = "#ffffff"], int leftPos, int topPos, func checkFunction, [bool isCheckedAtTheBeginning = false], [float scale = 1.5])~~~```~~~
+function Gui_CheckBox(guiID, id, label, color = null, leftPos, topPos, checkFunction, isCheckedAtTheBeginning = false, scale = 1.5) {
+    // Check if the div with the given guiID exists
+    let parentDiv = HTVM_guiElements[guiID];
+    if (!parentDiv) {
+        // If it doesn't exist, create a new div
+        parentDiv = document.createElement('div');
+        parentDiv.id = guiID;
+        // Store the newly created div in the global object
+        HTVM_guiElements[guiID] = parentDiv;
+        // Append the div to the body
+        document.body.appendChild(parentDiv);
+    }
+    if (color == null || color == undefined) {
+        color = "#ffffff"; // Default label color
+    }
+    // Create the checkbox input
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.id = id;
+    checkbox.style.position = "absolute";
+    checkbox.style.left = leftPos + "px";
+    checkbox.style.top = topPos + "px";
+    checkbox.style.transform = `scale(${scale})`; // Apply scaling
+    // Set initial checked state if specified
+    checkbox.checked = isCheckedAtTheBeginning;
+    // Add the checkbox to the parent div
+    parentDiv.appendChild(checkbox);
+    // Create a label for the checkbox
+    const checkboxLabel = document.createElement("label");
+    checkboxLabel.setAttribute("for", id);
+    checkboxLabel.textContent = label;
+    checkboxLabel.style.position = "absolute";
+    checkboxLabel.style.left = (leftPos + 25 * scale) + "px"; // Adjust position based on scale
+    checkboxLabel.style.top = (topPos + 2 * scale) + "px";
+    checkboxLabel.style.color = color; // Set label color
+    checkboxLabel.style.transform = `scale(${scale})`; // Apply scaling
+    checkboxLabel.style.transformOrigin = "left top"; // Set origin to align the scaling
+    parentDiv.appendChild(checkboxLabel);
+    // Function to handle checkbox change event
+    checkbox.addEventListener("change", () => {
+        checkFunction(checkbox.checked ? "1" : "0");
+    });
+    // Call the check function initially if the checkbox is checked at the beginning
+    if (isCheckedAtTheBeginning) {
+        checkFunction("1");
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: MakeHotKey
+libs: null
+description: other~~~MakeHotKey is a function that listens for a specific key combination (hotkey) and triggers a callback when the hotkey is pressed. It handles modifiers like Ctrl, Shift, and Alt, as well as specific keys such as arrows and backspace. The callback function is invoked with the hotkey in either uppercase or lowercase, depending on the Shift modifier.~~~here is how the func looks like:~~~```~~~MakeHotKey(str hotkey, function callback)~~~```~~~
+// Define the MakeHotKey function separately
+function MakeHotKey(hotkey, callback) {
+    document.addEventListener("keydown", function (event) {
+        const keys = hotkey.split("+").map((key) => key.trim().toLowerCase());
+        const modifiers = {
+            ctrl: event.ctrlKey,
+            shift: event.shiftKey,
+            alt: event.altKey,
+        };
+        let hotkeyPressed = true;
+        keys.forEach((key) => {
+            if (key === "ctrl" || key === "shift" || key === "alt") {
+                if (!modifiers[key]) {
+                    hotkeyPressed = false;
+                }
+            } else if (key === "backspace") {
+                if (event.key !== "Backspace") {
+                    hotkeyPressed = false;
+                }
+            } else if (key === "esc" || key === "escape") {
+                if (event.key !== "Escape") {
+                    hotkeyPressed = false;
+                }
+            } else if (key.startsWith("arrow")) {
+                const arrowDirection = key.replace("arrow", "");
+                if (arrowDirection === "up" && event.key !== "ArrowUp") {
+                    hotkeyPressed = false;
+                } else if (arrowDirection === "down" && event.key !== "ArrowDown") {
+                    hotkeyPressed = false;
+                } else if (arrowDirection === "left" && event.key !== "ArrowLeft") {
+                    hotkeyPressed = false;
+                } else if (arrowDirection === "right" && event.key !== "ArrowRight") {
+                    hotkeyPressed = false;
+                }
+            } else if (key === "enter") {
+                if (event.key !== "Enter") {
+                    hotkeyPressed = false;
+                }
+            } else if (!event.key.match(/^[0-9a-zA-Z]$/) && event.key !== key) {
+                hotkeyPressed = false;
+            } else if (event.key.toLowerCase() !== key && event.key.match(/^[a-zA-Z]$/)) {
+                hotkeyPressed = false;
+            }
+        });
+        if (hotkeyPressed) {
+            if (modifiers["shift"]) {
+                callback(hotkey.toUpperCase());
+            } else {
+                callback(hotkey.toLowerCase());
+            }
+        }
+    });
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: sortArr
+libs: #include <iostream>|#include <vector>|#include <string>|#include <set>|#include <algorithm>
+description: string~~~sortArr is a function that takes an array, removes any duplicate values using a Set, and returns the array sorted in ascending order.~~~here is how the func looks like:~~~```~~~sortArr(arr str stringArray)~~~```~~~
+// Function to sort and remove duplicates
+std::vector<std::string> sortArr(const std::vector<std::string>& input) {
+    std::set<std::string> uniqueSorted(input.begin(), input.end());
+    return std::vector<std::string>(uniqueSorted.begin(), uniqueSorted.end());
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: sortArr
+libs: null
+description: string~~~sortArr is a function that takes an array, removes any duplicate values using a Set, and returns the array sorted in ascending order.~~~here is how the func looks like:~~~```~~~sortArr(arr str stringArray)~~~```~~~
+// Function to sort and remove duplicates
+function sortArr(inputArray) {
+    // Remove duplicates using Set and sort the array
+    return [...new Set(inputArray)].sort();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: sortArr
+libs: null
+description: string~~~sortArr is a function that takes an array, removes any duplicate values using a Set, and returns the array sorted in ascending order.~~~here is how the func looks like:~~~```~~~sortArr(arr str stringArray)~~~```~~~
+# Function to sort and remove duplicates
+def sortArr(input_list):
+    """
+    Function to sort a list of strings and remove duplicates.
+    """
+    return sorted(set(input_list))
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: countChars
+libs: #include <iostream>|#include <string>
+description: string~~~countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.~~~here is how the func looks like:~~~```~~~countChars(str string, str theChar)~~~```~~~
+// Overload for counting a single character
+int countChars(const std::string& str, char theChar) {
+    int count = 0;
+    for (char c : str) {
+        if (c == theChar) {
+            count++;
+        }
+    }
+    return count;
+}
+// Overload for counting a substring
+int countChars(const std::string& str, const std::string& substring) {
+    if (substring.empty()) return 0; // Avoid infinite loop
+    int count = 0;
+    size_t pos = 0;
+    // Find occurrences of the substring
+    while ((pos = str.find(substring, pos)) != std::string::npos) {
+        count++;
+        pos += substring.length(); // Move past the found substring
+    }
+    return count;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: countChars
+libs: null
+description: string~~~countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.~~~here is how the func looks like:~~~```~~~countChars(str string, str theChar)~~~```~~~
+def countChars(string, theChar):
+    return string.count(theChar)
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: countChars
+libs: null
+description: string~~~countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.~~~here is how the func looks like:~~~```~~~countChars(str string, str theChar)~~~```~~~
+function countChars(string, theChar) {
+    let count = 0;
+    for (let char of string) {
+        if (char === theChar) {
+            count++;
+        }
+    }
+    return count;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: StrTitleCase
+libs: #include <iostream>|#include <sstream>|#include <cctype>|#include <string>
+description: string~~~StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.~~~here is how the func looks like:~~~```~~~StrTitleCase(str inputString)~~~```~~~
+std::string StrTitleCase(const std::string& input) {
+    std::string result;
+    bool newWord = true;
+    for (char ch : input) {
+        if (std::isspace(ch)) {
+            newWord = true; // next character starts a new word
+            result += ch;
+        } else if (newWord) {
+            result += std::toupper(ch); // capitalize the first letter of the word
+            newWord = false;
+        } else {
+            result += std::tolower(ch); // make other letters lowercase
+        }
+    }
+    return result;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: StrTitleCase
+libs: null
+description: string~~~StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.~~~here is how the func looks like:~~~```~~~StrTitleCase(str inputString)~~~```~~~
+function StrTitleCase(inputString) {
+    return inputString.split(' ')  // Split the string into words
+        .map(word => {
+            if (word) {  // Avoid empty words (multiple spaces)
+                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();  // Capitalize first letter
+            }
+            return word;  // If it's an empty string (spaces), keep it as is
+        })
+        .join(' ');  // Join the words back together with spaces
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: StrTitleCase
+libs: null
+description: string~~~StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.~~~here is how the func looks like:~~~```~~~StrTitleCase(str inputString)~~~```~~~
+def StrTitleCase(input_string):
+    words = input_string.split(' ')  # Split the input string into words
+    result = []
+    for word in words:
+        if word:  # Ignore empty strings (in case of multiple spaces)
+            result.append(word[0].upper() + word[1:].lower())  # Capitalize first letter, lowercase others
+        else:
+            result.append(word)  # Preserve spaces as is
+    return ' '.join(result)  # Join the list of words back into a string
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+func======================func==============
+lang: py
+name: createBackendInit
+libs: from flask import Flask, request, send_file|import os
+description: backend~~~createBackendInit is a function that initializes a Flask app, sets up a default route to serve an `index.html` file, and registers a custom 404 error handler and uses the app variable so never use the app variable please~~~here is how the func looks like:~~~```~~~createBackendInit([filename = "index.html"])~~~```~~~Here is an exmaple how to use the backend~~~```py~~~# Initialize Flask app~~~createBackendInit()~~~# Define your custom endpoint functions using camelCase~~~def helloWord(data):~~~    # Handle data and return plain text response~~~    return f"Hello, you sent: {data['message']}"~~~def uppercaseText(data):~~~    # Handle data and return plain text response~~~    return data['text'].upper()~~~# Register the endpoints~~~addEndpoint(helloWord)~~~addEndpoint(uppercaseText)~~~# Start the server~~~startServer()~~~```~~~~~~This exmaple is in python but the funcs works in HTVM like normal funcs.
+# Declare the global app variable
+app = None
+
+def createBackendInit(filename="index.html"):
+    """Initialize the Flask app with an optional filename to be served."""
+    global app  # Use the global app variable
+    app = Flask(__name__)
+
+    # Define a route to serve the file, defaulting to 'index.html'
+    def appRoute():
+        file_path = os.path.join(os.path.dirname(__file__), filename)
+        return send_file(file_path), 200
+
+    # Add URL rule with the route that calls appRoute
+    app.add_url_rule('/', 'appRoute', appRoute, methods=["GET"])
+
+    # Handle 404 errors
+    def notFound(e):
+        return "Page not found", 404
+    app.register_error_handler(404, notFound)
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: py
+name: addEndpoint
+libs: from flask import Flask, request, send_file|import os
+description: backend~~~addEndpoint is a function that registers a given function as an endpoint with a specified HTTP method (default is POST).~~~here is how the func looks like:~~~```~~~addEndpoint(func func, str method [default = "POST"])~~~```~~~Here is an exmaple how to use the backend~~~```py~~~# Initialize Flask app~~~createBackendInit()~~~# Define your custom endpoint functions using camelCase~~~def helloWord(data):~~~    # Handle data and return plain text response~~~    return f"Hello, you sent: {data['message']}"~~~def uppercaseText(data):~~~    # Handle data and return plain text response~~~    return data['text'].upper()~~~# Register the endpoints~~~addEndpoint(helloWord)~~~addEndpoint(uppercaseText)~~~# Start the server~~~startServer()~~~```~~~~~~This exmaple is in python but the funcs works in HTVM like normal funcs.
+def addEndpoint(func, method="POST"):
+    """Register a function as an endpoint with a single HTTP method."""
+    endpoint = f"/{func.__name__}"
+    
+    def handle_request():
+        if request.method == "GET":
+            # Extract raw query string
+            raw_query = request.query_string.decode('utf-8')  # Get query string like "WAESRDG="
+            if raw_query:
+                # Split by "=" and get everything before the "="
+                key = raw_query.split('=')[0]
+                return func(key)  # Pass the extracted key to the function
+            else:
+                return "No query string provided", 400
+        
+        elif request.method in {"POST", "PUT", "PATCH"}:
+            data = request.get_json()
+            return func(data)
+        
+        elif request.method == "DELETE":
+            data = request.args.to_dict() if not request.is_json else request.get_json()
+            return func(data)
+        
+        else:
+            return f"Method {request.method} not supported", 405
+
+    app.add_url_rule(
+        endpoint,
+        endpoint,
+        handle_request,
+        methods=[method]
+    )
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: py
+name: startServer
+libs: from flask import Flask, request, send_file|import os
+description: backend~~~startServer is a function that runs a Flask web application on a specified host and port, with default values for the host and port parameters.~~~here is how the func looks like:~~~```~~~startServer([port=8000], [host="0.0.0.0"])~~~```~~~Here is an exmaple how to use the backend~~~```py~~~# Initialize Flask app~~~createBackendInit()~~~# Define your custom endpoint functions using camelCase~~~def helloWord(data):~~~    # Handle data and return plain text response~~~    return f"Hello, you sent: {data['message']}"~~~def uppercaseText(data):~~~    # Handle data and return plain text response~~~    return data['text'].upper()~~~# Register the endpoints~~~addEndpoint(helloWord)~~~addEndpoint(uppercaseText)~~~# Start the server~~~startServer()~~~```~~~~~~This exmaple is in python but the funcs works in HTVM like normal funcs.
+def startServer(port=8000, host="0.0.0.0"):
+    """Run the Flask app."""
+    app.run(host=host, port=port, debug=True)
+funcEND======================funcEND==============
+
+
+
+func======================func==============
+lang: js
+name: getDataFromEndpoint
+libs: null
+description: backend~~~getDataFromEndpoint is a function that fetches data from a specified endpoint using a provided HTTP method (default is POST), sends the data as a JSON string, and parses the response based on its content type.~~~here is how the func looks like:~~~```~~~getDataFromEndpoint(data, endpoint, method = "POST")~~~```~~~
+async function getDataFromEndpoint(data, endpoint, method = "POST") {
+  let url = endpoint;
+  let requestOptions = {
+    method, // Use the provided method
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  // If the method is GET, append data as query parameters
+  if (method === "GET") {
+    const queryParams = new URLSearchParams(data).toString();
+    url += `?${queryParams}`;
+  } else {
+    // For POST/PUT, include the body
+    requestOptions.body = JSON.stringify(data);
+  }
+
+  // Fetch data
+  const response = await fetch(url, requestOptions);
+
+  // Handle response
+  if (!response.ok) {
+    throw new Error(`Failed to fetch data from ${url}. Status: ${response.status}`);
+  }
+
+  const contentType = response.headers.get("content-type");
+  if (contentType && contentType.includes("application/json")) {
+    return response.json();
+  } else {
+    return response.text();
+  }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~HTVM_getLang_HTVM is a func that returns the current language of HTVM as a string~~~here is how the func looks like:~~~```~~~HTVM_getLang_HTVM()~~~```~~~
+std::string HTVM_getLang_HTVM() {
+    return "cpp";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~HTVM_getLang_HTVM is a func that returns the current language of HTVM as a string~~~here is how the func looks like:~~~```~~~HTVM_getLang_HTVM()~~~```~~~
+def HTVM_getLang_HTVM():
+    return "py"
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~HTVM_getLang_HTVM is a func that returns the current language of HTVM as a string~~~here is how the func looks like:~~~```~~~HTVM_getLang_HTVM()~~~```~~~
+function HTVM_getLang_HTVM() {
+    return "js";
+}
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cpp
+name: HTVM_v2_HTVM
+libs: #include <algorithm>|#include <any>|#include <cstdint>|#include <filesystem>|#include <iostream>|#include <optional>|#include <regex>|#include <sstream>|#include <string>|#include <type_traits>|#include <vector>
+description: other~~~HTVM_v2_HTVM is a func that will help me make HTVM v2 DONT USE IT!!!
+bool noParams = false;
+std::string allArgs = "";
+// in allArgs will look like:
+// full/path/code/
+// HTVM-Instruction.txt file
+// lang to convert to
+// HTVM-Instruction.txt file MORE
+// HTVM-Instruction.txt file MORE
+// HTVM-Instruction.txt file MORE and more
+
+#ifdef _WIN32
+    #define ARGC __argc
+    #define ARGV __argv
+#else
+    extern char **environ;
+    int ARGC;
+    char** ARGV;
+    __attribute__((constructor)) void init_args(int argc, char* argv[], char* envp[]) {
+        ARGC = argc;
+        ARGV = argv;
+    }
+#endif
+std::string GetParams() {
+    std::vector<std::string> params;
+    for (int i = 1; i < ARGC; ++i) {
+        std::string arg = ARGV[i];
+        if (std::filesystem::exists(arg)) {
+            arg = std::filesystem::absolute(arg).string();
+        }
+        params.push_back(arg);
+    }
+    std::string result;
+    for (const auto& param : params) {
+        result += param + "\n";
+    }
+    return result;
+}
+
+
+void HTVM_v2_HTVM() {
+    std::string params = Trim(GetParams());
+    if (params == "") {
+	noParams = true;
+        print("Usage: HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> [optional LangToTranspileTo]\n\nOptions:\n  <yourCodeFileName.yourExtension>  The source code file to transpile.\n  <HTVM-instructions.txt>              The instructions file for transpilation.\n  [LangToTranspileTo]                Optional: Specify the target language (cpp, py, js, go, lua, cs, java, kt, rb, nim, ahk, swift, dart, ts, scala, groovy, htvm or <yourExtension>).\n\nExample:\n  HTVM main.htvm HTVM-instructions.txt cpp\n");
+        return;
+    }
+    std::vector<std::string> items1 = LoopParseFunc(params, "\n", "\r");
+    for (size_t A_Index1 = 0; A_Index1 < items1.size() + 0; A_Index1++) {
+        std::string A_LoopField1 = items1[A_Index1 - 0];
+        allArgs += Trim(A_LoopField1) + "\n";
+    }
+    allArgs = StringTrimRight(allArgs, 1);
+}
+
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: HTVM_v2_HTVM
+libs: import os|import re|import sys
+description: other~~~HTVM_v2_HTVM is a func that will help me make HTVM v2 DONT USE IT!!!
+
+noParams = False
+allArgs = ""
+# in allArgs will look like:
+# full/path/code/
+# HTVM-Instruction.txt file
+# lang to convert to
+# HTVM-Instruction.txt file MORE
+# HTVM-Instruction.txt file MORE
+# HTVM-Instruction.txt file MORE and more
+
+def GetParams():
+    # Check if any command line arguments are provided
+    if len(sys.argv) < 2:
+        return ""
+    # Store the provided command line arguments
+    params = []
+    for arg in sys.argv[1:]:
+        if os.path.exists(arg):
+            arg = os.path.abspath(arg)
+        params.append(arg)
+    return "\\n".join(params)
+
+def HTVM_v2_HTVM():
+    global noParams, allArgs
+    params = Trim(GetParams())
+    if (params == ""):
+        noParams = True
+       	print("Usage: HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> [optional LangToTranspileTo]\n\nOptions:\n  <yourCodeFileName.yourExtension>  The source code file to transpile.\n  <HTVM-instructions.txt>              The instructions file for transpilation.\n  [LangToTranspileTo]                Optional: Specify the target language (cpp, py, js, go, lua, cs, java, kt, rb, nim, ahk, swift, dart, ts, scala, groovy, htvm or <yourExtension>).\n\nExample:\n  HTVM main.htvm HTVM-instructions.txt cpp\n")
+        return
+    items1 = LoopParseFunc(params, "\n", "\r")
+    for A_Index1 , A_LoopField1 in enumerate(items1, start=0):
+        allArgs += Trim(A_LoopField1) + "\n"
+    allArgs = StringTrimRight(allArgs, 1)
+
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: HTVM_v2_HTVM
+libs: null
+description: other~~~HTVM_v2_HTVM is a func that will help me make HTVM v2 DONT USE IT!!!
+
+// HTVM_v2_HTVM()
+
+let allArgs = "";
+let noParams = false;
+
+function HTVM_v2_HTVM() {
+return
+}
+
+funcEND======================funcEND==============

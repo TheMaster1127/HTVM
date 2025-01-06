@@ -1,17 +1,17 @@
 
-
+main
 Loop, 5 {
-            print("he\llo HTVM v2")
-print("he\llo HTVM`nv2")
+            print("hello HTVM v2")
+print("hello HTVM`nv2")
         print(A_Index)
 
 
 Loop, 5 {
-            print("he\llo HTVM v2")
-print("he\llo HTVM`nv2")
+            print("hello HTVM v2")
+print("hello HTVM`nv2")
 Loop, 5 {
-            print("he\llo HTVM v2")
-print("he\llo HTVM`nv2")
+            print("hello HTVM v2")
+print("hello HTVM`nv2")
         print(A_Index)
 }
 

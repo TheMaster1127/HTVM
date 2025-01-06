@@ -1680,6 +1680,8 @@ func str compiler(str htCode, str allInstructionFile, str mode, str langToConver
 extraCodeReturned := ""
 
 
+str instructions := allInstructionFile
+
 Loop, Parse, allInstructionFile, `n, `r
 {
 	if (A_Index = 0) {
@@ -2981,6 +2983,7 @@ StringTrimRight, code, outCodeFixBraces, 1
 }
 
 
+
 ;;; main loop ;;;
 ;;; main loop ;;;
 ;;; main loop ;;;
@@ -2988,6 +2991,56 @@ StringTrimRight, code, outCodeFixBraces, 1
 
 int didWeUseMainLabel := 0
 str codeOutFixAndAddMainFunc := ""
+
+
+
+Loop, Parse, code, `n, `r
+{
+
+if (StrLower(A_LoopField) = StrLower(keyWordMainLabel))
+{
+didWeUseMainLabel := 1
+if (langToConvertTo = "cpp")
+{
+codeOutFixAndAddMainFunc .= "int main(int argc, char* argv[])`n{`n"
+}
+if (langToConvertTo = "js") and (useJavaScriptAmainFuncDef = "on")
+{
+codeOutFixAndAddMainFunc .= "async function main()`n{`n"
+}
+
+}
+else
+{
+codeOutFixAndAddMainFunc .= A_LoopField . "`n"
+}
+}
+
+if (didWeUseMainLabel != 1) and (langToConvertTo = "cpp")
+{
+codeOutFixAndAddMainFunc := "int main(int argc, char* argv[])`n{`n" . codeOutFixAndAddMainFunc
+}
+if (didWeUseMainLabel != 1) and (langToConvertTo = "js") and (useJavaScriptAmainFuncDef = "on")
+{
+codeOutFixAndAddMainFunc := "async function main()`n{`n" . codeOutFixAndAddMainFunc
+}
+
+
+StringTrimRight, code, codeOutFixAndAddMainFunc, 1
+; main loop
+; main loop
+
+arr str lookIntoTheNextLineForFuncWhitNoKeyWord
+Loop, Parse, code, `n, `r
+{
+lookIntoTheNextLineForFuncWhitNoKeyWord.add(A_LoopField)
+}
+lookIntoTheNextLineForFuncWhitNoKeyWord.add(" ")
+
+
+
+
+
 
 htCode := ""
 print("=======UP==========")
@@ -3255,6 +3308,56 @@ htCode .= htCodeLoopfixa1 . "`n" . var1out . "`n"
 
 
 
+}
+else if ((SubStr(Trim(A_LoopField), -2) = ");") or (SubStr(Trim(A_LoopField), -1) = ")")) and (!(InStr(A_LoopField, "int main(int argc, char* argv[])"))) and (!(InStr(A_LoopField, "async function main()"))) and (lineDone = 0)
+{
+lineDone := 1
+str1 := A_LoopField
+if (langToConvertTo = "py")
+{
+str1 := StrReplace(str1, ";", "")
+}
+
+if (Trim(lookIntoTheNextLineForFuncWhitNoKeyWord[A_Index + 1]) = "{") and (useFuncKeyWord = "off")
+{
+str2 := str1
+
+
+
+str2 := StrReplace(str2, Trim(keyWordAssign), "=")
+str2 := StrReplace(str2, "):", ")")
+str2 := StrReplace(str2, ") :", ")")
+
+
+if (langToConvertTo = "py")
+{
+str3 := "def " . str2 . ":"
+}
+if (langToConvertTo = "js")
+{
+str3 := "async function " . str2
+}
+if (langToConvertTo = "cpp")
+{
+str3 := str1
+}
+
+
+htCode .= str3 . "`n"
+}
+else
+{
+str2 := expressionParserTranspiler(Trim(str1)) . ";"
+if (langToConvertTo = "py")
+{
+str2 := StrReplace(str2, ";", "")
+}
+else
+{
+str2 := StrReplace(str2, ";;", ";")
+}
+htCode .= str2 . "`n"
+}
 }
 else
 {
@@ -3765,6 +3868,213 @@ StringTrimRight, htCode, htCodeOut1234565432, 1
 
 
 
+if (langToConvertTo = "py")
+{
+htCode := indent_nested_curly_braces(htCode, 0)
+}
+else
+{
+htCode := indent_nested_curly_braces(htCode, 1)
+}
+
+
+
+
+
+
+
+
+
+
+
+areWeInAFuncFromInstructions := 0
+areWeInAFuncFromInstructionsLineNum := 0
+
+str funcLangHolder := ""
+str funcNameHolder := ""
+str funcLibsHolder := ""
+str funcFuncHolder := ""
+str funcDescriptionHolder := ""
+
+arr str allFuncLang
+arr str allFuncNames
+arr str allFuncLibs
+arr str allFuncs
+arr str allfuncDescription
+
+
+int correctLang := 0
+Loop, Parse, instructions, `n, `r
+{
+if (Trim(A_LoopField) = "funcEND======================funcEND==============")
+{
+areWeInAFuncFromInstructions := 0
+areWeInAFuncFromInstructionsLineNum := 0
+if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder)))
+{
+;MsgBox, % funcFuncHolder
+allFuncs.add(funcFuncHolder)
+}
+correctLang := 0
+funcFuncHolder := ""
+}
+
+if (areWeInAFuncFromInstructions = 1)
+{
+
+if (areWeInAFuncFromInstructionsLineNum = 1)
+{
+; name of the func
+StringTrimLeft, funcLangHolder, A_LoopField, 5
+if (Trim(funcLangHolder) = langToConvertTo)
+{
+allFuncLang.add(Trim(funcLangHolder))
+correctLang := 1
+}
+}
+if (areWeInAFuncFromInstructionsLineNum = 2)
+{
+; name of the func
+StringTrimLeft, funcNameHolder, A_LoopField, 5
+if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder)))
+{
+allFuncNames.add(Trim(funcNameHolder))
+}
+}
+if (areWeInAFuncFromInstructionsLineNum = 3)
+{
+; all libs
+StringTrimLeft, funcLibsHolder, A_LoopField, 5
+if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder)))
+{
+allFuncLibs.add(Trim(funcLibsHolder))
+}
+}
+if (areWeInAFuncFromInstructionsLineNum = 4)
+{
+; func description
+StringTrimLeft, funcDescriptionHolder, A_LoopField, 12
+if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder)))
+{
+allfuncDescription.add(Trim(funcDescriptionHolder))
+}
+}
+if (areWeInAFuncFromInstructionsLineNum >= 5)
+{
+; the full func
+if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder)))
+{
+funcFuncHolder .= A_LoopField . "`n"
+}
+}
+
+;MsgBox, % A_LoopField
+
+areWeInAFuncFromInstructionsLineNum++
+}
+
+
+if (Trim(A_LoopField) = "func======================func==============")
+{
+areWeInAFuncFromInstructions := 1
+areWeInAFuncFromInstructionsLineNum := 1
+correctLang := 0
+}
+
+
+
+}
+
+;~ MsgBox, ===========================================================================
+;~ msgbox, % allFuncNames
+;~ MsgBox, ===========================================================================
+;~ msgbox, % allFuncLibs
+;~ MsgBox, ===========================================================================
+;~ msgbox, % allFuncLang
+;~ MsgBox, ===========================================================================
+;~ msgbox, % allFuncs
+;~ MsgBox, ===========================================================================
+
+
+
+
+
+if (langToConvertTo = "cpp")
+{
+htCode := htCode . "`n    return 0;`n}"
+htCode := StrReplace(htCode, "int main(int argc, char* argv[]);", "int main(int argc, char* argv[])")
+}
+if (langToConvertTo = "js") and (useJavaScriptAmainFuncDef = "on")
+{
+htCode := htCode . "`n}`nmain();"
+htCode := StrReplace(htCode, "async function main();", "async function main()")
+htCode := StrReplace(htCode, "function async function main()", "async function main()")
+}
+
+
+
+str jsHTMLdownCode := "</script>`n</body>`n</html>"
+
+int includeLibsInCppIf := 0
+
+str allFuncsToPutAtTop := "`n"
+str allLibsToPutAtTop
+
+if (!(allFuncNames.size() <= 0))
+{
+Loop, % allFuncNames.size()
+{
+if (InStr(htCode, allFuncNames[A_Index]) . "(")
+{
+;MsgBox, % allFuncNames[A_Index]
+
+allFuncsToPutAtTop .= allFuncs[A_Index] . "`n"
+
+if (Trim(allFuncLibs[A_Index]) != "null")
+{
+allLibsToPutAtTop .= allFuncLibs[A_Index] . "|"
+}
+
+}
+}
+StringTrimRight, allLibsToPutAtTop, allLibsToPutAtTop, 1
+
+str allLibsToPutAtTopTEMP
+Loop, Parse, allLibsToPutAtTop, "|"
+{
+allLibsToPutAtTopTEMP .= A_LoopField . "`n"
+}
+StringTrimRight, allLibsToPutAtTop, allLibsToPutAtTopTEMP, 1
+
+includeLibsInCppIf := 1
+
+if (langToConvertTo = "cpp")
+{
+allLibsToPutAtTop := "#include <iostream>`n#include <sstream>`n#include <string>`n#include <cstdint>`n#include <algorithm>`n#include <vector>`n#include <any>`n#include <optional>`n" . allLibsToPutAtTop
+}
+
+Sort, allLibsToPutAtTop, U
+
+allLibsToPutAtTop := StrReplace(allLibsToPutAtTop, "~", "`n")
+
+if (langToConvertTo != "js")
+{
+htCode := allLibsToPutAtTop . "`n" . allFuncsToPutAtTop . "`n" . htCode
+}
+else
+{
+htCode := "`n" . allFuncsToPutAtTop . "`n" . htCode
+}
+
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -3781,10 +4091,31 @@ htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" . Chr
 }
 }
 
+htCode := StrReplace(htCode, ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes, Chr(92) . Chr(34))
+
+
+htCode := StrReplace(htCode, "std::string(" . Chr(34) . Chr(34) . ";),", "std::string(" . Chr(34) . Chr(34) . "),")
 
 
 
 
+
+
+
+
+str jsHTMLupCode := "<!doctype html>`n<html lang=" . Chr(34) . "en" . Chr(34) . ">`n    <head>`n        <meta charset=" . Chr(34) . "UTF-8" . Chr(34) . " />`n        <meta name=" . Chr(34) . "viewport" . Chr(34) . " content=" . Chr(34) . "width=device-width, initial-scale=1.0" . Chr(34) . " />`n        <title>HTVM</title>`n        <style>`n            body {`n                background-color: #202020;`n                font-family:`n                    " . Chr(34) . "Open Sans" . Chr(34) . ",`n                    -apple-system,`n                    BlinkMacSystemFont,`n                    " . Chr(34) . "Segoe UI" . Chr(34) . ",`n                    Roboto,`n                    Oxygen-Sans,`n                    Ubuntu,`n                    Cantarell,`n                    " . Chr(34) . "Helvetica Neue" . Chr(34) . ",`n                    Helvetica,`n                    Arial,`n                    sans-serif;`n            }`n        </style>`n" . allLibsToPutAtTop . "`n</head>`n    <body>`n<script>"
+
+
+
+if (useJavaScriptInAfullHTMLfile = "on") and (langToConvertTo = "js")
+{
+htCode := jsHTMLupCode . "`n" . htCode . "`n" . jsHTMLdownCode
+}
+
+if (langToConvertTo = "cpp") and (includeLibsInCppIf = 0)
+{
+htCode := "#include <iostream>`n#include <sstream>`n#include <any>`n#include <string>`n#include <cstdint>`n#include <algorithm>`n#include <vector>`n`n" . htCode
+}
 
 
 
@@ -3895,9 +4226,18 @@ OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "full")
 
 
 print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConvertTo)
+
+
+if (langToConvertTo = "js") and (useJavaScriptInAfullHTMLfile = "on")
+{
+FileDelete(StringTrimRight(argCODEfile, StrLen(langFileExtension)) . "html")
+FileAppend(OUTCODE, StringTrimRight(argCODEfile, StrLen(langFileExtension)) . "html")
+}
+else
+{
 FileDelete(StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConvertTo)
 FileAppend(OUTCODE, StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConvertTo)
-
+}
 
 
 }
