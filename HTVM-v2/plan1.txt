@@ -174,7 +174,6 @@ keyWordFuncEndExtraInfo
 keyWordTryEndExtraInfo
 keyWordCatchEndExtraInfo
 keyWordFinallyEndExtraInfo
-useFuncKeyWord
 useCurlyBraces
 useEnd
 useEndExtraInfo

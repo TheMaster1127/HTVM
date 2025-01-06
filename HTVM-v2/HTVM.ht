@@ -1654,6 +1654,59 @@ return str123
 
 func str expressionParserTranspiler(str expression)
 {
+
+if (langToConvertTo = "htvm") {
+expression := expression
+}
+if (langToConvertTo = "cpp") {
+expression := expression
+}
+if (langToConvertTo = "py") {
+expression := expression
+}
+if (langToConvertTo = "js") {
+expression := expression
+}
+if (langToConvertTo = "go") {
+expression := expression
+}
+if (langToConvertTo = "lua") {
+expression := expression
+}
+if (langToConvertTo = "cs") {
+expression := expression
+}
+if (langToConvertTo = "java") {
+expression := expression
+}
+if (langToConvertTo = "kt") {
+expression := expression
+}
+if (langToConvertTo = "rb") {
+expression := expression
+}
+if (langToConvertTo = "nim") {
+expression := expression
+}
+if (langToConvertTo = "ahk") {
+expression := expression
+}
+if (langToConvertTo = "swift") {
+expression := expression
+}
+if (langToConvertTo = "dart") {
+expression := expression
+}
+if (langToConvertTo = "ts") {
+expression := expression
+}
+if (langToConvertTo = "scala") {
+expression := expression
+}
+if (langToConvertTo = "groovy") {
+expression := expression
+}
+
 return expression
 }
 
@@ -2213,50 +2266,48 @@ Loop, Parse, allInstructionFile, `n, `r
 		keyWordFinallyEndExtraInfo := Trim(A_LoopField)
 	}
 	if (A_Index = 176) {
-		useFuncKeyWord := Trim(A_LoopField)
-	}
-	if (A_Index = 177) {
 		useCurlyBraces := Trim(A_LoopField)
 	}
-	if (A_Index = 178) {
+	if (A_Index = 177) {
 		useEnd := Trim(A_LoopField)
 	}
-	if (A_Index = 179) {
+	if (A_Index = 178) {
 		useEndExtraInfo := Trim(A_LoopField)
 	}
-	if (A_Index = 180) {
+	if (A_Index = 179) {
 		useSemicolon := Trim(A_LoopField)
 	}
-	if (A_Index = 181) {
+	if (A_Index = 180) {
 		useParentheses := Trim(A_LoopField)
 	}
-	if (A_Index = 182) {
+	if (A_Index = 181) {
 		usePrefixTypeForTypeDefinition := Trim(A_LoopField)
 	}
-	if (A_Index = 183) {
+	if (A_Index = 182) {
 		usePostfixTypeForTypeDefinition := Trim(A_LoopField)
 	}
-	if (A_Index = 184) {
+	if (A_Index = 183) {
 		usePythonicColonSyntax := Trim(A_LoopField)
 	}
-	if (A_Index = 185) {
+	if (A_Index = 184) {
 		useCurlyBracesSyntaxForArrayDef := Trim(A_LoopField)
 	}
-	if (A_Index = 186) {
+	if (A_Index = 185) {
 		useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
 	}
-	if (A_Index = 187) {
+	if (A_Index = 186) {
 		useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
 	}
-	if (A_Index = 188) {
+	if (A_Index = 187) {
 		useJavaScriptAmainFuncDef := Trim(A_LoopField)
 	}
-	if (A_Index = 189) {
+	if (A_Index = 188) {
 		useJavaScriptAllFuncsAreAsync := Trim(A_LoopField)
 	}
-	if (A_Index = 190) {
+	if (A_Index = 189) {
 		useJavaScriptAlwaysTripleEqual := Trim(A_LoopField)
 	}
+
 }
 
 if (Trim(langToConvertToParam) != "") {
@@ -2344,58 +2395,6 @@ if (langToConvertTo = "groovy") {
 str HTVMout := ""
 
 htCode := Trim(StrReplace(htCode, Chr(13), ""))
-
-if (langToConvertTo = "htvm") {
-HTVMout := "0"
-}
-if (langToConvertTo = "cpp") {
-HTVMout := "0"
-}
-if (langToConvertTo = "py") {
-HTVMout := "0"
-}
-if (langToConvertTo = "js") {
-HTVMout := "0"
-}
-if (langToConvertTo = "go") {
-HTVMout := "0"
-}
-if (langToConvertTo = "lua") {
-HTVMout := "0"
-}
-if (langToConvertTo = "cs") {
-HTVMout := "0"
-}
-if (langToConvertTo = "java") {
-HTVMout := "0"
-}
-if (langToConvertTo = "kt") {
-HTVMout := "0"
-}
-if (langToConvertTo = "rb") {
-HTVMout := "0"
-}
-if (langToConvertTo = "nim") {
-HTVMout := "0"
-}
-if (langToConvertTo = "ahk") {
-HTVMout := "0"
-}
-if (langToConvertTo = "swift") {
-HTVMout := "0"
-}
-if (langToConvertTo = "dart") {
-HTVMout := "0"
-}
-if (langToConvertTo = "ts") {
-HTVMout := "0"
-}
-if (langToConvertTo = "scala") {
-HTVMout := "0"
-}
-if (langToConvertTo = "groovy") {
-HTVMout := "0"
-}
 
 str code := ""
 
@@ -2994,6 +2993,10 @@ str codeOutFixAndAddMainFunc := ""
 
 
 
+
+
+
+
 Loop, Parse, code, `n, `r
 {
 
@@ -3007,6 +3010,38 @@ codeOutFixAndAddMainFunc .= "int main(int argc, char* argv[])`n{`n"
 if (langToConvertTo = "js") and (useJavaScriptAmainFuncDef = "on")
 {
 codeOutFixAndAddMainFunc .= "async function main()`n{`n"
+}
+if (langToConvertTo = "ts") and (useJavaScriptAmainFuncDef = "on")
+{
+codeOutFixAndAddMainFunc .= "async function main(): Promise<void>`n{`n"
+}
+if (langToConvertTo = "go")
+{
+codeOutFixAndAddMainFunc .= "func main()`n{`n"
+}
+if (langToConvertTo = "cs")
+{
+codeOutFixAndAddMainFunc .= "static void Main(string[] args)`n{`n"
+}
+if (langToConvertTo = "java")
+{
+codeOutFixAndAddMainFunc .= "public static void main(String[] args)`n{`n"
+}
+if (langToConvertTo = "kt")
+{
+codeOutFixAndAddMainFunc .= "fun main(args: Array<String>)`n{`n"
+}
+if (langToConvertTo = "swift")
+{
+codeOutFixAndAddMainFunc .= "func main()`n{`n"
+}
+if (langToConvertTo = "dart")
+{
+codeOutFixAndAddMainFunc .= "void main(List<String> arguments)`n{`n"
+}
+if (langToConvertTo = "scala")
+{
+    codeOutFixAndAddMainFunc .= "ndef main(args: Array[String]): Unit = `n{`n"
 }
 
 }
@@ -3025,6 +3060,38 @@ if (didWeUseMainLabel != 1) and (langToConvertTo = "js") and (useJavaScriptAmain
 codeOutFixAndAddMainFunc := "async function main()`n{`n" . codeOutFixAndAddMainFunc
 }
 
+if (didWeUseMainLabel != 1) and (langToConvertTo = "ts") and (useJavaScriptAmainFuncDef = "on")
+{
+    codeOutFixAndAddMainFunc := "async function main(): Promise<void>`n{`n" . codeOutFixAndAddMainFunc
+}
+if (didWeUseMainLabel != 1) and (langToConvertTo = "go")
+{
+    codeOutFixAndAddMainFunc := "func main()`n{`n" . codeOutFixAndAddMainFunc
+}
+if (didWeUseMainLabel != 1) and (langToConvertTo = "cs")
+{
+    codeOutFixAndAddMainFunc := "static void Main(string[] args)`n{`n" . codeOutFixAndAddMainFunc
+}
+if (didWeUseMainLabel != 1) and (langToConvertTo = "java")
+{
+    codeOutFixAndAddMainFunc := "public static void main(String[] args)`n{`n" . codeOutFixAndAddMainFunc
+}
+if (didWeUseMainLabel != 1) and (langToConvertTo = "kt")
+{
+    codeOutFixAndAddMainFunc := "fun main(args: Array<String>)`n{`n" . codeOutFixAndAddMainFunc
+}
+if (didWeUseMainLabel != 1) and (langToConvertTo = "swift")
+{
+    codeOutFixAndAddMainFunc := "func main()`n{`n" . codeOutFixAndAddMainFunc
+}
+if (didWeUseMainLabel != 1) and (langToConvertTo = "dart")
+{
+    codeOutFixAndAddMainFunc := "void main(List<String> arguments)`n{`n" . codeOutFixAndAddMainFunc
+}
+if (didWeUseMainLabel != 1) and (langToConvertTo = "scala")
+{
+    codeOutFixAndAddMainFunc := "def main(args: Array[String]): Unit = `n{`n" . codeOutFixAndAddMainFunc
+}
 
 StringTrimRight, code, codeOutFixAndAddMainFunc, 1
 ; main loop
@@ -3072,14 +3139,71 @@ if (langToConvertTo = "cpp")
 var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; ; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 
+if (langToConvertTo = "go")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " := " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < someLimit; " . keyWordAIndex . "" . STR(AindexcharLength) . "++"
+}
+if (langToConvertTo = "lua")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . ", someLimit do"
+}
+if (langToConvertTo = "cs")
+{
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < someLimit; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "java")
+{
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < someLimit; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "kt")
+{
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..someLimit)"
+}
+if (langToConvertTo = "rb")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..someLimit do"
+}
+if (langToConvertTo = "nim")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..someLimit:"
+}
+if (langToConvertTo = "ahk")
+{
+    var1 := "Loop"
+}
+if (langToConvertTo = "swift")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . " ..< someLimit"
+}
+if (langToConvertTo = "dart")
+{
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < someLimit; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "ts")
+{
+    var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < someLimit; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "scala")
+{
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " <- " . AHKlikeLoopsIndexedAt . " to someLimit)"
+}
+if (langToConvertTo = "groovy")
+{
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..someLimit)"
+}
+
+
 
 nothing := ""
 AindexcharLengthStr := nothing . STR(AindexcharLength) . nothing
 
 htCodeAcurlyBraceAddSomeVrasFixNL := 1
 lineDone := 1
+if (langToConvertTo != "ahk")
+{
 htCodeLoopfixa .= "nl|itsaersdtgtgfergsdgfsegdfsedAA|" . STR(AindexcharLength) . "`n"
 htCodeLoopfixa1 := "nl|itsaersdtgtgfergsdgfsegdfsedAA|" . STR(AindexcharLength)
+}
 AindexcharLength++
 htCode .= htCodeLoopfixa1 . "`n" . var1 . "`n"
 }
@@ -3113,14 +3237,67 @@ if (langToConvertTo = "cpp")
 {
 var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
-
+if (langToConvertTo = "go")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " := " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++"
+}
+if (langToConvertTo = "lua")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . ", " . line . " + " . AHKlikeLoopsIndexedAt . " do"
+}
+if (langToConvertTo = "cs")
+{
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "java")
+{
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "kt")
+{
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . ".." . line . " + " . AHKlikeLoopsIndexedAt . ")"
+}
+if (langToConvertTo = "rb")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . ".." . line . " + " . AHKlikeLoopsIndexedAt . " do"
+}
+if (langToConvertTo = "nim")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . ".." . line . " + " . AHKlikeLoopsIndexedAt . ":"
+}
+if (langToConvertTo = "ahk")
+{
+    var1 := "Loop, " . line 
+}
+if (langToConvertTo = "swift")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . " ..< " . line . " + " . AHKlikeLoopsIndexedAt
+}
+if (langToConvertTo = "dart")
+{
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "ts")
+{
+    var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "scala")
+{
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " <- " . AHKlikeLoopsIndexedAt . " to " . line . " + " . AHKlikeLoopsIndexedAt . ")"
+}
+if (langToConvertTo = "groovy")
+{
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . ".." . line . " + " . AHKlikeLoopsIndexedAt . ")"
+}
 nothing := ""
 AindexcharLengthStr := nothing . STR(AindexcharLength) . nothing
 
 htCodeAcurlyBraceAddSomeVrasFixNL := 1
-
+if (langToConvertTo != "ahk")
+{
 htCodeLoopfixa .= "nl|itsaersdtgtgfergsdgfsegdfsedAA|" . STR(AindexcharLength) . "`n"
 htCodeLoopfixa1 := "nl|itsaersdtgtgfergsdgfsegdfsedAA|" . STR(AindexcharLength)
+}
 AindexcharLength++
 lineDone := 1
 htCode .= htCodeLoopfixa1 . "`n" . var1 . "`n"
@@ -3158,13 +3335,68 @@ if (langToConvertTo = "cpp")
 var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 
+if (langToConvertTo = "go")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " := " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++"
+}
+if (langToConvertTo = "lua")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . ", " . line . " + " . AHKlikeLoopsIndexedAt . " do"
+}
+if (langToConvertTo = "cs")
+{
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "java")
+{
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "kt")
+{
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . ".." . line . " + " . AHKlikeLoopsIndexedAt . ")"
+}
+if (langToConvertTo = "rb")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . ".." . line . " + " . AHKlikeLoopsIndexedAt . " do"
+}
+if (langToConvertTo = "nim")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . ".." . line . " + " . AHKlikeLoopsIndexedAt . ":"
+}
+if (langToConvertTo = "ahk")
+{
+    var1 := "Loop, % " . line 
+}
+if (langToConvertTo = "swift")
+{
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . " ..< " . line . " + " . AHKlikeLoopsIndexedAt
+}
+if (langToConvertTo = "dart")
+{
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "ts")
+{
+    var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "scala")
+{
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " <- " . AHKlikeLoopsIndexedAt . " to " . line . " + " . AHKlikeLoopsIndexedAt . ")"
+}
+if (langToConvertTo = "groovy")
+{
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . ".." . line . " + " . AHKlikeLoopsIndexedAt . ")"
+}
+
 nothing := ""
 AindexcharLengthStr := nothing . STR(AindexcharLength) . nothing
 
 htCodeAcurlyBraceAddSomeVrasFixNL := 1
-
+if (langToConvertTo != "ahk")
+{
 htCodeLoopfixa .= "nl|itsaersdtgtgfergsdgfsegdfsedAA|" . STR(AindexcharLength) . "`n"
 htCodeLoopfixa1 := "nl|itsaersdtgtgfergsdgfsegdfsedAA|" . STR(AindexcharLength)
+}
 AindexcharLength++
 lineDone := 1
 htCode .= htCodeLoopfixa1 . "`n" . var1 . "`n"
@@ -3191,14 +3423,72 @@ if (InStr(var1, keyWordEscpaeChar . ","))
 line2 := Chr(34) . "," . Chr(34)
 
 
-if (langToConvertTo = "py") or (langToConvertTo = "js")
+if (langToConvertTo = "py")
 {
 itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
 }
-else
+if (langToConvertTo = "js")
+{
+itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ");"
+}
+if (langToConvertTo = "cpp")
 {
 itemsOut := "std::vector<std::string> items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ");"
 }
+
+if (langToConvertTo = "go")
+{
+    itemsOut := "items" . STR(AindexcharLength) . " := LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "lua")
+{
+    itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "cs")
+{
+    itemsOut := "List<string> items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ");"
+}
+if (langToConvertTo = "java")
+{
+    itemsOut := "List<String> items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ");"
+}
+if (langToConvertTo = "kt")
+{
+    itemsOut := "val items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "rb")
+{
+    itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "nim")
+{
+    itemsOut := "var items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "ahk")
+{
+    itemsOut := "`n"
+}
+if (langToConvertTo = "swift")
+{
+    itemsOut := "var items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "dart")
+{
+    itemsOut := "var items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "ts")
+{
+    itemsOut := "let items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "scala")
+{
+    itemsOut := "val items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "groovy")
+{
+    itemsOut := "def items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+
 }
 else
 {
@@ -3211,10 +3501,65 @@ if (langToConvertTo = "py") or (langToConvertTo = "js")
 {
 itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ")"
 }
-else
+if (langToConvertTo = "cpp")
 {
 itemsOut := "std::vector<std::string> items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ");"
 }
+
+if (langToConvertTo = "go")
+{
+    itemsOut := "items" . STR(AindexcharLength) . " := LoopParseFunc(" . line1 . ")"
+}
+if (langToConvertTo = "lua")
+{
+    itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ")"
+}
+if (langToConvertTo = "cs")
+{
+    itemsOut := "List<string> items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ");"
+}
+if (langToConvertTo = "java")
+{
+    itemsOut := "List<String> items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ");"
+}
+if (langToConvertTo = "kt")
+{
+    itemsOut := "val items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ")"
+}
+if (langToConvertTo = "rb")
+{
+    itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ")"
+}
+if (langToConvertTo = "nim")
+{
+    itemsOut := "var items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ")"
+}
+if (langToConvertTo = "ahk")
+{
+    itemsOut := "`n"
+}
+if (langToConvertTo = "swift")
+{
+    itemsOut := "var items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ")"
+}
+if (langToConvertTo = "dart")
+{
+    itemsOut := "var items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ")"
+}
+if (langToConvertTo = "ts")
+{
+    itemsOut := "let items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ")"
+}
+if (langToConvertTo = "scala")
+{
+    itemsOut := "val items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ")"
+}
+if (langToConvertTo = "groovy")
+{
+    itemsOut := "def items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ")"
+}
+
+
 
 }
 
@@ -3228,10 +3573,64 @@ if (langToConvertTo = "py") or (langToConvertTo = "js")
 {
 itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
 }
-else
+if (langToConvertTo = "cpp")
 {
 itemsOut := "std::vector<std::string> items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ");"
 }
+
+if (langToConvertTo = "go")
+{
+    itemsOut := "items" . STR(AindexcharLength) . " := LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "lua")
+{
+    itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "cs")
+{
+    itemsOut := "List<string> items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ");"
+}
+if (langToConvertTo = "java")
+{
+    itemsOut := "List<String> items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ");"
+}
+if (langToConvertTo = "kt")
+{
+    itemsOut := "val items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "rb")
+{
+    itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "nim")
+{
+    itemsOut := "var items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "ahk")
+{
+    itemsOut := "`n"
+}
+if (langToConvertTo = "swift")
+{
+    itemsOut := "var items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "dart")
+{
+    itemsOut := "var items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "ts")
+{
+    itemsOut := "let items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "scala")
+{
+    itemsOut := "val items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+if (langToConvertTo = "groovy")
+{
+    itemsOut := "def items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+}
+
 
 
 }
@@ -3251,9 +3650,64 @@ if (langToConvertTo = "py") or (langToConvertTo = "js")
 {
 itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ")"
 }
-else
+if (langToConvertTo = "cpp")
 {
 itemsOut := "std::vector<std::string> items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ");"
+}
+
+
+if (langToConvertTo = "go")
+{
+    itemsOut := "items" . STR(AindexcharLength) . " := LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ")"
+}
+if (langToConvertTo = "lua")
+{
+    itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ")"
+}
+if (langToConvertTo = "cs")
+{
+    itemsOut := "List<string> items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ");"
+}
+if (langToConvertTo = "java")
+{
+    itemsOut := "List<String> items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ");"
+}
+if (langToConvertTo = "kt")
+{
+    itemsOut := "val items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ")"
+}
+if (langToConvertTo = "rb")
+{
+    itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ")"
+}
+if (langToConvertTo = "nim")
+{
+    itemsOut := "var items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ")"
+}
+if (langToConvertTo = "ahk")
+{
+    itemsOut := "`n"
+    
+}
+if (langToConvertTo = "swift")
+{
+    itemsOut := "var items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ")"
+}
+if (langToConvertTo = "dart")
+{
+    itemsOut := "var items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ")"
+}
+if (langToConvertTo = "ts")
+{
+    itemsOut := "let items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ")"
+}
+if (langToConvertTo = "scala")
+{
+    itemsOut := "val items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ")"
+}
+if (langToConvertTo = "groovy")
+{
+    itemsOut := "def items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ")"
 }
 
 }
@@ -3281,6 +3735,60 @@ if (langToConvertTo = "cpp")
 var1out := itemsOut . "`n" . "for (size_t " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".size() + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 
+if (langToConvertTo = "go")
+{
+    var1out := itemsOut . "`n" . "for " . keyWordAIndex . "" . STR(AindexcharLength) . " , " . keyWordALoopField . "" . STR(AindexcharLength) . " := range(items" . STR(AindexcharLength) . ")"
+}
+if (langToConvertTo = "lua")
+{
+    var1out := itemsOut . "`n" . "for " . keyWordAIndex . "" . STR(AindexcharLength) . " , " . keyWordALoopField . "" . STR(AindexcharLength) . " in ipairs(items" . STR(AindexcharLength) . ") do"
+}
+if (langToConvertTo = "cs")
+{
+    var1out := itemsOut . "`n" . "foreach (var " . keyWordALoopField . "" . STR(AindexcharLength) . " in items" . STR(AindexcharLength) . ")"
+}
+if (langToConvertTo = "java")
+{
+    var1out := itemsOut . "`n" . "for (" . keyWordALoopField . "" . STR(AindexcharLength) . " : items" . STR(AindexcharLength) . ")"
+}
+if (langToConvertTo = "kt")
+{
+    var1out := itemsOut . "`n" . "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " , " . keyWordALoopField . "" . STR(AindexcharLength) . " in items" . STR(AindexcharLength) . ".withIndex())"
+}
+if (langToConvertTo = "rb")
+{
+    var1out := itemsOut . "`n" . "items" . STR(AindexcharLength) . ".each_with_index do |" . keyWordALoopField . "" . STR(AindexcharLength) . " , " . keyWordAIndex . "" . STR(AindexcharLength) . "|"
+}
+if (langToConvertTo = "nim")
+{
+    var1out := itemsOut . "`n" . "for " . keyWordAIndex . "" . STR(AindexcharLength) . " , " . keyWordALoopField . "" . STR(AindexcharLength) . " in items" . STR(AindexcharLength) . " | " . keyWordAIndex . "" . STR(AindexcharLength) . " += 1:"
+}
+if (langToConvertTo = "ahk")
+{
+    var1out := "Loop, Parse, " . line1 . " " . line2 . " " . line3
+}
+if (langToConvertTo = "swift")
+{
+    var1out := itemsOut . "`n" . "for (index, " . keyWordALoopField . "" . STR(AindexcharLength) . ") in items" . STR(AindexcharLength) . ".enumerated()"
+}
+if (langToConvertTo = "dart")
+{
+    var1out := itemsOut . "`n" . "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = 0; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".length; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "ts")
+{
+    var1out := itemsOut . "`n" . "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = 0; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".length; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+if (langToConvertTo = "scala")
+{
+    var1out := itemsOut . "`n" . "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " <- items" . STR(AindexcharLength) . ".indices)"
+}
+if (langToConvertTo = "groovy")
+{
+    var1out := itemsOut . "`n" . "items" . STR(AindexcharLength) . ".eachWithIndex { " . keyWordALoopField . "" . STR(AindexcharLength) . " , " . keyWordAIndex . "" . STR(AindexcharLength) . " ->"
+}
+
+
 
 nothing := ""
 AindexcharLengthStr := nothing . STR(AindexcharLength) . nothing
@@ -3296,11 +3804,67 @@ if (langToConvertTo = "js")
 {
 theFixTextLoopLP := "const " . keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "];"
 }
+if (langToConvertTo = "go")
+{
+    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " := items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+}
+if (langToConvertTo = "lua")
+{
+    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+}
+if (langToConvertTo = "cs")
+{
+    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+}
+if (langToConvertTo = "java")
+{
+    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+}
+if (langToConvertTo = "kt")
+{
+    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+}
+if (langToConvertTo = "rb")
+{
+    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+}
+if (langToConvertTo = "nim")
+{
+    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+}
+if (langToConvertTo = "ahk")
+{
+    theFixTextLoopLP := "`n"
+}
+if (langToConvertTo = "swift")
+{
+    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+}
+if (langToConvertTo = "dart")
+{
+    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+}
+if (langToConvertTo = "ts")
+{
+    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+}
+if (langToConvertTo = "scala")
+{
+    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+}
+if (langToConvertTo = "groovy")
+{
+    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+}
+
 
 htCodeAcurlyBraceAddSomeVrasFixLP := 1
 haveWeEverUsedAloop := 1
+if (langToConvertTo != "ahk")
+{
 htCodeLoopfixa .= "lp|itsaersdtgtgfergsdgfsegdfsedAA|" . STR(AindexcharLength) . "`n"
 htCodeLoopfixa1 := "lp|itsaersdtgtgfergsdgfsegdfsedAA|" . STR(AindexcharLength)
+}
 AindexcharLength++
 htCode .= htCodeLoopfixa1 . "`n" . var1out . "`n"
 
@@ -3313,42 +3877,15 @@ else if ((SubStr(Trim(A_LoopField), -2) = ");") or (SubStr(Trim(A_LoopField), -1
 {
 lineDone := 1
 str1 := A_LoopField
-if (langToConvertTo = "py")
+if (langToConvertTo = "py") or (langToConvertTo = "nim") or (langToConvertTo = "ahk") or (langToConvertTo = "go") or (langToConvertTo = "lua") or (langToConvertTo = "kt") or (langToConvertTo = "rb") or (langToConvertTo = "swift") or (langToConvertTo = "scala") or (langToConvertTo = "groovy") 
 {
 str1 := StrReplace(str1, ";", "")
 }
 
-if (Trim(lookIntoTheNextLineForFuncWhitNoKeyWord[A_Index + 1]) = "{") and (useFuncKeyWord = "off")
-{
-str2 := str1
 
 
-
-str2 := StrReplace(str2, Trim(keyWordAssign), "=")
-str2 := StrReplace(str2, "):", ")")
-str2 := StrReplace(str2, ") :", ")")
-
-
-if (langToConvertTo = "py")
-{
-str3 := "def " . str2 . ":"
-}
-if (langToConvertTo = "js")
-{
-str3 := "async function " . str2
-}
-if (langToConvertTo = "cpp")
-{
-str3 := str1
-}
-
-
-htCode .= str3 . "`n"
-}
-else
-{
 str2 := expressionParserTranspiler(Trim(str1)) . ";"
-if (langToConvertTo = "py")
+if (langToConvertTo = "py") or (langToConvertTo = "nim") or (langToConvertTo = "ahk") or (langToConvertTo = "go") or (langToConvertTo = "lua") or (langToConvertTo = "kt") or (langToConvertTo = "rb") or (langToConvertTo = "swift") or (langToConvertTo = "scala") or (langToConvertTo = "groovy") 
 {
 str2 := StrReplace(str2, ";", "")
 }
@@ -3357,7 +3894,6 @@ else
 str2 := StrReplace(str2, ";;", ";")
 }
 htCode .= str2 . "`n"
-}
 }
 else
 {
@@ -3868,7 +4404,7 @@ StringTrimRight, htCode, htCodeOut1234565432, 1
 
 
 
-if (langToConvertTo = "py")
+if (langToConvertTo = "py") or (langToConvertTo = "nim")
 {
 htCode := indent_nested_curly_braces(htCode, 0)
 }
@@ -3877,6 +4413,28 @@ else
 htCode := indent_nested_curly_braces(htCode, 1)
 }
 
+
+str fixLuaAndRuby := ""
+if (langToConvertTo = "lua") or (langToConvertTo = "rb")
+{
+
+    Loop, Parse, htCode, `n, `r
+    {
+        if (Trim(A_LoopField) = "}")
+        {
+            fixLuaAndRuby .= StrReplace(A_LoopField, "}", "end") . "`n"
+        }
+        else if (SubStrLastChars(A_LoopField, 1) = "{")
+        {
+            fixLuaAndRuby .= StringTrimRight(A_LoopField, 1) . "`n"
+        }
+        else
+        {
+            fixLuaAndRuby .= A_LoopField . "`n"
+        }
+    }
+    StringTrimRight, htCode, fixLuaAndRuby, 1
+}
 
 
 
@@ -4012,6 +4570,55 @@ htCode := StrReplace(htCode, "function async function main()", "async function m
 }
 
 
+if (langToConvertTo = "ts") and (useJavaScriptAmainFuncDef = "on")
+{
+    htCode := htCode . "`n}`nmain();"
+    htCode := StrReplace(htCode, "async function main(): Promise<void>;", "async function main(): Promise<void>")
+    htCode := StrReplace(htCode, "function async function main(): Promise<void>", "async function main(): Promise<void>")
+}
+
+if (langToConvertTo = "go")
+{
+    htCode := htCode . "`n}"
+    htCode := StrReplace(htCode, "func main();", "func main()")
+}
+
+if (langToConvertTo = "cs")
+{
+    htCode := htCode . "`n    }`n}"
+    htCode := StrReplace(htCode, "static void Main(string[] args);", "static void Main(string[] args)")
+}
+
+if (langToConvertTo = "java")
+{
+    htCode := htCode . "`n    }`n}"
+    htCode := StrReplace(htCode, "public static void main(String[] args);", "public static void main(String[] args)")
+}
+
+if (langToConvertTo = "kt")
+{
+    htCode := htCode . "`n}"
+    htCode := StrReplace(htCode, "fun main(args: Array<String>);", "fun main(args: Array<String>)")
+}
+
+if (langToConvertTo = "swift")
+{
+    htCode := htCode . "`n}`nmain()"
+    htCode := StrReplace(htCode, "func main();", "func main()")
+}
+
+if (langToConvertTo = "dart")
+{
+    htCode := htCode . "`n}"
+    htCode := StrReplace(htCode, "void main(List<String> arguments);", "void main(List<String> arguments)")
+}
+
+if (langToConvertTo = "scala")
+{
+    htCode := htCode . "`n    }`n}"
+
+}
+
 
 str jsHTMLdownCode := "</script>`n</body>`n</html>"
 
@@ -4074,6 +4681,24 @@ htCode := "`n" . allFuncsToPutAtTop . "`n" . htCode
 
 
 
+if (langToConvertTo = "cs")
+{
+    htCode := "class Program`n{`n" . htCode
+}
+if (langToConvertTo = "java")
+{
+    htCode := "public class Main`n{`n" . htCode
+}
+
+if (langToConvertTo = "scala")
+{
+    htCode := "object MainApp`n{`n" . htCode
+}
+
+if (langToConvertTo = "go")
+{
+    htCode := "package main`nimport (`n" . htCode
+}
 
 
 
@@ -4115,6 +4740,14 @@ htCode := jsHTMLupCode . "`n" . htCode . "`n" . jsHTMLdownCode
 if (langToConvertTo = "cpp") and (includeLibsInCppIf = 0)
 {
 htCode := "#include <iostream>`n#include <sstream>`n#include <any>`n#include <string>`n#include <cstdint>`n#include <algorithm>`n#include <vector>`n`n" . htCode
+}
+if (langToConvertTo = "cs")
+{
+htCode := "using System;`n" . htCode
+}
+if (langToConvertTo = "ahk")
+{
+htCode := "#EscapeChar \`n" . htCode
 }
 
 

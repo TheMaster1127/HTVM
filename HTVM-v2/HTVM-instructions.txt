@@ -175,7 +175,6 @@ keyWordTryEndExtraInfo
 keyWordCatchEndExtraInfo
 keyWordFinallyEndExtraInfo
 on
-on
 off
 off
 off
@@ -285,6 +284,284 @@ def LoopParseFunc(var, delimiter1="", delimiter2=""):
         items = re.split(pattern, var)
     return items
 funcEND======================funcEND==============
+
+func======================func==============
+lang: go
+name: LoopParseFunc
+libs: null
+description: null
+func LoopParseFunc(varString, delimiter1="", delimiter2="") {
+    var items;
+    if (delimiter1 == "" && delimiter2 == "") {
+        // If no delimiters are provided, return a slice of characters
+        items = []byte(varString);
+    } else {
+        // Construct the regular expression pattern for splitting the string
+        pattern := fmt.Sprintf("[%s%s]+", delimiter1, delimiter2);
+        // Split the string using the constructed pattern
+        items = regexp.MustCompile(pattern).Split(varString, -1);
+    }
+    return items;
+}
+funcEND======================funcEND==============
+
+func======================func==============
+lang: lua
+name: LoopParseFunc
+libs: null
+description: null
+function LoopParseFunc(varString, delimiter1, delimiter2)
+    local items
+    delimiter1 = delimiter1 or ""
+    delimiter2 = delimiter2 or ""
+    if delimiter1 == "" and delimiter2 == "" then
+        -- If no delimiters are provided, return a table of characters
+        items = {}
+        for i = 1, #varString do
+            table.insert(items, varString:sub(i, i))
+        end
+    else
+        -- Construct the regular expression pattern for splitting the string
+        local pattern = "[" .. delimiter1 .. delimiter2 .. "]+"
+        -- Split the string using the constructed pattern
+        for item in string.gmatch(varString, "([^" .. pattern .. "]+)") do
+            table.insert(items, item)
+        end
+    end
+    return items
+end
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: cs
+name: LoopParseFunc
+libs: null
+description: null
+public string[] LoopParseFunc(string varString, string delimiter1 = "", string delimiter2 = "")
+{
+    string[] items;
+    if (string.IsNullOrEmpty(delimiter1) && string.IsNullOrEmpty(delimiter2))
+    {
+        // If no delimiters are provided, return an array of characters
+        items = varString.ToCharArray().Select(c => c.ToString()).ToArray();
+    }
+    else
+    {
+        // Construct the regular expression pattern for splitting the string
+        string pattern = "[" + Regex.Escape(delimiter1) + Regex.Escape(delimiter2) + "]+";
+        // Split the string using the constructed pattern
+        items = Regex.Split(varString, pattern);
+    }
+    return items;
+}
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: java
+name: LoopParseFunc
+libs: null
+description: null
+public class LoopParseFunc {
+    public static String[] LoopParseFunc(String varString, String delimiter1, String delimiter2) {
+        String[] items;
+        if (delimiter1.isEmpty() && delimiter2.isEmpty()) {
+            // If no delimiters are provided, return an array of characters
+            items = varString.split("");
+        } else {
+            // Construct the regular expression pattern for splitting the string
+            String pattern = "[" + Pattern.quote(delimiter1) + Pattern.quote(delimiter2) + "]+";
+            // Split the string using the constructed pattern
+            items = varString.split(pattern);
+        }
+        return items;
+    }
+}
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: kt
+name: LoopParseFunc
+libs: null
+description: null
+fun LoopParseFunc(varString: String, delimiter1: String = "", delimiter2: String = ""): List<String> {
+    val items: MutableList<String> = mutableListOf()
+    if (delimiter1.isEmpty() && delimiter2.isEmpty()) {
+        // If no delimiters are provided, return a list of characters
+        for (char in varString) {
+            items.add(char.toString())
+        }
+    } else {
+        // Construct the regular expression pattern for splitting the string
+        val pattern = "[$delimiter1$delimiter2]+"
+        // Split the string using the constructed pattern
+        items.addAll(varString.split(Regex(pattern)))
+    }
+    return items
+}
+funcEND======================funcEND==============
+
+func======================func==============
+lang: rb
+name: LoopParseFunc
+libs: null
+description: null
+def LoopParseFunc(varString, delimiter1 = "", delimiter2 = "")
+    items = []
+    if delimiter1.empty? && delimiter2.empty?
+        # If no delimiters are provided, return an array of characters
+        items = varString.chars
+    else
+        # Construct the regular expression pattern for splitting the string
+        pattern = "[#{delimiter1}#{delimiter2}]+"
+        # Split the string using the constructed pattern
+        items = varString.split(Regexp.new(pattern))
+    end
+    return items
+end
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: nim
+name: LoopParseFunc
+libs: null
+description: null
+proc LoopParseFunc(varString: cstring, delimiter1: cstring = "", delimiter2: cstring = ""): seq[string] =
+  var items: seq[string] = @[]
+  if delimiter1.len == 0 and delimiter2.len == 0:
+    # If no delimiters are provided, return a sequence of characters
+    for i in 0..<varString.len:
+      items.add(varString[i].to(cstring))
+  else:
+    # Construct the regular expression pattern for splitting the string
+    let pattern = "[" & delimiter1 & delimiter2 & "]"
+    # Split the string using the constructed pattern
+    items.addAll(varString.split(pattern))
+  return items
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: ahk
+name: LoopParseFunc
+libs: null
+description: null
+;LoopParseFunc
+
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: swift
+name: LoopParseFunc
+libs: null
+description: null
+func LoopParseFunc(varString: String, delimiter1: String = "", delimiter2: String = "") -> [String] {
+    var items: [String] = []
+    if delimiter1.isEmpty && delimiter2.isEmpty {
+        // If no delimiters are provided, return an array of characters
+        items = Array(varString).map { String($0) }
+    } else {
+        // Construct the regular expression pattern for splitting the string
+        let pattern = "[" + NSRegularExpression.escapedPattern(for: delimiter1) + NSRegularExpression.escapedPattern(for: delimiter2) + "]"
+        // Split the string using the constructed pattern
+        let regex = try! NSRegularExpression(pattern: pattern, options: [])
+        let range = NSRange(location: 0, length: varString.utf16.count)
+        items = regex.matches(in: varString, options: [], range: range).map {
+            (varString as NSString).substring(with: $0.range)
+        }
+    }
+    return items
+}
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: dart
+name: LoopParseFunc
+libs: null
+description: null
+List<String> LoopParseFunc(String varString, [String delimiter1 = "", String delimiter2 = ""]) {
+    List<String> items = [];
+    if (delimiter1.isEmpty && delimiter2.isEmpty) {
+        // If no delimiters are provided, return a list of characters
+        items.addAll(varString.split(''));
+    } else {
+        // Construct the regular expression pattern for splitting the string
+        String pattern = "[$delimiter1$delimiter2]+";
+        // Split the string using the constructed pattern
+        items.addAll(varString.split(RegExp(pattern)));
+    }
+    return items;
+}
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: ts
+name: LoopParseFunc
+libs: null
+description: null
+function LoopParseFunc(varString: string, delimiter1: string = "", delimiter2: string = ""): string[] {
+    let items: string[];
+    if (delimiter1 === "" && delimiter2 === "") {
+        // If no delimiters are provided, return an array of characters
+        items = [...varString];
+    } else {
+        // Construct the regular expression pattern for splitting the string
+        const pattern = `[${delimiter1}${delimiter2}]+`;
+        // Split the string using the constructed pattern
+        items = varString.split(new RegExp(pattern));
+    }
+    return items;
+}
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: scala
+name: LoopParseFunc
+libs: null
+description: null
+def LoopParseFunc(varString: String, delimiter1: String = "", delimiter2: String = ""): Array[String] = {
+    var items: Array[String] = Array()
+    if (delimiter1.isEmpty && delimiter2.isEmpty) {
+        // If no delimiters are provided, return an array of characters
+        items = varString.split("")
+    } else {
+        // Construct the regular expression pattern for splitting the string
+        val pattern = s"[$delimiter1$delimiter2]+"
+        // Split the string using the constructed pattern
+        items = varString.split(pattern)
+    }
+    items
+}
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: groovy
+name: LoopParseFunc
+libs: null
+description: null
+def LoopParseFunc(String varString, String delimiter1 = "", String delimiter2 = "") {
+    def items = []
+    if (delimiter1 == "" && delimiter2 == "") {
+        // If no delimiters are provided, return an array of characters
+        items = varString.toList()
+    } else {
+        // Construct the regular expression pattern for splitting the string
+        def pattern = "[${delimiter1}${delimiter2}]"
+        // Split the string using the constructed pattern
+        items = varString.split(pattern)
+    }
+    return items
+}
+funcEND======================funcEND==============
+
 func======================func==============
 lang: cpp
 name: print
@@ -332,6 +609,214 @@ libs: null
 description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the 
 # used the print func
 funcEND======================funcEND==============
+
+
+func======================func==============
+lang: go
+name: print
+libs: "fmt"|)
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+func print(value interface{}) {
+	switch v := value.(type) {
+	case string:
+		fmt.Println(v)
+	case int, int32, int64:
+		fmt.Println(fmt.Sprintf("%d", v))
+	case float32, float64:
+		fmt.Println(fmt.Sprintf("%f", v))
+	case bool:
+		fmt.Println(fmt.Sprintf("%v", v))
+	default:
+		fmt.Println("Unsupported type")
+	}
+}
+funcEND======================funcEND==============
+
+func======================func==============
+lang: lua
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+-- Print function for different types
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cs
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+// Print function for various types
+
+    public static void print(object value)
+    {
+        if (value is string)
+            Console.WriteLine(value);
+        else if (value is int || value is float || value is double)
+            Console.WriteLine(value.ToString());
+        else if (value is bool)
+            Console.WriteLine((bool)value ? "True" : "False");
+        else
+            Console.WriteLine("Unsupported type");
+    }
+funcEND======================funcEND==============
+
+func======================func==============
+lang: java
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+// Print function for various types
+
+    public static void print(Object value) {
+        if (value instanceof String) {
+            System.out.println(value);
+        } else if (value instanceof Integer || value instanceof Float || value instanceof Double) {
+            System.out.println(value.toString());
+        } else if (value instanceof Boolean) {
+            System.out.println((Boolean) value ? "true" : "false");
+        } else {
+            System.out.println("Unsupported type");
+        }
+    }
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: kt
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+// Print function for various types
+fun print(value: Any) {
+    when (value) {
+        is String -> println(value)
+        is Int, is Float, is Double -> println(value.toString())
+        is Boolean -> println(if (value) "true" else "false")
+        else -> println("Unsupported type")
+    }
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: rb
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+# Print function for various types
+
+def print(value)
+  if value.is_a?(String)
+    puts value
+  elsif value.is_a?(Numeric)
+    puts value.to_s
+  elsif value.is_a?(TrueClass) || value.is_a?(FalseClass)
+    puts value ? "true" : "false"
+  else
+    puts "Unsupported type"
+  end
+end
+
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: nim
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+# Print function for various types
+proc print(value: auto) =  # Use 'auto' instead of 'untyped'
+  # Nim uses when/elif for type checking, not case
+  when value is string:
+    echo value
+  elif value is int or value is float:
+    echo $value  # Use $ for string conversion in Nim
+  elif value is bool:
+    echo if value: "true" else: "false"
+  else:
+    echo "Unsupported type"
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ahk
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+; Print function for various types
+print(value) {
+        MsgBox % value
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: swift
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+// Print function for various types
+
+
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: dart
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+// Print function for various types
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ts
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+// Print function for various types
+function print(value: any): void {
+    if (typeof value === "string") {
+        console.log(value);
+    } else if (typeof value === "number") {
+        console.log(value.toString());
+    } else if (typeof value === "boolean") {
+        console.log(value ? "true" : "false");
+    } else {
+        console.log("Unsupported type");
+    }
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: scala
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+// Print function for various types
+  def print(value: Any): Unit = value match {
+    case v: String => println(v)
+    case v: Int => println(v)
+    case v: Float => println(v)
+    case v: Boolean => println(if (v) "true" else "false")
+    case _ => println("Unsupported type")
+  }
+funcEND======================funcEND==============
+
+func======================func==============
+lang: groovy
+name: print
+libs: null
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
+// used print
+
+funcEND======================funcEND==============
+
+
 func======================func==============
 lang: js
 name: STR

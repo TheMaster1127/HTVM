@@ -70,6 +70,19 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.htv
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.groovy
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.scala
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.ts
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.dart
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.swift
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.ahk
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.nim
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.rb
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.java
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.kt
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.cs
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.lua
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.go
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.js
@@ -82,3 +95,4 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Game\game.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Game\game.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile7307.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile7307.cpp
+

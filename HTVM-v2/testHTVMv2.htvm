@@ -1,5 +1,5 @@
 
-main
+
 Loop, 5 {
             print("hello HTVM v2")
 print("hello HTVM`nv2")
@@ -21,4 +21,3 @@ print("hello HTVM`nv2")
 
 
 }
-
