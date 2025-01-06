@@ -14,14 +14,14 @@ def print(value)
 end
 
 
-for A_Index1 in 0..5 + 0 do 
+for A_Index1 in 0..5 + 0 do
     print("hello HTVM v2")
     print("hello HTVM\nv2")
     print(A_Index1)
-    for A_Index2 in 0..5 + 0 do 
+    for A_Index2 in 0..5 + 0 do
         print("hello HTVM v2")
         print("hello HTVM\nv2")
-        for A_Index3 in 0..5 + 0 do 
+        for A_Index3 in 0..5 + 0 do
             print("hello HTVM v2")
             print("hello HTVM\nv2")
             print(A_Index3)

@@ -4424,9 +4424,9 @@ if (langToConvertTo = "lua") or (langToConvertTo = "rb")
         {
             fixLuaAndRuby .= StrReplace(A_LoopField, "}", "end") . "`n"
         }
-        else if (SubStrLastChars(A_LoopField, 1) = "{")
+        else if (SubStrLastChars(A_LoopField, 2) = " {")
         {
-            fixLuaAndRuby .= StringTrimRight(A_LoopField, 1) . "`n"
+            fixLuaAndRuby .= StringTrimRight(A_LoopField, 2) . "`n"
         }
         else
         {

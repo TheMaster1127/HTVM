@@ -3719,8 +3719,8 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             if (Trim(A_LoopField71) == "}") {
                 fixLuaAndRuby += StrReplace(A_LoopField71, "}", "end") + "\n";
             }
-            else if (SubStrLastChars(A_LoopField71, 1) == "{") {
-                fixLuaAndRuby += StringTrimRight(A_LoopField71, 1) + "\n";
+            else if (SubStrLastChars(A_LoopField71, 2) == " {") {
+                fixLuaAndRuby += StringTrimRight(A_LoopField71, 2) + "\n";
             } else {
                 fixLuaAndRuby += A_LoopField71 + "\n";
             }
