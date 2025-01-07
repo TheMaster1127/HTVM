@@ -730,7 +730,7 @@ async function HTVMmatchStrRrplace(line, matchString, replaceString) {
     if (!InStr(line, matchString)) {
         return line;
     }
-    var allDelimiters = " ()[].,;:'!&|=<>+-*/^%~" + Chr(34);
+    var allDelimiters = " ()[].,;:'!&|=<>+-*/^%~" + Chr(34) + Chr(9) + Chr(11);
     let lineArr = [];
     items8 = LoopParseFunc(line)
     for (let A_Index8 = 0; A_Index8 < items8.length + 0; A_Index8++) {
@@ -1078,20 +1078,22 @@ async function indent_nested_curly_braces(input_string, modeCurlyBracesOn) {
             if (skipNext <= 0) {
                 skipNext = 0;
             }
-            if (Trim(A_LoopField31) == "}" && Trim(lookIntoFurture2[A_Index31 + 1]) == "else {") {
-                skipNext = 2;
-                addSpacesAtTheBegginig = "";
-                items32 = LoopParseFunc(A_LoopField31)
-                for (let A_Index32 = 0; A_Index32 < items32.length + 0; A_Index32++) {
-                    const A_LoopField32 = items32[A_Index32 - 0];
-                    if (A_LoopField32 == " ") {
-                        if (A_LoopField32 != " ") {
-                            break;
+            if (langToConvertTo != "lua" && langToConvertTo != "rb") {
+                if (Trim(A_LoopField31) == "}" && Trim(lookIntoFurture2[A_Index31 + 1]) == "else {") {
+                    skipNext = 2;
+                    addSpacesAtTheBegginig = "";
+                    items32 = LoopParseFunc(A_LoopField31)
+                    for (let A_Index32 = 0; A_Index32 < items32.length + 0; A_Index32++) {
+                        const A_LoopField32 = items32[A_Index32 - 0];
+                        if (A_LoopField32 == " ") {
+                            if (A_LoopField32 != " ") {
+                                break;
+                            }
+                            addSpacesAtTheBegginig += A_LoopField32;
                         }
-                        addSpacesAtTheBegginig += A_LoopField32;
                     }
+                    resultOut += addSpacesAtTheBegginig + "} else {\n";
                 }
-                resultOut += addSpacesAtTheBegginig + "} else {\n";
             }
             if (skipNext == 0) {
                 resultOut += A_LoopField31 + "\n";

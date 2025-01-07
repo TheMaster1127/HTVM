@@ -160,6 +160,7 @@
           }
       let fullPathOfTheIDEdir = '';
 
+let startTimeForDiscord = Date.now();
 
 
         // Get the IDE directory path when the page loads
@@ -1793,8 +1794,51 @@ updateDimensions();
 
               latestTabsUsed.push(currentTabFullPathPATH);
               lastTabIndex = FullPathfiles.indexOf(latestTabsUsed[latestTabsUsed.length - 2]);
+let imageNameForLang = ""
+if (fileExtension == "js")
+{
+imageNameForLang = "icon_js";
+}
+else if (fileExtension == "py")
+{
+imageNameForLang = "icon_py";
+}
+else if (fileExtension == "cpp")
+{
+imageNameForLang = "icon_cpp";
+}
+else if (fileExtension == "html")
+{
+imageNameForLang = "icon_html";
+}
+else if (fileExtension == "htvm" || fileExtension == "ht" || fileExtension == "hth" || fileExtension == "htpy" || fileExtension == "htpc" || fileExtension == "htpr")
+{
+imageNameForLang = "icon_512x512";
+}
+else
+{
+imageNameForLang = "icon_else";
+}
+
+
+let smallImageTextNANE = "." + fileExtension;
+
 
               editor.session.setScrollTop(scrollPosArray[FullPathfiles.indexOf(latestTabsUsed[latestTabsUsed.length - 1])]);
+              let fileNameDisplayDiscord = "/" + currentTabFullPathPATH.replace(/\\/g, '/').split('/').slice(-2).join('/');
+              ipcRenderer.invoke('update-discord-presence', {
+                    details: 'Editing ' + fileNameDisplayDiscord,
+                    state: "File line count: " + editor.session.getLength(),
+                    startTimestamp: startTimeForDiscord,
+                    //endTimestamp: Date.now() / 1000,
+                    largeImageText: "IDE_icon",
+                    smallImageText: smallImageTextNANE ,
+                    largeImageKey: "icon_512x512", 
+                    smallImageKey: imageNameForLang,
+                  // other presence data...
+                });
+              
+              
             }
 
             // Function to log messages to the output area

@@ -3,6 +3,31 @@ const path = require("path");
 const fs = require("fs");
 const { spawn } = require("child_process");
 const EventEmitter = require("events");
+const DiscordRPC = require('discord-rpc');
+
+// Initialize Discord RPC
+const clientId = '1326134917658185769';
+const rpc = new DiscordRPC.Client({ transport: 'ipc' });
+let discordReady = false;
+
+rpc.on('ready', () => {
+  console.log('Discord Rich Presence is ready');
+  discordReady = true;
+  updatePresence();
+});
+
+function updatePresence() {
+  if (!discordReady) return;
+  rpc.setActivity({
+    state: "null",
+    details: "null",
+
+    largeImageText: "null",
+    smallImageText: "null",
+    largeImageKey: "icon_512x512", 
+    smallImageKey: "icon_512x512",
+  });
+}
 
 class CommandRunner extends EventEmitter {
   constructor(command, args) {
@@ -48,7 +73,14 @@ function createWindow() {
   win.loadFile("index.html");
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+  try {
+    await rpc.login({ clientId });
+    console.log('Discord RPC logged in successfully');
+  } catch (error) {
+    console.error('Failed to initialize Discord RPC:', error);
+  }
+  
   createWindow();
 
   app.on("activate", () => {
@@ -57,7 +89,12 @@ app.whenReady().then(() => {
 });
 
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") app.quit();
+  if (process.platform !== "darwin") {
+    if (discordReady) {
+      rpc.destroy();
+    }
+    app.quit();
+  }
 });
 
 function resolveFilePath(place) {
@@ -86,18 +123,16 @@ ipcMain.on("get-data", (event, place) => {
   });
 });
 
-// New IPC handler for checking file existence
 ipcMain.handle("check-file-existence", async (event, filePath) => {
   return fs.promises
     .access(filePath, fs.constants.F_OK)
-    .then(() => true) // File exists
-    .catch(() => false); // File does not exist
+    .then(() => true)
+    .catch(() => false);
 });
 
-// New IPC handler for opening file location
 ipcMain.handle("open-file-location", async (event, filePath) => {
   if (fs.existsSync(filePath)) {
-    shell.showItemInFolder(filePath); // Open the folder where the file is located
+    shell.showItemInFolder(filePath);
     return `Opened folder for ${filePath}`;
   } else {
     throw new Error(`File does not exist: ${filePath}`);
@@ -141,25 +176,22 @@ ipcMain.handle("run-cmd-args", async (event, command, args) => {
   });
 });
 
-// Handle the dropped-file event
 ipcMain.on("dropped-file", (event, filePaths) => {
-  console.log("Files dropped:", filePaths); // Log the received file paths
+  console.log("Files dropped:", filePaths);
 
-  // Example: Reading the first file's contents
   if (filePaths.length > 0) {
-    const filePath = filePaths[0]; // Get the first dropped file path
+    const filePath = filePaths[0];
     fs.readFile(filePath, "utf8", (err, data) => {
       if (err) {
         console.error(`Error reading file ${filePath}: ${err.message}`);
       } else {
-        console.log(`Contents of ${filePath}:`, data); // Log the file contents
-        event.reply("file-read-success", data); // Send the file contents back to the renderer
+        console.log(`Contents of ${filePath}:`, data);
+        event.reply("file-read-success", data);
       }
     });
   }
 });
 
-// Utility function to handle splitting commands and arguments
 function splitCommand(commandString) {
   const result = [];
   let current = "";
@@ -185,13 +217,9 @@ function splitCommand(commandString) {
   return result;
 }
 
-
-
-
-// Ensure this is only registered once in the main process
 ipcMain.handle('get-ide-dir-path', async () => {
   try {
-    const ideDirPath = __dirname;  // This returns the directory of the current script (main.js)
+    const ideDirPath = __dirname;
     return ideDirPath;
   } catch (error) {
     console.error("Error getting IDE directory path:", error);
@@ -199,3 +227,14 @@ ipcMain.handle('get-ide-dir-path', async () => {
   }
 });
 
+// Add IPC handler for updating Discord presence
+ipcMain.handle('update-discord-presence', async (event, presenceData) => {
+  if (!discordReady) return false;
+  try {
+    rpc.setActivity(presenceData);
+    return true;
+  } catch (error) {
+    console.error('Failed to update Discord presence:', error);
+    return false;
+  }
+});

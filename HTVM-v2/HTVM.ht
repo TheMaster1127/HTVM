@@ -510,7 +510,7 @@ func str HTVMmatchStrRrplace(str line, str matchString, str replaceString) {
     if (!InStr(line, matchString)) {
         return line
     }
-    str allDelimiters := " ()[].,;:'!&|=<>+-*/^%~" . Chr(34)
+    str allDelimiters := " ()[].,;:'!&|=<>+-*/^%~" . Chr(34) . Chr(9) . Chr(11)
     arr str lineArr
     Loop, Parse, line {
         lineArr.add(A_LoopField)
@@ -923,6 +923,9 @@ if (skipNext <= 0)
 {
 skipNext := 0
 }
+
+if (langToConvertTo != "lua") and (langToConvertTo != "rb")
+{
 if (Trim(A_LoopField) = "}") and (Trim(lookIntoFurture2[A_Index + 1]) = "else {")
 {
 skipNext := 2
@@ -940,6 +943,8 @@ addSpacesAtTheBegginig .= A_LoopField
 }
 resultOut .= addSpacesAtTheBegginig . "} else {`n"
 }
+}
+
 
 if (skipNext = 0)
 {

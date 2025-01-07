@@ -845,7 +845,7 @@ std::string HTVMmatchStrRrplace(std::string line, std::string matchString, std::
     if (!InStr(line, matchString)) {
         return line;
     }
-    std::string allDelimiters = " ()[].,;:'!&|=<>+-*/^%~" + Chr(34);
+    std::string allDelimiters = " ()[].,;:'!&|=<>+-*/^%~" + Chr(34) + Chr(9) + Chr(11);
     std::vector<std::string> lineArr;
     std::vector<std::string> items8 = LoopParseFunc(line);
     for (size_t A_Index8 = 0; A_Index8 < items8.size() + 0; A_Index8++) {
@@ -1193,20 +1193,22 @@ std::string indent_nested_curly_braces(std::string input_string, int modeCurlyBr
             if (skipNext <= 0) {
                 skipNext = 0;
             }
-            if (Trim(A_LoopField31) == "}" && Trim(lookIntoFurture2[A_Index31 + 1]) == "else {") {
-                skipNext = 2;
-                addSpacesAtTheBegginig = "";
-                std::vector<std::string> items32 = LoopParseFunc(A_LoopField31);
-                for (size_t A_Index32 = 0; A_Index32 < items32.size() + 0; A_Index32++) {
-                    std::string A_LoopField32 = items32[A_Index32 - 0];
-                    if (A_LoopField32 == " ") {
-                        if (A_LoopField32 != " ") {
-                            break;
+            if (langToConvertTo != "lua" && langToConvertTo != "rb") {
+                if (Trim(A_LoopField31) == "}" && Trim(lookIntoFurture2[A_Index31 + 1]) == "else {") {
+                    skipNext = 2;
+                    addSpacesAtTheBegginig = "";
+                    std::vector<std::string> items32 = LoopParseFunc(A_LoopField31);
+                    for (size_t A_Index32 = 0; A_Index32 < items32.size() + 0; A_Index32++) {
+                        std::string A_LoopField32 = items32[A_Index32 - 0];
+                        if (A_LoopField32 == " ") {
+                            if (A_LoopField32 != " ") {
+                                break;
+                            }
+                            addSpacesAtTheBegginig += A_LoopField32;
                         }
-                        addSpacesAtTheBegginig += A_LoopField32;
                     }
+                    resultOut += addSpacesAtTheBegginig + "} else {\n";
                 }
-                resultOut += addSpacesAtTheBegginig + "} else {\n";
             }
             if (skipNext == 0) {
                 resultOut += A_LoopField31 + "\n";
