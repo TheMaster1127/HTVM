@@ -2742,13 +2742,84 @@ StringTrimRight, code, newStringOutCode, 1
 ;MsgBox, % code
 
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 str htCodeOutFixEnd := ""
+int htCodeOutFixINT := 0
+
+if (useCurlyBraces = "on")
+{
+if (keyWordCurlyBraceOpen != "{")
+{
+
+Loop, Parse, code, `n, `r
+{
+htCodeOutFixINT := 0
+Loop, Parse, A_LoopField, " "
+{
+htCodeOutFixINT++
+}
+
+htCodeOutFixINT--
+Loop, Parse, A_LoopField, " "
+{
+if (htCodeOutFixINT = A_Index)
+{
+htCodeOutFixEnd .= HTVMmatchStrRrplace(A_LoopField, keyWordCurlyBraceOpen, "{") . " "
+}
+else
+{
+htCodeOutFixEnd .= A_LoopField . " "
+}
+
+}
+StringTrimRight, htCodeOutFixEnd, htCodeOutFixEnd, 1
+htCodeOutFixEnd .= "`n"
+
+}
+StringTrimRight, code, htCodeOutFixEnd, 1
+
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+htCodeOutFixEnd := ""
+
+if (keyWordCurlyBraceClose != "}")
+{
+
+Loop, Parse, code, `n, `r
+{
+htCodeOutFixINT := 0
+Loop, Parse, A_LoopField, " "
+{
+htCodeOutFixINT++
+}
+
+htCodeOutFixINT--
+Loop, Parse, A_LoopField, " "
+{
+if (htCodeOutFixINT = A_Index)
+{
+htCodeOutFixEnd .= HTVMmatchStrRrplace(A_LoopField, keyWordCurlyBraceClose, "}") . " "
+}
+else
+{
+htCodeOutFixEnd .= A_LoopField . " "
+}
+
+}
+StringTrimRight, htCodeOutFixEnd, htCodeOutFixEnd, 1
+htCodeOutFixEnd .= "`n"
+
+}
+StringTrimRight, code, htCodeOutFixEnd, 1
+
+}
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+htCodeOutFixEnd := ""
 if (useEnd = "on") or (useEndExtraInfo = "on")
 {
 Loop, Parse, code, `n, `r

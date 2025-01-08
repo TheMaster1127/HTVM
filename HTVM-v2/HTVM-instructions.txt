@@ -49,8 +49,8 @@ keyWordCodeInHTVMstart
 keyWordCodeInHTVMend
 keyWordCodeInOtherHTVMsyntaxStart
 keyWordCodeInOtherHTVMsyntaxStart
-{
-}
+<<<
+>>>
 null
 true
 false
@@ -174,14 +174,14 @@ keyWordFuncEndExtraInfo
 keyWordTryEndExtraInfo
 keyWordCatchEndExtraInfo
 keyWordFinallyEndExtraInfo
-off
+on
 off
 off
 off
 on
 on
 off
-on
+off
 off
 on
 off
