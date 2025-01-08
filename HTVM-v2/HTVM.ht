@@ -108,7 +108,6 @@ str keyWordSwitch := ""
 str keyWordSwitchCase := ""
 str keyWordSwitchDefault := ""
 str keyWordWhileLoop := ""
-str keyWordForLoop := ""
 str keyWordLoopInfinite := ""
 str keyWordLoop := ""
 str keyWordLoopParse := ""
@@ -753,8 +752,8 @@ pythonCode := StrReplace(pythonCode, Chr(9), "    ")
 str result := ""
 int indentLevel := 0
 int indent := 0
-str line := 0
-str stripped := 0
+str line := ""
+str stripped := ""
 Loop, Parse, pythonCode, `n, `r
 {
 line := A_LoopField
@@ -767,14 +766,14 @@ continue
 
 ; Count leading spaces
 indent := StrLen(line) - StrLen(LTrim(line))
-;MsgBox, % indent
+
 ; Close braces for unindents
 
 Loop
 {
 if (indentLevel <= indent)
 {
-	break
+break
 }
 indentLevel -= 4
 result .= spaces(indentLevel) . "}`n"
@@ -2415,12 +2414,6 @@ print("==================================")
 ;print(allInstructionFile)
 
 
-str codeOutFix1 := ""
-Loop, Parse, code, `n, `r
-{
-codeOutFix1 .= Trim(A_LoopField) . "`n"
-}
-StringTrimRight, code, codeOutFix1, 1
 
 
 
@@ -2726,15 +2719,9 @@ if (SubStr(Trim(A_LoopField), 1, StrLen(keyWordComment)) != keyWordComment)
 if (posForRemoveCommentsOnTheEndOfTheLine > 0)
 {
 
-; Extract the part of the string before the keyword
-if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordForLoop))) != StrLower(keyWordForLoop))
-{
-beforeKeywordForRemoveCommentsOnTheEndOfTheLine := SubStr(originalStringForRemoveCommentsOnTheEndOfTheLine, 1, posForRemoveCommentsOnTheEndOfTheLine - 1)
-}
-else
-{
+
 beforeKeywordForRemoveCommentsOnTheEndOfTheLine := A_LoopField
-}
+
 
 ; Construct the new string with everything before the keyword
 newStringOutCode .= beforeKeywordForRemoveCommentsOnTheEndOfTheLine . "`n"
@@ -2766,9 +2753,9 @@ if (useEnd = "on") or (useEndExtraInfo = "on")
 {
 Loop, Parse, code, `n, `r
 {
-if (StrLower(Trim(A_LoopField)) = StrLower(keyWordEnd))
+if (StrLower(Trim(A_LoopField)) = StrLower(keyWordEnd)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordAllianceEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordCrewEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordMethodEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordDefObjEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordIFEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordElseIfEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordElseEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordSwitchEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordSwitchCaseEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordSwitchDefaultEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordWhileLoopEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordForLoopEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordLoopInfiniteEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordLoopEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordLoopParseEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordFuncEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordTryEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordCatchEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordFinallyEndExtraInfo))
 {
-htCodeOutFixEnd .= str10 . "}" . "`n"
+htCodeOutFixEnd .= "}`n"
 }
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF))
 {
@@ -2783,10 +2770,6 @@ else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElse))) =
 htCodeOutFixEnd .= "`n}`n" . A_LoopField . "`n{`n"
 }
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordWhileLoop))) = StrLower(keyWordWhileLoop))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordForLoop))) = StrLower(keyWordForLoop))
 {
 htCodeOutFixEnd .= A_LoopField . "`n{`n"
 }
@@ -2854,7 +2837,8 @@ htCodeOutFixEnd .= A_LoopField . "`n"
 StringTrimRight, code, htCodeOutFixEnd, 1
 }
 
-
+if (usePythonicColonSyntax = "off")
+{
 if (useEnd = "off") and (useEndExtraInfo = "off") and (useCurlyBraces = "off")
 {
 htCodeOutFixEnd := ""
@@ -2876,10 +2860,6 @@ else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordWhileLoop
 {
 htCodeOutFixEnd .= A_LoopField . ":`n"
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordForLoop))) = StrLower(keyWordForLoop))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoopInfinite))) = StrLower(keyWordLoopInfinite))
 {
 htCodeOutFixEnd .= A_LoopField . ":`n"
@@ -2945,6 +2925,9 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 
 }
 
+}
+
+
 
 if (useCurlyBraces = "off") and (useEnd = "off") and (useEndExtraInfo = "off")
 {
@@ -2952,6 +2935,8 @@ code := AddCurlyBraces(code)
 }
 
 
+
+outTrimCode := ""
 Loop, Parse, code, `n, `r
 {
 outTrimCode .= Trim(A_LoopField) . "`n"
@@ -2985,6 +2970,98 @@ outCodeFixBraces .= Trim(A_LoopField) . "`n"
 
 StringTrimRight, code, outCodeFixBraces, 1
 }
+
+
+
+htCodeOutFixEnd := ""
+if (usePythonicColonSyntax = "on")
+{
+
+
+Loop, Parse, code, `n, `r
+{
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElse))) = StrLower(keyWordElse))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordWhileLoop))) = StrLower(keyWordWhileLoop))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoopInfinite))) = StrLower(keyWordLoopInfinite))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoop))) = StrLower(keyWordLoop))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoopParse))) = StrLower(keyWordLoopParse))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitch))) = StrLower(keyWordSwitch))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitchCase))) = StrLower(keyWordSwitchCase))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitchDefault))) = StrLower(keyWordSwitchDefault))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordTry))) = StrLower(keyWordTry))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordAlliance))) = StrLower(keyWordAlliance))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCrew))) = StrLower(keyWordCrew))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordDefObj))) = StrLower(keyWordDefObj))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordMethod))) = StrLower(keyWordMethod))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCatch))) = StrLower(keyWordCatch))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordFinally))) = StrLower(keyWordFinally))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc))
+{
+htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
+}
+else
+{
+htCodeOutFixEnd .= A_LoopField . "`n"
+}
+
+}
+
+StringTrimRight, code, htCodeOutFixEnd, 1
+}
+
 
 
 
