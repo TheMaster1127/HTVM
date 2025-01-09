@@ -2916,16 +2916,11 @@ if (isLineAconstruct(Trim(A_LoopField)) = true) or (Trim(A_LoopField) = keyWordC
 {
 htCodeOutFixINT2 := 1
 }
-htCodeOutFixINT := 0
-Loop, Parse, A_LoopField, " "
-{
-htCodeOutFixINT++
-}
 
-htCodeOutFixINT--
+
 Loop, Parse, A_LoopField, " "
 {
-if (htCodeOutFixINT = A_Index) && (htCodeOutFixINT2 = 1)
+if (htCodeOutFixINT2 = 1) or (Trim(A_LoopField) = keyWordCurlyBraceClose)
 {
 htCodeOutFixINT2 := 0
 htCodeOutFixEnd .= HTVMmatchStrRrplace(A_LoopField, keyWordCurlyBraceClose, "}") . " "
