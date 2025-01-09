@@ -3819,22 +3819,33 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
         if (langToConvertTo == "cpp") {
             allLibsToPutAtTop = "#include <iostream>\n#include <sstream>\n#include <string>\n#include <cstdint>\n#include <algorithm>\n#include <vector>\n#include <any>\n#include <optional>\n" + allLibsToPutAtTop;
         }
+        if (langToConvertTo == "cs") {
+            allLibsToPutAtTop = "using System;\n" + allLibsToPutAtTop;
+        }
         allLibsToPutAtTop = Sort(allLibsToPutAtTop, "U");
-        allLibsToPutAtTop = StrReplace(allLibsToPutAtTop, "~", "\n");
-        if (langToConvertTo != "js") {
-            htCode = allLibsToPutAtTop + "\n" + allFuncsToPutAtTop + "\n" + htCode;
-        } else {
+        allLibsToPutAtTop = StrReplace(allLibsToPutAtTop, "~~~", "\n");
+        if (langToConvertTo == "cs" || langToConvertTo == "java" || langToConvertTo == "scala") {
             htCode = "\n" + allFuncsToPutAtTop + "\n" + htCode;
+        } else {
+            if (langToConvertTo != "js") {
+                htCode = allLibsToPutAtTop + "\n" + allFuncsToPutAtTop + "\n" + htCode;
+            } else {
+                if (useJavaScriptInAfullHTMLfile != "on") {
+                    htCode = allLibsToPutAtTop + "\n" + allFuncsToPutAtTop + "\n" + htCode;
+                } else {
+                    htCode = "\n" + allFuncsToPutAtTop + "\n" + htCode;
+                }
+            }
         }
     }
     if (langToConvertTo == "cs") {
-        htCode = "class Program\n{\n" + htCode;
+        htCode = allLibsToPutAtTop + "\nclass Program\n{\n" + htCode;
     }
     if (langToConvertTo == "java") {
-        htCode = "public class Main\n{\n" + htCode;
+        htCode = allLibsToPutAtTop + "\npublic class Main\n{\n" + htCode;
     }
     if (langToConvertTo == "scala") {
-        htCode = "object MainApp\n{\n" + htCode;
+        htCode = allLibsToPutAtTop + "\nobject MainApp\n{\n" + htCode;
     }
     if (langToConvertTo == "go") {
         htCode = "package main\nimport (\n" + htCode;
@@ -3856,7 +3867,7 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
         htCode = "#include <iostream>\n#include <sstream>\n#include <any>\n#include <string>\n#include <cstdint>\n#include <algorithm>\n#include <vector>\n\n" + htCode;
     }
     if (langToConvertTo == "cs") {
-        htCode = "using System;\n" + htCode;
+        htCode = "\n" + htCode;
     }
     if (langToConvertTo == "ahk") {
         htCode = "#EscapeChar \\\n" + htCode;
