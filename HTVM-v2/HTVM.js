@@ -1560,6 +1560,95 @@ async function parserOSPgloabl(theSringOSPline, str123) {
     }
     return str123;
 }
+async function isLineAconstruct(line) {
+    if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF)) {
+        return true;
+    }
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf)) {
+        return true;
+    }
+    else if (StrLower(Trim(line)) == StrLower(keyWordElse) || StrLower(Trim(line)) == StrLower(keyWordElse + ":")) {
+        return true;
+    }
+    else if (SubStr(Trim(line), 1, StrLen(keyWordCurlyBraceClose + " " + StrLower(keyWordElse))) == keyWordCurlyBraceClose + " " + StrLower(keyWordElse)) {
+        return true;
+    }
+    else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordElse) + " " + keyWordCurlyBraceOpen)) == StrLower(keyWordElse) + " " + keyWordCurlyBraceOpen) {
+        return true;
+    }
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop)) {
+        return true;
+    }
+    else if (StrLower(Trim(line)) == StrLower(keyWordLoopInfinite) || StrLower(Trim(line)) == StrLower(keyWordLoopInfinite + ":")) {
+        return true;
+    }
+    else if (SubStr(Trim(line), 1, StrLen(keyWordCurlyBraceClose + " " + StrLower(keyWordLoopInfinite))) == keyWordCurlyBraceClose + " " + StrLower(keyWordLoopInfinite)) {
+        return true;
+    }
+    else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordLoopInfinite) + " " + keyWordCurlyBraceOpen)) == StrLower(keyWordLoopInfinite) + " " + keyWordCurlyBraceOpen) {
+        return true;
+    }
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordLoop))) == StrLower(keyWordLoop)) {
+        return true;
+    }
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordLoopParse))) == StrLower(keyWordLoopParse)) {
+        return true;
+    }
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordSwitch))) == StrLower(keyWordSwitch)) {
+        return true;
+    }
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordSwitchCase))) == StrLower(keyWordSwitchCase)) {
+        return true;
+    }
+    else if (StrLower(Trim(line)) == StrLower(keyWordSwitchDefault) || StrLower(Trim(line)) == StrLower(keyWordSwitchDefault + ":")) {
+        return true;
+    }
+    else if (SubStr(Trim(line), 1, StrLen(keyWordCurlyBraceClose + " " + StrLower(keyWordSwitchDefault))) == keyWordCurlyBraceClose + " " + StrLower(keyWordSwitchDefault)) {
+        return true;
+    }
+    else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordSwitchDefault) + " " + keyWordCurlyBraceOpen)) == StrLower(keyWordSwitchDefault) + " " + keyWordCurlyBraceOpen) {
+        return true;
+    }
+    else if (StrLower(Trim(line)) == StrLower(keyWordTry) || StrLower(Trim(line)) == StrLower(keyWordTry + ":")) {
+        return true;
+    }
+    else if (SubStr(Trim(line), 1, StrLen(keyWordCurlyBraceClose + " " + StrLower(keyWordTry))) == keyWordCurlyBraceClose + " " + StrLower(keyWordTry)) {
+        return true;
+    }
+    else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordTry) + " " + keyWordCurlyBraceOpen)) == StrLower(keyWordTry) + " " + keyWordCurlyBraceOpen) {
+        return true;
+    }
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordAlliance))) == StrLower(keyWordAlliance)) {
+        return true;
+    }
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordCrew))) == StrLower(keyWordCrew)) {
+        return true;
+    }
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordDefObj))) == StrLower(keyWordDefObj)) {
+        return true;
+    }
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
+        return true;
+    }
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch)) {
+        return true;
+    }
+    else if (StrLower(Trim(line)) == StrLower(keyWordFinally) || StrLower(Trim(line)) == StrLower(keyWordFinally + ":")) {
+        return true;
+    }
+    else if (SubStr(Trim(line), 1, StrLen(keyWordCurlyBraceClose + " " + StrLower(keyWordFinally))) == keyWordCurlyBraceClose + " " + StrLower(keyWordFinally)) {
+        return true;
+    }
+    else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordFinally) + " " + keyWordCurlyBraceOpen)) == StrLower(keyWordFinally) + " " + keyWordCurlyBraceOpen) {
+        return true;
+    }
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc)) {
+        return true;
+    }
+    return false;
+}
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1654,25 +1743,25 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             commands = Trim(A_LoopField49);
         }
         if (A_Index49 == 3) {
-            keyWordAlliance = Trim(A_LoopField49);
+            keyWordAlliance = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 4) {
-            keyWordCrew = Trim(A_LoopField49);
+            keyWordCrew = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 5) {
-            keyWordMethod = Trim(A_LoopField49);
+            keyWordMethod = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 6) {
-            keyWordDefObj = Trim(A_LoopField49);
+            keyWordDefObj = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 7) {
-            keyWordPorp = Trim(A_LoopField49);
+            keyWordPorp = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 8) {
             keyWordThis = Trim(A_LoopField49);
         }
         if (A_Index49 == 9) {
-            keyWordInclude = Trim(A_LoopField49);
+            keyWordInclude = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 10) {
             keyWordIncludeInTheTranspiledLang = Trim(A_LoopField49);
@@ -1813,79 +1902,79 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             keyWordFalse = Trim(A_LoopField49);
         }
         if (A_Index49 == 56) {
-            keyWordVoid = Trim(A_LoopField49);
+            keyWordVoid = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 57) {
-            keyWordDouble = Trim(A_LoopField49);
+            keyWordDouble = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 58) {
-            keyWordChar = Trim(A_LoopField49);
+            keyWordChar = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 59) {
-            keyWordUint8 = Trim(A_LoopField49);
+            keyWordUint8 = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 60) {
-            keyWordUint16 = Trim(A_LoopField49);
+            keyWordUint16 = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 61) {
-            keyWordUint32 = Trim(A_LoopField49);
+            keyWordUint32 = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 62) {
-            keyWordUint64 = Trim(A_LoopField49);
+            keyWordUint64 = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 63) {
-            keyWordINT = Trim(A_LoopField49);
+            keyWordINT = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 64) {
-            keyWordSTR = Trim(A_LoopField49);
+            keyWordSTR = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 65) {
-            keyWordBOOL = Trim(A_LoopField49);
+            keyWordBOOL = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 66) {
-            keyWordFLOAT = Trim(A_LoopField49);
+            keyWordFLOAT = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 67) {
-            keyWordINT8 = Trim(A_LoopField49);
+            keyWordINT8 = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 68) {
-            keyWordINT16 = Trim(A_LoopField49);
+            keyWordINT16 = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 69) {
-            keyWordINT32 = Trim(A_LoopField49);
+            keyWordINT32 = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 70) {
-            keyWordINT64 = Trim(A_LoopField49);
+            keyWordINT64 = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 71) {
-            keyWordIF = Trim(A_LoopField49);
+            keyWordIF = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 72) {
-            keyWordElseIf = Trim(A_LoopField49);
+            keyWordElseIf = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 73) {
             keyWordElse = Trim(A_LoopField49);
         }
         if (A_Index49 == 74) {
-            keyWordSwitch = Trim(A_LoopField49);
+            keyWordSwitch = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 75) {
-            keyWordSwitchCase = Trim(A_LoopField49);
+            keyWordSwitchCase = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 76) {
             keyWordSwitchDefault = Trim(A_LoopField49);
         }
         if (A_Index49 == 77) {
-            keyWordWhileLoop = Trim(A_LoopField49);
+            keyWordWhileLoop = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 78) {
             keyWordLoopInfinite = Trim(A_LoopField49);
         }
         if (A_Index49 == 79) {
-            keyWordLoop = Trim(A_LoopField49);
+            keyWordLoop = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 80) {
-            keyWordLoopParse = Trim(A_LoopField49);
+            keyWordLoopParse = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 81) {
             keyWordContinue = Trim(A_LoopField49);
@@ -1894,16 +1983,16 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             keyWordBreak = Trim(A_LoopField49);
         }
         if (A_Index49 == 83) {
-            keyWordFunc = Trim(A_LoopField49);
+            keyWordFunc = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 84) {
-            keyWordAwait = Trim(A_LoopField49);
+            keyWordAwait = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 85) {
-            keyWordAsync = Trim(A_LoopField49);
+            keyWordAsync = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 86) {
-            keyWordThrow = Trim(A_LoopField49);
+            keyWordThrow = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 87) {
             keyWordErrorMsg = Trim(A_LoopField49);
@@ -1912,13 +2001,13 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             keyWordTry = Trim(A_LoopField49);
         }
         if (A_Index49 == 89) {
-            keyWordCatch = Trim(A_LoopField49);
+            keyWordCatch = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 90) {
             keyWordFinally = Trim(A_LoopField49);
         }
         if (A_Index49 == 91) {
-            keyWordReturnStatement = Trim(A_LoopField49);
+            keyWordReturnStatement = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 92) {
             keyWordArrayAppend = Trim(A_LoopField49);
@@ -1939,34 +2028,34 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             keyWordArrayIndexOf = Trim(A_LoopField49);
         }
         if (A_Index49 == 98) {
-            keyWordArrayDefinition = Trim(A_LoopField49);
+            keyWordArrayDefinition = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 99) {
-            keyWordArrayOfIntegersDefinition = Trim(A_LoopField49);
+            keyWordArrayOfIntegersDefinition = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 100) {
-            keyWordArrayOfStringsDefinition = Trim(A_LoopField49);
+            keyWordArrayOfStringsDefinition = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 101) {
-            keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField49);
+            keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 102) {
-            keyWordArrayOfBooleansDefinition = Trim(A_LoopField49);
+            keyWordArrayOfBooleansDefinition = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 103) {
-            keyWordVar = Trim(A_LoopField49);
+            keyWordVar = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 104) {
-            keyWordLet = Trim(A_LoopField49);
+            keyWordLet = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 105) {
-            keyWordConst = Trim(A_LoopField49);
+            keyWordConst = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 106) {
             keyWordEnd = Trim(A_LoopField49);
         }
         if (A_Index49 == 107) {
-            keyWordGlobal = Trim(A_LoopField49);
+            keyWordGlobal = Trim(A_LoopField49) + " ";
         }
         if (A_Index49 == 108) {
             keyWordComment = Trim(A_LoopField49);
@@ -2493,11 +2582,16 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
     //MsgBox, % code
     var htCodeOutFixEnd = "";
     var htCodeOutFixINT = 0;
+    var htCodeOutFixINT2 = 0;
     if (useCurlyBraces == "on") {
         if (keyWordCurlyBraceOpen != "{") {
             items57 = LoopParseFunc(code, "\n", "\r")
             for (let A_Index57 = 0; A_Index57 < items57.length + 0; A_Index57++) {
                 const A_LoopField57 = items57[A_Index57 - 0];
+                htCodeOutFixINT2 = 0;
+                if (isLineAconstruct(Trim(A_LoopField57)) == true || Trim(A_LoopField57) == keyWordCurlyBraceOpen) {
+                    htCodeOutFixINT2 = 1;
+                }
                 htCodeOutFixINT = 0;
                 items58 = LoopParseFunc(A_LoopField57, " ")
                 for (let A_Index58 = 0; A_Index58 < items58.length + 0; A_Index58++) {
@@ -2508,7 +2602,8 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                 items59 = LoopParseFunc(A_LoopField57, " ")
                 for (let A_Index59 = 0; A_Index59 < items59.length + 0; A_Index59++) {
                     const A_LoopField59 = items59[A_Index59 - 0];
-                    if (htCodeOutFixINT == A_Index59) {
+                    if (htCodeOutFixINT == A_Index59 && htCodeOutFixINT2 == 1) {
+                        htCodeOutFixINT2 = 0;
                         htCodeOutFixEnd += HTVMmatchStrRrplace(A_LoopField59, keyWordCurlyBraceOpen, "{") + " ";
                     } else {
                         htCodeOutFixEnd += A_LoopField59 + " ";
@@ -2525,6 +2620,10 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             items60 = LoopParseFunc(code, "\n", "\r")
             for (let A_Index60 = 0; A_Index60 < items60.length + 0; A_Index60++) {
                 const A_LoopField60 = items60[A_Index60 - 0];
+                htCodeOutFixINT2 = 0;
+                if (isLineAconstruct(Trim(A_LoopField60)) == true || Trim(A_LoopField60) == keyWordCurlyBraceClose) {
+                    htCodeOutFixINT2 = 1;
+                }
                 htCodeOutFixINT = 0;
                 items61 = LoopParseFunc(A_LoopField60, " ")
                 for (let A_Index61 = 0; A_Index61 < items61.length + 0; A_Index61++) {
@@ -2535,7 +2634,8 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                 items62 = LoopParseFunc(A_LoopField60, " ")
                 for (let A_Index62 = 0; A_Index62 < items62.length + 0; A_Index62++) {
                     const A_LoopField62 = items62[A_Index62 - 0];
-                    if (htCodeOutFixINT == A_Index62) {
+                    if (htCodeOutFixINT == A_Index62 && htCodeOutFixINT2 == 1) {
+                        htCodeOutFixINT2 = 0;
                         htCodeOutFixEnd += HTVMmatchStrRrplace(A_LoopField62, keyWordCurlyBraceClose, "}") + " ";
                     } else {
                         htCodeOutFixEnd += A_LoopField62 + " ";
@@ -2559,58 +2659,22 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             if (StrLower(Trim(A_LoopField63)) == StrLower(keyWordEnd) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordAllianceEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordCrewEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordMethodEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordDefObjEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordIFEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordElseIfEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordElseEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordSwitchEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordSwitchCaseEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordSwitchDefaultEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordWhileLoopEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordForLoopEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordLoopInfiniteEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordLoopEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordLoopParseEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordFuncEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordTryEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordCatchEndExtraInfo) || StrLower(Trim(A_LoopField63)) == StrLower(keyWordFinallyEndExtraInfo)) {
                 htCodeOutFixEnd += "}\n";
             }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF)) {
+            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF) && isLineAconstruct(Trim(A_LoopField63)) == true) {
                 htCodeOutFixEnd += A_LoopField63 + "\n{\n";
             }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf)) {
+            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf) && isLineAconstruct(Trim(A_LoopField63)) == true) {
                 htCodeOutFixEnd += "\n}\n" + A_LoopField63 + "\n{\n";
             }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordElse))) == StrLower(keyWordElse)) {
+            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordElse))) == StrLower(keyWordElse) && isLineAconstruct(Trim(A_LoopField63)) == true) {
                 htCodeOutFixEnd += "\n}\n" + A_LoopField63 + "\n{\n";
             }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop)) {
-                htCodeOutFixEnd += A_LoopField63 + "\n{\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordLoopInfinite))) == StrLower(keyWordLoopInfinite)) {
-                htCodeOutFixEnd += A_LoopField63 + "\n{\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordLoop))) == StrLower(keyWordLoop)) {
-                htCodeOutFixEnd += A_LoopField63 + "\n{\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordLoopParse))) == StrLower(keyWordLoopParse)) {
-                htCodeOutFixEnd += A_LoopField63 + "\n{\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordSwitch))) == StrLower(keyWordSwitch)) {
-                htCodeOutFixEnd += A_LoopField63 + "\n{\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordSwitchCase))) == StrLower(keyWordSwitchCase)) {
-                htCodeOutFixEnd += A_LoopField63 + "\n{\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordSwitchDefault))) == StrLower(keyWordSwitchDefault)) {
-                htCodeOutFixEnd += A_LoopField63 + "\n{\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordTry))) == StrLower(keyWordTry)) {
-                htCodeOutFixEnd += A_LoopField63 + "\n{\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordAlliance))) == StrLower(keyWordAlliance)) {
-                htCodeOutFixEnd += A_LoopField63 + "\n{\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordCrew))) == StrLower(keyWordCrew)) {
-                htCodeOutFixEnd += A_LoopField63 + "\n{\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordDefObj))) == StrLower(keyWordDefObj)) {
-                htCodeOutFixEnd += A_LoopField63 + "\n{\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
-                htCodeOutFixEnd += A_LoopField63 + "\n{\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch)) {
+            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch) && isLineAconstruct(Trim(A_LoopField63)) == true) {
                 htCodeOutFixEnd += "\n}\n" + A_LoopField63 + "\n{\n";
             }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordFinally))) == StrLower(keyWordFinally)) {
+            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordFinally))) == StrLower(keyWordFinally) && isLineAconstruct(Trim(A_LoopField63)) == true) {
                 htCodeOutFixEnd += "\n}\n" + A_LoopField63 + "\n{\n";
             }
-            else if (SubStr(StrLower(Trim(A_LoopField63)), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc)) {
+            else if (isLineAconstruct(Trim(A_LoopField63)) == true) {
                 htCodeOutFixEnd += A_LoopField63 + "\n{\n";
             } else {
                 htCodeOutFixEnd += A_LoopField63 + "\n";
@@ -2624,58 +2688,7 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             items64 = LoopParseFunc(code, "\n", "\r")
             for (let A_Index64 = 0; A_Index64 < items64.length + 0; A_Index64++) {
                 const A_LoopField64 = items64[A_Index64 - 0];
-                if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordElse))) == StrLower(keyWordElse)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordLoopInfinite))) == StrLower(keyWordLoopInfinite)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordLoop))) == StrLower(keyWordLoop)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordLoopParse))) == StrLower(keyWordLoopParse)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordSwitch))) == StrLower(keyWordSwitch)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordSwitchCase))) == StrLower(keyWordSwitchCase)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordSwitchDefault))) == StrLower(keyWordSwitchDefault)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordTry))) == StrLower(keyWordTry)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordAlliance))) == StrLower(keyWordAlliance)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordCrew))) == StrLower(keyWordCrew)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordDefObj))) == StrLower(keyWordDefObj)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordFinally))) == StrLower(keyWordFinally)) {
-                    htCodeOutFixEnd += A_LoopField64 + ":\n";
-                }
-                else if (SubStr(StrLower(Trim(A_LoopField64)), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc)) {
+                if (isLineAconstruct(Trim(A_LoopField64)) == true) {
                     htCodeOutFixEnd += A_LoopField64 + ":\n";
                 } else {
                     htCodeOutFixEnd += A_LoopField64 + "\n";
@@ -2718,58 +2731,7 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
         items68 = LoopParseFunc(code, "\n", "\r")
         for (let A_Index68 = 0; A_Index68 < items68.length + 0; A_Index68++) {
             const A_LoopField68 = items68[A_Index68 - 0];
-            if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordElse))) == StrLower(keyWordElse)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordLoopInfinite))) == StrLower(keyWordLoopInfinite)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordLoop))) == StrLower(keyWordLoop)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordLoopParse))) == StrLower(keyWordLoopParse)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordSwitch))) == StrLower(keyWordSwitch)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordSwitchCase))) == StrLower(keyWordSwitchCase)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordSwitchDefault))) == StrLower(keyWordSwitchDefault)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordTry))) == StrLower(keyWordTry)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordAlliance))) == StrLower(keyWordAlliance)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordCrew))) == StrLower(keyWordCrew)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordDefObj))) == StrLower(keyWordDefObj)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordFinally))) == StrLower(keyWordFinally)) {
-                htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
-            }
-            else if (SubStr(StrLower(Trim(A_LoopField68)), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc)) {
+            if (isLineAconstruct(Trim(A_LoopField68)) == true) {
                 htCodeOutFixEnd += StringTrimRight(A_LoopField68, 1) + "\n";
             } else {
                 htCodeOutFixEnd += A_LoopField68 + "\n";

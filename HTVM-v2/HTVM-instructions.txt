@@ -49,8 +49,8 @@ keyWordCodeInHTVMstart
 keyWordCodeInHTVMend
 keyWordCodeInOtherHTVMsyntaxStart
 keyWordCodeInOtherHTVMsyntaxStart
-<<<
->>>
+(
+)
 null
 true
 false
@@ -614,7 +614,7 @@ funcEND======================funcEND==============
 func======================func==============
 lang: go
 name: print
-libs: "fmt"|)
+libs: )|"fmt"
 description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
 func print(value interface{}) {
 	switch v := value.(type) {
@@ -812,7 +812,10 @@ lang: groovy
 name: print
 libs: null
 description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
-// used print
+// Print function
+def print = { message ->
+    System.out.print("$message\n")
+}
 
 funcEND======================funcEND==============
 

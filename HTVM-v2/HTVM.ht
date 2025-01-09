@@ -1643,8 +1643,125 @@ return str123
 
 
 
+func bool isLineAconstruct(str line)
+{
+if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF))
+{
+return true
+}
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf))
+{
+return true
+}
+else if (StrLower(Trim(line)) = StrLower(keyWordElse)) or (StrLower(Trim(line)) = StrLower(keyWordElse . ":"))
+{
+return true
+}
+else if (SubStr(Trim(line), 1, StrLen(keyWordCurlyBraceClose . " " . StrLower(keyWordElse))) = keyWordCurlyBraceClose . " " . StrLower(keyWordElse))
+{
+return true
+}
+else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordElse) . " " . keyWordCurlyBraceOpen)) = StrLower(keyWordElse) . " " . keyWordCurlyBraceOpen)
+{
+return true
+}
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordWhileLoop))) = StrLower(keyWordWhileLoop))
+{
+return true
+}
+else if (StrLower(Trim(line)) = StrLower(keyWordLoopInfinite)) or (StrLower(Trim(line)) = StrLower(keyWordLoopInfinite . ":"))
+{
+return true
+}
+else if (SubStr(Trim(line), 1, StrLen(keyWordCurlyBraceClose . " " . StrLower(keyWordLoopInfinite))) = keyWordCurlyBraceClose . " " . StrLower(keyWordLoopInfinite))
+{
+return true
+}
+else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordLoopInfinite) . " " . keyWordCurlyBraceOpen)) = StrLower(keyWordLoopInfinite) . " " . keyWordCurlyBraceOpen)
+{
+return true
+}
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordLoop))) = StrLower(keyWordLoop))
+{
+return true
+}
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordLoopParse))) = StrLower(keyWordLoopParse))
+{
+return true
+}
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordSwitch))) = StrLower(keyWordSwitch))
+{
+return true
+}
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordSwitchCase))) = StrLower(keyWordSwitchCase))
+{
+return true
+}
+else if (StrLower(Trim(line)) = StrLower(keyWordSwitchDefault)) or (StrLower(Trim(line)) = StrLower(keyWordSwitchDefault . ":"))
+{
+return true
+}
+else if (SubStr(Trim(line), 1, StrLen(keyWordCurlyBraceClose . " " . StrLower(keyWordSwitchDefault))) = keyWordCurlyBraceClose . " " . StrLower(keyWordSwitchDefault))
+{
+return true
+}
+else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordSwitchDefault) . " " . keyWordCurlyBraceOpen)) = StrLower(keyWordSwitchDefault) . " " . keyWordCurlyBraceOpen)
+{
+return true
+}
+else if (StrLower(Trim(line)) = StrLower(keyWordTry)) or (StrLower(Trim(line)) = StrLower(keyWordTry . ":"))
+{
+return true
+}
+else if (SubStr(Trim(line), 1, StrLen(keyWordCurlyBraceClose . " " . StrLower(keyWordTry))) = keyWordCurlyBraceClose . " " . StrLower(keyWordTry))
+{
+return true
+}
+else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordTry) . " " . keyWordCurlyBraceOpen)) = StrLower(keyWordTry) . " " . keyWordCurlyBraceOpen)
+{
+return true
+}
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordAlliance))) = StrLower(keyWordAlliance))
+{
+return true
+}
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordCrew))) = StrLower(keyWordCrew))
+{
+return true
+}
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordDefObj))) = StrLower(keyWordDefObj))
+{
+return true
+}
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordMethod))) = StrLower(keyWordMethod))
+{
+return true
+}
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordCatch))) = StrLower(keyWordCatch))
+{
+return true
+}
+else if (StrLower(Trim(line)) = StrLower(keyWordFinally)) or (StrLower(Trim(line)) = StrLower(keyWordFinally . ":"))
+{
+return true
+}
+else if (SubStr(Trim(line), 1, StrLen(keyWordCurlyBraceClose . " " . StrLower(keyWordFinally))) = keyWordCurlyBraceClose . " " . StrLower(keyWordFinally))
+{
+return true
+}
+else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordFinally) . " " . keyWordCurlyBraceOpen)) = StrLower(keyWordFinally) . " " . keyWordCurlyBraceOpen)
+{
+return true
+}
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc))
+{
+return true
+}
+return false
+}
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1751,25 +1868,25 @@ Loop, Parse, allInstructionFile, `n, `r
 		commands := Trim(A_LoopField)
 	}
 	if (A_Index = 3) {
-		keyWordAlliance := Trim(A_LoopField)
+		keyWordAlliance := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 4) {
-		keyWordCrew := Trim(A_LoopField)
+		keyWordCrew := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 5) {
-		keyWordMethod := Trim(A_LoopField)
+		keyWordMethod := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 6) {
-		keyWordDefObj := Trim(A_LoopField)
+		keyWordDefObj := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 7) {
-		keyWordPorp := Trim(A_LoopField)
+		keyWordPorp := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 8) {
 		keyWordThis := Trim(A_LoopField)
 	}
 	if (A_Index = 9) {
-		keyWordInclude := Trim(A_LoopField)
+		keyWordInclude := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 10) {
 		keyWordIncludeInTheTranspiledLang := Trim(A_LoopField)
@@ -1910,79 +2027,79 @@ Loop, Parse, allInstructionFile, `n, `r
 		keyWordFalse := Trim(A_LoopField)
 	}
 	if (A_Index = 56) {
-		keyWordVoid := Trim(A_LoopField)
+		keyWordVoid := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 57) {
-		keyWordDouble := Trim(A_LoopField)
+		keyWordDouble := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 58) {
-		keyWordChar := Trim(A_LoopField)
+		keyWordChar := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 59) {
-		keyWordUint8 := Trim(A_LoopField)
+		keyWordUint8 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 60) {
-		keyWordUint16 := Trim(A_LoopField)
+		keyWordUint16 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 61) {
-		keyWordUint32 := Trim(A_LoopField)
+		keyWordUint32 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 62) {
-		keyWordUint64 := Trim(A_LoopField)
+		keyWordUint64 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 63) {
-		keyWordINT := Trim(A_LoopField)
+		keyWordINT := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 64) {
-		keyWordSTR := Trim(A_LoopField)
+		keyWordSTR := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 65) {
-		keyWordBOOL := Trim(A_LoopField)
+		keyWordBOOL := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 66) {
-		keyWordFLOAT := Trim(A_LoopField)
+		keyWordFLOAT := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 67) {
-		keyWordINT8 := Trim(A_LoopField)
+		keyWordINT8 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 68) {
-		keyWordINT16 := Trim(A_LoopField)
+		keyWordINT16 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 69) {
-		keyWordINT32 := Trim(A_LoopField)
+		keyWordINT32 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 70) {
-		keyWordINT64 := Trim(A_LoopField)
+		keyWordINT64 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 71) {
-		keyWordIF := Trim(A_LoopField)
+		keyWordIF := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 72) {
-		keyWordElseIf := Trim(A_LoopField)
+		keyWordElseIf := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 73) {
 		keyWordElse := Trim(A_LoopField)
 	}
 	if (A_Index = 74) {
-		keyWordSwitch := Trim(A_LoopField)
+		keyWordSwitch := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 75) {
-		keyWordSwitchCase := Trim(A_LoopField)
+		keyWordSwitchCase := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 76) {
 		keyWordSwitchDefault := Trim(A_LoopField)
 	}
 	if (A_Index = 77) {
-		keyWordWhileLoop := Trim(A_LoopField)
+		keyWordWhileLoop := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 78) {
 		keyWordLoopInfinite := Trim(A_LoopField)
 	}
 	if (A_Index = 79) {
-		keyWordLoop := Trim(A_LoopField)
+		keyWordLoop := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 80) {
-		keyWordLoopParse := Trim(A_LoopField)
+		keyWordLoopParse := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 81) {
 		keyWordContinue := Trim(A_LoopField)
@@ -1991,16 +2108,16 @@ Loop, Parse, allInstructionFile, `n, `r
 		keyWordBreak := Trim(A_LoopField)
 	}
 	if (A_Index = 83) {
-		keyWordFunc := Trim(A_LoopField)
+		keyWordFunc := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 84) {
-		keyWordAwait := Trim(A_LoopField)
+		keyWordAwait := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 85) {
-		keyWordAsync := Trim(A_LoopField)
+		keyWordAsync := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 86) {
-		keyWordThrow := Trim(A_LoopField)
+		keyWordThrow := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 87) {
 		keyWordErrorMsg := Trim(A_LoopField)
@@ -2009,13 +2126,13 @@ Loop, Parse, allInstructionFile, `n, `r
 		keyWordTry := Trim(A_LoopField)
 	}
 	if (A_Index = 89) {
-		keyWordCatch := Trim(A_LoopField)
+		keyWordCatch := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 90) {
 		keyWordFinally := Trim(A_LoopField)
 	}
 	if (A_Index = 91) {
-		keyWordReturnStatement := Trim(A_LoopField)
+		keyWordReturnStatement := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 92) {
 		keyWordArrayAppend := Trim(A_LoopField)
@@ -2036,34 +2153,34 @@ Loop, Parse, allInstructionFile, `n, `r
 		keyWordArrayIndexOf := Trim(A_LoopField)
 	}
 	if (A_Index = 98) {
-		keyWordArrayDefinition := Trim(A_LoopField)
+		keyWordArrayDefinition := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 99) {
-		keyWordArrayOfIntegersDefinition := Trim(A_LoopField)
+		keyWordArrayOfIntegersDefinition := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 100) {
-		keyWordArrayOfStringsDefinition := Trim(A_LoopField)
+		keyWordArrayOfStringsDefinition := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 101) {
-		keyWordArrayOfFloatingPointNumbersDefinition := Trim(A_LoopField)
+		keyWordArrayOfFloatingPointNumbersDefinition := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 102) {
-		keyWordArrayOfBooleansDefinition := Trim(A_LoopField)
+		keyWordArrayOfBooleansDefinition := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 103) {
-		keyWordVar := Trim(A_LoopField)
+		keyWordVar := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 104) {
-		keyWordLet := Trim(A_LoopField)
+		keyWordLet := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 105) {
-		keyWordConst := Trim(A_LoopField)
+		keyWordConst := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 106) {
 		keyWordEnd := Trim(A_LoopField)
 	}
 	if (A_Index = 107) {
-		keyWordGlobal := Trim(A_LoopField)
+		keyWordGlobal := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 108) {
 		keyWordComment := Trim(A_LoopField)
@@ -2744,6 +2861,7 @@ StringTrimRight, code, newStringOutCode, 1
 
 str htCodeOutFixEnd := ""
 int htCodeOutFixINT := 0
+int htCodeOutFixINT2 := 0
 
 if (useCurlyBraces = "on")
 {
@@ -2752,6 +2870,12 @@ if (keyWordCurlyBraceOpen != "{")
 
 Loop, Parse, code, `n, `r
 {
+htCodeOutFixINT2 := 0
+if (isLineAconstruct(Trim(A_LoopField)) = true) or (Trim(A_LoopField) = keyWordCurlyBraceOpen)
+{
+htCodeOutFixINT2 := 1
+}
+
 htCodeOutFixINT := 0
 Loop, Parse, A_LoopField, " "
 {
@@ -2761,8 +2885,9 @@ htCodeOutFixINT++
 htCodeOutFixINT--
 Loop, Parse, A_LoopField, " "
 {
-if (htCodeOutFixINT = A_Index)
+if (htCodeOutFixINT = A_Index) && (htCodeOutFixINT2 = 1)
 {
+htCodeOutFixINT2 := 0
 htCodeOutFixEnd .= HTVMmatchStrRrplace(A_LoopField, keyWordCurlyBraceOpen, "{") . " "
 }
 else
@@ -2786,6 +2911,11 @@ if (keyWordCurlyBraceClose != "}")
 
 Loop, Parse, code, `n, `r
 {
+htCodeOutFixINT2 := 0
+if (isLineAconstruct(Trim(A_LoopField)) = true) or (Trim(A_LoopField) = keyWordCurlyBraceClose)
+{
+htCodeOutFixINT2 := 1
+}
 htCodeOutFixINT := 0
 Loop, Parse, A_LoopField, " "
 {
@@ -2795,8 +2925,9 @@ htCodeOutFixINT++
 htCodeOutFixINT--
 Loop, Parse, A_LoopField, " "
 {
-if (htCodeOutFixINT = A_Index)
+if (htCodeOutFixINT = A_Index) && (htCodeOutFixINT2 = 1)
 {
+htCodeOutFixINT2 := 0
 htCodeOutFixEnd .= HTVMmatchStrRrplace(A_LoopField, keyWordCurlyBraceClose, "}") . " "
 }
 else
@@ -2828,75 +2959,27 @@ if (StrLower(Trim(A_LoopField)) = StrLower(keyWordEnd)) or (StrLower(Trim(A_Loop
 {
 htCodeOutFixEnd .= "}`n"
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF))
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF)) and (isLineAconstruct(Trim(A_LoopField)) = true)
 {
 htCodeOutFixEnd .= A_LoopField . "`n{`n"
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf))
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf)) and (isLineAconstruct(Trim(A_LoopField)) = true)
 {
 htCodeOutFixEnd .= "`n}`n" . A_LoopField . "`n{`n"
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElse))) = StrLower(keyWordElse))
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElse))) = StrLower(keyWordElse)) and (isLineAconstruct(Trim(A_LoopField)) = true)
 {
 htCodeOutFixEnd .= "`n}`n" . A_LoopField . "`n{`n"
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordWhileLoop))) = StrLower(keyWordWhileLoop))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoopInfinite))) = StrLower(keyWordLoopInfinite))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoop))) = StrLower(keyWordLoop))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoopParse))) = StrLower(keyWordLoopParse))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitch))) = StrLower(keyWordSwitch))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitchCase))) = StrLower(keyWordSwitchCase))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitchDefault))) = StrLower(keyWordSwitchDefault))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordTry))) = StrLower(keyWordTry))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordAlliance))) = StrLower(keyWordAlliance))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCrew))) = StrLower(keyWordCrew))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordDefObj))) = StrLower(keyWordDefObj))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordMethod))) = StrLower(keyWordMethod))
-{
-htCodeOutFixEnd .= A_LoopField . "`n{`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCatch))) = StrLower(keyWordCatch))
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCatch))) = StrLower(keyWordCatch)) and (isLineAconstruct(Trim(A_LoopField)) = true)
 {
 htCodeOutFixEnd .= "`n}`n" . A_LoopField . "`n{`n"
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordFinally))) = StrLower(keyWordFinally))
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordFinally))) = StrLower(keyWordFinally)) and (isLineAconstruct(Trim(A_LoopField)) = true)
 {
 htCodeOutFixEnd .= "`n}`n" . A_LoopField . "`n{`n"
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc))
+else if (isLineAconstruct(Trim(A_LoopField)) = true)
 {
 htCodeOutFixEnd .= A_LoopField . "`n{`n"
 }
@@ -2915,75 +2998,7 @@ if (useEnd = "off") and (useEndExtraInfo = "off") and (useCurlyBraces = "off")
 htCodeOutFixEnd := ""
 Loop, Parse, code, `n, `r
 {
-if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElse))) = StrLower(keyWordElse))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordWhileLoop))) = StrLower(keyWordWhileLoop))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoopInfinite))) = StrLower(keyWordLoopInfinite))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoop))) = StrLower(keyWordLoop))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoopParse))) = StrLower(keyWordLoopParse))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitch))) = StrLower(keyWordSwitch))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitchCase))) = StrLower(keyWordSwitchCase))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitchDefault))) = StrLower(keyWordSwitchDefault))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordTry))) = StrLower(keyWordTry))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordAlliance))) = StrLower(keyWordAlliance))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCrew))) = StrLower(keyWordCrew))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordDefObj))) = StrLower(keyWordDefObj))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordMethod))) = StrLower(keyWordMethod))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCatch))) = StrLower(keyWordCatch))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordFinally))) = StrLower(keyWordFinally))
-{
-htCodeOutFixEnd .= A_LoopField . ":`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc))
+if (isLineAconstruct(Trim(A_LoopField)) = true)
 {
 htCodeOutFixEnd .= A_LoopField . ":`n"
 }
@@ -3051,75 +3066,7 @@ if (usePythonicColonSyntax = "on")
 
 Loop, Parse, code, `n, `r
 {
-if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElse))) = StrLower(keyWordElse))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordWhileLoop))) = StrLower(keyWordWhileLoop))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoopInfinite))) = StrLower(keyWordLoopInfinite))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoop))) = StrLower(keyWordLoop))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordLoopParse))) = StrLower(keyWordLoopParse))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitch))) = StrLower(keyWordSwitch))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitchCase))) = StrLower(keyWordSwitchCase))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordSwitchDefault))) = StrLower(keyWordSwitchDefault))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordTry))) = StrLower(keyWordTry))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordAlliance))) = StrLower(keyWordAlliance))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCrew))) = StrLower(keyWordCrew))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordDefObj))) = StrLower(keyWordDefObj))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordMethod))) = StrLower(keyWordMethod))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCatch))) = StrLower(keyWordCatch))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordFinally))) = StrLower(keyWordFinally))
-{
-htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc))
+if (isLineAconstruct(Trim(A_LoopField)) = true)
 {
 htCodeOutFixEnd .= StringTrimRight(A_LoopField, 1) . "`n"
 }
