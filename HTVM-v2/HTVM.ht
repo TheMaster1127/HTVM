@@ -3953,6 +3953,7 @@ if (langToConvertTo = "groovy")
 }
 
 
+
 htCodeAcurlyBraceAddSomeVrasFixLP := 1
 haveWeEverUsedAloop := 1
 if (langToConvertTo != "ahk")
@@ -4056,7 +4057,7 @@ StringTrimRight, htCode, htCode, 1
 ;s
 ;s
 ;s
-if (langToConvertTo != "ahk")
+if (langToConvertTo != "ahk") and (langToConvertTo != langFileExtension)
 {
 
 ;s
@@ -4945,6 +4946,14 @@ else
 argHTVMinstrMOVE.add(Trim(A_LoopField))
 }
 }
+
+
+print("===============123431234===========start=====")
+Loop, % argHTVMinstrMOVE.size()
+{
+print(argHTVMinstrMOVE[A_Index])
+}
+print("===============123431234==========end======")
 
 print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConvertTo)
 if (SubStrLastChars(argCODEfile, 4) = ".cpp") or (SubStrLastChars(argCODEfile, 3) = ".py") or (SubStrLastChars(argCODEfile, 3) = ".js") or (SubStrLastChars(argCODEfile, 3) = ".go") or (SubStrLastChars(argCODEfile, 4) = ".lua") or (SubStrLastChars(argCODEfile, 3) = ".cs") or (SubStrLastChars(argCODEfile, 5) = ".java") or (SubStrLastChars(argCODEfile, 3) = ".kt") or (SubStrLastChars(argCODEfile, 3) = ".rb") or (SubStrLastChars(argCODEfile, 4) = ".nim") or (SubStrLastChars(argCODEfile, 4) = ".ahk") or (SubStrLastChars(argCODEfile, 6) = ".swift") or (SubStrLastChars(argCODEfile, 5) = ".dart") or (SubStrLastChars(argCODEfile, 3) = ".ts") or (SubStrLastChars(argCODEfile, 6) = ".scala") or (SubStrLastChars(argCODEfile, 7) = ".groovy")

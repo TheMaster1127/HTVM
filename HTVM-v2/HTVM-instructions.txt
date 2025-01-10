@@ -49,8 +49,8 @@ keyWordCodeInHTVMstart
 keyWordCodeInHTVMend
 keyWordCodeInOtherHTVMsyntaxStart
 keyWordCodeInOtherHTVMsyntaxStart
-(
-)
+AAA
+aaa
 null
 true
 false

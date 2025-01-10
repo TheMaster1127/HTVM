@@ -3396,7 +3396,7 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
     //s
     //s
     //s
-    if (langToConvertTo != "ahk") {
+    if (langToConvertTo != "ahk" && langToConvertTo != langFileExtension) {
         //s
         if (haveWeEverUsedAloop == 1) {
             htCodeLoopfixa = StringTrimRight(htCodeLoopfixa, 1);
@@ -3926,6 +3926,11 @@ async function HTVMv2() {
                 argHTVMinstrMOVE.push(Trim(A_LoopField82));
             }
         }
+        print("===============123431234===========start=====");
+        for (let A_Index83 = 0; A_Index83 < argHTVMinstrMOVE.length + 0; A_Index83++) {
+            print(argHTVMinstrMOVE[A_Index83]);
+        }
+        print("===============123431234==========end======");
         print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) + langToConvertTo);
         if (SubStrLastChars(argCODEfile, 4) == ".cpp" || SubStrLastChars(argCODEfile, 3) == ".py" || SubStrLastChars(argCODEfile, 3) == ".js" || SubStrLastChars(argCODEfile, 3) == ".go" || SubStrLastChars(argCODEfile, 4) == ".lua" || SubStrLastChars(argCODEfile, 3) == ".cs" || SubStrLastChars(argCODEfile, 5) == ".java" || SubStrLastChars(argCODEfile, 3) == ".kt" || SubStrLastChars(argCODEfile, 3) == ".rb" || SubStrLastChars(argCODEfile, 4) == ".nim" || SubStrLastChars(argCODEfile, 4) == ".ahk" || SubStrLastChars(argCODEfile, 6) == ".swift" || SubStrLastChars(argCODEfile, 5) == ".dart" || SubStrLastChars(argCODEfile, 3) == ".ts" || SubStrLastChars(argCODEfile, 6) == ".scala" || SubStrLastChars(argCODEfile, 7) == ".groovy") {
             if (argLangTo != "") {
