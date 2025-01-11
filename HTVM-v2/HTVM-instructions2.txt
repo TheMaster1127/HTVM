@@ -1,5 +1,5 @@
 cpp
-htvm
+htvm2
 StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1,'param2|MsgBox,'param1
 alliance
 crew
@@ -49,8 +49,8 @@ keyWordCodeInHTVMstart
 keyWordCodeInHTVMend
 keyWordCodeInOtherHTVMsyntaxStart
 keyWordCodeInOtherHTVMsyntaxEnd
-(
-)
+[
+]
 null
 true
 false
@@ -77,7 +77,7 @@ case
 default
 while
 Loop
-Loop,
+spin
 Loop, Parse,
 continue
 break
@@ -104,7 +104,7 @@ arr bool
 var
 let
 const
-end
+end2
 global
 ;
 '''1
@@ -168,15 +168,15 @@ keyWordSwitchDefaultEndExtraInfo
 keyWordWhileLoopEndExtraInfo
 keyWordForLoopEndExtraInfo
 keyWordLoopInfiniteEndExtraInfo
-end Loop
+end Loop2
 keyWordLoopParseEndExtraInfo
 keyWordFuncEndExtraInfo
 keyWordTryEndExtraInfo
 keyWordCatchEndExtraInfo
 keyWordFinallyEndExtraInfo
 off
-off
 on
+off
 off
 on
 on

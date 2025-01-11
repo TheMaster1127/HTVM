@@ -1,0 +1,7 @@
+TODO:
+1. Experiment and test if the parser is flexible enough to handle "end" keywords correctly when converted.
+2. Fix the place where I replace the double semicolon and remove it.
+3. Remove the "end" keyword for the extra info in "for" loops. Since I've removed "for" loops, I no longer need it, but I still need to convert it to an extra "end" keyword just in case.
+4. Test everything again and again to ensure it's working properly.
+5. In the future, write the expression parser and implement programming blocks.
+6. Make sure everything works smoothly.

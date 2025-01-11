@@ -48,7 +48,7 @@ keyWordCodeInTheTranspiledLangEndHTVM
 keyWordCodeInHTVMstart
 keyWordCodeInHTVMend
 keyWordCodeInOtherHTVMsyntaxStart
-keyWordCodeInOtherHTVMsyntaxStart
+keyWordCodeInOtherHTVMsyntaxEnd
 keyWordCurlyBraceOpen
 keyWordCurlyBraceClose
 keyWordNull
