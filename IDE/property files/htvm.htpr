@@ -31,7 +31,7 @@
 ; for ruby
 "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM-instructions.txt" "rb"
 
-; for nim
+; for nim   
 "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM-instructions.txt" "nim"
 
 ; for ahk

@@ -26,9 +26,30 @@ int int5 := 0
 int int6 := 0
 int int7 := 0
 
-arr str argHTVMinstrMOVE
+arr str argHTVMinstrMORE
 
 str extraCodeReturned := ""
+
+arr str programmingBlock_InTheTranspiledLang
+arr str programmingBlock_CPP
+arr str programmingBlock_PY
+arr str programmingBlock_JS
+arr str programmingBlock_GO
+arr str programmingBlock_LUA
+arr str programmingBlock_CS
+arr str programmingBlock_JAVA
+arr str programmingBlock_KT
+arr str programmingBlock_RB
+arr str programmingBlock_NIM
+arr str programmingBlock_AHK
+arr str programmingBlock_SWIFT
+arr str programmingBlock_DART
+arr str programmingBlock_TS
+arr str programmingBlock_SCALA
+arr str programmingBlock_GROOVY
+arr str programmingBlock_HTVM
+arr str programmingBlock_HTVMsyntax
+
 
 str langToConvertTo := ""
 str langFileExtension := ""
@@ -2555,9 +2576,9 @@ Loop, Parse, allInstructionFile, `n, `r
 
 }
 
-if (argHTVMinstrMOVE.size() > 0)
+if (argHTVMinstrMORE.size() > 0)
 {
-str allInstructionFile_2 := Trim(FileRead(Trim(argHTVMinstrMOVE[0])))
+str allInstructionFile_2 := Trim(FileRead(Trim(argHTVMinstrMORE[0])))
 
 
 Loop, Parse, allInstructionFile_2, `n, `r
@@ -3242,8 +3263,382 @@ int skipLeftCuleyForFuncPLS := 0
 
 
 
+; PROGRAMMING BLOCK
+; PROGRAMMING BLOCK
+; PROGRAMMING BLOCK
+; PROGRAMMING BLOCK
 
 
+
+int COUNT_programmingBlock_InTheTranspiledLang := 0
+int COUNT_programmingBlock_CPP := 0
+int COUNT_programmingBlock_PY := 0
+int COUNT_programmingBlock_JS := 0
+int COUNT_programmingBlock_GO := 0
+int COUNT_programmingBlock_LUA := 0
+int COUNT_programmingBlock_CS := 0
+int COUNT_programmingBlock_JAVA := 0
+int COUNT_programmingBlock_KT := 0
+int COUNT_programmingBlock_RB := 0
+int COUNT_programmingBlock_NIM := 0
+int COUNT_programmingBlock_AHK := 0
+int COUNT_programmingBlock_SWIFT := 0
+int COUNT_programmingBlock_DART := 0
+int COUNT_programmingBlock_TS := 0
+int COUNT_programmingBlock_SCALA := 0
+int COUNT_programmingBlock_GROOVY := 0
+int COUNT_programmingBlock_HTVM := 0
+int COUNT_programmingBlock_HTVMsyntax := 0
+
+str programmingBlocksTemp := ""
+int inProgarmmingBlock := 0
+str holdTempDataProgrammingBlockThenPutInArr := ""
+
+Loop, Parse, code, `n, `r
+{
+
+if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEnd))
+{
+
+COUNT_programmingBlock_InTheTranspiledLang++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" . STR(COUNT_programmingBlock_InTheTranspiledLang) . "AA`n"
+programmingBlock_InTheTranspiledLang.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndCPP))
+{
+
+COUNT_programmingBlock_CPP++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_CPP-programmingBlock_CPP-AA" . STR(COUNT_programmingBlock_CPP) . "AA`n"
+programmingBlock_CPP.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndPY))
+{
+
+COUNT_programmingBlock_PY++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_PY-programmingBlock_PY-AA" . STR(COUNT_programmingBlock_PY) . "AA`n"
+programmingBlock_PY.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndJS))
+{
+
+COUNT_programmingBlock_JS++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_JS-programmingBlock_JS-AA" . STR(COUNT_programmingBlock_JS) . "AA`n"
+programmingBlock_JS.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndGO))
+{
+
+COUNT_programmingBlock_GO++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_GO-programmingBlock_GO-AA" . STR(COUNT_programmingBlock_GO) . "AA`n"
+programmingBlock_GO.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndLUA))
+{
+
+COUNT_programmingBlock_LUA++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_LUA-programmingBlock_LUA-AA" . STR(COUNT_programmingBlock_LUA) . "AA`n"
+programmingBlock_LUA.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndCS))
+{
+
+COUNT_programmingBlock_CS++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_CS-programmingBlock_CS-AA" . STR(COUNT_programmingBlock_CS) . "AA`n"
+programmingBlock_CS.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndJAVA))
+{
+
+COUNT_programmingBlock_JAVA++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_JAVA-programmingBlock_JAVA-AA" . STR(COUNT_programmingBlock_JAVA) . "AA`n"
+programmingBlock_JAVA.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndKT))
+{
+
+COUNT_programmingBlock_KT++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_KT-programmingBlock_KT-AA" . STR(COUNT_programmingBlock_KT) . "AA`n"
+programmingBlock_KT.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndRB))
+{
+
+COUNT_programmingBlock_RB++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_RB-programmingBlock_RB-AA" . STR(COUNT_programmingBlock_RB) . "AA`n"
+programmingBlock_RB.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndNIM))
+{
+
+COUNT_programmingBlock_NIM++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_NIM-programmingBlock_NIM-AA" . STR(COUNT_programmingBlock_NIM) . "AA`n"
+programmingBlock_NIM.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndAHK))
+{
+
+COUNT_programmingBlock_AHK++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_AHK-programmingBlock_AHK-AA" . STR(COUNT_programmingBlock_AHK) . "AA`n"
+programmingBlock_AHK.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndSWIFT))
+{
+
+COUNT_programmingBlock_SWIFT++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" . STR(COUNT_programmingBlock_SWIFT) . "AA`n"
+programmingBlock_SWIFT.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndDART))
+{
+
+COUNT_programmingBlock_DART++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_DART-programmingBlock_DART-AA" . STR(COUNT_programmingBlock_DART) . "AA`n"
+programmingBlock_DART.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndTS))
+{
+
+COUNT_programmingBlock_TS++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_TS-programmingBlock_TS-AA" . STR(COUNT_programmingBlock_TS) . "AA`n"
+programmingBlock_TS.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndSCALA))
+{
+
+COUNT_programmingBlock_SCALA++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_SCALA-programmingBlock_SCALA-AA" . STR(COUNT_programmingBlock_SCALA) . "AA`n"
+programmingBlock_SCALA.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndGROOVY))
+{
+
+COUNT_programmingBlock_GROOVY++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" . STR(COUNT_programmingBlock_GROOVY) . "AA`n"
+programmingBlock_GROOVY.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEndHTVM))
+{
+
+COUNT_programmingBlock_HTVM++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_HTVM-programmingBlock_HTVM-AA" . STR(COUNT_programmingBlock_HTVM) . "AA`n"
+programmingBlock_HTVM.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInOtherHTVMsyntaxEnd))
+{
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+COUNT_programmingBlock_HTVMsyntax++
+StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
+programmingBlocksTemp .= "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" . STR(COUNT_programmingBlock_HTVMsyntax) . "AA`n"
+programmingBlock_HTVMsyntax.add(holdTempDataProgrammingBlockThenPutInArr)
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+}
+else if (inProgarmmingBlock = 1)
+{
+holdTempDataProgrammingBlockThenPutInArr .= A_LoopField . "`n"
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStart))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartCPP))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartPY))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartJS))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartGO))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartLUA))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartCS))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartJAVA))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartKT))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartRB))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartNIM))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartAHK))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartSWIFT))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartDART))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartTS))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartSCALA))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartGROOVY))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangStartHTVM))
+{
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+}
+else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInOtherHTVMsyntaxStart))
+{
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+holdTempDataProgrammingBlockThenPutInArr := ""
+inProgarmmingBlock := 1
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+}
+else
+{
+programmingBlocksTemp .= A_LoopField . "`n"
+}
+
+}
+StringTrimRight, code, programmingBlocksTemp, 1
+
+;programmingBlock_InTheTranspiledLang
+;programmingBlock_CPP
+;programmingBlock_PY
+;programmingBlock_JS
+;programmingBlock_GO
+;programmingBlock_LUA
+;programmingBlock_CS
+;programmingBlock_JAVA
+;programmingBlock_KT
+;programmingBlock_RB
+;programmingBlock_NIM
+;programmingBlock_AHK
+;programmingBlock_SWIFT
+;programmingBlock_DART
+;programmingBlock_TS
+;programmingBlock_SCALA
+;programmingBlock_GROOVY
+;programmingBlock_HTVM
+;programmingBlock_HTVMsyntax
+
+; PROGRAMMING BLOCK
+; PROGRAMMING BLOCK
+; PROGRAMMING BLOCK
+; PROGRAMMING BLOCK
+
+
+print("============programmingBlock_CPP==================")
+print("============programmingBlock_CPP==================")
+if (programmingBlock_CPP.size() > 0)
+{
+Loop, % programmingBlock_CPP.size()
+{
+print(programmingBlock_CPP[A_Index])
+}
+}
+print("============programmingBlock_CPP==================")
+print("============programmingBlock_CPP==================")
 
 str htCodeOUT754754 := ""
 int areWEinSome34sNum := 0
@@ -5616,6 +6011,374 @@ if (langToConvertTo = "go")
 
 
 
+
+
+
+
+
+
+if (COUNT_programmingBlock_InTheTranspiledLang != 0)
+{
+    Loop, % COUNT_programmingBlock_InTheTranspiledLang
+    {
+        htCode := StrReplace(htCode, "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" . STR(A_Index + 1) . "AA", programmingBlock_InTheTranspiledLang[A_Index])
+    }
+}
+
+if (langToConvertTo = "cpp")
+{
+    if (COUNT_programmingBlock_CPP != 0)
+    {
+        Loop, % COUNT_programmingBlock_CPP
+        {
+            htCode := StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" . STR(A_Index + 1) . "AA", programmingBlock_CPP[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_CPP != 0)
+    {
+        Loop, % COUNT_programmingBlock_CPP
+        {
+            htCode := StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+
+if (langToConvertTo = "py")
+{
+    if (COUNT_programmingBlock_PY != 0)
+    {
+        Loop, % COUNT_programmingBlock_PY
+        {
+            htCode := StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" . STR(A_Index + 1) . "AA", programmingBlock_PY[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_PY != 0)
+    {
+        Loop, % COUNT_programmingBlock_PY
+        {
+            htCode := StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+
+if (langToConvertTo = "js")
+{
+    if (COUNT_programmingBlock_JS != 0)
+    {
+        Loop, % COUNT_programmingBlock_JS
+        {
+            htCode := StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" . STR(A_Index + 1) . "AA", programmingBlock_JS[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_JS != 0)
+    {
+        Loop, % COUNT_programmingBlock_JS
+        {
+            htCode := StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+if (langToConvertTo = "go")
+{
+    if (COUNT_programmingBlock_GO != 0)
+    {
+        Loop, % COUNT_programmingBlock_GO
+        {
+            htCode := StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" . STR(A_Index + 1) . "AA", programmingBlock_GO[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_GO != 0)
+    {
+        Loop, % COUNT_programmingBlock_GO
+        {
+            htCode := StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+if (langToConvertTo = "lua")
+{
+    if (COUNT_programmingBlock_LUA != 0)
+    {
+        Loop, % COUNT_programmingBlock_LUA
+        {
+            htCode := StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" . STR(A_Index + 1) . "AA", programmingBlock_LUA[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_LUA != 0)
+    {
+        Loop, % COUNT_programmingBlock_LUA
+        {
+            htCode := StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+if (langToConvertTo = "cs")
+{
+    if (COUNT_programmingBlock_CS != 0)
+    {
+        Loop, % COUNT_programmingBlock_CS
+        {
+            htCode := StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" . STR(A_Index + 1) . "AA", programmingBlock_CS[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_CS != 0)
+    {
+        Loop, % COUNT_programmingBlock_CS
+        {
+            htCode := StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+if (langToConvertTo = "java")
+{
+    if (COUNT_programmingBlock_JAVA != 0)
+    {
+        Loop, % COUNT_programmingBlock_JAVA
+        {
+            htCode := StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" . STR(A_Index + 1) . "AA", programmingBlock_JAVA[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_JAVA != 0)
+    {
+        Loop, % COUNT_programmingBlock_JAVA
+        {
+            htCode := StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+
+if (langToConvertTo = "js")
+{
+    if (COUNT_programmingBlock_JS != 0)
+    {
+        Loop, % COUNT_programmingBlock_JS
+        {
+            htCode := StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" . STR(A_Index + 1) . "AA", programmingBlock_JS[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_JS != 0)
+    {
+        Loop, % COUNT_programmingBlock_JS
+        {
+            htCode := StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+if (langToConvertTo = "go")
+{
+    if (COUNT_programmingBlock_GO != 0)
+    {
+        Loop, % COUNT_programmingBlock_GO
+        {
+            htCode := StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" . STR(A_Index + 1) . "AA", programmingBlock_GO[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_GO != 0)
+    {
+        Loop, % COUNT_programmingBlock_GO
+        {
+            htCode := StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+if (langToConvertTo = "lua")
+{
+    if (COUNT_programmingBlock_LUA != 0)
+    {
+        Loop, % COUNT_programmingBlock_LUA
+        {
+            htCode := StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" . STR(A_Index + 1) . "AA", programmingBlock_LUA[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_LUA != 0)
+    {
+        Loop, % COUNT_programmingBlock_LUA
+        {
+            htCode := StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+if (langToConvertTo = "cs")
+{
+    if (COUNT_programmingBlock_CS != 0)
+    {
+        Loop, % COUNT_programmingBlock_CS
+        {
+            htCode := StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" . STR(A_Index + 1) . "AA", programmingBlock_CS[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_CS != 0)
+    {
+        Loop, % COUNT_programmingBlock_CS
+        {
+            htCode := StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+if (langToConvertTo = "java")
+{
+    if (COUNT_programmingBlock_JAVA != 0)
+    {
+        Loop, % COUNT_programmingBlock_JAVA
+        {
+            htCode := StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" . STR(A_Index + 1) . "AA", programmingBlock_JAVA[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_JAVA != 0)
+    {
+        Loop, % COUNT_programmingBlock_JAVA
+        {
+            htCode := StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+if (langToConvertTo = "ts")
+{
+    if (COUNT_programmingBlock_TS != 0)
+    {
+        Loop, % COUNT_programmingBlock_TS
+        {
+            htCode := StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" . STR(A_Index + 1) . "AA", programmingBlock_TS[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_TS != 0)
+    {
+        Loop, % COUNT_programmingBlock_TS
+        {
+            htCode := StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+if (langToConvertTo = "scala")
+{
+    if (COUNT_programmingBlock_SCALA != 0)
+    {
+        Loop, % COUNT_programmingBlock_SCALA
+        {
+            htCode := StrReplace(htCode, "programmingBlock_SCALA-programmingBlock_SCALA-AA" . STR(A_Index + 1) . "AA", programmingBlock_SCALA[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_SCALA != 0)
+    {
+        Loop, % COUNT_programmingBlock_SCALA
+        {
+            htCode := StrReplace(htCode, "programmingBlock_SCALA-programmingBlock_SCALA-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+if (langToConvertTo = "groovy")
+{
+    if (COUNT_programmingBlock_GROOVY != 0)
+    {
+        Loop, % COUNT_programmingBlock_GROOVY
+        {
+            htCode := StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" . STR(A_Index + 1) . "AA", programmingBlock_GROOVY[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_GROOVY != 0)
+    {
+        Loop, % COUNT_programmingBlock_GROOVY
+        {
+            htCode := StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" . STR(A_Index + 1) . "AA", "`n")
+        }
+    }
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+if (COUNT_programmingBlock_HTVM != 0)
+{
+    Loop, % COUNT_programmingBlock_HTVM
+    {
+        htCode := StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" . STR(A_Index + 1) . "AA", programmingBlock_HTVM[A_Index])
+    }
+}
+
+if (COUNT_programmingBlock_HTVMsyntax != 0)
+{
+    Loop, % COUNT_programmingBlock_HTVMsyntax
+    {
+        htCode := StrReplace(htCode, "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" . STR(A_Index + 1) . "AA", programmingBlock_HTVMsyntax[A_Index])
+    }
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Loop, % theIdNumOfThe34
 {
 if (theIdNumOfThe34 = A_Index + 1)
@@ -5765,15 +6528,15 @@ argLangTo := Trim(A_LoopField)
 }
 else
 {
-argHTVMinstrMOVE.add(Trim(A_LoopField))
+argHTVMinstrMORE.add(Trim(A_LoopField))
 }
 }
 
 
 print("===============123431234===========start=====")
-Loop, % argHTVMinstrMOVE.size()
+Loop, % argHTVMinstrMORE.size()
 {
-print(argHTVMinstrMOVE[A_Index])
+print(argHTVMinstrMORE[A_Index])
 }
 print("===============123431234==========end======")
 

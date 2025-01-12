@@ -51,5 +51,10 @@ int main(int argc, char* argv[]) {
             print(A_Index2);
         }
     }
+    int asdfd12 = 5;
+int asdfd23 = 56;
+int asdfd34 = 5;
+    
+
     return 0;
 }
