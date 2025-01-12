@@ -4873,7 +4873,7 @@ htCode .= htCodeLoopfixa1 . "`n" . var1out . "`n"
 else if ((SubStr(Trim(A_LoopField), -2) = ");") or (SubStr(Trim(A_LoopField), -1) = ")")) and (!(InStr(A_LoopField, "int main(int argc, char* argv[])"))) and (!(InStr(A_LoopField, "async function main()"))) and (lineDone = 0)
 {
 lineDone := 1
-str1 := A_LoopField
+str1 := Trim(A_LoopField)
 
 if (langToConvertTo = langFileExtension_2)
 {
@@ -4885,14 +4885,19 @@ else
 {
 str2 := expressionParserTranspiler(Trim(str1))
 }
-str2 := StrReplace(str2, ";;", ";")
+
 
 }
 else
 {
 if (langToConvertTo = "py") or (langToConvertTo = "nim") or (langToConvertTo = "ahk") or (langToConvertTo = "go") or (langToConvertTo = "lua") or (langToConvertTo = "kt") or (langToConvertTo = "rb") or (langToConvertTo = "swift") or (langToConvertTo = "scala") or (langToConvertTo = "groovy") 
 {
-str1 := StrReplace(str1, ";", "")
+
+if (SubStrLastChars(str1, 1) = ";")
+{
+StringTrimRight, str1, str1, 1
+}
+
 }
 
 
@@ -4900,11 +4905,10 @@ str1 := StrReplace(str1, ";", "")
 str2 := expressionParserTranspiler(Trim(str1)) . ";"
 if (langToConvertTo = "py") or (langToConvertTo = "nim") or (langToConvertTo = "ahk") or (langToConvertTo = "go") or (langToConvertTo = "lua") or (langToConvertTo = "kt") or (langToConvertTo = "rb") or (langToConvertTo = "swift") or (langToConvertTo = "scala") or (langToConvertTo = "groovy") 
 {
-str2 := StrReplace(str2, ";", "")
-}
-else
+if (SubStrLastChars(str2, 1) = ";")
 {
-str2 := StrReplace(str2, ";;", ";")
+StringTrimRight, str2, str2, 1
+}
 }
 
 

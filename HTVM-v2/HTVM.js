@@ -4194,23 +4194,24 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
         }
         else if ((SubStr(Trim(A_LoopField72), -2) == ");" || SubStr(Trim(A_LoopField72), -1) == ")") && !(InStr(A_LoopField72, "int main(int argc, char* argv[])")) && !(InStr(A_LoopField72, "async function main()")) && lineDone == 0) {
             lineDone = 1;
-            str1 = A_LoopField72;
+            str1 = Trim(A_LoopField72);
             if (langToConvertTo == langFileExtension_2) {
                 if (useSemicolon_2 == "on") {
                     str2 = expressionParserTranspiler(Trim(str1)) + ";";
                 } else {
                     str2 = expressionParserTranspiler(Trim(str1));
                 }
-                str2 = StrReplace(str2, ";;", ";");
             } else {
                 if (langToConvertTo == "py" || langToConvertTo == "nim" || langToConvertTo == "ahk" || langToConvertTo == "go" || langToConvertTo == "lua" || langToConvertTo == "kt" || langToConvertTo == "rb" || langToConvertTo == "swift" || langToConvertTo == "scala" || langToConvertTo == "groovy") {
-                    str1 = StrReplace(str1, ";", "");
+                    if (SubStrLastChars(str1, 1) == ";") {
+                        str1 = StringTrimRight(str1, 1);
+                    }
                 }
                 str2 = expressionParserTranspiler(Trim(str1)) + ";";
                 if (langToConvertTo == "py" || langToConvertTo == "nim" || langToConvertTo == "ahk" || langToConvertTo == "go" || langToConvertTo == "lua" || langToConvertTo == "kt" || langToConvertTo == "rb" || langToConvertTo == "swift" || langToConvertTo == "scala" || langToConvertTo == "groovy") {
-                    str2 = StrReplace(str2, ";", "");
-                } else {
-                    str2 = StrReplace(str2, ";;", ";");
+                    if (SubStrLastChars(str2, 1) == ";") {
+                        str2 = StringTrimRight(str2, 1);
+                    }
                 }
             }
             htCode += str2 + "\n";
