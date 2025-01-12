@@ -1,15 +1,12 @@
-spin 5:
-print("hello HTVM v2")
-print("hello HTVM`nv2")
-print(A_Index)
-spin 5:
-print("hello HTVM v2")
-print("hello HTVM`nv2")
-spin 5:
-print("hello HTVM v2")
-print("hello HTVM`nv2")
-print(A_Index)
-end Loop2
-print(A_Index)
-end Loop2
-end Loop2
+spin 5
+    print("hello HTVM v2")
+    print("hello HTVM`nv2")
+    print(A_Index)
+    spin 5
+        print("hello HTVM v2")
+        print("hello HTVM`nv2")
+        spin 5
+            print("hello HTVM v2")
+            print("hello HTVM`nv2")
+            print(A_Index)
+        print(A_Index)

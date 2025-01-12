@@ -155,25 +155,12 @@ or
 0
 A_Index
 A_LoopField
-keyWordAllianceEndExtraInfo
-keyWordCrewEndExtraInfo
-keyWordMethodEndExtraInfo
-keyWordDefObjEndExtraInfo
-keyWordIFEndExtraInfo
-keyWordElseIfEndExtraInfo
-keyWordElseEndExtraInfo
-keyWordSwitchEndExtraInfo
-keyWordSwitchCaseEndExtraInfo
-keyWordSwitchDefaultEndExtraInfo
-keyWordWhileLoopEndExtraInfo
-keyWordForLoopEndExtraInfo
-keyWordLoopInfiniteEndExtraInfo
-end Loop2
-keyWordLoopParseEndExtraInfo
-keyWordFuncEndExtraInfo
-keyWordTryEndExtraInfo
-keyWordCatchEndExtraInfo
-keyWordFinallyEndExtraInfo
+off
+off
+off
+on
+on
+off
 off
 off
 on
@@ -181,14 +168,6 @@ off
 on
 on
 off
-on
-off
-on
-off
-on
-on
-off
-
 
 func======================func==============
 lang: cpp

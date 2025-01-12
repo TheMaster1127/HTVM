@@ -187,29 +187,9 @@ str keyWordDec := ""
 str AHKlikeLoopsIndexedAt := ""
 str keyWordAIndex := ""
 str keyWordALoopField := ""
-str keyWordAllianceEndExtraInfo := ""
-str keyWordCrewEndExtraInfo := ""
-str keyWordMethodEndExtraInfo := ""
-str keyWordDefObjEndExtraInfo := ""
-str keyWordIFEndExtraInfo := ""
-str keyWordElseIfEndExtraInfo := ""
-str keyWordElseEndExtraInfo := ""
-str keyWordSwitchEndExtraInfo := ""
-str keyWordSwitchCaseEndExtraInfo := ""
-str keyWordSwitchDefaultEndExtraInfo := ""
-str keyWordWhileLoopEndExtraInfo := ""
-str keyWordForLoopEndExtraInfo := ""
-str keyWordLoopInfiniteEndExtraInfo := ""
-str keyWordLoopEndExtraInfo := ""
-str keyWordLoopParseEndExtraInfo := ""
-str keyWordFuncEndExtraInfo := ""
-str keyWordTryEndExtraInfo := ""
-str keyWordCatchEndExtraInfo := ""
-str keyWordFinallyEndExtraInfo := ""
 str useFuncKeyWord := ""
 str useCurlyBraces := ""
 str useEnd := ""
-str useEndExtraInfo := ""
 str useSemicolon := ""
 str theSemicolon := ""
 str theColon := ""
@@ -381,28 +361,8 @@ str keyWordDec_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str AHKlikeLoopsIndexedAt_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordAIndex_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordALoopField_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordAllianceEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordCrewEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordMethodEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordDefObjEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordIFEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordElseIfEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordElseEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordSwitchEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordSwitchCaseEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordSwitchDefaultEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordWhileLoopEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordForLoopEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordLoopInfiniteEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordLoopEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordLoopParseEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordFuncEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordTryEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordCatchEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordFinallyEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str useCurlyBraces_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str useEnd_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str useEndExtraInfo_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str useSemicolon_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str useParentheses_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str usePrefixTypeForTypeDefinition_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
@@ -2554,102 +2514,42 @@ Loop, Parse, allInstructionFile, `n, `r
 		keyWordALoopField := Trim(A_LoopField)
 	}
 	if (A_Index = 157) {
-		keyWordAllianceEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 158) {
-		keyWordCrewEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 159) {
-		keyWordMethodEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 160) {
-		keyWordDefObjEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 161) {
-		keyWordIFEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 162) {
-		keyWordElseIfEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 163) {
-		keyWordElseEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 164) {
-		keyWordSwitchEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 165) {
-		keyWordSwitchCaseEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 166) {
-		keyWordSwitchDefaultEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 167) {
-		keyWordWhileLoopEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 168) {
-		keyWordForLoopEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 169) {
-		keyWordLoopInfiniteEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 170) {
-		keyWordLoopEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 171) {
-		keyWordLoopParseEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 172) {
-		keyWordFuncEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 173) {
-		keyWordTryEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 174) {
-		keyWordCatchEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 175) {
-		keyWordFinallyEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 176) {
 		useCurlyBraces := Trim(A_LoopField)
 	}
-	if (A_Index = 177) {
+	if (A_Index = 158) {
 		useEnd := Trim(A_LoopField)
 	}
-	if (A_Index = 178) {
-		useEndExtraInfo := Trim(A_LoopField)
-	}
-	if (A_Index = 179) {
+	if (A_Index = 159) {
 		useSemicolon := Trim(A_LoopField)
 	}
-	if (A_Index = 180) {
+	if (A_Index = 160) {
 		useParentheses := Trim(A_LoopField)
 	}
-	if (A_Index = 181) {
+	if (A_Index = 161) {
 		usePrefixTypeForTypeDefinition := Trim(A_LoopField)
 	}
-	if (A_Index = 182) {
+	if (A_Index = 162) {
 		usePostfixTypeForTypeDefinition := Trim(A_LoopField)
 	}
-	if (A_Index = 183) {
+	if (A_Index = 163) {
 		usePythonicColonSyntax := Trim(A_LoopField)
 	}
-	if (A_Index = 184) {
+	if (A_Index = 164) {
 		useCurlyBracesSyntaxForArrayDef := Trim(A_LoopField)
 	}
-	if (A_Index = 185) {
+	if (A_Index = 165) {
 		useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
 	}
-	if (A_Index = 186) {
+	if (A_Index = 166) {
 		useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
 	}
-	if (A_Index = 187) {
+	if (A_Index = 167) {
 		useJavaScriptAmainFuncDef := Trim(A_LoopField)
 	}
-	if (A_Index = 188) {
+	if (A_Index = 168) {
 		useJavaScriptAllFuncsAreAsync := Trim(A_LoopField)
 	}
-	if (A_Index = 189) {
+	if (A_Index = 169) {
 		useJavaScriptAlwaysTripleEqual := Trim(A_LoopField)
 	}
 
@@ -3134,102 +3034,42 @@ Loop, Parse, allInstructionFile_2, `n, `r
 		keyWordALoopField_2 := Trim(A_LoopField)
 	}
 	if (A_Index = 157) {
-		keyWordAllianceEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 158) {
-		keyWordCrewEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 159) {
-		keyWordMethodEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 160) {
-		keyWordDefObjEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 161) {
-		keyWordIFEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 162) {
-		keyWordElseIfEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 163) {
-		keyWordElseEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 164) {
-		keyWordSwitchEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 165) {
-		keyWordSwitchCaseEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 166) {
-		keyWordSwitchDefaultEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 167) {
-		keyWordWhileLoopEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 168) {
-		keyWordForLoopEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 169) {
-		keyWordLoopInfiniteEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 170) {
-		keyWordLoopEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 171) {
-		keyWordLoopParseEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 172) {
-		keyWordFuncEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 173) {
-		keyWordTryEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 174) {
-		keyWordCatchEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 175) {
-		keyWordFinallyEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 176) {
 		useCurlyBraces_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 177) {
+	if (A_Index = 158) {
 		useEnd_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 178) {
-		useEndExtraInfo_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 179) {
+	if (A_Index = 159) {
 		useSemicolon_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 180) {
+	if (A_Index = 160) {
 		useParentheses_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 181) {
+	if (A_Index = 161) {
 		usePrefixTypeForTypeDefinition_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 182) {
+	if (A_Index = 162) {
 		usePostfixTypeForTypeDefinition_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 183) {
+	if (A_Index = 163) {
 		usePythonicColonSyntax_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 184) {
+	if (A_Index = 164) {
 		useCurlyBracesSyntaxForArrayDef_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 185) {
+	if (A_Index = 165) {
 		useInJavaScriptAlwaysUseVar_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 186) {
+	if (A_Index = 166) {
 		useJavaScriptInAfullHTMLfile_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 187) {
+	if (A_Index = 167) {
 		useJavaScriptAmainFuncDef_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 188) {
+	if (A_Index = 168) {
 		useJavaScriptAllFuncsAreAsync_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 189) {
+	if (A_Index = 169) {
 		useJavaScriptAlwaysTripleEqual_2 := Trim(A_LoopField)
 	}
 
@@ -3779,7 +3619,7 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 htCodeOutFixEnd := ""
-if (useEnd = "on") or (useEndExtraInfo = "on")
+if (useEnd = "on")
 {
 Loop, Parse, code, `n, `r
 {
@@ -3821,7 +3661,7 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 
 if (usePythonicColonSyntax = "off")
 {
-if (useEnd = "off") and (useEndExtraInfo = "off") and (useCurlyBraces = "off")
+if (useEnd = "off") and (useCurlyBraces = "off")
 {
 htCodeOutFixEnd := ""
 Loop, Parse, code, `n, `r
@@ -3843,7 +3683,7 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 
 
 
-if (useCurlyBraces = "off") and (useEnd = "off") and (useEndExtraInfo = "off")
+if (useCurlyBraces = "off") and (useEnd = "off")
 {
 code := AddCurlyBraces(code)
 }
@@ -4044,25 +3884,7 @@ print("=======DOWN==========")
 Loop, Parse, code, `n, `r
 {
 lineDone := 0
-if (StrLower(Trim(A_LoopField)) = StrLower(keyWordAllianceEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordCrewEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordMethodEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordDefObjEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordIFEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordElseIfEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordElseEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordSwitchEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordSwitchCaseEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordSwitchDefaultEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordWhileLoopEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordForLoopEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordLoopInfiniteEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordLoopEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordLoopParseEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordFuncEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordTryEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordCatchEndExtraInfo)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordFinallyEndExtraInfo))
-{
-if (langToConvertTo = langFileExtension_2)
-{
-if (useEndExtraInfo_2 = "on")
-{
-htCode .= Trim(A_LoopField) . "`n"
-}
-else
-{
-htCode .= "}`n"
-}
-}
-else
-{
-htCode .= "}`n"
-}
-}
-else if (StrLower(A_LoopField) = StrLower(keyWordLoopInfinite)) or (StrLower(A_LoopField) = StrLower(keyWordLoopInfinite . ":"))
+if (StrLower(A_LoopField) = StrLower(keyWordLoopInfinite)) or (StrLower(A_LoopField) = StrLower(keyWordLoopInfinite . ":"))
 {
 ; infinity loops
 haveWeEverUsedAloop := 1
@@ -5423,111 +5245,12 @@ StringTrimRight, htCode, htCodeOut1234565432, 1
 
 
 str fixLuaAndRuby := ""
-str fixHTVMtoHTVM := ""
 if (langToConvertTo = langFileExtension_2)
 {
 
-fixHTVMtoHTVM := ""
-if (useEndExtraInfo_2 = "on") and (useEndExtraInfo = "on")
-{
-Loop, Parse, htCode, `n, `r
-{
-
-if (StrLower(Trim(A_LoopField)) = StrLower(keyWordAllianceEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordAllianceEndExtraInfo_2 . "`n"
-    
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordCrewEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordCrewEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordMethodEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordMethodEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordDefObjEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordDefObjEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordIFEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordIFEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordElseIfEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordElseIfEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordElseEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordElseEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordSwitchEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordSwitchEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordSwitchCaseEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordSwitchCaseEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordSwitchDefaultEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordSwitchDefaultEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordWhileLoopEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordWhileLoopEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordForLoopEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordForLoopEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordLoopInfiniteEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordLoopInfiniteEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordLoopEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordLoopEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordLoopParseEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordLoopParseEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordFuncEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordFuncEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordTryEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordFuncEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordCatchEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordCatchEndExtraInfo_2 . "`n"
-}
-else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordFinallyEndExtraInfo))
-{
-    fixHTVMtoHTVM .= keyWordFinallyEndExtraInfo_2 . "`n"
-}
-else if (Trim(A_LoopField) = "{")
-{
-    fixHTVMtoHTVM .= ""
-}
-else
-{
-    fixHTVMtoHTVM .= A_LoopField . "`n"
-}
-StringTrimRight, htCode, fixHTVMtoHTVM, 1
-}
 
 
-}
-else
-{
-
-
-if (useCurlyBraces_2 = "off") and (useEnd_2 = "off") and (useEndExtraInfo_2 = "off")
+if (useCurlyBraces_2 = "off") and (useEnd_2 = "off")
 {
 htCode := indent_nested_curly_braces(htCode, 0)
 }
@@ -5539,7 +5262,7 @@ htCode := indent_nested_curly_braces(htCode, 1)
 
 
 
-if (useEnd_2 = "on") or (useEndExtraInfo_2 = "on")
+if (useEnd_2 = "on") 
 {
 
     Loop, Parse, htCode, `n, `r
@@ -5558,9 +5281,6 @@ if (useEnd_2 = "on") or (useEndExtraInfo_2 = "on")
         }
     }
     StringTrimRight, htCode, fixLuaAndRuby, 1
-}
-
-
 }
 
 
