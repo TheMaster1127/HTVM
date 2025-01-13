@@ -1,0 +1,129 @@
+func void HTVMv2() {
+    global allArgs
+    str argCODE := ""
+    str argCODEfile := ""
+    str argHTVMinstr := ""
+    str argLangTo := ""
+    str OUTCODE := "null"
+    int numOfParams := 0
+    HTVM_v2_HTVM()
+    if (noParams = true) {
+        return
+    }
+    Loop, Parse, str0 {
+        str00 := Trim(A_LoopField)
+        StringTrimRight, str00, str00, 1
+    }
+    print("HTVM v2")
+    if (HTVM_getLang_HTVM() = "cpp") or (HTVM_getLang_HTVM() = "py") {
+        if (HTVM_getLang_HTVM() = "cpp") {
+            print("CPP")
+        }
+        if (HTVM_getLang_HTVM() = "py") {
+            print("PY")
+        }
+        Loop, Parse, allArgs, `n, `r {
+            if (A_Index = 0) {
+                numOfParams++
+                argCODE := FileRead(Trim(A_LoopField))
+                argCODEfile := Trim(A_LoopField)
+            }
+            else if (A_Index = 1) {
+                numOfParams++
+                argHTVMinstr := Trim(A_LoopField)
+            }
+            else if (A_Index = 2) {
+                numOfParams++
+                argLangTo := Trim(A_LoopField)
+            } else {
+                numOfParams++
+                argHTVMinstrMORE.add(Trim(A_LoopField))
+            }
+        }
+        print("===============123431234===========start=====")
+        Loop, % argHTVMinstrMORE.size() {
+            print(argHTVMinstrMORE[A_Index])
+        }
+        print("===============123431234==========end======")
+        print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConvertTo)
+        if (SubStrLastChars(argCODEfile, 4) = ".cpp") or (SubStrLastChars(argCODEfile, 3) = ".py") or (SubStrLastChars(argCODEfile, 3) = ".js") or (SubStrLastChars(argCODEfile, 3) = ".go") or (SubStrLastChars(argCODEfile, 4) = ".lua") or (SubStrLastChars(argCODEfile, 3) = ".cs") or (SubStrLastChars(argCODEfile, 5) = ".java") or (SubStrLastChars(argCODEfile, 3) = ".kt") or (SubStrLastChars(argCODEfile, 3) = ".rb") or (SubStrLastChars(argCODEfile, 4) = ".nim") or (SubStrLastChars(argCODEfile, 4) = ".ahk") or (SubStrLastChars(argCODEfile, 6) = ".swift") or (SubStrLastChars(argCODEfile, 5) = ".dart") or (SubStrLastChars(argCODEfile, 3) = ".ts") or (SubStrLastChars(argCODEfile, 6) = ".scala") or (SubStrLastChars(argCODEfile, 7) = ".groovy") or (SubStrLastChars(argCODEfile, StrLen("." . Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), "`n", 2)))) = "." . Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), "`n", 2))) and (numOfParams = 2) {
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            if (SubStrLastChars(argCODEfile, 4) = ".cpp") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "cpp")
+            }
+            else if (SubStrLastChars(argCODEfile, 3) = ".py") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "py")
+            }
+            else if (SubStrLastChars(argCODEfile, 3) = ".js") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "js")
+            }
+            else if (SubStrLastChars(argCODEfile, 3) = ".go") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "go")
+            }
+            else if (SubStrLastChars(argCODEfile, 4) = ".lua") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "lua")
+            }
+            else if (SubStrLastChars(argCODEfile, 3) = ".cs") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "cs")
+            }
+            else if (SubStrLastChars(argCODEfile, 5) = ".java") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "java")
+            }
+            else if (SubStrLastChars(argCODEfile, 3) = ".kt") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "kt")
+            }
+            else if (SubStrLastChars(argCODEfile, 3) = ".rb") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "rb")
+            }
+            else if (SubStrLastChars(argCODEfile, 4) = ".nim") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "nim")
+            }
+            else if (SubStrLastChars(argCODEfile, 4) = ".ahk") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "ahk")
+            }
+            else if (SubStrLastChars(argCODEfile, 6) = ".swift") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "swift")
+            }
+            else if (SubStrLastChars(argCODEfile, 5) = ".dart") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "dart")
+            }
+            else if (SubStrLastChars(argCODEfile, 3) = ".ts") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "ts")
+            }
+            else if (SubStrLastChars(argCODEfile, 6) = ".scala") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "scala")
+            }
+            else if (SubStrLastChars(argCODEfile, 7) = ".groovy") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "groovy")
+            }
+            else if (SubStrLastChars(argCODEfile, StrLen("." . Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), "`n", 2)))) = "." . Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), "`n", 2))) {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), "`n", 2)))
+            } else {
+                print("INVALID LANG!!!")
+                return
+            }
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        } else {
+            if (argLangTo != "") {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "full", argLangTo)
+            } else {
+                OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "full")
+            }
+        }
+        print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConvertTo)
+        if (langToConvertTo = "js") and (useJavaScriptInAfullHTMLfile = "on") {
+            FileDelete(StringTrimRight(argCODEfile, StrLen(langFileExtension)) . "html")
+            FileAppend(OUTCODE, StringTrimRight(argCODEfile, StrLen(langFileExtension)) . "html")
+        } else {
+            FileDelete(StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConvertTo)
+            FileAppend(OUTCODE, StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConvertTo)
+        }
+    }
+    if (HTVM_getLang_HTVM() = "js") {
+        print("JS")
+    }
+}

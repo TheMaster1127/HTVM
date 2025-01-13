@@ -6596,54 +6596,105 @@ if (SubStrLastChars(argCODEfile, 4) = ".cpp") or (SubStrLastChars(argCODEfile, 3
 
 if (SubStrLastChars(argCODEfile, 4) = ".cpp") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "cpp")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 3) = ".py") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "py")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 3) = ".js") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "js")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 3) = ".go") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "go")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 4) = ".lua") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "lua")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 3) = ".cs") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "cs")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 5) = ".java") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "java")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 3) = ".kt") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "kt")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 3) = ".rb") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "rb")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 4) = ".nim") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "nim")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 4) = ".ahk") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "ahk")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 6) = ".swift") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "swift")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 5) = ".dart") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "dart")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 3) = ".ts") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "ts")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 6) = ".scala") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "scala")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 } 
 else if (SubStrLastChars(argCODEfile, 7) = ".groovy") {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "groovy")
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 }
 else if (SubStrLastChars(argCODEfile, StrLen("." . Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), "`n", 2)))) = "." . Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), "`n", 2))) {
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), "`n", 2)))
+    FileDelete(Trim(argCODEfile))
+    FileAppend(OUTCODE, Trim(argCODEfile))
+    return
 }
 else
 {
