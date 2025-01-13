@@ -428,8 +428,6 @@ var keyWordCodeInTheTranspiledLangStartHTVM = "";
 var keyWordCodeInTheTranspiledLangEndHTVM = "";
 var keyWordCodeInHTVMstart = "";
 var keyWordCodeInHTVMend = "";
-var keyWordCodeInOtherHTVMsyntaxStart = "";
-var keyWordCodeInOtherHTVMsyntaxEnd = "";
 var keyWordCurlyBraceOpen = "";
 var keyWordCurlyBraceClose = "";
 var keyWordNull = "";
@@ -601,8 +599,6 @@ var keyWordCodeInTheTranspiledLangStartHTVM_2 = "awesdgfd-awesrs-awedsfd-aesdg-s
 var keyWordCodeInTheTranspiledLangEndHTVM_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordCodeInHTVMstart_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordCodeInHTVMend_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-var keyWordCodeInOtherHTVMsyntaxStart_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-var keyWordCodeInOtherHTVMsyntaxEnd_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordCurlyBraceOpen_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordCurlyBraceClose_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordNull_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
@@ -2074,366 +2070,360 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             keyWordCodeInHTVMend = Trim(A_LoopField50);
         }
         if (A_Index50 == 49) {
-            keyWordCodeInOtherHTVMsyntaxStart = Trim(A_LoopField50);
-        }
-        if (A_Index50 == 50) {
-            keyWordCodeInOtherHTVMsyntaxEnd = Trim(A_LoopField50);
-        }
-        if (A_Index50 == 51) {
             keyWordCurlyBraceOpen = Trim(A_LoopField50);
         }
-        if (A_Index50 == 52) {
+        if (A_Index50 == 50) {
             keyWordCurlyBraceClose = Trim(A_LoopField50);
         }
-        if (A_Index50 == 53) {
+        if (A_Index50 == 51) {
             keyWordNull = Trim(A_LoopField50);
         }
-        if (A_Index50 == 54) {
+        if (A_Index50 == 52) {
             keyWordTrue = Trim(A_LoopField50);
         }
-        if (A_Index50 == 55) {
+        if (A_Index50 == 53) {
             keyWordFalse = Trim(A_LoopField50);
         }
-        if (A_Index50 == 56) {
+        if (A_Index50 == 54) {
             keyWordVoid = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 57) {
+        if (A_Index50 == 55) {
             keyWordDouble = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 58) {
+        if (A_Index50 == 56) {
             keyWordChar = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 59) {
+        if (A_Index50 == 57) {
             keyWordUint8 = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 60) {
+        if (A_Index50 == 58) {
             keyWordUint16 = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 61) {
+        if (A_Index50 == 59) {
             keyWordUint32 = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 62) {
+        if (A_Index50 == 60) {
             keyWordUint64 = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 63) {
+        if (A_Index50 == 61) {
             keyWordINT = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 64) {
+        if (A_Index50 == 62) {
             keyWordSTR = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 65) {
+        if (A_Index50 == 63) {
             keyWordBOOL = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 66) {
+        if (A_Index50 == 64) {
             keyWordFLOAT = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 67) {
+        if (A_Index50 == 65) {
             keyWordINT8 = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 68) {
+        if (A_Index50 == 66) {
             keyWordINT16 = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 69) {
+        if (A_Index50 == 67) {
             keyWordINT32 = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 70) {
+        if (A_Index50 == 68) {
             keyWordINT64 = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 71) {
+        if (A_Index50 == 69) {
             keyWordIF = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 72) {
+        if (A_Index50 == 70) {
             keyWordElseIf = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 73) {
+        if (A_Index50 == 71) {
             keyWordElse = Trim(A_LoopField50);
         }
-        if (A_Index50 == 74) {
+        if (A_Index50 == 72) {
             keyWordSwitch = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 75) {
+        if (A_Index50 == 73) {
             keyWordSwitchCase = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 76) {
+        if (A_Index50 == 74) {
             keyWordSwitchDefault = Trim(A_LoopField50);
         }
-        if (A_Index50 == 77) {
+        if (A_Index50 == 75) {
             keyWordWhileLoop = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 78) {
+        if (A_Index50 == 76) {
             keyWordLoopInfinite = Trim(A_LoopField50);
         }
-        if (A_Index50 == 79) {
+        if (A_Index50 == 77) {
             keyWordLoop = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 80) {
+        if (A_Index50 == 78) {
             keyWordLoopParse = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 81) {
+        if (A_Index50 == 79) {
             keyWordContinue = Trim(A_LoopField50);
         }
-        if (A_Index50 == 82) {
+        if (A_Index50 == 80) {
             keyWordBreak = Trim(A_LoopField50);
         }
-        if (A_Index50 == 83) {
+        if (A_Index50 == 81) {
             keyWordFunc = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 84) {
+        if (A_Index50 == 82) {
             keyWordAwait = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 85) {
+        if (A_Index50 == 83) {
             keyWordAsync = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 86) {
+        if (A_Index50 == 84) {
             keyWordThrow = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 87) {
+        if (A_Index50 == 85) {
             keyWordErrorMsg = Trim(A_LoopField50);
         }
-        if (A_Index50 == 88) {
+        if (A_Index50 == 86) {
             keyWordTry = Trim(A_LoopField50);
         }
-        if (A_Index50 == 89) {
+        if (A_Index50 == 87) {
             keyWordCatch = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 90) {
+        if (A_Index50 == 88) {
             keyWordFinally = Trim(A_LoopField50);
         }
-        if (A_Index50 == 91) {
+        if (A_Index50 == 89) {
             keyWordReturnStatement = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 92) {
+        if (A_Index50 == 90) {
             keyWordArrayAppend = Trim(A_LoopField50);
         }
-        if (A_Index50 == 93) {
+        if (A_Index50 == 91) {
             keyWordArrayPop = Trim(A_LoopField50);
         }
-        if (A_Index50 == 94) {
+        if (A_Index50 == 92) {
             keyWordArraySize = Trim(A_LoopField50);
         }
-        if (A_Index50 == 95) {
+        if (A_Index50 == 93) {
             keyWordArrayInsert = Trim(A_LoopField50);
         }
-        if (A_Index50 == 96) {
+        if (A_Index50 == 94) {
             keyWordArrayRemove = Trim(A_LoopField50);
         }
-        if (A_Index50 == 97) {
+        if (A_Index50 == 95) {
             keyWordArrayIndexOf = Trim(A_LoopField50);
         }
-        if (A_Index50 == 98) {
+        if (A_Index50 == 96) {
             keyWordArrayDefinition = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 99) {
+        if (A_Index50 == 97) {
             keyWordArrayOfIntegersDefinition = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 100) {
+        if (A_Index50 == 98) {
             keyWordArrayOfStringsDefinition = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 101) {
+        if (A_Index50 == 99) {
             keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 102) {
+        if (A_Index50 == 100) {
             keyWordArrayOfBooleansDefinition = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 103) {
+        if (A_Index50 == 101) {
             keyWordVar = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 104) {
+        if (A_Index50 == 102) {
             keyWordLet = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 105) {
+        if (A_Index50 == 103) {
             keyWordConst = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 106) {
+        if (A_Index50 == 104) {
             keyWordEnd = Trim(A_LoopField50);
         }
-        if (A_Index50 == 107) {
+        if (A_Index50 == 105) {
             keyWordGlobal = Trim(A_LoopField50) + " ";
         }
-        if (A_Index50 == 108) {
+        if (A_Index50 == 106) {
             keyWordComment = Trim(A_LoopField50);
         }
-        if (A_Index50 == 109) {
+        if (A_Index50 == 107) {
             keyWordCommentOpenMultiLine = Trim(A_LoopField50);
         }
-        if (A_Index50 == 110) {
+        if (A_Index50 == 108) {
             keyWordCommentCloseMultiLine = Trim(A_LoopField50);
         }
-        if (A_Index50 == 111) {
+        if (A_Index50 == 109) {
             keyWordEscpaeChar = Trim(A_LoopField50);
         }
-        if (A_Index50 == 112) {
+        if (A_Index50 == 110) {
             keyWordMainLabel = Trim(A_LoopField50);
         }
-        if (A_Index50 == 113) {
+        if (A_Index50 == 111) {
             keyWordConcat = Trim(A_LoopField50);
         }
-        if (A_Index50 == 114) {
+        if (A_Index50 == 112) {
             keyWordAdd = Trim(A_LoopField50);
         }
-        if (A_Index50 == 115) {
+        if (A_Index50 == 113) {
             keyWordSub = Trim(A_LoopField50);
         }
-        if (A_Index50 == 116) {
+        if (A_Index50 == 114) {
             keyWordMul = Trim(A_LoopField50);
         }
-        if (A_Index50 == 117) {
+        if (A_Index50 == 115) {
             keyWordDiv = Trim(A_LoopField50);
         }
-        if (A_Index50 == 118) {
+        if (A_Index50 == 116) {
             keyWordMod = Trim(A_LoopField50);
         }
-        if (A_Index50 == 119) {
+        if (A_Index50 == 117) {
             keyWordExp = Trim(A_LoopField50);
         }
-        if (A_Index50 == 120) {
+        if (A_Index50 == 118) {
             keyWordEqual = Trim(A_LoopField50);
         }
-        if (A_Index50 == 121) {
+        if (A_Index50 == 119) {
             keyWordStrictEqual = Trim(A_LoopField50);
         }
-        if (A_Index50 == 122) {
+        if (A_Index50 == 120) {
             keyWordNotEqual = Trim(A_LoopField50);
         }
-        if (A_Index50 == 123) {
+        if (A_Index50 == 121) {
             keyWordGreater = Trim(A_LoopField50);
         }
-        if (A_Index50 == 124) {
+        if (A_Index50 == 122) {
             keyWordLess = Trim(A_LoopField50);
         }
-        if (A_Index50 == 125) {
+        if (A_Index50 == 123) {
             keyWordGreaterEqual = Trim(A_LoopField50);
         }
-        if (A_Index50 == 126) {
+        if (A_Index50 == 124) {
             keyWordLessEqual = Trim(A_LoopField50);
         }
-        if (A_Index50 == 127) {
+        if (A_Index50 == 125) {
             keyWordAnd = Trim(A_LoopField50);
         }
-        if (A_Index50 == 128) {
+        if (A_Index50 == 126) {
             keyWordOr = Trim(A_LoopField50);
         }
-        if (A_Index50 == 129) {
+        if (A_Index50 == 127) {
             keyWordNot = Trim(A_LoopField50);
         }
-        if (A_Index50 == 130) {
+        if (A_Index50 == 128) {
             keyWordBitAnd = Trim(A_LoopField50);
         }
-        if (A_Index50 == 131) {
+        if (A_Index50 == 129) {
             keyWordBitOr = Trim(A_LoopField50);
         }
-        if (A_Index50 == 132) {
+        if (A_Index50 == 130) {
             keyWordBitXor = Trim(A_LoopField50);
         }
-        if (A_Index50 == 133) {
+        if (A_Index50 == 131) {
             keyWordBitNot = Trim(A_LoopField50);
         }
-        if (A_Index50 == 134) {
+        if (A_Index50 == 132) {
             keyWordShiftLeft = Trim(A_LoopField50);
         }
-        if (A_Index50 == 135) {
+        if (A_Index50 == 133) {
             keyWordShiftRight = Trim(A_LoopField50);
         }
-        if (A_Index50 == 136) {
+        if (A_Index50 == 134) {
             keyWordShiftUnsignedRight = Trim(A_LoopField50);
         }
-        if (A_Index50 == 137) {
+        if (A_Index50 == 135) {
             keyWordAssign = Trim(A_LoopField50);
         }
-        if (A_Index50 == 138) {
+        if (A_Index50 == 136) {
             keyWordAssignAdd = Trim(A_LoopField50);
         }
-        if (A_Index50 == 139) {
+        if (A_Index50 == 137) {
             keyWordAssignConcat = Trim(A_LoopField50);
         }
-        if (A_Index50 == 140) {
+        if (A_Index50 == 138) {
             keyWordAssignSub = Trim(A_LoopField50);
         }
-        if (A_Index50 == 141) {
+        if (A_Index50 == 139) {
             keyWordAssignMul = Trim(A_LoopField50);
         }
-        if (A_Index50 == 142) {
+        if (A_Index50 == 140) {
             keyWordAssignDiv = Trim(A_LoopField50);
         }
-        if (A_Index50 == 143) {
+        if (A_Index50 == 141) {
             keyWordAssignMod = Trim(A_LoopField50);
         }
-        if (A_Index50 == 144) {
+        if (A_Index50 == 142) {
             keyWordAssignShiftLeft = Trim(A_LoopField50);
         }
-        if (A_Index50 == 145) {
+        if (A_Index50 == 143) {
             keyWordAssignShiftRight = Trim(A_LoopField50);
         }
-        if (A_Index50 == 146) {
+        if (A_Index50 == 144) {
             keyWordLogicalAssignShiftRight = Trim(A_LoopField50);
         }
-        if (A_Index50 == 147) {
+        if (A_Index50 == 145) {
             keyWordAssignBitAnd = Trim(A_LoopField50);
         }
-        if (A_Index50 == 148) {
+        if (A_Index50 == 146) {
             keyWordAssignBitOr = Trim(A_LoopField50);
         }
-        if (A_Index50 == 149) {
+        if (A_Index50 == 147) {
             keyWordAssignBitXor = Trim(A_LoopField50);
         }
-        if (A_Index50 == 150) {
+        if (A_Index50 == 148) {
             keyWordTernary1 = Trim(A_LoopField50);
         }
-        if (A_Index50 == 151) {
+        if (A_Index50 == 149) {
             keyWordTernary2 = Trim(A_LoopField50);
         }
-        if (A_Index50 == 152) {
+        if (A_Index50 == 150) {
             keyWordInc = Trim(A_LoopField50);
         }
-        if (A_Index50 == 153) {
+        if (A_Index50 == 151) {
             keyWordDec = Trim(A_LoopField50);
         }
-        if (A_Index50 == 154) {
+        if (A_Index50 == 152) {
             AHKlikeLoopsIndexedAt = Trim(A_LoopField50);
         }
-        if (A_Index50 == 155) {
+        if (A_Index50 == 153) {
             keyWordAIndex = Trim(A_LoopField50);
         }
-        if (A_Index50 == 156) {
+        if (A_Index50 == 154) {
             keyWordALoopField = Trim(A_LoopField50);
         }
-        if (A_Index50 == 157) {
+        if (A_Index50 == 155) {
             useCurlyBraces = Trim(A_LoopField50);
         }
-        if (A_Index50 == 158) {
+        if (A_Index50 == 156) {
             useEnd = Trim(A_LoopField50);
         }
-        if (A_Index50 == 159) {
+        if (A_Index50 == 157) {
             useSemicolon = Trim(A_LoopField50);
         }
-        if (A_Index50 == 160) {
+        if (A_Index50 == 158) {
             useParentheses = Trim(A_LoopField50);
         }
-        if (A_Index50 == 161) {
+        if (A_Index50 == 159) {
             usePrefixTypeForTypeDefinition = Trim(A_LoopField50);
         }
-        if (A_Index50 == 162) {
+        if (A_Index50 == 160) {
             usePostfixTypeForTypeDefinition = Trim(A_LoopField50);
         }
-        if (A_Index50 == 163) {
+        if (A_Index50 == 161) {
             usePythonicColonSyntax = Trim(A_LoopField50);
         }
-        if (A_Index50 == 164) {
+        if (A_Index50 == 162) {
             useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField50);
         }
-        if (A_Index50 == 165) {
+        if (A_Index50 == 163) {
             useInJavaScriptAlwaysUseVar = Trim(A_LoopField50);
         }
-        if (A_Index50 == 166) {
+        if (A_Index50 == 164) {
             useJavaScriptInAfullHTMLfile = Trim(A_LoopField50);
         }
-        if (A_Index50 == 167) {
+        if (A_Index50 == 165) {
             useJavaScriptAmainFuncDef = Trim(A_LoopField50);
         }
-        if (A_Index50 == 168) {
+        if (A_Index50 == 166) {
             useJavaScriptAllFuncsAreAsync = Trim(A_LoopField50);
         }
-        if (A_Index50 == 169) {
+        if (A_Index50 == 167) {
             useJavaScriptAlwaysTripleEqual = Trim(A_LoopField50);
         }
     }
@@ -2590,366 +2580,360 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                 keyWordCodeInHTVMend_2 = Trim(A_LoopField51);
             }
             if (A_Index51 == 49) {
-                keyWordCodeInOtherHTVMsyntaxStart_2 = Trim(A_LoopField51);
-            }
-            if (A_Index51 == 50) {
-                keyWordCodeInOtherHTVMsyntaxEnd_2 = Trim(A_LoopField51);
-            }
-            if (A_Index51 == 51) {
                 keyWordCurlyBraceOpen_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 52) {
+            if (A_Index51 == 50) {
                 keyWordCurlyBraceClose_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 53) {
+            if (A_Index51 == 51) {
                 keyWordNull_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 54) {
+            if (A_Index51 == 52) {
                 keyWordTrue_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 55) {
+            if (A_Index51 == 53) {
                 keyWordFalse_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 56) {
+            if (A_Index51 == 54) {
                 keyWordVoid_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 57) {
+            if (A_Index51 == 55) {
                 keyWordDouble_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 58) {
+            if (A_Index51 == 56) {
                 keyWordChar_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 59) {
+            if (A_Index51 == 57) {
                 keyWordUint8_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 60) {
+            if (A_Index51 == 58) {
                 keyWordUint16_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 61) {
+            if (A_Index51 == 59) {
                 keyWordUint32_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 62) {
+            if (A_Index51 == 60) {
                 keyWordUint64_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 63) {
+            if (A_Index51 == 61) {
                 keyWordINT_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 64) {
+            if (A_Index51 == 62) {
                 keyWordSTR_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 65) {
+            if (A_Index51 == 63) {
                 keyWordBOOL_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 66) {
+            if (A_Index51 == 64) {
                 keyWordFLOAT_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 67) {
+            if (A_Index51 == 65) {
                 keyWordINT8_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 68) {
+            if (A_Index51 == 66) {
                 keyWordINT16_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 69) {
+            if (A_Index51 == 67) {
                 keyWordINT32_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 70) {
+            if (A_Index51 == 68) {
                 keyWordINT64_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 71) {
+            if (A_Index51 == 69) {
                 keyWordIF_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 72) {
+            if (A_Index51 == 70) {
                 keyWordElseIf_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 73) {
+            if (A_Index51 == 71) {
                 keyWordElse_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 74) {
+            if (A_Index51 == 72) {
                 keyWordSwitch_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 75) {
+            if (A_Index51 == 73) {
                 keyWordSwitchCase_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 76) {
+            if (A_Index51 == 74) {
                 keyWordSwitchDefault_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 77) {
+            if (A_Index51 == 75) {
                 keyWordWhileLoop_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 78) {
+            if (A_Index51 == 76) {
                 keyWordLoopInfinite_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 79) {
+            if (A_Index51 == 77) {
                 keyWordLoop_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 80) {
+            if (A_Index51 == 78) {
                 keyWordLoopParse_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 81) {
+            if (A_Index51 == 79) {
                 keyWordContinue_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 82) {
+            if (A_Index51 == 80) {
                 keyWordBreak_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 83) {
+            if (A_Index51 == 81) {
                 keyWordFunc_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 84) {
+            if (A_Index51 == 82) {
                 keyWordAwait_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 85) {
+            if (A_Index51 == 83) {
                 keyWordAsync_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 86) {
+            if (A_Index51 == 84) {
                 keyWordThrow_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 87) {
+            if (A_Index51 == 85) {
                 keyWordErrorMsg_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 88) {
+            if (A_Index51 == 86) {
                 keyWordTry_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 89) {
+            if (A_Index51 == 87) {
                 keyWordCatch_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 90) {
+            if (A_Index51 == 88) {
                 keyWordFinally_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 91) {
+            if (A_Index51 == 89) {
                 keyWordReturnStatement_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 92) {
+            if (A_Index51 == 90) {
                 keyWordArrayAppend_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 93) {
+            if (A_Index51 == 91) {
                 keyWordArrayPop_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 94) {
+            if (A_Index51 == 92) {
                 keyWordArraySize_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 95) {
+            if (A_Index51 == 93) {
                 keyWordArrayInsert_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 96) {
+            if (A_Index51 == 94) {
                 keyWordArrayRemove_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 97) {
+            if (A_Index51 == 95) {
                 keyWordArrayIndexOf_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 98) {
+            if (A_Index51 == 96) {
                 keyWordArrayDefinition_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 99) {
+            if (A_Index51 == 97) {
                 keyWordArrayOfIntegersDefinition_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 100) {
+            if (A_Index51 == 98) {
                 keyWordArrayOfStringsDefinition_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 101) {
+            if (A_Index51 == 99) {
                 keyWordArrayOfFloatingPointNumbersDefinition_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 102) {
+            if (A_Index51 == 100) {
                 keyWordArrayOfBooleansDefinition_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 103) {
+            if (A_Index51 == 101) {
                 keyWordVar_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 104) {
+            if (A_Index51 == 102) {
                 keyWordLet_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 105) {
+            if (A_Index51 == 103) {
                 keyWordConst_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 106) {
+            if (A_Index51 == 104) {
                 keyWordEnd_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 107) {
+            if (A_Index51 == 105) {
                 keyWordGlobal_2 = Trim(A_LoopField51) + " ";
             }
-            if (A_Index51 == 108) {
+            if (A_Index51 == 106) {
                 keyWordComment_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 109) {
+            if (A_Index51 == 107) {
                 keyWordCommentOpenMultiLine_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 110) {
+            if (A_Index51 == 108) {
                 keyWordCommentCloseMultiLine_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 111) {
+            if (A_Index51 == 109) {
                 keyWordEscpaeChar_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 112) {
+            if (A_Index51 == 110) {
                 keyWordMainLabel_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 113) {
+            if (A_Index51 == 111) {
                 keyWordConcat_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 114) {
+            if (A_Index51 == 112) {
                 keyWordAdd_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 115) {
+            if (A_Index51 == 113) {
                 keyWordSub_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 116) {
+            if (A_Index51 == 114) {
                 keyWordMul_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 117) {
+            if (A_Index51 == 115) {
                 keyWordDiv_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 118) {
+            if (A_Index51 == 116) {
                 keyWordMod_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 119) {
+            if (A_Index51 == 117) {
                 keyWordExp_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 120) {
+            if (A_Index51 == 118) {
                 keyWordEqual_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 121) {
+            if (A_Index51 == 119) {
                 keyWordStrictEqual_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 122) {
+            if (A_Index51 == 120) {
                 keyWordNotEqual_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 123) {
+            if (A_Index51 == 121) {
                 keyWordGreater_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 124) {
+            if (A_Index51 == 122) {
                 keyWordLess_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 125) {
+            if (A_Index51 == 123) {
                 keyWordGreaterEqual_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 126) {
+            if (A_Index51 == 124) {
                 keyWordLessEqual_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 127) {
+            if (A_Index51 == 125) {
                 keyWordAnd_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 128) {
+            if (A_Index51 == 126) {
                 keyWordOr_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 129) {
+            if (A_Index51 == 127) {
                 keyWordNot_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 130) {
+            if (A_Index51 == 128) {
                 keyWordBitAnd_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 131) {
+            if (A_Index51 == 129) {
                 keyWordBitOr_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 132) {
+            if (A_Index51 == 130) {
                 keyWordBitXor_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 133) {
+            if (A_Index51 == 131) {
                 keyWordBitNot_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 134) {
+            if (A_Index51 == 132) {
                 keyWordShiftLeft_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 135) {
+            if (A_Index51 == 133) {
                 keyWordShiftRight_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 136) {
+            if (A_Index51 == 134) {
                 keyWordShiftUnsignedRight_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 137) {
+            if (A_Index51 == 135) {
                 keyWordAssign_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 138) {
+            if (A_Index51 == 136) {
                 keyWordAssignAdd_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 139) {
+            if (A_Index51 == 137) {
                 keyWordAssignConcat_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 140) {
+            if (A_Index51 == 138) {
                 keyWordAssignSub_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 141) {
+            if (A_Index51 == 139) {
                 keyWordAssignMul_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 142) {
+            if (A_Index51 == 140) {
                 keyWordAssignDiv_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 143) {
+            if (A_Index51 == 141) {
                 keyWordAssignMod_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 144) {
+            if (A_Index51 == 142) {
                 keyWordAssignShiftLeft_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 145) {
+            if (A_Index51 == 143) {
                 keyWordAssignShiftRight_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 146) {
+            if (A_Index51 == 144) {
                 keyWordLogicalAssignShiftRight_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 147) {
+            if (A_Index51 == 145) {
                 keyWordAssignBitAnd_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 148) {
+            if (A_Index51 == 146) {
                 keyWordAssignBitOr_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 149) {
+            if (A_Index51 == 147) {
                 keyWordAssignBitXor_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 150) {
+            if (A_Index51 == 148) {
                 keyWordTernary1_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 151) {
+            if (A_Index51 == 149) {
                 keyWordTernary2_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 152) {
+            if (A_Index51 == 150) {
                 keyWordInc_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 153) {
+            if (A_Index51 == 151) {
                 keyWordDec_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 154) {
+            if (A_Index51 == 152) {
                 AHKlikeLoopsIndexedAt_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 155) {
+            if (A_Index51 == 153) {
                 keyWordAIndex_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 156) {
+            if (A_Index51 == 154) {
                 keyWordALoopField_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 157) {
+            if (A_Index51 == 155) {
                 useCurlyBraces_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 158) {
+            if (A_Index51 == 156) {
                 useEnd_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 159) {
+            if (A_Index51 == 157) {
                 useSemicolon_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 160) {
+            if (A_Index51 == 158) {
                 useParentheses_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 161) {
+            if (A_Index51 == 159) {
                 usePrefixTypeForTypeDefinition_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 162) {
+            if (A_Index51 == 160) {
                 usePostfixTypeForTypeDefinition_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 163) {
+            if (A_Index51 == 161) {
                 usePythonicColonSyntax_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 164) {
+            if (A_Index51 == 162) {
                 useCurlyBracesSyntaxForArrayDef_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 165) {
+            if (A_Index51 == 163) {
                 useInJavaScriptAlwaysUseVar_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 166) {
+            if (A_Index51 == 164) {
                 useJavaScriptInAfullHTMLfile_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 167) {
+            if (A_Index51 == 165) {
                 useJavaScriptAmainFuncDef_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 168) {
+            if (A_Index51 == 166) {
                 useJavaScriptAllFuncsAreAsync_2 = Trim(A_LoopField51);
             }
-            if (A_Index51 == 169) {
+            if (A_Index51 == 167) {
                 useJavaScriptAlwaysTripleEqual_2 = Trim(A_LoopField51);
             }
         }
@@ -3256,7 +3240,7 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField52)) == StrLower(keyWordCodeInOtherHTVMsyntaxEnd)) {
+        else if (Trim(StrLower(A_LoopField52)) == StrLower(keyWordCodeInHTVMend)) {
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             COUNT_programmingBlock_HTVMsyntax++;
@@ -3343,7 +3327,7 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField52)) == StrLower(keyWordCodeInOtherHTVMsyntaxStart)) {
+        else if (Trim(StrLower(A_LoopField52)) == StrLower(keyWordCodeInHTVMstart)) {
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             holdTempDataProgrammingBlockThenPutInArr = "";
@@ -4895,9 +4879,36 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;
     if (isNotHTVMfile == 1) {
         print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS");
+        print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS");
+        print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS");
+        print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS");
+        print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS");
+        print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS");
+        print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS");
+        print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS");
+        print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS");
+        print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS");
         print("\n" + isNotHTVMfileEXTRA_LIB_INFO + "\n");
         print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed");
+        print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed");
+        print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed");
+        print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed");
+        print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed");
+        print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed");
+        print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed");
+        print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed");
+        print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed");
+        print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed");
         print("\n" + isNotHTVMfileEXTRA_FUNCS_INFO + "\n");
+        print("\n");
+        print("\nYou must include all the libs from under the section and MAKE SURE your code doesn't already use them!!!");
+        print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS");
+        print("\nYou must copy-paste all the funcs from under the section and MAKE SURE your code doesn't already use them!!!");
+        print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed\n");
+        print("SCROLL UP!!!!!");
+        print("SCROLL UP!!!!!");
+        print("SCROLL UP!!!!!");
+        print("Note: If you dont see any libs or built-in functions that you need to add, then that means you dont have to!");
         return htCode;
     }
     var fixLuaAndRuby = "";

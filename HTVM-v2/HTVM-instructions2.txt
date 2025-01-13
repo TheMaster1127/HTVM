@@ -47,8 +47,6 @@ keyWordCodeInTheTranspiledLangStartHTVM
 keyWordCodeInTheTranspiledLangEndHTVM
 keyWordCodeInHTVMstart
 keyWordCodeInHTVMend
-keyWordCodeInOtherHTVMsyntaxStart
-keyWordCodeInOtherHTVMsyntaxEnd
 [
 ]
 null
