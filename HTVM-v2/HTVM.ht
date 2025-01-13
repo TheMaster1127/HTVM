@@ -6067,15 +6067,6 @@ return htCode
 
 
 
-
-
-
-
-
-
-
-
-
 str fixLuaAndRuby := ""
 if (langToConvertTo = langFileExtension_2)
 {
