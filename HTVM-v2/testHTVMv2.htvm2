@@ -5,12 +5,11 @@ spin 5
     spin 5
         print("hello HTVM v2")
         print("hello HTVM`nv2")
+        int asdfd12 := 5
+        int asdfd23 := 56
+        int asdfd34 := 5
         spin 5
             print("hello HTVM v2")
             print("hello HTVM`nv2")
             print(A_Index)
         print(A_Index)
-
-
-
-

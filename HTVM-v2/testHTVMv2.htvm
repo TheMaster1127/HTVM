@@ -1,10 +1,26 @@
 Loop, 5 (
     print("hello HTVM v2")
     print("hello HTVM`nv2")
+    
+keyWordCodeInTheTranspiledLangStartPy
+asdfd12 = 5
+asdfd23 = 56
+asdfd34 = 5
+keyWordCodeInTheTranspiledLangEndpy
+keyWordCodeInTheTranspiledLangStartCPP
+            int asdfd12 = 5;
+int asdfd23 = 56;
+    int asdfd34 = 5;
+keyWordCodeInTheTranspiledLangEndCPP
     print(A_Index)
     Loop, 5 ( 
         print("hello HTVM v2")
         print("hello HTVM`nv2")
+        keyWordCodeInTheTranspiledLangStartHTVM
+int asdfd12 := 5
+int asdfd23 := 56
+int asdfd34 := 5
+keyWordCodeInTheTranspiledLangEndHTVm
         Loop, 5 (
             print("hello HTVM v2")
             print("hello HTVM`nv2")
@@ -15,14 +31,9 @@ Loop, 5 (
 )
 
 
-keyWordCodeInTheTranspiledLangStartCPP
-int asdfd12 = 5;
-int asdfd23 = 56;
-int asdfd34 = 5;
-keyWordCodeInTheTranspiledLangEndCPP
+
 keyWordCodeInTheTranspiledLangStartPy
 asdfd12 = 5
 asdfd23 = 56
 asdfd34 = 5
 keyWordCodeInTheTranspiledLangEndpy
-

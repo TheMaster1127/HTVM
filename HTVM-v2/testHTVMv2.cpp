@@ -39,6 +39,9 @@ int main(int argc, char* argv[]) {
     for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
         print("hello HTVM v2");
         print("hello HTVM\nv2");
+        int asdfd12 = 5;
+        int asdfd23 = 56;
+        int asdfd34 = 5;
         print(A_Index1);
         for (int A_Index2 = 0; A_Index2 < 5 + 0; A_Index2++) {
             print("hello HTVM v2");
@@ -51,10 +54,5 @@ int main(int argc, char* argv[]) {
             print(A_Index2);
         }
     }
-    int asdfd12 = 5;
-int asdfd23 = 56;
-int asdfd34 = 5;
-    
-
     return 0;
 }

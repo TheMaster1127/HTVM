@@ -23,6 +23,3 @@ Loop, 5 {
         print(A_Index)
     }
 }
-
-
-

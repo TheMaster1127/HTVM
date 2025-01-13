@@ -1,4 +1,9 @@
-Loop, 5
+str text := "cpp`n`rhtvm2`r`nwaedsfg`r`nwaedsfg"
+
+print(Trim(StrSplit(StrReplace(text, Chr(13), ""), "`n", 2)))
+str out := Trim(StrSplit(StrReplace(text, Chr(13), ""), "`n", 2))
+
+Loop, Parse, out
 {
-print("hello HTVM v2")
+print(Asc(A_LoopField))
 }

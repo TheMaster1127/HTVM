@@ -30,9 +30,5 @@ async function main(): Promise<void> {
             print(A_Index2);
         }
     }
-    
-
-    
-
 }
 main();

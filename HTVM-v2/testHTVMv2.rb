@@ -29,6 +29,3 @@ for A_Index1 in 0..5 + 0 do
         print(A_Index2)
     end
 end
-
-
-
