@@ -28,7 +28,11 @@ int int7 := 0
 
 arr str argHTVMinstrMORE
 
-str extraCodeReturned := ""
+int isNotHTVMfileEXTRA_INT := 0
+int isNotHTVMfile2 := 0
+
+str isNotHTVMfileEXTRA_LIB_INFO := ""
+str isNotHTVMfileEXTRA_FUNCS_INFO := ""
 
 arr str programmingBlock_InTheTranspiledLang
 arr str programmingBlock_CPP
@@ -2056,10 +2060,12 @@ return expression
 
 func str compiler(str htCode, str allInstructionFile, str mode, str langToConvertToParam := "")
 {
-extraCodeReturned := ""
+
 
 
 str instructions := allInstructionFile
+
+
 
 Loop, Parse, allInstructionFile, `n, `r
 {
@@ -3627,19 +3633,20 @@ StringTrimRight, code, programmingBlocksTemp, 1
 ; PROGRAMMING BLOCK
 ; PROGRAMMING BLOCK
 
+arr str lookIntoTheNextLineForFuncWhitNoKeyWord
+int didWeUseMainLabel := 0
+str codeOutFixAndAddMainFunc := ""
+str htCodeOutFixEnd := ""
+int htCodeOutFixINT := 0
+int htCodeOutFixINT2 := 0
 
-print("============programmingBlock_CPP==================")
-print("============programmingBlock_CPP==================")
-if (programmingBlock_CPP.size() > 0)
-{
-Loop, % programmingBlock_CPP.size()
-{
-print(programmingBlock_CPP[A_Index])
-}
-}
-print("============programmingBlock_CPP==================")
-print("============programmingBlock_CPP==================")
+str beforeKeywordForRemoveCommentsOnTheEndOfTheLine := ""
+str newStringOutCode := ""
+int posForRemoveCommentsOnTheEndOfTheLine := 0
+str originalStringForRemoveCommentsOnTheEndOfTheLine := ""
+str OutFixDoubleQuotesInsideDoubleQuotes := ""
 
+int fixOutFixDoubleQuotesInsideDoubleQuotesFIXok := 0
 str htCodeOUT754754 := ""
 int areWEinSome34sNum := 0
 int theIdNumOfThe34 := 0
@@ -3653,6 +3660,23 @@ str ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes := ""
 arr str getAllCharForTheFurtureSoIcanAddEscapeChar
 
 int removeNexFixkeyWordEscpaeChar := 0
+
+if (isNotHTVMfile = 0)
+{
+
+print("============programmingBlock_CPP==================")
+print("============programmingBlock_CPP==================")
+if (programmingBlock_CPP.size() > 0)
+{
+Loop, % programmingBlock_CPP.size()
+{
+print(programmingBlock_CPP[A_Index])
+}
+}
+print("============programmingBlock_CPP==================")
+print("============programmingBlock_CPP==================")
+
+
 
 Loop, Parse, code
 {
@@ -3669,9 +3693,7 @@ getAllCharForTheFurtureSoIcanAddEscapeChar.add(A_LoopField)
 getAllCharForTheFurtureSoIcanAddEscapeChar.add(" ")
 
 ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes := Chr(34) . "ihuiuusgfgesrheidFor-aasdsas-theuhtuwaesphoutr" . Chr(34)
-str OutFixDoubleQuotesInsideDoubleQuotes := ""
 
-int fixOutFixDoubleQuotesInsideDoubleQuotesFIXok := 0
 
 Loop, Parse, code
 {
@@ -3886,10 +3908,6 @@ if (langToConvertTo != "py") and (langToConvertTo != "nim") and (usePythonicColo
 }
 
 
-str beforeKeywordForRemoveCommentsOnTheEndOfTheLine := ""
-str newStringOutCode := ""
-int posForRemoveCommentsOnTheEndOfTheLine := 0
-str originalStringForRemoveCommentsOnTheEndOfTheLine := ""
 Loop, Parse, code, `n, `r
 {
 
@@ -3927,9 +3945,6 @@ StringTrimRight, code, newStringOutCode, 1
 ;MsgBox, % code
 
 
-str htCodeOutFixEnd := ""
-int htCodeOutFixINT := 0
-int htCodeOutFixINT2 := 0
 
 if (useCurlyBraces = "on")
 {
@@ -4151,12 +4166,11 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 ;;; main loop ;;;
 ;;; main loop ;;;
 
-int didWeUseMainLabel := 0
-str codeOutFixAndAddMainFunc := ""
 
 
 
-
+if (isNotHTVMfile2 = 0)
+{
 
 
 
@@ -4259,8 +4273,8 @@ if (didWeUseMainLabel != 1) and (langToConvertTo = "scala")
 StringTrimRight, code, codeOutFixAndAddMainFunc, 1
 ; main loop
 ; main loop
+}
 
-arr str lookIntoTheNextLineForFuncWhitNoKeyWord
 Loop, Parse, code, `n, `r
 {
 lookIntoTheNextLineForFuncWhitNoKeyWord.add(A_LoopField)
@@ -5640,7 +5654,11 @@ StringTrimRight, htCode, htCodeOut1234565432, 1
 
 
 
-
+}
+else
+{
+htCode := code
+}
 
 
 if (COUNT_programmingBlock_InTheTranspiledLang != 0)
@@ -5995,14 +6013,26 @@ if (COUNT_programmingBlock_HTVM != 0)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
+str ADD_ALL_programmingBlock_HTVMsyntax := ""
 
 if (COUNT_programmingBlock_HTVMsyntax != 0)
 {
+isNotHTVMfileEXTRA_INT := 1
+Loop, % COUNT_programmingBlock_HTVMsyntax
+{
+ADD_ALL_programmingBlock_HTVMsyntax .= programmingBlock_HTVMsyntax[A_Index] . "`n"
+}
+StringTrimRight, ADD_ALL_programmingBlock_HTVMsyntax, ADD_ALL_programmingBlock_HTVMsyntax, 1
+
+ADD_ALL_programmingBlock_HTVMsyntax := compiler(ADD_ALL_programmingBlock_HTVMsyntax, allInstructionFile, "full", langToConvertToParam)
+isNotHTVMfileEXTRA_INT := 0
+
+isNotHTVMfile2 := 1
     Loop, % COUNT_programmingBlock_HTVMsyntax
     {
-        htCode := StrReplace(htCode, "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" . STR(A_Index + 1) . "AA", programmingBlock_HTVMsyntax[A_Index])
+        htCode := StrReplace(htCode, "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" . STR(A_Index + 1) . "AA", compiler(programmingBlock_HTVMsyntax[A_Index], allInstructionFile, "full", langToConvertToParam))
     }
+isNotHTVMfile2 := 0
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -6011,7 +6041,15 @@ if (COUNT_programmingBlock_HTVMsyntax != 0)
 
 
 
+if (isNotHTVMfile = 1)
+{
+print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS")
+print("`n" . isNotHTVMfileEXTRA_LIB_INFO . "`n")
 
+print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed")
+print("`n" . isNotHTVMfileEXTRA_FUNCS_INFO . "`n")
+return htCode
+}
 
 
 
@@ -6228,7 +6266,8 @@ correctLang := 0
 
 
 
-
+if (isNotHTVMfile2 = 0)
+{
 
 if (langToConvertTo = "cpp")
 {
@@ -6293,6 +6332,8 @@ if (langToConvertTo = "scala")
 }
 
 
+}
+
 str jsHTMLdownCode := "</script>`n</body>`n</html>"
 
 int includeLibsInCppIf := 0
@@ -6341,6 +6382,16 @@ allLibsToPutAtTop := "using System;`n" . allLibsToPutAtTop
 Sort, allLibsToPutAtTop, U
 
 allLibsToPutAtTop := StrReplace(allLibsToPutAtTop, "~~~", "`n")
+
+
+if (isNotHTVMfileEXTRA_INT = 1)
+{
+isNotHTVMfileEXTRA_LIB_INFO := allLibsToPutAtTop
+isNotHTVMfileEXTRA_FUNCS_INFO := allFuncsToPutAtTop
+}
+
+if (isNotHTVMfile2 = 0)
+{
 
 
 if (langToConvertTo = "cs") or (langToConvertTo = "java") or (langToConvertTo = "scala")
@@ -6397,7 +6448,7 @@ if (langToConvertTo = "go")
 
 
 
-
+}
 
 
 
@@ -6469,6 +6520,8 @@ htCode := StrReplace(htCode, "std::string(" . Chr(34) . Chr(34) . ";),", "std::s
 str jsHTMLupCode := "<!doctype html>`n<html lang=" . Chr(34) . "en" . Chr(34) . ">`n    <head>`n        <meta charset=" . Chr(34) . "UTF-8" . Chr(34) . " />`n        <meta name=" . Chr(34) . "viewport" . Chr(34) . " content=" . Chr(34) . "width=device-width, initial-scale=1.0" . Chr(34) . " />`n        <title>HTVM</title>`n        <style>`n            body {`n                background-color: #202020;`n                font-family:`n                    " . Chr(34) . "Open Sans" . Chr(34) . ",`n                    -apple-system,`n                    BlinkMacSystemFont,`n                    " . Chr(34) . "Segoe UI" . Chr(34) . ",`n                    Roboto,`n                    Oxygen-Sans,`n                    Ubuntu,`n                    Cantarell,`n                    " . Chr(34) . "Helvetica Neue" . Chr(34) . ",`n                    Helvetica,`n                    Arial,`n                    sans-serif;`n            }`n        </style>`n" . allLibsToPutAtTop . "`n</head>`n    <body>`n<script>"
 
 
+if (isNotHTVMfile2 = 0)
+{
 
 if (useJavaScriptInAfullHTMLfile = "on") and (langToConvertTo = "js")
 {
@@ -6494,6 +6547,8 @@ htCode := "#EscapeChar \`n" . htCode
 if (langToConvertTo = langFileExtension_2)
 {
 StringTrimLeft, htCode, htCode, 1
+}
+
 }
 
 
