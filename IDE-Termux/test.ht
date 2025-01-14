@@ -1,7 +1,0 @@
-
-Loop, 6
-{
-print("hello ide: " . STR(A_Index))
-}
-
-print("hello")
