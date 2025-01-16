@@ -54,6 +54,8 @@ arr str programmingBlock_GROOVY
 arr str programmingBlock_HTVM
 arr str programmingBlock_HTVMsyntax
 
+arr str fullLangAllOperators
+arr str fullLangAllOperators_HELP
 
 str langToConvertTo := ""
 str langFileExtension := ""
@@ -1966,6 +1968,373 @@ return false
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+func str fixArray1234(str line)
+{
+str out := ""
+int started := 0
+
+
+Loop, Parse, line
+{
+if (started = 1)
+{
+if (StrLen(line) = A_Index + 1)
+{
+return out
+}
+out .= A_LoopField
+}
+
+if (A_LoopField = "(")
+{
+started := 1
+}
+
+}
+return out
+}
+
+func str fixArray123(str line, str arrayMethodStr, int mode)
+{
+; mode 1 = Append
+; mode 2 = Pop
+; mode 3 = Size
+; mode 4 = Insert
+; mode 5 = Remove
+; mode 6 = IndexOf
+
+; HTVM_Append
+; HTVM_Pop
+; HTVM_Size
+; HTVM_Insert
+; HTVM_Remove
+; HTVM_IndexOf
+
+if (langToConvertTo != "swift")
+{
+
+if (mode = 1) 
+{
+return "HTVM_Append(" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+if (mode = 2)
+{
+return "HTVM_Pop(" . StrSplit(line, ".", 1) . ")"
+}
+
+if (mode = 3)
+{
+return "HTVM_Size(" . StrSplit(line, ".", 1) . ")"
+}
+
+if (mode = 4)
+{
+return "HTVM_Insert(" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+if (mode = 5)
+{
+return "HTVM_Remove(" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+if (mode = 6)
+{
+return "HTVM_IndexOf(" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+
+}
+else
+{
+
+if (mode = 1) 
+{
+return "HTVM_Append(&" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+if (mode = 2)
+{
+return "HTVM_Pop(&" . StrSplit(line, ".", 1) . ")"
+}
+
+if (mode = 3)
+{
+return "HTVM_Size(" . StrSplit(line, ".", 1) . ")"
+}
+
+if (mode = 4)
+{
+return "HTVM_Insert(&" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+if (mode = 5)
+{
+return "HTVM_Remove(&" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+if (mode = 6)
+{
+return "HTVM_IndexOf(" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+
+}
+
+
+return line
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str arrayParserTranspiler1(str line, str arrayMethodStr, int mode)
+{
+
+if (InStr(line, arrayMethodStr) = false)
+{
+return line
+}
+
+str out := ""
+str allDelimiters := " ()[],;:'!&|=<>+-*/^%~" . Chr(34) . Chr(9) . Chr(11)
+arr str arrAll
+Loop, Parse, line
+{
+arrAll.add(A_LoopField)
+}
+
+
+int i1 := 0
+str tempHold := ""
+int holdPos := 0
+
+arr int holdPositions
+Loop, % arrAll.size()
+{
+tempHold := ""
+if (arrAll.size() - StrLen(arrayMethodStr) + 1 = i1)
+{
+break
+}
+
+Loop, StrLen(arrayMethodStr)
+{
+tempHold .= arrAll[A_Index + i1]
+}
+
+i1++
+;print(tempHold)
+if (tempHold = arrayMethodStr)
+{
+holdPos := i1
+;print(holdPos)
+holdPositions.add(holdPos)
+}
+
+}
+
+;print("===========================================")
+
+int holdPositionsTEMP := 0
+Loop, % holdPositions.size()
+{
+holdPositionsTEMP := holdPositions[A_Index]
+i1 := arrAll.size()
+tempHold := ""
+Loop, % arrAll.size()
+{
+
+if (holdPositionsTEMP >= i1 + 1)
+{
+if (InStr(allDelimiters, arrAll[i1]) = false) 
+{
+tempHold .= arrAll[i1 - 1]
+}
+else
+{
+break
+}
+
+}
+
+
+i1--
+}
+
+
+;print(await StrLen(Trim(RegExReplace(tempHold, "[^A-Za-z0-9_]", ""))))
+holdPositions[A_Index] := holdPositions[A_Index] - StrLen(Trim(RegExReplace(tempHold, "[^A-Za-z0-9_]", "")))
+}
+
+
+
+;;;;;;;;;;;;;;;;;;;
+
+
+int foundFirstParenthesis := 0
+int ParenthesisStackOPEN := 0
+int ParenthesisStackCLOSE := 0
+
+arr int holdPositionsEnd
+
+holdPositionsTEMP := 0
+Loop, % holdPositions.size()
+{
+holdPositionsTEMP := holdPositions[A_Index]
+i1 := 0
+tempHold := ""
+
+foundFirstParenthesis := 0
+ParenthesisStackOPEN := 0
+ParenthesisStackCLOSE := 0
+
+Loop, % arrAll.size()
+{
+
+if (holdPositionsTEMP < i1 + 1)
+{
+
+if (arrAll[i1] = "(")
+{
+foundFirstParenthesis := 1
+}
+
+if (arrAll[i1] = "(") and (foundFirstParenthesis = 1)
+{
+ParenthesisStackOPEN++
+}
+
+
+if (arrAll[i1] = ")") and (foundFirstParenthesis = 1)
+{
+ParenthesisStackCLOSE++
+}
+tempHold .= arrAll[i1 - 1]
+if (ParenthesisStackOPEN = ParenthesisStackCLOSE) and (foundFirstParenthesis = 1)
+{
+tempHold .= arrAll[i1]
+holdPositionsEnd.add(i1 + 1)
+break
+}
+
+
+}
+
+
+i1++
+}
+;print(tempHold)
+
+}
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+int startPosReplace := 0
+int endPosReplace := 0
+int beenInside := 0
+str holdDebug := ""
+int holdDebugLen := 0
+int canOut := 1
+
+Loop, % holdPositions.size()
+{
+
+startPosReplace := holdPositions[holdPositions.size() - A_Index - 1]
+endPosReplace := holdPositionsEnd[holdPositions.size() - A_Index - 1]
+
+
+holdDebug := ""
+beenInside := 0
+
+holdDebugLen := 0
+canOut := 1
+Loop, Parse, line
+{
+if (A_Index + 1 >= startPosReplace) and (A_Index + 1 <= endPosReplace)
+{
+holdDebug .= A_LoopField
+}
+}
+
+holdDebugLen := StrLen(holdDebug)
+
+Loop, Parse, line
+{
+if (A_Index + 1 >= startPosReplace) and (A_Index + 1 <= endPosReplace)
+{
+beenInside++
+}
+if (beenInside = 1)
+{
+out .= await fixArray123(holdDebug, arrayMethodStr, mode)
+canOut := 0
+}
+else
+{
+
+if (canOut = 0)
+{
+holdDebugLen--
+if (holdDebugLen = 0)
+{
+canOut := 1
+}
+}
+
+if (canOut = 1)
+{
+out .= A_LoopField
+}
+
+
+}
+}
+
+;print("|" . holdDebug . "|")
+
+line := out
+out := ""
+}
+
+
+return line
+}
+
+func str arrayParserTranspiler(str line)
+{
+; mode 1 = Append
+; mode 2 = Pop
+; mode 3 = Size
+; mode 4 = Insert
+; mode 5 = Remove
+; mode 6 = IndexOf
+
+if (langToConvertTo = langFileExtension_2)
+{
+line := await HTVMmatchStrRrplace(line, "." . keyWordArrayAppend . "(", "." . keyWordArrayAppend_2 . "(")
+line := await HTVMmatchStrRrplace(line, "." . keyWordArrayPop . "(", "." . keyWordArrayPop_2 . "(")
+line := await HTVMmatchStrRrplace(line, "." . keyWordArraySize . "(", "." . keyWordArraySize_2 . "(")
+line := await HTVMmatchStrRrplace(line, "." . keyWordArrayInsert . "(", "." . keyWordArrayInsert_2 . "(")
+line := await HTVMmatchStrRrplace(line, "." . keyWordArrayRemove . "(", "." . keyWordArrayRemove_2 . "(")
+line := await HTVMmatchStrRrplace(line, "." . keyWordArrayIndexOf . "(", "." . keyWordArrayIndexOf_2 . "(")
+}
+else
+{
+line := await arrayParserTranspiler1(line, keyWordArrayAppend . "(", 1)
+line := await arrayParserTranspiler1(line, keyWordArrayPop . "(", 2)
+line := await arrayParserTranspiler1(line, keyWordArraySize . "(", 3)
+line := await arrayParserTranspiler1(line, keyWordArrayInsert . "(", 4)
+line := await arrayParserTranspiler1(line, keyWordArrayRemove . "(", 5)
+line := await arrayParserTranspiler1(line, keyWordArrayIndexOf . "(", 6)
+}
+
+return line
+}
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1974,65 +2343,748 @@ return false
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func arr str GETfullLangAllOperators()
+{
+arr str fullLangAllOperators
+if (langToConvertTo = "cpp") 
+{
+    fullLangAllOperators.add("nullptr")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
+}
+
+if (langToConvertTo = "py")
+{
+    fullLangAllOperators.add("None")
+    fullLangAllOperators.add("True")
+    fullLangAllOperators.add("False")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("**")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("is")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("and")
+    fullLangAllOperators.add("or")
+    fullLangAllOperators.add("not")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+}
+
+if (langToConvertTo = "js")
+{
+    fullLangAllOperators.add("null")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("**")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("===")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add(">>>")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
+}
+
+if (langToConvertTo = "go")
+{
+    fullLangAllOperators.add("nil")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+}
+
+if (langToConvertTo = "lua")
+{
+    fullLangAllOperators.add("nil")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("..")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("~=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("and")
+    fullLangAllOperators.add("or")
+    fullLangAllOperators.add("not")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+}
+
+if (langToConvertTo = "cs")
+{
+    fullLangAllOperators.add("null")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
+}
+
+if (langToConvertTo = "java")
+{
+    fullLangAllOperators.add("null")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add(">>>")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
+}
+
+if (langToConvertTo = "kt")
+{
+    fullLangAllOperators.add("null")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("===")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("and")
+    fullLangAllOperators.add("or")
+    fullLangAllOperators.add("xor")
+    fullLangAllOperators.add("inv")
+    fullLangAllOperators.add("shl")
+    fullLangAllOperators.add("shr")
+    fullLangAllOperators.add("ushr")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
+}
+
+if (langToConvertTo = "rb")
+{
+    fullLangAllOperators.add("nil")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("**")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
+}
+
+if (langToConvertTo = "nim")
+{
+    fullLangAllOperators.add("nil")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("and")
+    fullLangAllOperators.add("or")
+    fullLangAllOperators.add("not")
+    fullLangAllOperators.add("and")
+    fullLangAllOperators.add("or")
+    fullLangAllOperators.add("xor")
+    fullLangAllOperators.add("not")
+    fullLangAllOperators.add("shl")
+    fullLangAllOperators.add("shr")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+}
+
+
+if (langToConvertTo = "ahk")
+{
+    fullLangAllOperators.add(Chr(34) . "" . Chr(34))
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add(".")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("=")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
+}
+
+if (langToConvertTo = "swift")
+{
+    fullLangAllOperators.add("nil")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("===")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
+}
+
+if (langToConvertTo = "dart")
+{
+    fullLangAllOperators.add("null")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("===")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add(">>>")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
+}
+
+if (langToConvertTo = "ts")
+{
+    fullLangAllOperators.add("null")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("**")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("===")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add(">>>")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
+}
+
+if (langToConvertTo = "scala")
+{
+    fullLangAllOperators.add("null")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("eq")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add(">>>")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+}
+
+if (langToConvertTo = "groovy")
+{
+    fullLangAllOperators.add("null")
+    fullLangAllOperators.add("true")
+    fullLangAllOperators.add("false")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("+")
+    fullLangAllOperators.add("-")
+    fullLangAllOperators.add("*")
+    fullLangAllOperators.add("/")
+    fullLangAllOperators.add("%")
+    fullLangAllOperators.add("**")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("==")
+    fullLangAllOperators.add("!=")
+    fullLangAllOperators.add(">")
+    fullLangAllOperators.add("<")
+    fullLangAllOperators.add(">=")
+    fullLangAllOperators.add("<=")
+    fullLangAllOperators.add("&&")
+    fullLangAllOperators.add("||")
+    fullLangAllOperators.add("!")
+    fullLangAllOperators.add("&")
+    fullLangAllOperators.add("|")
+    fullLangAllOperators.add("^")
+    fullLangAllOperators.add("~")
+    fullLangAllOperators.add("<<")
+    fullLangAllOperators.add(">>")
+    fullLangAllOperators.add(">>>")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
+}
+if (langToConvertTo = langFileExtension_2) 
+{
+    fullLangAllOperators.add(keyWordNull_2)
+    fullLangAllOperators.add(keyWordTrue_2)
+    fullLangAllOperators.add(keyWordFalse_2)
+    fullLangAllOperators.add(keyWordConcat_2)
+    fullLangAllOperators.add(keyWordAdd_2)
+    fullLangAllOperators.add(keyWordSub_2)
+    fullLangAllOperators.add(keyWordMul_2)
+    fullLangAllOperators.add(keyWordDiv_2)
+    fullLangAllOperators.add(keyWordMod_2)
+    fullLangAllOperators.add(keyWordExp_2)
+    fullLangAllOperators.add(keyWordEqual_2)
+    fullLangAllOperators.add(keyWordStrictEqual_2)
+    fullLangAllOperators.add(keyWordNotEqual_2)
+    fullLangAllOperators.add(keyWordGreater_2)
+    fullLangAllOperators.add(keyWordLess_2)
+    fullLangAllOperators.add(keyWordGreaterEqual_2)
+    fullLangAllOperators.add(keyWordLessEqual_2)
+    fullLangAllOperators.add(keyWordAnd_2)
+    fullLangAllOperators.add(keyWordOr_2)
+    fullLangAllOperators.add(keyWordNot_2)
+    fullLangAllOperators.add(keyWordBitAnd_2)
+    fullLangAllOperators.add(keyWordBitOr_2)
+    fullLangAllOperators.add(keyWordBitXor_2)
+    fullLangAllOperators.add(keyWordBitNot_2)
+    fullLangAllOperators.add(keyWordShiftLeft_2)
+    fullLangAllOperators.add(keyWordShiftRight_2)
+    fullLangAllOperators.add(keyWordShiftUnsignedRight_2)
+    fullLangAllOperators.add(keyWordTernary1_2)
+    fullLangAllOperators.add(keyWordTernary2_2)
+}
+
+return fullLangAllOperators
+}
+
+
+func arr str GETfullLangAllOperators_HELP()
+{
+arr str fullLangAllOperators_HELP
+
+fullLangAllOperators_HELP.add("01|" . keyWordNull)
+fullLangAllOperators_HELP.add("02|" . keyWordTrue)
+fullLangAllOperators_HELP.add("03|" . keyWordFalse)
+fullLangAllOperators_HELP.add("04|" . keyWordConcat)
+fullLangAllOperators_HELP.add("05|" . keyWordAdd)
+fullLangAllOperators_HELP.add("06|" . keyWordSub)
+fullLangAllOperators_HELP.add("07|" . keyWordMul)
+fullLangAllOperators_HELP.add("08|" . keyWordDiv)
+fullLangAllOperators_HELP.add("09|" . keyWordMod)
+fullLangAllOperators_HELP.add("10|" . keyWordExp)
+fullLangAllOperators_HELP.add("11|" . keyWordEqual)
+fullLangAllOperators_HELP.add("12|" . keyWordStrictEqual)
+fullLangAllOperators_HELP.add("13|" . keyWordNotEqual)
+fullLangAllOperators_HELP.add("14|" . keyWordGreater)
+fullLangAllOperators_HELP.add("15|" . keyWordLess)
+fullLangAllOperators_HELP.add("16|" . keyWordGreaterEqual)
+fullLangAllOperators_HELP.add("17|" . keyWordLessEqual)
+fullLangAllOperators_HELP.add("18|" . keyWordAnd)
+fullLangAllOperators_HELP.add("19|" . keyWordOr)
+fullLangAllOperators_HELP.add("20|" . keyWordNot)
+fullLangAllOperators_HELP.add("21|" . keyWordBitAnd)
+fullLangAllOperators_HELP.add("22|" . keyWordBitOr)
+fullLangAllOperators_HELP.add("23|" . keyWordBitXor)
+fullLangAllOperators_HELP.add("24|" . keyWordBitNot)
+fullLangAllOperators_HELP.add("25|" . keyWordShiftLeft)
+fullLangAllOperators_HELP.add("26|" . keyWordShiftRight)
+fullLangAllOperators_HELP.add("27|" . keyWordShiftUnsignedRight)
+fullLangAllOperators_HELP.add("28|" . keyWordTernary1)
+fullLangAllOperators_HELP.add("29|" . keyWordTernary2)
+
+
+sortArrByLenOnly(fullLangAllOperators_HELP)
+return fullLangAllOperators_HELP
+}
 
 func str expressionParserTranspiler(str expression)
 {
 
-if (langToConvertTo = "htvm") {
-expression := expression
-}
-if (langToConvertTo = "cpp") {
-expression := expression
-}
-if (langToConvertTo = "py") {
-expression := expression
-}
-if (langToConvertTo = "js") {
-expression := expression
-}
-if (langToConvertTo = "go") {
-expression := expression
-}
-if (langToConvertTo = "lua") {
-expression := expression
-}
-if (langToConvertTo = "cs") {
-expression := expression
-}
-if (langToConvertTo = "java") {
-expression := expression
-}
-if (langToConvertTo = "kt") {
-expression := expression
-}
-if (langToConvertTo = "rb") {
-expression := expression
-}
-if (langToConvertTo = "nim") {
-expression := expression
-}
-if (langToConvertTo = "ahk") {
-expression := expression
-}
-if (langToConvertTo = "swift") {
-expression := expression
-}
-if (langToConvertTo = "dart") {
-expression := expression
-}
-if (langToConvertTo = "ts") {
-expression := expression
-}
-if (langToConvertTo = "scala") {
-expression := expression
-}
-if (langToConvertTo = "groovy") {
-expression := expression
-}
-if (langToConvertTo = langFileExtension_2) {
-expression := expression
-}
 
+Loop, 29
+{
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "01")
+    {
+        expression := await StrReplace(expression, keyWordNull, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA1AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "02")
+    {
+        expression := await StrReplace(expression, keyWordTrue, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA2AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "03")
+    {
+        expression := await StrReplace(expression, keyWordFalse, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA3AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "04")
+    {
+        expression := await StrReplace(expression, keyWordConcat, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA4AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "05")
+    {
+        expression := await StrReplace(expression, keyWordAdd, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA5AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "06")
+    {
+        expression := await StrReplace(expression, keyWordSub, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA6AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "07")
+    {
+        expression := await StrReplace(expression, keyWordMul, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA7AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "08")
+    {
+        expression := await StrReplace(expression, keyWordDiv, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA8AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "09")
+    {
+        expression := await StrReplace(expression, keyWordMod, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA9AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "10")
+    {
+        expression := await StrReplace(expression, keyWordExp, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA10AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "11")
+    {
+        expression := await StrReplace(expression, keyWordEqual, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA11AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "12")
+    {
+        expression := await StrReplace(expression, keyWordStrictEqual, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA12AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "13")
+    {
+        expression := await StrReplace(expression, keyWordNotEqual, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA13AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "14")
+    {
+        expression := await StrReplace(expression, keyWordGreater, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA14AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "15")
+    {
+        expression := await StrReplace(expression, keyWordLess, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA15AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "16")
+    {
+        expression := await StrReplace(expression, keyWordGreaterEqual, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA16AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "17")
+    {
+        expression := await StrReplace(expression, keyWordLessEqual, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA17AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "18")
+    {
+        expression := await StrReplace(expression, keyWordAnd, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA18AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "19")
+    {
+        expression := await StrReplace(expression, keyWordOr, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA19AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "20")
+    {
+        expression := await StrReplace(expression, keyWordNot, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA20AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "21")
+    {
+        expression := await StrReplace(expression, keyWordBitAnd, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA21AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "22")
+    {
+        expression := await StrReplace(expression, keyWordBitOr, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA22AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "23")
+    {
+        expression := await StrReplace(expression, keyWordBitXor, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA23AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "24")
+    {
+        expression := await StrReplace(expression, keyWordBitNot, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA24AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "25")
+    {
+        expression := await StrReplace(expression, keyWordShiftLeft, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA25AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "26")
+    {
+        expression := await StrReplace(expression, keyWordShiftRight, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA26AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "27")
+    {
+        expression := await StrReplace(expression, keyWordShiftUnsignedRight, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA27AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "28")
+    {
+        expression := await StrReplace(expression, keyWordTernary1, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA28AA")
+    }
+    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "29")
+    {
+        expression := await StrReplace(expression, keyWordTernary2, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA29AA")
+    }
+}
+    
+Loop, 29
+{
+expression := StrReplace(expression, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA" . STR(A_Index + 1) . "AA", fullLangAllOperators[A_Index])
+}
+; extra for array methods
+expression := await arrayParserTranspiler(expression)
 return expression
 }
 
@@ -3114,7 +4166,7 @@ if (Trim(mode) = "notHTVM") {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 '''1
 
-if (langToConvertTo = "htvm") {
+if (langToConvertTo = langFileExtension_2) {
 
 }
 if (langToConvertTo = "cpp") {
@@ -3675,7 +4727,7 @@ getAllCharForTheFurtureSoIcanAddEscapeChar.add(A_LoopField)
 
 getAllCharForTheFurtureSoIcanAddEscapeChar.add(" ")
 
-ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes := Chr(34) . "ihuiuusgfgesrheidFor-aasdsas-theuhtuwaesphoutr" . Chr(34)
+ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes := Chr(34) . "ihuiuusgfgesrheidForQQQasdsasQQQtheuhtuwaesphoutr" . Chr(34)
 
 
 Loop, Parse, code
@@ -3740,7 +4792,7 @@ theIdNumOfThe34theVar[theIdNumOfThe34] := theIdNumOfThe34theVar[theIdNumOfThe34]
 else
 {
 theIdNumOfThe34++
-htCodeOUT754754 .= "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(theIdNumOfThe34) . Chr(65) . Chr(65)
+htCodeOUT754754 .= "ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQ" . Chr(65) . Chr(65) . STR(theIdNumOfThe34) . Chr(65) . Chr(65)
 }
 
 }
@@ -3804,7 +4856,7 @@ theIdNumOfThe34theVar[theIdNumOfThe34] := theIdNumOfThe34theVar[theIdNumOfThe34]
 else
 {
 theIdNumOfThe34++
-htCodeOUT754754 .= "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(theIdNumOfThe34) . Chr(65) . Chr(65)
+htCodeOUT754754 .= "ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQ" . Chr(65) . Chr(65) . STR(theIdNumOfThe34) . Chr(65) . Chr(65)
 
 }
 
@@ -4148,7 +5200,8 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 ;;; main loop ;;;
 ;;; main loop ;;;
 ;;; main loop ;;;
-
+fullLangAllOperators := await GETfullLangAllOperators()
+fullLangAllOperators_HELP := await GETfullLangAllOperators_HELP()
 
 
 
@@ -6478,11 +7531,11 @@ if (theIdNumOfThe34 = A_Index + 1)
 {
 if (langToConvertTo = langFileExtension_2)
 {
-htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], "\", keyWordEscpaeChar_2) . Chr(34))
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQ" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], "\", keyWordEscpaeChar_2) . Chr(34))
 }
 else
 {
-htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index + 1] . Chr(34))
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQ" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index + 1] . Chr(34))
 }
 
 }
@@ -6490,11 +7543,11 @@ else
 {
 if (langToConvertTo = langFileExtension_2)
 {
-htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], "\", keyWordEscpaeChar_2))
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQ" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], "\", keyWordEscpaeChar_2))
 }
 else
 {
-htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asdsas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index + 1])
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQ" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index + 1])
 }
 
 

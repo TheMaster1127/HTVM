@@ -1,0 +1,14 @@
+
+
+arr str test
+test.add("hello")
+test.add("+")
+test.add("+")
+test.add(".")
+test.add("!=")
+test.add("!")
+sortArrByLenOnly(test)
+Loop, % test.size()
+{
+print(test[A_Index])
+}

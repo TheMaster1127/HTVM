@@ -18,3 +18,4 @@ for A_Index1 = 0, 5 + 0 do
         print(A_Index2)
     end
 end
+print(5+5 ~= 5 notSZDS() .. "A+-+--+ != ADSF" .. "WSADFD" .. "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 ~= 8)

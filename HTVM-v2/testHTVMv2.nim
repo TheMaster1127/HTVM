@@ -25,3 +25,4 @@ for A_Index1 in 0..5 + 0:
             print("hello HTVM\nv2")
             print(A_Index3)
         print(A_Index2)
+print(5+5 != 5 notSZDS() & "A+-+--+ != ADSF" & "WSADFD" & "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)

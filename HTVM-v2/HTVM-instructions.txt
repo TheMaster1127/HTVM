@@ -3645,6 +3645,39 @@ def sortArr(input_list):
 funcEND======================funcEND==============
 func======================func==============
 lang: cpp
+name: sortArrByLenOnly
+libs: #include <iostream>|#include <vector>|#include <string>|#include <algorithm>
+description: string~~~sortArrByLenOnly is a function that sorts an array of strings by length in descending order~~~here is how the func looks like:~~~```~~~sortArrByLenOnly(arr str array)~~~```~~~
+// Function to sort an array of strings by length in descending order
+void sortArrByLenOnly(std::vector<std::string>& array) {
+    std::sort(array.begin(), array.end(), [](const std::string& a, const std::string& b) {
+        return a.length() > b.length();
+    });
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: sortArrByLenOnly
+libs: null
+description: string~~~sortArrByLenOnly is a function that sorts an array of strings by length in descending order~~~here is how the func looks like:~~~```~~~sortArrByLenOnly(arr str array)~~~```~~~
+// Function to sort an array of strings by length in descending order
+function sortArrByLenOnly(array) {
+    return array.sort((a, b) => b.length - a.length);
+}
+
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: sortArrByLenOnly
+libs: null
+description: string~~~sortArrByLenOnly is a function that sorts an array of strings by length in descending order~~~here is how the func looks like:~~~```~~~sortArrByLenOnly(arr str array)~~~```~~~
+# Function to sort an array of strings by length in descending order
+def sortArrByLenOnly(array):
+    array.sort(key=len, reverse=True)
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cpp
 name: countChars
 libs: #include <iostream>|#include <string>
 description: string~~~countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.~~~here is how the func looks like:~~~```~~~countChars(str string, str theChar)~~~```~~~
@@ -4005,7 +4038,7 @@ func======================func==============
 lang: js
 name: HTVM_v2_HTVM
 libs: null
-description: other~~~HTVM_v2_HTVM is a func that will help me make HTVM v2 DONT USE IT!!!
+description: null
 
 // HTVM_v2_HTVM()
 
@@ -4014,6 +4047,1206 @@ let noParams = false;
 
 function HTVM_v2_HTVM() {
 return
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cpp
+name: HTVM_Append
+libs: #include <iostream>|#include <vector>|#include <algorithm>
+description: null
+
+
+template <typename T>
+void HTVM_Append(std::vector<T>& arr, const T& value) {
+    arr.push_back(value);
+}
+
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cpp
+name: HTVM_Pop
+libs: #include <iostream>|#include <vector>|#include <algorithm>
+description: null
+
+template <typename T>
+void HTVM_Pop(std::vector<T>& arr) {
+    if (!arr.empty()) arr.pop_back();
+}
+
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cpp
+name: HTVM_Append
+libs: #include <iostream>|#include <vector>|#include <algorithm>
+description: null
+
+
+template <typename T>
+size_t HTVM_Size(const std::vector<T>& arr) {
+    return arr.size();
+}
+
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cpp
+name: HTVM_Append
+libs: #include <iostream>|#include <vector>|#include <algorithm>
+description: null
+
+template <typename T>
+void HTVM_Insert(std::vector<T>& arr, size_t index, const T& value) {
+    if (index <= arr.size()) arr.insert(arr.begin() + index, value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cpp
+name: HTVM_Append
+libs: #include <iostream>|#include <vector>|#include <algorithm>
+description: null
+
+template <typename T>
+void HTVM_Remove(std::vector<T>& arr, const T& value) {
+    arr.erase(std::remove(arr.begin(), arr.end(), value), arr.end());
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cpp
+name: HTVM_Append
+libs: #include <iostream>|#include <vector>|#include <algorithm>
+description: null
+
+template <typename T>
+int HTVM_IndexOf(const std::vector<T>& arr, const T& value) {
+    auto it = std::find(arr.begin(), arr.end(), value);
+    return (it != arr.end()) ? std::distance(arr.begin(), it) : -1;
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: py
+name: HTVM_Append
+libs: null
+description: null
+
+def HTVM_Append(arr, value):
+    arr.append(value)
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: py
+name: HTVM_Pop
+libs: null
+description: null
+
+def HTVM_Pop(arr):
+    if arr:
+        arr.pop()
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: py
+name: HTVM_Size
+libs: null
+description: null
+
+def HTVM_Size(arr):
+    return len(arr)
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: py
+name: HTVM_Insert
+libs: null
+description: null
+
+def HTVM_Insert(arr, index, value):
+    arr.insert(index, value)
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: py
+name: HTVM_Remove
+libs: null
+description: null
+
+def HTVM_Remove(arr, value):
+    if value in arr:
+        arr.remove(value)
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: py
+name: HTVM_IndexOf
+libs: null
+description: null
+
+def HTVM_IndexOf(arr, value):
+    return arr.index(value) if value in arr else -1
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: js
+name: HTVM_Append
+libs: null
+description: null
+
+function HTVM_Append(arr, value) {
+    arr.push(value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: js
+name: HTVM_Pop
+libs: null
+description: null
+
+function HTVM_Pop(arr) {
+    arr.pop();
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: js
+name: HTVM_Size
+libs: null
+description: null
+
+function HTVM_Size(arr) {
+    return arr.length;
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: js
+name: HTVM_Insert
+libs: null
+description: null
+
+function HTVM_Insert(arr, index, value) {
+    arr.splice(index, 0, value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: js
+name: HTVM_Remove
+libs: null
+description: null
+
+function HTVM_Remove(arr, value) {
+    let index = arr.indexOf(value);
+    if (index !== -1) arr.splice(index, 1);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: js
+name: HTVM_IndexOf
+libs: null
+description: null
+
+function HTVM_IndexOf(arr, value) {
+    return arr.indexOf(value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: go
+name: HTVM_Append
+libs: null
+description: null
+
+func HTVM_Append[T any](arr *[]T, value T) {
+    *arr = append(*arr, value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: go
+name: HTVM_Pop
+libs: null
+description: null
+
+func HTVM_Pop[T any](arr *[]T) {
+    if len(*arr) > 0 {
+        *arr = (*arr)[:len(*arr)-1]
+    }
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: go
+name: HTVM_Size
+libs: null
+description: null
+
+func HTVM_Size[T any](arr []T) int {
+    return len(arr)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: go
+name: HTVM_Insert
+libs: null
+description: null
+
+func HTVM_Insert[T any](arr *[]T, index int, value T) {
+    if index >= 0 && index <= len(*arr) {
+        *arr = append((*arr)[:index], append([]T{value}, (*arr)[index:]...)...)
+    }
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: go
+name: HTVM_Remove
+libs: null
+description: null
+
+func HTVM_Remove[T any](arr *[]T, value T) {
+    for i, v := range *arr {
+        if v == value {
+            *arr = append((*arr)[:i], (*arr)[i+1:]...)
+            break
+        }
+    }
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: go
+name: HTVM_IndexOf
+libs: null
+description: null
+
+func HTVM_IndexOf[T comparable](arr []T, value T) int {
+    for i, v := range arr {
+        if v == value {
+            return i
+        }
+    }
+    return -1
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: lua
+name: HTVM_Append
+libs: null
+description: null
+
+function HTVM_Append(arr, value)
+    table.insert(arr, value)
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: lua
+name: HTVM_Pop
+libs: null
+description: null
+
+function HTVM_Pop(arr)
+    table.remove(arr)
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: lua
+name: HTVM_Size
+libs: null
+description: null
+
+function HTVM_Size(arr)
+    return #arr
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: lua
+name: HTVM_Insert
+libs: null
+description: null
+
+function HTVM_Insert(arr, index, value)
+    table.insert(arr, index, value)
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: lua
+name: HTVM_Remove
+libs: null
+description: null
+
+function HTVM_Remove(arr, value)
+    for i, v in ipairs(arr) do
+        if v == value then
+            table.remove(arr, i)
+            break
+        end
+    end
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: lua
+name: HTVM_IndexOf
+libs: null
+description: null
+
+function HTVM_IndexOf(arr, value)
+    for i, v in ipairs(arr) do
+        if v == value then
+            return i
+        end
+    end
+    return -1
+end
+
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: cs
+name: HTVM_Append
+libs: using System;|using System.Collections.Generic;
+description: null
+
+public static void HTVM_Append<T>(List<T> arr, T value) {
+    arr.Add(value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cs
+name: HTVM_Pop
+libs: using System;|using System.Collections.Generic;
+description: null
+
+public static void HTVM_Pop<T>(List<T> arr) {
+    if (arr.Count > 0) arr.RemoveAt(arr.Count - 1);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cs
+name: HTVM_Size
+libs: using System;|using System.Collections.Generic;
+description: null
+
+public static int HTVM_Size<T>(List<T> arr) {
+    return arr.Count;
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cs
+name: HTVM_Insert
+libs: using System;|using System.Collections.Generic;
+description: null
+
+public static void HTVM_Insert<T>(List<T> arr, int index, T value) {
+    arr.Insert(index, value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cs
+name: HTVM_Remove
+libs: using System;|using System.Collections.Generic;
+description: null
+
+public static void HTVM_Remove<T>(List<T> arr, T value) {
+    arr.Remove(value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cs
+name: HTVM_IndexOf
+libs: using System;|using System.Collections.Generic;
+description: null
+
+public static int HTVM_IndexOf<T>(List<T> arr, T value) {
+    return arr.IndexOf(value);
+}
+
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: java
+name: HTVM_Append
+libs: import java.util.ArrayList;
+description: null
+
+public static <T> void HTVM_Append(ArrayList<T> arr, T value) {
+    arr.add(value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: java
+name: HTVM_Pop
+libs: import java.util.ArrayList;
+description: null
+
+public static <T> void HTVM_Pop(ArrayList<T> arr) {
+    if (!arr.isEmpty()) arr.remove(arr.size() - 1);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: java
+name: HTVM_Size
+libs: import java.util.ArrayList;
+description: null
+
+public static <T> int HTVM_Size(ArrayList<T> arr) {
+    return arr.size();
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: java
+name: HTVM_Insert
+libs: import java.util.ArrayList;
+description: null
+
+public static <T> void HTVM_Insert(ArrayList<T> arr, int index, T value) {
+    arr.add(index, value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: java
+name: HTVM_Remove
+libs: import java.util.ArrayList;
+description: null
+
+public static <T> void HTVM_Remove(ArrayList<T> arr, T value) {
+    arr.remove(value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: java
+name: HTVM_IndexOf
+libs: import java.util.ArrayList;
+description: null
+
+public static <T> int HTVM_IndexOf(ArrayList<T> arr, T value) {
+    return arr.indexOf(value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: kt
+name: HTVM_Append
+libs: null
+description: null
+
+fun <T> HTVM_Append(arr: MutableList<T>, value: T) {
+    arr.add(value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: kt
+name: HTVM_Pop
+libs: null
+description: null
+
+fun <T> HTVM_Pop(arr: MutableList<T>) {
+    if (arr.isNotEmpty()) arr.removeAt(arr.lastIndex)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: kt
+name: HTVM_Size
+libs: null
+description: null
+
+fun <T> HTVM_Size(arr: List<T>): Int {
+    return arr.size
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: kt
+name: HTVM_Insert
+libs: null
+description: null
+
+fun <T> HTVM_Insert(arr: MutableList<T>, index: Int, value: T) {
+    arr.add(index, value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: kt
+name: HTVM_Remove
+libs: null
+description: null
+
+fun <T> HTVM_Remove(arr: MutableList<T>, value: T) {
+    arr.remove(value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: kt
+name: HTVM_IndexOf
+libs: null
+description: null
+
+fun <T> HTVM_IndexOf(arr: List<T>, value: T): Int {
+    return arr.indexOf(value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: rb
+name: HTVM_Append
+libs: null
+description: null
+
+def HTVM_Append(arr, value)
+  arr << value
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: rb
+name: HTVM_Pop
+libs: null
+description: null
+
+def HTVM_Pop(arr)
+  arr.pop
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: rb
+name: HTVM_Size
+libs: null
+description: null
+
+def HTVM_Size(arr)
+  arr.size
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: rb
+name: HTVM_Insert
+libs: null
+description: null
+
+def HTVM_Insert(arr, index, value)
+  arr.insert(index, value)
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: rb
+name: HTVM_Remove
+libs: null
+description: null
+
+def HTVM_Remove(arr, value)
+  arr.delete(value)
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: rb
+name: HTVM_IndexOf
+libs: null
+description: null
+
+def HTVM_IndexOf(arr, value)
+  arr.index(value) || -1
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: nim
+name: HTVM_Append
+libs: null
+description: null
+
+proc HTVM_Append[T](arr: var seq[T], value: T) =
+  arr.add(value)
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: nim
+name: HTVM_Pop
+libs: null
+description: null
+
+proc HTVM_Pop[T](arr: var seq[T]) =
+  if arr.len > 0: arr.setLen(arr.len - 1)
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: nim
+name: HTVM_Size
+libs: null
+description: null
+
+proc HTVM_Size[T](arr: seq[T]): int =
+  return arr.len
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: nim
+name: HTVM_Insert
+libs: null
+description: null
+
+proc HTVM_Insert[T](arr: var seq[T], index: int, value: T) =
+  if index >= 0 and index <= arr.len:
+    arr.insert(index, value)
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: nim
+name: HTVM_Remove
+libs: null
+description: null
+
+proc HTVM_Remove[T](arr: var seq[T], value: T) =
+  for i, v in arr:
+    if v == value:
+      arr.del(i)
+      break
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: nim
+name: HTVM_IndexOf
+libs: null
+description: null
+
+proc HTVM_IndexOf[T](arr: seq[T], value: T): int =
+  for i, v in arr:
+    if v == value: return i
+  return -1
+
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: ahk
+name: HTVM_Append
+libs: null
+description: null
+
+HTVM_Append(arr, value) {
+    arr.Push(value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ahk
+name: HTVM_Pop
+libs: null
+description: null
+
+HTVM_Pop(arr) {
+    arr.RemoveAt(arr.MaxIndex())
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ahk
+name: HTVM_Size
+libs: null
+description: null
+
+HTVM_Size(arr) {
+    return arr.Length()
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ahk
+name: HTVM_Insert
+libs: null
+description: null
+
+HTVM_Insert(arr, index, value) {
+    arr.InsertAt(index, value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ahk
+name: HTVM_Remove
+libs: null
+description: null
+
+HTVM_Remove(arr, value) {
+    for k, v in arr {
+        if (v = value) {
+            arr.RemoveAt(k)
+            break
+        }
+    }
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ahk
+name: HTVM_IndexOf
+libs: null
+description: null
+
+HTVM_IndexOf(arr, value) {
+    for k, v in arr {
+        if (v = value)
+            return k
+    }
+    return -1
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: swift
+name: HTVM_Append
+libs: null
+description: null
+
+func HTVM_Append<T>(_ arr: inout [T], _ value: T) {
+    arr.append(value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: swift
+name: HTVM_Pop
+libs: null
+description: null
+
+func HTVM_Pop<T>(_ arr: inout [T]) {
+    if !arr.isEmpty {
+        arr.removeLast()
+    }
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: swift
+name: HTVM_Size
+libs: null
+description: null
+
+func HTVM_Size<T>(_ arr: [T]) -> Int {
+    return arr.count
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: swift
+name: HTVM_Insert
+libs: null
+description: null
+
+func HTVM_Insert<T>(_ arr: inout [T], _ index: Int, _ value: T) {
+    arr.insert(value, at: index)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: swift
+name: HTVM_Remove
+libs: null
+description: null
+
+func HTVM_Remove<T: Equatable>(_ arr: inout [T], _ value: T) {
+    if let index = arr.firstIndex(of: value) {
+        arr.remove(at: index)
+    }
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: swift
+name: HTVM_IndexOf
+libs: null
+description: null
+
+func HTVM_IndexOf<T: Equatable>(_ arr: [T], _ value: T) -> Int? {
+    return arr.firstIndex(of: value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: dart
+name: HTVM_Append
+libs: null
+description: null
+
+void HTVM_Append<T>(List<T> arr, T value) {
+  arr.add(value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: dart
+name: HTVM_Pop
+libs: null
+description: null
+
+void HTVM_Pop<T>(List<T> arr) {
+  if (arr.isNotEmpty) arr.removeLast();
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: dart
+name: HTVM_Size
+libs: null
+description: null
+
+int HTVM_Size<T>(List<T> arr) {
+  return arr.length;
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: dart
+name: HTVM_Insert
+libs: null
+description: null
+
+void HTVM_Insert<T>(List<T> arr, int index, T value) {
+  arr.insert(index, value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: dart
+name: HTVM_Remove
+libs: null
+description: null
+
+void HTVM_Remove<T>(List<T> arr, T value) {
+  arr.remove(value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: dart
+name: HTVM_IndexOf
+libs: null
+description: null
+
+int HTVM_IndexOf<T>(List<T> arr, T value) {
+  return arr.indexOf(value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ts
+name: HTVM_Append
+libs: null
+description: null
+
+function HTVM_Append<T>(arr: T[], value: T): void {
+    arr.push(value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ts
+name: HTVM_Pop
+libs: null
+description: null
+
+function HTVM_Pop<T>(arr: T[]): void {
+    arr.pop();
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ts
+name: HTVM_Size
+libs: null
+description: null
+
+function HTVM_Size<T>(arr: T[]): number {
+    return arr.length;
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ts
+name: HTVM_Insert
+libs: null
+description: null
+
+function HTVM_Insert<T>(arr: T[], index: number, value: T): void {
+    arr.splice(index, 0, value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ts
+name: HTVM_Remove
+libs: null
+description: null
+
+function HTVM_Remove<T>(arr: T[], value: T): void {
+    const index = arr.indexOf(value);
+    if (index !== -1) arr.splice(index, 1);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ts
+name: HTVM_IndexOf
+libs: null
+description: null
+
+function HTVM_IndexOf<T>(arr: T[], value: T): number {
+    return arr.indexOf(value);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: scala
+name: HTVM_Append
+libs: null
+description: null
+
+def HTVM_Append[T](arr: scala.collection.mutable.Buffer[T], value: T): Unit = {
+  arr += value
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: scala
+name: HTVM_Pop
+libs: null
+description: null
+
+def HTVM_Pop[T](arr: scala.collection.mutable.Buffer[T]): Unit = {
+  if (arr.nonEmpty) arr.remove(arr.size - 1)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: scala
+name: HTVM_Size
+libs: null
+description: null
+
+def HTVM_Size[T](arr: Seq[T]): Int = arr.size
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: scala
+name: HTVM_Insert
+libs: null
+description: null
+
+def HTVM_Insert[T](arr: scala.collection.mutable.Buffer[T], index: Int, value: T): Unit = {
+  arr.insert(index, value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: scala
+name: HTVM_Remove
+libs: null
+description: null
+
+def HTVM_Remove[T](arr: scala.collection.mutable.Buffer[T], value: T): Unit = {
+  arr -= value
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: scala
+name: HTVM_IndexOf
+libs: null
+description: null
+
+def HTVM_IndexOf[T](arr: Seq[T], value: T): Int = {
+  arr.indexOf(value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: groovy
+name: HTVM_Append
+libs: null
+description: null
+
+def HTVM_Append(arr, value) {
+    arr.add(value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: groovy
+name: HTVM_Pop
+libs: null
+description: null
+
+def HTVM_Pop(arr) {
+    if (!arr.isEmpty()) arr.remove(arr.size() - 1)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: groovy
+name: HTVM_Size
+libs: null
+description: null
+
+def HTVM_Size(arr) {
+    return arr.size()
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: groovy
+name: HTVM_Insert
+libs: null
+description: null
+
+def HTVM_Insert(arr, index, value) {
+    arr.add(index, value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: groovy
+name: HTVM_Remove
+libs: null
+description: null
+
+def HTVM_Remove(arr, value) {
+    arr.remove(value)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: groovy
+name: HTVM_IndexOf
+libs: null
+description: null
+
+def HTVM_IndexOf(arr, value) {
+    return arr.indexOf(value)
 }
 
 funcEND======================funcEND==============

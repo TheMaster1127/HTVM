@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <iostream>
 #include <optional>
+#include <set>
 #include <sstream>
 #include <string>
 #include <type_traits>
@@ -34,26 +35,31 @@ void print(const T& value) {
     }
 }
 
+// Function to sort and remove duplicates
+std::vector<std::string> sortArr(const std::vector<std::string>& input) {
+    std::set<std::string> uniqueSorted(input.begin(), input.end());
+    return std::vector<std::string>(uniqueSorted.begin(), uniqueSorted.end());
+}
+
+// Function to sort an array of strings by length in descending order
+void sortArrByLenOnly(std::vector<std::string>& array) {
+    std::sort(array.begin(), array.end(), [](const std::string& a, const std::string& b) {
+        return a.length() > b.length();
+    });
+}
+
 
 int main(int argc, char* argv[]) {
-    for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-        print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA1AA);
-        print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA2AA);
-        int asdfd12 = 5;
-        int asdfd23 = 56;
-        int asdfd34 = 5;
-        print(A_Index1);
-        for (int A_Index2 = 0; A_Index2 < 5 + 0; A_Index2++) {
-            print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA3AA);
-            print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA4AA);
-            for (int A_Index3 = 0; A_Index3 < 5 + 0; A_Index3++) {
-                print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA5AA);
-                print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA6AA);
-                print(A_Index3);
-            }
-            print(A_Index2);
-        }
+    std::vector<std::string> test;
+    test.push_back("hello");
+    test.push_back("+");
+    test.push_back("+");
+    test.push_back(".");
+    test.push_back("!=");
+    test.push_back("!");
+    sortArrByLenOnly(test);
+    for (int A_Index1 = 0; A_Index1 < test.size() + 0; A_Index1++) {
+        print(test[A_Index1]);
     }
-    print(5+5 != 5 !SZDS() + ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA7AA + ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA8AA + ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA9AA + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8);
     return 0;
 }

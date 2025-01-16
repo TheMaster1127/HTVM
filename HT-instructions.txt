@@ -522,7 +522,7 @@ name: Abs
 libs: #include <string>
 description: math~~~Abs is a function that returns the absolute value of the provided number.~~~here is how the func looks like:~~~```~~~Abs(int value)~~~```~~~
 double Abs(double value) {
-    return std::fabs(value);
+    return std::abs(value);
 }
 funcEND======================funcEND==============
 func======================func==============
@@ -3071,6 +3071,39 @@ def sortArr(input_list):
     """
     return sorted(set(input_list))
 funcEND======================funcEND==============
+func======================func==============
+lang: cpp
+name: sortArrByLenOnly
+libs: #include <iostream>|#include <vector>|#include <string>|#include <algorithm>
+description: string~~~sortArrByLenOnly is a function that sorts an array of strings by length in descending order~~~here is how the func looks like:~~~```~~~sortArrByLenOnly(arr str array)~~~```~~~
+// Function to sort an array of strings by length in descending order
+void sortArrByLenOnly(std::vector<std::string>& array) {
+    std::sort(array.begin(), array.end(), [](const std::string& a, const std::string& b) {
+        return a.length() > b.length();
+    });
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: sortArrByLenOnly
+libs: null
+description: string~~~sortArrByLenOnly is a function that sorts an array of strings by length in descending order~~~here is how the func looks like:~~~```~~~sortArrByLenOnly(arr str array)~~~```~~~
+// Function to sort an array of strings by length in descending order
+function sortArrByLenOnly(array) {
+    return array.sort((a, b) => b.length - a.length);
+}
+
+funcEND======================funcEND==============
+func======================func==============
+lang: py
+name: sortArrByLenOnly
+libs: null
+description: string~~~sortArrByLenOnly is a function that sorts an array of strings by length in descending order~~~here is how the func looks like:~~~```~~~sortArrByLenOnly(arr str array)~~~```~~~
+# Function to sort an array of strings by length in descending order
+def sortArrByLenOnly(array):
+    array.sort(key=len, reverse=True)
+funcEND======================funcEND==============
+
 func======================func==============
 lang: cpp
 name: countChars

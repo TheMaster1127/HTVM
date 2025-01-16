@@ -1,9 +1,369 @@
-str text := "cpp`n`rhtvm2`r`nwaedsfg`r`nwaedsfg"
+str langToConvertTo := "py"
 
-print(Trim(StrSplit(StrReplace(text, Chr(13), ""), "`n", 2)))
-str out := Trim(StrSplit(StrReplace(text, Chr(13), ""), "`n", 2))
+str keyWordArrayAppend := ".add"
+str keyWordArrayPop := ".pop"
+str keyWordArraySize := ".size"
+str keyWordArrayInsert := ".inster"
+str keyWordArrayRemove := ".rm"
+str keyWordArrayIndexOf := ".indexOf"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; end
 
-Loop, Parse, out
+
+func str fixArray1234(str line)
 {
-print(Asc(A_LoopField))
+str out := ""
+int started := 0
+
+
+Loop, Parse, line
+{
+if (started = 1)
+{
+if (StrLen(line) = A_Index + 1)
+{
+return out
 }
+out .= A_LoopField
+}
+
+if (A_LoopField = "(")
+{
+started := 1
+}
+
+}
+return out
+}
+
+func str fixArray123(str line, str arrayMethodStr, int mode)
+{
+; mode 1 = Append
+; mode 2 = Pop
+; mode 3 = Size
+; mode 4 = Insert
+; mode 5 = Remove
+; mode 6 = IndexOf
+
+; HTVM_Append
+; HTVM_Pop
+; HTVM_Size
+; HTVM_Insert
+; HTVM_Remove
+; HTVM_IndexOf
+
+if (langToConvertTo != "swift")
+{
+
+if (mode = 1) 
+{
+return "HTVM_Append(" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+if (mode = 2)
+{
+return "HTVM_Pop(" . StrSplit(line, ".", 1) . ")"
+}
+
+if (mode = 3)
+{
+return "HTVM_Size(" . StrSplit(line, ".", 1) . ")"
+}
+
+if (mode = 4)
+{
+return "HTVM_Insert(" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+if (mode = 5)
+{
+return "HTVM_Remove(" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+if (mode = 6)
+{
+return "HTVM_IndexOf(" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+
+}
+else
+{
+
+if (mode = 1) 
+{
+return "HTVM_Append(&" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+if (mode = 2)
+{
+return "HTVM_Pop(&" . StrSplit(line, ".", 1) . ")"
+}
+
+if (mode = 3)
+{
+return "HTVM_Size(" . StrSplit(line, ".", 1) . ")"
+}
+
+if (mode = 4)
+{
+return "HTVM_Insert(&" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+if (mode = 5)
+{
+return "HTVM_Remove(&" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+if (mode = 6)
+{
+return "HTVM_IndexOf(" . StrSplit(line, ".", 1) . ", " . await fixArray1234(line) . ")"
+}
+
+
+}
+
+
+return line
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str arrayParserTranspiler1(str line, str arrayMethodStr, int mode)
+{
+str out := ""
+str allDelimiters := " ()[],;:'!&|=<>+-*/^%~" . Chr(34) . Chr(9) . Chr(11)
+arr str arrAll
+Loop, Parse, line
+{
+arrAll.add(A_LoopField)
+}
+
+
+int i1 := 0
+str tempHold := ""
+int holdPos := 0
+
+arr int holdPositions
+Loop, % arrAll.size()
+{
+tempHold := ""
+if (arrAll.size() - StrLen(arrayMethodStr) + 1 = i1)
+{
+break
+}
+
+Loop, StrLen(arrayMethodStr)
+{
+tempHold .= arrAll[A_Index + i1]
+}
+
+i1++
+;print(tempHold)
+if (tempHold = arrayMethodStr)
+{
+holdPos := i1
+;print(holdPos)
+holdPositions.add(holdPos)
+}
+
+}
+
+;print("===========================================")
+
+int holdPositionsTEMP := 0
+Loop, % holdPositions.size()
+{
+holdPositionsTEMP := holdPositions[A_Index]
+i1 := arrAll.size()
+tempHold := ""
+Loop, % arrAll.size()
+{
+
+if (holdPositionsTEMP >= i1 + 1)
+{
+if (InStr(allDelimiters, arrAll[i1]) = false) 
+{
+tempHold .= arrAll[i1 - 1]
+}
+else
+{
+break
+}
+
+}
+
+
+i1--
+}
+
+
+;print(await StrLen(Trim(RegExReplace(tempHold, "[^A-Za-z0-9_]", ""))))
+holdPositions[A_Index] := holdPositions[A_Index] - StrLen(Trim(RegExReplace(tempHold, "[^A-Za-z0-9_]", "")))
+}
+
+
+
+;;;;;;;;;;;;;;;;;;;
+
+
+int foundFirstParenthesis := 0
+int ParenthesisStackOPEN := 0
+int ParenthesisStackCLOSE := 0
+
+arr int holdPositionsEnd
+
+holdPositionsTEMP := 0
+Loop, % holdPositions.size()
+{
+holdPositionsTEMP := holdPositions[A_Index]
+i1 := 0
+tempHold := ""
+
+foundFirstParenthesis := 0
+ParenthesisStackOPEN := 0
+ParenthesisStackCLOSE := 0
+
+Loop, % arrAll.size()
+{
+
+if (holdPositionsTEMP < i1 + 1)
+{
+
+if (arrAll[i1] = "(")
+{
+foundFirstParenthesis := 1
+}
+
+if (arrAll[i1] = "(") and (foundFirstParenthesis = 1)
+{
+ParenthesisStackOPEN++
+}
+
+
+if (arrAll[i1] = ")") and (foundFirstParenthesis = 1)
+{
+ParenthesisStackCLOSE++
+}
+tempHold .= arrAll[i1 - 1]
+if (ParenthesisStackOPEN = ParenthesisStackCLOSE) and (foundFirstParenthesis = 1)
+{
+tempHold .= arrAll[i1]
+holdPositionsEnd.add(i1 + 1)
+break
+}
+
+
+}
+
+
+i1++
+}
+;print(tempHold)
+
+}
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+int startPosReplace := 0
+int endPosReplace := 0
+int beenInside := 0
+str holdDebug := ""
+int holdDebugLen := 0
+int canOut := 1
+
+Loop, % holdPositions.size()
+{
+
+startPosReplace := holdPositions[holdPositions.size() - A_Index - 1]
+endPosReplace := holdPositionsEnd[holdPositions.size() - A_Index - 1]
+
+
+holdDebug := ""
+beenInside := 0
+
+holdDebugLen := 0
+canOut := 1
+Loop, Parse, line
+{
+if (A_Index + 1 >= startPosReplace) and (A_Index + 1 <= endPosReplace)
+{
+holdDebug .= A_LoopField
+}
+}
+
+holdDebugLen := StrLen(holdDebug)
+
+Loop, Parse, line
+{
+if (A_Index + 1 >= startPosReplace) and (A_Index + 1 <= endPosReplace)
+{
+beenInside++
+}
+if (beenInside = 1)
+{
+out .= await fixArray123(holdDebug, arrayMethodStr, mode)
+canOut := 0
+}
+else
+{
+
+if (canOut = 0)
+{
+holdDebugLen--
+if (holdDebugLen = 0)
+{
+canOut := 1
+}
+}
+
+if (canOut = 1)
+{
+out .= A_LoopField
+}
+
+
+}
+}
+
+;print("|" . holdDebug . "|")
+
+line := out
+out := ""
+}
+
+
+return line
+}
+
+func str arrayParserTranspiler(str line)
+{
+; mode 1 = Append
+; mode 2 = Pop
+; mode 3 = Size
+; mode 4 = Insert
+; mode 5 = Remove
+; mode 6 = IndexOf
+
+line := await arrayParserTranspiler1(line, keyWordArrayAppend . "(", 1)
+line := await arrayParserTranspiler1(line, keyWordArrayPop . "(", 2)
+line := await arrayParserTranspiler1(line, keyWordArraySize . "(", 3)
+line := await arrayParserTranspiler1(line, keyWordArrayInsert . "(", 4)
+line := await arrayParserTranspiler1(line, keyWordArrayRemove . "(", 5)
+line := await arrayParserTranspiler1(line, keyWordArrayIndexOf . "(", 6)
+
+return line
+}
+
+main
+
+print(await arrayParserTranspiler("()()()arr123.size() + arr1234.indexOf(arr12.size() + arrr1234.add(5) + arrr1234.rm(2), arr12.size(), 2)"))
+print(await arrayParserTranspiler("arr123.size()"))
+print(await arrayParserTranspiler("arr123.size() + arr123.size() + arr123.size() + arr123.size()"))
+print(await arrayParserTranspiler("arr1234.size() + arr123.size() + arr12345.size() + arr12.size()"))
+print(await arrayParserTranspiler("arr12.size() + arr123.size() + arr1.size() + arr123.size()"))
+print(await arrayParserTranspiler("arr12.size() + arr123.size() + arr1.size() + arr12366.size()"))
+
