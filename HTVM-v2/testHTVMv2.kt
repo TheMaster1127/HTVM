@@ -10,22 +10,32 @@ fun print(value: Any) {
     }
 }
 
+fun <T> HTVM_Append(arr: MutableList<T>, value: T) {
+    arr.add(value)
+}
+
+fun <T> HTVM_Size(arr: List<T>): Int {
+    return arr.size
+}
+
 
 fun main(args: Array<String>) {
     for (A_Index1 in 0..5 + 0) {
-        print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA1AA)
-        print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA2AA)
+        print("hello HTVM v2")
+        print("hello HTVM\nv2")
         print(A_Index1)
         for (A_Index2 in 0..5 + 0) {
-            print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA3AA)
-            print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA4AA)
+            print("hello HTVM v2")
+            print("hello HTVM\nv2")
             for (A_Index3 in 0..5 + 0) {
-                print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA5AA)
-                print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA6AA)
+                print("hello HTVM v2")
+                print("hello HTVM\nv2")
                 print(A_Index3)
             }
             print(A_Index2)
         }
     }
-    print(5+5 != 5 !SZDS() + ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA7AA + ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA8AA + ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA9AA + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
+    print(5+5 != 5 !SZDS() + "A+-+--+ != ADSF" + "WSADFD" + "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
+    if print("QWADSDF" + "qawdsf" || var1 ! var4 + "ASDFX" + !ADSFD("Qwads" + "QASD" + "aszd" < 6) false else true || null && false)
+    print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)))
 }

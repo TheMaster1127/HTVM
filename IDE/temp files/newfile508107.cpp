@@ -42,10 +42,20 @@ std::string RegExReplace(const std::string& inputStr, const std::string& regexPa
 
 
 int main(int argc, char* argv[]) {
-    std::string text = "null + true";
-    std::string wordToReplace = "null";
-    std::string replaceWith = "nil";
-    // Call the RegExReplace function
-    print(RegExReplace(text, "(^|[^a-zA-Z0-9_])(" + wordToReplace + ")([^a-zA-Z0-9_]|$)", "$1" + replaceWith + "$3"));
+    std::string outCode = "var1 := ";
+    // Example C++ ternary expressions
+    std::string cpp_code = "day == SUNDAY ? 12 : 9";
+    // Convert C++ ternary to Python ternary using RegExReplace
+    std::string python_code = RegExReplace(cpp_code, "(.*?)\\s*\\?\\s*(.*?)\\s*:\\s*(.*?)", "$2 if $1 else $3");
+    std::string nim_code = RegExReplace(cpp_code, "(.*?)\\s*\\?\\s*(.*?)\\s*:\\s*(.*)", "if $1: $2 else: $3");
+    // Convert C++ ternary to Lua ternary-like expression using RegExReplace
+    std::string lua_code = RegExReplace(cpp_code, "(.*?)\\s*\\?\\s*(.*?)\\s*:\\s*(.*?)", "($1) and $2 or $3");
+    // Convert C++ ternary to Kotlin/Scala ternary-like expression using RegExReplace
+    std::string kotlin_code = RegExReplace(cpp_code, "(.*?)\\s*\\?\\s*(.*?)\\s*:\\s*(.*?)", "if $1 $2 else $3");
+    // Output the converted code for Python, Nim, Lua, and Kotlin/Scala
+    print(outCode + python_code);
+    print(outCode + nim_code);
+    print(outCode + lua_code);
+    print(outCode + kotlin_code);
     return 0;
 }

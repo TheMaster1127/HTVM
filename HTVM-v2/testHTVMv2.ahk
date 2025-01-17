@@ -6,21 +6,31 @@ print(value) {
         MsgBox % value
 }
 
+HTVM_Append(arr, value) {
+    arr.Push(value)
+}
+
+HTVM_Size(arr) {
+    return arr.Length()
+}
+
 
 
 Loop, 5 {
-    print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA1AA)
-    print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA2AA)
+    print("hello HTVM v2")
+    print("hello HTVM\nv2")
     print(A_Index)
     Loop, 5 {
-        print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA3AA)
-        print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA4AA)
+        print("hello HTVM v2")
+        print("hello HTVM\nv2")
         Loop, 5 {
-            print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA5AA)
-            print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA6AA)
+            print("hello HTVM v2")
+            print("hello HTVM\nv2")
             print(A_Index)
         }
         print(A_Index)
     }
 }
-print(5+5 != 5 !SZDS() . ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA7AA . ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA8AA . ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA9AA + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
+print(5+5 != 5 !SZDS() . "A+-+--+ != ADSF" . "WSADFD" . "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
+print("QWADSDF" . "qawdsf" || var1 ! var4 . "ASDFX" . !ADSFD("Qwads" . "QASD" . "aszd" < 6) ? false : true || "" && false)
+print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)))

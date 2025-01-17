@@ -2413,8 +2413,8 @@ if (langToConvertTo = "py")
     fullLangAllOperators.add("<<")
     fullLangAllOperators.add(">>")
     fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
-    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
-    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
 }
 
 if (langToConvertTo = "js")
@@ -2479,8 +2479,8 @@ if (langToConvertTo = "go")
     fullLangAllOperators.add("<<")
     fullLangAllOperators.add(">>")
     fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
-    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
-    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN GO SINCE GO DOES NOT HAVE A TERNARY OPERATOR")
+    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN GO SINCE GO DOES NOT HAVE A TERNARY OPERATOR")
 }
 
 if (langToConvertTo = "lua")
@@ -2512,8 +2512,8 @@ if (langToConvertTo = "lua")
     fullLangAllOperators.add("<<")
     fullLangAllOperators.add(">>")
     fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
-    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
-    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
 }
 
 if (langToConvertTo = "cs")
@@ -2677,8 +2677,8 @@ if (langToConvertTo = "nim")
     fullLangAllOperators.add("shl")
     fullLangAllOperators.add("shr")
     fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
-    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
-    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
 }
 
 
@@ -2843,8 +2843,8 @@ if (langToConvertTo = "scala")
     fullLangAllOperators.add("<<")
     fullLangAllOperators.add(">>")
     fullLangAllOperators.add(">>>")
-    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
-    fullLangAllOperators.add("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR")
+    fullLangAllOperators.add("?")
+    fullLangAllOperators.add(":")
 }
 
 if (langToConvertTo = "groovy")
@@ -2920,173 +2920,120 @@ func arr str GETfullLangAllOperators_HELP()
 {
 arr str fullLangAllOperators_HELP
 
-fullLangAllOperators_HELP.add("01|" . keyWordNull)
-fullLangAllOperators_HELP.add("02|" . keyWordTrue)
-fullLangAllOperators_HELP.add("03|" . keyWordFalse)
-fullLangAllOperators_HELP.add("04|" . keyWordConcat)
-fullLangAllOperators_HELP.add("05|" . keyWordAdd)
-fullLangAllOperators_HELP.add("06|" . keyWordSub)
-fullLangAllOperators_HELP.add("07|" . keyWordMul)
-fullLangAllOperators_HELP.add("08|" . keyWordDiv)
-fullLangAllOperators_HELP.add("09|" . keyWordMod)
-fullLangAllOperators_HELP.add("10|" . keyWordExp)
-fullLangAllOperators_HELP.add("11|" . keyWordEqual)
-fullLangAllOperators_HELP.add("12|" . keyWordStrictEqual)
-fullLangAllOperators_HELP.add("13|" . keyWordNotEqual)
-fullLangAllOperators_HELP.add("14|" . keyWordGreater)
-fullLangAllOperators_HELP.add("15|" . keyWordLess)
-fullLangAllOperators_HELP.add("16|" . keyWordGreaterEqual)
-fullLangAllOperators_HELP.add("17|" . keyWordLessEqual)
-fullLangAllOperators_HELP.add("18|" . keyWordAnd)
-fullLangAllOperators_HELP.add("19|" . keyWordOr)
-fullLangAllOperators_HELP.add("20|" . keyWordNot)
-fullLangAllOperators_HELP.add("21|" . keyWordBitAnd)
-fullLangAllOperators_HELP.add("22|" . keyWordBitOr)
-fullLangAllOperators_HELP.add("23|" . keyWordBitXor)
-fullLangAllOperators_HELP.add("24|" . keyWordBitNot)
-fullLangAllOperators_HELP.add("25|" . keyWordShiftLeft)
-fullLangAllOperators_HELP.add("26|" . keyWordShiftRight)
-fullLangAllOperators_HELP.add("27|" . keyWordShiftUnsignedRight)
-fullLangAllOperators_HELP.add("28|" . keyWordTernary1)
-fullLangAllOperators_HELP.add("29|" . keyWordTernary2)
+fullLangAllOperators_HELP.add(keyWordNull)
+fullLangAllOperators_HELP.add(keyWordTrue)
+fullLangAllOperators_HELP.add(keyWordFalse)
+fullLangAllOperators_HELP.add(keyWordConcat)
+fullLangAllOperators_HELP.add(keyWordAdd)
+fullLangAllOperators_HELP.add(keyWordSub)
+fullLangAllOperators_HELP.add(keyWordMul)
+fullLangAllOperators_HELP.add(keyWordDiv)
+fullLangAllOperators_HELP.add(keyWordMod)
+fullLangAllOperators_HELP.add(keyWordExp)
+fullLangAllOperators_HELP.add(keyWordEqual)
+fullLangAllOperators_HELP.add(keyWordStrictEqual)
+fullLangAllOperators_HELP.add(keyWordNotEqual)
+fullLangAllOperators_HELP.add(keyWordGreater)
+fullLangAllOperators_HELP.add(keyWordLess)
+fullLangAllOperators_HELP.add(keyWordGreaterEqual)
+fullLangAllOperators_HELP.add(keyWordLessEqual)
+fullLangAllOperators_HELP.add(keyWordAnd)
+fullLangAllOperators_HELP.add(keyWordOr)
+fullLangAllOperators_HELP.add(keyWordNot)
+fullLangAllOperators_HELP.add(keyWordBitAnd)
+fullLangAllOperators_HELP.add(keyWordBitOr)
+fullLangAllOperators_HELP.add(keyWordBitXor)
+fullLangAllOperators_HELP.add(keyWordBitNot)
+fullLangAllOperators_HELP.add(keyWordShiftLeft)
+fullLangAllOperators_HELP.add(keyWordShiftRight)
+fullLangAllOperators_HELP.add(keyWordShiftUnsignedRight)
+fullLangAllOperators_HELP.add(keyWordTernary1)
+fullLangAllOperators_HELP.add(keyWordTernary2)
 
 
-sortArrByLenOnly(fullLangAllOperators_HELP)
 return fullLangAllOperators_HELP
 }
+
+
+
 
 func str expressionParserTranspiler(str expression)
 {
 
 
+
 Loop, 29
 {
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "01")
-    {
-        expression := await StrReplace(expression, keyWordNull, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA1AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "02")
-    {
-        expression := await StrReplace(expression, keyWordTrue, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA2AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "03")
-    {
-        expression := await StrReplace(expression, keyWordFalse, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA3AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "04")
-    {
-        expression := await StrReplace(expression, keyWordConcat, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA4AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "05")
-    {
-        expression := await StrReplace(expression, keyWordAdd, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA5AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "06")
-    {
-        expression := await StrReplace(expression, keyWordSub, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA6AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "07")
-    {
-        expression := await StrReplace(expression, keyWordMul, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA7AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "08")
-    {
-        expression := await StrReplace(expression, keyWordDiv, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA8AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "09")
-    {
-        expression := await StrReplace(expression, keyWordMod, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA9AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "10")
-    {
-        expression := await StrReplace(expression, keyWordExp, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA10AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "11")
-    {
-        expression := await StrReplace(expression, keyWordEqual, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA11AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "12")
-    {
-        expression := await StrReplace(expression, keyWordStrictEqual, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA12AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "13")
-    {
-        expression := await StrReplace(expression, keyWordNotEqual, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA13AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "14")
-    {
-        expression := await StrReplace(expression, keyWordGreater, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA14AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "15")
-    {
-        expression := await StrReplace(expression, keyWordLess, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA15AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "16")
-    {
-        expression := await StrReplace(expression, keyWordGreaterEqual, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA16AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "17")
-    {
-        expression := await StrReplace(expression, keyWordLessEqual, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA17AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "18")
-    {
-        expression := await StrReplace(expression, keyWordAnd, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA18AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "19")
-    {
-        expression := await StrReplace(expression, keyWordOr, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA19AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "20")
-    {
-        expression := await StrReplace(expression, keyWordNot, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA20AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "21")
-    {
-        expression := await StrReplace(expression, keyWordBitAnd, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA21AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "22")
-    {
-        expression := await StrReplace(expression, keyWordBitOr, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA22AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "23")
-    {
-        expression := await StrReplace(expression, keyWordBitXor, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA23AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "24")
-    {
-        expression := await StrReplace(expression, keyWordBitNot, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA24AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "25")
-    {
-        expression := await StrReplace(expression, keyWordShiftLeft, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA25AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "26")
-    {
-        expression := await StrReplace(expression, keyWordShiftRight, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA26AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "27")
-    {
-        expression := await StrReplace(expression, keyWordShiftUnsignedRight, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA27AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "28")
-    {
-        expression := await StrReplace(expression, keyWordTernary1, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA28AA")
-    }
-    if (StrSplit(fullLangAllOperators_HELP[A_Index], "|", 1) = "29")
-    {
-        expression := await StrReplace(expression, keyWordTernary2, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA29AA")
-    }
-}
-    
-Loop, 29
+if (InStr(expression, fullLangAllOperators_HELP[A_Index]))
 {
-expression := StrReplace(expression, "asihgapvaQQQsQQQvbaQQQfvsbaQQQABSQQQWERSQQQFZDQQQSDXVQQQQQQAsdfdgdQQQasxAA" . STR(A_Index + 1) . "AA", fullLangAllOperators[A_Index])
+if (A_Index = 0) or (A_Index = 1) or (A_Index = 2)  ; Changed 'and' to 'or' to check for any of these indexes
+{
+expression := RegExReplace(expression, "\b" . fullLangAllOperators_HELP[A_Index] . "\b", fullLangAllOperators[A_Index])
 }
+else
+{
+if (A_Index = 19)
+{
+
+if (langToConvertTo = "py") or (langToConvertTo = "lua") or (langToConvertTo = "nim")
+{
+expression := RegExReplace(expression, "\b" . fullLangAllOperators_HELP[A_Index] . "\b", "not")
+}
+else
+{
+expression := RegExReplace(expression, "\b" . fullLangAllOperators_HELP[A_Index] . "\b", "!")
+}
+
+if (langToConvertTo = "py") or (langToConvertTo = "lua") or (langToConvertTo = "nim")
+{
+expression := RegExReplace(expression, "!([\w]+)", "not $1")
+}
+expression := StrReplace(expression, " not= ", " != ")
+}
+else
+{
+expression := StrReplace(expression, " " . fullLangAllOperators_HELP[A_Index] . " ", " " . fullLangAllOperators[A_Index] . " ")
+
+if (A_Index = 28)
+{
+if (langToConvertTo = "py")
+{
+; Convert C-like ternary to Python ternary using RegExReplace
+expression := RegExReplace(expression, "(.*?)\s*\?\s*(.*?)\s*:\s*(.*?)", "$2 if $1 else $3")
+}
+if (langToConvertTo = "nim")
+{
+; Convert C-like ternary to Nim ternary using RegExReplace
+expression := RegExReplace(expression, "(.*?)\s*\?\s*(.*?)\s*:\s*(.*)", "if $1: $2 else: $3")
+}
+if (langToConvertTo = "lua")
+{
+; Convert C-like ternary to Lua ternary-like expression using RegExReplace
+expression := RegExReplace(expression, "(.*?)\s*\?\s*(.*?)\s*:\s*(.*?)", "($1) and $2 or $3")
+}
+if (langToConvertTo = "scala") or (langToConvertTo = "kt")
+{
+; Convert C-like ternary to Kotlin/Scala ternary-like expression using RegExReplace
+expression := RegExReplace(expression, "(.*?)\s*\?\s*(.*?)\s*:\s*(.*?)", "if $1 $2 else $3")
+}
+}
+
+}
+}
+
+
+
+}
+}
+
+
+
+
 ; extra for array methods
 expression := await arrayParserTranspiler(expression)
 return expression
 }
+
 
 
 

@@ -34,26 +34,54 @@ void print(const T& value) {
     }
 }
 
+template <typename T>
+void HTVM_Append(std::vector<T>& arr, const T& value) {
+    arr.push_back(value);
+}
+
+template <typename T>
+size_t HTVM_Size(const std::vector<T>& arr) {
+    return arr.size();
+}
+
+template <typename T>
+void HTVM_Insert(std::vector<T>& arr, size_t index, const T& value) {
+    if (index <= arr.size()) arr.insert(arr.begin() + index, value);
+}
+
+template <typename T>
+void HTVM_Remove(std::vector<T>& arr, const T& value) {
+    arr.erase(std::remove(arr.begin(), arr.end(), value), arr.end());
+}
+
+template <typename T>
+int HTVM_IndexOf(const std::vector<T>& arr, const T& value) {
+    auto it = std::find(arr.begin(), arr.end(), value);
+    return (it != arr.end()) ? std::distance(arr.begin(), it) : -1;
+}
+
 
 int main(int argc, char* argv[]) {
     for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-        print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA1AA);
-        print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA2AA);
+        print("hello HTVM v2");
+        print("hello HTVM\nv2");
         int asdfd12 = 5;
         int asdfd23 = 56;
         int asdfd34 = 5;
         print(A_Index1);
         for (int A_Index2 = 0; A_Index2 < 5 + 0; A_Index2++) {
-            print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA3AA);
-            print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA4AA);
+            print("hello HTVM v2");
+            print("hello HTVM\nv2");
             for (int A_Index3 = 0; A_Index3 < 5 + 0; A_Index3++) {
-                print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA5AA);
-                print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA6AA);
+                print("hello HTVM v2");
+                print("hello HTVM\nv2");
                 print(A_Index3);
             }
             print(A_Index2);
         }
     }
-    print(5+5 != 5 !SZDS() + ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA7AA + ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA8AA + ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA9AA + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8);
+    print(5+5 != 5 !SZDS() + "A+-+--+ != ADSF" + "WSADFD" + "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8);
+    print("QWADSDF" + "qawdsf" || var1 ! var4 + "ASDFX" + !ADSFD("Qwads" + "QASD" + "aszd" < 6) ? false : true || nullptr && false);
+    print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)));
     return 0;
 }

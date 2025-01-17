@@ -18,22 +18,32 @@ func print(value interface{}) {
 	}
 }
 
+func HTVM_Append[T any](arr *[]T, value T) {
+    *arr = append(*arr, value)
+}
+
+func HTVM_Size[T any](arr []T) int {
+    return len(arr)
+}
+
 
 func main() {
     for A_Index1 := 0; A_Index1 < 5 + 0; A_Index1++ {
-        print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA1AA)
-        print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA2AA)
+        print("hello HTVM v2")
+        print("hello HTVM\nv2")
         print(A_Index1)
         for A_Index2 := 0; A_Index2 < 5 + 0; A_Index2++ {
-            print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA3AA)
-            print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA4AA)
+            print("hello HTVM v2")
+            print("hello HTVM\nv2")
             for A_Index3 := 0; A_Index3 < 5 + 0; A_Index3++ {
-                print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA5AA)
-                print(ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA6AA)
+                print("hello HTVM v2")
+                print("hello HTVM\nv2")
                 print(A_Index3)
             }
             print(A_Index2)
         }
     }
-    print(5+5 != 5 !SZDS() + ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA7AA + ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA8AA + ihuiuuhuuhtheidF||QQQasdsasQQQtheuhturtyphoutrQQQAA9AA + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
+    print(5+5 != 5 !SZDS() + "A+-+--+ != ADSF" + "WSADFD" + "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
+    print("QWADSDF" + "qawdsf" || var1 ! var4 + "ASDFX" + !ADSFD("Qwads" + "QASD" + "aszd" < 6) THIS OPERATOR DOES NOT EXIST IN GO SINCE GO DOES NOT HAVE A TERNARY OPERATOR false THIS OPERATOR DOES NOT EXIST IN GO SINCE GO DOES NOT HAVE A TERNARY OPERATOR true || nil && false)
+    print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)))
 }

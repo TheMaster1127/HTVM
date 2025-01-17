@@ -113,7 +113,7 @@ main
 +
 -
 *
-/	
+/
 %
 **
 ==
@@ -4082,7 +4082,7 @@ funcEND======================funcEND==============
 
 func======================func==============
 lang: cpp
-name: HTVM_Append
+name: HTVM_Size
 libs: #include <iostream>|#include <vector>|#include <algorithm>
 description: null
 
@@ -4097,7 +4097,7 @@ funcEND======================funcEND==============
 
 func======================func==============
 lang: cpp
-name: HTVM_Append
+name: HTVM_Insert
 libs: #include <iostream>|#include <vector>|#include <algorithm>
 description: null
 
@@ -4110,7 +4110,7 @@ funcEND======================funcEND==============
 
 func======================func==============
 lang: cpp
-name: HTVM_Append
+name: HTVM_Remove
 libs: #include <iostream>|#include <vector>|#include <algorithm>
 description: null
 
@@ -4123,7 +4123,7 @@ funcEND======================funcEND==============
 
 func======================func==============
 lang: cpp
-name: HTVM_Append
+name: HTVM_IndexOf
 libs: #include <iostream>|#include <vector>|#include <algorithm>
 description: null
 

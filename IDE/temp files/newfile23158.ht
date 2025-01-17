@@ -1,14 +1,8 @@
+str text := "print(5+5 != 5 !SZDS() . ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQAA7AA . ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQAA8AA . ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQAA9AA + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)"
+str wordToReplace := "null"
+str replaceWith := "nil"
+
+print(RegExReplace(text, "(^|[^a-zA-Z0-9_])(" + wordToReplace + ")([^a-zA-Z0-9_]|$)", "$1" + replaceWith + "$3"))
 
 
-arr str test
-test.add("hello")
-test.add("+")
-test.add("+")
-test.add(".")
-test.add("!=")
-test.add("!")
-sortArrByLenOnly(test)
-Loop, % test.size()
-{
-print(test[A_Index])
-}
+

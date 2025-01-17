@@ -4,29 +4,22 @@ function print(value) {
     console.log(value)
 }
 
-// Function to sort and remove duplicates
-function sortArr(inputArray) {
-    // Remove duplicates using Set and sort the array
-    return [...new Set(inputArray)].sort();
-}
-
-// Function to sort an array of strings by length in descending order
-function sortArrByLenOnly(array) {
-    return array.sort((a, b) => b.length - a.length);
-}
+      // Function to simulate AutoHotkey's RegExReplace in JavaScript
+      function RegExReplace(inputStr, regexPattern, replacement) {
+          // Create a regular expression object using the provided pattern
+          const regex = new RegExp(regexPattern, 'g'); // 'g' flag for global match
+          // Use the replace() method to perform the regex replacement
+          const resultStr = inputStr.replace(regex, replacement);
+          // Return the modified string
+          return resultStr;
+      }
 
 
 async function main() {
-    let test = [];
-    test.push("hello");
-    test.push("+");
-    test.push("+");
-    test.push(".");
-    test.push("!=");
-    test.push("!");
-    sortArrByLenOnly(test);
-    for (let A_Index1 = 0; A_Index1 < test.length + 0; A_Index1++) {
-        print(test[A_Index1]);
-    }
+    var text = "null + true";
+    var wordToReplace = "null";
+    var replaceWith = "nil";
+    // Call the RegExReplace function
+    print(RegExReplace(text, "(^|[^a-zA-Z0-9_])(" + wordToReplace + ")([^a-zA-Z0-9_]|$)", "$1" + replaceWith + "$3"));
 }
 main();
