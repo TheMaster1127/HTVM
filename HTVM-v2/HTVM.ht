@@ -3036,7 +3036,30 @@ expression := RegExReplace(expression, "(.*?)\s*\?\s*(.*?)\s*:\s*(.*?)", "if $1 
 }
 
 
+if (langToConvertTo = "ahk")
+{
+if (InStr(expression, keyWordAIndex))
+{
+expression := RegExReplace(expression, "\b" . keyWordAIndex . "\b", "A_Index")
+}
+if (InStr(expression, keyWordALoopField))
+{
+expression := RegExReplace(expression, "\b" . keyWordALoopField . "\b", "A_LoopField")
+}
+}
 
+
+if (langToConvertTo = langFileExtension_2) 
+{
+if (InStr(expression, keyWordAIndex))
+{
+expression := RegExReplace(expression, "\b" . keyWordAIndex . "\b", keyWordAIndex_2)
+}
+if (InStr(expression, keyWordALoopField))
+{
+expression := RegExReplace(expression, "\b" . keyWordALoopField . "\b", keyWordALoopField_2)
+}
+}
 
 ; extra for array methods
 expression := await arrayParserTranspiler(expression)

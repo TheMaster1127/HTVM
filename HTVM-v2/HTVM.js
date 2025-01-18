@@ -2697,6 +2697,22 @@ async function expressionParserTranspiler(expression) {
             }
         }
     }
+    if (langToConvertTo == "ahk") {
+        if (InStr(expression, keyWordAIndex)) {
+            expression = RegExReplace(expression, "\\b" + keyWordAIndex + "\\b", "A_Index");
+        }
+        if (InStr(expression, keyWordALoopField)) {
+            expression = RegExReplace(expression, "\\b" + keyWordALoopField + "\\b", "A_LoopField");
+        }
+    }
+    if (langToConvertTo == langFileExtension_2) {
+        if (InStr(expression, keyWordAIndex)) {
+            expression = RegExReplace(expression, "\\b" + keyWordAIndex + "\\b", keyWordAIndex_2);
+        }
+        if (InStr(expression, keyWordALoopField)) {
+            expression = RegExReplace(expression, "\\b" + keyWordALoopField + "\\b", keyWordALoopField_2);
+        }
+    }
     // extra for array methods
     expression = await arrayParserTranspiler(expression);
     if (fixExpertionLineFuncOnly == 1) {
@@ -5971,7 +5987,7 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
         htCode = StrReplace(htCode, ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes, Chr(92) + Chr(34));
     }
     htCode = StrReplace(htCode, "std::string(" + Chr(34) + Chr(34) + ";),", "std::string(" + Chr(34) + Chr(34) + "),");
-    var jsHTMLupCode = "<!doctype html>\n<html lang=" + Chr(34) + "en" + Chr(34) + ">\n    <head>\n        <meta charset=" + Chr(34) + "UTF-8" + Chr(34) + " />\n        <meta name=" + Chr(34) + "viewport" + Chr(34) + " content=" + Chr(34) + "width=device-width, initial-scale=1.0" + Chr(34) + " />\n        <title>HTVM</title>\n        <style>\n            body {\n                background-color: #202020;\n                font-family:\n                    " + Chr(34) + "Open Sans" + Chr(34) + ",\n                    -apple-system,\n                    BlinkMacSystemFont,\n                    " + Chr(34) + "Segoe UI" + Chr(34) + ",\n                    Roboto,\n                    Oxygen-Sans,\n                    Ubuntu,\n                    Cantarell,\n                    " + Chr(34) + "Helvetica Neue" + Chr(34) + ",\n                    Helvetica,\n                    Arial,\n                    sans-serif;\n            }\n        </style>\n" + allLibsToPutAtTop + "\n</head>\n    <body>\n<script>";
+    var jsHTMLupCode = "<!doctype html>\n<html lang=" + Chr(34) + "en" + Chr(34) + ">\n    <head>\n        <meta charset=" + Chr(34) + "UTF-8" + Chr(34) + " />\n        <meta name=" + Chr(34) + "viewport" + Chr(34) + " content=" + Chr(34) + "width=device-width, initial-scale=1.0" + Chr(34) + " />\n        <title>HTVM</title>\n        <style>\n            body {\n                background-color: #202020;\n                font-family:\n                    " + Chr(34) + "Open Sans" + Chr(34) + ",\n                    -apple-system,\n                    BlinkMacSystemFont,\n                    " + Chr(34) + "Segoe UI" + Chr(34) + ",\n                    Roboto,\n                    Oxygen-Sans,\n                    Ubuntu,\n                    Cantarell,\n                    " + Chr(34) + "Helvetica Neue" + Chr(34) + ",\n                    Helvetica,\n                    Arial,`n                    sans-serif;n            }\n        </style>`n" + allLibsToPutAtTop + "n</head>\n    <body>\n<script>";
     if (isNotHTVMfile2 == 0) {
         if (useJavaScriptInAfullHTMLfile == "on" && langToConvertTo == "js") {
             htCode = jsHTMLupCode + "\n" + htCode + "\n" + jsHTMLdownCode;
