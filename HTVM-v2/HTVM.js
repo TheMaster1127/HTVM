@@ -381,6 +381,7 @@ let programmingBlock_HTVM = [];
 let programmingBlock_HTVMsyntax = [];
 let fullLangAllOperators = [];
 let fullLangAllOperators_HELP = [];
+var fixExpertionLineFuncOnly = 0;
 var langToConvertTo = "";
 var langFileExtension = "";
 var commands = "";
@@ -2650,10 +2651,17 @@ async function  GETfullLangAllOperators_HELP() {
     return fullLangAllOperators_HELP;
 }
 async function expressionParserTranspiler(expression) {
+    var fixExpertionLineFuncOnlyTEXT_func = "";
+    var fixExpertionLineFuncOnlyTEXT_numDelete = 0;
+    if (fixExpertionLineFuncOnly == 1) {
+        fixExpertionLineFuncOnlyTEXT_func = StrSplit(expression, "(", 1);
+        fixExpertionLineFuncOnlyTEXT_numDelete = StrLen(fixExpertionLineFuncOnlyTEXT_func) + 1;
+        var expression = StringTrimLeft(expression, fixExpertionLineFuncOnlyTEXT_numDelete);
+    }
     for (let A_Index61 = 0; A_Index61 < 29 + 0; A_Index61++) {
         if (InStr(expression, fullLangAllOperators_HELP[A_Index61])) {
             if (A_Index61 == 0 || A_Index61 == 1 || A_Index61 == 2) {
-                var expression = RegExReplace(expression, "\\b" + fullLangAllOperators_HELP[A_Index61] + "\\b", fullLangAllOperators[A_Index61]);
+                expression = RegExReplace(expression, "\\b" + fullLangAllOperators_HELP[A_Index61] + "\\b", fullLangAllOperators[A_Index61]);
             } else {
                 if (A_Index61 == 19) {
                     if (langToConvertTo == "py" || langToConvertTo == "lua" || langToConvertTo == "nim") {
@@ -2678,7 +2686,7 @@ async function expressionParserTranspiler(expression) {
                         }
                         if (langToConvertTo == "lua") {
                             // Convert C-like ternary to Lua ternary-like expression using RegExReplace
-                            expression = RegExReplace(expression, "(.*?)\\s*\\?\\s*(.*?)\\s*:\\s*(.*?)", "($1) and $2 or $3");
+                            expression = RegExReplace(expression, "(.*?)\\s*\\?\\s*(.*?)\\s*:\\s*(.*?)", "$1 and $2 or $3");
                         }
                         if (langToConvertTo == "scala" || langToConvertTo == "kt") {
                             // Convert C-like ternary to Kotlin/Scala ternary-like expression using RegExReplace
@@ -2691,6 +2699,9 @@ async function expressionParserTranspiler(expression) {
     }
     // extra for array methods
     expression = await arrayParserTranspiler(expression);
+    if (fixExpertionLineFuncOnly == 1) {
+        expression = fixExpertionLineFuncOnlyTEXT_func + "(" + expression;
+    }
     return expression;
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -5128,6 +5139,7 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             else if ((SubStr(Trim(A_LoopField86), -2) == ");" || SubStr(Trim(A_LoopField86), -1) == ")") && !(InStr(A_LoopField86, "int main(int argc, char* argv[])")) && !(InStr(A_LoopField86, "async function main()")) && lineDone == 0) {
                 lineDone = 1;
                 str1 = Trim(A_LoopField86);
+                fixExpertionLineFuncOnly = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
                         str2 = expressionParserTranspiler(Trim(str1)) + ";";
@@ -5147,6 +5159,7 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                         }
                     }
                 }
+                fixExpertionLineFuncOnly = 0;
                 htCode += str2 + "\n";
             } else {
                 //print("else else else " . A_LoopField86)

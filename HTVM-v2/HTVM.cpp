@@ -496,6 +496,7 @@ std::vector<std::string> programmingBlock_HTVM;
 std::vector<std::string> programmingBlock_HTVMsyntax;
 std::vector<std::string> fullLangAllOperators;
 std::vector<std::string> fullLangAllOperators_HELP;
+int fixExpertionLineFuncOnly = 0;
 std::string langToConvertTo = "";
 std::string langFileExtension = "";
 std::string commands = "";
@@ -2765,6 +2766,13 @@ std::vector<std::string> GETfullLangAllOperators_HELP() {
     return fullLangAllOperators_HELP;
 }
 std::string expressionParserTranspiler(std::string expression) {
+    std::string fixExpertionLineFuncOnlyTEXT_func = "";
+    int fixExpertionLineFuncOnlyTEXT_numDelete = 0;
+    if (fixExpertionLineFuncOnly == 1) {
+        fixExpertionLineFuncOnlyTEXT_func = StrSplit(expression, "(", 1);
+        fixExpertionLineFuncOnlyTEXT_numDelete = StrLen(fixExpertionLineFuncOnlyTEXT_func) + 1;
+        expression = StringTrimLeft(expression, fixExpertionLineFuncOnlyTEXT_numDelete);
+    }
     for (int A_Index61 = 0; A_Index61 < 29 + 0; A_Index61++) {
         if (InStr(expression, fullLangAllOperators_HELP[A_Index61])) {
             if (A_Index61 == 0 || A_Index61 == 1 || A_Index61 == 2) {
@@ -2793,7 +2801,7 @@ std::string expressionParserTranspiler(std::string expression) {
                         }
                         if (langToConvertTo == "lua") {
                             // Convert C-like ternary to Lua ternary-like expression using RegExReplace
-                            expression = RegExReplace(expression, "(.*?)\\s*\\?\\s*(.*?)\\s*:\\s*(.*?)", "($1) and $2 or $3");
+                            expression = RegExReplace(expression, "(.*?)\\s*\\?\\s*(.*?)\\s*:\\s*(.*?)", "$1 and $2 or $3");
                         }
                         if (langToConvertTo == "scala" || langToConvertTo == "kt") {
                             // Convert C-like ternary to Kotlin/Scala ternary-like expression using RegExReplace
@@ -2806,6 +2814,9 @@ std::string expressionParserTranspiler(std::string expression) {
     }
     // extra for array methods
     expression = arrayParserTranspiler(expression);
+    if (fixExpertionLineFuncOnly == 1) {
+        expression = fixExpertionLineFuncOnlyTEXT_func + "(" + expression;
+    }
     return expression;
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -5243,6 +5254,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if ((SubStr(Trim(A_LoopField86), -2) == ");" || SubStr(Trim(A_LoopField86), -1) == ")") && !(InStr(A_LoopField86, "int main(int argc, char* argv[])")) && !(InStr(A_LoopField86, "async function main()")) && lineDone == 0) {
                 lineDone = 1;
                 str1 = Trim(A_LoopField86);
+                fixExpertionLineFuncOnly = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
                         str2 = expressionParserTranspiler(Trim(str1)) + ";";
@@ -5262,6 +5274,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         }
                     }
                 }
+                fixExpertionLineFuncOnly = 0;
                 htCode += str2 + "\n";
             } else {
                 //print("else else else " . A_LoopField86)

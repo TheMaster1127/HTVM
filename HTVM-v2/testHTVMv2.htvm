@@ -34,8 +34,12 @@ print(5+5 != 5 !SZDS() . "A+-+--+ != ADSF" . "WSADFD" . "qwadsf" + adsf >= 3 <= 
 print("QWADSDF" . "qawdsf" || var1 ! var4 . "ASDFX" . !ADSFD("Qwads" . "QASD" . "aszd" < 6) ? false : true || null && false)
 print(aszd.size() aszd.add(aszd.size()))
 
-keyWordCodeInTheTranspiledLangStartPy
-asdfd12 = 5
-asdfd23 = 56
-asdfd34 = 5
-keyWordCodeInTheTranspiledLangEndpy
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+keyWordCodeInTheTranspiledLangStart
+var1 = 1
+keyWordCodeInTheTranspiledLangEnd    
+print((var1 == 1) ? "hello" : "bye")
+keyWordCodeInTheTranspiledLangStart
+var1 = 0
+keyWordCodeInTheTranspiledLangEnd
+print((var1 == 1) ? "hello" : "bye")

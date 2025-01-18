@@ -32,5 +32,10 @@ for A_Index1 in 0..5 + 0:
             print(A_Index3)
         print(A_Index2)
 print(5+5 != 5 not SZDS() and "A+-+--+ != ADSF" and "WSADFD" and "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
-if print("QWADSDF" and "qawdsf" || var1 ! var4 and "ASDFX" and not ADSFD("Qwads" and "QASD" and "aszd" < 6): false else: true || nil && false)
+print(if "QWADSDF" and "qawdsf" || var1 ! var4 and "ASDFX" and not ADSFD("Qwads" and "QASD" and "aszd" < 6): false else: true || nil && false)
 print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+var1 = 1
+print(if (var1 == 1): "hello" else: "bye")
+var1 = 0
+print(if (var1 == 1): "hello" else: "bye")

@@ -36,6 +36,11 @@ fun main(args: Array<String>) {
         }
     }
     print(5+5 != 5 !SZDS() + "A+-+--+ != ADSF" + "WSADFD" + "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
-    if print("QWADSDF" + "qawdsf" || var1 ! var4 + "ASDFX" + !ADSFD("Qwads" + "QASD" + "aszd" < 6) false else true || null && false)
+    print(if "QWADSDF" + "qawdsf" || var1 ! var4 + "ASDFX" + !ADSFD("Qwads" + "QASD" + "aszd" < 6) false else true || null && false)
     print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)))
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    var1 = 1
+    print(if (var1 == 1) "hello" else "bye")
+    var1 = 0
+    print(if (var1 == 1) "hello" else "bye")
 }

@@ -44,22 +44,6 @@ size_t HTVM_Size(const std::vector<T>& arr) {
     return arr.size();
 }
 
-template <typename T>
-void HTVM_Insert(std::vector<T>& arr, size_t index, const T& value) {
-    if (index <= arr.size()) arr.insert(arr.begin() + index, value);
-}
-
-template <typename T>
-void HTVM_Remove(std::vector<T>& arr, const T& value) {
-    arr.erase(std::remove(arr.begin(), arr.end(), value), arr.end());
-}
-
-template <typename T>
-int HTVM_IndexOf(const std::vector<T>& arr, const T& value) {
-    auto it = std::find(arr.begin(), arr.end(), value);
-    return (it != arr.end()) ? std::distance(arr.begin(), it) : -1;
-}
-
 
 int main(int argc, char* argv[]) {
     for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
@@ -83,5 +67,10 @@ int main(int argc, char* argv[]) {
     print(5+5 != 5 !SZDS() + "A+-+--+ != ADSF" + "WSADFD" + "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8);
     print("QWADSDF" + "qawdsf" || var1 ! var4 + "ASDFX" + !ADSFD("Qwads" + "QASD" + "aszd" < 6) ? false : true || nullptr && false);
     print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)));
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    var1 = 1
+    print((var1 == 1) ? "hello" : "bye");
+    var1 = 0
+    print((var1 == 1) ? "hello" : "bye");
     return 0;
 }
