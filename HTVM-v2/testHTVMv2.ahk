@@ -16,6 +16,14 @@ HTVM_Size(arr) {
 
 
 
+Loop, 20 {
+    print("hello HTVM import")
+    print("hello HTVM\nimport")
+}
+Loop, 6 {
+    print("hello HTVM import")
+    print("hello HTVM\nimport")
+}
 Loop, 5 {
     print("hello HTVM v2")
     print("hello HTVM\nv2")

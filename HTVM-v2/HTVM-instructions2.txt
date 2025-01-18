@@ -8,7 +8,7 @@ def obj
 porp
 this
 #include
-import
+importA
 keyWordCodeInTheTranspiledLangStart
 keyWordCodeInTheTranspiledLangEnd
 keyWordCodeInTheTranspiledLangStartCPP

@@ -22,19 +22,27 @@ def HTVM_Size(arr)
 end
 
 
-for A_Index1 in 0..5 + 0 do
+for A_Index1 in 0..20 + 0 do
+    print("hello HTVM import")
+    print("hello HTVM\nimport")
+end
+for A_Index2 in 0..6 + 0 do
+    print("hello HTVM import")
+    print("hello HTVM\nimport")
+end
+for A_Index3 in 0..5 + 0 do
     print("hello HTVM v2")
     print("hello HTVM\nv2")
-    print(A_Index1)
-    for A_Index2 in 0..5 + 0 do
+    print(A_Index3)
+    for A_Index4 in 0..5 + 0 do
         print("hello HTVM v2")
         print("hello HTVM\nv2")
-        for A_Index3 in 0..5 + 0 do
+        for A_Index5 in 0..5 + 0 do
             print("hello HTVM v2")
             print("hello HTVM\nv2")
-            print(A_Index3)
+            print(A_Index5)
         end
-        print(A_Index2)
+        print(A_Index4)
     end
 end
 print(5+5 != 5 !SZDS() + "A+-+--+ != ADSF" + "WSADFD" + "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)

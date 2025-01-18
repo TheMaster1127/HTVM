@@ -81,22 +81,30 @@ size_t HTVM_Size(const std::vector<T>& arr) {
 
 
 int main(int argc, char* argv[]) {
-    for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
+    for (int A_Index1 = 0; A_Index1 < 20 + 0; A_Index1++) {
+        print("hello HTVM import");
+        print("hello HTVM\nimport");
+    }
+    for (int A_Index2 = 0; A_Index2 < 6 + 0; A_Index2++) {
+        print("hello HTVM import");
+        print("hello HTVM\nimport");
+    }
+    for (int A_Index3 = 0; A_Index3 < 5 + 0; A_Index3++) {
         print("hello HTVM v2");
         print("hello HTVM\nv2");
         int asdfd12 = 5;
         int asdfd23 = 56;
         int asdfd34 = 5;
-        print(A_Index1);
-        for (int A_Index2 = 0; A_Index2 < 5 + 0; A_Index2++) {
+        print(A_Index3);
+        for (int A_Index4 = 0; A_Index4 < 5 + 0; A_Index4++) {
             print("hello HTVM v2");
             print("hello HTVM\nv2");
-            for (int A_Index3 = 0; A_Index3 < 5 + 0; A_Index3++) {
+            for (int A_Index5 = 0; A_Index5 < 5 + 0; A_Index5++) {
                 print("hello HTVM v2");
                 print("hello HTVM\nv2");
-                print(A_Index3);
+                print(A_Index5);
             }
-            print(A_Index2);
+            print(A_Index4);
         }
     }
     print(5+5 != 5 !SZDS() + "A+-+--+ != ADSF" + "WSADFD" + "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8);

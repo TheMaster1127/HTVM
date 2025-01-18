@@ -1,0 +1,5 @@
+import "C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\importTEST - Copy.htvm"
+Loop, 6 (
+    print("hello HTVM import")
+    print("hello HTVM`nimport")
+)

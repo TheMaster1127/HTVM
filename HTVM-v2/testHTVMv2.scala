@@ -20,19 +20,27 @@ def HTVM_Size[T](arr: Seq[T]): Int = arr.size
 
 
 def main(args: Array[String]): Unit = {
-    for (A_Index1 <- 0 to 5 + 0) {
+    for (A_Index1 <- 0 to 20 + 0) {
+        print("hello HTVM import")
+        print("hello HTVM\nimport")
+    }
+    for (A_Index2 <- 0 to 6 + 0) {
+        print("hello HTVM import")
+        print("hello HTVM\nimport")
+    }
+    for (A_Index3 <- 0 to 5 + 0) {
         print("hello HTVM v2")
         print("hello HTVM\nv2")
-        print(A_Index1)
-        for (A_Index2 <- 0 to 5 + 0) {
+        print(A_Index3)
+        for (A_Index4 <- 0 to 5 + 0) {
             print("hello HTVM v2")
             print("hello HTVM\nv2")
-            for (A_Index3 <- 0 to 5 + 0) {
+            for (A_Index5 <- 0 to 5 + 0) {
                 print("hello HTVM v2")
                 print("hello HTVM\nv2")
-                print(A_Index3)
+                print(A_Index5)
             }
-            print(A_Index2)
+            print(A_Index4)
         }
     }
     print(5+5 != 5 !SZDS() + "A+-+--+ != ADSF" + "WSADFD" + "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
