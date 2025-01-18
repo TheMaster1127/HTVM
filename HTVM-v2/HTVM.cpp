@@ -5267,6 +5267,23 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += htCodeLoopfixa1 + "\n" + var1out + "\n";
                 }
             }
+            else if (StrLower(A_LoopField86) == StrLower(keyWordGlobal) || StrLower(A_LoopField86) == StrLower(keyWordGlobal + ";")) {
+                if (langToConvertTo == "ahk") {
+                    htCode += "global\n";
+                }
+            }
+            else if (SubStr(StrLower(A_LoopField86), 1, StrLen(StrLower(keyWordGlobal))) == StrLower(keyWordGlobal)) {
+                str1 = StringTrimLeft(A_LoopField86, StrLen(keyWordGlobal));
+                //MsgBox, % A_LoopField86
+                str1 = StrReplace(str1, ";", "");
+                lineDone = 1;
+                if (langToConvertTo == "py" || langToConvertTo == "ahk") {
+                    str2 = "global " + str1;
+                } else {
+                    str2 = "";
+                }
+                htCode += str2 + "\n";
+            }
             else if ((SubStr(Trim(A_LoopField86), -2) == ");" || SubStr(Trim(A_LoopField86), -1) == ")") && !(InStr(A_LoopField86, "int main(int argc, char* argv[])")) && !(InStr(A_LoopField86, "async function main()")) && lineDone == 0) {
                 lineDone = 1;
                 str1 = Trim(A_LoopField86);

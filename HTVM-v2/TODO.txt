@@ -51,7 +51,6 @@ keyWordVar
 keyWordLet
 keyWordConst
 
-keyWordGlobal
 keyWordComment
 keyWordCommentOpenMultiLine
 keyWordCommentCloseMultiLine
@@ -85,4 +84,4 @@ useJavaScriptAmainFuncDef
 useJavaScriptAllFuncsAreAsync
 useJavaScriptAlwaysTripleEqual
 
-LEFT TO DO: 79
+LEFT TO DO: 78
