@@ -859,13 +859,13 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
             std::vector<std::string> items2 = LoopParseFunc(A_LoopField1, ",");
             for (size_t A_Index2 = 0; A_Index2 < items2.size() + 0; A_Index2++) {
                 std::string A_LoopField2 = items2[A_Index2 - 0];
-                if (A_Index2 == 1) {
+                if (A_Index2 == 0) {
                     if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField2 + ", ")) == StrLower(A_LoopField2 + ", ")) {
                         //MsgBox, true
                         return "true";
                     }
                 }
-                if (A_Index2 == 1) {
+                if (A_Index2 == 0) {
                     if (theCodeCommands == A_LoopField2) {
                         //MsgBox, true
                         return "true";
@@ -886,14 +886,14 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
             std::vector<std::string> items4 = LoopParseFunc(A_LoopField3, ",");
             for (size_t A_Index4 = 0; A_Index4 < items4.size() + 0; A_Index4++) {
                 std::string A_LoopField4 = items4[A_Index4 - 0];
-                if (A_Index4 == 1) {
+                if (A_Index4 == 0) {
                     if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField4 + ", ")) == StrLower(A_LoopField4 + ", ")) {
                         //MsgBox, true
                         keyWordsCommandsNumLine = AIndex;
                         break;
                     }
                 }
-                if (A_Index4 == 1) {
+                if (A_Index4 == 0) {
                     //MsgBox, %theCodeCommands% = %A_LoopField4%
                     if (theCodeCommands == A_LoopField4) {
                         //MsgBox, true
@@ -908,11 +908,11 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
         std::string outConstuctTheOutFromTheCommandsParams = "";
         std::string outConstuctTheOutFromTheCommandsOutVar = "";
         std::string outConstuctTheOutFromTheCommandsInVar = "";
-        int theCodeCommandNum = 1;
+        int theCodeCommandNum = 0;
         int outConstuctTheOutFromTheCommandsLineTranspile = 0;
         std::string outConstuctTheOutFromTheCommandsLineTranspileText = "";
         std::string semicolon = "";
-        if (langToConvertTo != "py") {
+        if (langToConvertTo != "py" && langToConvertTo != "nim" && langToConvertTo != "ahk" && langToConvertTo != "go" && langToConvertTo != "lua" && langToConvertTo != "kt" && langToConvertTo != "rb" && langToConvertTo != "swift" && langToConvertTo != "scala" && langToConvertTo != "groovy") {
             semicolon = ";";
         }
         std::vector<std::string> theCodeCommand;
@@ -931,10 +931,10 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
                 std::vector<std::string> items7 = LoopParseFunc(A_LoopField6, ",");
                 for (size_t A_Index7 = 0; A_Index7 < items7.size() + 0; A_Index7++) {
                     std::string A_LoopField7 = items7[A_Index7 - 0];
-                    if (A_Index7 == 1) {
+                    if (A_Index7 == 0) {
                         outConstuctTheOutFromTheCommandsFucnName = A_LoopField7;
                     }
-                    else if (A_Index7 == 2) {
+                    else if (A_Index7 == 1) {
                         //MsgBox, % A_LoopField7
                         if (A_LoopField7 == "lineTranspile") {
                             outConstuctTheOutFromTheCommandsLineTranspile = 1;
@@ -956,7 +956,7 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
                             }
                         }
                     }
-                    else if (A_Index7 == 3) {
+                    else if (A_Index7 == 2) {
                         if (outConstuctTheOutFromTheCommandsLineTranspile == 1) {
                             outConstuctTheOutFromTheCommandsLineTranspileText = A_LoopField7;
                         }
@@ -2828,6 +2828,15 @@ std::string expressionParserTranspiler(std::string expression) {
             expression = RegExReplace(expression, "\\b" + keyWordALoopField + "\\b", keyWordALoopField_2);
         }
     }
+    if (langToConvertTo != langFileExtension_2 && langToConvertTo != "ahk") {
+        if (langToConvertTo == "py" || langToConvertTo == "lua" || langToConvertTo == "nim") {
+            expression = StrReplace(expression, ") and (", " and ");
+            expression = StrReplace(expression, ") or (", " or ");
+        } else {
+            expression = StrReplace(expression, ") && (", " && ");
+            expression = StrReplace(expression, ") || (", " || ");
+        }
+    }
     // extra for array methods
     expression = arrayParserTranspiler(expression);
     if (fixExpertionLineFuncOnly == 1) {
@@ -3999,6 +4008,12 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     std::string out = "";
     std::string s = "";
     int skipLeftCuleyForFuncPLS = 0;
+    // keyWordIncludeInTheTranspiledLang
+    // keyWordIncludeInTheTranspiledLang
+    // keyWordIncludeInTheTranspiledLang
+    // keyWordIncludeInTheTranspiledLang
+    // keyWordIncludeInTheTranspiledLang
+    // keyWordIncludeInTheTranspiledLang
     // PROGRAMMING BLOCK
     // PROGRAMMING BLOCK
     // PROGRAMMING BLOCK
@@ -4438,7 +4453,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 theColon = ":";
             }
         } else {
-            if (langToConvertTo != "py" && langToConvertTo != "nim" && langToConvertTo != "lua" && langToConvertTo != "rb" && langToConvertTo != "go" && langToConvertTo != "swift" && useSemicolon == "off") {
+            if (langToConvertTo != "py" && langToConvertTo != "nim" && langToConvertTo != "ahk" && langToConvertTo != "go" && langToConvertTo != "lua" && langToConvertTo != "kt" && langToConvertTo != "rb" && langToConvertTo != "swift" && langToConvertTo != "scala" && langToConvertTo != "groovy" && useSemicolon == "off") {
                 theSemicolon = ";";
             } else {
                 theSemicolon = "";
@@ -5272,18 +5287,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "global\n";
                 }
             }
-            else if (SubStr(StrLower(A_LoopField86), 1, StrLen(StrLower(keyWordGlobal))) == StrLower(keyWordGlobal)) {
-                str1 = StringTrimLeft(A_LoopField86, StrLen(keyWordGlobal));
-                //MsgBox, % A_LoopField86
-                str1 = StrReplace(str1, ";", "");
-                lineDone = 1;
-                if (langToConvertTo == "py" || langToConvertTo == "ahk") {
-                    str2 = "global " + str1;
-                } else {
-                    str2 = "";
-                }
-                htCode += str2 + "\n";
-            }
             else if ((SubStr(Trim(A_LoopField86), -2) == ");" || SubStr(Trim(A_LoopField86), -1) == ")") && !(InStr(A_LoopField86, "int main(int argc, char* argv[])")) && !(InStr(A_LoopField86, "async function main()")) && lineDone == 0) {
                 lineDone = 1;
                 str1 = Trim(A_LoopField86);
@@ -5309,6 +5312,27 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 }
                 fixExpertionLineFuncOnly = 0;
                 htCode += str2 + "\n";
+            }
+            else if (SubStr(StrLower(A_LoopField86), 1, StrLen(StrLower(keyWordGlobal))) == StrLower(keyWordGlobal)) {
+                str1 = StringTrimLeft(A_LoopField86, StrLen(keyWordGlobal));
+                //MsgBox, % A_LoopField86
+                str1 = StrReplace(str1, ";", "");
+                lineDone = 1;
+                if (langToConvertTo == "py" || langToConvertTo == "ahk") {
+                    str2 = "global " + str1;
+                } else {
+                    str2 = "";
+                }
+                htCode += str2 + "\n";
+            }
+            else if (KeyWordsCommands(A_LoopField86, "check", commands, langToConvertTo) == "true" && lineDone == 0) {
+                lineDone = 1;
+                if (langToConvertTo == langFileExtension_2) {
+                    htCode += A_LoopField86 + "\n";
+                } else {
+                    out_KeyWordsCommands = KeyWordsCommands(A_LoopField86, "transpile", commands, langToConvertTo);
+                    htCode += out_KeyWordsCommands + "\n";
+                }
             } else {
                 //print("else else else " . A_LoopField86)
                 // this is THE else

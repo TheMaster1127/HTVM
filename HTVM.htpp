@@ -5942,13 +5942,6 @@ else
 htCode .= Chr(42) . Chr(47) . "`n"
 }
 }
-else if (KeyWordsCommands(A_LoopField, "check", keyWordsCommands, langToTranspileTo) = "true") && (lineDone = 0)
-{
-out_KeyWordsCommands := KeyWordsCommands(A_LoopField, "transpile", keyWordsCommands, langToTranspileTo)
-;MsgBox, % out_KeyWordsCommands
-lineDone := 1
-htCode .= out_KeyWordsCommands . "`n"
-}
 else if (InStr(A_LoopField, keyWordArrayAppend)) or (InStr(A_LoopField, keyWordArrayPop)) or (InStr(A_LoopField, keyWordArraySize)) or (InStr(A_LoopField, keyWordArrayInsert)) or (InStr(A_LoopField, keyWordArrayRemove)) or (InStr(A_LoopField, keyWordArrayIndexOf)) && (lineDone = 0)
 {
 ;MsgBox, % A_LoopField
@@ -6243,6 +6236,13 @@ str2 := StrReplace(str2, ";;", ";")
 }
 htCode .= str2 . "`n"
 }
+}
+else if (KeyWordsCommands(A_LoopField, "check", keyWordsCommands, langToTranspileTo) = "true") && (lineDone = 0)
+{
+out_KeyWordsCommands := KeyWordsCommands(A_LoopField, "transpile", keyWordsCommands, langToTranspileTo)
+;MsgBox, % out_KeyWordsCommands
+lineDone := 1
+htCode .= out_KeyWordsCommands . "`n"
 }
 else
 {

@@ -34,6 +34,41 @@ void print(const T& value) {
     }
 }
 
+// Convert various types to std::string
+std::string STR(int value) {
+    return std::to_string(value);
+}
+// Convert various types to std::string
+std::string STR(long long value) {
+    return std::to_string(value);
+}
+std::string STR(float value) {
+    return std::to_string(value);
+}
+std::string STR(double value) {
+    return std::to_string(value);
+}
+std::string STR(size_t value) {
+    return std::to_string(value);
+}
+std::string STR(bool value) {
+    return value ? "1" : "0";
+}
+std::string STR(const char* value) {
+    return std::string(value);
+}
+
+std::string Trim(const std::string &inputString) {
+    if (inputString.empty()) return "";
+    size_t start = inputString.find_first_not_of(" \t\n\r\f\v");
+    size_t end = inputString.find_last_not_of(" \t\n\r\f\v");
+    return (start == std::string::npos) ? "" : inputString.substr(start, end - start + 1);
+}
+
+std::string StringTrimRight(const std::string &input, int numChars) {
+    return (numChars <= input.length()) ? input.substr(0, input.length() - numChars) : input;
+}
+
 template <typename T>
 void HTVM_Append(std::vector<T>& arr, const T& value) {
     arr.push_back(value);
@@ -67,6 +102,8 @@ int main(int argc, char* argv[]) {
     print(5+5 != 5 !SZDS() + "A+-+--+ != ADSF" + "WSADFD" + "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8);
     print("QWADSDF" + "qawdsf" || var1 ! var4 + "ASDFX" + !ADSFD("Qwads" + "QASD" + "aszd" < 6) ? false : true || nullptr && false);
     print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)));
+    Avar123 = StringTrimRight(STRRAWSD, 1);
+    if(var1 == 5 && var2w3erf < 6);
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     var1 = 1
     print((var1 == 1) ? "hello" : "bye");

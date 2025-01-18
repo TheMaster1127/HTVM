@@ -1,4 +1,3 @@
-commands
 keyWordAlliance
 keyWordCrew
 keyWordMethod
@@ -7,7 +6,6 @@ keyWordPorp
 keyWordThis
 keyWordInclude
 keyWordIncludeInTheTranspiledLang
-
 keyWordVoid
 keyWordDouble
 keyWordChar
@@ -30,7 +28,6 @@ keyWordSwitch
 keyWordSwitchCase
 keyWordSwitchDefault
 keyWordWhileLoop
-
 keyWordContinue
 keyWordBreak
 keyWordFunc
@@ -42,7 +39,6 @@ keyWordTry
 keyWordCatch
 keyWordFinally
 keyWordReturnStatement
-
 keyWordArrayDefinition
 keyWordArrayOfIntegersDefinition
 keyWordArrayOfStringsDefinition
@@ -51,11 +47,9 @@ keyWordArrayOfBooleansDefinition
 keyWordVar
 keyWordLet
 keyWordConst
-
 keyWordComment
 keyWordCommentOpenMultiLine
 keyWordCommentCloseMultiLine
-
 keyWordAssign
 keyWordAssignAdd
 keyWordAssignConcat
@@ -73,11 +67,9 @@ keyWordTernary1
 keyWordTernary2
 keyWordInc
 keyWordDec
-
 useParentheses
 usePrefixTypeForTypeDefinition
 usePostfixTypeForTypeDefinition
-
 useCurlyBracesSyntaxForArrayDef
 useInJavaScriptAlwaysUseVar
 useJavaScriptInAfullHTMLfile
@@ -85,4 +77,4 @@ useJavaScriptAmainFuncDef
 useJavaScriptAllFuncsAreAsync
 useJavaScriptAlwaysTripleEqual
 
-LEFT TO DO: 79
+LEFT TO DO: 78

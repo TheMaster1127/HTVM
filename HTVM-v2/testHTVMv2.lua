@@ -29,6 +29,8 @@ end
 print(5+5 ~= 5 not SZDS() .. "A+-+--+ != ADSF" .. "WSADFD" .. "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 ~= 8)
 print("QWADSDF" .. "qawdsf" || var1 ! var4 .. "ASDFX" .. not ADSFD("Qwads" .. "QASD" .. "aszd" < 6) and false or true || nil && false)
 print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)))
+Avar123 = StringTrimRight(STRRAWSD, 1)
+if(var1 == 5 and var2w3erf < 6)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 var1 = 1
 print((var1 == 1) and "hello" or "bye")

@@ -429,7 +429,7 @@ Loop, Parse, keyWordsCommands, "|"
 {
 Loop, Parse, A_LoopField, `,
 {
-if (A_Index = 1)
+if (A_Index = 0)
 {
 
 if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField . ", ")) = StrLower(A_LoopField . ", "))
@@ -439,7 +439,7 @@ return "true"
 }
 }
 
-if (A_Index = 1)
+if (A_Index = 0)
 {
 if (theCodeCommands = A_LoopField)
 {
@@ -466,7 +466,7 @@ Loop, Parse, keyWordsCommands, "|"
 AIndex := A_Index
 Loop, Parse, A_LoopField, `,
 {
-if (A_Index = 1)
+if (A_Index = 0)
 {
 if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField . ", ")) = StrLower(A_LoopField . ", "))
 {
@@ -476,7 +476,7 @@ break
 }
 }
 
-if (A_Index = 1)
+if (A_Index = 0)
 {
 ;MsgBox, %theCodeCommands% = %A_LoopField%
 if (theCodeCommands = A_LoopField)
@@ -501,12 +501,12 @@ str outConstuctTheOutFromTheCommandsFucnName := ""
 str outConstuctTheOutFromTheCommandsParams := ""
 str outConstuctTheOutFromTheCommandsOutVar := ""
 str outConstuctTheOutFromTheCommandsInVar := ""
-int theCodeCommandNum := 1
+int theCodeCommandNum := 0
 int outConstuctTheOutFromTheCommandsLineTranspile := 0
 str outConstuctTheOutFromTheCommandsLineTranspileText := ""
 
 str semicolon := ""
-if (langToConvertTo != "py")
+if (langToConvertTo != "py") and (langToConvertTo != "nim") and (langToConvertTo != "ahk") and (langToConvertTo != "go") and (langToConvertTo != "lua") and (langToConvertTo != "kt") and (langToConvertTo != "rb") and (langToConvertTo != "swift") and (langToConvertTo != "scala") and (langToConvertTo != "groovy")
 {
 semicolon := ";"
 }
@@ -536,11 +536,11 @@ Loop, Parse, A_LoopField, `,
 
 
 
-if (A_Index = 1)
+if (A_Index = 0)
 {
 outConstuctTheOutFromTheCommandsFucnName := A_LoopField
 }
-else if (A_Index = 2)
+else if (A_Index = 1)
 {
 
 ;MsgBox, % A_LoopField
@@ -579,7 +579,7 @@ outConstuctTheOutFromTheCommandsParams .= theCodeCommand[theCodeCommandNum] . ",
 
 
 }
-else if (A_Index = 3)
+else if (A_Index = 2)
 {
 
 if (outConstuctTheOutFromTheCommandsLineTranspile = 1)
@@ -3061,6 +3061,23 @@ expression := RegExReplace(expression, "\b" . keyWordALoopField . "\b", keyWordA
 }
 }
 
+
+
+if (langToConvertTo != langFileExtension_2) and (langToConvertTo != "ahk")
+{
+if (langToConvertTo = "py") or (langToConvertTo = "lua") or (langToConvertTo = "nim")
+{
+expression := StrReplace(expression, ") and (", " and ")
+expression := StrReplace(expression, ") or (", " or ")
+}
+else
+{
+expression := StrReplace(expression, ") && (", " && ")
+expression := StrReplace(expression, ") || (", " || ")
+}
+}
+
+
 ; extra for array methods
 expression := await arrayParserTranspiler(expression)
 
@@ -4288,6 +4305,17 @@ int skipLeftCuleyForFuncPLS := 0
 
 
 
+; keyWordIncludeInTheTranspiledLang
+; keyWordIncludeInTheTranspiledLang
+; keyWordIncludeInTheTranspiledLang
+
+
+
+; keyWordIncludeInTheTranspiledLang
+; keyWordIncludeInTheTranspiledLang
+; keyWordIncludeInTheTranspiledLang
+
+
 
 ; PROGRAMMING BLOCK
 ; PROGRAMMING BLOCK
@@ -4910,7 +4938,7 @@ if (usePythonicColonSyntax_2 = "off") {
 else
 {
 
-if (langToConvertTo != "py") and (langToConvertTo != "nim") and (langToConvertTo != "lua") and (langToConvertTo != "rb") and (langToConvertTo != "go") and (langToConvertTo != "swift") and (useSemicolon = "off") {
+if (langToConvertTo != "py") and (langToConvertTo != "nim") and (langToConvertTo != "ahk") and (langToConvertTo != "go") and (langToConvertTo != "lua") and (langToConvertTo != "kt") and (langToConvertTo != "rb") and (langToConvertTo != "swift") and (langToConvertTo != "scala") and (langToConvertTo != "groovy") and (useSemicolon = "off") {
     theSemicolon := ";"
 } else {
     theSemicolon := ""
@@ -6129,23 +6157,6 @@ if (langToConvertTo = "ahk")
 htCode .= "global`n"
 }
 }
-else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordGlobal))) = StrLower(keyWordGlobal))
-{
-str1 := StringTrimLeft(A_LoopField, StrLen(keyWordGlobal))
-;MsgBox, % A_LoopField
-str1 := StrReplace(str1, ";", "")
-lineDone := 1
-if (langToConvertTo = "py") or (langToConvertTo = "ahk")
-{
-str2 := "global " . str1
-}
-else
-{
-str2 := ""
-}
-
-htCode .= str2 . "`n"
-}
 else if ((SubStr(Trim(A_LoopField), -2) = ");") or (SubStr(Trim(A_LoopField), -1) = ")")) and (!(InStr(A_LoopField, "int main(int argc, char* argv[])"))) and (!(InStr(A_LoopField, "async function main()"))) and (lineDone = 0)
 {
 lineDone := 1
@@ -6191,6 +6202,36 @@ StringTrimRight, str2, str2, 1
 }
 fixExpertionLineFuncOnly := 0
 htCode .= str2 . "`n"
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordGlobal))) = StrLower(keyWordGlobal))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordGlobal))
+;MsgBox, % A_LoopField
+str1 := StrReplace(str1, ";", "")
+lineDone := 1
+if (langToConvertTo = "py") or (langToConvertTo = "ahk")
+{
+str2 := "global " . str1
+}
+else
+{
+str2 := ""
+}
+
+htCode .= str2 . "`n"
+}
+else if (KeyWordsCommands(A_LoopField, "check", commands, langToConvertTo) = "true") and (lineDone = 0)
+{
+lineDone := 1
+if (langToConvertTo = langFileExtension_2)
+{
+htCode .= A_LoopField . "`n"
+}
+else
+{
+out_KeyWordsCommands := KeyWordsCommands(A_LoopField, "transpile", commands, langToConvertTo)
+htCode .= out_KeyWordsCommands . "`n"
+}
 }
 else
 {

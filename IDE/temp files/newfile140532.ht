@@ -1,0 +1,71 @@
+func str expressionParserTranspiler(str expression) {
+    str fixExpertionLineFuncOnlyTEXT_func := ""
+    int fixExpertionLineFuncOnlyTEXT_numDelete := 0
+    if (fixExpertionLineFuncOnly = 1) {
+        fixExpertionLineFuncOnlyTEXT_func := StrSplit(expression, "(", 1)
+        fixExpertionLineFuncOnlyTEXT_numDelete := StrLen(fixExpertionLineFuncOnlyTEXT_func) + 1
+        expression := StringTrimLeft(expression, fixExpertionLineFuncOnlyTEXT_numDelete)
+    }
+    Loop, 29 {
+        if (InStr(expression, fullLangAllOperators_HELP[A_Index])) {
+            if (A_Index = 0) or (A_Index = 1) or (A_Index = 2)  ; Changed 'and' to 'or' to check for any of these indexes {
+                expression := RegExReplace(expression, "\b" . fullLangAllOperators_HELP[A_Index] . "\b", fullLangAllOperators[A_Index])
+            } else {
+                if (A_Index = 19) {
+                    if (langToConvertTo = "py") or (langToConvertTo = "lua") or (langToConvertTo = "nim") {
+                        expression := RegExReplace(expression, "\b" . fullLangAllOperators_HELP[A_Index] . "\b", "not")
+                    } else {
+                        expression := RegExReplace(expression, "\b" . fullLangAllOperators_HELP[A_Index] . "\b", "!")
+                    }
+                    if (langToConvertTo = "py") or (langToConvertTo = "lua") or (langToConvertTo = "nim") {
+                        expression := RegExReplace(expression, "!([\w]+)", "not $1")
+                    }
+                    expression := StrReplace(expression, " not= ", " != ")
+                } else {
+                    expression := StrReplace(expression, " " . fullLangAllOperators_HELP[A_Index] . " ", " " . fullLangAllOperators[A_Index] . " ")
+                    if (A_Index = 28) {
+                        if (langToConvertTo = "py") {
+                            ; Convert C-like ternary to Python ternary using RegExReplace
+                            expression := RegExReplace(expression, "(.*?)\s*\?\s*(.*?)\s*:\s*(.*?)", "$2 if $1 else $3")
+                        }
+                        if (langToConvertTo = "nim") {
+                            ; Convert C-like ternary to Nim ternary using RegExReplace
+                            expression := RegExReplace(expression, "(.*?)\s*\?\s*(.*?)\s*:\s*(.*)", "if $1: $2 else: $3")
+                        }
+                        if (langToConvertTo = "lua") {
+                            ; Convert C-like ternary to Lua ternary-like expression using RegExReplace
+                            expression := RegExReplace(expression, "(.*?)\s*\?\s*(.*?)\s*:\s*(.*?)", "$1 and $2 or $3")
+                        }
+                        if (langToConvertTo = "scala") or (langToConvertTo = "kt") {
+                            ; Convert C-like ternary to Kotlin/Scala ternary-like expression using RegExReplace
+                            expression := RegExReplace(expression, "(.*?)\s*\?\s*(.*?)\s*:\s*(.*?)", "if $1 $2 else $3")
+                        }
+                    }
+                }
+            }
+            Asdfgfvhb
+        }
+    }
+    if (langToConvertTo = "ahk") {
+        if (InStr(expression, keyWordAIndex)) {
+            expression := RegExReplace(expression, "\b" . keyWordAIndex . "\b", "A_Index")
+        }
+        if (InStr(expression, keyWordALoopField)) {
+            expression := RegExReplace(expression, "\b" . keyWordALoopField . "\b", "A_LoopField")
+        }
+    }
+    if (langToConvertTo = langFileExtension_2) {
+        if (InStr(expression, keyWordAIndex)) {
+            expression := RegExReplace(expression, "\b" . keyWordAIndex . "\b", keyWordAIndex_2)
+        }
+        if (InStr(expression, keyWordALoopField)) {
+            expression := RegExReplace(expression, "\b" . keyWordALoopField . "\b", keyWordALoopField_2)
+        }
+    }
+    ; extra for array methods
+    expression := await arrayParserTranspiler(expression)
+    if (fixExpertionLineFuncOnly = 1) {
+        expression := fixExpertionLineFuncOnlyTEXT_func . "(" . expression
+    }
+    return expression
+}

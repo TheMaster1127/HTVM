@@ -34,6 +34,8 @@ for A_Index1 in 0..5 + 0:
 print(5+5 != 5 not SZDS() and "A+-+--+ != ADSF" and "WSADFD" and "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
 print(if "QWADSDF" and "qawdsf" || var1 ! var4 and "ASDFX" and not ADSFD("Qwads" and "QASD" and "aszd" < 6): false else: true || nil && false)
 print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)))
+Avar123 = StringTrimRight(STRRAWSD, 1)
+if(var1 == 5 and var2w3erf < 6)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 var1 = 1
 print(if (var1 == 1): "hello" else: "bye")
