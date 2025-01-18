@@ -74,9 +74,6 @@ keyWordTernary2
 keyWordInc
 keyWordDec
 
-keyWordAIndex - just add it for ahk in the expressin transpiler
-keyWordALoopField - just add it for ahk in the expressin transpiler
-
 useParentheses
 usePrefixTypeForTypeDefinition
 usePostfixTypeForTypeDefinition
@@ -88,4 +85,4 @@ useJavaScriptAmainFuncDef
 useJavaScriptAllFuncsAreAsync
 useJavaScriptAlwaysTripleEqual
 
-LEFT TO DO: 81
+LEFT TO DO: 79
