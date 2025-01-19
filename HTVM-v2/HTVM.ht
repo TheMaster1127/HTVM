@@ -1592,9 +1592,6 @@ str str_6 := ""
 
 str HELPHoldOSPdethodNamePath := ""
 
-StringTrimRight, HELPHoldOSPdethodNamePath, HoldOSPdethodNamePath, 1
-
-
 
 
 Loop, Parse, theSringOSPline, "|"
@@ -1970,6 +1967,26 @@ return false
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+func str fixDoubleQuotes(str line, int isLast)
+{
+str out := ""
+if (isLast = 0)
+{
+out := StrReplace(line, Chr(92) . Chr(92) . Chr(34), Chr(92) . Chr(34))
+}
+else
+{
+StringTrimRight, line, line, 1
+
+out := StrReplace(line, Chr(92) . Chr(92) . Chr(34), Chr(92) . Chr(34)) . Chr(34)
+}
+
+return out
+}
+
 
 
 func str fixArray1234(str line)
@@ -2968,6 +2985,11 @@ if (fixExpertionLineFuncOnly = 1)
 fixExpertionLineFuncOnlyTEXT_func := StrSplit(expression, "(", 1)
 fixExpertionLineFuncOnlyTEXT_numDelete := StrLen(fixExpertionLineFuncOnlyTEXT_func) + 1
 expression := StringTrimLeft(expression, fixExpertionLineFuncOnlyTEXT_numDelete)
+}
+
+if (langToConvertTo != "js") and (langToConvertTo != "ts") and (langToConvertTo != langFileExtension_2)
+{
+expression := RegExReplace(expression, "\b" . keyWordAwait . "\b", "")
 }
 
 
@@ -4319,6 +4341,9 @@ int doseCodeHaveLibs_HAS_SEEN := 0
 int doseCodeHaveLibs_HAS_SEEN2 := 0
 if (isNotHTVMfile = 0) 
 {
+if (langToConvertTo != langFileExtension_2)
+{
+
 
 if (InStr(code, StrLower(keyWordIncludeInTheTranspiledLang . " ")))
 {
@@ -4330,10 +4355,10 @@ if (A_Index = 0)
 {
 Loop, Parse, code, `n, `r 
 {
-if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang . " "))) = StrLower(keyWordIncludeInTheTranspiledLang . " ")) 
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang . " "))) = StrLower(keyWordIncludeInTheTranspiledLang . " "))
 {
-allLibsWeSee.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(keyWordIncludeInTheTranspiledLang . " ")), Chr(34), ""))
-allLibsWeSeeSEE.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(keyWordIncludeInTheTranspiledLang . " ")), Chr(34), ""))
+allLibsWeSee.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " ")), Chr(34), ""))
+allLibsWeSeeSEE.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " ")), Chr(34), ""))
 doseCodeHaveLibs := 1
 }
 }
@@ -4348,15 +4373,15 @@ if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIncludeInTheTr
 doseCodeHaveLibs_HAS_SEEN := 0
 Loop, % allLibsWeSee.size() 
 {
-if (StrReplace(StringTrimLeft(Trim(ALoopField), StrLen(keyWordIncludeInTheTranspiledLang . " ")), Chr(34), "") = allLibsWeSee[A_Index]) 
+if (StrReplace(StringTrimLeft(Trim(ALoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " ")), Chr(34), "") = allLibsWeSee[A_Index]) 
 {
 doseCodeHaveLibs_HAS_SEEN := 1
 }
 }
 if (doseCodeHaveLibs_HAS_SEEN = 0) 
 {
-allLibsWeSee.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(keyWordIncludeInTheTranspiledLang . " ")), Chr(34), ""))
-allLibsWeSeeSEE.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(keyWordIncludeInTheTranspiledLang . " ")), Chr(34), ""))
+allLibsWeSee.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " ")), Chr(34), ""))
+allLibsWeSeeSEE.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " ")), Chr(34), ""))
 doseCodeHaveLibs := 1
 }
 }
@@ -4408,13 +4433,19 @@ break
 
 
 }
+}
 ALoopField := ""
 }
+
 ; keyWordIncludeInTheTranspiledLang
 ; keyWordIncludeInTheTranspiledLang
 ; keyWordIncludeInTheTranspiledLang
 
-
+print("keyWordIncludeInTheTranspiledLan`nPROGRAMMING BLOCK")
+print("keyWordIncludeInTheTranspiledLan`nPROGRAMMING BLOCK")
+print(code)
+print("keyWordIncludeInTheTranspiledLan`nPROGRAMMING BLOCK")
+print("keyWordIncludeInTheTranspiledLan`nPROGRAMMING BLOCK")
 
 ; PROGRAMMING BLOCK
 ; PROGRAMMING BLOCK
@@ -4780,6 +4811,7 @@ StringTrimRight, code, programmingBlocksTemp, 1
 ; PROGRAMMING BLOCK
 ; PROGRAMMING BLOCK
 
+
 arr str lookIntoTheNextLineForFuncWhitNoKeyWord
 int didWeUseMainLabel := 0
 str codeOutFixAndAddMainFunc := ""
@@ -4839,7 +4871,7 @@ getAllCharForTheFurtureSoIcanAddEscapeChar.add(A_LoopField)
 
 getAllCharForTheFurtureSoIcanAddEscapeChar.add(" ")
 
-ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes := Chr(34) . "ihuiuusgfgesrheidForQQQasdsasQQQtheuhtuwaesphoutr" . Chr(34)
+ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes := Chr(34) . "ihuiuusgfgesrheidFor--asdsas--theuhtuwaesphoutr" . Chr(34)
 
 
 Loop, Parse, code
@@ -4867,7 +4899,7 @@ fixOutFixDoubleQuotesInsideDoubleQuotesFIXok := 0
 
 code := OutFixDoubleQuotesInsideDoubleQuotes
 
-if (keyWordEscpaeChar != Chr(92))
+if (keyWordEscpaeChar != Chr(92)) and (langToConvertTo != langFileExtension_2)
 {
 code := StrReplace(code, Chr(92), Chr(92) . Chr(92))
 }
@@ -4875,7 +4907,7 @@ code := StrReplace(code, Chr(92), Chr(92) . Chr(92))
 
 
 
-if (keyWordEscpaeChar = Chr(92))
+if (keyWordEscpaeChar = Chr(92)) and (langToConvertTo != langFileExtension_2)
 {
 Loop, Parse, code
 {
@@ -4892,7 +4924,7 @@ if (areWEinSome34sNum = 1)
 
 if (A_LoopField != Chr(34))
 {
-if (A_LoopField = keyWordEscpaeChar)
+if (A_LoopField = keyWordEscpaeChar) and (langToConvertTo != langFileExtension_2)
 {
 theIdNumOfThe34theVar[theIdNumOfThe34] := theIdNumOfThe34theVar[theIdNumOfThe34] . Chr(92)
 }
@@ -4904,7 +4936,7 @@ theIdNumOfThe34theVar[theIdNumOfThe34] := theIdNumOfThe34theVar[theIdNumOfThe34]
 else
 {
 theIdNumOfThe34++
-htCodeOUT754754 .= "ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQ" . Chr(65) . Chr(65) . STR(theIdNumOfThe34) . Chr(65) . Chr(65)
+htCodeOUT754754 .= "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(theIdNumOfThe34) . Chr(65) . Chr(65)
 }
 
 }
@@ -4943,12 +4975,12 @@ if (areWEinSome34sNum = 1)
 
 if (A_LoopField != Chr(34))
 {
-if (A_LoopField = keyWordEscpaeChar) and (keyWordEscpaeChar = getAllCharForTheFurtureSoIcanAddEscapeChar[A_Index + 1])
+if (A_LoopField = keyWordEscpaeChar) and (keyWordEscpaeChar = getAllCharForTheFurtureSoIcanAddEscapeChar[A_Index + 1]) and (langToConvertTo != langFileExtension_2)
 {
 theIdNumOfThe34theVar[theIdNumOfThe34] := theIdNumOfThe34theVar[theIdNumOfThe34] . keyWordEscpaeChar
 removeNexFixkeyWordEscpaeChar := 1
 }
-else if (A_LoopField = keyWordEscpaeChar)
+else if (A_LoopField = keyWordEscpaeChar) and (langToConvertTo != langFileExtension_2)
 {
 if (removeNexFixkeyWordEscpaeChar != 1)
 {
@@ -4968,7 +5000,7 @@ theIdNumOfThe34theVar[theIdNumOfThe34] := theIdNumOfThe34theVar[theIdNumOfThe34]
 else
 {
 theIdNumOfThe34++
-htCodeOUT754754 .= "ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQ" . Chr(65) . Chr(65) . STR(theIdNumOfThe34) . Chr(65) . Chr(65)
+htCodeOUT754754 .= "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(theIdNumOfThe34) . Chr(65) . Chr(65)
 
 }
 
@@ -5007,6 +5039,8 @@ theIdNumOfThe34theVar.add(Chr(34))
 
 
 code := StrReplace(code, Chr(13), "")
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -6249,11 +6283,74 @@ htCode .= htCodeLoopfixa1 . "`n" . var1out . "`n"
 
 
 }
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang . " "))) = StrLower(keyWordIncludeInTheTranspiledLang . " ")) and (langToConvertTo = langFileExtension_2)
+{
+print(keyWordIncludeInTheTranspiledLang_2)
+print(keyWordIncludeInTheTranspiledLang_2 . " " . Trim(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " "))) . "`n")
+htCode .= keyWordIncludeInTheTranspiledLang_2 . " " . Trim(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " "))) . "`n"
+}
 else if (StrLower(A_LoopField) = StrLower(keyWordGlobal)) or (StrLower(A_LoopField) = StrLower(keyWordGlobal . ";"))
 {
 if (langToConvertTo = "ahk")
 {
 htCode .= "global`n"
+}
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAwait))) = StrLower(keyWordAwait))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordAwait))
+;MsgBox, % A_LoopField
+lineDone := 1
+
+
+
+fixExpertionLineFuncOnly := 1
+if (langToConvertTo = langFileExtension_2)
+{
+if (useSemicolon_2 = "on")
+{
+str2 := expressionParserTranspiler(Trim(str1)) . ";"
+}
+else
+{
+str2 := expressionParserTranspiler(Trim(str1))
+}
+
+
+}
+else
+{
+if (langToConvertTo = "py") or (langToConvertTo = "nim") or (langToConvertTo = "ahk") or (langToConvertTo = "go") or (langToConvertTo = "lua") or (langToConvertTo = "kt") or (langToConvertTo = "rb") or (langToConvertTo = "swift") or (langToConvertTo = "scala") or (langToConvertTo = "groovy") 
+{
+if (SubStrLastChars(str1, 1) = ";")
+{
+StringTrimRight, str1, str1, 1
+}
+
+}
+
+
+
+str2 := expressionParserTranspiler(Trim(str1)) . ";"
+if (langToConvertTo = "py") or (langToConvertTo = "nim") or (langToConvertTo = "ahk") or (langToConvertTo = "go") or (langToConvertTo = "lua") or (langToConvertTo = "kt") or (langToConvertTo = "rb") or (langToConvertTo = "swift") or (langToConvertTo = "scala") or (langToConvertTo = "groovy") 
+{
+if (SubStrLastChars(str2, 1) = ";")
+{
+StringTrimRight, str2, str2, 1
+}
+}
+
+
+}
+fixExpertionLineFuncOnly := 0
+
+if (langToConvertTo = "js") or (langToConvertTo = "ts") or (langToConvertTo = langFileExtension_2)
+{
+htCode .= "await " . str2 . "`n"
+}
+else
+{
+htCode .= str2 . "`n"
 }
 }
 else if ((SubStr(Trim(A_LoopField), -2) = ");") or (SubStr(Trim(A_LoopField), -1) = ")")) and (!(InStr(A_LoopField, "int main(int argc, char* argv[])"))) and (!(InStr(A_LoopField, "async function main()"))) and (lineDone = 0)
@@ -7672,20 +7769,29 @@ if (langToConvertTo = "go")
 
 
 
-
-
-
 Loop, % theIdNumOfThe34
 {
 if (theIdNumOfThe34 = A_Index + 1)
 {
 if (langToConvertTo = langFileExtension_2)
 {
-htCode := StrReplace(htCode, "ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQ" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], "\", keyWordEscpaeChar_2) . Chr(34))
+
+
+
+if (keyWordEscpaeChar_2 = "\") and (keyWordEscpaeChar != "\")
+{
+
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index + 1], "\", "\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) . Chr(34))
 }
 else
 {
-htCode := StrReplace(htCode, "ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQ" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index + 1] . Chr(34))
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], keyWordEscpaeChar, keyWordEscpaeChar_2) . Chr(34))
+}
+
+}
+else
+{
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index + 1] . Chr(34))
 }
 
 }
@@ -7693,11 +7799,23 @@ else
 {
 if (langToConvertTo = langFileExtension_2)
 {
-htCode := StrReplace(htCode, "ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQ" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], "\", keyWordEscpaeChar_2))
+
+if (keyWordEscpaeChar_2 = "\") and (keyWordEscpaeChar != "\")
+{
+
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index + 1], "\", "\\"), keyWordEscpaeChar, keyWordEscpaeChar_2))
 }
 else
 {
-htCode := StrReplace(htCode, "ihuiuuhuuhtheidForQQQasdsasQQQtheuhturtyphoutrQQQ" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index + 1])
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], keyWordEscpaeChar, keyWordEscpaeChar_2))
+}
+
+
+
+}
+else
+{
+htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index + 1])
 }
 
 
@@ -7715,7 +7833,6 @@ htCode := StrReplace(htCode, ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes,
 }
 
 htCode := StrReplace(htCode, "std::string(" . Chr(34) . Chr(34) . ";),", "std::string(" . Chr(34) . Chr(34) . "),")
-
 
 
 
@@ -7752,7 +7869,10 @@ htCode := "#EscapeChar \`n" . htCode
 
 if (langToConvertTo = langFileExtension_2)
 {
+if (SubStr(htCode, 1, 1) = "`n")
+{
 StringTrimLeft, htCode, htCode, 1
+}
 }
 
 }

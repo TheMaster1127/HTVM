@@ -25,8 +25,10 @@ Loop, 6 {
     print("hello HTVM\nimport")
 }
 Loop, 5 {
-    print("hello HTVM v2")
+    print("hello\" HTVM v2")
+    print("hello HTVM\\v2\\\\s")
     print("hello HTVM\nv2")
+    print("hello HTVM\\nv2")
     print(A_Index)
     Loop, 5 {
         print("hello HTVM v2")
@@ -39,6 +41,8 @@ Loop, 5 {
         print(A_Index)
     }
 }
+qWAERSFD()
+qWAERSFD(waedsfd())
 print(5+5 != 5 !SZDS() . "A+-+--+ != ADSF" . "WSADFD" . "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
 print("QWADSDF" . "qawdsf" || var1 ! var4 . "ASDFX" . !ADSFD("Qwads" . "QASD" . "aszd" < 6) ? false : true || "" && false)
 print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)))

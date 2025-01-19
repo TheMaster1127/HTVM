@@ -29,8 +29,10 @@ def main(args: Array[String]): Unit = {
         print("hello HTVM\nimport")
     }
     for (A_Index3 <- 0 to 5 + 0) {
-        print("hello HTVM v2")
+        print("hello\" HTVM v2")
+        print("hello HTVM\\v2\\\\s")
         print("hello HTVM\nv2")
+        print("hello HTVM\\nv2")
         print(A_Index3)
         for (A_Index4 <- 0 to 5 + 0) {
             print("hello HTVM v2")
@@ -43,6 +45,8 @@ def main(args: Array[String]): Unit = {
             print(A_Index4)
         }
     }
+    qWAERSFD()
+    qWAERSFD(waedsfd())
     print(5+5 != 5 !SZDS() + "A+-+--+ != ADSF" + "WSADFD" + "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
     print(if "QWADSDF" + "qawdsf" || var1 ! var4 + "ASDFX" + !ADSFD("Qwads" + "QASD" + "aszd" < 6) false else true || null && false)
     print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)))

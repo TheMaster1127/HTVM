@@ -47,8 +47,10 @@ async function main() {
         print("hello HTVM\nimport");
     }
     for (let A_Index3 = 0; A_Index3 < 5 + 0; A_Index3++) {
-        print("hello HTVM v2");
+        print("hello\" HTVM v2");
+        print("hello HTVM\\v2\\\\s");
         print("hello HTVM\nv2");
+        print("hello HTVM\\nv2");
         print(A_Index3);
         for (let A_Index4 = 0; A_Index4 < 5 + 0; A_Index4++) {
             print("hello HTVM v2");
@@ -61,6 +63,8 @@ async function main() {
             print(A_Index4);
         }
     }
+    await qWAERSFD();
+    qWAERSFD(await waedsfd());
     print(5+5 != 5 !SZDS() + "A+-+--+ != ADSF" + "WSADFD" + "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8);
     print("QWADSDF" + "qawdsf" || var1 ! var4 + "ASDFX" + !ADSFD("Qwads" + "QASD" + "aszd" < 6) ? false : true || null && false);
     print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)));

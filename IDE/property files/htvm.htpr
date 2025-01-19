@@ -1,5 +1,9 @@
-; for cpp
 
+; for htvm2
+"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM-instructions.txt" "htvm2" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM-instructions2.txt"
+
+
+; for cpp
 "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM-instructions.txt" "cpp"
 ;g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
 ;cd "%DIRFULLPATH%" && "%ONLYFILENAME%.exe"
@@ -51,7 +55,4 @@
 
 ; for groovy
 "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM-instructions.txt" "groovy"
-
-; for htvm2
-"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM-instructions.txt" "htvm2" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-v2\HTVM-instructions2.txt"
 

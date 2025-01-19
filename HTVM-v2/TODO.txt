@@ -30,7 +30,6 @@ keyWordWhileLoop
 keyWordContinue
 keyWordBreak
 keyWordFunc
-keyWordAwait
 keyWordAsync
 keyWordThrow
 keyWordErrorMsg
@@ -62,8 +61,6 @@ keyWordLogicalAssignShiftRight
 keyWordAssignBitAnd
 keyWordAssignBitOr
 keyWordAssignBitXor
-keyWordTernary1
-keyWordTernary2
 keyWordInc
 keyWordDec
 useParentheses
@@ -76,4 +73,4 @@ useJavaScriptAmainFuncDef
 useJavaScriptAllFuncsAreAsync
 useJavaScriptAlwaysTripleEqual
 
-LEFT TO DO: 77
+LEFT TO DO: 74

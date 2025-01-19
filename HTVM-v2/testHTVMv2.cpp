@@ -90,8 +90,10 @@ int main(int argc, char* argv[]) {
         print("hello HTVM\nimport");
     }
     for (int A_Index3 = 0; A_Index3 < 5 + 0; A_Index3++) {
-        print("hello HTVM v2");
+        print("hello\" HTVM v2");
+        print("hello HTVM\\v2\\\\s");
         print("hello HTVM\nv2");
+        print("hello HTVM\\nv2");
         int asdfd12 = 5;
         int asdfd23 = 56;
         int asdfd34 = 5;
@@ -107,6 +109,8 @@ int main(int argc, char* argv[]) {
             print(A_Index4);
         }
     }
+    qWAERSFD();
+    qWAERSFD(waedsfd());
     print(5+5 != 5 !SZDS() + "A+-+--+ != ADSF" + "WSADFD" + "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8);
     print("QWADSDF" + "qawdsf" || var1 ! var4 + "ASDFX" + !ADSFD("Qwads" + "QASD" + "aszd" < 6) ? false : true || nullptr && false);
     print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)));

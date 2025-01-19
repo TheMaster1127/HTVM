@@ -1,0 +1,20 @@
+
+
+func str fixDoubleQuotes(str line, int isLast)
+{
+str out := ""
+if (isLast = 0)
+{
+out := StrReplace(line, Chr(92) . Chr(92) . Chr(34), Chr(92) . Chr(34))
+}
+else
+{
+StringTrimRight, line, line, 1
+
+out := StrReplace(line, Chr(92) . Chr(92) . Chr(34), Chr(92) . Chr(34)) . Chr(34)
+}
+
+return out
+}
+
+main
