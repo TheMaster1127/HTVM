@@ -4596,7 +4596,219 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
         for (let A_Index93 = 0; A_Index93 < items93.length + 0; A_Index93++) {
             const A_LoopField93 = items93[A_Index93 - 0];
             lineDone = 0;
-            if (StrLower(A_LoopField93) == StrLower(keyWordLoopInfinite) || StrLower(A_LoopField93) == StrLower(keyWordLoopInfinite + ":")) {
+            if (StrLower(Trim(A_LoopField93)) == StrLower(keyWordTry) || StrLower(Trim(A_LoopField93)) == StrLower(keyWordTry + ":")) {
+                if (langToConvertTo == langFileExtension_2) {
+                    if (usePythonicColonSyntax_2 == "on") {
+                        htCode = keyWordTry_2 + ":\n";
+                    } else {
+                        htCode = keyWordTry_2 + "\n";
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "py") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "js") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "go") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "cs") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "java") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "kt") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "rb") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "swift") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "dart") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "ts") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode = A_LoopField93 + "\n";
+                }
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField93)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch)) {
+                if (langToConvertTo == langFileExtension_2) {
+                    if (usePythonicColonSyntax_2 == "on") {
+                        htCode = keyWordCatch_2 + ":\n";
+                    } else {
+                        htCode = keyWordCatch_2 + "\n";
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "py") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "js") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "go") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "cs") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "java") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "kt") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "rb") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "swift") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "dart") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "ts") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode = A_LoopField93 + "\n";
+                }
+            }
+            else if (StrLower(Trim(A_LoopField93)) == StrLower(keyWordFinally) || StrLower(Trim(A_LoopField93)) == StrLower(keyWordFinally + ":")) {
+                if (langToConvertTo == langFileExtension_2) {
+                    if (usePythonicColonSyntax_2 == "on") {
+                        htCode = keyWordFinally_2 + ":\n";
+                    } else {
+                        htCode = keyWordFinally_2 + "\n";
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "py") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "js") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "go") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "cs") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "java") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "kt") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "rb") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "swift") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "dart") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "ts") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode = A_LoopField93 + "\n";
+                }
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField93)), 1, StrLen(StrLower(keyWordThrow))) == StrLower(keyWordThrow)) {
+                if (langToConvertTo == langFileExtension_2) {
+                    htCode = keyWordThrow + "\n";
+                }
+                if (langToConvertTo == "cpp") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "py") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "js") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "go") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "cs") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "java") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "kt") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "rb") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "swift") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "dart") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "ts") {
+                    htCode = A_LoopField93 + "\n";
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode = A_LoopField93 + "\n";
+                }
+            }
+            else if (StrLower(A_LoopField93) == StrLower(keyWordLoopInfinite) || StrLower(A_LoopField93) == StrLower(keyWordLoopInfinite + ":")) {
                 // infinity loops
                 haveWeEverUsedAloop = 1;
                 lineDone = 1;
@@ -5820,6 +6032,26 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
         }
         htCode = StringTrimRight(nextWordEndFixOut, 1);
     }
+    let nextWordEndFixRB = [];
+    nextWordEndFixOut = "";
+    if (langToConvertTo == "rb") {
+        items136 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index136 = 0; A_Index136 < items136.length + 0; A_Index136++) {
+            const A_LoopField136 = items136[A_Index136 - 0];
+            nextWordEndFixRB.push(A_LoopField136);
+        }
+        nextWordEndFixRB.push(" ");
+        items137 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index137 = 0; A_Index137 < items137.length + 0; A_Index137++) {
+            const A_LoopField137 = items137[A_Index137 - 0];
+            if (Trim(A_LoopField137) == "end" && SubStr(Trim(nextWordEndFixRB[A_Index137 + 1]), 1, StrLen("rescue ")) == "rescue " || Trim(A_LoopField137) == "end" && SubStr(Trim(nextWordEndFixRB[A_Index137 + 1]), 1, StrLen("ensure ")) == "ensure ") {
+                nextWordEndFixOut += "";
+            } else {
+                nextWordEndFixOut += A_LoopField137 + "\n";
+            }
+        }
+        htCode = StringTrimRight(nextWordEndFixOut, 1);
+    }
     areWeInAFuncFromInstructions = 0;
     areWeInAFuncFromInstructionsLineNum = 0;
     var funcLangHolder = "";
@@ -5833,10 +6065,10 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
     let allFuncs = [];
     let allfuncDescription = [];
     var correctLang = 0;
-    items136 = LoopParseFunc(instructions, "\n", "\r")
-    for (let A_Index136 = 0; A_Index136 < items136.length + 0; A_Index136++) {
-        const A_LoopField136 = items136[A_Index136 - 0];
-        if (Trim(A_LoopField136) == "funcEND======================funcEND==============") {
+    items138 = LoopParseFunc(instructions, "\n", "\r")
+    for (let A_Index138 = 0; A_Index138 < items138.length + 0; A_Index138++) {
+        const A_LoopField138 = items138[A_Index138 - 0];
+        if (Trim(A_LoopField138) == "funcEND======================funcEND==============") {
             areWeInAFuncFromInstructions = 0;
             areWeInAFuncFromInstructionsLineNum = 0;
             if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
@@ -5849,7 +6081,7 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
         if (areWeInAFuncFromInstructions == 1) {
             if (areWeInAFuncFromInstructionsLineNum == 1) {
                 // name of the func
-                funcLangHolder = StringTrimLeft(A_LoopField136, 5);
+                funcLangHolder = StringTrimLeft(A_LoopField138, 5);
                 if (Trim(funcLangHolder) == langToConvertTo) {
                     allFuncLang.push(Trim(funcLangHolder));
                     correctLang = 1;
@@ -5857,21 +6089,21 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             }
             if (areWeInAFuncFromInstructionsLineNum == 2) {
                 // name of the func
-                funcNameHolder = StringTrimLeft(A_LoopField136, 5);
+                funcNameHolder = StringTrimLeft(A_LoopField138, 5);
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
                     allFuncNames.push(Trim(funcNameHolder));
                 }
             }
             if (areWeInAFuncFromInstructionsLineNum == 3) {
                 // all libs
-                funcLibsHolder = StringTrimLeft(A_LoopField136, 5);
+                funcLibsHolder = StringTrimLeft(A_LoopField138, 5);
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
                     allFuncLibs.push(Trim(funcLibsHolder));
                 }
             }
             if (areWeInAFuncFromInstructionsLineNum == 4) {
                 // func description
-                funcDescriptionHolder = StringTrimLeft(A_LoopField136, 12);
+                funcDescriptionHolder = StringTrimLeft(A_LoopField138, 12);
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
                     allfuncDescription.push(Trim(funcDescriptionHolder));
                 }
@@ -5879,13 +6111,13 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             if (areWeInAFuncFromInstructionsLineNum >= 5) {
                 // the full func
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
-                    funcFuncHolder += A_LoopField136 + "\n";
+                    funcFuncHolder += A_LoopField138 + "\n";
                 }
             }
-            //MsgBox, % A_LoopField136
+            //MsgBox, % A_LoopField138
             areWeInAFuncFromInstructionsLineNum++;
         }
-        if (Trim(A_LoopField136) == "func======================func==============") {
+        if (Trim(A_LoopField138) == "func======================func==============") {
             areWeInAFuncFromInstructions = 1;
             areWeInAFuncFromInstructionsLineNum = 1;
             correctLang = 0;
@@ -5945,21 +6177,21 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
     var allFuncsToPutAtTop = "\n";
     var allLibsToPutAtTop;
     if (!(allFuncNames.length <= 0)) {
-        for (let A_Index137 = 0; A_Index137 < allFuncNames.length + 0; A_Index137++) {
-            if (InStr(htCode, allFuncNames[A_Index137]) + "(") {
-                //MsgBox, % allFuncNames[A_Index137]
-                allFuncsToPutAtTop += allFuncs[A_Index137] + "\n";
-                if (Trim(allFuncLibs[A_Index137]) != "null") {
-                    allLibsToPutAtTop += allFuncLibs[A_Index137] + "|";
+        for (let A_Index139 = 0; A_Index139 < allFuncNames.length + 0; A_Index139++) {
+            if (InStr(htCode, allFuncNames[A_Index139]) + "(") {
+                //MsgBox, % allFuncNames[A_Index139]
+                allFuncsToPutAtTop += allFuncs[A_Index139] + "\n";
+                if (Trim(allFuncLibs[A_Index139]) != "null") {
+                    allLibsToPutAtTop += allFuncLibs[A_Index139] + "|";
                 }
             }
         }
         allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTop, 1);
         var allLibsToPutAtTopTEMP;
-        items138 = LoopParseFunc(allLibsToPutAtTop, "|")
-        for (let A_Index138 = 0; A_Index138 < items138.length + 0; A_Index138++) {
-            const A_LoopField138 = items138[A_Index138 - 0];
-            allLibsToPutAtTopTEMP += A_LoopField138 + "\n";
+        items140 = LoopParseFunc(allLibsToPutAtTop, "|")
+        for (let A_Index140 = 0; A_Index140 < items140.length + 0; A_Index140++) {
+            const A_LoopField140 = items140[A_Index140 - 0];
+            allLibsToPutAtTopTEMP += A_LoopField140 + "\n";
         }
         allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTopTEMP, 1);
         includeLibsInCppIf = 1;
@@ -6000,26 +6232,26 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             htCode = "package main\nimport (\n" + htCode;
         }
     }
-    for (let A_Index139 = 0; A_Index139 < theIdNumOfThe34 + 0; A_Index139++) {
-        if (theIdNumOfThe34 == A_Index139 + 1) {
+    for (let A_Index141 = 0; A_Index141 < theIdNumOfThe34 + 0; A_Index141++) {
+        if (theIdNumOfThe34 == A_Index141 + 1) {
             if (langToConvertTo == langFileExtension_2) {
                 if (keyWordEscpaeChar_2 == "\\" && keyWordEscpaeChar != "\\") {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index139 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index139 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index141 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index141 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
                 } else {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index139 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index139 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index141 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index141 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
                 }
             } else {
-                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index139 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index139 + 1] + Chr(34));
+                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index141 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index141 + 1] + Chr(34));
             }
         } else {
             if (langToConvertTo == langFileExtension_2) {
                 if (keyWordEscpaeChar_2 == "\\" && keyWordEscpaeChar != "\\") {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index139 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index139 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index141 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index141 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2));
                 } else {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index139 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index139 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index141 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index141 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2));
                 }
             } else {
-                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index139 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index139 + 1]);
+                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index141 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index141 + 1]);
             }
         }
     }
@@ -6077,10 +6309,10 @@ async function HTVMv2() {
     if (noParams == true) {
         return;
     }
-    items140 = LoopParseFunc(str0)
-    for (let A_Index140 = 0; A_Index140 < items140.length + 0; A_Index140++) {
-        const A_LoopField140 = items140[A_Index140 - 0];
-        str00 = Trim(A_LoopField140);
+    items142 = LoopParseFunc(str0)
+    for (let A_Index142 = 0; A_Index142 < items142.length + 0; A_Index142++) {
+        const A_LoopField142 = items142[A_Index142 - 0];
+        str00 = Trim(A_LoopField142);
         str00 = StringTrimRight(str00, 1);
     }
     print("HTVM v2");
@@ -6091,29 +6323,29 @@ async function HTVMv2() {
         if (HTVM_getLang_HTVM() == "py") {
             print("PY");
         }
-        items141 = LoopParseFunc(allArgs, "\n", "\r")
-        for (let A_Index141 = 0; A_Index141 < items141.length + 0; A_Index141++) {
-            const A_LoopField141 = items141[A_Index141 - 0];
-            if (A_Index141 == 0) {
+        items143 = LoopParseFunc(allArgs, "\n", "\r")
+        for (let A_Index143 = 0; A_Index143 < items143.length + 0; A_Index143++) {
+            const A_LoopField143 = items143[A_Index143 - 0];
+            if (A_Index143 == 0) {
                 numOfParams++;
-                argCODE = FileRead(Trim(A_LoopField141));
-                argCODEfile = Trim(A_LoopField141);
+                argCODE = FileRead(Trim(A_LoopField143));
+                argCODEfile = Trim(A_LoopField143);
             }
-            else if (A_Index141 == 1) {
+            else if (A_Index143 == 1) {
                 numOfParams++;
-                argHTVMinstr = Trim(A_LoopField141);
+                argHTVMinstr = Trim(A_LoopField143);
             }
-            else if (A_Index141 == 2) {
+            else if (A_Index143 == 2) {
                 numOfParams++;
-                argLangTo = Trim(A_LoopField141);
+                argLangTo = Trim(A_LoopField143);
             } else {
                 numOfParams++;
-                argHTVMinstrMORE.push(Trim(A_LoopField141));
+                argHTVMinstrMORE.push(Trim(A_LoopField143));
             }
         }
         print("===============123431234===========start=====");
-        for (let A_Index142 = 0; A_Index142 < argHTVMinstrMORE.length + 0; A_Index142++) {
-            print(argHTVMinstrMORE[A_Index142]);
+        for (let A_Index144 = 0; A_Index144 < argHTVMinstrMORE.length + 0; A_Index144++) {
+            print(argHTVMinstrMORE[A_Index144]);
         }
         print("===============123431234==========end======");
         print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) + langToConvertTo);

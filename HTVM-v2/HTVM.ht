@@ -5355,7 +5355,232 @@ print("=======DOWN==========")
 Loop, Parse, code, `n, `r
 {
 lineDone := 0
-if (StrLower(A_LoopField) = StrLower(keyWordLoopInfinite)) or (StrLower(A_LoopField) = StrLower(keyWordLoopInfinite . ":"))
+if (StrLower(Trim(A_LoopField)) = StrLower(keyWordTry)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordTry . ":"))
+{
+if (langToConvertTo = langFileExtension_2) {
+if (usePythonicColonSyntax_2 = "on")
+{
+htCode := keyWordTry_2 . ":`n"
+}
+else
+{
+htCode := keyWordTry_2 . "`n"
+}
+}
+if (langToConvertTo = "cpp") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "py") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "js") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "go") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "lua") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "cs") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "java") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "kt") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "rb") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "nim") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "ahk") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "swift") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "dart") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "ts") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "groovy") {
+htCode := A_LoopField . "`n"
+}
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCatch))) = StrLower(keyWordCatch))
+{
+if (langToConvertTo = langFileExtension_2) {
+if (usePythonicColonSyntax_2 = "on")
+{
+htCode := keyWordCatch_2 . ":`n"
+}
+else
+{
+htCode := keyWordCatch_2 . "`n"
+}
+}
+if (langToConvertTo = "cpp") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "py") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "js") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "go") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "lua") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "cs") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "java") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "kt") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "rb") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "nim") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "ahk") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "swift") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "dart") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "ts") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "groovy") {
+htCode := A_LoopField . "`n"
+}
+}
+else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordFinally)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordFinally . ":"))
+{
+if (langToConvertTo = langFileExtension_2) {
+if (usePythonicColonSyntax_2 = "on")
+{
+htCode := keyWordFinally_2 . ":`n"
+}
+else
+{
+htCode := keyWordFinally_2 . "`n"
+}
+}
+if (langToConvertTo = "cpp") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "py") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "js") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "go") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "lua") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "cs") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "java") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "kt") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "rb") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "nim") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "ahk") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "swift") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "dart") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "ts") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "groovy") {
+htCode := A_LoopField . "`n"
+}
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordThrow))) = StrLower(keyWordThrow))
+{
+if (langToConvertTo = langFileExtension_2) {
+htCode := keyWordThrow_2 . "`n"
+}
+if (langToConvertTo = "cpp") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "py") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "js") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "go") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "lua") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "cs") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "java") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "kt") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "rb") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "nim") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "ahk") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "swift") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "dart") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "ts") {
+htCode := A_LoopField . "`n"
+}
+if (langToConvertTo = "groovy") {
+htCode := A_LoopField . "`n"
+}
+}
+else if (StrLower(A_LoopField) = StrLower(keyWordLoopInfinite)) or (StrLower(A_LoopField) = StrLower(keyWordLoopInfinite . ":"))
 {
 ; infinity loops
 haveWeEverUsedAloop := 1
@@ -7308,6 +7533,56 @@ nextWordEndFixOut .= A_LoopField . "`n"
 }
 StringTrimRight, htCode, nextWordEndFixOut, 1
 }
+
+
+
+
+
+
+
+
+arr str nextWordEndFixRB
+nextWordEndFixOut := ""
+if (langToConvertTo = "rb")
+{
+Loop, Parse, htCode, `n, `r
+{
+nextWordEndFixRB.add(A_LoopField)
+}
+nextWordEndFixRB.add(" ")
+
+
+
+Loop, Parse, htCode, `n, `r
+{
+
+if (Trim(A_LoopField) = "end") and (SubStr(Trim(nextWordEndFixRB[A_Index + 1]), 1, StrLen("rescue ")) = "rescue ") or (Trim(A_LoopField) = "end") and (SubStr(Trim(nextWordEndFixRB[A_Index + 1]), 1, StrLen("ensure ")) = "ensure ")
+{
+nextWordEndFixOut .= ""
+}
+else
+{
+nextWordEndFixOut .= A_LoopField . "`n"
+}
+
+}
+StringTrimRight, htCode, nextWordEndFixOut, 1
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -5107,76 +5107,6 @@ function HTVM_IndexOf<T>(arr: T[], value: T): number {
 funcEND======================funcEND==============
 
 func======================func==============
-lang: scala
-name: HTVM_Append
-libs: null
-description: null
-
-def HTVM_Append[T](arr: scala.collection.mutable.Buffer[T], value: T): Unit = {
-  arr += value
-}
-
-funcEND======================funcEND==============
-
-func======================func==============
-lang: scala
-name: HTVM_Pop
-libs: null
-description: null
-
-def HTVM_Pop[T](arr: scala.collection.mutable.Buffer[T]): Unit = {
-  if (arr.nonEmpty) arr.remove(arr.size - 1)
-}
-
-funcEND======================funcEND==============
-
-func======================func==============
-lang: scala
-name: HTVM_Size
-libs: null
-description: null
-
-def HTVM_Size[T](arr: Seq[T]): Int = arr.size
-
-funcEND======================funcEND==============
-
-func======================func==============
-lang: scala
-name: HTVM_Insert
-libs: null
-description: null
-
-def HTVM_Insert[T](arr: scala.collection.mutable.Buffer[T], index: Int, value: T): Unit = {
-  arr.insert(index, value)
-}
-
-funcEND======================funcEND==============
-
-func======================func==============
-lang: scala
-name: HTVM_Remove
-libs: null
-description: null
-
-def HTVM_Remove[T](arr: scala.collection.mutable.Buffer[T], value: T): Unit = {
-  arr -= value
-}
-
-funcEND======================funcEND==============
-
-func======================func==============
-lang: scala
-name: HTVM_IndexOf
-libs: null
-description: null
-
-def HTVM_IndexOf[T](arr: Seq[T], value: T): Int = {
-  arr.indexOf(value)
-}
-
-funcEND======================funcEND==============
-
-func======================func==============
 lang: groovy
 name: HTVM_Append
 libs: null
@@ -5246,4 +5176,16 @@ def HTVM_IndexOf(arr, value) {
     return arr.indexOf(value)
 }
 
+funcEND======================funcEND==============
+
+func======================func==============
+lang: swift
+name: ErrorMsg
+libs: null
+description: null
+
+// Function that throws an error with a string message
+func ErrorMsg(_ message: String) throws {
+    throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: message])
+}
 funcEND======================funcEND==============
