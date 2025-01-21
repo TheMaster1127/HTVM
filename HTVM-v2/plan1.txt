@@ -70,9 +70,6 @@ keyWordINT64
 keyWordIF
 keyWordElseIf
 keyWordElse
-keyWordSwitch
-keyWordSwitchCase
-keyWordSwitchDefault
 keyWordWhileLoop
 keyWordLoopInfinite
 keyWordLoop

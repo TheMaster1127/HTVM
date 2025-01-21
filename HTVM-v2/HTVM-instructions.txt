@@ -70,9 +70,6 @@ int64
 if
 else if
 else
-switch
-case
-default
 while
 Loop
 Loop,

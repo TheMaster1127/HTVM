@@ -1,20 +1,26 @@
+str htCode := "-- Function definition with a while loop and if-elseif-else inside it`nfunction myFunction()`n    local x = 1`n    while x " . Chr(60) . "= 3 do`n        -- if-elseif-else inside the while loop`n        if x == 1 then`n            print(" . Chr(34) . "x is 1" . Chr(34) . ")`n        end`n        elseif x == 2 then`n            print(" . Chr(34) . "x is 2" . Chr(34) . ")`n        end`n        else`n            print(" . Chr(34) . "x is 3" . Chr(34) . ")`n        end`n        x = x + 1`n    end`nend`n`n-- Call the function`nmyFunction()"
+arr str nextWordEndFix
+Loop, Parse, htCode, `n, `r
+{
+nextWordEndFix.add(A_LoopField)
+}
+nextWordEndFix.add(" ")
 
 
-func str fixDoubleQuotes(str line, int isLast)
+str nextWordEndFixOut := ""
+Loop, Parse, htCode, `n, `r
 {
-str out := ""
-if (isLast = 0)
+
+if (Trim(A_LoopField) = "end") and (SubStr(Trim(nextWordEndFix[A_Index + 1]), 1, StrLen("elseif ")) = "elseif ") or (Trim(A_LoopField) = "end") and (Trim(nextWordEndFix[A_Index + 1]) = "else")
 {
-out := StrReplace(line, Chr(92) . Chr(92) . Chr(34), Chr(92) . Chr(34))
+nextWordEndFixOut .= ""
 }
 else
 {
-StringTrimRight, line, line, 1
-
-out := StrReplace(line, Chr(92) . Chr(92) . Chr(34), Chr(92) . Chr(34)) . Chr(34)
+nextWordEndFixOut .= A_LoopField . "`n"
 }
 
-return out
 }
+StringTrimRight, htCode, nextWordEndFixOut, 1
+print(htCode)
 
-main

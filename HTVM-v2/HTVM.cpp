@@ -490,7 +490,6 @@ std::vector<std::string> programmingBlock_AHK;
 std::vector<std::string> programmingBlock_SWIFT;
 std::vector<std::string> programmingBlock_DART;
 std::vector<std::string> programmingBlock_TS;
-std::vector<std::string> programmingBlock_SCALA;
 std::vector<std::string> programmingBlock_GROOVY;
 std::vector<std::string> programmingBlock_HTVM;
 std::vector<std::string> programmingBlock_HTVMsyntax;
@@ -538,8 +537,6 @@ std::string keyWordCodeInTheTranspiledLangStartDART = "";
 std::string keyWordCodeInTheTranspiledLangEndDART = "";
 std::string keyWordCodeInTheTranspiledLangStartTS = "";
 std::string keyWordCodeInTheTranspiledLangEndTS = "";
-std::string keyWordCodeInTheTranspiledLangStartSCALA = "";
-std::string keyWordCodeInTheTranspiledLangEndSCALA = "";
 std::string keyWordCodeInTheTranspiledLangStartGROOVY = "";
 std::string keyWordCodeInTheTranspiledLangEndGROOVY = "";
 std::string keyWordCodeInTheTranspiledLangStartHTVM = "";
@@ -569,9 +566,6 @@ std::string keyWordINT64 = "";
 std::string keyWordIF = "";
 std::string keyWordElseIf = "";
 std::string keyWordElse = "";
-std::string keyWordSwitch = "";
-std::string keyWordSwitchCase = "";
-std::string keyWordSwitchDefault = "";
 std::string keyWordWhileLoop = "";
 std::string keyWordLoopInfinite = "";
 std::string keyWordLoop = "";
@@ -709,8 +703,6 @@ std::string keyWordCodeInTheTranspiledLangStartDART_2 = "awesdgfd-awesrs-awedsfd
 std::string keyWordCodeInTheTranspiledLangEndDART_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordCodeInTheTranspiledLangStartTS_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordCodeInTheTranspiledLangEndTS_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-std::string keyWordCodeInTheTranspiledLangStartSCALA_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-std::string keyWordCodeInTheTranspiledLangEndSCALA_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordCodeInTheTranspiledLangStartGROOVY_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordCodeInTheTranspiledLangEndGROOVY_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordCodeInTheTranspiledLangStartHTVM_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
@@ -740,9 +732,6 @@ std::string keyWordINT64_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordIF_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordElseIf_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordElse_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-std::string keyWordSwitch_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-std::string keyWordSwitchCase_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-std::string keyWordSwitchDefault_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordWhileLoop_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordLoopInfinite_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordLoop_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
@@ -912,7 +901,7 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
         int outConstuctTheOutFromTheCommandsLineTranspile = 0;
         std::string outConstuctTheOutFromTheCommandsLineTranspileText = "";
         std::string semicolon = "";
-        if (langToConvertTo != "py" && langToConvertTo != "nim" && langToConvertTo != "ahk" && langToConvertTo != "go" && langToConvertTo != "lua" && langToConvertTo != "kt" && langToConvertTo != "rb" && langToConvertTo != "swift" && langToConvertTo != "scala" && langToConvertTo != "groovy") {
+        if (langToConvertTo != "py" && langToConvertTo != "nim" && langToConvertTo != "ahk" && langToConvertTo != "go" && langToConvertTo != "lua" && langToConvertTo != "kt" && langToConvertTo != "rb" && langToConvertTo != "swift" && langToConvertTo != "groovy") {
             semicolon = ";";
         }
         std::vector<std::string> theCodeCommand;
@@ -1898,21 +1887,6 @@ bool isLineAconstruct(std::string line) {
     else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordLoopParse))) == StrLower(keyWordLoopParse)) {
         return true;
     }
-    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordSwitch))) == StrLower(keyWordSwitch)) {
-        return true;
-    }
-    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordSwitchCase))) == StrLower(keyWordSwitchCase)) {
-        return true;
-    }
-    else if (StrLower(Trim(line)) == StrLower(keyWordSwitchDefault) || StrLower(Trim(line)) == StrLower(keyWordSwitchDefault + ":")) {
-        return true;
-    }
-    else if (SubStr(Trim(line), 1, StrLen(keyWordCurlyBraceClose + " " + StrLower(keyWordSwitchDefault))) == keyWordCurlyBraceClose + " " + StrLower(keyWordSwitchDefault)) {
-        return true;
-    }
-    else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordSwitchDefault) + " " + keyWordCurlyBraceOpen)) == StrLower(keyWordSwitchDefault) + " " + keyWordCurlyBraceOpen) {
-        return true;
-    }
     else if (StrLower(Trim(line)) == StrLower(keyWordTry) || StrLower(Trim(line)) == StrLower(keyWordTry + ":")) {
         return true;
     }
@@ -2646,37 +2620,6 @@ std::vector<std::string> GETfullLangAllOperators() {
         fullLangAllOperators.push_back("?");
         fullLangAllOperators.push_back(":");
     }
-    if (langToConvertTo == "scala") {
-        fullLangAllOperators.push_back("null");
-        fullLangAllOperators.push_back("true");
-        fullLangAllOperators.push_back("false");
-        fullLangAllOperators.push_back("+");
-        fullLangAllOperators.push_back("+");
-        fullLangAllOperators.push_back("-");
-        fullLangAllOperators.push_back("*");
-        fullLangAllOperators.push_back("/");
-        fullLangAllOperators.push_back("%");
-        fullLangAllOperators.push_back("THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR");
-        fullLangAllOperators.push_back("==");
-        fullLangAllOperators.push_back("eq");
-        fullLangAllOperators.push_back("!=");
-        fullLangAllOperators.push_back(">");
-        fullLangAllOperators.push_back("<");
-        fullLangAllOperators.push_back(">=");
-        fullLangAllOperators.push_back("<=");
-        fullLangAllOperators.push_back("&&");
-        fullLangAllOperators.push_back("||");
-        fullLangAllOperators.push_back("!");
-        fullLangAllOperators.push_back("&");
-        fullLangAllOperators.push_back("|");
-        fullLangAllOperators.push_back("^");
-        fullLangAllOperators.push_back("~");
-        fullLangAllOperators.push_back("<<");
-        fullLangAllOperators.push_back(">>");
-        fullLangAllOperators.push_back(">>>");
-        fullLangAllOperators.push_back("?");
-        fullLangAllOperators.push_back(":");
-    }
     if (langToConvertTo == "groovy") {
         fullLangAllOperators.push_back("null");
         fullLangAllOperators.push_back("true");
@@ -2815,8 +2758,8 @@ std::string expressionParserTranspiler(std::string expression) {
                             // Convert C-like ternary to Lua ternary-like expression using RegExReplace
                             expression = RegExReplace(expression, "(.*?)\\s*\\?\\s*(.*?)\\s*:\\s*(.*?)", "$1 and $2 or $3");
                         }
-                        if (langToConvertTo == "scala" || langToConvertTo == "kt") {
-                            // Convert C-like ternary to Kotlin/Scala ternary-like expression using RegExReplace
+                        if (langToConvertTo == "kt") {
+                            // Convert C-like ternary to Kotlin ternary-like expression using RegExReplace
                             expression = RegExReplace(expression, "(.*?)\\s*\\?\\s*(.*?)\\s*:\\s*(.*?)", "if $1 $2 else $3");
                         }
                     }
@@ -2998,12 +2941,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (A_Index62 == 40) {
             keyWordCodeInTheTranspiledLangEndTS = Trim(A_LoopField62);
         }
-        if (A_Index62 == 41) {
-            keyWordCodeInTheTranspiledLangStartSCALA = Trim(A_LoopField62);
-        }
-        if (A_Index62 == 42) {
-            keyWordCodeInTheTranspiledLangEndSCALA = Trim(A_LoopField62);
-        }
         if (A_Index62 == 43) {
             keyWordCodeInTheTranspiledLangStartGROOVY = Trim(A_LoopField62);
         }
@@ -3092,291 +3029,282 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             keyWordElse = Trim(A_LoopField62);
         }
         if (A_Index62 == 72) {
-            keyWordSwitch = Trim(A_LoopField62) + " ";
-        }
-        if (A_Index62 == 73) {
-            keyWordSwitchCase = Trim(A_LoopField62) + " ";
-        }
-        if (A_Index62 == 74) {
-            keyWordSwitchDefault = Trim(A_LoopField62);
-        }
-        if (A_Index62 == 75) {
             keyWordWhileLoop = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 76) {
+        if (A_Index62 == 73) {
             keyWordLoopInfinite = Trim(A_LoopField62);
         }
-        if (A_Index62 == 77) {
+        if (A_Index62 == 74) {
             keyWordLoop = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 78) {
+        if (A_Index62 == 75) {
             keyWordLoopParse = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 79) {
+        if (A_Index62 == 76) {
             keyWordContinue = Trim(A_LoopField62);
         }
-        if (A_Index62 == 80) {
+        if (A_Index62 == 77) {
             keyWordBreak = Trim(A_LoopField62);
         }
-        if (A_Index62 == 81) {
+        if (A_Index62 == 78) {
             keyWordFunc = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 82) {
+        if (A_Index62 == 79) {
             keyWordAwait = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 83) {
+        if (A_Index62 == 80) {
             keyWordAsync = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 84) {
+        if (A_Index62 == 81) {
             keyWordThrow = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 85) {
+        if (A_Index62 == 82) {
             keyWordErrorMsg = Trim(A_LoopField62);
         }
-        if (A_Index62 == 86) {
+        if (A_Index62 == 83) {
             keyWordTry = Trim(A_LoopField62);
         }
-        if (A_Index62 == 87) {
+        if (A_Index62 == 84) {
             keyWordCatch = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 88) {
+        if (A_Index62 == 85) {
             keyWordFinally = Trim(A_LoopField62);
         }
-        if (A_Index62 == 89) {
+        if (A_Index62 == 86) {
             keyWordReturnStatement = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 90) {
+        if (A_Index62 == 87) {
             keyWordArrayAppend = Trim(A_LoopField62);
         }
-        if (A_Index62 == 91) {
+        if (A_Index62 == 88) {
             keyWordArrayPop = Trim(A_LoopField62);
         }
-        if (A_Index62 == 92) {
+        if (A_Index62 == 89) {
             keyWordArraySize = Trim(A_LoopField62);
         }
-        if (A_Index62 == 93) {
+        if (A_Index62 == 90) {
             keyWordArrayInsert = Trim(A_LoopField62);
         }
-        if (A_Index62 == 94) {
+        if (A_Index62 == 91) {
             keyWordArrayRemove = Trim(A_LoopField62);
         }
-        if (A_Index62 == 95) {
+        if (A_Index62 == 92) {
             keyWordArrayIndexOf = Trim(A_LoopField62);
         }
-        if (A_Index62 == 96) {
+        if (A_Index62 == 93) {
             keyWordArrayDefinition = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 97) {
+        if (A_Index62 == 94) {
             keyWordArrayOfIntegersDefinition = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 98) {
+        if (A_Index62 == 95) {
             keyWordArrayOfStringsDefinition = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 99) {
+        if (A_Index62 == 96) {
             keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 100) {
+        if (A_Index62 == 97) {
             keyWordArrayOfBooleansDefinition = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 101) {
+        if (A_Index62 == 98) {
             keyWordVar = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 102) {
+        if (A_Index62 == 99) {
             keyWordLet = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 103) {
+        if (A_Index62 == 100) {
             keyWordConst = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 104) {
+        if (A_Index62 == 101) {
             keyWordEnd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 105) {
+        if (A_Index62 == 102) {
             keyWordGlobal = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 106) {
+        if (A_Index62 == 103) {
             keyWordComment = Trim(A_LoopField62);
         }
-        if (A_Index62 == 107) {
+        if (A_Index62 == 104) {
             keyWordCommentOpenMultiLine = Trim(A_LoopField62);
         }
-        if (A_Index62 == 108) {
+        if (A_Index62 == 105) {
             keyWordCommentCloseMultiLine = Trim(A_LoopField62);
         }
-        if (A_Index62 == 109) {
+        if (A_Index62 == 106) {
             keyWordEscpaeChar = Trim(A_LoopField62);
         }
-        if (A_Index62 == 110) {
+        if (A_Index62 == 107) {
             keyWordMainLabel = Trim(A_LoopField62);
         }
-        if (A_Index62 == 111) {
+        if (A_Index62 == 108) {
             keyWordConcat = Trim(A_LoopField62);
         }
-        if (A_Index62 == 112) {
+        if (A_Index62 == 109) {
             keyWordAdd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 113) {
+        if (A_Index62 == 110) {
             keyWordSub = Trim(A_LoopField62);
         }
-        if (A_Index62 == 114) {
+        if (A_Index62 == 111) {
             keyWordMul = Trim(A_LoopField62);
         }
-        if (A_Index62 == 115) {
+        if (A_Index62 == 112) {
             keyWordDiv = Trim(A_LoopField62);
         }
-        if (A_Index62 == 116) {
+        if (A_Index62 == 113) {
             keyWordMod = Trim(A_LoopField62);
         }
-        if (A_Index62 == 117) {
+        if (A_Index62 == 114) {
             keyWordExp = Trim(A_LoopField62);
         }
-        if (A_Index62 == 118) {
+        if (A_Index62 == 115) {
             keyWordEqual = Trim(A_LoopField62);
         }
-        if (A_Index62 == 119) {
+        if (A_Index62 == 116) {
             keyWordStrictEqual = Trim(A_LoopField62);
         }
-        if (A_Index62 == 120) {
+        if (A_Index62 == 117) {
             keyWordNotEqual = Trim(A_LoopField62);
         }
-        if (A_Index62 == 121) {
+        if (A_Index62 == 118) {
             keyWordGreater = Trim(A_LoopField62);
         }
-        if (A_Index62 == 122) {
+        if (A_Index62 == 119) {
             keyWordLess = Trim(A_LoopField62);
         }
-        if (A_Index62 == 123) {
+        if (A_Index62 == 120) {
             keyWordGreaterEqual = Trim(A_LoopField62);
         }
-        if (A_Index62 == 124) {
+        if (A_Index62 == 121) {
             keyWordLessEqual = Trim(A_LoopField62);
         }
-        if (A_Index62 == 125) {
+        if (A_Index62 == 122) {
             keyWordAnd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 126) {
+        if (A_Index62 == 123) {
             keyWordOr = Trim(A_LoopField62);
         }
-        if (A_Index62 == 127) {
+        if (A_Index62 == 124) {
             keyWordNot = Trim(A_LoopField62);
         }
-        if (A_Index62 == 128) {
+        if (A_Index62 == 125) {
             keyWordBitAnd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 129) {
+        if (A_Index62 == 126) {
             keyWordBitOr = Trim(A_LoopField62);
         }
-        if (A_Index62 == 130) {
+        if (A_Index62 == 127) {
             keyWordBitXor = Trim(A_LoopField62);
         }
-        if (A_Index62 == 131) {
+        if (A_Index62 == 128) {
             keyWordBitNot = Trim(A_LoopField62);
         }
-        if (A_Index62 == 132) {
+        if (A_Index62 == 129) {
             keyWordShiftLeft = Trim(A_LoopField62);
         }
-        if (A_Index62 == 133) {
+        if (A_Index62 == 130) {
             keyWordShiftRight = Trim(A_LoopField62);
         }
-        if (A_Index62 == 134) {
+        if (A_Index62 == 131) {
             keyWordShiftUnsignedRight = Trim(A_LoopField62);
         }
-        if (A_Index62 == 135) {
+        if (A_Index62 == 132) {
             keyWordAssign = Trim(A_LoopField62);
         }
-        if (A_Index62 == 136) {
+        if (A_Index62 == 133) {
             keyWordAssignAdd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 137) {
+        if (A_Index62 == 134) {
             keyWordAssignConcat = Trim(A_LoopField62);
         }
-        if (A_Index62 == 138) {
+        if (A_Index62 == 135) {
             keyWordAssignSub = Trim(A_LoopField62);
         }
-        if (A_Index62 == 139) {
+        if (A_Index62 == 136) {
             keyWordAssignMul = Trim(A_LoopField62);
         }
-        if (A_Index62 == 140) {
+        if (A_Index62 == 137) {
             keyWordAssignDiv = Trim(A_LoopField62);
         }
-        if (A_Index62 == 141) {
+        if (A_Index62 == 138) {
             keyWordAssignMod = Trim(A_LoopField62);
         }
-        if (A_Index62 == 142) {
+        if (A_Index62 == 139) {
             keyWordAssignShiftLeft = Trim(A_LoopField62);
         }
-        if (A_Index62 == 143) {
+        if (A_Index62 == 140) {
             keyWordAssignShiftRight = Trim(A_LoopField62);
         }
-        if (A_Index62 == 144) {
+        if (A_Index62 == 141) {
             keyWordLogicalAssignShiftRight = Trim(A_LoopField62);
         }
-        if (A_Index62 == 145) {
+        if (A_Index62 == 142) {
             keyWordAssignBitAnd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 146) {
+        if (A_Index62 == 143) {
             keyWordAssignBitOr = Trim(A_LoopField62);
         }
-        if (A_Index62 == 147) {
+        if (A_Index62 == 144) {
             keyWordAssignBitXor = Trim(A_LoopField62);
         }
-        if (A_Index62 == 148) {
+        if (A_Index62 == 145) {
             keyWordTernary1 = Trim(A_LoopField62);
         }
-        if (A_Index62 == 149) {
+        if (A_Index62 == 146) {
             keyWordTernary2 = Trim(A_LoopField62);
         }
-        if (A_Index62 == 150) {
+        if (A_Index62 == 147) {
             keyWordInc = Trim(A_LoopField62);
         }
-        if (A_Index62 == 151) {
+        if (A_Index62 == 148) {
             keyWordDec = Trim(A_LoopField62);
         }
-        if (A_Index62 == 152) {
+        if (A_Index62 == 149) {
             AHKlikeLoopsIndexedAt = Trim(A_LoopField62);
         }
-        if (A_Index62 == 153) {
+        if (A_Index62 == 150) {
             keyWordAIndex = Trim(A_LoopField62);
         }
-        if (A_Index62 == 154) {
+        if (A_Index62 == 151) {
             keyWordALoopField = Trim(A_LoopField62);
         }
-        if (A_Index62 == 155) {
+        if (A_Index62 == 152) {
             useCurlyBraces = Trim(A_LoopField62);
         }
-        if (A_Index62 == 156) {
+        if (A_Index62 == 153) {
             useEnd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 157) {
+        if (A_Index62 == 154) {
             useSemicolon = Trim(A_LoopField62);
         }
-        if (A_Index62 == 158) {
+        if (A_Index62 == 155) {
             useParentheses = Trim(A_LoopField62);
         }
-        if (A_Index62 == 159) {
+        if (A_Index62 == 156) {
             usePrefixTypeForTypeDefinition = Trim(A_LoopField62);
         }
-        if (A_Index62 == 160) {
+        if (A_Index62 == 157) {
             usePostfixTypeForTypeDefinition = Trim(A_LoopField62);
         }
-        if (A_Index62 == 161) {
+        if (A_Index62 == 158) {
             usePythonicColonSyntax = Trim(A_LoopField62);
         }
-        if (A_Index62 == 162) {
+        if (A_Index62 == 159) {
             useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField62);
         }
-        if (A_Index62 == 163) {
+        if (A_Index62 == 160) {
             useInJavaScriptAlwaysUseVar = Trim(A_LoopField62);
         }
-        if (A_Index62 == 164) {
+        if (A_Index62 == 161) {
             useJavaScriptInAfullHTMLfile = Trim(A_LoopField62);
         }
-        if (A_Index62 == 165) {
+        if (A_Index62 == 162) {
             useJavaScriptAmainFuncDef = Trim(A_LoopField62);
         }
-        if (A_Index62 == 166) {
+        if (A_Index62 == 163) {
             useJavaScriptAllFuncsAreAsync = Trim(A_LoopField62);
         }
-        if (A_Index62 == 167) {
+        if (A_Index62 == 164) {
             useJavaScriptAlwaysTripleEqual = Trim(A_LoopField62);
         }
     }
@@ -3509,18 +3437,12 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 keyWordCodeInTheTranspiledLangEndTS_2 = Trim(A_LoopField63);
             }
             if (A_Index63 == 41) {
-                keyWordCodeInTheTranspiledLangStartSCALA_2 = Trim(A_LoopField63);
-            }
-            if (A_Index63 == 42) {
-                keyWordCodeInTheTranspiledLangEndSCALA_2 = Trim(A_LoopField63);
-            }
-            if (A_Index63 == 43) {
                 keyWordCodeInTheTranspiledLangStartGROOVY_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 44) {
+            if (A_Index63 == 42) {
                 keyWordCodeInTheTranspiledLangEndGROOVY_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 45) {
+            if (A_Index63 == 43) {
                 keyWordCodeInTheTranspiledLangStartHTVM_2 = Trim(A_LoopField63);
             }
             if (A_Index63 == 46) {
@@ -3602,291 +3524,282 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 keyWordElse_2 = Trim(A_LoopField63);
             }
             if (A_Index63 == 72) {
-                keyWordSwitch_2 = Trim(A_LoopField63) + " ";
-            }
-            if (A_Index63 == 73) {
-                keyWordSwitchCase_2 = Trim(A_LoopField63) + " ";
-            }
-            if (A_Index63 == 74) {
-                keyWordSwitchDefault_2 = Trim(A_LoopField63);
-            }
-            if (A_Index63 == 75) {
                 keyWordWhileLoop_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 76) {
+            if (A_Index63 == 73) {
                 keyWordLoopInfinite_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 77) {
+            if (A_Index63 == 74) {
                 keyWordLoop_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 78) {
+            if (A_Index63 == 75) {
                 keyWordLoopParse_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 79) {
+            if (A_Index63 == 76) {
                 keyWordContinue_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 80) {
+            if (A_Index63 == 77) {
                 keyWordBreak_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 81) {
+            if (A_Index63 == 78) {
                 keyWordFunc_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 82) {
+            if (A_Index63 == 79) {
                 keyWordAwait_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 83) {
+            if (A_Index63 == 80) {
                 keyWordAsync_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 84) {
+            if (A_Index63 == 81) {
                 keyWordThrow_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 85) {
+            if (A_Index63 == 82) {
                 keyWordErrorMsg_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 86) {
+            if (A_Index63 == 83) {
                 keyWordTry_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 87) {
+            if (A_Index63 == 84) {
                 keyWordCatch_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 88) {
+            if (A_Index63 == 85) {
                 keyWordFinally_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 89) {
+            if (A_Index63 == 86) {
                 keyWordReturnStatement_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 90) {
+            if (A_Index63 == 87) {
                 keyWordArrayAppend_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 91) {
+            if (A_Index63 == 88) {
                 keyWordArrayPop_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 92) {
+            if (A_Index63 == 89) {
                 keyWordArraySize_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 93) {
+            if (A_Index63 == 90) {
                 keyWordArrayInsert_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 94) {
+            if (A_Index63 == 91) {
                 keyWordArrayRemove_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 95) {
+            if (A_Index63 == 92) {
                 keyWordArrayIndexOf_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 96) {
+            if (A_Index63 == 93) {
                 keyWordArrayDefinition_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 97) {
+            if (A_Index63 == 94) {
                 keyWordArrayOfIntegersDefinition_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 98) {
+            if (A_Index63 == 95) {
                 keyWordArrayOfStringsDefinition_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 99) {
+            if (A_Index63 == 96) {
                 keyWordArrayOfFloatingPointNumbersDefinition_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 100) {
+            if (A_Index63 == 97) {
                 keyWordArrayOfBooleansDefinition_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 101) {
+            if (A_Index63 == 98) {
                 keyWordVar_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 102) {
+            if (A_Index63 == 99) {
                 keyWordLet_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 103) {
+            if (A_Index63 == 100) {
                 keyWordConst_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 104) {
+            if (A_Index63 == 101) {
                 keyWordEnd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 105) {
+            if (A_Index63 == 102) {
                 keyWordGlobal_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 106) {
+            if (A_Index63 == 103) {
                 keyWordComment_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 107) {
+            if (A_Index63 == 104) {
                 keyWordCommentOpenMultiLine_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 108) {
+            if (A_Index63 == 105) {
                 keyWordCommentCloseMultiLine_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 109) {
+            if (A_Index63 == 106) {
                 keyWordEscpaeChar_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 110) {
+            if (A_Index63 == 107) {
                 keyWordMainLabel_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 111) {
+            if (A_Index63 == 108) {
                 keyWordConcat_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 112) {
+            if (A_Index63 == 109) {
                 keyWordAdd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 113) {
+            if (A_Index63 == 110) {
                 keyWordSub_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 114) {
+            if (A_Index63 == 111) {
                 keyWordMul_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 115) {
+            if (A_Index63 == 112) {
                 keyWordDiv_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 116) {
+            if (A_Index63 == 113) {
                 keyWordMod_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 117) {
+            if (A_Index63 == 114) {
                 keyWordExp_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 118) {
+            if (A_Index63 == 115) {
                 keyWordEqual_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 119) {
+            if (A_Index63 == 116) {
                 keyWordStrictEqual_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 120) {
+            if (A_Index63 == 117) {
                 keyWordNotEqual_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 121) {
+            if (A_Index63 == 118) {
                 keyWordGreater_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 122) {
+            if (A_Index63 == 119) {
                 keyWordLess_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 123) {
+            if (A_Index63 == 120) {
                 keyWordGreaterEqual_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 124) {
+            if (A_Index63 == 121) {
                 keyWordLessEqual_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 125) {
+            if (A_Index63 == 122) {
                 keyWordAnd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 126) {
+            if (A_Index63 == 123) {
                 keyWordOr_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 127) {
+            if (A_Index63 == 124) {
                 keyWordNot_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 128) {
+            if (A_Index63 == 125) {
                 keyWordBitAnd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 129) {
+            if (A_Index63 == 126) {
                 keyWordBitOr_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 130) {
+            if (A_Index63 == 127) {
                 keyWordBitXor_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 131) {
+            if (A_Index63 == 128) {
                 keyWordBitNot_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 132) {
+            if (A_Index63 == 129) {
                 keyWordShiftLeft_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 133) {
+            if (A_Index63 == 130) {
                 keyWordShiftRight_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 134) {
+            if (A_Index63 == 131) {
                 keyWordShiftUnsignedRight_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 135) {
+            if (A_Index63 == 132) {
                 keyWordAssign_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 136) {
+            if (A_Index63 == 133) {
                 keyWordAssignAdd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 137) {
+            if (A_Index63 == 134) {
                 keyWordAssignConcat_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 138) {
+            if (A_Index63 == 135) {
                 keyWordAssignSub_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 139) {
+            if (A_Index63 == 136) {
                 keyWordAssignMul_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 140) {
+            if (A_Index63 == 137) {
                 keyWordAssignDiv_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 141) {
+            if (A_Index63 == 138) {
                 keyWordAssignMod_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 142) {
+            if (A_Index63 == 139) {
                 keyWordAssignShiftLeft_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 143) {
+            if (A_Index63 == 140) {
                 keyWordAssignShiftRight_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 144) {
+            if (A_Index63 == 141) {
                 keyWordLogicalAssignShiftRight_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 145) {
+            if (A_Index63 == 142) {
                 keyWordAssignBitAnd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 146) {
+            if (A_Index63 == 143) {
                 keyWordAssignBitOr_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 147) {
+            if (A_Index63 == 144) {
                 keyWordAssignBitXor_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 148) {
+            if (A_Index63 == 145) {
                 keyWordTernary1_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 149) {
+            if (A_Index63 == 146) {
                 keyWordTernary2_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 150) {
+            if (A_Index63 == 147) {
                 keyWordInc_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 151) {
+            if (A_Index63 == 148) {
                 keyWordDec_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 152) {
+            if (A_Index63 == 149) {
                 AHKlikeLoopsIndexedAt_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 153) {
+            if (A_Index63 == 150) {
                 keyWordAIndex_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 154) {
+            if (A_Index63 == 151) {
                 keyWordALoopField_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 155) {
+            if (A_Index63 == 152) {
                 useCurlyBraces_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 156) {
+            if (A_Index63 == 153) {
                 useEnd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 157) {
+            if (A_Index63 == 154) {
                 useSemicolon_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 158) {
+            if (A_Index63 == 155) {
                 useParentheses_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 159) {
+            if (A_Index63 == 156) {
                 usePrefixTypeForTypeDefinition_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 160) {
+            if (A_Index63 == 157) {
                 usePostfixTypeForTypeDefinition_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 161) {
+            if (A_Index63 == 158) {
                 usePythonicColonSyntax_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 162) {
+            if (A_Index63 == 159) {
                 useCurlyBracesSyntaxForArrayDef_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 163) {
+            if (A_Index63 == 160) {
                 useInJavaScriptAlwaysUseVar_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 164) {
+            if (A_Index63 == 161) {
                 useJavaScriptInAfullHTMLfile_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 165) {
+            if (A_Index63 == 162) {
                 useJavaScriptAmainFuncDef_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 166) {
+            if (A_Index63 == 163) {
                 useJavaScriptAllFuncsAreAsync_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 167) {
+            if (A_Index63 == 164) {
                 useJavaScriptAlwaysTripleEqual_2 = Trim(A_LoopField63);
             }
         }
@@ -3941,8 +3854,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     if (langToConvertTo == "dart") {
     }
     if (langToConvertTo == "ts") {
-    }
-    if (langToConvertTo == "scala") {
     }
     if (langToConvertTo == "groovy") {
     }
@@ -4125,7 +4036,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     int COUNT_programmingBlock_SWIFT = 0;
     int COUNT_programmingBlock_DART = 0;
     int COUNT_programmingBlock_TS = 0;
-    int COUNT_programmingBlock_SCALA = 0;
     int COUNT_programmingBlock_GROOVY = 0;
     int COUNT_programmingBlock_HTVM = 0;
     int COUNT_programmingBlock_HTVMsyntax = 0;
@@ -4255,14 +4165,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField71)) == StrLower(keyWordCodeInTheTranspiledLangEndSCALA)) {
-            COUNT_programmingBlock_SCALA++;
-            holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_SCALA-programmingBlock_SCALA-AA" + STR(COUNT_programmingBlock_SCALA) + "AA\n";
-            programmingBlock_SCALA.push_back(holdTempDataProgrammingBlockThenPutInArr);
-            holdTempDataProgrammingBlockThenPutInArr = "";
-            inProgarmmingBlock = 0;
-        }
         else if (Trim(StrLower(A_LoopField71)) == StrLower(keyWordCodeInTheTranspiledLangEndGROOVY)) {
             COUNT_programmingBlock_GROOVY++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
@@ -4354,10 +4256,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField71)) == StrLower(keyWordCodeInTheTranspiledLangStartSCALA)) {
-            holdTempDataProgrammingBlockThenPutInArr = "";
-            inProgarmmingBlock = 1;
-        }
         else if (Trim(StrLower(A_LoopField71)) == StrLower(keyWordCodeInTheTranspiledLangStartGROOVY)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
@@ -4393,7 +4291,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     //programmingBlock_SWIFT
     //programmingBlock_DART
     //programmingBlock_TS
-    //programmingBlock_SCALA
     //programmingBlock_GROOVY
     //programmingBlock_HTVM
     //programmingBlock_HTVMsyntax
@@ -4545,7 +4442,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 theColon = ":";
             }
         } else {
-            if (langToConvertTo != "py" && langToConvertTo != "nim" && langToConvertTo != "ahk" && langToConvertTo != "go" && langToConvertTo != "lua" && langToConvertTo != "kt" && langToConvertTo != "rb" && langToConvertTo != "swift" && langToConvertTo != "scala" && langToConvertTo != "groovy" && useSemicolon == "off") {
+            if (langToConvertTo != "py" && langToConvertTo != "nim" && langToConvertTo != "ahk" && langToConvertTo != "go" && langToConvertTo != "lua" && langToConvertTo != "kt" && langToConvertTo != "rb" && langToConvertTo != "swift" && langToConvertTo != "groovy" && useSemicolon == "off") {
                 theSemicolon = ";";
             } else {
                 theSemicolon = "";
@@ -4765,9 +4662,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     if (langToConvertTo == "dart") {
                         codeOutFixAndAddMainFunc += "void main(List<String> arguments)\n{\n";
                     }
-                    if (langToConvertTo == "scala") {
-                        codeOutFixAndAddMainFunc += "ndef main(args: Array[String]): Unit = \n{\n";
-                    }
                 } else {
                     codeOutFixAndAddMainFunc += A_LoopField91 + "\n";
                 }
@@ -4798,9 +4692,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             }
             if (didWeUseMainLabel != 1 && langToConvertTo == "dart") {
                 codeOutFixAndAddMainFunc = "void main(List<String> arguments)\n{\n" + codeOutFixAndAddMainFunc;
-            }
-            if (didWeUseMainLabel != 1 && langToConvertTo == "scala") {
-                codeOutFixAndAddMainFunc = "def main(args: Array[String]): Unit = \n{\n" + codeOutFixAndAddMainFunc;
             }
             code = StringTrimRight(codeOutFixAndAddMainFunc, 1);
             // main loop
@@ -4865,9 +4756,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 }
                 if (langToConvertTo == "ts") {
                     var1 = "for (let " + keyWordAIndex + "" + STR(AindexcharLength) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR(AindexcharLength) + " < someLimit; " + keyWordAIndex + "" + STR(AindexcharLength) + "++)";
-                }
-                if (langToConvertTo == "scala") {
-                    var1 = "for (" + keyWordAIndex + "" + STR(AindexcharLength) + " <- " + AHKlikeLoopsIndexedAt + " to someLimit)";
                 }
                 if (langToConvertTo == "groovy") {
                     var1 = "for (" + keyWordAIndex + "" + STR(AindexcharLength) + " in " + AHKlikeLoopsIndexedAt + "..someLimit)";
@@ -4943,9 +4831,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 if (langToConvertTo == "ts") {
                     var1 = "for (let " + keyWordAIndex + "" + STR(AindexcharLength) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR(AindexcharLength) + " < " + line + " + " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR(AindexcharLength) + "++)";
                 }
-                if (langToConvertTo == "scala") {
-                    var1 = "for (" + keyWordAIndex + "" + STR(AindexcharLength) + " <- " + AHKlikeLoopsIndexedAt + " to " + line + " + " + AHKlikeLoopsIndexedAt + ")";
-                }
                 if (langToConvertTo == "groovy") {
                     var1 = "for (" + keyWordAIndex + "" + STR(AindexcharLength) + " in " + AHKlikeLoopsIndexedAt + ".." + line + " + " + AHKlikeLoopsIndexedAt + ")";
                 }
@@ -5019,9 +4904,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 }
                 if (langToConvertTo == "ts") {
                     var1 = "for (let " + keyWordAIndex + "" + STR(AindexcharLength) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR(AindexcharLength) + " < " + line + " + " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR(AindexcharLength) + "++)";
-                }
-                if (langToConvertTo == "scala") {
-                    var1 = "for (" + keyWordAIndex + "" + STR(AindexcharLength) + " <- " + AHKlikeLoopsIndexedAt + " to " + line + " + " + AHKlikeLoopsIndexedAt + ")";
                 }
                 if (langToConvertTo == "groovy") {
                     var1 = "for (" + keyWordAIndex + "" + STR(AindexcharLength) + " in " + AHKlikeLoopsIndexedAt + ".." + line + " + " + AHKlikeLoopsIndexedAt + ")";
@@ -5099,9 +4981,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     if (langToConvertTo == "ts") {
                         itemsOut = "let items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ")";
                     }
-                    if (langToConvertTo == "scala") {
-                        itemsOut = "val items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ")";
-                    }
                     if (langToConvertTo == "groovy") {
                         itemsOut = "def items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ")";
                     }
@@ -5146,9 +5025,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         }
                         if (langToConvertTo == "ts") {
                             itemsOut = "let items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ")";
-                        }
-                        if (langToConvertTo == "scala") {
-                            itemsOut = "val items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ")";
                         }
                         if (langToConvertTo == "groovy") {
                             itemsOut = "def items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ")";
@@ -5196,9 +5072,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         }
                         if (langToConvertTo == "ts") {
                             itemsOut = "let items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ")";
-                        }
-                        if (langToConvertTo == "scala") {
-                            itemsOut = "val items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ")";
                         }
                         if (langToConvertTo == "groovy") {
                             itemsOut = "def items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ")";
@@ -5250,9 +5123,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         if (langToConvertTo == "ts") {
                             itemsOut = "let items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ", " + line3 + ")";
                         }
-                        if (langToConvertTo == "scala") {
-                            itemsOut = "val items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ", " + line3 + ")";
-                        }
                         if (langToConvertTo == "groovy") {
                             itemsOut = "def items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ", " + line3 + ")";
                         }
@@ -5301,9 +5171,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 if (langToConvertTo == "ts") {
                     var1out = itemsOut + "\n" + "for (let " + keyWordAIndex + "" + STR(AindexcharLength) + " = 0; " + keyWordAIndex + "" + STR(AindexcharLength) + " < items" + STR(AindexcharLength) + ".length; " + keyWordAIndex + "" + STR(AindexcharLength) + "++)";
                 }
-                if (langToConvertTo == "scala") {
-                    var1out = itemsOut + "\n" + "for (" + keyWordAIndex + "" + STR(AindexcharLength) + " <- items" + STR(AindexcharLength) + ".indices)";
-                }
                 if (langToConvertTo == "groovy") {
                     var1out = itemsOut + "\n" + "items" + STR(AindexcharLength) + ".eachWithIndex { " + keyWordALoopField + "" + STR(AindexcharLength) + " , " + keyWordAIndex + "" + STR(AindexcharLength) + " ->";
                 }
@@ -5351,9 +5218,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 if (langToConvertTo == "ts") {
                     theFixTextLoopLP = keyWordALoopField + "" + AindexcharLengthStr + " = items" + AindexcharLengthStr + "[" + keyWordAIndex + "" + AindexcharLengthStr + " - " + AHKlikeLoopsIndexedAt + "]";
                 }
-                if (langToConvertTo == "scala") {
-                    theFixTextLoopLP = keyWordALoopField + "" + AindexcharLengthStr + " = items" + AindexcharLengthStr + "[" + keyWordAIndex + "" + AindexcharLengthStr + " - " + AHKlikeLoopsIndexedAt + "]";
-                }
                 if (langToConvertTo == "groovy") {
                     theFixTextLoopLP = keyWordALoopField + "" + AindexcharLengthStr + " = items" + AindexcharLengthStr + "[" + keyWordAIndex + "" + AindexcharLengthStr + " - " + AHKlikeLoopsIndexedAt + "]";
                 }
@@ -5396,13 +5260,13 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         str2 = expressionParserTranspiler(Trim(str1));
                     }
                 } else {
-                    if (langToConvertTo == "py" || langToConvertTo == "nim" || langToConvertTo == "ahk" || langToConvertTo == "go" || langToConvertTo == "lua" || langToConvertTo == "kt" || langToConvertTo == "rb" || langToConvertTo == "swift" || langToConvertTo == "scala" || langToConvertTo == "groovy") {
+                    if (langToConvertTo == "py" || langToConvertTo == "nim" || langToConvertTo == "ahk" || langToConvertTo == "go" || langToConvertTo == "lua" || langToConvertTo == "kt" || langToConvertTo == "rb" || langToConvertTo == "swift" || langToConvertTo == "groovy") {
                         if (SubStrLastChars(str1, 1) == ";") {
                             str1 = StringTrimRight(str1, 1);
                         }
                     }
                     str2 = expressionParserTranspiler(Trim(str1)) + ";";
-                    if (langToConvertTo == "py" || langToConvertTo == "nim" || langToConvertTo == "ahk" || langToConvertTo == "go" || langToConvertTo == "lua" || langToConvertTo == "kt" || langToConvertTo == "rb" || langToConvertTo == "swift" || langToConvertTo == "scala" || langToConvertTo == "groovy") {
+                    if (langToConvertTo == "py" || langToConvertTo == "nim" || langToConvertTo == "ahk" || langToConvertTo == "go" || langToConvertTo == "lua" || langToConvertTo == "kt" || langToConvertTo == "rb" || langToConvertTo == "swift" || langToConvertTo == "groovy") {
                         if (SubStrLastChars(str2, 1) == ";") {
                             str2 = StringTrimRight(str2, 1);
                         }
@@ -5426,13 +5290,13 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         str2 = expressionParserTranspiler(Trim(str1));
                     }
                 } else {
-                    if (langToConvertTo == "py" || langToConvertTo == "nim" || langToConvertTo == "ahk" || langToConvertTo == "go" || langToConvertTo == "lua" || langToConvertTo == "kt" || langToConvertTo == "rb" || langToConvertTo == "swift" || langToConvertTo == "scala" || langToConvertTo == "groovy") {
+                    if (langToConvertTo == "py" || langToConvertTo == "nim" || langToConvertTo == "ahk" || langToConvertTo == "go" || langToConvertTo == "lua" || langToConvertTo == "kt" || langToConvertTo == "rb" || langToConvertTo == "swift" || langToConvertTo == "groovy") {
                         if (SubStrLastChars(str1, 1) == ";") {
                             str1 = StringTrimRight(str1, 1);
                         }
                     }
                     str2 = expressionParserTranspiler(Trim(str1)) + ";";
-                    if (langToConvertTo == "py" || langToConvertTo == "nim" || langToConvertTo == "ahk" || langToConvertTo == "go" || langToConvertTo == "lua" || langToConvertTo == "kt" || langToConvertTo == "rb" || langToConvertTo == "swift" || langToConvertTo == "scala" || langToConvertTo == "groovy") {
+                    if (langToConvertTo == "py" || langToConvertTo == "nim" || langToConvertTo == "ahk" || langToConvertTo == "go" || langToConvertTo == "lua" || langToConvertTo == "kt" || langToConvertTo == "rb" || langToConvertTo == "swift" || langToConvertTo == "groovy") {
                         if (SubStrLastChars(str2, 1) == ";") {
                             str2 = StringTrimRight(str2, 1);
                         }
@@ -5923,43 +5787,30 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             }
         }
     }
-    if (langToConvertTo == "scala") {
-        if (COUNT_programmingBlock_SCALA != 0) {
-            for (int A_Index126 = 0; A_Index126 < COUNT_programmingBlock_SCALA + 0; A_Index126++) {
-                htCode = StrReplace(htCode, "programmingBlock_SCALA-programmingBlock_SCALA-AA" + STR(A_Index126 + 1) + "AA", programmingBlock_SCALA[A_Index126]);
-            }
-        }
-    } else {
-        if (COUNT_programmingBlock_SCALA != 0) {
-            for (int A_Index127 = 0; A_Index127 < COUNT_programmingBlock_SCALA + 0; A_Index127++) {
-                htCode = StrReplace(htCode, "programmingBlock_SCALA-programmingBlock_SCALA-AA" + STR(A_Index127 + 1) + "AA", "\n");
-            }
-        }
-    }
     if (langToConvertTo == "groovy") {
         if (COUNT_programmingBlock_GROOVY != 0) {
-            for (int A_Index128 = 0; A_Index128 < COUNT_programmingBlock_GROOVY + 0; A_Index128++) {
-                htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index128 + 1) + "AA", programmingBlock_GROOVY[A_Index128]);
+            for (int A_Index126 = 0; A_Index126 < COUNT_programmingBlock_GROOVY + 0; A_Index126++) {
+                htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index126 + 1) + "AA", programmingBlock_GROOVY[A_Index126]);
             }
         }
     } else {
         if (COUNT_programmingBlock_GROOVY != 0) {
-            for (int A_Index129 = 0; A_Index129 < COUNT_programmingBlock_GROOVY + 0; A_Index129++) {
-                htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index129 + 1) + "AA", "\n");
+            for (int A_Index127 = 0; A_Index127 < COUNT_programmingBlock_GROOVY + 0; A_Index127++) {
+                htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index127 + 1) + "AA", "\n");
             }
         }
     }
     //;;;;;;;;;;
     if (langToConvertTo == langFileExtension_2) {
         if (COUNT_programmingBlock_HTVM != 0) {
-            for (int A_Index130 = 0; A_Index130 < COUNT_programmingBlock_HTVM + 0; A_Index130++) {
-                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index130 + 1) + "AA", programmingBlock_HTVM[A_Index130]);
+            for (int A_Index128 = 0; A_Index128 < COUNT_programmingBlock_HTVM + 0; A_Index128++) {
+                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index128 + 1) + "AA", programmingBlock_HTVM[A_Index128]);
             }
         }
     } else {
         if (COUNT_programmingBlock_HTVM != 0) {
-            for (int A_Index131 = 0; A_Index131 < COUNT_programmingBlock_HTVM + 0; A_Index131++) {
-                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index131 + 1) + "AA", "\n");
+            for (int A_Index129 = 0; A_Index129 < COUNT_programmingBlock_HTVM + 0; A_Index129++) {
+                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index129 + 1) + "AA", "\n");
             }
         }
     }
@@ -5968,15 +5819,15 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     std::string ADD_ALL_programmingBlock_HTVMsyntax = "";
     if (COUNT_programmingBlock_HTVMsyntax != 0) {
         isNotHTVMfileEXTRA_INT = 1;
-        for (int A_Index132 = 0; A_Index132 < COUNT_programmingBlock_HTVMsyntax + 0; A_Index132++) {
-            ADD_ALL_programmingBlock_HTVMsyntax += programmingBlock_HTVMsyntax[A_Index132] + "\n";
+        for (int A_Index130 = 0; A_Index130 < COUNT_programmingBlock_HTVMsyntax + 0; A_Index130++) {
+            ADD_ALL_programmingBlock_HTVMsyntax += programmingBlock_HTVMsyntax[A_Index130] + "\n";
         }
         ADD_ALL_programmingBlock_HTVMsyntax = StringTrimRight(ADD_ALL_programmingBlock_HTVMsyntax, 1);
         ADD_ALL_programmingBlock_HTVMsyntax = compiler(ADD_ALL_programmingBlock_HTVMsyntax, allInstructionFile, "full", langToConvertToParam);
         isNotHTVMfileEXTRA_INT = 0;
         isNotHTVMfile2 = 1;
-        for (int A_Index133 = 0; A_Index133 < COUNT_programmingBlock_HTVMsyntax + 0; A_Index133++) {
-            htCode = StrReplace(htCode, "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" + STR(A_Index133 + 1) + "AA", compiler(programmingBlock_HTVMsyntax[A_Index133], allInstructionFile, "full", langToConvertToParam));
+        for (int A_Index131 = 0; A_Index131 < COUNT_programmingBlock_HTVMsyntax + 0; A_Index131++) {
+            htCode = StrReplace(htCode, "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" + STR(A_Index131 + 1) + "AA", compiler(programmingBlock_HTVMsyntax[A_Index131], allInstructionFile, "full", langToConvertToParam));
         }
         isNotHTVMfile2 = 0;
     }
@@ -6024,16 +5875,16 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             htCode = indent_nested_curly_braces(htCode, 1);
         }
         if (useEnd_2 == "on") {
-            std::vector<std::string> items134 = LoopParseFunc(htCode, "\n", "\r");
-            for (size_t A_Index134 = 0; A_Index134 < items134.size() + 0; A_Index134++) {
-                std::string A_LoopField134 = items134[A_Index134 - 0];
-                if (Trim(A_LoopField134) == keyWordCurlyBraceClose_2) {
-                    fixLuaAndRuby += StrReplace(A_LoopField134, keyWordCurlyBraceClose_2, Trim(keyWordEnd_2)) + "\n";
+            std::vector<std::string> items132 = LoopParseFunc(htCode, "\n", "\r");
+            for (size_t A_Index132 = 0; A_Index132 < items132.size() + 0; A_Index132++) {
+                std::string A_LoopField132 = items132[A_Index132 - 0];
+                if (Trim(A_LoopField132) == keyWordCurlyBraceClose_2) {
+                    fixLuaAndRuby += StrReplace(A_LoopField132, keyWordCurlyBraceClose_2, Trim(keyWordEnd_2)) + "\n";
                 }
-                else if (SubStrLastChars(A_LoopField134, 2) == " " + keyWordCurlyBraceOpen_2) {
-                    fixLuaAndRuby += StringTrimRight(A_LoopField134, 2) + "\n";
+                else if (SubStrLastChars(A_LoopField132, 2) == " " + keyWordCurlyBraceOpen_2) {
+                    fixLuaAndRuby += StringTrimRight(A_LoopField132, 2) + "\n";
                 } else {
-                    fixLuaAndRuby += A_LoopField134 + "\n";
+                    fixLuaAndRuby += A_LoopField132 + "\n";
                 }
             }
             htCode = StringTrimRight(fixLuaAndRuby, 1);
@@ -6049,20 +5900,40 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             htCode = indent_nested_curly_braces(htCode, 1);
         }
         if (langToConvertTo == "lua" || langToConvertTo == "rb") {
-            std::vector<std::string> items135 = LoopParseFunc(htCode, "\n", "\r");
-            for (size_t A_Index135 = 0; A_Index135 < items135.size() + 0; A_Index135++) {
-                std::string A_LoopField135 = items135[A_Index135 - 0];
-                if (Trim(A_LoopField135) == "}") {
-                    fixLuaAndRuby += StrReplace(A_LoopField135, "}", "end") + "\n";
+            std::vector<std::string> items133 = LoopParseFunc(htCode, "\n", "\r");
+            for (size_t A_Index133 = 0; A_Index133 < items133.size() + 0; A_Index133++) {
+                std::string A_LoopField133 = items133[A_Index133 - 0];
+                if (Trim(A_LoopField133) == "}") {
+                    fixLuaAndRuby += StrReplace(A_LoopField133, "}", "end") + "\n";
                 }
-                else if (SubStrLastChars(A_LoopField135, 2) == " {") {
-                    fixLuaAndRuby += StringTrimRight(A_LoopField135, 2) + "\n";
+                else if (SubStrLastChars(A_LoopField133, 2) == " {") {
+                    fixLuaAndRuby += StringTrimRight(A_LoopField133, 2) + "\n";
                 } else {
-                    fixLuaAndRuby += A_LoopField135 + "\n";
+                    fixLuaAndRuby += A_LoopField133 + "\n";
                 }
             }
             htCode = StringTrimRight(fixLuaAndRuby, 1);
         }
+    }
+    std::vector<std::string> nextWordEndFix;
+    std::string nextWordEndFixOut = "";
+    if (langToConvertTo == "lua" || langToConvertTo == "rb") {
+        std::vector<std::string> items134 = LoopParseFunc(htCode, "\n", "\r");
+        for (size_t A_Index134 = 0; A_Index134 < items134.size() + 0; A_Index134++) {
+            std::string A_LoopField134 = items134[A_Index134 - 0];
+            nextWordEndFix.push_back(A_LoopField134);
+        }
+        nextWordEndFix.push_back(" ");
+        std::vector<std::string> items135 = LoopParseFunc(htCode, "\n", "\r");
+        for (size_t A_Index135 = 0; A_Index135 < items135.size() + 0; A_Index135++) {
+            std::string A_LoopField135 = items135[A_Index135 - 0];
+            if (Trim(A_LoopField135) == "end" && SubStr(Trim(nextWordEndFix[A_Index135 + 1]), 1, StrLen("elseif ")) == "elseif " || Trim(A_LoopField135) == "end" && Trim(nextWordEndFix[A_Index135 + 1]) == "else") {
+                nextWordEndFixOut += "";
+            } else {
+                nextWordEndFixOut += A_LoopField135 + "\n";
+            }
+        }
+        htCode = StringTrimRight(nextWordEndFixOut, 1);
     }
     areWeInAFuncFromInstructions = 0;
     areWeInAFuncFromInstructionsLineNum = 0;
@@ -6183,9 +6054,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             htCode = htCode + "\n}";
             htCode = StrReplace(htCode, "void main(List<String> arguments);", "void main(List<String> arguments)");
         }
-        if (langToConvertTo == "scala") {
-            htCode = htCode + "\n    }\n}";
-        }
     }
     std::string jsHTMLdownCode = "</script>\n</body>\n</html>";
     int includeLibsInCppIf = 0;
@@ -6223,7 +6091,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             isNotHTVMfileEXTRA_FUNCS_INFO = allFuncsToPutAtTop;
         }
         if (isNotHTVMfile2 == 0) {
-            if (langToConvertTo == "cs" || langToConvertTo == "java" || langToConvertTo == "scala") {
+            if (langToConvertTo == "cs" || langToConvertTo == "java") {
                 htCode = "\n" + allFuncsToPutAtTop + "\n" + htCode;
             } else {
                 if (langToConvertTo != "js") {
@@ -6242,9 +6110,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         }
         if (langToConvertTo == "java") {
             htCode = allLibsToPutAtTop + "\npublic class Main\n{\n" + htCode;
-        }
-        if (langToConvertTo == "scala") {
-            htCode = allLibsToPutAtTop + "\nobject MainApp\n{\n" + htCode;
         }
         if (langToConvertTo == "go") {
             htCode = "package main\nimport (\n" + htCode;
@@ -6292,6 +6157,9 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         }
         if (langToConvertTo == "ahk") {
             htCode = "#EscapeChar \\\n" + htCode;
+        }
+        if (langToConvertTo == "swift") {
+            htCode = "import Foundation\n" + htCode;
         }
         if (langToConvertTo == langFileExtension_2) {
             if (SubStr(htCode, 1, 1) == "\n") {
@@ -6364,7 +6232,7 @@ void HTVMv2() {
         }
         print("===============123431234==========end======");
         print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) + langToConvertTo);
-        if (SubStrLastChars(argCODEfile, 4) == ".cpp" || SubStrLastChars(argCODEfile, 3) == ".py" || SubStrLastChars(argCODEfile, 3) == ".js" || SubStrLastChars(argCODEfile, 3) == ".go" || SubStrLastChars(argCODEfile, 4) == ".lua" || SubStrLastChars(argCODEfile, 3) == ".cs" || SubStrLastChars(argCODEfile, 5) == ".java" || SubStrLastChars(argCODEfile, 3) == ".kt" || SubStrLastChars(argCODEfile, 3) == ".rb" || SubStrLastChars(argCODEfile, 4) == ".nim" || SubStrLastChars(argCODEfile, 4) == ".ahk" || SubStrLastChars(argCODEfile, 6) == ".swift" || SubStrLastChars(argCODEfile, 5) == ".dart" || SubStrLastChars(argCODEfile, 3) == ".ts" || SubStrLastChars(argCODEfile, 6) == ".scala" || SubStrLastChars(argCODEfile, 7) == ".groovy" || SubStrLastChars(argCODEfile, StrLen("." + Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), "\n", 2)))) == "." + Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), "\n", 2)) && numOfParams == 2) {
+        if (SubStrLastChars(argCODEfile, 4) == ".cpp" || SubStrLastChars(argCODEfile, 3) == ".py" || SubStrLastChars(argCODEfile, 3) == ".js" || SubStrLastChars(argCODEfile, 3) == ".go" || SubStrLastChars(argCODEfile, 4) == ".lua" || SubStrLastChars(argCODEfile, 3) == ".cs" || SubStrLastChars(argCODEfile, 5) == ".java" || SubStrLastChars(argCODEfile, 3) == ".kt" || SubStrLastChars(argCODEfile, 3) == ".rb" || SubStrLastChars(argCODEfile, 4) == ".nim" || SubStrLastChars(argCODEfile, 4) == ".ahk" || SubStrLastChars(argCODEfile, 6) == ".swift" || SubStrLastChars(argCODEfile, 5) == ".dart" || SubStrLastChars(argCODEfile, 3) == ".ts" || SubStrLastChars(argCODEfile, 7) == ".groovy" || SubStrLastChars(argCODEfile, StrLen("." + Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), "\n", 2)))) == "." + Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), "\n", 2)) && numOfParams == 2) {
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -6448,12 +6316,6 @@ void HTVMv2() {
             }
             else if (SubStrLastChars(argCODEfile, 3) == ".ts") {
                 OUTCODE = compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "ts");
-                FileDelete(Trim(argCODEfile));
-                FileAppend(OUTCODE, Trim(argCODEfile));
-                return;
-            }
-            else if (SubStrLastChars(argCODEfile, 6) == ".scala") {
-                OUTCODE = compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "scala");
                 FileDelete(Trim(argCODEfile));
                 FileAppend(OUTCODE, Trim(argCODEfile));
                 return;

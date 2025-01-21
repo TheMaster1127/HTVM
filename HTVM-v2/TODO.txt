@@ -23,9 +23,6 @@ keyWordINT64
 keyWordIF
 keyWordElseIf
 keyWordElse
-keyWordSwitch
-keyWordSwitchCase
-keyWordSwitchDefault
 keyWordWhileLoop
 keyWordContinue
 keyWordBreak
@@ -68,9 +65,27 @@ usePrefixTypeForTypeDefinition
 usePostfixTypeForTypeDefinition
 useCurlyBracesSyntaxForArrayDef
 useInJavaScriptAlwaysUseVar
-useJavaScriptInAfullHTMLfile
 useJavaScriptAmainFuncDef
 useJavaScriptAllFuncsAreAsync
 useJavaScriptAlwaysTripleEqual
 
-LEFT TO DO: 74
+LEFT TO DO: 70
+
+TODO List
+
+1. Implement try-catch-finally blocks in all languages, except for Lua and Go, where this feature cannot be directly implemented.
+2. Implement if-else if-else conditions in all languages.
+3. Implement while loops.
+4. Implement break and continue keywords, with Lua converting continue to goto continue and using ::continue:: labels recognized only in Lua.
+5. Fix and enhance the expressionTranspiler, specifically handling e and ErrorMsg() (except in Go and Lua).
+6. Complete the implementation of ++ and -- operators.
+7. Implement single-line and multi-line comments.
+8. Implement variables.
+9. Implement arrays.
+10. Implement functions.
+11. Handle the use??? on/off settings.
+12. Implement OSP.
+13. Make the documentation, website, and README.
+14. Work on popularizing the programming language and making it more accessible.
+15. Finally, work towards making HTVM a widely recognized and used tool.
+then GG

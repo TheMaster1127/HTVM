@@ -15,5 +15,4 @@
 12 | Swift          | .swift             |
 13 | Dart           | .dart              |
 14 | TypeScript     | .ts                |
-15 | Scala          | .scala             |
-16 | Groovy         | .groovy            |
+15 | Groovy         | .groovy            |

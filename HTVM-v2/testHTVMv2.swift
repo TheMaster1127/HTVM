@@ -1,3 +1,4 @@
+import Foundation
 
 
 // Print function for various types
