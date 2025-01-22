@@ -494,25 +494,6 @@ function LoopParseFunc(varString: string, delimiter1: string = "", delimiter2: s
 funcEND======================funcEND==============
 
 
-func======================func==============
-lang: scala
-name: LoopParseFunc
-libs: null
-description: null
-def LoopParseFunc(varString: String, delimiter1: String = "", delimiter2: String = ""): Array[String] = {
-    var items: Array[String] = Array()
-    if (delimiter1.isEmpty && delimiter2.isEmpty) {
-        // If no delimiters are provided, return an array of characters
-        items = varString.split("")
-    } else {
-        // Construct the regular expression pattern for splitting the string
-        val pattern = s"[$delimiter1$delimiter2]+"
-        // Split the string using the constructed pattern
-        items = varString.split(pattern)
-    }
-    items
-}
-funcEND======================funcEND==============
 
 
 func======================func==============
@@ -763,21 +744,6 @@ function print(value: any): void {
     }
 }
 
-funcEND======================funcEND==============
-
-func======================func==============
-lang: scala
-name: print
-libs: null
-description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
-// Print function for various types
-  def print(value: Any): Unit = value match {
-    case v: String => println(v)
-    case v: Int => println(v)
-    case v: Float => println(v)
-    case v: Boolean => println(if (v) "true" else "false")
-    case _ => println("Unsupported type")
-  }
 funcEND======================funcEND==============
 
 func======================func==============
@@ -3976,7 +3942,7 @@ void HTVM_v2_HTVM() {
     std::string params = Trim(GetParams());
     if (params == "") {
 	noParams = true;
-        print("Usage: HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> [optional LangToTranspileTo]\n\nOptions:\n  <yourCodeFileName.yourExtension>  The source code file to transpile.\n  <HTVM-instructions.txt>              The instructions file for transpilation.\n  [LangToTranspileTo]                Optional: Specify the target language (cpp, py, js, go, lua, cs, java, kt, rb, nim, ahk, swift, dart, ts, scala, groovy, htvm or <yourExtension>).\n\nExample:\n  HTVM main.htvm HTVM-instructions.txt cpp\n");
+        print("Usage: HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> [optional LangToTranspileTo]\n\nOptions:\n  <yourCodeFileName.yourExtension>  The source code file to transpile.\n  <HTVM-instructions.txt>              The instructions file for transpilation.\n  [LangToTranspileTo]                Optional: Specify the target language (cpp, py, js, go, lua, cs, java, kt, rb, nim, ahk, swift, dart, ts, groovy, htvm or <yourExtension>).\n\nExample:\n  HTVM main.htvm HTVM-instructions.txt cpp\n");
         return;
     }
     std::vector<std::string> items1 = LoopParseFunc(params, "\n", "\r");
@@ -4021,7 +3987,7 @@ def HTVM_v2_HTVM():
     params = Trim(GetParams())
     if (params == ""):
         noParams = True
-       	print("Usage: HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> [optional LangToTranspileTo]\n\nOptions:\n  <yourCodeFileName.yourExtension>  The source code file to transpile.\n  <HTVM-instructions.txt>              The instructions file for transpilation.\n  [LangToTranspileTo]                Optional: Specify the target language (cpp, py, js, go, lua, cs, java, kt, rb, nim, ahk, swift, dart, ts, scala, groovy, htvm or <yourExtension>).\n\nExample:\n  HTVM main.htvm HTVM-instructions.txt cpp\n")
+       	print("Usage: HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> [optional LangToTranspileTo]\n\nOptions:\n  <yourCodeFileName.yourExtension>  The source code file to transpile.\n  <HTVM-instructions.txt>              The instructions file for transpilation.\n  [LangToTranspileTo]                Optional: Specify the target language (cpp, py, js, go, lua, cs, java, kt, rb, nim, ahk, swift, dart, ts, groovy, htvm or <yourExtension>).\n\nExample:\n  HTVM main.htvm HTVM-instructions.txt cpp\n")
         return
     items1 = LoopParseFunc(params, "\n", "\r")
     for A_Index1 , A_LoopField1 in enumerate(items1, start=0):
