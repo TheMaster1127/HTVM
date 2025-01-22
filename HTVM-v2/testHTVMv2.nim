@@ -12,42 +12,10 @@ proc print(value: auto) =  # Use 'auto' instead of 'untyped'
   else:
     echo "Unsupported type"
 
-proc HTVM_Append[T](arr: var seq[T], value: T) =
-  arr.add(value)
 
-proc HTVM_Size[T](arr: seq[T]): int =
-  return arr.len
-
-
-for A_Index1 in 0..20 + 0:
-    print("hello HTVM import")
-    print("hello HTVM\nimport")
-for A_Index2 in 0..6 + 0:
-    print("hello HTVM import")
-    print("hello HTVM\nimport")
-for A_Index3 in 0..5 + 0:
-    print("hello\" HTVM v2")
-    print("hello HTVM\\v2\\\\s")
-    print("hello HTVM\nv2")
-    print("hello HTVM\\nv2")
-    print(A_Index3)
-    for A_Index4 in 0..5 + 0:
-        print("hello HTVM v2")
-        print("hello HTVM\nv2")
-        for A_Index5 in 0..5 + 0:
-            print("hello HTVM v2")
-            print("hello HTVM\nv2")
-            print(A_Index5)
-        print(A_Index4)
-qWAERSFD()
-qWAERSFD(waedsfd())
-print(5+5 != 5 not SZDS() and "A+-+--+ != ADSF" and "WSADFD" and "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
-print(if "QWADSDF" and "qawdsf" || var1 ! var4 and "ASDFX" and not ADSFD("Qwads" and "QASD" and "aszd" < 6): false else: true || nil && false)
-print(HTVM_Size(aszd) HTVM_Append(aszd, HTVM_Size(aszd)))
-Avar123 = StringTrimRight(STRRAWSD, 1)
-if(var1 == 5 and var2w3erf < 6)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-var1 = 1
-print(if (var1 == 1): "hello" else: "bye")
-var1 = 0
-print(if (var1 == 1): "hello" else: "bye")
+try:
+    raise newException(ValueError, "this is an ERROR HTVM v2")
+except ValueError as ee:
+    print(ee.msg)
+finally:
+    print("finally finally finally finally")

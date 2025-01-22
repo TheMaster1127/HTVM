@@ -1,54 +1,10 @@
-import "C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\importTEST.htvm"
-
-Loop, 5 (
-    print("hello`" HTVM v2")
-    print("hello HTVM``v2\\s")
-    print("hello HTVM`nv2")
-    print("hello HTVM\nv2")
-    
-keyWordCodeInTheTranspiledLangStartPy
-asdfd12 = 5
-asdfd23 = 56
-asdfd34 = 5
-keyWordCodeInTheTranspiledLangEndpy
-keyWordCodeInTheTranspiledLangStartCPP
-            int asdfd12 = 5;
-int asdfd23 = 56;
-    int asdfd34 = 5;
-keyWordCodeInTheTranspiledLangEndCPP
-    print(A_Index)
-    Loop, 5 ( 
-        print("hello HTVM v2")
-        print("hello HTVM`nv2")
-        keyWordCodeInTheTranspiledLangStartHTVM
-int asdfd12 := 5
-int asdfd23 := 56
-int asdfd34 := 5
-keyWordCodeInTheTranspiledLangEndHTVm
-        Loop, 5 (
-            print("hello HTVM v2")
-            print("hello HTVM`nv2")
-            print(A_Index)
-        )
-        print(A_Index)
-    )
+try (
+throw ErrorMsg("this is an ERROR HTVM v2")
 )
-
-await qWAERSFD()
-qWAERSFD(await waedsfd())
-
-print(5+5 != 5 !SZDS() . "A+-+--+ != ADSF" . "WSADFD" . "qwadsf" + adsf >= 3 <= qwerd > qwretr < wdsdf = 5 != 8)
-print("QWADSDF" . "qawdsf" || var1 ! var4 . "ASDFX" . !ADSFD("Qwads" . "QASD" . "aszd" < 6) ? false : true || null && false)
-print(aszd.size() aszd.add(aszd.size()))
-StringTrimRight, Avar123, STRRAWSD, 1
-
-if(var1 == 5) and (var2w3erf < 6)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-keyWordCodeInTheTranspiledLangStart
-var1 = 1
-keyWordCodeInTheTranspiledLangEnd    
-print((var1 == 1) ? "hello" : "bye")
-keyWordCodeInTheTranspiledLangStart
-var1 = 0
-keyWordCodeInTheTranspiledLangEnd
-print((var1 == 1) ? "hello" : "bye")
+catch ee
+(
+print(ee)
+)
+finally (
+print("finally finally finally finally")
+)
