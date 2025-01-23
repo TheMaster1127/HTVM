@@ -28,11 +28,6 @@ keyWordContinue
 keyWordBreak
 keyWordFunc
 keyWordAsync
-keyWordThrow
-keyWordErrorMsg
-keyWordTry
-keyWordCatch
-keyWordFinally
 keyWordReturnStatement
 keyWordArrayDefinition
 keyWordArrayOfIntegersDefinition
@@ -69,11 +64,11 @@ useJavaScriptAmainFuncDef
 useJavaScriptAllFuncsAreAsync
 useJavaScriptAlwaysTripleEqual
 
-LEFT TO DO: 70
+LEFT TO DO: 65
 
 TODO List
 
-1. Implement try-catch-finally blocks in all languages, except for Lua and Go, where this feature cannot be directly implemented.
+DONE! 1. Implement try-catch-finally blocks in all languages, except for Lua and Go, where this feature cannot be directly implemented.
 2. Implement if-else if-else conditions in all languages.
 3. Implement while loops.
 4. Implement break and continue keywords, with Lua converting continue to goto continue and using ::continue:: labels recognized only in Lua.
