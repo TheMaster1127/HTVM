@@ -18,6 +18,14 @@ public class Main
 
 
 public static void main(String[] args) {
+    if (5 == 5 && 6 - 6 == 0) {
+        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
+    }
+    else if (5 == 5 && 6 - 6 == 0) {
+        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
+    } else {
+        print(5+5);
+    }
     try {
         throw new Exception("this is an ERROR HTVM v2");
     }

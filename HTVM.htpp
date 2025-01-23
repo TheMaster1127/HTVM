@@ -2844,33 +2844,6 @@ arr getAllCharForTheFurtureSoIcanAddEscapeChar .= A_LoopField
 }
 arr str getAllCharForTheFurtureSoIcanAddEscapeChar .= " "
 
-str ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes := Chr(34) . "ihuiuusgfgesrheidFor-asas-theuhtuwaesphoutr" . Chr(34)
-str OutFixDoubleQuotesInsideDoubleQuotes
-
-int fixOutFixDoubleQuotesInsideDoubleQuotesFIXok := 0
-Loop, Parse, code
-{
-
-if (A_LoopField = keyWordEscpaeChar) && (getAllCharForTheFurtureSoIcanAddEscapeChar[A_Index + 1] = Chr(34))
-{
-fixOutFixDoubleQuotesInsideDoubleQuotesFIXok := 1
-OutFixDoubleQuotesInsideDoubleQuotes .= ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes
-}
-else
-{
-if (fixOutFixDoubleQuotesInsideDoubleQuotesFIXok != 1)
-{
-OutFixDoubleQuotesInsideDoubleQuotes .= A_LoopField
-}
-else
-{
-fixOutFixDoubleQuotesInsideDoubleQuotesFIXok := 0
-}
-}
-
-}
-
-StringTrimRight, code, OutFixDoubleQuotesInsideDoubleQuotes, 1
 if (keyWordEscpaeChar != Chr(92))
 {
 code := StrReplace(code, Chr(92), Chr(92) . Chr(92))
@@ -7733,7 +7706,7 @@ Loop, % theIdNumOfThe34
 htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor-asas-theuhturtyphoutr-" . Chr(65) . Chr(65) . STR(A_Index) . Chr(65) . Chr(65), theIdNumOfThe34theVar[A_Index])
 }
 
-htCode := StrReplace(htCode, ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes, Chr(92) . Chr(34))
+;htCode := StrReplace(htCode, ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes, Chr(92) . Chr(34))
 
 
 htCode := StrReplace(htCode, "std::string(" . Chr(34) . Chr(34) . ";),", "std::string(" . Chr(34) . Chr(34) . "),")

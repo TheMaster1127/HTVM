@@ -10,6 +10,14 @@ func ErrorMsg(_ message: String) throws {
 
 
 func main() {
+    if (5 == 5 && 6 - 6 == 0) {
+        print("MAAAAAAAAAAA<M<SJDIJSLDLS")
+    }
+    else if (5 == 5 && 6 - 6 == 0) {
+        print("MAAAAAAAAAAA<M<SJDIJSLDLS")
+    } else {
+        print(5+5)
+    }
     do {
         try ErrorMsg("this is an ERROR HTVM v2")
     }

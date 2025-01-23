@@ -6,6 +6,14 @@ function print(value) {
 
 
 async function main() {
+    if (5 == 5 && 6 - 6 == 0) {
+        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
+    }
+    else if (5 == 5 && 6 - 6 == 0) {
+        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
+    } else {
+        print(5+5);
+    }
     try {
         throw new Error("this is an ERROR HTVM v2");
     }

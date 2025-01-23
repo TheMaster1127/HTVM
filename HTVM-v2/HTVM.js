@@ -4621,7 +4621,289 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
         for (let A_Index93 = 0; A_Index93 < items93.length + 0; A_Index93++) {
             const A_LoopField93 = items93[A_Index93 - 0];
             lineDone = 0;
-            if (StrLower(Trim(A_LoopField93)) == StrLower(keyWordTry) || StrLower(Trim(A_LoopField93)) == StrLower(keyWordTry + ":")) {
+            if (SubStr(StrLower(Trim(A_LoopField93)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF)) {
+                str1 = Trim(StringTrimLeft(A_LoopField93, StrLen(keyWordIF)));
+                str1 = Trim(expressionParserTranspiler("(" + str1 + ")"));
+                str1 = StringTrimRight(str1, 1);
+                str1 = StringTrimLeft(str1, 1);
+                if (langToConvertTo == langFileExtension_2) {
+                    if (usePythonicColonSyntax_2 == "on") {
+                        if (useParentheses == "on") {
+                            if (useParentheses_2 == "on") {
+                                htCode += keyWordIF_2 + str1 + ":\n";
+                            } else {
+                                htCode += keyWordIF_2 + StringTrimRight(StringTrimLeft(Trim(str1), 1), 1) + ":\n";
+                            }
+                        } else {
+                            if (useParentheses_2 == "on") {
+                                htCode += keyWordIF_2 + "(" + str1 + "):\n";
+                            } else {
+                                htCode += keyWordIF_2 + str1 + ":\n";
+                            }
+                        }
+                    } else {
+                        if (useParentheses == "on") {
+                            if (useParentheses_2 == "on") {
+                                htCode += keyWordIF_2 + str1 + "\n";
+                            } else {
+                                htCode += keyWordIF_2 + StringTrimRight(StringTrimLeft(Trim(str1), 1), 1) + "\n";
+                            }
+                        } else {
+                            if (useParentheses_2 == "on") {
+                                htCode += keyWordIF_2 + "(" + str1 + ")\n";
+                            } else {
+                                htCode += keyWordIF_2 + str1 + "\n";
+                            }
+                        }
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    if (useParentheses == "on") {
+                        htCode += "if " + str1 + Chr(10);
+                    } else {
+                        htCode += "if (" + str1 + ")" + Chr(10);
+                    }
+                }
+                if (langToConvertTo == "py") {
+                    htCode += "if " + str1 + ":" + Chr(10);
+                }
+                if (langToConvertTo == "js") {
+                    if (useParentheses == "on") {
+                        htCode += "if " + str1 + Chr(10);
+                    } else {
+                        htCode += "if (" + str1 + ")" + Chr(10);
+                    }
+                }
+                if (langToConvertTo == "go") {
+                    htCode += "if " + str1 + "\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode += "if " + str1 + " then\n";
+                }
+                if (langToConvertTo == "cs") {
+                    if (useParentheses == "on") {
+                        htCode += "if " + str1 + "\n";
+                    } else {
+                        htCode += "if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "java") {
+                    if (useParentheses == "on") {
+                        htCode += "if " + str1 + "\n";
+                    } else {
+                        htCode += "if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "kt") {
+                    if (useParentheses == "on") {
+                        htCode += "if " + str1 + "\n";
+                    } else {
+                        htCode += "if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "rb") {
+                    htCode += "if " + str1 + "\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode += "if " + str1 + ":\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    if (useParentheses == "on") {
+                        htCode += "if " + str1 + "\n";
+                    } else {
+                        htCode += "if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "swift") {
+                    htCode += "if " + str1 + "\n";
+                }
+                if (langToConvertTo == "dart") {
+                    if (useParentheses == "on") {
+                        htCode += "if " + str1 + "\n";
+                    } else {
+                        htCode += "if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "ts") {
+                    if (useParentheses == "on") {
+                        htCode += "if " + str1 + "\n";
+                    } else {
+                        htCode += "if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode += "if " + str1 + "\n";
+                }
+            }
+            else if (SubStr(StrLower(Trim(A_LoopField93)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf)) {
+                str1 = Trim(StringTrimLeft(A_LoopField93, StrLen(keyWordElseIf)));
+                str1 = Trim(expressionParserTranspiler("(" + str1 + ")"));
+                str1 = StringTrimRight(str1, 1);
+                str1 = StringTrimLeft(str1, 1);
+                if (langToConvertTo == langFileExtension_2) {
+                    if (usePythonicColonSyntax_2 == "on") {
+                        if (useParentheses == "on") {
+                            if (useParentheses_2 == "on") {
+                                htCode += keyWordElseIf_2 + str1 + ":\n";
+                            } else {
+                                htCode += keyWordElseIf_2 + StringTrimRight(StringTrimLeft(Trim(str1), 1), 1) + ":\n";
+                            }
+                        } else {
+                            if (useParentheses_2 == "on") {
+                                htCode += keyWordElseIf_2 + "(" + str1 + "):\n";
+                            } else {
+                                htCode += keyWordElseIf_2 + str1 + ":\n";
+                            }
+                        }
+                    } else {
+                        if (useParentheses == "on") {
+                            if (useParentheses_2 == "on") {
+                                htCode += keyWordElseIf_2 + str1 + "\n";
+                            } else {
+                                htCode += keyWordElseIf_2 + StringTrimRight(StringTrimLeft(Trim(str1), 1), 1) + "\n";
+                            }
+                        } else {
+                            if (useParentheses_2 == "on") {
+                                htCode += keyWordElseIf_2 + "(" + str1 + ")\n";
+                            } else {
+                                htCode += keyWordElseIf_2 + str1 + "\n";
+                            }
+                        }
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    if (useParentheses == "on") {
+                        htCode += "else if " + str1 + "\n";
+                    } else {
+                        htCode += "else if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "py") {
+                    htCode += "elif " + str1 + ":\n";
+                }
+                if (langToConvertTo == "js") {
+                    if (useParentheses == "on") {
+                        htCode += "else if " + str1 + "\n";
+                    } else {
+                        htCode += "else if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "go") {
+                    htCode += "else if " + str1 + "\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode += "elseif " + str1 + " then\n";
+                }
+                if (langToConvertTo == "cs") {
+                    if (useParentheses == "on") {
+                        htCode += "else if " + str1 + "\n";
+                    } else {
+                        htCode += "else if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "java") {
+                    if (useParentheses == "on") {
+                        htCode += "else if " + str1 + "\n";
+                    } else {
+                        htCode += "else if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "kt") {
+                    if (useParentheses == "on") {
+                        htCode += "else if " + str1 + "\n";
+                    } else {
+                        htCode += "else if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "rb") {
+                    htCode += "elsif " + str1 + "\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode += "elif " + str1 + ":\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    if (useParentheses == "on") {
+                        htCode += "else if " + str1 + "\n";
+                    } else {
+                        htCode += "else if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "swift") {
+                    htCode += "else if " + str1 + "\n";
+                }
+                if (langToConvertTo == "dart") {
+                    if (useParentheses == "on") {
+                        htCode += "else if " + str1 + "\n";
+                    } else {
+                        htCode += "else if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "ts") {
+                    if (useParentheses == "on") {
+                        htCode += "else if " + str1 + "\n";
+                    } else {
+                        htCode += "else if (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode += "else if " + str1 + "\n";
+                }
+            }
+            else if (StrLower(Trim(A_LoopField93)) == StrLower(keyWordElse) || StrLower(Trim(A_LoopField93)) == StrLower(keyWordElse + ":")) {
+                if (langToConvertTo == langFileExtension_2) {
+                    if (usePythonicColonSyntax_2 == "on") {
+                        htCode += keyWordElse_2 + ":\n";
+                    } else {
+                        htCode += keyWordElse_2 + "\n";
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    htCode += "else\n";
+                }
+                if (langToConvertTo == "py") {
+                    htCode += "else:\n";
+                }
+                if (langToConvertTo == "js") {
+                    htCode += "else\n";
+                }
+                if (langToConvertTo == "go") {
+                    htCode += "else\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode += "else\n";
+                }
+                if (langToConvertTo == "cs") {
+                    htCode += "else\n";
+                }
+                if (langToConvertTo == "java") {
+                    htCode += "else\n";
+                }
+                if (langToConvertTo == "kt") {
+                    htCode += "else\n";
+                }
+                if (langToConvertTo == "rb") {
+                    htCode += "else\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode += "else:\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    htCode += "else\n";
+                }
+                if (langToConvertTo == "swift") {
+                    htCode += "else\n";
+                }
+                if (langToConvertTo == "dart") {
+                    htCode += "else\n";
+                }
+                if (langToConvertTo == "ts") {
+                    htCode += "else\n";
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode += "else\n";
+                }
+            }
+            else if (StrLower(Trim(A_LoopField93)) == StrLower(keyWordTry) || StrLower(Trim(A_LoopField93)) == StrLower(keyWordTry + ":")) {
                 if (langToConvertTo == langFileExtension_2) {
                     if (usePythonicColonSyntax_2 == "on") {
                         htCode += keyWordTry_2 + ":\n";
@@ -5361,10 +5643,10 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                     if (usePythonicColonSyntax_2 == "on") {
                         htCode += Trim(keyWordLoopParse_2) + " " + var1 + ":\n";
                     } else {
-                        htCode += Trim(keyWordLoopParse_2) + " " + var1 + "`n";
+                        htCode += Trim(keyWordLoopParse_2) + " " + var1 + Chr(10);
                     }
                 } else {
-                    htCode += htCodeLoopfixa1 + "n" + var1out + "\n";
+                    htCode += htCodeLoopfixa1 + Chr(10) + var1out + Chr(10);
                 }
             }
             else if (SubStr(StrLower(Trim(A_LoopField93)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang + " "))) == StrLower(keyWordIncludeInTheTranspiledLang + " ") && langToConvertTo == langFileExtension_2) {
