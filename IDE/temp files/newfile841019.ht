@@ -1,26 +1,56 @@
-str htCode := "-- Function definition with a while loop and if-elseif-else inside it`nfunction myFunction()`n    local x = 1`n    while x " . Chr(60) . "= 3 do`n        -- if-elseif-else inside the while loop`n        if x == 1 then`n            print(" . Chr(34) . "x is 1" . Chr(34) . ")`n        end`n        elseif x == 2 then`n            print(" . Chr(34) . "x is 2" . Chr(34) . ")`n        end`n        else`n            print(" . Chr(34) . "x is 3" . Chr(34) . ")`n        end`n        x = x + 1`n    end`nend`n`n-- Call the function`nmyFunction()"
-arr str nextWordEndFix
+
+str htCode := "htCode"
+
+
+
+
+
+
+arr str fixGoManGoIsSoAnnoyingBroooFurure
 Loop, Parse, htCode, `n, `r
 {
-nextWordEndFix.add(A_LoopField)
+fixGoManGoIsSoAnnoyingBroooFurure.add(A_LoopField)
 }
-nextWordEndFix.add(" ")
+fixGoManGoIsSoAnnoyingBroooFurure.add(" ")
 
-
-str nextWordEndFixOut := ""
+int fixGoManGoIsSoAnnoyingBroooSkip := 0
+int fixGoManGoIsSoAnnoyingBroooCount := 0
+str fixGoManGoIsSoAnnoyingBroooCountSpaceses := ""
+str fixGoManGoIsSoAnnoyingBrooo := ""
 Loop, Parse, htCode, `n, `r
 {
-
-if (Trim(A_LoopField) = "end") and (SubStr(Trim(nextWordEndFix[A_Index + 1]), 1, StrLen("elseif ")) = "elseif ") or (Trim(A_LoopField) = "end") and (Trim(nextWordEndFix[A_Index + 1]) = "else")
+if (Trim(A_LoopField) = "}") and (SubStr(Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index + 1]), 1, StrLen("else if ")) = "else if ")
 {
-nextWordEndFixOut .= ""
+fixGoManGoIsSoAnnoyingBroooSkip := 1
+
+Loop, Parse, fixGoManGoIsSoAnnoyingBroooFurure[A_Index + 1]
+{
+if (A_LoopField = " ")
+{
+fixGoManGoIsSoAnnoyingBroooCount++
 }
 else
 {
-nextWordEndFixOut .= A_LoopField . "`n"
+break
+}
+}
+
+Loop, % fixGoManGoIsSoAnnoyingBroooCount
+{
+fixGoManGoIsSoAnnoyingBroooCountSpaceses .= " "
+}
+
+fixGoManGoIsSoAnnoyingBrooo .= fixGoManGoIsSoAnnoyingBroooCountSpaceses . "} " . Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index + 1]) . "`n"
+}
+else
+{
+
+if (fixGoManGoIsSoAnnoyingBroooSkip = 1)
+{
+fixGoManGoIsSoAnnoyingBroooSkip := 0
+fixGoManGoIsSoAnnoyingBrooo .= A_LoopField . "`n"
 }
 
 }
-StringTrimRight, htCode, nextWordEndFixOut, 1
-print(htCode)
-
+}
+StringTrimRight, htCode, fixGoManGoIsSoAnnoyingBrooo, 1

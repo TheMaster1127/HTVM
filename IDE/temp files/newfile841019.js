@@ -14,18 +14,9 @@ function LoopParseFunc(varString, delimiter1="", delimiter2="") {
     return items;
 }
 
-function print(value) {
-    console.log(value)
-}
-
 function StrLen(s) {
     // Return the length of the given string
     return s.length;
-}
-
-function Chr(number) {
-    // Return the character corresponding to the Unicode code point, or an empty string if out of range
-    return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
 }
 
 function SubStr(str, startPos, length) {
@@ -55,25 +46,43 @@ function StringTrimRight(input, numChars) {
 
 
 async function main() {
-    var htCode = "-- Function definition with a while loop and if-elseif-else inside it\nfunction myFunction()\n    local x = 1\n    while x " + Chr(60) + "= 3 do\n        -- if-elseif-else inside the while loop\n        if x == 1 then\n            print(" + Chr(34) + "x is 1" + Chr(34) + ")\n        end\n        elseif x == 2 then\n            print(" + Chr(34) + "x is 2" + Chr(34) + ")\n        end\n        else\n            print(" + Chr(34) + "x is 3" + Chr(34) + ")\n        end\n        x = x + 1\n    end\nend\n\n-- Call the function\nmyFunction()";
-    let nextWordEndFix = [];
+    var htCode = "htCode";
+    let fixGoManGoIsSoAnnoyingBroooFurure = [];
     items1 = LoopParseFunc(htCode, "\n", "\r")
     for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
         const A_LoopField1 = items1[A_Index1 - 0];
-        nextWordEndFix.push(A_LoopField1);
+        fixGoManGoIsSoAnnoyingBroooFurure.push(A_LoopField1);
     }
-    nextWordEndFix.push(" ");
-    var nextWordEndFixOut = "";
+    fixGoManGoIsSoAnnoyingBroooFurure.push(" ");
+    var fixGoManGoIsSoAnnoyingBroooSkip = 0;
+    var fixGoManGoIsSoAnnoyingBroooCount = 0;
+    var fixGoManGoIsSoAnnoyingBroooCountSpaceses = "";
+    var fixGoManGoIsSoAnnoyingBrooo = "";
     items2 = LoopParseFunc(htCode, "\n", "\r")
     for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
         const A_LoopField2 = items2[A_Index2 - 0];
-        if (Trim(A_LoopField2) == "end" && SubStr(Trim(nextWordEndFix[A_Index2 + 1]), 1, StrLen("elseif ")) == "elseif " || Trim(A_LoopField2) == "end" && Trim(nextWordEndFix[A_Index2 + 1]) == "else") {
-            nextWordEndFixOut += "";
+        if (Trim(A_LoopField2) == "}" && SubStr(Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index2 + 1]), 1, StrLen("else if ")) == "else if ") {
+            fixGoManGoIsSoAnnoyingBroooSkip = 1;
+            items3 = LoopParseFunc(fixGoManGoIsSoAnnoyingBroooFurure[A_Index2 + 1])
+            for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
+                const A_LoopField3 = items3[A_Index3 - 0];
+                if (A_LoopField3 == " ") {
+                    fixGoManGoIsSoAnnoyingBroooCount++;
+                } else {
+                    break;
+                }
+            }
+            for (let A_Index4 = 0; A_Index4 < fixGoManGoIsSoAnnoyingBroooCount + 0; A_Index4++) {
+                fixGoManGoIsSoAnnoyingBroooCountSpaceses += " ";
+            }
+            fixGoManGoIsSoAnnoyingBrooo += fixGoManGoIsSoAnnoyingBroooCountSpaceses + "} " + Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index2 + 1]) + "\n";
         } else {
-            nextWordEndFixOut += A_LoopField2 + "\n";
+            if (fixGoManGoIsSoAnnoyingBroooSkip == 1) {
+                fixGoManGoIsSoAnnoyingBroooSkip = 0;
+                fixGoManGoIsSoAnnoyingBrooo += A_LoopField2 + "\n";
+            }
         }
     }
-    htCode = StringTrimRight(nextWordEndFixOut, 1);
-    print(htCode);
+    htCode = StringTrimRight(fixGoManGoIsSoAnnoyingBrooo, 1);
 }
 main();

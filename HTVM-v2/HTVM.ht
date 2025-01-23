@@ -8039,7 +8039,60 @@ StringTrimRight, htCode, nextWordEndFixOut, 1
 
 
 
+if (langToConvertTo = "go")
+{
 
+arr str fixGoManGoIsSoAnnoyingBroooFurure
+Loop, Parse, htCode, `n, `r
+{
+fixGoManGoIsSoAnnoyingBroooFurure.add(A_LoopField)
+}
+fixGoManGoIsSoAnnoyingBroooFurure.add(" ")
+
+int fixGoManGoIsSoAnnoyingBroooSkip := 0
+int fixGoManGoIsSoAnnoyingBroooCount := 0
+str fixGoManGoIsSoAnnoyingBroooCountSpaceses := ""
+str fixGoManGoIsSoAnnoyingBrooo := ""
+Loop, Parse, htCode, `n, `r
+{
+if (Trim(A_LoopField) = "}") and (SubStr(Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index + 1]), 1, StrLen("else if ")) = "else if ")
+{
+fixGoManGoIsSoAnnoyingBroooSkip := 1
+fixGoManGoIsSoAnnoyingBroooCount := 0
+Loop, Parse, fixGoManGoIsSoAnnoyingBroooFurure[A_Index + 1]
+{
+if (A_LoopField = " ")
+{
+fixGoManGoIsSoAnnoyingBroooCount++
+}
+else
+{
+break
+}
+}
+fixGoManGoIsSoAnnoyingBroooCountSpaceses := ""
+Loop, % fixGoManGoIsSoAnnoyingBroooCount
+{
+fixGoManGoIsSoAnnoyingBroooCountSpaceses .= " "
+}
+
+fixGoManGoIsSoAnnoyingBrooo .= fixGoManGoIsSoAnnoyingBroooCountSpaceses . "} " . Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index + 1]) . "`n"
+}
+else
+{
+
+if (fixGoManGoIsSoAnnoyingBroooSkip = 0)
+{
+fixGoManGoIsSoAnnoyingBrooo .= A_LoopField . "`n"
+}
+
+fixGoManGoIsSoAnnoyingBroooSkip := 0
+
+
+}
+}
+StringTrimRight, htCode, fixGoManGoIsSoAnnoyingBrooo, 1
+}
 
 
 

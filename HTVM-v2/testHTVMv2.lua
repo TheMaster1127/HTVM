@@ -7,9 +7,23 @@ if (5 == 5 and 6 - 6 == 0) then
     print("MAAAAAAAAAAA<M<SJDIJSLDLS")
 elseif (5 == 5 and 6 - 6 == 0) then
     print("MAAAAAAAAAAA<M<SJDIJSLDLS")
+elseif (5 == 5 and 6 - 6 == 0) then
+    print("MAAAAAAAAAAA<M<SJDIJSLDLS")
+elseif (5 == 5 and 6 - 6 == 0) then
+    print("MAAAAAAAAAAA<M<SJDIJSLDLS")
+elseif (5 == 5 and 6 - 6 == 0) then
+    print("MAAAAAAAAAAA<M<SJDIJSLDLS")
+elseif (5 == 5 and 6 - 6 == 0) then
+    print("MAAAAAAAAAAA<M<SJDIJSLDLS")
 else
     print(5+5)
 end
+print("==========")
+print("==========")
+print("==========")
+print("==========")
+print("==========")
+print("==========")
 LUA DOSENT HAVE A TRY USE PROGRAMMING BLOCKS MAYBE IDK
     LUA DOSENT HAVE A THROW USE PROGRAMMING BLOCKS MAYBE IDK
 end

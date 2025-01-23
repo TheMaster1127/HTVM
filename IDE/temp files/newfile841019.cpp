@@ -6,7 +6,6 @@
 #include <regex>
 #include <sstream>
 #include <string>
-#include <type_traits>
 #include <vector>
 
 // Function to escape special characters for regex
@@ -35,32 +34,6 @@ std::vector<std::string> LoopParseFunc(const std::string& var, const std::string
         }
     }
     return items;
-}
-
-// Print function for const char* specifically
-void print(const char* value) {
-    std::cout << std::string(value) << std::endl;  // Convert const char* to std::string
-}
-// Print function that converts all types to string if needed
-template <typename T>
-void print(const T& value) {
-    if constexpr (std::is_same_v<T, std::string>) {
-        std::cout << value << std::endl;
-    } else if constexpr (std::is_same_v<T, char>) {
-        std::cout << value << std::endl;
-    } else if constexpr (std::is_same_v<T, int>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, float>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, double>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, size_t>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, bool>) {
-        std::cout << (value ? "1" : "0") << std::endl;
-    } else {
-        std::cout << "Unsupported type" << std::endl;
-    }
 }
 
 size_t StrLen(const std::string& str) {
@@ -100,31 +73,45 @@ std::string StringTrimRight(const std::string &input, int numChars) {
     return (numChars <= input.length()) ? input.substr(0, input.length() - numChars) : input;
 }
 
-std::string Chr(int number) {
-    return (number >= 0 && number <= 0x10FFFF) ? std::string(1, static_cast<char>(number)) : "";
-}
-
 
 int main(int argc, char* argv[]) {
-    std::string htCode = "-- Function definition with a while loop and if-elseif-else inside it\nfunction myFunction()\n    local x = 1\n    while x " + Chr(60) + "= 3 do\n        -- if-elseif-else inside the while loop\n        if x == 1 then\n            print(" + Chr(34) + "x is 1" + Chr(34) + ")\n        end\n        elseif x == 2 then\n            print(" + Chr(34) + "x is 2" + Chr(34) + ")\n        end\n        else\n            print(" + Chr(34) + "x is 3" + Chr(34) + ")\n        end\n        x = x + 1\n    end\nend\n\n-- Call the function\nmyFunction()";
-    std::vector<std::string> nextWordEndFix;
+    std::string htCode = "htCode";
+    std::vector<std::string> fixGoManGoIsSoAnnoyingBroooFurure;
     std::vector<std::string> items1 = LoopParseFunc(htCode, "\n", "\r");
     for (size_t A_Index1 = 0; A_Index1 < items1.size() + 0; A_Index1++) {
         std::string A_LoopField1 = items1[A_Index1 - 0];
-        nextWordEndFix.push_back(A_LoopField1);
+        fixGoManGoIsSoAnnoyingBroooFurure.push_back(A_LoopField1);
     }
-    nextWordEndFix.push_back(" ");
-    std::string nextWordEndFixOut = "";
+    fixGoManGoIsSoAnnoyingBroooFurure.push_back(" ");
+    int fixGoManGoIsSoAnnoyingBroooSkip = 0;
+    int fixGoManGoIsSoAnnoyingBroooCount = 0;
+    std::string fixGoManGoIsSoAnnoyingBroooCountSpaceses = "";
+    std::string fixGoManGoIsSoAnnoyingBrooo = "";
     std::vector<std::string> items2 = LoopParseFunc(htCode, "\n", "\r");
     for (size_t A_Index2 = 0; A_Index2 < items2.size() + 0; A_Index2++) {
         std::string A_LoopField2 = items2[A_Index2 - 0];
-        if (Trim(A_LoopField2) == "end" && SubStr(Trim(nextWordEndFix[A_Index2 + 1]), 1, StrLen("elseif ")) == "elseif " || Trim(A_LoopField2) == "end" && Trim(nextWordEndFix[A_Index2 + 1]) == "else") {
-            nextWordEndFixOut += "";
+        if (Trim(A_LoopField2) == "}" && SubStr(Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index2 + 1]), 1, StrLen("else if ")) == "else if ") {
+            fixGoManGoIsSoAnnoyingBroooSkip = 1;
+            std::vector<std::string> items3 = LoopParseFunc(fixGoManGoIsSoAnnoyingBroooFurure[A_Index2 + 1]);
+            for (size_t A_Index3 = 0; A_Index3 < items3.size() + 0; A_Index3++) {
+                std::string A_LoopField3 = items3[A_Index3 - 0];
+                if (A_LoopField3 == " ") {
+                    fixGoManGoIsSoAnnoyingBroooCount++;
+                } else {
+                    break;
+                }
+            }
+            for (int A_Index4 = 0; A_Index4 < fixGoManGoIsSoAnnoyingBroooCount + 0; A_Index4++) {
+                fixGoManGoIsSoAnnoyingBroooCountSpaceses += " ";
+            }
+            fixGoManGoIsSoAnnoyingBrooo += fixGoManGoIsSoAnnoyingBroooCountSpaceses + "} " + Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index2 + 1]) + "\n";
         } else {
-            nextWordEndFixOut += A_LoopField2 + "\n";
+            if (fixGoManGoIsSoAnnoyingBroooSkip == 1) {
+                fixGoManGoIsSoAnnoyingBroooSkip = 0;
+                fixGoManGoIsSoAnnoyingBrooo += A_LoopField2 + "\n";
+            }
         }
     }
-    htCode = StringTrimRight(nextWordEndFixOut, 1);
-    print(htCode);
+    htCode = StringTrimRight(fixGoManGoIsSoAnnoyingBrooo, 1);
     return 0;
 }
