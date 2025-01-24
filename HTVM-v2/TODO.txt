@@ -30,9 +30,6 @@ keyWordArrayOfBooleansDefinition
 keyWordVar
 keyWordLet
 keyWordConst
-keyWordComment
-keyWordCommentOpenMultiLine
-keyWordCommentCloseMultiLine
 keyWordAssign
 keyWordAssignAdd
 keyWordAssignConcat
@@ -54,7 +51,7 @@ useJavaScriptAmainFuncDef
 useJavaScriptAllFuncsAreAsync
 useJavaScriptAlwaysTripleEqual
 
-LEFT TO DO: 55
+LEFT TO DO: 52
 
 TODO List
 
