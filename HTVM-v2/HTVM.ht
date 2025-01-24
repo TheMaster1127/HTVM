@@ -69,6 +69,7 @@ str keyWordPorp := ""
 str keyWordThis := ""
 str keyWordInclude := ""
 str keyWordIncludeInTheTranspiledLang := ""
+
 str keyWordCodeInTheTranspiledLangStart := ""
 str keyWordCodeInTheTranspiledLangEnd := ""
 str keyWordCodeInTheTranspiledLangStartCPP := ""
@@ -8233,6 +8234,12 @@ htCode := code
 }
 
 
+
+
+
+
+
+
 if (COUNT_programmingBlock_InTheTranspiledLang != 0)
 {
     Loop, % COUNT_programmingBlock_InTheTranspiledLang
@@ -8240,6 +8247,7 @@ if (COUNT_programmingBlock_InTheTranspiledLang != 0)
         htCode := StrReplace(htCode, "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" . STR(A_Index + 1) . "AA", programmingBlock_InTheTranspiledLang[A_Index])
     }
 }
+
 
 if (langToConvertTo = "cpp")
 {
@@ -8257,11 +8265,17 @@ else
     {
         Loop, % COUNT_programmingBlock_CPP
         {
-            htCode := StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartCPP . "`n" . programmingBlock_CPP[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndCPP)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
-
 
 if (langToConvertTo = "py")
 {
@@ -8279,11 +8293,17 @@ else
     {
         Loop, % COUNT_programmingBlock_PY
         {
-            htCode := StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartPY . "`n" . programmingBlock_PY[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndPY)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
-
 
 if (langToConvertTo = "js")
 {
@@ -8301,7 +8321,14 @@ else
     {
         Loop, % COUNT_programmingBlock_JS
         {
-            htCode := StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartJS . "`n" . programmingBlock_JS[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndJS)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
@@ -8322,7 +8349,14 @@ else
     {
         Loop, % COUNT_programmingBlock_GO
         {
-            htCode := StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartGO . "`n" . programmingBlock_GO[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndGO)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
@@ -8343,7 +8377,14 @@ else
     {
         Loop, % COUNT_programmingBlock_LUA
         {
-            htCode := StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartLUA . "`n" . programmingBlock_LUA[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndLUA)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
@@ -8364,7 +8405,14 @@ else
     {
         Loop, % COUNT_programmingBlock_CS
         {
-            htCode := StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartCS . "`n" . programmingBlock_CS[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndCS)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
@@ -8385,113 +8433,182 @@ else
     {
         Loop, % COUNT_programmingBlock_JAVA
         {
-            htCode := StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartJAVA . "`n" . programmingBlock_JAVA[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndJAVA)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
 
-
-if (langToConvertTo = "js")
+if (langToConvertTo = "kt")
 {
-    if (COUNT_programmingBlock_JS != 0)
+    if (COUNT_programmingBlock_KT != 0)
     {
-        Loop, % COUNT_programmingBlock_JS
+        Loop, % COUNT_programmingBlock_KT
         {
-            htCode := StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" . STR(A_Index + 1) . "AA", programmingBlock_JS[A_Index])
+            htCode := StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" . STR(A_Index + 1) . "AA", programmingBlock_KT[A_Index])
         }
     }
 }
 else
 {
-    if (COUNT_programmingBlock_JS != 0)
+    if (COUNT_programmingBlock_KT != 0)
     {
-        Loop, % COUNT_programmingBlock_JS
+        Loop, % COUNT_programmingBlock_KT
         {
-            htCode := StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartKT . "`n" . programmingBlock_KT[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndKT)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
 
-if (langToConvertTo = "go")
+if (langToConvertTo = "rb")
 {
-    if (COUNT_programmingBlock_GO != 0)
+    if (COUNT_programmingBlock_RB != 0)
     {
-        Loop, % COUNT_programmingBlock_GO
+        Loop, % COUNT_programmingBlock_RB
         {
-            htCode := StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" . STR(A_Index + 1) . "AA", programmingBlock_GO[A_Index])
+            htCode := StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" . STR(A_Index + 1) . "AA", programmingBlock_RB[A_Index])
         }
     }
 }
 else
 {
-    if (COUNT_programmingBlock_GO != 0)
+    if (COUNT_programmingBlock_RB != 0)
     {
-        Loop, % COUNT_programmingBlock_GO
+        Loop, % COUNT_programmingBlock_RB
         {
-            htCode := StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartRB . "`n" . programmingBlock_RB[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndRB)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
 
-if (langToConvertTo = "lua")
+if (langToConvertTo = "nim")
 {
-    if (COUNT_programmingBlock_LUA != 0)
+    if (COUNT_programmingBlock_NIM != 0)
     {
-        Loop, % COUNT_programmingBlock_LUA
+        Loop, % COUNT_programmingBlock_NIM
         {
-            htCode := StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" . STR(A_Index + 1) . "AA", programmingBlock_LUA[A_Index])
+            htCode := StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" . STR(A_Index + 1) . "AA", programmingBlock_NIM[A_Index])
         }
     }
 }
 else
 {
-    if (COUNT_programmingBlock_LUA != 0)
+    if (COUNT_programmingBlock_NIM != 0)
     {
-        Loop, % COUNT_programmingBlock_LUA
+        Loop, % COUNT_programmingBlock_NIM
         {
-            htCode := StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartNIM . "`n" . programmingBlock_NIM[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndNIM)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
 
-if (langToConvertTo = "cs")
+if (langToConvertTo = "ahk")
 {
-    if (COUNT_programmingBlock_CS != 0)
+    if (COUNT_programmingBlock_AHK != 0)
     {
-        Loop, % COUNT_programmingBlock_CS
+        Loop, % COUNT_programmingBlock_AHK
         {
-            htCode := StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" . STR(A_Index + 1) . "AA", programmingBlock_CS[A_Index])
+            htCode := StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" . STR(A_Index + 1) . "AA", programmingBlock_AHK[A_Index])
         }
     }
 }
 else
 {
-    if (COUNT_programmingBlock_CS != 0)
+    if (COUNT_programmingBlock_AHK != 0)
     {
-        Loop, % COUNT_programmingBlock_CS
+        Loop, % COUNT_programmingBlock_AHK
         {
-            htCode := StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartAHK . "`n" . programmingBlock_AHK[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndAHK)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
 
-if (langToConvertTo = "java")
+if (langToConvertTo = "swift")
 {
-    if (COUNT_programmingBlock_JAVA != 0)
+    if (COUNT_programmingBlock_SWIFT != 0)
     {
-        Loop, % COUNT_programmingBlock_JAVA
+        Loop, % COUNT_programmingBlock_SWIFT
         {
-            htCode := StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" . STR(A_Index + 1) . "AA", programmingBlock_JAVA[A_Index])
+            htCode := StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" . STR(A_Index + 1) . "AA", programmingBlock_SWIFT[A_Index])
         }
     }
 }
 else
 {
-    if (COUNT_programmingBlock_JAVA != 0)
+    if (COUNT_programmingBlock_SWIFT != 0)
     {
-        Loop, % COUNT_programmingBlock_JAVA
+        Loop, % COUNT_programmingBlock_SWIFT
         {
-            htCode := StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartSWIFT . "`n" . programmingBlock_SWIFT[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndSWIFT)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
+        }
+    }
+}
+
+if (langToConvertTo = "dart")
+{
+    if (COUNT_programmingBlock_DART != 0)
+    {
+        Loop, % COUNT_programmingBlock_DART
+        {
+            htCode := StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" . STR(A_Index + 1) . "AA", programmingBlock_DART[A_Index])
+        }
+    }
+}
+else
+{
+    if (COUNT_programmingBlock_DART != 0)
+    {
+        Loop, % COUNT_programmingBlock_DART
+        {
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartDART . "`n" . programmingBlock_DART[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndDART)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
@@ -8512,12 +8629,17 @@ else
     {
         Loop, % COUNT_programmingBlock_TS
         {
-            htCode := StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartTS . "`n" . programmingBlock_TS[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndTS)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
-
-
 
 if (langToConvertTo = "groovy")
 {
@@ -8535,10 +8657,18 @@ else
     {
         Loop, % COUNT_programmingBlock_GROOVY
         {
-            htCode := StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" . STR(A_Index + 1) . "AA", "`n")
+            if (langToConvertTo = langFileExtension_2)
+            {
+                htCode := StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" . STR(A_Index + 1) . "AA", keyWordCodeInTheTranspiledLangStartGROOVY . "`n" . programmingBlock_GROOVY[A_Index] . "`n" . keyWordCodeInTheTranspiledLangEndGROOVY)
+            }
+            else
+            {
+                htCode := StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" . STR(A_Index + 1) . "AA", "`n")
+            }
         }
     }
 }
+
 
 ;;;;;;;;;;;
 if (langToConvertTo = langFileExtension_2)
