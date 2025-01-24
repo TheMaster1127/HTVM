@@ -61,7 +61,7 @@ DONE! 3. Implement if-else if-else conditions in all languages.
 DONE! 4. Implement while loops.
 DONE! 5. Implement break and continue keywords, with Lua converting continue to goto continue and using ::continue:: labels recognized only in Lua.
 DONE! 6. Complete the implementation of ++ and -- operators.
-7. Implement single-line and multi-line comments.
+DONE! 7. Implement single-line and multi-line comments.
 8. Handle the use??? on/off settings.
 9. Implement variables.
 10. Implement arrays.
