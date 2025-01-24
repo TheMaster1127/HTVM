@@ -6265,55 +6265,55 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 }
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
-                        htCode += str1 + keyWordInc_2 + ";\n";
+                        htCode += str1 + keyWordInc_2 + ";" + Chr(10);
                     } else {
-                        htCode += str1 + keyWordInc_2 + "`n";
+                        htCode += str1 + keyWordInc_2 + Chr(10);
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += str1 + "++;n";
+                    htCode += str1 + "++;" + Chr(10);
                 }
                 if (langToConvertTo == "py") {
-                    htCode += str1 + " += 1\n";
+                    htCode += str1 + " += 1" + Chr(10);
                 }
                 if (langToConvertTo == "js") {
-                    htCode += str1 + "++;\n";
+                    htCode += str1 + "++;" + Chr(10);
                 }
                 if (langToConvertTo == "go") {
-                    htCode += str1 + "++;\n";
+                    htCode += str1 + "++;" + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
-                    htCode += str1 + " = " + str1 + " + 1\n";
+                    htCode += str1 + " = " + str1 + " + 1" + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += str1 + "++;\n";
+                    htCode += str1 + "++;" + Chr(10);
                 }
                 if (langToConvertTo == "java") {
-                    htCode += str1 + "++;\n";
+                    htCode += str1 + "++;" + Chr(10);
                 }
                 if (langToConvertTo == "kt") {
-                    htCode += str1 + "++;\n";
+                    htCode += str1 + "++;" + Chr(10);
                 }
                 if (langToConvertTo == "rb") {
-                    htCode += str1 + " += 1\n";
+                    htCode += str1 + " += 1" + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += str1 + " += 1\n";
+                    htCode += str1 + " += 1" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
-                    htCode += str1 + "++\n";
+                    htCode += str1 + "++" + Chr(10);
                 }
                 if (langToConvertTo == "swift") {
-                    htCode += str1 + "++;\n";
+                    htCode += str1 + "++;" + Chr(10);
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += str1 + "++;\n";
+                    htCode += str1 + "++;" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += str1 + "++;`n";
+                    htCode += str1 + "++;" + Chr(10);
                 }
                 if (langToConvertTo == "groovy") {
-                    htCode += str1 + "++;n";
+                    htCode += str1 + "++;" + Chr(10);
                 }
             }
             else if (SubStrLastChars(Trim(A_LoopField93), StrLen(keyWordDec)) == keyWordDec || SubStrLastChars(Trim(A_LoopField93), StrLen(keyWordDec + ";")) == keyWordDec + ";" && lineDone == 0) {
@@ -6324,55 +6324,55 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 }
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
-                        htCode += str1 + keyWordDec_2 + ";\n";
+                        htCode += str1 + keyWordDec_2 + ";" + Chr(10);
                     } else {
-                        htCode += str1 + keyWordDec_2 + "`n";
+                        htCode += str1 + keyWordDec_2 + Chr(10);
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += str1 + "--;n";
+                    htCode += str1 + "--;" + Chr(10);
                 }
                 if (langToConvertTo == "py") {
-                    htCode += str1 + " -= 1\n";
+                    htCode += str1 + " -= 1" + Chr(10);
                 }
                 if (langToConvertTo == "js") {
-                    htCode += str1 + "--;\n";
+                    htCode += str1 + "--;" + Chr(10);
                 }
                 if (langToConvertTo == "go") {
-                    htCode += str1 + "--;\n";
+                    htCode += str1 + "--;" + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
                     htCode += str1 + " = " + str1 + " - 1\n";
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += str1 + "--;\n";
+                    htCode += str1 + "--;" + Chr(10);
                 }
                 if (langToConvertTo == "java") {
-                    htCode += str1 + "--;\n";
+                    htCode += str1 + "--;" + Chr(10);
                 }
                 if (langToConvertTo == "kt") {
-                    htCode += str1 + "--;\n";
+                    htCode += str1 + "--;" + Chr(10);
                 }
                 if (langToConvertTo == "rb") {
-                    htCode += str1 + " -= 1\n";
+                    htCode += str1 + " -= 1" + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += str1 + " -= 1\n";
+                    htCode += str1 + " -= 1" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
-                    htCode += str1 + "--\n";
+                    htCode += str1 + "--" + Chr(10);
                 }
                 if (langToConvertTo == "swift") {
-                    htCode += str1 + "--;\n";
+                    htCode += str1 + "--;" + Chr(10);
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += str1 + "--;\n";
+                    htCode += str1 + "--;" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += str1 + "--;`n";
+                    htCode += str1 + "--;" + Chr(10);
                 }
                 if (langToConvertTo == "groovy") {
-                    htCode += str1 + "--;n";
+                    htCode += str1 + "--;" + Chr(10);
                 }
             }
             else if (SubStr(StrLower(Trim(A_LoopField93)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang + " "))) == StrLower(keyWordIncludeInTheTranspiledLang + " ") && langToConvertTo == langFileExtension_2) {

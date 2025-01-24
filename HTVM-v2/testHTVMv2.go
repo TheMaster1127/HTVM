@@ -25,6 +25,12 @@ func main() {
         print("hi from HTVM v2 still in development")
         break
     }
+    
+    if () {
+        WADSFDSASDFXGC
+    } else if () {
+        waedsfsawdsfx
+    } else if () {    
     /*
     WAESFD
     WAQESR
