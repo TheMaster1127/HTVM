@@ -2259,7 +2259,11 @@ std::vector<std::string> GETfullLangAllOperators() {
         fullLangAllOperators.push_back("/");
         fullLangAllOperators.push_back("%");
         fullLangAllOperators.push_back("**");
-        fullLangAllOperators.push_back("==");
+        if (useJavaScriptAlwaysTripleEqual == "on") {
+            fullLangAllOperators.push_back("===");
+        } else {
+            fullLangAllOperators.push_back("==");
+        }
         fullLangAllOperators.push_back("===");
         fullLangAllOperators.push_back("!=");
         fullLangAllOperators.push_back(">");
@@ -2600,7 +2604,11 @@ std::vector<std::string> GETfullLangAllOperators() {
         fullLangAllOperators.push_back("/");
         fullLangAllOperators.push_back("%");
         fullLangAllOperators.push_back("**");
-        fullLangAllOperators.push_back("==");
+        if (useJavaScriptAlwaysTripleEqual == "on") {
+            fullLangAllOperators.push_back("===");
+        } else {
+            fullLangAllOperators.push_back("==");
+        }
         fullLangAllOperators.push_back("===");
         fullLangAllOperators.push_back("!=");
         fullLangAllOperators.push_back(">");

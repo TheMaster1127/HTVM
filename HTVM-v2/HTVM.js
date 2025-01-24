@@ -2144,7 +2144,11 @@ async function  GETfullLangAllOperators() {
         fullLangAllOperators.push("/");
         fullLangAllOperators.push("%");
         fullLangAllOperators.push("**");
-        fullLangAllOperators.push("==");
+        if (useJavaScriptAlwaysTripleEqual == "on") {
+            fullLangAllOperators.push("===");
+        } else {
+            fullLangAllOperators.push("==");
+        }
         fullLangAllOperators.push("===");
         fullLangAllOperators.push("!=");
         fullLangAllOperators.push(">");
@@ -2485,7 +2489,11 @@ async function  GETfullLangAllOperators() {
         fullLangAllOperators.push("/");
         fullLangAllOperators.push("%");
         fullLangAllOperators.push("**");
-        fullLangAllOperators.push("==");
+        if (useJavaScriptAlwaysTripleEqual == "on") {
+            fullLangAllOperators.push("===");
+        } else {
+            fullLangAllOperators.push("==");
+        }
         fullLangAllOperators.push("===");
         fullLangAllOperators.push("!=");
         fullLangAllOperators.push(">");

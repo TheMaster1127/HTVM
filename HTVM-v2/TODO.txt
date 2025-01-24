@@ -47,11 +47,9 @@ usePrefixTypeForTypeDefinition
 usePostfixTypeForTypeDefinition
 useCurlyBracesSyntaxForArrayDef
 useInJavaScriptAlwaysUseVar
-useJavaScriptAmainFuncDef
 useJavaScriptAllFuncsAreAsync
-useJavaScriptAlwaysTripleEqual
 
-LEFT TO DO: 52
+LEFT TO DO: 50
 
 TODO List
 
@@ -62,10 +60,10 @@ DONE! 4. Implement while loops.
 DONE! 5. Implement break and continue keywords, with Lua converting continue to goto continue and using ::continue:: labels recognized only in Lua.
 DONE! 6. Complete the implementation of ++ and -- operators.
 DONE! 7. Implement single-line and multi-line comments.
-8. Handle the use??? on/off settings.
-9. Implement variables.
-10. Implement arrays.
-11. Implement functions.
+8. Implement variables.
+9. Implement arrays.
+10. Implement functions.
+11. Handle the use??? on/off settings.
 12. Implement OSP.
 13. Make the documentation, website, and README.
 14. Work on popularizing the programming language and making it more accessible.

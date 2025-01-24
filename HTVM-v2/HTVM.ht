@@ -2417,7 +2417,14 @@ if (langToConvertTo = "js")
     fullLangAllOperators.add("/")
     fullLangAllOperators.add("%")
     fullLangAllOperators.add("**")
-    fullLangAllOperators.add("==")
+    if (useJavaScriptAlwaysTripleEqual = "on")
+    {
+        fullLangAllOperators.add("===")
+    }
+    else
+    {
+        fullLangAllOperators.add("==")    
+    }
     fullLangAllOperators.add("===")
     fullLangAllOperators.add("!=")
     fullLangAllOperators.add(">")
@@ -2781,7 +2788,14 @@ if (langToConvertTo = "ts")
     fullLangAllOperators.add("/")
     fullLangAllOperators.add("%")
     fullLangAllOperators.add("**")
-    fullLangAllOperators.add("==")
+    if (useJavaScriptAlwaysTripleEqual = "on")
+    {
+        fullLangAllOperators.add("===")
+    }
+    else
+    {
+        fullLangAllOperators.add("==")    
+    }
     fullLangAllOperators.add("===")
     fullLangAllOperators.add("!=")
     fullLangAllOperators.add(">")
