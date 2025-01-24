@@ -7557,9 +7557,6 @@ if (langToConvertTo = "ts") {
 if (langToConvertTo = "groovy") {
     htCode .= str1 . "--;" . Chr(10)
 }
-
-
-
 }
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang . " "))) = StrLower(keyWordIncludeInTheTranspiledLang . " ")) and (langToConvertTo = langFileExtension_2)
 {
