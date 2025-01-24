@@ -391,7 +391,6 @@ var keyWordDefObj = "";
 var keyWordPorp = "";
 var keyWordThis = "";
 var keyWordInclude = "";
-var keyWordIncludeInTheTranspiledLang = "";
 var keyWordCodeInTheTranspiledLangStart = "";
 var keyWordCodeInTheTranspiledLangEnd = "";
 var keyWordCodeInTheTranspiledLangStartCPP = "";
@@ -557,7 +556,6 @@ var keyWordDefObj_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordPorp_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordThis_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordInclude_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-var keyWordIncludeInTheTranspiledLang_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordCodeInTheTranspiledLangStart_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordCodeInTheTranspiledLangEnd_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordCodeInTheTranspiledLangStartCPP_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
@@ -2769,465 +2767,462 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
             keyWordThis = Trim(A_LoopField62);
         }
         if (A_Index62 == 9) {
-            keyWordInclude = Trim(A_LoopField62) + " ";
+            keyWordInclude = Trim(A_LoopField62);
         }
         if (A_Index62 == 10) {
-            keyWordIncludeInTheTranspiledLang = Trim(A_LoopField62);
-        }
-        if (A_Index62 == 11) {
             keyWordCodeInTheTranspiledLangStart = Trim(A_LoopField62);
         }
-        if (A_Index62 == 12) {
+        if (A_Index62 == 11) {
             keyWordCodeInTheTranspiledLangEnd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 13) {
+        if (A_Index62 == 12) {
             keyWordCodeInTheTranspiledLangStartCPP = Trim(A_LoopField62);
         }
-        if (A_Index62 == 14) {
+        if (A_Index62 == 13) {
             keyWordCodeInTheTranspiledLangEndCPP = Trim(A_LoopField62);
         }
-        if (A_Index62 == 15) {
+        if (A_Index62 == 14) {
             keyWordCodeInTheTranspiledLangStartPY = Trim(A_LoopField62);
         }
-        if (A_Index62 == 16) {
+        if (A_Index62 == 15) {
             keyWordCodeInTheTranspiledLangEndPY = Trim(A_LoopField62);
         }
-        if (A_Index62 == 17) {
+        if (A_Index62 == 16) {
             keyWordCodeInTheTranspiledLangStartJS = Trim(A_LoopField62);
         }
-        if (A_Index62 == 18) {
+        if (A_Index62 == 17) {
             keyWordCodeInTheTranspiledLangEndJS = Trim(A_LoopField62);
         }
-        if (A_Index62 == 19) {
+        if (A_Index62 == 18) {
             keyWordCodeInTheTranspiledLangStartGO = Trim(A_LoopField62);
         }
-        if (A_Index62 == 20) {
+        if (A_Index62 == 19) {
             keyWordCodeInTheTranspiledLangEndGO = Trim(A_LoopField62);
         }
-        if (A_Index62 == 21) {
+        if (A_Index62 == 20) {
             keyWordCodeInTheTranspiledLangStartLUA = Trim(A_LoopField62);
         }
-        if (A_Index62 == 22) {
+        if (A_Index62 == 21) {
             keyWordCodeInTheTranspiledLangEndLUA = Trim(A_LoopField62);
         }
-        if (A_Index62 == 23) {
+        if (A_Index62 == 22) {
             keyWordCodeInTheTranspiledLangStartCS = Trim(A_LoopField62);
         }
-        if (A_Index62 == 24) {
+        if (A_Index62 == 23) {
             keyWordCodeInTheTranspiledLangEndCS = Trim(A_LoopField62);
         }
-        if (A_Index62 == 25) {
+        if (A_Index62 == 24) {
             keyWordCodeInTheTranspiledLangStartJAVA = Trim(A_LoopField62);
         }
-        if (A_Index62 == 26) {
+        if (A_Index62 == 25) {
             keyWordCodeInTheTranspiledLangEndJAVA = Trim(A_LoopField62);
         }
-        if (A_Index62 == 27) {
+        if (A_Index62 == 26) {
             keyWordCodeInTheTranspiledLangStartKT = Trim(A_LoopField62);
         }
-        if (A_Index62 == 28) {
+        if (A_Index62 == 27) {
             keyWordCodeInTheTranspiledLangEndKT = Trim(A_LoopField62);
         }
-        if (A_Index62 == 29) {
+        if (A_Index62 == 28) {
             keyWordCodeInTheTranspiledLangStartRB = Trim(A_LoopField62);
         }
-        if (A_Index62 == 30) {
+        if (A_Index62 == 29) {
             keyWordCodeInTheTranspiledLangEndRB = Trim(A_LoopField62);
         }
-        if (A_Index62 == 31) {
+        if (A_Index62 == 30) {
             keyWordCodeInTheTranspiledLangStartNIM = Trim(A_LoopField62);
         }
-        if (A_Index62 == 32) {
+        if (A_Index62 == 31) {
             keyWordCodeInTheTranspiledLangEndNIM = Trim(A_LoopField62);
         }
-        if (A_Index62 == 33) {
+        if (A_Index62 == 32) {
             keyWordCodeInTheTranspiledLangStartAHK = Trim(A_LoopField62);
         }
-        if (A_Index62 == 34) {
+        if (A_Index62 == 33) {
             keyWordCodeInTheTranspiledLangEndAHK = Trim(A_LoopField62);
         }
-        if (A_Index62 == 35) {
+        if (A_Index62 == 34) {
             keyWordCodeInTheTranspiledLangStartSWIFT = Trim(A_LoopField62);
         }
-        if (A_Index62 == 36) {
+        if (A_Index62 == 35) {
             keyWordCodeInTheTranspiledLangEndSWIFT = Trim(A_LoopField62);
         }
-        if (A_Index62 == 37) {
+        if (A_Index62 == 36) {
             keyWordCodeInTheTranspiledLangStartDART = Trim(A_LoopField62);
         }
-        if (A_Index62 == 38) {
+        if (A_Index62 == 37) {
             keyWordCodeInTheTranspiledLangEndDART = Trim(A_LoopField62);
         }
-        if (A_Index62 == 39) {
+        if (A_Index62 == 38) {
             keyWordCodeInTheTranspiledLangStartTS = Trim(A_LoopField62);
         }
-        if (A_Index62 == 40) {
+        if (A_Index62 == 39) {
             keyWordCodeInTheTranspiledLangEndTS = Trim(A_LoopField62);
         }
-        if (A_Index62 == 41) {
+        if (A_Index62 == 40) {
             keyWordCodeInTheTranspiledLangStartGROOVY = Trim(A_LoopField62);
         }
-        if (A_Index62 == 42) {
+        if (A_Index62 == 41) {
             keyWordCodeInTheTranspiledLangEndGROOVY = Trim(A_LoopField62);
         }
-        if (A_Index62 == 43) {
+        if (A_Index62 == 42) {
             keyWordCodeInTheTranspiledLangStartHTVM = Trim(A_LoopField62);
         }
-        if (A_Index62 == 44) {
+        if (A_Index62 == 43) {
             keyWordCodeInTheTranspiledLangEndHTVM = Trim(A_LoopField62);
         }
-        if (A_Index62 == 45) {
+        if (A_Index62 == 44) {
             keyWordCodeInHTVMstart = Trim(A_LoopField62);
         }
-        if (A_Index62 == 46) {
+        if (A_Index62 == 45) {
             keyWordCodeInHTVMend = Trim(A_LoopField62);
         }
-        if (A_Index62 == 47) {
+        if (A_Index62 == 46) {
             keyWordCurlyBraceOpen = Trim(A_LoopField62);
         }
-        if (A_Index62 == 48) {
+        if (A_Index62 == 47) {
             keyWordCurlyBraceClose = Trim(A_LoopField62);
         }
-        if (A_Index62 == 49) {
+        if (A_Index62 == 48) {
             keyWordNull = Trim(A_LoopField62);
         }
-        if (A_Index62 == 50) {
+        if (A_Index62 == 49) {
             keyWordTrue = Trim(A_LoopField62);
         }
-        if (A_Index62 == 51) {
+        if (A_Index62 == 50) {
             keyWordFalse = Trim(A_LoopField62);
         }
-        if (A_Index62 == 52) {
+        if (A_Index62 == 51) {
             keyWordVoid = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 53) {
+        if (A_Index62 == 52) {
             keyWordDouble = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 54) {
+        if (A_Index62 == 53) {
             keyWordChar = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 55) {
+        if (A_Index62 == 54) {
             keyWordUint8 = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 56) {
+        if (A_Index62 == 55) {
             keyWordUint16 = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 57) {
+        if (A_Index62 == 56) {
             keyWordUint32 = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 58) {
+        if (A_Index62 == 57) {
             keyWordUint64 = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 59) {
+        if (A_Index62 == 58) {
             keyWordINT = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 60) {
+        if (A_Index62 == 59) {
             keyWordSTR = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 61) {
+        if (A_Index62 == 60) {
             keyWordBOOL = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 62) {
+        if (A_Index62 == 61) {
             keyWordFLOAT = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 63) {
+        if (A_Index62 == 62) {
             keyWordINT8 = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 64) {
+        if (A_Index62 == 63) {
             keyWordINT16 = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 65) {
+        if (A_Index62 == 64) {
             keyWordINT32 = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 66) {
+        if (A_Index62 == 65) {
             keyWordINT64 = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 67) {
+        if (A_Index62 == 66) {
             keyWordIF = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 68) {
+        if (A_Index62 == 67) {
             keyWordElseIf = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 69) {
+        if (A_Index62 == 68) {
             keyWordElse = Trim(A_LoopField62);
         }
-        if (A_Index62 == 70) {
+        if (A_Index62 == 69) {
             keyWordWhileLoop = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 71) {
+        if (A_Index62 == 70) {
             keyWordLoopInfinite = Trim(A_LoopField62);
         }
-        if (A_Index62 == 72) {
+        if (A_Index62 == 71) {
             keyWordLoop = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 73) {
+        if (A_Index62 == 72) {
             keyWordLoopParse = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 74) {
+        if (A_Index62 == 73) {
             keyWordContinue = Trim(A_LoopField62);
         }
-        if (A_Index62 == 75) {
+        if (A_Index62 == 74) {
             keyWordBreak = Trim(A_LoopField62);
         }
-        if (A_Index62 == 76) {
+        if (A_Index62 == 75) {
             keyWordFunc = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 77) {
+        if (A_Index62 == 76) {
             keyWordAwait = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 78) {
+        if (A_Index62 == 77) {
             keyWordAsync = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 79) {
+        if (A_Index62 == 78) {
             keyWordThrow = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 80) {
+        if (A_Index62 == 79) {
             keyWordErrorMsg = Trim(A_LoopField62);
         }
-        if (A_Index62 == 81) {
+        if (A_Index62 == 80) {
             keyWordTry = Trim(A_LoopField62);
         }
-        if (A_Index62 == 82) {
+        if (A_Index62 == 81) {
             keyWordCatch = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 83) {
+        if (A_Index62 == 82) {
             keyWordFinally = Trim(A_LoopField62);
         }
-        if (A_Index62 == 84) {
+        if (A_Index62 == 83) {
             keyWordReturnStatement = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 85) {
+        if (A_Index62 == 84) {
             keyWordArrayAppend = Trim(A_LoopField62);
         }
-        if (A_Index62 == 86) {
+        if (A_Index62 == 85) {
             keyWordArrayPop = Trim(A_LoopField62);
         }
-        if (A_Index62 == 87) {
+        if (A_Index62 == 86) {
             keyWordArraySize = Trim(A_LoopField62);
         }
-        if (A_Index62 == 88) {
+        if (A_Index62 == 87) {
             keyWordArrayInsert = Trim(A_LoopField62);
         }
-        if (A_Index62 == 89) {
+        if (A_Index62 == 88) {
             keyWordArrayRemove = Trim(A_LoopField62);
         }
-        if (A_Index62 == 90) {
+        if (A_Index62 == 89) {
             keyWordArrayIndexOf = Trim(A_LoopField62);
         }
-        if (A_Index62 == 91) {
+        if (A_Index62 == 90) {
             keyWordArrayDefinition = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 92) {
+        if (A_Index62 == 91) {
             keyWordArrayOfIntegersDefinition = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 93) {
+        if (A_Index62 == 92) {
             keyWordArrayOfStringsDefinition = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 94) {
+        if (A_Index62 == 93) {
             keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 95) {
+        if (A_Index62 == 94) {
             keyWordArrayOfBooleansDefinition = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 96) {
+        if (A_Index62 == 95) {
             keyWordVar = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 97) {
+        if (A_Index62 == 96) {
             keyWordLet = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 98) {
+        if (A_Index62 == 97) {
             keyWordConst = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 99) {
+        if (A_Index62 == 98) {
             keyWordEnd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 100) {
+        if (A_Index62 == 99) {
             keyWordGlobal = Trim(A_LoopField62) + " ";
         }
-        if (A_Index62 == 101) {
+        if (A_Index62 == 100) {
             keyWordComment = Trim(A_LoopField62);
         }
-        if (A_Index62 == 102) {
+        if (A_Index62 == 101) {
             keyWordCommentOpenMultiLine = Trim(A_LoopField62);
         }
-        if (A_Index62 == 103) {
+        if (A_Index62 == 102) {
             keyWordCommentCloseMultiLine = Trim(A_LoopField62);
         }
-        if (A_Index62 == 104) {
+        if (A_Index62 == 103) {
             keyWordEscpaeChar = Trim(A_LoopField62);
         }
-        if (A_Index62 == 105) {
+        if (A_Index62 == 104) {
             keyWordMainLabel = Trim(A_LoopField62);
         }
-        if (A_Index62 == 106) {
+        if (A_Index62 == 105) {
             keyWordConcat = Trim(A_LoopField62);
         }
-        if (A_Index62 == 107) {
+        if (A_Index62 == 106) {
             keyWordAdd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 108) {
+        if (A_Index62 == 107) {
             keyWordSub = Trim(A_LoopField62);
         }
-        if (A_Index62 == 109) {
+        if (A_Index62 == 108) {
             keyWordMul = Trim(A_LoopField62);
         }
-        if (A_Index62 == 110) {
+        if (A_Index62 == 109) {
             keyWordDiv = Trim(A_LoopField62);
         }
-        if (A_Index62 == 111) {
+        if (A_Index62 == 110) {
             keyWordMod = Trim(A_LoopField62);
         }
-        if (A_Index62 == 112) {
+        if (A_Index62 == 111) {
             keyWordExp = Trim(A_LoopField62);
         }
-        if (A_Index62 == 113) {
+        if (A_Index62 == 112) {
             keyWordEqual = Trim(A_LoopField62);
         }
-        if (A_Index62 == 114) {
+        if (A_Index62 == 113) {
             keyWordStrictEqual = Trim(A_LoopField62);
         }
-        if (A_Index62 == 115) {
+        if (A_Index62 == 114) {
             keyWordNotEqual = Trim(A_LoopField62);
         }
-        if (A_Index62 == 116) {
+        if (A_Index62 == 115) {
             keyWordGreater = Trim(A_LoopField62);
         }
-        if (A_Index62 == 117) {
+        if (A_Index62 == 116) {
             keyWordLess = Trim(A_LoopField62);
         }
-        if (A_Index62 == 118) {
+        if (A_Index62 == 117) {
             keyWordGreaterEqual = Trim(A_LoopField62);
         }
-        if (A_Index62 == 119) {
+        if (A_Index62 == 118) {
             keyWordLessEqual = Trim(A_LoopField62);
         }
-        if (A_Index62 == 120) {
+        if (A_Index62 == 119) {
             keyWordAnd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 121) {
+        if (A_Index62 == 120) {
             keyWordOr = Trim(A_LoopField62);
         }
-        if (A_Index62 == 122) {
+        if (A_Index62 == 121) {
             keyWordNot = Trim(A_LoopField62);
         }
-        if (A_Index62 == 123) {
+        if (A_Index62 == 122) {
             keyWordBitAnd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 124) {
+        if (A_Index62 == 123) {
             keyWordBitOr = Trim(A_LoopField62);
         }
-        if (A_Index62 == 125) {
+        if (A_Index62 == 124) {
             keyWordBitXor = Trim(A_LoopField62);
         }
-        if (A_Index62 == 126) {
+        if (A_Index62 == 125) {
             keyWordBitNot = Trim(A_LoopField62);
         }
-        if (A_Index62 == 127) {
+        if (A_Index62 == 126) {
             keyWordShiftLeft = Trim(A_LoopField62);
         }
-        if (A_Index62 == 128) {
+        if (A_Index62 == 127) {
             keyWordShiftRight = Trim(A_LoopField62);
         }
-        if (A_Index62 == 129) {
+        if (A_Index62 == 128) {
             keyWordShiftUnsignedRight = Trim(A_LoopField62);
         }
-        if (A_Index62 == 130) {
+        if (A_Index62 == 129) {
             keyWordAssign = Trim(A_LoopField62);
         }
-        if (A_Index62 == 131) {
+        if (A_Index62 == 130) {
             keyWordAssignAdd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 132) {
+        if (A_Index62 == 131) {
             keyWordAssignConcat = Trim(A_LoopField62);
         }
-        if (A_Index62 == 133) {
+        if (A_Index62 == 132) {
             keyWordAssignSub = Trim(A_LoopField62);
         }
-        if (A_Index62 == 134) {
+        if (A_Index62 == 133) {
             keyWordAssignMul = Trim(A_LoopField62);
         }
-        if (A_Index62 == 135) {
+        if (A_Index62 == 134) {
             keyWordAssignDiv = Trim(A_LoopField62);
         }
-        if (A_Index62 == 136) {
+        if (A_Index62 == 135) {
             keyWordAssignMod = Trim(A_LoopField62);
         }
-        if (A_Index62 == 137) {
+        if (A_Index62 == 136) {
             keyWordAssignShiftLeft = Trim(A_LoopField62);
         }
-        if (A_Index62 == 138) {
+        if (A_Index62 == 137) {
             keyWordAssignShiftRight = Trim(A_LoopField62);
         }
-        if (A_Index62 == 139) {
+        if (A_Index62 == 138) {
             keyWordLogicalAssignShiftRight = Trim(A_LoopField62);
         }
-        if (A_Index62 == 140) {
+        if (A_Index62 == 139) {
             keyWordAssignBitAnd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 141) {
+        if (A_Index62 == 140) {
             keyWordAssignBitOr = Trim(A_LoopField62);
         }
-        if (A_Index62 == 142) {
+        if (A_Index62 == 141) {
             keyWordAssignBitXor = Trim(A_LoopField62);
         }
-        if (A_Index62 == 143) {
+        if (A_Index62 == 142) {
             keyWordTernary1 = Trim(A_LoopField62);
         }
-        if (A_Index62 == 144) {
+        if (A_Index62 == 143) {
             keyWordTernary2 = Trim(A_LoopField62);
         }
-        if (A_Index62 == 145) {
+        if (A_Index62 == 144) {
             keyWordInc = Trim(A_LoopField62);
         }
-        if (A_Index62 == 146) {
+        if (A_Index62 == 145) {
             keyWordDec = Trim(A_LoopField62);
         }
-        if (A_Index62 == 147) {
+        if (A_Index62 == 146) {
             AHKlikeLoopsIndexedAt = Trim(A_LoopField62);
         }
-        if (A_Index62 == 148) {
+        if (A_Index62 == 147) {
             keyWordAIndex = Trim(A_LoopField62);
         }
-        if (A_Index62 == 149) {
+        if (A_Index62 == 148) {
             keyWordALoopField = Trim(A_LoopField62);
         }
-        if (A_Index62 == 150) {
+        if (A_Index62 == 149) {
             useCurlyBraces = Trim(A_LoopField62);
         }
-        if (A_Index62 == 151) {
+        if (A_Index62 == 150) {
             useEnd = Trim(A_LoopField62);
         }
-        if (A_Index62 == 152) {
+        if (A_Index62 == 151) {
             useSemicolon = Trim(A_LoopField62);
         }
-        if (A_Index62 == 153) {
+        if (A_Index62 == 152) {
             useParentheses = Trim(A_LoopField62);
         }
-        if (A_Index62 == 154) {
+        if (A_Index62 == 153) {
             usePrefixTypeForTypeDefinition = Trim(A_LoopField62);
         }
-        if (A_Index62 == 155) {
+        if (A_Index62 == 154) {
             usePostfixTypeForTypeDefinition = Trim(A_LoopField62);
         }
-        if (A_Index62 == 156) {
+        if (A_Index62 == 155) {
             usePythonicColonSyntax = Trim(A_LoopField62);
         }
-        if (A_Index62 == 157) {
+        if (A_Index62 == 156) {
             useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField62);
         }
-        if (A_Index62 == 158) {
+        if (A_Index62 == 157) {
             useInJavaScriptAlwaysUseVar = Trim(A_LoopField62);
         }
-        if (A_Index62 == 159) {
+        if (A_Index62 == 158) {
             useJavaScriptInAfullHTMLfile = Trim(A_LoopField62);
         }
-        if (A_Index62 == 160) {
+        if (A_Index62 == 159) {
             useJavaScriptAmainFuncDef = Trim(A_LoopField62);
         }
-        if (A_Index62 == 161) {
+        if (A_Index62 == 160) {
             useJavaScriptAllFuncsAreAsync = Trim(A_LoopField62);
         }
-        if (A_Index62 == 162) {
+        if (A_Index62 == 161) {
             useJavaScriptAlwaysTripleEqual = Trim(A_LoopField62);
         }
     }
@@ -3264,465 +3259,462 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                 keyWordThis_2 = Trim(A_LoopField63);
             }
             if (A_Index63 == 9) {
-                keyWordInclude_2 = Trim(A_LoopField63) + " ";
+                keyWordInclude_2 = Trim(A_LoopField63);
             }
             if (A_Index63 == 10) {
-                keyWordIncludeInTheTranspiledLang_2 = Trim(A_LoopField63);
-            }
-            if (A_Index63 == 11) {
                 keyWordCodeInTheTranspiledLangStart_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 12) {
+            if (A_Index63 == 11) {
                 keyWordCodeInTheTranspiledLangEnd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 13) {
+            if (A_Index63 == 12) {
                 keyWordCodeInTheTranspiledLangStartCPP_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 14) {
+            if (A_Index63 == 13) {
                 keyWordCodeInTheTranspiledLangEndCPP_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 15) {
+            if (A_Index63 == 14) {
                 keyWordCodeInTheTranspiledLangStartPY_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 16) {
+            if (A_Index63 == 15) {
                 keyWordCodeInTheTranspiledLangEndPY_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 17) {
+            if (A_Index63 == 16) {
                 keyWordCodeInTheTranspiledLangStartJS_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 18) {
+            if (A_Index63 == 17) {
                 keyWordCodeInTheTranspiledLangEndJS_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 19) {
+            if (A_Index63 == 18) {
                 keyWordCodeInTheTranspiledLangStartGO_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 20) {
+            if (A_Index63 == 19) {
                 keyWordCodeInTheTranspiledLangEndGO_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 21) {
+            if (A_Index63 == 20) {
                 keyWordCodeInTheTranspiledLangStartLUA_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 22) {
+            if (A_Index63 == 21) {
                 keyWordCodeInTheTranspiledLangEndLUA_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 23) {
+            if (A_Index63 == 22) {
                 keyWordCodeInTheTranspiledLangStartCS_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 24) {
+            if (A_Index63 == 23) {
                 keyWordCodeInTheTranspiledLangEndCS_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 25) {
+            if (A_Index63 == 24) {
                 keyWordCodeInTheTranspiledLangStartJAVA_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 26) {
+            if (A_Index63 == 25) {
                 keyWordCodeInTheTranspiledLangEndJAVA_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 27) {
+            if (A_Index63 == 26) {
                 keyWordCodeInTheTranspiledLangStartKT_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 28) {
+            if (A_Index63 == 27) {
                 keyWordCodeInTheTranspiledLangEndKT_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 29) {
+            if (A_Index63 == 28) {
                 keyWordCodeInTheTranspiledLangStartRB_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 30) {
+            if (A_Index63 == 29) {
                 keyWordCodeInTheTranspiledLangEndRB_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 31) {
+            if (A_Index63 == 30) {
                 keyWordCodeInTheTranspiledLangStartNIM_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 32) {
+            if (A_Index63 == 31) {
                 keyWordCodeInTheTranspiledLangEndNIM_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 33) {
+            if (A_Index63 == 32) {
                 keyWordCodeInTheTranspiledLangStartAHK_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 34) {
+            if (A_Index63 == 33) {
                 keyWordCodeInTheTranspiledLangEndAHK_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 35) {
+            if (A_Index63 == 34) {
                 keyWordCodeInTheTranspiledLangStartSWIFT_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 36) {
+            if (A_Index63 == 35) {
                 keyWordCodeInTheTranspiledLangEndSWIFT_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 37) {
+            if (A_Index63 == 36) {
                 keyWordCodeInTheTranspiledLangStartDART_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 38) {
+            if (A_Index63 == 37) {
                 keyWordCodeInTheTranspiledLangEndDART_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 39) {
+            if (A_Index63 == 38) {
                 keyWordCodeInTheTranspiledLangStartTS_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 40) {
+            if (A_Index63 == 39) {
                 keyWordCodeInTheTranspiledLangEndTS_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 41) {
+            if (A_Index63 == 40) {
                 keyWordCodeInTheTranspiledLangStartGROOVY_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 42) {
+            if (A_Index63 == 41) {
                 keyWordCodeInTheTranspiledLangEndGROOVY_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 43) {
+            if (A_Index63 == 42) {
                 keyWordCodeInTheTranspiledLangStartHTVM_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 44) {
+            if (A_Index63 == 43) {
                 keyWordCodeInTheTranspiledLangEndHTVM_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 45) {
+            if (A_Index63 == 44) {
                 keyWordCodeInHTVMstart_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 46) {
+            if (A_Index63 == 45) {
                 keyWordCodeInHTVMend_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 47) {
+            if (A_Index63 == 46) {
                 keyWordCurlyBraceOpen_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 48) {
+            if (A_Index63 == 47) {
                 keyWordCurlyBraceClose_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 49) {
+            if (A_Index63 == 48) {
                 keyWordNull_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 50) {
+            if (A_Index63 == 49) {
                 keyWordTrue_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 51) {
+            if (A_Index63 == 50) {
                 keyWordFalse_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 52) {
+            if (A_Index63 == 51) {
                 keyWordVoid_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 53) {
+            if (A_Index63 == 52) {
                 keyWordDouble_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 54) {
+            if (A_Index63 == 53) {
                 keyWordChar_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 55) {
+            if (A_Index63 == 54) {
                 keyWordUint8_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 56) {
+            if (A_Index63 == 55) {
                 keyWordUint16_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 57) {
+            if (A_Index63 == 56) {
                 keyWordUint32_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 58) {
+            if (A_Index63 == 57) {
                 keyWordUint64_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 59) {
+            if (A_Index63 == 58) {
                 keyWordINT_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 60) {
+            if (A_Index63 == 59) {
                 keyWordSTR_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 61) {
+            if (A_Index63 == 60) {
                 keyWordBOOL_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 62) {
+            if (A_Index63 == 61) {
                 keyWordFLOAT_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 63) {
+            if (A_Index63 == 62) {
                 keyWordINT8_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 64) {
+            if (A_Index63 == 63) {
                 keyWordINT16_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 65) {
+            if (A_Index63 == 64) {
                 keyWordINT32_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 66) {
+            if (A_Index63 == 65) {
                 keyWordINT64_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 67) {
+            if (A_Index63 == 66) {
                 keyWordIF_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 68) {
+            if (A_Index63 == 67) {
                 keyWordElseIf_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 69) {
+            if (A_Index63 == 68) {
                 keyWordElse_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 70) {
+            if (A_Index63 == 69) {
                 keyWordWhileLoop_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 71) {
+            if (A_Index63 == 70) {
                 keyWordLoopInfinite_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 72) {
+            if (A_Index63 == 71) {
                 keyWordLoop_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 73) {
+            if (A_Index63 == 72) {
                 keyWordLoopParse_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 74) {
+            if (A_Index63 == 73) {
                 keyWordContinue_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 75) {
+            if (A_Index63 == 74) {
                 keyWordBreak_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 76) {
+            if (A_Index63 == 75) {
                 keyWordFunc_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 77) {
+            if (A_Index63 == 76) {
                 keyWordAwait_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 78) {
+            if (A_Index63 == 77) {
                 keyWordAsync_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 79) {
+            if (A_Index63 == 78) {
                 keyWordThrow_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 80) {
+            if (A_Index63 == 79) {
                 keyWordErrorMsg_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 81) {
+            if (A_Index63 == 80) {
                 keyWordTry_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 82) {
+            if (A_Index63 == 81) {
                 keyWordCatch_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 83) {
+            if (A_Index63 == 82) {
                 keyWordFinally_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 84) {
+            if (A_Index63 == 83) {
                 keyWordReturnStatement_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 85) {
+            if (A_Index63 == 84) {
                 keyWordArrayAppend_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 86) {
+            if (A_Index63 == 85) {
                 keyWordArrayPop_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 87) {
+            if (A_Index63 == 86) {
                 keyWordArraySize_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 88) {
+            if (A_Index63 == 87) {
                 keyWordArrayInsert_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 89) {
+            if (A_Index63 == 88) {
                 keyWordArrayRemove_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 90) {
+            if (A_Index63 == 89) {
                 keyWordArrayIndexOf_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 91) {
+            if (A_Index63 == 90) {
                 keyWordArrayDefinition_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 92) {
+            if (A_Index63 == 91) {
                 keyWordArrayOfIntegersDefinition_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 93) {
+            if (A_Index63 == 92) {
                 keyWordArrayOfStringsDefinition_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 94) {
+            if (A_Index63 == 93) {
                 keyWordArrayOfFloatingPointNumbersDefinition_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 95) {
+            if (A_Index63 == 94) {
                 keyWordArrayOfBooleansDefinition_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 96) {
+            if (A_Index63 == 95) {
                 keyWordVar_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 97) {
+            if (A_Index63 == 96) {
                 keyWordLet_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 98) {
+            if (A_Index63 == 97) {
                 keyWordConst_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 99) {
+            if (A_Index63 == 98) {
                 keyWordEnd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 100) {
+            if (A_Index63 == 99) {
                 keyWordGlobal_2 = Trim(A_LoopField63) + " ";
             }
-            if (A_Index63 == 101) {
+            if (A_Index63 == 100) {
                 keyWordComment_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 102) {
+            if (A_Index63 == 101) {
                 keyWordCommentOpenMultiLine_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 103) {
+            if (A_Index63 == 102) {
                 keyWordCommentCloseMultiLine_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 104) {
+            if (A_Index63 == 103) {
                 keyWordEscpaeChar_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 105) {
+            if (A_Index63 == 104) {
                 keyWordMainLabel_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 106) {
+            if (A_Index63 == 105) {
                 keyWordConcat_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 107) {
+            if (A_Index63 == 106) {
                 keyWordAdd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 108) {
+            if (A_Index63 == 107) {
                 keyWordSub_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 109) {
+            if (A_Index63 == 108) {
                 keyWordMul_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 110) {
+            if (A_Index63 == 109) {
                 keyWordDiv_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 111) {
+            if (A_Index63 == 110) {
                 keyWordMod_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 112) {
+            if (A_Index63 == 111) {
                 keyWordExp_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 113) {
+            if (A_Index63 == 112) {
                 keyWordEqual_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 114) {
+            if (A_Index63 == 113) {
                 keyWordStrictEqual_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 115) {
+            if (A_Index63 == 114) {
                 keyWordNotEqual_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 116) {
+            if (A_Index63 == 115) {
                 keyWordGreater_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 117) {
+            if (A_Index63 == 116) {
                 keyWordLess_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 118) {
+            if (A_Index63 == 117) {
                 keyWordGreaterEqual_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 119) {
+            if (A_Index63 == 118) {
                 keyWordLessEqual_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 120) {
+            if (A_Index63 == 119) {
                 keyWordAnd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 121) {
+            if (A_Index63 == 120) {
                 keyWordOr_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 122) {
+            if (A_Index63 == 121) {
                 keyWordNot_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 123) {
+            if (A_Index63 == 122) {
                 keyWordBitAnd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 124) {
+            if (A_Index63 == 123) {
                 keyWordBitOr_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 125) {
+            if (A_Index63 == 124) {
                 keyWordBitXor_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 126) {
+            if (A_Index63 == 125) {
                 keyWordBitNot_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 127) {
+            if (A_Index63 == 126) {
                 keyWordShiftLeft_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 128) {
+            if (A_Index63 == 127) {
                 keyWordShiftRight_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 129) {
+            if (A_Index63 == 128) {
                 keyWordShiftUnsignedRight_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 130) {
+            if (A_Index63 == 129) {
                 keyWordAssign_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 131) {
+            if (A_Index63 == 130) {
                 keyWordAssignAdd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 132) {
+            if (A_Index63 == 131) {
                 keyWordAssignConcat_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 133) {
+            if (A_Index63 == 132) {
                 keyWordAssignSub_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 134) {
+            if (A_Index63 == 133) {
                 keyWordAssignMul_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 135) {
+            if (A_Index63 == 134) {
                 keyWordAssignDiv_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 136) {
+            if (A_Index63 == 135) {
                 keyWordAssignMod_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 137) {
+            if (A_Index63 == 136) {
                 keyWordAssignShiftLeft_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 138) {
+            if (A_Index63 == 137) {
                 keyWordAssignShiftRight_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 139) {
+            if (A_Index63 == 138) {
                 keyWordLogicalAssignShiftRight_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 140) {
+            if (A_Index63 == 139) {
                 keyWordAssignBitAnd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 141) {
+            if (A_Index63 == 140) {
                 keyWordAssignBitOr_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 142) {
+            if (A_Index63 == 141) {
                 keyWordAssignBitXor_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 143) {
+            if (A_Index63 == 142) {
                 keyWordTernary1_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 144) {
+            if (A_Index63 == 143) {
                 keyWordTernary2_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 145) {
+            if (A_Index63 == 144) {
                 keyWordInc_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 146) {
+            if (A_Index63 == 145) {
                 keyWordDec_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 147) {
+            if (A_Index63 == 146) {
                 AHKlikeLoopsIndexedAt_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 148) {
+            if (A_Index63 == 147) {
                 keyWordAIndex_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 149) {
+            if (A_Index63 == 148) {
                 keyWordALoopField_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 150) {
+            if (A_Index63 == 149) {
                 useCurlyBraces_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 151) {
+            if (A_Index63 == 150) {
                 useEnd_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 152) {
+            if (A_Index63 == 151) {
                 useSemicolon_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 153) {
+            if (A_Index63 == 152) {
                 useParentheses_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 154) {
+            if (A_Index63 == 153) {
                 usePrefixTypeForTypeDefinition_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 155) {
+            if (A_Index63 == 154) {
                 usePostfixTypeForTypeDefinition_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 156) {
+            if (A_Index63 == 155) {
                 usePythonicColonSyntax_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 157) {
+            if (A_Index63 == 156) {
                 useCurlyBracesSyntaxForArrayDef_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 158) {
+            if (A_Index63 == 157) {
                 useInJavaScriptAlwaysUseVar_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 159) {
+            if (A_Index63 == 158) {
                 useJavaScriptInAfullHTMLfile_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 160) {
+            if (A_Index63 == 159) {
                 useJavaScriptAmainFuncDef_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 161) {
+            if (A_Index63 == 160) {
                 useJavaScriptAllFuncsAreAsync_2 = Trim(A_LoopField63);
             }
-            if (A_Index63 == 162) {
+            if (A_Index63 == 161) {
                 useJavaScriptAlwaysTripleEqual_2 = Trim(A_LoopField63);
             }
         }
@@ -3854,9 +3846,9 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
     var out = "";
     var s = "";
     var skipLeftCuleyForFuncPLS = 0;
-    // keyWordIncludeInTheTranspiledLang
-    // keyWordIncludeInTheTranspiledLang
-    // keyWordIncludeInTheTranspiledLang
+    // keyWordInclude
+    // keyWordInclude
+    // keyWordInclude
     var allLibCODE = "";
     var allLibCODEfix = "";
     let allLibsWeSee = [];
@@ -3867,7 +3859,7 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
     var doseCodeHaveLibs_HAS_SEEN2 = 0;
     if (isNotHTVMfile == 0) {
         if (langToConvertTo != langFileExtension_2) {
-            if (InStr(code, StrLower(keyWordIncludeInTheTranspiledLang + " "))) {
+            if (InStr(code, StrLower(keyWordInclude + " "))) {
                 for (let A_Index64 = 0; A_Index64 < 10000 + 0; A_Index64++) {
                     doseCodeHaveLibs = 0;
                     allLibCODE = "";
@@ -3875,9 +3867,9 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                         items65 = LoopParseFunc(code, "\n", "\r")
                         for (let A_Index65 = 0; A_Index65 < items65.length + 0; A_Index65++) {
                             const A_LoopField65 = items65[A_Index65 - 0];
-                            if (SubStr(StrLower(Trim(A_LoopField65)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang + " "))) == StrLower(keyWordIncludeInTheTranspiledLang + " ")) {
-                                allLibsWeSee.push(StrReplace(StringTrimLeft(Trim(A_LoopField65), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) + " ")), Chr(34), ""));
-                                allLibsWeSeeSEE.push(StrReplace(StringTrimLeft(Trim(A_LoopField65), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) + " ")), Chr(34), ""));
+                            if (SubStr(StrLower(Trim(A_LoopField65)), 1, StrLen(StrLower(keyWordInclude + " "))) == StrLower(keyWordInclude + " ")) {
+                                allLibsWeSee.push(StrReplace(StringTrimLeft(Trim(A_LoopField65), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), ""));
+                                allLibsWeSeeSEE.push(StrReplace(StringTrimLeft(Trim(A_LoopField65), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), ""));
                                 doseCodeHaveLibs = 1;
                             }
                         }
@@ -3886,16 +3878,16 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                         for (let A_Index66 = 0; A_Index66 < items66.length + 0; A_Index66++) {
                             const A_LoopField66 = items66[A_Index66 - 0];
                             ALoopField = A_LoopField66;
-                            if (SubStr(StrLower(Trim(A_LoopField66)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang + " "))) == StrLower(keyWordIncludeInTheTranspiledLang + " ")) {
+                            if (SubStr(StrLower(Trim(A_LoopField66)), 1, StrLen(StrLower(keyWordInclude + " "))) == StrLower(keyWordInclude + " ")) {
                                 doseCodeHaveLibs_HAS_SEEN = 0;
                                 for (let A_Index67 = 0; A_Index67 < allLibsWeSee.length + 0; A_Index67++) {
-                                    if (StrReplace(StringTrimLeft(Trim(ALoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) + " ")), Chr(34), "") == allLibsWeSee[A_Index67]) {
+                                    if (StrReplace(StringTrimLeft(Trim(ALoopField), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), "") == allLibsWeSee[A_Index67]) {
                                         doseCodeHaveLibs_HAS_SEEN = 1;
                                     }
                                 }
                                 if (doseCodeHaveLibs_HAS_SEEN == 0) {
-                                    allLibsWeSee.push(StrReplace(StringTrimLeft(Trim(A_LoopField66), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) + " ")), Chr(34), ""));
-                                    allLibsWeSeeSEE.push(StrReplace(StringTrimLeft(Trim(A_LoopField66), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) + " ")), Chr(34), ""));
+                                    allLibsWeSee.push(StrReplace(StringTrimLeft(Trim(A_LoopField66), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), ""));
+                                    allLibsWeSeeSEE.push(StrReplace(StringTrimLeft(Trim(A_LoopField66), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), ""));
                                     doseCodeHaveLibs = 1;
                                 }
                             }
@@ -3918,7 +3910,7 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                     items70 = LoopParseFunc(code, "\n", "\r")
                     for (let A_Index70 = 0; A_Index70 < items70.length + 0; A_Index70++) {
                         const A_LoopField70 = items70[A_Index70 - 0];
-                        if (SubStr(StrLower(Trim(A_LoopField70)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang + " "))) != StrLower(keyWordIncludeInTheTranspiledLang + " ")) {
+                        if (SubStr(StrLower(Trim(A_LoopField70)), 1, StrLen(StrLower(keyWordInclude + " "))) != StrLower(keyWordInclude + " ")) {
                             allLibCODEfix += A_LoopField70 + "\n";
                         }
                     }
@@ -3932,9 +3924,9 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
         }
         ALoopField = "";
     }
-    // keyWordIncludeInTheTranspiledLang
-    // keyWordIncludeInTheTranspiledLang
-    // keyWordIncludeInTheTranspiledLang
+    // keyWordInclude
+    // keyWordInclude
+    // keyWordInclude
     // PROGRAMMING BLOCK
     // PROGRAMMING BLOCK
     // PROGRAMMING BLOCK
@@ -6268,10 +6260,8 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                     htCode += str1 + "--;" + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField93)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang + " "))) == StrLower(keyWordIncludeInTheTranspiledLang + " ") && langToConvertTo == langFileExtension_2) {
-                print(keyWordIncludeInTheTranspiledLang_2);
-                print(keyWordIncludeInTheTranspiledLang_2 + " " + Trim(StringTrimLeft(Trim(A_LoopField93), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) + " "))) + "\n");
-                htCode += keyWordIncludeInTheTranspiledLang_2 + " " + Trim(StringTrimLeft(Trim(A_LoopField93), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) + " "))) + "\n";
+            else if (SubStr(StrLower(Trim(A_LoopField93)), 1, StrLen(StrLower(keyWordInclude + " "))) == StrLower(keyWordInclude + " ") && langToConvertTo == langFileExtension_2) {
+                htCode += keyWordInclude_2 + " " + Trim(StringTrimLeft(Trim(A_LoopField93), StrLen(StrLower(keyWordInclude) + " "))) + "\n";
             }
             else if (StrLower(A_LoopField93) == StrLower(keyWordGlobal) || StrLower(A_LoopField93) == StrLower(keyWordGlobal + ";")) {
                 if (langToConvertTo == "ahk") {

@@ -7,7 +7,6 @@ method
 def obj
 porp
 this
-#include
 importA
 keyWordCodeInTheTranspiledLangStart
 keyWordCodeInTheTranspiledLangEnd

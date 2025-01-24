@@ -68,7 +68,6 @@ str keyWordDefObj := ""
 str keyWordPorp := ""
 str keyWordThis := ""
 str keyWordInclude := ""
-str keyWordIncludeInTheTranspiledLang := ""
 
 str keyWordCodeInTheTranspiledLangStart := ""
 str keyWordCodeInTheTranspiledLangEnd := ""
@@ -236,7 +235,6 @@ str keyWordDefObj_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordPorp_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordThis_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordInclude_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordIncludeInTheTranspiledLang_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordCodeInTheTranspiledLangStart_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordCodeInTheTranspiledLangEnd_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordCodeInTheTranspiledLangStartCPP_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
@@ -3127,7 +3125,7 @@ str instructions := allInstructionFile
 
 Loop, Parse, allInstructionFile, `n, `r
 {
-if (A_Index = 0) {
+    if (A_Index = 0) {
 		langToConvertTo := Trim(A_LoopField)
 	}
 	if (A_Index = 1) {
@@ -3155,468 +3153,464 @@ if (A_Index = 0) {
 		keyWordThis := Trim(A_LoopField)
 	}
 	if (A_Index = 9) {
-		keyWordInclude := Trim(A_LoopField) . " "
+		keyWordInclude := Trim(A_LoopField)
 	}
 	if (A_Index = 10) {
-		keyWordIncludeInTheTranspiledLang := Trim(A_LoopField)
-	}
-	if (A_Index = 11) {
 		keyWordCodeInTheTranspiledLangStart := Trim(A_LoopField)
 	}
-	if (A_Index = 12) {
+	if (A_Index = 11) {
 		keyWordCodeInTheTranspiledLangEnd := Trim(A_LoopField)
 	}
-	if (A_Index = 13) {
+	if (A_Index = 12) {
 		keyWordCodeInTheTranspiledLangStartCPP := Trim(A_LoopField)
 	}
-	if (A_Index = 14) {
+	if (A_Index = 13) {
 		keyWordCodeInTheTranspiledLangEndCPP := Trim(A_LoopField)
 	}
-	if (A_Index = 15) {
+	if (A_Index = 14) {
 		keyWordCodeInTheTranspiledLangStartPY := Trim(A_LoopField)
 	}
-	if (A_Index = 16) {
+	if (A_Index = 15) {
 		keyWordCodeInTheTranspiledLangEndPY := Trim(A_LoopField)
 	}
-	if (A_Index = 17) {
+	if (A_Index = 16) {
 		keyWordCodeInTheTranspiledLangStartJS := Trim(A_LoopField)
 	}
-	if (A_Index = 18) {
+	if (A_Index = 17) {
 		keyWordCodeInTheTranspiledLangEndJS := Trim(A_LoopField)
 	}
-	if (A_Index = 19) {
+	if (A_Index = 18) {
 		keyWordCodeInTheTranspiledLangStartGO := Trim(A_LoopField)
 	}
-	if (A_Index = 20) {
+	if (A_Index = 19) {
 		keyWordCodeInTheTranspiledLangEndGO := Trim(A_LoopField)
 	}
-	if (A_Index = 21) {
+	if (A_Index = 20) {
 		keyWordCodeInTheTranspiledLangStartLUA := Trim(A_LoopField)
 	}
-	if (A_Index = 22) {
+	if (A_Index = 21) {
 		keyWordCodeInTheTranspiledLangEndLUA := Trim(A_LoopField)
 	}
-	if (A_Index = 23) {
+	if (A_Index = 22) {
 		keyWordCodeInTheTranspiledLangStartCS := Trim(A_LoopField)
 	}
-	if (A_Index = 24) {
+	if (A_Index = 23) {
 		keyWordCodeInTheTranspiledLangEndCS := Trim(A_LoopField)
 	}
-	if (A_Index = 25) {
+	if (A_Index = 24) {
 		keyWordCodeInTheTranspiledLangStartJAVA := Trim(A_LoopField)
 	}
-	if (A_Index = 26) {
+	if (A_Index = 25) {
 		keyWordCodeInTheTranspiledLangEndJAVA := Trim(A_LoopField)
 	}
-	if (A_Index = 27) {
+	if (A_Index = 26) {
 		keyWordCodeInTheTranspiledLangStartKT := Trim(A_LoopField)
 	}
-	if (A_Index = 28) {
+	if (A_Index = 27) {
 		keyWordCodeInTheTranspiledLangEndKT := Trim(A_LoopField)
 	}
-	if (A_Index = 29) {
+	if (A_Index = 28) {
 		keyWordCodeInTheTranspiledLangStartRB := Trim(A_LoopField)
 	}
-	if (A_Index = 30) {
+	if (A_Index = 29) {
 		keyWordCodeInTheTranspiledLangEndRB := Trim(A_LoopField)
 	}
-	if (A_Index = 31) {
+	if (A_Index = 30) {
 		keyWordCodeInTheTranspiledLangStartNIM := Trim(A_LoopField)
 	}
-	if (A_Index = 32) {
+	if (A_Index = 31) {
 		keyWordCodeInTheTranspiledLangEndNIM := Trim(A_LoopField)
 	}
-	if (A_Index = 33) {
+	if (A_Index = 32) {
 		keyWordCodeInTheTranspiledLangStartAHK := Trim(A_LoopField)
 	}
-	if (A_Index = 34) {
+	if (A_Index = 33) {
 		keyWordCodeInTheTranspiledLangEndAHK := Trim(A_LoopField)
 	}
-	if (A_Index = 35) {
+	if (A_Index = 34) {
 		keyWordCodeInTheTranspiledLangStartSWIFT := Trim(A_LoopField)
 	}
-	if (A_Index = 36) {
+	if (A_Index = 35) {
 		keyWordCodeInTheTranspiledLangEndSWIFT := Trim(A_LoopField)
 	}
-	if (A_Index = 37) {
+	if (A_Index = 36) {
 		keyWordCodeInTheTranspiledLangStartDART := Trim(A_LoopField)
 	}
-	if (A_Index = 38) {
+	if (A_Index = 37) {
 		keyWordCodeInTheTranspiledLangEndDART := Trim(A_LoopField)
 	}
-	if (A_Index = 39) {
+	if (A_Index = 38) {
 		keyWordCodeInTheTranspiledLangStartTS := Trim(A_LoopField)
 	}
-	if (A_Index = 40) {
+	if (A_Index = 39) {
 		keyWordCodeInTheTranspiledLangEndTS := Trim(A_LoopField)
 	}
-	if (A_Index = 41) {
+	if (A_Index = 40) {
 		keyWordCodeInTheTranspiledLangStartGROOVY := Trim(A_LoopField)
 	}
-	if (A_Index = 42) {
+	if (A_Index = 41) {
 		keyWordCodeInTheTranspiledLangEndGROOVY := Trim(A_LoopField)
 	}
-	if (A_Index = 43) {
+	if (A_Index = 42) {
 		keyWordCodeInTheTranspiledLangStartHTVM := Trim(A_LoopField)
 	}
-	if (A_Index = 44) {
+	if (A_Index = 43) {
 		keyWordCodeInTheTranspiledLangEndHTVM := Trim(A_LoopField)
 	}
-	if (A_Index = 45) {
+	if (A_Index = 44) {
 		keyWordCodeInHTVMstart := Trim(A_LoopField)
 	}
-	if (A_Index = 46) {
+	if (A_Index = 45) {
 		keyWordCodeInHTVMend := Trim(A_LoopField)
 	}
-	if (A_Index = 47) {
+	if (A_Index = 46) {
 		keyWordCurlyBraceOpen := Trim(A_LoopField)
 	}
-	if (A_Index = 48) {
+	if (A_Index = 47) {
 		keyWordCurlyBraceClose := Trim(A_LoopField)
 	}
-	if (A_Index = 49) {
+	if (A_Index = 48) {
 		keyWordNull := Trim(A_LoopField)
 	}
-	if (A_Index = 50) {
+	if (A_Index = 49) {
 		keyWordTrue := Trim(A_LoopField)
 	}
-	if (A_Index = 51) {
+	if (A_Index = 50) {
 		keyWordFalse := Trim(A_LoopField)
 	}
-	if (A_Index = 52) {
+	if (A_Index = 51) {
 		keyWordVoid := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 53) {
+	if (A_Index = 52) {
 		keyWordDouble := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 54) {
+	if (A_Index = 53) {
 		keyWordChar := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 55) {
+	if (A_Index = 54) {
 		keyWordUint8 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 56) {
+	if (A_Index = 55) {
 		keyWordUint16 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 57) {
+	if (A_Index = 56) {
 		keyWordUint32 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 58) {
+	if (A_Index = 57) {
 		keyWordUint64 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 59) {
+	if (A_Index = 58) {
 		keyWordINT := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 60) {
+	if (A_Index = 59) {
 		keyWordSTR := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 61) {
+	if (A_Index = 60) {
 		keyWordBOOL := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 62) {
+	if (A_Index = 61) {
 		keyWordFLOAT := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 63) {
+	if (A_Index = 62) {
 		keyWordINT8 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 64) {
+	if (A_Index = 63) {
 		keyWordINT16 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 65) {
+	if (A_Index = 64) {
 		keyWordINT32 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 66) {
+	if (A_Index = 65) {
 		keyWordINT64 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 67) {
+	if (A_Index = 66) {
 		keyWordIF := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 68) {
+	if (A_Index = 67) {
 		keyWordElseIf := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 69) {
+	if (A_Index = 68) {
 		keyWordElse := Trim(A_LoopField)
 	}
-	if (A_Index = 70) {
+	if (A_Index = 69) {
 		keyWordWhileLoop := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 71) {
+	if (A_Index = 70) {
 		keyWordLoopInfinite := Trim(A_LoopField)
 	}
-	if (A_Index = 72) {
+	if (A_Index = 71) {
 		keyWordLoop := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 73) {
+	if (A_Index = 72) {
 		keyWordLoopParse := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 74) {
+	if (A_Index = 73) {
 		keyWordContinue := Trim(A_LoopField)
 	}
-	if (A_Index = 75) {
+	if (A_Index = 74) {
 		keyWordBreak := Trim(A_LoopField)
 	}
-	if (A_Index = 76) {
+	if (A_Index = 75) {
 		keyWordFunc := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 77) {
+	if (A_Index = 76) {
 		keyWordAwait := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 78) {
+	if (A_Index = 77) {
 		keyWordAsync := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 79) {
+	if (A_Index = 78) {
 		keyWordThrow := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 80) {
+	if (A_Index = 79) {
 		keyWordErrorMsg := Trim(A_LoopField)
 	}
-	if (A_Index = 81) {
+	if (A_Index = 80) {
 		keyWordTry := Trim(A_LoopField)
 	}
-	if (A_Index = 82) {
+	if (A_Index = 81) {
 		keyWordCatch := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 83) {
+	if (A_Index = 82) {
 		keyWordFinally := Trim(A_LoopField)
 	}
-	if (A_Index = 84) {
+	if (A_Index = 83) {
 		keyWordReturnStatement := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 85) {
+	if (A_Index = 84) {
 		keyWordArrayAppend := Trim(A_LoopField)
 	}
-	if (A_Index = 86) {
+	if (A_Index = 85) {
 		keyWordArrayPop := Trim(A_LoopField)
 	}
-	if (A_Index = 87) {
+	if (A_Index = 86) {
 		keyWordArraySize := Trim(A_LoopField)
 	}
-	if (A_Index = 88) {
+	if (A_Index = 87) {
 		keyWordArrayInsert := Trim(A_LoopField)
 	}
-	if (A_Index = 89) {
+	if (A_Index = 88) {
 		keyWordArrayRemove := Trim(A_LoopField)
 	}
-	if (A_Index = 90) {
+	if (A_Index = 89) {
 		keyWordArrayIndexOf := Trim(A_LoopField)
 	}
-	if (A_Index = 91) {
+	if (A_Index = 90) {
 		keyWordArrayDefinition := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 92) {
+	if (A_Index = 91) {
 		keyWordArrayOfIntegersDefinition := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 93) {
+	if (A_Index = 92) {
 		keyWordArrayOfStringsDefinition := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 94) {
+	if (A_Index = 93) {
 		keyWordArrayOfFloatingPointNumbersDefinition := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 95) {
+	if (A_Index = 94) {
 		keyWordArrayOfBooleansDefinition := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 96) {
+	if (A_Index = 95) {
 		keyWordVar := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 97) {
+	if (A_Index = 96) {
 		keyWordLet := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 98) {
+	if (A_Index = 97) {
 		keyWordConst := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 99) {
+	if (A_Index = 98) {
 		keyWordEnd := Trim(A_LoopField)
 	}
-	if (A_Index = 100) {
+	if (A_Index = 99) {
 		keyWordGlobal := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 101) {
+	if (A_Index = 100) {
 		keyWordComment := Trim(A_LoopField)
 	}
-	if (A_Index = 102) {
+	if (A_Index = 101) {
 		keyWordCommentOpenMultiLine := Trim(A_LoopField)
 	}
-	if (A_Index = 103) {
+	if (A_Index = 102) {
 		keyWordCommentCloseMultiLine := Trim(A_LoopField)
 	}
-	if (A_Index = 104) {
+	if (A_Index = 103) {
 		keyWordEscpaeChar := Trim(A_LoopField)
 	}
-	if (A_Index = 105) {
+	if (A_Index = 104) {
 		keyWordMainLabel := Trim(A_LoopField)
 	}
-	if (A_Index = 106) {
+	if (A_Index = 105) {
 		keyWordConcat := Trim(A_LoopField)
 	}
-	if (A_Index = 107) {
+	if (A_Index = 106) {
 		keyWordAdd := Trim(A_LoopField)
 	}
-	if (A_Index = 108) {
+	if (A_Index = 107) {
 		keyWordSub := Trim(A_LoopField)
 	}
-	if (A_Index = 109) {
+	if (A_Index = 108) {
 		keyWordMul := Trim(A_LoopField)
 	}
-	if (A_Index = 110) {
+	if (A_Index = 109) {
 		keyWordDiv := Trim(A_LoopField)
 	}
-	if (A_Index = 111) {
+	if (A_Index = 110) {
 		keyWordMod := Trim(A_LoopField)
 	}
-	if (A_Index = 112) {
+	if (A_Index = 111) {
 		keyWordExp := Trim(A_LoopField)
 	}
-	if (A_Index = 113) {
+	if (A_Index = 112) {
 		keyWordEqual := Trim(A_LoopField)
 	}
-	if (A_Index = 114) {
+	if (A_Index = 113) {
 		keyWordStrictEqual := Trim(A_LoopField)
 	}
-	if (A_Index = 115) {
+	if (A_Index = 114) {
 		keyWordNotEqual := Trim(A_LoopField)
 	}
-	if (A_Index = 116) {
+	if (A_Index = 115) {
 		keyWordGreater := Trim(A_LoopField)
 	}
-	if (A_Index = 117) {
+	if (A_Index = 116) {
 		keyWordLess := Trim(A_LoopField)
 	}
-	if (A_Index = 118) {
+	if (A_Index = 117) {
 		keyWordGreaterEqual := Trim(A_LoopField)
 	}
-	if (A_Index = 119) {
+	if (A_Index = 118) {
 		keyWordLessEqual := Trim(A_LoopField)
 	}
-	if (A_Index = 120) {
+	if (A_Index = 119) {
 		keyWordAnd := Trim(A_LoopField)
 	}
-	if (A_Index = 121) {
+	if (A_Index = 120) {
 		keyWordOr := Trim(A_LoopField)
 	}
-	if (A_Index = 122) {
+	if (A_Index = 121) {
 		keyWordNot := Trim(A_LoopField)
 	}
-	if (A_Index = 123) {
+	if (A_Index = 122) {
 		keyWordBitAnd := Trim(A_LoopField)
 	}
-	if (A_Index = 124) {
+	if (A_Index = 123) {
 		keyWordBitOr := Trim(A_LoopField)
 	}
-	if (A_Index = 125) {
+	if (A_Index = 124) {
 		keyWordBitXor := Trim(A_LoopField)
 	}
-	if (A_Index = 126) {
+	if (A_Index = 125) {
 		keyWordBitNot := Trim(A_LoopField)
 	}
-	if (A_Index = 127) {
+	if (A_Index = 126) {
 		keyWordShiftLeft := Trim(A_LoopField)
 	}
-	if (A_Index = 128) {
+	if (A_Index = 127) {
 		keyWordShiftRight := Trim(A_LoopField)
 	}
-	if (A_Index = 129) {
+	if (A_Index = 128) {
 		keyWordShiftUnsignedRight := Trim(A_LoopField)
 	}
-	if (A_Index = 130) {
+	if (A_Index = 129) {
 		keyWordAssign := Trim(A_LoopField)
 	}
-	if (A_Index = 131) {
+	if (A_Index = 130) {
 		keyWordAssignAdd := Trim(A_LoopField)
 	}
-	if (A_Index = 132) {
+	if (A_Index = 131) {
 		keyWordAssignConcat := Trim(A_LoopField)
 	}
-	if (A_Index = 133) {
+	if (A_Index = 132) {
 		keyWordAssignSub := Trim(A_LoopField)
 	}
-	if (A_Index = 134) {
+	if (A_Index = 133) {
 		keyWordAssignMul := Trim(A_LoopField)
 	}
-	if (A_Index = 135) {
+	if (A_Index = 134) {
 		keyWordAssignDiv := Trim(A_LoopField)
 	}
-	if (A_Index = 136) {
+	if (A_Index = 135) {
 		keyWordAssignMod := Trim(A_LoopField)
 	}
-	if (A_Index = 137) {
+	if (A_Index = 136) {
 		keyWordAssignShiftLeft := Trim(A_LoopField)
 	}
-	if (A_Index = 138) {
+	if (A_Index = 137) {
 		keyWordAssignShiftRight := Trim(A_LoopField)
 	}
-	if (A_Index = 139) {
+	if (A_Index = 138) {
 		keyWordLogicalAssignShiftRight := Trim(A_LoopField)
 	}
-	if (A_Index = 140) {
+	if (A_Index = 139) {
 		keyWordAssignBitAnd := Trim(A_LoopField)
 	}
-	if (A_Index = 141) {
+	if (A_Index = 140) {
 		keyWordAssignBitOr := Trim(A_LoopField)
 	}
-	if (A_Index = 142) {
+	if (A_Index = 141) {
 		keyWordAssignBitXor := Trim(A_LoopField)
 	}
-	if (A_Index = 143) {
+	if (A_Index = 142) {
 		keyWordTernary1 := Trim(A_LoopField)
 	}
-	if (A_Index = 144) {
+	if (A_Index = 143) {
 		keyWordTernary2 := Trim(A_LoopField)
 	}
-	if (A_Index = 145) {
+	if (A_Index = 144) {
 		keyWordInc := Trim(A_LoopField)
 	}
-	if (A_Index = 146) {
+	if (A_Index = 145) {
 		keyWordDec := Trim(A_LoopField)
 	}
-	if (A_Index = 147) {
+	if (A_Index = 146) {
 		AHKlikeLoopsIndexedAt := Trim(A_LoopField)
 	}
-	if (A_Index = 148) {
+	if (A_Index = 147) {
 		keyWordAIndex := Trim(A_LoopField)
 	}
-	if (A_Index = 149) {
+	if (A_Index = 148) {
 		keyWordALoopField := Trim(A_LoopField)
 	}
-	if (A_Index = 150) {
+	if (A_Index = 149) {
 		useCurlyBraces := Trim(A_LoopField)
 	}
-	if (A_Index = 151) {
+	if (A_Index = 150) {
 		useEnd := Trim(A_LoopField)
 	}
-	if (A_Index = 152) {
+	if (A_Index = 151) {
 		useSemicolon := Trim(A_LoopField)
 	}
-	if (A_Index = 153) {
+	if (A_Index = 152) {
 		useParentheses := Trim(A_LoopField)
 	}
-	if (A_Index = 154) {
+	if (A_Index = 153) {
 		usePrefixTypeForTypeDefinition := Trim(A_LoopField)
 	}
-	if (A_Index = 155) {
+	if (A_Index = 154) {
 		usePostfixTypeForTypeDefinition := Trim(A_LoopField)
 	}
-	if (A_Index = 156) {
+	if (A_Index = 155) {
 		usePythonicColonSyntax := Trim(A_LoopField)
 	}
-	if (A_Index = 157) {
+	if (A_Index = 156) {
 		useCurlyBracesSyntaxForArrayDef := Trim(A_LoopField)
 	}
-	if (A_Index = 158) {
+	if (A_Index = 157) {
 		useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
 	}
-	if (A_Index = 159) {
+	if (A_Index = 158) {
 		useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
 	}
-	if (A_Index = 160) {
+	if (A_Index = 159) {
 		useJavaScriptAmainFuncDef := Trim(A_LoopField)
 	}
-	if (A_Index = 161) {
+	if (A_Index = 160) {
 		useJavaScriptAllFuncsAreAsync := Trim(A_LoopField)
 	}
-	if (A_Index = 162) {
+	if (A_Index = 161) {
 		useJavaScriptAlwaysTripleEqual := Trim(A_LoopField)
 	}
-
 }
 
 if (argHTVMinstrMORE.size() > 0)
@@ -3654,465 +3648,462 @@ Loop, Parse, allInstructionFile_2, `n, `r
 		keyWordThis_2 := Trim(A_LoopField)
 	}
 	if (A_Index = 9) {
-		keyWordInclude_2 := Trim(A_LoopField) . " "
+		keyWordInclude_2 := Trim(A_LoopField)
 	}
 	if (A_Index = 10) {
-		keyWordIncludeInTheTranspiledLang_2 := Trim(A_LoopField)
-	}
-	if (A_Index = 11) {
 		keyWordCodeInTheTranspiledLangStart_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 12) {
+	if (A_Index = 11) {
 		keyWordCodeInTheTranspiledLangEnd_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 13) {
+	if (A_Index = 12) {
 		keyWordCodeInTheTranspiledLangStartCPP_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 14) {
+	if (A_Index = 13) {
 		keyWordCodeInTheTranspiledLangEndCPP_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 15) {
+	if (A_Index = 14) {
 		keyWordCodeInTheTranspiledLangStartPY_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 16) {
+	if (A_Index = 15) {
 		keyWordCodeInTheTranspiledLangEndPY_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 17) {
+	if (A_Index = 16) {
 		keyWordCodeInTheTranspiledLangStartJS_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 18) {
+	if (A_Index = 17) {
 		keyWordCodeInTheTranspiledLangEndJS_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 19) {
+	if (A_Index = 18) {
 		keyWordCodeInTheTranspiledLangStartGO_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 20) {
+	if (A_Index = 19) {
 		keyWordCodeInTheTranspiledLangEndGO_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 21) {
+	if (A_Index = 20) {
 		keyWordCodeInTheTranspiledLangStartLUA_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 22) {
+	if (A_Index = 21) {
 		keyWordCodeInTheTranspiledLangEndLUA_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 23) {
+	if (A_Index = 22) {
 		keyWordCodeInTheTranspiledLangStartCS_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 24) {
+	if (A_Index = 23) {
 		keyWordCodeInTheTranspiledLangEndCS_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 25) {
+	if (A_Index = 24) {
 		keyWordCodeInTheTranspiledLangStartJAVA_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 26) {
+	if (A_Index = 25) {
 		keyWordCodeInTheTranspiledLangEndJAVA_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 27) {
+	if (A_Index = 26) {
 		keyWordCodeInTheTranspiledLangStartKT_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 28) {
+	if (A_Index = 27) {
 		keyWordCodeInTheTranspiledLangEndKT_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 29) {
+	if (A_Index = 28) {
 		keyWordCodeInTheTranspiledLangStartRB_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 30) {
+	if (A_Index = 29) {
 		keyWordCodeInTheTranspiledLangEndRB_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 31) {
+	if (A_Index = 30) {
 		keyWordCodeInTheTranspiledLangStartNIM_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 32) {
+	if (A_Index = 31) {
 		keyWordCodeInTheTranspiledLangEndNIM_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 33) {
+	if (A_Index = 32) {
 		keyWordCodeInTheTranspiledLangStartAHK_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 34) {
+	if (A_Index = 33) {
 		keyWordCodeInTheTranspiledLangEndAHK_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 35) {
+	if (A_Index = 34) {
 		keyWordCodeInTheTranspiledLangStartSWIFT_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 36) {
+	if (A_Index = 35) {
 		keyWordCodeInTheTranspiledLangEndSWIFT_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 37) {
+	if (A_Index = 36) {
 		keyWordCodeInTheTranspiledLangStartDART_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 38) {
+	if (A_Index = 37) {
 		keyWordCodeInTheTranspiledLangEndDART_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 39) {
+	if (A_Index = 38) {
 		keyWordCodeInTheTranspiledLangStartTS_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 40) {
+	if (A_Index = 39) {
 		keyWordCodeInTheTranspiledLangEndTS_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 41) {
+	if (A_Index = 40) {
 		keyWordCodeInTheTranspiledLangStartGROOVY_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 42) {
+	if (A_Index = 41) {
 		keyWordCodeInTheTranspiledLangEndGROOVY_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 43) {
+	if (A_Index = 42) {
 		keyWordCodeInTheTranspiledLangStartHTVM_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 44) {
+	if (A_Index = 43) {
 		keyWordCodeInTheTranspiledLangEndHTVM_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 45) {
+	if (A_Index = 44) {
 		keyWordCodeInHTVMstart_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 46) {
+	if (A_Index = 45) {
 		keyWordCodeInHTVMend_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 47) {
+	if (A_Index = 46) {
 		keyWordCurlyBraceOpen_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 48) {
+	if (A_Index = 47) {
 		keyWordCurlyBraceClose_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 49) {
+	if (A_Index = 48) {
 		keyWordNull_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 50) {
+	if (A_Index = 49) {
 		keyWordTrue_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 51) {
+	if (A_Index = 50) {
 		keyWordFalse_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 52) {
+	if (A_Index = 51) {
 		keyWordVoid_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 53) {
+	if (A_Index = 52) {
 		keyWordDouble_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 54) {
+	if (A_Index = 53) {
 		keyWordChar_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 55) {
+	if (A_Index = 54) {
 		keyWordUint8_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 56) {
+	if (A_Index = 55) {
 		keyWordUint16_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 57) {
+	if (A_Index = 56) {
 		keyWordUint32_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 58) {
+	if (A_Index = 57) {
 		keyWordUint64_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 59) {
+	if (A_Index = 58) {
 		keyWordINT_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 60) {
+	if (A_Index = 59) {
 		keyWordSTR_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 61) {
+	if (A_Index = 60) {
 		keyWordBOOL_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 62) {
+	if (A_Index = 61) {
 		keyWordFLOAT_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 63) {
+	if (A_Index = 62) {
 		keyWordINT8_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 64) {
+	if (A_Index = 63) {
 		keyWordINT16_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 65) {
+	if (A_Index = 64) {
 		keyWordINT32_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 66) {
+	if (A_Index = 65) {
 		keyWordINT64_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 67) {
+	if (A_Index = 66) {
 		keyWordIF_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 68) {
+	if (A_Index = 67) {
 		keyWordElseIf_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 69) {
+	if (A_Index = 68) {
 		keyWordElse_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 70) {
+	if (A_Index = 69) {
 		keyWordWhileLoop_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 71) {
+	if (A_Index = 70) {
 		keyWordLoopInfinite_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 72) {
+	if (A_Index = 71) {
 		keyWordLoop_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 73) {
+	if (A_Index = 72) {
 		keyWordLoopParse_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 74) {
+	if (A_Index = 73) {
 		keyWordContinue_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 75) {
+	if (A_Index = 74) {
 		keyWordBreak_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 76) {
+	if (A_Index = 75) {
 		keyWordFunc_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 77) {
+	if (A_Index = 76) {
 		keyWordAwait_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 78) {
+	if (A_Index = 77) {
 		keyWordAsync_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 79) {
+	if (A_Index = 78) {
 		keyWordThrow_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 80) {
+	if (A_Index = 79) {
 		keyWordErrorMsg_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 81) {
+	if (A_Index = 80) {
 		keyWordTry_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 82) {
+	if (A_Index = 81) {
 		keyWordCatch_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 83) {
+	if (A_Index = 82) {
 		keyWordFinally_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 84) {
+	if (A_Index = 83) {
 		keyWordReturnStatement_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 85) {
+	if (A_Index = 84) {
 		keyWordArrayAppend_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 86) {
+	if (A_Index = 85) {
 		keyWordArrayPop_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 87) {
+	if (A_Index = 86) {
 		keyWordArraySize_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 88) {
+	if (A_Index = 87) {
 		keyWordArrayInsert_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 89) {
+	if (A_Index = 88) {
 		keyWordArrayRemove_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 90) {
+	if (A_Index = 89) {
 		keyWordArrayIndexOf_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 91) {
+	if (A_Index = 90) {
 		keyWordArrayDefinition_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 92) {
+	if (A_Index = 91) {
 		keyWordArrayOfIntegersDefinition_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 93) {
+	if (A_Index = 92) {
 		keyWordArrayOfStringsDefinition_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 94) {
+	if (A_Index = 93) {
 		keyWordArrayOfFloatingPointNumbersDefinition_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 95) {
+	if (A_Index = 94) {
 		keyWordArrayOfBooleansDefinition_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 96) {
+	if (A_Index = 95) {
 		keyWordVar_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 97) {
+	if (A_Index = 96) {
 		keyWordLet_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 98) {
+	if (A_Index = 97) {
 		keyWordConst_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 99) {
+	if (A_Index = 98) {
 		keyWordEnd_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 100) {
+	if (A_Index = 99) {
 		keyWordGlobal_2 := Trim(A_LoopField) . " "
 	}
-	if (A_Index = 101) {
+	if (A_Index = 100) {
 		keyWordComment_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 102) {
+	if (A_Index = 101) {
 		keyWordCommentOpenMultiLine_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 103) {
+	if (A_Index = 102) {
 		keyWordCommentCloseMultiLine_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 104) {
+	if (A_Index = 103) {
 		keyWordEscpaeChar_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 105) {
+	if (A_Index = 104) {
 		keyWordMainLabel_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 106) {
+	if (A_Index = 105) {
 		keyWordConcat_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 107) {
+	if (A_Index = 106) {
 		keyWordAdd_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 108) {
+	if (A_Index = 107) {
 		keyWordSub_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 109) {
+	if (A_Index = 108) {
 		keyWordMul_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 110) {
+	if (A_Index = 109) {
 		keyWordDiv_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 111) {
+	if (A_Index = 110) {
 		keyWordMod_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 112) {
+	if (A_Index = 111) {
 		keyWordExp_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 113) {
+	if (A_Index = 112) {
 		keyWordEqual_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 114) {
+	if (A_Index = 113) {
 		keyWordStrictEqual_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 115) {
+	if (A_Index = 114) {
 		keyWordNotEqual_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 116) {
+	if (A_Index = 115) {
 		keyWordGreater_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 117) {
+	if (A_Index = 116) {
 		keyWordLess_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 118) {
+	if (A_Index = 117) {
 		keyWordGreaterEqual_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 119) {
+	if (A_Index = 118) {
 		keyWordLessEqual_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 120) {
+	if (A_Index = 119) {
 		keyWordAnd_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 121) {
+	if (A_Index = 120) {
 		keyWordOr_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 122) {
+	if (A_Index = 121) {
 		keyWordNot_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 123) {
+	if (A_Index = 122) {
 		keyWordBitAnd_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 124) {
+	if (A_Index = 123) {
 		keyWordBitOr_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 125) {
+	if (A_Index = 124) {
 		keyWordBitXor_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 126) {
+	if (A_Index = 125) {
 		keyWordBitNot_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 127) {
+	if (A_Index = 126) {
 		keyWordShiftLeft_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 128) {
+	if (A_Index = 127) {
 		keyWordShiftRight_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 129) {
+	if (A_Index = 128) {
 		keyWordShiftUnsignedRight_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 130) {
+	if (A_Index = 129) {
 		keyWordAssign_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 131) {
+	if (A_Index = 130) {
 		keyWordAssignAdd_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 132) {
+	if (A_Index = 131) {
 		keyWordAssignConcat_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 133) {
+	if (A_Index = 132) {
 		keyWordAssignSub_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 134) {
+	if (A_Index = 133) {
 		keyWordAssignMul_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 135) {
+	if (A_Index = 134) {
 		keyWordAssignDiv_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 136) {
+	if (A_Index = 135) {
 		keyWordAssignMod_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 137) {
+	if (A_Index = 136) {
 		keyWordAssignShiftLeft_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 138) {
+	if (A_Index = 137) {
 		keyWordAssignShiftRight_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 139) {
+	if (A_Index = 138) {
 		keyWordLogicalAssignShiftRight_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 140) {
+	if (A_Index = 139) {
 		keyWordAssignBitAnd_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 141) {
+	if (A_Index = 140) {
 		keyWordAssignBitOr_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 142) {
+	if (A_Index = 141) {
 		keyWordAssignBitXor_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 143) {
+	if (A_Index = 142) {
 		keyWordTernary1_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 144) {
+	if (A_Index = 143) {
 		keyWordTernary2_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 145) {
+	if (A_Index = 144) {
 		keyWordInc_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 146) {
+	if (A_Index = 145) {
 		keyWordDec_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 147) {
+	if (A_Index = 146) {
 		AHKlikeLoopsIndexedAt_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 148) {
+	if (A_Index = 147) {
 		keyWordAIndex_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 149) {
+	if (A_Index = 148) {
 		keyWordALoopField_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 150) {
+	if (A_Index = 149) {
 		useCurlyBraces_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 151) {
+	if (A_Index = 150) {
 		useEnd_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 152) {
+	if (A_Index = 151) {
 		useSemicolon_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 153) {
+	if (A_Index = 152) {
 		useParentheses_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 154) {
+	if (A_Index = 153) {
 		usePrefixTypeForTypeDefinition_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 155) {
+	if (A_Index = 154) {
 		usePostfixTypeForTypeDefinition_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 156) {
+	if (A_Index = 155) {
 		usePythonicColonSyntax_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 157) {
+	if (A_Index = 156) {
 		useCurlyBracesSyntaxForArrayDef_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 158) {
+	if (A_Index = 157) {
 		useInJavaScriptAlwaysUseVar_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 159) {
+	if (A_Index = 158) {
 		useJavaScriptInAfullHTMLfile_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 160) {
+	if (A_Index = 159) {
 		useJavaScriptAmainFuncDef_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 161) {
+	if (A_Index = 160) {
 		useJavaScriptAllFuncsAreAsync_2 := Trim(A_LoopField)
 	}
-	if (A_Index = 162) {
+	if (A_Index = 161) {
 		useJavaScriptAlwaysTripleEqual_2 := Trim(A_LoopField)
 	}
 
@@ -4281,9 +4272,9 @@ int skipLeftCuleyForFuncPLS := 0
 
 
 
-; keyWordIncludeInTheTranspiledLang
-; keyWordIncludeInTheTranspiledLang
-; keyWordIncludeInTheTranspiledLang
+; keyWordInclude
+; keyWordInclude
+; keyWordInclude
 
 str allLibCODE := ""
 str allLibCODEfix := ""
@@ -4299,7 +4290,7 @@ if (langToConvertTo != langFileExtension_2)
 {
 
 
-if (InStr(code, StrLower(keyWordIncludeInTheTranspiledLang . " ")))
+if (InStr(code, StrLower(keyWordInclude . " ")))
 {
 
 Loop, 10000 {
@@ -4309,10 +4300,10 @@ if (A_Index = 0)
 {
 Loop, Parse, code, `n, `r 
 {
-if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang . " "))) = StrLower(keyWordIncludeInTheTranspiledLang . " "))
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordInclude . " "))) = StrLower(keyWordInclude . " "))
 {
-allLibsWeSee.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " ")), Chr(34), ""))
-allLibsWeSeeSEE.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " ")), Chr(34), ""))
+allLibsWeSee.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), ""))
+allLibsWeSeeSEE.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), ""))
 doseCodeHaveLibs := 1
 }
 }
@@ -4322,20 +4313,20 @@ else
 Loop, Parse, code, `n, `r 
 {
 ALoopField := A_LoopField
-if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang . " "))) = StrLower(keyWordIncludeInTheTranspiledLang . " ")) 
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordInclude . " "))) = StrLower(keyWordInclude . " ")) 
 {
 doseCodeHaveLibs_HAS_SEEN := 0
 Loop, % allLibsWeSee.size() 
 {
-if (StrReplace(StringTrimLeft(Trim(ALoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " ")), Chr(34), "") = allLibsWeSee[A_Index]) 
+if (StrReplace(StringTrimLeft(Trim(ALoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), "") = allLibsWeSee[A_Index]) 
 {
 doseCodeHaveLibs_HAS_SEEN := 1
 }
 }
 if (doseCodeHaveLibs_HAS_SEEN = 0) 
 {
-allLibsWeSee.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " ")), Chr(34), ""))
-allLibsWeSeeSEE.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " ")), Chr(34), ""))
+allLibsWeSee.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), ""))
+allLibsWeSeeSEE.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), ""))
 doseCodeHaveLibs := 1
 }
 }
@@ -4368,7 +4359,7 @@ allLibCODEfix := ""
 
 Loop, Parse, code, `n, `r
 {
-if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang . " "))) != StrLower(keyWordIncludeInTheTranspiledLang . " ")) 
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordInclude . " "))) != StrLower(keyWordInclude . " ")) 
 {
 allLibCODEfix .= A_LoopField . "`n"
 }
@@ -4391,9 +4382,9 @@ break
 ALoopField := ""
 }
 
-; keyWordIncludeInTheTranspiledLang
-; keyWordIncludeInTheTranspiledLang
-; keyWordIncludeInTheTranspiledLang
+; keyWordInclude
+; keyWordInclude
+; keyWordInclude
 
 ; PROGRAMMING BLOCK
 ; PROGRAMMING BLOCK
@@ -7573,11 +7564,9 @@ if (langToConvertTo = "groovy") {
     htCode .= str1 . "--;" . Chr(10)
 }
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang . " "))) = StrLower(keyWordIncludeInTheTranspiledLang . " ")) and (langToConvertTo = langFileExtension_2)
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordInclude . " "))) = StrLower(keyWordInclude . " ")) and (langToConvertTo = langFileExtension_2)
 {
-print(keyWordIncludeInTheTranspiledLang_2)
-print(keyWordIncludeInTheTranspiledLang_2 . " " . Trim(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " "))) . "`n")
-htCode .= keyWordIncludeInTheTranspiledLang_2 . " " . Trim(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordIncludeInTheTranspiledLang) . " "))) . "`n"
+htCode .= keyWordInclude_2 . " " . Trim(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " "))) . "`n"
 }
 else if (StrLower(A_LoopField) = StrLower(keyWordGlobal)) or (StrLower(A_LoopField) = StrLower(keyWordGlobal . ";"))
 {
