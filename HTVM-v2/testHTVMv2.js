@@ -6,40 +6,9 @@ function print(value) {
 
 
 async function main() {
-    if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    } else {
-        print(5+5);
-    }
-    print("==========");
-    print("==========");
-    print("==========");
-    print("==========");
-    print("==========");
-    print("==========");
-    try {
-        throw new Error("this is an ERROR HTVM v2");
-    }
-    catch (ee) {
-        print(ee.message);
-    }
-    finally {
-        print("finally finally finally finally");
+    while (true) {
+        print("hi from HTVM v2 still in development");
+        break;
     }
 }
 main();

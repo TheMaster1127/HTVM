@@ -20,12 +20,8 @@ keyWordINT8
 keyWordINT16
 keyWordINT32
 keyWordINT64
-keyWordWhileLoop
-keyWordContinue
-keyWordBreak
 keyWordFunc
 keyWordAsync
-keyWordReturnStatement
 keyWordArrayDefinition
 keyWordArrayOfIntegersDefinition
 keyWordArrayOfStringsDefinition
@@ -50,9 +46,6 @@ keyWordLogicalAssignShiftRight
 keyWordAssignBitAnd
 keyWordAssignBitOr
 keyWordAssignBitXor
-keyWordInc
-keyWordDec
-useParentheses
 usePrefixTypeForTypeDefinition
 usePostfixTypeForTypeDefinition
 useCurlyBracesSyntaxForArrayDef
@@ -61,21 +54,21 @@ useJavaScriptAmainFuncDef
 useJavaScriptAllFuncsAreAsync
 useJavaScriptAlwaysTripleEqual
 
-LEFT TO DO: 62
+LEFT TO DO: 55
 
 TODO List
 
 DONE! 1. Implement try-catch-finally blocks in all languages, except for Lua and Go, where this feature cannot be directly implemented.
-DONE! 2. Implement if-else if-else conditions in all languages.
-3. Implement while loops.
-4. Implement break and continue keywords, with Lua converting continue to goto continue and using ::continue:: labels recognized only in Lua.
-5. Fix and enhance the expressionTranspiler, specifically handling e and ErrorMsg() (except in Go and Lua).
-6. Complete the implementation of ++ and -- operators.
+DONE! 2. Fix and enhance the expressionTranspiler, specifically handling e and ErrorMsg() (except in Go and Lua).
+DONE! 3. Implement if-else if-else conditions in all languages.
+DONE! 4. Implement while loops.
+DONE! 5. Implement break and continue keywords, with Lua converting continue to goto continue and using ::continue:: labels recognized only in Lua.
+DONE! 6. Complete the implementation of ++ and -- operators.
 7. Implement single-line and multi-line comments.
-8. Implement variables.
-9. Implement arrays.
-10. Implement functions.
-11. Handle the use??? on/off settings.
+8. Handle the use??? on/off settings.
+9. Implement variables.
+10. Implement arrays.
+11. Implement functions.
 12. Implement OSP.
 13. Make the documentation, website, and README.
 14. Work on popularizing the programming language and making it more accessible.

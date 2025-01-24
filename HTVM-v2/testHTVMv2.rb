@@ -14,36 +14,7 @@ def print(value)
 end
 
 
-if (5 == 5 && 6 - 6 == 0)
-    print("MAAAAAAAAAAA<M<SJDIJSLDLS")
-end
-elsif (5 == 5 && 6 - 6 == 0)
-    print("MAAAAAAAAAAA<M<SJDIJSLDLS")
-end
-elsif (5 == 5 && 6 - 6 == 0)
-    print("MAAAAAAAAAAA<M<SJDIJSLDLS")
-end
-elsif (5 == 5 && 6 - 6 == 0)
-    print("MAAAAAAAAAAA<M<SJDIJSLDLS")
-end
-elsif (5 == 5 && 6 - 6 == 0)
-    print("MAAAAAAAAAAA<M<SJDIJSLDLS")
-end
-elsif (5 == 5 && 6 - 6 == 0)
-    print("MAAAAAAAAAAA<M<SJDIJSLDLS")
-else
-    print(5+5)
-end
-print("==========")
-print("==========")
-print("==========")
-print("==========")
-print("==========")
-print("==========")
-begin
-    raise "this is an ERROR HTVM v2"
-rescue => ee
-    print(ee.message)
-ensure
-    print("finally finally finally finally")
+while (true)
+    print("hi from HTVM v2 still in development")
+    break
 end

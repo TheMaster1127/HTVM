@@ -19,40 +19,9 @@ class Program
 
 
 static void Main(string[] args) {
-    if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    } else {
-        print(5+5);
-    }
-    print("==========");
-    print("==========");
-    print("==========");
-    print("==========");
-    print("==========");
-    print("==========");
-    try {
-        throw new Exception("this is an ERROR HTVM v2");
-    }
-    catch (Exception ee) {
-        print(ee.Message);
-    }
-    finally {
-        print("finally finally finally finally");
+    while (true) {
+        print("hi from HTVM v2 still in development");
+        break;
     }
     }
 }

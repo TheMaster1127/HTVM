@@ -4456,6 +4456,9 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                 else if (SubStr(StrLower(Trim(A_LoopField85)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF) && isLineAconstruct(Trim(A_LoopField85)) == true) {
                     htCodeOutFixEnd += A_LoopField85 + "\n{\n";
                 }
+                else if (SubStr(StrLower(Trim(A_LoopField85)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop) && isLineAconstruct(Trim(A_LoopField85)) == true) {
+                    htCodeOutFixEnd += A_LoopField85 + "\n{\n";
+                }
                 else if (SubStr(StrLower(Trim(A_LoopField85)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf) && isLineAconstruct(Trim(A_LoopField85)) == true) {
                     htCodeOutFixEnd += "\n}\n" + A_LoopField85 + "\n{\n";
                 }
@@ -4903,6 +4906,120 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                     htCode += "else\n";
                 }
             }
+            else if (SubStr(StrLower(Trim(A_LoopField93)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop)) {
+                str1 = Trim(StringTrimLeft(A_LoopField93, StrLen(keyWordWhileLoop)));
+                str1 = Trim(expressionParserTranspiler("(" + str1 + ")"));
+                str1 = StringTrimRight(str1, 1);
+                str1 = StringTrimLeft(str1, 1);
+                if (langToConvertTo == langFileExtension_2) {
+                    if (usePythonicColonSyntax_2 == "on") {
+                        if (useParentheses == "on") {
+                            if (useParentheses_2 == "on") {
+                                htCode += keyWordWhileLoop_2 + str1 + ":" + Chr(10);
+                            } else {
+                                htCode += keyWordWhileLoop_2 + StringTrimRight(StringTrimLeft(Trim(str1), 1), 1) + ":" + Chr(10);
+                            }
+                        } else {
+                            if (useParentheses_2 == "on") {
+                                htCode += keyWordWhileLoop_2 + "(" + str1 + "):" + Chr(10);
+                            } else {
+                                htCode += keyWordWhileLoop_2 + str1 + ":" + Chr(10);
+                            }
+                        }
+                    } else {
+                        if (useParentheses == "on") {
+                            if (useParentheses_2 == "on") {
+                                htCode += keyWordWhileLoop_2 + str1 + Chr(10);
+                            } else {
+                                htCode += keyWordWhileLoop_2 + StringTrimRight(StringTrimLeft(Trim(str1), 1), 1) + Chr(10);
+                            }
+                        } else {
+                            if (useParentheses_2 == "on") {
+                                htCode += keyWordWhileLoop_2 + "(" + str1 + ")" + Chr(10);
+                            } else {
+                                htCode += keyWordWhileLoop_2 + str1 + Chr(10);
+                            }
+                        }
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    if (useParentheses == "on") {
+                        htCode += "while " + str1 + Chr(10);
+                    } else {
+                        htCode += "while (" + str1 + ")" + Chr(10);
+                    }
+                }
+                if (langToConvertTo == "py") {
+                    htCode += "while " + str1 + ":" + Chr(10);
+                }
+                if (langToConvertTo == "js") {
+                    if (useParentheses == "on") {
+                        htCode += "while " + str1 + Chr(10);
+                    } else {
+                        htCode += "while (" + str1 + ")" + Chr(10);
+                    }
+                }
+                if (langToConvertTo == "go") {
+                    htCode += "for " + str1 + Chr(10);
+                }
+                if (langToConvertTo == "lua") {
+                    htCode += "while " + str1 + " do" + Chr(10);
+                }
+                if (langToConvertTo == "cs") {
+                    if (useParentheses == "on") {
+                        htCode += "while " + str1 + Chr(10);
+                    } else {
+                        htCode += "while (" + str1 + ")" + Chr(10);
+                    }
+                }
+                if (langToConvertTo == "java") {
+                    if (useParentheses == "on") {
+                        htCode += "while " + str1 + Chr(10);
+                    } else {
+                        htCode += "while (" + str1 + ")" + Chr(10);
+                    }
+                }
+                if (langToConvertTo == "kt") {
+                    if (useParentheses == "on") {
+                        htCode += "while " + str1 + "\n";
+                    } else {
+                        htCode += "while (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "rb") {
+                    htCode += "while " + str1 + "\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode += "while " + str1 + ":\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    if (useParentheses == "on") {
+                        htCode += "while " + str1 + "\n";
+                    } else {
+                        htCode += "while (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "swift") {
+                    htCode += "while " + str1 + "\n";
+                }
+                if (langToConvertTo == "dart") {
+                    if (useParentheses == "on") {
+                        htCode += "while " + str1 + "\n";
+                    } else {
+                        htCode += "while (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "ts") {
+                    if (useParentheses == "on") {
+                        htCode += "while " + str1 + "\n";
+                    } else {
+                        htCode += "while (" + str1 + ")\n";
+                    }
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode += "while " + str1 + "\n";
+                }
+            }
             else if (StrLower(Trim(A_LoopField93)) == StrLower(keyWordTry) || StrLower(Trim(A_LoopField93)) == StrLower(keyWordTry + ":")) {
                 if (langToConvertTo == langFileExtension_2) {
                     if (usePythonicColonSyntax_2 == "on") {
@@ -5120,6 +5237,231 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                 }
                 if (langToConvertTo == "groovy") {
                     htCode += "throw new Exception(" + str1 + ")\n";
+                }
+            }
+            else if (StrLower(A_LoopField93) == StrLower(keyWordBreak) || StrLower(A_LoopField93) == StrLower(keyWordBreak + ";")) {
+                if (langToConvertTo == langFileExtension_2) {
+                    if (useSemicolon_2 == "on") {
+                        htCode += keyWordBreak_2 + ";\n";
+                    } else {
+                        htCode += keyWordBreak_2 + "\n";
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    htCode += "break;\n";
+                }
+                if (langToConvertTo == "py") {
+                    htCode += "break\n";
+                }
+                if (langToConvertTo == "js") {
+                    htCode += "break;\n";
+                }
+                if (langToConvertTo == "go") {
+                    htCode += "break\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode += "break\n";
+                }
+                if (langToConvertTo == "cs") {
+                    htCode += "break;\n";
+                }
+                if (langToConvertTo == "java") {
+                    htCode += "break;\n";
+                }
+                if (langToConvertTo == "kt") {
+                    htCode += "break\n";
+                }
+                if (langToConvertTo == "rb") {
+                    htCode += "break\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode += "break\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    htCode += "break\n";
+                }
+                if (langToConvertTo == "swift") {
+                    htCode += "break;\n";
+                }
+                if (langToConvertTo == "dart") {
+                    htCode += "break;\n";
+                }
+                if (langToConvertTo == "ts") {
+                    htCode += "break;\n";
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode += "break;\n";
+                }
+            }
+            else if (StrLower(A_LoopField93) == StrLower(keyWordReturnStatement) || StrLower(A_LoopField93) == StrLower(keyWordReturnStatement + ";")) {
+                if (langToConvertTo == langFileExtension_2) {
+                    if (useSemicolon_2 == "on") {
+                        htCode += keyWordReturnStatement_2 + ";\n";
+                    } else {
+                        htCode += keyWordReturnStatement_2 + "\n";
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    htCode += "return;\n";
+                }
+                if (langToConvertTo == "py") {
+                    htCode += "return\n";
+                }
+                if (langToConvertTo == "js") {
+                    htCode += "return;\n";
+                }
+                if (langToConvertTo == "go") {
+                    htCode += "break\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode += "return\n";
+                }
+                if (langToConvertTo == "cs") {
+                    htCode += "return;\n";
+                }
+                if (langToConvertTo == "java") {
+                    htCode += "return;\n";
+                }
+                if (langToConvertTo == "kt") {
+                    htCode += "return\n";
+                }
+                if (langToConvertTo == "rb") {
+                    htCode += "return\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode += "return\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    htCode += "return\n";
+                }
+                if (langToConvertTo == "swift") {
+                    htCode += "return;\n";
+                }
+                if (langToConvertTo == "dart") {
+                    htCode += "return;\n";
+                }
+                if (langToConvertTo == "ts") {
+                    htCode += "return;\n";
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode += "return;\n";
+                }
+            }
+            else if (SubStr(Trim(StrLower(A_LoopField93)), 1, StrLen(StrLower(keyWordReturnStatement))) == StrLower(keyWordReturnStatement)) {
+                str1 = Trim(expressionParserTranspiler(fixArray1234(Trim(StringTrimLeft(A_LoopField93, StrLen(keyWordReturnStatement))))));
+                if (langToConvertTo == langFileExtension_2) {
+                    if (useSemicolon_2 == "on") {
+                        htCode += keyWordReturnStatement_2 + str1 + ";\n";
+                    } else {
+                        htCode += keyWordReturnStatement_2 + str1 + "\n";
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    htCode += "return " + str1 + ";\n";
+                }
+                if (langToConvertTo == "py") {
+                    htCode += "return " + str1 + "\n";
+                }
+                if (langToConvertTo == "js") {
+                    htCode += "return " + str1 + ";\n";
+                }
+                if (langToConvertTo == "go") {
+                    htCode += "return " + str1 + "\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode += "return " + str1 + "\n";
+                }
+                if (langToConvertTo == "cs") {
+                    htCode += "return " + str1 + ";\n";
+                }
+                if (langToConvertTo == "java") {
+                    htCode += "return " + str1 + ";\n";
+                }
+                if (langToConvertTo == "kt") {
+                    htCode += "return " + str1 + "\n";
+                }
+                if (langToConvertTo == "rb") {
+                    htCode += "return " + str1 + "\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode += "return " + str1 + "\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    htCode += "return " + str1 + "\n";
+                }
+                if (langToConvertTo == "swift") {
+                    htCode += "return " + str1 + ";\n";
+                }
+                if (langToConvertTo == "dart") {
+                    htCode += "return " + str1 + ";\n";
+                }
+                if (langToConvertTo == "ts") {
+                    htCode += "return " + str1 + ";\n";
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode += "return " + str1 + ";\n";
+                }
+            }
+            else if (StrLower(A_LoopField93) == StrLower(keyWordContinue) || StrLower(A_LoopField93) == StrLower(keyWordContinue + ";")) {
+                if (langToConvertTo == langFileExtension_2) {
+                    if (useSemicolon_2 == "on") {
+                        htCode += keyWordContinue_2 + ";\n";
+                    } else {
+                        htCode += keyWordContinue_2 + "\n";
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    htCode += "continue;\n";
+                }
+                if (langToConvertTo == "py") {
+                    htCode += "continue\n";
+                }
+                if (langToConvertTo == "js") {
+                    htCode += "continue;\n";
+                }
+                if (langToConvertTo == "go") {
+                    htCode += "continue\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode += "goto continue\n";
+                }
+                if (langToConvertTo == "cs") {
+                    htCode += "continue;\n";
+                }
+                if (langToConvertTo == "java") {
+                    htCode += "continue;\n";
+                }
+                if (langToConvertTo == "kt") {
+                    htCode += "continue\n";
+                }
+                if (langToConvertTo == "rb") {
+                    htCode += "next\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode += "continue\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    htCode += "continue\n";
+                }
+                if (langToConvertTo == "swift") {
+                    htCode += "continue;\n";
+                }
+                if (langToConvertTo == "dart") {
+                    htCode += "continue;\n";
+                }
+                if (langToConvertTo == "ts") {
+                    htCode += "continue;\n";
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode += "continue;\n";
+                }
+            }
+            else if (StrLower(A_LoopField93) == "::" + keyWordContinue + "::") {
+                if (langToConvertTo == langFileExtension_2) {
+                    htCode += "::" + keyWordContinue_2 + "::\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode += "::continue::\n";
                 }
             }
             else if (StrLower(A_LoopField93) == StrLower(keyWordLoopInfinite) || StrLower(A_LoopField93) == StrLower(keyWordLoopInfinite + ":")) {
@@ -5647,6 +5989,124 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                     }
                 } else {
                     htCode += htCodeLoopfixa1 + Chr(10) + var1out + Chr(10);
+                }
+            }
+            else if (SubStrLastChars(Trim(A_LoopField93), StrLen(keyWordInc)) == keyWordInc || SubStrLastChars(Trim(A_LoopField93), StrLen(keyWordInc + ";")) == keyWordInc + ";" && lineDone == 0) {
+                if (useSemicolon == "on") {
+                    str1 = Trim(StringTrimRight(Trim(A_LoopField93), StrLen(keyWordInc + ";")));
+                } else {
+                    str1 = Trim(StringTrimRight(Trim(A_LoopField93), StrLen(keyWordInc)));
+                }
+                if (langToConvertTo == langFileExtension_2) {
+                    if (useSemicolon_2 == "on") {
+                        htCode += str1 + keyWordInc_2 + ";\n";
+                    } else {
+                        htCode += str1 + keyWordInc_2 + "`n";
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    htCode += str1 + "++;n";
+                }
+                if (langToConvertTo == "py") {
+                    htCode += str1 + " += 1\n";
+                }
+                if (langToConvertTo == "js") {
+                    htCode += str1 + "++;\n";
+                }
+                if (langToConvertTo == "go") {
+                    htCode += str1 + "++;\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode += str1 + " = " + str1 + " + 1\n";
+                }
+                if (langToConvertTo == "cs") {
+                    htCode += str1 + "++;\n";
+                }
+                if (langToConvertTo == "java") {
+                    htCode += str1 + "++;\n";
+                }
+                if (langToConvertTo == "kt") {
+                    htCode += str1 + "++;\n";
+                }
+                if (langToConvertTo == "rb") {
+                    htCode += str1 + " += 1\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode += str1 + " += 1\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    htCode += str1 + "++\n";
+                }
+                if (langToConvertTo == "swift") {
+                    htCode += str1 + "++;\n";
+                }
+                if (langToConvertTo == "dart") {
+                    htCode += str1 + "++;\n";
+                }
+                if (langToConvertTo == "ts") {
+                    htCode += str1 + "++;`n";
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode += str1 + "++;n";
+                }
+            }
+            else if (SubStrLastChars(Trim(A_LoopField93), StrLen(keyWordDec)) == keyWordDec || SubStrLastChars(Trim(A_LoopField93), StrLen(keyWordDec + ";")) == keyWordDec + ";" && lineDone == 0) {
+                if (useSemicolon == "on") {
+                    str1 = Trim(StringTrimRight(Trim(A_LoopField93), StrLen(keyWordDec + ";")));
+                } else {
+                    str1 = Trim(StringTrimRight(Trim(A_LoopField93), StrLen(keyWordDec)));
+                }
+                if (langToConvertTo == langFileExtension_2) {
+                    if (useSemicolon_2 == "on") {
+                        htCode += str1 + keyWordDec_2 + ";\n";
+                    } else {
+                        htCode += str1 + keyWordDec_2 + "`n";
+                    }
+                }
+                if (langToConvertTo == "cpp") {
+                    htCode += str1 + "--;n";
+                }
+                if (langToConvertTo == "py") {
+                    htCode += str1 + " -= 1\n";
+                }
+                if (langToConvertTo == "js") {
+                    htCode += str1 + "--;\n";
+                }
+                if (langToConvertTo == "go") {
+                    htCode += str1 + "--;\n";
+                }
+                if (langToConvertTo == "lua") {
+                    htCode += str1 + " = " + str1 + " - 1\n";
+                }
+                if (langToConvertTo == "cs") {
+                    htCode += str1 + "--;\n";
+                }
+                if (langToConvertTo == "java") {
+                    htCode += str1 + "--;\n";
+                }
+                if (langToConvertTo == "kt") {
+                    htCode += str1 + "--;\n";
+                }
+                if (langToConvertTo == "rb") {
+                    htCode += str1 + " -= 1\n";
+                }
+                if (langToConvertTo == "nim") {
+                    htCode += str1 + " -= 1\n";
+                }
+                if (langToConvertTo == "ahk") {
+                    htCode += str1 + "--\n";
+                }
+                if (langToConvertTo == "swift") {
+                    htCode += str1 + "--;\n";
+                }
+                if (langToConvertTo == "dart") {
+                    htCode += str1 + "--;\n";
+                }
+                if (langToConvertTo == "ts") {
+                    htCode += str1 + "--;`n";
+                }
+                if (langToConvertTo == "groovy") {
+                    htCode += str1 + "--;n";
                 }
             }
             else if (SubStr(StrLower(Trim(A_LoopField93)), 1, StrLen(StrLower(keyWordIncludeInTheTranspiledLang + " "))) == StrLower(keyWordIncludeInTheTranspiledLang + " ") && langToConvertTo == langFileExtension_2) {

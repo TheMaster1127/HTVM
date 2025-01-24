@@ -20,34 +20,8 @@ func print(value interface{}) {
 
 
 func main() {
-    if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS")
-    } else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS")
-    } else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS")
-    } else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS")
-    } else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS")
-    } else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS")
-    } else {
-        print(5+5)
-    }
-    print("==========")
-    print("==========")
-    print("==========")
-    print("==========")
-    print("==========")
-    print("==========")
-    GO DOSENT HAVE A TRY USE PROGRAMMING BLOCKS MAYBE IDK {
-        GO DOSENT HAVE A THROW USE PROGRAMMING BLOCKS MAYBE IDK
-    }
-    GO DOSENT HAVE A CATCH USE PROGRAMMING BLOCKS MAYBE IDK {
-        print(ee)
-    }
-    GO DOSENT HAVE A FINALLY USE PROGRAMMING BLOCKS MAYBE IDK {
-        print("finally finally finally finally")
+    for (true) {
+        print("hi from HTVM v2 still in development")
+        break
     }
 }

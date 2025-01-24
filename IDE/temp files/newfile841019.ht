@@ -1,56 +1,9 @@
-
-str htCode := "htCode"
-
-
-
-
-
-
-arr str fixGoManGoIsSoAnnoyingBroooFurure
-Loop, Parse, htCode, `n, `r
+func void loop(int count) {
+Loop, count
 {
-fixGoManGoIsSoAnnoyingBroooFurure.add(A_LoopField)
-}
-fixGoManGoIsSoAnnoyingBroooFurure.add(" ")
-
-int fixGoManGoIsSoAnnoyingBroooSkip := 0
-int fixGoManGoIsSoAnnoyingBroooCount := 0
-str fixGoManGoIsSoAnnoyingBroooCountSpaceses := ""
-str fixGoManGoIsSoAnnoyingBrooo := ""
-Loop, Parse, htCode, `n, `r
-{
-if (Trim(A_LoopField) = "}") and (SubStr(Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index + 1]), 1, StrLen("else if ")) = "else if ")
-{
-fixGoManGoIsSoAnnoyingBroooSkip := 1
-
-Loop, Parse, fixGoManGoIsSoAnnoyingBroooFurure[A_Index + 1]
-{
-if (A_LoopField = " ")
-{
-fixGoManGoIsSoAnnoyingBroooCount++
-}
-else
-{
-break
+print(A_Index)
 }
 }
+main
+loop(5 . 5)
 
-Loop, % fixGoManGoIsSoAnnoyingBroooCount
-{
-fixGoManGoIsSoAnnoyingBroooCountSpaceses .= " "
-}
-
-fixGoManGoIsSoAnnoyingBrooo .= fixGoManGoIsSoAnnoyingBroooCountSpaceses . "} " . Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index + 1]) . "`n"
-}
-else
-{
-
-if (fixGoManGoIsSoAnnoyingBroooSkip = 1)
-{
-fixGoManGoIsSoAnnoyingBroooSkip := 0
-fixGoManGoIsSoAnnoyingBrooo .= A_LoopField . "`n"
-}
-
-}
-}
-StringTrimRight, htCode, fixGoManGoIsSoAnnoyingBrooo, 1

@@ -36,40 +36,9 @@ void print(const T& value) {
 
 
 int main(int argc, char* argv[]) {
-    if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    }
-    else if (5 == 5 && 6 - 6 == 0) {
-        print("MAAAAAAAAAAA<M<SJDIJSLDLS");
-    } else {
-        print(5+5);
-    }
-    print("==========");
-    print("==========");
-    print("==========");
-    print("==========");
-    print("==========");
-    print("==========");
-    try {
-        throw std::runtime_error("this is an ERROR HTVM v2");
-    }
-    catch (const std::exception& ee) {
-        print(ee.what());
-    }
-    if ("finally dosent exist in c++" == "finally dosent exist in c++") {
-        print("finally finally finally finally");
+    while (true) {
+        print("hi from HTVM v2 still in development");
+        break;
     }
     return 0;
 }
