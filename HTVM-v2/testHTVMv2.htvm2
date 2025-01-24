@@ -1,4 +1,15 @@
+; some comment
 while (true) (
     print("hi from HTVM v2 still in development")
     break
 )
+'''1
+WAESFD
+WAQESR
+FRAWE
+DSFDSADSDF
+asfdx
+spin 5 (
+    print(A_Index)
+)
+'''2

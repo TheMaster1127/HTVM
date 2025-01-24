@@ -36,9 +36,20 @@ void print(const T& value) {
 
 
 int main(int argc, char* argv[]) {
+    // some comment
     while (true) {
         print("hi from HTVM v2 still in development");
         break;
     }
+    /*
+    WAESFD
+    WAQESR
+    FRAWE
+    DSFDSADSDF
+    asfdx
+    for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
+        print(A_Index1);
+    }
+    */
     return 0;
 }
