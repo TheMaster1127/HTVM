@@ -52,19 +52,12 @@ LEFT TO DO: 49
 
 TODO List
 
-DONE! 1. Implement try-catch-finally blocks in all languages, except for Lua and Go, where this feature cannot be directly implemented.
-DONE! 2. Fix and enhance the expressionTranspiler, specifically handling e and ErrorMsg() (except in Go and Lua).
-DONE! 3. Implement if-else if-else conditions in all languages.
-DONE! 4. Implement while loops.
-DONE! 5. Implement break and continue keywords, with Lua converting continue to goto continue and using ::continue:: labels recognized only in Lua.
-DONE! 6. Complete the implementation of ++ and -- operators.
-DONE! 7. Implement single-line and multi-line comments.
-8. Implement variables.
-9. Implement arrays.
-10. Implement functions.
-11. Handle the use??? on/off settings.
-12. Implement OSP.
-13. Make the documentation, website, and README.
-14. Work on popularizing the programming language and making it more accessible.
-15. Finally, work towards making HTVM a widely recognized and used tool.
+1. Implement variables.
+2. Implement arrays.
+3. Implement functions.
+4. Handle the use??? on/off settings.
+5. Implement OSP.
+6. Make the documentation, website, and README.
+7. Work on popularizing the programming language and making it more accessible.
+8. Finally, work towards making HTVM a widely recognized and used tool.
 then GG

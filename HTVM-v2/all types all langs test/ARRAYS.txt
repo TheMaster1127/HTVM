@@ -1,0 +1,325 @@
+Understood. I'll provide how to declare **dynamic arrays** (if the language supports it) for **strings**, **integers**, **floats**, and **booleans** in each of the 15 languages. I will give both ways:  
+
+1. **Without any values inside** (empty arrays or declarations).  
+2. **With values included** (populated arrays).  
+
+Let’s go!  
+
+---
+
+### 1. **C++ (.cpp)**  
+#### Without Values  
+```cpp
+#include <vector>
+#include <string>
+
+std::vector<std::string> stringArray;
+std::vector<int> intArray;
+std::vector<float> floatArray;
+std::vector<bool> boolArray;
+```
+
+#### With Values  
+```cpp
+#include <vector>
+#include <string>
+
+std::vector<std::string> stringArray = {"Hello", "World"};
+std::vector<int> intArray = {1, 2, 3};
+std::vector<float> floatArray = {1.1, 2.2, 3.3};
+std::vector<bool> boolArray = {true, false, true};
+```
+
+---
+
+### 2. **Python (.py)**  
+#### Without Values  
+```python
+string_array = []
+int_array = []
+float_array = []
+bool_array = []
+```
+
+#### With Values  
+```python
+string_array = ["Hello", "World"]
+int_array = [1, 2, 3]
+float_array = [1.1, 2.2, 3.3]
+bool_array = [True, False, True]
+```
+
+---
+
+### 3. **JavaScript (.js)**  
+#### Without Values  
+```javascript
+let stringArray = [];
+let intArray = [];
+let floatArray = [];
+let boolArray = [];
+```
+
+#### With Values  
+```javascript
+let stringArray = ["Hello", "World"];
+let intArray = [1, 2, 3];
+let floatArray = [1.1, 2.2, 3.3];
+let boolArray = [true, false, true];
+```
+
+---
+
+### 4. **Go (.go)**  
+#### Without Values  
+```go
+package main
+
+func main() {
+    var stringArray []string
+    var intArray []int
+    var floatArray []float64
+    var boolArray []bool
+}
+```
+
+#### With Values  
+```go
+package main
+
+func main() {
+    stringArray := []string{"Hello", "World"}
+    intArray := []int{1, 2, 3}
+    floatArray := []float64{1.1, 2.2, 3.3}
+    boolArray := []bool{true, false, true}
+}
+```
+
+---
+
+### 5. **Lua (.lua)**  
+#### Without Values  
+```lua
+string_array = {}
+int_array = {}
+float_array = {}
+bool_array = {}
+```
+
+#### With Values  
+```lua
+string_array = {"Hello", "World"}
+int_array = {1, 2, 3}
+float_array = {1.1, 2.2, 3.3}
+bool_array = {true, false, true}
+```
+
+---
+
+### 6. **C# (.cs)**  
+#### Without Values (Dynamic: Using `List<T>`)  
+```csharp
+using System.Collections.Generic;
+
+List<string> stringArray = new List<string>();
+List<int> intArray = new List<int>();
+List<float> floatArray = new List<float>();
+List<bool> boolArray = new List<bool>();
+```
+
+#### With Values  
+```csharp
+using System.Collections.Generic;
+
+List<string> stringArray = new List<string> { "Hello", "World" };
+List<int> intArray = new List<int> { 1, 2, 3 };
+List<float> floatArray = new List<float> { 1.1f, 2.2f, 3.3f };
+List<bool> boolArray = new List<bool> { true, false, true };
+```
+
+---
+
+### 7. **Java (.java)**  
+#### Without Values (Dynamic: Using `ArrayList`)  
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+In Java, if you declare a variable or method outside of the main method and want to access it directly from the main method (or any other static method), you must use the static keyword.
+
+
+ArrayList<String> stringArray = new ArrayList<>();
+ArrayList<Integer> intArray = new ArrayList<>();
+ArrayList<Float> floatArray = new ArrayList<>();
+ArrayList<Boolean> boolArray = new ArrayList<>();
+```
+
+#### With Values  
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+In Java, if you declare a variable or method outside of the main method and want to access it directly from the main method (or any other static method), you must use the static keyword.
+
+
+ArrayList<String> stringArray = new ArrayList<>(List.of("Hello", "World"));
+ArrayList<Integer> intArray = new ArrayList<>(List.of(1, 2, 3));
+ArrayList<Float> floatArray = new ArrayList<>(List.of(1.1f, 2.2f, 3.3f));
+ArrayList<Boolean> boolArray = new ArrayList<>(List.of(true, false, true));
+```
+
+---
+
+### 8. **Kotlin (.kt)**  
+#### Without Values  
+```kotlin
+val stringArray = mutableListOf<String>()
+val intArray = mutableListOf<Int>()
+val floatArray = mutableListOf<Float>()
+val boolArray = mutableListOf<Boolean>()
+```
+
+#### With Values  
+```kotlin
+val stringArray = mutableListOf("Hello", "World")
+val intArray = mutableListOf(1, 2, 3)
+val floatArray = mutableListOf(1.1f, 2.2f, 3.3f)
+val boolArray = mutableListOf(true, false, true)
+```
+
+---
+
+### 9. **Ruby (.rb)**  
+#### Without Values  
+```ruby
+string_array = []
+int_array = []
+float_array = []
+bool_array = []
+```
+
+#### With Values  
+```ruby
+string_array = ["Hello", "World"]
+int_array = [1, 2, 3]
+float_array = [1.1, 2.2, 3.3]
+bool_array = [true, false, true]
+```
+
+---
+
+### 10. **Nim (.nim)**  
+#### Without Values  
+```nim
+var stringArray: seq[string] = @[]
+var intArray: seq[int] = @[]
+var floatArray: seq[float] = @[]
+var boolArray: seq[bool] = @[]
+```
+
+#### With Values  
+```nim
+var stringArray: seq[string] = @["Hello", "World"]
+var intArray: seq[int] = @[1, 2, 3]
+var floatArray: seq[float] = @[1.1, 2.2, 3.3]
+var boolArray: seq[bool] = @[true, false, true]
+```
+
+---
+
+### 11. **AutoHotKey (.ahk)**  
+#### Without Values  
+```ahk
+stringArray := []
+intArray := []
+floatArray := []
+boolArray := []
+```
+
+#### With Values  
+```ahk
+stringArray := ["Hello", "World"]
+intArray := [1, 2, 3]
+floatArray := [1.1, 2.2, 3.3]
+boolArray := [true, false, true]
+```
+
+---
+
+### 12. **Swift (.swift)**  
+#### Without Values  
+```swift
+var stringArray: [String] = []
+var intArray: [Int] = []
+var floatArray: [Float] = []
+var boolArray: [Bool] = []
+```
+
+#### With Values  
+```swift
+var stringArray: [String] = ["Hello", "World"]
+var intArray: [Int] = [1, 2, 3]
+var floatArray: [Float] = [1.1, 2.2, 3.3]
+var boolArray: [Bool] = [true, false, true]
+```
+
+---
+
+### 13. **Dart (.dart)**  
+#### Without Values  
+```dart
+List<String> stringArray = [];
+List<int> intArray = [];
+List<double> floatArray = [];
+List<bool> boolArray = [];
+```
+
+#### With Values  
+```dart
+List<String> stringArray = ["Hello", "World"];
+List<int> intArray = [1, 2, 3];
+List<double> floatArray = [1.1, 2.2, 3.3];
+List<bool> boolArray = [true, false, true];
+```
+
+---
+
+### 14. **TypeScript (.ts)**  
+#### Without Values  
+```typescript
+let stringArray: string[] = [];
+let intArray: number[] = [];
+let floatArray: number[] = [];
+let boolArray: boolean[] = [];
+```
+
+#### With Values  
+```typescript
+let stringArray: string[] = ["Hello", "World"];
+let intArray: number[] = [1, 2, 3];
+let floatArray: number[] = [1.1, 2.2, 3.3];
+let boolArray: boolean[] = [true, false, true];
+```
+
+---
+
+### 15. **Groovy (.groovy)**  
+#### Without Values  
+```groovy
+def stringArray = []
+def intArray = []
+def floatArray = []
+def boolArray = []
+```
+
+#### With Values  
+```groovy
+def stringArray = ["Hello", "World"]
+def intArray = [1, 2, 3]
+def floatArray = [1.1, 2.2, 3.3]
+def boolArray = [true, false, true]
+```
+
+---
+
+Let me know if you'd like further clarification!

@@ -1,0 +1,45 @@
+note to me:
+
+for int64 and uint64 we need to add n at the end thats it
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+// Without values
+let keyWordDouble: number;
+let keyWordChar: string;
+let keyWordUint8: number;
+let keyWordUint16: number;
+let keyWordUint32: number;
+let keyWordUint64: bigint;
+let keyWordINT: number;
+let keyWordSTR: string;
+let keyWordBOOL: boolean;
+let keyWordFLOAT: number;
+let keyWordINT8: number;
+let keyWordINT16: number;
+let keyWordINT32: number;
+let keyWordINT64: bigint;
+const keyWordConst: number = 0; // Const (must be initialized)
+let keyWordLet: number;        // Mimicking let
+var keyWordVar: number;        // Mimicking var
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+// With values
+let keyWordDouble: number = 3.14;
+let keyWordChar: string = "A";
+let keyWordUint8: number = 255;
+let keyWordUint16: number = 65535;
+let keyWordUint32: number = 4294967295;
+let keyWordUint64: bigint = 18446744073709551615n;
+let keyWordINT: number = -42;
+let keyWordSTR: string = "Hello";
+let keyWordBOOL: boolean = true;
+let keyWordFLOAT: number = 3.14;
+let keyWordINT8: number = -128;
+let keyWordINT16: number = 32767
+let keyWordINT32: number = -2147483648;
+let keyWordINT64: bigint = 9223372036854775807n;
+const keyWordConst: number = 100;  // Const
+let keyWordLet: number = 50;       // Mimicking let
+var keyWordVar: number = 25;       // Mimicking var
+

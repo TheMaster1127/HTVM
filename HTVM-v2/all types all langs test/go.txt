@@ -1,0 +1,40 @@
+// Without values
+var keyWordDouble float64
+var keyWordChar byte
+var keyWordUint8 uint8
+var keyWordUint16 uint16
+var keyWordUint32 uint32
+var keyWordUint64 uint64
+var keyWordINT int
+var keyWordSTR string
+var keyWordBOOL bool
+var keyWordFLOAT float32
+var keyWordINT8 int8
+var keyWordINT16 int16
+var keyWordINT32 int32
+var keyWordINT64 int64
+const keyWordConst = 0  // Const (requires value)
+var keyWordLet int      // Mimicking let
+var keyWordVar int      // Mimicking var
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+// With values
+var keyWordDouble float64 = 3.14
+var keyWordChar byte = 'A'
+var keyWordUint8 uint8 = 255
+var keyWordUint16 uint16 = 65535
+var keyWordUint32 uint32 = 4294967295
+var keyWordUint64 uint64 = 18446744073709551615
+var keyWordINT int = -42
+var keyWordSTR string = "Hello"
+var keyWordBOOL bool = true
+var keyWordFLOAT float32 = 3.14
+var keyWordINT8 int8 = -128
+var keyWordINT16 int16 = 32767
+var keyWordINT32 int32 = -2147483648
+var keyWordINT64 int64 = 9223372036854775807
+const keyWordConst = 100 // Const
+var keyWordLet int = 50  // Mimicking let
+var keyWordVar int = 25  // Mimicking var

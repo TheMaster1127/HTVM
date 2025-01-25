@@ -1,0 +1,65 @@
+libs: #include <cstdint>
+
+note to me:
+
+if we have a int64 or uint64
+
+we must always use for int64 - LL and for uint64 use ULL 
+ONLY if the value after = is a number not another varibale
+so
+
+// alredy decleared earlier
+keyWordUint64_2 = 44073709551615ULL;
+print(keyWordUint64_2)
+
+and for a float varName = (if we see a number whit a . inthere we must alwasy add a f at the end)
+like this:
+
+when declearing
+float keyWordFLOAT = 3.14f;
+or if alredy decleared
+keyWordFLOAT = 5.65f;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+// Without values
+double keyWordDouble;
+char keyWordChar;
+uint8_t keyWordUint8;
+uint16_t keyWordUint16;
+uint32_t keyWordUint32;
+uint64_t keyWordUint64;
+int keyWordINT;
+std::string keyWordSTR; // Requires <string>
+bool keyWordBOOL;
+float keyWordFLOAT;
+int8_t keyWordINT8;
+int16_t keyWordINT16;
+int32_t keyWordINT32;
+int64_t keyWordINT64;
+const int keyWordConst = 5; // Const
+int keyWordLet;         // Mimicking let
+auto keyWordVar = 6;        // Mimicking var (deduced type)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+// With values
+double keyWordDouble = 3.14;
+char keyWordChar = 'A';
+uint8_t keyWordUint8 = 255;
+uint16_t keyWordUint16 = 65535;
+uint32_t keyWordUint32 = 4294967295;
+uint64_t keyWordUint64 = 18446744073709551615ULL;
+int keyWordINT = -42;
+std::string keyWordSTR = "Hello";
+bool keyWordBOOL = true;
+float keyWordFLOAT = 3.14f;
+int8_t keyWordINT8 = -128;
+int16_t keyWordINT16 = 32767;
+int32_t keyWordINT32 = -2147483648;
+int64_t keyWordINT64 = 9223372036854775807LL;
+const int keyWordConst = 100; // Const
+int keyWordLet = 50;          // Mimicking let
+auto keyWordVar = 25;         // Mimicking var

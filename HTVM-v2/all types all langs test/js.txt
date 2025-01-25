@@ -1,0 +1,45 @@
+note to me:
+
+for int64 and uint64 we need to add n at the end thats it
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+// Without values
+let keyWordDouble;  // Let keyword
+let keyWordChar;
+let keyWordUint8;
+let keyWordUint16;
+let keyWordUint32;
+let keyWordUint64;
+let keyWordINT;
+let keyWordSTR;
+let keyWordBOOL;
+let keyWordFLOAT;
+let keyWordINT8;
+let keyWordINT16;
+let keyWordINT32;
+let keyWordINT64;
+const keyWordConst = 5;  // Const must be initialized
+let keyWordLet;      // Let keyword
+var keyWordVar;      // Var keyword
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+// With values
+let keyWordDouble = 3.14;
+let keyWordChar = 'A';
+let keyWordUint8 = 255;
+let keyWordUint16 = 65535;
+let keyWordUint32 = 4294967295;
+let keyWordUint64 = 18446744073709551615n;
+let keyWordINT = -42;
+let keyWordSTR = "Hello";
+let keyWordBOOL = true;
+let keyWordFLOAT = 3.14;
+let keyWordINT8 = -128;
+let keyWordINT16 = 32767;
+let keyWordINT32 = -2147483648;
+let keyWordINT64 = 9223372036854775807n;
+const keyWordConst = 100; // Const is immutable
+let keyWordLet = 50;      // Let keyword
+var keyWordVar = 25;      // Var keyword

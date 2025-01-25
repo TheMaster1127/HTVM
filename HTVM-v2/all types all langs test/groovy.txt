@@ -1,0 +1,39 @@
+// Without values
+def keyWordDouble
+def keyWordChar
+def keyWordUint8
+def keyWordUint16
+def keyWordUint32
+def keyWordUint64
+def keyWordINT
+def keyWordSTR
+def keyWordBOOL
+def keyWordFLOAT
+def keyWordINT8
+def keyWordINT16
+def keyWordINT32
+def keyWordINT64
+final keyWordConst = 0  // Const (must be initialized)
+def keyWordLet  // Mimicking let
+def keyWordVar  // Mimicking var
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+// With values
+def keyWordDouble = 3.14
+def keyWordChar = 'A'
+def keyWordUint8 = 255
+def keyWordUint16 = 65535
+def keyWordUint32 = 4294967295
+def keyWordUint64 = 18446744073709551615
+def keyWordINT = -42
+def keyWordSTR = "Hello"
+def keyWordBOOL = true
+def keyWordFLOAT = 3.14
+def keyWordINT8 = -128
+def keyWordINT16 = 32767
+def keyWordINT32 = -2147483648
+def keyWordINT64 = 9223372036854775807
+final keyWordConst = 100  // Const
+def keyWordLet = 50      // Mimicking let
+def keyWordVar = 25      // Mimicking var

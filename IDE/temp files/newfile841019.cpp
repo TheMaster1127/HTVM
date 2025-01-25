@@ -8,39 +8,28 @@
 #include <type_traits>
 #include <vector>
 
-// Print function for const char* specifically
-void print(const char* value) {
-    std::cout << std::string(value) << std::endl;  // Convert const char* to std::string
-}
-// Print function that converts all types to string if needed
-template <typename T>
-void print(const T& value) {
-    if constexpr (std::is_same_v<T, std::string>) {
-        std::cout << value << std::endl;
-    } else if constexpr (std::is_same_v<T, char>) {
-        std::cout << value << std::endl;
-    } else if constexpr (std::is_same_v<T, int>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, float>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, double>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, size_t>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, bool>) {
-        std::cout << (value ? "1" : "0") << std::endl;
-    } else {
-        std::cout << "Unsupported type" << std::endl;
-    }
-}
-
-
-void loop(int count) {
-    for (int A_Index1 = 0; A_Index1 < count + 0; A_Index1++) {
-        print(A_Index1);
-    }
-}
 int main(int argc, char* argv[]) {
-    loop(5 + 5);
+
+
+// With values
+double keyWordDouble = 3.14;
+char keyWordChar = 'A';
+uint8_t keyWordUint8 = 255;
+uint16_t keyWordUint16 = 65535;
+uint32_t keyWordUint32 = 4294967295;
+uint64_t keyWordUint64 = 18446744073709551615ULL;
+int keyWordINT = -42;
+std::string keyWordSTR = "Hello";
+bool keyWordBOOL = true;
+float keyWordFLOAT = 3.14f;
+int8_t keyWordINT8 = -128;
+int16_t keyWordINT16 = 32767;
+int32_t keyWordINT32 = -2147483648;
+int64_t keyWordINT64 = 9223372036854775807LL;
+const int keyWordConst = 100; // Const
+int keyWordLet = 50;          // Mimicking let
+auto keyWordVar = 25;         // Mimicking var
+
+
     return 0;
 }

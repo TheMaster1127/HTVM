@@ -1,0 +1,58 @@
+note to me:
+
+whne reassinging vars whit uint8 and uint16 allawats add (byte) or (short) after the = like this:
+keyWordUint8 = (byte) 66;  
+keyWordUint16 = (short) 655; 
+
+or both int64 and uint64 since java dont have uint we just use long and-
+make sure if its a number for a uint64 and int64 we add L at the and 
+no need for an example
+
+we also do the float f you know 5.56f;
+
+VERY IMPORATNT IF A VAR IS decared in the main func WE REMOVE THE static OK
+
+;;;;;;;;;;;;;;;;;;;;;;
+
+// Without values
+static double keyWordDouble;
+static char keyWordChar;
+static byte keyWordUint8;
+static short keyWordUint16;
+static int keyWordUint32;
+static long keyWordUint64;
+static int keyWordINT;
+static String keyWordSTR;
+static boolean keyWordBOOL;
+static float keyWordFLOAT;
+static byte keyWordINT8;
+static short keyWordINT16;
+static int keyWordINT32;
+static long keyWordINT64;
+final static int keyWordConst = 0; // Const must be initialized
+static int keyWordLet;             // Mimicking let
+static int keyWordVar;             // Mimicking var
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+// With values
+static double keyWordDouble = 3.14;
+static char keyWordChar = 'A';
+static byte keyWordUint8 = (byte) 255;
+static short keyWordUint16 = (short) 65535;
+static int keyWordUint32 = 429496729;
+static long keyWordUint64 = 1844674407370955161L;
+static int keyWordINT = -42;
+static String keyWordSTR = "Hello";
+static boolean keyWordBOOL = true;
+static float keyWordFLOAT = 3.14f;
+static byte keyWordINT8 = -128;
+static short keyWordINT16 = 32767;
+static int keyWordINT32 = -2147483648;
+static long keyWordINT64 = 9223372036854775807L;
+final static int keyWordConst = 100; // Const
+static int keyWordLet = 50;          // Mimicking let
+static int keyWordVar = 25;          // Mimicking var
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
