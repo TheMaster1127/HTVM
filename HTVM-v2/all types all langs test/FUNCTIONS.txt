@@ -2,7 +2,7 @@
 void myFunction(int param1, float param2, std::string param3 = "", std::string param4 = "") {
 std::string myFunction(int param1, float param2, int param3 = 10, int param4 = 20) {
 2. | Python         | .py                |
-function myFunction(param1, param2, param3 = "", param4 = "") {
+def my_function(param1, param2, param3=10, param4=20):
 def my_function(param1, param2, param3=10, param4=20):
 3. | JavaScript     | .js                |
 function myFunction(param1, param2, param3 = "", param4 = "") {

@@ -13,9 +13,12 @@ proc print(value: auto) =  # Use 'auto' instead of 'untyped'
     echo "Unsupported type"
 
 
+proc szdfxc0(): string =
+    return "hi"
+proc szdfxc() =
+    print("hi2 void")
+print(szdfxc0())
+szdfxc()
 print("Hello, World!")
 for A_Index1 in 0..5 + 0:
-async func szdfxc(str1, str2, str3):str
-    print("hi1")
-func szdfxc(str1, str2, str3):long long
-    print("hi2")
+    print(A_Index1)

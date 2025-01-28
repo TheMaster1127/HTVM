@@ -1,17 +1,20 @@
+
+async func szdfxc0(): str 
+(
+return "hi"
+)
+
+func szdfxc(): void (
+print("hi2 void")
+)
+
+main
+print(szdfxc0())
+szdfxc()
+
 print("Hello, World!")
 
 Loop, 5 (
-
-keyWordCodeInTheTranspiledLangStartCPP
-waed = {}
-keyWordCodeInTheTranspiledLangEndCPP
-
+print(A_Index)
 )
 
-async func szdfxc(str1, str2, str3):str {
-print("hi1")
-}
-
-func szdfxc(str1, str2, str3):long long {
-print("hi2")
-}

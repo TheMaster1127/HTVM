@@ -5,15 +5,18 @@ function print(value) {
 }
 
 
+async function szdfxc0() {
+    return "hi";
+}
+function szdfxc() {
+    print("hi2 void");
+}
 async function main() {
+    print(szdfxc0());
+    szdfxc();
     print("Hello, World!");
     for (let A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-    }
-    async func szdfxc(str1, str2, str3):str {
-        print("hi1");
-    }
-    func szdfxc(str1, str2, str3):long long {
-        print("hi2");
+        print(A_Index1);
     }
 }
 main();

@@ -4,15 +4,18 @@ import Foundation
 // Print function for various types
 
 
+func szdfxc0() -> String {
+    return "hi";
+}
+func szdfxc() {
+    print("hi2 void")
+}
 func main() {
+    print(szdfxc0())
+    szdfxc()
     print("Hello, World!")
     for A_Index1 in 0 ..< 5 + 0 {
-    }
-    async func szdfxc(str1, str2, str3):str {
-        print("hi1")
-    }
-    func szdfxc(str1, str2, str3):long long {
-        print("hi2")
+        print(A_Index1)
     }
 }
 main()

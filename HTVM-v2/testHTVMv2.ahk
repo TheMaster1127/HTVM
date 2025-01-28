@@ -7,12 +7,15 @@ print(value) {
 }
 
 
+szdfxc0() {
+    return "hi"
+}
+szdfxc() {
+    print("hi2 void")
+}
+print(szdfxc0())
+szdfxc()
 print("Hello, World!")
 Loop, 5 {
-}
-async func szdfxc(str1, str2, str3):str {
-    print("hi1")
-}
-func szdfxc(str1, str2, str3):long long {
-    print("hi2")
+    print(A_Index)
 }

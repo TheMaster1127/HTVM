@@ -19,14 +19,17 @@ func print(value interface{}) {
 }
 
 
+func szdfxc0() string {
+    return "hi"
+}
+func szdfxc() {
+    print("hi2 void")
+}
 func main() {
+    print(szdfxc0())
+    szdfxc()
     print("Hello, World!")
     for A_Index1 := 0; A_Index1 < 5 + 0; A_Index1++ {
-    }
-    async func szdfxc(str1, str2, str3):str {
-        print("hi1")
-    }
-    func szdfxc(str1, str2, str3):long long {
-        print("hi2")
+        print(A_Index1)
     }
 }

@@ -11,14 +11,17 @@ fun print(value: Any) {
 }
 
 
+fun szdfxc0(): String {
+    return "hi"
+}
+fun szdfxc() {
+    print("hi2 void")
+}
 fun main(args: Array<String>) {
+    print(szdfxc0())
+    szdfxc()
     print("Hello, World!")
     for (A_Index1 in 0..5 + 0) {
-    }
-    async func szdfxc(str1, str2, str3):str {
-        print("hi1")
-    }
-    func szdfxc(str1, str2, str3):long long {
-        print("hi2")
+        print(A_Index1)
     }
 }

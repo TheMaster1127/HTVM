@@ -3,12 +3,15 @@
 -- Print function for different types
 
 
+function szdfxc0()
+    return "hi"
+end
+function szdfxc()
+    print("hi2 void")
+end
+print(szdfxc0())
+szdfxc()
 print("Hello, World!")
 for A_Index1 = 0, 5 + 0 do
-end
-async func szdfxc(str1, str2, str3):str
-    print("hi1")
-end
-func szdfxc(str1, str2, str3):long long
-    print("hi2")
+    print(A_Index1)
 end

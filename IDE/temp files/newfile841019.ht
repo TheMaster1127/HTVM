@@ -1,9 +1,7 @@
-func void loop(int count) {
-Loop, count
-{
-print(A_Index)
+if (langToConvertTo = "cpp") {
+    if (int1 = 1)  ; int1 1 = is async 0 = not async {
+        htCode .= keyWordAsync . keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
+    } else {
+        htCode .= keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
+    }
 }
-}
-main
-loop(5 . 5)
-
