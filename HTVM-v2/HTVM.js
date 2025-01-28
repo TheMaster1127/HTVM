@@ -6337,6 +6337,18 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                 }
                 htCode += str2 + "\n";
             }
+            else if (A_LoopField93 == "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc") {
+                htCode += A_LoopField93 + Chr(10);
+            }
+            else if (A_LoopField93 == "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc") {
+                htCode += A_LoopField93 + Chr(10);
+            }
+            else if (A_LoopField93 == "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc") {
+                htCode += A_LoopField93 + Chr(10);
+            }
+            else if (A_LoopField93 == "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc") {
+                htCode += A_LoopField93 + Chr(10);
+            }
             else if (KeyWordsCommands(A_LoopField93, "check", commands, langToConvertTo) == "true" && lineDone == 0) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {

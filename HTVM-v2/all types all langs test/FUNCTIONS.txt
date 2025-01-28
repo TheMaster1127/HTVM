@@ -1,0 +1,49 @@
+1. | C++            | .cpp               |
+void myFunction(int param1, float param2, std::string param3 = "", std::string param4 = "") {
+std::string myFunction(int param1, float param2, int param3 = 10, int param4 = 20) {
+2. | Python         | .py                |
+function myFunction(param1, param2, param3 = "", param4 = "") {
+def my_function(param1, param2, param3=10, param4=20):
+3. | JavaScript     | .js                |
+function myFunction(param1, param2, param3 = "", param4 = "") {
+function myFunction(param1, param2, param3 = 10, param4 = 20) {
+4. | Go             | .go                |
+func myFunction(param1 int, param2 float64, param3 string, param4 string) {
+func myFunction(param1 int, param2 float64, param3 int, param4 int) string {
+5. | Lua            | .lua               |
+function myFunction(param1, param2, param3, param4)
+    param3 = param3 or ""
+    param4 = param4 or ""
+function myFunction(param1, param2, param3, param4)
+    param3 = param3 or 10
+    param4 = param4 or 20
+6. | C#             | .cs                |
+static void MyFunction(int param1, float param2, string param3 = "", string param4 = "") {
+static string MyFunction(int param1, float param2, int param3 = 10, int param4 = 20) {
+7. | Java           | .java              |
+public static void myFunction(int param1, float param2, String param3, String param4) {
+public static String myFunction(int param1, float param2, int param3, int param4) {
+8. | Kotlin         | .kt                |
+fun myFunction(param1: Int, param2: Float, param3: String = "", param4: String = "") {
+fun myFunction(param1: Int, param2: Float, param3: Int = 10, param4: Int = 20): String {
+9. | Ruby           | .rb                |
+def my_function(param1, param2, param3 = "", param4 = "")
+def my_function(param1, param2, param3 = 10, param4 = 20)
+10 | Nim            | .nim               |
+proc myFunction(param1: int, param2: float, param3: string = "", param4: string = "") {
+proc myFunction(param1: int, param2: float, param3: int = 10, param4: int = 20): string {
+11 | AutoHotKey     | .ahk               |
+myFunction(param1, param2, param3 := "", param4 := "") {
+myFunction(param1, param2, param3 := 10, param4 := 20) {
+12 | Swift          | .swift             |
+func myFunction(_ param1: Int, _ param2: Float, _ param3: String = "", _ param4: String = "") {
+func myFunction(_ param1: Int, _ param2: Float, _ param3: Int = 10, _ param4: Int = 20) -> String {
+13 | Dart           | .dart              |
+void myFunction(int param1, double param2, [String param3 = "", String param4 = ""]) {
+String myFunction(int param1, double param2, [int param3 = 10, int param4 = 20]) {
+14 | TypeScript     | .ts                |
+function myFunction(param1: number, param2: number, param3: string = "", param4: string = ""): void {
+function myFunction(param1: number, param2: number, param3: number = 10, param4: number = 20): string {
+15 | Groovy         | .groovy            |
+def myFunction(param1, param2, param3 = "", param4 = "") {
+def myFunction(param1, param2, param3 = 10, param4 = 20) {

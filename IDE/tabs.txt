@@ -96,4 +96,3 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Game\game.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile841019.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile841019.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile841019.js
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile427772.ht

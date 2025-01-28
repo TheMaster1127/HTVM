@@ -7695,6 +7695,22 @@ str2 := ""
 
 htCode .= str2 . "`n"
 }
+else if (A_LoopField = "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc")
+{
+htCode .= A_LoopField . Chr(10)
+}
+else if (A_LoopField = "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc")
+{
+htCode .= A_LoopField . Chr(10)
+}
+else if (A_LoopField = "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc")
+{
+htCode .= A_LoopField . Chr(10)
+}
+else if (A_LoopField = "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc")
+{
+htCode .= A_LoopField . Chr(10)
+}
 else if (KeyWordsCommands(A_LoopField, "check", commands, langToConvertTo) = "true") and (lineDone = 0)
 {
 lineDone := 1
