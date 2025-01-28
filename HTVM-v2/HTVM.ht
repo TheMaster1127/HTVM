@@ -2321,6 +2321,900 @@ line := await arrayParserTranspiler1(line, keyWordArrayIndexOf . "(", 6)
 return line
 }
 
+func str getFuncTypeConvert(str type)
+{
+str theType := ""
+
+if (langToConvertTo = "cpp") 
+{
+if (type = keyWordVoid)
+{
+    theType := "void"
+}
+if (type = keyWordDouble)
+{
+    theType := "double"
+}
+if (type = keyWordChar)
+{
+    theType := "char"
+}
+if (type = keyWordUint8)
+{
+    theType := "uint8_t"
+}
+if (type = keyWordUint16)
+{
+    theType := "uint16_t"
+}
+if (type = keyWordUint32)
+{
+    theType := "uint32_t"
+}
+if (type = keyWordUint64)
+{
+    theType := "uint64_t"
+}
+if (type = keyWordINT)
+{
+    theType := "int"
+}
+if (type = keyWordSTR)
+{
+    theType := "std::string"
+}
+if (type = keyWordBOOL)
+{
+    theType := "bool"
+}
+if (type = keyWordFLOAT)
+{
+    theType := "float"
+}
+if (type = keyWordINT8)
+{
+    theType := "int8_t"
+}
+if (type = keyWordINT16)
+{
+    theType := "int16_t"
+}
+if (type = keyWordINT32)
+{
+    theType := "int32_t"
+}
+if (type = keyWordINT64)
+{
+    theType := "int64_t"
+}
+if (type = keyWordArrayDefinition)
+{
+    theType := "std::vector<void>"
+}
+if (type = keyWordArrayOfIntegersDefinition)
+{
+    theType := "std::vector<int>"
+}
+if (type = keyWordArrayOfStringsDefinition)
+{
+    theType := "std::vector<std::string>"
+}
+if (type = keyWordArrayOfFloatingPointNumbersDefinition)
+{
+    theType := "std::vector<float>"
+}
+if (type = keyWordArrayOfBooleansDefinition)
+{
+    theType := "std::vector<bool>"
+}
+
+}
+if (langToConvertTo = "py")
+{
+    theType := ""
+}
+if (langToConvertTo = "js")
+{
+    theType := ""
+}
+if (langToConvertTo = "go")
+{
+if (type = keyWordVoid)
+{
+    theType := ""
+}
+if (type = keyWordDouble)
+{
+    theType := "float64"
+}
+if (type = keyWordChar)
+{
+    theType := "byte"
+}
+if (type = keyWordUint8)
+{
+    theType := "uint8"
+}
+if (type = keyWordUint16)
+{
+    theType := "uint16"
+}
+if (type = keyWordUint32)
+{
+    theType := "uint32"
+}
+if (type = keyWordUint64)
+{
+    theType := "uint64"
+}
+if (type = keyWordINT)
+{
+    theType := "int"
+}
+if (type = keyWordSTR)
+{
+    theType := "string"
+}
+if (type = keyWordBOOL)
+{
+    theType := "bool"
+}
+if (type = keyWordFLOAT)
+{
+    theType := "float32"
+}
+if (type = keyWordINT8)
+{
+    theType := "int8"
+}
+if (type = keyWordINT16)
+{
+    theType := "int16"
+}
+if (type = keyWordINT32)
+{
+    theType := "int32"
+}
+if (type = keyWordINT64)
+{
+    theType := "int64"
+}
+if (type = keyWordArrayDefinition)
+{
+    theType := "[]string"
+}
+if (type = keyWordArrayOfIntegersDefinition)
+{
+    theType := "[]int"
+}
+if (type = keyWordArrayOfStringsDefinition)
+{
+    theType := "[]string"
+}
+if (type = keyWordArrayOfFloatingPointNumbersDefinition)
+{
+    theType := "[]float32"
+}
+if (type = keyWordArrayOfBooleansDefinition)
+{
+    theType := "[]bool"
+}
+
+}
+if (langToConvertTo = "lua")
+{
+    theType := ""
+}
+if (langToConvertTo = "cs")
+{
+if (type = keyWordVoid)
+{
+    theType := "void"
+}
+if (type = keyWordDouble)
+{
+    theType := "double"
+}
+if (type = keyWordChar)
+{
+    theType := "char"
+}
+if (type = keyWordUint8)
+{
+    theType := "byte"
+}
+if (type = keyWordUint16)
+{
+    theType := "ushort"
+}
+if (type = keyWordUint32)
+{
+    theType := "uint"
+}
+if (type = keyWordUint64)
+{
+    theType := "ulong"
+}
+if (type = keyWordINT)
+{
+    theType := "int"
+}
+if (type = keyWordSTR)
+{
+    theType := "string"
+}
+if (type = keyWordBOOL)
+{
+    theType := "bool"
+}
+if (type = keyWordFLOAT)
+{
+    theType := "float"
+}
+if (type = keyWordINT8)
+{
+    theType := "sbyte"
+}
+if (type = keyWordINT16)
+{
+    theType := "short"
+}
+if (type = keyWordINT32)
+{
+    theType := "int"
+}
+if (type = keyWordINT64)
+{
+    theType := "long"
+}
+if (type = keyWordArrayDefinition)
+{
+    theType := "List<string>"
+}
+if (type = keyWordArrayOfIntegersDefinition)
+{
+    theType := "List<int>"
+}
+if (type = keyWordArrayOfStringsDefinition)
+{
+    theType := "List<string>"
+}
+if (type = keyWordArrayOfFloatingPointNumbersDefinition)
+{
+    theType := "List<float>"
+}
+if (type = keyWordArrayOfBooleansDefinition)
+{
+    theType := "List<bool>"
+}
+
+}
+if (langToConvertTo = "java")
+{
+if (type = keyWordVoid)
+{
+    theType := "void"
+}
+if (type = keyWordDouble)
+{
+    theType := "double"
+}
+if (type = keyWordChar)
+{
+    theType := "char"
+}
+if (type = keyWordUint8)
+{
+    theType := "byte "
+}
+if (type = keyWordUint16)
+{
+    theType := "short"
+}
+if (type = keyWordUint32)
+{
+    theType := "int"
+}
+if (type = keyWordUint64)
+{
+    theType := "long"
+}
+if (type = keyWordINT)
+{
+    theType := "int"
+}
+if (type = keyWordSTR)
+{
+    theType := "String"
+}
+if (type = keyWordBOOL)
+{
+    theType := "boolean"
+}
+if (type = keyWordFLOAT)
+{
+    theType := "float"
+}
+if (type = keyWordINT8)
+{
+    theType := "byte"
+}
+if (type = keyWordINT16)
+{
+    theType := "short"
+}
+if (type = keyWordINT32)
+{
+    theType := "int"
+}
+if (type = keyWordINT64)
+{
+    theType := "long"
+}
+if (type = keyWordArrayDefinition)
+{
+    theType := "ArrayList<String>"
+}
+if (type = keyWordArrayOfIntegersDefinition)
+{
+    theType := "ArrayList<Integer>"
+}
+if (type = keyWordArrayOfStringsDefinition)
+{
+    theType := "ArrayList<String>"
+}
+if (type = keyWordArrayOfFloatingPointNumbersDefinition)
+{
+    theType := "ArrayList<Float>"
+}
+if (type = keyWordArrayOfBooleansDefinition)
+{
+    theType := "ArrayList<Boolean>"
+}
+
+}
+if (langToConvertTo = "kt")
+{
+if (type = keyWordVoid)
+{
+    theType := ""
+}
+if (type = keyWordDouble)
+{
+    theType := "Double"
+}
+if (type = keyWordChar)
+{
+    theType := "Char"
+}
+if (type = keyWordUint8)
+{
+    theType := "UByte"
+}
+if (type = keyWordUint16)
+{
+    theType := "UShort"
+}
+if (type = keyWordUint32)
+{
+    theType := "UInt"
+}
+if (type = keyWordUint64)
+{
+    theType := "ULong"
+}
+if (type = keyWordINT)
+{
+    theType := "Int"
+}
+if (type = keyWordSTR)
+{
+    theType := "String"
+}
+if (type = keyWordBOOL)
+{
+    theType := "Boolean"
+}
+if (type = keyWordFLOAT)
+{
+    theType := "Float"
+}
+if (type = keyWordINT8)
+{
+    theType := "Byte"
+}
+if (type = keyWordINT16)
+{
+    theType := "Short"
+}
+if (type = keyWordINT32)
+{
+    theType := "Int"
+}
+if (type = keyWordINT64)
+{
+    theType := "Long"
+}
+if (type = keyWordArrayDefinition)
+{
+    theType := "Array<String>"
+}
+if (type = keyWordArrayOfIntegersDefinition)
+{
+    theType := "Array<Int>"
+}
+if (type = keyWordArrayOfStringsDefinition)
+{
+    theType := "Array<String>"
+}
+if (type = keyWordArrayOfFloatingPointNumbersDefinition)
+{
+    theType := "Array<Float>"
+}
+if (type = keyWordArrayOfBooleansDefinition)
+{
+    theType := "Array<Boolean>"
+}
+
+}
+if (langToConvertTo = "rb")
+{
+    theType := ""
+}
+if (langToConvertTo = "nim")
+{
+if (type = keyWordVoid)
+{
+    theType := ""
+}
+if (type = keyWordDouble)
+{
+    theType := "float"
+}
+if (type = keyWordChar)
+{
+    theType := "char"
+}
+if (type = keyWordUint8)
+{
+    theType := "uint8"
+}
+if (type = keyWordUint16)
+{
+    theType := "uint16"
+}
+if (type = keyWordUint32)
+{
+    theType := "uint32"
+}
+if (type = keyWordUint64)
+{
+    theType := "uint64"
+}
+if (type = keyWordINT)
+{
+    theType := "int"
+}
+if (type = keyWordSTR)
+{
+    theType := "string"
+}
+if (type = keyWordBOOL)
+{
+    theType := "bool"
+}
+if (type = keyWordFLOAT)
+{
+    theType := "float"
+}
+if (type = keyWordINT8)
+{
+    theType := "int8"
+}
+if (type = keyWordINT16)
+{
+    theType := "int16"
+}
+if (type = keyWordINT32)
+{
+    theType := "int32"
+}
+if (type = keyWordINT64)
+{
+    theType := "int64"
+}
+if (type = keyWordArrayDefinition)
+{
+    theType := "seq[string]"
+}
+if (type = keyWordArrayOfIntegersDefinition)
+{
+    theType := "seq[int]"
+}
+if (type = keyWordArrayOfStringsDefinition)
+{
+    theType := "seq[string]"
+}
+if (type = keyWordArrayOfFloatingPointNumbersDefinition)
+{
+    theType := "seq[float64]"
+}
+if (type = keyWordArrayOfBooleansDefinition)
+{
+    theType := "seq[bool]"
+}
+
+}
+if (langToConvertTo = "ahk")
+{
+    theType := ""
+}
+if (langToConvertTo = "swift")
+{
+if (type = keyWordVoid)
+{
+    theType := ""
+}
+if (type = keyWordDouble)
+{
+    theType := "Double"
+}
+if (type = keyWordChar)
+{
+    theType := "Character"
+}
+if (type = keyWordUint8)
+{
+    theType := "UInt8"
+}
+if (type = keyWordUint16)
+{
+    theType := "UInt16"
+}
+if (type = keyWordUint32)
+{
+    theType := "UInt32"
+}
+if (type = keyWordUint64)
+{
+    theType := "UInt64"
+}
+if (type = keyWordINT)
+{
+    theType := "Int"
+}
+if (type = keyWordSTR)
+{
+    theType := "String"
+}
+if (type = keyWordBOOL)
+{
+    theType := "Bool"
+}
+if (type = keyWordFLOAT)
+{
+    theType := "Float"
+}
+if (type = keyWordINT8)
+{
+    theType := "Int8"
+}
+if (type = keyWordINT16)
+{
+    theType := "Int16"
+}
+if (type = keyWordINT32)
+{
+    theType := "Int32"
+}
+if (type = keyWordINT64)
+{
+    theType := "Int64"
+}
+if (type = keyWordArrayDefinition)
+{
+    theType := "[String]"
+}
+if (type = keyWordArrayOfIntegersDefinition)
+{
+    theType := "[Int]"
+}
+if (type = keyWordArrayOfStringsDefinition)
+{
+    theType := "[String]"
+}
+if (type = keyWordArrayOfFloatingPointNumbersDefinition)
+{
+    theType := "[Float]"
+}
+if (type = keyWordArrayOfBooleansDefinition)
+{
+    theType := "[Bool]"
+}
+
+}
+if (langToConvertTo = "dart")
+{
+if (type = keyWordVoid)
+{
+    theType := "void"
+}
+if (type = keyWordDouble)
+{
+    theType := "double"
+}
+if (type = keyWordChar)
+{
+    theType := "String"
+}
+if (type = keyWordUint8)
+{
+    theType := "int"
+}
+if (type = keyWordUint16)
+{
+    theType := "int"
+}
+if (type = keyWordUint32)
+{
+    theType := "int"
+}
+if (type = keyWordUint64)
+{
+    theType := "int"
+}
+if (type = keyWordINT)
+{
+    theType := "int"
+}
+if (type = keyWordSTR)
+{
+    theType := "String"
+}
+if (type = keyWordBOOL)
+{
+    theType := "bool"
+}
+if (type = keyWordFLOAT)
+{
+    theType := "double"
+}
+if (type = keyWordINT8)
+{
+    theType := "int"
+}
+if (type = keyWordINT16)
+{
+    theType := "int"
+}
+if (type = keyWordINT32)
+{
+    theType := "int"
+}
+if (type = keyWordINT64)
+{
+    theType := "int"
+}
+if (type = keyWordArrayDefinition)
+{
+    theType := "List<String>"
+}
+if (type = keyWordArrayOfIntegersDefinition)
+{
+    theType := "List<int>"
+}
+if (type = keyWordArrayOfStringsDefinition)
+{
+    theType := "List<String>"
+}
+if (type = keyWordArrayOfFloatingPointNumbersDefinition)
+{
+    theType := "List<double>"
+}
+if (type = keyWordArrayOfBooleansDefinition)
+{
+    theType := "List<bool>"
+}
+
+}
+if (langToConvertTo = "ts")
+{
+if (type = keyWordVoid)
+{
+    theType := "void"
+}
+if (type = keyWordDouble)
+{
+    theType := "number"
+}
+if (type = keyWordChar)
+{
+    theType := "string"
+}
+if (type = keyWordUint8)
+{
+    theType := "number"
+}
+if (type = keyWordUint16)
+{
+    theType := "number"
+}
+if (type = keyWordUint32)
+{
+    theType := "number"
+}
+if (type = keyWordUint64)
+{
+    theType := "bigint"
+}
+if (type = keyWordINT)
+{
+    theType := "number"
+}
+if (type = keyWordSTR)
+{
+    theType := "string"
+}
+if (type = keyWordBOOL)
+{
+    theType := "boolean"
+}
+if (type = keyWordFLOAT)
+{
+    theType := "number"
+}
+if (type = keyWordINT8)
+{
+    theType := "number"
+}
+if (type = keyWordINT16)
+{
+    theType := "number"
+}
+if (type = keyWordINT32)
+{
+    theType := "number"
+}
+if (type = keyWordINT64)
+{
+    theType := "bigint"
+}
+if (type = keyWordArrayDefinition)
+{
+    theType := "string[]"
+}
+if (type = keyWordArrayOfIntegersDefinition)
+{
+    theType := "number[]"
+}
+if (type = keyWordArrayOfStringsDefinition)
+{
+    theType := "string[]"
+}
+if (type = keyWordArrayOfFloatingPointNumbersDefinition)
+{
+    theType := "number[]"
+}
+if (type = keyWordArrayOfBooleansDefinition)
+{
+    theType := "boolean[]"
+}
+
+}
+if (langToConvertTo = "groovy")
+{
+    theType := ""
+}
+if (langToConvertTo = langFileExtension_2) 
+{
+
+; keyWordVoid
+; keyWordDouble
+; keyWordChar
+; keyWordUint8
+; keyWordUint16
+; keyWordUint32
+; keyWordUint64
+; keyWordINT
+; keyWordSTR
+; keyWordBOOL
+; keyWordFLOAT
+; keyWordINT8
+; keyWordINT16
+; keyWordINT32
+; keyWordINT64
+; keyWordArrayDefinition
+; keyWordArrayOfIntegersDefinition
+; keyWordArrayOfStringsDefinition
+; keyWordArrayOfFloatingPointNumbersDefinition
+; keyWordArrayOfBooleansDefinition
+
+if (type = keyWordVoid)
+{
+    theType := keyWordVoid_2
+}
+if (type = keyWordDouble)
+{
+    theType := keyWordDouble_2
+}
+if (type = keyWordChar)
+{
+    theType := keyWordChar_2
+}
+if (type = keyWordUint8)
+{
+    theType := keyWordUint8_2
+}
+if (type = keyWordUint16)
+{
+    theType := keyWordUint16_2
+}
+if (type = keyWordUint32)
+{
+    theType := keyWordUint32_2
+}
+if (type = keyWordUint64)
+{
+    theType := keyWordUint64_2
+}
+if (type = keyWordINT)
+{
+    theType := keyWordINT_2
+}
+if (type = keyWordSTR)
+{
+    theType := keyWordSTR_2
+}
+if (type = keyWordBOOL)
+{
+    theType := keyWordBOOL_2
+}
+if (type = keyWordFLOAT)
+{
+    theType := keyWordFLOAT_2
+}
+if (type = keyWordINT8)
+{
+    theType := keyWordINT8_2
+}
+if (type = keyWordINT16)
+{
+    theType := keyWordINT16_2
+}
+if (type = keyWordINT32)
+{
+    theType := keyWordINT32_2
+}
+if (type = keyWordINT64)
+{
+    theType := keyWordINT64_2
+}
+if (type = keyWordArrayDefinition)
+{
+    theType := keyWordArrayDefinition_2
+}
+if (type = keyWordArrayOfIntegersDefinition)
+{
+    theType := keyWordArrayOfIntegersDefinition_2
+}
+if (type = keyWordArrayOfStringsDefinition)
+{
+    theType := keyWordArrayOfStringsDefinition_2
+}
+if (type = keyWordArrayOfFloatingPointNumbersDefinition)
+{
+    theType := keyWordArrayOfFloatingPointNumbersDefinition_2
+}
+if (type = keyWordArrayOfBooleansDefinition)
+{
+    theType := keyWordArrayOfBooleansDefinition_2
+}
+
+
+}
+
+return theType
+}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -7632,6 +8526,140 @@ else
 htCode .= str2 . "`n"
 }
 }
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordGlobal))) = StrLower(keyWordGlobal))
+{
+str1 := StringTrimLeft(A_LoopField, StrLen(keyWordGlobal))
+;MsgBox, % A_LoopField
+str1 := StrReplace(str1, ";", "")
+lineDone := 1
+if (langToConvertTo = "py") or (langToConvertTo = "ahk")
+{
+str2 := "global " . str1
+}
+else
+{
+str2 := ""
+}
+
+htCode .= str2 . "`n"
+}
+else if (A_LoopField = "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc")
+{
+lineDone := 1
+htCode .= A_LoopField . Chr(10)
+}
+else if (A_LoopField = "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc")
+{
+lineDone := 1
+htCode .= A_LoopField . Chr(10)
+}
+else if (A_LoopField = "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc")
+{
+lineDone := 1
+htCode .= A_LoopField . Chr(10)
+}
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(keyWordFunc)) = keyWordFunc) or (SubStr(StrLower(A_LoopField), 1, StrLen(keyWordAsync . keyWordFunc)) = keyWordAsync . keyWordFunc)
+{
+lineDone := 1
+
+if (SubStr(StrLower(A_LoopField), 1, StrLen(keyWordAsync . keyWordFunc)) = keyWordAsync . keyWordFunc)
+{
+; is async
+int1 := 1
+str1 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordAsync . keyWordFunc)))
+}
+else
+{
+; is async
+int1 := 0
+str1 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordFunc)))
+}
+
+
+if (usePrefixTypeForTypeDefinition = "on")
+{
+
+str2 := Trim(StrSplit(str1, "(", 1))
+
+; func body 
+str1 := Trim(StringTrimLeft(str1, StrLen(str2)))
+StringTrimRight, str1, str1, 1
+
+; type of the func
+str3 := Trim(StringTrimRight(str2, StrLen(StrSplit(str2, " ", countChars(str2, " ") + 1))))
+
+; name of func
+str2 := Trim(StrSplit(str2, " ", countChars(str2, " ") + 1))
+}
+if (usePostfixTypeForTypeDefinition = "on")
+{
+; name of func
+str2 := Trim(StrSplit(str1, "(", 1))
+
+; func body 
+str1 := Trim(StringTrimLeft(str1, StrLen(str2)))
+
+; type of the func
+str3 := Trim(StrSplit(str1, ")", countChars(str1, ")") + 1))
+StringTrimLeft, str3, str3, 1
+
+str1 := Trim(StringTrimRight(str1, StrLen(str3) + 2))
+
+}
+StringTrimLeft, str1, str1, 1
+
+if (Trim(str1) = "")
+{
+if (langToConvertTo = langFileExtension_2)
+{
+
+if (int1 = 1)
+{
+
+if (usePrefixTypeForTypeDefinition = "on")
+{
+htCode .= keyWordAsync . keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
+}
+else
+{
+htCode .= keyWordAsync . keyWordFunc . str2 . "():" . getFuncTypeConvert(str3) . Chr(10)
+}
+}
+else
+{
+if (usePrefixTypeForTypeDefinition = "on")
+{
+htCode .= keyWordAsync . keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
+}
+else
+{
+htCode .= keyWordAsync . keyWordFunc . str2 . "():" . getFuncTypeConvert(str3) . Chr(10)
+}
+}
+}
+}
+else
+{
+Loop, Parse, str1, `,
+{
+print("|" . Trim(A_LoopField) . "|")
+}
+
+}
+
+
+
+print("func func func func func func func func func func func func func func func func ")
+print(str1)
+print(str2)
+print(str3)
+print("func func func func func func func func func func func func func func func func ")
+
+; keyWordFunc
+; keyWordAsync
+
+htCode .= A_LoopField . Chr(10)
+}
 else if ((SubStr(Trim(A_LoopField), -2) = ");") or (SubStr(Trim(A_LoopField), -1) = ")")) and (!(InStr(A_LoopField, "int main(int argc, char* argv[])"))) and (!(InStr(A_LoopField, "async function main()"))) and (lineDone = 0)
 {
 lineDone := 1
@@ -7677,39 +8705,6 @@ StringTrimRight, str2, str2, 1
 }
 fixExpertionLineFuncOnly := 0
 htCode .= str2 . "`n"
-}
-else if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordGlobal))) = StrLower(keyWordGlobal))
-{
-str1 := StringTrimLeft(A_LoopField, StrLen(keyWordGlobal))
-;MsgBox, % A_LoopField
-str1 := StrReplace(str1, ";", "")
-lineDone := 1
-if (langToConvertTo = "py") or (langToConvertTo = "ahk")
-{
-str2 := "global " . str1
-}
-else
-{
-str2 := ""
-}
-
-htCode .= str2 . "`n"
-}
-else if (A_LoopField = "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc")
-{
-htCode .= A_LoopField . Chr(10)
-}
-else if (A_LoopField = "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc")
-{
-htCode .= A_LoopField . Chr(10)
-}
-else if (A_LoopField = "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc")
-{
-htCode .= A_LoopField . Chr(10)
-}
-else if (A_LoopField = "sdghbuheaq8ehgfuowhPSAVBYOFXDSAWHPDIVHXDBOAUHIPXVBOAUHFXDPVOYaushdpzuoyvsdhpxuoazdsfpc")
-{
-htCode .= A_LoopField . Chr(10)
 }
 else if (KeyWordsCommands(A_LoopField, "check", commands, langToConvertTo) = "true") and (lineDone = 0)
 {
