@@ -1,7 +1,19 @@
-if (langToConvertTo = "cpp") {
-    if (int1 = 1)  ; int1 1 = is async 0 = not async {
-        htCode .= keyWordAsync . keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
+if (skipLeftCuleyForFuncPLS != 1) {
+    if (SubStr(Trim(StrLower(A_LoopField)), 1, 1) = Chr(125)) {
+        htCode .= Chr(125) . "`n"
     } else {
-        htCode .= keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
+        if (htCodeAcurlyBraceAddSomeVrasFixLP = 1) and (SubStr(Trim(StrLower(A_LoopField)), 1, 1) = Chr(123)) {
+            htCodeAcurlyBraceAddSomeVrasFixLP := 0
+            htCode .= A_LoopField . "`n" . theFixTextLoopLP . "`n"
+        } else {
+            if (htCodeAcurlyBraceAddSomeVrasFixNL = 1) and (SubStr(Trim(StrLower(A_LoopField)), 1, 1) = Chr(123)) {
+                htCodeAcurlyBraceAddSomeVrasFixNL := 0
+                htCode .= A_LoopField . "`n" . theFixTextLoopNL . "`n"
+            } else {
+                htCode .= A_LoopField . "`n"
+            }
+        }
     }
+} else {
+    skipLeftCuleyForFuncPLS := 0
 }

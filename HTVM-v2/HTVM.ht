@@ -3216,6 +3216,33 @@ if (type = keyWordArrayOfBooleansDefinition)
 return theType
 }
 
+func str getTheLastWord(str line)
+{
+
+if (InStr(Trim(line), " ") = false)
+{
+return line
+}
+
+int outNum := 0
+Loop, Parse, line, " "
+{
+outNum++
+}
+
+Loop, Parse, line, " "
+{
+if (outNum = A_Index + 1)
+{
+return A_LoopField
+}
+}
+
+
+return line
+}
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -8734,9 +8761,120 @@ if (langToConvertTo = "groovy")
 
 
 } else {
-    Loop, Parse, str1, `, {
-        print("|" . Trim(A_LoopField) . "|")
-    }
+
+
+
+str1 := ""
+str2 := ""
+str3 := ""
+str4 := ""
+str5 := ""
+str6 := ""
+str7 := ""
+str8 := ""
+str9 := ""
+str10 := ""
+Loop, Parse, str1, `,
+{
+print("|" . Trim(A_LoopField) . "|")
+if (InStr(Trim(A_LoopField), " "))
+{
+; there is space aka there is a type
+if (InStr(A_LoopField, " " . Trim(keyWordAssign) . " ") = false)
+{
+
+if (usePrefixTypeForTypeDefinition = "on") 
+{
+; normal
+str6 := Trim(A_LoopField)
+str7 := getTheLastWord(str6)
+str8 := getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)))
+; str5 .= str8 . " " . str7 . Chr(10)
+}
+else
+{
+; not normal
+str6 := Trim(A_LoopField)
+str7 := Trim(StrSplit(str6, ":", 2))
+str8 := getFuncTypeConvert(Trim(StrSplit(str6, ":", 1)))
+; str5 .= str7 . " :" . str8 . Chr(10)
+}
+
+
+}
+else
+{
+; optanal param
+if (InStr(Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 1)), " "))
+{
+; there is a type
+str6 := Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 1))
+str9 := Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 2))))
+
+str7 := getTheLastWord(str6)
+
+str8 := getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)))
+
+
+
+if (usePrefixTypeForTypeDefinition = "on") 
+{
+; normal
+str6 := Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 1))
+str9 := Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 2))))
+
+str7 := getTheLastWord(str6)
+
+str8 := getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)))
+
+
+; str10
+
+; skipLeftCuleyForFuncPLS := 1
+}
+else
+{
+; not normal
+
+str6 := Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 1))
+str9 := Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 2))))
+
+str7 := Trim(StrSplit(str6, ":", 2))
+str8 := getFuncTypeConvert(Trim(StrSplit(str6, ":", 1)))
+
+
+; str10
+
+; skipLeftCuleyForFuncPLS := 1
+}
+
+
+
+}
+else
+{
+; there is no type
+str8 := Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 1))
+str9 := Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 2))))
+
+; str10
+; skipLeftCuleyForFuncPLS := 1
+
+
+}
+}
+}
+else
+{
+str5 .= Trim(A_LoopField) . Chr(10)
+}
+}
+
+StringTrimRight, str5, str5, 1
+
+
+
+
 
 
 
