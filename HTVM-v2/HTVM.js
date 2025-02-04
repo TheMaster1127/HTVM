@@ -7151,26 +7151,96 @@ async function compiler(htCode, allInstructionFile, mode, langToConvertToParam =
                         if (InStr(Trim(A_LoopField96), " ")) {
                             // there is space aka there is a type
                             if (InStr(A_LoopField96, " " + Trim(keyWordAssign) + " ") == false) {
-                                str6 = Trim(A_LoopField96);
-                                str7 = getTheLastWord(str6);
-                                str8 = getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)));
-                                // str5 .= str8 . " " . str7 . Chr(10)
+                                if (usePrefixTypeForTypeDefinition == "on") {
+                                    // normal
+                                    str6 = Trim(A_LoopField96);
+                                    str7 = getTheLastWord(str6);
+                                    str8 = getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)));
+                                    // str5 .= str8 . " " . str7 . Chr(10)
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    // save to str5
+                                    // str8 = the type
+                                    // str7 = variable name
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                } else {
+                                    // not normal
+                                    str6 = Trim(A_LoopField96);
+                                    str7 = Trim(StrSplit(str6, ":", 2));
+                                    str8 = getFuncTypeConvert(Trim(StrSplit(str6, ":", 1)));
+                                    // str5 .= str7 . " :" . str8 . Chr(10)
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    // save to str5
+                                    // str8 = the type
+                                    // str7 = variable name
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                }
                             } else {
                                 // optanal param
                                 if (InStr(Trim(StrSplit(Trim(A_LoopField96), " " + Trim(keyWordAssign) + " ", 1)), " ")) {
                                     // there is a type
-                                    str6 = Trim(StrSplit(Trim(A_LoopField96), " " + Trim(keyWordAssign) + " ", 1));
-                                    str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField96), " " + Trim(keyWordAssign) + " ", 2))));
-                                    str7 = getTheLastWord(str6);
-                                    str8 = getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)));
-                                    // str10
-                                    // skipLeftCuleyForFuncPLS := 1
+                                    if (usePrefixTypeForTypeDefinition == "on") {
+                                        // normal
+                                        str6 = Trim(StrSplit(Trim(A_LoopField96), " " + Trim(keyWordAssign) + " ", 1));
+                                        str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField96), " " + Trim(keyWordAssign) + " ", 2))));
+                                        str7 = getTheLastWord(str6);
+                                        str8 = getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)));
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        //;;;;;;;;;;;;;;;; optanal param ;;;;;;;;;;;;;;;;;
+                                        // save to str10
+                                        // str8 = the type
+                                        // str7 = variable name
+                                        // str9 = after the keyWordAssign
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        // str10
+                                        // skipLeftCuleyForFuncPLS := 1
+                                    } else {
+                                        // not normal
+                                        str6 = Trim(StrSplit(Trim(A_LoopField96), " " + Trim(keyWordAssign) + " ", 1));
+                                        str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField96), " " + Trim(keyWordAssign) + " ", 2))));
+                                        str7 = Trim(StrSplit(str6, ":", 2));
+                                        str8 = getFuncTypeConvert(Trim(StrSplit(str6, ":", 1)));
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        //;;;;;;;;;;;;;;;; optanal param ;;;;;;;;;;;;;;;;;
+                                        // save to str10
+                                        // str8 = the type
+                                        // str7 = variable name
+                                        // str9 = after the keyWordAssign
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        // str10
+                                        // skipLeftCuleyForFuncPLS := 1
+                                    }
                                 } else {
                                     // there is no type
                                     str8 = Trim(StrSplit(Trim(A_LoopField96), " " + Trim(keyWordAssign) + " ", 1));
                                     str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField96), " " + Trim(keyWordAssign) + " ", 2))));
-                                    str7 = str8;
                                     // str10
+                                    // skipLeftCuleyForFuncPLS := 1
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;; optanal param ;;;;;;;;;;;;;;;;;
+                                    // save to str10
+                                    // str8 = variable name
+                                    // str9 = after the keyWordAssign
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                 }
                             }
                         } else {

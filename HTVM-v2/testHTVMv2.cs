@@ -21,15 +21,24 @@ class Program
 static string szdfxc0() {
     return "hi";
 }
-static void szdfxc() {
+static void szdfxc(string var1 = "hi") {
+    print(var1);
+    print("hi2 void");
+}
+static void szdfxc1(int var0, string var1 = "hi", string var2 = "hi2") {
+    print(var0);
+    print(var1);
+    print(var2);
     print("hi2 void");
 }
 static void Main(string[] args) {
     print(szdfxc0());
     szdfxc();
+    szdfxc1(5);
+    szdfxc1(6, "hello");
     print("Hello, World!");
     for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
         print(A_Index1);
     }
-    }
+}
 }

@@ -97,3 +97,10 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile841019.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile841019.js
 C:\Users\The_M\OneDrive\Desktop\temp Projects\playWhitAIjs\mainAI.js
+C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_makeTrainingData.py
+C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_getTrainingData.py
+C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_saveHeatMap.py
+C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_seeHeatMap.py
+C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_train.py
+C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_RUN.py
+C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\imageToTxt.py

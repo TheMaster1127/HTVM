@@ -38,12 +38,21 @@ void print(const T& value) {
 std::string szdfxc0() {
     return "hi";
 }
-void szdfxc() {
+void szdfxc(std::string var1 = "hi") {
+    print(var1);
+    print("hi2 void");
+}
+void szdfxc1(int var0, std::string var1 = "hi", std::string var2 = "hi2") {
+    print(var0);
+    print(var1);
+    print(var2);
     print("hi2 void");
 }
 int main(int argc, char* argv[]) {
     print(szdfxc0());
     szdfxc();
+    szdfxc1(5);
+    szdfxc1(6, "hello");
     print("Hello, World!");
     for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
         print(A_Index1);

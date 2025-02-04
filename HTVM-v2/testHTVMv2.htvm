@@ -4,13 +4,25 @@ async func szdfxc0(): str
 return "hi"
 )
 
-func szdfxc(): void (
+func szdfxc(var1: str := "hi"): void (
+print(var1)
 print("hi2 void")
 )
+
+
+func szdfxc1(var0: int, var1: str := "hi", var2: str := "hi2"): void (
+print(var0)
+print(var1)
+print(var2)
+print("hi2 void")
+)
+
 
 main
 print(szdfxc0())
 szdfxc()
+szdfxc1(5)
+szdfxc1(6, "hello")
 
 print("Hello, World!")
 

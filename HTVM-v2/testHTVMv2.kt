@@ -14,12 +14,21 @@ fun print(value: Any) {
 fun szdfxc0(): String {
     return "hi"
 }
-fun szdfxc() {
+fun szdfxc(var1: String = "hi") {
+    print(var1)
+    print("hi2 void")
+}
+fun szdfxc1(var0: Int, var1: String = "hi", var2: String = "hi2") {
+    print(var0)
+    print(var1)
+    print(var2)
     print("hi2 void")
 }
 fun main(args: Array<String>) {
     print(szdfxc0())
     szdfxc()
+    szdfxc1(5)
+    szdfxc1(6, "hello")
     print("Hello, World!")
     for (A_Index1 in 0..5 + 0) {
         print(A_Index1)
