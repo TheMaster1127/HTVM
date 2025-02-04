@@ -27,11 +27,32 @@ function szdfxc1(var0: number, var1: string = "hi", var2: string = "hi2"): void 
     print(var2);
     print("hi2 void");
 }
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+/*
+waedsfdsaeds
+aedsf
+saedsfxawdsfdfsaw
+fddf
+sefdf
+saersdsaersdgfd
+*/
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+function szdfxc2(var1: string = "hi", var2: string = "hi2"): void {
+    print(var1);
+    print(var2);
+    print("hi2 void");
+}
 async function main(): Promise<void> {
     print(szdfxc0());
     szdfxc();
     szdfxc1(5);
     szdfxc1(6, "hello");
+    szdfxc2();
+    szdfxc2("HI1");
+    szdfxc2("HI1", "HI2");
     print("Hello, World!");
     for (let A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
         print(A_Index1);

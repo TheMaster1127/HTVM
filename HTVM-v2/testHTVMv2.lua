@@ -19,10 +19,33 @@ function szdfxc1(var0, var1, var2)
     print(var2)
     print("hi2 void")
 end
+--;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+--;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+--;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+--[[
+waedsfdsaeds
+aedsf
+saedsfxawdsfdfsaw
+fddf
+sefdf
+saersdsaersdgfd
+]]
+--;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+--;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+function szdfxc2(var1, var2)
+    var1 = var1 or "hi"
+    var2 = var2 or "hi2"
+    print(var1)
+    print(var2)
+    print("hi2 void")
+end
 print(szdfxc0())
 szdfxc()
 szdfxc1(5)
 szdfxc1(6, "hello")
+szdfxc2()
+szdfxc2("HI1")
+szdfxc2("HI1", "HI2")
 print("Hello, World!")
 for A_Index1 = 0, 5 + 0 do
     print(A_Index1)

@@ -7465,6 +7465,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                         }
                                         if (langToConvertTo == "java") {
                                             str10 += str8 + " " + str7 + " = " + str9 + Chr(10);
+                                            skipLeftCuleyForFuncPLS = 1;
                                         }
                                         if (langToConvertTo == "kt") {
                                             str10 += str7 + ": " + str8 + " = " + str9 + Chr(10);
@@ -7538,6 +7539,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                         }
                                         if (langToConvertTo == "java") {
                                             str10 += str8 + " " + str7 + " = " + str9 + Chr(10);
+                                            skipLeftCuleyForFuncPLS = 1;
                                         }
                                         if (langToConvertTo == "kt") {
                                             str10 += str7 + ": " + str8 + " = " + str9 + Chr(10);
@@ -7676,57 +7678,95 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             }
                             str12 = str14;
                         }
+                        if (langToConvertTo == "java") {
+                            str14 = "Object... __HTVM_V2_TO_JAVA_optionalParams__";
+                            str13 += "{" + Chr(10);
+                            std::vector<std::string> items102 = LoopParseFunc(str12, ",");
+                            for (size_t A_Index102 = 0; A_Index102 < items102.size() + 0; A_Index102++) {
+                                std::string A_LoopField102 = items102[A_Index102 - 0];
+                                str13 += Trim(A_LoopField102) + ";" + Chr(10);
+                            }
+                            std::vector<std::string> items103 = LoopParseFunc(str12, ",");
+                            for (size_t A_Index103 = 0; A_Index103 < items103.size() + 0; A_Index103++) {
+                                std::string A_LoopField103 = items103[A_Index103 - 0];
+                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField103), " = ", 1)), " ", 2));
+                                str17 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField103), " = ", 1)), " ", 1));
+                                // str16 = var name
+                                // str17 = type name
+                                str13 += "if (__HTVM_V2_TO_JAVA_optionalParams__.length " + Chr(62) + " " + STR(A_Index103) + ") " + str16 + " = (" + str17 + ") __HTVM_V2_TO_JAVA_optionalParams__[" + STR(A_Index103) + "];" + Chr(10);
+                            }
+                            str12 = str14;
+                        }
                         str11 += str12;
                     }
                     if (Trim(str5) != "" && Trim(str10) == "") {
-                        std::vector<std::string> items102 = LoopParseFunc(str5, "\n", "\r");
-                        for (size_t A_Index102 = 0; A_Index102 < items102.size() + 0; A_Index102++) {
-                            std::string A_LoopField102 = items102[A_Index102 - 0];
-                            str11 += A_LoopField102 + ", ";
+                        std::vector<std::string> items104 = LoopParseFunc(str5, "\n", "\r");
+                        for (size_t A_Index104 = 0; A_Index104 < items104.size() + 0; A_Index104++) {
+                            std::string A_LoopField104 = items104[A_Index104 - 0];
+                            str11 += A_LoopField104 + ", ";
                         }
                         str11 = StringTrimRight(str11, 2);
                     }
                     if (Trim(str5) == "" && Trim(str10) != "") {
-                        std::vector<std::string> items103 = LoopParseFunc(str10, "\n", "\r");
-                        for (size_t A_Index103 = 0; A_Index103 < items103.size() + 0; A_Index103++) {
-                            std::string A_LoopField103 = items103[A_Index103 - 0];
-                            str11 += A_LoopField103 + ", ";
+                        std::vector<std::string> items105 = LoopParseFunc(str10, "\n", "\r");
+                        for (size_t A_Index105 = 0; A_Index105 < items105.size() + 0; A_Index105++) {
+                            std::string A_LoopField105 = items105[A_Index105 - 0];
+                            str11 += A_LoopField105 + ", ";
                         }
                         str11 = StringTrimRight(str11, 2);
                         if (langToConvertTo == "dart") {
                             str11 = "[" + str11 + "]";
                         }
                         if (langToConvertTo == "lua") {
-                            std::vector<std::string> items104 = LoopParseFunc(str11, ",");
-                            for (size_t A_Index104 = 0; A_Index104 < items104.size() + 0; A_Index104++) {
-                                std::string A_LoopField104 = items104[A_Index104 - 0];
-                                str14 += Trim(StrSplit(Trim(A_LoopField104), " = ", 1)) + ", ";
+                            std::vector<std::string> items106 = LoopParseFunc(str11, ",");
+                            for (size_t A_Index106 = 0; A_Index106 < items106.size() + 0; A_Index106++) {
+                                std::string A_LoopField106 = items106[A_Index106 - 0];
+                                str14 += Trim(StrSplit(Trim(A_LoopField106), " = ", 1)) + ", ";
                             }
                             str14 = StringTrimRight(str14, 2);
                             str13 += "{" + Chr(10);
-                            std::vector<std::string> items105 = LoopParseFunc(str11, ",");
-                            for (size_t A_Index105 = 0; A_Index105 < items105.size() + 0; A_Index105++) {
-                                std::string A_LoopField105 = items105[A_Index105 - 0];
-                                str13 += Trim(StrSplit(Trim(A_LoopField105), " = ", 1)) + " = " + Trim(StrSplit(Trim(A_LoopField105), " = ", 1)) + " or " + Trim(StrSplit(Trim(A_LoopField105), " = ", 2)) + Chr(10);
+                            std::vector<std::string> items107 = LoopParseFunc(str11, ",");
+                            for (size_t A_Index107 = 0; A_Index107 < items107.size() + 0; A_Index107++) {
+                                std::string A_LoopField107 = items107[A_Index107 - 0];
+                                str13 += Trim(StrSplit(Trim(A_LoopField107), " = ", 1)) + " = " + Trim(StrSplit(Trim(A_LoopField107), " = ", 1)) + " or " + Trim(StrSplit(Trim(A_LoopField107), " = ", 2)) + Chr(10);
                             }
                             str11 = str14;
                         }
                         if (langToConvertTo == "go") {
                             str14 = "__HTVM_V2_TO_GO_optionalParams__ ...interface{}";
                             str13 += "{" + Chr(10) + "var ";
-                            std::vector<std::string> items106 = LoopParseFunc(str11, ",");
-                            for (size_t A_Index106 = 0; A_Index106 < items106.size() + 0; A_Index106++) {
-                                std::string A_LoopField106 = items106[A_Index106 - 0];
-                                str13 += Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField106), " = ", 1)), " ", 1)) + ", ";
+                            std::vector<std::string> items108 = LoopParseFunc(str11, ",");
+                            for (size_t A_Index108 = 0; A_Index108 < items108.size() + 0; A_Index108++) {
+                                std::string A_LoopField108 = items108[A_Index108 - 0];
+                                str13 += Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField108), " = ", 1)), " ", 1)) + ", ";
                             }
                             str13 = StringTrimRight(str13, 2);
                             str13 += " interface{}" + Chr(10);
-                            std::vector<std::string> items107 = LoopParseFunc(str11, ",");
-                            for (size_t A_Index107 = 0; A_Index107 < items107.size() + 0; A_Index107++) {
-                                std::string A_LoopField107 = items107[A_Index107 - 0];
-                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField107), " = ", 1)), " ", 1));
-                                str17 = Trim(StrSplit(Trim(A_LoopField107), " = ", 2));
-                                str13 += "if len(__HTVM_V2_TO_GO_optionalParams__) " + Chr(62) + " " + STR(A_Index107) + Chr(10) + "{" + Chr(10) + str16 + " = __HTVM_V2_TO_GO_optionalParams__[" + STR(A_Index107) + "]" + Chr(10) + "}" + Chr(10) + "else" + Chr(10) + "{" + Chr(10) + str16 + " = " + str17 + Chr(10) + "}" + Chr(10);
+                            std::vector<std::string> items109 = LoopParseFunc(str11, ",");
+                            for (size_t A_Index109 = 0; A_Index109 < items109.size() + 0; A_Index109++) {
+                                std::string A_LoopField109 = items109[A_Index109 - 0];
+                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField109), " = ", 1)), " ", 1));
+                                str17 = Trim(StrSplit(Trim(A_LoopField109), " = ", 2));
+                                str13 += "if len(__HTVM_V2_TO_GO_optionalParams__) " + Chr(62) + " " + STR(A_Index109) + Chr(10) + "{" + Chr(10) + str16 + " = __HTVM_V2_TO_GO_optionalParams__[" + STR(A_Index109) + "]" + Chr(10) + "}" + Chr(10) + "else" + Chr(10) + "{" + Chr(10) + str16 + " = " + str17 + Chr(10) + "}" + Chr(10);
+                            }
+                            str11 = str14;
+                        }
+                        if (langToConvertTo == "java") {
+                            str14 = "Object... __HTVM_V2_TO_JAVA_optionalParams__";
+                            str13 += "{" + Chr(10);
+                            std::vector<std::string> items110 = LoopParseFunc(str11, ",");
+                            for (size_t A_Index110 = 0; A_Index110 < items110.size() + 0; A_Index110++) {
+                                std::string A_LoopField110 = items110[A_Index110 - 0];
+                                str13 += Trim(A_LoopField110) + ";" + Chr(10);
+                            }
+                            std::vector<std::string> items111 = LoopParseFunc(str11, ",");
+                            for (size_t A_Index111 = 0; A_Index111 < items111.size() + 0; A_Index111++) {
+                                std::string A_LoopField111 = items111[A_Index111 - 0];
+                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField111), " = ", 1)), " ", 2));
+                                str17 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField111), " = ", 1)), " ", 1));
+                                // str16 = var name
+                                // str17 = type name
+                                str13 += "if (__HTVM_V2_TO_JAVA_optionalParams__.length " + Chr(62) + " " + STR(A_Index111) + ") " + str16 + " = (" + str17 + ") __HTVM_V2_TO_JAVA_optionalParams__[" + STR(A_Index111) + "];" + Chr(10);
                             }
                             str11 = str14;
                         }
@@ -7778,7 +7818,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         htCode += "static " + getFuncTypeConvert(str3) + " " + str2 + "(" + str11 + ")" + Chr(10);
                     }
                     if (langToConvertTo == "java") {
-                        htCode += str13 + "public static " + getFuncTypeConvert(str3) + " " + str2 + "(" + str11 + ")" + Chr(10);
+                        htCode += "public static " + getFuncTypeConvert(str3) + " " + str2 + "(" + str11 + ")" + Chr(10) + str13;
                     }
                     if (langToConvertTo == "kt") {
                         if (str3 == keyWordVoid) {
@@ -7891,11 +7931,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 htCodeLoopfixa = StringTrimRight(htCodeLoopfixa, 1);
                 //OutputDebug, |%htCodeLoopfixa%|
                 AIndexLoopCurlyFix = 1;
-                std::vector<std::string> items108 = LoopParseFunc(htCodeLoopfixa, "\n", "\r");
-                for (size_t A_Index108 = 0; A_Index108 < items108.size() + 0; A_Index108++) {
-                    std::string A_LoopField108 = items108[A_Index108 - 0];
-                    sstr123 = A_LoopField108;
-                    fixLoopLokingFor = A_LoopField108;
+                std::vector<std::string> items112 = LoopParseFunc(htCodeLoopfixa, "\n", "\r");
+                for (size_t A_Index112 = 0; A_Index112 < items112.size() + 0; A_Index112++) {
+                    std::string A_LoopField112 = items112[A_Index112 - 0];
+                    sstr123 = A_LoopField112;
+                    fixLoopLokingFor = A_LoopField112;
                     fixLoopLokingForfound = 1;
                     out1 = StrSplit(sstr123 ,"|" , 1);
                     out2 = StrSplit(sstr123 ,"|" , 3);
@@ -7916,17 +7956,17 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         insdeAnestedLoopBAD = 0;
                         foundTheTopLoop = 0;
                         out4758686d86d86d86578991a = "";
-                        std::vector<std::string> items109 = LoopParseFunc(htCode, "\n", "\r");
-                        for (size_t A_Index109 = 0; A_Index109 < items109.size() + 0; A_Index109++) {
-                            std::string A_LoopField109 = items109[A_Index109 - 0];
+                        std::vector<std::string> items113 = LoopParseFunc(htCode, "\n", "\r");
+                        for (size_t A_Index113 = 0; A_Index113 < items113.size() + 0; A_Index113++) {
+                            std::string A_LoopField113 = items113[A_Index113 - 0];
                             //MsgBox, dsfgsdefgesrdg1
-                            //MsgBox, |%A_LoopField109%|`n|%fixLoopLokingFor%|
-                            if (InStr(A_LoopField109, fixLoopLokingFor) && insdeAnestedLoopBAD != 1) {
+                            //MsgBox, |%A_LoopField113%|`n|%fixLoopLokingFor%|
+                            if (InStr(A_LoopField113, fixLoopLokingFor) && insdeAnestedLoopBAD != 1) {
                                 fixLoopLokingForNum = 1;
                                 //MsgBox, do we came here 1
                             }
-                            if (SubStr(Trim(A_LoopField109), 1, 4) == "for " && weAreDoneHereCurly != 1 && insdeAnestedLoopBAD != 1 && fixLoopLokingForNum == 1) {
-                                s = StrSplit(A_LoopField109 ,"" + keyWordAIndex + "", 2);
+                            if (SubStr(Trim(A_LoopField113), 1, 4) == "for " && weAreDoneHereCurly != 1 && insdeAnestedLoopBAD != 1 && fixLoopLokingForNum == 1) {
+                                s = StrSplit(A_LoopField113 ,"" + keyWordAIndex + "", 2);
                                 out1z = s;
                                 s = StrSplit(out1z, " ", 1);
                                 out1z = Trim(s);
@@ -7935,23 +7975,23 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                 fixLoopLokingForNum = 0;
                                 foundTheTopLoop++;
                                 inTarget = 1;
-                                //MsgBox, % A_LoopField109
+                                //MsgBox, % A_LoopField113
                                 dontSaveStr = 1;
-                                ALoopField = A_LoopField109;
+                                ALoopField = A_LoopField113;
                                 DeleayOneCuzOfLoopParse = 1;
                                 out4758686d86d86d86578991a += ALoopField + "\n";
                             }
-                            if (inTarget == 1 && InStr(A_LoopField109, Chr(123)) && insdeAnestedLoopBAD != 1) {
+                            if (inTarget == 1 && InStr(A_LoopField113, Chr(123)) && insdeAnestedLoopBAD != 1) {
                                 insideBracket = 1;
                             }
-                            if (insideBracket == 1 && InStr(A_LoopField109, Chr(123)) && insdeAnestedLoopBAD != 1) {
+                            if (insideBracket == 1 && InStr(A_LoopField113, Chr(123)) && insdeAnestedLoopBAD != 1) {
                                 netsedCurly++;
                             }
-                            if (insideBracket == 1 && InStr(A_LoopField109, Chr(125)) && insdeAnestedLoopBAD != 1) {
+                            if (insideBracket == 1 && InStr(A_LoopField113, Chr(125)) && insdeAnestedLoopBAD != 1) {
                                 netsedCurly--;
                                 readyToEnd = 1;
                             }
-                            if (SubStr(Trim(A_LoopField109), 1, 4) == "for " && insdeAnestedLoopBAD != 1 && foundTheTopLoop >= 2) {
+                            if (SubStr(Trim(A_LoopField113), 1, 4) == "for " && insdeAnestedLoopBAD != 1 && foundTheTopLoop >= 2) {
                                 insdeAnestedLoopBAD = 1;
                                 insideBracket1 = 0;
                                 netsedCurly1 = 0;
@@ -7960,37 +8000,37 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                 foundTheTopLoop++;
                             }
                             if (insdeAnestedLoopBAD == 1) {
-                                if (InStr(A_LoopField109, Chr(123))) {
+                                if (InStr(A_LoopField113, Chr(123))) {
                                     insideBracket1 = 1;
                                 }
-                                if (insideBracket1 == 1 && InStr(A_LoopField109, Chr(123))) {
+                                if (insideBracket1 == 1 && InStr(A_LoopField113, Chr(123))) {
                                     netsedCurly1++;
                                 }
-                                if (insideBracket1 == 1 && InStr(A_LoopField109, Chr(125))) {
+                                if (insideBracket1 == 1 && InStr(A_LoopField113, Chr(125))) {
                                     netsedCurly1--;
                                     readyToEnd1 = 1;
                                 }
-                                if (InStr(A_LoopField109, Chr(125)) && readyToEnd1 == 1 && netsedCurly1 == 0 && insideBracket == 1) {
-                                    //MsgBox, % A_LoopField109
+                                if (InStr(A_LoopField113, Chr(125)) && readyToEnd1 == 1 && netsedCurly1 == 0 && insideBracket == 1) {
+                                    //MsgBox, % A_LoopField113
                                     eldLoopNestedBADlol = 1;
                                 }
-                                out4758686d86d86d86578991a += A_LoopField109 + "\n";
+                                out4758686d86d86d86578991a += A_LoopField113 + "\n";
                             }
                             if (inTarget == 1 && dontSaveStr != 1 && fixLoopLokingForNum != 1 && insdeAnestedLoopBAD != 1) {
-                                ALoopField = A_LoopField109;
+                                ALoopField = A_LoopField113;
                                 // Replace "A_Index" with or without a following digit with "A_Index" + out1z
                                 ALoopField = RegExReplace(ALoopField, "" + keyWordAIndex + "\\d*", "" + keyWordAIndex + "" + out1z);
                                 out4758686d86d86d86578991a += ALoopField + "\n";
                             }
-                            if (inTarget == 1 && InStr(A_LoopField109, Chr(125)) && readyToEnd == 1 && netsedCurly == 0 && weAreDoneHereCurly == 0 && dontSaveStr != 1 && insdeAnestedLoopBAD != 1) {
-                                //MsgBox, % A_LoopField109
+                            if (inTarget == 1 && InStr(A_LoopField113, Chr(125)) && readyToEnd == 1 && netsedCurly == 0 && weAreDoneHereCurly == 0 && dontSaveStr != 1 && insdeAnestedLoopBAD != 1) {
+                                //MsgBox, % A_LoopField113
                                 weAreDoneHereCurly = 1;
                                 inTarget = 0;
                                 endBracketDOntPutThere = 1;
                             }
                             dontSaveStr = 0;
                             if (inTarget != 1 && endBracketDOntPutThere != 1 && insdeAnestedLoopBAD != 1) {
-                                out4758686d86d86d86578991a += A_LoopField109 + "\n";
+                                out4758686d86d86d86578991a += A_LoopField113 + "\n";
                             }
                             endBracketDOntPutThere = 0;
                             if (eldLoopNestedBADlol == 1) {
@@ -8016,15 +8056,15 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         insdeAnestedLoopBAD = 0;
                         foundTheTopLoop = 0;
                         out4758686d86d86d86578991a = "";
-                        std::vector<std::string> items110 = LoopParseFunc(htCode, "\n", "\r");
-                        for (size_t A_Index110 = 0; A_Index110 < items110.size() + 0; A_Index110++) {
-                            std::string A_LoopField110 = items110[A_Index110 - 0];
-                            if (InStr(A_LoopField110 , fixLoopLokingFor) && insdeAnestedLoopBAD != 1) {
+                        std::vector<std::string> items114 = LoopParseFunc(htCode, "\n", "\r");
+                        for (size_t A_Index114 = 0; A_Index114 < items114.size() + 0; A_Index114++) {
+                            std::string A_LoopField114 = items114[A_Index114 - 0];
+                            if (InStr(A_LoopField114 , fixLoopLokingFor) && insdeAnestedLoopBAD != 1) {
                                 fixLoopLokingForNum = 1;
                                 //MsgBox, do we came here 3
                             }
-                            if (SubStr(Trim(A_LoopField110), 1, 4) == "for " && weAreDoneHereCurly != 1 && insdeAnestedLoopBAD != 1 && fixLoopLokingForNum == 1) {
-                                s = StrSplit(A_LoopField110 ,"" + keyWordAIndex + "", 2);
+                            if (SubStr(Trim(A_LoopField114), 1, 4) == "for " && weAreDoneHereCurly != 1 && insdeAnestedLoopBAD != 1 && fixLoopLokingForNum == 1) {
+                                s = StrSplit(A_LoopField114 ,"" + keyWordAIndex + "", 2);
                                 out1z = s;
                                 s = StrSplit(out1z, " ", 1);
                                 out1z = Trim(s);
@@ -8033,23 +8073,23 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                 //MsgBox, do we came here 4
                                 foundTheTopLoop++;
                                 inTarget = 1;
-                                //MsgBox, % A_LoopField110
+                                //MsgBox, % A_LoopField114
                                 dontSaveStr = 1;
-                                ALoopField = A_LoopField110;
+                                ALoopField = A_LoopField114;
                                 DeleayOneCuzOfLoopParse = 1;
                                 out4758686d86d86d86578991a += ALoopField + "\n";
                             }
-                            if (inTarget == 1 && InStr(A_LoopField110, Chr(123)) && insdeAnestedLoopBAD != 1) {
+                            if (inTarget == 1 && InStr(A_LoopField114, Chr(123)) && insdeAnestedLoopBAD != 1) {
                                 insideBracket = 1;
                             }
-                            if (insideBracket == 1 && InStr(A_LoopField110, Chr(123)) && insdeAnestedLoopBAD != 1) {
+                            if (insideBracket == 1 && InStr(A_LoopField114, Chr(123)) && insdeAnestedLoopBAD != 1) {
                                 netsedCurly++;
                             }
-                            if (insideBracket == 1 && InStr(A_LoopField110, Chr(125)) && insdeAnestedLoopBAD != 1) {
+                            if (insideBracket == 1 && InStr(A_LoopField114, Chr(125)) && insdeAnestedLoopBAD != 1) {
                                 netsedCurly--;
                                 readyToEnd = 1;
                             }
-                            if (SubStr(Trim(A_LoopField110), 1, 4) == "for " && insdeAnestedLoopBAD != 1 && foundTheTopLoop >= 2) {
+                            if (SubStr(Trim(A_LoopField114), 1, 4) == "for " && insdeAnestedLoopBAD != 1 && foundTheTopLoop >= 2) {
                                 insdeAnestedLoopBAD = 1;
                                 insideBracket1 = 0;
                                 netsedCurly1 = 0;
@@ -8058,39 +8098,39 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                 foundTheTopLoop++;
                             }
                             if (insdeAnestedLoopBAD == 1) {
-                                if (InStr(A_LoopField110, Chr(123))) {
+                                if (InStr(A_LoopField114, Chr(123))) {
                                     insideBracket1 = 1;
                                 }
-                                if (insideBracket1 == 1 && InStr(A_LoopField110, Chr(123))) {
+                                if (insideBracket1 == 1 && InStr(A_LoopField114, Chr(123))) {
                                     netsedCurly1++;
                                 }
-                                if (insideBracket1 == 1 && InStr(A_LoopField110, Chr(125))) {
+                                if (insideBracket1 == 1 && InStr(A_LoopField114, Chr(125))) {
                                     netsedCurly1--;
                                     readyToEnd1 = 1;
                                 }
-                                if (InStr(A_LoopField110, Chr(125)) && readyToEnd1 == 1 && netsedCurly1 == 0 && insideBracket == 1) {
-                                    //MsgBox, % A_LoopField110
+                                if (InStr(A_LoopField114, Chr(125)) && readyToEnd1 == 1 && netsedCurly1 == 0 && insideBracket == 1) {
+                                    //MsgBox, % A_LoopField114
                                     eldLoopNestedBADlol = 1;
                                 }
-                                out4758686d86d86d86578991a += A_LoopField110 + "\n";
+                                out4758686d86d86d86578991a += A_LoopField114 + "\n";
                             }
                             if (inTarget == 1 && dontSaveStr != 1 && fixLoopLokingForNum != 1 && insdeAnestedLoopBAD != 1) {
-                                ALoopField = A_LoopField110;
+                                ALoopField = A_LoopField114;
                                 // Replace "A_Index" with or without a following digit with "A_Index" + out1z
                                 ALoopField = RegExReplace(ALoopField, "" + keyWordAIndex + "\\d*", "" + keyWordAIndex + "" + out1z);
                                 // Replace "A_Index" with or without a following digit with "A_Index" + out1z
                                 ALoopField = RegExReplace(ALoopField, "" + keyWordALoopField + "\\d*", "" + keyWordALoopField + "" + out1z);
                                 out4758686d86d86d86578991a += ALoopField + "\n";
                             }
-                            if ((inTarget == 1 && InStr(A_LoopField110, Chr(125)) && readyToEnd == 1 && netsedCurly == 0 && weAreDoneHereCurly == 0 && dontSaveStr != 1 && insdeAnestedLoopBAD != 1)) {
-                                //MsgBox, % A_LoopField110
+                            if ((inTarget == 1 && InStr(A_LoopField114, Chr(125)) && readyToEnd == 1 && netsedCurly == 0 && weAreDoneHereCurly == 0 && dontSaveStr != 1 && insdeAnestedLoopBAD != 1)) {
+                                //MsgBox, % A_LoopField114
                                 weAreDoneHereCurly = 1;
                                 inTarget = 0;
                                 endBracketDOntPutThere = 1;
                             }
                             dontSaveStr = 0;
                             if (inTarget != 1 && endBracketDOntPutThere != 1 && insdeAnestedLoopBAD != 1) {
-                                out4758686d86d86d86578991a += A_LoopField110 + "\n";
+                                out4758686d86d86d86578991a += A_LoopField114 + "\n";
                             }
                             endBracketDOntPutThere = 0;
                             if (eldLoopNestedBADlol == 1) {
@@ -8110,30 +8150,30 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 }
                 out4758686d86dgt8r754444444 = "";
                 hold = 0;
-                std::vector<std::string> items111 = LoopParseFunc(htCode, "\n", "\r");
-                for (size_t A_Index111 = 0; A_Index111 < items111.size() + 0; A_Index111++) {
-                    std::string A_LoopField111 = items111[A_Index111 - 0];
+                std::vector<std::string> items115 = LoopParseFunc(htCode, "\n", "\r");
+                for (size_t A_Index115 = 0; A_Index115 < items115.size() + 0; A_Index115++) {
+                    std::string A_LoopField115 = items115[A_Index115 - 0];
                     ignore = 0;
-                    if (SubStr(Trim(A_LoopField111), 1, 4) == "for ") {
-                        if (hold == 1 && holdText == A_LoopField111) {
+                    if (SubStr(Trim(A_LoopField115), 1, 4) == "for ") {
+                        if (hold == 1 && holdText == A_LoopField115) {
                             ignore = 1;
                         } else {
-                            holdText = A_LoopField111;
+                            holdText = A_LoopField115;
                             hold = 1;
                         }
                     }
                     if (!ignore) {
-                        out4758686d86dgt8r754444444 += A_LoopField111 + "\n";
+                        out4758686d86dgt8r754444444 += A_LoopField115 + "\n";
                     }
                 }
                 out4758686d86dgt8r754444444 = StringTrimRight(out4758686d86dgt8r754444444, 1);
                 htCode = out4758686d86dgt8r754444444;
             }
             htCodeOut1234565432 = "";
-            std::vector<std::string> items112 = LoopParseFunc(htCode, "\n", "\r");
-            for (size_t A_Index112 = 0; A_Index112 < items112.size() + 0; A_Index112++) {
-                std::string A_LoopField112 = items112[A_Index112 - 0];
-                out = A_LoopField112;
+            std::vector<std::string> items116 = LoopParseFunc(htCode, "\n", "\r");
+            for (size_t A_Index116 = 0; A_Index116 < items116.size() + 0; A_Index116++) {
+                std::string A_LoopField116 = items116[A_Index116 - 0];
+                out = A_LoopField116;
                 if (!InStr(out, "|itsaersdtgtgfergsdgfsegdfsedAA|")) {
                     htCodeOut1234565432 += out + "\n";
                 }
@@ -8144,261 +8184,261 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         htCode = code;
     }
     if (COUNT_programmingBlock_InTheTranspiledLang != 0) {
-        for (int A_Index113 = 0; A_Index113 < COUNT_programmingBlock_InTheTranspiledLang + 0; A_Index113++) {
-            htCode = StrReplace(htCode, "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" + STR(A_Index113 + 1) + "AA", programmingBlock_InTheTranspiledLang[A_Index113]);
+        for (int A_Index117 = 0; A_Index117 < COUNT_programmingBlock_InTheTranspiledLang + 0; A_Index117++) {
+            htCode = StrReplace(htCode, "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" + STR(A_Index117 + 1) + "AA", programmingBlock_InTheTranspiledLang[A_Index117]);
         }
     }
     if (langToConvertTo == "cpp") {
         if (COUNT_programmingBlock_CPP != 0) {
-            for (int A_Index114 = 0; A_Index114 < COUNT_programmingBlock_CPP + 0; A_Index114++) {
-                htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index114 + 1) + "AA", programmingBlock_CPP[A_Index114]);
+            for (int A_Index118 = 0; A_Index118 < COUNT_programmingBlock_CPP + 0; A_Index118++) {
+                htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index118 + 1) + "AA", programmingBlock_CPP[A_Index118]);
             }
         }
     } else {
         if (COUNT_programmingBlock_CPP != 0) {
-            for (int A_Index115 = 0; A_Index115 < COUNT_programmingBlock_CPP + 0; A_Index115++) {
+            for (int A_Index119 = 0; A_Index119 < COUNT_programmingBlock_CPP + 0; A_Index119++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index115 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCPP + "\n" + programmingBlock_CPP[A_Index115] + "\n" + keyWordCodeInTheTranspiledLangEndCPP);
+                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index119 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCPP + "\n" + programmingBlock_CPP[A_Index119] + "\n" + keyWordCodeInTheTranspiledLangEndCPP);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index115 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index119 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "py") {
         if (COUNT_programmingBlock_PY != 0) {
-            for (int A_Index116 = 0; A_Index116 < COUNT_programmingBlock_PY + 0; A_Index116++) {
-                htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index116 + 1) + "AA", programmingBlock_PY[A_Index116]);
+            for (int A_Index120 = 0; A_Index120 < COUNT_programmingBlock_PY + 0; A_Index120++) {
+                htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index120 + 1) + "AA", programmingBlock_PY[A_Index120]);
             }
         }
     } else {
         if (COUNT_programmingBlock_PY != 0) {
-            for (int A_Index117 = 0; A_Index117 < COUNT_programmingBlock_PY + 0; A_Index117++) {
+            for (int A_Index121 = 0; A_Index121 < COUNT_programmingBlock_PY + 0; A_Index121++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index117 + 1) + "AA", keyWordCodeInTheTranspiledLangStartPY + "\n" + programmingBlock_PY[A_Index117] + "\n" + keyWordCodeInTheTranspiledLangEndPY);
+                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index121 + 1) + "AA", keyWordCodeInTheTranspiledLangStartPY + "\n" + programmingBlock_PY[A_Index121] + "\n" + keyWordCodeInTheTranspiledLangEndPY);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index117 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index121 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "js") {
         if (COUNT_programmingBlock_JS != 0) {
-            for (int A_Index118 = 0; A_Index118 < COUNT_programmingBlock_JS + 0; A_Index118++) {
-                htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index118 + 1) + "AA", programmingBlock_JS[A_Index118]);
+            for (int A_Index122 = 0; A_Index122 < COUNT_programmingBlock_JS + 0; A_Index122++) {
+                htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index122 + 1) + "AA", programmingBlock_JS[A_Index122]);
             }
         }
     } else {
         if (COUNT_programmingBlock_JS != 0) {
-            for (int A_Index119 = 0; A_Index119 < COUNT_programmingBlock_JS + 0; A_Index119++) {
+            for (int A_Index123 = 0; A_Index123 < COUNT_programmingBlock_JS + 0; A_Index123++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index119 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJS + "\n" + programmingBlock_JS[A_Index119] + "\n" + keyWordCodeInTheTranspiledLangEndJS);
+                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index123 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJS + "\n" + programmingBlock_JS[A_Index123] + "\n" + keyWordCodeInTheTranspiledLangEndJS);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index119 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index123 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "go") {
         if (COUNT_programmingBlock_GO != 0) {
-            for (int A_Index120 = 0; A_Index120 < COUNT_programmingBlock_GO + 0; A_Index120++) {
-                htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index120 + 1) + "AA", programmingBlock_GO[A_Index120]);
+            for (int A_Index124 = 0; A_Index124 < COUNT_programmingBlock_GO + 0; A_Index124++) {
+                htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index124 + 1) + "AA", programmingBlock_GO[A_Index124]);
             }
         }
     } else {
         if (COUNT_programmingBlock_GO != 0) {
-            for (int A_Index121 = 0; A_Index121 < COUNT_programmingBlock_GO + 0; A_Index121++) {
+            for (int A_Index125 = 0; A_Index125 < COUNT_programmingBlock_GO + 0; A_Index125++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index121 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGO + "\n" + programmingBlock_GO[A_Index121] + "\n" + keyWordCodeInTheTranspiledLangEndGO);
+                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index125 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGO + "\n" + programmingBlock_GO[A_Index125] + "\n" + keyWordCodeInTheTranspiledLangEndGO);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index121 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index125 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "lua") {
         if (COUNT_programmingBlock_LUA != 0) {
-            for (int A_Index122 = 0; A_Index122 < COUNT_programmingBlock_LUA + 0; A_Index122++) {
-                htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index122 + 1) + "AA", programmingBlock_LUA[A_Index122]);
+            for (int A_Index126 = 0; A_Index126 < COUNT_programmingBlock_LUA + 0; A_Index126++) {
+                htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index126 + 1) + "AA", programmingBlock_LUA[A_Index126]);
             }
         }
     } else {
         if (COUNT_programmingBlock_LUA != 0) {
-            for (int A_Index123 = 0; A_Index123 < COUNT_programmingBlock_LUA + 0; A_Index123++) {
+            for (int A_Index127 = 0; A_Index127 < COUNT_programmingBlock_LUA + 0; A_Index127++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index123 + 1) + "AA", keyWordCodeInTheTranspiledLangStartLUA + "\n" + programmingBlock_LUA[A_Index123] + "\n" + keyWordCodeInTheTranspiledLangEndLUA);
+                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index127 + 1) + "AA", keyWordCodeInTheTranspiledLangStartLUA + "\n" + programmingBlock_LUA[A_Index127] + "\n" + keyWordCodeInTheTranspiledLangEndLUA);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index123 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index127 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "cs") {
         if (COUNT_programmingBlock_CS != 0) {
-            for (int A_Index124 = 0; A_Index124 < COUNT_programmingBlock_CS + 0; A_Index124++) {
-                htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index124 + 1) + "AA", programmingBlock_CS[A_Index124]);
+            for (int A_Index128 = 0; A_Index128 < COUNT_programmingBlock_CS + 0; A_Index128++) {
+                htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index128 + 1) + "AA", programmingBlock_CS[A_Index128]);
             }
         }
     } else {
         if (COUNT_programmingBlock_CS != 0) {
-            for (int A_Index125 = 0; A_Index125 < COUNT_programmingBlock_CS + 0; A_Index125++) {
+            for (int A_Index129 = 0; A_Index129 < COUNT_programmingBlock_CS + 0; A_Index129++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index125 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCS + "\n" + programmingBlock_CS[A_Index125] + "\n" + keyWordCodeInTheTranspiledLangEndCS);
+                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index129 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCS + "\n" + programmingBlock_CS[A_Index129] + "\n" + keyWordCodeInTheTranspiledLangEndCS);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index125 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index129 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "java") {
         if (COUNT_programmingBlock_JAVA != 0) {
-            for (int A_Index126 = 0; A_Index126 < COUNT_programmingBlock_JAVA + 0; A_Index126++) {
-                htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index126 + 1) + "AA", programmingBlock_JAVA[A_Index126]);
+            for (int A_Index130 = 0; A_Index130 < COUNT_programmingBlock_JAVA + 0; A_Index130++) {
+                htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index130 + 1) + "AA", programmingBlock_JAVA[A_Index130]);
             }
         }
     } else {
         if (COUNT_programmingBlock_JAVA != 0) {
-            for (int A_Index127 = 0; A_Index127 < COUNT_programmingBlock_JAVA + 0; A_Index127++) {
+            for (int A_Index131 = 0; A_Index131 < COUNT_programmingBlock_JAVA + 0; A_Index131++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index127 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJAVA + "\n" + programmingBlock_JAVA[A_Index127] + "\n" + keyWordCodeInTheTranspiledLangEndJAVA);
+                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index131 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJAVA + "\n" + programmingBlock_JAVA[A_Index131] + "\n" + keyWordCodeInTheTranspiledLangEndJAVA);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index127 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index131 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "kt") {
         if (COUNT_programmingBlock_KT != 0) {
-            for (int A_Index128 = 0; A_Index128 < COUNT_programmingBlock_KT + 0; A_Index128++) {
-                htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index128 + 1) + "AA", programmingBlock_KT[A_Index128]);
+            for (int A_Index132 = 0; A_Index132 < COUNT_programmingBlock_KT + 0; A_Index132++) {
+                htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index132 + 1) + "AA", programmingBlock_KT[A_Index132]);
             }
         }
     } else {
         if (COUNT_programmingBlock_KT != 0) {
-            for (int A_Index129 = 0; A_Index129 < COUNT_programmingBlock_KT + 0; A_Index129++) {
+            for (int A_Index133 = 0; A_Index133 < COUNT_programmingBlock_KT + 0; A_Index133++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index129 + 1) + "AA", keyWordCodeInTheTranspiledLangStartKT + "\n" + programmingBlock_KT[A_Index129] + "\n" + keyWordCodeInTheTranspiledLangEndKT);
+                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index133 + 1) + "AA", keyWordCodeInTheTranspiledLangStartKT + "\n" + programmingBlock_KT[A_Index133] + "\n" + keyWordCodeInTheTranspiledLangEndKT);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index129 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index133 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "rb") {
         if (COUNT_programmingBlock_RB != 0) {
-            for (int A_Index130 = 0; A_Index130 < COUNT_programmingBlock_RB + 0; A_Index130++) {
-                htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index130 + 1) + "AA", programmingBlock_RB[A_Index130]);
+            for (int A_Index134 = 0; A_Index134 < COUNT_programmingBlock_RB + 0; A_Index134++) {
+                htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index134 + 1) + "AA", programmingBlock_RB[A_Index134]);
             }
         }
     } else {
         if (COUNT_programmingBlock_RB != 0) {
-            for (int A_Index131 = 0; A_Index131 < COUNT_programmingBlock_RB + 0; A_Index131++) {
+            for (int A_Index135 = 0; A_Index135 < COUNT_programmingBlock_RB + 0; A_Index135++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index131 + 1) + "AA", keyWordCodeInTheTranspiledLangStartRB + "\n" + programmingBlock_RB[A_Index131] + "\n" + keyWordCodeInTheTranspiledLangEndRB);
+                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index135 + 1) + "AA", keyWordCodeInTheTranspiledLangStartRB + "\n" + programmingBlock_RB[A_Index135] + "\n" + keyWordCodeInTheTranspiledLangEndRB);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index131 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index135 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "nim") {
         if (COUNT_programmingBlock_NIM != 0) {
-            for (int A_Index132 = 0; A_Index132 < COUNT_programmingBlock_NIM + 0; A_Index132++) {
-                htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index132 + 1) + "AA", programmingBlock_NIM[A_Index132]);
+            for (int A_Index136 = 0; A_Index136 < COUNT_programmingBlock_NIM + 0; A_Index136++) {
+                htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index136 + 1) + "AA", programmingBlock_NIM[A_Index136]);
             }
         }
     } else {
         if (COUNT_programmingBlock_NIM != 0) {
-            for (int A_Index133 = 0; A_Index133 < COUNT_programmingBlock_NIM + 0; A_Index133++) {
+            for (int A_Index137 = 0; A_Index137 < COUNT_programmingBlock_NIM + 0; A_Index137++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index133 + 1) + "AA", keyWordCodeInTheTranspiledLangStartNIM + "\n" + programmingBlock_NIM[A_Index133] + "\n" + keyWordCodeInTheTranspiledLangEndNIM);
+                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index137 + 1) + "AA", keyWordCodeInTheTranspiledLangStartNIM + "\n" + programmingBlock_NIM[A_Index137] + "\n" + keyWordCodeInTheTranspiledLangEndNIM);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index133 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index137 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "ahk") {
         if (COUNT_programmingBlock_AHK != 0) {
-            for (int A_Index134 = 0; A_Index134 < COUNT_programmingBlock_AHK + 0; A_Index134++) {
-                htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index134 + 1) + "AA", programmingBlock_AHK[A_Index134]);
+            for (int A_Index138 = 0; A_Index138 < COUNT_programmingBlock_AHK + 0; A_Index138++) {
+                htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index138 + 1) + "AA", programmingBlock_AHK[A_Index138]);
             }
         }
     } else {
         if (COUNT_programmingBlock_AHK != 0) {
-            for (int A_Index135 = 0; A_Index135 < COUNT_programmingBlock_AHK + 0; A_Index135++) {
+            for (int A_Index139 = 0; A_Index139 < COUNT_programmingBlock_AHK + 0; A_Index139++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index135 + 1) + "AA", keyWordCodeInTheTranspiledLangStartAHK + "\n" + programmingBlock_AHK[A_Index135] + "\n" + keyWordCodeInTheTranspiledLangEndAHK);
+                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index139 + 1) + "AA", keyWordCodeInTheTranspiledLangStartAHK + "\n" + programmingBlock_AHK[A_Index139] + "\n" + keyWordCodeInTheTranspiledLangEndAHK);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index135 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index139 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "swift") {
         if (COUNT_programmingBlock_SWIFT != 0) {
-            for (int A_Index136 = 0; A_Index136 < COUNT_programmingBlock_SWIFT + 0; A_Index136++) {
-                htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index136 + 1) + "AA", programmingBlock_SWIFT[A_Index136]);
+            for (int A_Index140 = 0; A_Index140 < COUNT_programmingBlock_SWIFT + 0; A_Index140++) {
+                htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index140 + 1) + "AA", programmingBlock_SWIFT[A_Index140]);
             }
         }
     } else {
         if (COUNT_programmingBlock_SWIFT != 0) {
-            for (int A_Index137 = 0; A_Index137 < COUNT_programmingBlock_SWIFT + 0; A_Index137++) {
+            for (int A_Index141 = 0; A_Index141 < COUNT_programmingBlock_SWIFT + 0; A_Index141++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index137 + 1) + "AA", keyWordCodeInTheTranspiledLangStartSWIFT + "\n" + programmingBlock_SWIFT[A_Index137] + "\n" + keyWordCodeInTheTranspiledLangEndSWIFT);
+                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index141 + 1) + "AA", keyWordCodeInTheTranspiledLangStartSWIFT + "\n" + programmingBlock_SWIFT[A_Index141] + "\n" + keyWordCodeInTheTranspiledLangEndSWIFT);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index137 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index141 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "dart") {
         if (COUNT_programmingBlock_DART != 0) {
-            for (int A_Index138 = 0; A_Index138 < COUNT_programmingBlock_DART + 0; A_Index138++) {
-                htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index138 + 1) + "AA", programmingBlock_DART[A_Index138]);
+            for (int A_Index142 = 0; A_Index142 < COUNT_programmingBlock_DART + 0; A_Index142++) {
+                htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index142 + 1) + "AA", programmingBlock_DART[A_Index142]);
             }
         }
     } else {
         if (COUNT_programmingBlock_DART != 0) {
-            for (int A_Index139 = 0; A_Index139 < COUNT_programmingBlock_DART + 0; A_Index139++) {
+            for (int A_Index143 = 0; A_Index143 < COUNT_programmingBlock_DART + 0; A_Index143++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index139 + 1) + "AA", keyWordCodeInTheTranspiledLangStartDART + "\n" + programmingBlock_DART[A_Index139] + "\n" + keyWordCodeInTheTranspiledLangEndDART);
+                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index143 + 1) + "AA", keyWordCodeInTheTranspiledLangStartDART + "\n" + programmingBlock_DART[A_Index143] + "\n" + keyWordCodeInTheTranspiledLangEndDART);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index139 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index143 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "ts") {
         if (COUNT_programmingBlock_TS != 0) {
-            for (int A_Index140 = 0; A_Index140 < COUNT_programmingBlock_TS + 0; A_Index140++) {
-                htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index140 + 1) + "AA", programmingBlock_TS[A_Index140]);
+            for (int A_Index144 = 0; A_Index144 < COUNT_programmingBlock_TS + 0; A_Index144++) {
+                htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index144 + 1) + "AA", programmingBlock_TS[A_Index144]);
             }
         }
     } else {
         if (COUNT_programmingBlock_TS != 0) {
-            for (int A_Index141 = 0; A_Index141 < COUNT_programmingBlock_TS + 0; A_Index141++) {
+            for (int A_Index145 = 0; A_Index145 < COUNT_programmingBlock_TS + 0; A_Index145++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index141 + 1) + "AA", keyWordCodeInTheTranspiledLangStartTS + "\n" + programmingBlock_TS[A_Index141] + "\n" + keyWordCodeInTheTranspiledLangEndTS);
+                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index145 + 1) + "AA", keyWordCodeInTheTranspiledLangStartTS + "\n" + programmingBlock_TS[A_Index145] + "\n" + keyWordCodeInTheTranspiledLangEndTS);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index141 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index145 + 1) + "AA", "\n");
                 }
             }
         }
     }
     if (langToConvertTo == "groovy") {
         if (COUNT_programmingBlock_GROOVY != 0) {
-            for (int A_Index142 = 0; A_Index142 < COUNT_programmingBlock_GROOVY + 0; A_Index142++) {
-                htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index142 + 1) + "AA", programmingBlock_GROOVY[A_Index142]);
+            for (int A_Index146 = 0; A_Index146 < COUNT_programmingBlock_GROOVY + 0; A_Index146++) {
+                htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index146 + 1) + "AA", programmingBlock_GROOVY[A_Index146]);
             }
         }
     } else {
         if (COUNT_programmingBlock_GROOVY != 0) {
-            for (int A_Index143 = 0; A_Index143 < COUNT_programmingBlock_GROOVY + 0; A_Index143++) {
+            for (int A_Index147 = 0; A_Index147 < COUNT_programmingBlock_GROOVY + 0; A_Index147++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index143 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGROOVY + "\n" + programmingBlock_GROOVY[A_Index143] + "\n" + keyWordCodeInTheTranspiledLangEndGROOVY);
+                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index147 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGROOVY + "\n" + programmingBlock_GROOVY[A_Index147] + "\n" + keyWordCodeInTheTranspiledLangEndGROOVY);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index143 + 1) + "AA", "\n");
+                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index147 + 1) + "AA", "\n");
                 }
             }
         }
@@ -8406,14 +8446,14 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     //;;;;;;;;;;
     if (langToConvertTo == langFileExtension_2) {
         if (COUNT_programmingBlock_HTVM != 0) {
-            for (int A_Index144 = 0; A_Index144 < COUNT_programmingBlock_HTVM + 0; A_Index144++) {
-                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index144 + 1) + "AA", programmingBlock_HTVM[A_Index144]);
+            for (int A_Index148 = 0; A_Index148 < COUNT_programmingBlock_HTVM + 0; A_Index148++) {
+                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index148 + 1) + "AA", programmingBlock_HTVM[A_Index148]);
             }
         }
     } else {
         if (COUNT_programmingBlock_HTVM != 0) {
-            for (int A_Index145 = 0; A_Index145 < COUNT_programmingBlock_HTVM + 0; A_Index145++) {
-                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index145 + 1) + "AA", "\n");
+            for (int A_Index149 = 0; A_Index149 < COUNT_programmingBlock_HTVM + 0; A_Index149++) {
+                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index149 + 1) + "AA", "\n");
             }
         }
     }
@@ -8422,15 +8462,15 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     std::string ADD_ALL_programmingBlock_HTVMsyntax = "";
     if (COUNT_programmingBlock_HTVMsyntax != 0) {
         isNotHTVMfileEXTRA_INT = 1;
-        for (int A_Index146 = 0; A_Index146 < COUNT_programmingBlock_HTVMsyntax + 0; A_Index146++) {
-            ADD_ALL_programmingBlock_HTVMsyntax += programmingBlock_HTVMsyntax[A_Index146] + "\n";
+        for (int A_Index150 = 0; A_Index150 < COUNT_programmingBlock_HTVMsyntax + 0; A_Index150++) {
+            ADD_ALL_programmingBlock_HTVMsyntax += programmingBlock_HTVMsyntax[A_Index150] + "\n";
         }
         ADD_ALL_programmingBlock_HTVMsyntax = StringTrimRight(ADD_ALL_programmingBlock_HTVMsyntax, 1);
         ADD_ALL_programmingBlock_HTVMsyntax = compiler(ADD_ALL_programmingBlock_HTVMsyntax, allInstructionFile, "full", langToConvertToParam);
         isNotHTVMfileEXTRA_INT = 0;
         isNotHTVMfile2 = 1;
-        for (int A_Index147 = 0; A_Index147 < COUNT_programmingBlock_HTVMsyntax + 0; A_Index147++) {
-            htCode = StrReplace(htCode, "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" + STR(A_Index147 + 1) + "AA", compiler(programmingBlock_HTVMsyntax[A_Index147], allInstructionFile, "full", langToConvertToParam));
+        for (int A_Index151 = 0; A_Index151 < COUNT_programmingBlock_HTVMsyntax + 0; A_Index151++) {
+            htCode = StrReplace(htCode, "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" + STR(A_Index151 + 1) + "AA", compiler(programmingBlock_HTVMsyntax[A_Index151], allInstructionFile, "full", langToConvertToParam));
         }
         isNotHTVMfile2 = 0;
     }
@@ -8478,16 +8518,16 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             htCode = indent_nested_curly_braces(htCode, 1);
         }
         if (useEnd_2 == "on") {
-            std::vector<std::string> items148 = LoopParseFunc(htCode, "\n", "\r");
-            for (size_t A_Index148 = 0; A_Index148 < items148.size() + 0; A_Index148++) {
-                std::string A_LoopField148 = items148[A_Index148 - 0];
-                if (Trim(A_LoopField148) == keyWordCurlyBraceClose_2) {
-                    fixLuaAndRuby += StrReplace(A_LoopField148, keyWordCurlyBraceClose_2, Trim(keyWordEnd_2)) + "\n";
+            std::vector<std::string> items152 = LoopParseFunc(htCode, "\n", "\r");
+            for (size_t A_Index152 = 0; A_Index152 < items152.size() + 0; A_Index152++) {
+                std::string A_LoopField152 = items152[A_Index152 - 0];
+                if (Trim(A_LoopField152) == keyWordCurlyBraceClose_2) {
+                    fixLuaAndRuby += StrReplace(A_LoopField152, keyWordCurlyBraceClose_2, Trim(keyWordEnd_2)) + "\n";
                 }
-                else if (SubStrLastChars(A_LoopField148, 2) == " " + keyWordCurlyBraceOpen_2) {
-                    fixLuaAndRuby += StringTrimRight(A_LoopField148, 2) + "\n";
+                else if (SubStrLastChars(A_LoopField152, 2) == " " + keyWordCurlyBraceOpen_2) {
+                    fixLuaAndRuby += StringTrimRight(A_LoopField152, 2) + "\n";
                 } else {
-                    fixLuaAndRuby += A_LoopField148 + "\n";
+                    fixLuaAndRuby += A_LoopField152 + "\n";
                 }
             }
             htCode = StringTrimRight(fixLuaAndRuby, 1);
@@ -8503,16 +8543,16 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             htCode = indent_nested_curly_braces(htCode, 1);
         }
         if (langToConvertTo == "lua" || langToConvertTo == "rb") {
-            std::vector<std::string> items149 = LoopParseFunc(htCode, "\n", "\r");
-            for (size_t A_Index149 = 0; A_Index149 < items149.size() + 0; A_Index149++) {
-                std::string A_LoopField149 = items149[A_Index149 - 0];
-                if (Trim(A_LoopField149) == "}") {
-                    fixLuaAndRuby += StrReplace(A_LoopField149, "}", "end") + "\n";
+            std::vector<std::string> items153 = LoopParseFunc(htCode, "\n", "\r");
+            for (size_t A_Index153 = 0; A_Index153 < items153.size() + 0; A_Index153++) {
+                std::string A_LoopField153 = items153[A_Index153 - 0];
+                if (Trim(A_LoopField153) == "}") {
+                    fixLuaAndRuby += StrReplace(A_LoopField153, "}", "end") + "\n";
                 }
-                else if (SubStrLastChars(A_LoopField149, 2) == " {") {
-                    fixLuaAndRuby += StringTrimRight(A_LoopField149, 2) + "\n";
+                else if (SubStrLastChars(A_LoopField153, 2) == " {") {
+                    fixLuaAndRuby += StringTrimRight(A_LoopField153, 2) + "\n";
                 } else {
-                    fixLuaAndRuby += A_LoopField149 + "\n";
+                    fixLuaAndRuby += A_LoopField153 + "\n";
                 }
             }
             htCode = StringTrimRight(fixLuaAndRuby, 1);
@@ -8521,19 +8561,19 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     std::vector<std::string> nextWordEndFix;
     std::string nextWordEndFixOut = "";
     if (langToConvertTo == "lua" || langToConvertTo == "rb") {
-        std::vector<std::string> items150 = LoopParseFunc(htCode, "\n", "\r");
-        for (size_t A_Index150 = 0; A_Index150 < items150.size() + 0; A_Index150++) {
-            std::string A_LoopField150 = items150[A_Index150 - 0];
-            nextWordEndFix.push_back(A_LoopField150);
+        std::vector<std::string> items154 = LoopParseFunc(htCode, "\n", "\r");
+        for (size_t A_Index154 = 0; A_Index154 < items154.size() + 0; A_Index154++) {
+            std::string A_LoopField154 = items154[A_Index154 - 0];
+            nextWordEndFix.push_back(A_LoopField154);
         }
         nextWordEndFix.push_back(" ");
-        std::vector<std::string> items151 = LoopParseFunc(htCode, "\n", "\r");
-        for (size_t A_Index151 = 0; A_Index151 < items151.size() + 0; A_Index151++) {
-            std::string A_LoopField151 = items151[A_Index151 - 0];
-            if (Trim(A_LoopField151) == "end" && SubStr(Trim(nextWordEndFix[A_Index151 + 1]), 1, StrLen("elseif ")) == "elseif " || Trim(A_LoopField151) == "end" && Trim(nextWordEndFix[A_Index151 + 1]) == "else") {
+        std::vector<std::string> items155 = LoopParseFunc(htCode, "\n", "\r");
+        for (size_t A_Index155 = 0; A_Index155 < items155.size() + 0; A_Index155++) {
+            std::string A_LoopField155 = items155[A_Index155 - 0];
+            if (Trim(A_LoopField155) == "end" && SubStr(Trim(nextWordEndFix[A_Index155 + 1]), 1, StrLen("elseif ")) == "elseif " || Trim(A_LoopField155) == "end" && Trim(nextWordEndFix[A_Index155 + 1]) == "else") {
                 nextWordEndFixOut += "";
             } else {
-                nextWordEndFixOut += A_LoopField151 + "\n";
+                nextWordEndFixOut += A_LoopField155 + "\n";
             }
         }
         htCode = StringTrimRight(nextWordEndFixOut, 1);
@@ -8541,58 +8581,58 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     std::vector<std::string> nextWordEndFixRB;
     nextWordEndFixOut = "";
     if (langToConvertTo == "rb") {
-        std::vector<std::string> items152 = LoopParseFunc(htCode, "\n", "\r");
-        for (size_t A_Index152 = 0; A_Index152 < items152.size() + 0; A_Index152++) {
-            std::string A_LoopField152 = items152[A_Index152 - 0];
-            nextWordEndFixRB.push_back(A_LoopField152);
+        std::vector<std::string> items156 = LoopParseFunc(htCode, "\n", "\r");
+        for (size_t A_Index156 = 0; A_Index156 < items156.size() + 0; A_Index156++) {
+            std::string A_LoopField156 = items156[A_Index156 - 0];
+            nextWordEndFixRB.push_back(A_LoopField156);
         }
         nextWordEndFixRB.push_back(" ");
-        std::vector<std::string> items153 = LoopParseFunc(htCode, "\n", "\r");
-        for (size_t A_Index153 = 0; A_Index153 < items153.size() + 0; A_Index153++) {
-            std::string A_LoopField153 = items153[A_Index153 - 0];
-            if (Trim(A_LoopField153) == "end" && SubStr(Trim(nextWordEndFixRB[A_Index153 + 1]), 1, StrLen("rescue ")) == "rescue " || Trim(A_LoopField153) == "end" && Trim(nextWordEndFixRB[A_Index153 + 1]) == "ensure") {
+        std::vector<std::string> items157 = LoopParseFunc(htCode, "\n", "\r");
+        for (size_t A_Index157 = 0; A_Index157 < items157.size() + 0; A_Index157++) {
+            std::string A_LoopField157 = items157[A_Index157 - 0];
+            if (Trim(A_LoopField157) == "end" && SubStr(Trim(nextWordEndFixRB[A_Index157 + 1]), 1, StrLen("rescue ")) == "rescue " || Trim(A_LoopField157) == "end" && Trim(nextWordEndFixRB[A_Index157 + 1]) == "ensure") {
                 nextWordEndFixOut += "";
             } else {
-                nextWordEndFixOut += A_LoopField153 + "\n";
+                nextWordEndFixOut += A_LoopField157 + "\n";
             }
         }
         htCode = StringTrimRight(nextWordEndFixOut, 1);
     }
     if (langToConvertTo == "go") {
         std::vector<std::string> fixGoManGoIsSoAnnoyingBroooFurure;
-        std::vector<std::string> items154 = LoopParseFunc(htCode, "\n", "\r");
-        for (size_t A_Index154 = 0; A_Index154 < items154.size() + 0; A_Index154++) {
-            std::string A_LoopField154 = items154[A_Index154 - 0];
-            fixGoManGoIsSoAnnoyingBroooFurure.push_back(A_LoopField154);
+        std::vector<std::string> items158 = LoopParseFunc(htCode, "\n", "\r");
+        for (size_t A_Index158 = 0; A_Index158 < items158.size() + 0; A_Index158++) {
+            std::string A_LoopField158 = items158[A_Index158 - 0];
+            fixGoManGoIsSoAnnoyingBroooFurure.push_back(A_LoopField158);
         }
         fixGoManGoIsSoAnnoyingBroooFurure.push_back(" ");
         int fixGoManGoIsSoAnnoyingBroooSkip = 0;
         int fixGoManGoIsSoAnnoyingBroooCount = 0;
         std::string fixGoManGoIsSoAnnoyingBroooCountSpaceses = "";
         std::string fixGoManGoIsSoAnnoyingBrooo = "";
-        std::vector<std::string> items155 = LoopParseFunc(htCode, "\n", "\r");
-        for (size_t A_Index155 = 0; A_Index155 < items155.size() + 0; A_Index155++) {
-            std::string A_LoopField155 = items155[A_Index155 - 0];
-            if (Trim(A_LoopField155) == "}" && SubStr(Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index155 + 1]), 1, StrLen("else if ")) == "else if ") {
+        std::vector<std::string> items159 = LoopParseFunc(htCode, "\n", "\r");
+        for (size_t A_Index159 = 0; A_Index159 < items159.size() + 0; A_Index159++) {
+            std::string A_LoopField159 = items159[A_Index159 - 0];
+            if (Trim(A_LoopField159) == "}" && SubStr(Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index159 + 1]), 1, StrLen("else if ")) == "else if ") {
                 fixGoManGoIsSoAnnoyingBroooSkip = 1;
                 fixGoManGoIsSoAnnoyingBroooCount = 0;
-                std::vector<std::string> items156 = LoopParseFunc(fixGoManGoIsSoAnnoyingBroooFurure[A_Index155 + 1]);
-                for (size_t A_Index156 = 0; A_Index156 < items156.size() + 0; A_Index156++) {
-                    std::string A_LoopField156 = items156[A_Index156 - 0];
-                    if (A_LoopField156 == " ") {
+                std::vector<std::string> items160 = LoopParseFunc(fixGoManGoIsSoAnnoyingBroooFurure[A_Index159 + 1]);
+                for (size_t A_Index160 = 0; A_Index160 < items160.size() + 0; A_Index160++) {
+                    std::string A_LoopField160 = items160[A_Index160 - 0];
+                    if (A_LoopField160 == " ") {
                         fixGoManGoIsSoAnnoyingBroooCount++;
                     } else {
                         break;
                     }
                 }
                 fixGoManGoIsSoAnnoyingBroooCountSpaceses = "";
-                for (int A_Index157 = 0; A_Index157 < fixGoManGoIsSoAnnoyingBroooCount + 0; A_Index157++) {
+                for (int A_Index161 = 0; A_Index161 < fixGoManGoIsSoAnnoyingBroooCount + 0; A_Index161++) {
                     fixGoManGoIsSoAnnoyingBroooCountSpaceses += " ";
                 }
-                fixGoManGoIsSoAnnoyingBrooo += fixGoManGoIsSoAnnoyingBroooCountSpaceses + "} " + Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index155 + 1]) + "\n";
+                fixGoManGoIsSoAnnoyingBrooo += fixGoManGoIsSoAnnoyingBroooCountSpaceses + "} " + Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index159 + 1]) + "\n";
             } else {
                 if (fixGoManGoIsSoAnnoyingBroooSkip == 0) {
-                    fixGoManGoIsSoAnnoyingBrooo += A_LoopField155 + "\n";
+                    fixGoManGoIsSoAnnoyingBrooo += A_LoopField159 + "\n";
                 }
                 fixGoManGoIsSoAnnoyingBroooSkip = 0;
             }
@@ -8612,10 +8652,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     std::vector<std::string> allFuncs;
     std::vector<std::string> allfuncDescription;
     int correctLang = 0;
-    std::vector<std::string> items158 = LoopParseFunc(instructions, "\n", "\r");
-    for (size_t A_Index158 = 0; A_Index158 < items158.size() + 0; A_Index158++) {
-        std::string A_LoopField158 = items158[A_Index158 - 0];
-        if (Trim(A_LoopField158) == "funcEND======================funcEND==============") {
+    std::vector<std::string> items162 = LoopParseFunc(instructions, "\n", "\r");
+    for (size_t A_Index162 = 0; A_Index162 < items162.size() + 0; A_Index162++) {
+        std::string A_LoopField162 = items162[A_Index162 - 0];
+        if (Trim(A_LoopField162) == "funcEND======================funcEND==============") {
             areWeInAFuncFromInstructions = 0;
             areWeInAFuncFromInstructionsLineNum = 0;
             if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
@@ -8628,7 +8668,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (areWeInAFuncFromInstructions == 1) {
             if (areWeInAFuncFromInstructionsLineNum == 1) {
                 // name of the func
-                funcLangHolder = StringTrimLeft(A_LoopField158, 5);
+                funcLangHolder = StringTrimLeft(A_LoopField162, 5);
                 if (Trim(funcLangHolder) == langToConvertTo) {
                     allFuncLang.push_back(Trim(funcLangHolder));
                     correctLang = 1;
@@ -8636,21 +8676,21 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             }
             if (areWeInAFuncFromInstructionsLineNum == 2) {
                 // name of the func
-                funcNameHolder = StringTrimLeft(A_LoopField158, 5);
+                funcNameHolder = StringTrimLeft(A_LoopField162, 5);
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
                     allFuncNames.push_back(Trim(funcNameHolder));
                 }
             }
             if (areWeInAFuncFromInstructionsLineNum == 3) {
                 // all libs
-                funcLibsHolder = StringTrimLeft(A_LoopField158, 5);
+                funcLibsHolder = StringTrimLeft(A_LoopField162, 5);
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
                     allFuncLibs.push_back(Trim(funcLibsHolder));
                 }
             }
             if (areWeInAFuncFromInstructionsLineNum == 4) {
                 // func description
-                funcDescriptionHolder = StringTrimLeft(A_LoopField158, 12);
+                funcDescriptionHolder = StringTrimLeft(A_LoopField162, 12);
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
                     allfuncDescription.push_back(Trim(funcDescriptionHolder));
                 }
@@ -8658,13 +8698,13 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             if (areWeInAFuncFromInstructionsLineNum >= 5) {
                 // the full func
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
-                    funcFuncHolder += A_LoopField158 + "\n";
+                    funcFuncHolder += A_LoopField162 + "\n";
                 }
             }
-            //MsgBox, % A_LoopField158
+            //MsgBox, % A_LoopField162
             areWeInAFuncFromInstructionsLineNum++;
         }
-        if (Trim(A_LoopField158) == "func======================func==============") {
+        if (Trim(A_LoopField162) == "func======================func==============") {
             areWeInAFuncFromInstructions = 1;
             areWeInAFuncFromInstructionsLineNum = 1;
             correctLang = 0;
@@ -8725,21 +8765,21 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     std::string allFuncsToPutAtTop = Chr(10);
     std::string allLibsToPutAtTop = "";
     if (!(allFuncNames.size() <= 0)) {
-        for (int A_Index159 = 0; A_Index159 < allFuncNames.size() + 0; A_Index159++) {
-            if (InStr(htCode, allFuncNames[A_Index159]) + "(") {
-                //MsgBox, % allFuncNames[A_Index159]
-                allFuncsToPutAtTop += allFuncs[A_Index159] + "\n";
-                if (Trim(allFuncLibs[A_Index159]) != "null") {
-                    allLibsToPutAtTop += allFuncLibs[A_Index159] + "|";
+        for (int A_Index163 = 0; A_Index163 < allFuncNames.size() + 0; A_Index163++) {
+            if (InStr(htCode, allFuncNames[A_Index163]) + "(") {
+                //MsgBox, % allFuncNames[A_Index163]
+                allFuncsToPutAtTop += allFuncs[A_Index163] + "\n";
+                if (Trim(allFuncLibs[A_Index163]) != "null") {
+                    allLibsToPutAtTop += allFuncLibs[A_Index163] + "|";
                 }
             }
         }
         allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTop, 1);
         std::string allLibsToPutAtTopTEMP;
-        std::vector<std::string> items160 = LoopParseFunc(allLibsToPutAtTop, "|");
-        for (size_t A_Index160 = 0; A_Index160 < items160.size() + 0; A_Index160++) {
-            std::string A_LoopField160 = items160[A_Index160 - 0];
-            allLibsToPutAtTopTEMP += A_LoopField160 + "\n";
+        std::vector<std::string> items164 = LoopParseFunc(allLibsToPutAtTop, "|");
+        for (size_t A_Index164 = 0; A_Index164 < items164.size() + 0; A_Index164++) {
+            std::string A_LoopField164 = items164[A_Index164 - 0];
+            allLibsToPutAtTopTEMP += A_LoopField164 + "\n";
         }
         allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTopTEMP, 1);
         includeLibsInCppIf = 1;
@@ -8780,26 +8820,26 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             htCode = "package main\nimport (\n" + htCode;
         }
     }
-    for (int A_Index161 = 0; A_Index161 < theIdNumOfThe34 + 0; A_Index161++) {
-        if (theIdNumOfThe34 == A_Index161 + 1) {
+    for (int A_Index165 = 0; A_Index165 < theIdNumOfThe34 + 0; A_Index165++) {
+        if (theIdNumOfThe34 == A_Index165 + 1) {
             if (langToConvertTo == langFileExtension_2) {
                 if (keyWordEscpaeChar_2 == "\\" && keyWordEscpaeChar != "\\") {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index161 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index161 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index165 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index165 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
                 } else {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index161 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index161 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index165 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index165 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
                 }
             } else {
-                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index161 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index161 + 1] + Chr(34));
+                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index165 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index165 + 1] + Chr(34));
             }
         } else {
             if (langToConvertTo == langFileExtension_2) {
                 if (keyWordEscpaeChar_2 == "\\" && keyWordEscpaeChar != "\\") {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index161 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index161 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index165 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index165 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2));
                 } else {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index161 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index161 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index165 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index165 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2));
                 }
             } else {
-                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index161 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index161 + 1]);
+                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index165 + 1) + Chr(65) + Chr(65), theIdNumOfThe34theVar[A_Index165 + 1]);
             }
         }
     }
@@ -8857,10 +8897,10 @@ void HTVMv2() {
     if (noParams == true) {
         return;
     }
-    std::vector<std::string> items162 = LoopParseFunc(str0);
-    for (size_t A_Index162 = 0; A_Index162 < items162.size() + 0; A_Index162++) {
-        std::string A_LoopField162 = items162[A_Index162 - 0];
-        str00 = Trim(A_LoopField162);
+    std::vector<std::string> items166 = LoopParseFunc(str0);
+    for (size_t A_Index166 = 0; A_Index166 < items166.size() + 0; A_Index166++) {
+        std::string A_LoopField166 = items166[A_Index166 - 0];
+        str00 = Trim(A_LoopField166);
         str00 = StringTrimRight(str00, 1);
     }
     print("HTVM v2");
@@ -8871,29 +8911,29 @@ void HTVMv2() {
         if (HTVM_getLang_HTVM() == "py") {
             print("PY");
         }
-        std::vector<std::string> items163 = LoopParseFunc(allArgs, "\n", "\r");
-        for (size_t A_Index163 = 0; A_Index163 < items163.size() + 0; A_Index163++) {
-            std::string A_LoopField163 = items163[A_Index163 - 0];
-            if (A_Index163 == 0) {
+        std::vector<std::string> items167 = LoopParseFunc(allArgs, "\n", "\r");
+        for (size_t A_Index167 = 0; A_Index167 < items167.size() + 0; A_Index167++) {
+            std::string A_LoopField167 = items167[A_Index167 - 0];
+            if (A_Index167 == 0) {
                 numOfParams++;
-                argCODE = FileRead(Trim(A_LoopField163));
-                argCODEfile = Trim(A_LoopField163);
+                argCODE = FileRead(Trim(A_LoopField167));
+                argCODEfile = Trim(A_LoopField167);
             }
-            else if (A_Index163 == 1) {
+            else if (A_Index167 == 1) {
                 numOfParams++;
-                argHTVMinstr = Trim(A_LoopField163);
+                argHTVMinstr = Trim(A_LoopField167);
             }
-            else if (A_Index163 == 2) {
+            else if (A_Index167 == 2) {
                 numOfParams++;
-                argLangTo = Trim(A_LoopField163);
+                argLangTo = Trim(A_LoopField167);
             } else {
                 numOfParams++;
-                argHTVMinstrMORE.push_back(Trim(A_LoopField163));
+                argHTVMinstrMORE.push_back(Trim(A_LoopField167));
             }
         }
         print("===============123431234===========start=====");
-        for (int A_Index164 = 0; A_Index164 < argHTVMinstrMORE.size() + 0; A_Index164++) {
-            print(argHTVMinstrMORE[A_Index164]);
+        for (int A_Index168 = 0; A_Index168 < argHTVMinstrMORE.size() + 0; A_Index168++) {
+            print(argHTVMinstrMORE[A_Index168]);
         }
         print("===============123431234==========end======");
         print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) + langToConvertTo);

@@ -17,12 +17,41 @@ print(var2)
 print("hi2 void")
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+'''1
+waedsfdsaeds
+aedsf
+saedsfxawdsfdfsaw
+fddf
+sefdf
+saersdsaersdgfd
+'''2
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func szdfxc2(var1: str := "hi", var2: str := "hi2"): void (
+
+print(var1)
+print(var2)
+print("hi2 void")
+)
+
+
 
 main
 print(szdfxc0())
 szdfxc()
 szdfxc1(5)
 szdfxc1(6, "hello")
+
+
+szdfxc2()
+szdfxc2("HI1")
+szdfxc2("HI1", "HI2")
 
 print("Hello, World!")
 

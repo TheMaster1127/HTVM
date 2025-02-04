@@ -1,590 +1,102 @@
-else if (SubStr(StrLower(A_LoopField), 1, StrLen(keyWordFunc)) = keyWordFunc) or (SubStr(StrLower(A_LoopField), 1, StrLen(keyWordAsync . keyWordFunc)) = keyWordAsync . keyWordFunc) and (lineDone = 0) {
-    lineDone := 1
-    if (SubStr(StrLower(A_LoopField), 1, StrLen(keyWordAsync . keyWordFunc)) = keyWordAsync . keyWordFunc) {
-        ; is async
-        int1 := 1
-        str1 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordAsync . keyWordFunc)))
-    } else {
-        ; is async
-        int1 := 0
-        str1 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordFunc)))
+print(str5)
+print(str10)
+if (Trim(str5) != "") {
+    StringTrimRight, str5, str5, 1
+}
+if (Trim(str10) != "") {
+    StringTrimRight, str10, str10, 1
+}
+str5 := Trim(str5)
+str10 := Trim(str10)
+if (Trim(str5) != "") and (Trim(str10) != "") {
+    Loop, Parse, str5, `n, `r {
+        str11 .= A_LoopField . ", "
     }
-    if (usePrefixTypeForTypeDefinition = "on") {
-        str2 := Trim(StrSplit(str1, "(", 1))
-        ; func body
-        str1 := Trim(StringTrimLeft(str1, StrLen(str2)))
-        StringTrimRight, str1, str1, 1
-        ; type of the func
-        str3 := Trim(StringTrimRight(str2, StrLen(StrSplit(str2, " ", countChars(str2, " ") + 1))))
-        ; name of func
-        str2 := Trim(StrSplit(str2, " ", countChars(str2, " ") + 1))
+    Loop, Parse, str10, `n, `r {
+        str12 .= A_LoopField . ", "
     }
-    if (usePostfixTypeForTypeDefinition = "on") {
-        ; name of func
-        str2 := Trim(StrSplit(str1, "(", 1))
-        ; func body
-        str1 := Trim(StringTrimLeft(str1, StrLen(str2)))
-        ; type of the func
-        str3 := Trim(StrSplit(str1, ")", countChars(str1, ")") + 1))
-        StringTrimLeft, str3, str3, 1
-        str1 := Trim(StringTrimRight(str1, StrLen(str3) + 2))
+    StringTrimRight, str12, str12, 2
+    if (langToConvertTo = "dart") {
+        str12 := "[" . str12 . "]"
     }
-    StringTrimLeft, str1, str1, 1
-    str3 := Trim(str3)
-    if (Trim(str1) = "") {
-        if (langToConvertTo = langFileExtension_2) {
-            if (int1 = 1)  ; int1 1 = is async 0 = not async {
-                if (usePrefixTypeForTypeDefinition_2 = "on") {
-                    htCode .= keyWordAsync . keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
-                } else {
-                    htCode .= keyWordAsync . keyWordFunc . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
-                }
-            } else {
-                if (usePrefixTypeForTypeDefinition_2 = "on") {
-                    htCode .= keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
-                } else {
-                    htCode .= keyWordFunc . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
-                }
+    if (langToConvertTo = "lua") {
+        Loop, Parse, str12, `, {
+            str14 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . ", "
+        }
+        StringTrimRight, str14, str14, 2
+        str13 .= "{" . Chr(10)
+        Loop, Parse, str12, `, {
+            str13 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " = " . Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " or " . Trim(StrSplit(Trim(A_LoopField), " = ", 2)) . Chr(10)
+        }
+        str12 := str14
+    }
+    if (langToConvertTo = "go") {
+        str14 := "__HTVM_V2_TO_GO_optionalParams__ ...interface{}"
+        str13 .= "{" . Chr(10) . "var "
+        Loop, Parse, str12, `, {
+            str13 .= Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField), " = ", 1)), " ", 1)) . ", "
+        }
+        StringTrimRight, str13, str13, 2
+        str13 .= " interface{}" . Chr(10)
+        Loop, Parse, str12, `, {
+            str16 := Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField), " = ", 1)), " ", 1))
+            str17 := Trim(StrSplit(Trim(A_LoopField), " = ", 2))
+            str13 .= "if len(__HTVM_V2_TO_GO_optionalParams__) " . Chr(62) . " " . STR(A_Index) . Chr(10) . "{" . Chr(10) . str16 . " = __HTVM_V2_TO_GO_optionalParams__[" . STR(A_Index) . "]" . Chr(10) . "}" . Chr(10) . "else" . Chr(10) . "{" . Chr(10) . str16 . " = " . str17 . Chr(10) . "}" . Chr(10)
+        }
+        str12 := str14
+    }
+    str11 .= str12
+}
+if (Trim(str5) != "") and (Trim(str10) = "") {
+    Loop, Parse, str5, `n, `r {
+        str11 .= A_LoopField . ", "
+    }
+    StringTrimRight, str11, str11, 2
+}
+if (Trim(str5) = "") and (Trim(str10) != "") {
+    Loop, Parse, str10, `n, `r {
+        str11 .= A_LoopField . ", "
+    }
+    StringTrimRight, str11, str11, 2
+    if (langToConvertTo = "dart") {
+        str11 := "[" . str11 . "]"
+    }
+    if (langToConvertTo = "lua") {
+        Loop, Parse, str11, `, {
+            str14 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . ", "
+        }
+        StringTrimRight, str14, str14, 2
+        str13 .= "{" . Chr(10)
+        Loop, Parse, str11, `, {
+            str13 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " = " . Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " or " . Trim(StrSplit(Trim(A_LoopField), " = ", 2)) . Chr(10)
+        }
+        str11 := str14
+    }
+    if (langToConvertTo = "go") {
+        str14 := "__HTVM_V2_TO_GO_optionalParams__ ...interface{}"
+        str13 .= "{" . Chr(10) . "var "
+        Loop, Parse, str11, `, {
+            str13 .= Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField), " = ", 1)), " ", 1)) . ", "
+        }
+        StringTrimRight, str13, str13, 2
+        str13 .= " interface{}" . Chr(10)
+        Loop, Parse, str11, `, {
+            str16 := Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField), " = ", 1)), " ", 1))
+            str17 := Trim(StrSplit(Trim(A_LoopField), " = ", 2))
+            str13 .= "if len(__HTVM_V2_TO_GO_optionalParams__) " . Chr(62) . " " . STR(A_Index) . Chr(10) . "{" . Chr(10) . str16 . " = __HTVM_V2_TO_GO_optionalParams__[" . STR(A_Index) . "]" . Chr(10) . "}" . Chr(10) . "else" . Chr(10) . "{" . Chr(10) . str16 . " = " . str17 . Chr(10) . "}" . Chr(10)
+        }
+        if (langToConvertTo = "java") {
+            "public static void assdfdg(String var1, String var2, String var3)" . Chr(10) . "{" . Chr(10) . "assdfdg(var1, var2, var3, " . Chr(34) . "hi1" . Chr(34) . ", " . Chr(34) . "hi2" . Chr(34) . ");" . Chr(10) . "}" . Chr(10)
+            Loop, Parse, str11, `, {
+                str14 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . ", "
             }
-            if (langToConvertTo = "cpp") {
-                htCode .= getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
-            }
-            if (langToConvertTo = "py") {
-                htCode .= "def " . str2 . "():" . Chr(10)
-            }
-            if (langToConvertTo = "js") {
-                if (int1 = 1)  ; int1 1 = is async, 0 = not async {
-                    htCode .= "async function " . str2 . "()" . Chr(10)
-                } else {
-                    htCode .= "function " . str2 . "()" . Chr(10)
-                }
-                ; Go
-                if (langToConvertTo = "go") {
-                    if (str3 = keyWordVoid) {
-                        htCode .= "func " . str2 . "()" . Chr(10)
-                    } else {
-                        htCode .= "func " . str2 . "() " . getFuncTypeConvert(str3) . Chr(10)
-                    }
-                }
-                if (langToConvertTo = "lua") {
-                    htCode .= "function " . str2 . "()" . Chr(10)
-                }
-                if (langToConvertTo = "cs") {
-                    htCode .= "static " . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
-                }
-                if (langToConvertTo = "java") {
-                    htCode .= "public static " . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
-                }
-                if (langToConvertTo = "kt") {
-                    if (str3 = keyWordVoid) {
-                        htCode .= "fun " . str2 . "()" . Chr(10)
-                    } else {
-                        htCode .= "fun " . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
-                    }
-                }
-                if (langToConvertTo = "rb") {
-                    htCode .= "def " . str2 . "()" . Chr(10)
-                }
-                if (langToConvertTo = "nim") {
-                    if (str3 = keyWordVoid) {
-                        htCode .= "proc " . str2 . "() =" . Chr(10)
-                    } else {
-                        htCode .= "proc " . str2 . "(): " . getFuncTypeConvert(str3) . " =" . Chr(10)
-                    }
-                }
-                if (langToConvertTo = "ahk") {
-                    htCode .= str2 . "()" . Chr(10)
-                }
-                if (langToConvertTo = "swift") {
-                    if (str3 = keyWordVoid) {
-                        htCode .= "func " . str2 . "()" . Chr(10)
-                    } else {
-                        htCode .= "func " . str2 . "() -> " . getFuncTypeConvert(str3) . Chr(10)
-                    }
-                }
-                if (langToConvertTo = "dart") {
-                    htCode .= getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
-                }
-                if (langToConvertTo = "ts") {
-                    htCode .= "function " . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
-                }
-                if (langToConvertTo = "groovy") {
-                    htCode .= "def " . str2 . "()" . Chr(10)
-                }
-            } else {
-                str5 := ""
-                str6 := ""
-                str7 := ""
-                str8 := ""
-                str9 := ""
-                str10 := ""
-                str11 := ""
-                str12 := ""
-                str13 := ""
-                str14 := ""
-                Loop, Parse, str1, `, {
-                    print("|" . Trim(A_LoopField) . "|")
-                    if (InStr(Trim(A_LoopField), " ")) {
-                        ; there is space aka there is a type
-                        if (InStr(A_LoopField, " " . Trim(keyWordAssign) . " ") = false) {
-                            if (usePrefixTypeForTypeDefinition = "on") {
-                                ; normal
-                                str6 := Trim(A_LoopField)
-                                str7 := getTheLastWord(str6)
-                                str8 := getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)))
-                                ; str5 .= str8 . " " . str7 . Chr(10)
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ; save to str5
-                                ; str8 = the type
-                                ; str7 = variable name
-                                if (langToConvertTo = langFileExtension_2) {
-                                    if (usePrefixTypeForTypeDefinition_2 = "on") {
-                                        str5 .= str8 . " " . str7 . Chr(10)
-                                    } else {
-                                        str5 .= str7 . ": " . str8 . Chr(10)
-                                    }
-                                }
-                                if (langToConvertTo = "cpp") {
-                                    str5 .= str8 . " " . str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "py") {
-                                    str5 .= str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "js") {
-                                    str5 .= str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "go") {
-                                    str5 .= str7 . " " . str8 . Chr(10)
-                                }
-                                if (langToConvertTo = "lua") {
-                                    str5 .= str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "cs") {
-                                    str5 .= str8 . " " . str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "java") {
-                                    str5 .= str8 . " " . str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "kt") {
-                                    str5 .= str7 . ": " . str8 . Chr(10)
-                                }
-                                if (langToConvertTo = "rb") {
-                                    str5 .= str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "nim") {
-                                    str5 .= str7 . ": " . str8 . Chr(10)
-                                }
-                                if (langToConvertTo = "ahk") {
-                                    str5 .= str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "swift") {
-                                    str5 .= "_ " . str7 . ": " . str8 . Chr(10)
-                                }
-                                if (langToConvertTo = "dart") {
-                                    str5 .= str8 . " " . str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "ts") {
-                                    str5 .= str7 . ": " . str8 . Chr(10)
-                                }
-                                if (langToConvertTo = "groovy") {
-                                    str5 .= str7 . Chr(10)
-                                }
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            } else {
-                                ; not normal
-                                str6 := Trim(A_LoopField)
-                                str7 := Trim(StrSplit(str6, ":", 2))
-                                str8 := getFuncTypeConvert(Trim(StrSplit(str6, ":", 1)))
-                                ; str5 .= str7 . " :" . str8 . Chr(10)
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ; save to str5
-                                ; str8 = the type
-                                ; str7 = variable name
-                                if (langToConvertTo = langFileExtension_2) {
-                                    if (usePrefixTypeForTypeDefinition_2 = "on") {
-                                        str5 .= str8 . " " . str7 . Chr(10)
-                                    } else {
-                                        str5 .= str7 . ": " . str8 . Chr(10)
-                                    }
-                                }
-                                if (langToConvertTo = "cpp") {
-                                    str5 .= str8 . " " . str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "py") {
-                                    str5 .= str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "js") {
-                                    str5 .= str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "go") {
-                                    str5 .= str7 . " " . str8 . Chr(10)
-                                }
-                                if (langToConvertTo = "lua") {
-                                    str5 .= str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "cs") {
-                                    str5 .= str8 . " " . str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "java") {
-                                    str5 .= str8 . " " . str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "kt") {
-                                    str5 .= str7 . ": " . str8 . Chr(10)
-                                }
-                                if (langToConvertTo = "rb") {
-                                    str5 .= str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "nim") {
-                                    str5 .= str7 . ": " . str8 . Chr(10)
-                                }
-                                if (langToConvertTo = "ahk") {
-                                    str5 .= str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "swift") {
-                                    str5 .= "_ " . str7 . ": " . str8 . Chr(10)
-                                }
-                                if (langToConvertTo = "dart") {
-                                    str5 .= str8 . " " . str7 . Chr(10)
-                                }
-                                if (langToConvertTo = "ts") {
-                                    str5 .= str7 . ": " . str8 . Chr(10)
-                                }
-                                if (langToConvertTo = "groovy") {
-                                    str5 .= str7 . Chr(10)
-                                }
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            }
-                        } else {
-                            ; optanal param
-                            if (InStr(Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 1)), " ")) {
-                                ; there is a type
-                                if (usePrefixTypeForTypeDefinition = "on") {
-                                    ; normal
-                                    str6 := Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 1))
-                                    str9 := Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 2))))
-                                    str7 := getTheLastWord(str6)
-                                    str8 := getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)))
-                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    ;;;;;;;;;;;;;;;;; optanal param ;;;;;;;;;;;;;;;;;
-                                    ; save to str10
-                                    ; str8 = the type
-                                    ; str7 = variable name
-                                    ; str9 = after the keyWordAssign
-                                    if (langToConvertTo = langFileExtension_2) {
-                                        if (usePrefixTypeForTypeDefinition_2 = "on") {
-                                            str10 .= str8 . " " . str7 . " " . Trim(keyWordAssign_2) . " " . str9 . Chr(10)
-                                        } else {
-                                            str10 .= str7 . ": " . str8 . " " . Trim(keyWordAssign_2) . " " . str9 . Chr(10)
-                                        }
-                                    }
-                                    if (langToConvertTo = "cpp") {
-                                        str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "py") {
-                                        str10 .= str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "js") {
-                                        str10 .= str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "go") {
-                                        skipLeftCuleyForFuncPLS := 1
-                                        str10 .= str7 . " " . str8 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "lua") {
-                                        str10 .= str7 . " = " . str9 . Chr(10)
-                                        skipLeftCuleyForFuncPLS := 1
-                                    }
-                                    if (langToConvertTo = "cs") {
-                                        str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "java") {
-                                        str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "kt") {
-                                        str10 .= str7 . ": " . str8 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "rb") {
-                                        str10 .= str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "nim") {
-                                        str10 .= str7 . ": " . str8 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "ahk") {
-                                        str10 .= str7 . " := " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "swift") {
-                                        str10 .= "_ " . str7 . ": " . str8 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "dart") {
-                                        str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "ts") {
-                                        str10 .= str7 . ": " . str8 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "groovy") {
-                                        str10 .= str7 . " = " . str9 . Chr(10)
-                                    }
-                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    ; str10
-                                    ; skipLeftCuleyForFuncPLS := 1
-                                } else {
-                                    ; not normal
-                                    str6 := Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 1))
-                                    str9 := Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 2))))
-                                    str7 := Trim(StrSplit(str6, ":", 2))
-                                    str8 := getFuncTypeConvert(Trim(StrSplit(str6, ":", 1)))
-                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    ;;;;;;;;;;;;;;;;; optanal param ;;;;;;;;;;;;;;;;;
-                                    ; save to str10
-                                    ; str8 = the type
-                                    ; str7 = variable name
-                                    ; str9 = after the keyWordAssign
-                                    if (langToConvertTo = langFileExtension_2) {
-                                        if (usePrefixTypeForTypeDefinition_2 = "on") {
-                                            str10 .= str8 . " " . str7 . " " . Trim(keyWordAssign_2) . " " . str9 . Chr(10)
-                                        } else {
-                                            str10 .= str7 . ": " . str8 . " " . Trim(keyWordAssign_2) . " " . str9 . Chr(10)
-                                        }
-                                    }
-                                    if (langToConvertTo = "cpp") {
-                                        str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "py") {
-                                        str10 .= str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "js") {
-                                        str10 .= str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "go") {
-                                        skipLeftCuleyForFuncPLS := 1
-                                        str10 .= str7 . " " . str8 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "lua") {
-                                        str10 .= str7 . " = " . str9 . Chr(10)
-                                        skipLeftCuleyForFuncPLS := 1
-                                    }
-                                    if (langToConvertTo = "cs") {
-                                        str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "java") {
-                                        str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "kt") {
-                                        str10 .= str7 . ": " . str8 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "rb") {
-                                        str10 .= str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "nim") {
-                                        str10 .= str7 . ": " . str8 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "ahk") {
-                                        str10 .= str7 . " := " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "swift") {
-                                        str10 .= "_ " . str7 . ": " . str8 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "dart") {
-                                        str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "ts") {
-                                        str10 .= str7 . ": " . str8 . " = " . str9 . Chr(10)
-                                    }
-                                    if (langToConvertTo = "groovy") {
-                                        str10 .= str7 . " = " . str9 . Chr(10)
-                                    }
-                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    ; str10
-                                    ; skipLeftCuleyForFuncPLS := 1
-                                }
-                            } else {
-                                ; there is no type
-                                str8 := Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 1))
-                                str9 := Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField), " " . Trim(keyWordAssign) . " ", 2))))
-                                ; str10
-                                ; skipLeftCuleyForFuncPLS := 1
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;; optanal param ;;;;;;;;;;;;;;;;;
-                                ; save to str10
-                                ; str8 = variable name
-                                ; str9 = after the keyWordAssign
-                                if (langToConvertTo = langFileExtension_2) {
-                                    if (usePrefixTypeForTypeDefinition_2 = "on") {
-                                        str10 .= str7 . " " . Trim(keyWordAssign_2) . " " . str9 . Chr(10)
-                                    } else {
-                                        str10 .= str7 . " " . Trim(keyWordAssign_2) . " " . str9 . Chr(10)
-                                    }
-                                }
-                                if (langToConvertTo = "py") {
-                                    str10 .= str7 . " = " . str9 . Chr(10)
-                                }
-                                if (langToConvertTo = "js") {
-                                    str10 .= str7 . " = " . str9 . Chr(10)
-                                }
-                                if (langToConvertTo = "lua") {
-                                    str10 .= str7 . " = " . str9 . Chr(10)
-                                    skipLeftCuleyForFuncPLS := 1
-                                }
-                                if (langToConvertTo = "rb") {
-                                    str10 .= str7 . " = " . str9 . Chr(10)
-                                }
-                                if (langToConvertTo = "ahk") {
-                                    str10 .= str7 . " := " . str9 . Chr(10)
-                                }
-                                if (langToConvertTo = "groovy") {
-                                    str10 .= str7 . " = " . str9 . Chr(10)
-                                }
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            }
-                        }
-                    } else {
-                        str5 .= Trim(A_LoopField) . Chr(10)
-                    }
-                }
-                if (Trim(str5) != "") {
-                    StringTrimRight, str5, str5, 1
-                }
-                if (Trim(str10) != "") {
-                    StringTrimRight, str10, str10, 1
-                }
-                str5 := Trim(str5)
-                str10 := Trim(str10)
-                if (Trim(str5) != "") and (Trim(str10) != "") {
-                    Loop, Parse, str5, `n, `r {
-                        str11 .= A_LoopField . ", "
-                    }
-                    StringTrimRight, str11, str11, 2
-                    Loop, Parse, str10, `n, `r {
-                        str11 .= A_LoopField . ", "
-                    }
-                    StringTrimRight, str11, str11, 2
-                    if (langToConvertTo = "dart") {
-                        str11 := "[" . str11 . "]"
-                    }
-                }
-                if (Trim(str5) != "") and (Trim(str10) = "") {
-                    Loop, Parse, str10, `n, `r {
-                        str11 .= A_LoopField . ", "
-                    }
-                    StringTrimRight, str11, str11, 2
-                    if (langToConvertTo = "dart") {
-                        str11 := "[" . str11 . "]"
-                    }
-                }
-                if (Trim(str5) = "") and (Trim(str10) != "") {
-                    Loop, Parse, str5, `n, `r {
-                        str11 .= A_LoopField . ", "
-                    }
-                    StringTrimRight, str11, str11, 2
-                }
-                ;;;;;;;; last put all
-                ;;;;;;;; last put all
-                ;;;;;;;; last put all
-                if (langToConvertTo = langFileExtension_2) {
-                    if (int1 = 1)  ; int1 1 = is async 0 = not async {
-                        if (usePrefixTypeForTypeDefinition_2 = "on") {
-                            htCode .= keyWordAsync . keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
-                        } else {
-                            htCode .= keyWordAsync . keyWordFunc . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)
-                        }
-                    } else {
-                        if (usePrefixTypeForTypeDefinition_2 = "on") {
-                            htCode .= keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
-                        } else {
-                            htCode .= keyWordFunc . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)
-                        }
-                    }
-                    if (langToConvertTo = "cpp") {
-                        htCode .= getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
-                    }
-                    if (langToConvertTo = "py") {
-                        htCode .= "def " . str2 . "(" . str11 . "):" . Chr(10)
-                    }
-                    if (langToConvertTo = "js") {
-                        if (int1 = 1)  ; int1 1 = is async, 0 = not async {
-                            htCode .= "async function " . str2 . "(" . str11 . ")" . Chr(10)
-                        } else {
-                            htCode .= "function " . str2 . "(" . str11 . ")" . Chr(10)
-                        }
-                        ; Go
-                        if (langToConvertTo = "go") {
-                            if (str3 = keyWordVoid) {
-                                htCode .= "func " . str2 . "(" . str11 . ")" . Chr(10)
-                            } else {
-                                htCode .= "func " . str2 . "(" . str11 . ") " . getFuncTypeConvert(str3) . Chr(10)
-                            }
-                        }
-                        if (langToConvertTo = "lua") {
-                            htCode .= "function " . str2 . "(" . str11 . ")" . Chr(10)
-                        }
-                        if (langToConvertTo = "cs") {
-                            htCode .= "static " . getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
-                        }
-                        if (langToConvertTo = "java") {
-                            htCode .= "public static " . getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
-                        }
-                        if (langToConvertTo = "kt") {
-                            if (str3 = keyWordVoid) {
-                                htCode .= "fun " . str2 . "(" . str11 . ")" . Chr(10)
-                            } else {
-                                htCode .= "fun " . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)
-                            }
-                        }
-                        if (langToConvertTo = "rb") {
-                            htCode .= "def " . str2 . "(" . str11 . ")" . Chr(10)
-                        }
-                        if (langToConvertTo = "nim") {
-                            if (str3 = keyWordVoid) {
-                                htCode .= "proc " . str2 . "(" . str11 . ") =" . Chr(10)
-                            } else {
-                                htCode .= "proc " . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . " =" . Chr(10)
-                            }
-                        }
-                        if (langToConvertTo = "ahk") {
-                            htCode .= str2 . "(" . str11 . ")" . Chr(10)
-                        }
-                        if (langToConvertTo = "swift") {
-                            if (str3 = keyWordVoid) {
-                                htCode .= "func " . str2 . "(" . str11 . ")" . Chr(10)
-                            } else {
-                                htCode .= "func " . str2 . "(" . str11 . ") -> " . getFuncTypeConvert(str3) . Chr(10)
-                            }
-                        }
-                        if (langToConvertTo = "dart") {
-                            htCode .= getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
-                        }
-                        if (langToConvertTo = "ts") {
-                            htCode .= "function " . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)
-                        }
-                        if (langToConvertTo = "groovy") {
-                            htCode .= "def " . str2 . "(" . str11 . ")" . Chr(10)
-                        }
-                        ;;;;;;;; last put all
-                        ;;;;;;;; last put all
-                        ;;;;;;;; last put all
-                    }
-                }
+            StringTrimRight, str14, str14, 2
+            Loop, Parse, str11, `, {
+                str13 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . ", "
+                str13 .= "public static " . getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
             }
         }
+        str11 := str14
     }
 }
+print(str11)

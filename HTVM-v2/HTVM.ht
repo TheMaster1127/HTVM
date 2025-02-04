@@ -9015,6 +9015,7 @@ str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
 }
 if (langToConvertTo = "java") {
 str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
+skipLeftCuleyForFuncPLS := 1
 }
 if (langToConvertTo = "kt") {
 str10 .= str7 . ": " . str8 . " = " . str9 . Chr(10)
@@ -9106,6 +9107,7 @@ str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
 }
 if (langToConvertTo = "java") {
 str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
+skipLeftCuleyForFuncPLS := 1
 }
 if (langToConvertTo = "kt") {
 str10 .= str7 . ": " . str8 . " = " . str9 . Chr(10)
@@ -9300,6 +9302,39 @@ str12 := str14
 
 
 
+
+
+if (langToConvertTo = "java")
+{
+str14 := "Object... __HTVM_V2_TO_JAVA_optionalParams__"
+
+str13 .= "{" . Chr(10)
+
+Loop, Parse, str12, `,
+{
+str13 .= Trim(A_LoopField) . ";" . Chr(10)
+}
+
+
+Loop, Parse, str12, `,
+{
+str16 := Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField), " = ", 1)), " ", 2))
+str17 := Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField), " = ", 1)), " ", 1))
+
+; str16 = var name
+; str17 = type name
+
+str13 .= "if (__HTVM_V2_TO_JAVA_optionalParams__.length " . Chr(62) . " " . STR(A_Index) . ") " . str16 . " = (" . str17 . ") __HTVM_V2_TO_JAVA_optionalParams__[" . STR(A_Index) . "];" . Chr(10)
+}
+
+str12 := str14
+}
+
+
+
+
+
+
 str11 .= str12
 
 
@@ -9376,13 +9411,37 @@ str17 := Trim(StrSplit(Trim(A_LoopField), " = ", 2))
 str13 .= "if len(__HTVM_V2_TO_GO_optionalParams__) " . Chr(62) . " " . STR(A_Index) . Chr(10) . "{" . Chr(10) . str16 . " = __HTVM_V2_TO_GO_optionalParams__[" . STR(A_Index) . "]" . Chr(10) . "}" . Chr(10) . "else" . Chr(10) . "{" . Chr(10) . str16 . " = " . str17 . Chr(10) . "}" . Chr(10)
 }
 
+str11 := str14
+}
 
 
+if (langToConvertTo = "java")
+{
+
+str14 := "Object... __HTVM_V2_TO_JAVA_optionalParams__"
+
+str13 .= "{" . Chr(10)
+
+Loop, Parse, str11, `,
+{
+str13 .= Trim(A_LoopField) . ";" . Chr(10)
+}
+
+
+Loop, Parse, str11, `,
+{
+str16 := Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField), " = ", 1)), " ", 2))
+str17 := Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField), " = ", 1)), " ", 1))
+
+; str16 = var name
+; str17 = type name
+
+str13 .= "if (__HTVM_V2_TO_JAVA_optionalParams__.length " . Chr(62) . " " . STR(A_Index) . ") " . str16 . " = (" . str17 . ") __HTVM_V2_TO_JAVA_optionalParams__[" . STR(A_Index) . "];" . Chr(10)
+}
 
 str11 := str14
 
 }
-
 
 }
 
@@ -9451,7 +9510,7 @@ if (langToConvertTo = "cs")
 }
 if (langToConvertTo = "java")
 {
-    htCode .= str13 . "public static " . getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
+    htCode .= "public static " . getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10) . str13
 }
 if (langToConvertTo = "kt")
 {

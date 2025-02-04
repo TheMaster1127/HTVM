@@ -11,11 +11,32 @@ func void szdfxc1(int var0, str var1 := "hi", str var2 := "hi2") (
     print(var2)
     print("hi2 void")
 )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+'''1
+waedsfdsaeds
+aedsf
+saedsfxawdsfdfsaw
+fddf
+sefdf
+saersdsaersdgfd
+'''2
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func void szdfxc2(str var1 := "hi", str var2 := "hi2") (
+    print(var1)
+    print(var2)
+    print("hi2 void")
+)
 main
 print(szdfxc0())
 szdfxc()
 szdfxc1(5)
 szdfxc1(6, "hello")
+szdfxc2()
+szdfxc2("HI1")
+szdfxc2("HI1", "HI2")
 print("Hello, World!")
 spin 5 (
     print(A_Index)
