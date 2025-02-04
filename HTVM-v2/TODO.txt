@@ -19,8 +19,6 @@ keyWordINT8
 keyWordINT16
 keyWordINT32
 keyWordINT64
-keyWordFunc
-keyWordAsync
 keyWordArrayDefinition
 keyWordArrayOfIntegersDefinition
 keyWordArrayOfStringsDefinition
@@ -48,13 +46,13 @@ useCurlyBracesSyntaxForArrayDef
 useInJavaScriptAlwaysUseVar
 useJavaScriptAllFuncsAreAsync
 
-LEFT TO DO: 49
+LEFT TO DO: 47
 
 TODO List
 
-1. Implement variables.
-2. Implement arrays.
-3. Implement functions.
+DONE! 1. Implement functions.
+2. Implement variables.
+3. Implement arrays.
 4. Handle the use??? on/off settings.
 5. Implement OSP.
 6. Make the documentation, website, and README.
