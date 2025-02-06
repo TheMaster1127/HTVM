@@ -49,7 +49,11 @@ static void szdfxc2(string var1 = "hi", string var2 = "hi2") {
     print(var2);
     print("hi2 void");
 }
+
+
 static void Main(string[] args) {
+    
+
     print(szdfxc0());
     szdfxc();
     szdfxc1(5);

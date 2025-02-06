@@ -40,6 +40,10 @@ proc szdfxc2(var1: string = "hi", var2: string = "hi2") =
     print(var1)
     print(var2)
     print("hi2 void")
+
+
+
+
 print(szdfxc0())
 szdfxc()
 szdfxc1(5)

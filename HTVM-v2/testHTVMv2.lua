@@ -39,6 +39,10 @@ function szdfxc2(var1, var2)
     print(var2)
     print("hi2 void")
 end
+
+
+
+
 print(szdfxc0())
 szdfxc()
 szdfxc1(5)

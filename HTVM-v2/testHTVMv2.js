@@ -36,7 +36,11 @@ function szdfxc2(var1 = "hi", var2 = "hi2") {
     print(var2);
     print("hi2 void");
 }
+
+
 async function main() {
+    
+
     print(szdfxc0());
     szdfxc();
     szdfxc1(5);

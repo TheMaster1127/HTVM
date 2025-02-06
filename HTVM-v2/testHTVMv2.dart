@@ -34,7 +34,11 @@ void szdfxc2([String var1 = "hi", String var2 = "hi2"]) {
     print(var2);
     print("hi2 void");
 }
+
+
 void main(List<String> arguments) {
+    
+
     print(szdfxc0());
     szdfxc();
     szdfxc1(5);

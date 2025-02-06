@@ -42,7 +42,11 @@ fun szdfxc2(var1: String = "hi", var2: String = "hi2") {
     print(var2)
     print("hi2 void")
 }
+
+
 fun main(args: Array<String>) {
+    
+
     print(szdfxc0())
     szdfxc()
     szdfxc1(5)

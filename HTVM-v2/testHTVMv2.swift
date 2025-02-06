@@ -35,7 +35,11 @@ func szdfxc2(_ var1: String = "hi", _ var2: String = "hi2") {
     print(var2)
     print("hi2 void")
 }
+
+
 func main() {
+    
+
     print(szdfxc0())
     szdfxc()
     szdfxc1(5)

@@ -29,7 +29,14 @@ func void szdfxc2(str var1 := "hi", str var2 := "hi2") (
     print(var2)
     print("hi2 void")
 )
+keyWordCodeInTheTranspiledLangStartPY
+def fawesfdsazsd():
+    print("hi")
+keyWordCodeInTheTranspiledLangEndPY
 main
+keyWordCodeInTheTranspiledLangStartPY
+fawesfdsazsd()
+keyWordCodeInTheTranspiledLangEndPY
 print(szdfxc0())
 szdfxc()
 szdfxc1(5)

@@ -45,7 +45,11 @@ function szdfxc2(var1: string = "hi", var2: string = "hi2"): void {
     print(var2);
     print("hi2 void");
 }
+
+
 async function main(): Promise<void> {
+    
+
     print(szdfxc0());
     szdfxc();
     szdfxc1(5);

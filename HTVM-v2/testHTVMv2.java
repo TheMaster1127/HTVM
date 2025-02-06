@@ -58,7 +58,10 @@ public static void szdfxc2(Object... __HTVM_V2_TO_JAVA_optionalParams__) {
     print(var2);
     print("hi2 void");
 }
-public static void main(String[] args) {
+
+ {
+    
+
     print(szdfxc0());
     szdfxc();
     szdfxc1(5);

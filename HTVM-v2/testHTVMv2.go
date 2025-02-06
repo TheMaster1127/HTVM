@@ -78,7 +78,11 @@ func szdfxc2(__HTVM_V2_TO_GO_optionalParams__ ...interface{}) {
     print(var2)
     print("hi2 void")
 }
+
+
 func main() {
+    
+
     print(szdfxc0())
     szdfxc()
     szdfxc1(5)

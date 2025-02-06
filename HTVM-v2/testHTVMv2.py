@@ -30,6 +30,9 @@ def szdfxc2(var1 = "hi", var2 = "hi2"):
     print(var1)
     print(var2)
     print("hi2 void")
+def fawesfdsazsd():
+    print("hi")
+fawesfdsazsd()
 print(szdfxc0())
 szdfxc()
 szdfxc1(5)
