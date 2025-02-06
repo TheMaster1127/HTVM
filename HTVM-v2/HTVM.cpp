@@ -2250,7 +2250,7 @@ std::string getFuncTypeConvert(std::string type) {
             theType = "int64_t";
         }
         if (type == keyWordArrayDefinition) {
-            theType = "std::vector<void>";
+            theType = "std::vector<std::string>";
         }
         if (type == keyWordArrayOfIntegersDefinition) {
             theType = "std::vector<int>";
@@ -2507,19 +2507,19 @@ std::string getFuncTypeConvert(std::string type) {
             theType = "Long";
         }
         if (type == keyWordArrayDefinition) {
-            theType = "MutableList<String>";
+            theType = "ArrayList<String>";
         }
         if (type == keyWordArrayOfIntegersDefinition) {
-            theType = "MutableList<Int>";
+            theType = "ArrayList<Int>";
         }
         if (type == keyWordArrayOfStringsDefinition) {
-            theType = "MutableList<String>";
+            theType = "ArrayList<String>";
         }
         if (type == keyWordArrayOfFloatingPointNumbersDefinition) {
-            theType = "MutableList<Float>";
+            theType = "ArrayList<Float>";
         }
         if (type == keyWordArrayOfBooleansDefinition) {
-            theType = "MutableList<Boolean>";
+            theType = "ArrayList<Boolean>";
         }
     }
     if (langToConvertTo == "rb") {
@@ -2637,19 +2637,19 @@ std::string getFuncTypeConvert(std::string type) {
             theType = "Int64";
         }
         if (type == keyWordArrayDefinition) {
-            theType = "[String]";
+            theType = "inout [String]";
         }
         if (type == keyWordArrayOfIntegersDefinition) {
-            theType = "[Int]";
+            theType = "inout [Int]";
         }
         if (type == keyWordArrayOfStringsDefinition) {
-            theType = "[String]";
+            theType = "inout [String]";
         }
         if (type == keyWordArrayOfFloatingPointNumbersDefinition) {
-            theType = "[Float]";
+            theType = "inout [Float]";
         }
         if (type == keyWordArrayOfBooleansDefinition) {
-            theType = "[Bool]";
+            theType = "inout [Bool]";
         }
     }
     if (langToConvertTo == "dart") {
@@ -7863,90 +7863,213 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 }
             }
             else if (InStr(A_LoopField94, "public static void main(String[] args)") && lineDone == 0) {
+                lineDone = 1;
                 javaMainFuncSeen = 1;
+                htCode += A_LoopField94 + Chr(10);
             }
             else if (RegExMatch(Trim(A_LoopField94), "^[a-zA-Z_][a-zA-Z0-9_]*: [^:]*;?$") && usePostfixTypeForTypeDefinition == "on" && lineDone == 0) {
                 lineDone = 1;
-                //getFuncTypeConvert()
                 str1 = Trim(A_LoopField94);
                 if (SubStrLastChars(str1, 1) == ";") {
                     str1 = StringTrimRight(str1, 1);
                 }
                 str2 = Trim(StrSplit(str1, ":", 1));
-                str3 = getFuncTypeConvert(Trim(StrSplit(str1, ":", 2)));
+                str3 = Trim(StrSplit(str1, ":", 2));
                 // str2 = var name
                 // str3 = type
-                if (langToConvertTo == langFileExtension_2) {
-                    if (useSemicolon_2 == "on") {
-                        if (usePrefixTypeForTypeDefinition_2 == "on") {
+                if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                    str3 = getFuncTypeConvert(str3);
+                    if (langToConvertTo == langFileExtension_2) {
+                        if (useSemicolon_2 == "on") {
+                            if (usePrefixTypeForTypeDefinition_2 == "on") {
+                                str4 = str3 + " " + str2 + ";";
+                            } else {
+                                str4 = str2 + " " + str3 + ";";
+                            }
+                        } else {
+                            if (usePrefixTypeForTypeDefinition_2 == "on") {
+                                str4 = str3 + " " + str2;
+                            } else {
+                                str4 = str2 + " " + str3;
+                            }
+                        }
+                    }
+                    if (langToConvertTo == "cpp") {
+                        str4 = str3 + " " + str2 + ";";
+                    }
+                    if (langToConvertTo == "py") {
+                        str4 = str2 + " = []";
+                    }
+                    if (langToConvertTo == "js") {
+                        if (useInJavaScriptAlwaysUseVar == "on") {
+                            str4 = "var " + str2 + " = [];";
+                        } else {
+                            str4 = "let " + str2 + " = [];";
+                        }
+                    }
+                    if (langToConvertTo == "go") {
+                        str4 = "var " + str2 + " " + str3;
+                    }
+                    if (langToConvertTo == "lua") {
+                        str4 = str2 + " = {}";
+                    }
+                    if (langToConvertTo == "cs") {
+                        str4 = str3 + " " + str2 + " = new " + str3 + "();";
+                    }
+                    if (langToConvertTo == "java") {
+                        if (javaMainFuncSeen == 1) {
+                            str4 = str3 + " " + str2 + " = new ArrayList<>();";
+                        } else {
+                            str4 = "static " + str3 + " " + str2 + " = new ArrayList<>();";
+                        }
+                    }
+                    if (langToConvertTo == "kt") {
+                        str4 = "val " + str2 + " = " + str3 + "()";
+                    }
+                    if (langToConvertTo == "rb") {
+                        str4 = str2 + " = []";
+                    }
+                    if (langToConvertTo == "nim") {
+                        str4 = "let " + str2 + ": " + str3 + " = @[]";
+                    }
+                    if (langToConvertTo == "ahk") {
+                        str4 = str2 + " := []";
+                    }
+                    if (langToConvertTo == "swift") {
+                        str4 = "var " + str2 + ": " + Trim(StrSplit(str3, " ", 2)) + " = []";
+                    }
+                    if (langToConvertTo == "dart") {
+                        str4 = str3 + " " + str2 + " = [];";
+                    }
+                    if (langToConvertTo == "ts") {
+                        if (useInJavaScriptAlwaysUseVar == "on") {
+                            str4 = "var " + str2 + ": " + str3 + " = [];";
+                        } else {
+                            str4 = "let " + str2 + ": " + str3 + " = [];";
+                        }
+                    }
+                    if (langToConvertTo == "groovy") {
+                        str4 = "def " + str2 + " = []";
+                    }
+                } else {
+                    //;;;
+                    //;;;
+                    //;;;
+                    //;;;
+                    //;;;
+                    str3 = getFuncTypeConvert(str3);
+                    if (langToConvertTo == langFileExtension_2) {
+                        if (useSemicolon_2 == "on") {
+                            if (usePrefixTypeForTypeDefinition_2 == "on") {
+                                str4 = str3 + " " + str2 + ";";
+                            } else {
+                                str4 = str2 + " " + str3 + ";";
+                            }
+                        } else {
+                            if (usePrefixTypeForTypeDefinition_2 == "on") {
+                                str4 = str3 + " " + str2;
+                            } else {
+                                str4 = str2 + " " + str3;
+                            }
+                        }
+                    }
+                    if (langToConvertTo == "cpp") {
+                        str4 = str3 + " " + str2 + ";";
+                    }
+                    if (langToConvertTo == "py") {
+                        str4 = str2 + " = None";
+                    }
+                    if (langToConvertTo == "js") {
+                        if (useInJavaScriptAlwaysUseVar == "on") {
+                            str4 = "var " + str2 + ";";
+                        } else {
+                            str4 = "let " + str2 + ";";
+                        }
+                    }
+                    if (langToConvertTo == "go") {
+                        str4 = "var " + str2 + " " + str3;
+                    }
+                    if (langToConvertTo == "lua") {
+                        str4 = str2 + " = nil";
+                    }
+                    if (langToConvertTo == "cs") {
+                        str4 = str3 + " " + str2 + ";";
+                    }
+                    if (langToConvertTo == "java") {
+                        if (javaMainFuncSeen == 1) {
                             str4 = str3 + " " + str2 + ";";
                         } else {
-                            str4 = str2 + " " + str3 + ";";
+                            str4 = "static " + str3 + " " + str2 + ";";
                         }
-                    } else {
-                        if (usePrefixTypeForTypeDefinition_2 == "on") {
-                            str4 = str3 + " " + str2;
+                    }
+                    if (langToConvertTo == "kt") {
+                        str4 = "var " + str2 + ": " + str3 + "? = null";
+                    }
+                    if (langToConvertTo == "rb") {
+                        str4 = str2 + " = nil";
+                    }
+                    if (langToConvertTo == "nim") {
+                        if (str3 == "float") {
+                            str5 = "0.0";
+                        }
+                        if (str3 == "char") {
+                            str5 = "'a'";
+                        }
+                        if (str3 == "uint8") {
+                            str5 = "0";
+                        }
+                        if (str3 == "uint16") {
+                            str5 = "0";
+                        }
+                        if (str3 == "uint32") {
+                            str5 = "0";
+                        }
+                        if (str3 == "uint64") {
+                            str5 = "0";
+                        }
+                        if (str3 == "int") {
+                            str5 = "0";
+                        }
+                        if (str3 == "string") {
+                            str5 = Chr(34) + Chr(34);
+                        }
+                        if (str3 == "bool") {
+                            str5 = "false";
+                        }
+                        if (str3 == "int8") {
+                            str5 = "0";
+                        }
+                        if (str3 == "int16") {
+                            str5 = "0";
+                        }
+                        if (str3 == "int32") {
+                            str5 = "0";
+                        }
+                        if (str3 == "int64") {
+                            str5 = "0";
+                        }
+                        str4 = "var " + str2 + ": " + str3 + " = " + str5;
+                    }
+                    if (langToConvertTo == "ahk") {
+                        str4 = str2 + " := " + Chr(34) + Chr(34);
+                    }
+                    if (langToConvertTo == "swift") {
+                        str4 = "var " + str2 + ": " + str3;
+                    }
+                    if (langToConvertTo == "dart") {
+                        str4 = str3 + "? " + str2 + ";";
+                    }
+                    if (langToConvertTo == "ts") {
+                        if (useInJavaScriptAlwaysUseVar == "on") {
+                            str4 = "var " + str2 + ": " + str3 + ";";
                         } else {
-                            str4 = str2 + " " + str3;
+                            str4 = "let " + str2 + ": " + str3 + ";";
                         }
                     }
-                }
-                if (langToConvertTo == "cpp") {
-                    str4 = str3 + " " + str2 + ";";
-                }
-                if (langToConvertTo == "py") {
-                    str4 = str2 + " = None";
-                }
-                if (langToConvertTo == "js") {
-                    if (useInJavaScriptAlwaysUseVar == "on") {
-                        str4 = "var " + str2 + ";";
-                    } else {
-                        str4 = "let " + str2 + ";";
+                    if (langToConvertTo == "groovy") {
+                        str4 = "def " + str2;
                     }
-                }
-                if (langToConvertTo == "go") {
-                    str4 = "var " + str2 + " " + str3;
-                }
-                if (langToConvertTo == "lua") {
-                    str4 = str2 + " = nil";
-                }
-                if (langToConvertTo == "cs") {
-                    str4 = str3 + " " + str2 + ";";
-                }
-                if (langToConvertTo == "java") {
-                    if (javaMainFuncSeen == 1) {
-                        str4 = str3 + " " + str2 + ";";
-                    } else {
-                        str4 = "static " + str3 + " " + str2 + ";";
-                    }
-                }
-                if (langToConvertTo == "kt") {
-                    str4 = "var " + str2 + ": " + str3 + "? = null";
-                }
-                if (langToConvertTo == "rb") {
-                    str4 = str2 + " = nil";
-                }
-                if (langToConvertTo == "nim") {
-                    str4 = str2 + ": " + str3;
-                }
-                if (langToConvertTo == "ahk") {
-                    str4 = str2 + " := " + Chr(10) + Chr(10);
-                }
-                if (langToConvertTo == "swift") {
-                    str4 = "var " + str2 + ": " + str3;
-                }
-                if (langToConvertTo == "dart") {
-                    str4 = str2 + "? " + str3 + ";";
-                }
-                if (langToConvertTo == "ts") {
-                    if (useInJavaScriptAlwaysUseVar == "on") {
-                        str4 = "var " + str2 + ";";
-                    } else {
-                        str4 = "let " + str2 + ";";
-                    }
-                }
-                if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2;
+                    //;;;
                 }
                 htCode += str4 + Chr(10);
             }
@@ -8876,7 +8999,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             allLibsToPutAtTop = "#include <iostream>\n#include <sstream>\n#include <string>\n#include <cstdint>\n#include <algorithm>\n#include <vector>\n#include <any>\n#include <optional>\n" + allLibsToPutAtTop;
         }
         if (langToConvertTo == "cs") {
-            allLibsToPutAtTop = "using System;\n" + allLibsToPutAtTop;
+            allLibsToPutAtTop = "using System;\nusing System.Collections.Generic;\n" + allLibsToPutAtTop;
         }
         allLibsToPutAtTop = Sort(allLibsToPutAtTop, "U");
         allLibsToPutAtTop = StrReplace(allLibsToPutAtTop, "~~~", "\n");
@@ -8903,7 +9026,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             htCode = allLibsToPutAtTop + "\nclass Program\n{\n" + htCode;
         }
         if (langToConvertTo == "java") {
-            htCode = allLibsToPutAtTop + "\npublic class Main\n{\n" + htCode;
+            htCode = allLibsToPutAtTop + "\nimport java.util.*;\npublic class Main\n{\n" + htCode;
         }
         if (langToConvertTo == "go") {
             htCode = "package main\nimport (\n" + htCode;

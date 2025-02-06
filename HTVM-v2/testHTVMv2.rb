@@ -53,6 +53,25 @@ print(szdfxc0())
 szdfxc()
 szdfxc1(5)
 szdfxc1(6, "hello")
+var1 = nil
+var2 = nil
+var3 = nil
+var4 = nil
+var5 = nil
+var6 = nil
+var7 = nil
+var8 = nil
+var9 = nil
+var10 = nil
+var11 = nil
+var12 = nil
+var13 = nil
+var14 = nil
+array1 = []
+array2 = []
+array3 = []
+array4 = []
+array5 = []
 szdfxc2()
 szdfxc2("HI1")
 szdfxc2("HI1", "HI2")

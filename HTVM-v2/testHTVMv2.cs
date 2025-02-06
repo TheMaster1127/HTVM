@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using System;
 class Program
 {
@@ -58,6 +59,25 @@ static void Main(string[] args) {
     szdfxc();
     szdfxc1(5);
     szdfxc1(6, "hello");
+    double var1;
+    char var2;
+    byte var3;
+    ushort var4;
+    uint var5;
+    ulong var6;
+    int var7;
+    string var8;
+    bool var9;
+    float var10;
+    sbyte var11;
+    short var12;
+    int var13;
+    long var14;
+    List<string> array1 = new List<string>();
+    List<int> array2 = new List<int>();
+    List<string> array3 = new List<string>();
+    List<float> array4 = new List<float>();
+    List<bool> array5 = new List<bool>();
     szdfxc2();
     szdfxc2("HI1");
     szdfxc2("HI1", "HI2");

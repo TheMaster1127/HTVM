@@ -41,6 +41,25 @@ print(szdfxc0())
 szdfxc()
 szdfxc1(5)
 szdfxc1(6, "hello")
+double var1
+char var2
+uint8 var3
+uint16 var4
+uint32 var5
+uint64 var6
+int var7
+str var8
+bool var9
+float var10
+int8 var11
+int16 var12
+int32 var13
+int64 var14
+arr array1
+arr int array2
+arr str array3
+arr float array4
+arr bool array5
 szdfxc2()
 szdfxc2("HI1")
 szdfxc2("HI1", "HI2")

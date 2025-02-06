@@ -44,6 +44,25 @@ func main() {
     szdfxc()
     szdfxc1(5)
     szdfxc1(6, "hello")
+    var var1: Double
+    var var2: Character
+    var var3: UInt8
+    var var4: UInt16
+    var var5: UInt32
+    var var6: UInt64
+    var var7: Int
+    var var8: String
+    var var9: Bool
+    var var10: Float
+    var var11: Int8
+    var var12: Int16
+    var var13: Int32
+    var var14: Int64
+    var array1: [String] = []
+    var array2: [Int] = []
+    var array3: [String] = []
+    var array4: [Float] = []
+    var array5: [Bool] = []
     szdfxc2()
     szdfxc2("HI1")
     szdfxc2("HI1", "HI2")

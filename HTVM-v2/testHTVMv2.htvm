@@ -49,11 +49,32 @@ main
 keyWordCodeInTheTranspiledLangStartPy
 fawesfdsazsd()
 keyWordCodeInTheTranspiledLangEndPY
+
 print(szdfxc0())
 szdfxc()
 szdfxc1(5)
 szdfxc1(6, "hello")
 
+var1: double
+var2: char
+var3: uint8
+var4: uint16
+var5: uint32
+var6: uint64
+var7: int
+var8: str
+var9: bool
+var10: float
+var11: int8
+var12: int16
+var13: int32
+var14: int64
+
+array1: arr
+array2: arr int
+array3: arr str
+array4: arr float
+array5: arr bool
 
 szdfxc2()
 szdfxc2("HI1")

@@ -46,6 +46,25 @@ print(szdfxc0())
 szdfxc()
 szdfxc1(5)
 szdfxc1(6, "hello")
+var1 := ""
+var2 := ""
+var3 := ""
+var4 := ""
+var5 := ""
+var6 := ""
+var7 := ""
+var8 := ""
+var9 := ""
+var10 := ""
+var11 := ""
+var12 := ""
+var13 := ""
+var14 := ""
+array1 := []
+array2 := []
+array3 := []
+array4 := []
+array5 := []
 szdfxc2()
 szdfxc2("HI1")
 szdfxc2("HI1", "HI2")

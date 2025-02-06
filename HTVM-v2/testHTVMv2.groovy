@@ -45,6 +45,25 @@ print(szdfxc0())
 szdfxc()
 szdfxc1(5)
 szdfxc1(6, "hello")
+def var1
+def var2
+def var3
+def var4
+def var5
+def var6
+def var7
+def var8
+def var9
+def var10
+def var11
+def var12
+def var13
+def var14
+def array1 = []
+def array2 = []
+def array3 = []
+def array4 = []
+def array5 = []
 szdfxc2()
 szdfxc2("HI1")
 szdfxc2("HI1", "HI2")

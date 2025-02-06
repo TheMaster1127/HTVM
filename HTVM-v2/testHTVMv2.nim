@@ -48,6 +48,25 @@ print(szdfxc0())
 szdfxc()
 szdfxc1(5)
 szdfxc1(6, "hello")
+var var1: float = 0.0
+var var2: char = 'a'
+var var3: uint8 = 0
+var var4: uint16 = 0
+var var5: uint32 = 0
+var var6: uint64 = 0
+var var7: int = 0
+var var8: string = ""
+var var9: bool = false
+var var10: float = 0.0
+var var11: int8 = 0
+var var12: int16 = 0
+var var13: int32 = 0
+var var14: int64 = 0
+let array1: seq[string] = @[]
+let array2: seq[int] = @[]
+let array3: seq[string] = @[]
+let array4: seq[float64] = @[]
+let array5: seq[bool] = @[]
 szdfxc2()
 szdfxc2("HI1")
 szdfxc2("HI1", "HI2")

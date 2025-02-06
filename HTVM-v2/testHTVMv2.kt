@@ -51,6 +51,25 @@ fun main(args: Array<String>) {
     szdfxc()
     szdfxc1(5)
     szdfxc1(6, "hello")
+    var var1: Double? = null
+    var var2: Char? = null
+    var var3: UByte? = null
+    var var4: UShort? = null
+    var var5: UInt? = null
+    var var6: ULong? = null
+    var var7: Int? = null
+    var var8: String? = null
+    var var9: Boolean? = null
+    var var10: Float? = null
+    var var11: Byte? = null
+    var var12: Short? = null
+    var var13: Int? = null
+    var var14: Long? = null
+    val array1 = ArrayList<String>()
+    val array2 = ArrayList<Int>()
+    val array3 = ArrayList<String>()
+    val array4 = ArrayList<Float>()
+    val array5 = ArrayList<Boolean>()
     szdfxc2()
     szdfxc2("HI1")
     szdfxc2("HI1", "HI2")
