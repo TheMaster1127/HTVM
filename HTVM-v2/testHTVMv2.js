@@ -1,75 +1,38 @@
 
 
+function LoopParseFunc(varString, delimiter1="", delimiter2="") {
+    let items;
+    if (!delimiter1 && !delimiter2) {
+        // If no delimiters are provided, return an array of characters
+        items = [...varString];
+    } else {
+        // Construct the regular expression pattern for splitting the string
+        let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + delimiter2.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ']+');
+        // Split the string using the constructed pattern
+        items = varString.split(pattern);
+    }
+    return items;
+}
+
 function print(value) {
     console.log(value)
 }
 
 
-async function szdfxc0() {
-    return "hi";
-}
-function szdfxc(var1 = "hi") {
-    print(var1);
-    print("hi2 void");
-}
-function szdfxc1(var0, var1 = "hi", var2 = "hi2") {
-    print(var0);
-    print(var1);
-    print(var2);
-    print("hi2 void");
-}
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-/*
-waedsfdsaeds
-aedsf
-saedsfxawdsfdfsaw
-fddf
-sefdf
-saersdsaersdgfd
-*/
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-function szdfxc2(var1 = "hi", var2 = "hi2") {
-    print(var1);
-    print(var2);
-    print("hi2 void");
-}
-
-
 async function main() {
-    
-
-    print(szdfxc0());
-    szdfxc();
-    szdfxc1(5);
-    szdfxc1(6, "hello");
     var var1;
+    var1 = "hello man whats up";
     var var2;
-    var var3;
-    var var4;
-    var var5;
-    var var6;
-    var var7;
-    var var8;
-    var var9;
-    var var10;
-    var var11;
-    var var12;
-    var var13;
-    var var14;
-    var array1 = [];
-    var array2 = [];
-    var array3 = [];
-    var array4 = [];
-    var array5 = [];
-    szdfxc2();
-    szdfxc2("HI1");
-    szdfxc2("HI1", "HI2");
-    print("Hello, World!");
-    for (let A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-        print(A_Index1);
+    var2 = "hello\nman\nwhats\rup";
+    items1 = LoopParseFunc(var1, " ")
+    for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
+        const A_LoopField1 = items1[A_Index1 - 0];
+        print(A_LoopField1);
+    }
+    items2 = LoopParseFunc(var2, "\n", "\r")
+    for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
+        const A_LoopField2 = items2[A_Index2 - 0];
+        print(A_LoopField2);
     }
 }
 main();

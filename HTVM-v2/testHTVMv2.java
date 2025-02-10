@@ -4,6 +4,22 @@ public class Main
 {
 
 
+public class LoopParseFunc {
+    public static String[] LoopParseFunc(String varString, String delimiter1, String delimiter2) {
+        String[] items;
+        if (delimiter1.isEmpty() && delimiter2.isEmpty()) {
+            // If no delimiters are provided, return an array of characters
+            items = varString.split("");
+        } else {
+            // Construct the regular expression pattern for splitting the string
+            String pattern = "[" + Pattern.quote(delimiter1) + Pattern.quote(delimiter2) + "]+";
+            // Split the string using the constructed pattern
+            items = varString.split(pattern);
+        }
+        return items;
+    }
+}
+
 // Print function for various types
     public static void print(Object value) {
         if (value instanceof String) {
@@ -18,81 +34,20 @@ public class Main
     }
 
 
-public static String szdfxc0() {
-    return "hi";
-}
-public static void szdfxc(Object... __HTVM_V2_TO_JAVA_optionalParams__) {
-    String var1 = "hi";
-    if (__HTVM_V2_TO_JAVA_optionalParams__.length > 0) var1 = (String) __HTVM_V2_TO_JAVA_optionalParams__[0];
-    print(var1);
-    print("hi2 void");
-}
-public static void szdfxc1(int var0, Object... __HTVM_V2_TO_JAVA_optionalParams__) {
-    String var1 = "hi";
-    String var2 = "hi2";
-    if (__HTVM_V2_TO_JAVA_optionalParams__.length > 0) var1 = (String) __HTVM_V2_TO_JAVA_optionalParams__[0];
-    if (__HTVM_V2_TO_JAVA_optionalParams__.length > 1) var2 = (String) __HTVM_V2_TO_JAVA_optionalParams__[1];
-    print(var0);
-    print(var1);
-    print(var2);
-    print("hi2 void");
-}
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-/*
-waedsfdsaeds
-aedsf
-saedsfxawdsfdfsaw
-fddf
-sefdf
-saersdsaersdgfd
-*/
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-public static void szdfxc2(Object... __HTVM_V2_TO_JAVA_optionalParams__) {
-    String var1 = "hi";
-    String var2 = "hi2";
-    if (__HTVM_V2_TO_JAVA_optionalParams__.length > 0) var1 = (String) __HTVM_V2_TO_JAVA_optionalParams__[0];
-    if (__HTVM_V2_TO_JAVA_optionalParams__.length > 1) var2 = (String) __HTVM_V2_TO_JAVA_optionalParams__[1];
-    print(var1);
-    print(var2);
-    print("hi2 void");
-}
-
-
 public static void main(String[] args) {
-    
-
-    print(szdfxc0());
-    szdfxc();
-    szdfxc1(5);
-    szdfxc1(6, "hello");
-    double var1;
-    char var2;
-    byte  var3;
-    short var4;
-    int var5;
-    long var6;
-    int var7;
-    String var8;
-    boolean var9;
-    float var10;
-    byte var11;
-    short var12;
-    int var13;
-    long var14;
-    ArrayList<String> array1 = new ArrayList<>();
-    ArrayList<Integer> array2 = new ArrayList<>();
-    ArrayList<String> array3 = new ArrayList<>();
-    ArrayList<Float> array4 = new ArrayList<>();
-    ArrayList<Boolean> array5 = new ArrayList<>();
-    szdfxc2();
-    szdfxc2("HI1");
-    szdfxc2("HI1", "HI2");
-    print("Hello, World!");
-    for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-        print(A_Index1);
+    String var1;
+    var1 = "hello man whats up";
+    String var2;
+    var2 = "hello\nman\nwhats\rup";
+    List<String> items1 = LoopParseFunc(var1, " ");
+    for (A_LoopField1 : items1) {
+        A_LoopField = items1[A_Index - 0]
+        print(A_LoopField);
+    }
+    List<String> items2 = LoopParseFunc(var2, "\n", "\r");
+    for (A_LoopField2 : items2) {
+        A_LoopField = items2[A_Index - 0]
+        print(A_LoopField);
     }
 }
 }

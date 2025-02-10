@@ -5,6 +5,24 @@ class Program
 {
 
 
+public string[] LoopParseFunc(string varString, string delimiter1 = "", string delimiter2 = "")
+{
+    string[] items;
+    if (string.IsNullOrEmpty(delimiter1) && string.IsNullOrEmpty(delimiter2))
+    {
+        // If no delimiters are provided, return an array of characters
+        items = varString.ToCharArray().Select(c => c.ToString()).ToArray();
+    }
+    else
+    {
+        // Construct the regular expression pattern for splitting the string
+        string pattern = "[" + Regex.Escape(delimiter1) + Regex.Escape(delimiter2) + "]+";
+        // Split the string using the constructed pattern
+        items = Regex.Split(varString, pattern);
+    }
+    return items;
+}
+
 // Print function for various types
     public static void print(object value)
     {
@@ -19,71 +37,20 @@ class Program
     }
 
 
-static string szdfxc0() {
-    return "hi";
-}
-static void szdfxc(string var1 = "hi") {
-    print(var1);
-    print("hi2 void");
-}
-static void szdfxc1(int var0, string var1 = "hi", string var2 = "hi2") {
-    print(var0);
-    print(var1);
-    print(var2);
-    print("hi2 void");
-}
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-/*
-waedsfdsaeds
-aedsf
-saedsfxawdsfdfsaw
-fddf
-sefdf
-saersdsaersdgfd
-*/
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-static void szdfxc2(string var1 = "hi", string var2 = "hi2") {
-    print(var1);
-    print(var2);
-    print("hi2 void");
-}
-
-
 static void Main(string[] args) {
-    
-
-    print(szdfxc0());
-    szdfxc();
-    szdfxc1(5);
-    szdfxc1(6, "hello");
-    double var1;
-    char var2;
-    byte var3;
-    ushort var4;
-    uint var5;
-    ulong var6;
-    int var7;
-    string var8;
-    bool var9;
-    float var10;
-    sbyte var11;
-    short var12;
-    int var13;
-    long var14;
-    List<string> array1 = new List<string>();
-    List<int> array2 = new List<int>();
-    List<string> array3 = new List<string>();
-    List<float> array4 = new List<float>();
-    List<bool> array5 = new List<bool>();
-    szdfxc2();
-    szdfxc2("HI1");
-    szdfxc2("HI1", "HI2");
-    print("Hello, World!");
-    for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-        print(A_Index1);
+    string var1;
+    var1 = "hello man whats up";
+    string var2;
+    var2 = "hello\nman\nwhats\rup";
+    List<string> items1 = LoopParseFunc(var1, " ");
+    foreach (var A_LoopField1 in items1) {
+        A_LoopField1 = items1[A_Index1 - 0]
+        print(A_LoopField);
+    }
+    List<string> items2 = LoopParseFunc(var2, "\n", "\r");
+    foreach (var A_LoopField2 in items2) {
+        A_LoopField2 = items2[A_Index2 - 0]
+        print(A_LoopField);
     }
 }
 }

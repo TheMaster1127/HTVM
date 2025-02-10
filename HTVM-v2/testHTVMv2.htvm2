@@ -1,69 +1,10 @@
-async func str szdfxc0() (
-    return "hi"
+str var1
+var1 := "hello man whats up"
+str var2
+var2 := "hello\nman\nwhats\rup"
+Loop, Parse, var1, " " (
+    print(A_LoopField)
 )
-func void szdfxc(str var1 := "hi") (
-    print(var1)
-    print("hi2 void")
-)
-func void szdfxc1(int var0, str var1 := "hi", str var2 := "hi2") (
-    print(var0)
-    print(var1)
-    print(var2)
-    print("hi2 void")
-)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-'''1
-waedsfdsaeds
-aedsf
-saedsfxawdsfdfsaw
-fddf
-sefdf
-saersdsaersdgfd
-'''2
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-func void szdfxc2(str var1 := "hi", str var2 := "hi2") (
-    print(var1)
-    print(var2)
-    print("hi2 void")
-)
-keyWordCodeInTheTranspiledLangStartPY
-def fawesfdsazsd():
-    print("hi")
-keyWordCodeInTheTranspiledLangEndPY
-main
-keyWordCodeInTheTranspiledLangStartPY
-fawesfdsazsd()
-keyWordCodeInTheTranspiledLangEndPY
-print(szdfxc0())
-szdfxc()
-szdfxc1(5)
-szdfxc1(6, "hello")
-double var1
-char var2
-uint8 var3
-uint16 var4
-uint32 var5
-uint64 var6
-int var7
-str var8
-bool var9
-float var10
-int8 var11
-int16 var12
-int32 var13
-int64 var14
-arr array1
-arr int array2
-arr str array3
-arr float array4
-arr bool array5
-szdfxc2()
-szdfxc2("HI1")
-szdfxc2("HI1", "HI2")
-print("Hello, World!")
-spin 5 (
-    print(A_Index)
+Loop, Parse, var2, \n, \r (
+    print(A_LoopField)
 )

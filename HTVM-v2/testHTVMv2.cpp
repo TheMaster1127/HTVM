@@ -3,10 +3,39 @@
 #include <cstdint>
 #include <iostream>
 #include <optional>
+#include <regex>
 #include <sstream>
 #include <string>
 #include <type_traits>
 #include <vector>
+
+// Function to escape special characters for regex
+std::string escapeRegex(const std::string& str) {
+    static const std::regex specialChars{R"([-[\]{}()*+?.,\^$|#\s])"};
+    return std::regex_replace(str, specialChars, R"(\$&)");
+}
+// Function to split a string based on delimiters
+std::vector<std::string> LoopParseFunc(const std::string& var, const std::string& delimiter1 = "", const std::string& delimiter2 = "") {
+    std::vector<std::string> items;
+    if (delimiter1.empty() && delimiter2.empty()) {
+        // If no delimiters are provided, return a list of characters
+        for (char c : var) {
+            items.push_back(std::string(1, c));
+        }
+    } else {
+        // Escape delimiters for regex
+        std::string escapedDelimiters = escapeRegex(delimiter1 + delimiter2);
+        // Construct the regular expression pattern for splitting the string
+        std::string pattern = "[" + escapedDelimiters + "]+";
+        std::regex regexPattern(pattern);
+        std::sregex_token_iterator iter(var.begin(), var.end(), regexPattern, -1);
+        std::sregex_token_iterator end;
+        while (iter != end) {
+            items.push_back(*iter++);
+        }
+    }
+    return items;
+}
 
 // Print function for const char* specifically
 void print(const char* value) {
@@ -35,71 +64,20 @@ void print(const T& value) {
 }
 
 
-std::string szdfxc0() {
-    return "hi";
-}
-void szdfxc(std::string var1 = "hi") {
-    print(var1);
-    print("hi2 void");
-}
-void szdfxc1(int var0, std::string var1 = "hi", std::string var2 = "hi2") {
-    print(var0);
-    print(var1);
-    print(var2);
-    print("hi2 void");
-}
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-/*
-waedsfdsaeds
-aedsf
-saedsfxawdsfdfsaw
-fddf
-sefdf
-saersdsaersdgfd
-*/
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-void szdfxc2(std::string var1 = "hi", std::string var2 = "hi2") {
-    print(var1);
-    print(var2);
-    print("hi2 void");
-}
-
-
 int main(int argc, char* argv[]) {
-    
-
-    print(szdfxc0());
-    szdfxc();
-    szdfxc1(5);
-    szdfxc1(6, "hello");
-    double var1;
-    char var2;
-    uint8_t var3;
-    uint16_t var4;
-    uint32_t var5;
-    uint64_t var6;
-    int var7;
-    std::string var8;
-    bool var9;
-    float var10;
-    int8_t var11;
-    int16_t var12;
-    int32_t var13;
-    int64_t var14;
-    std::vector<std::string> array1;
-    std::vector<int> array2;
-    std::vector<std::string> array3;
-    std::vector<float> array4;
-    std::vector<bool> array5;
-    szdfxc2();
-    szdfxc2("HI1");
-    szdfxc2("HI1", "HI2");
-    print("Hello, World!");
-    for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-        print(A_Index1);
+    std::string var1;
+    var1 = "hello man whats up";
+    std::string var2;
+    var2 = "hello\nman\nwhats\rup";
+    std::vector<std::string> items1 = LoopParseFunc(var1, " ");
+    for (size_t A_Index1 = 0; A_Index1 < items1.size() + 0; A_Index1++) {
+        std::string A_LoopField1 = items1[A_Index1 - 0];
+        print(A_LoopField1);
+    }
+    std::vector<std::string> items2 = LoopParseFunc(var2, "\n", "\r");
+    for (size_t A_Index2 = 0; A_Index2 < items2.size() + 0; A_Index2++) {
+        std::string A_LoopField2 = items2[A_Index2 - 0];
+        print(A_LoopField2);
     }
     return 0;
 }

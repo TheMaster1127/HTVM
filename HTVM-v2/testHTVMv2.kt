@@ -1,5 +1,21 @@
 
 
+fun LoopParseFunc(varString: String, delimiter1: String = "", delimiter2: String = ""): List<String> {
+    val items: MutableList<String> = mutableListOf()
+    if (delimiter1.isEmpty() && delimiter2.isEmpty()) {
+        // If no delimiters are provided, return a list of characters
+        for (char in varString) {
+            items.add(char.toString())
+        }
+    } else {
+        // Construct the regular expression pattern for splitting the string
+        val pattern = "[$delimiter1$delimiter2]+"
+        // Split the string using the constructed pattern
+        items.addAll(varString.split(Regex(pattern)))
+    }
+    return items
+}
+
 // Print function for various types
 fun print(value: Any) {
     when (value) {
@@ -11,70 +27,19 @@ fun print(value: Any) {
 }
 
 
-fun szdfxc0(): String {
-    return "hi"
-}
-fun szdfxc(var1: String = "hi") {
-    print(var1)
-    print("hi2 void")
-}
-fun szdfxc1(var0: Int, var1: String = "hi", var2: String = "hi2") {
-    print(var0)
-    print(var1)
-    print(var2)
-    print("hi2 void")
-}
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-/*
-waedsfdsaeds
-aedsf
-saedsfxawdsfdfsaw
-fddf
-sefdf
-saersdsaersdgfd
-*/
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-fun szdfxc2(var1: String = "hi", var2: String = "hi2") {
-    print(var1)
-    print(var2)
-    print("hi2 void")
-}
-
-
 fun main(args: Array<String>) {
-    
-
-    print(szdfxc0())
-    szdfxc()
-    szdfxc1(5)
-    szdfxc1(6, "hello")
-    var var1: Double? = null
-    var var2: Char? = null
-    var var3: UByte? = null
-    var var4: UShort? = null
-    var var5: UInt? = null
-    var var6: ULong? = null
-    var var7: Int? = null
-    var var8: String? = null
-    var var9: Boolean? = null
-    var var10: Float? = null
-    var var11: Byte? = null
-    var var12: Short? = null
-    var var13: Int? = null
-    var var14: Long? = null
-    val array1 = ArrayList<String>()
-    val array2 = ArrayList<Int>()
-    val array3 = ArrayList<String>()
-    val array4 = ArrayList<Float>()
-    val array5 = ArrayList<Boolean>()
-    szdfxc2()
-    szdfxc2("HI1")
-    szdfxc2("HI1", "HI2")
-    print("Hello, World!")
-    for (A_Index1 in 0..5 + 0) {
-        print(A_Index1)
+    var var1: String? = null
+    var1 = "hello man whats up"
+    var var2: String? = null
+    var2 = "hello\nman\nwhats\rup"
+    val items1 = LoopParseFunc(var1, " ")
+    for (A_Index1 , A_LoopField1 in items1.withIndex()) {
+        A_LoopField1 = items1[A_Index1 - 0]
+        print(A_LoopField1)
+    }
+    val items2 = LoopParseFunc(var2, "\n", "\r")
+    for (A_Index2 , A_LoopField2 in items2.withIndex()) {
+        A_LoopField2 = items2[A_Index2 - 0]
+        print(A_LoopField2)
     }
 }

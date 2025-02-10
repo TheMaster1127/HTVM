@@ -1,75 +1,40 @@
 
 
+function LoopParseFunc(varString, delimiter1, delimiter2)
+    local items
+    delimiter1 = delimiter1 or ""
+    delimiter2 = delimiter2 or ""
+    if delimiter1 == "" and delimiter2 == "" then
+        -- If no delimiters are provided, return a table of characters
+        items = {}
+        for i = 1, #varString do
+            table.insert(items, varString:sub(i, i))
+        end
+    else
+        -- Construct the regular expression pattern for splitting the string
+        local pattern = "[" .. delimiter1 .. delimiter2 .. "]+"
+        -- Split the string using the constructed pattern
+        for item in string.gmatch(varString, "([^" .. pattern .. "]+)") do
+            table.insert(items, item)
+        end
+    end
+    return items
+end
+
 -- Print function for different types
 
 
-function szdfxc0()
-    return "hi"
-end
-function szdfxc(var1)
-    var1 = var1 or "hi"
-    print(var1)
-    print("hi2 void")
-end
-function szdfxc1(var0, var1, var2)
-    var1 = var1 or "hi"
-    var2 = var2 or "hi2"
-    print(var0)
-    print(var1)
-    print(var2)
-    print("hi2 void")
-end
---;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
---;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
---;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
---[[
-waedsfdsaeds
-aedsf
-saedsfxawdsfdfsaw
-fddf
-sefdf
-saersdsaersdgfd
-]]
---;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
---;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-function szdfxc2(var1, var2)
-    var1 = var1 or "hi"
-    var2 = var2 or "hi2"
-    print(var1)
-    print(var2)
-    print("hi2 void")
-end
-
-
-
-
-print(szdfxc0())
-szdfxc()
-szdfxc1(5)
-szdfxc1(6, "hello")
 var1 = nil
+var1 = "hello man whats up"
 var2 = nil
-var3 = nil
-var4 = nil
-var5 = nil
-var6 = nil
-var7 = nil
-var8 = nil
-var9 = nil
-var10 = nil
-var11 = nil
-var12 = nil
-var13 = nil
-var14 = nil
-array1 = {}
-array2 = {}
-array3 = {}
-array4 = {}
-array5 = {}
-szdfxc2()
-szdfxc2("HI1")
-szdfxc2("HI1", "HI2")
-print("Hello, World!")
-for A_Index1 = 0, 5 + 0 do
-    print(A_Index1)
+var2 = "hello\nman\nwhats\rup"
+items1 = LoopParseFunc(var1, " ")
+for A_Index1 , A_LoopField1 in ipairs(items1) do
+    A_LoopField1 = items1[A_Index1 - 0]
+    print(A_LoopField1)
+end
+items2 = LoopParseFunc(var2, "\n", "\r")
+for A_Index2 , A_LoopField2 in ipairs(items2) do
+    A_LoopField2 = items2[A_Index2 - 0]
+    print(A_LoopField2)
 end
