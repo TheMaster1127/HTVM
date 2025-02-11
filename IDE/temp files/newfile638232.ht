@@ -1,10 +1,26 @@
-func void func1(int *myInt)
+
+str var1 := "12345"  ; Integer
+str var2 := "12.345" ; Floating-point number
+str var3 := "abc123" ; Invalid
+str var4 := ".123"   ; Invalid (must start with a digit)
+
+if (RegExMatch(var1, "^\d+(\.\d+)?$"))
 {
-*myInt := *myInt + 1
+print("true1")
 }
 
-main
+if (RegExMatch(var2, "^\d+(\.\d+)?$"))
+{
+print("true2")
+}
 
-int myInt := 5
-func1(&myInt)
-print(myInt)
+if (RegExMatch(var3, "^\d+(\.\d+)?$"))
+{
+print("true3")
+}
+
+if (RegExMatch(var4, "^\d+(\.\d+)?$"))
+{
+print("true4")
+}
+

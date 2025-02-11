@@ -628,7 +628,7 @@ BigInt.parse("18446744073709551615");
 
 so
 
-"BigInt.parse(" . Chr(34) . value . Chr(34) . ");"
+"BigInt.parse(" . Chr(34) . value . Chr(34) . ")"
 
 when modyfing dont put it see:
 

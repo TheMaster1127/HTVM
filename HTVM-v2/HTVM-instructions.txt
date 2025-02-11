@@ -44,8 +44,8 @@ keyWordCodeInTheTranspiledLangStartHTVM
 keyWordCodeInTheTranspiledLangEndHTVM
 keyWordCodeInHTVMstart
 keyWordCodeInHTVMend
-(
-)
+{
+}
 null
 true
 false
@@ -151,8 +151,8 @@ on
 off
 off
 on
-off
 on
+off
 off
 off
 on

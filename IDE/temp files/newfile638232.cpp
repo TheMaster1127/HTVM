@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <iostream>
 #include <optional>
+#include <regex>
 #include <sstream>
 #include <string>
 #include <type_traits>
@@ -34,13 +35,32 @@ void print(const T& value) {
     }
 }
 
-
-void func1(int *myInt) {
-    *myInt = *myInt + 1;
+int RegExMatch(const std::string& haystack, const std::string& needle) {
+    std::regex re(needle);
+    std::smatch match;
+    if (std::regex_search(haystack, match, re)) {
+        return match.position(0) + 1; // 1-based index
+    }
+    return 0; // No match
 }
+
+
 int main(int argc, char* argv[]) {
-    int myInt = 5;
-    func1(&myInt);
-    print(myInt);
+    std::string var1 = "12345";
+    std::string var2 = "12.345";
+    std::string var3 = "abc123";
+    std::string var4 = ".123";
+    if (RegExMatch(var1, "^\\d+(\\.\\d+)?$")) {
+        print("true1");
+    }
+    if (RegExMatch(var2, "^\\d+(\\.\\d+)?$")) {
+        print("true2");
+    }
+    if (RegExMatch(var3, "^\\d+(\\.\\d+)?$")) {
+        print("true3");
+    }
+    if (RegExMatch(var4, "^\\d+(\\.\\d+)?$")) {
+        print("true4");
+    }
     return 0;
 }
