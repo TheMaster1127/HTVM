@@ -4532,15 +4532,45 @@ haveWeEverUsedAloop := 1
 
 if (langToTranspileTo = "py")
 {
+
+if (AHKlikeLoopsIndexedAt = "0")
+{
+var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(" . AHKlikeLoopsIndexedAt . ", " . line . "):"
+}
+else
+{
 var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(" . AHKlikeLoopsIndexedAt . ", " . line . " + " . AHKlikeLoopsIndexedAt . "):"
+}
+
 }
 if (langToTranspileTo = "js")
 {
+
+
+if (AHKlikeLoopsIndexedAt = "0")
+{
+var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else
+{
 var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 if (langToTranspileTo = "cpp")
 {
+
+if (AHKlikeLoopsIndexedAt = "0")
+{
+var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else
+{
 var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 
 nothing := ""
@@ -4576,15 +4606,44 @@ haveWeEverUsedAloop := 1
 
 if (langToTranspileTo = "py")
 {
+
+if (AHKlikeLoopsIndexedAt = "0")
+{
+var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(" . AHKlikeLoopsIndexedAt . ", " . line . "):"
+}
+else
+{
 var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(" . AHKlikeLoopsIndexedAt . ", " . line . " + " . AHKlikeLoopsIndexedAt . "):"
+}
+
+
 }
 if (langToTranspileTo = "js")
 {
+
+if (AHKlikeLoopsIndexedAt = "0")
+{
+var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else
+{
 var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
 }
 if (langToTranspileTo = "cpp")
 {
+
+if (AHKlikeLoopsIndexedAt = "0")
+{
+var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else
+{
 var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 
 nothing := ""
@@ -4719,11 +4778,30 @@ AindexcharLengthStr := nothing . STR(AindexcharLength) . nothing
 theFixTextLoopLP := ""
 if (langToTranspileTo = "cpp")
 {
+
+if (AHKlikeLoopsIndexedAt = "0")
+{
+theFixTextLoopLP := "std::string " . keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . "];"
+}
+else
+{
 theFixTextLoopLP := "std::string " . keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "];"
+}
+
+
 }
 if (langToTranspileTo = "js")
 {
+
+if (AHKlikeLoopsIndexedAt = "0")
+{
+theFixTextLoopLP := "const " . keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . "];"
+}
+else
+{
 theFixTextLoopLP := "const " . keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "];"
+}
+
 }
 
 htCodeAcurlyBraceAddSomeVrasFixLP := 1

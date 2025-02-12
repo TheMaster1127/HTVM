@@ -18,21 +18,51 @@ function print(value) {
     console.log(value)
 }
 
+function HTVM_Append(arr, value) {
+    arr.push(value);
+}
+
+function HTVM_Size(arr) {
+    return arr.length;
+}
+
 
 async function main() {
     var var1;
-    var1 = "hello man whats up";
-    var var2;
-    var2 = "hello\nman\nwhats\rup";
-    items1 = LoopParseFunc(var1, " ")
-    for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
-        const A_LoopField1 = items1[A_Index1 - 0];
-        print(A_LoopField1);
+    let myArr0 = [];
+    HTVM_Append(myArr0, true);
+    HTVM_Append(myArr0, false);
+    HTVM_Append(myArr0, true);
+    let myArr = [5, 6, 7];
+    for (let A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
+        var1 = 6;
+        HTVM_Append(myArr, A_Index1);
     }
-    items2 = LoopParseFunc(var2, "\n", "\r")
-    for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
-        const A_LoopField2 = items2[A_Index2 - 0];
-        print(A_LoopField2);
+    for (let A_Index2 = 0; A_Index2 < HTVM_Size(myArr) + 0; A_Index2++) {
+        print(myArr[A_Index2]);
+    }
+    for (let A_Index3 = 0; A_Index3 < HTVM_Size(myArr0) + 0; A_Index3++) {
+        print(myArr0[A_Index3]);
+    }
+    print(var1);
+    var var123 = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn";
+    items4 = LoopParseFunc(var123, "\n", "\r")
+    for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
+        const A_LoopField4 = items4[A_Index4 - 0];
+        if (A_Index4 == 0) {
+            print(A_Index4);
+        }
+        print(A_LoopField4);
+    }
+    print("==================");
+    var var1234 = "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg";
+    items5 = LoopParseFunc(var1234, ",");
+    for (let A_Index5 = 0; A_Index5 < items5.length + 0; A_Index5++) {
+        const A_LoopField5 = items5[A_Index5 - 0];
+        if (A_Index5 == 0) {
+            print(A_Index5);
+        }
+        print(A_LoopField5);
     }
 }
 main();

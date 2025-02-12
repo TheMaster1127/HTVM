@@ -1,26 +1,26 @@
-
-str var1 := "12345"  ; Integer
-str var2 := "12.345" ; Floating-point number
-str var3 := "abc123" ; Invalid
-str var4 := ".123"   ; Invalid (must start with a digit)
-
-if (RegExMatch(var1, "^\d+(\.\d+)?$"))
-{
-print("true1")
+Loop, % theIdNumOfThe34 {
+    if (theIdNumOfThe34 = A_Index + 1) {
+        if (langToConvertTo = langFileExtension_2) {
+            if (keyWordEscpaeChar_2 = "\") and (keyWordEscpaeChar != "\") {
+                htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index + 1], "\", "\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) . Chr(34))
+            } else {
+                htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], keyWordEscpaeChar, keyWordEscpaeChar_2) . Chr(34))
+            }
+        } else {
+            htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], keyWordEscpaeChar, "\") . Chr(34))
+        }
+    } else {
+        if (langToConvertTo = langFileExtension_2) {
+            if (keyWordEscpaeChar_2 = "\") and (keyWordEscpaeChar != "\") {
+                htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index + 1], "\", "\\"), keyWordEscpaeChar, keyWordEscpaeChar_2))
+            } else {
+                htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], keyWordEscpaeChar, keyWordEscpaeChar_2))
+            }
+        } else {
+            htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], keyWordEscpaeChar, "\"))
+        }
+    }
 }
 
-if (RegExMatch(var2, "^\d+(\.\d+)?$"))
-{
-print("true2")
-}
 
-if (RegExMatch(var3, "^\d+(\.\d+)?$"))
-{
-print("true3")
-}
-
-if (RegExMatch(var4, "^\d+(\.\d+)?$"))
-{
-print("true4")
-}
 

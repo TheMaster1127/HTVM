@@ -26,20 +26,48 @@ fun print(value: Any) {
     }
 }
 
+fun <T> HTVM_Append(arr: MutableList<T>, value: T) {
+    arr.add(value)
+}
+
+fun <T> HTVM_Size(arr: List<T>): Int {
+    return arr.size
+}
+
 
 fun main(args: Array<String>) {
-    var var1: String? = null
-    var1 = "hello man whats up"
-    var var2: String? = null
-    var2 = "hello\nman\nwhats\rup"
-    val items1 = LoopParseFunc(var1, " ")
-    for (A_Index1 , A_LoopField1 in items1.withIndex()) {
-        A_LoopField1 = items1[A_Index1 - 0]
-        print(A_LoopField1)
+    var var1: Int? = null
+    val myArr0 = ArrayList<Boolean>()
+    HTVM_Append(myArr0, true)
+    HTVM_Append(myArr0, false)
+    HTVM_Append(myArr0, true)
+    val myArr = arrayListOf(5, 6, 7)
+    for (A_Index1 in 0 until 5 + 0) {
+        var1 = 6
+        HTVM_Append(myArr, A_Index1)
     }
-    val items2 = LoopParseFunc(var2, "\n", "\r")
-    for (A_Index2 , A_LoopField2 in items2.withIndex()) {
-        A_LoopField2 = items2[A_Index2 - 0]
-        print(A_LoopField2)
+    for (A_Index2 in 0 until HTVM_Size(myArr) + 0) {
+        print(myArr[A_Index2])
+    }
+    for (A_Index3 in 0 until HTVM_Size(myArr0) + 0) {
+        print(myArr0[A_Index3])
+    }
+    print(var1)
+    var var123: String = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn";
+    val items4 = LoopParseFunc(var123, "\n", "\r")
+    for ((A_Index4 , A_LoopField4) in items4.withIndex()) {
+        if (A_Index4 == 0) {
+            print(A_Index4)
+        }
+        print(A_LoopField4)
+    }
+    print("==================")
+    var var1234: String = "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg";
+    val items5 = LoopParseFunc(var1234, ",")
+    for ((A_Index5 , A_LoopField5) in items5.withIndex()) {
+        if (A_Index5 == 0) {
+            print(A_Index5)
+        }
+        print(A_LoopField5)
     }
 }

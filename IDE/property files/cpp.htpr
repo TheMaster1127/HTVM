@@ -1,3 +1,4 @@
+;g++ "%ONLYFILENAME%.cpp" "-O3" "-o" "%ONLYFILENAME%"
 g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
 
 cd "%DIRFULLPATH%" && "%ONLYFILENAME%.exe"

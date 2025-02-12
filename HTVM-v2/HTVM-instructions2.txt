@@ -1,6 +1,6 @@
 cpp
 htvm2
-StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1,'param2|MsgBox,'param1
+StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1
 alliance
 crew
 method
@@ -260,20 +260,23 @@ funcEND======================funcEND==============
 func======================func==============
 lang: go
 name: LoopParseFunc
-libs: null
+libs: "regexp"
 description: null
-func LoopParseFunc(varString, delimiter1="", delimiter2="") {
-    var items;
-    if (delimiter1 == "" && delimiter2 == "") {
-        // If no delimiters are provided, return a slice of characters
-        items = []byte(varString);
+func LoopParseFunc(varString string, delimiter1 string, delimiter2 string) []string {
+    var items []string
+    if delimiter1 == "" && delimiter2 == "" {
+        // If no delimiters are provided, convert string to slice of strings
+        items = make([]string, len(varString))
+        for i, c := range varString {
+            items[i] = string(c)
+        }
     } else {
         // Construct the regular expression pattern for splitting the string
-        pattern := fmt.Sprintf("[%s%s]+", delimiter1, delimiter2);
+        pattern := fmt.Sprintf("[%s%s]+", delimiter1, delimiter2)
         // Split the string using the constructed pattern
-        items = regexp.MustCompile(pattern).Split(varString, -1);
+        items = regexp.MustCompile(pattern).Split(varString, -1)
     }
-    return items;
+    return items
 }
 funcEND======================funcEND==============
 
@@ -283,20 +286,20 @@ name: LoopParseFunc
 libs: null
 description: null
 function LoopParseFunc(varString, delimiter1, delimiter2)
-    local items
+    local items = {}
     delimiter1 = delimiter1 or ""
     delimiter2 = delimiter2 or ""
+    
+    -- Changed: Don't escape the delimiters since we want them literal
+    -- Just use them directly in the pattern
     if delimiter1 == "" and delimiter2 == "" then
-        -- If no delimiters are provided, return a table of characters
-        items = {}
         for i = 1, #varString do
             table.insert(items, varString:sub(i, i))
         end
     else
-        -- Construct the regular expression pattern for splitting the string
-        local pattern = "[" .. delimiter1 .. delimiter2 .. "]+"
-        -- Split the string using the constructed pattern
-        for item in string.gmatch(varString, "([^" .. pattern .. "]+)") do
+        -- Changed: Simplified pattern to directly match \n and \r
+        local pattern = delimiter1 .. delimiter2
+        for item in varString:gmatch("([^" .. pattern .. "]+)") do
             table.insert(items, item)
         end
     end
@@ -308,25 +311,25 @@ funcEND======================funcEND==============
 func======================func==============
 lang: cs
 name: LoopParseFunc
-libs: null
+libs: using System.Linq;|using System.Text.RegularExpressions;
 description: null
-public string[] LoopParseFunc(string varString, string delimiter1 = "", string delimiter2 = "")
-{
-    string[] items;
-    if (string.IsNullOrEmpty(delimiter1) && string.IsNullOrEmpty(delimiter2))
+    public static string[] LoopParseFunc(string varString, string delimiter1 = "", string delimiter2 = "")
     {
-        // If no delimiters are provided, return an array of characters
-        items = varString.ToCharArray().Select(c => c.ToString()).ToArray();
+        string[] items;
+        if (string.IsNullOrEmpty(delimiter1) && string.IsNullOrEmpty(delimiter2))
+        {
+            // If no delimiters are provided, return an array of characters
+            items = varString.ToCharArray().Select(c => c.ToString()).ToArray();
+        }
+        else
+        {
+            // Construct the regular expression pattern for splitting the string
+            string pattern = "[" + Regex.Escape(delimiter1) + Regex.Escape(delimiter2) + "]+";
+            // Split the string using the constructed pattern
+            items = Regex.Split(varString, pattern);
+        }
+        return items;
     }
-    else
-    {
-        // Construct the regular expression pattern for splitting the string
-        string pattern = "[" + Regex.Escape(delimiter1) + Regex.Escape(delimiter2) + "]+";
-        // Split the string using the constructed pattern
-        items = Regex.Split(varString, pattern);
-    }
-    return items;
-}
 funcEND======================funcEND==============
 
 
@@ -399,20 +402,36 @@ funcEND======================funcEND==============
 func======================func==============
 lang: nim
 name: LoopParseFunc
-libs: null
+libs: import strutils
 description: null
+
 proc LoopParseFunc(varString: cstring, delimiter1: cstring = "", delimiter2: cstring = ""): seq[string] =
   var items: seq[string] = @[]
+  
   if delimiter1.len == 0 and delimiter2.len == 0:
     # If no delimiters are provided, return a sequence of characters
     for i in 0..<varString.len:
-      items.add(varString[i].to(cstring))
+      items.add($varString[i])
   else:
-    # Construct the regular expression pattern for splitting the string
-    let pattern = "[" & delimiter1 & delimiter2 & "]"
-    # Split the string using the constructed pattern
-    items.addAll(varString.split(pattern))
+    # Convert cstring to string
+    let str = $varString
+    
+    if delimiter2.len == 0:
+      # If only one delimiter is provided, use simple split
+      items = str.split($delimiter1)
+    else:
+      # If both delimiters are provided, first split by delimiter1
+      let tempItems = str.split($delimiter1)
+      # Then split each item by delimiter2 if needed
+      for item in tempItems:
+        let subItems = item.split($delimiter2)
+        for subItem in subItems:
+          if subItem.len > 0:  # Only add non-empty items
+            items.add(subItem)
+            
   return items
+
+
 funcEND======================funcEND==============
 
 
@@ -431,14 +450,15 @@ lang: swift
 name: LoopParseFunc
 libs: null
 description: null
-func LoopParseFunc(varString: String, delimiter1: String = "", delimiter2: String = "") -> [String] {
+func LoopParseFunc(_ varString: String, _ delimiter1: String = "", _ delimiter2: String = "") -> [String] {
     var items: [String] = []
     if delimiter1.isEmpty && delimiter2.isEmpty {
         // If no delimiters are provided, return an array of characters
         items = Array(varString).map { String($0) }
     } else {
-        // Construct the regular expression pattern for splitting the string
-        let pattern = "[" + NSRegularExpression.escapedPattern(for: delimiter1) + NSRegularExpression.escapedPattern(for: delimiter2) + "]"
+        // Construct the regular expression pattern for capturing content
+        let pattern = "(?<=^|[\n\r])([^\\n\\r]+)(?=[\n\r]|$)"
+        
         // Split the string using the constructed pattern
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
         let range = NSRange(location: 0, length: varString.utf16.count)
@@ -448,6 +468,7 @@ func LoopParseFunc(varString: String, delimiter1: String = "", delimiter2: Strin
     }
     return items
 }
+
 funcEND======================funcEND==============
 
 
@@ -4018,6 +4039,17 @@ libs: #include <iostream>|#include <vector>|#include <algorithm>
 description: null
 
 
+// Overload for std::vector<std::string>
+void HTVM_Append(std::vector<std::string>& arr, const std::string& value) {
+    arr.push_back(value);
+}
+
+// Overload for const char* (so you can pass string literals)
+void HTVM_Append(std::vector<std::string>& arr, const char* value) {
+    arr.push_back(std::string(value));
+}
+
+// General template for other vector types
 template <typename T>
 void HTVM_Append(std::vector<T>& arr, const T& value) {
     arr.push_back(value);

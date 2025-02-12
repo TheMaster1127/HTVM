@@ -27,18 +27,48 @@ def print(value)
   end
 end
 
+def HTVM_Append(arr, value)
+  arr << value
+end
+
+def HTVM_Size(arr)
+  arr.size
+end
+
 
 var1 = nil
-var1 = "hello man whats up"
-var2 = nil
-var2 = "hello\nman\nwhats\rup"
-items1 = LoopParseFunc(var1, " ")
-items1.each_with_index do |A_LoopField1 , A_Index1|
-    A_LoopField1 = items1[A_Index1 - 0]
+myArr0 = []
+HTVM_Append(myArr0, true)
+HTVM_Append(myArr0, false)
+HTVM_Append(myArr0, true)
+myArr = [5, 6, 7]
+for A_Index1 in 0...5 + 0 do
+    var1 = 6
+    HTVM_Append(myArr, A_Index1)
+end
+for A_Index2 in 0...HTVM_Size(myArr) + 0 do
+    print(myArr[A_Index2])
+end
+for A_Index3 in 0...HTVM_Size(myArr0) + 0 do
+    print(myArr0[A_Index3])
+end
+print(var1)
+var123 = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
+items4 = LoopParseFunc(var123, "\n", "\r")
+items4.each_with_index do |A_LoopField4 , A_Index4|
+    A_LoopField4 = items4[A_Index4 - 0]
+    if (A_Index == 0)
+        print(A_Index)
+    end
     print(A_LoopField)
 end
-items2 = LoopParseFunc(var2, "\n", "\r")
-items2.each_with_index do |A_LoopField2 , A_Index2|
-    A_LoopField2 = items2[A_Index2 - 0]
+print("==================")
+var1234 = "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg"
+items5 = LoopParseFunc(var1234, ",")
+items5.each_with_index do |A_LoopField5 , A_Index5|
+    A_LoopField5 = items5[A_Index5 - 0]
+    if (A_Index == 0)
+        print(A_Index)
+    end
     print(A_LoopField)
 end

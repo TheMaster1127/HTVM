@@ -1,10 +1,32 @@
-str var1
-var1 := "hello man whats up"
-str var2
-var2 := "hello\nman\nwhats\rup"
-Loop, Parse, var1, " " (
+int var1
+arr bool myArr0
+myArr0.add(true)
+myArr0.add(false)
+myArr0.add(true)
+arr int myArr := [5, 6, 7]
+spin 5 (
+    var1 := 6
+    myArr.add(A_Index)
+)
+spin % myArr.size() (
+    print(myArr[A_Index])
+)
+spin % myArr0.size() (
+    print(myArr0[A_Index])
+)
+print(var1)
+str var123 := "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
+Loop, Parse, var123, \n, \r (
+    if (A_Index == 0) (
+        print(A_Index)
+    )
     print(A_LoopField)
 )
-Loop, Parse, var2, \n, \r (
+print("==================")
+str var1234 := "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg"
+Loop, Parse, var1234, \, (
+    if (A_Index == 0) (
+        print(A_Index)
+    )
     print(A_LoopField)
 )

@@ -1,14 +1,15 @@
 import Foundation
 
 
-func LoopParseFunc(varString: String, delimiter1: String = "", delimiter2: String = "") -> [String] {
+func LoopParseFunc(_ varString: String, _ delimiter1: String = "", _ delimiter2: String = "") -> [String] {
     var items: [String] = []
     if delimiter1.isEmpty && delimiter2.isEmpty {
         // If no delimiters are provided, return an array of characters
         items = Array(varString).map { String($0) }
     } else {
-        // Construct the regular expression pattern for splitting the string
-        let pattern = "[" + NSRegularExpression.escapedPattern(for: delimiter1) + NSRegularExpression.escapedPattern(for: delimiter2) + "]"
+        // Construct the regular expression pattern for capturing content
+        let pattern = "(?<=^|[\n\r])([^\\n\\r]+)(?=[\n\r]|$)"
+        
         // Split the string using the constructed pattern
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
         let range = NSRange(location: 0, length: varString.utf16.count)
@@ -21,21 +22,49 @@ func LoopParseFunc(varString: String, delimiter1: String = "", delimiter2: Strin
 
 // Print function for various types
 
+func HTVM_Append<T>(_ arr: inout [T], _ value: T) {
+    arr.append(value)
+}
+
+func HTVM_Size<T>(_ arr: [T]) -> Int {
+    return arr.count
+}
+
 
 func main() {
-    var var1: String
-    var1 = "hello man whats up"
-    var var2: String
-    var2 = "hello\nman\nwhats\rup"
-    var items1 = LoopParseFunc(var1, " ")
-    for (index, A_LoopField1) in items1.enumerated() {
-        A_LoopField = items1[A_Index - 0]
-        print(A_LoopField)
+    var var1: Int
+    var myArr0: [Bool] = []
+    HTVM_Append(&myArr0, true)
+    HTVM_Append(&myArr0, false)
+    HTVM_Append(&myArr0, true)
+    var myArr: [Int] = [5, 6, 7]
+    for A_Index1 in 0 ..< 5 + 0 {
+        var1 = 6
+        HTVM_Append(&myArr, A_Index1)
     }
-    var items2 = LoopParseFunc(var2, "\n", "\r")
-    for (index, A_LoopField2) in items2.enumerated() {
-        A_LoopField = items2[A_Index - 0]
-        print(A_LoopField)
+    for A_Index2 in 0 ..< HTVM_Size(myArr) + 0 {
+        print(myArr[A_Index2])
+    }
+    for A_Index3 in 0 ..< HTVM_Size(myArr0) + 0 {
+        print(myArr0[A_Index3])
+    }
+    print(var1)
+    var var123: String = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
+    var items4 = LoopParseFunc(var123, "\n", "\r")
+    for (A_Index4 , A_LoopField4) in items4.enumerated() {
+        if (A_Index4 == 0) {
+            print(A_Index4)
+        }
+        print(A_LoopField4)
+    }
+    print("==================")
+    var var1234: String = "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg"
+    var items5 = LoopParseFunc(var1234, ",")
+    for (A_Index5 , A_LoopField5) in items5.enumerated() {
+        if (A_Index5 == 0) {
+            print(A_Index5)
+        }
+        print(A_LoopField5)
     }
 }
 main()

@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 import java.util.*;
 public class Main
 {
@@ -33,20 +33,50 @@ public class LoopParseFunc {
         }
     }
 
+public static <T> void HTVM_Append(ArrayList<T> arr, T value) {
+    arr.add(value);
+}
+
+public static <T> int HTVM_Size(ArrayList<T> arr) {
+    return arr.size();
+}
+
 
 public static void main(String[] args) {
-    String var1;
-    var1 = "hello man whats up";
-    String var2;
-    var2 = "hello\nman\nwhats\rup";
-    List<String> items1 = LoopParseFunc(var1, " ");
-    for (A_LoopField1 : items1) {
-        A_LoopField = items1[A_Index - 0]
+    int var1;
+    ArrayList<Boolean> myArr0 = new ArrayList<>();
+    HTVM_Append(myArr0, true);
+    HTVM_Append(myArr0, false);
+    HTVM_Append(myArr0, true);
+    ArrayList<Integer> myArr = new ArrayList<>(List.of(5, 6, 7));
+    for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
+        var1 = 6;
+        HTVM_Append(myArr, A_Index1);
+    }
+    for (int A_Index2 = 0; A_Index2 < HTVM_Size(myArr) + 0; A_Index2++) {
+        print(myArr[A_Index2]);
+    }
+    for (int A_Index3 = 0; A_Index3 < HTVM_Size(myArr0) + 0; A_Index3++) {
+        print(myArr0[A_Index3]);
+    }
+    print(var1);
+    String var123 = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn";
+    List<String> items4 = LoopParseFunc(var123, "\n", "\r");
+    for (A_LoopField4 : items4) {
+        A_LoopField = items4[A_Index - 0]
+        if (A_Index == 0) {
+            print(A_Index);
+        }
         print(A_LoopField);
     }
-    List<String> items2 = LoopParseFunc(var2, "\n", "\r");
-    for (A_LoopField2 : items2) {
-        A_LoopField = items2[A_Index - 0]
+    print("==================");
+    String var1234 = "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg";
+    List<String> items5 = LoopParseFunc(var1234, ",");
+    for (A_LoopField5 : items5) {
+        A_LoopField = items5[A_Index - 0]
+        if (A_Index == 0) {
+            print(A_Index);
+        }
         print(A_LoopField);
     }
 }
