@@ -1,9 +1,32 @@
+async func str func1(str var1)
+{
+return var1 . var1
+}
+
+async func void func2(str var1)
+{
+print(var1 . var1)
+}
+
+func void func3(str var1, str var2 := "hello")
+{
+print(var1 . " " . var2)
+}
+
+main
+
+print(await func1("hi1"))
+await func2("hi2")
+func3("hi3")
+func3("hi3", "hello3")
 int var1
 arr bool myArr0
 
 myArr0.add(true)
 myArr0.add(false)
 myArr0.add(true)
+
+
 
 arr int myArr := [5, 6, 7]
 Loop, 5 {
@@ -16,7 +39,16 @@ Loop, % myArr.size() {
 Loop, % myArr0.size() {
     print(myArr0[A_Index])
 }
+
+if (var1 = 6)
+{
 print(var1)
+}
+else if (var1 = 7)
+{
+print(var1)
+}
+
 str var123 := "sdf`naszdxgvh`newsrdt`nsdr`rdfgcvbnb`n`rsdxfgcvn"
 
 Loop, Parse, var123, `n, `r
@@ -37,3 +69,12 @@ print(A_Index)
 }
 print(A_LoopField)
 }
+
+
+print("==================")
+str var12345 := "hello"
+Loop, Parse, var12345
+{
+print(A_LoopField)
+}
+

@@ -1,20 +1,26 @@
 import strutils
 
-proc LoopParseFunc(varString: cstring, delimiter1: cstring = "", delimiter2: cstring = ""): seq[string] =
+proc LoopParseFunc(varString: string, delimiter1: string = "", delimiter2: string = ""): seq[string] =
   var items: seq[string] = @[]
+  
   if delimiter1.len == 0 and delimiter2.len == 0:
     # If no delimiters are provided, return a sequence of characters
     for i in 0..<varString.len:
-      items.add($varString[i])  # Use $ to convert char to string
+      items.add($varString[i])
   else:
-    # Convert cstring to string directly
-    let delim1Str = $delimiter1
-    let delim2Str = $delimiter2
-    # Construct the regular expression pattern for splitting the string
-    let pattern = "[" & delim1Str & delim2Str & "]"
-    # Split the string and add each item individually
-    for item in ($varString).split(pattern):
-      items.add(item)
+    if delimiter2.len == 0:
+      # If only one delimiter is provided, use simple split
+      items = varString.split(delimiter1)
+    else:
+      # If both delimiters are provided, first split by delimiter1
+      let tempItems = varString.split(delimiter1)
+      # Then split each item by delimiter2 if needed
+      for item in tempItems:
+        let subItems = item.split(delimiter2)
+        for subItem in subItems:
+          if subItem.len > 0:  # Only add non-empty items
+            items.add(subItem)
+            
   return items
 
 # Print function for various types
@@ -36,6 +42,16 @@ proc HTVM_Size[T](arr: seq[T]): int =
   return arr.len
 
 
+proc func1(var1: string): string =
+    return var1 & var1
+proc func2(var1: string) =
+    print(var1 & var1)
+proc func3(var1: string, var2: string = "hello") =
+    print(var1 & " " & var2)
+print(func1("hi1"))
+func2("hi2")
+func3("hi3")
+func3("hi3", "hello3")
 var var1: int = 0
 var myArr0: seq[bool] = @[]
 HTVM_Append(myArr0, true)
@@ -49,7 +65,10 @@ for A_Index2 in 0..<HTVM_Size(myArr) + 0:
     print(myArr[A_Index2])
 for A_Index3 in 0..<HTVM_Size(myArr0) + 0:
     print(myArr0[A_Index3])
-print(var1)
+if (var1 == 6):
+    print(var1)
+elif (var1 == 7):
+    print(var1)
 var var123: string = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
 var items4 = LoopParseFunc(var123, "\n", "\r")
 for A_Index4 , A_LoopField4 in items4:
@@ -63,3 +82,8 @@ for A_Index5 , A_LoopField5 in items5:
     if (A_Index5 == 0):
         print(A_Index5)
     print(A_LoopField5)
+print("==================")
+var var12345: string = "hello"
+var items6 = LoopParseFunc(var12345)
+for A_Index6 , A_LoopField6 in items6:
+    print(A_LoopField6)

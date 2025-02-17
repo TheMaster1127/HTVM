@@ -3,19 +3,13 @@ import Foundation
 
 func LoopParseFunc(_ varString: String, _ delimiter1: String = "", _ delimiter2: String = "") -> [String] {
     var items: [String] = []
+    // If no delimiters are provided, return an array of characters
     if delimiter1.isEmpty && delimiter2.isEmpty {
-        // If no delimiters are provided, return an array of characters
         items = Array(varString).map { String($0) }
     } else {
-        // Construct the regular expression pattern for capturing content
-        let pattern = "(?<=^|[\n\r])([^\\n\\r]+)(?=[\n\r]|$)"
-        
-        // Split the string using the constructed pattern
-        let regex = try! NSRegularExpression(pattern: pattern, options: [])
-        let range = NSRange(location: 0, length: varString.utf16.count)
-        items = regex.matches(in: varString, options: [], range: range).map {
-            (varString as NSString).substring(with: $0.range)
-        }
+        // Use the first delimiter for splitting the string
+        let delimiter = delimiter1.isEmpty ? delimiter2 : delimiter1
+        items = varString.split(separator: Character(delimiter)).map { String($0) }
     }
     return items
 }
@@ -31,8 +25,21 @@ func HTVM_Size<T>(_ arr: [T]) -> Int {
 }
 
 
+func func1(_ var1: String) -> String {
+    return var1 + var1
+}
+func func2(_ var1: String) {
+    print(var1 + var1)
+}
+func func3(_ var1: String, _ var2: String = "hello") {
+    print(var1 + " " + var2)
+}
 func main() {
-    var var1: Int
+    print(func1("hi1"))
+    func2("hi2")
+    func3("hi3")
+    func3("hi3", "hello3")
+    var var1: Int = 0
     var myArr0: [Bool] = []
     HTVM_Append(&myArr0, true)
     HTVM_Append(&myArr0, false)
@@ -48,7 +55,12 @@ func main() {
     for A_Index3 in 0 ..< HTVM_Size(myArr0) + 0 {
         print(myArr0[A_Index3])
     }
-    print(var1)
+    if (var1 == 6) {
+        print(var1)
+    }
+    else if (var1 == 7) {
+        print(var1)
+    }
     var var123: String = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
     var items4 = LoopParseFunc(var123, "\n", "\r")
     for (A_Index4 , A_LoopField4) in items4.enumerated() {
@@ -65,6 +77,12 @@ func main() {
             print(A_Index5)
         }
         print(A_LoopField5)
+    }
+    print("==================")
+    var var12345: String = "hello"
+    var items6 = LoopParseFunc(var12345)
+    for (A_Index6 , A_LoopField6) in items6.enumerated() {
+        print(A_LoopField6)
     }
 }
 main()

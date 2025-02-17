@@ -1,26 +1,60 @@
-Loop, % theIdNumOfThe34 {
-    if (theIdNumOfThe34 = A_Index + 1) {
-        if (langToConvertTo = langFileExtension_2) {
-            if (keyWordEscpaeChar_2 = "\") and (keyWordEscpaeChar != "\") {
-                htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index + 1], "\", "\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) . Chr(34))
-            } else {
-                htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], keyWordEscpaeChar, keyWordEscpaeChar_2) . Chr(34))
-            }
-        } else {
-            htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], keyWordEscpaeChar, "\") . Chr(34))
-        }
-    } else {
-        if (langToConvertTo = langFileExtension_2) {
-            if (keyWordEscpaeChar_2 = "\") and (keyWordEscpaeChar != "\") {
-                htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index + 1], "\", "\\"), keyWordEscpaeChar, keyWordEscpaeChar_2))
-            } else {
-                htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], keyWordEscpaeChar, keyWordEscpaeChar_2))
-            }
-        } else {
-            htCode := StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index + 1], keyWordEscpaeChar, "\"))
-        }
+func str ExtractDigits(str inputString)
+{
+str digits := ""
+
+Loop, Parse, inputString
+{
+    if (RegExMatch(A_LoopField, "\d"))
+    {
+        digits .= A_LoopField
     }
+}
+return digits
+}
+
+main
+str code := "for A_Index4, A_LoopField4 in items4`n{`n    print(A_Index4)`n}`n`nfor A_Index5, A_LoopField5 in items5`n{`n    print(A_LoopField5)`n}"
+str AindexKeyWOrd := "A_Index"
+; Regex to find all A_Index<num> occurrences
+arr str fixAindexInGoUnused
+int howMany_fixAindexInGoUnused := 6
+int howMany_fixAindexInGoUnusedNUM := 0
+int found_fixAindexInGoUnused := 0
+str foundWHAT_fixAindexInGoUnused := ""
+
+Loop, Parse, code, `n, `r
+{
+if (RegExMatch(A_LoopField, AindexKeyWOrd . "\d+"))
+{
+if (SubStr(A_LoopField, 1, 4) != "for ")
+{
+fixAindexInGoUnused.add(AindexKeyWOrd . ExtractDigits(StrSplit(A_LoopField, AindexKeyWOrd, 2)))
+}
+}
 }
 
 
+Loop, % howMany_fixAindexInGoUnused
+{
+howMany_fixAindexInGoUnusedNUM := A_Index
+found_fixAindexInGoUnused := 1
+foundWHAT_fixAindexInGoUnused := AindexKeyWOrd . STR(howMany_fixAindexInGoUnusedNUM)
+Loop, % fixAindexInGoUnused.size()
+{
+if (fixAindexInGoUnused[A_Index] = AindexKeyWOrd . STR(howMany_fixAindexInGoUnusedNUM))
+{
+found_fixAindexInGoUnused := 0
+foundWHAT_fixAindexInGoUnused := ""
+break
+}
+} 
+
+if (foundWHAT_fixAindexInGoUnused != "")
+{
+code := StrReplace(code, foundWHAT_fixAindexInGoUnused, "_")
+}
+
+}
+
+print(code)
 

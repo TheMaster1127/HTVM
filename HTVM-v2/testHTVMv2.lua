@@ -32,23 +32,41 @@ function HTVM_Size(arr)
 end
 
 
+function func1(var1)
+    return var1 .. var1
+end
+function func2(var1)
+    print(var1 .. var1)
+end
+function func3(var1, var2)
+    var2 = var2 or "hello"
+    print(var1 .. " " .. var2)
+end
+print(func1("hi1"))
+func2("hi2")
+func3("hi3")
+func3("hi3", "hello3")
 var1 = nil
 myArr0 = {}
 HTVM_Append(myArr0, true)
 HTVM_Append(myArr0, false)
 HTVM_Append(myArr0, true)
 myArr = {5, 6, 7}
-for A_Index1 = 0, 5 + 0 do
+for A_Index1 = 0 + 1 , 5 + 0 do
     var1 = 6
     HTVM_Append(myArr, A_Index1)
 end
-for A_Index2 = 0, HTVM_Size(myArr) + 0 do
+for A_Index2 = 0 + 1 , HTVM_Size(myArr) + 0 do
     print(myArr[A_Index2])
 end
-for A_Index3 = 0, HTVM_Size(myArr0) + 0 do
+for A_Index3 = 0 + 1 , HTVM_Size(myArr0) + 0 do
     print(myArr0[A_Index3])
 end
-print(var1)
+if (var1 == 6) then
+    print(var1)
+elseif (var1 == 7) then
+    print(var1)
+end
 var123 = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
 items4 = LoopParseFunc(var123, "\n", "\r")
 for A_Index4 , A_LoopField4 in ipairs(items4) do
@@ -67,4 +85,11 @@ for A_Index5 , A_LoopField5 in ipairs(items5) do
         print(A_Index5)
     end
     print(A_LoopField5)
+end
+print("==================")
+var12345 = "hello"
+items6 = LoopParseFunc(var12345)
+for A_Index6 , A_LoopField6 in ipairs(items6) do
+    A_LoopField6 = items6[A_Index6 - 0]
+    print(A_LoopField6)
 end

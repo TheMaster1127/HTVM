@@ -1,32 +1,43 @@
-int var1
-arr bool myArr0
+async func func1(var1: str): str
+    return var1 . var1
+async func func2(var1: str): void
+    print(var1 . var1)
+func func3(var1: str, var2: str := "hello"): void
+    print(var1 . " " . var2)
+main
+print(await func1("hi1"))
+await func2("hi2")
+func3("hi3")
+func3("hi3", "hello3")
+var1: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz
+myArr0: arr bool
 myArr0.add(true)
 myArr0.add(false)
 myArr0.add(true)
-arr int myArr := [5, 6, 7]
-spin 5 (
+myArr: arr int := {5, 6, 7}
+spin 5
     var1 := 6
     myArr.add(A_Index)
-)
-spin % myArr.size() (
+spin % myArr.size()
     print(myArr[A_Index])
-)
-spin % myArr0.size() (
+spin % myArr0.size()
     print(myArr0[A_Index])
-)
-print(var1)
-str var123 := "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
-Loop, Parse, var123, \n, \r (
-    if (A_Index == 0) (
+if (var1 == 6)
+    print(var1)
+else if (var1 == 7)
+    print(var1)
+var123: str := "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
+Loop, Parse, var123, \n, \r
+    if (A_Index == 0)
         print(A_Index)
-    )
     print(A_LoopField)
-)
 print("==================")
-str var1234 := "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg"
-Loop, Parse, var1234, \, (
-    if (A_Index == 0) (
+var1234: str := "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg"
+Loop, Parse, var1234, \,
+    if (A_Index == 0)
         print(A_Index)
-    )
     print(A_LoopField)
-)
+print("==================")
+var12345: str := "hello"
+Loop, Parse, var12345
+    print(A_LoopField)

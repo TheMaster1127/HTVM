@@ -25,7 +25,20 @@ int HTVM_Size<T>(List<T> arr) {
 }
 
 
+String func1(String var1) {
+    return var1 + var1;
+}
+void func2(String var1) {
+    print(var1 + var1);
+}
+void func3(String var1, [String var2 = "hello"]) {
+    print(var1 + " " + var2);
+}
 void main(List<String> arguments) {
+    print(func1("hi1"));
+    func2("hi2");
+    func3("hi3");
+    func3("hi3", "hello3");
     int? var1;
     List<bool> myArr0 = [];
     HTVM_Append(myArr0, true);
@@ -42,7 +55,12 @@ void main(List<String> arguments) {
     for (int A_Index3 = 0; A_Index3 < HTVM_Size(myArr0) + 0; A_Index3++) {
         print(myArr0[A_Index3]);
     }
-    print(var1);
+    if (var1 == 6) {
+        print(var1);
+    }
+    else if (var1 == 7) {
+        print(var1);
+    }
     String var123 = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn";
     var items4 = LoopParseFunc(var123, "\n", "\r");
     for (int A_Index4 = 0; A_Index4 < items4.length; A_Index4++) {
@@ -61,5 +79,12 @@ void main(List<String> arguments) {
             print(A_Index5);
         }
         print(A_LoopField5);
+    }
+    print("==================");
+    String var12345 = "hello";
+    var items6 = LoopParseFunc(var12345);
+    for (int A_Index6 = 0; A_Index6 < items6.length; A_Index6++) {
+        var A_LoopField6 = items6[A_Index6 - 0];
+        print(A_LoopField6);
     }
 }

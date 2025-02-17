@@ -28,6 +28,19 @@ def HTVM_Size(arr) {
 }
 
 
+def func1(var1) {
+    return var1 + var1;
+}
+def func2(var1) {
+    print(var1 + var1)
+}
+def func3(var1, var2 = "hello") {
+    print(var1 + " " + var2)
+}
+print(func1("hi1"))
+func2("hi2")
+func3("hi3")
+func3("hi3", "hello3")
 def var1
 def myArr0 = []
 HTVM_Append(myArr0, true)
@@ -44,7 +57,12 @@ for (A_Index2 in 0..<HTVM_Size(myArr) + 0) {
 for (A_Index3 in 0..<HTVM_Size(myArr0) + 0) {
     print(myArr0[A_Index3])
 }
-print(var1)
+if (var1 == 6) {
+    print(var1)
+}
+else if (var1 == 7) {
+    print(var1)
+}
 def var123 = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
 def items4 = LoopParseFunc(var123, "\n", "\r")
 items4.eachWithIndex { A_LoopField4 , A_Index4 ->
@@ -63,4 +81,10 @@ A_LoopField5 = items5[A_Index5 - 0]
 print(A_Index5)
 }
 print(A_LoopField5)
+}
+print("==================")
+def var12345 = "hello"
+def items6 = LoopParseFunc(var12345)
+items6.eachWithIndex { A_LoopField6 , A_Index6 ->
+print(A_LoopField6)
 }

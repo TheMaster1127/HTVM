@@ -36,7 +36,20 @@ function HTVM_Size<T>(arr: T[]): number {
 }
 
 
+function func1(var1: string): string {
+    return var1 + var1;
+}
+function func2(var1: string): void {
+    print(var1 + var1);
+}
+function func3(var1: string, var2: string = "hello"): void {
+    print(var1 + " " + var2);
+}
 async function main(): Promise<void> {
+    print(await func1("hi1"));
+    await func2("hi2");
+    func3("hi3");
+    func3("hi3", "hello3");
     var var1: number;
     let myArr0: boolean[] = [];
     HTVM_Append(myArr0, true);
@@ -53,11 +66,16 @@ async function main(): Promise<void> {
     for (let A_Index3 = 0; A_Index3 < HTVM_Size(myArr0) + 0; A_Index3++) {
         print(myArr0[A_Index3]);
     }
-    print(var1);
+    if (var1 == 6) {
+        print(var1);
+    }
+    else if (var1 == 7) {
+        print(var1);
+    }
     var var123: string = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn";
     let items4 = LoopParseFunc(var123, "\n", "\r")
     for (let A_Index4 = 0; A_Index4 < items4.length; A_Index4++) {
-        let A_LoopField4 = items4[A_Index4 - 0]
+        let A_LoopField4 = items4[A_Index4 - 0];
         if (A_Index4 == 0) {
             print(A_Index4);
         }
@@ -67,11 +85,18 @@ async function main(): Promise<void> {
     var var1234: string = "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg";
     let items5 = LoopParseFunc(var1234, ",")
     for (let A_Index5 = 0; A_Index5 < items5.length; A_Index5++) {
-        let A_LoopField5 = items5[A_Index5 - 0]
+        let A_LoopField5 = items5[A_Index5 - 0];
         if (A_Index5 == 0) {
             print(A_Index5);
         }
         print(A_LoopField5);
+    }
+    print("==================");
+    var var12345: string = "hello";
+    let items6 = LoopParseFunc(var12345);
+    for (let A_Index6 = 0; A_Index6 < items6.length; A_Index6++) {
+        let A_LoopField6 = items6[A_Index6 - 0];
+        print(A_LoopField6);
     }
 }
 main();

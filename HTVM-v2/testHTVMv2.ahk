@@ -15,6 +15,19 @@ HTVM_Size(arr) {
 }
 
 
+func1(var1) {
+    return var1 . var1
+}
+func2(var1) {
+    print(var1 . var1)
+}
+func3(var1, var2 := "hello") {
+    print(var1 . " " . var2)
+}
+print(func1("hi1"))
+func2("hi2")
+func3("hi3")
+func3("hi3", "hello3")
 var1 := ""
 myArr0 := []
 HTVM_Append(myArr0, true)
@@ -31,7 +44,12 @@ Loop, % HTVM_Size(myArr) {
 Loop, % HTVM_Size(myArr0) {
     print(myArr0[A_Index])
 }
-print(var1)
+if (var1 = 6) {
+    print(var1)
+}
+else if (var1 = 7) {
+    print(var1)
+}
 var123 := "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
 Loop, Parse, var123, "\n", "\r" 
 {
@@ -49,5 +67,12 @@ Loop, Parse, var1234, "\,"
     if (A_Index = 0) {
         print(A_Index)
     }
+    print(A_LoopField)
+}
+print("==================")
+var12345 := "hello"
+Loop, Parse, var12345 
+{
+
     print(A_LoopField)
 }

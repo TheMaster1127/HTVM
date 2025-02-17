@@ -27,7 +27,20 @@ function HTVM_Size(arr) {
 }
 
 
+async function func1(var1) {
+    return var1 + var1;
+}
+async function func2(var1) {
+    print(var1 + var1);
+}
+function func3(var1, var2 = "hello") {
+    print(var1 + " " + var2);
+}
 async function main() {
+    print(await func1("hi1"));
+    await func2("hi2");
+    func3("hi3");
+    func3("hi3", "hello3");
     var var1;
     let myArr0 = [];
     HTVM_Append(myArr0, true);
@@ -44,7 +57,12 @@ async function main() {
     for (let A_Index3 = 0; A_Index3 < HTVM_Size(myArr0) + 0; A_Index3++) {
         print(myArr0[A_Index3]);
     }
-    print(var1);
+    if (var1 == 6) {
+        print(var1);
+    }
+    else if (var1 == 7) {
+        print(var1);
+    }
     var var123 = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn";
     items4 = LoopParseFunc(var123, "\n", "\r")
     for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
@@ -63,6 +81,13 @@ async function main() {
             print(A_Index5);
         }
         print(A_LoopField5);
+    }
+    print("==================");
+    var var12345 = "hello";
+    items6 = LoopParseFunc(var12345)
+    for (let A_Index6 = 0; A_Index6 < items6.length + 0; A_Index6++) {
+        const A_LoopField6 = items6[A_Index6 - 0];
+        print(A_LoopField6);
     }
 }
 main();

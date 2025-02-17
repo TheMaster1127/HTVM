@@ -35,7 +35,20 @@ fun <T> HTVM_Size(arr: List<T>): Int {
 }
 
 
+fun func1(var1: String): String {
+    return var1 + var1
+}
+fun func2(var1: String) {
+    print(var1 + var1)
+}
+fun func3(var1: String, var2: String = "hello") {
+    print(var1 + " " + var2)
+}
 fun main(args: Array<String>) {
+    print(func1("hi1"))
+    func2("hi2")
+    func3("hi3")
+    func3("hi3", "hello3")
     var var1: Int? = null
     val myArr0 = ArrayList<Boolean>()
     HTVM_Append(myArr0, true)
@@ -52,7 +65,12 @@ fun main(args: Array<String>) {
     for (A_Index3 in 0 until HTVM_Size(myArr0) + 0) {
         print(myArr0[A_Index3])
     }
-    print(var1)
+    if (var1 == 6) {
+        print(var1)
+    }
+    else if (var1 == 7) {
+        print(var1)
+    }
     var var123: String = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn";
     val items4 = LoopParseFunc(var123, "\n", "\r")
     for ((A_Index4 , A_LoopField4) in items4.withIndex()) {
@@ -69,5 +87,11 @@ fun main(args: Array<String>) {
             print(A_Index5)
         }
         print(A_LoopField5)
+    }
+    print("==================")
+    var var12345: String = "hello";
+    val items6 = LoopParseFunc(var12345)
+    for ((A_Index6 , A_LoopField6) in items6.withIndex()) {
+        print(A_LoopField6)
     }
 }

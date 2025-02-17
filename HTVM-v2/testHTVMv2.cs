@@ -33,7 +33,7 @@ class Program
         else if (value is int || value is float || value is double)
             Console.WriteLine(value.ToString());
         else if (value is bool)
-            Console.WriteLine((bool)value ? "True" : "False");
+            Console.WriteLine((bool)value ? "true" : "false");
         else
             Console.WriteLine("Unsupported type");
     }
@@ -47,8 +47,21 @@ public static int HTVM_Size<T>(List<T> arr) {
 }
 
 
+static string func1(string var1) {
+    return var1 + var1;
+}
+static void func2(string var1) {
+    print(var1 + var1);
+}
+static void func3(string var1, string var2 = "hello") {
+    print(var1 + " " + var2);
+}
 static void Main(string[] args) {
-    int var1;
+    print(func1("hi1"));
+    func2("hi2");
+    func3("hi3");
+    func3("hi3", "hello3");
+    int var1 = 0;
     List<bool> myArr0 = new List<bool>();
     HTVM_Append(myArr0, true);
     HTVM_Append(myArr0, false);
@@ -64,7 +77,12 @@ static void Main(string[] args) {
     for (int A_Index3 = 0; A_Index3 < HTVM_Size(myArr0) + 0; A_Index3++) {
         print(myArr0[A_Index3]);
     }
-    print(var1);
+    if (var1 == 6) {
+        print(var1);
+    }
+    else if (var1 == 7) {
+        print(var1);
+    }
     string var123 = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn";
     List<string> items4 = new List<string>(LoopParseFunc(var123, "\n", "\r"));
     for (int A_Index4 = 0; A_Index4 < items4.Count + 0; A_Index4++) {
@@ -83,6 +101,13 @@ static void Main(string[] args) {
             print(A_Index5);
         }
         print(A_LoopField5);
+    }
+    print("==================");
+    string var12345 = "hello";
+    List<string> items6 = new List<string>(LoopParseFunc(var12345));
+    for (int A_Index6 = 0; A_Index6 < items6.Count + 0; A_Index6++) {
+        string A_LoopField6 = items6[A_Index6 - 0];
+        print(A_LoopField6);
     }
 }
 }
