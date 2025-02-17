@@ -33,14 +33,16 @@ async function func1(var1) {
 async function func2(var1) {
     print(var1 + var1);
 }
-function func3(var1, var2 = "hello") {
-    print(var1 + " " + var2);
+function func3(var1, var2 = "hello", var3 = "hello", var4 = "hello") {
+    print(var1 + " " + var2 + " " + var3 + " " + var4);
 }
 async function main() {
     print(await func1("hi1"));
     await func2("hi2");
     func3("hi3");
     func3("hi3", "hello3");
+    func3("hi3", "hello3", "QWAESDRTFG");
+    func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444");
     var var1;
     let myArr0 = [];
     HTVM_Append(myArr0, true);

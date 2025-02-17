@@ -8,9 +8,9 @@ async func void func2(str var1)
 print(var1 . var1)
 }
 
-func void func3(str var1, str var2 := "hello")
+func void func3(str var1, str var2 := "hello", str var3 := "hello", str var4 := "hello")
 {
-print(var1 . " " . var2)
+print(var1 . " " . var2 . " " . var3 . " " . var4)
 }
 
 main
@@ -19,6 +19,8 @@ print(await func1("hi1"))
 await func2("hi2")
 func3("hi3")
 func3("hi3", "hello3")
+func3("hi3", "hello3", "QWAESDRTFG")
+func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444")
 int var1
 arr bool myArr0
 

@@ -46,12 +46,14 @@ proc func1(var1: string): string =
     return var1 & var1
 proc func2(var1: string) =
     print(var1 & var1)
-proc func3(var1: string, var2: string = "hello") =
-    print(var1 & " " & var2)
+proc func3(var1: string, var2: string = "hello", var3: string = "hello", var4: string = "hello") =
+    print(var1 & " " & var2 & " " & var3 & " " & var4)
 print(func1("hi1"))
 func2("hi2")
 func3("hi3")
 func3("hi3", "hello3")
+func3("hi3", "hello3", "QWAESDRTFG")
+func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444")
 var var1: int = 0
 var myArr0: seq[bool] = @[]
 HTVM_Append(myArr0, true)

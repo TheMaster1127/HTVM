@@ -38,14 +38,18 @@ end
 function func2(var1)
     print(var1 .. var1)
 end
-function func3(var1, var2)
+function func3(var1, var2, var3, var4)
     var2 = var2 or "hello"
-    print(var1 .. " " .. var2)
+    var3 = var3 or "hello"
+    var4 = var4 or "hello"
+    print(var1 .. " " .. var2 .. " " .. var3 .. " " .. var4)
 end
 print(func1("hi1"))
 func2("hi2")
 func3("hi3")
 func3("hi3", "hello3")
+func3("hi3", "hello3", "QWAESDRTFG")
+func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444")
 var1 = nil
 myArr0 = {}
 HTVM_Append(myArr0, true)

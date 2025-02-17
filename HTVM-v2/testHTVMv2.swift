@@ -31,14 +31,16 @@ func func1(_ var1: String) -> String {
 func func2(_ var1: String) {
     print(var1 + var1)
 }
-func func3(_ var1: String, _ var2: String = "hello") {
-    print(var1 + " " + var2)
+func func3(_ var1: String, _ var2: String = "hello", _ var3: String = "hello", _ var4: String = "hello") {
+    print(var1 + " " + var2 + " " + var3 + " " + var4)
 }
 func main() {
     print(func1("hi1"))
     func2("hi2")
     func3("hi3")
     func3("hi3", "hello3")
+    func3("hi3", "hello3", "QWAESDRTFG")
+    func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444")
     var var1: Int = 0
     var myArr0: [Bool] = []
     HTVM_Append(&myArr0, true)

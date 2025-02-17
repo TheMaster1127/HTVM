@@ -41,14 +41,16 @@ fun func1(var1: String): String {
 fun func2(var1: String) {
     print(var1 + var1)
 }
-fun func3(var1: String, var2: String = "hello") {
-    print(var1 + " " + var2)
+fun func3(var1: String, var2: String = "hello", var3: String = "hello", var4: String = "hello") {
+    print(var1 + " " + var2 + " " + var3 + " " + var4)
 }
 fun main(args: Array<String>) {
     print(func1("hi1"))
     func2("hi2")
     func3("hi3")
     func3("hi3", "hello3")
+    func3("hi3", "hello3", "QWAESDRTFG")
+    func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444")
     var var1: Int? = null
     val myArr0 = ArrayList<Boolean>()
     HTVM_Append(myArr0, true)

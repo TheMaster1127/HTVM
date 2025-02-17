@@ -24,12 +24,14 @@ def func1(var1):
     return var1 + var1
 def func2(var1):
     print(var1 + var1)
-def func3(var1, var2 = "hello"):
-    print(var1 + " " + var2)
+def func3(var1, var2 = "hello", var3 = "hello", var4 = "hello"):
+    print(var1 + " " + var2 + " " + var3 + " " + var4)
 print(func1("hi1"))
 func2("hi2")
 func3("hi3")
 func3("hi3", "hello3")
+func3("hi3", "hello3", "QWAESDRTFG")
+func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444")
 var1 = None
 myArr0 = []
 HTVM_Append(myArr0, True)

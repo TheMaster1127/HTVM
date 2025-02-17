@@ -53,14 +53,16 @@ static string func1(string var1) {
 static void func2(string var1) {
     print(var1 + var1);
 }
-static void func3(string var1, string var2 = "hello") {
-    print(var1 + " " + var2);
+static void func3(string var1, string var2 = "hello", string var3 = "hello", string var4 = "hello") {
+    print(var1 + " " + var2 + " " + var3 + " " + var4);
 }
 static void Main(string[] args) {
     print(func1("hi1"));
     func2("hi2");
     func3("hi3");
     func3("hi3", "hello3");
+    func3("hi3", "hello3", "QWAESDRTFG");
+    func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444");
     int var1 = 0;
     List<bool> myArr0 = new List<bool>();
     HTVM_Append(myArr0, true);

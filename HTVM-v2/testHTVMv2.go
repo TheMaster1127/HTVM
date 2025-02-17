@@ -53,16 +53,26 @@ func func2(var1 string) {
 }
 func func3(var1 string, __HTVM_V2_TO_GO_optionalParams__ ...interface{}) {
     var2 := "hello"
+    var3 := "hello"
+    var4 := "hello"
     if len(__HTVM_V2_TO_GO_optionalParams__) > 0 {
         var2 = __HTVM_V2_TO_GO_optionalParams__[0].(string)
     }
-    print(var1 + " " + var2)
+    if len(__HTVM_V2_TO_GO_optionalParams__) > 1 {
+        var3 = __HTVM_V2_TO_GO_optionalParams__[1].(string)
+    }
+    if len(__HTVM_V2_TO_GO_optionalParams__) > 2 {
+        var4 = __HTVM_V2_TO_GO_optionalParams__[2].(string)
+    }
+    print(var1 + " " + var2 + " " + var3 + " " + var4)
 }
 func main() {
     print(func1("hi1"))
     func2("hi2")
     func3("hi3")
     func3("hi3", "hello3")
+    func3("hi3", "hello3", "QWAESDRTFG")
+    func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444")
     var var1 int
     var myArr0 []bool
     HTVM_Append(&myArr0, true)

@@ -51,14 +51,20 @@ public static void func2(String var1) {
 }
 public static void func3(String var1, Object... __HTVM_V2_TO_JAVA_optionalParams__) {
     String var2 = "hello";
+    String var3 = "hello";
+    String var4 = "hello";
     if (__HTVM_V2_TO_JAVA_optionalParams__.length > 0) var2 = (String) __HTVM_V2_TO_JAVA_optionalParams__[0];
-    print(var1 + " " + var2);
+    if (__HTVM_V2_TO_JAVA_optionalParams__.length > 1) var3 = (String) __HTVM_V2_TO_JAVA_optionalParams__[1];
+    if (__HTVM_V2_TO_JAVA_optionalParams__.length > 2) var4 = (String) __HTVM_V2_TO_JAVA_optionalParams__[2];
+    print(var1 + " " + var2 + " " + var3 + " " + var4);
 }
 public static void main(String[] args) {
     print(func1("hi1"));
     func2("hi2");
     func3("hi3");
     func3("hi3", "hello3");
+    func3("hi3", "hello3", "QWAESDRTFG");
+    func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444");
     int var1 = 0;
     ArrayList<Boolean> myArr0 = new ArrayList<>();
     HTVM_Append(myArr0, true);

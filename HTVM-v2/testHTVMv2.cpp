@@ -89,14 +89,16 @@ std::string func1(std::string var1) {
 void func2(std::string var1) {
     print(var1 + var1);
 }
-void func3(std::string var1, std::string var2 = "hello") {
-    print(var1 + " " + var2);
+void func3(std::string var1, std::string var2 = "hello", std::string var3 = "hello", std::string var4 = "hello") {
+    print(var1 + " " + var2 + " " + var3 + " " + var4);
 }
 int main(int argc, char* argv[]) {
     print(func1("hi1"));
     func2("hi2");
     func3("hi3");
     func3("hi3", "hello3");
+    func3("hi3", "hello3", "QWAESDRTFG");
+    func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444");
     int var1 = 0;
     std::vector<bool> myArr0;
     HTVM_Append(myArr0, true);

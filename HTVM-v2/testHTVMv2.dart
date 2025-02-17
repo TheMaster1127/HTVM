@@ -31,14 +31,16 @@ String func1(String var1) {
 void func2(String var1) {
     print(var1 + var1);
 }
-void func3(String var1, [String var2 = "hello"]) {
-    print(var1 + " " + var2);
+void func3(String var1, [String var2 = "hello", String var3 = "hello", String var4 = "hello"]) {
+    print(var1 + " " + var2 + " " + var3 + " " + var4);
 }
 void main(List<String> arguments) {
     print(func1("hi1"));
     func2("hi2");
     func3("hi3");
     func3("hi3", "hello3");
+    func3("hi3", "hello3", "QWAESDRTFG");
+    func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444");
     int? var1;
     List<bool> myArr0 = [];
     HTVM_Append(myArr0, true);
