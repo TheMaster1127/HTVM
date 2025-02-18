@@ -407,6 +407,7 @@ int lineDone := 0
 int areWeInAFuncFromInstructions := 0
 int areWeInAFuncFromInstructionsLineNum := 0
 int javaMainFuncSeen := 0
+int csMainFuncSeen := 0
 int howMany_fixAindexInGoUnused := 0
 
 str theTryCatchVarForErrors := "jhku-dfsds-ds-d-ffdsf-sdfsfdsedsf"
@@ -444,7 +445,7 @@ if (langToConvertTo = "java")
 {
 out := "(byte) " . line
 }
-if (langToConvertTo = "kotlin")
+if (langToConvertTo = "kt")
 {
 out := line . "u"
 }
@@ -463,7 +464,7 @@ if (langToConvertTo = "java")
 {
 out := "(short) " . line
 }
-if (langToConvertTo = "kotlin")
+if (langToConvertTo = "kt")
 {
 out := line . "u"
 }
@@ -477,7 +478,7 @@ Loop, % allVarsSoWeDontReDecVars_FIX_uint32.size()
 if (Trim(allVarsSoWeDontReDecVars_FIX_uint32[A_Index]) = Trim(varName))
 {
 
-if (langToConvertTo = "kotlin")
+if (langToConvertTo = "kt")
 {
 out := line . "u"
 }
@@ -496,7 +497,7 @@ Loop, % allVarsSoWeDontReDecVars_FIX_uint64.size()
 if (Trim(allVarsSoWeDontReDecVars_FIX_uint64[A_Index]) = Trim(varName))
 {
 
-if (langToConvertTo = "kotlin")
+if (langToConvertTo = "kt")
 {
 out := line . "uL"
 }
@@ -548,7 +549,7 @@ Loop, % allVarsSoWeDontReDecVars_FIX_int64.size()
 if (Trim(allVarsSoWeDontReDecVars_FIX_int64[A_Index]) = Trim(varName))
 {
 
-if (langToConvertTo = "kotlin")
+if (langToConvertTo = "kt")
 {
 out := line . "L"
 }
@@ -4326,6 +4327,16 @@ expression := StrReplace(expression, "]", ")")
 }
 
 
+
+if (langToConvertTo = "swift") 
+{
+expression := StrReplace(expression, Chr(39), Chr(34))
+}
+if (langToConvertTo = "ahk")
+{
+expression := StrReplace(expression, Chr(39), Chr(34))
+}
+
 if (fixExpertionLineFuncOnly = 1)
 {
 expression := fixExpertionLineFuncOnlyTEXT_func . "(" . expression
@@ -7909,15 +7920,15 @@ if (langToConvertTo = "groovy") {
 htCode .= "continue;`n"
 }
 }
-else if (StrLower(A_LoopField) = "::" . keyWordContinue . "::")
+else if (StrLower(A_LoopField) = "::" . keyWordContinue)
 {
 if (langToConvertTo = langFileExtension_2) 
 {
-htCode .= "::" . keyWordContinue_2 . "::`n"
+htCode .= "::" . keyWordContinue_2 . Chr(10)
 }
 
 if (langToConvertTo = "lua") {
-htCode .= "::continue::`n"
+htCode .= "::continue::" . Chr(10)
 }
 
 }
@@ -7946,7 +7957,7 @@ if (langToConvertTo = "go")
 }
 if (langToConvertTo = "lua")
 {
-    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . " + 1 " . ", someLimit do"
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in infinite_HTVM_Lua_Loop_HTVM() do"
 }
 if (langToConvertTo = "cs")
 {
@@ -9936,6 +9947,7 @@ else if (InStr(A_LoopField, " main(")) and (lineDone = 0)
 {
 lineDone := 1
 javaMainFuncSeen := 1
+csMainFuncSeen := 1
 htCode .= A_LoopField . Chr(10)
 }
 else if (InStr(A_LoopField, " " . keyWordAssign . " ")) or (InStr(A_LoopField, " " . keyWordAssignAdd . " ")) or (InStr(A_LoopField, " " . keyWordAssignConcat . " ")) or (InStr(A_LoopField, " " . keyWordAssignSub . " ")) or (InStr(A_LoopField, " " . keyWordAssignMul . " ")) or (InStr(A_LoopField, " " . keyWordAssignDiv . " ")) or (InStr(A_LoopField, " " . keyWordAssignMod . " ")) or (InStr(A_LoopField, " " . keyWordAssignShiftLeft . " ")) or (InStr(A_LoopField, " " . keyWordAssignShiftRight . " ")) or (InStr(A_LoopField, " " . keyWordLogicalAssignShiftRight . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitAnd . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitOr . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitXor . " ")) and (lineDone = 0)
@@ -10296,7 +10308,16 @@ str4 := str2 . " " . str12 . " {" . str6 . "}"
 if (langToConvertTo = "cs")
 {
 
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+
+
 }
 if (langToConvertTo = "java")
 {
@@ -10393,7 +10414,18 @@ str4 := str2 . " " . str12 . " " . str6
 }
 if (langToConvertTo = "cs")
 {
+
+if (csMainFuncSeen = 1)
+{
 str4 := "const " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+else
+{
+str4 := "static const " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
+
+
 }
 if (langToConvertTo = "java")
 {
@@ -10569,7 +10601,16 @@ str4 := str2 . " " . str12 . " {" . str6 . "}"
 if (langToConvertTo = "cs")
 {
 
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+
+
 }
 if (langToConvertTo = "java")
 {
@@ -10666,7 +10707,17 @@ str4 := str2 . " " . str12 . " " . str6
 }
 if (langToConvertTo = "cs")
 {
+
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
+
 }
 if (langToConvertTo = "java")
 {
@@ -10838,7 +10889,16 @@ str4 := str2 . " " . str12 . " {" . str6 . "}"
 if (langToConvertTo = "cs")
 {
 
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+
+
 }
 if (langToConvertTo = "java")
 {
@@ -10936,7 +10996,18 @@ str4 := "local " . str2 . " " . str12 . " " . str6
 }
 if (langToConvertTo = "cs")
 {
+
+
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
+
 }
 if (langToConvertTo = "java")
 {
@@ -11087,7 +11158,16 @@ str4 := str2 . " " . str12 . " {" . str6 . "}"
 if (langToConvertTo = "cs")
 {
 
+
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+
 }
 if (langToConvertTo = "java")
 {
@@ -11188,7 +11268,15 @@ str4 := str2 . " " . str12 . " " . str6
 }
 if (langToConvertTo = "cs")
 {
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "java")
 {
@@ -11336,7 +11424,15 @@ str4 := str2 . " " . str12 . " {" . str6 . "}"
 if (langToConvertTo = "cs")
 {
 
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+
 }
 if (langToConvertTo = "java")
 {
@@ -11437,7 +11533,15 @@ str4 := str2 . " " . str12 . " " . str6
 }
 if (langToConvertTo = "cs")
 {
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "java")
 {
@@ -11621,7 +11725,17 @@ str4 := str2 . " = {}"
 if (langToConvertTo = "cs")
 {
 
+
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . "();"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = new " . str3 . "();"
+}
+
+
 }
 if (langToConvertTo = "java")
 {
@@ -11830,9 +11944,16 @@ if (str3 = "long")
     str5 := "0L"
 }
 
-
-
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = " . str5 . ";"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str5 . ";"
+}
+
+
 
 }
 if (langToConvertTo = "java")
@@ -11981,7 +12102,7 @@ if (str3 = "Double")
 }
 if (str3 = "Character")
 {
-    str5 := "'a'"
+    str5 := Chr(34) . "a" . Chr(34)
 }
 if (str3 = "UInt8")
 {
@@ -12156,7 +12277,16 @@ str4 := str2 . " = {}"
 if (langToConvertTo = "cs")
 {
 
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . "();"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = new " . str3 . "();"
+}
+
+
 }
 if (langToConvertTo = "java")
 {
@@ -12369,7 +12499,15 @@ if (str3 = "long")
 
 
 
+
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = " . str5 . ";"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str5 . ";"
+}
 }
 if (langToConvertTo = "java")
 {
@@ -12517,7 +12655,7 @@ if (str3 = "Double")
 }
 if (str3 = "Character")
 {
-    str5 := "'a'"
+    str5 := Chr(34) . "a" . Chr(34)
 }
 if (str3 = "UInt8")
 {
@@ -12669,7 +12807,18 @@ str4 := str2 . " = {}"
 if (langToConvertTo = "cs")
 {
 
+
+
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . "();"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = new " . str3 . "();"
+}
+
+
 }
 if (langToConvertTo = "java")
 {
@@ -12884,7 +13033,15 @@ if (str3 = "long")
 
 
 
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = " . str5 . ";"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str5 . ";"
+}
+
 }
 if (langToConvertTo = "java")
 {
@@ -13033,7 +13190,7 @@ if (str3 = "Double")
 }
 if (str3 = "Character")
 {
-    str5 := "'a'"
+    str5 := Chr(34) . "a" . Chr(34)
 }
 if (str3 = "UInt8")
 {
@@ -13183,7 +13340,16 @@ str4 := str2 . " = {}"
 if (langToConvertTo = "cs")
 {
 
+
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . "();"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = new " . str3 . "();"
+}
+
 }
 if (langToConvertTo = "java")
 {
@@ -13401,7 +13567,16 @@ if (str3 = "long")
 
 
 
+
+if (csMainFuncSeen = 1)
+{
 str4 := str3 . " " . str2 . " = " . str5 . ";"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str5 . ";"
+}
+
 }
 if (langToConvertTo = "java")
 {
@@ -13550,7 +13725,7 @@ if (str3 = "Double")
 }
 if (str3 = "Character")
 {
-    str5 := "'a'"
+    str5 := Chr(34) . "a" . Chr(34)
 }
 if (str3 = "UInt8")
 {

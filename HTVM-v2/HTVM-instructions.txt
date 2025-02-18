@@ -189,6 +189,19 @@ description: null
 // add the function here
 funcEND======================funcEND==============
 func======================func==============
+lang: lua
+name: infinite_HTVM_Lua_Loop_HTVM
+libs: null
+description: null
+function infinite_HTVM_Lua_Loop_HTVM()
+    local i = 0
+    return function()
+        i = i + 1
+        return i
+    end
+end
+funcEND======================funcEND==============
+func======================func==============
 lang: cpp
 name: LoopParseFunc
 libs: #include <vector>|#include <string>|#include <regex>
@@ -540,23 +553,7 @@ void print(const char* value) {
 // Print function that converts all types to string if needed
 template <typename T>
 void print(const T& value) {
-    if constexpr (std::is_same_v<T, std::string>) {
-        std::cout << value << std::endl;
-    } else if constexpr (std::is_same_v<T, char>) {
-        std::cout << value << std::endl;
-    } else if constexpr (std::is_same_v<T, int>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, float>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, double>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, size_t>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, bool>) {
-        std::cout << (value ? "1" : "0") << std::endl;
-    } else {
-        std::cout << "Unsupported type" << std::endl;
-    }
+    std::cout << value << std::endl;
 }
 funcEND======================funcEND==============
 func======================func==============
@@ -583,18 +580,7 @@ name: print
 libs: )|"fmt"
 description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
 func print(value interface{}) {
-	switch v := value.(type) {
-	case string:
-		fmt.Println(v)
-	case int, int32, int64:
-		fmt.Println(fmt.Sprintf("%d", v))
-	case float32, float64:
-		fmt.Println(fmt.Sprintf("%f", v))
-	case bool:
-		fmt.Println(fmt.Sprintf("%v", v))
-	default:
-		fmt.Println("Unsupported type")
-	}
+    fmt.Println(value)
 }
 funcEND======================funcEND==============
 
@@ -616,14 +602,7 @@ description: io~~~print is a function that outputs the specified data to the con
 
     public static void print(object value)
     {
-        if (value is string)
-            Console.WriteLine(value);
-        else if (value is int || value is float || value is double)
-            Console.WriteLine(value.ToString());
-        else if (value is bool)
-            Console.WriteLine((bool)value ? "true" : "false");
-        else
-            Console.WriteLine("Unsupported type");
+        Console.WriteLine(value);
     }
 funcEND======================funcEND==============
 
@@ -635,15 +614,7 @@ description: io~~~print is a function that outputs the specified data to the con
 // Print function for various types
 
     public static void print(Object value) {
-        if (value instanceof String) {
-            System.out.println(value);
-        } else if (value instanceof Integer || value instanceof Float || value instanceof Double) {
-            System.out.println(value.toString());
-        } else if (value instanceof Boolean) {
-            System.out.println((Boolean) value ? "true" : "false");
-        } else {
-            System.out.println("Unsupported type");
-        }
+        System.out.println(value);
     }
 
 funcEND======================funcEND==============
@@ -655,12 +626,7 @@ libs: null
 description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
 // Print function for various types
 fun print(value: Any) {
-    when (value) {
-        is String -> println(value)
-        is Int, is Float, is Double -> println(value.toString())
-        is Boolean -> println(if (value) "true" else "false")
-        else -> println("Unsupported type")
-    }
+  println(value)
 }
 
 funcEND======================funcEND==============
@@ -694,15 +660,7 @@ libs: null
 description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
 # Print function for various types
 proc print(value: auto) =  # Use 'auto' instead of 'untyped'
-  # Nim uses when/elif for type checking, not case
-  when value is string:
-    echo value
-  elif value is int or value is float:
-    echo $value  # Use $ for string conversion in Nim
-  elif value is bool:
-    echo if value: "true" else: "false"
-  else:
-    echo "Unsupported type"
+  echo value
 
 funcEND======================funcEND==============
 
@@ -745,15 +703,7 @@ libs: null
 description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
 // Print function for various types
 function print(value: any): void {
-    if (typeof value === "string") {
-        console.log(value);
-    } else if (typeof value === "number") {
-        console.log(value.toString());
-    } else if (typeof value === "boolean") {
-        console.log(value ? "true" : "false");
-    } else {
-        console.log("Unsupported type");
-    }
+    console.log(value);
 }
 
 funcEND======================funcEND==============
@@ -765,7 +715,7 @@ libs: null
 description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
 // Print function
 def print = { message ->
-    System.out.print("$message\n")
+    System.out.print("$message\n\r")
 }
 
 funcEND======================funcEND==============

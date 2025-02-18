@@ -4,56 +4,15 @@ keyWordMethod
 keyWordDefObj
 keyWordPorp
 keyWordThis
-keyWordVoid
-keyWordDouble
-keyWordChar
-keyWordUint8
-keyWordUint16
-keyWordUint32
-keyWordUint64
-keyWordINT
-keyWordSTR
-keyWordBOOL
-keyWordFLOAT
-keyWordINT8
-keyWordINT16
-keyWordINT32
-keyWordINT64
-keyWordArrayDefinition
-keyWordArrayOfIntegersDefinition
-keyWordArrayOfStringsDefinition
-keyWordArrayOfFloatingPointNumbersDefinition
-keyWordArrayOfBooleansDefinition
-keyWordVar
-keyWordLet
-keyWordConst
-keyWordAssign
-keyWordAssignAdd
-keyWordAssignConcat
-keyWordAssignSub
-keyWordAssignMul
-keyWordAssignDiv
-keyWordAssignMod
-keyWordAssignShiftLeft
-keyWordAssignShiftRight
-keyWordLogicalAssignShiftRight
-keyWordAssignBitAnd
-keyWordAssignBitOr
-keyWordAssignBitXor
-usePrefixTypeForTypeDefinition
-usePostfixTypeForTypeDefinition
-useCurlyBracesSyntaxForArrayDef
-useInJavaScriptAlwaysUseVar
-useJavaScriptAllFuncsAreAsync
 
-LEFT TO DO: 47
+LEFT TO DO: 6
 
 TODO List
 
 DONE! 1. Implement functions.
-2. Implement variables.
-3. Implement arrays.
-4. Handle the use??? on/off settings.
+DONE! 2. Implement variables.
+DONE! 3. Implement arrays.
+DONE! 4. Handle the use??? on/off settings.
 5. Implement OSP.
 6. Make the documentation, website, and README.
 7. Work on popularizing the programming language and making it more accessible.

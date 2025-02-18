@@ -1,45 +1,367 @@
-async func func1(var1: str): str
-    return var1 . var1
-async func func2(var1: str): void
-    print(var1 . var1)
-func func3(var1: str, var2: str := "hello", var3: str := "hello", var4: str := "hello"): void
-    print(var1 . " " . var2 . " " . var3 . " " . var4)
+; start
+keyWordCodeInTheTranspiledLangStartCPP
+void func0(const std::string& input) {
+    std::cout << input << std::endl;
+}
+keyWordCodeInTheTranspiledLangEndCPP
+keyWordCodeInTheTranspiledLangStartPY
+def func0(input: str):
+    print(input)
+keyWordCodeInTheTranspiledLangEndPY
+keyWordCodeInTheTranspiledLangStartJS
+function func0(input) {
+    console.log(input);
+}
+keyWordCodeInTheTranspiledLangEndJS
+keyWordCodeInTheTranspiledLangStartGO
+func func0(input string) {
+    fmt.Println(input)
+}
+keyWordCodeInTheTranspiledLangEndGO
+keyWordCodeInTheTranspiledLangStartLUA
+function func0(input)
+    print(input)
+end
+keyWordCodeInTheTranspiledLangEndLUA
+keyWordCodeInTheTranspiledLangStartCS
+static void func0(string input) {
+    Console.WriteLine(input);
+}
+keyWordCodeInTheTranspiledLangEndCS
+keyWordCodeInTheTranspiledLangStartJAVA
+public static void func0(String input) {
+    System.out.println(input);
+}
+keyWordCodeInTheTranspiledLangEndJAVA
+keyWordCodeInTheTranspiledLangStartKT
+fun func0(input: String) {
+    println(input)
+}
+keyWordCodeInTheTranspiledLangEndKT
+keyWordCodeInTheTranspiledLangStartRB
+def func0(input)
+    puts input
+end
+keyWordCodeInTheTranspiledLangEndRB
+keyWordCodeInTheTranspiledLangStartNIM
+proc func0(input: string) =
+  echo input
+keyWordCodeInTheTranspiledLangEndNIM
+keyWordCodeInTheTranspiledLangStartAHK
+func0(input) {
+    MsgBox, %input%
+}
+keyWordCodeInTheTranspiledLangEndAHK
+keyWordCodeInTheTranspiledLangStartSWIFT
+func func0(_ input: String) {
+    print(input)
+}
+keyWordCodeInTheTranspiledLangEndSWIFT
+keyWordCodeInTheTranspiledLangStartDART
+void func0(String input) {
+  print(input);
+}
+keyWordCodeInTheTranspiledLangEndDART
+keyWordCodeInTheTranspiledLangStartTS
+function func0(input: string): void {
+  console.log(input);
+}
+keyWordCodeInTheTranspiledLangEndTS
+keyWordCodeInTheTranspiledLangStartGROOVY
+def func0(input) {
+    println(input)
+}
+keyWordCodeInTheTranspiledLangEndGROOVY
+func func1(var1: double, var2: char, var3: uint8, var4: uint16, var5: uint32, var6: uint64, var7: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz, var8: str, var9: bool, var10: float, var11: int8, var12: int16, var13: int32, var14: int64): void
+    print(var1)
+    print(var2)
+    print(var3)
+    print(var4)
+    print(var5)
+    print(var6)
+    print(var7)
+    print(var8)
+    print(var9)
+    print(var10)
+    print(var11)
+    print(var12)
+    print(var13)
+    print(var14)
+func func2(var1: double): double
+    return var1
+func func3(var1: char): char
+    return var1
+func func4(var1: uint8): uint8
+    return var1
+func func5(var1: uint16): uint16
+    return var1
+func func6(var1: uint32): uint32
+    return var1
+func func7(var1: uint64): uint64
+    return var1
+func func8(var1: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz): werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz
+    return var1
+func func9(var1: str): str
+    return var1
+func func10(var1: bool): bool
+    return var1
+func func11(var1: float): float
+    return var1
+func func12(var1: int8): int8
+    return var1
+func func13(var1: int16): int16
+    return var1
+func func14(var1: int32): int32
+    return var1
+func func15(var1: int64): int64
+    return var1
+'''1
+this
+is
+a
+multy
+line
+comment
+'''2
+; outside vars
+var01: double := 3.1234567891011
+var02: char := 'a'
+var03: uint8 := 25
+var04: uint16 := 30
+var05: uint32 := 35
+var06: uint64 := 40
+var07: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz := 100
+var08: str := "hello var ouside"
+var09: bool := false
+var010: float := 3.14
+var011: int8 := 100
+var012: int16 := 200
+var013: int32 := 230
+var014: int64 := 80009
 main
-print(await func1("hi1"))
-await func2("hi2")
-func3("hi3")
-func3("hi3", "hello3")
-func3("hi3", "hello3", "QWAESDRTFG")
-func3("hi3", "hello3", "QWAESDRTFG", "WAESDRFTG44444")
-var1: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz
-myArr0: arr bool
-myArr0.add(true)
-myArr0.add(false)
-myArr0.add(true)
-myArr: arr int := {5, 6, 7}
+var_1: double
+var_2: char
+var_3: uint8
+var_4: uint16
+var_5: uint32
+var_6: uint64
+var_7: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz
+var_8: str
+var_9: bool
+var_10: float
+var_11: int8
+var_12: int16
+var_13: int32
+var_14: int64
+func1(var01, var02, var03, var04, var05, var06, var07, var08, var09, var010, var011, var012, var013, var014)
+var_1 := func2(var01)
+var_2 := func3(var02)
+var_3 := func4(var03)
+var_4 := func5(var04)
+var_5 := func6(var05)
+var_6 := func7(var06)
+var_7 := func8(var07)
+var_8 := func9(var08)
+var_9 := func10(var09)
+var_10 := func11(var010)
+var_11 := func12(var011)
+var_12 := func13(var012)
+var_13 := func14(var013)
+var_14 := func15(var014)
+print(var_1)
+print(var_2)
+print(var_3)
+print(var_4)
+print(var_5)
+print(var_6)
+print(var_7)
+print(var_8)
+print(var_9)
+print(var_10)
+print(var_11)
+print(var_12)
+print(var_13)
+print(var_14)
+; start
+keyWordCodeInTheTranspiledLangStartCPP
+func0("Hello World");
+keyWordCodeInTheTranspiledLangEndCPP
+keyWordCodeInTheTranspiledLangStartPY
+func0("Hello World")
+keyWordCodeInTheTranspiledLangEndPY
+keyWordCodeInTheTranspiledLangStartJS
+func0("Hello World");
+keyWordCodeInTheTranspiledLangEndJS
+keyWordCodeInTheTranspiledLangStartGO
+func0("Hello World")
+keyWordCodeInTheTranspiledLangEndGO
+keyWordCodeInTheTranspiledLangStartLUA
+func0("Hello World")
+keyWordCodeInTheTranspiledLangEndLUA
+keyWordCodeInTheTranspiledLangStartCS
+func0("Hello World");
+keyWordCodeInTheTranspiledLangEndCS
+keyWordCodeInTheTranspiledLangStartJAVA
+func0("Hello World");
+keyWordCodeInTheTranspiledLangEndJAVA
+keyWordCodeInTheTranspiledLangStartKT
+func0("Hello World")
+keyWordCodeInTheTranspiledLangEndKT
+keyWordCodeInTheTranspiledLangStartRB
+func0("Hello World")
+keyWordCodeInTheTranspiledLangEndRB
+keyWordCodeInTheTranspiledLangStartNIM
+func0("Hello World")
+keyWordCodeInTheTranspiledLangEndNIM
+keyWordCodeInTheTranspiledLangStartAHK
+func0("Hello World")
+keyWordCodeInTheTranspiledLangEndAHK
+keyWordCodeInTheTranspiledLangStartSWIFT
+func0("Hello World")
+keyWordCodeInTheTranspiledLangEndSWIFT
+keyWordCodeInTheTranspiledLangStartDART
+func0("Hello World");
+keyWordCodeInTheTranspiledLangEndDART
+keyWordCodeInTheTranspiledLangStartTS
+func0("Hello World");
+keyWordCodeInTheTranspiledLangEndTS
+keyWordCodeInTheTranspiledLangStartGROOVY
+func0("Hello World");
+keyWordCodeInTheTranspiledLangEndGROOVY
+print("==================================")
 spin 5
-    var1 := 6
-    myArr.add(A_Index)
-spin % myArr.size()
-    print(myArr[A_Index])
-spin % myArr0.size()
-    print(myArr0[A_Index])
-if (var1 == 6)
-    print(var1)
-else if (var1 == 7)
-    print(var1)
-var123: str := "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
-Loop, Parse, var123, \n, \r
-    if (A_Index == 0)
+    if A_Index == 0
         print(A_Index)
+    else if A_Index == 1
+        print(A_Index)
+    else if A_Index == 2
+        print(A_Index)
+    else if A_Index == 3
+        print(A_Index)
+    else if A_Index == 4
+        print(A_Index)
+    else if A_Index == 5
+        print(A_Index)
+    else
+        print("HOW????")
+        print(A_Index)
+vars1: bool := false
+vars2: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz := 0
+while vars1 == false
+    vars2++
+    print(vars2)
+    if vars2 == 6
+        vars1 := true
+Loop
+    if A_Index == 6
+        break
+    else
+        continue
+    ; this is only for lua
+    ::continue::
+str1: str := "hello 123 hello2"
+Loop, Parse, str1, " "
     print(A_LoopField)
 print("==================")
-var1234: str := "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg"
-Loop, Parse, var1234, \,
-    if (A_Index == 0)
-        print(A_Index)
+Loop, Parse, str1
     print(A_LoopField)
-print("==================")
-var12345: str := "hello"
-Loop, Parse, var12345
-    print(A_LoopField)
+    if A_LoopField == "2"
+        break
+    else
+        continue
+    ::continue::
+'''1
+keyWordArrayAppend
+keyWordArrayPop
+keyWordArraySize
+keyWordArrayInsert
+keyWordArrayRemove
+keyWordArrayIndexOf
+keyWordArrayDefinition
+keyWordArrayOfIntegersDefinition
+keyWordArrayOfStringsDefinition
+keyWordArrayOfFloatingPointNumbersDefinition
+keyWordArrayOfBooleansDefinition
+'''2
+arr1: arr := {"hello1", "hello2"}
+arr2: arr bool := {true, false}
+arr3: arr float := {3.13, 3.14}
+arr4: arr int := {1, 6, 2}
+arr5: arr str := {"real STR"}
+; Array operations
+arr1.add("hello3")
+sizeArr1: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz := arr1.size()
+print("the size of arr1 is:")
+print(sizeArr1)
+arr1.insert(1, "hello?????")
+arr1.rm(0)
+idx1: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz := arr1.indexOf("hello2")
+print("the index of arr1 for hello2 is:")
+print(idx1)
+arr1.pop()
+spin % arr1.size()
+    print(arr1[A_Index])
+arr2.add(true)
+sizeArr2: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz := arr2.size()
+print("the size of arr2 is:")
+print(sizeArr2)
+arr2.insert(1, false)
+arr2.rm(0)
+idx2: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz := arr2.indexOf(true)
+print("the index of arr2 for true is:")
+print(idx2)
+arr2.pop()
+spin % arr2.size()
+    print(arr2[A_Index])
+arr3.add(6.489)
+sizeArr3: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz := arr3.size()
+print("the size of arr3 is:")
+print(sizeArr3)
+arr3.insert(1, 1.556)
+arr3.rm(0)
+idx3: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz := arr3.indexOf(3.14)
+print("the index of arr3 for 3.14 is:")
+print(idx3)
+arr3.pop()
+spin % arr3.size()
+    print(arr3[A_Index])
+arr4.add(69)
+sizeArr4: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz := arr4.size()
+print("the size of arr4 is:")
+print(sizeArr4)
+arr4.insert(1, 420)
+arr4.rm(0)
+idx4: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz := arr4.indexOf(69)
+print("the index of arr4 for 69 is:")
+print(idx4)
+arr4.pop()
+spin % arr4.size()
+    print(arr4[A_Index])
+arr5.add("hello3real")
+sizeArr5: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz := arr5.size()
+print("the size of arr5 is:")
+print(sizeArr5)
+arr5.insert(1, "hello?real????")
+arr5.rm(0)
+idx5: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz := arr5.indexOf("hello3real")
+print("the index of arr5 for hello3real is:")
+print(idx5)
+arr5.pop()
+spin % arr5.size()
+    print(arr5[A_Index])
+'''1
+keyWordThrow
+keyWordErrorMsg
+keyWordTry
+keyWordCatch
+keyWordFinally
+'''2
+try
+    print("Trying...")
+    throw  ErrorMsg("Something went wrong!")
+catch (e)
+    print("Caught an error:")
+    print(e)
+finally
+    print("This always runs, success or error.")
+print("==============================================")

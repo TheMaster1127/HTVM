@@ -50,23 +50,7 @@ void print(const char* value) {
 // Print function that converts all types to string if needed
 template <typename T>
 void print(const T& value) {
-    if constexpr (std::is_same_v<T, std::string>) {
-        std::cout << value << std::endl;
-    } else if constexpr (std::is_same_v<T, char>) {
-        std::cout << value << std::endl;
-    } else if constexpr (std::is_same_v<T, int>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, float>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, double>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, size_t>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, bool>) {
-        std::cout << (value ? "1" : "0") << std::endl;
-    } else {
-        std::cout << "Unsupported type" << std::endl;
-    }
+    std::cout << value << std::endl;
 }
 
 // Convert std::string to int
@@ -902,6 +886,7 @@ int lineDone = 0;
 int areWeInAFuncFromInstructions = 0;
 int areWeInAFuncFromInstructionsLineNum = 0;
 int javaMainFuncSeen = 0;
+int csMainFuncSeen = 0;
 int howMany_fixAindexInGoUnused = 0;
 std::string theTryCatchVarForErrors = "jhku-dfsds-ds-d-ffdsf-sdfsfdsedsf";
 std::vector<std::string> allVarsSoWeDontReDecVars;
@@ -925,7 +910,7 @@ std::string allVarsSoWeDontReDecVarsFixFunc(std::string line, std::string varNam
                 if (langToConvertTo == "java") {
                     out = "(byte) " + line;
                 }
-                if (langToConvertTo == "kotlin") {
+                if (langToConvertTo == "kt") {
                     out = line + "u";
                 }
             }
@@ -935,14 +920,14 @@ std::string allVarsSoWeDontReDecVarsFixFunc(std::string line, std::string varNam
                 if (langToConvertTo == "java") {
                     out = "(short) " + line;
                 }
-                if (langToConvertTo == "kotlin") {
+                if (langToConvertTo == "kt") {
                     out = line + "u";
                 }
             }
         }
         for (int A_Index3 = 0; A_Index3 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_uint32) + 0; A_Index3++) {
             if (Trim(allVarsSoWeDontReDecVars_FIX_uint32[A_Index3]) == Trim(varName)) {
-                if (langToConvertTo == "kotlin") {
+                if (langToConvertTo == "kt") {
                     out = line + "u";
                 }
                 if (langToConvertTo == "nim") {
@@ -952,7 +937,7 @@ std::string allVarsSoWeDontReDecVarsFixFunc(std::string line, std::string varNam
         }
         for (int A_Index4 = 0; A_Index4 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_uint64) + 0; A_Index4++) {
             if (Trim(allVarsSoWeDontReDecVars_FIX_uint64[A_Index4]) == Trim(varName)) {
-                if (langToConvertTo == "kotlin") {
+                if (langToConvertTo == "kt") {
                     out = line + "uL";
                 }
                 if (langToConvertTo == "cpp") {
@@ -980,7 +965,7 @@ std::string allVarsSoWeDontReDecVarsFixFunc(std::string line, std::string varNam
         }
         for (int A_Index5 = 0; A_Index5 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_int64) + 0; A_Index5++) {
             if (Trim(allVarsSoWeDontReDecVars_FIX_int64[A_Index5]) == Trim(varName)) {
-                if (langToConvertTo == "kotlin") {
+                if (langToConvertTo == "kt") {
                     out = line + "L";
                 }
                 if (langToConvertTo == "cpp") {
@@ -3725,6 +3710,12 @@ std::string expressionParserTranspiler(std::string expression) {
     if (langToConvertTo == "java") {
         expression = RegExReplace(expression, "(\\b[A-Za-z_]\\w*)\\s*\\[", "$1.get(");
         expression = StrReplace(expression, "]", ")");
+    }
+    if (langToConvertTo == "swift") {
+        expression = StrReplace(expression, Chr(39), Chr(34));
+    }
+    if (langToConvertTo == "ahk") {
+        expression = StrReplace(expression, Chr(39), Chr(34));
     }
     if (fixExpertionLineFuncOnly == 1) {
         expression = fixExpertionLineFuncOnlyTEXT_func + "(" + expression;
@@ -6637,12 +6628,12 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "continue;\n";
                 }
             }
-            else if (StrLower(A_LoopField103) == "::" + keyWordContinue + "::") {
+            else if (StrLower(A_LoopField103) == "::" + keyWordContinue) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode += "::" + keyWordContinue_2 + "::\n";
+                    htCode += "::" + keyWordContinue_2 + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
-                    htCode += "::continue::\n";
+                    htCode += "::continue::" + Chr(10);
                 }
             }
             else if (StrLower(A_LoopField103) == StrLower(keyWordLoopInfinite) || StrLower(A_LoopField103) == StrLower(keyWordLoopInfinite + ":")) {
@@ -6663,7 +6654,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     var1 = "for " + keyWordAIndex + "" + STR(AindexcharLength) + " := " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR(AindexcharLength) + " < someLimit; " + keyWordAIndex + "" + STR(AindexcharLength) + "++";
                 }
                 if (langToConvertTo == "lua") {
-                    var1 = "for " + keyWordAIndex + "" + STR(AindexcharLength) + " = " + AHKlikeLoopsIndexedAt + " + 1 " + ", someLimit do";
+                    var1 = "for " + keyWordAIndex + "" + STR(AindexcharLength) + " in infinite_HTVM_Lua_Loop_HTVM() do";
                 }
                 if (langToConvertTo == "cs") {
                     var1 = "for (int " + keyWordAIndex + "" + STR(AindexcharLength) + " = " + AHKlikeLoopsIndexedAt + "; " + keyWordAIndex + "" + STR(AindexcharLength) + " < someLimit; " + keyWordAIndex + "" + STR(AindexcharLength) + "++)";
@@ -8078,6 +8069,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (InStr(A_LoopField103, " main(") && lineDone == 0) {
                 lineDone = 1;
                 javaMainFuncSeen = 1;
+                csMainFuncSeen = 1;
                 htCode += A_LoopField103 + Chr(10);
             }
             else if (InStr(A_LoopField103, " " + keyWordAssign + " ") || InStr(A_LoopField103, " " + keyWordAssignAdd + " ") || InStr(A_LoopField103, " " + keyWordAssignConcat + " ") || InStr(A_LoopField103, " " + keyWordAssignSub + " ") || InStr(A_LoopField103, " " + keyWordAssignMul + " ") || InStr(A_LoopField103, " " + keyWordAssignDiv + " ") || InStr(A_LoopField103, " " + keyWordAssignMod + " ") || InStr(A_LoopField103, " " + keyWordAssignShiftLeft + " ") || InStr(A_LoopField103, " " + keyWordAssignShiftRight + " ") || InStr(A_LoopField103, " " + keyWordLogicalAssignShiftRight + " ") || InStr(A_LoopField103, " " + keyWordAssignBitAnd + " ") || InStr(A_LoopField103, " " + keyWordAssignBitOr + " ") || InStr(A_LoopField103, " " + keyWordAssignBitXor + " ") && lineDone == 0) {
@@ -8347,7 +8339,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = str2 + " " + str12 + " {" + str6 + "}";
                         }
                         if (langToConvertTo == "cs") {
-                            str4 = str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            if (csMainFuncSeen == 1) {
+                                str4 = str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            } else {
+                                str4 = "static " +  str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            }
                         }
                         if (langToConvertTo == "java") {
                             if (javaMainFuncSeen == 1) {
@@ -8419,7 +8415,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = str2 + " " + str12 + " " + str6;
                         }
                         if (langToConvertTo == "cs") {
-                            str4 = "const " + str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            if (csMainFuncSeen == 1) {
+                                str4 = "const " + str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            } else {
+                                str4 = "static const " + str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            }
                         }
                         if (langToConvertTo == "java") {
                             if (javaMainFuncSeen == 1) {
@@ -8527,7 +8527,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = str2 + " " + str12 + " {" + str6 + "}";
                         }
                         if (langToConvertTo == "cs") {
-                            str4 = str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            if (csMainFuncSeen == 1) {
+                                str4 = str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            } else {
+                                str4 = "static " + str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            }
                         }
                         if (langToConvertTo == "java") {
                             if (javaMainFuncSeen == 1) {
@@ -8599,7 +8603,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = str2 + " " + str12 + " " + str6;
                         }
                         if (langToConvertTo == "cs") {
-                            str4 = str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            if (csMainFuncSeen == 1) {
+                                str4 = str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            } else {
+                                str4 = "static " + str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            }
                         }
                         if (langToConvertTo == "java") {
                             if (javaMainFuncSeen == 1) {
@@ -8709,7 +8717,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = str2 + " " + str12 + " {" + str6 + "}";
                         }
                         if (langToConvertTo == "cs") {
-                            str4 = str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            if (csMainFuncSeen == 1) {
+                                str4 = str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            } else {
+                                str4 = "static " + str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            }
                         }
                         if (langToConvertTo == "java") {
                             if (javaMainFuncSeen == 1) {
@@ -8781,7 +8793,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = "local " + str2 + " " + str12 + " " + str6;
                         }
                         if (langToConvertTo == "cs") {
-                            str4 = str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            if (csMainFuncSeen == 1) {
+                                str4 = str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            } else {
+                                str4 = "static " + str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            }
                         }
                         if (langToConvertTo == "java") {
                             if (javaMainFuncSeen == 1) {
@@ -8879,7 +8895,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = str2 + " " + str12 + " {" + str6 + "}";
                         }
                         if (langToConvertTo == "cs") {
-                            str4 = str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            if (csMainFuncSeen == 1) {
+                                str4 = str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            } else {
+                                str4 = "static " + str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            }
                         }
                         if (langToConvertTo == "java") {
                             if (javaMainFuncSeen == 1) {
@@ -8955,7 +8975,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = str2 + " " + str12 + " " + str6;
                         }
                         if (langToConvertTo == "cs") {
-                            str4 = str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            if (csMainFuncSeen == 1) {
+                                str4 = str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            } else {
+                                str4 = "static " + str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            }
                         }
                         if (langToConvertTo == "java") {
                             if (javaMainFuncSeen == 1) {
@@ -9052,7 +9076,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = str2 + " " + str12 + " {" + str6 + "}";
                         }
                         if (langToConvertTo == "cs") {
-                            str4 = str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            if (csMainFuncSeen == 1) {
+                                str4 = str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            } else {
+                                str4 = "static " + str3 + " " + str2 + " = new " + str3 + " {" + str6 + "};";
+                            }
                         }
                         if (langToConvertTo == "java") {
                             if (javaMainFuncSeen == 1) {
@@ -9128,7 +9156,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = str2 + " " + str12 + " " + str6;
                         }
                         if (langToConvertTo == "cs") {
-                            str4 = str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            if (csMainFuncSeen == 1) {
+                                str4 = str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            } else {
+                                str4 = "static " + str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            }
                         }
                         if (langToConvertTo == "java") {
                             if (javaMainFuncSeen == 1) {
@@ -9255,7 +9287,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         str4 = str2 + " = {}";
                     }
                     if (langToConvertTo == "cs") {
-                        str4 = str3 + " " + str2 + " = new " + str3 + "();";
+                        if (csMainFuncSeen == 1) {
+                            str4 = str3 + " " + str2 + " = new " + str3 + "();";
+                        } else {
+                            str4 = "static " + str3 + " " + str2 + " = new " + str3 + "();";
+                        }
                     }
                     if (langToConvertTo == "java") {
                         if (javaMainFuncSeen == 1) {
@@ -9407,7 +9443,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         if (str3 == "long") {
                             str5 = "0L";
                         }
-                        str4 = str3 + " " + str2 + " = " + str5 + ";";
+                        if (csMainFuncSeen == 1) {
+                            str4 = str3 + " " + str2 + " = " + str5 + ";";
+                        } else {
+                            str4 = "static " + str3 + " " + str2 + " = " + str5 + ";";
+                        }
                     }
                     if (langToConvertTo == "java") {
                         if (str3 == "double") {
@@ -9511,7 +9551,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str5 = "0.00";
                         }
                         if (str3 == "Character") {
-                            str5 = "'a'";
+                            str5 = Chr(34) + "a" + Chr(34);
                         }
                         if (str3 == "UInt8") {
                             str5 = "0";
@@ -9628,7 +9668,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         str4 = str2 + " = {}";
                     }
                     if (langToConvertTo == "cs") {
-                        str4 = str3 + " " + str2 + " = new " + str3 + "();";
+                        if (csMainFuncSeen == 1) {
+                            str4 = str3 + " " + str2 + " = new " + str3 + "();";
+                        } else {
+                            str4 = "static " + str3 + " " + str2 + " = new " + str3 + "();";
+                        }
                     }
                     if (langToConvertTo == "java") {
                         if (javaMainFuncSeen == 1) {
@@ -9780,7 +9824,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         if (str3 == "long") {
                             str5 = "0L";
                         }
-                        str4 = str3 + " " + str2 + " = " + str5 + ";";
+                        if (csMainFuncSeen == 1) {
+                            str4 = str3 + " " + str2 + " = " + str5 + ";";
+                        } else {
+                            str4 = "static " + str3 + " " + str2 + " = " + str5 + ";";
+                        }
                     }
                     if (langToConvertTo == "java") {
                         if (str3 == "double") {
@@ -9884,7 +9932,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str5 = "0.00";
                         }
                         if (str3 == "Character") {
-                            str5 = "'a'";
+                            str5 = Chr(34) + "a" + Chr(34);
                         }
                         if (str3 == "UInt8") {
                             str5 = "0";
@@ -9988,7 +10036,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         str4 = str2 + " = {}";
                     }
                     if (langToConvertTo == "cs") {
-                        str4 = str3 + " " + str2 + " = new " + str3 + "();";
+                        if (csMainFuncSeen == 1) {
+                            str4 = str3 + " " + str2 + " = new " + str3 + "();";
+                        } else {
+                            str4 = "static " + str3 + " " + str2 + " = new " + str3 + "();";
+                        }
                     }
                     if (langToConvertTo == "java") {
                         if (javaMainFuncSeen == 1) {
@@ -10144,7 +10196,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         if (str3 == "long") {
                             str5 = "0L";
                         }
-                        str4 = str3 + " " + str2 + " = " + str5 + ";";
+                        if (csMainFuncSeen == 1) {
+                            str4 = str3 + " " + str2 + " = " + str5 + ";";
+                        } else {
+                            str4 = "static " + str3 + " " + str2 + " = " + str5 + ";";
+                        }
                     }
                     if (langToConvertTo == "java") {
                         if (str3 == "double") {
@@ -10248,7 +10304,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str5 = "0.00";
                         }
                         if (str3 == "Character") {
-                            str5 = "'a'";
+                            str5 = Chr(34) + "a" + Chr(34);
                         }
                         if (str3 == "UInt8") {
                             str5 = "0";
@@ -10355,7 +10411,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         str4 = str2 + " = {}";
                     }
                     if (langToConvertTo == "cs") {
-                        str4 = str3 + " " + str2 + " = new " + str3 + "();";
+                        if (csMainFuncSeen == 1) {
+                            str4 = str3 + " " + str2 + " = new " + str3 + "();";
+                        } else {
+                            str4 = "static " + str3 + " " + str2 + " = new " + str3 + "();";
+                        }
                     }
                     if (langToConvertTo == "java") {
                         if (javaMainFuncSeen == 1) {
@@ -10515,7 +10575,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         if (str3 == "long") {
                             str5 = "0L";
                         }
-                        str4 = str3 + " " + str2 + " = " + str5 + ";";
+                        if (csMainFuncSeen == 1) {
+                            str4 = str3 + " " + str2 + " = " + str5 + ";";
+                        } else {
+                            str4 = "static " + str3 + " " + str2 + " = " + str5 + ";";
+                        }
                     }
                     if (langToConvertTo == "java") {
                         if (str3 == "double") {
@@ -10619,7 +10683,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str5 = "0.00";
                         }
                         if (str3 == "Character") {
-                            str5 = "'a'";
+                            str5 = Chr(34) + "a" + Chr(34);
                         }
                         if (str3 == "UInt8") {
                             str5 = "0";
