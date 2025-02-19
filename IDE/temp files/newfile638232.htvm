@@ -1,17 +1,8 @@
+"`n`n`n[`n`n`n["
+"`n`n`n[`n`n`n["
+"`n`n`n[`n`n`n["
+"`n`n`n[`n`n`n[" "aasdg"
 
-
-
-
-arr int arr123 := [1, 3, 5]
-
-Loop, % arr123.size()
-{
-print(arr123[A_Index])
-}
-
-
-keyWordCodeInTheTranspiledLangStartCPP
-    std::vector<int> arr1234 = {1, 3, 5};
-    for (int i : arr1234) std::cout << i << "\n";
-keyWordCodeInTheTranspiledLangEndCPP
-
+"`n`n`n[`n`n`n["
+"`n`n`n[`n`n`n["
+"`n`n`n[`n`n`n[" "`n`n`n[`n`n`n[""`n`n`n[`n`n`n["

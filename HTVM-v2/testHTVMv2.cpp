@@ -55,44 +55,116 @@ std::string input(const std::string& prompt) {
     return userInput;
 }
 
-// Overload for std::vector<std::string>
 void HTVM_Append(std::vector<std::string>& arr, const std::string& value) {
     arr.push_back(value);
 }
-// Overload for const char* (so you can pass string literals)
 void HTVM_Append(std::vector<std::string>& arr, const char* value) {
     arr.push_back(std::string(value));
 }
-// General template for other vector types
-template <typename T>
-void HTVM_Append(std::vector<T>& arr, const T& value) {
+void HTVM_Append(std::vector<int>& arr, int value) {
+    arr.push_back(value);
+}
+void HTVM_Append(std::vector<float>& arr, float value) {
+    arr.push_back(value);
+}
+void HTVM_Append(std::vector<bool>& arr, bool value) {
     arr.push_back(value);
 }
 
-template <typename T>
-void HTVM_Pop(std::vector<T>& arr) {
+void HTVM_Pop(std::vector<std::string>& arr) {
+    if (!arr.empty()) arr.pop_back();
+}
+void HTVM_Pop(std::vector<int>& arr) {
+    if (!arr.empty()) arr.pop_back();
+}
+void HTVM_Pop(std::vector<float>& arr) {
+    if (!arr.empty()) arr.pop_back();
+}
+void HTVM_Pop(std::vector<bool>& arr) {
     if (!arr.empty()) arr.pop_back();
 }
 
-template <typename T>
-size_t HTVM_Size(const std::vector<T>& arr) {
+size_t HTVM_Size(const std::vector<std::string>& arr) {
+    return arr.size();
+}
+size_t HTVM_Size(const std::vector<int>& arr) {
+    return arr.size();
+}
+size_t HTVM_Size(const std::vector<float>& arr) {
+    return arr.size();
+}
+size_t HTVM_Size(const std::vector<bool>& arr) {
     return arr.size();
 }
 
-template <typename T>
-void HTVM_Insert(std::vector<T>& arr, size_t index, const T& value) {
+void HTVM_Insert(std::vector<std::string>& arr, size_t index, const std::string& value) {
+    if (index <= arr.size()) arr.insert(arr.begin() + index, value);
+}
+void HTVM_Insert(std::vector<std::string>& arr, size_t index, const char* value) {
+    if (index <= arr.size()) arr.insert(arr.begin() + index, std::string(value));
+}
+void HTVM_Insert(std::vector<int>& arr, size_t index, int value) {
+    if (index <= arr.size()) arr.insert(arr.begin() + index, value);
+}
+void HTVM_Insert(std::vector<float>& arr, size_t index, float value) {
+    if (index <= arr.size()) arr.insert(arr.begin() + index, value);
+}
+void HTVM_Insert(std::vector<bool>& arr, size_t index, bool value) {
     if (index <= arr.size()) arr.insert(arr.begin() + index, value);
 }
 
-template <typename T>
-void HTVM_Remove(std::vector<T>& arr, const T& value) {
-    arr.erase(std::remove(arr.begin(), arr.end(), value), arr.end());
+// Remove by index for std::vector<std::string>
+void HTVM_Remove(std::vector<std::string>& arr, size_t index) {
+    if (index < arr.size()) {
+        arr.erase(arr.begin() + index);
+    }
+}
+// Remove by index for std::vector<int>
+void HTVM_Remove(std::vector<int>& arr, size_t index) {
+    if (index < arr.size()) {
+        arr.erase(arr.begin() + index);
+    }
+}
+// Remove by index for std::vector<float>
+void HTVM_Remove(std::vector<float>& arr, size_t index) {
+    if (index < arr.size()) {
+        arr.erase(arr.begin() + index);
+    }
+}
+// Remove by index for std::vector<bool>
+void HTVM_Remove(std::vector<bool>& arr, size_t index) {
+    if (index < arr.size()) {
+        arr.erase(arr.begin() + index);
+    }
 }
 
-template <typename T>
-int HTVM_IndexOf(const std::vector<T>& arr, const T& value) {
+// IndexOf for std::vector<std::string>
+int HTVM_IndexOf(const std::vector<std::string>& arr, const std::string& value) {
     auto it = std::find(arr.begin(), arr.end(), value);
-    return (it != arr.end()) ? std::distance(arr.begin(), it) : -1;
+    return (it != arr.end()) ? static_cast<int>(std::distance(arr.begin(), it)) : -1;
+}
+// Overload for string literals
+int HTVM_IndexOf(const std::vector<std::string>& arr, const char* value) {
+    return HTVM_IndexOf(arr, std::string(value));
+}
+// IndexOf for std::vector<int>
+int HTVM_IndexOf(const std::vector<int>& arr, int value) {
+    auto it = std::find(arr.begin(), arr.end(), value);
+    return (it != arr.end()) ? static_cast<int>(std::distance(arr.begin(), it)) : -1;
+}
+// IndexOf for std::vector<float>
+int HTVM_IndexOf(const std::vector<float>& arr, float value) {
+    auto it = std::find(arr.begin(), arr.end(), value);
+    return (it != arr.end()) ? static_cast<int>(std::distance(arr.begin(), it)) : -1;
+}
+// IndexOf for std::vector<bool>
+int HTVM_IndexOf(const std::vector<bool>& arr, bool value) {
+    for (size_t i = 0; i < arr.size(); ++i) {
+        if (arr[i] == value) {
+            return static_cast<int>(i);
+        }
+    }
+    return -1;
 }
 
 
@@ -209,7 +281,43 @@ int8_t var011 = 100;
 int16_t var012 = 200;
 int32_t var013 = 230;
 int64_t var014 = 80009LL;
+void testFuncVars() {
+    const std::string constStrTest0 = "constStrTest0";
+    std::string constStrTest00 = "constStrTest00";
+    print(constStrTest0);
+    std::vector<std::string> items1 = LoopParseFunc(constStrTest00);
+    for (size_t A_Index1 = 0; A_Index1 < items1.size() + 0; A_Index1++) {
+        std::string A_LoopField1 = items1[A_Index1 - 0];
+        print(A_LoopField1);
+    }
+}
+const std::string constStrTest = "constStrTest";
+std::string letStrTest = "letStrTest";
+std::string varStrTest = "varStrTest";
 int main(int argc, char* argv[]) {
+    const std::string constStrTest1 = "constStrTest1";
+    std::string letStrTest1 = "letStrTest1";
+    std::string varStrTest1 = "varStrTest1";
+    print(letStrTest);
+    print(varStrTest);
+    print(letStrTest1);
+    print(varStrTest1);
+    std::vector<std::string> items2 = LoopParseFunc(constStrTest);
+    for (size_t A_Index2 = 0; A_Index2 < items2.size() + 0; A_Index2++) {
+        std::string A_LoopField2 = items2[A_Index2 - 0];
+        print(A_LoopField2);
+    }
+    print("==========================================");
+    print("==========================================");
+    print("==========================================");
+    std::vector<std::string> items3 = LoopParseFunc(constStrTest1);
+    for (size_t A_Index3 = 0; A_Index3 < items3.size() + 0; A_Index3++) {
+        std::string A_LoopField3 = items3[A_Index3 - 0];
+        print(A_LoopField3);
+    }
+    print("==========================================");
+    print("==========================================");
+    print("==========================================");
     double var_1 = 0.00;
     char var_2 = 'a';
     uint8_t var_3 = 0;
@@ -284,27 +392,27 @@ int main(int argc, char* argv[]) {
     
 
     print("==================================");
-    for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-        if (A_Index1 == 0) {
-            print(A_Index1);
+    for (int A_Index4 = 0; A_Index4 < 5 + 0; A_Index4++) {
+        if (A_Index4 == 0) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 1) {
-            print(A_Index1);
+        else if (A_Index4 == 1) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 2) {
-            print(A_Index1);
+        else if (A_Index4 == 2) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 3) {
-            print(A_Index1);
+        else if (A_Index4 == 3) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 4) {
-            print(A_Index1);
+        else if (A_Index4 == 4) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 5) {
-            print(A_Index1);
+        else if (A_Index4 == 5) {
+            print(A_Index4);
         } else {
             print("HOW????");
-            print(A_Index1);
+            print(A_Index4);
         }
     }
     bool vars1 = false;
@@ -316,32 +424,30 @@ int main(int argc, char* argv[]) {
             vars1 = true;
         }
     }
-    for (int A_Index2 = 0; ; A_Index2++) {
-        if (A_Index2 == 6) {
+    for (int A_Index5 = 0; ; A_Index5++) {
+        if (A_Index5 == 6) {
             break;
         } else {
             continue;
         }
         // this is only for lua
-        ::continue::
     }
     std::string str1 = "hello 123 hello2";
-    std::vector<std::string> items3 = LoopParseFunc(str1, " ");
-    for (size_t A_Index3 = 0; A_Index3 < items3.size() + 0; A_Index3++) {
-        std::string A_LoopField3 = items3[A_Index3 - 0];
-        print(A_LoopField3);
+    std::vector<std::string> items6 = LoopParseFunc(str1, " ");
+    for (size_t A_Index6 = 0; A_Index6 < items6.size() + 0; A_Index6++) {
+        std::string A_LoopField6 = items6[A_Index6 - 0];
+        print(A_LoopField6);
     }
     print("==================");
-    std::vector<std::string> items4 = LoopParseFunc(str1);
-    for (size_t A_Index4 = 0; A_Index4 < items4.size() + 0; A_Index4++) {
-        std::string A_LoopField4 = items4[A_Index4 - 0];
-        print(A_LoopField4);
-        if (A_LoopField4 == "2") {
+    std::vector<std::string> items7 = LoopParseFunc(str1);
+    for (size_t A_Index7 = 0; A_Index7 < items7.size() + 0; A_Index7++) {
+        std::string A_LoopField7 = items7[A_Index7 - 0];
+        print(A_LoopField7);
+        if (A_LoopField7 == "2") {
             break;
         } else {
             continue;
         }
-        ::continue::
     }
     /*
     keyWordArrayAppend
@@ -372,8 +478,8 @@ int main(int argc, char* argv[]) {
     print("the index of arr1 for hello2 is:");
     print(idx1);
     HTVM_Pop(arr1);
-    for (int A_Index5 = 0; A_Index5 < HTVM_Size(arr1) + 0; A_Index5++) {
-        print(arr1[A_Index5]);
+    for (int A_Index8 = 0; A_Index8 < HTVM_Size(arr1) + 0; A_Index8++) {
+        print(arr1[A_Index8]);
     }
     HTVM_Append(arr2, true);
     int sizeArr2 = HTVM_Size(arr2);
@@ -385,8 +491,8 @@ int main(int argc, char* argv[]) {
     print("the index of arr2 for true is:");
     print(idx2);
     HTVM_Pop(arr2);
-    for (int A_Index6 = 0; A_Index6 < HTVM_Size(arr2) + 0; A_Index6++) {
-        print(arr2[A_Index6]);
+    for (int A_Index9 = 0; A_Index9 < HTVM_Size(arr2) + 0; A_Index9++) {
+        print(arr2[A_Index9]);
     }
     HTVM_Append(arr3, 6.489);
     int sizeArr3 = HTVM_Size(arr3);
@@ -398,8 +504,8 @@ int main(int argc, char* argv[]) {
     print("the index of arr3 for 3.14 is:");
     print(idx3);
     HTVM_Pop(arr3);
-    for (int A_Index7 = 0; A_Index7 < HTVM_Size(arr3) + 0; A_Index7++) {
-        print(arr3[A_Index7]);
+    for (int A_Index10 = 0; A_Index10 < HTVM_Size(arr3) + 0; A_Index10++) {
+        print(arr3[A_Index10]);
     }
     HTVM_Append(arr4, 69);
     int sizeArr4 = HTVM_Size(arr4);
@@ -411,8 +517,8 @@ int main(int argc, char* argv[]) {
     print("the index of arr4 for 69 is:");
     print(idx4);
     HTVM_Pop(arr4);
-    for (int A_Index8 = 0; A_Index8 < HTVM_Size(arr4) + 0; A_Index8++) {
-        print(arr4[A_Index8]);
+    for (int A_Index11 = 0; A_Index11 < HTVM_Size(arr4) + 0; A_Index11++) {
+        print(arr4[A_Index11]);
     }
     HTVM_Append(arr5, "hello3real");
     int sizeArr5 = HTVM_Size(arr5);
@@ -424,8 +530,8 @@ int main(int argc, char* argv[]) {
     print("the index of arr5 for hello3real is:");
     print(idx5);
     HTVM_Pop(arr5);
-    for (int A_Index9 = 0; A_Index9 < HTVM_Size(arr5) + 0; A_Index9++) {
-        print(arr5[A_Index9]);
+    for (int A_Index12 = 0; A_Index12 < HTVM_Size(arr5) + 0; A_Index12++) {
+        print(arr5[A_Index12]);
     }
     /*
     keyWordThrow

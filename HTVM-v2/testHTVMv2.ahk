@@ -22,13 +22,10 @@ HTVM_Insert(arr, index, value) {
     arr.InsertAt(index, value)
 }
 
-HTVM_Remove(arr, value) {
-    for k, v in arr {
-        if (v = value) {
-            arr.RemoveAt(k)
-            break
-        }
-    }
+HTVM_Remove(arr, index) {
+    if (index >= 1 && index <= arr.Length())
+        arr.RemoveAt(index)
+    return arr
 }
 
 HTVM_IndexOf(arr, value) {
@@ -153,6 +150,42 @@ var011 := 100
 var012 := 200
 var013 := 230
 var014 := 80009
+testFuncVars() {
+    constStrTest0 := "constStrTest0"
+    constStrTest00 := "constStrTest00"
+    print(constStrTest0)
+    Loop, Parse, constStrTest00 
+{
+
+        print(A_LoopField)
+    }
+}
+constStrTest := "constStrTest"
+letStrTest := "letStrTest";
+varStrTest := "varStrTest"
+constStrTest1 := "constStrTest1"
+letStrTest1 := "letStrTest1";
+varStrTest1 := "varStrTest1"
+print(letStrTest)
+print(varStrTest)
+print(letStrTest1)
+print(varStrTest1)
+Loop, Parse, constStrTest 
+{
+
+    print(A_LoopField)
+}
+print("==========================================")
+print("==========================================")
+print("==========================================")
+Loop, Parse, constStrTest1 
+{
+
+    print(A_LoopField)
+}
+print("==========================================")
+print("==========================================")
+print("==========================================")
 var_1 := ""
 var_2 := ""
 var_3 := ""
@@ -266,7 +299,6 @@ Loop {
         continue
     }
     ; this is only for lua
-    ::continue::
 }
 str1 := "hello 123 hello2"
 Loop, Parse, str1, " " 
@@ -284,7 +316,6 @@ Loop, Parse, str1
     } else {
         continue
     }
-    ::continue::
 }
 /*
 keyWordArrayAppend
@@ -376,9 +407,6 @@ keyWordErrorMsg
 keyWordTry
 keyWordCatch
 keyWordFinally
-
-
-
 */
 try {
     print("Trying...")

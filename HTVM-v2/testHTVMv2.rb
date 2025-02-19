@@ -43,8 +43,8 @@ def HTVM_Insert(arr, index, value)
   arr.insert(index, value)
 end
 
-def HTVM_Remove(arr, value)
-  arr.delete(value)
+def HTVM_Remove(arr, index)
+  arr.delete_at(index) if index >= 0 && index < arr.length
 end
 
 def HTVM_IndexOf(arr, value)
@@ -165,6 +165,39 @@ var011 = 100
 var012 = 200
 var013 = 230
 var014 = 80009
+def testFuncVars()
+    constStrTest0 = "constStrTest0"
+    constStrTest00 = "constStrTest00"
+    print(constStrTest0)
+    items1 = LoopParseFunc(constStrTest00)
+    items1.each_with_index do |a_loopfield1 , a_index1|
+        print(a_loopfield1)
+    end
+end
+constStrTest = "constStrTest"
+letStrTest = "letStrTest"
+varStrTest = "varStrTest"
+constStrTest1 = "constStrTest1"
+letStrTest1 = "letStrTest1"
+varStrTest1 = "varStrTest1"
+print(letStrTest)
+print(varStrTest)
+print(letStrTest1)
+print(varStrTest1)
+items2 = LoopParseFunc(constStrTest)
+items2.each_with_index do |a_loopfield2 , a_index2|
+    print(a_loopfield2)
+end
+print("==========================================")
+print("==========================================")
+print("==========================================")
+items3 = LoopParseFunc(constStrTest1)
+items3.each_with_index do |a_loopfield3 , a_index3|
+    print(a_loopfield3)
+end
+print("==========================================")
+print("==========================================")
+print("==========================================")
 var_1 = nil
 var_2 = nil
 var_3 = nil
@@ -239,22 +272,22 @@ func0("Hello World")
 
 
 print("==================================")
-for a_index1 in 0...5 + 0 do
-    if (a_index1 == 0)
-        print(a_index1)
-    elsif (a_index1 == 1)
-        print(a_index1)
-    elsif (a_index1 == 2)
-        print(a_index1)
-    elsif (a_index1 == 3)
-        print(a_index1)
-    elsif (a_index1 == 4)
-        print(a_index1)
-    elsif (a_index1 == 5)
-        print(a_index1)
+for a_index4 in 0...5 + 0 do
+    if (a_index4 == 0)
+        print(a_index4)
+    elsif (a_index4 == 1)
+        print(a_index4)
+    elsif (a_index4 == 2)
+        print(a_index4)
+    elsif (a_index4 == 3)
+        print(a_index4)
+    elsif (a_index4 == 4)
+        print(a_index4)
+    elsif (a_index4 == 5)
+        print(a_index4)
     else
         print("HOW????")
-        print(a_index1)
+        print(a_index4)
     end
 end
 vars1 = false
@@ -266,30 +299,28 @@ while (vars1 == false)
         vars1 = true
     end
 end
-for a_index2 in 0..someLimit do
-    if (a_index2 == 6)
+for a_index5 in 0..Float::INFINITY
+    if (a_index5 == 6)
         break
     else
         next
     end
     # this is only for lua
-    ::continue::
 end
 str1 = "hello 123 hello2"
-items3 = LoopParseFunc(str1, " ")
-items3.each_with_index do |a_loopfield3 , a_index3|
-    print(a_loopfield3)
+items6 = LoopParseFunc(str1, " ")
+items6.each_with_index do |a_loopfield6 , a_index6|
+    print(a_loopfield6)
 end
 print("==================")
-items4 = LoopParseFunc(str1)
-items4.each_with_index do |a_loopfield4 , a_index4|
-    print(a_loopfield4)
-    if (a_loopfield4 == "2")
+items7 = LoopParseFunc(str1)
+items7.each_with_index do |a_loopfield7 , a_index7|
+    print(a_loopfield7)
+    if (a_loopfield7 == "2")
         break
     else
         next
     end
-    ::continue::
 end
 =begin
 keyWordArrayAppend
@@ -320,8 +351,8 @@ idx1 = HTVM_IndexOf(arr1, "hello2")
 print("the index of arr1 for hello2 is:")
 print(idx1)
 HTVM_Pop(arr1)
-for a_index5 in 0...HTVM_Size(arr1) + 0 do
-    print(arr1[a_index5])
+for a_index8 in 0...HTVM_Size(arr1) + 0 do
+    print(arr1[a_index8])
 end
 HTVM_Append(arr2, true)
 sizeArr2 = HTVM_Size(arr2)
@@ -333,8 +364,8 @@ idx2 = HTVM_IndexOf(arr2, true)
 print("the index of arr2 for true is:")
 print(idx2)
 HTVM_Pop(arr2)
-for a_index6 in 0...HTVM_Size(arr2) + 0 do
-    print(arr2[a_index6])
+for a_index9 in 0...HTVM_Size(arr2) + 0 do
+    print(arr2[a_index9])
 end
 HTVM_Append(arr3, 6.489)
 sizeArr3 = HTVM_Size(arr3)
@@ -346,8 +377,8 @@ idx3 = HTVM_IndexOf(arr3, 3.14)
 print("the index of arr3 for 3.14 is:")
 print(idx3)
 HTVM_Pop(arr3)
-for a_index7 in 0...HTVM_Size(arr3) + 0 do
-    print(arr3[a_index7])
+for a_index10 in 0...HTVM_Size(arr3) + 0 do
+    print(arr3[a_index10])
 end
 HTVM_Append(arr4, 69)
 sizeArr4 = HTVM_Size(arr4)
@@ -359,8 +390,8 @@ idx4 = HTVM_IndexOf(arr4, 69)
 print("the index of arr4 for 69 is:")
 print(idx4)
 HTVM_Pop(arr4)
-for a_index8 in 0...HTVM_Size(arr4) + 0 do
-    print(arr4[a_index8])
+for a_index11 in 0...HTVM_Size(arr4) + 0 do
+    print(arr4[a_index11])
 end
 HTVM_Append(arr5, "hello3real")
 sizeArr5 = HTVM_Size(arr5)
@@ -372,8 +403,8 @@ idx5 = HTVM_IndexOf(arr5, "hello3real")
 print("the index of arr5 for hello3real is:")
 print(idx5)
 HTVM_Pop(arr5)
-for a_index9 in 0...HTVM_Size(arr5) + 0 do
-    print(arr5[a_index9])
+for a_index12 in 0...HTVM_Size(arr5) + 0 do
+    print(arr5[a_index12])
 end
 =begin
 keyWordThrow

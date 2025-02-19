@@ -35,7 +35,7 @@ function HTVM_Insert<T>(arr: T[], index: number, value: T): void {
     arr.splice(index, 0, value);
 }
 
-function HTVM_Remove<T>(arr: T[], value: T): void {
+function HTVM_Remove(arr: any[], value: any): void {
     const index = arr.indexOf(value);
     if (index !== -1) arr.splice(index, 1);
 }
@@ -158,7 +158,43 @@ var var011: number = 100;
 var var012: number = 200;
 var var013: number = 230;
 var var014: bigint = 80009n;
+function testFuncVars(): void {
+    const constStrTest0: string = "constStrTest0";
+    var constStrTest00: string = "constStrTest00";
+    print(constStrTest0);
+    let items1 = LoopParseFunc(constStrTest00);
+    for (let A_Index1 = 0; A_Index1 < items1.length; A_Index1++) {
+        let A_LoopField1 = items1[A_Index1 - 0];
+        print(A_LoopField1);
+    }
+}
+const constStrTest: string = "constStrTest";
+let letStrTest: string = "letStrTest";
+var varStrTest: string = "varStrTest";
 async function main(): Promise<void> {
+    const constStrTest1: string = "constStrTest1";
+    let letStrTest1: string = "letStrTest1";
+    var varStrTest1: string = "varStrTest1";
+    print(letStrTest);
+    print(varStrTest);
+    print(letStrTest1);
+    print(varStrTest1);
+    let items2 = LoopParseFunc(constStrTest);
+    for (let A_Index2 = 0; A_Index2 < items2.length; A_Index2++) {
+        let A_LoopField2 = items2[A_Index2 - 0];
+        print(A_LoopField2);
+    }
+    print("==========================================");
+    print("==========================================");
+    print("==========================================");
+    let items3 = LoopParseFunc(constStrTest1);
+    for (let A_Index3 = 0; A_Index3 < items3.length; A_Index3++) {
+        let A_LoopField3 = items3[A_Index3 - 0];
+        print(A_LoopField3);
+    }
+    print("==========================================");
+    print("==========================================");
+    print("==========================================");
     var var_1: number;
     var var_2: string;
     var var_3: number;
@@ -233,27 +269,27 @@ async function main(): Promise<void> {
     
 
     print("==================================");
-    for (let A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-        if (A_Index1 == 0) {
-            print(A_Index1);
+    for (let A_Index4 = 0; A_Index4 < 5 + 0; A_Index4++) {
+        if (A_Index4 == 0) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 1) {
-            print(A_Index1);
+        else if (A_Index4 == 1) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 2) {
-            print(A_Index1);
+        else if (A_Index4 == 2) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 3) {
-            print(A_Index1);
+        else if (A_Index4 == 3) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 4) {
-            print(A_Index1);
+        else if (A_Index4 == 4) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 5) {
-            print(A_Index1);
+        else if (A_Index4 == 5) {
+            print(A_Index4);
         } else {
             print("HOW????");
-            print(A_Index1);
+            print(A_Index4);
         }
     }
     var vars1: boolean = false;
@@ -265,32 +301,30 @@ async function main(): Promise<void> {
             vars1 = true;
         }
     }
-    for (let A_Index2 = 0; A_Index2 < someLimit; A_Index2++) {
-        if (A_Index2 == 6) {
+    for (let A_Index5 = 0; ; A_Index5++) {
+        if (A_Index5 == 6) {
             break;
         } else {
             continue;
         }
         // this is only for lua
-        ::continue::
     }
     var str1: string = "hello 123 hello2";
-    let items3 = LoopParseFunc(str1, " ")
-    for (let A_Index3 = 0; A_Index3 < items3.length; A_Index3++) {
-        let A_LoopField3 = items3[A_Index3 - 0];
-        print(A_LoopField3);
+    let items6 = LoopParseFunc(str1, " ")
+    for (let A_Index6 = 0; A_Index6 < items6.length; A_Index6++) {
+        let A_LoopField6 = items6[A_Index6 - 0];
+        print(A_LoopField6);
     }
     print("==================");
-    let items4 = LoopParseFunc(str1);
-    for (let A_Index4 = 0; A_Index4 < items4.length; A_Index4++) {
-        let A_LoopField4 = items4[A_Index4 - 0];
-        print(A_LoopField4);
-        if (A_LoopField4 == "2") {
+    let items7 = LoopParseFunc(str1);
+    for (let A_Index7 = 0; A_Index7 < items7.length; A_Index7++) {
+        let A_LoopField7 = items7[A_Index7 - 0];
+        print(A_LoopField7);
+        if (A_LoopField7 == "2") {
             break;
         } else {
             continue;
         }
-        ::continue::
     }
     /*
     keyWordArrayAppend
@@ -321,8 +355,8 @@ async function main(): Promise<void> {
     print("the index of arr1 for hello2 is:");
     print(idx1);
     HTVM_Pop(arr1);
-    for (let A_Index5 = 0; A_Index5 < HTVM_Size(arr1) + 0; A_Index5++) {
-        print(arr1[A_Index5]);
+    for (let A_Index8 = 0; A_Index8 < HTVM_Size(arr1) + 0; A_Index8++) {
+        print(arr1[A_Index8]);
     }
     HTVM_Append(arr2, true);
     var sizeArr2: number = HTVM_Size(arr2);
@@ -334,8 +368,8 @@ async function main(): Promise<void> {
     print("the index of arr2 for true is:");
     print(idx2);
     HTVM_Pop(arr2);
-    for (let A_Index6 = 0; A_Index6 < HTVM_Size(arr2) + 0; A_Index6++) {
-        print(arr2[A_Index6]);
+    for (let A_Index9 = 0; A_Index9 < HTVM_Size(arr2) + 0; A_Index9++) {
+        print(arr2[A_Index9]);
     }
     HTVM_Append(arr3, 6.489);
     var sizeArr3: number = HTVM_Size(arr3);
@@ -347,8 +381,8 @@ async function main(): Promise<void> {
     print("the index of arr3 for 3.14 is:");
     print(idx3);
     HTVM_Pop(arr3);
-    for (let A_Index7 = 0; A_Index7 < HTVM_Size(arr3) + 0; A_Index7++) {
-        print(arr3[A_Index7]);
+    for (let A_Index10 = 0; A_Index10 < HTVM_Size(arr3) + 0; A_Index10++) {
+        print(arr3[A_Index10]);
     }
     HTVM_Append(arr4, 69);
     var sizeArr4: number = HTVM_Size(arr4);
@@ -360,8 +394,8 @@ async function main(): Promise<void> {
     print("the index of arr4 for 69 is:");
     print(idx4);
     HTVM_Pop(arr4);
-    for (let A_Index8 = 0; A_Index8 < HTVM_Size(arr4) + 0; A_Index8++) {
-        print(arr4[A_Index8]);
+    for (let A_Index11 = 0; A_Index11 < HTVM_Size(arr4) + 0; A_Index11++) {
+        print(arr4[A_Index11]);
     }
     HTVM_Append(arr5, "hello3real");
     var sizeArr5: number = HTVM_Size(arr5);
@@ -373,8 +407,8 @@ async function main(): Promise<void> {
     print("the index of arr5 for hello3real is:");
     print(idx5);
     HTVM_Pop(arr5);
-    for (let A_Index9 = 0; A_Index9 < HTVM_Size(arr5) + 0; A_Index9++) {
-        print(arr5[A_Index9]);
+    for (let A_Index12 = 0; A_Index12 < HTVM_Size(arr5) + 0; A_Index12++) {
+        print(arr5[A_Index12]);
     }
     /*
     keyWordThrow

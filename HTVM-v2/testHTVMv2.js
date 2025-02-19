@@ -40,9 +40,8 @@ function HTVM_Insert(arr, index, value) {
     arr.splice(index, 0, value);
 }
 
-function HTVM_Remove(arr, value) {
-    let index = arr.indexOf(value);
-    if (index !== -1) arr.splice(index, 1);
+function HTVM_Remove(arr, index) {
+    if (index >= 0 && index < arr.length) arr.splice(index, 1);
 }
 
 function HTVM_IndexOf(arr, value) {
@@ -163,7 +162,43 @@ var var011 = 100;
 var var012 = 200;
 var var013 = 230;
 var var014 = 80009n;
+function testFuncVars() {
+    const constStrTest0 = "constStrTest0";
+    var constStrTest00 = "constStrTest00";
+    print(constStrTest0);
+    items1 = LoopParseFunc(constStrTest00)
+    for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
+        const A_LoopField1 = items1[A_Index1 - 0];
+        print(A_LoopField1);
+    }
+}
+const constStrTest = "constStrTest";
+let letStrTest = "letStrTest";
+var varStrTest = "varStrTest";
 async function main() {
+    const constStrTest1 = "constStrTest1";
+    let letStrTest1 = "letStrTest1";
+    var varStrTest1 = "varStrTest1";
+    print(letStrTest);
+    print(varStrTest);
+    print(letStrTest1);
+    print(varStrTest1);
+    items2 = LoopParseFunc(constStrTest)
+    for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
+        const A_LoopField2 = items2[A_Index2 - 0];
+        print(A_LoopField2);
+    }
+    print("==========================================");
+    print("==========================================");
+    print("==========================================");
+    items3 = LoopParseFunc(constStrTest1)
+    for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
+        const A_LoopField3 = items3[A_Index3 - 0];
+        print(A_LoopField3);
+    }
+    print("==========================================");
+    print("==========================================");
+    print("==========================================");
     var var_1;
     var var_2;
     var var_3;
@@ -238,27 +273,27 @@ async function main() {
     
 
     print("==================================");
-    for (let A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-        if (A_Index1 == 0) {
-            print(A_Index1);
+    for (let A_Index4 = 0; A_Index4 < 5 + 0; A_Index4++) {
+        if (A_Index4 == 0) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 1) {
-            print(A_Index1);
+        else if (A_Index4 == 1) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 2) {
-            print(A_Index1);
+        else if (A_Index4 == 2) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 3) {
-            print(A_Index1);
+        else if (A_Index4 == 3) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 4) {
-            print(A_Index1);
+        else if (A_Index4 == 4) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 5) {
-            print(A_Index1);
+        else if (A_Index4 == 5) {
+            print(A_Index4);
         } else {
             print("HOW????");
-            print(A_Index1);
+            print(A_Index4);
         }
     }
     var vars1 = false;
@@ -270,32 +305,30 @@ async function main() {
             vars1 = true;
         }
     }
-    for (let A_Index2 = 0; ; A_Index2++) {
-        if (A_Index2 == 6) {
+    for (let A_Index5 = 0; ; A_Index5++) {
+        if (A_Index5 == 6) {
             break;
         } else {
             continue;
         }
         // this is only for lua
-        ::continue::
     }
     var str1 = "hello 123 hello2";
-    items3 = LoopParseFunc(str1, " ")
-    for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
-        const A_LoopField3 = items3[A_Index3 - 0];
-        print(A_LoopField3);
+    items6 = LoopParseFunc(str1, " ")
+    for (let A_Index6 = 0; A_Index6 < items6.length + 0; A_Index6++) {
+        const A_LoopField6 = items6[A_Index6 - 0];
+        print(A_LoopField6);
     }
     print("==================");
-    items4 = LoopParseFunc(str1)
-    for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
-        const A_LoopField4 = items4[A_Index4 - 0];
-        print(A_LoopField4);
-        if (A_LoopField4 == "2") {
+    items7 = LoopParseFunc(str1)
+    for (let A_Index7 = 0; A_Index7 < items7.length + 0; A_Index7++) {
+        const A_LoopField7 = items7[A_Index7 - 0];
+        print(A_LoopField7);
+        if (A_LoopField7 == "2") {
             break;
         } else {
             continue;
         }
-        ::continue::
     }
     /*
     keyWordArrayAppend
@@ -326,8 +359,8 @@ async function main() {
     print("the index of arr1 for hello2 is:");
     print(idx1);
     HTVM_Pop(arr1);
-    for (let A_Index5 = 0; A_Index5 < HTVM_Size(arr1) + 0; A_Index5++) {
-        print(arr1[A_Index5]);
+    for (let A_Index8 = 0; A_Index8 < HTVM_Size(arr1) + 0; A_Index8++) {
+        print(arr1[A_Index8]);
     }
     HTVM_Append(arr2, true);
     var sizeArr2 = HTVM_Size(arr2);
@@ -339,8 +372,8 @@ async function main() {
     print("the index of arr2 for true is:");
     print(idx2);
     HTVM_Pop(arr2);
-    for (let A_Index6 = 0; A_Index6 < HTVM_Size(arr2) + 0; A_Index6++) {
-        print(arr2[A_Index6]);
+    for (let A_Index9 = 0; A_Index9 < HTVM_Size(arr2) + 0; A_Index9++) {
+        print(arr2[A_Index9]);
     }
     HTVM_Append(arr3, 6.489);
     var sizeArr3 = HTVM_Size(arr3);
@@ -352,8 +385,8 @@ async function main() {
     print("the index of arr3 for 3.14 is:");
     print(idx3);
     HTVM_Pop(arr3);
-    for (let A_Index7 = 0; A_Index7 < HTVM_Size(arr3) + 0; A_Index7++) {
-        print(arr3[A_Index7]);
+    for (let A_Index10 = 0; A_Index10 < HTVM_Size(arr3) + 0; A_Index10++) {
+        print(arr3[A_Index10]);
     }
     HTVM_Append(arr4, 69);
     var sizeArr4 = HTVM_Size(arr4);
@@ -365,8 +398,8 @@ async function main() {
     print("the index of arr4 for 69 is:");
     print(idx4);
     HTVM_Pop(arr4);
-    for (let A_Index8 = 0; A_Index8 < HTVM_Size(arr4) + 0; A_Index8++) {
-        print(arr4[A_Index8]);
+    for (let A_Index11 = 0; A_Index11 < HTVM_Size(arr4) + 0; A_Index11++) {
+        print(arr4[A_Index11]);
     }
     HTVM_Append(arr5, "hello3real");
     var sizeArr5 = HTVM_Size(arr5);
@@ -378,8 +411,8 @@ async function main() {
     print("the index of arr5 for hello3real is:");
     print(idx5);
     HTVM_Pop(arr5);
-    for (let A_Index9 = 0; A_Index9 < HTVM_Size(arr5) + 0; A_Index9++) {
-        print(arr5[A_Index9]);
+    for (let A_Index12 = 0; A_Index12 < HTVM_Size(arr5) + 0; A_Index12++) {
+        print(arr5[A_Index12]);
     }
     /*
     keyWordThrow

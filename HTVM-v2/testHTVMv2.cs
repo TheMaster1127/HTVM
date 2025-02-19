@@ -47,8 +47,12 @@ public static void HTVM_Insert<T>(List<T> arr, int index, T value) {
     arr.Insert(index, value);
 }
 
-public static void HTVM_Remove<T>(List<T> arr, T value) {
-    arr.Remove(value);
+public static void HTVM_Remove<T>(List<T> arr, int index)
+{
+    if (index >= 0 && index < arr.Count)
+    {
+        arr.RemoveAt(index);
+    }
 }
 
 public static int HTVM_IndexOf<T>(List<T> arr, T value) {
@@ -169,21 +173,57 @@ static sbyte var011 = 100;
 static short var012 = 200;
 static int var013 = 230;
 static long var014 = 80009L;
+static void testFuncVars() {
+    const string constStrTest0 = "constStrTest0";
+    string constStrTest00 = "constStrTest00";
+    print(constStrTest0);
+    List<string> items1 = new List<string>(LoopParseFunc(constStrTest00));
+    for (int A_Index1 = 0; A_Index1 < items1.Count + 0; A_Index1++) {
+        string A_LoopField1 = items1[A_Index1 - 0];
+        print(A_LoopField1);
+    }
+}
+const string constStrTest = "constStrTest";
+static string letStrTest = "letStrTest";
+static string varStrTest = "varStrTest";
 static void Main(string[] args) {
-    static double var_1 = 0.0;
-    static char var_2 = 'a';
-    static byte var_3 = 0;
-    static ushort var_4 = 0;
-    static uint var_5 = 0;
-    static ulong var_6 = 0UL;
-    static int var_7 = 0;
-    static string var_8 = "";
-    static bool var_9 = false;
-    static float var_10 = 0.0f;
-    static sbyte var_11 = 0;
-    static short var_12 = 0;
-    static int var_13 = 0;
-    static long var_14 = 0L;
+    const string constStrTest1 = "constStrTest1";
+    string letStrTest1 = "letStrTest1";
+    string varStrTest1 = "varStrTest1";
+    print(letStrTest);
+    print(varStrTest);
+    print(letStrTest1);
+    print(varStrTest1);
+    List<string> items2 = new List<string>(LoopParseFunc(constStrTest));
+    for (int A_Index2 = 0; A_Index2 < items2.Count + 0; A_Index2++) {
+        string A_LoopField2 = items2[A_Index2 - 0];
+        print(A_LoopField2);
+    }
+    print("==========================================");
+    print("==========================================");
+    print("==========================================");
+    List<string> items3 = new List<string>(LoopParseFunc(constStrTest1));
+    for (int A_Index3 = 0; A_Index3 < items3.Count + 0; A_Index3++) {
+        string A_LoopField3 = items3[A_Index3 - 0];
+        print(A_LoopField3);
+    }
+    print("==========================================");
+    print("==========================================");
+    print("==========================================");
+    double var_1 = 0.0;
+    char var_2 = 'a';
+    byte var_3 = 0;
+    ushort var_4 = 0;
+    uint var_5 = 0;
+    ulong var_6 = 0UL;
+    int var_7 = 0;
+    string var_8 = "";
+    bool var_9 = false;
+    float var_10 = 0.0f;
+    sbyte var_11 = 0;
+    short var_12 = 0;
+    int var_13 = 0;
+    long var_14 = 0L;
     func1(var01, var02, var03, var04, var05, var06, var07, var08, var09, var010, var011, var012, var013, var014);
     var_1 = func2(var01);
     var_2 = func3(var02);
@@ -244,31 +284,31 @@ static void Main(string[] args) {
     
 
     print("==================================");
-    for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-        if (A_Index1 == 0) {
-            print(A_Index1);
+    for (int A_Index4 = 0; A_Index4 < 5 + 0; A_Index4++) {
+        if (A_Index4 == 0) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 1) {
-            print(A_Index1);
+        else if (A_Index4 == 1) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 2) {
-            print(A_Index1);
+        else if (A_Index4 == 2) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 3) {
-            print(A_Index1);
+        else if (A_Index4 == 3) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 4) {
-            print(A_Index1);
+        else if (A_Index4 == 4) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 5) {
-            print(A_Index1);
+        else if (A_Index4 == 5) {
+            print(A_Index4);
         } else {
             print("HOW????");
-            print(A_Index1);
+            print(A_Index4);
         }
     }
-    static bool vars1 = false;
-    static int vars2 = 0;
+    bool vars1 = false;
+    int vars2 = 0;
     while (vars1 == false) {
         vars2++;
         print(vars2);
@@ -276,32 +316,30 @@ static void Main(string[] args) {
             vars1 = true;
         }
     }
-    for (int A_Index2 = 0; A_Index2 < someLimit; A_Index2++) {
-        if (A_Index2 == 6) {
+    for (int A_Index5 = 0; ; A_Index5++) {
+        if (A_Index5 == 6) {
             break;
         } else {
             continue;
         }
         // this is only for lua
-        ::continue::
     }
-    static string str1 = "hello 123 hello2";
-    List<string> items3 = new List<string>(LoopParseFunc(str1, " "));
-    for (int A_Index3 = 0; A_Index3 < items3.Count + 0; A_Index3++) {
-        string A_LoopField3 = items3[A_Index3 - 0];
-        print(A_LoopField3);
+    string str1 = "hello 123 hello2";
+    List<string> items6 = new List<string>(LoopParseFunc(str1, " "));
+    for (int A_Index6 = 0; A_Index6 < items6.Count + 0; A_Index6++) {
+        string A_LoopField6 = items6[A_Index6 - 0];
+        print(A_LoopField6);
     }
     print("==================");
-    List<string> items4 = new List<string>(LoopParseFunc(str1));
-    for (int A_Index4 = 0; A_Index4 < items4.Count + 0; A_Index4++) {
-        string A_LoopField4 = items4[A_Index4 - 0];
-        print(A_LoopField4);
-        if (A_LoopField4 == "2") {
+    List<string> items7 = new List<string>(LoopParseFunc(str1));
+    for (int A_Index7 = 0; A_Index7 < items7.Count + 0; A_Index7++) {
+        string A_LoopField7 = items7[A_Index7 - 0];
+        print(A_LoopField7);
+        if (A_LoopField7 == "2") {
             break;
         } else {
             continue;
         }
-        ::continue::
     }
     /*
     keyWordArrayAppend
@@ -316,76 +354,76 @@ static void Main(string[] args) {
     keyWordArrayOfFloatingPointNumbersDefinition
     keyWordArrayOfBooleansDefinition
     */
-    static List<string> arr1 = new List<string> {"hello1", "hello2"};
-    static List<bool> arr2 = new List<bool> {true, false};
-    static List<float> arr3 = new List<float> {3.13, 3.14};
-    static List<int> arr4 = new List<int> {1, 6, 2};
-    static List<string> arr5 = new List<string> {"real STR"};
+    List<string> arr1 = new List<string> {"hello1", "hello2"};
+    List<bool> arr2 = new List<bool> {true, false};
+    List<double> arr3 = new List<double> {3.13, 3.14};
+    List<int> arr4 = new List<int> {1, 6, 2};
+    List<string> arr5 = new List<string> {"real STR"};
     // Array operations
     HTVM_Append(arr1, "hello3");
-    static int sizeArr1 = HTVM_Size(arr1);
+    int sizeArr1 = HTVM_Size(arr1);
     print("the size of arr1 is:");
     print(sizeArr1);
     HTVM_Insert(arr1, 1, "hello?????");
     HTVM_Remove(arr1, 0);
-    static int idx1 = HTVM_IndexOf(arr1, "hello2");
+    int idx1 = HTVM_IndexOf(arr1, "hello2");
     print("the index of arr1 for hello2 is:");
     print(idx1);
     HTVM_Pop(arr1);
-    for (int A_Index5 = 0; A_Index5 < HTVM_Size(arr1) + 0; A_Index5++) {
-        print(arr1[A_Index5]);
+    for (int A_Index8 = 0; A_Index8 < HTVM_Size(arr1) + 0; A_Index8++) {
+        print(arr1[A_Index8]);
     }
     HTVM_Append(arr2, true);
-    static int sizeArr2 = HTVM_Size(arr2);
+    int sizeArr2 = HTVM_Size(arr2);
     print("the size of arr2 is:");
     print(sizeArr2);
     HTVM_Insert(arr2, 1, false);
     HTVM_Remove(arr2, 0);
-    static int idx2 = HTVM_IndexOf(arr2, true);
+    int idx2 = HTVM_IndexOf(arr2, true);
     print("the index of arr2 for true is:");
     print(idx2);
     HTVM_Pop(arr2);
-    for (int A_Index6 = 0; A_Index6 < HTVM_Size(arr2) + 0; A_Index6++) {
-        print(arr2[A_Index6]);
+    for (int A_Index9 = 0; A_Index9 < HTVM_Size(arr2) + 0; A_Index9++) {
+        print(arr2[A_Index9]);
     }
     HTVM_Append(arr3, 6.489);
-    static int sizeArr3 = HTVM_Size(arr3);
+    int sizeArr3 = HTVM_Size(arr3);
     print("the size of arr3 is:");
     print(sizeArr3);
     HTVM_Insert(arr3, 1, 1.556);
     HTVM_Remove(arr3, 0);
-    static int idx3 = HTVM_IndexOf(arr3, 3.14);
+    int idx3 = HTVM_IndexOf(arr3, 3.14);
     print("the index of arr3 for 3.14 is:");
     print(idx3);
     HTVM_Pop(arr3);
-    for (int A_Index7 = 0; A_Index7 < HTVM_Size(arr3) + 0; A_Index7++) {
-        print(arr3[A_Index7]);
+    for (int A_Index10 = 0; A_Index10 < HTVM_Size(arr3) + 0; A_Index10++) {
+        print(arr3[A_Index10]);
     }
     HTVM_Append(arr4, 69);
-    static int sizeArr4 = HTVM_Size(arr4);
+    int sizeArr4 = HTVM_Size(arr4);
     print("the size of arr4 is:");
     print(sizeArr4);
     HTVM_Insert(arr4, 1, 420);
     HTVM_Remove(arr4, 0);
-    static int idx4 = HTVM_IndexOf(arr4, 69);
+    int idx4 = HTVM_IndexOf(arr4, 69);
     print("the index of arr4 for 69 is:");
     print(idx4);
     HTVM_Pop(arr4);
-    for (int A_Index8 = 0; A_Index8 < HTVM_Size(arr4) + 0; A_Index8++) {
-        print(arr4[A_Index8]);
+    for (int A_Index11 = 0; A_Index11 < HTVM_Size(arr4) + 0; A_Index11++) {
+        print(arr4[A_Index11]);
     }
     HTVM_Append(arr5, "hello3real");
-    static int sizeArr5 = HTVM_Size(arr5);
+    int sizeArr5 = HTVM_Size(arr5);
     print("the size of arr5 is:");
     print(sizeArr5);
     HTVM_Insert(arr5, 1, "hello?real????");
     HTVM_Remove(arr5, 0);
-    static int idx5 = HTVM_IndexOf(arr5, "hello3real");
+    int idx5 = HTVM_IndexOf(arr5, "hello3real");
     print("the index of arr5 for hello3real is:");
     print(idx5);
     HTVM_Pop(arr5);
-    for (int A_Index9 = 0; A_Index9 < HTVM_Size(arr5) + 0; A_Index9++) {
-        print(arr5[A_Index9]);
+    for (int A_Index12 = 0; A_Index12 < HTVM_Size(arr5) + 0; A_Index12++) {
+        print(arr5[A_Index12]);
     }
     /*
     keyWordThrow
@@ -406,5 +444,6 @@ static void Main(string[] args) {
         print("This always runs, success or error.");
     }
     print("==============================================");
+
 }
 }

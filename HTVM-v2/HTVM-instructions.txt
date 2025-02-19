@@ -3974,29 +3974,32 @@ return
 
 funcEND======================funcEND==============
 
+
 func======================func==============
 lang: cpp
 name: HTVM_Append
 libs: #include <iostream>|#include <vector>|#include <algorithm>
 description: null
 
-
-// Overload for std::vector<std::string>
 void HTVM_Append(std::vector<std::string>& arr, const std::string& value) {
     arr.push_back(value);
 }
 
-// Overload for const char* (so you can pass string literals)
 void HTVM_Append(std::vector<std::string>& arr, const char* value) {
     arr.push_back(std::string(value));
 }
 
-// General template for other vector types
-template <typename T>
-void HTVM_Append(std::vector<T>& arr, const T& value) {
+void HTVM_Append(std::vector<int>& arr, int value) {
     arr.push_back(value);
 }
 
+void HTVM_Append(std::vector<float>& arr, float value) {
+    arr.push_back(value);
+}
+
+void HTVM_Append(std::vector<bool>& arr, bool value) {
+    arr.push_back(value);
+}
 
 
 funcEND======================funcEND==============
@@ -4007,8 +4010,19 @@ name: HTVM_Pop
 libs: #include <iostream>|#include <vector>|#include <algorithm>
 description: null
 
-template <typename T>
-void HTVM_Pop(std::vector<T>& arr) {
+void HTVM_Pop(std::vector<std::string>& arr) {
+    if (!arr.empty()) arr.pop_back();
+}
+
+void HTVM_Pop(std::vector<int>& arr) {
+    if (!arr.empty()) arr.pop_back();
+}
+
+void HTVM_Pop(std::vector<float>& arr) {
+    if (!arr.empty()) arr.pop_back();
+}
+
+void HTVM_Pop(std::vector<bool>& arr) {
     if (!arr.empty()) arr.pop_back();
 }
 
@@ -4022,11 +4036,21 @@ libs: #include <iostream>|#include <vector>|#include <algorithm>
 description: null
 
 
-template <typename T>
-size_t HTVM_Size(const std::vector<T>& arr) {
+size_t HTVM_Size(const std::vector<std::string>& arr) {
     return arr.size();
 }
 
+size_t HTVM_Size(const std::vector<int>& arr) {
+    return arr.size();
+}
+
+size_t HTVM_Size(const std::vector<float>& arr) {
+    return arr.size();
+}
+
+size_t HTVM_Size(const std::vector<bool>& arr) {
+    return arr.size();
+}
 
 funcEND======================funcEND==============
 
@@ -4036,10 +4060,26 @@ name: HTVM_Insert
 libs: #include <iostream>|#include <vector>|#include <algorithm>
 description: null
 
-template <typename T>
-void HTVM_Insert(std::vector<T>& arr, size_t index, const T& value) {
+void HTVM_Insert(std::vector<std::string>& arr, size_t index, const std::string& value) {
     if (index <= arr.size()) arr.insert(arr.begin() + index, value);
 }
+
+void HTVM_Insert(std::vector<std::string>& arr, size_t index, const char* value) {
+    if (index <= arr.size()) arr.insert(arr.begin() + index, std::string(value));
+}
+
+void HTVM_Insert(std::vector<int>& arr, size_t index, int value) {
+    if (index <= arr.size()) arr.insert(arr.begin() + index, value);
+}
+
+void HTVM_Insert(std::vector<float>& arr, size_t index, float value) {
+    if (index <= arr.size()) arr.insert(arr.begin() + index, value);
+}
+
+void HTVM_Insert(std::vector<bool>& arr, size_t index, bool value) {
+    if (index <= arr.size()) arr.insert(arr.begin() + index, value);
+}
+
 
 funcEND======================funcEND==============
 
@@ -4049,10 +4089,34 @@ name: HTVM_Remove
 libs: #include <iostream>|#include <vector>|#include <algorithm>
 description: null
 
-template <typename T>
-void HTVM_Remove(std::vector<T>& arr, const T& value) {
-    arr.erase(std::remove(arr.begin(), arr.end(), value), arr.end());
+// Remove by index for std::vector<std::string>
+void HTVM_Remove(std::vector<std::string>& arr, size_t index) {
+    if (index < arr.size()) {
+        arr.erase(arr.begin() + index);
+    }
 }
+
+// Remove by index for std::vector<int>
+void HTVM_Remove(std::vector<int>& arr, size_t index) {
+    if (index < arr.size()) {
+        arr.erase(arr.begin() + index);
+    }
+}
+
+// Remove by index for std::vector<float>
+void HTVM_Remove(std::vector<float>& arr, size_t index) {
+    if (index < arr.size()) {
+        arr.erase(arr.begin() + index);
+    }
+}
+
+// Remove by index for std::vector<bool>
+void HTVM_Remove(std::vector<bool>& arr, size_t index) {
+    if (index < arr.size()) {
+        arr.erase(arr.begin() + index);
+    }
+}
+
 
 funcEND======================funcEND==============
 
@@ -4062,13 +4126,41 @@ name: HTVM_IndexOf
 libs: #include <iostream>|#include <vector>|#include <algorithm>
 description: null
 
-template <typename T>
-int HTVM_IndexOf(const std::vector<T>& arr, const T& value) {
+// IndexOf for std::vector<std::string>
+int HTVM_IndexOf(const std::vector<std::string>& arr, const std::string& value) {
     auto it = std::find(arr.begin(), arr.end(), value);
-    return (it != arr.end()) ? std::distance(arr.begin(), it) : -1;
+    return (it != arr.end()) ? static_cast<int>(std::distance(arr.begin(), it)) : -1;
+}
+
+// Overload for string literals
+int HTVM_IndexOf(const std::vector<std::string>& arr, const char* value) {
+    return HTVM_IndexOf(arr, std::string(value));
+}
+
+// IndexOf for std::vector<int>
+int HTVM_IndexOf(const std::vector<int>& arr, int value) {
+    auto it = std::find(arr.begin(), arr.end(), value);
+    return (it != arr.end()) ? static_cast<int>(std::distance(arr.begin(), it)) : -1;
+}
+
+// IndexOf for std::vector<float>
+int HTVM_IndexOf(const std::vector<float>& arr, float value) {
+    auto it = std::find(arr.begin(), arr.end(), value);
+    return (it != arr.end()) ? static_cast<int>(std::distance(arr.begin(), it)) : -1;
+}
+
+// IndexOf for std::vector<bool>
+int HTVM_IndexOf(const std::vector<bool>& arr, bool value) {
+    for (size_t i = 0; i < arr.size(); ++i) {
+        if (arr[i] == value) {
+            return static_cast<int>(i);
+        }
+    }
+    return -1;
 }
 
 funcEND======================funcEND==============
+
 
 func======================func==============
 lang: py
@@ -4121,9 +4213,9 @@ name: HTVM_Remove
 libs: null
 description: null
 
-def HTVM_Remove(arr, value):
-    if value in arr:
-        arr.remove(value)
+def HTVM_Remove(arr, index):
+    if 0 <= index < len(arr):
+        del arr[index]
 
 funcEND======================funcEND==============
 
@@ -4192,9 +4284,8 @@ name: HTVM_Remove
 libs: null
 description: null
 
-function HTVM_Remove(arr, value) {
-    let index = arr.indexOf(value);
-    if (index !== -1) arr.splice(index, 1);
+function HTVM_Remove(arr, index) {
+    if (index >= 0 && index < arr.length) arr.splice(index, 1);
 }
 
 funcEND======================funcEND==============
@@ -4217,6 +4308,7 @@ name: HTVM_Append
 libs: null
 description: null
 
+// Append to a slice
 func HTVM_Append[T any](arr *[]T, value T) {
     *arr = append(*arr, value)
 }
@@ -4229,6 +4321,7 @@ name: HTVM_Pop
 libs: null
 description: null
 
+// Pop the last element from a slice
 func HTVM_Pop[T any](arr *[]T) {
     if len(*arr) > 0 {
         *arr = (*arr)[:len(*arr)-1]
@@ -4243,6 +4336,7 @@ name: HTVM_Size
 libs: null
 description: null
 
+// Get the size of a slice
 func HTVM_Size[T any](arr []T) int {
     return len(arr)
 }
@@ -4255,11 +4349,13 @@ name: HTVM_Insert
 libs: null
 description: null
 
+// Insert a value at a specific index in a slice
 func HTVM_Insert[T any](arr *[]T, index int, value T) {
     if index >= 0 && index <= len(*arr) {
         *arr = append((*arr)[:index], append([]T{value}, (*arr)[index:]...)...)
     }
 }
+
 
 funcEND======================funcEND==============
 
@@ -4269,12 +4365,11 @@ name: HTVM_Remove
 libs: null
 description: null
 
-func HTVM_Remove[T any](arr *[]T, value T) {
-    for i, v := range *arr {
-        if v == value {
-            *arr = append((*arr)[:i], (*arr)[i+1:]...)
-            break
-        }
+
+// Remove an element at a specific index in a slice
+func HTVM_Remove[T any](arr *[]T, index int) {
+    if index >= 0 && index < len(*arr) {
+        *arr = append((*arr)[:index], (*arr)[index+1:]...)
     }
 }
 
@@ -4286,6 +4381,7 @@ name: HTVM_IndexOf
 libs: null
 description: null
 
+// Find the index of a value in a slice
 func HTVM_IndexOf[T comparable](arr []T, value T) int {
     for i, v := range arr {
         if v == value {
@@ -4294,6 +4390,7 @@ func HTVM_IndexOf[T comparable](arr []T, value T) int {
     }
     return -1
 }
+
 
 funcEND======================funcEND==============
 
@@ -4351,12 +4448,9 @@ name: HTVM_Remove
 libs: null
 description: null
 
-function HTVM_Remove(arr, value)
-    for i, v in ipairs(arr) do
-        if v == value then
-            table.remove(arr, i)
-            break
-        end
+function HTVM_Remove(arr, index)
+    if index >= 1 and index <= #arr then
+        table.remove(arr, index)
     end
 end
 
@@ -4434,10 +4528,13 @@ name: HTVM_Remove
 libs: using System;|using System.Collections.Generic;
 description: null
 
-public static void HTVM_Remove<T>(List<T> arr, T value) {
-    arr.Remove(value);
+public static void HTVM_Remove<T>(List<T> arr, int index)
+{
+    if (index >= 0 && index < arr.Count)
+    {
+        arr.RemoveAt(index);
+    }
 }
-
 funcEND======================funcEND==============
 
 func======================func==============
@@ -4507,8 +4604,10 @@ name: HTVM_Remove
 libs: import java.util.ArrayList;
 description: null
 
-public static <T> void HTVM_Remove(ArrayList<T> arr, T value) {
-    arr.remove(value);
+public static <T> void HTVM_Remove(ArrayList<T> arr, int index) {
+    if (index >= 0 && index < arr.size()) {
+        arr.remove(index);
+    }
 }
 
 funcEND======================funcEND==============
@@ -4579,9 +4678,12 @@ name: HTVM_Remove
 libs: null
 description: null
 
-fun <T> HTVM_Remove(arr: MutableList<T>, value: T) {
-    arr.remove(value)
+fun <T> HTVM_Remove(arr: MutableList<T>, index: Int) {
+    if (index in arr.indices) {
+        arr.removeAt(index)
+    }
 }
+
 
 funcEND======================funcEND==============
 
@@ -4651,8 +4753,8 @@ name: HTVM_Remove
 libs: null
 description: null
 
-def HTVM_Remove(arr, value)
-  arr.delete(value)
+def HTVM_Remove(arr, index)
+  arr.delete_at(index) if index >= 0 && index < arr.length
 end
 
 funcEND======================funcEND==============
@@ -4669,6 +4771,7 @@ end
 
 funcEND======================funcEND==============
 
+
 func======================func==============
 lang: nim
 name: HTVM_Append
@@ -4677,6 +4780,8 @@ description: null
 
 proc HTVM_Append[T](arr: var seq[T], value: T) =
   arr.add(value)
+
+
 
 funcEND======================funcEND==============
 
@@ -4710,7 +4815,8 @@ description: null
 
 proc HTVM_Insert[T](arr: var seq[T], index: int, value: T) =
   if index >= 0 and index <= arr.len:
-    arr.insert(index, value)
+    arr.insert(value, index)  # Correct order
+
 
 funcEND======================funcEND==============
 
@@ -4720,11 +4826,9 @@ name: HTVM_Remove
 libs: null
 description: null
 
-proc HTVM_Remove[T](arr: var seq[T], value: T) =
-  for i, v in arr:
-    if v == value:
-      arr.del(i)
-      break
+proc HTVM_Remove[T](arr: var seq[T], index: int) =
+  if index >= 0 and index < arr.len:
+    arr.delete(index)
 
 funcEND======================funcEND==============
 
@@ -4736,7 +4840,8 @@ description: null
 
 proc HTVM_IndexOf[T](arr: seq[T], value: T): int =
   for i, v in arr:
-    if v == value: return i
+    if v == value:
+      return i
   return -1
 
 funcEND======================funcEND==============
@@ -4796,13 +4901,10 @@ name: HTVM_Remove
 libs: null
 description: null
 
-HTVM_Remove(arr, value) {
-    for k, v in arr {
-        if (v = value) {
-            arr.RemoveAt(k)
-            break
-        }
-    }
+HTVM_Remove(arr, index) {
+    if (index >= 1 && index <= arr.Length())
+        arr.RemoveAt(index)
+    return arr
 }
 
 funcEND======================funcEND==============
@@ -4873,17 +4975,19 @@ func HTVM_Insert<T>(_ arr: inout [T], _ index: Int, _ value: T) {
 
 funcEND======================funcEND==============
 
+
 func======================func==============
 lang: swift
 name: HTVM_Remove
 libs: null
 description: null
 
-func HTVM_Remove<T: Equatable>(_ arr: inout [T], _ value: T) {
-    if let index = arr.firstIndex(of: value) {
+func HTVM_Remove<T>(_ arr: inout [T], _ index: Int) {
+    if index >= 0 && index < arr.count {
         arr.remove(at: index)
     }
 }
+
 
 funcEND======================funcEND==============
 
@@ -4893,9 +4997,15 @@ name: HTVM_IndexOf
 libs: null
 description: null
 
-func HTVM_IndexOf<T: Equatable>(_ arr: [T], _ value: T) -> Int? {
-    return arr.firstIndex(of: value)
+
+func HTVM_IndexOf<T: Equatable>(_ arr: [T], _ value: T) -> Int {
+    if let index = arr.firstIndex(of: value) {
+        return index
+    } else {
+        return -1 // Return a default value if not found
+    }
 }
+
 
 funcEND======================funcEND==============
 
@@ -4953,8 +5063,10 @@ name: HTVM_Remove
 libs: null
 description: null
 
-void HTVM_Remove<T>(List<T> arr, T value) {
-  arr.remove(value);
+void HTVM_Remove<T>(List<T> arr, int index) {
+    if (index >= 0 && index < arr.length) {
+        arr.removeAt(index);
+    }
 }
 
 funcEND======================funcEND==============
@@ -5025,10 +5137,11 @@ name: HTVM_Remove
 libs: null
 description: null
 
-function HTVM_Remove<T>(arr: T[], value: T): void {
+function HTVM_Remove(arr: any[], value: any): void {
     const index = arr.indexOf(value);
     if (index !== -1) arr.splice(index, 1);
 }
+
 
 funcEND======================funcEND==============
 
@@ -5098,8 +5211,10 @@ name: HTVM_Remove
 libs: null
 description: null
 
-def HTVM_Remove(arr, value) {
-    arr.remove(value)
+def HTVM_Remove(list, index) {
+    if (index >= 0 && index < list.size()) {
+        list.remove(index)
+    }
 }
 
 funcEND======================funcEND==============

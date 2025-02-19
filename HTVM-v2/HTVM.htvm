@@ -410,6 +410,8 @@ int javaMainFuncSeen := 0
 int csMainFuncSeen := 0
 int howMany_fixAindexInGoUnused := 0
 
+int luaContinueFix_Num := 0
+
 str theTryCatchVarForErrors := "jhku-dfsds-ds-d-ffdsf-sdfsfdsedsf"
 arr str allVarsSoWeDontReDecVars
 arr str allVarsSoWeDontReDecVars_FIX_uint8
@@ -423,6 +425,38 @@ int allVarsSoWeDontReDecVars_FIX_TOGGLE := 0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+func str fixCSandJAVAstaticBugForFunc(str line)
+{
+str out := ""
+int haveWeSeenMainFunc := 0
+
+Loop, Parse, line, `n, `r
+{
+if (haveWeSeenMainFunc = 0) and (InStr(A_LoopField, "    static "))
+{
+out .= StrReplace(A_LoopField, "    static ", "    ") . Chr(10)
+}
+else
+{
+out .= A_LoopField . Chr(10)
+}
+
+if (InStr(StrLower(A_LoopField), " main("))
+{
+haveWeSeenMainFunc := 1
+}
+}
+
+
+return out
+}
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2500,12 +2534,12 @@ func str arrayParserTranspiler(str line)
 
 if (langToConvertTo = langFileExtension_2)
 {
-line := HTVMmatchStrRrplace(line, "." . keyWordArrayAppend . "(", "." . keyWordArrayAppend_2 . "(")
-line := HTVMmatchStrRrplace(line, "." . keyWordArrayPop . "(", "." . keyWordArrayPop_2 . "(")
-line := HTVMmatchStrRrplace(line, "." . keyWordArraySize . "(", "." . keyWordArraySize_2 . "(")
-line := HTVMmatchStrRrplace(line, "." . keyWordArrayInsert . "(", "." . keyWordArrayInsert_2 . "(")
-line := HTVMmatchStrRrplace(line, "." . keyWordArrayRemove . "(", "." . keyWordArrayRemove_2 . "(")
-line := HTVMmatchStrRrplace(line, "." . keyWordArrayIndexOf . "(", "." . keyWordArrayIndexOf_2 . "(")
+line := HTVMmatchStrRrplace(line, keyWordArrayAppend . "(", keyWordArrayAppend_2 . "(")
+line := HTVMmatchStrRrplace(line, keyWordArrayPop . "(", keyWordArrayPop_2 . "(")
+line := HTVMmatchStrRrplace(line, keyWordArraySize . "(", keyWordArraySize_2 . "(")
+line := HTVMmatchStrRrplace(line, keyWordArrayInsert . "(", keyWordArrayInsert_2 . "(")
+line := HTVMmatchStrRrplace(line, keyWordArrayRemove . "(", keyWordArrayRemove_2 . "(")
+line := HTVMmatchStrRrplace(line, keyWordArrayIndexOf . "(", keyWordArrayIndexOf_2 . "(")
 }
 else
 {
@@ -2836,7 +2870,7 @@ if (type = keyWordArrayOfStringsDefinition)
 }
 if (type = keyWordArrayOfFloatingPointNumbersDefinition)
 {
-    theType := "List<float>"
+    theType := "List<double>"
 }
 if (type = keyWordArrayOfBooleansDefinition)
 {
@@ -2920,7 +2954,7 @@ if (type = keyWordArrayOfStringsDefinition)
 }
 if (type = keyWordArrayOfFloatingPointNumbersDefinition)
 {
-    theType := "ArrayList<Float>"
+    theType := "ArrayList<Double>"
 }
 if (type = keyWordArrayOfBooleansDefinition)
 {
@@ -3497,7 +3531,7 @@ return line
 
 func str fixGoAindexUnseen(str codeToFixTheGoUNSEEN)
 {
-
+str tempFixBugInfLoop := ""
 str AindexKeyWOrd := keyWordAIndex
 ; Regex to find all A_Index<num> occurrences
 arr str fixAindexInGoUnused
@@ -3513,7 +3547,22 @@ if (RegExMatch(A_LoopField, AindexKeyWOrd . "\d+"))
 {
 if (SubStr(Trim(A_LoopField), 1, 4) != "for ")
 {
-fixAindexInGoUnused.add(AindexKeyWOrd . ExtractDigits(StrSplit(A_LoopField, AindexKeyWOrd, 2)))
+
+tempFixBugInfLoop := ""
+
+Loop, Parse, A_LoopField, " "
+{
+if (InStr(A_LoopField, AindexKeyWOrd))
+{
+tempFixBugInfLoop := ExtractDigits(StrSplit(A_LoopField, AindexKeyWOrd, 2))
+break
+}
+}
+
+
+
+fixAindexInGoUnused.add(AindexKeyWOrd . tempFixBugInfLoop)
+
 }
 }
 }
@@ -7012,7 +7061,7 @@ htCode .= "if (" . str1 . ")`n"
 }
 }
 if (langToConvertTo = "groovy") {
-htCode .= "if " . str1 . Chr(10)
+htCode .= "if (" . str1 . ")" . Chr(10)
 }
 }
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf))
@@ -7191,7 +7240,7 @@ htCode .= "else if (" . str1 . ")`n"
 }
 }
 if (langToConvertTo = "groovy") {
-htCode .= "else if " . str1 . Chr(10)
+htCode .= "else if (" . str1 . ")" . Chr(10)
 }
 }
 else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordElse)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordElse . ":"))
@@ -7430,7 +7479,7 @@ htCode .= "while (" . str1 . ")`n"
 }
 }
 if (langToConvertTo = "groovy") {
-htCode .= "while " . str1 . Chr(10)
+htCode .= "while (" . str1 . ")" .  Chr(10)
 }
 }
 else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordTry)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordTry . ":"))
@@ -7617,17 +7666,22 @@ htCode .= "finally`n"
 }
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordThrow))) = StrLower(keyWordThrow))
 {
-str1 := expressionParserTranspiler(fixArray1234(Trim(StringTrimLeft(A_LoopField, StrLen(keyWordThrow)))))
+str1 := Trim(A_LoopField)
+if (SubStrLastChars(str1, 1) = ";")
+{
+StringTrimRight, str1, str1, 1
+}
+str1 := expressionParserTranspiler(fixArray1234(Trim(StringTrimLeft(str1, StrLen(keyWordThrow)))))
 
 if (langToConvertTo = langFileExtension_2) 
 {
 if (useSemicolon_2 = "on")
 {
-htCode .= keyWordThrow_2 . " " . keyWordErrorMsg . "(" . str1 . ");`n"
+htCode .= keyWordThrow_2 . " " . keyWordErrorMsg_2 . "(" . str1 . ");`n"
 }
 else
 {
-htCode .= keyWordThrow_2 . " " . keyWordErrorMsg . "(" . str1 . ")`n"
+htCode .= keyWordThrow_2 . " " . keyWordErrorMsg_2 . "(" . str1 . ")`n"
 }
 }
 if (langToConvertTo = "cpp") 
@@ -7802,11 +7856,17 @@ else if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(StrLower(keyWordReturnSta
 {
 str1 := Trim(expressionParserTranspiler(Trim(StringTrimLeft(A_LoopField, StrLen(keyWordReturnStatement)))))
 
+if (SubStrLastChars(str1, 1) = ";")
+{
+StringTrimRight, str1, str1, 1
+}
+
+
 if (langToConvertTo = langFileExtension_2) 
 {
 if (useSemicolon_2 = "on")
 {
-htCode .= keyWordReturnStatement_2 . str1 . ";`n"
+htCode .= keyWordReturnStatement_2 . str1 . ";" . Chr(10)
 }
 else
 {
@@ -7887,7 +7947,7 @@ if (langToConvertTo = "go") {
 htCode .= "continue`n"
 }
 if (langToConvertTo = "lua") {
-htCode .= "goto continue`n"
+htCode .= "goto continue" . STR(luaContinueFix_Num) . Chr(10)
 }
 if (langToConvertTo = "cs") {
 htCode .= "continue;`n"
@@ -7928,7 +7988,8 @@ htCode .= "::" . keyWordContinue_2 . Chr(10)
 }
 
 if (langToConvertTo = "lua") {
-htCode .= "::continue::" . Chr(10)
+htCode .= "::continue" . STR(luaContinueFix_Num) . "::" . Chr(10)
+luaContinueFix_Num++
 }
 
 }
@@ -7953,7 +8014,7 @@ var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKli
 
 if (langToConvertTo = "go")
 {
-    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " := " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < someLimit; " . keyWordAIndex . "" . STR(AindexcharLength) . "++"
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " := " . AHKlikeLoopsIndexedAt . "; ; " . keyWordAIndex . "" . STR(AindexcharLength) . "++"
 }
 if (langToConvertTo = "lua")
 {
@@ -7961,23 +8022,23 @@ if (langToConvertTo = "lua")
 }
 if (langToConvertTo = "cs")
 {
-    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < someLimit; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; ; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 if (langToConvertTo = "java")
 {
-    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < someLimit; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; ; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 if (langToConvertTo = "kt")
 {
-    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..someLimit)"
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in generateSequence(" . AHKlikeLoopsIndexedAt . ") { it + 1 })"
 }
 if (langToConvertTo = "rb")
 {
-    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..someLimit do"
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..Float::INFINITY"
 }
 if (langToConvertTo = "nim")
 {
-    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..someLimit:"
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in countup(" . AHKlikeLoopsIndexedAt . ", high(int)):"
 }
 if (langToConvertTo = "ahk")
 {
@@ -7985,19 +8046,19 @@ if (langToConvertTo = "ahk")
 }
 if (langToConvertTo = "swift")
 {
-    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . " ..< someLimit"
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..."
 }
 if (langToConvertTo = "dart")
 {
-    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < someLimit; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; ; " . keyWordAIndex . STR(AindexcharLength) . "++)"
 }
 if (langToConvertTo = "ts")
 {
-    var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < someLimit; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+    var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; ; " . keyWordAIndex . STR(AindexcharLength) . "++)"
 }
 if (langToConvertTo = "groovy")
 {
-    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..someLimit)"
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; ; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 if (langToConvertTo = langFileExtension_2)
 {
@@ -8606,16 +8667,15 @@ if (langToConvertTo = "swift")
 }
 if (langToConvertTo = "dart")
 {
-    var1out := itemsOut . Chr(10) . "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = 0; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".length; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+    var1out := itemsOut . Chr(10) . "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".length; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 if (langToConvertTo = "ts")
 {
-    var1out := itemsOut . Chr(10) . "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = 0; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".length; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+    var1out := itemsOut . Chr(10) . "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".length; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
 if (langToConvertTo = "groovy")
 {
-skipLeftCuleyForFuncPLS := 1
-    var1out := itemsOut . Chr(10) . "for items" . STR(AindexcharLength) . ".eachWithIndex { " . keyWordALoopField . "" . STR(AindexcharLength) . " , " . keyWordAIndex . "" . STR(AindexcharLength) . " ->"
+    var1out := itemsOut . Chr(10) . "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..<items" . STR(AindexcharLength) . ".size())"
 }
 
 
@@ -8680,7 +8740,7 @@ if (langToConvertTo = "ts")
 }
 if (langToConvertTo = "groovy")
 {
-    theFixTextLoopLP := keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
+    theFixTextLoopLP := "def " . keyWordALoopField . "" . AindexcharLengthStr . " = items" . AindexcharLengthStr . "[" . keyWordAIndex . "" . AindexcharLengthStr . " - " . AHKlikeLoopsIndexedAt . "]"
 }
 
 
@@ -8946,21 +9006,21 @@ str2 := ""
 
 htCode .= str2 . Chr(10)
 }
-else if (SubStr(StrLower(A_LoopField), 1, StrLen(keyWordFunc)) = keyWordFunc) or (SubStr(StrLower(A_LoopField), 1, StrLen(keyWordAsync . keyWordFunc)) = keyWordAsync . keyWordFunc) and (InStr(A_LoopField, " main(") = false) and (lineDone = 0)
+else if (SubStr(StrLower(A_LoopField), 1, StrLen(keyWordFunc)) = StrLower(keyWordFunc)) or (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAsync) . StrLower(keyWordFunc))) = StrLower(keyWordAsync) . StrLower(keyWordFunc)) and (InStr(StrLower(A_LoopField), " main(") = false) and (lineDone = 0)
 {
 lineDone := 1
 
-if (SubStr(StrLower(A_LoopField), 1, StrLen(keyWordAsync . keyWordFunc)) = keyWordAsync . keyWordFunc)
+if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAsync) . StrLower(keyWordFunc))) = StrLower(keyWordAsync) . StrLower(keyWordFunc))
 {
 ; is async
 int1 := 1
-str1 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordAsync . keyWordFunc)))
+str1 := Trim(StringTrimLeft(A_LoopField, StrLen(StrLower(keyWordAsync . keyWordFunc))))
 }
 else
 {
 ; is async
 int1 := 0
-str1 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordFunc)))
+str1 := Trim(StringTrimLeft(A_LoopField, StrLen(StrLower(keyWordFunc))))
 }
 
 
@@ -9002,15 +9062,15 @@ if (Trim(str1) = "") {
     if (langToConvertTo = langFileExtension_2) {
         if (int1 = 1) { ; int1 1 = is async 0 = not async
             if (usePrefixTypeForTypeDefinition_2 = "on") {
-                htCode .= keyWordAsync . keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
+                htCode .= keyWordAsync_2 . keyWordFunc_2 . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
             } else {
-                htCode .= keyWordAsync . keyWordFunc . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
+                htCode .= keyWordAsync_2 . keyWordFunc_2 . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
             }
         } else {
             if (usePrefixTypeForTypeDefinition_2 = "on") {
-                htCode .= keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
+                htCode .= keyWordFunc_2 . getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
             } else {
-                htCode .= keyWordFunc . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
+                htCode .= keyWordFunc_2 . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
             }
         }
     }
@@ -9820,15 +9880,15 @@ str11 := str14
     if (langToConvertTo = langFileExtension_2) {
         if (int1 = 1) { ; int1 1 = is async 0 = not async
             if (usePrefixTypeForTypeDefinition_2 = "on") {
-                htCode .= keyWordAsync . keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
+                htCode .= keyWordAsync_2 . keyWordFunc_2 . getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
             } else {
-                htCode .= keyWordAsync . keyWordFunc . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)
+                htCode .= keyWordAsync_2 . keyWordFunc_2 . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)
             }
         } else {
             if (usePrefixTypeForTypeDefinition_2 = "on") {
-                htCode .= keyWordFunc . getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
+                htCode .= keyWordFunc_2 . getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
             } else {
-                htCode .= keyWordFunc . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)
+                htCode .= keyWordFunc_2 . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)
             }
         }
     }
@@ -9942,8 +10002,17 @@ if (langToConvertTo = "groovy")
 }
 
 
+if (langToConvertTo = langFileExtension_2) 
+{
+if (usePythonicColonSyntax_2 = "on")
+{
+StringTrimRight, htCode, htCode, 1
+htCode .= ":" . Chr(10)
 }
-else if (InStr(A_LoopField, " main(")) and (lineDone = 0)
+}
+
+}
+else if (InStr(StrLower(A_LoopField), " main(")) and (lineDone = 0)
 {
 lineDone := 1
 javaMainFuncSeen := 1
@@ -10415,16 +10484,7 @@ str4 := str2 . " " . str12 . " " . str6
 if (langToConvertTo = "cs")
 {
 
-if (csMainFuncSeen = 1)
-{
 str4 := "const " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
-}
-else
-{
-str4 := "static const " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
-}
-
-
 
 }
 if (langToConvertTo = "java")
@@ -10432,11 +10492,11 @@ if (langToConvertTo = "java")
 
 if (javaMainFuncSeen = 1)
 {
-str4 := "final" . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+str4 := "final " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
 }
 else
 {
-str4 := "static final" . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+str4 := "static final " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
 }
 
 }
@@ -10686,7 +10746,7 @@ if (langToConvertTo = langFileExtension_2) {
 }
 
 if (langToConvertTo = "cpp") {
-str4 := str3 . " " . str2 . " " . str12 . " " . str6
+str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
 }
 
 if (langToConvertTo = "py") {
@@ -13805,10 +13865,15 @@ str4 := "def " . str2
 htCode .= str4 . Chr(10)
 allVarsSoWeDontReDecVars_FIX_TOGGLE := 0
 }
-else if ((SubStr(Trim(A_LoopField), -2) = ");") or (SubStr(Trim(A_LoopField), -1) = ")")) and (!(InStr(A_LoopField, " main("))) and (lineDone = 0)
+else if ((SubStr(Trim(A_LoopField), -2) = ");") or (SubStr(Trim(A_LoopField), -1) = ")")) and (!(InStr(StrLower(A_LoopField), " main("))) and (lineDone = 0)
 {
 lineDone := 1
 str1 := Trim(A_LoopField)
+
+if (SubStrLastChars(str1, 1) = ";")
+{
+StringTrimRight, str1, str1, 1
+}
 
 fixExpertionLineFuncOnly := 0
 if (langToConvertTo = langFileExtension_2)
@@ -13828,23 +13893,15 @@ else
 {
 if (langToConvertTo = "py") or (langToConvertTo = "nim") or (langToConvertTo = "ahk") or (langToConvertTo = "go") or (langToConvertTo = "lua") or (langToConvertTo = "kt") or (langToConvertTo = "rb") or (langToConvertTo = "swift") or (langToConvertTo = "groovy") 
 {
-if (SubStrLastChars(str1, 1) = ";")
+str2 := expressionParserTranspiler(Trim(str1))
+}
+else
 {
-StringTrimRight, str1, str1, 1
-}
-
-}
-
-
-
 str2 := expressionParserTranspiler(Trim(str1)) . ";"
-if (langToConvertTo = "py") or (langToConvertTo = "nim") or (langToConvertTo = "ahk") or (langToConvertTo = "go") or (langToConvertTo = "lua") or (langToConvertTo = "kt") or (langToConvertTo = "rb") or (langToConvertTo = "swift") or (langToConvertTo = "groovy") 
-{
-if (SubStrLastChars(str2, 1) = ";")
-{
-StringTrimRight, str2, str2, 1
 }
-}
+
+
+
 
 
 }
@@ -14363,12 +14420,17 @@ if (langToConvertTo = "rb")
 htCode := StrReplace(htCode, "for HTVM----HTVM_FOR_hsdufosyigdydtddy_FOR_HTVM_Ruby_HTVM---HTVM-For_Ruby---AA ", "")
 }
 
+
+}
+
+
+
+
 if (langToConvertTo = "go")
 {
 htCode := fixGoAindexUnseen(htCode)
 }
 
-}
 
 
 
@@ -14671,23 +14733,6 @@ StringTrimRight, htCode, nextWordEndFixOut, 1
 
 
 
-nextWordEndFixOut := ""
-if (langToConvertTo = "groovy")
-{
-Loop, Parse, htCode, `n, `r
-{
-if (SubStr(Trim(A_LoopField), 1, StrLen("for items")) = "for items") and (InStr(A_LoopField, ".eachWithIndex"))
-{
-nextWordEndFixOut .= StrReplace(A_LoopField, "for items", "items") . Chr(10)
-}
-else
-{
-nextWordEndFixOut .= A_LoopField . Chr(10)
-}
-}
-StringTrimRight, htCode, nextWordEndFixOut, 1
-}
-
 
 
 
@@ -14749,7 +14794,10 @@ fixGoManGoIsSoAnnoyingBroooSkip := 0
 StringTrimRight, htCode, fixGoManGoIsSoAnnoyingBrooo, 1
 }
 
-
+if (langToConvertTo = "cs") or (langToConvertTo = "java")
+{
+htCode := fixCSandJAVAstaticBugForFunc(htCode)
+}
 
 if (COUNT_programmingBlock_InTheTranspiledLang != 0)
 {

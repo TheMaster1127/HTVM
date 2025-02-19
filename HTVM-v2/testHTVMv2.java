@@ -42,8 +42,10 @@ public static <T> void HTVM_Insert(ArrayList<T> arr, int index, T value) {
     arr.add(index, value);
 }
 
-public static <T> void HTVM_Remove(ArrayList<T> arr, T value) {
-    arr.remove(value);
+public static <T> void HTVM_Remove(ArrayList<T> arr, int index) {
+    if (index >= 0 && index < arr.size()) {
+        arr.remove(index);
+    }
 }
 
 public static <T> int HTVM_IndexOf(ArrayList<T> arr, T value) {
@@ -164,7 +166,43 @@ static byte var011 = (byte) 100;
 static short var012 = (short) 200;
 static int var013 = 230;
 static long var014 = 80009;
+public static void testFuncVars() {
+    final String constStrTest0 = "constStrTest0";
+    String constStrTest00 = "constStrTest00";
+    print(constStrTest0);
+    String[] items1 = LoopParseFunc(constStrTest00, "", "");
+    for (int A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
+        String A_LoopField1 = items1[A_Index1 - 0];
+        print(A_LoopField1);
+    }
+}
+static final String constStrTest = "constStrTest";
+static String letStrTest = "letStrTest";
+static String varStrTest = "varStrTest";
 public static void main(String[] args) {
+    final String constStrTest1 = "constStrTest1";
+    String letStrTest1 = "letStrTest1";
+    String varStrTest1 = "varStrTest1";
+    print(letStrTest);
+    print(varStrTest);
+    print(letStrTest1);
+    print(varStrTest1);
+    String[] items2 = LoopParseFunc(constStrTest, "", "");
+    for (int A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
+        String A_LoopField2 = items2[A_Index2 - 0];
+        print(A_LoopField2);
+    }
+    print("==========================================");
+    print("==========================================");
+    print("==========================================");
+    String[] items3 = LoopParseFunc(constStrTest1, "", "");
+    for (int A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
+        String A_LoopField3 = items3[A_Index3 - 0];
+        print(A_LoopField3);
+    }
+    print("==========================================");
+    print("==========================================");
+    print("==========================================");
     double var_1 = 0.0;
     char var_2 = 'a';
     byte  var_3 = 'a';
@@ -239,27 +277,27 @@ public static void main(String[] args) {
     
 
     print("==================================");
-    for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-        if (A_Index1 == 0) {
-            print(A_Index1);
+    for (int A_Index4 = 0; A_Index4 < 5 + 0; A_Index4++) {
+        if (A_Index4 == 0) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 1) {
-            print(A_Index1);
+        else if (A_Index4 == 1) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 2) {
-            print(A_Index1);
+        else if (A_Index4 == 2) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 3) {
-            print(A_Index1);
+        else if (A_Index4 == 3) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 4) {
-            print(A_Index1);
+        else if (A_Index4 == 4) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 5) {
-            print(A_Index1);
+        else if (A_Index4 == 5) {
+            print(A_Index4);
         } else {
             print("HOW????");
-            print(A_Index1);
+            print(A_Index4);
         }
     }
     boolean vars1 = false;
@@ -271,32 +309,30 @@ public static void main(String[] args) {
             vars1 = true;
         }
     }
-    for (int A_Index2 = 0; A_Index2 < someLimit; A_Index2++) {
-        if (A_Index2 == 6) {
+    for (int A_Index5 = 0; ; A_Index5++) {
+        if (A_Index5 == 6) {
             break;
         } else {
             continue;
         }
         // this is only for lua
-        ::continue::
     }
     String str1 = "hello 123 hello2";
-    String[] items3 = LoopParseFunc(str1, " ", "");
-    for (int A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
-        String A_LoopField3 = items3[A_Index3 - 0];
-        print(A_LoopField3);
+    String[] items6 = LoopParseFunc(str1, " ", "");
+    for (int A_Index6 = 0; A_Index6 < items6.length + 0; A_Index6++) {
+        String A_LoopField6 = items6[A_Index6 - 0];
+        print(A_LoopField6);
     }
     print("==================");
-    String[] items4 = LoopParseFunc(str1, "", "");
-    for (int A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
-        String A_LoopField4 = items4[A_Index4 - 0];
-        print(A_LoopField4);
-        if (A_LoopField4 == "2") {
+    String[] items7 = LoopParseFunc(str1, "", "");
+    for (int A_Index7 = 0; A_Index7 < items7.length + 0; A_Index7++) {
+        String A_LoopField7 = items7[A_Index7 - 0];
+        print(A_LoopField7);
+        if (A_LoopField7 == "2") {
             break;
         } else {
             continue;
         }
-        ::continue::
     }
     /*
     keyWordArrayAppend
@@ -313,7 +349,7 @@ public static void main(String[] args) {
     */
     ArrayList<String> arr1 = new ArrayList<>(List.of("hello1", "hello2"));
     ArrayList<Boolean> arr2 = new ArrayList<>(List.of(true, false));
-    ArrayList<Float> arr3 = new ArrayList<>(List.of(3.13, 3.14));
+    ArrayList<Double> arr3 = new ArrayList<>(List.of(3.13, 3.14));
     ArrayList<Integer> arr4 = new ArrayList<>(List.of(1, 6, 2));
     ArrayList<String> arr5 = new ArrayList<>(List.of("real STR"));
     // Array operations
@@ -327,8 +363,8 @@ public static void main(String[] args) {
     print("the index of arr1 for hello2 is:");
     print(idx1);
     HTVM_Pop(arr1);
-    for (int A_Index5 = 0; A_Index5 < HTVM_Size(arr1) + 0; A_Index5++) {
-        print(arr1.get(A_Index5));
+    for (int A_Index8 = 0; A_Index8 < HTVM_Size(arr1) + 0; A_Index8++) {
+        print(arr1.get(A_Index8));
     }
     HTVM_Append(arr2, true);
     int sizeArr2 = HTVM_Size(arr2);
@@ -340,8 +376,8 @@ public static void main(String[] args) {
     print("the index of arr2 for true is:");
     print(idx2);
     HTVM_Pop(arr2);
-    for (int A_Index6 = 0; A_Index6 < HTVM_Size(arr2) + 0; A_Index6++) {
-        print(arr2.get(A_Index6));
+    for (int A_Index9 = 0; A_Index9 < HTVM_Size(arr2) + 0; A_Index9++) {
+        print(arr2.get(A_Index9));
     }
     HTVM_Append(arr3, 6.489);
     int sizeArr3 = HTVM_Size(arr3);
@@ -353,8 +389,8 @@ public static void main(String[] args) {
     print("the index of arr3 for 3.14 is:");
     print(idx3);
     HTVM_Pop(arr3);
-    for (int A_Index7 = 0; A_Index7 < HTVM_Size(arr3) + 0; A_Index7++) {
-        print(arr3.get(A_Index7));
+    for (int A_Index10 = 0; A_Index10 < HTVM_Size(arr3) + 0; A_Index10++) {
+        print(arr3.get(A_Index10));
     }
     HTVM_Append(arr4, 69);
     int sizeArr4 = HTVM_Size(arr4);
@@ -366,8 +402,8 @@ public static void main(String[] args) {
     print("the index of arr4 for 69 is:");
     print(idx4);
     HTVM_Pop(arr4);
-    for (int A_Index8 = 0; A_Index8 < HTVM_Size(arr4) + 0; A_Index8++) {
-        print(arr4.get(A_Index8));
+    for (int A_Index11 = 0; A_Index11 < HTVM_Size(arr4) + 0; A_Index11++) {
+        print(arr4.get(A_Index11));
     }
     HTVM_Append(arr5, "hello3real");
     int sizeArr5 = HTVM_Size(arr5);
@@ -379,8 +415,8 @@ public static void main(String[] args) {
     print("the index of arr5 for hello3real is:");
     print(idx5);
     HTVM_Pop(arr5);
-    for (int A_Index9 = 0; A_Index9 < HTVM_Size(arr5) + 0; A_Index9++) {
-        print(arr5.get(A_Index9));
+    for (int A_Index12 = 0; A_Index12 < HTVM_Size(arr5) + 0; A_Index12++) {
+        print(arr5.get(A_Index12));
     }
     /*
     keyWordThrow
@@ -401,5 +437,6 @@ public static void main(String[] args) {
         print("This always runs, success or error.");
     }
     print("==============================================");
+
 }
 }

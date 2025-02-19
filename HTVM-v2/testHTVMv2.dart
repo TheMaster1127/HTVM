@@ -32,8 +32,10 @@ void HTVM_Insert<T>(List<T> arr, int index, T value) {
   arr.insert(index, value);
 }
 
-void HTVM_Remove<T>(List<T> arr, T value) {
-  arr.remove(value);
+void HTVM_Remove<T>(List<T> arr, int index) {
+    if (index >= 0 && index < arr.length) {
+        arr.removeAt(index);
+    }
 }
 
 int HTVM_IndexOf<T>(List<T> arr, T value) {
@@ -154,7 +156,43 @@ int var011 = 100;
 int var012 = 200;
 int var013 = 230;
 int var014 = 80009;
+void testFuncVars() {
+    const String constStrTest0 = "constStrTest0";
+    String constStrTest00 = "constStrTest00";
+    print(constStrTest0);
+    var items1 = LoopParseFunc(constStrTest00);
+    for (int A_Index1 = 0; A_Index1 < items1.length; A_Index1++) {
+        var A_LoopField1 = items1[A_Index1 - 0];
+        print(A_LoopField1);
+    }
+}
+const String constStrTest = "constStrTest";
+String letStrTest = "letStrTest";
+String? varStrTest = "varStrTest";
 void main(List<String> arguments) {
+    const String constStrTest1 = "constStrTest1";
+    String letStrTest1 = "letStrTest1";
+    String? varStrTest1 = "varStrTest1";
+    print(letStrTest);
+    print(varStrTest);
+    print(letStrTest1);
+    print(varStrTest1);
+    var items2 = LoopParseFunc(constStrTest);
+    for (int A_Index2 = 0; A_Index2 < items2.length; A_Index2++) {
+        var A_LoopField2 = items2[A_Index2 - 0];
+        print(A_LoopField2);
+    }
+    print("==========================================");
+    print("==========================================");
+    print("==========================================");
+    var items3 = LoopParseFunc(constStrTest1);
+    for (int A_Index3 = 0; A_Index3 < items3.length; A_Index3++) {
+        var A_LoopField3 = items3[A_Index3 - 0];
+        print(A_LoopField3);
+    }
+    print("==========================================");
+    print("==========================================");
+    print("==========================================");
     double? var_1;
     String? var_2;
     int? var_3;
@@ -229,27 +267,27 @@ void main(List<String> arguments) {
     
 
     print("==================================");
-    for (int A_Index1 = 0; A_Index1 < 5 + 0; A_Index1++) {
-        if (A_Index1 == 0) {
-            print(A_Index1);
+    for (int A_Index4 = 0; A_Index4 < 5 + 0; A_Index4++) {
+        if (A_Index4 == 0) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 1) {
-            print(A_Index1);
+        else if (A_Index4 == 1) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 2) {
-            print(A_Index1);
+        else if (A_Index4 == 2) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 3) {
-            print(A_Index1);
+        else if (A_Index4 == 3) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 4) {
-            print(A_Index1);
+        else if (A_Index4 == 4) {
+            print(A_Index4);
         }
-        else if (A_Index1 == 5) {
-            print(A_Index1);
+        else if (A_Index4 == 5) {
+            print(A_Index4);
         } else {
             print("HOW????");
-            print(A_Index1);
+            print(A_Index4);
         }
     }
     bool vars1 = false;
@@ -261,32 +299,30 @@ void main(List<String> arguments) {
             vars1 = true;
         }
     }
-    for (int A_Index2 = 0; A_Index2 < someLimit; A_Index2++) {
-        if (A_Index2 == 6) {
+    for (int A_Index5 = 0; ; A_Index5++) {
+        if (A_Index5 == 6) {
             break;
         } else {
             continue;
         }
         // this is only for lua
-        ::continue::
     }
     String str1 = "hello 123 hello2";
-    var items3 = LoopParseFunc(str1, " ");
-    for (int A_Index3 = 0; A_Index3 < items3.length; A_Index3++) {
-        var A_LoopField3 = items3[A_Index3 - 0];
-        print(A_LoopField3);
+    var items6 = LoopParseFunc(str1, " ");
+    for (int A_Index6 = 0; A_Index6 < items6.length; A_Index6++) {
+        var A_LoopField6 = items6[A_Index6 - 0];
+        print(A_LoopField6);
     }
     print("==================");
-    var items4 = LoopParseFunc(str1);
-    for (int A_Index4 = 0; A_Index4 < items4.length; A_Index4++) {
-        var A_LoopField4 = items4[A_Index4 - 0];
-        print(A_LoopField4);
-        if (A_LoopField4 == "2") {
+    var items7 = LoopParseFunc(str1);
+    for (int A_Index7 = 0; A_Index7 < items7.length; A_Index7++) {
+        var A_LoopField7 = items7[A_Index7 - 0];
+        print(A_LoopField7);
+        if (A_LoopField7 == "2") {
             break;
         } else {
             continue;
         }
-        ::continue::
     }
     /*
     keyWordArrayAppend
@@ -317,8 +353,8 @@ void main(List<String> arguments) {
     print("the index of arr1 for hello2 is:");
     print(idx1);
     HTVM_Pop(arr1);
-    for (int A_Index5 = 0; A_Index5 < HTVM_Size(arr1) + 0; A_Index5++) {
-        print(arr1[A_Index5]);
+    for (int A_Index8 = 0; A_Index8 < HTVM_Size(arr1) + 0; A_Index8++) {
+        print(arr1[A_Index8]);
     }
     HTVM_Append(arr2, true);
     int sizeArr2 = HTVM_Size(arr2);
@@ -330,8 +366,8 @@ void main(List<String> arguments) {
     print("the index of arr2 for true is:");
     print(idx2);
     HTVM_Pop(arr2);
-    for (int A_Index6 = 0; A_Index6 < HTVM_Size(arr2) + 0; A_Index6++) {
-        print(arr2[A_Index6]);
+    for (int A_Index9 = 0; A_Index9 < HTVM_Size(arr2) + 0; A_Index9++) {
+        print(arr2[A_Index9]);
     }
     HTVM_Append(arr3, 6.489);
     int sizeArr3 = HTVM_Size(arr3);
@@ -343,8 +379,8 @@ void main(List<String> arguments) {
     print("the index of arr3 for 3.14 is:");
     print(idx3);
     HTVM_Pop(arr3);
-    for (int A_Index7 = 0; A_Index7 < HTVM_Size(arr3) + 0; A_Index7++) {
-        print(arr3[A_Index7]);
+    for (int A_Index10 = 0; A_Index10 < HTVM_Size(arr3) + 0; A_Index10++) {
+        print(arr3[A_Index10]);
     }
     HTVM_Append(arr4, 69);
     int sizeArr4 = HTVM_Size(arr4);
@@ -356,8 +392,8 @@ void main(List<String> arguments) {
     print("the index of arr4 for 69 is:");
     print(idx4);
     HTVM_Pop(arr4);
-    for (int A_Index8 = 0; A_Index8 < HTVM_Size(arr4) + 0; A_Index8++) {
-        print(arr4[A_Index8]);
+    for (int A_Index11 = 0; A_Index11 < HTVM_Size(arr4) + 0; A_Index11++) {
+        print(arr4[A_Index11]);
     }
     HTVM_Append(arr5, "hello3real");
     int sizeArr5 = HTVM_Size(arr5);
@@ -369,8 +405,8 @@ void main(List<String> arguments) {
     print("the index of arr5 for hello3real is:");
     print(idx5);
     HTVM_Pop(arr5);
-    for (int A_Index9 = 0; A_Index9 < HTVM_Size(arr5) + 0; A_Index9++) {
-        print(arr5[A_Index9]);
+    for (int A_Index12 = 0; A_Index12 < HTVM_Size(arr5) + 0; A_Index12++) {
+        print(arr5[A_Index12]);
     }
     /*
     keyWordThrow

@@ -38,17 +38,16 @@ proc HTVM_Size[T](arr: seq[T]): int =
 
 proc HTVM_Insert[T](arr: var seq[T], index: int, value: T) =
   if index >= 0 and index <= arr.len:
-    arr.insert(index, value)
+    arr.insert(value, index)  # Correct order
 
-proc HTVM_Remove[T](arr: var seq[T], value: T) =
-  for i, v in arr:
-    if v == value:
-      arr.del(i)
-      break
+proc HTVM_Remove[T](arr: var seq[T], index: int) =
+  if index >= 0 and index < arr.len:
+    arr.delete(index)
 
 proc HTVM_IndexOf[T](arr: seq[T], value: T): int =
   for i, v in arr:
-    if v == value: return i
+    if v == value:
+      return i
   return -1
 
 
@@ -149,6 +148,35 @@ var var011: int8 = 100
 var var012: int16 = 200
 var var013: int32 = 230
 var var014: int64 = 80009
+proc testFuncVars() =
+    const constStrTest0: string = "constStrTest0"
+    var constStrTest00: string = "constStrTest00"
+    print(constStrTest0)
+    var items1 = LoopParseFunc(constStrTest00)
+    for A_Index1 , A_LoopField1 in items1:
+        print(A_LoopField1)
+const constStrTest: string = "constStrTest"
+var letStrTest: string = "letStrTest";
+var varStrTest: string = "varStrTest"
+const constStrTest1: string = "constStrTest1"
+var letStrTest1: string = "letStrTest1";
+var varStrTest1: string = "varStrTest1"
+print(letStrTest)
+print(varStrTest)
+print(letStrTest1)
+print(varStrTest1)
+var items2 = LoopParseFunc(constStrTest)
+for A_Index2 , A_LoopField2 in items2:
+    print(A_LoopField2)
+print("==========================================")
+print("==========================================")
+print("==========================================")
+var items3 = LoopParseFunc(constStrTest1)
+for A_Index3 , A_LoopField3 in items3:
+    print(A_LoopField3)
+print("==========================================")
+print("==========================================")
+print("==========================================")
 var var_1: float = 0.0
 var var_2: char = 'a'
 var var_3: uint8 = 0
@@ -223,22 +251,22 @@ func0("Hello World")
 
 
 print("==================================")
-for A_Index1 in 0..<5 + 0:
-    if (A_Index1 == 0):
-        print(A_Index1)
-    elif (A_Index1 == 1):
-        print(A_Index1)
-    elif (A_Index1 == 2):
-        print(A_Index1)
-    elif (A_Index1 == 3):
-        print(A_Index1)
-    elif (A_Index1 == 4):
-        print(A_Index1)
-    elif (A_Index1 == 5):
-        print(A_Index1)
+for A_Index4 in 0..<5 + 0:
+    if (A_Index4 == 0):
+        print(A_Index4)
+    elif (A_Index4 == 1):
+        print(A_Index4)
+    elif (A_Index4 == 2):
+        print(A_Index4)
+    elif (A_Index4 == 3):
+        print(A_Index4)
+    elif (A_Index4 == 4):
+        print(A_Index4)
+    elif (A_Index4 == 5):
+        print(A_Index4)
     else:
         print("HOW????")
-        print(A_Index1)
+        print(A_Index4)
 var vars1: bool = false
 var vars2: int = 0
 while (vars1 == false):
@@ -246,26 +274,24 @@ while (vars1 == false):
     print(vars2)
     if (vars2 == 6):
         vars1 = true
-for A_Index2 in 0..someLimit:
-    if (A_Index2 == 6):
+for A_Index5 in countup(0, high(int)):
+    if (A_Index5 == 6):
         break
     else:
         continue
     # this is only for lua
-    ::continue::
 var str1: string = "hello 123 hello2"
-var items3 = LoopParseFunc(str1, " ")
-for A_Index3 , A_LoopField3 in items3:
-    print(A_LoopField3)
+var items6 = LoopParseFunc(str1, " ")
+for A_Index6 , A_LoopField6 in items6:
+    print(A_LoopField6)
 print("==================")
-var items4 = LoopParseFunc(str1)
-for A_Index4 , A_LoopField4 in items4:
-    print(A_LoopField4)
-    if (A_LoopField4 == "2"):
+var items7 = LoopParseFunc(str1)
+for A_Index7 , A_LoopField7 in items7:
+    print(A_LoopField7)
+    if (A_LoopField7 == "2"):
         break
     else:
         continue
-    ::continue::
 #[
 keyWordArrayAppend
 keyWordArrayPop
@@ -295,8 +321,8 @@ var idx1: int = HTVM_IndexOf(arr1, "hello2")
 print("the index of arr1 for hello2 is:")
 print(idx1)
 HTVM_Pop(arr1)
-for A_Index5 in 0..<HTVM_Size(arr1) + 0:
-    print(arr1[A_Index5])
+for A_Index8 in 0..<HTVM_Size(arr1) + 0:
+    print(arr1[A_Index8])
 HTVM_Append(arr2, true)
 var sizeArr2: int = HTVM_Size(arr2)
 print("the size of arr2 is:")
@@ -307,8 +333,8 @@ var idx2: int = HTVM_IndexOf(arr2, true)
 print("the index of arr2 for true is:")
 print(idx2)
 HTVM_Pop(arr2)
-for A_Index6 in 0..<HTVM_Size(arr2) + 0:
-    print(arr2[A_Index6])
+for A_Index9 in 0..<HTVM_Size(arr2) + 0:
+    print(arr2[A_Index9])
 HTVM_Append(arr3, 6.489)
 var sizeArr3: int = HTVM_Size(arr3)
 print("the size of arr3 is:")
@@ -319,8 +345,8 @@ var idx3: int = HTVM_IndexOf(arr3, 3.14)
 print("the index of arr3 for 3.14 is:")
 print(idx3)
 HTVM_Pop(arr3)
-for A_Index7 in 0..<HTVM_Size(arr3) + 0:
-    print(arr3[A_Index7])
+for A_Index10 in 0..<HTVM_Size(arr3) + 0:
+    print(arr3[A_Index10])
 HTVM_Append(arr4, 69)
 var sizeArr4: int = HTVM_Size(arr4)
 print("the size of arr4 is:")
@@ -331,8 +357,8 @@ var idx4: int = HTVM_IndexOf(arr4, 69)
 print("the index of arr4 for 69 is:")
 print(idx4)
 HTVM_Pop(arr4)
-for A_Index8 in 0..<HTVM_Size(arr4) + 0:
-    print(arr4[A_Index8])
+for A_Index11 in 0..<HTVM_Size(arr4) + 0:
+    print(arr4[A_Index11])
 HTVM_Append(arr5, "hello3real")
 var sizeArr5: int = HTVM_Size(arr5)
 print("the size of arr5 is:")
@@ -343,8 +369,8 @@ var idx5: int = HTVM_IndexOf(arr5, "hello3real")
 print("the index of arr5 for hello3real is:")
 print(idx5)
 HTVM_Pop(arr5)
-for A_Index9 in 0..<HTVM_Size(arr5) + 0:
-    print(arr5[A_Index9])
+for A_Index12 in 0..<HTVM_Size(arr5) + 0:
+    print(arr5[A_Index12])
 #[
 keyWordThrow
 keyWordErrorMsg

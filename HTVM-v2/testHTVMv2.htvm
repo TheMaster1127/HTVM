@@ -176,9 +176,53 @@ int32 var013 := 230
 int64 var014 := 80009
 
 
+func void testFuncVars()
+{
+const str constStrTest0 := "constStrTest0"
+str constStrTest00 := "constStrTest00"
+print(constStrTest0)
+Loop, Parse, constStrTest00
+{
+print(A_LoopField)
+}
+
+
+}
+
+const str constStrTest := "constStrTest"
+let str letStrTest := "letStrTest"
+var str varStrTest := "varStrTest"
 
 
 main
+
+const str constStrTest1 := "constStrTest1"
+let str letStrTest1 := "letStrTest1"
+var str varStrTest1 := "varStrTest1"
+
+
+print(letStrTest)
+print(varStrTest)
+
+print(letStrTest1)
+print(varStrTest1)
+
+Loop, Parse, constStrTest
+{
+print(A_LoopField)
+}
+print("==========================================")
+print("==========================================")
+print("==========================================")
+
+Loop, Parse, constStrTest1
+{
+print(A_LoopField)
+}
+
+print("==========================================")
+print("==========================================")
+print("==========================================")
 
 double var_1
 char var_2
@@ -345,7 +389,7 @@ else
 continue
 }
 ; this is only for lua
-::continue::
+::continue
 }
 
 
@@ -366,7 +410,7 @@ else
 {
 continue
 }
-::continue:: ; this is only for lua
+::continue ; this is only for lua
 }
 
 
