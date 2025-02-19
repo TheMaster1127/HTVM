@@ -38,7 +38,7 @@ function func3(var1: string, var2: string = "hello"): void {
     print(var1 + " " + var2);
 }
 async function main(): Promise<void> {
-    print(awaitA func1("hi1"));
+    print(await func1("hi1"));
     await func2("hi2");;
     func3("hi3");
     func3("hi3", "hello3");

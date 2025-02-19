@@ -4221,6 +4221,12 @@ if (langToConvertTo = langFileExtension_2)
 expression := RegExReplace(expression, "\b" . keyWordAwait . "\b", keyWordAwait_2)
 }
 
+if (langToConvertTo = "js") or (langToConvertTo = "ts")
+{
+expression := RegExReplace(expression, "\b" . keyWordAwait . "\b", "await ")
+}
+
+
 if (langToConvertTo != "js") and (langToConvertTo != "ts") and (langToConvertTo != langFileExtension_2)
 {
 expression := RegExReplace(expression, "\b" . keyWordAwait . "\b", "")
@@ -6628,31 +6634,31 @@ codeOutFixAndAddMainFunc .= keyWordMainLabel_2 . Chr(10)
 }
 if (langToConvertTo = "cpp")
 {
-codeOutFixAndAddMainFunc .= "int main(int argc, char* argv[])`n{`n"
+codeOutFixAndAddMainFunc .= "int main(int argc, char* argv[])" . Chr(10) . "{" . Chr(10)
 }
 if (langToConvertTo = "js") and (useJavaScriptAmainFuncDef = "on")
 {
-codeOutFixAndAddMainFunc .= "async function main()`n{`n"
+codeOutFixAndAddMainFunc .= "async function main()" . Chr(10) . "{" . Chr(10)
 }
 if (langToConvertTo = "ts") and (useJavaScriptAmainFuncDef = "on")
 {
-codeOutFixAndAddMainFunc .= "async function main(): Promise<void>`n{`n"
+codeOutFixAndAddMainFunc .= "async function main(): Promise<void>" . Chr(10) . "{" . Chr(10)
 }
 if (langToConvertTo = "go")
 {
-codeOutFixAndAddMainFunc .= "func main()`n{`n"
+codeOutFixAndAddMainFunc .= "func main()" . Chr(10) . "{" . Chr(10)
 }
 if (langToConvertTo = "cs")
 {
-codeOutFixAndAddMainFunc .= "static void Main(string[] args)`n{`n"
+codeOutFixAndAddMainFunc .= "static void Main(string[] args)" . Chr(10) . "{" . Chr(10)
 }
 if (langToConvertTo = "java")
 {
-codeOutFixAndAddMainFunc .= "public static void main(String[] args)`n{`n"
+codeOutFixAndAddMainFunc .= "public static void main(String[] args)" . Chr(10) . "{" . Chr(10)
 }
 if (langToConvertTo = "kt")
 {
-codeOutFixAndAddMainFunc .= "fun main(args: Array<String>)`n{`n"
+codeOutFixAndAddMainFunc .= "fun main(args: Array<String>)" . Chr(10) . "{" . Chr(10)
 }
 if (langToConvertTo = "swift")
 {
@@ -6660,7 +6666,7 @@ codeOutFixAndAddMainFunc .= "func main()`n{`n"
 }
 if (langToConvertTo = "dart")
 {
-codeOutFixAndAddMainFunc .= "void main(List<String> arguments)`n{`n"
+codeOutFixAndAddMainFunc .= "void main(List<String> arguments)" . Chr(10) . "{" . Chr(10)
 }
 
 }
@@ -6672,40 +6678,40 @@ codeOutFixAndAddMainFunc .= A_LoopField . Chr(10)
 
 if (didWeUseMainLabel != 1) and (langToConvertTo = "cpp")
 {
-codeOutFixAndAddMainFunc := "int main(int argc, char* argv[])`n{`n" . codeOutFixAndAddMainFunc
+codeOutFixAndAddMainFunc := "int main(int argc, char* argv[])" . Chr(10) . "{" . Chr(10) . codeOutFixAndAddMainFunc
 }
 if (didWeUseMainLabel != 1) and (langToConvertTo = "js") and (useJavaScriptAmainFuncDef = "on")
 {
-codeOutFixAndAddMainFunc := "async function main()`n{`n" . codeOutFixAndAddMainFunc
+codeOutFixAndAddMainFunc := "async function main()" . Chr(10) . "{" . Chr(10) . codeOutFixAndAddMainFunc
 }
 
 if (didWeUseMainLabel != 1) and (langToConvertTo = "ts") and (useJavaScriptAmainFuncDef = "on")
 {
-    codeOutFixAndAddMainFunc := "async function main(): Promise<void>`n{`n" . codeOutFixAndAddMainFunc
+    codeOutFixAndAddMainFunc := "async function main(): Promise<void>" . Chr(10) . "{" . Chr(10) . codeOutFixAndAddMainFunc
 }
 if (didWeUseMainLabel != 1) and (langToConvertTo = "go")
 {
-    codeOutFixAndAddMainFunc := "func main()`n{`n" . codeOutFixAndAddMainFunc
+    codeOutFixAndAddMainFunc := "func main()" . Chr(10) . "{" . Chr(10) . codeOutFixAndAddMainFunc
 }
 if (didWeUseMainLabel != 1) and (langToConvertTo = "cs")
 {
-    codeOutFixAndAddMainFunc := "static void Main(string[] args)`n{`n" . codeOutFixAndAddMainFunc
+    codeOutFixAndAddMainFunc := "static void Main(string[] args)" . Chr(10) . "{" . Chr(10) . codeOutFixAndAddMainFunc
 }
 if (didWeUseMainLabel != 1) and (langToConvertTo = "java")
 {
-    codeOutFixAndAddMainFunc := "public static void main(String[] args)`n{`n" . codeOutFixAndAddMainFunc
+    codeOutFixAndAddMainFunc := "public static void main(String[] args)" . Chr(10) . "{" . Chr(10) . codeOutFixAndAddMainFunc
 }
 if (didWeUseMainLabel != 1) and (langToConvertTo = "kt")
 {
-    codeOutFixAndAddMainFunc := "fun main(args: Array<String>)`n{`n" . codeOutFixAndAddMainFunc
+    codeOutFixAndAddMainFunc := "fun main(args: Array<String>)" . Chr(10) . "{" . Chr(10) . codeOutFixAndAddMainFunc
 }
 if (didWeUseMainLabel != 1) and (langToConvertTo = "swift")
 {
-    codeOutFixAndAddMainFunc := "func main()`n{`n" . codeOutFixAndAddMainFunc
+    codeOutFixAndAddMainFunc := "func main()" . Chr(10) . "{" . Chr(10) . codeOutFixAndAddMainFunc
 }
 if (didWeUseMainLabel != 1) and (langToConvertTo = "dart")
 {
-    codeOutFixAndAddMainFunc := "void main(List<String> arguments)`n{`n" . codeOutFixAndAddMainFunc
+    codeOutFixAndAddMainFunc := "void main(List<String> arguments)" . Chr(10) . "{" . Chr(10) . codeOutFixAndAddMainFunc
 }
 
 StringTrimRight, code, codeOutFixAndAddMainFunc, 1
@@ -6911,22 +6917,22 @@ if (useParentheses = "on")
 {
 if (useParentheses_2 = "on")
 {
-htCode .= keyWordIF_2 . str1 . ":`n"
+htCode .= keyWordIF_2 . str1 . ":" . Chr(10)
 }
 else
 {
-htCode .= keyWordIF_2 . StringTrimRight(StringTrimLeft(Trim(str1), 1), 1) . ":`n"
+htCode .= keyWordIF_2 . StringTrimRight(StringTrimLeft(Trim(str1), 1), 1) . ":" . Chr(10)
 }
 }
 else
 {
 if (useParentheses_2 = "on")
 {
-htCode .= keyWordIF_2 . "(" . str1 . "):`n"
+htCode .= keyWordIF_2 . "(" . str1 . "):" . Chr(10)
 }
 else
 {
-htCode .= keyWordIF_2 . str1 . ":`n"
+htCode .= keyWordIF_2 . str1 . ":" . Chr(10)
 }
 }
 
@@ -6955,7 +6961,7 @@ else
 {
 if (useParentheses_2 = "on")
 {
-htCode .= keyWordIF_2 . "(" . str1 . ")`n"
+htCode .= keyWordIF_2 . "(" . str1 . ")" . Chr(10)
 }
 else
 {
@@ -6996,7 +7002,7 @@ if (langToConvertTo = "go") {
 htCode .= "if " . str1 . Chr(10)
 }
 if (langToConvertTo = "lua") {
-htCode .= "if " . str1 . " then`n"
+htCode .= "if " . str1 . " then" . Chr(10)
 }
 if (langToConvertTo = "cs") {
 if (useParentheses = "on")
@@ -7005,7 +7011,7 @@ htCode .= "if " . str1 . Chr(10)
 }
 else
 {
-htCode .= "if (" . str1 . ")`n"
+htCode .= "if (" . str1 . ")" . Chr(10)
 }
 }
 if (langToConvertTo = "java") {
@@ -7015,7 +7021,7 @@ htCode .= "if " . str1 . Chr(10)
 }
 else
 {
-htCode .= "if (" . str1 . ")`n"
+htCode .= "if (" . str1 . ")" . Chr(10)
 }
 }
 if (langToConvertTo = "kt") {
@@ -7025,14 +7031,14 @@ htCode .= "if " . str1 . Chr(10)
 }
 else
 {
-htCode .= "if (" . str1 . ")`n"
+htCode .= "if (" . str1 . ")" . Chr(10)
 }
 }
 if (langToConvertTo = "rb") {
 htCode .= "if " . str1 . Chr(10)
 }
 if (langToConvertTo = "nim") {
-htCode .= "if " . str1 . ":`n"
+htCode .= "if " . str1 . ":" . Chr(10)
 }
 if (langToConvertTo = "ahk") {
 if (useParentheses = "on")
@@ -7041,7 +7047,7 @@ htCode .= "if " . str1 . Chr(10)
 }
 else
 {
-htCode .= "if (" . str1 . ")`n"
+htCode .= "if (" . str1 . ")" . Chr(10)
 }
 }
 if (langToConvertTo = "swift") {
@@ -7054,7 +7060,7 @@ htCode .= "if " . str1 . Chr(10)
 }
 else
 {
-htCode .= "if (" . str1 . ")`n"
+htCode .= "if (" . str1 . ")" . Chr(10)
 }
 }
 if (langToConvertTo = "ts") {
@@ -7064,7 +7070,7 @@ htCode .= "if " . str1 . Chr(10)
 }
 else
 {
-htCode .= "if (" . str1 . ")`n"
+htCode .= "if (" . str1 . ")" . Chr(10)
 }
 }
 if (langToConvertTo = "groovy") {
@@ -8992,7 +8998,7 @@ if (langToConvertTo = "js") or (langToConvertTo = "ts") or (langToConvertTo = la
 
 if (langToConvertTo = langFileExtension_2)
 {
-htCode .= keyWordAwait_2 . " " . str2 . Chr(10)
+htCode .= keyWordAwait_2 . str2 . Chr(10)
 }
 else
 {

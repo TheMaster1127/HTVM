@@ -3712,6 +3712,9 @@ std::string expressionParserTranspiler(std::string expression) {
     if (langToConvertTo == langFileExtension_2) {
         expression = RegExReplace(expression, "\\b" + keyWordAwait + "\\b", keyWordAwait_2);
     }
+    if (langToConvertTo == "js" || langToConvertTo == "ts") {
+        expression = RegExReplace(expression, "\\b" + keyWordAwait + "\\b", "await ");
+    }
     if (langToConvertTo != "js" && langToConvertTo != "ts" && langToConvertTo != langFileExtension_2) {
         expression = RegExReplace(expression, "\\b" + keyWordAwait + "\\b", "");
     }
@@ -5677,62 +5680,62 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         codeOutFixAndAddMainFunc += keyWordMainLabel_2 + Chr(10);
                     }
                     if (langToConvertTo == "cpp") {
-                        codeOutFixAndAddMainFunc += "int main(int argc, char* argv[])\n{\n";
+                        codeOutFixAndAddMainFunc += "int main(int argc, char* argv[])" + Chr(10) + "{" + Chr(10);
                     }
                     if (langToConvertTo == "js" && useJavaScriptAmainFuncDef == "on") {
-                        codeOutFixAndAddMainFunc += "async function main()\n{\n";
+                        codeOutFixAndAddMainFunc += "async function main()" + Chr(10) + "{" + Chr(10);
                     }
                     if (langToConvertTo == "ts" && useJavaScriptAmainFuncDef == "on") {
-                        codeOutFixAndAddMainFunc += "async function main(): Promise<void>\n{\n";
+                        codeOutFixAndAddMainFunc += "async function main(): Promise<void>" + Chr(10) + "{" + Chr(10);
                     }
                     if (langToConvertTo == "go") {
-                        codeOutFixAndAddMainFunc += "func main()\n{\n";
+                        codeOutFixAndAddMainFunc += "func main()" + Chr(10) + "{" + Chr(10);
                     }
                     if (langToConvertTo == "cs") {
-                        codeOutFixAndAddMainFunc += "static void Main(string[] args)\n{\n";
+                        codeOutFixAndAddMainFunc += "static void Main(string[] args)" + Chr(10) + "{" + Chr(10);
                     }
                     if (langToConvertTo == "java") {
-                        codeOutFixAndAddMainFunc += "public static void main(String[] args)\n{\n";
+                        codeOutFixAndAddMainFunc += "public static void main(String[] args)" + Chr(10) + "{" + Chr(10);
                     }
                     if (langToConvertTo == "kt") {
-                        codeOutFixAndAddMainFunc += "fun main(args: Array<String>)\n{\n";
+                        codeOutFixAndAddMainFunc += "fun main(args: Array<String>)" + Chr(10) + "{" + Chr(10);
                     }
                     if (langToConvertTo == "swift") {
                         codeOutFixAndAddMainFunc += "func main()\n{\n";
                     }
                     if (langToConvertTo == "dart") {
-                        codeOutFixAndAddMainFunc += "void main(List<String> arguments)\n{\n";
+                        codeOutFixAndAddMainFunc += "void main(List<String> arguments)" + Chr(10) + "{" + Chr(10);
                     }
                 } else {
                     codeOutFixAndAddMainFunc += A_LoopField103 + Chr(10);
                 }
             }
             if (didWeUseMainLabel != 1 && langToConvertTo == "cpp") {
-                codeOutFixAndAddMainFunc = "int main(int argc, char* argv[])\n{\n" + codeOutFixAndAddMainFunc;
+                codeOutFixAndAddMainFunc = "int main(int argc, char* argv[])" + Chr(10) + "{" + Chr(10) + codeOutFixAndAddMainFunc;
             }
             if (didWeUseMainLabel != 1 && langToConvertTo == "js" && useJavaScriptAmainFuncDef == "on") {
-                codeOutFixAndAddMainFunc = "async function main()\n{\n" + codeOutFixAndAddMainFunc;
+                codeOutFixAndAddMainFunc = "async function main()" + Chr(10) + "{" + Chr(10) + codeOutFixAndAddMainFunc;
             }
             if (didWeUseMainLabel != 1 && langToConvertTo == "ts" && useJavaScriptAmainFuncDef == "on") {
-                codeOutFixAndAddMainFunc = "async function main(): Promise<void>\n{\n" + codeOutFixAndAddMainFunc;
+                codeOutFixAndAddMainFunc = "async function main(): Promise<void>" + Chr(10) + "{" + Chr(10) + codeOutFixAndAddMainFunc;
             }
             if (didWeUseMainLabel != 1 && langToConvertTo == "go") {
-                codeOutFixAndAddMainFunc = "func main()\n{\n" + codeOutFixAndAddMainFunc;
+                codeOutFixAndAddMainFunc = "func main()" + Chr(10) + "{" + Chr(10) + codeOutFixAndAddMainFunc;
             }
             if (didWeUseMainLabel != 1 && langToConvertTo == "cs") {
-                codeOutFixAndAddMainFunc = "static void Main(string[] args)\n{\n" + codeOutFixAndAddMainFunc;
+                codeOutFixAndAddMainFunc = "static void Main(string[] args)" + Chr(10) + "{" + Chr(10) + codeOutFixAndAddMainFunc;
             }
             if (didWeUseMainLabel != 1 && langToConvertTo == "java") {
-                codeOutFixAndAddMainFunc = "public static void main(String[] args)\n{\n" + codeOutFixAndAddMainFunc;
+                codeOutFixAndAddMainFunc = "public static void main(String[] args)" + Chr(10) + "{" + Chr(10) + codeOutFixAndAddMainFunc;
             }
             if (didWeUseMainLabel != 1 && langToConvertTo == "kt") {
-                codeOutFixAndAddMainFunc = "fun main(args: Array<String>)\n{\n" + codeOutFixAndAddMainFunc;
+                codeOutFixAndAddMainFunc = "fun main(args: Array<String>)" + Chr(10) + "{" + Chr(10) + codeOutFixAndAddMainFunc;
             }
             if (didWeUseMainLabel != 1 && langToConvertTo == "swift") {
-                codeOutFixAndAddMainFunc = "func main()\n{\n" + codeOutFixAndAddMainFunc;
+                codeOutFixAndAddMainFunc = "func main()" + Chr(10) + "{" + Chr(10) + codeOutFixAndAddMainFunc;
             }
             if (didWeUseMainLabel != 1 && langToConvertTo == "dart") {
-                codeOutFixAndAddMainFunc = "void main(List<String> arguments)\n{\n" + codeOutFixAndAddMainFunc;
+                codeOutFixAndAddMainFunc = "void main(List<String> arguments)" + Chr(10) + "{" + Chr(10) + codeOutFixAndAddMainFunc;
             }
             code = StringTrimRight(codeOutFixAndAddMainFunc, 1);
             // main loop
@@ -5912,15 +5915,15 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     if (usePythonicColonSyntax_2 == "on") {
                         if (useParentheses == "on") {
                             if (useParentheses_2 == "on") {
-                                htCode += keyWordIF_2 + str1 + ":\n";
+                                htCode += keyWordIF_2 + str1 + ":" + Chr(10);
                             } else {
-                                htCode += keyWordIF_2 + StringTrimRight(StringTrimLeft(Trim(str1), 1), 1) + ":\n";
+                                htCode += keyWordIF_2 + StringTrimRight(StringTrimLeft(Trim(str1), 1), 1) + ":" + Chr(10);
                             }
                         } else {
                             if (useParentheses_2 == "on") {
-                                htCode += keyWordIF_2 + "(" + str1 + "):\n";
+                                htCode += keyWordIF_2 + "(" + str1 + "):" + Chr(10);
                             } else {
-                                htCode += keyWordIF_2 + str1 + ":\n";
+                                htCode += keyWordIF_2 + str1 + ":" + Chr(10);
                             }
                         }
                     } else {
@@ -5932,7 +5935,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             }
                         } else {
                             if (useParentheses_2 == "on") {
-                                htCode += keyWordIF_2 + "(" + str1 + ")\n";
+                                htCode += keyWordIF_2 + "(" + str1 + ")" + Chr(10);
                             } else {
                                 htCode += keyWordIF_2 + str1 + Chr(10);
                             }
@@ -5960,40 +5963,40 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "if " + str1 + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
-                    htCode += "if " + str1 + " then\n";
+                    htCode += "if " + str1 + " then" + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
                     if (useParentheses == "on") {
                         htCode += "if " + str1 + Chr(10);
                     } else {
-                        htCode += "if (" + str1 + ")\n";
+                        htCode += "if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "java") {
                     if (useParentheses == "on") {
                         htCode += "if " + str1 + Chr(10);
                     } else {
-                        htCode += "if (" + str1 + ")\n";
+                        htCode += "if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "kt") {
                     if (useParentheses == "on") {
                         htCode += "if " + str1 + Chr(10);
                     } else {
-                        htCode += "if (" + str1 + ")\n";
+                        htCode += "if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "rb") {
                     htCode += "if " + str1 + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += "if " + str1 + ":\n";
+                    htCode += "if " + str1 + ":" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
                     if (useParentheses == "on") {
                         htCode += "if " + str1 + Chr(10);
                     } else {
-                        htCode += "if (" + str1 + ")\n";
+                        htCode += "if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "swift") {
@@ -6003,14 +6006,14 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     if (useParentheses == "on") {
                         htCode += "if " + str1 + Chr(10);
                     } else {
-                        htCode += "if (" + str1 + ")\n";
+                        htCode += "if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "ts") {
                     if (useParentheses == "on") {
                         htCode += "if " + str1 + Chr(10);
                     } else {
-                        htCode += "if (" + str1 + ")\n";
+                        htCode += "if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "groovy") {
@@ -6379,10 +6382,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "LUA DOSENT HAVE A CATCH USE PROGRAMMING BLOCKS MAYBE IDK\n";
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += "catch (Exception " + str1 + ")n";
+                    htCode += "catch (Exception " + str1 + ")\n";
                 }
                 if (langToConvertTo == "java") {
-                    htCode += "catch (Exception " + str1 + ")\n";
+                    htCode += "catch (Exception " + str1 + ")n";
                 }
                 if (langToConvertTo == "kt") {
                     htCode += "catch (" + str1 + ": Exception)\n";
@@ -6483,7 +6486,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "raise Exception(" + str1 + ")\n";
                 }
                 if (langToConvertTo == "js") {
-                    htCode += "throw new Error(" + str1 + ");n";
+                    htCode += "throw new Error(" + str1 + ");\n";
                 }
                 if (langToConvertTo == "go") {
                     htCode += "GO DOSENT HAVE A THROW USE PROGRAMMING BLOCKS MAYBE IDK\n";
@@ -6513,7 +6516,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "try ErrorMsg(" + str1 + ")\n";
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += "throw Exception(" + str1 + ");\n";
+                    htCode += "throw Exception(" + str1 + ");n";
                 }
                 if (langToConvertTo == "ts") {
                     htCode += " throw new Error(" + str1 + ");\n";
@@ -7443,7 +7446,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 fixExpertionLineFuncOnly = 0;
                 if (langToConvertTo == "js" || langToConvertTo == "ts" || langToConvertTo == langFileExtension_2) {
                     if (langToConvertTo == langFileExtension_2) {
-                        htCode += keyWordAwait_2 + " " + str2 + Chr(10);
+                        htCode += keyWordAwait_2 + str2 + Chr(10);
                     } else {
                         htCode += "await " + str2 + Chr(10);
                     }

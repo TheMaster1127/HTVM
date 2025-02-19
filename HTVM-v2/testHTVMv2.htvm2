@@ -6,7 +6,7 @@ funcA func3(var1: str_A, var2: str_A eKakvo? "hello"): aaaaaaaaaaaaaaaaaaaaaaaaa
     print(var1 CAT " " CAT var2);
 STARTING...
 print(awaitA func1("hi1"));
-awaitA  func2("hi2");
+awaitA func2("hi2");
 func3("hi3");
 func3("hi3", "hello3");
 var1: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz;
