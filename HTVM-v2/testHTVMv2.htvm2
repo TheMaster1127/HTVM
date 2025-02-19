@@ -1,393 +1,43 @@
-#-- start
-keyWordCodeInTheTranspiledLangStartCPP
-void func0(const std::string& input) {
-    std::cout << input << std::endl;
-}
-keyWordCodeInTheTranspiledLangEndCPP
-keyWordCodeInTheTranspiledLangStartPY
-def func0(input: str):
-    print(input)
-keyWordCodeInTheTranspiledLangEndPY
-keyWordCodeInTheTranspiledLangStartJS
-function func0(input) {
-    console.log(input);
-}
-keyWordCodeInTheTranspiledLangEndJS
-keyWordCodeInTheTranspiledLangStartGO
-func func0(input string) {
-    fmt.Println(input)
-}
-keyWordCodeInTheTranspiledLangEndGO
-keyWordCodeInTheTranspiledLangStartLUA
-function func0(input)
-    print(input)
-end
-keyWordCodeInTheTranspiledLangEndLUA
-keyWordCodeInTheTranspiledLangStartCS
-static void func0(string input) {
-    Console.WriteLine(input);
-}
-keyWordCodeInTheTranspiledLangEndCS
-keyWordCodeInTheTranspiledLangStartJAVA
-public static void func0(String input) {
-    System.out.println(input);
-}
-keyWordCodeInTheTranspiledLangEndJAVA
-keyWordCodeInTheTranspiledLangStartKT
-fun func0(input: String) {
-    println(input)
-}
-keyWordCodeInTheTranspiledLangEndKT
-keyWordCodeInTheTranspiledLangStartRB
-def func0(input)
-    puts input
-end
-keyWordCodeInTheTranspiledLangEndRB
-keyWordCodeInTheTranspiledLangStartNIM
-proc func0(input: string) =
-  echo input
-keyWordCodeInTheTranspiledLangEndNIM
-keyWordCodeInTheTranspiledLangStartAHK
-func0(input) {
-    MsgBox, %input%
-}
-keyWordCodeInTheTranspiledLangEndAHK
-keyWordCodeInTheTranspiledLangStartSWIFT
-func func0(_ input: String) {
-    print(input)
-}
-keyWordCodeInTheTranspiledLangEndSWIFT
-keyWordCodeInTheTranspiledLangStartDART
-void func0(String input) {
-  print(input);
-}
-keyWordCodeInTheTranspiledLangEndDART
-keyWordCodeInTheTranspiledLangStartTS
-function func0(input: string): void {
-  console.log(input);
-}
-keyWordCodeInTheTranspiledLangEndTS
-keyWordCodeInTheTranspiledLangStartGROOVY
-def func0(input) {
-    println(input)
-}
-keyWordCodeInTheTranspiledLangEndGROOVY
-funcA func1(var1: double_A, var2: char_A, var3: uint8_A, var4: uint16_A, var5: uint32_A, var6: uint64_A, var7: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz, var8: str_A, var9: bool_A, var10: float_A, var11: int8_A, var12: int16_A, var13: int32_A, var14: int64_A): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:
-    print(var1);
-    print(var2);
-    print(var3);
-    print(var4);
-    print(var5);
-    print(var6);
-    print(var7);
-    print(var8);
-    print(var9);
-    print(var10);
-    print(var11);
-    print(var12);
-    print(var13);
-    print(var14);
-funcA func2(var1: double_A): double_A:
-    yeet var1;
-funcA func3(var1: char_A): char_A:
-    yeet var1;
-funcA func4(var1: uint8_A): uint8_A:
-    yeet var1;
-funcA func5(var1: uint16_A): uint16_A:
-    yeet var1;
-funcA func6(var1: uint32_A): uint32_A:
-    yeet var1;
-funcA func7(var1: uint64_A): uint64_A:
-    yeet var1;
-funcA func8(var1: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz): werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz:
-    yeet var1;
-funcA func9(var1: str_A): str_A:
-    yeet var1;
-funcA func10(var1: bool_A): bool_A:
-    yeet var1;
-funcA func11(var1: float_A): float_A:
-    yeet var1;
-funcA func12(var1: int8_A): int8_A:
-    yeet var1;
-funcA func13(var1: int16_A): int16_A:
-    yeet var1;
-funcA func14(var1: int32_A): int32_A:
-    yeet var1;
-funcA func15(var1: int64_A): int64_A:
-    yeet var1;
-[-O-]
-this
-is
-a
-multy
-line
-comment
-[-_-]
-#-- outside vars
-var01: double_A e kakvo? 3.1234567891011;
-var02: char_A e kakvo? 'a';
-var03: uint8_A e kakvo? 25;
-var04: uint16_A e kakvo? 30;
-var05: uint32_A e kakvo? 35;
-var06: uint64_A e kakvo? 40;
-var07: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz e kakvo? 100;
-var08: str_A e kakvo? "hello var ouside";
-var09: bool_A e kakvo? neeeeeeeeeee;
-var010: float_A e kakvo? 3.14;
-var011: int8_A e kakvo? 100;
-var012: int16_A e kakvo? 200;
-var013: int32_A e kakvo? 230;
-var014: int64_A e kakvo? 80009;
-funcA testFuncVars(): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:
-    eternal pain  constStrTest0: str_A e kakvo? "constStrTest0";
-    constStrTest00: str_A e kakvo? "constStrTest00";
-    print(constStrTest0);
-    stringLoop, constStrTest00:
-        print(A_LoopFieldA);
-eternal pain  constStrTest: str_A e kakvo? "constStrTest";
-letkata  letStrTest: str_A e kakvo? "letStrTest";
-varkata  varStrTest: str_A e kakvo? "varStrTest";
+asyncA funcA func1(var1: str_A): str_A:
+    yeet var1 CAT var1;
+asyncA funcA func2(var1: str_A): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:
+    print(var1 CAT var1);
+funcA func3(var1: str_A, var2: str_A eKakvo? "hello"): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:
+    print(var1 CAT " " CAT var2);
 STARTING...
-eternal pain  constStrTest1: str_A e kakvo? "constStrTest1";
-letkata  letStrTest1: str_A e kakvo? "letStrTest1";
-varkata  varStrTest1: str_A e kakvo? "varStrTest1";
-print(letStrTest);
-print(varStrTest);
-print(letStrTest1);
-print(varStrTest1);
-stringLoop, constStrTest:
-    print(A_LoopFieldA);
-print("==========================================");
-print("==========================================");
-print("==========================================");
-stringLoop, constStrTest1:
-    print(A_LoopFieldA);
-print("==========================================");
-print("==========================================");
-print("==========================================");
-var_1: double_A;
-var_2: char_A;
-var_3: uint8_A;
-var_4: uint16_A;
-var_5: uint32_A;
-var_6: uint64_A;
-var_7: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz;
-var_8: str_A;
-var_9: bool_A;
-var_10: float_A;
-var_11: int8_A;
-var_12: int16_A;
-var_13: int32_A;
-var_14: int64_A;
-func1(var01, var02, var03, var04, var05, var06, var07, var08, var09, var010, var011, var012, var013, var014);
-var_1 e kakvo? func2(var01);
-var_2 e kakvo? func3(var02);
-var_3 e kakvo? func4(var03);
-var_4 e kakvo? func5(var04);
-var_5 e kakvo? func6(var05);
-var_6 e kakvo? func7(var06);
-var_7 e kakvo? func8(var07);
-var_8 e kakvo? func9(var08);
-var_9 e kakvo? func10(var09);
-var_10 e kakvo? func11(var010);
-var_11 e kakvo? func12(var011);
-var_12 e kakvo? func13(var012);
-var_13 e kakvo? func14(var013);
-var_14 e kakvo? func15(var014);
-print(var_1);
-print(var_2);
-print(var_3);
-print(var_4);
-print(var_5);
-print(var_6);
-print(var_7);
-print(var_8);
-print(var_9);
-print(var_10);
-print(var_11);
-print(var_12);
-print(var_13);
-print(var_14);
-#-- start
-keyWordCodeInTheTranspiledLangStartCPP
-func0("Hello World");
-keyWordCodeInTheTranspiledLangEndCPP
-keyWordCodeInTheTranspiledLangStartPY
-func0("Hello World")
-keyWordCodeInTheTranspiledLangEndPY
-keyWordCodeInTheTranspiledLangStartJS
-func0("Hello World");
-keyWordCodeInTheTranspiledLangEndJS
-keyWordCodeInTheTranspiledLangStartGO
-func0("Hello World")
-keyWordCodeInTheTranspiledLangEndGO
-keyWordCodeInTheTranspiledLangStartLUA
-func0("Hello World")
-keyWordCodeInTheTranspiledLangEndLUA
-keyWordCodeInTheTranspiledLangStartCS
-func0("Hello World");
-keyWordCodeInTheTranspiledLangEndCS
-keyWordCodeInTheTranspiledLangStartJAVA
-func0("Hello World");
-keyWordCodeInTheTranspiledLangEndJAVA
-keyWordCodeInTheTranspiledLangStartKT
-func0("Hello World")
-keyWordCodeInTheTranspiledLangEndKT
-keyWordCodeInTheTranspiledLangStartRB
-func0("Hello World")
-keyWordCodeInTheTranspiledLangEndRB
-keyWordCodeInTheTranspiledLangStartNIM
-func0("Hello World")
-keyWordCodeInTheTranspiledLangEndNIM
-keyWordCodeInTheTranspiledLangStartAHK
-func0("Hello World")
-keyWordCodeInTheTranspiledLangEndAHK
-keyWordCodeInTheTranspiledLangStartSWIFT
-func0("Hello World")
-keyWordCodeInTheTranspiledLangEndSWIFT
-keyWordCodeInTheTranspiledLangStartDART
-func0("Hello World");
-keyWordCodeInTheTranspiledLangEndDART
-keyWordCodeInTheTranspiledLangStartTS
-func0("Hello World");
-keyWordCodeInTheTranspiledLangEndTS
-keyWordCodeInTheTranspiledLangStartGROOVY
-func0("Hello World");
-keyWordCodeInTheTranspiledLangEndGROOVY
-print("==================================");
+print(awaitA func1("hi1"));
+awaitA  func2("hi2");
+func3("hi3");
+func3("hi3", "hello3");
+var1: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz;
+myArr0: arr bool_A;
+myArr0.push(verno);
+myArr0.push(neeeeeeeeeee);
+myArr0.push(verno);
+myArr: arr int_A eKakvo? {5, 6, 7};
 spin 5:
+    var1 eKakvo? 6;
+    myArr.push(A_IndexA);
+spin % myArr.howBig():
+    print(myArr[A_IndexA]);
+spin % myArr0.howBig():
+    print(myArr0[A_IndexA]);
+ako var1 is 6:
+    print(var1);
+ama ako var1 is 7:
+    print(var1);
+var123: str_A eKakvo? "sdf~naszdxgvh~newsrdt~nsdr~rdfgcvbnb~n~rsdxfgcvn";
+stringLoop, var123, ~n, ~r:
     ako A_IndexA is 0:
         print(A_IndexA);
-    ama ako A_IndexA is 1:
-        print(A_IndexA);
-    ama ako A_IndexA is 2:
-        print(A_IndexA);
-    ama ako A_IndexA is 3:
-        print(A_IndexA);
-    ama ako A_IndexA is 4:
-        print(A_IndexA);
-    ama ako A_IndexA is 5:
-        print(A_IndexA);
-    elskata:
-        print("HOW????");
-        print(A_IndexA);
-vars1: bool_A e kakvo? neeeeeeeeeee;
-vars2: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz e kakvo? 0;
-dokato vars1 is neeeeeeeeeee:
-    vars2+PLUS+;
-    print(vars2);
-    ako vars2 is 6:
-        vars1 e kakvo? verno;
-infLoop:
-    ako A_IndexA is 6:
-        stop;
-    elskata:
-        ctn;
-    #-- this is only for lua
-    ::ctn
-str1: str_A e kakvo? "hello 123 hello2";
-stringLoop, str1, " ":
     print(A_LoopFieldA);
 print("==================");
-stringLoop, str1:
+var1234: str_A eKakvo? "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg";
+stringLoop, var1234, ~,:
+    ako A_IndexA is 0:
+        print(A_IndexA);
     print(A_LoopFieldA);
-    ako A_LoopFieldA is "2":
-        stop;
-    elskata:
-        ctn;
-    ::ctn
-[-O-]
-keyWordArrayAppend
-keyWordArrayPop
-keyWordArraySize
-keyWordArrayInsert
-keyWordArrayRemove
-keyWordArrayIndexOf
-keyWordArrayDefinition
-keyWordArrayOfIntegersDefinition
-keyWordArrayOfStringsDefinition
-keyWordArrayOfFloatingPointNumbersDefinition
-keyWordArrayOfBooleansDefinition
-[-_-]
-arr1: arrRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR e kakvo? {"hello1", "hello2"};
-arr2: arr bool_A e kakvo? {verno, neeeeeeeeeee};
-arr3: arr float_A e kakvo? {3.13, 3.14};
-arr4: arr int_A e kakvo? {1, 6, 2};
-arr5: arr str_A e kakvo? {"real STR"};
-#-- Array operations
-arr1.push("hello3");
-sizeArr1: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz e kakvo? arr1.howBig();
-print("the size of arr1 is:");
-print(sizeArr1);
-arr1.insert(1, "hello?????");
-arr1.rm-rf(0);
-idx1: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz e kakvo? arr1.indexOf_A("hello2");
-print("the index of arr1 for hello2 is:");
-print(idx1);
-arr1.PAP();
-spin % arr1.howBig():
-    print(arr1[A_IndexA]);
-arr2.push(verno);
-sizeArr2: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz e kakvo? arr2.howBig();
-print("the size of arr2 is:");
-print(sizeArr2);
-arr2.insert(1, neeeeeeeeeee);
-arr2.rm-rf(0);
-idx2: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz e kakvo? arr2.indexOf_A(verno);
-print("the index of arr2 for true is:");
-print(idx2);
-arr2.PAP();
-spin % arr2.howBig():
-    print(arr2[A_IndexA]);
-arr3.push(6.489);
-sizeArr3: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz e kakvo? arr3.howBig();
-print("the size of arr3 is:");
-print(sizeArr3);
-arr3.insert(1, 1.556);
-arr3.rm-rf(0);
-idx3: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz e kakvo? arr3.indexOf_A(3.14);
-print("the index of arr3 for 3.14 is:");
-print(idx3);
-arr3.PAP();
-spin % arr3.howBig():
-    print(arr3[A_IndexA]);
-arr4.push(69);
-sizeArr4: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz e kakvo? arr4.howBig();
-print("the size of arr4 is:");
-print(sizeArr4);
-arr4.insert(1, 420);
-arr4.rm-rf(0);
-idx4: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz e kakvo? arr4.indexOf_A(69);
-print("the index of arr4 for 69 is:");
-print(idx4);
-arr4.PAP();
-spin % arr4.howBig():
-    print(arr4[A_IndexA]);
-arr5.push("hello3real");
-sizeArr5: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz e kakvo? arr5.howBig();
-print("the size of arr5 is:");
-print(sizeArr5);
-arr5.insert(1, "hello?real????");
-arr5.rm-rf(0);
-idx5: werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz e kakvo? arr5.indexOf_A("hello3real");
-print("the index of arr5 for hello3real is:");
-print(idx5);
-arr5.PAP();
-spin % arr5.howBig():
-    print(arr5[A_IndexA]);
-[-O-]
-keyWordThrow
-keyWordErrorMsg
-keyWordTry
-keyWordCatch
-keyWordFinally
-[-_-]
-fuck around:
-    print("Trying...");
-    im fucking around...  ErrorMsgGGGGGGGGGGGGGGGGGG("Something went wrong!");
-and find out (e):
-    print("Caught an error:");
-    print(e);
-nai setne:
-    print("This always runs, success or error.");
-print("==============================================");
+print("==================");
+var12345: str_A eKakvo? "hello";
+stringLoop, var12345:
+    print(A_LoopFieldA);

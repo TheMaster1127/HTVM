@@ -2076,6 +2076,7 @@ std::string parserOSPgloabl(std::string theSringOSPline, std::string str123) {
     return str123;
 }
 bool isLineAconstruct(std::string line) {
+    line = StrLower(Trim(line));
     if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF)) {
         return true;
     }
@@ -2142,7 +2143,7 @@ bool isLineAconstruct(std::string line) {
     else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordFinally) + " " + keyWordCurlyBraceOpen)) == StrLower(keyWordFinally) + " " + keyWordCurlyBraceOpen) {
         return true;
     }
-    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc)) {
+    else if (SubStr(StrLower(Trim(StrLower(line))), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc)) {
         return true;
     }
     else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordAsync))) == StrLower(keyWordAsync)) {
@@ -3708,6 +3709,9 @@ std::string expressionParserTranspiler(std::string expression) {
     }
     // extra for array methods
     expression = arrayParserTranspiler(expression);
+    if (langToConvertTo == langFileExtension_2) {
+        expression = RegExReplace(expression, "\\b" + keyWordAwait + "\\b", keyWordAwait_2);
+    }
     if (langToConvertTo != "js" && langToConvertTo != "ts" && langToConvertTo != langFileExtension_2) {
         expression = RegExReplace(expression, "\\b" + keyWordAwait + "\\b", "");
     }
@@ -5619,7 +5623,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             for (size_t A_Index101 = 0; A_Index101 < items101.size() + 0; A_Index101++) {
                 std::string A_LoopField101 = items101[A_Index101 - 0];
                 if (InStr(A_LoopField101, " " + keyWordAssign + " ") || InStr(A_LoopField101, " " + keyWordAssignAdd + " ") || InStr(A_LoopField101, " " + keyWordAssignConcat + " ") || InStr(A_LoopField101, " " + keyWordAssignSub + " ") || InStr(A_LoopField101, " " + keyWordAssignMul + " ") || InStr(A_LoopField101, " " + keyWordAssignDiv + " ") || InStr(A_LoopField101, " " + keyWordAssignMod + " ") || InStr(A_LoopField101, " " + keyWordAssignShiftLeft + " ") || InStr(A_LoopField101, " " + keyWordAssignShiftRight + " ") || InStr(A_LoopField101, " " + keyWordLogicalAssignShiftRight + " ") || InStr(A_LoopField101, " " + keyWordAssignBitAnd + " ") || InStr(A_LoopField101, " " + keyWordAssignBitOr + " ") || InStr(A_LoopField101, " " + keyWordAssignBitXor + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
-                    if (SubStr(StrLower(A_LoopField101), 1, StrLen(keyWordFunc)) == keyWordFunc || SubStr(StrLower(A_LoopField101), 1, StrLen(keyWordAsync + keyWordFunc)) == keyWordAsync + keyWordFunc) {
+                    if (SubStr(StrLower(A_LoopField101), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc) || SubStr(StrLower(A_LoopField101), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc)) {
                         if (InStr(Trim(A_LoopField101), "{") && Trim(A_LoopField101) != "{") {
                             outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField101), "{", "")) + "\n{\n";
                         }
@@ -6375,7 +6379,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "LUA DOSENT HAVE A CATCH USE PROGRAMMING BLOCKS MAYBE IDK\n";
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += "catch (Exception " + str1 + ")\n";
+                    htCode += "catch (Exception " + str1 + ")n";
                 }
                 if (langToConvertTo == "java") {
                     htCode += "catch (Exception " + str1 + ")\n";
@@ -6479,7 +6483,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "raise Exception(" + str1 + ")\n";
                 }
                 if (langToConvertTo == "js") {
-                    htCode += "throw new Error(" + str1 + ");\n";
+                    htCode += "throw new Error(" + str1 + ");n";
                 }
                 if (langToConvertTo == "go") {
                     htCode += "GO DOSENT HAVE A THROW USE PROGRAMMING BLOCKS MAYBE IDK\n";
@@ -7438,7 +7442,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 }
                 fixExpertionLineFuncOnly = 0;
                 if (langToConvertTo == "js" || langToConvertTo == "ts" || langToConvertTo == langFileExtension_2) {
-                    htCode += "await " + str2 + Chr(10);
+                    if (langToConvertTo == langFileExtension_2) {
+                        htCode += keyWordAwait_2 + " " + str2 + Chr(10);
+                    } else {
+                        htCode += "await " + str2 + Chr(10);
+                    }
                 } else {
                     htCode += str2 + Chr(10);
                 }

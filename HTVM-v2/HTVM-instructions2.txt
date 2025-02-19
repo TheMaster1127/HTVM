@@ -127,7 +127,7 @@ big is
 <<
 >>
 >>>
-e kakvo?
+eKakvo?
 +=
 .=
 -=

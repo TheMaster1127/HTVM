@@ -2064,6 +2064,7 @@ return str123
 
 func bool isLineAconstruct(str line)
 {
+line := StrLower(Trim(line))
 if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF))
 {
 return true
@@ -2152,7 +2153,7 @@ else if (SubStr(Trim(line), 1, StrLen(StrLower(keyWordFinally) . " " . keyWordCu
 {
 return true
 }
-else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc))
+else if (SubStr(StrLower(Trim(StrLower(line))), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc))
 {
 return true
 }
@@ -4213,6 +4214,12 @@ expression := StringTrimLeft(expression, fixExpertionLineFuncOnlyTEXT_numDelete)
 
 ; extra for array methods
 expression := arrayParserTranspiler(expression)
+
+
+if (langToConvertTo = langFileExtension_2)
+{
+expression := RegExReplace(expression, "\b" . keyWordAwait . "\b", keyWordAwait_2)
+}
 
 if (langToConvertTo != "js") and (langToConvertTo != "ts") and (langToConvertTo != langFileExtension_2)
 {
@@ -6521,7 +6528,7 @@ Loop, Parse, code, `n, `r
 if (InStr(A_LoopField, " " . keyWordAssign . " ")) or (InStr(A_LoopField, " " . keyWordAssignAdd . " ")) or (InStr(A_LoopField, " " . keyWordAssignConcat . " ")) or (InStr(A_LoopField, " " . keyWordAssignSub . " ")) or (InStr(A_LoopField, " " . keyWordAssignMul . " ")) or (InStr(A_LoopField, " " . keyWordAssignDiv . " ")) or (InStr(A_LoopField, " " . keyWordAssignMod . " ")) or (InStr(A_LoopField, " " . keyWordAssignShiftLeft . " ")) or (InStr(A_LoopField, " " . keyWordAssignShiftRight . " ")) or (InStr(A_LoopField, " " . keyWordLogicalAssignShiftRight . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitAnd . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitOr . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitXor . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
 {
 
-if (SubStr(StrLower(A_LoopField), 1, StrLen(keyWordFunc)) = keyWordFunc) or (SubStr(StrLower(A_LoopField), 1, StrLen(keyWordAsync . keyWordFunc)) = keyWordAsync . keyWordFunc)
+if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc)) or (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAsync) . StrLower(keyWordFunc))) = StrLower(keyWordAsync) . StrLower(keyWordFunc))
 {
 
 
@@ -8982,7 +8989,16 @@ fixExpertionLineFuncOnly := 0
 
 if (langToConvertTo = "js") or (langToConvertTo = "ts") or (langToConvertTo = langFileExtension_2)
 {
+
+if (langToConvertTo = langFileExtension_2)
+{
+htCode .= keyWordAwait_2 . " " . str2 . Chr(10)
+}
+else
+{
 htCode .= "await " . str2 . Chr(10)
+}
+
 }
 else
 {

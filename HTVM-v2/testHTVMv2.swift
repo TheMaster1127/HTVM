@@ -20,418 +20,69 @@ func HTVM_Append<T>(_ arr: inout [T], _ value: T) {
     arr.append(value)
 }
 
-func HTVM_Pop<T>(_ arr: inout [T]) {
-    if !arr.isEmpty {
-        arr.removeLast()
-    }
-}
-
 func HTVM_Size<T>(_ arr: [T]) -> Int {
     return arr.count
 }
 
-func HTVM_Insert<T>(_ arr: inout [T], _ index: Int, _ value: T) {
-    arr.insert(value, at: index)
+
+func func1(_ var1: String) -> String {
+    return var1 + var1
 }
-
-func HTVM_Remove<T>(_ arr: inout [T], _ index: Int) {
-    if index >= 0 && index < arr.count {
-        arr.remove(at: index)
-    }
+func func2(_ var1: String) {
+    print(var1 + var1)
 }
-
-func HTVM_IndexOf<T: Equatable>(_ arr: [T], _ value: T) -> Int {
-    if let index = arr.firstIndex(of: value) {
-        return index
-    } else {
-        return -1 // Return a default value if not found
-    }
+func func3(_ var1: String, _ var2: String = "hello") {
+    print(var1 + " " + var2)
 }
-
-// Function that throws an error with a string message
-func ErrorMsg(_ message: String) throws {
-    throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: message])
-}
-
-
-// start
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-func func0(_ input: String) {
-    print(input)
-}
-
-
-
-
-
-
-func func1(_ var1: Double, _ var2: Character, _ var3: UInt8, _ var4: UInt16, _ var5: UInt32, _ var6: UInt64, _ var7: Int, _ var8: String, _ var9: Bool, _ var10: Float, _ var11: Int8, _ var12: Int16, _ var13: Int32, _ var14: Int64) {
-    print(var1)
-    print(var2)
-    print(var3)
-    print(var4)
-    print(var5)
-    print(var6)
-    print(var7)
-    print(var8)
-    print(var9)
-    print(var10)
-    print(var11)
-    print(var12)
-    print(var13)
-    print(var14)
-}
-func func2(_ var1: Double) -> Double {
-    return var1
-}
-func func3(_ var1: Character) -> Character {
-    return var1
-}
-func func4(_ var1: UInt8) -> UInt8 {
-    return var1
-}
-func func5(_ var1: UInt16) -> UInt16 {
-    return var1
-}
-func func6(_ var1: UInt32) -> UInt32 {
-    return var1
-}
-func func7(_ var1: UInt64) -> UInt64 {
-    return var1
-}
-func func8(_ var1: Int) -> Int {
-    return var1
-}
-func func9(_ var1: String) -> String {
-    return var1
-}
-func func10(_ var1: Bool) -> Bool {
-    return var1
-}
-func func11(_ var1: Float) -> Float {
-    return var1
-}
-func func12(_ var1: Int8) -> Int8 {
-    return var1
-}
-func func13(_ var1: Int16) -> Int16 {
-    return var1
-}
-func func14(_ var1: Int32) -> Int32 {
-    return var1
-}
-func func15(_ var1: Int64) -> Int64 {
-    return var1
-}
-/*
-this
-is
-a
-multy
-line
-comment
-*/
-// outside vars
-var var01: Double = 3.1234567891011
-var var02: Character = "a"
-var var03: UInt8 = 25
-var var04: UInt16 = 30
-var var05: UInt32 = 35
-var var06: UInt64 = 40
-var var07: Int = 100
-var var08: String = "hello var ouside"
-var var09: Bool = false
-var var010: Float = 3.14
-var var011: Int8 = 100
-var var012: Int16 = 200
-var var013: Int32 = 230
-var var014: Int64 = 80009
-func testFuncVars() {
-    let constStrTest0: String = "constStrTest0"
-    var constStrTest00: String = "constStrTest00"
-    print(constStrTest0)
-    var items1 = LoopParseFunc(constStrTest00)
-    for (A_Index1 , A_LoopField1) in items1.enumerated() {
-        print(A_LoopField1)
-    }
-}
-let constStrTest: String = "constStrTest"
-var letStrTest: String = "letStrTest"
-var varStrTest: String = "varStrTest"
 func main() {
-    let constStrTest1: String = "constStrTest1"
-    var letStrTest1: String = "letStrTest1"
-    var varStrTest1: String = "varStrTest1"
-    print(letStrTest)
-    print(varStrTest)
-    print(letStrTest1)
-    print(varStrTest1)
-    var items2 = LoopParseFunc(constStrTest)
-    for (A_Index2 , A_LoopField2) in items2.enumerated() {
-        print(A_LoopField2)
+    print(func1("hi1"))
+    func2("hi2")
+    func3("hi3")
+    func3("hi3", "hello3")
+    var var1: Int = 0
+    var myArr0: [Bool] = []
+    HTVM_Append(&myArr0, true)
+    HTVM_Append(&myArr0, false)
+    HTVM_Append(&myArr0, true)
+    var myArr: [Int] = [5, 6, 7]
+    for A_IndexA1 in 0 ..< 5 + 0 {
+        var1 = 6
+        HTVM_Append(&myArr, A_IndexA1)
     }
-    print("==========================================")
-    print("==========================================")
-    print("==========================================")
-    var items3 = LoopParseFunc(constStrTest1)
-    for (A_Index3 , A_LoopField3) in items3.enumerated() {
-        print(A_LoopField3)
+    for A_IndexA2 in 0 ..< HTVM_Size(myArr) + 0 {
+        print(myArr[A_IndexA2])
     }
-    print("==========================================")
-    print("==========================================")
-    print("==========================================")
-    var var_1: Double = 0.00
-    var var_2: Character = "a"
-    var var_3: UInt8 = 0
-    var var_4: UInt16 = 0
-    var var_5: UInt32 = 0
-    var var_6: UInt64 = 0
-    var var_7: Int = 0
-    var var_8: String = ""
-    var var_9: Bool = false
-    var var_10: Float = 0.00
-    var var_11: Int8 = 0
-    var var_12: Int16 = 0
-    var var_13: Int32 = 0
-    var var_14: Int64 = 0
-    func1(var01, var02, var03, var04, var05, var06, var07, var08, var09, var010, var011, var012, var013, var014)
-    var_1 = func2(var01)
-    var_2 = func3(var02)
-    var_3 = func4(var03)
-    var_4 = func5(var04)
-    var_5 = func6(var05)
-    var_6 = func7(var06)
-    var_7 = func8(var07)
-    var_8 = func9(var08)
-    var_9 = func10(var09)
-    var_10 = func11(var010)
-    var_11 = func12(var011)
-    var_12 = func13(var012)
-    var_13 = func14(var013)
-    var_14 = func15(var014)
-    print(var_1)
-    print(var_2)
-    print(var_3)
-    print(var_4)
-    print(var_5)
-    print(var_6)
-    print(var_7)
-    print(var_8)
-    print(var_9)
-    print(var_10)
-    print(var_11)
-    print(var_12)
-    print(var_13)
-    print(var_14)
-    // start
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    func0("Hello World")
-    
-
-    
-
-    
-
-    print("==================================")
-    for A_Index4 in 0 ..< 5 + 0 {
-        if (A_Index4 == 0) {
-            print(A_Index4)
-        }
-        else if (A_Index4 == 1) {
-            print(A_Index4)
-        }
-        else if (A_Index4 == 2) {
-            print(A_Index4)
-        }
-        else if (A_Index4 == 3) {
-            print(A_Index4)
-        }
-        else if (A_Index4 == 4) {
-            print(A_Index4)
-        }
-        else if (A_Index4 == 5) {
-            print(A_Index4)
-        } else {
-            print("HOW????")
-            print(A_Index4)
-        }
+    for A_IndexA3 in 0 ..< HTVM_Size(myArr0) + 0 {
+        print(myArr0[A_IndexA3])
     }
-    var vars1: Bool = false
-    var vars2: Int = 0
-    while (vars1 == false) {
-        vars2 += 1
-        print(vars2)
-        if (vars2 == 6) {
-            vars1 = true
-        }
+    if var1 == 6 {
+        print(var1)
     }
-    for A_Index5 in 0... {
-        if (A_Index5 == 6) {
-            break
-        } else {
-            continue
-        }
-        // this is only for lua
+    else if var1 == 7 {
+        print(var1)
     }
-    var str1: String = "hello 123 hello2"
-    var items6 = LoopParseFunc(str1, " ")
-    for (A_Index6 , A_LoopField6) in items6.enumerated() {
-        print(A_LoopField6)
+    var var123: String = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
+    var items4 = LoopParseFunc(var123, "\n", "\r")
+    for (A_IndexA4 , A_LoopFieldA4) in items4.enumerated() {
+        if A_IndexA4 == 0 {
+            print(A_IndexA4)
+        }
+        print(A_LoopFieldA4)
     }
     print("==================")
-    var items7 = LoopParseFunc(str1)
-    for (A_Index7 , A_LoopField7) in items7.enumerated() {
-        print(A_LoopField7)
-        if (A_LoopField7 == "2") {
-            break
-        } else {
-            continue
+    var var1234: String = "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg"
+    var items5 = LoopParseFunc(var1234, ",")
+    for (A_IndexA5 , A_LoopFieldA5) in items5.enumerated() {
+        if A_IndexA5 == 0 {
+            print(A_IndexA5)
         }
+        print(A_LoopFieldA5)
     }
-    /*
-    keyWordArrayAppend
-    keyWordArrayPop
-    keyWordArraySize
-    keyWordArrayInsert
-    keyWordArrayRemove
-    keyWordArrayIndexOf
-    keyWordArrayDefinition
-    keyWordArrayOfIntegersDefinition
-    keyWordArrayOfStringsDefinition
-    keyWordArrayOfFloatingPointNumbersDefinition
-    keyWordArrayOfBooleansDefinition
-    */
-    var arr1: [String] = ["hello1", "hello2"]
-    var arr2: [Bool] = [true, false]
-    var arr3: [Float] = [3.13, 3.14]
-    var arr4: [Int] = [1, 6, 2]
-    var arr5: [String] = ["real STR"]
-    // Array operations
-    HTVM_Append(&arr1, "hello3")
-    var sizeArr1: Int = HTVM_Size(arr1)
-    print("the size of arr1 is:")
-    print(sizeArr1)
-    HTVM_Insert(&arr1, 1, "hello?????")
-    HTVM_Remove(&arr1, 0)
-    var idx1: Int = HTVM_IndexOf(arr1, "hello2")
-    print("the index of arr1 for hello2 is:")
-    print(idx1)
-    HTVM_Pop(&arr1)
-    for A_Index8 in 0 ..< HTVM_Size(arr1) + 0 {
-        print(arr1[A_Index8])
+    print("==================")
+    var var12345: String = "hello"
+    var items6 = LoopParseFunc(var12345)
+    for (A_IndexA6 , A_LoopFieldA6) in items6.enumerated() {
+        print(A_LoopFieldA6)
     }
-    HTVM_Append(&arr2, true)
-    var sizeArr2: Int = HTVM_Size(arr2)
-    print("the size of arr2 is:")
-    print(sizeArr2)
-    HTVM_Insert(&arr2, 1, false)
-    HTVM_Remove(&arr2, 0)
-    var idx2: Int = HTVM_IndexOf(arr2, true)
-    print("the index of arr2 for true is:")
-    print(idx2)
-    HTVM_Pop(&arr2)
-    for A_Index9 in 0 ..< HTVM_Size(arr2) + 0 {
-        print(arr2[A_Index9])
-    }
-    HTVM_Append(&arr3, 6.489)
-    var sizeArr3: Int = HTVM_Size(arr3)
-    print("the size of arr3 is:")
-    print(sizeArr3)
-    HTVM_Insert(&arr3, 1, 1.556)
-    HTVM_Remove(&arr3, 0)
-    var idx3: Int = HTVM_IndexOf(arr3, 3.14)
-    print("the index of arr3 for 3.14 is:")
-    print(idx3)
-    HTVM_Pop(&arr3)
-    for A_Index10 in 0 ..< HTVM_Size(arr3) + 0 {
-        print(arr3[A_Index10])
-    }
-    HTVM_Append(&arr4, 69)
-    var sizeArr4: Int = HTVM_Size(arr4)
-    print("the size of arr4 is:")
-    print(sizeArr4)
-    HTVM_Insert(&arr4, 1, 420)
-    HTVM_Remove(&arr4, 0)
-    var idx4: Int = HTVM_IndexOf(arr4, 69)
-    print("the index of arr4 for 69 is:")
-    print(idx4)
-    HTVM_Pop(&arr4)
-    for A_Index11 in 0 ..< HTVM_Size(arr4) + 0 {
-        print(arr4[A_Index11])
-    }
-    HTVM_Append(&arr5, "hello3real")
-    var sizeArr5: Int = HTVM_Size(arr5)
-    print("the size of arr5 is:")
-    print(sizeArr5)
-    HTVM_Insert(&arr5, 1, "hello?real????")
-    HTVM_Remove(&arr5, 0)
-    var idx5: Int = HTVM_IndexOf(arr5, "hello3real")
-    print("the index of arr5 for hello3real is:")
-    print(idx5)
-    HTVM_Pop(&arr5)
-    for A_Index12 in 0 ..< HTVM_Size(arr5) + 0 {
-        print(arr5[A_Index12])
-    }
-    /*
-    keyWordThrow
-    keyWordErrorMsg
-    keyWordTry
-    keyWordCatch
-    keyWordFinally
-    */
-    do {
-        print("Trying...")
-        try ErrorMsg("Something went wrong!")
-    }
-    catch let e as NSError {
-        print("Caught an error:")
-        print(e.localizedDescription)
-    }
-    if ("finally dosent exist in swift" == "finally dosent exist in swift") {
-        print("This always runs, success or error.")
-    }
-    print("==============================================")
 }
 main()
