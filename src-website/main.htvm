@@ -1,12 +1,8 @@
 
 
-function Chr(number) {
-    // Return the character corresponding to the Unicode code point, or an empty string if out of range
-    return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
-}
-
-
+[js start]
 // main.js
+
 // Function to initialize the page and add UI elements
 function init() {
     const messageDiv = document.createElement('div');
@@ -29,20 +25,30 @@ function init() {
     actionButton.addEventListener('click', () => {
         testFunction();
     });
+
     document.body.appendChild(actionButton);
 }
+
 // Function to test and simulate an error
 function testFunction() {
     try {
-const result = handleError("asdfgf\nwaesdfg\nwaesdfgfh" + Chr(34));
+
+[js end]
+        const result := handleError("asdfgf`nwaesdfg`nwaesdfgfh" . Chr(34))
+[js start]
         console.log(result);
     } catch (error) {
         console.log(error);
     }
 }
+
 // Simulate an error
 function simulateError() {
     throw new Error('Something went wrong in the test function!');
 }
+
 // Initialize on page load
 window.onload = init;
+
+
+[js end]

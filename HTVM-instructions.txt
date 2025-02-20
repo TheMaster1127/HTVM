@@ -14,8 +14,8 @@ keyWordCodeInTheTranspiledLangStartCPP
 keyWordCodeInTheTranspiledLangEndCPP
 keyWordCodeInTheTranspiledLangStartPY
 keyWordCodeInTheTranspiledLangEndPY
-keyWordCodeInTheTranspiledLangStartJS
-keyWordCodeInTheTranspiledLangEndJS
+[js start]
+[js end]
 keyWordCodeInTheTranspiledLangStartGO
 keyWordCodeInTheTranspiledLangEndGO
 keyWordCodeInTheTranspiledLangStartLUA
@@ -157,7 +157,7 @@ off
 off
 on
 off
-on
+off
 on
 off
 

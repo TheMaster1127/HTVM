@@ -86,6 +86,10 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.go
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm-err-handling.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\main.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm-err-handling.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\main.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\js.htpr
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile638232.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile638232.js

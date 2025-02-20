@@ -1,0 +1,14 @@
+; htvm-err-handling.htvm
+
+func handleError(htvmInstrText)  
+{
+
+Loop, Parse, htvmInstrText, `n, `r 
+{
+if (InStr(A_LoopField, Chr(34))) 
+{
+throw ErrorMsg("someting went wrong!!!")
+}
+}
+
+}
