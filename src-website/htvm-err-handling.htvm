@@ -3,7 +3,6 @@
 func handleError(htvmInstrText)  
 {
 
-let howManyErrors := 0
 
 let fixTrim := ""
 Loop, Parse, htvmInstrText, `n, `r 
@@ -31,7 +30,6 @@ if (InStr(A_LoopField, Chr(125)))
 throw ErrorMsg("You cant use " . Chr(125) . " in line " . STR(A_Index + 1) . "!!!")
 }
 
-
 }
-
+return "noERROR"
 }

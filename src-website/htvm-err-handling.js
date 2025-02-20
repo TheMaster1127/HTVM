@@ -52,7 +52,6 @@ function StringTrimRight(input, numChars) {
 
 // htvm-err-handling.htvm
 function handleError(htvmInstrText) {
-    let howManyErrors = 0;
     let fixTrim = "";
     items1 = LoopParseFunc(htvmInstrText, "\n", "\r")
     for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
@@ -76,4 +75,5 @@ function handleError(htvmInstrText) {
             throw new Error("You cant use " + Chr(125) + " in line " + STR(A_Index2 + 1) + "!!!");
         }
     }
+    return "noERROR";
 }

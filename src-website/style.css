@@ -1,0 +1,23 @@
+/* Add this CSS to a <style> tag in your HTML or in a separate CSS file */
+
+/* Default (mobile-first) layout: single column */
+.input-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    width: 100%;
+}
+
+/* For medium-sized screens (tablets, small laptops) */
+@media (min-width: 768px) {
+    .input-container {
+        grid-template-columns: 1fr 1fr; /* 2 columns */
+    }
+}
+
+/* For large screens (desktops) */
+@media (min-width: 1024px) {
+    .input-container {
+        grid-template-columns: 1fr 1fr 1fr; /* 3 columns */
+    }
+}

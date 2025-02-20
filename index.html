@@ -2,10 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTVM</title>
+
+    <!-- External style.css file for styling -->
+    <link rel="stylesheet" href="src-website/style.css"> <!-- Link to external style.css -->
+    
+    <!-- Inline style for fallback and specific styles -->
     <style>
         body {
-            background-color: #202020;
+            background-color: #202020; /* Dark background */
             font-family:
                 "Open Sans",
                 -apple-system,
@@ -19,16 +25,22 @@
                 Helvetica,
                 Arial,
                 sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white; /* White text */
         }
     </style>
 </head>
 <body>
-    <script src="HTVM.js"></script> <!-- Include HTVM.js from the same directory -->
-<script src="src-website/htvm-err-handling.js"></script> <!-- Include htvm-err-handling.js from the src-website folder -->    
-<script src="src-website/main.js"></script> <!-- Include main.js from the src-website folder -->
-    
+    <!-- Include HTVM.js from the same directory -->
+    <script src="HTVM.js"></script> 
+    <!-- Include htvm-err-handling.js from the src-website folder -->  
+    <script src="src-website/htvm-err-handling.js"></script> 
+    <!-- Include main.js from the src-website folder -->
+    <script src="src-website/main.js"></script> 
 
     <script>
+        // Log HTVM to the console to ensure everything is set up correctly
         console.log("HTVM");
     </script>
 </body>
