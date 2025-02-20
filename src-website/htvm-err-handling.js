@@ -14,6 +14,22 @@ function LoopParseFunc(varString, delimiter1="", delimiter2="") {
     return items;
 }
 
+// Convert value to string
+function STR(value) {
+    if (value === null || value === undefined) {
+        return ""; // Return a string for null or undefined
+    } else if (typeof value === 'number') {
+        return value.toString();
+    } else if (typeof value === 'boolean') {
+        return value ? "1" : "0";
+    } else if (typeof value === 'string') {
+        return value; // Return the string as is
+    } else {
+        // Handle any unexpected types gracefully
+        return String(value); // Convert any other type to a string
+    }
+}
+
 // Function to find the position of needle in haystack (string overload)
 function InStr(haystack, needle) {
     const pos = haystack.indexOf(needle);
@@ -32,7 +48,7 @@ function handleError(htvmInstrText) {
     for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
         const A_LoopField1 = items1[A_Index1 - 0];
         if (InStr(A_LoopField1, Chr(34))) {
-            throw new Error("someting went wrong!!!");
+            throw new Error("You cant use " + Chr(34) + " in line " + STR(A_Index1 + 1) + "!!!");
         }
     }
 }
