@@ -32,12 +32,12 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSPandHTVMHTH\testGiuAndOSP.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSPandHTVMHTH\testGiuAndOSP2.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSPandHTVMHTH\testGiuAndOSP2.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\htvm_syntax_highlighting_and_autocomplete.js
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\Documentation-Generation.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v1-DEPRECATED\Documentation-Generation.cpp
 C:\Users\The_M\OneDrive\Desktop\temp Projects\wadsfxadfx\test1line.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\wadsfxadfx\test1line.cpp
 C:\Users\The_M\OneDrive\Desktop\temp Projects\wadsfxadfx\test1line.html
 C:\Users\The_M\OneDrive\Desktop\temp Projects\wadsfxadfx\test1line.py
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\main.ht
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v1-DEPRECATED\main.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testtstsNEWbackendHTVM\testBackend.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testtstsNEWbackendHTVM\testBackendIndex.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testtstsNEWbackendHTVM\testBackendIndex.html
@@ -66,26 +66,26 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile910429.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\htvm.htpr
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.htvm
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.htvm2
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.cpp
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.js
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.py
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.groovy
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.ts
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.dart
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.swift
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.ahk
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.nim
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.rb
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.java
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.kt
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.cs
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.lua
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\testHTVMv2.go
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.htvm
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.cpp
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v2\HTVM.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.htvm2
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.groovy
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.ts
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.dart
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.swift
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.ahk
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.nim
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.rb
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.java
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.kt
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.cs
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.lua
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.go
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\js.htpr
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile638232.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile638232.js
