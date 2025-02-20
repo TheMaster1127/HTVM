@@ -11842,7 +11842,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 if (langToConvertTo != "js") {
                     htCode = allLibsToPutAtTop + Chr(10) + allFuncsToPutAtTop + Chr(10) + htCode;
                 } else {
-                    if (useJavaScriptInAfullHTMLfile != "on") {
+                    if (useJavaScriptInAfullHTMLfile == "on") {
                         htCode = allLibsToPutAtTop + Chr(10) + allFuncsToPutAtTop + Chr(10) + htCode;
                     } else {
                         htCode = Chr(10) + allFuncsToPutAtTop + Chr(10) + htCode;

@@ -1,60 +1,15 @@
-func str ExtractDigits(str inputString)
-{
-str digits := ""
-
-Loop, Parse, inputString
-{
-    if (RegExMatch(A_LoopField, "\d"))
-    {
-        digits .= A_LoopField
+if (isNotHTVMfile2 = 0) {
+    if (langToConvertTo = "cs") or (langToConvertTo = "java") {
+        htCode := Chr(10) . allFuncsToPutAtTop . Chr(10) . htCode
+    } else {
+        if (langToConvertTo != "js") {
+            htCode := allLibsToPutAtTop . Chr(10) . allFuncsToPutAtTop . Chr(10) . htCode
+        } else {
+            if (useJavaScriptInAfullHTMLfile = "on") {
+                htCode := allLibsToPutAtTop . Chr(10) . allFuncsToPutAtTop . Chr(10) . htCode
+            } else {
+                htCode := Chr(10) . allFuncsToPutAtTop . Chr(10) . htCode
+            }
+        }
     }
 }
-return digits
-}
-
-main
-str code := "for A_Index4, A_LoopField4 in items4`n{`n    print(A_Index4)`n}`n`nfor A_Index5, A_LoopField5 in items5`n{`n    print(A_LoopField5)`n}"
-str AindexKeyWOrd := "A_Index"
-; Regex to find all A_Index<num> occurrences
-arr str fixAindexInGoUnused
-int howMany_fixAindexInGoUnused := 6
-int howMany_fixAindexInGoUnusedNUM := 0
-int found_fixAindexInGoUnused := 0
-str foundWHAT_fixAindexInGoUnused := ""
-
-Loop, Parse, code, `n, `r
-{
-if (RegExMatch(A_LoopField, AindexKeyWOrd . "\d+"))
-{
-if (SubStr(A_LoopField, 1, 4) != "for ")
-{
-fixAindexInGoUnused.add(AindexKeyWOrd . ExtractDigits(StrSplit(A_LoopField, AindexKeyWOrd, 2)))
-}
-}
-}
-
-
-Loop, % howMany_fixAindexInGoUnused
-{
-howMany_fixAindexInGoUnusedNUM := A_Index
-found_fixAindexInGoUnused := 1
-foundWHAT_fixAindexInGoUnused := AindexKeyWOrd . STR(howMany_fixAindexInGoUnusedNUM)
-Loop, % fixAindexInGoUnused.size()
-{
-if (fixAindexInGoUnused[A_Index] = AindexKeyWOrd . STR(howMany_fixAindexInGoUnusedNUM))
-{
-found_fixAindexInGoUnused := 0
-foundWHAT_fixAindexInGoUnused := ""
-break
-}
-} 
-
-if (foundWHAT_fixAindexInGoUnused != "")
-{
-code := StrReplace(code, foundWHAT_fixAindexInGoUnused, "_")
-}
-
-}
-
-print(code)
-

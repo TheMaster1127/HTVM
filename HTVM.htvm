@@ -15529,7 +15529,7 @@ else
     }
     else
     {
-    if (useJavaScriptInAfullHTMLfile != "on")
+    if (useJavaScriptInAfullHTMLfile = "on")
     {
     htCode := allLibsToPutAtTop . Chr(10) . allFuncsToPutAtTop . Chr(10) . htCode
     }
@@ -15539,7 +15539,7 @@ else
     }
     }
     
-    }
+}
 
 }
 
