@@ -107,3 +107,4 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBo
 C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_train.py
 C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_RUN.py
 C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\imageToTxt.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm-err-handling.htvm2

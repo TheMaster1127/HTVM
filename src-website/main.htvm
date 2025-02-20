@@ -36,7 +36,7 @@ function testFunction() {
 [js end]
 
 ; HTVM code
-const result := handleError("asdfgf`nwaesdfg`nwaesdfgfh" . Chr(34))
+const result := handleError("asdfgf`nwa'esdfg`nwaesdfgfh" . Chr(34))
 
 [js start]
         console.log(result);

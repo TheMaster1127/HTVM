@@ -41,14 +41,39 @@ function Chr(number) {
     return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
 }
 
+function Trim(inputString) {
+    return inputString ? inputString.trim() : "";
+}
+
+function StringTrimRight(input, numChars) {
+    return (numChars <= input.length) ? input.substring(0, input.length - numChars) : input;
+}
+
 
 // htvm-err-handling.htvm
 function handleError(htvmInstrText) {
+    let howManyErrors = 0;
+    let fixTrim = "";
     items1 = LoopParseFunc(htvmInstrText, "\n", "\r")
     for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
         const A_LoopField1 = items1[A_Index1 - 0];
-        if (InStr(A_LoopField1, Chr(34))) {
-            throw new Error("You cant use " + Chr(34) + " in line " + STR(A_Index1 + 1) + "!!!");
+        fixTrim += Trim(A_LoopField1) + Chr(10);
+    }
+    htvmInstrText = StringTrimRight(fixTrim, 1);
+    items2 = LoopParseFunc(htvmInstrText, "\n", "\r")
+    for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
+        const A_LoopField2 = items2[A_Index2 - 0];
+        if (InStr(A_LoopField2, Chr(34))) {
+            throw new Error("You cant use " + Chr(34) + " in line " + STR(A_Index2 + 1) + "!!!");
+        }
+        if (InStr(A_LoopField2, Chr(39))) {
+            throw new Error("You cant use " + Chr(39) + " in line " + STR(A_Index2 + 1) + "!!!");
+        }
+        if (InStr(A_LoopField2, Chr(123))) {
+            throw new Error("You cant use " + Chr(123) + " in line " + STR(A_Index2 + 1) + "!!!");
+        }
+        if (InStr(A_LoopField2, Chr(125))) {
+            throw new Error("You cant use " + Chr(125) + " in line " + STR(A_Index2 + 1) + "!!!");
         }
     }
 }

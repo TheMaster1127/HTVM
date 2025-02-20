@@ -34,7 +34,8 @@ function init() {
 // Function to test and simulate an error
 function testFunction() {
     try {
-const result = handleError("asdfgf\nwaesdfg\nwaesdfgfh" + Chr(34));
+// HTVM code
+const result = handleError("asdfgf\nwa'esdfg\nwaesdfgfh" + Chr(34));
         console.log(result);
     } catch (error) {
         console.log(error);
