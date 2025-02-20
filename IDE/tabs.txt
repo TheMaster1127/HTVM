@@ -66,23 +66,23 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile910429.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\ht.htpr
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\htvm.htpr
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.htvm
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.htvm2
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.cpp
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.js
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.py
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.groovy
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.ts
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.dart
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.swift
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.ahk
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.nim
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.rb
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.java
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.kt
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.cs
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.lua
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testHTVMv2.go
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.htvm2
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.groovy
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.ts
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.dart
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.swift
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.ahk
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.nim
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.rb
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.java
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.kt
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.cs
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.lua
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\testing\testHTVMv2.go
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.js

@@ -5,7 +5,7 @@ keyWordDefObj
 keyWordPorp
 keyWordThis
 
-LEFT TO DO: 6
+LEFT TO DO: 6 IF I ADD OSP!!!
 
 TODO List
 
@@ -13,8 +13,10 @@ DONE! 1. Implement functions.
 DONE! 2. Implement variables.
 DONE! 3. Implement arrays.
 DONE! 4. Handle the use??? on/off settings.
-5. Implement OSP.
-6. Make the documentation, website, and README.
-7. Work on popularizing the programming language and making it more accessible.
-8. Finally, work towards making HTVM a widely recognized and used tool.
+5. Make the documentation, website, and README.
+6. Work on popularizing the programming language and making it more accessible.
+7. Finally, work towards making HTVM a widely recognized and used tool.
 then GG
+
+?. Implement OSP. SOME DAY I MIGHT ADD OSP.
+

@@ -60,42 +60,42 @@ func main() {
     HTVM_Append(&myArr0, false)
     HTVM_Append(&myArr0, true)
     myArr := []int{5, 6, 7}
-    for A_IndexA1 := 0; A_IndexA1 < 5 + 0; A_IndexA1++ {
+    for A_Index1 := 0; A_Index1 < 5 + 0; A_Index1++ {
         var1 = 6
-        HTVM_Append(&myArr, A_IndexA1)
+        HTVM_Append(&myArr, A_Index1)
     }
-    for A_IndexA2 := 0; A_IndexA2 < HTVM_Size(myArr) + 0; A_IndexA2++ {
-        print(myArr[A_IndexA2])
+    for A_Index2 := 0; A_Index2 < HTVM_Size(myArr) + 0; A_Index2++ {
+        print(myArr[A_Index2])
     }
-    for A_IndexA3 := 0; A_IndexA3 < HTVM_Size(myArr0) + 0; A_IndexA3++ {
-        print(myArr0[A_IndexA3])
+    for A_Index3 := 0; A_Index3 < HTVM_Size(myArr0) + 0; A_Index3++ {
+        print(myArr0[A_Index3])
     }
-    if var1 == 6 {
+    if (var1 == 6) {
         print(var1)
-    } else if var1 == 7 {
+    } else if (var1 == 7) {
         print(var1)
     }
     var var123 string = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
     items4 := LoopParseFunc(var123, "\n", "\r")
-    for A_IndexA4 , A_LoopFieldA4 := range items4 {
-        if A_IndexA4 == 0 {
-            print(A_IndexA4)
+    for A_Index4 , A_LoopField4 := range items4 {
+        if (A_Index4 == 0) {
+            print(A_Index4)
         }
-        print(A_LoopFieldA4)
+        print(A_LoopField4)
     }
     print("==================")
     var var1234 string = "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg"
     items5 := LoopParseFunc(var1234, ",", "")
-    for A_IndexA5 , A_LoopFieldA5 := range items5 {
-        if A_IndexA5 == 0 {
-            print(A_IndexA5)
+    for A_Index5 , A_LoopField5 := range items5 {
+        if (A_Index5 == 0) {
+            print(A_Index5)
         }
-        print(A_LoopFieldA5)
+        print(A_LoopField5)
     }
     print("==================")
     var var12345 string = "hello"
     items6 := LoopParseFunc(var12345, "", "")
-    for _ , A_LoopFieldA6 := range items6 {
-        print(A_LoopFieldA6)
+    for _ , A_LoopField6 := range items6 {
+        print(A_LoopField6)
     }
 }

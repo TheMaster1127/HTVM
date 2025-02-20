@@ -36,32 +36,32 @@ HTVM_Append(myArr0, True)
 HTVM_Append(myArr0, False)
 HTVM_Append(myArr0, True)
 myArr = [5, 6, 7]
-for A_IndexA1 in range(0, 5 + 0):
+for A_Index1 in range(0, 5 + 0):
     var1 = 6
-    HTVM_Append(myArr, A_IndexA1)
-for A_IndexA2 in range(0, HTVM_Size(myArr) + 0):
-    print(myArr[A_IndexA2])
-for A_IndexA3 in range(0, HTVM_Size(myArr0) + 0):
-    print(myArr0[A_IndexA3])
-if var1 == 6:
+    HTVM_Append(myArr, A_Index1)
+for A_Index2 in range(0, HTVM_Size(myArr) + 0):
+    print(myArr[A_Index2])
+for A_Index3 in range(0, HTVM_Size(myArr0) + 0):
+    print(myArr0[A_Index3])
+if (var1 == 6):
     print(var1)
-elif var1 == 7:
+elif (var1 == 7):
     print(var1)
-var123 = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn";
+var123 = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
 items4 = LoopParseFunc(var123, "\n", "\r")
-for A_IndexA4 , A_LoopFieldA4 in enumerate(items4, start=0):
-    if A_IndexA4 == 0:
-        print(A_IndexA4)
-    print(A_LoopFieldA4)
+for A_Index4 , A_LoopField4 in enumerate(items4, start=0):
+    if (A_Index4 == 0):
+        print(A_Index4)
+    print(A_LoopField4)
 print("==================")
-var1234 = "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg";
+var1234 = "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg"
 items5 = LoopParseFunc(var1234, ",")
-for A_IndexA5 , A_LoopFieldA5 in enumerate(items5, start=0):
-    if A_IndexA5 == 0:
-        print(A_IndexA5)
-    print(A_LoopFieldA5)
+for A_Index5 , A_LoopField5 in enumerate(items5, start=0):
+    if (A_Index5 == 0):
+        print(A_Index5)
+    print(A_LoopField5)
 print("==================")
-var12345 = "hello";
+var12345 = "hello"
 items6 = LoopParseFunc(var12345)
-for A_IndexA6 , A_LoopFieldA6 in enumerate(items6, start=0):
-    print(A_LoopFieldA6)
+for A_Index6 , A_LoopField6 in enumerate(items6, start=0):
+    print(A_LoopField6)

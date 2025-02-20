@@ -55,41 +55,41 @@ HTVM_Append(myArr0, true)
 HTVM_Append(myArr0, false)
 HTVM_Append(myArr0, true)
 myArr = [5, 6, 7]
-for a_indexa1 in 0...5 + 0 do
+for a_index1 in 0...5 + 0 do
     var1 = 6
-    HTVM_Append(myArr, a_indexa1)
+    HTVM_Append(myArr, a_index1)
 end
-for a_indexa2 in 0...HTVM_Size(myArr) + 0 do
-    print(myArr[a_indexa2])
+for a_index2 in 0...HTVM_Size(myArr) + 0 do
+    print(myArr[a_index2])
 end
-for a_indexa3 in 0...HTVM_Size(myArr0) + 0 do
-    print(myArr0[a_indexa3])
+for a_index3 in 0...HTVM_Size(myArr0) + 0 do
+    print(myArr0[a_index3])
 end
-if var1 == 6
+if (var1 == 6)
     print(var1)
-elsif var1 == 7
+elsif (var1 == 7)
     print(var1)
 end
 var123 = "sdf\naszdxgvh\newsrdt\nsdr\rdfgcvbnb\n\rsdxfgcvn"
 items4 = LoopParseFunc(var123, "\n", "\r")
-items4.each_with_index do |a_loopfielda4 , a_indexa4|
-    if a_indexa4 == 0
-        print(a_indexa4)
+items4.each_with_index do |a_loopfield4 , a_index4|
+    if (a_index4 == 0)
+        print(a_index4)
     end
-    print(a_loopfielda4)
+    print(a_loopfield4)
 end
 print("==================")
 var1234 = "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg"
 items5 = LoopParseFunc(var1234, ",")
-items5.each_with_index do |a_loopfielda5 , a_indexa5|
-    if a_indexa5 == 0
-        print(a_indexa5)
+items5.each_with_index do |a_loopfield5 , a_index5|
+    if (a_index5 == 0)
+        print(a_index5)
     end
-    print(a_loopfielda5)
+    print(a_loopfield5)
 end
 print("==================")
 var12345 = "hello"
 items6 = LoopParseFunc(var12345)
-items6.each_with_index do |a_loopfielda6 , a_indexa6|
-    print(a_loopfielda6)
+items6.each_with_index do |a_loopfield6 , a_index6|
+    print(a_loopfield6)
 end
