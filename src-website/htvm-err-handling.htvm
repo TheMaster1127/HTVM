@@ -1,8 +1,7 @@
 ; htvm-err-handling.htvm
 
-func handleError(htvmInstrText)  
+func str handleError(str htvmInstrText)  
 {
-
 
 let fixTrim := ""
 Loop, Parse, htvmInstrText, `n, `r 

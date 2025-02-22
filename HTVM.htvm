@@ -3537,6 +3537,8 @@ str AindexKeyWOrd := keyWordAIndex
 ; Regex to find all A_Index<num> occurrences
 arr str fixAindexInGoUnused
 
+str tempFixIDK := ""
+
 int howMany_fixAindexInGoUnusedNUM := 0
 int found_fixAindexInGoUnused := 0
 str foundWHAT_fixAindexInGoUnused := ""
@@ -3588,7 +3590,26 @@ if (foundWHAT_fixAindexInGoUnused != "")
 {
 if (found_fixAindexInGoUnused = 0)
 {
-codeToFixTheGoUNSEEN := StrReplace(codeToFixTheGoUNSEEN, foundWHAT_fixAindexInGoUnused, "_")
+
+tempFixIDK := ""
+
+Loop, Parse, codeToFixTheGoUNSEEN, `n, `r
+{
+
+if (InStr(A_LoopField, " := range "))
+{
+tempFixIDK .= StrReplace(A_LoopField, foundWHAT_fixAindexInGoUnused, "_") . Chr(10)
+}
+else
+{
+tempFixIDK .= StrReplace(A_LoopField, foundWHAT_fixAindexInGoUnused, "i") . Chr(10)
+}
+
+
+}
+
+StringTrimRight, codeToFixTheGoUNSEEN, tempFixIDK, 1
+
 }
 }
 
@@ -15763,97 +15784,113 @@ if (SubStrLastChars(argCODEfile, 4) = ".cpp") or (SubStrLastChars(argCODEfile, 3
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-if (SubStrLastChars(argCODEfile, 4) = ".cpp") {
+if (SubStrLastChars(argCODEfile, 4) = ".cpp") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "cpp")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 3) = ".py") {
+else if (SubStrLastChars(argCODEfile, 3) = ".py") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "py")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 3) = ".js") {
+else if (SubStrLastChars(argCODEfile, 3) = ".js") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "js")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 3) = ".go") {
+else if (SubStrLastChars(argCODEfile, 3) = ".go") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "go")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 4) = ".lua") {
+else if (SubStrLastChars(argCODEfile, 4) = ".lua")
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "lua")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 3) = ".cs") {
+else if (SubStrLastChars(argCODEfile, 3) = ".cs") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "cs")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 5) = ".java") {
+else if (SubStrLastChars(argCODEfile, 5) = ".java") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "java")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 3) = ".kt") {
+else if (SubStrLastChars(argCODEfile, 3) = ".kt") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "kt")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 3) = ".rb") {
+else if (SubStrLastChars(argCODEfile, 3) = ".rb")
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "rb")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 4) = ".nim") {
+else if (SubStrLastChars(argCODEfile, 4) = ".nim") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "nim")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 4) = ".ahk") {
+else if (SubStrLastChars(argCODEfile, 4) = ".ahk") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "ahk")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 6) = ".swift") {
+else if (SubStrLastChars(argCODEfile, 6) = ".swift") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "swift")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 5) = ".dart") {
+else if (SubStrLastChars(argCODEfile, 5) = ".dart") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "dart")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 3) = ".ts") {
+else if (SubStrLastChars(argCODEfile, 3) = ".ts") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "ts")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 } 
-else if (SubStrLastChars(argCODEfile, 7) = ".groovy") {
+else if (SubStrLastChars(argCODEfile, 7) = ".groovy") 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", "groovy")
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
     return
 }
-else if (SubStrLastChars(argCODEfile, StrLen("." . Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), Chr(10), 2)))) = "." . Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), Chr(10), 2))) {
+else if (SubStrLastChars(argCODEfile, StrLen("." . Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), Chr(10), 2)))) = "." . Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), Chr(10), 2))) 
+{
     OUTCODE := compiler(argCODE, Trim(FileRead(argHTVMinstr)), "notHTVM", Trim(StrSplit(StrReplace(FileRead(argHTVMinstr), Chr(13), ""), Chr(10), 2)))
     FileDelete(Trim(argCODEfile))
     FileAppend(OUTCODE, Trim(argCODEfile))
@@ -15868,6 +15905,9 @@ return
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
 
 
 }

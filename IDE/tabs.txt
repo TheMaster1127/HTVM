@@ -105,3 +105,8 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBo
 C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_train.py
 C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_RUN.py
 C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\imageToTxt.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile988765.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile988765.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile988765.go
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile988765.dart
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile988765.py
