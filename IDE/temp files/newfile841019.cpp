@@ -3,37 +3,9 @@
 #include <cstdint>
 #include <iostream>
 #include <optional>
-#include <regex>
 #include <sstream>
 #include <string>
-#include <type_traits>
 #include <vector>
-
-// Print function for const char* specifically
-void print(const char* value) {
-    std::cout << std::string(value) << std::endl;  // Convert const char* to std::string
-}
-// Print function that converts all types to string if needed
-template <typename T>
-void print(const T& value) {
-    if constexpr (std::is_same_v<T, std::string>) {
-        std::cout << value << std::endl;
-    } else if constexpr (std::is_same_v<T, char>) {
-        std::cout << value << std::endl;
-    } else if constexpr (std::is_same_v<T, int>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, float>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, double>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, size_t>) {
-        std::cout << std::to_string(value) << std::endl;
-    } else if constexpr (std::is_same_v<T, bool>) {
-        std::cout << (value ? "1" : "0") << std::endl;
-    } else {
-        std::cout << "Unsupported type" << std::endl;
-    }
-}
 
 // Function to get input from the user, similar to Python's input() function
 std::string input(const std::string& prompt) {
@@ -43,20 +15,29 @@ std::string input(const std::string& prompt) {
     return userInput;
 }
 
-int RegExMatch(const std::string& haystack, const std::string& needle) {
-    std::regex re(needle);
-    std::smatch match;
-    if (std::regex_search(haystack, match, re)) {
-        return match.position(0) + 1; // 1-based index
-    }
-    return 0; // No match
+std::string Trim(const std::string &inputString) {
+    if (inputString.empty()) return "";
+    size_t start = inputString.find_first_not_of(" \t\n\r\f\v");
+    size_t end = inputString.find_last_not_of(" \t\n\r\f\v");
+    return (start == std::string::npos) ? "" : inputString.substr(start, end - start + 1);
+}
+
+std::string StringTrimRight(const std::string &input, int numChars) {
+    return (numChars <= input.length()) ? input.substr(0, input.length() - numChars) : input;
+}
+
+std::string Chr(int number) {
+    return (number >= 0 && number <= 0x10FFFF) ? std::string(1, static_cast<char>(number)) : "";
 }
 
 
 int main(int argc, char* argv[]) {
-    std::string input = "variable_N1234ame1234__: String%$^%&^*&(*&^*%&$^%&^*&( ^ ^7( ^*%6(& )96* (&)8&(^ 97)*";
-    if (RegExMatch(input, "^[a-zA-Z_][a-zA-Z0-9_]*: [^:]*;?$")) {
-        print("Match found");
+    input := "cpp`nhtvm`nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1`nalliance`ncrew`nmethod`ndef obj`nporp`nthis`nimport`nkeyWordCodeInTheTranspiledLangStart`nkeyWordCodeInTheTranspiledLangEnd`nkeyWordCodeInTheTranspiledLangStartCPP`nkeyWordCodeInTheTranspiledLangEndCPP`nkeyWordCodeInTheTranspiledLangStartPY`nkeyWordCodeInTheTranspiledLangEndPY`n[js start]`n[js end]`nkeyWordCodeInTheTranspiledLangStartGO`nkeyWordCodeInTheTranspiledLangEndGO`nkeyWordCodeInTheTranspiledLangStartLUA`nkeyWordCodeInTheTranspiledLangEndLUA`nkeyWordCodeInTheTranspiledLangStartCS`nkeyWordCodeInTheTranspiledLangEndCS`nkeyWordCodeInTheTranspiledLangStartJAVA`nkeyWordCodeInTheTranspiledLangEndJAVA`nkeyWordCodeInTheTranspiledLangStartKT`nkeyWordCodeInTheTranspiledLangEndKT`nkeyWordCodeInTheTranspiledLangStartRB`nkeyWordCodeInTheTranspiledLangEndRB`nkeyWordCodeInTheTranspiledLangStartNIM`nkeyWordCodeInTheTranspiledLangEndNIM`nkeyWordCodeInTheTranspiledLangStartAHK`nkeyWordCodeInTheTranspiledLangEndAHK`nkeyWordCodeInTheTranspiledLangStartSWIFT`nkeyWordCodeInTheTranspiledLangEndSWIFT`nkeyWordCodeInTheTranspiledLangStartDART`nkeyWordCodeInTheTranspiledLangEndDART`nkeyWordCodeInTheTranspiledLangStartTS`nkeyWordCodeInTheTranspiledLangEndTS`nkeyWordCodeInTheTranspiledLangStartGROOVY`nkeyWordCodeInTheTranspiledLangEndGROOVY`nkeyWordCodeInTheTranspiledLangStartHTVM`nkeyWordCodeInTheTranspiledLangEndHTVM`nkeyWordCodeInHTVMstart`nkeyWordCodeInHTVMend`n{`n}`nnull`ntrue`nfalse`nvoid`ndouble`nchar`nuint8`nuint16`nuint32`nuint64`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`nasync`nthrow`nErrorMsg`ntry`ncatch`nfinally`nreturn`n.add`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nend`nglobal`n;`n'''1`n'''2`n" . Chr(96) . "`nmain`n.`n+`n-`n*`n/`n%`n**`n=`n===`n!=`n" . Chr(62) . "`n" . Chr(60) . "`n" . Chr(62) . "=`n" . Chr(60) . "=`nand`nor`n!`n&`n|`n^`n~`n" . Chr(60) . "" . Chr(60) . "`n" . Chr(62) . "" . Chr(62) . "`n" . Chr(62) . "" . Chr(62) . "" . Chr(62) . "`n:=`n+=`n.=`n-=`n*=`n/=`n%=`n" . Chr(60) . "" . Chr(60) . "=`n" . Chr(62) . "" . Chr(62) . "=`n" . Chr(62) . "" . Chr(62) . "" . Chr(62) . "=`n&=`n|=`n^=`n?`n:`n++`n--`n0`nA_Index`nA_LoopField`non`noff`noff`non`non`noff`noff`noff`non`noff`noff`non`noff"
+    out := ""
+    Loop, Parse, input, `n, `r {
+        out .= A_Index . ": " . A_LoopField . Chr(10);
     }
+    out = StringTrimRight(out, 1);
+    Clipboard := out
     return 0;
 }

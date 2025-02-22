@@ -10,7 +10,6 @@ C:\Users\The_M\OneDrive\Desktop\AutoHotKey Scripts\Open Notepad\Notepad Log\Date
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\index.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\settings-iframe.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\settings-iframe.html
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\main.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\MDsharp\MDsharp\MDsharp.cpp
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test1.ht
 C:\Users\The_M\OneDrive\Desktop\temp Projects\testOSP1\test2.ht
@@ -87,7 +86,6 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm-err-handling.htvm
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\main.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm-err-handling.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\main.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\js.htpr
@@ -107,4 +105,3 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBo
 C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_train.py
 C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_RUN.py
 C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\imageToTxt.py
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm-err-handling.htvm2
