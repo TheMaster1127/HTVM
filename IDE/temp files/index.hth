@@ -1,7 +1,0 @@
-Gui, Show, w500 h500
-Gui, Add, Button, x10 y10 w140 h40 gButton, get data
-return
-
-Button:
-MsgBox, % getDataFromEndpoint("HELLO MAN D ISDBPIS weipsbedpisf adfpiaw dfP IPPQWE SFWAPEDS P23454Q WAP p ", "/TitleCaseText")
-Return

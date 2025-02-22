@@ -1,6 +1,0 @@
-str var1 := "QWSRDESEAW ESD WAESRD AWESD AWESD"
-Loop, Parse, var1, " "
-{
-print(A_LoopField)
-print(A_Index)
-}

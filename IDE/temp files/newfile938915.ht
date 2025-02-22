@@ -1,4 +1,0 @@
-Loop, 5
-{
-print("hello ismail: " . STR(A_Index))
-}
