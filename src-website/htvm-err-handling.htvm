@@ -12,7 +12,7 @@ StringTrimRight, htvmInstrText, fixTrim, 1
 
 Loop, Parse, htvmInstrText, `n, `r 
 {
-if (InStr(A_LoopField, Chr(34))) 
+if (InStr(A_LoopField, Chr(34)))
 {
 throw ErrorMsg("You cant use " . Chr(34) . " in line " . STR(A_Index + 1) . "!!!")
 }
