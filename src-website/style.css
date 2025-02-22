@@ -1,23 +1,363 @@
-/* Add this CSS to a <style> tag in your HTML or in a separate CSS file */
+* {
+    margin: 0;
+    padding: 0;
+}
 
-/* Default (mobile-first) layout: single column */
-.input-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
+body,
+html {
+    background-color: #1b1b1b;
+    font-family:
+        "Open Sans",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen-Sans,
+        Ubuntu,
+        Cantarell,
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+body {
+    display: flex;
+    max-height: 100dvh;
+    overflow-y: hidden;
+}
+
+
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    align-items: start;
+    justify-content: center;
+    max-height: 100vh;
+    width: max-content;
+    height: 100dvh;
+    gap: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    /* border: 1px solid red; */
+
+}
+
+.setting-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 4rem;
+}
+
+.setting-column:last-child {
+    margin-right: .8rem;
+}
+
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fe621b;
+    font-size: 1.5rem;
+    font-weight: 500;
+    height: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+}
+
+.title svg {
+    transform: rotate(180deg);
+}
+
+.settings-container {
+    width: 20rem;
+    max-height: max-content;
+    overflow: hidden;
+
+    border-radius: .8rem;
+    box-shadow: rgba(224, 219, 219, 0.16) 0px 3px 6px, rgba(208, 205, 205, 0.23) 0px 3px 6px;
+
+}
+
+.settings {
+    border: 4px solid white;
+    border-top: none;
+    border-bottom-right-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+    padding: .5rem;
+    background: rgb(12, 12, 12);
+    transition: max-height 1s ease;
+}
+
+
+
+
+.setting {
+    display: flex;
+    flex-direction: column;
+    color: rgb(194, 181, 181);
+}
+
+.setting-i {
+    display: flex;
+}
+
+.info-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: help;
+
+}
+
+.setting textarea {
+    resize: none;
+    width: 90%;
+    margin-left: .3rem;
+    height: 1.5rem;
+    font-size: 1.2rem;
+    background-color: #1b1b1b;
+    color: white;
+    margin-top: .3rem;
+    border-radius: .5rem;
+    padding-left: .2rem;
+    border: 1px solid rgb(49, 49, 49);
+    outline: none;
+    margin-top: 0;
+
+}
+
+
+
+.setting p {
+    margin-left: .5rem;
+    font-size: 1.3rem;
+}
+
+
+.settings-container.hidden .settings * {
+    display: none;
+}
+
+.settings-container.hidden .settings {
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    /* padding: 0; */
+    /* border-bottom: none; */
+}
+
+.arrows {
+    transition: transform .5s ease;
+}
+
+.settings-container.hidden .arrows {
+    transform: rotate(0deg) !important;
+}
+
+
+
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 16.3rem;
+    height: 100dvh;
+    background-color: #2d2d2d;
+}
+
+.lang-container {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    gap: 1rem;
+    /* border: 2px solid red; */
+    width: 100%;
+    height: 100%;
+    padding-top: 1rem;
+    overflow-y: auto;
+}
+
+.lang-container .lang-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: .5rem;
+    border-radius: .3rem;
+    background-color: aliceblue;
+    cursor: pointer;
+}
+
+.lang-item p {
     width: 100%;
 }
 
-/* For medium-sized screens (tablets, small laptops) */
-@media (min-width: 768px) {
-    .input-container {
-        grid-template-columns: 1fr 1fr; /* 2 columns */
+
+.lang-item svg {
+    transition: transform .3s ease;
+
+
+}
+
+.lang-item svg:hover {
+    transform: scale(1.5);
+}
+
+.sidebar hr {
+    visibility: hidden;
+    height: .5rem;
+}
+
+.top-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-items.top-items h3 {
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 0;
+    margin: 0;
+}
+
+.top-items.top-items .title-2 {
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.sidebar-bt {
+    background-color: #fe621b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
+    width: 13rem;
+    height: 3rem;
+    color: white;
+    padding-left: 1rem;
+    cursor: pointer;
+    margin-top: .7rem;
+
+
+
+    & p {
+        display: block;
+        width: 100%;
+        text-align: start;
+
+    }
+
+
+}
+
+.dropzone {
+    display: flex;
+    justify-content: center;
+    margin: .5rem 0 .5rem 0;
+    align-items: center;
+    border: 2px dashed rgb(151, 145, 145);
+    color: white;
+    border-radius: .5rem;
+    width: 13rem;
+    height: 5rem;
+    padding: .3rem;
+    /* padding: 2rem; */
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+
+/* .sidebar-bt:hover {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    filter: brightness(0.9);
+} */
+
+
+#portraitDiv {
+    background-image: url(img/rotate.webp);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+
+.github-corner:hover .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+
+}
+
+@keyframes octocat-wave {
+
+    0%,
+    100% {
+        transform: rotate(0)
+    }
+
+    20%,
+    60% {
+        transform: rotate(-25deg)
+    }
+
+    40%,
+    80% {
+        transform: rotate(10deg)
     }
 }
 
-/* For large screens (desktops) */
-@media (min-width: 1024px) {
-    .input-container {
-        grid-template-columns: 1fr 1fr 1fr; /* 3 columns */
+@media (max-width:500px) {
+    .github-corner:hover .octo-arm {
+        animation: none
+    }
+
+    .github-corner .octo-arm {
+        animation: octocat-wave 560ms ease-in-out
     }
 }
+
+
+@media only screen and (orientation: portrait) and (min-aspect-ratio: 1/1) {
+    body {
+        visibility: hidden;
+    }
+}
+
+
+.fancyScroll::-webkit-scrollbar {
+    width: 12px;
+    z-index: 100;
+}
+
+.fancyScroll::-webkit-scrollbar-track {
+    border-radius: .1rem;
+    background-color: transparent;
+    /* border: 1px solid #cacaca; */
+    /* box-shadow: inset 0 0 6px rgba(0, 0, 0, .3); */
+}
+
+.fancyScroll::-webkit-scrollbar-thumb {
+    border-radius: .1rem;
+    background-color: #fe6619;
+    border-radius: .3rem;
+    cursor: pointer;
+}
+
+
+
+
+/* css.gg */
