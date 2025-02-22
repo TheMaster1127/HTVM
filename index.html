@@ -1,47 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTVM</title>
+    <title>Settings</title>
+    <link rel="stylesheet" href="src-website/style.css">
 
-    <!-- External style.css file for styling -->
-    <link rel="stylesheet" href="src-website/style.css"> <!-- Link to external style.css -->
-    
-    <!-- Inline style for fallback and specific styles -->
-    <style>
-        body {
-            background-color: #202020; /* Dark background */
-            font-family:
-                "Open Sans",
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Roboto,
-                Oxygen-Sans,
-                Ubuntu,
-                Cantarell,
-                "Helvetica Neue",
-                Helvetica,
-                Arial,
-                sans-serif;
-            margin: 0;
-            padding: 0;
-            color: white; /* White text */
-        }
-    </style>
 </head>
+
 <body>
-    <!-- Include HTVM.js from the same directory -->
-    <script src="HTVM.js"></script> 
-    <!-- Include htvm-err-handling.js from the src-website folder -->  
-    <script src="src-website/htvm-err-handling.js"></script> 
-    <!-- Include main.js from the src-website folder -->
-    <script src="src-website/main.js"></script> 
+
+
+    <a class="github" style="z-index: 0;" onclick="window.open('https://github.com/TheMaster1127/HTVM/', '_blank');"
+        class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250"
+            style="fill:#fff; color:#1b1b1b; position: fixed; top: 0; border: 0; right: 0;cursor: pointer;"
+            aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />
+            <path
+                d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+                fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm" />
+            <path
+                d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+                fill="currentColor" class="octo-body" />
+        </svg></a>
+
+
+    <div class="sidebar">
+        <div class="top-items">
+            <h3> HTVM</h3>
+            <p class="title-2">The Adaptive, Multi-Language Customizable Syntax and Code Generation Engine</p>
+            <hr>
+
+            <div class="sidebar-bt">
+                <p>Example</p>
+            </div>
+            <div class="sidebar-bt" id="createLang">
+                <p>Create</p>
+            </div>
+            <hr>
+            <div id="dropzone" class="dropzone">
+                drag and drop
+            </div>
+        </div>
+        <div class="lang-container fancyScroll">
+            <div class="lang-item">
+                <p>Lorem, ipsum dolor.</p>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M14 6C14 7.10457 13.1046 8 12 8C10.8954 8 10 7.10457 10 6C10 4.89543 10.8954 4 12 4C13.1046 4 14 4.89543 14 6Z"
+                        fill="currentColor" />
+                    <path
+                        d="M14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z"
+                        fill="currentColor" />
+                    <path
+                        d="M14 18C14 19.1046 13.1046 20 12 20C10.8954 20 10 19.1046 10 18C10 16.8954 10.8954 16 12 16C13.1046 16 14 16.8954 14 18Z"
+                        fill="currentColor" />
+                </svg>
+            </div>
+
+        </div>
+        <div class="bottem-items">
+            <div class="sidebar-bt">
+                <p>Example</p>
+            </div>
+            <hr>
+        </div>
+
+    </div>
+    <div class="container fancyScroll">
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js"
+        integrity="sha512-MSOo1aY+3pXCOCdGAYoBZ6YGI0aragoQsg1mKKBHXCYPIWxamwOE7Drh+N5CPgGI5SA9IEKJiPjdfqWFWmZtRA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- <script src="HTVM.js"></script> -->
+    <!-- <script src="src-website/htvm-err-handling.js"></script> -->
 
     <script>
-        // Log HTVM to the console to ensure everything is set up correctly
-        console.log("HTVM");
+        $(document).ready(function () {
+            function checkPortraitMode() {
+                // Change condition to check for portrait mode (height > width)
+                if ($(window).height() > $(window).width()) {
+                    if (!/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) return
+
+                    $('body').hide()
+                    if ($("#portraitDiv").length === 0) {
+                        $('<div id="portraitDiv"></div>')
+                            .css({
+                                'position': 'fixed',
+                                'top': '0',
+                                'left': '0',
+                                'width': '100dvw',  // Added for full coverage
+                                'height': '100dvh', // Added for full coverage
+                                'background-color': 'black',
+                                'z-index': '9999'
+                            })
+                            .appendTo('html');
+                    }
+                } else {
+                    $("#portraitDiv").remove();
+                    $('body').show()
+                }
+            }
+
+            // Check on page load
+            checkPortraitMode();
+
+            // Check on window resize
+            $(window).on('resize', checkPortraitMode);
+        });
+
+
+        if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            $("#dropzone").text("Select HTVM instructions.txt")
+        }
+
     </script>
+    <script src="src-website/grid.js"></script>
 </body>
+
 </html>
