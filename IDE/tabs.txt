@@ -93,19 +93,5 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile638232.py
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Game\game.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Game\game.html
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile841019.ht
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile841019.cpp
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile841019.js
 C:\Users\The_M\OneDrive\Desktop\temp Projects\playWhitAIjs\mainAI.js
-C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_makeTrainingData.py
-C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_getTrainingData.py
-C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_saveHeatMap.py
-C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_seeHeatMap.py
-C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_train.py
-C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\mapGuessNumberBot_RUN.py
-C:\Users\The_M\OneDrive\Desktop\temp Projects\mapGuessNumberBot\imageToTxt.py
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile988765.htvm
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile988765.js
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile988765.go
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile988765.dart
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile988765.py
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\online-ide.html

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Responsive Online IDE</title>
+  <style>
+    :root {
+      --bg-color: #1a1a1a;
+      --text-color: #e0e0e0;
+      --sidebar-bg: #2d2d2d;
+      --hover-bg: #404040;
+      --btn-bg: #fe6619;
+      --btn-hover: #e65a00;
+      --splitter-bg: #555;
+    }
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      display: flex;
+      overflow: hidden;
+    }
+    /* Sidebar */
+    #sidebar {
+      width: 250px;
+      min-width: 150px;
+      background-color: var(--sidebar-bg);
+      padding: 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    #path-display {
+      margin-bottom: 5px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+    #file-path-display {
+      margin-bottom: 10px;
+      font-size: 0.85em;
+      color: #aaa;
+    }
+    #sidebar-splitter {
+      width: 5px;
+      background-color: var(--splitter-bg);
+      cursor: ew-resize;
+    }
+    /* Main content area */
+    #main-content {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+    /* IDE Column (left) */
+    #ide-container {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 60%;
+    }
+    #buttons-container {
+      padding: 5px;
+      background: var(--bg-color);
+    }
+    /* Editor (top half of IDE) */
+    #editor {
+      height: 70%;
+      border: 1px solid var(--hover-bg);
+      overflow: auto;
+      display: none;
+    }
+    /* Horizontal splitter between editor and console */
+    #ide-horizontal-splitter {
+      height: 5px;
+      background-color: var(--splitter-bg);
+      cursor: ns-resize;
+    }
+    /* Console (bottom half of IDE) */
+    #console {
+      flex: 1;
+      background-color: #000;
+      color: #0f0;
+      overflow-y: auto;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    /* Vertical splitter between IDE and Output */
+    #vertical-splitter {
+      width: 5px;
+      background-color: var(--splitter-bg);
+      cursor: ew-resize;
+      display: none;
+    }
+    /* Output Column (right) – only visible for HTML files */
+    #output-container {
+      width: 500px;
+      min-width: 200px;
+      display: none;
+      flex-direction: column;
+      overflow: auto;
+      border-left: 1px solid var(--hover-bg);
+      padding: 5px;
+    }
+    /* The HTML output iframe */
+    #html-output {
+      width: 100%;
+      height: 500px;
+      border: none;
+    }
+    #close-iframe-btn {
+      background-color: var(--btn-bg);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+    #close-iframe-btn:hover {
+      background-color: var(--btn-hover);
+    }
+    /* Sidebar items */
+    .item {
+      padding: 8px;
+      margin: 4px 0;
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+    }
+    .item:hover {
+      background-color: var(--hover-bg);
+    }
+    .folder::before {
+      content: '📁 ';
+      margin-right: 5px;
+    }
+    .file::before {
+      content: '📄 ';
+      margin-right: 5px;
+    }
+    .item span.name {
+      flex: 1;
+      cursor: pointer;
+    }
+    .item button.action-btn {
+      background: transparent;
+      border: none;
+      color: #aaa;
+      cursor: pointer;
+      margin-left: 4px;
+      font-size: 16px;
+    }
+    .item button.action-btn:hover {
+      color: #fff;
+    }
+    /* Common button styling */
+    button {
+      background-color: var(--btn-bg);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 5px 5px 5px 0;
+    }
+    button:hover {
+      background-color: var(--btn-hover);
+    }
+    button:disabled {
+      background-color: #333;
+      cursor: not-allowed;
+    }
+  </style>
+  <!-- Ace Editor CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <div id="path-display"></div>
+    <div id="file-path-display"></div>
+    <button id="back-btn" onclick="goBack()" disabled>← Back</button>
+    <div id="directory-contents"></div>
+  </div>
+  <div id="sidebar-splitter"></div>
+  <!-- Main Content Area -->
+  <div id="main-content">
+    <!-- IDE Column (Editor & Console) -->
+    <div id="ide-container">
+      <div id="buttons-container">
+        <button onclick="createNew('file')">New File</button>
+        <button onclick="createNew('folder')">New Folder</button>
+        <button onclick="runFile()" id="run-btn">Run (Ctrl+Enter)</button>
+      </div>
+      <div id="editor"></div>
+      <div id="ide-horizontal-splitter"></div>
+      <div id="console"></div>
+    </div>
+    <!-- Vertical Splitter between IDE and Output -->
+    <div id="vertical-splitter"></div>
+    <!-- Output Column (visible only for HTML files) -->
+    <div id="output-container">
+      <iframe id="html-output"></iframe>
+      <button onclick="closeIframe()" id="close-iframe-btn">Close Output</button>
+    </div>
+  </div>
+
+  <script>
+    /* ----------------------------
+       Utility & Persistence Setup
+    ----------------------------- */
+    function getUrlParam(param) {
+      let params = new URLSearchParams(window.location.search);
+      return params.get(param);
+    }
+    let uniqueId = getUrlParam('id') || 'default';
+    const fileSystemKey = 'fileSystem_' + uniqueId;
+    const lastFileKey = 'lastFile_' + uniqueId;
+    const defaultStructure = {
+      name: 'root',
+      isFolder: true,
+      children: [
+        { name: 'Documents', isFolder: true, children: [] },
+        { name: 'README.txt', isFolder: false, content: 'Welcome to the file system simulation!' }
+      ]
+    };
+    function loadFileSystem() {
+      const data = localStorage.getItem(fileSystemKey);
+      return data ? JSON.parse(data) : defaultStructure;
+    }
+    let root = loadFileSystem();
+    function saveFileSystem() {
+      localStorage.setItem(fileSystemKey, JSON.stringify(root));
+    }
+    function saveLastFile(path) {
+      localStorage.setItem(lastFileKey, JSON.stringify(path));
+    }
+    function loadLastFile() {
+      const data = localStorage.getItem(lastFileKey);
+      return data ? JSON.parse(data) : null;
+    }
+    function findPath(node, target, currentPath = []) {
+      if (node === target) return currentPath.concat(node.name);
+      if (node.isFolder && node.children) {
+        for (let child of node.children) {
+          let result = findPath(child, target, currentPath.concat(node.name));
+          if (result) return result;
+        }
+      }
+      return null;
+    }
+    function getItemByPath(path, node) {
+      if (!path.length) return node;
+      if (!node.isFolder || !node.children) return null;
+      const nextName = path[0];
+      for (let child of node.children) {
+        if (child.name === nextName) {
+          return getItemByPath(path.slice(1), child);
+        }
+      }
+      return null;
+    }
+
+    /* ----------------------------
+       System State & Editor Setup
+    ----------------------------- */
+    let currentDir = root;
+    let dirHistory = [];
+    let openFile = null; // currently open file
+    let editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/javascript");
+    editor.setOptions({ fontSize: "18px" });
+    editor.on("change", function() {
+      if (openFile) {
+        openFile.content = editor.getValue();
+        saveFileSystem();
+        let path = findPath(root, openFile);
+        if (path) saveLastFile(path);
+        updateFilePathDisplay();
+      }
+    });
+
+    /* ----------------------------
+       File/Folder Operations
+    ----------------------------- */
+    function createNew(type) {
+      const name = prompt(`Enter ${type} name:`);
+      if (!name) return;
+      if (currentDir.children.some(item => item.name === name)) {
+        alert('Name already exists!');
+        return;
+      }
+      let newItem = type === 'file'
+        ? { name, isFolder: false, content: '' }
+        : { name, isFolder: true, children: [] };
+      currentDir.children.push(newItem);
+      saveFileSystem();
+      renderDirectory();
+    }
+    function renameItem(item) {
+      const newName = prompt("Enter new name:", item.name);
+      if (!newName || newName === item.name) return;
+      if (currentDir.children.some(child => child.name === newName)) {
+        alert('A file or folder with that name already exists!');
+        return;
+      }
+      item.name = newName;
+      if (openFile === item) {
+        let path = findPath(root, item);
+        if (path) saveLastFile(path);
+      }
+      saveFileSystem();
+      renderDirectory();
+      updateFilePathDisplay();
+    }
+    function deleteItem(item) {
+      if (!confirm(`Are you sure you want to delete "${item.name}"? This will delete all its contents if it's a folder.`)) {
+        return;
+      }
+      if (openFile === item) {
+        openFile = null;
+        document.getElementById('editor').style.display = 'none';
+        updateFilePathDisplay();
+      }
+      currentDir.children = currentDir.children.filter(child => child !== item);
+      saveFileSystem();
+      renderDirectory();
+    }
+    function navigateInto(item) {
+      if (!item.isFolder) {
+        if (openFile && openFile !== item) openFile.content = editor.getValue();
+        openFile = item;
+        editor.setValue(item.content || "", -1);
+        document.getElementById('editor').style.display = 'block';
+        closeIframe();
+        let path = findPath(root, item);
+        if (path) saveLastFile(path);
+        updateFilePathDisplay();
+        return;
+      }
+      if (openFile) openFile.content = editor.getValue();
+      dirHistory.push(currentDir);
+      currentDir = item;
+      document.getElementById('back-btn').disabled = false;
+      renderDirectory();
+    }
+    function goBack() {
+      if (dirHistory.length === 0) return;
+      if (openFile) openFile.content = editor.getValue();
+      currentDir = dirHistory.pop();
+      document.getElementById('back-btn').disabled = dirHistory.length === 0;
+      renderDirectory();
+    }
+    function renderDirectory() {
+      const container = document.getElementById('directory-contents');
+      container.innerHTML = '';
+      currentDir.children.forEach(item => {
+        const div = document.createElement('div');
+        div.className = `item ${item.isFolder ? 'folder' : 'file'}`;
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'name';
+        nameSpan.textContent = item.name;
+        nameSpan.onclick = () => navigateInto(item);
+        div.appendChild(nameSpan);
+        const renameBtn = document.createElement('button');
+        renameBtn.textContent = '✏️';
+        renameBtn.title = 'Rename';
+        renameBtn.className = 'action-btn';
+        renameBtn.onclick = (e) => { e.stopPropagation(); renameItem(item); };
+        div.appendChild(renameBtn);
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '🗑️';
+        deleteBtn.title = 'Delete';
+        deleteBtn.className = 'action-btn';
+        deleteBtn.onclick = (e) => { e.stopPropagation(); deleteItem(item); };
+        div.appendChild(deleteBtn);
+        container.appendChild(div);
+      });
+      document.getElementById('path-display').textContent =
+        getFullPath(currentDir).join(' / ');
+    }
+    function getFullPath(dir) {
+      let path = [];
+      function traverse(node, target, acc) {
+        if (node === target) return true;
+        if (node.isFolder && node.children) {
+          for (let child of node.children) {
+            if (traverse(child, target, acc)) {
+              acc.unshift(child.name);
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+      traverse(root, dir, path);
+      return ['root', ...path];
+    }
+    function updateFilePathDisplay() {
+      const display = document.getElementById('file-path-display');
+      if (openFile) {
+        let fullPath = findPath(root, openFile);
+        display.textContent = "Editing: " + fullPath.join(' / ');
+      } else {
+        display.textContent = "";
+      }
+    }
+
+    /* ----------------------------
+       Run File Functionality
+    ----------------------------- */
+    function runFile() {
+      if (!openFile) {
+        alert("No file open to run!");
+        return;
+      }
+      const filename = openFile.name;
+      const consoleDiv = document.getElementById("console");
+      consoleDiv.innerHTML = "";
+      closeIframe();
+      if (filename.endsWith(".js")) {
+        const originalLog = console.log;
+        console.log = function(...args) {
+          originalLog.apply(console, args);
+          consoleDiv.innerHTML += args.join(" ") + "<br>";
+        };
+        try {
+          eval(openFile.content);
+        } catch (e) {
+          console.log("Error: " + e.message);
+        }
+        setTimeout(() => { console.log = originalLog; }, 1000);
+      }
+      else if (filename.endsWith(".htvm")) {
+        console.log("themaster1127 will make and call a func here to handle .htvm files!!!");
+      }
+      else if (filename.endsWith(".html")) {
+        // Show the output column and vertical splitter
+        document.getElementById("output-container").style.display = "flex";
+        document.getElementById("vertical-splitter").style.display = "block";
+        const iframe = document.createElement("iframe");
+        iframe.id = "html-output";
+        iframe.srcdoc = openFile.content;
+        const outputContainer = document.getElementById("output-container");
+        outputContainer.insertBefore(iframe, outputContainer.firstChild);
+      }
+      else {
+        alert("File type not supported for execution.");
+      }
+    }
+    function closeIframe() {
+      document.getElementById("output-container").style.display = "none";
+      document.getElementById("vertical-splitter").style.display = "none";
+      document.getElementById("output-container").innerHTML = "";
+    }
+
+    /* ----------------------------
+       Resizable Splitters
+    ----------------------------- */
+    // Sidebar splitter
+    const sidebarSplitter = document.getElementById("sidebar-splitter");
+    sidebarSplitter.addEventListener("mousedown", initSidebarResize);
+    function initSidebarResize(e) {
+      window.addEventListener("mousemove", resizeSidebar);
+      window.addEventListener("mouseup", stopSidebarResize);
+    }
+    function resizeSidebar(e) {
+      let newWidth = e.clientX;
+      if (newWidth < 150) newWidth = 150;
+      if (newWidth > 400) newWidth = 400;
+      document.getElementById("sidebar").style.width = newWidth + "px";
+    }
+    function stopSidebarResize(e) {
+      window.removeEventListener("mousemove", resizeSidebar);
+      window.removeEventListener("mouseup", stopSidebarResize);
+    }
+    // Horizontal splitter within IDE (between editor and console)
+    const ideHorizontalSplitter = document.getElementById("ide-horizontal-splitter");
+    ideHorizontalSplitter.addEventListener("mousedown", initIdeHorizontalResize);
+    function initIdeHorizontalResize(e) {
+      window.addEventListener("mousemove", resizeIdeHorizontal);
+      window.addEventListener("mouseup", stopIdeHorizontalResize);
+    }
+    function resizeIdeHorizontal(e) {
+      const ideRect = document.getElementById("ide-container").getBoundingClientRect();
+      let offset = e.clientY - ideRect.top - document.getElementById("buttons-container").offsetHeight;
+      if (offset < 50) offset = 50;
+      if (offset > ideRect.height - 50) offset = ideRect.height - 50;
+      document.getElementById("editor").style.height = offset + "px";
+    }
+    function stopIdeHorizontalResize(e) {
+      window.removeEventListener("mousemove", resizeIdeHorizontal);
+      window.removeEventListener("mouseup", stopIdeHorizontalResize);
+    }
+    // Vertical splitter between IDE and Output
+    const verticalSplitter = document.getElementById("vertical-splitter");
+    verticalSplitter.addEventListener("mousedown", initVerticalResize);
+    function initVerticalResize(e) {
+      window.addEventListener("mousemove", resizeVertical);
+      window.addEventListener("mouseup", stopVerticalResize);
+    }
+    function resizeVertical(e) {
+      const mainRect = document.getElementById("main-content").getBoundingClientRect();
+      let offset = e.clientX - mainRect.left;
+      if (offset < 100) offset = 100;
+      if (offset > mainRect.width - 100) offset = mainRect.width - 100;
+      document.getElementById("ide-container").style.width = offset + "px";
+    }
+    function stopVerticalResize(e) {
+      window.removeEventListener("mousemove", resizeVertical);
+      window.removeEventListener("mouseup", stopVerticalResize);
+    }
+
+    /* ----------------------------
+       Initialization & Keyboard Shortcut
+    ----------------------------- */
+    renderDirectory();
+    const lastFilePath = loadLastFile();
+    if (lastFilePath) {
+      const pathWithoutRoot = lastFilePath[0] === 'root' ? lastFilePath.slice(1) : lastFilePath;
+      const file = getItemByPath(pathWithoutRoot, root);
+      if (file && !file.isFolder) {
+        openFile = file;
+        editor.setValue(file.content || "", -1);
+        document.getElementById('editor').style.display = 'block';
+        updateFilePathDisplay();
+      }
+    }
+    document.addEventListener("keydown", function(e) {
+      if (e.ctrlKey && e.key === "Enter") {
+        e.preventDefault();
+        runFile();
+      }
+    });
+  </script>
+</body>
+</html>
