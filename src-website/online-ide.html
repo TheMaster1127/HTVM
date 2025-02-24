@@ -766,68 +766,78 @@ function fileMakeOrOverride(name, content = "[empty file]") {
 function runHTVM(fileContents, fileName) {
     // Get the URL id parameter
     const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id'); // Get 'id' from the URL, e.g., ?id=1
+    const id = urlParams.get('id') || 'default_id'; // Use 'default_id' if 'id' is not in the URL
 
     // Build the localStorage key based on the id
     const storageKey = `htvm-lang_${id}`;
-    
+
     // Fetch the stored data from localStorage
     let storedData = localStorage.getItem(storageKey);
 
-    if (storedData) {
-        // If data exists, parse it
+    // If there's no stored data, fetch it from the GitHub file
+    if (!storedData) {
+        fetch('https://raw.githubusercontent.com/TheMaster1127/HTVM/refs/heads/main/HTVM-instructions.txt')
+            .then(response => response.text())
+            .then(data => {
+                // Split the data into lines
+                const lines = data.split('\n');
+                // Get the first 162 lines
+                const first162Lines = lines.slice(0, 162);
+
+                // Store the array in localStorage
+                localStorage.setItem(storageKey, JSON.stringify(first162Lines));
+                console.log(`First 162 lines have been stored in localStorage as "${storageKey}".`);
+
+                // Call the function again with the fetched data
+                runHTVM(fileContents, fileName);
+            })
+            .catch(error => console.error('Error fetching the file:', error));
+    } else {
+        // If stored data exists, parse it
         storedData = JSON.parse(storedData);
-        
+
         // Convert the array of lines into a single string with newlines
-        const linesString = storedData.join('\n');  
+        const linesString = storedData.join('\n');
 
         // Concatenate everything into htvm_instr with a newline between the two parts
-        const htvm_instr = linesString + '\n' + build_in_funcs;
+        const htvm_instr = linesString + '\n' + (build_in_funcs || '');
+
+        // Now you have the full instruction string in htvm_instr
+        let OUTCODE = compiler(fileContents, htvm_instr, "full", "js");
+        console.log(fileName);
+
+        // Replace the extension with '.js'
+        fileName = fileName.replace(/\.[^/.]+$/, ".js");
+
+        // Call fileMakeOrOverride to save the output
+        fileMakeOrOverride(fileName, OUTCODE);
         
-        // You now have the full instruction string in htvm_instr
-        //console.log(htvm_instr);
-        
-        
-let OUTCODE = compiler(fileContents, htvm_instr, "full", "js")
-console.log(fileName)
+        logToConsole("Saved the HTVM output to: " + fileName + " at: " + new Date().toISOString().slice(11, 23));
 
-// Replace the extension with '.js'
-fileName = fileName.replace(/\.[^/.]+$/, ".js");
+        if (runJsAfterHTVM) {
+            const consoleDiv = document.getElementById("console-log");
+            consoleDiv.innerHTML = ""; // Clear previous logs
+            closeIframe(); // Close the iframe if applicable
 
-fileMakeOrOverride(fileName, OUTCODE)
-        
-logToConsole("Saved the HTVM output to: " + fileName + " at: " + new Date().toISOString().slice(11, 23))
+            logToConsole("Running HTVM output...");
+            logToConsole("\n");
 
-if (runJsAfterHTVM)
-{
+            // Redirect console.log to also log in the browser
+            const originalLog = console.log;
+            console.log = function(...args) {
+                originalLog.apply(console, args);
+                consoleDiv.innerHTML += args.join(" ") + "<br>";
+            };
 
-    const filename = openFile.name;
-    const consoleDiv = document.getElementById("console-log");
-    consoleDiv.innerHTML = "";
-    closeIframe();
+            try {
+                new Function(OUTCODE)(); // Execute the generated JS code
+            } catch (e) {
+                console.log("Error: " + e.message);
+            }
 
-    logToConsole("Saved the HTVM output to: " + fileName + " at: " + new Date().toISOString().slice(11, 23))
-    logToConsole("Running...")
-    logToConsole("\n")
-    
-    const originalLog = console.log;
-    console.log = function(...args) {
-      originalLog.apply(console, args);
-      consoleDiv.innerHTML += args.join(" ") + "<br>";
-    };
-    try {
-      new Function(OUTCODE)();
-    } catch (e) {
-      console.log("Error: " + e.message);
-    }
-    setTimeout(() => { console.log = originalLog; }, 1000);
-
-
-}
-
-        
-    } else {
-        console.error(`No data found for key: ${storageKey}`);
+            // Restore console.log after running the code
+            setTimeout(() => { console.log = originalLog; }, 1000);
+        }
     }
 }
 
