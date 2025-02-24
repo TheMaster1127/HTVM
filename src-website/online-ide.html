@@ -207,6 +207,8 @@
   </style>
   <!-- Ace Editor CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+  <!-- HTVM transpiler in js -->
+  <script src="../HTVM.js"></script>
 </head>
 <body>
   <!-- Sidebar -->
@@ -245,6 +247,33 @@
   </div>
 
   <script>
+  
+let build_in_funcs = '';
+
+function fetchBuildInFuncs() {
+    // Fetch the HTVM-instructions.txt file from the URL
+    fetch('https://raw.githubusercontent.com/TheMaster1127/HTVM/refs/heads/main/HTVM-instructions.txt')
+        .then(response => response.text())  // Get the raw text of the file
+        .then(data => {
+            // Split the text into an array of lines
+            const lines = data.split('\n');
+            
+            // Extract the lines from 163 to the end (index 162 to the end of the array)
+            build_in_funcs = lines.slice(162).join('\n');
+            
+            // You now have the build_in_funcs variable populated with lines from 163 to the end
+            //console.log(build_in_funcs);  // Optionally print the result to check
+        })
+        .catch(error => {
+            console.error('Error fetching HTVM-instructions.txt:', error);
+        });
+}
+
+// Call the function to fetch the data
+fetchBuildInFuncs();
+
+  
+  
     /* ----------------------------
        Utility & Persistence Setup
     ----------------------------- */
@@ -446,6 +475,84 @@
       }
     }
 
+
+function fileMakeOrOverride(name, content = "[empty file]") {
+  // Check if the file already exists in the current directory
+  let existingFile = currentDir.children.find(item => item.name === name && !item.isFolder);
+
+  if (existingFile) {
+    // If the file exists, override its content
+    existingFile.content = content;
+    //alert(`File "${name}" has been updated.`);
+  } else {
+    // If the file doesn't exist, create a new file
+    let newFile = { name, isFolder: false, content };
+    currentDir.children.push(newFile);
+    //alert(`File "${name}" has been created.`);
+  }
+
+  // Save the file system and re-render the directory
+  saveFileSystem();
+  renderDirectory();
+}
+
+    /* ----------------------------
+       Console
+    ----------------------------- */
+
+    function logToConsole(message) {
+      const logDiv = document.getElementById("console-log");
+      logDiv.innerHTML += message + "<br>";
+    }
+
+
+
+    /* ----------------------------
+       HTVM
+    ----------------------------- */
+
+function runHTVM(fileContents, fileName) {
+    // Get the URL id parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id'); // Get 'id' from the URL, e.g., ?id=1
+
+    // Build the localStorage key based on the id
+    const storageKey = `htvm-lang_${id}`;
+    
+    // Fetch the stored data from localStorage
+    let storedData = localStorage.getItem(storageKey);
+
+    if (storedData) {
+        // If data exists, parse it
+        storedData = JSON.parse(storedData);
+        
+        // Convert the array of lines into a single string with newlines
+        const linesString = storedData.join('\n');  
+
+        // Concatenate everything into htvm_instr with a newline between the two parts
+        const htvm_instr = linesString + '\n' + build_in_funcs;
+        
+        // You now have the full instruction string in htvm_instr
+        //console.log(htvm_instr);
+        
+        
+let OUTCODE = compiler(fileContents, htvm_instr, "full", "js")
+console.log(fileName)
+
+// Replace the extension with '.js'
+fileName = fileName.replace(/\.[^/.]+$/, ".js");
+
+fileMakeOrOverride(fileName, OUTCODE)
+        
+logToConsole("Saved the HTVM output to: " + fileName)
+        
+        
+    } else {
+        console.error(`No data found for key: ${storageKey}`);
+    }
+}
+
+
     /* ----------------------------
        Run File Functionality
     ----------------------------- */
@@ -472,7 +579,8 @@
         setTimeout(() => { console.log = originalLog; }, 1000);
       }
       else if (filename.endsWith(".htvm")) {
-        console.log("themaster1127 will make and call a func here to handle .htvm files!!!");
+        //console.log("themaster1127 will make and call a func here to handle .htvm files!!!");
+        runHTVM(openFile.content, filename);
       }
       else if (filename.endsWith(".html")) {
         document.getElementById("output-container").style.display = "flex";

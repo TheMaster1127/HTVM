@@ -2045,22 +2045,32 @@ lang: js
 name: SubStr
 libs: null
 description: string~~~SubStr is a function that extracts a substring from a given string, starting from a specified position and for a specified length, adjusting for edge cases like null inputs or missing parameters.~~~here is how the func looks like:~~~```~~~SubStr(str, int startPos, int length [= str.length - startPos + 1])~~~```~~~
-function SubStr(str, startPos, length) {
+function SubStr(str, startPos, length = -1) {
     // If str is null or undefined, return an empty string
     if (str === null || str === undefined) {
         return "";
     }
-    // If length is not provided or is blank, default to "all characters"
-    if (length === undefined || length === "") {
-        length = str.length - startPos + 1;
-    }
-    // If startPos is less than 1, adjust it to start from the end of the string
+    let strLen = str.length;
+    
+    // Handle negative starting positions (C++ style)
     if (startPos < 1) {
-        startPos = str.length + startPos;
+        startPos = strLen + startPos;
+        if (startPos < 0) startPos = 0;
+    } else {
+        startPos -= 1; // Convert to 0-based index (C++ style)
     }
-    // Extract the substring based on startPos and length
-    return str.substr(startPos - 1, length);
+
+    // Handle length (C++ style)
+    if (length < 0) {
+        length = strLen - startPos; // Length to end of string
+    } else if (startPos + length > strLen) {
+        length = strLen - startPos; // Adjust length to fit within the string
+    }
+
+    // Extract the substring
+    return str.substr(startPos, length);
 }
+
 funcEND======================funcEND==============
 func======================func==============
 lang: py
