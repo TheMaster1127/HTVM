@@ -153,6 +153,56 @@
     #close-iframe-btn:hover {
       background-color: var(--btn-hover);
     }
+    
+    
+    /* Toggle Switch CSS */
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 25px;
+      top: -5px; /* Move the element up by 5 pixels */
+    }
+    
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .toggle-switch .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 24px;
+    }
+    
+    .toggle-switch .slider:before {
+      position: absolute;
+      content: "";
+      height: 23px;
+      width: 23px;
+      border-radius: 50%;
+      left: 4px;
+      bottom: 1px;
+      background-color: white;
+      transition: 0.4s;
+    }
+    
+    input:checked + .slider {
+      background-color: #4CAF50;
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    
+
     /* Sidebar items */
     .item {
       padding: 8px;
@@ -236,6 +286,11 @@
         <button onclick="createNew('folder')">New Folder</button>
         <button onclick="runFile()" id="run-btn">Run (Ctrl+Enter)</button>
         <button onclick="closeIframe()" id="close-iframe-btn">Close Iframe html</button>
+        <label class="toggle-switch">
+          <input type="checkbox" id="runJsAfterHTVM">
+          <span class="slider"></span>
+        </label>
+          <span>Run JS after HTVM Conversion</span>
       </div>
       <div id="editor"></div>
       <div id="ide-horizontal-splitter"></div>
@@ -257,6 +312,20 @@
 
   <script>
   
+// Check if there's a saved value in localStorage and set the initial state
+let runJsAfterHTVM = localStorage.getItem('runJsAfterHTVM') === 'true'; // Retrieve and convert to boolean
+
+//console.log(runJsAfterHTVM)
+
+// Set the checkbox based on the stored value
+document.getElementById('runJsAfterHTVM').checked = runJsAfterHTVM;
+
+// Function to handle toggle change
+document.getElementById('runJsAfterHTVM').addEventListener('change', function() {
+  runJsAfterHTVM = this.checked;
+  localStorage.setItem('runJsAfterHTVM', runJsAfterHTVM); // Save the value to localStorage
+  console.log("Run JS after HTVM conversion: " + runJsAfterHTVM);
+});
 
   
 let build_in_funcs = '';
@@ -728,7 +797,34 @@ fileName = fileName.replace(/\.[^/.]+$/, ".js");
 fileMakeOrOverride(fileName, OUTCODE)
         
 logToConsole("Saved the HTVM output to: " + fileName + " at: " + new Date().toISOString().slice(11, 23))
-        
+
+if (runJsAfterHTVM)
+{
+
+    const filename = openFile.name;
+    const consoleDiv = document.getElementById("console-log");
+    consoleDiv.innerHTML = "";
+    closeIframe();
+
+    logToConsole("Saved the HTVM output to: " + fileName + " at: " + new Date().toISOString().slice(11, 23))
+    logToConsole("Running...")
+    logToConsole("\n")
+    
+    const originalLog = console.log;
+    console.log = function(...args) {
+      originalLog.apply(console, args);
+      consoleDiv.innerHTML += args.join(" ") + "<br>";
+    };
+    try {
+      new Function(OUTCODE)();
+    } catch (e) {
+      console.log("Error: " + e.message);
+    }
+    setTimeout(() => { console.log = originalLog; }, 1000);
+
+
+}
+
         
     } else {
         console.error(`No data found for key: ${storageKey}`);

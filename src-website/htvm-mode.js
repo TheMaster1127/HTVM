@@ -5,6 +5,10 @@ ace.define("ace/mode/htvm", ["require", "exports", "module", "ace/lib/oop", "ace
     var TextHighlightRules = require("ace/mode/text_highlight_rules").TextHighlightRules;
 
     var HTVMHighlightRules = function() {
+        
+        console.log(new URLSearchParams(window.location.search).get('id'));
+
+        
         var htvmKeywords = "if|else if|else|def obj|prop|crew|alliance|method|while|for|Loop|Loop,|Loop, Parse,|continue|break|func|await|switch|case|throw|try|catch|finally|var|let|const|return|end";
         var builtInCommands = "StringTrimLeft|StringTrimRight|Random|Sleep|FileRead|FileAppend|FileDelete|Sort|MsgBox";
         var builtInFunctions = "HTVM_func1|LoopParseFunc|print|STR|INT|FLOAT|InStr|Random|Sleep|input|FileRead|FileAppend|FileDelete|StrLen|Asc|Abs|ACos|ASin|ATan|Ceil|Cos|Exp|Ln|Log|Round|Sin|Sqrt|Tan|SubStr|Trim|StrReplace|StringTrimLeft|StringTrimRight|StrLower|StrSplit|Chr|Mod|Floor|Sort|getDataFromAPI|FileCreateDir|FileRemoveDir|FileExist|isWindows|GetParams|BuildInVars|RegExReplace|RunCMD|RegExMatch|ExitApp|Gui_Show|Gui_Update|Gui_Button|Gui_Edit|Gui_Text|Gui_Size|Gui_Font|GuiControl|MakeHotKey|sortArr|countChars|StrTitleCase|createBackendInit|addEndpoint|startServer|getDataFromEndpoint|HTVM_getLang_HTVM|ErrorMsg";
