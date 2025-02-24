@@ -15,7 +15,6 @@
     }
     * {
       box-sizing: border-box;
-      user-select: none;
     }
     html, body {
       height: 100%;
@@ -73,7 +72,7 @@
     }
     /* Editor (top half of IDE) */
     #editor {
-      height: 70%;
+      height: 58.5%;
       border: 1px solid var(--hover-bg);
       overflow: auto;
       display: none;
@@ -312,19 +311,26 @@
 
   <script>
   
-// Check if there's a saved value in localStorage and set the initial state
-let runJsAfterHTVM = localStorage.getItem('runJsAfterHTVM') === 'true'; // Retrieve and convert to boolean
+// Get the saved value from localStorage; default to 'true' if not set
+let runJsAfterHTVM = localStorage.getItem('runJsAfterHTVM');
 
-//console.log(runJsAfterHTVM)
+// If the value is null (never set), default to 'true' and save it
+if (runJsAfterHTVM === null) {
+    runJsAfterHTVM = 'true';
+    localStorage.setItem('runJsAfterHTVM', runJsAfterHTVM);
+}
+
+// Convert the string to a boolean
+runJsAfterHTVM = runJsAfterHTVM === 'true';
 
 // Set the checkbox based on the stored value
 document.getElementById('runJsAfterHTVM').checked = runJsAfterHTVM;
 
 // Function to handle toggle change
 document.getElementById('runJsAfterHTVM').addEventListener('change', function() {
-  runJsAfterHTVM = this.checked;
-  localStorage.setItem('runJsAfterHTVM', runJsAfterHTVM); // Save the value to localStorage
-  console.log("Run JS after HTVM conversion: " + runJsAfterHTVM);
+    runJsAfterHTVM = this.checked;
+    localStorage.setItem('runJsAfterHTVM', runJsAfterHTVM ? 'true' : 'false'); // Save as string
+    console.log("Run JS after HTVM conversion: " + runJsAfterHTVM);
 });
 
   
@@ -368,8 +374,21 @@ fetchBuildInFuncs();
       name: 'root',
       isFolder: true,
       children: [
-        { name: 'Documents', isFolder: true, children: [] },
-        { name: 'README.txt', isFolder: false, content: 'Welcome to the file system simulation!' }
+        { name: 'main.htvm', isFolder: false, content: `; you can also use let since we dont need types in js
+str var1 := "AZDSFAWE SRFDAWE SRDF SEDXFV"
+
+; loop over all words and display them alongside its index
+Loop, Parse, var1, " " {
+    print(A_Index)
+    print(A_LoopField)
+}
+
+print("==========================")
+
+; normal loop that will run 5 times and print its index
+Loop, 5 {
+    print(A_Index)
+}` }
       ]
     };
     function loadFileSystem() {
@@ -1005,16 +1024,22 @@ const filePath = document.getElementById('file-path-display').textContent.trim()
 // Extract the file name from the path
 const fileName = filePath.split('/').pop().trim(); // Trim the file name as well
 
-// Find the span element with the file name
-const fileNameElement = [...document.querySelectorAll('.item.file .name')]
-  .find(span => span.textContent.trim() === fileName); // Trim the text content for comparison
+// Find all file name elements
+const fileNameElements = [...document.querySelectorAll('.item.file .name')];
 
-// Simulate a click to open the file
+// Try to find the matching file name
+const fileNameElement = fileNameElements.find(span => span.textContent.trim() === fileName); // Trim for comparison
+
+// Click the found file or the first file if not found
 if (fileNameElement) {
     fileNameElement.click();
+} else if (fileNameElements.length > 0) {
+    fileNameElements[0].click(); // Click the first file in the list
+    console.log(`File "${fileName}" not found. Opened the first file instead.`);
 } else {
-    console.log(`File "${fileName}" not found`);
+    console.log(`No files found.`);
 }
+
 
 // Apply CSS styles for the editor
     
