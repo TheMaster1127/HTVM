@@ -95,3 +95,5 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Game\game.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Game\game.html
 C:\Users\The_M\OneDrive\Desktop\temp Projects\playWhitAIjs\mainAI.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\online-ide.html
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm-mode.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm_completions.js

@@ -64,7 +64,8 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      min-width: 60%;
+      width: 80%;
+      min-width: 20%;
     }
     #buttons-container {
       padding: 5px;
@@ -126,8 +127,8 @@
     }
     /* Output Column (only visible for HTML files) */
     #output-container {
-      width: 500px;
-      min-width: 200px;
+      width: 80%;
+      min-width: 50%;
       display: none;
       flex-direction: column;
       overflow: auto;
@@ -137,7 +138,7 @@
     /* The HTML output iframe */
     #html-output {
       width: 100%;
-      height: 500px;
+      height: 100%;
       border: none;
     }
     #close-iframe-btn {
@@ -205,8 +206,15 @@
       cursor: not-allowed;
     }
   </style>
-  <!-- Ace Editor CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+<!-- Load Ace Editor core -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+
+<!-- Load the language tools extension -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-language_tools.js"></script>
+
+  <!-- HTVM syntax -->  
+  <script src="htvm-mode.js"></script>
+  <script src="htvm_completions.js"></script>
   <!-- HTVM transpiler in js -->
   <script src="../HTVM.js"></script>
 </head>
@@ -227,6 +235,7 @@
         <button onclick="createNew('file')">New File</button>
         <button onclick="createNew('folder')">New Folder</button>
         <button onclick="runFile()" id="run-btn">Run (Ctrl+Enter)</button>
+        <button onclick="closeIframe()" id="close-iframe-btn">Close Iframe html</button>
       </div>
       <div id="editor"></div>
       <div id="ide-horizontal-splitter"></div>
@@ -247,6 +256,8 @@
   </div>
 
   <script>
+  
+
   
 let build_in_funcs = '';
 
@@ -336,8 +347,23 @@ fetchBuildInFuncs();
     let dirHistory = [];
     let openFile = null; // currently open file
     let editor = ace.edit("editor");
+    
+    let langTools = ace.require("ace/ext/language_tools");
+  
+    
     editor.setTheme("ace/theme/monokai");
     editor.session.setMode("ace/mode/javascript");
+
+    editor.setOptions({
+        enableBasicAutocompletion: true,    // Enable basic autocompletion
+        enableLiveAutocompletion: true,     // Enable live autocompletion
+        enableSnippets: false,              // Disable snippets if not needed
+        showPrintMargin: false,             // Hide the print margin
+        behavioursEnabled: false            // Disable behavior-based completions like indent
+    });
+    
+                langTools.setCompleters([]);
+            langTools.addCompleter(Completer);
     editor.setOptions({ fontSize: "18px" });
     editor.on("change", function() {
       if (openFile) {
@@ -395,24 +421,181 @@ fetchBuildInFuncs();
       saveFileSystem();
       renderDirectory();
     }
-    function navigateInto(item) {
-      if (!item.isFolder) {
-        if (openFile && openFile !== item) openFile.content = editor.getValue();
-        openFile = item;
-        editor.setValue(item.content || "", -1);
-        document.getElementById('editor').style.display = 'block';
-        closeIframe();
-        let path = findPath(root, item);
-        if (path) saveLastFile(path);
-        updateFilePathDisplay();
-        return;
-      }
-      if (openFile) openFile.content = editor.getValue();
-      dirHistory.push(currentDir);
-      currentDir = item;
-      document.getElementById('back-btn').disabled = false;
-      renderDirectory();
+
+
+// First, add the fileExtensionToLangName function
+function fileExtensionToLangName(extension) {
+  // Mapping of file extensions to language names
+  const extToLangMap = {
+    abap: [".abap"],
+    abc: [".abc"],
+    actionscript: [".as"],
+    ada: [".ada"],
+    apache_conf: [".conf"],
+    asciidoc: [".adoc", ".asciidoc"],
+    assembly_x86: [".asm"],
+    autohotkey: [".ahk"],
+    batchfile: [".bat"],
+    c9search: [".c9"],
+    c_cpp: [".c", ".cpp"],
+    cirru: [".cirru"],
+    clojure: [".clj"],
+    cobol: [".cob"],
+    coffee: [".coffee"],
+    coldfusion: [".cfm"],
+    csharp: [".cs"],
+    css: [".css"],
+    curly: [".curl"],
+    d: [".d"],
+    dart: [".dart"],
+    diff: [".diff", ".patch"],
+    dockerfile: ["Dockerfile"],
+    dot: [".dot"],
+    dummy: [".dummy"],
+    dummysyntax: [".dummysyntax"],
+    eiffel: [".e"],
+    ejs: [".ejs"],
+    elixir: [".ex", ".exs"],
+    elm: [".elm"],
+    erlang: [".erl", ".hrl"],
+    forth: [".fs", ".fth"],
+    ftl: [".ftl"],
+    gcode: [".gcode"],
+    gherkin: [".feature"],
+    gitignore: [".gitignore"],
+    glsl: [".glsl"],
+    golang: [".go"],
+    groovy: [".groovy"],
+    haml: [".haml"],
+    handlebars: [".hbs", ".handlebars"],
+    haskell: [".hs"],
+    haxe: [".hx"],
+    html: [".html", ".htm"],
+    html_ruby: [".html.erb"],
+    ini: [".ini"],
+    io: [".io"],
+    jack: [".jack"],
+    jade: [".jade"],
+    java: [".java"],
+    javascript: [".js"],
+    json: [".json"],
+    jsoniq: [".jsoniq"],
+    jsp: [".jsp"],
+    jsx: [".jsx"],
+    julia: [".jl"],
+    latex: [".tex"],
+    less: [".less"],
+    liquid: [".liquid"],
+    lisp: [".lisp", ".lsp"],
+    livescript: [".ls"],
+    logiql: [".logic"],
+    lsl: [".lsl"],
+    lua: [".lua"],
+    luapage: [".lp"],
+    lucene: [".lucene"],
+    makefile: ["Makefile"],
+    markdown: [".md", ".markdown"],
+    mask: [".mask"],
+    matlab: [".m"],
+    mel: [".mel"],
+    mushcode: [".mc"],
+    mysql: [".sql"],
+    nix: [".nix"],
+    objectivec: [".m", ".h"],
+    ocaml: [".ml", ".mli"],
+    pascal: [".pas"],
+    perl: [".pl", ".pm"],
+    pgsql: [".pgsql"],
+    php: [".php"],
+    powershell: [".ps1"],
+    praat: [".praat"],
+    prolog: [".pl"],
+    properties: [".properties"],
+    protobuf: [".proto"],
+    python: [".py"],
+    r: [".r"],
+    rdoc: [".rdoc"],
+    rhtml: [".rhtml"],
+    ruby: [".rb"],
+    rust: [".rs"],
+    sass: [".sass", ".scss"],
+    scad: [".scad"],
+    scala: [".scala"],
+    scheme: [".scm"],
+    scss: [".scss"],
+    sh: [".sh"],
+    sjs: [".sjs"],
+    smarty: [".tpl"],
+    snippets: [".sublime-snippet"],
+    soy_template: [".soy"],
+    space: [".space"],
+    sql: [".sql"],
+    stylus: [".styl"],
+    svg: [".svg"],
+    tcl: [".tcl"],
+    tex: [".tex"],
+    text: [".txt"],
+    textile: [".textile"],
+    toml: [".toml"],
+    twig: [".twig"],
+    typescript: [".ts"],
+    vala: [".vala"],
+    vbscript: [".vbs"],
+    velocity: [".vm"],
+    verilog: [".v"],
+    vhdl: [".vhd"],
+    xml: [".xml"],
+    xquery: [".xq", ".xquery"],
+    yaml: [".yaml", ".yml"],
+    htvm: [".ht", ".hti", ".htpy", ".hth", ".htvm"]
+  };
+
+  // Get the extension with dot
+  const dotExt = extension.startsWith('.') ? extension : '.' + extension;
+  
+  // Normalize the extension to lower case
+  const normalizedExt = dotExt.toLowerCase();
+
+  // Loop through the mapping to find the language
+  for (const [lang, exts] of Object.entries(extToLangMap)) {
+    if (exts.includes(normalizedExt)) {
+      return lang; // Return the language if a match is found
     }
+  }
+
+  return "text"; // Return text if not found (better default than "ht")
+}
+
+// Modify the navigateInto function to use the new language mapping
+function navigateInto(item) {
+  if (!item.isFolder) {
+    if (openFile && openFile !== item) {
+      openFile.content = editor.getValue();
+    }
+    openFile = item;
+    editor.setValue(item.content || "", -1);
+    
+    // Get file extension and set appropriate mode
+    const extension = item.name.split('.').pop();
+    const langMode = fileExtensionToLangName('.' + extension);
+    editor.session.setMode("ace/mode/" + langMode);
+    
+    document.getElementById('editor').style.display = 'block';
+    closeIframe();
+    let path = findPath(root, item);
+    if (path) saveLastFile(path);
+    updateFilePathDisplay();
+    return;
+  }
+  if (openFile) {
+    openFile.content = editor.getValue();
+  }
+  dirHistory.push(currentDir);
+  currentDir = item;
+  document.getElementById('back-btn').disabled = false;
+  renderDirectory();
+}
+    
     function goBack() {
       if (dirHistory.length === 0) return;
       if (openFile) openFile.content = editor.getValue();
@@ -544,7 +727,7 @@ fileName = fileName.replace(/\.[^/.]+$/, ".js");
 
 fileMakeOrOverride(fileName, OUTCODE)
         
-logToConsole("Saved the HTVM output to: " + fileName)
+logToConsole("Saved the HTVM output to: " + fileName + " at: " + new Date().toISOString().slice(11, 23))
         
         
     } else {
@@ -599,6 +782,7 @@ logToConsole("Saved the HTVM output to: " + fileName)
       document.getElementById("output-container").style.display = "none";
       document.getElementById("vertical-splitter").style.display = "none";
       document.getElementById("output-container").innerHTML = "";
+
     }
 
     /* ----------------------------
@@ -686,6 +870,169 @@ logToConsole("Saved the HTVM output to: " + fileName)
         runFile();
       }
     });
+    
+    
+// Get the current file path from the file-path-display element
+const filePath = document.getElementById('file-path-display').textContent.trim(); // Trim any extra spaces
+
+// Extract the file name from the path
+const fileName = filePath.split('/').pop().trim(); // Trim the file name as well
+
+// Find the span element with the file name
+const fileNameElement = [...document.querySelectorAll('.item.file .name')]
+  .find(span => span.textContent.trim() === fileName); // Trim the text content for comparison
+
+// Simulate a click to open the file
+if (fileNameElement) {
+    fileNameElement.click();
+} else {
+    console.log(`File "${fileName}" not found`);
+}
+
+// Apply CSS styles for the editor
+    
+var css = `
+    .ace-monokai .ace_marker-layer .ace_active-line {
+      background-color: #103010 !important;
+    }
+    
+    .ace-monokai {
+      background-color: #050505 !important;
+      color: #f8f8f2;
+    }
+    
+    .ace-monokai .ace_gutter {
+      background: #204020 !important;
+      color: #cbcdc3 !important;
+    }
+    
+    .ace-monokai .ace_gutter-active-line {
+      background-color: transparent !important;
+    }
+    
+    .ace-monokai .ace_entity.ace_name.ace_tag,
+    .ace-monokai .ace_keyword,
+    .ace-monokai .ace_meta.ace_tag,
+    .ace-monokai .ace_storage {
+      color: #40a0e0 !important;
+    }
+    
+    .ace-monokai .ace_entity.ace_name.ace_function,
+    .ace-monokai .ace_entity.ace_other,
+    .ace-monokai .ace_entity.ace_other.ace_attribute-name,
+    .ace-monokai .ace_variable {
+      color: #ff80df !important;
+    }
+    
+    .ace-monokai .ace_comment {
+      color: #40d080 !important;
+      font-weight: line-through !important;
+    }
+    
+    .ace-monokai .ace_commentOpen_Close {
+      color: #40d080 !important;
+      font-weight: line-through !important;
+    }
+    
+    .ace-monokai .ace_variables {
+      color: #ffffff !important;
+    }
+    
+    .ace-monokai .ace_functions {
+      color: #80dfff !important;
+    }
+    
+    .ace-monokai .ace_keywords {
+    color: #8080e0 !important; /* Customize color as needed */
+    font-weight: bold !important;
+    }
+    .ace-monokai .ace_braces_Open {
+      color: #FFFFff !important;
+    }
+    
+    .ace-monokai .ace_braces_Close {
+      color: #FFFFff !important;
+    }
+    
+    .ace-monokai .ace_arrayMethods {
+      color: #FAB820 !important;
+    }
+    
+    .ace-monokai .ace_BuildInFunc {
+      color: #ff80df !important;
+    }
+    
+    .ace-monokai .ace_command {
+      color: #40a0e0 !important;
+      font-weight: bold !important;
+    }
+    
+    .ace-monokai .ace_static_types {
+      color: #569cd6 !important;
+      font-weight: bold !important;
+    }
+    
+    .ace-monokai .ace_string {
+      color: #ffa0a0 !important;
+      font-weight: lighter !important;
+    }
+    
+    .ace-monokai .ace_operators {
+      color: #00ffff !important;
+      font-weight: lighter !important;
+    }
+    
+    
+    .ace-monokai .ace_trueANDfalse {
+      color: #00ffff !important;
+      font-weight: lighter !important;
+    }
+    
+    .ace-monokai .ace_escape-char {
+      color: #ff8000 !important;
+      font-weight: bold !important;
+    }
+    
+    .ace-monokai .ace_punctuation,
+    .ace-monokai .ace_punctuation.ace _tag {
+      color: #ffa0a0 !important;
+    }
+    
+    *::-webkit-scrollbar {
+      width: 1em;
+    }
+    
+    *::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+    
+    *::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      outline: 1px solid slategrey;
+    }
+`;
+
+var style = document.createElement("style");
+style.type = "text/css";
+if (style.styleSheet) {
+  style.styleSheet.cssText = css;
+} else {
+  style.appendChild(document.createTextNode(css));
+}
+document.head.appendChild(style);
+
+let intervalId = setInterval(() => {
+    let editor = document.querySelector('.ace_editor.ace_autocomplete.ace-monokai.ace_dark');
+    
+    if (editor) {
+        editor.style.fontSize = '13px'; // Apply the font size change
+        clearInterval(intervalId); // Stop the loop after the change
+    }
+}, 100); // Check every 100ms
+
+
+
   </script>
 </body>
 </html>
+
