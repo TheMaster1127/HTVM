@@ -818,7 +818,8 @@ function runHTVM(fileContents, fileName) {
             const consoleDiv = document.getElementById("console-log");
             consoleDiv.innerHTML = ""; // Clear previous logs
             closeIframe(); // Close the iframe if applicable
-
+            
+            logToConsole("Saved the HTVM output to: " + fileName + " at: " + new Date().toISOString().slice(11, 23));
             logToConsole("Running HTVM output...");
             logToConsole("\n");
 
