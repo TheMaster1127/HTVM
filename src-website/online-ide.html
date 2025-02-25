@@ -63,7 +63,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      width: 80%;
+      width: 99%;
       min-width: 20%;
     }
     #buttons-container {
@@ -788,7 +788,7 @@ function runHTVM(fileContents, fileName) {
     const id = urlParams.get('id') || 'default_id'; // Use 'default_id' if 'id' is not in the URL
 
     // Build the localStorage key based on the id
-    const storageKey = `htvm-lang_${id}`;
+    const storageKey = `htvm_lang_${id}`;
 
     // Fetch the stored data from localStorage
     let storedData = localStorage.getItem(storageKey);
@@ -1144,6 +1144,11 @@ var css = `
       color: #ff8000 !important;
       font-weight: bold !important;
     }
+
+    .ace-monokai .ace_programmingBlocksAndImport {
+      color: #F0401C !important;
+      font-weight: bold !important;
+    }
     
     .ace-monokai .ace_punctuation,
     .ace-monokai .ace_punctuation.ace _tag {
@@ -1182,6 +1187,33 @@ let intervalId = setInterval(() => {
     }
 }, 100); // Check every 100ms
 
+
+
+
+// Utility function to simulate sleep/delay
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// htvm_ide_reload_fix: Check if the 'htvm_ide_reload_fix' key exists in localStorage
+let reloadCount = parseInt(localStorage.getItem('htvm_ide_reload_fix') || '0');
+
+async function reloadPage() {
+    if (reloadCount === 0) {
+        // First reload: Set the reload count to 1
+        localStorage.setItem('htvm_ide_reload_fix', '2');
+        // Force a hard reload by setting a flag in sessionStorage
+        sessionStorage.setItem('htvm_ide_hard_reload', 'true');
+        
+        console.log("Waiting before first reload...");
+        await sleep(400); // Add a 1 second delay before the first reload
+        
+        window.location.reload();  // First reload
+    }
+}
+
+// Call the reloadPage function
+reloadPage();
 
 
   </script>

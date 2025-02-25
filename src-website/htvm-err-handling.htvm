@@ -31,4 +31,4 @@ throw ErrorMsg("You cant use " . Chr(125) . " in line " . STR(A_Index + 1) . "!!
 
 }
 return "noERROR"
-}&
+}

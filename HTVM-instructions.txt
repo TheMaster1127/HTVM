@@ -14,8 +14,8 @@ keyWordCodeInTheTranspiledLangStartCPP
 keyWordCodeInTheTranspiledLangEndCPP
 keyWordCodeInTheTranspiledLangStartPY
 keyWordCodeInTheTranspiledLangEndPY
-[js start]
-[js end]
+___js start
+___js end
 keyWordCodeInTheTranspiledLangStartGO
 keyWordCodeInTheTranspiledLangEndGO
 keyWordCodeInTheTranspiledLangStartLUA

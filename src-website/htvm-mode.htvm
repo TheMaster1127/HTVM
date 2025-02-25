@@ -1,0 +1,296 @@
+
+
+
+___js start
+allKeyWordsIn = ""; // Global variable to store the result
+allKeyWordsOut = "";
+allFunctionNamesString = ""; // Global string to store function names
+
+
+
+async function getFunctionNames() {
+    const url = 'https://raw.githubusercontent.com/TheMaster1127/HTVM/refs/heads/main/HTVM-instructions.txt';
+    
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.statusText}`);
+        }
+        const text = await response.text();
+        
+        // Split text by line and get lines starting from line 162
+        const lines = text.split('\n').slice(161); // Line 162 starts at index 161
+        
+        // Extract function names that start with "name: "
+        const functionNames = lines
+            .map(line => line.trim()) // Trim each line
+            .filter(line => line.startsWith("name: ")) // Only lines that start with "name: "
+            .map(line => line.replace("name: ", "").trim()) // Get function name (remove "name: " part)
+            .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
+        
+        // Save the function names in the global variable
+        allFunctionNamesString = functionNames.join('\n');
+        
+    } catch (error) {
+        console.error('Error fetching the text file:', error);
+    }
+}
+
+
+// Function to fetch the first 149 lines from a remote text file
+async function fetchFirst149Lines(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.statusText}`);
+        }
+        const text = await response.text();
+        return text.split('\n').slice(0, 149).join('\n');
+    } catch (error) {
+        console.error('Error fetching the text file:', error);
+        return null;
+    }
+}
+
+// Main function to handle localStorage and data retrieval
+async function getAllKeyWordsIn() {
+    const id = new URLSearchParams(window.location.search).get('id');
+    if (!id) {
+        console.error('No ID found in the URL');
+        return;
+    }
+
+    let data = localStorage.getItem("htvm_lang_" + id);
+    
+    if (data) {
+        try {
+            const arrayData = JSON.parse(data);
+            if (Array.isArray(arrayData)) {
+                allKeyWordsIn = arrayData.slice(0, 149).join('\n'); // Save in global variable
+                return;
+            } else {
+                console.error('Stored data is not an array');
+                return;
+            }
+        } catch (error) {
+            console.error('Error parsing JSON from localStorage:', error);
+            return;
+        }
+    }
+
+    // If key doesn't exist, fetch data from the remote file
+    const url = 'https://raw.githubusercontent.com/TheMaster1127/HTVM/refs/heads/main/HTVM-instructions.txt';
+    const fetchedData = await fetchFirst149Lines(url);
+
+    if (fetchedData) {
+        localStorage.setItem("htvm_lang_" + id, JSON.stringify(fetchedData.split('\n'))); // Store in localStorage
+        allKeyWordsIn = fetchedData; // Save in global variable
+    } else {
+        console.error('Failed to fetch data from the remote file');
+    }
+}
+
+___js end
+
+
+
+
+
+async func str getAllKeyWords()
+{
+await getAllKeyWordsIn()
+await getFunctionNames()
+
+
+str allKeyWordsIn_OUT := ""
+str allKeyWordsIn_OUT_TEMP := ""
+
+Loop, Parse, allKeyWordsIn, `n, `r
+{
+if (A_Index != 0) and (A_Index != 1)
+{
+
+allKeyWordsIn_OUT .= A_LoopField . "`n"
+
+}
+}
+StringTrimRight, allKeyWordsIn_OUT, allKeyWordsIn_OUT, 1
+allKeyWordsOut := allKeyWordsIn_OUT
+
+}
+
+___js start
+
+let allFunctionNamesString2 = "";
+
+
+(async function () {
+    await getAllKeyWords();
+    //console.log(allKeyWordsOut);
+
+
+___js end
+allFunctionNamesString2 := Trim(StrReplace(allFunctionNamesString, Chr(10), "|"))
+;print("=============================")
+;print(allFunctionNamesString2)
+;print("=============================")
+___js start
+
+
+// Get the URL parameter 'id'
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+
+// Check if 'id' is present in the URL
+if (id) {
+    // Create the key for localStorage
+    const storageKey = `htvm_lang_${id}_allFunctionNamesString`;
+    const storageKey2 = `htvm_lang_${id}_allKeyWordsOut`;
+
+    // Save 'allFunctionNamesString2' to localStorage
+    localStorage.setItem(storageKey, allFunctionNamesString2);
+    localStorage.setItem(storageKey2, allKeyWordsOut);
+} else {
+    console.error('URL parameter "id" is missing.');
+}
+
+
+
+
+
+})();
+
+
+
+
+
+// Define the HTVM mode for Ace Editor
+ace.define("ace/mode/htvm", ["require", "exports", "module", "ace/lib/oop", "ace/mode/text", "ace/mode/text_highlight_rules"], function(require, exports, module) {
+    var oop = require("ace/lib/oop");
+    var TextMode = require("ace/mode/text").Mode;
+    var TextHighlightRules = require("ace/mode/text_highlight_rules").TextHighlightRules;
+
+    var HTVMHighlightRules = function() {
+        
+        //console.log(new URLSearchParams(window.location.search).get('id'));
+let allFunctionNamesString3 = "";
+let allKeyWordsOut3 = "";
+
+// Get the URL parameter 'id'
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+
+// Check if 'id' is present in the URL
+if (id) {
+    // Create the key for localStorage
+    const storageKey = `htvm_lang_${id}_allFunctionNamesString`;
+    const storageKey2 = `htvm_lang_${id}_allKeyWordsOut`;
+
+    // Retrieve 'allFunctionNamesString' from localStorage
+    allFunctionNamesString3 = localStorage.getItem(storageKey);
+    allKeyWordsOut3 = localStorage.getItem(storageKey2);
+
+
+} else {
+    console.error('URL parameter "id" is missing.');
+}
+
+
+console.log("================================================================")
+console.log("================================================================")
+console.log("================================================================")
+console.log("================================================================")
+let lines = allKeyWordsOut3.split('\n'); // Split the string into an array of lines
+
+for (let i = 0; i < lines.length; i++) {
+    console.log(i + ": " + lines[i]);
+}
+
+console.log("================================================================")
+console.log("================================================================")
+console.log("================================================================")
+console.log("================================================================")
+console.log("================================================================")
+
+
+___js end
+str makeAllKeyWords1 := ""
+str makeAllKeyWords2 := ""
+str makeAllKeyWords3 := ""
+str makeAllKeyWords4 := ""
+str makeAllKeyWords5 := ""
+str makeAllKeyWords6 := ""
+
+Loop, Parse, allKeyWordsOut3, `n, `r
+{
+if (Trim(A_LoopField) != "")
+{
+
+;if (A_Index = 1)
+
+
+}
+}
+
+___js start
+
+
+        var htvmKeywords = "if|else if|else|def obj|prop|crew|alliance|method|while|for|Loop|Loop,|Loop, Parse,|continue|break|func|await|switch|case|throw|try|catch|finally|var|let|const|return|end";
+        var builtInCommands = "StringTrimLeft|StringTrimRight|Random|Sleep|FileRead|FileAppend|FileDelete|Sort|MsgBox";
+        var builtInFunctions = allFunctionNamesString3;
+        var staticTypes = "int|str|void|bool|float|int8|int16|int32|int64|arr|arr int|arr str|arr float|arr bool";
+        var builtInVars = "A_Index|A_LoopField|this";
+        var arrayMethods = "add|pop|size|insert|rm|indexOf";
+        var programmingBlocksAndImport = "___js start|___js end";
+
+
+
+        this.$rules = {
+            start: [
+                { token: "comment", regex: ";.*$" },
+                { token: "comment.block", regex: /'''1/, next: "comment_block" },
+                { token: "keyword", regex: "\\b(?:" + htvmKeywords + ")\\b" },
+                { token: "command", regex: "\\b(?:" + builtInCommands + ")(?=\\,)" },
+                { token: "functions", regex: "\\b(?:" + builtInFunctions + ")(?=\\()" },
+                { token: "BuildInFunc", regex: "\\b(?:" + builtInVars + ")\\b" },
+                { token: "arrayMethods", regex: "\\.(?:" + arrayMethods + ")\\b" },
+                { token: "static_types", regex: "\\b(?:" + staticTypes + ")\\b" },
+                { token: "programmingBlocksAndImport", regex: "\\b(?:" + programmingBlocksAndImport + ")\\b" },
+                { token: "operators", regex: "&&|\\|\\||and|or" },
+                { token: "trueANDfalse", regex: "\\b(true|false|global)\\b" },
+                { token: "variables", regex: "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b" },
+                { token: "constant.numeric", regex: "\\b[0-9]+\\b" },
+                { token: "braces_Open", regex: "\\{" },
+                { token: "braces_Close", regex: "\\}" },
+              { token: "string", regex: '".*?"' },
+              // Multi-line comments
+              {
+                token: "comment.block", // Token for multi-line comments
+                regex: /'''1/, // Start of multi-line comment
+                next: "comment_block",
+              },
+            ],
+            comment_block: [
+              {
+                token: "comment.block",
+                regex: /.*?'''2/, // End of multi-line comment
+                next: "start", // Go back to the start state
+              },
+              {
+                token: "comment.block",
+                regex: /.*/, // Any other content within the comment
+              },
+            ],
+          };
+        };
+
+  oop.inherits(HTVMHighlightRules, TextHighlightRules);
+
+    var Mode = function() {
+        this.HighlightRules = HTVMHighlightRules;
+    };
+    oop.inherits(Mode, TextMode);
+
+    exports.Mode = Mode;
+});
+___js end
