@@ -52,7 +52,7 @@ HTVM **isn’t just about converting your custom language to multiple targets—
 - Even **bitwise operators can be modified**—something you rarely see in any language.  
 
 #### **5. Array & Typing Style – Your Choice**  
-- Want arrays to use `{}` instead of `[]`? Or even `()`? That’s up to you.  
+- Want arrays to use `{}` instead of `[]`? That’s up to you.  
 - Do you prefer **TypeScript-style typing** (`variable: type`) or **C-style** (`type variable`)? You can choose **whichever feels more natural to you.**  
 
 #### **6. And Many More...**  
