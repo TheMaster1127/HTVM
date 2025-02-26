@@ -5617,120 +5617,6 @@ int skipLeftCuleyForFuncPLS := 0
 
 
 
-; keyWordInclude
-; keyWordInclude
-; keyWordInclude
-
-str allLibCODE := ""
-str allLibCODEfix := ""
-arr str allLibsWeSee
-arr str allLibsWeSeeSEE
-str allLibsWeSeeHOLD := ""
-int doseCodeHaveLibs := 0
-int doseCodeHaveLibs_HAS_SEEN := 0
-int doseCodeHaveLibs_HAS_SEEN2 := 0
-if (isNotHTVMfile = 0) 
-{
-if (langToConvertTo != langFileExtension_2)
-{
-
-
-if (InStr(StrLower(code), StrLower(keyWordInclude . " ")))
-{
-
-Loop, 10000 {
-doseCodeHaveLibs := 0
-allLibCODE := ""
-if (A_Index = 0) 
-{
-Loop, Parse, code, `n, `r 
-{
-if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordInclude . " "))) = StrLower(keyWordInclude . " "))
-{
-allLibsWeSee.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), ""))
-allLibsWeSeeSEE.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), ""))
-doseCodeHaveLibs := 1
-}
-}
-}
-else 
-{
-Loop, Parse, code, `n, `r 
-{
-ALoopField := A_LoopField
-if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordInclude . " "))) = StrLower(keyWordInclude . " ")) 
-{
-doseCodeHaveLibs_HAS_SEEN := 0
-Loop, % allLibsWeSee.size() 
-{
-if (StrReplace(StringTrimLeft(Trim(ALoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), "") = allLibsWeSee[A_Index]) 
-{
-doseCodeHaveLibs_HAS_SEEN := 1
-}
-}
-if (doseCodeHaveLibs_HAS_SEEN = 0) 
-{
-allLibsWeSee.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), ""))
-allLibsWeSeeSEE.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), ""))
-doseCodeHaveLibs := 1
-}
-}
-}
-}
-
-
-
-
-Loop, % allLibsWeSee.size()
-{
-allLibsWeSeeHOLD := allLibsWeSee[A_Index]
-doseCodeHaveLibs_HAS_SEEN2 := 0
-Loop, % allLibsWeSeeSEE.size() - allLibsWeSee.size()
-{
-if (allLibsWeSeeHOLD = allLibsWeSeeSEE[A_Index])
-{
-doseCodeHaveLibs_HAS_SEEN2 := 1
-}
-}
-if (doseCodeHaveLibs_HAS_SEEN2 = 0)
-{
-allLibCODE += FileRead(Trim(allLibsWeSee[allLibsWeSee.size() - A_Index - 1])) . Chr(10)
-}
-
-allLibsWeSee.pop()
-}
-
-allLibCODEfix := ""
-
-Loop, Parse, code, `n, `r
-{
-if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordInclude . " "))) != StrLower(keyWordInclude . " ")) 
-{
-allLibCODEfix .= A_LoopField . Chr(10)
-}
-}
-StringTrimRight, code, allLibCODEfix, 1
-
-code := allLibCODE . code
-
-if (doseCodeHaveLibs = 0) 
-{
-break
-}
-
-
-}
-
-
-}
-}
-ALoopField := ""
-}
-
-; keyWordInclude
-; keyWordInclude
-; keyWordInclude
-
 ; PROGRAMMING BLOCK
 ; PROGRAMMING BLOCK
 ; PROGRAMMING BLOCK
@@ -6077,6 +5963,123 @@ StringTrimRight, code, programmingBlocksTemp, 1
 ; PROGRAMMING BLOCK
 ; PROGRAMMING BLOCK
 ; PROGRAMMING BLOCK
+
+
+
+; keyWordInclude
+; keyWordInclude
+; keyWordInclude
+
+str allLibCODE := ""
+str allLibCODEfix := ""
+arr str allLibsWeSee
+arr str allLibsWeSeeSEE
+str allLibsWeSeeHOLD := ""
+int doseCodeHaveLibs := 0
+int doseCodeHaveLibs_HAS_SEEN := 0
+int doseCodeHaveLibs_HAS_SEEN2 := 0
+if (isNotHTVMfile = 0) 
+{
+if (langToConvertTo != langFileExtension_2)
+{
+
+
+if (InStr(StrLower(code), StrLower(keyWordInclude . " ")))
+{
+
+Loop, 10000 {
+doseCodeHaveLibs := 0
+allLibCODE := ""
+if (A_Index = 0) 
+{
+Loop, Parse, code, `n, `r 
+{
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordInclude . " "))) = StrLower(keyWordInclude . " "))
+{
+allLibsWeSee.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), ""))
+allLibsWeSeeSEE.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), ""))
+doseCodeHaveLibs := 1
+}
+}
+}
+else 
+{
+Loop, Parse, code, `n, `r 
+{
+ALoopField := A_LoopField
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordInclude . " "))) = StrLower(keyWordInclude . " ")) 
+{
+doseCodeHaveLibs_HAS_SEEN := 0
+Loop, % allLibsWeSee.size() 
+{
+if (StrReplace(StringTrimLeft(Trim(ALoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), "") = allLibsWeSee[A_Index]) 
+{
+doseCodeHaveLibs_HAS_SEEN := 1
+}
+}
+if (doseCodeHaveLibs_HAS_SEEN = 0) 
+{
+allLibsWeSee.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), ""))
+allLibsWeSeeSEE.add(StrReplace(StringTrimLeft(Trim(A_LoopField), StrLen(StrLower(keyWordInclude) . " ")), Chr(34), ""))
+doseCodeHaveLibs := 1
+}
+}
+}
+}
+
+
+
+
+Loop, % allLibsWeSee.size()
+{
+allLibsWeSeeHOLD := allLibsWeSee[A_Index]
+doseCodeHaveLibs_HAS_SEEN2 := 0
+Loop, % allLibsWeSeeSEE.size() - allLibsWeSee.size()
+{
+if (allLibsWeSeeHOLD = allLibsWeSeeSEE[A_Index])
+{
+doseCodeHaveLibs_HAS_SEEN2 := 1
+}
+}
+if (doseCodeHaveLibs_HAS_SEEN2 = 0)
+{
+allLibCODE += FileRead(Trim(allLibsWeSee[allLibsWeSee.size() - A_Index - 1])) . Chr(10)
+}
+
+allLibsWeSee.pop()
+}
+
+allLibCODEfix := ""
+
+Loop, Parse, code, `n, `r
+{
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordInclude . " "))) != StrLower(keyWordInclude . " ")) 
+{
+allLibCODEfix .= A_LoopField . Chr(10)
+}
+}
+StringTrimRight, code, allLibCODEfix, 1
+
+code := allLibCODE . code
+
+if (doseCodeHaveLibs = 0) 
+{
+break
+}
+
+
+}
+
+
+}
+}
+ALoopField := ""
+}
+
+; keyWordInclude
+; keyWordInclude
+; keyWordInclude
+
 
 
 arr str lookIntoTheNextLineForFuncWhitNoKeyWord

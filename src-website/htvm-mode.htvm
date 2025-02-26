@@ -198,8 +198,6 @@ if (id) {
 
 console.log("================================================================")
 console.log("================================================================")
-console.log("================================================================")
-console.log("================================================================")
 let lines = allKeyWordsOut3.split('\n'); // Split the string into an array of lines
 
 for (let i = 0; i < lines.length; i++) {
@@ -208,47 +206,141 @@ for (let i = 0; i < lines.length; i++) {
 
 console.log("================================================================")
 console.log("================================================================")
-console.log("================================================================")
-console.log("================================================================")
-console.log("================================================================")
+
 
 
 ___js end
-str makeAllKeyWords1 := ""
-str makeAllKeyWords2 := ""
-str makeAllKeyWords3 := ""
-str makeAllKeyWords4 := ""
-str makeAllKeyWords5 := ""
-str makeAllKeyWords6 := ""
+str builtInCommands_temp := ""
+str htvmKeywords_temp := ""
+str staticTypes_temp := ""
+str builtInVars_temp := ""
+str operators_temp := ""
+str arrayMethods_temp := ""
+str programmingBlocksAndImport_temp := ""
+str htvm_trueFalseGlobalNull_temp := ""
+str htvm_comment_temp := ""
+str htvm_commentOpen1_temp := ""
+str htvm_commentClose2_temp := ""
 
 Loop, Parse, allKeyWordsOut3, `n, `r
 {
 if (Trim(A_LoopField) != "")
 {
 
-;if (A_Index = 1)
+if (A_Index = 0)
+{
+Loop, Parse, A_LoopField, "|"
+{
+Loop, Parse, A_LoopField, `,
+{
+builtInCommands_temp .= Trim(A_LoopField) . "|"
+}
+}
+}
 
+if (A_Index = 1) or (A_Index = 2) or (A_Index = 3) or (A_Index = 4) or (A_Index = 5) or (A_Index = 64) or (A_Index = 65) or (A_Index = 66) or (A_Index = 67) or (A_Index = 68) or (A_Index = 69) or (A_Index = 70) or (A_Index = 71) or (A_Index = 72) or (A_Index = 73) or (A_Index = 74) or (A_Index = 75) or (A_Index = 76) or (A_Index = 78) or (A_Index = 79) or (A_Index = 80) or (A_Index = 81) or (A_Index = 93) or (A_Index = 94) or (A_Index = 95) or (A_Index = 96)
+{
+htvmKeywords_temp .= A_LoopField . "|"
+}
+
+if (A_Index = 77)
+{
+allFunctionNamesString3 .= "|" . Trim(A_LoopField)
+}
+
+if (A_Index >= 49) and (A_Index <= 63)
+{
+staticTypes_temp .= A_LoopField . "|"
+}
+if (A_Index >= 88) and (A_Index <= 92)
+{
+staticTypes_temp .= A_LoopField . "|"
+}
+
+if (A_Index = 145) or (A_Index = 146) or (A_Index = 6)
+{
+builtInVars_temp .= A_LoopField . "|"
+}
+
+if (A_Index >= 103) and (A_Index <= 126)
+{
+operators_temp .= A_LoopField . "|"
+}
+
+if (A_Index >= 140) and (A_Index <= 141)
+{
+operators_temp .= A_LoopField . "|"
+}
+
+
+if (A_Index >= 82) and (A_Index <= 87)
+{
+arrayMethods_temp .= Trim(StrReplace(A_LoopField, ".", "")) . "|"
+}
+
+if (A_Index >= 7) and (A_Index <= 43)
+{
+programmingBlocksAndImport_temp .= A_LoopField . "|"
+}
+
+if (A_Index = 98)
+{
+htvm_comment_temp := Trim(A_LoopField)
+}
+
+if (A_Index = 99)
+{
+htvm_commentOpen1_temp := Trim(A_LoopField)
+}
+
+if (A_Index = 100)
+{
+htvm_commentClose2_temp := Trim(A_LoopField)
+}
+
+if (A_Index = 46) or (A_Index = 47) or (A_Index = 48) or (A_Index = 97)
+{
+htvm_trueFalseGlobalNull_temp .= A_LoopField . "|"
+}
 
 }
 }
 
+
+StringTrimRight, builtInCommands_temp, builtInCommands_temp, 1
+StringTrimRight, htvmKeywords_temp, htvmKeywords_temp, 1
+StringTrimRight, staticTypes_temp, staticTypes_temp, 1
+StringTrimRight, builtInVars_temp, builtInVars_temp, 1
+StringTrimRight, operators_temp, operators_temp, 1
+StringTrimRight, arrayMethods_temp, arrayMethods_temp, 1
+StringTrimRight, programmingBlocksAndImport_temp, programmingBlocksAndImport_temp, 1
+StringTrimRight, htvm_trueFalseGlobalNull_temp, htvm_trueFalseGlobalNull_temp, 1
 ___js start
 
 
-        var htvmKeywords = "if|else if|else|def obj|prop|crew|alliance|method|while|for|Loop|Loop,|Loop, Parse,|continue|break|func|await|switch|case|throw|try|catch|finally|var|let|const|return|end";
-        var builtInCommands = "StringTrimLeft|StringTrimRight|Random|Sleep|FileRead|FileAppend|FileDelete|Sort|MsgBox";
-        var builtInFunctions = allFunctionNamesString3;
-        var staticTypes = "int|str|void|bool|float|int8|int16|int32|int64|arr|arr int|arr str|arr float|arr bool";
-        var builtInVars = "A_Index|A_LoopField|this";
-        var arrayMethods = "add|pop|size|insert|rm|indexOf";
-        var programmingBlocksAndImport = "___js start|___js end";
+var htvmKeywords = htvmKeywords_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var builtInCommands = builtInCommands_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var builtInFunctions = allFunctionNamesString3.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var staticTypes = staticTypes_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var builtInVars = builtInVars_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var arrayMethods = arrayMethods_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var programmingBlocksAndImport = programmingBlocksAndImport_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var htvm_trueFalseGlobalNull = htvm_trueFalseGlobalNull_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var htvm_operators = operators_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
 
+        
+        
+        var htvm_comment = htvm_comment_temp;
 
+        // Escape special characters in the comment symbol (just in case)
+        var escapedComment = htvm_comment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        var htvm_commentOpen1 = htvm_commentOpen1_temp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        var htvm_commentClose2 = htvm_commentClose2_temp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
         this.$rules = {
             start: [
-                { token: "comment", regex: ";.*$" },
-                { token: "comment.block", regex: /'''1/, next: "comment_block" },
+                { token: "comment", regex: escapedComment + ".*$" },
+                { token: "comment.block", regex: new RegExp(htvm_commentOpen1), next: "comment_block" },
                 { token: "keyword", regex: "\\b(?:" + htvmKeywords + ")\\b" },
                 { token: "command", regex: "\\b(?:" + builtInCommands + ")(?=\\,)" },
                 { token: "functions", regex: "\\b(?:" + builtInFunctions + ")(?=\\()" },
@@ -256,8 +348,8 @@ ___js start
                 { token: "arrayMethods", regex: "\\.(?:" + arrayMethods + ")\\b" },
                 { token: "static_types", regex: "\\b(?:" + staticTypes + ")\\b" },
                 { token: "programmingBlocksAndImport", regex: "\\b(?:" + programmingBlocksAndImport + ")\\b" },
-                { token: "operators", regex: "&&|\\|\\||and|or" },
-                { token: "trueANDfalse", regex: "\\b(true|false|global)\\b" },
+                { token: "operators", regex: "\\b(?:" + htvm_operators + ")\\b" },
+                { token: "trueANDfalse", regex: "\\b(?:" + htvm_trueFalseGlobalNull + ")\\b" },
                 { token: "variables", regex: "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b" },
                 { token: "constant.numeric", regex: "\\b[0-9]+\\b" },
                 { token: "braces_Open", regex: "\\{" },
@@ -266,14 +358,14 @@ ___js start
               // Multi-line comments
               {
                 token: "comment.block", // Token for multi-line comments
-                regex: /'''1/, // Start of multi-line comment
+               regex: new RegExp(htvm_commentOpen1),
                 next: "comment_block",
               },
             ],
             comment_block: [
               {
                 token: "comment.block",
-                regex: /.*?'''2/, // End of multi-line comment
+                regex: new RegExp(htvm_commentClose2),
                 next: "start", // Go back to the start state
               },
               {

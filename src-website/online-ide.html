@@ -389,7 +389,11 @@ Loop, Parse, var1, " " {
     print(A_LoopField)
 }
 
-print("==========================")
+; This is a JavaScript programming block. It will stay intact and included in the JS output.
+___js start
+// The syntax highlighting will change to JavaScript here since this is now JavaScript code only.
+console.log("==========================")
+___js end
 
 ; normal loop that will run 5 times and print its index
 Loop, 5 {
@@ -437,6 +441,79 @@ Loop, 5 {
     /* ----------------------------
        System State & Editor Setup
     ----------------------------- */
+    
+let allKeyWordsSoWeCanSeeProgrammingBlocks = JSON.parse(localStorage.getItem("htvm_lang_" + new URLSearchParams(window.location.search).get('id')));
+    
+
+
+function isLineInAProgrammingBlock(keywordsSoWeCanSeeProgrammingBlocks, userCode) {
+    // Get the current line from the editor
+    let currentLine = editor.getSelectionRange().start.row;
+    
+    // Split user code into lines for analysis
+    const lines = userCode.split('\n');
+    
+    // Create a map of language markers from the keywordsSoWeCanSeeProgrammingBlocks array
+const languageMarkers = {
+    [keywordsSoWeCanSeeProgrammingBlocks[12]]: { end: keywordsSoWeCanSeeProgrammingBlocks[13], lang: "cpp" },
+    [keywordsSoWeCanSeeProgrammingBlocks[14]]: { end: keywordsSoWeCanSeeProgrammingBlocks[15], lang: "py" },
+    [keywordsSoWeCanSeeProgrammingBlocks[16]]: { end: keywordsSoWeCanSeeProgrammingBlocks[17], lang: "js" },
+    [keywordsSoWeCanSeeProgrammingBlocks[18]]: { end: keywordsSoWeCanSeeProgrammingBlocks[19], lang: "go" },
+    [keywordsSoWeCanSeeProgrammingBlocks[20]]: { end: keywordsSoWeCanSeeProgrammingBlocks[21], lang: "lua" },
+    [keywordsSoWeCanSeeProgrammingBlocks[22]]: { end: keywordsSoWeCanSeeProgrammingBlocks[23], lang: "cs" },
+    [keywordsSoWeCanSeeProgrammingBlocks[24]]: { end: keywordsSoWeCanSeeProgrammingBlocks[25], lang: "java" },
+    [keywordsSoWeCanSeeProgrammingBlocks[26]]: { end: keywordsSoWeCanSeeProgrammingBlocks[27], lang: "kt" },
+    [keywordsSoWeCanSeeProgrammingBlocks[28]]: { end: keywordsSoWeCanSeeProgrammingBlocks[29], lang: "rb" },
+    [keywordsSoWeCanSeeProgrammingBlocks[30]]: { end: keywordsSoWeCanSeeProgrammingBlocks[31], lang: "nim" },
+    [keywordsSoWeCanSeeProgrammingBlocks[32]]: { end: keywordsSoWeCanSeeProgrammingBlocks[33], lang: "ahk" },
+    [keywordsSoWeCanSeeProgrammingBlocks[34]]: { end: keywordsSoWeCanSeeProgrammingBlocks[35], lang: "swift" },
+    [keywordsSoWeCanSeeProgrammingBlocks[36]]: { end: keywordsSoWeCanSeeProgrammingBlocks[37], lang: "dart" },
+    [keywordsSoWeCanSeeProgrammingBlocks[38]]: { end: keywordsSoWeCanSeeProgrammingBlocks[39], lang: "ts" },
+    [keywordsSoWeCanSeeProgrammingBlocks[40]]: { end: keywordsSoWeCanSeeProgrammingBlocks[41], lang: "groovy" }
+};
+
+    
+    // Find all language blocks
+    const detectedBlocks = [];
+    let currentBlock = null;
+    
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        
+        // Check for start markers
+        for (const marker in languageMarkers) {
+            if (line.includes(marker)) {
+                currentBlock = {
+                    start: i,
+                    lang: languageMarkers[marker].lang,
+                    endMarker: languageMarkers[marker].end
+                };
+                break;
+            }
+        }
+        
+        // Check for end marker if we're inside a block
+        if (currentBlock && line.includes(currentBlock.endMarker)) {
+            detectedBlocks.push({
+                start: currentBlock.start,
+                end: i,
+                lang: currentBlock.lang
+            });
+            currentBlock = null;
+        }
+    }
+    
+    // Check if current line is within any of the detected blocks
+    for (const block of detectedBlocks) {
+        if (currentLine >= block.start && currentLine <= block.end) {
+            return block.lang;
+        }
+    }
+    
+    // Not inside any programming block
+    return "htvm";
+}
+
     let currentDir = root;
     let dirHistory = [];
     let openFile = null; // currently open file
@@ -456,9 +533,31 @@ Loop, 5 {
         behavioursEnabled: false            // Disable behavior-based completions like indent
     });
     
-                langTools.setCompleters([]);
-            langTools.addCompleter(Completer);
+    langTools.setCompleters([]);
+    langTools.addCompleter(Completer);
     editor.setOptions({ fontSize: "18px" });
+    
+editor.on("changeSelection", function(delta) {
+  if (openFile) {
+    let path = findPath(root, openFile);
+
+    let fileExtension = path[1].split('.').pop();
+    if (fileExtension == "htvm") {
+      let isLineInAprogrammingBlockOUT = isLineInAProgrammingBlock(allKeyWordsSoWeCanSeeProgrammingBlocks, openFile.content);
+      console.log(isLineInAprogrammingBlockOUT);
+      if (isLineInAprogrammingBlockOUT) {
+        const langMode = fileExtensionToLangName('.' + isLineInAprogrammingBlockOUT);
+        editor.session.setMode("ace/mode/" + langMode);
+      }
+    }
+
+    saveFileSystem();
+
+    if (path) saveLastFile(path);
+    updateFilePathDisplay();
+  }
+});
+
     editor.on("change", function() {
       if (openFile) {
         openFile.content = editor.getValue();
@@ -468,6 +567,7 @@ Loop, 5 {
         updateFilePathDisplay();
       }
     });
+
 
     /* ----------------------------
        File/Folder Operations
@@ -755,9 +855,6 @@ function navigateInto(item) {
 
 async function fileMakeOrOverride(name, content = "[empty file]") {
 
-    console.log("DEBUG 44444444");
-    console.log("DEBUG 44444444.1: " + name);
-    console.log("DEBUG 44444444.2: " + content);
   // Check if the file already exists in the current directory
   let existingFile = currentDir.children.find(item => item.name === name && !item.isFolder);
 
@@ -1254,7 +1351,11 @@ allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
         // Call fileMakeOrOverride to save the output
         fileMakeOrOverride(fileName, OUTCODE);
         
-        logToConsole("Saved the HTVM output to: " + fileName + " at: " + new Date().toISOString().slice(11, 23));
+logToConsole(`Saved the HTVM output to: ${fileName} at: ${new Date().toLocaleTimeString("en-GB", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}.${new Date().getMilliseconds().toString().padStart(3, "0")}`);
+
+
+
+
         
         if (runJsAfterHTVM) {
             const consoleDiv = document.getElementById("console-log");
@@ -1262,7 +1363,11 @@ allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
             console.clear();
             closeIframe(); // Close the iframe if applicable
             
-            logToConsole("Saved the HTVM output to: " + fileName + " at: " + new Date().toISOString().slice(11, 23));
+logToConsole(`Saved the HTVM output to: ${fileName} at: ${new Date().toLocaleTimeString("en-GB", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}.${new Date().getMilliseconds().toString().padStart(3, "0")}`);
+
+
+
+
             logToConsole("Running HTVM output...");
             logToConsole("\n");
 

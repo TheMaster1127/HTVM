@@ -18,20 +18,13 @@ function print(value) {
     console.log(value)
 }
 
-// Function to generate a random integer between min and max (inclusive)
-function Random(min, max) {
-    // Generate and return a random number within the specified range
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function Sleep(milliseconds) {
-    // Sleep for the specified number of milliseconds
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
-
 function Chr(number) {
     // Return the character corresponding to the Unicode code point, or an empty string if out of range
     return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
+}
+
+function Exp(value) {
+    return Math.exp(value);
 }
 
 function Trim(inputString) {
@@ -42,188 +35,12 @@ function StrReplace(originalString, find, replaceWith) {
     return originalString.split(find).join(replaceWith);
 }
 
-function StringTrimLeft(input, numChars) {
-    return (numChars <= input.length) ? input.substring(numChars) : input;
-}
-
 function StringTrimRight(input, numChars) {
     return (numChars <= input.length) ? input.substring(0, input.length - numChars) : input;
 }
 
 function Mod(dividend, divisor) {
     return dividend % divisor;
-}
-
-function Sort(varName, options = "") {
-    let delimiter = '\n'; // Default delimiter
-    let delimiterIndex = options.indexOf('D');
-    if (delimiterIndex !== -1) {
-        let delimiterChar = options[delimiterIndex + 1];
-        delimiter = delimiterChar === '' ? ',' : delimiterChar;
-    }
-    let items = varName.split(new RegExp(delimiter === ',' ? ',' : '\\' + delimiter));
-    // Remove empty items and trim whitespace
-    items = items.filter(item => item.trim() !== '');
-    // Apply sorting based on options
-    if (options.includes('N')) {
-        // Numeric sort
-        items.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
-    } else if (options.includes('Random')) {
-        // Random sort
-        for (let i = items.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [items[i], items[j]] = [items[j], items[i]];
-        }
-    } else {
-        // Default alphabetical sort
-        items.sort((a, b) => {
-            const keyA = options.includes('C') ? a : a.toLowerCase();
-            const keyB = options.includes('C') ? b : b.toLowerCase();
-            if (keyA < keyB) return -1;
-            if (keyA > keyB) return 1;
-            return 0;
-        });
-    }
-    // Reverse if 'R' option is present
-    if (options.includes('R')) {
-        items.reverse();
-    }
-    // Remove duplicates if 'U' option is present
-    if (options.includes('U')) {
-        const seen = new Map();
-        items = items.filter(item => {
-            const key = options.includes('C') ? item : item.toLowerCase();
-            if (!seen.has(key)) {
-                seen.set(key, item);
-                return true;
-            }
-            return false;
-        });
-    }
-    // Join the sorted items back into a string
-    const sortedVar = items.join(delimiter === ',' ? ',' : '\n');
-    return sortedVar;
-}
-
-function MsgBox(text, title = " ", value = 0, timeout = null) {
-    return new Promise((resolve) => {
-        // Define default options for the message box
-        let defaultOptions = {
-            title: title || " ", // Default title is empty
-            text: text || "Press OK to continue.", // Default text if not provided
-            showCancelButton: false, // Default is to not show Cancel button
-            showDenyButton: false, // Default is to not show Deny button
-            confirmButtonText: "OK", // Default text for OK button
-            focusConfirm: true, // Default focus on OK button
-        };
-        let numOriginal = value;
-        let num = numOriginal;
-        let done1 = 0;
-        let done2 = 0;
-        let done3 = 0;
-        let AIndex = 0;
-        for (AIndex = 1; AIndex <= 1; AIndex++) {
-            // Handle special case for value adjustments
-            if (num >= 262144) {
-                num = num - 262144;
-                numOriginal = numOriginal - 262144;
-            }
-            if (num >= 256 && num < 500) {
-                num = num - 256;
-                done3 = 256;
-            }
-            if (num >= 512) {
-                num = num - 512;
-                done3 = 512;
-            }
-            if (num == 0) {
-                done1 = 0;
-                break;
-            }
-            if (num <= 6) {
-                done1 = num;
-                break;
-            }
-            if (num >= 64 && num < 64 * 2) {
-                done2 = 64;
-                if (num == 64) {
-                    done1 = 0;
-                    break;
-                } else {
-                    done1 = num - 64;
-                    break;
-                }
-            }
-            if (num >= 48 && num < 63) {
-                done2 = 48;
-                if (num == 48) {
-                    done1 = 0;
-                    break;
-                } else {
-                    done1 = num - 48;
-                    break;
-                }
-            }
-            if (num >= 32 && num < 47) {
-                done2 = 32;
-                if (num == 32) {
-                    done1 = 0;
-                    break;
-                } else {
-                    done1 = num - 32;
-                    break;
-                }
-            }
-            if (num >= 16 && num < 30) {
-                done2 = 16;
-                if (num == 16) {
-                    done1 = 0;
-                    break;
-                } else {
-                    done1 = num - 16;
-                    break;
-                }
-            }
-        }
-        let doneAdded = done1 + done2 + done3;
-        if (doneAdded !== numOriginal) {
-            // displayMessage("The calc was wrong!");
-        } else {
-            // displayMessage("num was: " + numOriginal + "\ndone1: " + done1 + "\ndone2: " + done2 + "\ndone3: " + done3);
-        }
-        // Parse the value to determine the options for the message box
-        if (done1 === 1) defaultOptions.showCancelButton = true;
-        if (done1 === 3) {
-            defaultOptions.showCancelButton = true;
-            defaultOptions.showDenyButton = true;
-        }
-        if (done1 === 4) {
-            defaultOptions.showDenyButton = true;
-        }
-        if (done1 === 5) {
-            defaultOptions.showCancelButton = true;
-        }
-        if (done2 === 16) defaultOptions.icon = "error";
-        if (done2 === 32) defaultOptions.icon = "question";
-        if (done2 === 48) defaultOptions.icon = "warning";
-        if (done2 === 64) defaultOptions.icon = "info";
-        if (done3 === 256) defaultOptions.focusDeny = true;
-        if (done3 === 512) defaultOptions.focusCancel = true;
-        // Set timeout if provided
-        if (timeout) {
-            defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds
-        }
-        // Display the message box with the constructed options
-        Swal.fire(defaultOptions).then((result) => {
-            if (result.isConfirmed) {
-                resolve("OK");
-            } else if (result.isDenied) {
-                resolve("No");
-            } else {
-                resolve("Cancel");
-            }
-        });
-    });
 }
 
 
@@ -369,41 +186,107 @@ if (id) {
 }
 console.log("================================================================")
 console.log("================================================================")
-console.log("================================================================")
-console.log("================================================================")
 let lines = allKeyWordsOut3.split('\n'); // Split the string into an array of lines
 for (let i = 0; i < lines.length; i++) {
     console.log(i + ": " + lines[i]);
 }
 console.log("================================================================")
 console.log("================================================================")
-console.log("================================================================")
-console.log("================================================================")
-console.log("================================================================")
-var makeAllKeyWords1 = "";
-var makeAllKeyWords2 = "";
-var makeAllKeyWords3 = "";
-var makeAllKeyWords4 = "";
-var makeAllKeyWords5 = "";
-var makeAllKeyWords6 = "";
+var builtInCommands_temp = "";
+var htvmKeywords_temp = "";
+var staticTypes_temp = "";
+var builtInVars_temp = "";
+var operators_temp = "";
+var arrayMethods_temp = "";
+var programmingBlocksAndImport_temp = "";
+var htvm_trueFalseGlobalNull_temp = "";
+var htvm_comment_temp = "";
+var htvm_commentOpen1_temp = "";
+var htvm_commentClose2_temp = "";
 items2 = LoopParseFunc(allKeyWordsOut3, "\n", "\r")
 for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
     const A_LoopField2 = items2[A_Index2 - 0];
     if (Trim(A_LoopField2) != "") {
-        //if (A_Index2 = 1)
+        if (A_Index2 == 0) {
+            items3 = LoopParseFunc(A_LoopField2, "|")
+            for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
+                const A_LoopField3 = items3[A_Index3 - 0];
+                items4 = LoopParseFunc(A_LoopField3, ",");
+                for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
+                    const A_LoopField4 = items4[A_Index4 - 0];
+                    builtInCommands_temp += Trim(A_LoopField4) + "|";
+                }
+            }
+        }
+        if (A_Index2 == 1 || A_Index2 == 2 || A_Index2 == 3 || A_Index2 == 4 || A_Index2 == 5 || A_Index2 == 64 || A_Index2 == 65 || A_Index2 == 66 || A_Index2 == 67 || A_Index2 == 68 || A_Index2 == 69 || A_Index2 == 70 || A_Index2 == 71 || A_Index2 == 72 || A_Index2 == 73 || A_Index2 == 74 || A_Index2 == 75 || A_Index2 == 76 || A_Index2 == 78 || A_Index2 == 79 || A_Index2 == 80 || A_Index2 == 81 || A_Index2 == 93 || A_Index2 == 94 || A_Index2 == 95 || A_Index2 == 96) {
+            htvmKeywords_temp += A_LoopField2 + "|";
+        }
+        if (A_Index2 == 77) {
+            allFunctionNamesString3 += "|" + Trim(A_LoopField2);
+        }
+        if (A_Index2 >= 49 && A_Index2 <= 63) {
+            staticTypes_temp += A_LoopField2 + "|";
+        }
+        if (A_Index2 >= 88 && A_Index2 <= 92) {
+            staticTypes_temp += A_LoopField2 + "|";
+        }
+        if (A_Index2 == 145 || A_Index2 == 146 || A_Index2 == 6) {
+            builtInVars_temp += A_LoopField2 + "|";
+        }
+        if (A_Index2 >= 103 && A_Index2 <= 126) {
+            operators_temp += A_LoopField2 + "|";
+        }
+        if (A_Index2 >= 140 && A_Index2 <= 141) {
+            operators_temp += A_LoopField2 + "|";
+        }
+        if (A_Index2 >= 82 && A_Index2 <= 87) {
+            arrayMethods_temp += Trim(StrReplace(A_LoopField2, ".", "")) + "|";
+        }
+        if (A_Index2 >= 7 && A_Index2 <= 43) {
+            programmingBlocksAndImport_temp += A_LoopField2 + "|";
+        }
+        if (A_Index2 == 98) {
+            htvm_comment_temp = Trim(A_LoopField2);
+        }
+        if (A_Index2 == 99) {
+            htvm_commentOpen1_temp = Trim(A_LoopField2);
+        }
+        if (A_Index2 == 100) {
+            htvm_commentClose2_temp = Trim(A_LoopField2);
+        }
+        if (A_Index2 == 46 || A_Index2 == 47 || A_Index2 == 48 || A_Index2 == 97) {
+            htvm_trueFalseGlobalNull_temp += A_LoopField2 + "|";
+        }
     }
 }
-        var htvmKeywords = "if|else if|else|def obj|prop|crew|alliance|method|while|for|Loop|Loop,|Loop, Parse,|continue|break|func|await|switch|case|throw|try|catch|finally|var|let|const|return|end";
-        var builtInCommands = "StringTrimLeft|StringTrimRight|Random|Sleep|FileRead|FileAppend|FileDelete|Sort|MsgBox";
-        var builtInFunctions = allFunctionNamesString3;
-        var staticTypes = "int|str|void|bool|float|int8|int16|int32|int64|arr|arr int|arr str|arr float|arr bool";
-        var builtInVars = "A_Index|A_LoopField|this";
-        var arrayMethods = "add|pop|size|insert|rm|indexOf";
-        var programmingBlocksAndImport = "___js start|___js end";
+builtInCommands_temp = StringTrimRight(builtInCommands_temp, 1);
+htvmKeywords_temp = StringTrimRight(htvmKeywords_temp, 1);
+staticTypes_temp = StringTrimRight(staticTypes_temp, 1);
+builtInVars_temp = StringTrimRight(builtInVars_temp, 1);
+operators_temp = StringTrimRight(operators_temp, 1);
+arrayMethods_temp = StringTrimRight(arrayMethods_temp, 1);
+programmingBlocksAndImport_temp = StringTrimRight(programmingBlocksAndImport_temp, 1);
+htvm_trueFalseGlobalNull_temp = StringTrimRight(htvm_trueFalseGlobalNull_temp, 1);
+var htvmKeywords = htvmKeywords_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var builtInCommands = builtInCommands_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var builtInFunctions = allFunctionNamesString3.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var staticTypes = staticTypes_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var builtInVars = builtInVars_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var arrayMethods = arrayMethods_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var programmingBlocksAndImport = programmingBlocksAndImport_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var htvm_trueFalseGlobalNull = htvm_trueFalseGlobalNull_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+var htvm_operators = operators_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+        
+        
+        var htvm_comment = htvm_comment_temp;
+        // Escape special characters in the comment symbol (just in case)
+        var escapedComment = htvm_comment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        var htvm_commentOpen1 = htvm_commentOpen1_temp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        var htvm_commentClose2 = htvm_commentClose2_temp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         this.$rules = {
             start: [
-                { token: "comment", regex: ";.*$" },
-                { token: "comment.block", regex: /'''1/, next: "comment_block" },
+                { token: "comment", regex: escapedComment + ".*$" },
+                { token: "comment.block", regex: new RegExp(htvm_commentOpen1), next: "comment_block" },
                 { token: "keyword", regex: "\\b(?:" + htvmKeywords + ")\\b" },
                 { token: "command", regex: "\\b(?:" + builtInCommands + ")(?=\\,)" },
                 { token: "functions", regex: "\\b(?:" + builtInFunctions + ")(?=\\()" },
@@ -411,8 +294,8 @@ for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
                 { token: "arrayMethods", regex: "\\.(?:" + arrayMethods + ")\\b" },
                 { token: "static_types", regex: "\\b(?:" + staticTypes + ")\\b" },
                 { token: "programmingBlocksAndImport", regex: "\\b(?:" + programmingBlocksAndImport + ")\\b" },
-                { token: "operators", regex: "&&|\\|\\||and|or" },
-                { token: "trueANDfalse", regex: "\\b(true|false|global)\\b" },
+                { token: "operators", regex: "\\b(?:" + htvm_operators + ")\\b" },
+                { token: "trueANDfalse", regex: "\\b(?:" + htvm_trueFalseGlobalNull + ")\\b" },
                 { token: "variables", regex: "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b" },
                 { token: "constant.numeric", regex: "\\b[0-9]+\\b" },
                 { token: "braces_Open", regex: "\\{" },
@@ -421,14 +304,14 @@ for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
               // Multi-line comments
               {
                 token: "comment.block", // Token for multi-line comments
-                regex: /'''1/, // Start of multi-line comment
+               regex: new RegExp(htvm_commentOpen1),
                 next: "comment_block",
               },
             ],
             comment_block: [
               {
                 token: "comment.block",
-                regex: /.*?'''2/, // End of multi-line comment
+                regex: new RegExp(htvm_commentClose2),
                 next: "start", // Go back to the start state
               },
               {

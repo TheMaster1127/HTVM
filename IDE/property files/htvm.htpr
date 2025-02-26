@@ -1,4 +1,5 @@
 
+
 ; for js
 "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-instructions.txt" "js"
 ;cd "%DIRFULLPATH%" && node "%ONLYFILENAME%.js"
