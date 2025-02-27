@@ -338,7 +338,7 @@ document.getElementById('runJsAfterHTVM').addEventListener('change', function() 
 
   
 let build_in_funcs = '';
-
+let allInstFormGithub = "";
 function fetchBuildInFuncs() {
     // Fetch the HTVM-instructions.txt file from the URL
     fetch('https://raw.githubusercontent.com/TheMaster1127/HTVM/refs/heads/main/HTVM-instructions.txt')
@@ -346,7 +346,11 @@ function fetchBuildInFuncs() {
         .then(data => {
             // Split the text into an array of lines
             const lines = data.split('\n');
+            let allInstFormGithub = "";
+            allInstFormGithub = String(data);
+            localStorage.setItem('allInstFromGithubFIX', allInstFormGithub);
             
+
             // Extract the lines from 163 to the end (index 162 to the end of the array)
             build_in_funcs = lines.slice(162).join('\n');
             
@@ -373,14 +377,49 @@ function sleep(ms) {
       let params = new URLSearchParams(window.location.search);
       return params.get(param);
     }
-    let uniqueId = getUrlParam('id') || 'default';
-    const fileSystemKey = 'fileSystem_' + uniqueId;
-    const lastFileKey = 'lastFile_' + uniqueId;
-    const defaultStructure = {
-      name: 'root',
-      isFolder: true,
-      children: [
-        { name: 'main.htvm', isFolder: false, content: `; you can also use let since we dont need types in js
+
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+
+if (id) {
+    const storedData = localStorage.getItem(`htvm_lang_${id}`);
+
+    if (storedData) {
+        try {
+            const dataArray = JSON.parse(storedData);
+
+            if (Array.isArray(dataArray)) {
+                // Replace the first element with "htvm" and join the rest of the trimmed lines
+                dataArray[0] = "htvm2";  // Replace the first line with "htvm"
+                dataArray[1] = "htvm2";  // Replace the first line with "htvm"
+                const finalText = dataArray.map(line => line.trim()).join("\n");
+
+                argHTVMinstrMORE.push(finalText);
+            } else {
+                console.error("Stored data is not an array:", dataArray);
+            }
+        } catch (error) {
+            console.error("Error parsing JSON:", error);
+        }
+    } else {
+        console.error("No data found in localStorage for key:", `htvm_lang_${id}`);
+    }
+} else {
+    console.error("No 'id' found in URL parameters.");
+}
+
+
+allInstFormGithub = localStorage.getItem('allInstFromGithubFIX');
+console.log(allInstFormGithub)
+console.log("=-----------------------------=")
+console.log(argHTVMinstrMORE[0])
+
+
+let OUTCODE = "";
+
+if (allInstFormGithub)
+{
+        OUTCODE = compiler(`; you can also use let since we dont need types in js
 str var1 := "AZDSFAWE SRFDAWE SRDF SEDXFV"
 
 ; loop over all words and display them alongside its index
@@ -398,7 +437,20 @@ ___js end
 ; normal loop that will run 5 times and print its index
 Loop, 5 {
     print(A_Index)
-}` }
+}`, allInstFormGithub, "full", "htvm2");
+console.log("==========12")
+console.log(OUTCODE)
+console.log("==========123")
+        resetGlobalVarsOfHTVMjs();
+}
+    let uniqueId = getUrlParam('id') || 'default';
+    const fileSystemKey = 'fileSystem_' + uniqueId;
+    const lastFileKey = 'lastFile_' + uniqueId;
+    const defaultStructure = {
+      name: 'root',
+      isFolder: true,
+      children: [
+        { name: 'main.htvm', isFolder: false, content: OUTCODE }
       ]
     };
     function loadFileSystem() {
@@ -888,7 +940,7 @@ async function fileMakeOrOverride(name, content = "[empty file]") {
     /* ----------------------------
        HTVM
     ----------------------------- */
-let OUTCODE = "";
+
 async function runHTVM(fileContents, fileName) {
 
     // Get the URL id parameter
@@ -933,8 +985,212 @@ async function runHTVM(fileContents, fileName) {
         OUTCODE = "";
         OUTCODE = compiler(fileContents, htvm_instr, "full", "js");
 
+        resetGlobalVarsOfHTVMjs();
+
+        // Replace the extension with '.js'
+        fileName = fileName.replace(/\.[^/.]+$/, ".js");
+
+        // Call fileMakeOrOverride to save the output
+        fileMakeOrOverride(fileName, OUTCODE);
+        
+logToConsole(`Saved the HTVM output to: ${fileName} at: ${new Date().toLocaleTimeString("en-GB", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}.${new Date().getMilliseconds().toString().padStart(3, "0")}`);
 
 
+
+
+        
+        if (runJsAfterHTVM) {
+            const consoleDiv = document.getElementById("console-log");
+            consoleDiv.innerHTML = ""; // Clear previous logs
+            console.clear();
+            closeIframe(); // Close the iframe if applicable
+            
+logToConsole(`Saved the HTVM output to: ${fileName} at: ${new Date().toLocaleTimeString("en-GB", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}.${new Date().getMilliseconds().toString().padStart(3, "0")}`);
+
+
+
+
+            logToConsole("Running HTVM output...");
+            logToConsole("\n");
+
+            // Redirect console.log to also log in the browser
+            
+            const originalLog = console.log;
+            console.log = function(...args) {
+                originalLog.apply(console, args);
+                consoleDiv.innerHTML += args.join(" ") + "<br>";
+            };
+
+            try {
+                new Function(OUTCODE)(); // Execute the generated JS code
+            } catch (e) {
+                console.log("Error: " + e.message);
+            }
+
+            // Restore console.log after running the code
+            setTimeout(() => { console.log = originalLog; }, 1000);
+        }
+    }
+}
+
+
+
+
+let originalLog = console.log; // Save the original console.log function
+
+// Function to reset the console and clear previous logs
+function resetConsole() {
+    console.clear();  // Clear the browser's console
+    document.getElementById("console-log").innerHTML = "";  // Clear the custom output div
+    console.log = originalLog;  // Restore the original console.log function
+}
+
+
+
+    /* ----------------------------
+       Run File Functionality
+    ----------------------------- */
+    function runFile() {
+        resetConsole();
+      if (!openFile) {
+        alert("No file open to run!");
+        return;
+      }
+      const filename = openFile.name;
+      const consoleDiv = document.getElementById("console-log");
+      consoleDiv.innerHTML = "";
+      closeIframe();
+      if (filename.endsWith(".js")) {
+        const consoleDiv = document.getElementById("console-log");
+        consoleDiv.innerHTML = ""; // Clears the log
+        console.clear();
+        
+        const originalLog = console.log;
+        console.log = function(...args) {
+          originalLog.apply(console, args);
+          consoleDiv.innerHTML += args.join(" ") + "<br>";
+        };
+        try {
+          new Function(openFile.content)();
+        } catch (e) {
+          console.log("Error: " + e.message);
+        }
+        setTimeout(() => { console.log = originalLog; }, 1000);
+      }
+      else if (filename.endsWith(".htvm")) {
+        //console.log("themaster1127 will make and call a func here to handle .htvm files!!!");
+        runHTVM(openFile.content, filename);
+        OUTCODE = "";
+      }
+      else if (filename.endsWith(".html")) {
+        document.getElementById("output-container").style.display = "flex";
+        document.getElementById("vertical-splitter").style.display = "block";
+        const iframe = document.createElement("iframe");
+        iframe.id = "html-output";
+        iframe.srcdoc = openFile.content;
+        const outputContainer = document.getElementById("output-container");
+        outputContainer.insertBefore(iframe, outputContainer.firstChild);
+      }
+      else {
+        alert("File type not supported for execution.");
+      }
+    }
+    function closeIframe() {
+      document.getElementById("output-container").style.display = "none";
+      document.getElementById("vertical-splitter").style.display = "none";
+      document.getElementById("output-container").innerHTML = "";
+
+    }
+
+    /* ----------------------------
+       Clear Console Functionality
+    ----------------------------- */
+    function clearConsole() {
+      document.getElementById("console-log").innerHTML = "";
+    }
+
+    /* ----------------------------
+       Resizable Splitters
+    ----------------------------- */
+    // Sidebar splitter
+    const sidebarSplitter = document.getElementById("sidebar-splitter");
+    sidebarSplitter.addEventListener("mousedown", initSidebarResize);
+    function initSidebarResize(e) {
+      window.addEventListener("mousemove", resizeSidebar);
+      window.addEventListener("mouseup", stopSidebarResize);
+    }
+    function resizeSidebar(e) {
+      let newWidth = e.clientX;
+      if (newWidth < 150) newWidth = 150;
+      if (newWidth > 400) newWidth = 400;
+      document.getElementById("sidebar").style.width = newWidth + "px";
+    }
+    function stopSidebarResize(e) {
+      window.removeEventListener("mousemove", resizeSidebar);
+      window.removeEventListener("mouseup", stopSidebarResize);
+    }
+    // Horizontal splitter within IDE (between editor and console)
+    const ideHorizontalSplitter = document.getElementById("ide-horizontal-splitter");
+    ideHorizontalSplitter.addEventListener("mousedown", initIdeHorizontalResize);
+    function initIdeHorizontalResize(e) {
+      window.addEventListener("mousemove", resizeIdeHorizontal);
+      window.addEventListener("mouseup", stopIdeHorizontalResize);
+    }
+    function resizeIdeHorizontal(e) {
+      const ideRect = document.getElementById("ide-container").getBoundingClientRect();
+      let offset = e.clientY - ideRect.top - document.getElementById("buttons-container").offsetHeight;
+      if (offset < 50) offset = 50;
+      if (offset > ideRect.height - 50) offset = ideRect.height - 50;
+      document.getElementById("editor").style.height = offset + "px";
+    }
+    function stopIdeHorizontalResize(e) {
+      window.removeEventListener("mousemove", resizeIdeHorizontal);
+      window.removeEventListener("mouseup", stopIdeHorizontalResize);
+    }
+    // Vertical splitter between IDE and Output
+    const verticalSplitter = document.getElementById("vertical-splitter");
+    verticalSplitter.addEventListener("mousedown", initVerticalResize);
+    function initVerticalResize(e) {
+      window.addEventListener("mousemove", resizeVertical);
+      window.addEventListener("mouseup", stopVerticalResize);
+    }
+    function resizeVertical(e) {
+      const mainRect = document.getElementById("main-content").getBoundingClientRect();
+      let offset = e.clientX - mainRect.left;
+      if (offset < 100) offset = 100;
+      if (offset > mainRect.width - 100) offset = mainRect.width - 100;
+      document.getElementById("ide-container").style.width = offset + "px";
+    }
+    function stopVerticalResize(e) {
+      window.removeEventListener("mousemove", resizeVertical);
+      window.removeEventListener("mouseup", stopVerticalResize);
+    }
+
+    /* ----------------------------
+       Initialization & Keyboard Shortcut
+    ----------------------------- */
+    renderDirectory();
+    const lastFilePath = loadLastFile();
+    if (lastFilePath) {
+      const pathWithoutRoot = lastFilePath[0] === 'root' ? lastFilePath.slice(1) : lastFilePath;
+      const file = getItemByPath(pathWithoutRoot, root);
+      if (file && !file.isFolder) {
+        openFile = file;
+        editor.setValue(file.content || "", -1);
+        document.getElementById('editor').style.display = 'block';
+        updateFilePathDisplay();
+      }
+    }
+    document.addEventListener("keydown", function(e) {
+      if (e.ctrlKey && e.key === "Enter") {
+        e.preventDefault();
+        runFile();
+      }
+    });
+    
+    
+function resetGlobalVarsOfHTVMjs()
+{
 
 str0 = "nothing";
 str00 = "nothing";
@@ -1343,209 +1599,8 @@ allVarsSoWeDontReDecVars_FIX_int64 = [];
 allVarsSoWeDontReDecVars_FIX_float = [];
 allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
 
-
-
-        // Replace the extension with '.js'
-        fileName = fileName.replace(/\.[^/.]+$/, ".js");
-
-        // Call fileMakeOrOverride to save the output
-        fileMakeOrOverride(fileName, OUTCODE);
-        
-logToConsole(`Saved the HTVM output to: ${fileName} at: ${new Date().toLocaleTimeString("en-GB", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}.${new Date().getMilliseconds().toString().padStart(3, "0")}`);
-
-
-
-
-        
-        if (runJsAfterHTVM) {
-            const consoleDiv = document.getElementById("console-log");
-            consoleDiv.innerHTML = ""; // Clear previous logs
-            console.clear();
-            closeIframe(); // Close the iframe if applicable
-            
-logToConsole(`Saved the HTVM output to: ${fileName} at: ${new Date().toLocaleTimeString("en-GB", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}.${new Date().getMilliseconds().toString().padStart(3, "0")}`);
-
-
-
-
-            logToConsole("Running HTVM output...");
-            logToConsole("\n");
-
-            // Redirect console.log to also log in the browser
-            
-            const originalLog = console.log;
-            console.log = function(...args) {
-                originalLog.apply(console, args);
-                consoleDiv.innerHTML += args.join(" ") + "<br>";
-            };
-
-            try {
-                new Function(OUTCODE)(); // Execute the generated JS code
-            } catch (e) {
-                console.log("Error: " + e.message);
-            }
-
-            // Restore console.log after running the code
-            setTimeout(() => { console.log = originalLog; }, 1000);
-        }
-    }
+   
 }
-
-
-
-
-let originalLog = console.log; // Save the original console.log function
-
-// Function to reset the console and clear previous logs
-function resetConsole() {
-    console.clear();  // Clear the browser's console
-    document.getElementById("console-log").innerHTML = "";  // Clear the custom output div
-    console.log = originalLog;  // Restore the original console.log function
-}
-
-
-
-    /* ----------------------------
-       Run File Functionality
-    ----------------------------- */
-    function runFile() {
-        resetConsole();
-      if (!openFile) {
-        alert("No file open to run!");
-        return;
-      }
-      const filename = openFile.name;
-      const consoleDiv = document.getElementById("console-log");
-      consoleDiv.innerHTML = "";
-      closeIframe();
-      if (filename.endsWith(".js")) {
-        const consoleDiv = document.getElementById("console-log");
-        consoleDiv.innerHTML = ""; // Clears the log
-        console.clear();
-        
-        const originalLog = console.log;
-        console.log = function(...args) {
-          originalLog.apply(console, args);
-          consoleDiv.innerHTML += args.join(" ") + "<br>";
-        };
-        try {
-          new Function(openFile.content)();
-        } catch (e) {
-          console.log("Error: " + e.message);
-        }
-        setTimeout(() => { console.log = originalLog; }, 1000);
-      }
-      else if (filename.endsWith(".htvm")) {
-        //console.log("themaster1127 will make and call a func here to handle .htvm files!!!");
-        runHTVM(openFile.content, filename);
-        OUTCODE = "";
-      }
-      else if (filename.endsWith(".html")) {
-        document.getElementById("output-container").style.display = "flex";
-        document.getElementById("vertical-splitter").style.display = "block";
-        const iframe = document.createElement("iframe");
-        iframe.id = "html-output";
-        iframe.srcdoc = openFile.content;
-        const outputContainer = document.getElementById("output-container");
-        outputContainer.insertBefore(iframe, outputContainer.firstChild);
-      }
-      else {
-        alert("File type not supported for execution.");
-      }
-    }
-    function closeIframe() {
-      document.getElementById("output-container").style.display = "none";
-      document.getElementById("vertical-splitter").style.display = "none";
-      document.getElementById("output-container").innerHTML = "";
-
-    }
-
-    /* ----------------------------
-       Clear Console Functionality
-    ----------------------------- */
-    function clearConsole() {
-      document.getElementById("console-log").innerHTML = "";
-    }
-
-    /* ----------------------------
-       Resizable Splitters
-    ----------------------------- */
-    // Sidebar splitter
-    const sidebarSplitter = document.getElementById("sidebar-splitter");
-    sidebarSplitter.addEventListener("mousedown", initSidebarResize);
-    function initSidebarResize(e) {
-      window.addEventListener("mousemove", resizeSidebar);
-      window.addEventListener("mouseup", stopSidebarResize);
-    }
-    function resizeSidebar(e) {
-      let newWidth = e.clientX;
-      if (newWidth < 150) newWidth = 150;
-      if (newWidth > 400) newWidth = 400;
-      document.getElementById("sidebar").style.width = newWidth + "px";
-    }
-    function stopSidebarResize(e) {
-      window.removeEventListener("mousemove", resizeSidebar);
-      window.removeEventListener("mouseup", stopSidebarResize);
-    }
-    // Horizontal splitter within IDE (between editor and console)
-    const ideHorizontalSplitter = document.getElementById("ide-horizontal-splitter");
-    ideHorizontalSplitter.addEventListener("mousedown", initIdeHorizontalResize);
-    function initIdeHorizontalResize(e) {
-      window.addEventListener("mousemove", resizeIdeHorizontal);
-      window.addEventListener("mouseup", stopIdeHorizontalResize);
-    }
-    function resizeIdeHorizontal(e) {
-      const ideRect = document.getElementById("ide-container").getBoundingClientRect();
-      let offset = e.clientY - ideRect.top - document.getElementById("buttons-container").offsetHeight;
-      if (offset < 50) offset = 50;
-      if (offset > ideRect.height - 50) offset = ideRect.height - 50;
-      document.getElementById("editor").style.height = offset + "px";
-    }
-    function stopIdeHorizontalResize(e) {
-      window.removeEventListener("mousemove", resizeIdeHorizontal);
-      window.removeEventListener("mouseup", stopIdeHorizontalResize);
-    }
-    // Vertical splitter between IDE and Output
-    const verticalSplitter = document.getElementById("vertical-splitter");
-    verticalSplitter.addEventListener("mousedown", initVerticalResize);
-    function initVerticalResize(e) {
-      window.addEventListener("mousemove", resizeVertical);
-      window.addEventListener("mouseup", stopVerticalResize);
-    }
-    function resizeVertical(e) {
-      const mainRect = document.getElementById("main-content").getBoundingClientRect();
-      let offset = e.clientX - mainRect.left;
-      if (offset < 100) offset = 100;
-      if (offset > mainRect.width - 100) offset = mainRect.width - 100;
-      document.getElementById("ide-container").style.width = offset + "px";
-    }
-    function stopVerticalResize(e) {
-      window.removeEventListener("mousemove", resizeVertical);
-      window.removeEventListener("mouseup", stopVerticalResize);
-    }
-
-    /* ----------------------------
-       Initialization & Keyboard Shortcut
-    ----------------------------- */
-    renderDirectory();
-    const lastFilePath = loadLastFile();
-    if (lastFilePath) {
-      const pathWithoutRoot = lastFilePath[0] === 'root' ? lastFilePath.slice(1) : lastFilePath;
-      const file = getItemByPath(pathWithoutRoot, root);
-      if (file && !file.isFolder) {
-        openFile = file;
-        editor.setValue(file.content || "", -1);
-        document.getElementById('editor').style.display = 'block';
-        updateFilePathDisplay();
-      }
-    }
-    document.addEventListener("keydown", function(e) {
-      if (e.ctrlKey && e.key === "Enter") {
-        e.preventDefault();
-        runFile();
-      }
-    });
-    
     
 // Get the current file path from the file-path-display element
 const filePath = document.getElementById('file-path-display').textContent.trim(); // Trim any extra spaces

@@ -4160,7 +4160,12 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         }
     }
     if (HTVM_Size(argHTVMinstrMORE) > 0) {
-        var allInstructionFile_2 = Trim(FileRead(Trim(argHTVMinstrMORE[0])));
+        var allInstructionFile_2 = "";
+        if (HTVM_getLang_HTVM() == "js") {
+            allInstructionFile_2 = Trim(argHTVMinstrMORE[0]);
+        } else {
+            allInstructionFile_2 = Trim(FileRead(Trim(argHTVMinstrMORE[0])));
+        }
         items76 = LoopParseFunc(allInstructionFile_2, "\n", "\r")
         for (let A_Index76 = 0; A_Index76 < items76.length + 0; A_Index76++) {
             const A_LoopField76 = items76[A_Index76 - 0];

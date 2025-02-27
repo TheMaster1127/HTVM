@@ -4953,8 +4953,15 @@ Loop, Parse, allInstructionFile, `n, `r
 
 if (argHTVMinstrMORE.size() > 0)
 {
-str allInstructionFile_2 := Trim(FileRead(Trim(argHTVMinstrMORE[0])))
-
+str allInstructionFile_2 := ""
+if (HTVM_getLang_HTVM() = "js")
+{
+allInstructionFile_2 := Trim(argHTVMinstrMORE[0])
+}
+else
+{
+allInstructionFile_2 := Trim(FileRead(Trim(argHTVMinstrMORE[0])))
+}
 
 Loop, Parse, allInstructionFile_2, `n, `r
 {

@@ -58,7 +58,7 @@ async function getFunctionNames() {
         const text = await response.text();
         
         // Split text by line and get lines starting from line 162
-        const lines = text.split('\n').slice(161); // Line 162 starts at index 161
+        const lines = text.split('\n').slice(162); // Line 162 starts at index 161
         
         // Extract function names that start with "name: "
         const functionNames = lines
@@ -74,15 +74,15 @@ async function getFunctionNames() {
         console.error('Error fetching the text file:', error);
     }
 }
-// Function to fetch the first 149 lines from a remote text file
-async function fetchFirst149Lines(url) {
+// Function to fetch the first 161 lines from a remote text file
+async function fetchFirst161Lines(url) {
     try {
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(`Network response was not ok: ${response.statusText}`);
         }
         const text = await response.text();
-        return text.split('\n').slice(0, 149).join('\n');
+        return text.split('\n').slice(0, 162).join('\n');
     } catch (error) {
         console.error('Error fetching the text file:', error);
         return null;
@@ -95,13 +95,15 @@ async function getAllKeyWordsIn() {
         console.error('No ID found in the URL');
         return;
     }
-    let data = localStorage.getItem("htvm_lang_" + id);
+    const storageKey = "htvm_lang_" + id;
+    let storedData = localStorage.getItem(storageKey);
     
-    if (data) {
+    // If the key exists, use localStorage data and return
+    if (storedData !== null) {
         try {
-            const arrayData = JSON.parse(data);
+            const arrayData = JSON.parse(storedData);
             if (Array.isArray(arrayData)) {
-                allKeyWordsIn = arrayData.slice(0, 149).join('\n'); // Save in global variable
+                allKeyWordsIn = arrayData.slice(0, 162).join('\n'); // Save in global variable
                 return;
             } else {
                 console.error('Stored data is not an array');
@@ -112,11 +114,11 @@ async function getAllKeyWordsIn() {
             return;
         }
     }
-    // If key doesn't exist, fetch data from the remote file
+    // If key is missing, fetch data from the remote file
     const url = 'https://raw.githubusercontent.com/TheMaster1127/HTVM/refs/heads/main/HTVM-instructions.txt';
-    const fetchedData = await fetchFirst149Lines(url);
+    const fetchedData = await fetchFirst161Lines(url);
     if (fetchedData) {
-        localStorage.setItem("htvm_lang_" + id, JSON.stringify(fetchedData.split('\n'))); // Store in localStorage
+        localStorage.setItem(storageKey, JSON.stringify(fetchedData.split('\n'))); // Store in localStorage
         allKeyWordsIn = fetchedData; // Save in global variable
     } else {
         console.error('Failed to fetch data from the remote file');
