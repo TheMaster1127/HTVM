@@ -102,3 +102,4 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm-mode.
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\DOCUMENTATION-Generator.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\DOCUMENTATION-Generator.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\DOCUMENTATION-Generator.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM-v1-DEPRECATED\Documentation-Generation.ht
