@@ -65,10 +65,16 @@ if (Trim(DOCS_param2) != "")
 {
 checkIfFuncNameExists := 1
 }
+if (checkIfFuncNameExists = 1)
+{
+print("[function_name] still in development!!!")
+print("Exiting...")
+ExitApp()
+}
+else
+{
 
 instructionFileData := FileRead(Trim(DOCS_param1))
-
-
 OUTdocs_HTML := genDocs("html")
 OUTdocs_MD := genDocs("md")
 
@@ -81,6 +87,8 @@ FileAppend(OUTdocs_HTML, "DOCUMENTATION.html")
 print("Everything is saved in DOCUMENTATION.html")
 print("========================================")
 print("Done!")
+
+}
 
 }
 ; else add the full user instruction file in instructionFileData variable

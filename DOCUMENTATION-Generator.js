@@ -83,18 +83,24 @@ if (HTVM_getLang_HTVM() != "js") {
     if (Trim(DOCS_param2) != "") {
         checkIfFuncNameExists = 1;
     }
-    instructionFileData = FileRead(Trim(DOCS_param1));
-    OUTdocs_HTML = genDocs("html");
-    OUTdocs_MD = genDocs("md");
-    FileDelete("DOCUMENTATION.md");
-    FileAppend(OUTdocs_MD, "DOCUMENTATION.md");
-    print("Everything is saved in DOCUMENTATION.md");
-    print("========================================");
-    FileDelete("DOCUMENTATION.html");
-    FileAppend(OUTdocs_HTML, "DOCUMENTATION.html");
-    print("Everything is saved in DOCUMENTATION.html");
-    print("========================================");
-    print("Done!");
+    if (checkIfFuncNameExists == 1) {
+        print("[function_name] still in development!!!");
+        print("Exiting...");
+        ExitApp();
+    } else {
+        instructionFileData = FileRead(Trim(DOCS_param1));
+        OUTdocs_HTML = genDocs("html");
+        OUTdocs_MD = genDocs("md");
+        FileDelete("DOCUMENTATION.md");
+        FileAppend(OUTdocs_MD, "DOCUMENTATION.md");
+        print("Everything is saved in DOCUMENTATION.md");
+        print("========================================");
+        FileDelete("DOCUMENTATION.html");
+        FileAppend(OUTdocs_HTML, "DOCUMENTATION.html");
+        print("Everything is saved in DOCUMENTATION.html");
+        print("========================================");
+        print("Done!");
+    }
 }
 // else add the full user instruction file in instructionFileData variable
 // MAKE SURE to put the instruction file in instructionFileData variable!!!
