@@ -195,6 +195,7 @@ std::string genDocs(std::string mode) {
         std::string A_LoopField1 = items1[A_Index1 - 0];
         outDocs = "test out in " + mode;
     }
+    outDocs = "still in development!!! test out in " + mode;
     return outDocs;
 }
 int main(int argc, char* argv[]) {
