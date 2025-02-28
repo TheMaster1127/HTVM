@@ -181,7 +181,7 @@ std::string instructionFileData = "";
 std::string DOCS_params = "";
 std::string DOCS_param1 = "";
 std::string DOCS_param2 = "";
-int checkIfFuncNameExists = 0;
+int DOCS_checkIfFuncNameExists = 0;
 std::string OUTdocs_HTML = "";
 std::string OUTdocs_MD = "";
 std::string genDocs(std::string mode) {
@@ -223,9 +223,9 @@ int main(int argc, char* argv[]) {
             ExitApp();
         }
         if (Trim(DOCS_param2) != "") {
-            checkIfFuncNameExists = 1;
+            DOCS_checkIfFuncNameExists = 1;
         }
-        if (checkIfFuncNameExists == 1) {
+        if (DOCS_checkIfFuncNameExists == 1) {
             print("[function_name] still in development!!!");
             print("Exiting...");
             ExitApp();
@@ -245,6 +245,16 @@ int main(int argc, char* argv[]) {
         }
     }
     // else add the full user instruction file in instructionFileData variable
+    // make sure to reset all vars
+    /*
+    "" = std::string mode;
+    "" = std::string mode;
+    "" = std::string mode;
+    "" = std::string mode;
+    0 = std::string mode;
+    "" = std::string mode;
+    "" = std::string mode;
+    */
     // MAKE SURE to put the instruction file in instructionFileData variable!!!
     // run genDocs("html") and the output will be text that needs to be saved in DOCUMENTATION.html
     // run genDocs("md") and the output will be text that needs to be saved in DOCUMENTATION.md

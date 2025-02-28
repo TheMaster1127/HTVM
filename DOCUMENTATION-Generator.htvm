@@ -4,7 +4,7 @@ str instructionFileData := ""
 str DOCS_params := ""
 str DOCS_param1 := ""
 str DOCS_param2 := ""
-int checkIfFuncNameExists := 0
+int DOCS_checkIfFuncNameExists := 0
 str OUTdocs_HTML := ""
 str OUTdocs_MD := ""
 
@@ -65,9 +65,9 @@ ExitApp()
 
 if (Trim(DOCS_param2) != "")
 {
-checkIfFuncNameExists := 1
+DOCS_checkIfFuncNameExists := 1
 }
-if (checkIfFuncNameExists = 1)
+if (DOCS_checkIfFuncNameExists = 1)
 {
 print("[function_name] still in development!!!")
 print("Exiting...")
@@ -94,6 +94,17 @@ print("Done!")
 
 }
 ; else add the full user instruction file in instructionFileData variable
+
+; make sure to reset all vars
+'''1
+var instructionFileData = "";
+var DOCS_params = "";
+var DOCS_param1 = "";
+var DOCS_param2 = "";
+var DOCS_checkIfFuncNameExists = 0;
+var OUTdocs_HTML = "";
+var OUTdocs_MD = "";
+'''2
 
 ; MAKE SURE to put the instruction file in instructionFileData variable!!!
 ; run genDocs("html") and the output will be text that needs to be saved in DOCUMENTATION.html

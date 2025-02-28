@@ -41,7 +41,7 @@ var instructionFileData = "";
 var DOCS_params = "";
 var DOCS_param1 = "";
 var DOCS_param2 = "";
-var checkIfFuncNameExists = 0;
+var DOCS_checkIfFuncNameExists = 0;
 var OUTdocs_HTML = "";
 var OUTdocs_MD = "";
 function genDocs(mode) {
@@ -82,9 +82,9 @@ if (HTVM_getLang_HTVM() != "js") {
         ExitApp();
     }
     if (Trim(DOCS_param2) != "") {
-        checkIfFuncNameExists = 1;
+        DOCS_checkIfFuncNameExists = 1;
     }
-    if (checkIfFuncNameExists == 1) {
+    if (DOCS_checkIfFuncNameExists == 1) {
         print("[function_name] still in development!!!");
         print("Exiting...");
         ExitApp();
@@ -104,6 +104,16 @@ if (HTVM_getLang_HTVM() != "js") {
     }
 }
 // else add the full user instruction file in instructionFileData variable
+// make sure to reset all vars
+/*
+var "";
+var "";
+var "";
+var "";
+var 0;
+var "";
+var "";
+*/
 // MAKE SURE to put the instruction file in instructionFileData variable!!!
 // run genDocs("html") and the output will be text that needs to be saved in DOCUMENTATION.html
 // run genDocs("md") and the output will be text that needs to be saved in DOCUMENTATION.md
