@@ -186,14 +186,6 @@ if (id) {
 } else {
     console.error('URL parameter "id" is missing.');
 }
-console.log("================================================================")
-console.log("================================================================")
-let lines = allKeyWordsOut3.split('\n'); // Split the string into an array of lines
-for (let i = 0; i < lines.length; i++) {
-    console.log(i + ": " + lines[i]);
-}
-console.log("================================================================")
-console.log("================================================================")
 var builtInCommands_temp = "";
 var htvmKeywords_temp = "";
 var staticTypes_temp = "";

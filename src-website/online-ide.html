@@ -410,9 +410,9 @@ if (id) {
 
 
 allInstFormGithub = localStorage.getItem('allInstFromGithubFIX');
-console.log(allInstFormGithub)
-console.log("=-----------------------------=")
-console.log(argHTVMinstrMORE[0])
+//console.log(allInstFormGithub)
+//console.log("=-----------------------------=")
+//console.log(argHTVMinstrMORE[0])
 
 
 let OUTCODE = "";
@@ -438,9 +438,9 @@ ___js end
 Loop, 5 {
     print(A_Index)
 }`, allInstFormGithub, "full", "htvm2");
-console.log("==========12")
-console.log(OUTCODE)
-console.log("==========123")
+//console.log("==========12")
+//console.log(OUTCODE)
+//console.log("==========123")
         resetGlobalVarsOfHTVMjs();
 }
     let uniqueId = getUrlParam('id') || 'default';
@@ -596,7 +596,7 @@ editor.on("changeSelection", function(delta) {
     let fileExtension = path[1].split('.').pop();
     if (fileExtension == "htvm") {
       let isLineInAprogrammingBlockOUT = isLineInAProgrammingBlock(allKeyWordsSoWeCanSeeProgrammingBlocks, openFile.content);
-      console.log(isLineInAprogrammingBlockOUT);
+      //console.log(isLineInAprogrammingBlockOUT);
       if (isLineInAprogrammingBlockOUT) {
         const langMode = fileExtensionToLangName('.' + isLineInAprogrammingBlockOUT);
         editor.session.setMode("ace/mode/" + langMode);
@@ -965,7 +965,7 @@ async function runHTVM(fileContents, fileName) {
 
                 // Store the array in localStorage
                 localStorage.setItem(storageKey, JSON.stringify(first162Lines));
-                console.log(`First 162 lines have been stored in localStorage as "${storageKey}".`);
+                //console.log(`First 162 lines have been stored in localStorage as "${storageKey}".`);
 
                 // Call the function again with the fetched data
                 runHTVM(fileContents, fileName);

@@ -1,0 +1,94 @@
+
+str instructionFileData := ""
+
+str DOCS_params := ""
+str DOCS_param1 := ""
+str DOCS_param2 := ""
+int checkIfFuncNameExists := 0
+str OUTdocs_HTML := ""
+str OUTdocs_MD := ""
+
+
+func str genDocs(str mode)
+{
+str outDocs := ""
+
+if (Trim(instructionFileData) = "")
+{
+throw ErrorMsg("instructionFileData is empty")
+return "error: instructionFileData is empty!!!"
+}
+Loop, Parse, instructionFileData, `n ,`r
+{
+outDocs := "test out in " + mode
+}
+
+return outDocs
+}
+
+main
+if (HTVM_getLang_HTVM() != "js")
+{
+
+DOCS_params := Trim(GetParams())
+if (Trim(StrSplit(DOCS_params, "`n", 1)) = "")
+{
+print("Usage: <instruction_file> [function_name]" . Chr(10) . Chr(10) . "- <instruction_file>: Required. Generates DOCUMENTATION.md and DOCUMENTATION.html." . Chr(10) . "- [function_name]: Optional. If provided, checks whether the function exists and it does not output any files.")
+print("no params Exiting...")
+ExitApp()
+}
+
+Loop, Parse, DOCS_params, `n, `r 
+{
+if (A_Index = 0)
+{
+print(A_LoopField) 
+DOCS_param1 := Trim(A_LoopField)
+}
+if (A_Index = 1) 
+{
+print(A_LoopField)
+DOCS_param2 := Trim(A_LoopField)
+}
+
+}
+
+
+if (!FileExist(DOCS_param1))
+{
+print("the file doesn't exist!!!")
+ExitApp()
+}
+
+
+if (Trim(DOCS_param2) != "")
+{
+checkIfFuncNameExists := 1
+}
+
+instructionFileData := FileRead(Trim(DOCS_param1))
+
+
+OUTdocs_HTML := genDocs("html")
+OUTdocs_MD := genDocs("md")
+
+FileDelete("DOCUMENTATION.md")
+FileAppend(OUTdocs_MD, "DOCUMENTATION.md")
+print("Everything is saved in DOCUMENTATION.md")
+print("========================================")
+FileDelete("DOCUMENTATION.html")
+FileAppend(OUTdocs_HTML, "DOCUMENTATION.html")
+print("Everything is saved in DOCUMENTATION.html")
+print("========================================")
+print("Done!")
+
+}
+; else add the full user instruction file in instructionFileData variable
+
+; MAKE SURE to put the instruction file in instructionFileData variable!!!
+; run genDocs("html") and the output will be text that needs to be saved in DOCUMENTATION.html
+; run genDocs("md") and the output will be text that needs to be saved in DOCUMENTATION.md
+
+
+
+

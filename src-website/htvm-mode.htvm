@@ -198,18 +198,6 @@ if (id) {
 }
 
 
-console.log("================================================================")
-console.log("================================================================")
-let lines = allKeyWordsOut3.split('\n'); // Split the string into an array of lines
-
-for (let i = 0; i < lines.length; i++) {
-    console.log(i + ": " + lines[i]);
-}
-
-console.log("================================================================")
-console.log("================================================================")
-
-
 
 ___js end
 str builtInCommands_temp := ""

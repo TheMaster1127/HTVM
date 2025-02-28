@@ -99,3 +99,6 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm-mode.
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm_completions.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm_completions.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm-mode.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\DOCUMENTATION-Generator.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\DOCUMENTATION-Generator.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\DOCUMENTATION-Generator.js
