@@ -11436,7 +11436,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_CPP != 0) {
             for (int A_Index153 = 0; A_Index153 < COUNT_programmingBlock_CPP + 0; A_Index153++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index153 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCPP + Chr(10) + programmingBlock_CPP[A_Index153] + Chr(10) + keyWordCodeInTheTranspiledLangEndCPP);
+                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index153 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCPP_2 + Chr(10) + programmingBlock_CPP[A_Index153] + Chr(10) + keyWordCodeInTheTranspiledLangEndCPP_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index153 + 1) + "AA", Chr(10));
                 }
@@ -11453,7 +11453,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_PY != 0) {
             for (int A_Index155 = 0; A_Index155 < COUNT_programmingBlock_PY + 0; A_Index155++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index155 + 1) + "AA", keyWordCodeInTheTranspiledLangStartPY + Chr(10) + programmingBlock_PY[A_Index155] + Chr(10) + keyWordCodeInTheTranspiledLangEndPY);
+                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index155 + 1) + "AA", keyWordCodeInTheTranspiledLangStartPY_2 + Chr(10) + programmingBlock_PY[A_Index155] + Chr(10) + keyWordCodeInTheTranspiledLangEndPY_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index155 + 1) + "AA", Chr(10));
                 }
@@ -11470,7 +11470,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_JS != 0) {
             for (int A_Index157 = 0; A_Index157 < COUNT_programmingBlock_JS + 0; A_Index157++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index157 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJS + Chr(10) + programmingBlock_JS[A_Index157] + Chr(10) + keyWordCodeInTheTranspiledLangEndJS);
+                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index157 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJS_2 + Chr(10) + programmingBlock_JS[A_Index157] + Chr(10) + keyWordCodeInTheTranspiledLangEndJS_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index157 + 1) + "AA", Chr(10));
                 }
@@ -11487,7 +11487,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_GO != 0) {
             for (int A_Index159 = 0; A_Index159 < COUNT_programmingBlock_GO + 0; A_Index159++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index159 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGO + Chr(10) + programmingBlock_GO[A_Index159] + Chr(10) + keyWordCodeInTheTranspiledLangEndGO);
+                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index159 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGO_2 + Chr(10) + programmingBlock_GO[A_Index159] + Chr(10) + keyWordCodeInTheTranspiledLangEndGO_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index159 + 1) + "AA", Chr(10));
                 }
@@ -11504,7 +11504,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_LUA != 0) {
             for (int A_Index161 = 0; A_Index161 < COUNT_programmingBlock_LUA + 0; A_Index161++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index161 + 1) + "AA", keyWordCodeInTheTranspiledLangStartLUA + Chr(10) + programmingBlock_LUA[A_Index161] + Chr(10) + keyWordCodeInTheTranspiledLangEndLUA);
+                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index161 + 1) + "AA", keyWordCodeInTheTranspiledLangStartLUA_2 + Chr(10) + programmingBlock_LUA[A_Index161] + Chr(10) + keyWordCodeInTheTranspiledLangEndLUA_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index161 + 1) + "AA", Chr(10));
                 }
@@ -11521,7 +11521,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_CS != 0) {
             for (int A_Index163 = 0; A_Index163 < COUNT_programmingBlock_CS + 0; A_Index163++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index163 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCS + Chr(10) + programmingBlock_CS[A_Index163] + Chr(10) + keyWordCodeInTheTranspiledLangEndCS);
+                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index163 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCS_2 + Chr(10) + programmingBlock_CS[A_Index163] + Chr(10) + keyWordCodeInTheTranspiledLangEndCS_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index163 + 1) + "AA", Chr(10));
                 }
@@ -11538,7 +11538,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_JAVA != 0) {
             for (int A_Index165 = 0; A_Index165 < COUNT_programmingBlock_JAVA + 0; A_Index165++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index165 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJAVA + Chr(10) + programmingBlock_JAVA[A_Index165] + Chr(10) + keyWordCodeInTheTranspiledLangEndJAVA);
+                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index165 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJAVA_2 + Chr(10) + programmingBlock_JAVA[A_Index165] + Chr(10) + keyWordCodeInTheTranspiledLangEndJAVA_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index165 + 1) + "AA", Chr(10));
                 }
@@ -11555,7 +11555,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_KT != 0) {
             for (int A_Index167 = 0; A_Index167 < COUNT_programmingBlock_KT + 0; A_Index167++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index167 + 1) + "AA", keyWordCodeInTheTranspiledLangStartKT + Chr(10) + programmingBlock_KT[A_Index167] + Chr(10) + keyWordCodeInTheTranspiledLangEndKT);
+                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index167 + 1) + "AA", keyWordCodeInTheTranspiledLangStartKT_2 + Chr(10) + programmingBlock_KT[A_Index167] + Chr(10) + keyWordCodeInTheTranspiledLangEndKT_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index167 + 1) + "AA", Chr(10));
                 }
@@ -11572,7 +11572,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_RB != 0) {
             for (int A_Index169 = 0; A_Index169 < COUNT_programmingBlock_RB + 0; A_Index169++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index169 + 1) + "AA", keyWordCodeInTheTranspiledLangStartRB + Chr(10) + programmingBlock_RB[A_Index169] + Chr(10) + keyWordCodeInTheTranspiledLangEndRB);
+                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index169 + 1) + "AA", keyWordCodeInTheTranspiledLangStartRB_2 + Chr(10) + programmingBlock_RB[A_Index169] + Chr(10) + keyWordCodeInTheTranspiledLangEndRB_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index169 + 1) + "AA", Chr(10));
                 }
@@ -11589,7 +11589,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_NIM != 0) {
             for (int A_Index171 = 0; A_Index171 < COUNT_programmingBlock_NIM + 0; A_Index171++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index171 + 1) + "AA", keyWordCodeInTheTranspiledLangStartNIM + Chr(10) + programmingBlock_NIM[A_Index171] + Chr(10) + keyWordCodeInTheTranspiledLangEndNIM);
+                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index171 + 1) + "AA", keyWordCodeInTheTranspiledLangStartNIM_2 + Chr(10) + programmingBlock_NIM[A_Index171] + Chr(10) + keyWordCodeInTheTranspiledLangEndNIM_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index171 + 1) + "AA", Chr(10));
                 }
@@ -11606,7 +11606,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_AHK != 0) {
             for (int A_Index173 = 0; A_Index173 < COUNT_programmingBlock_AHK + 0; A_Index173++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index173 + 1) + "AA", keyWordCodeInTheTranspiledLangStartAHK + Chr(10) + programmingBlock_AHK[A_Index173] + Chr(10) + keyWordCodeInTheTranspiledLangEndAHK);
+                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index173 + 1) + "AA", keyWordCodeInTheTranspiledLangStartAHK_2 + Chr(10) + programmingBlock_AHK[A_Index173] + Chr(10) + keyWordCodeInTheTranspiledLangEndAHK_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index173 + 1) + "AA", Chr(10));
                 }
@@ -11623,7 +11623,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_SWIFT != 0) {
             for (int A_Index175 = 0; A_Index175 < COUNT_programmingBlock_SWIFT + 0; A_Index175++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index175 + 1) + "AA", keyWordCodeInTheTranspiledLangStartSWIFT + Chr(10) + programmingBlock_SWIFT[A_Index175] + Chr(10) + keyWordCodeInTheTranspiledLangEndSWIFT);
+                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index175 + 1) + "AA", keyWordCodeInTheTranspiledLangStartSWIFT_2 + Chr(10) + programmingBlock_SWIFT[A_Index175] + Chr(10) + keyWordCodeInTheTranspiledLangEndSWIFT_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index175 + 1) + "AA", Chr(10));
                 }
@@ -11640,7 +11640,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_DART != 0) {
             for (int A_Index177 = 0; A_Index177 < COUNT_programmingBlock_DART + 0; A_Index177++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index177 + 1) + "AA", keyWordCodeInTheTranspiledLangStartDART + Chr(10) + programmingBlock_DART[A_Index177] + Chr(10) + keyWordCodeInTheTranspiledLangEndDART);
+                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index177 + 1) + "AA", keyWordCodeInTheTranspiledLangStartDART_2 + Chr(10) + programmingBlock_DART[A_Index177] + Chr(10) + keyWordCodeInTheTranspiledLangEndDART_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index177 + 1) + "AA", Chr(10));
                 }
@@ -11657,7 +11657,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_TS != 0) {
             for (int A_Index179 = 0; A_Index179 < COUNT_programmingBlock_TS + 0; A_Index179++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index179 + 1) + "AA", keyWordCodeInTheTranspiledLangStartTS + Chr(10) + programmingBlock_TS[A_Index179] + Chr(10) + keyWordCodeInTheTranspiledLangEndTS);
+                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index179 + 1) + "AA", keyWordCodeInTheTranspiledLangStartTS_2 + Chr(10) + programmingBlock_TS[A_Index179] + Chr(10) + keyWordCodeInTheTranspiledLangEndTS_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index179 + 1) + "AA", Chr(10));
                 }
@@ -11674,7 +11674,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (COUNT_programmingBlock_GROOVY != 0) {
             for (int A_Index181 = 0; A_Index181 < COUNT_programmingBlock_GROOVY + 0; A_Index181++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index181 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGROOVY + Chr(10) + programmingBlock_GROOVY[A_Index181] + Chr(10) + keyWordCodeInTheTranspiledLangEndGROOVY);
+                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index181 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGROOVY_2 + Chr(10) + programmingBlock_GROOVY[A_Index181] + Chr(10) + keyWordCodeInTheTranspiledLangEndGROOVY_2);
                 } else {
                     htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index181 + 1) + "AA", Chr(10));
                 }

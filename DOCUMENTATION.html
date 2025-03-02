@@ -1,1 +1,2330 @@
-still in development!!! test out in html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub-Style Markdown with Ace Editor</title>
+
+    <!-- Link to markdown-it library -->
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@12.0.4/dist/markdown-it.min.js"></script>
+    
+    <!-- Ace Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/theme-monokai.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/mode-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/mode-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/mode-html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/mode-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/mode-json.min.js"></script>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* Dark Mode Styles */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding-left: 30px;
+            padding-right: 30px;
+            margin: 0;
+            word-wrap: break-word;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffffff;
+            position: relative;
+        }
+
+        /* Container for the markdown content */
+        #markdown-output {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Styling */
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 2px solid #444;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #ffffff;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+
+        h3 {
+            color: #81a1c1;
+            margin-top: 20px;
+        }
+
+        /* Links */
+        a {
+            color: #1e90ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* External link icon */
+        a.external-link:after {
+            content: " \2197";
+            display: inline-block;
+            margin-left: 4px;
+            font-size: 0.8em;
+        }
+        
+        /* Header anchor links that show on hover */
+        .header-anchor {
+            opacity: 0;
+            font-size: 0.8em;
+            margin-left: 8px;
+            color: #666;
+            transition: opacity 0.2s ease-in-out;
+        }
+        
+        h1:hover .header-anchor,
+        h2:hover .header-anchor,
+        h3:hover .header-anchor,
+        h4:hover .header-anchor,
+        h5:hover .header-anchor,
+        h6:hover .header-anchor {
+            opacity: 1;
+            color: #1e90ff;
+        }
+
+        /* Ace Editor Styling */
+        .ace-editor-container {
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .ace-editor {
+            width: 100%;
+            border-radius: 8px;
+            /* Height will be set dynamically based on content */
+        }
+        
+        .ace-editor-header {
+            background-color: #333;
+            color: #fff;
+            padding: 8px 15px;
+            font-family: monospace;
+            font-size: 0.9em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        
+        .ace-editor-language {
+            font-weight: bold;
+            color: #82aaff;
+        }
+
+        /* Copy Button Styling */
+        .copy-button {
+            background-color: #2a2a2a;
+            border: none;
+            color: #ccc;
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .copy-button:hover {
+            background-color: #3a3a3a;
+            color: #fff;
+        }
+        
+        .copy-button i {
+            margin-right: 4px;
+        }
+        
+        .copy-success {
+            background-color: #28a745 !important;
+            color: white !important;
+        }
+
+        /* Inline code */
+        p code, li code {
+            background-color: #2b2b2b;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: Consolas, 'Courier New', monospace;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #444;
+        }
+
+        th {
+            background-color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #2a2a2a;
+        }
+
+        tr:hover {
+            background-color: #444;
+        }
+        
+        /* Fix for internal links */
+        :target {
+            scroll-margin-top: 20px;
+            animation: highlight 2s ease;
+        }
+        
+        @keyframes highlight {
+            from { background-color: #333333; }
+            to { background-color: transparent; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Markdown content written in normal syntax -->
+<div id="markdown-content" style="display:none;">
+
+
+
+
+# HTVM Documentation
+
+1. [Introduction](#introduction-to-htvm)  
+Understand why HTVM is the future of programming.  
+
+2. [OSP (Objectively Simplified Programming) Paradigm](#osp-objectively-simplified-programming-paradigm)  
+Learn about the new paradigm that replaces traditional object-oriented programming.  
+
+3. [Built-in Functions](#built-in-functions)  
+Explore the wide range of built-in functions categorized for ease of use.  
+
+---
+
+## Introduction to HTVM
+
+[Go back](#htvm-documentation) 
+
+HTVM is a revolutionary tool designed to replace traditional programming. With HTVM, you can create your own programming language directly [here](https://themaster1127.github.io/HTVM/).
+
+What makes HTVM powerful:  
+- **Syntax Customization**:  
+  Here’s what you can change:  
+  - **Keywords**: Modify the keywords used for `if` statements, `while` loops, `for` loops, and more.  
+  - **Operators**: Change the operators like `==`, `!=`, and others to suit your needs.  
+
+- **Inspiration from AutoHotKey**:  
+  Features like `Loop` and `Loop, Parse` (just like in AutoHotKey) are supported and customizable.  
+
+- **Cross-Language Compatibility**:  
+  Languages created with HTVM can be transpiled into **C++**, **Python**, and **JavaScript**.  
+
+- **Static Typing**:  
+  Types are required when converting to C++, but are optional for Python and JavaScript.  
+
+- **Built-in Functions**:  
+  Instead of libraries, HTVM offers built-in functions organized into categories. Scroll to the [Built-in Functions](#built-in-functions) section for more details.  
+
+## Core Features
+
+### Language Configuration
+- **Target Language Selection**
+  - Choose between **C++**, **Python** and **JavaScript** 
+  - Specify file extensions for output files
+  - Configure HTML wrapping for JavaScript output
+
+### Syntax Customization
+- **Code Block Style**
+  - Toggle between curly braces `{}` or `end` keywords
+  - Enable/disable Python-style colon syntax
+  - Customize parentheses usage
+  - Control semicolon placement
+
+- **Function Definitions**
+  - Toggle function keywords
+  - Customize async main function for JavaScript
+  - Configure global variable handling
+
+### Type System
+- **Basic Types**
+  - Integer (INT)
+  - String (STR)
+  - Boolean (BOOL)
+  - Float (FLOAT)
+
+- **Extended Integer Types**
+  - INT8
+  - INT16
+  - INT32
+  - INT64
+
+### Control Structures
+- **Conditional Statements**
+  - If/Else/ElseIf
+  - Switch/Case/Default
+  - Custom keywords for all conditional operators
+
+- **Loops**
+  - While loops
+  - For loops with customizable syntax
+  - Infinite loops
+  - Parse loops (AutoHotkey-style)
+  - Custom indexing (0-based or 1-based)
+  - Loop control (break, continue)
+
+### Arrays and Collections
+- **Array Types**
+  - Integer arrays
+  - String arrays
+  - Float arrays
+  - Boolean arrays
+
+- **Array Operations**
+  - Append
+  - Pop
+  - Insert
+  - Remove
+  - Size
+  - IndexOf
+
+### Error Handling
+- **Exception Management**
+  - Try blocks
+  - Catch blocks
+  - Finally blocks
+  - Custom error messages
+  - Throw statements
+
+### JavaScript-Specific Features
+- **Variable Declaration**
+  - var, let, const keywords
+  - Automatic var declaration option
+  - await keyword support
+
+### Operators
+- **Assignment Operators**
+  - Basic assignment
+  - Addition assignment
+  - Subtraction assignment
+  - Multiplication assignment
+  - Division assignment
+  - Concatenation assignment
+
+- **Comparison Operators**
+  - Equal to
+  - Not equal to
+  - Greater than
+  - Less than
+  - Greater than or equal to
+  - Less than or equal to
+
+- **Logical Operators**
+  - AND
+  - OR
+  - NOT
+
+### Comments
+- Single-line comments
+- Multi-line comments
+- Custom comment symbols
+
+### AutoHotkey-Inspired Features
+- **Loop Variables**
+  - A_Index (customizable)
+  - A_LoopField (customizable)
+- **Loop Types**
+  - Parse loops
+  - Count loops
+  - Infinite loops
+
+## Configuration Options
+
+### Syntax Style
+- `useFuncKeyWord`: Toggle function definition keywords
+- `useCurlyBraces`: Toggle curly brace block definitions
+- `useEnd`: Toggle 'end' keyword for block closure
+- `useSemicolon`: Toggle statement-ending semicolons
+- `useParentheses`: Configure parentheses requirements
+- `usePythonicColonSyntax`: Enable Python-style block definitions
+
+### JavaScript Configuration
+- `useInJavaScriptAlwaysUseVar`: Force 'var' declarations
+- `useJavaScriptInAfullHTMLfile`: Enable HTML wrapping
+- `useJavaScriptAmainFuncDef`: Configure async main function
+
+### Loop Configuration
+- `AHKlikeLoopsIndexedAt`: Set loop index starting value
+- `forLoopLang`: Select loop syntax style
+- `keyWordAIndex`: Customize loop index variable name
+- `keyWordALoopField`: Customize loop field variable name
+
+
+HTVM empowers developers to create programming languages tailored to their needs while maintaining compatibility with modern technologies.  
+
+---
+
+## OSP (Objectively Simplified Programming) Paradigm  
+
+[Go back](#htvm-documentation) 
+
+OSP (Objectively Simplified Programming) is a paradigm designed to replace OOP since OOP was a mistake. To learn OSP you need to first forget everything about OOP. Forget about concepts like inheritance, polymorphism, encapsulation, private/public keywords and instances.
+
+OSP eliminates the complexities of object-oriented programming.  
+
+Here’s how OSP works:  
+- **Hierarchies**:  
+  - **Alliance**: The top-level structure, defined using the `alliance` keyword. 
+  - **Crew**: Sub-levels within an alliance, defined using the `crew` keyword.  
+  - **Method**: Functions defined within alliances or crews using the `method` keyword.  
+  - **Object**: Objects are defined using the `def obj` keyword.  
+
+- **Properties**:  
+  - Defined within objects using the `porp` keyword. You must specify the type, even when converting to Python or JavaScript, for readability.  
+
+
+### **The `this` Keyword**:
+
+- **Definition**:  
+  The `this` keyword is a reference to the current object that invoked a method. In OSP, `this` is **explicitly required to refer to objects**, and **you must always specify the full path** of objects and their properties when using it. Additionally, `this` is **only valid within methods**, as it represents the object calling that specific method.
+
+---
+
+### **Key Rules**:
+1. **Full Path Requirement**:  
+   - In OSP, **you must always specify the full path** of objects and properties when using `this`.  
+   - For example:  
+     - **Correct**: `Movable.Vehicles.Car.fuel`  
+     - **Incorrect**: `fuel`
+
+2. **Only Inside Methods**:  
+   - The `this` keyword can **only** be used inside a method. It refers to the object that invoked the method and provides context for operations on that object.  
+   - Using `this` outside of a method will result in an error, as there is no calling object to reference.
+
+---
+
+### **Explanation Using the Example**:
+```cpp
+method void move(this) {
+    if (this == "Movable.Vehicles.Car") {
+        if (Movable.Vehicles.Car.fuel > 0) {
+            print("The car is driving.")
+            Movable.Vehicles.Car.fuel = Movable.Vehicles.Car.fuel - 10
+        } else {
+            print("The car is out of fuel.")
+            Movable.Vehicles.Car.hasFUEL = false
+        }
+    }
+    else if (this == "Movable.Vehicles.Bike") {
+        if (Movable.Vehicles.Bike.energy > 0) {
+            print("The bike is pedaling.")
+            Movable.Vehicles.Bike.energy = Movable.Vehicles.Bike.energy - 5
+        } else {
+            print("The bike is out of energy.")
+            Movable.Vehicles.Bike.hasENERGY = false
+        }
+    }
+}
+```
+- The `this` keyword in this method represents the specific object calling `move()`.  
+  For instance:
+  - If `this == "Movable.Vehicles.Car"`, the method knows the caller is the **Car object**, and it manipulates `Movable.Vehicles.Car` properties.
+  - Similarly, if `this == "Movable.Vehicles.Bike"`, the method operates on the **Bike object**.
+
+- If you try to use `this` **outside of any method**, it won’t work because `this` has no object context to refer to.  
+  For example:
+  ``` cpp
+  def obj Car {
+      prop int fuel = 100
+      print(this)  // This will cause an error!
+  }
+  ```
+
+---
+
+### **Why This Restriction Exists**:
+1. **Object Context**:  
+   - The `this` keyword needs a calling object to provide context. Without a method invocation, there’s no object to reference.
+
+2. **Scope Control**:  
+   - Limiting `this` to methods ensures clear and explicit usage, making code easier to understand and debug.
+
+3. **Example: Calling a Method with an Object**:  
+   - To use the `this` keyword, you must **pass an object** when invoking the method:  
+   ```cpp
+   allianceName.crewName.move(allianceName.crewName.objName)
+   ```
+   - Here:
+     - `allianceName` is the main alliance.
+     - `crewName` is the crew containing the method `move`.
+     - `objName` is the specific object being passed to the method. This allows `this` to refer to `objName` inside the method.
+
+---
+
+## **You Don’t Need an Alliance or Crew to Define Objects**
+- In OSP, you can define objects (`def obj`) directly without placing them inside an **alliance** or a **crew**.  
+- This makes it flexible to create standalone objects when you don’t need a larger structure.  
+
+### **Example: Standalone Object Definition**
+```cpp
+def obj Standalone {
+    prop int value = 10
+    prop str name = "Independent"
+}
+```
+
+to access later just use:
+
+```cpp
+Standalone.value
+Standalone.name
+```
+
+---
+
+### **Methods in Alliances**
+- Methods can also be defined directly in an **alliance**, without being part of a **crew** and the opposite is well.
+
+### **Example: Method in an Alliance**
+```cpp
+alliance ExampleAlliance {
+    method void greet() {
+        print("Hello from ExampleAlliance!")
+    }
+}
+```
+
+to call greet just do:
+
+```cpp
+ExampleAlliance.greet()
+```
+
+## Global Accessibility:  
+  - There are no scopes in OSP. As long as a variable or structure is defined above, it is accessible below. Everything is global, and the full path must always be used.  
+
+## Arrays:  
+  - When using arrays you need to create a temporary array and then copy it to another like this:
+
+```py
+def obj name {
+    arr str temp
+    prop arr str prop1 = temp
+    prop arr str prop2 = temp
+    prop arr str prop3 = temp
+    prop arr str prop4 = temp
+}
+```
+
+### **Summary**:
+- **Full Paths Always**: Explicit references, such as `Movable.Vehicles.Car.fuel`, are mandatory in OSP. Always use the full path to reference objects. This avoids ambiguity and ensures that each object is uniquely identified within the code.
+- **Only Inside Methods**: The `this` keyword can only be used inside a method to refer to the calling object. It is not valid outside of a method because it requires the context of the method invocation to work correctly.
+- **Promotes Clarity**: These rules ensure consistency, clarity, and unambiguous functionality in OSP. By restricting the use of `this` to methods and requiring full paths, the code remains explicit and easier to follow.
+- **Helps with Debugging**: Since `this` is only valid inside methods, errors related to improper use are easier to detect. Using full paths also helps pinpoint issues more precisely by avoiding confusion with similarly named objects.
+- **Encourages Best Practices**: These guidelines encourage a more structured and organized approach to coding in OSP, fostering a clearer and more maintainable codebase in larger projects.
+
+---
+
+## Note:
+
+### Never use underscores when naming things in OSP. Otherwise, you can use them, but be cautious because underscores can be unstable.
+
+
+#### Example of OSP
+
+```cpp
+alliance Movable {
+    crew Vehicles {
+        def obj Car {
+            prop int door = 4
+            prop int fuel = 100
+            prop bool hasFUEL = true
+        }
+        def obj Bike {
+            prop bool hasGears = true
+            prop int energy = 100
+            prop bool hasENERGY = true
+        }
+
+        method void move(this) {
+            if (this == "Movable.Vehicles.Car") {
+                if (Movable.Vehicles.Car.fuel > 0) {
+                    print("The car is driving.")
+                    Movable.Vehicles.Car.fuel = Movable.Vehicles.Car.fuel - 10
+                } else {
+                    print("The car is out of fuel.")
+                    Movable.Vehicles.Car.hasFUEL = false
+                }
+            }
+            else if (this == "Movable.Vehicles.Bike") {
+                if (Movable.Vehicles.Bike.energy > 0) {
+                    print("The bike is pedaling.")
+                    Movable.Vehicles.Bike.energy = Movable.Vehicles.Bike.energy - 5
+                } else {
+                    print("The bike is out of energy.")
+                    Movable.Vehicles.Bike.hasENERGY = false
+                }
+            }
+        }
+    }
+    
+    crew settings {
+        def obj GeneralSettings {
+            prop str difficulty = "normal"
+            prop int volume = 50
+            prop str resolution = "1920x1080"
+        }
+        def obj AudioSettings {
+            prop int masterVolume = 70
+            prop int musicVolume = 50
+            prop int sfxVolume = 40
+        }
+        def obj DisplaySettings {
+            prop bool fullscreen = true
+            prop str aspectRatio = "16:9"
+        }
+    }
+    
+    crew actions {
+        // General Settings Methods
+        method void resetGeneralSettings() {
+            Movable.settings.GeneralSettings.difficulty = STR("normal")
+            Movable.settings.GeneralSettings.volume = 50
+            Movable.settings.GeneralSettings.resolution = STR("1920x1080")
+            print("General settings reset to default.")
+        }
+        method void printGeneralSettings() {
+            print("General Settings:")
+            print("Difficulty: " + Movable.settings.GeneralSettings.difficulty)
+            print("Volume: " + STR(Movable.settings.GeneralSettings.volume))
+            print("Resolution: " + Movable.settings.GeneralSettings.resolution)
+        }
+
+        // Audio Settings Methods
+        method void resetAudioSettings() {
+            Movable.settings.AudioSettings.masterVolume = 70
+            Movable.settings.AudioSettings.musicVolume = 50
+            Movable.settings.AudioSettings.sfxVolume = 40
+            print("Audio settings reset to default.")
+        }
+        method void printAudioSettings() {
+            print("Audio Settings:")
+            print("Master Volume: " + STR(Movable.settings.AudioSettings.masterVolume))
+            print("Music Volume: " + STR(Movable.settings.AudioSettings.musicVolume))
+            print("SFX Volume: " + STR(Movable.settings.AudioSettings.sfxVolume))
+        }
+
+        // Display Settings Methods
+        method void resetDisplaySettings() {
+            Movable.settings.DisplaySettings.fullscreen = true
+            Movable.settings.DisplaySettings.aspectRatio = STR("16:9")
+            print("Display settings reset to default.")
+        }
+        method void printDisplaySettings() {
+            print("Display Settings:")
+            print("Fullscreen: " + STR(Movable.settings.DisplaySettings.fullscreen))
+            print("Aspect Ratio: " + Movable.settings.DisplaySettings.aspectRatio)
+        }
+    }
+
+    crew array {
+        def obj name {
+            arr str temp
+            prop arr str prop1 = temp
+            prop arr str prop2 = temp
+            prop arr str prop3 = temp
+            prop arr str prop4 = temp
+        }
+    }
+    
+}
+
+main
+// Test vehicle movement
+while (Movable.Vehicles.Car.hasFUEL == true) && (Movable.Vehicles.Bike.hasENERGY = true) {
+    Movable.Vehicles.move(Movable.Vehicles.Car)
+    Movable.Vehicles.move(Movable.Vehicles.Bike)
+    print("=====================================")
+}
+
+// Test settings manipulation
+Movable.settings.GeneralSettings.difficulty = STR("hard")
+Movable.settings.GeneralSettings.volume = 80
+Movable.settings.GeneralSettings.resolution = STR("2560x1440")
+Movable.settings.AudioSettings.masterVolume = 90
+Movable.settings.AudioSettings.musicVolume = 60
+Movable.settings.AudioSettings.sfxVolume = 50
+Movable.settings.DisplaySettings.fullscreen = false
+Movable.settings.DisplaySettings.aspectRatio = STR("21:9")
+
+Movable.actions.printGeneralSettings()
+Movable.actions.printAudioSettings()
+Movable.actions.printDisplaySettings()
+
+Movable.actions.resetGeneralSettings()
+Movable.actions.resetAudioSettings()
+Movable.actions.resetDisplaySettings()
+
+Movable.actions.printGeneralSettings()
+Movable.actions.printAudioSettings()
+Movable.actions.printDisplaySettings()
+
+// Test array manipulation
+Movable.array.name.prop1.push("1text1")
+Movable.array.name.prop1.push("1text2")
+Movable.array.name.prop1.push("1text3")
+Movable.array.name.prop2.push("2text1")
+Movable.array.name.prop2.push("2text2")
+Movable.array.name.prop2.push("2text3")
+Movable.array.name.prop3.push("3text1")
+Movable.array.name.prop3.push("3text2")
+Movable.array.name.prop3.push("3text3")
+Movable.array.name.prop4.push("4text1")
+Movable.array.name.prop4.push("4text2")
+Movable.array.name.prop4.push("4text3")
+
+// why this
+// cuz python used len(param) insed of param.len() so it meses up evrything
+// if using OSP objects that have a dot (.) it doset work in python to get the lenght
+// but for a name whit no dots it works
+
+arr str arrayTempOnlyGetSize1 = Movable.array.name.prop1
+arr str arrayTempOnlyGetSize2 = Movable.array.name.prop2
+arr str arrayTempOnlyGetSize3 = Movable.array.name.prop3
+arr str arrayTempOnlyGetSize4 = Movable.array.name.prop4
+
+
+
+
+Loop, % arrayTempOnlyGetSize1.size() 
+{
+print(Movable.array.name.prop1[A_Index])
+}
+Loop, % arrayTempOnlyGetSize2.size() {
+    print(Movable.array.name.prop2[A_Index])
+}
+Loop, % arrayTempOnlyGetSize3.size() {
+    print(Movable.array.name.prop3[A_Index])
+}
+Loop, % arrayTempOnlyGetSize4.size() {
+    print(Movable.array.name.prop4[A_Index])
+}
+
+```
+
+OSP simplifies programming while ensuring compatibility with **C++**, **Python**, and **JavaScript**.  
+
+---
+
+## Built-in Functions  
+
+[Go back](#htvm-documentation) 
+
+HTVM includes a variety of built-in functions organized into categories for convenience.
+
+1. [Math Functions](#math-functions)
+2. [String Functions](#string-functions)
+3. [System Functions](#system-functions)
+4. [File Functions](#file-functions)
+5. [Io Functions](#io-functions)
+6. [Gui Functions](#gui-functions)
+7. [Other Functions](#other-functions)
+8. [Backend Functions](#backend-functions)
+
+---
+
+## Math Functions
+
+[Go back](#built-in-functions)
+
+1. [ACos](#acos)
+2. [ASin](#asin)
+3. [ATan](#atan)
+4. [Abs](#abs)
+5. [Ceil](#ceil)
+6. [Cos](#cos)
+7. [Exp](#exp)
+8. [Floor](#floor)
+9. [Ln](#ln)
+10. [Log](#log)
+11. [Mod](#mod)
+12. [Random](#random)
+13. [Round](#round)
+14. [Sin](#sin)
+15. [Sqrt](#sqrt)
+16. [Tan](#tan)
+
+---
+
+**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| ACos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| ASin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| ATan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Abs | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Ceil | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Cos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Exp | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Floor | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Ln | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Log | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Mod | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Random | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Round | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Sin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Sqrt | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Tan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+---
+
+### ACos
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| ACos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### ASin
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| ASin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### ATan
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| ATan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Abs
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Abs | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Ceil
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Ceil | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Cos
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Cos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Exp
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Exp | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Floor
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Floor | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Ln
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Ln | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Log
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Log | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Mod
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Mod | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Random
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Random | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Round
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Round | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Sin
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Sin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Sqrt
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Sqrt | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Tan
+
+[Go back](#math-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Tan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+## String Functions
+
+[Go back](#built-in-functions)
+
+1. [Asc](#asc)
+2. [Chr](#chr)
+3. [FLOAT](#float)
+4. [INT](#int)
+5. [InStr](#instr)
+6. [RegExMatch](#regexmatch)
+7. [RegExReplace](#regexreplace)
+8. [STR](#str)
+9. [Sort](#sort)
+10. [StrLen](#strlen)
+11. [StrLower](#strlower)
+12. [StrReplace](#strreplace)
+13. [StrSplit](#strsplit)
+14. [StrTitleCase](#strtitlecase)
+15. [StringTrimLeft](#stringtrimleft)
+16. [StringTrimRight](#stringtrimright)
+17. [SubStr](#substr)
+18. [Trim](#trim)
+19. [countChars](#countchars)
+20. [getUrlParams](#geturlparams)
+21. [sortArr](#sortarr)
+22. [sortArrByLenOnly](#sortarrbylenonly)
+
+---
+
+**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Asc | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Chr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| FLOAT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| INT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| InStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| RegExMatch | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| RegExReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| STR | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StrReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StrTitleCase | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StringTrimLeft | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StringTrimRight | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| countChars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+---
+
+### Asc
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Asc | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Chr
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Chr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### FLOAT
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| FLOAT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### INT
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| INT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### InStr
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| InStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### RegExMatch
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| RegExMatch | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### RegExReplace
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| RegExReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### STR
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| STR | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Sort
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### StrLen
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### StrLower
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### StrReplace
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| StrReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### StrSplit
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### StrTitleCase
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| StrTitleCase | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### StringTrimLeft
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| StringTrimLeft | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### StringTrimRight
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| StringTrimRight | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### SubStr
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Trim
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### countChars
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| countChars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### getUrlParams
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### sortArr
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### sortArrByLenOnly
+
+[Go back](#string-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+## System Functions
+
+[Go back](#built-in-functions)
+
+1. [BuildInVars](#buildinvars)
+2. [ExitApp](#exitapp)
+3. [HTVM_getLang_HTVM](#htvm_getlang_htvm)
+4. [Sleep](#sleep)
+
+---
+
+**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| BuildInVars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+---
+
+### BuildInVars
+
+[Go back](#system-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| BuildInVars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### ExitApp
+
+[Go back](#system-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### HTVM_getLang_HTVM
+
+[Go back](#system-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Sleep
+
+[Go back](#system-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+## File Functions
+
+[Go back](#built-in-functions)
+
+1. [FileAppend](#fileappend)
+2. [FileAppendJs](#fileappendjs)
+3. [FileCreateDir](#filecreatedir)
+4. [FileDelete](#filedelete)
+5. [FileExist](#fileexist)
+6. [FileRead](#fileread)
+7. [FileRemoveDir](#fileremovedir)
+
+---
+
+**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| FileAppend | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileAppendJs | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileCreateDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileDelete | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+---
+
+### FileAppend
+
+[Go back](#file-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| FileAppend | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### FileAppendJs
+
+[Go back](#file-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| FileAppendJs | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### FileCreateDir
+
+[Go back](#file-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| FileCreateDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### FileDelete
+
+[Go back](#file-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| FileDelete | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### FileExist
+
+[Go back](#file-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### FileRead
+
+[Go back](#file-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### FileRemoveDir
+
+[Go back](#file-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+## Io Functions
+
+[Go back](#built-in-functions)
+
+1. [GetParams](#getparams)
+2. [RunCMD](#runcmd)
+3. [getDataFromAPI](#getdatafromapi)
+4. [input](#input)
+5. [print](#print)
+
+---
+
+**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
+
+---
+
+### GetParams
+
+[Go back](#io-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### RunCMD
+
+[Go back](#io-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### getDataFromAPI
+
+[Go back](#io-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### input
+
+[Go back](#io-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### print
+
+[Go back](#io-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
+
+
+---
+
+## Gui Functions
+
+[Go back](#built-in-functions)
+
+1. [GuiControl](#guicontrol)
+2. [Gui_Button](#gui_button)
+3. [Gui_CheckBox](#gui_checkbox)
+4. [Gui_Color](#gui_color)
+5. [Gui_DropDownList](#gui_dropdownlist)
+6. [Gui_Edit](#gui_edit)
+7. [Gui_Font](#gui_font)
+8. [Gui_Font_Id](#gui_font_id)
+9. [Gui_Hide](#gui_hide)
+10. [Gui_Image](#gui_image)
+11. [Gui_Move](#gui_move)
+12. [Gui_Show](#gui_show)
+13. [Gui_Size](#gui_size)
+14. [Gui_Size_Id](#gui_size_id)
+15. [Gui_Text](#gui_text)
+16. [Gui_Toggle](#gui_toggle)
+17. [Gui_Update](#gui_update)
+18. [MsgBox](#msgbox)
+
+---
+
+**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| GuiControl | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Button | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_CheckBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Color | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_DropDownList | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Edit | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Font | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Font_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Hide | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Image | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Move | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Show | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Size | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Size_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Text | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Toggle | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Gui_Update | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| MsgBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+---
+
+### GuiControl
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| GuiControl | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Button
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Button | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_CheckBox
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_CheckBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Color
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Color | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_DropDownList
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_DropDownList | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Edit
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Edit | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Font
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Font | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Font_Id
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Font_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Hide
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Hide | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Image
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Image | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Move
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Move | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Show
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Show | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Size
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Size | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Size_Id
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Size_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Text
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Text | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Toggle
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Toggle | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### Gui_Update
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| Gui_Update | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### MsgBox
+
+[Go back](#gui-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| MsgBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+## Other Functions
+
+[Go back](#built-in-functions)
+
+1. [HTVM_v2_HTVM](#htvm_v2_htvm)
+2. [MakeHotKey](#makehotkey)
+3. [isWindows](#iswindows)
+
+---
+
+**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+---
+
+### HTVM_v2_HTVM
+
+[Go back](#other-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### MakeHotKey
+
+[Go back](#other-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### isWindows
+
+[Go back](#other-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+## Backend Functions
+
+[Go back](#built-in-functions)
+
+1. [addEndpoint](#addendpoint)
+2. [createBackendInit](#createbackendinit)
+3. [getDataFromEndpoint](#getdatafromendpoint)
+4. [startServer](#startserver)
+
+---
+
+**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| addEndpoint | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| createBackendInit | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| getDataFromEndpoint | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| startServer | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+---
+
+### addEndpoint
+
+[Go back](#backend-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| addEndpoint | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### createBackendInit
+
+[Go back](#backend-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| createBackendInit | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### getDataFromEndpoint
+
+[Go back](#backend-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| getDataFromEndpoint | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+### startServer
+
+[Go back](#backend-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| startServer | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+
+---
+
+
+
+
+</div>
+
+    <br><br>
+
+    <!-- A div to display the rendered HTML -->
+    <div id="markdown-output"></div>
+
+    <script>
+        // Initialize Markdown-it with HTML enabled and proper heading IDs
+        var md = window.markdownit({
+            html: true,
+            linkify: true,
+            typographer: true
+        });
+        
+// Custom renderer for code blocks to use Ace Editor
+
+// Custom renderer for code blocks to use Ace Editor
+
+var defaultCodeRenderer = md.renderer.rules.fence;
+md.renderer.rules.fence = function(tokens, idx, options, env, self) {
+    var token = tokens[idx];
+    var language = token.info.trim() || 'text';
+    var code = token.content;
+    
+    // Generate a unique ID for the editor
+    var editorId = 'ace-editor-' + idx;
+    var codeId = 'code-content-' + idx;
+    var buttonId = 'copy-button-' + idx;
+    
+    // Create container for the ace editor
+    var html = '<div class="ace-editor-container">\n';
+    html += '<div class="ace-editor-header">';
+    
+    // Add copy button before language
+    html += '<div style="display: flex; align-items: center;">';
+    html += '<button id="' + buttonId + '" class="copy-button" data-code-id="' + codeId + '">';
+    html += '<i class="fas fa-copy"></i> Copy</button>';
+    html += '<span class="ace-editor-language">' + language + '</span>';
+    html += '</div>';
+    
+    html += '<span><i class="fas fa-code"></i></span></div>\n';
+    
+    // Create a pre element to hold the code initially
+    html += '<pre id="' + editorId + '" class="ace-editor">' + escapeHtml(code) + '</pre>\n';
+    html += '<div id="' + codeId + '" style="display: none;">' + escapeHtml(code) + '</div>\n';
+    html += '</div>\n';
+    
+    // Store the code and language for later use with Ace
+    setTimeout(function() {
+        initAceEditor(editorId, code, language);
+    }, 100);
+    
+    return html;
+};
+        
+// Function to initialize the Ace editor
+function initAceEditor(editorId, code, language) {
+    var editor = ace.edit(editorId);
+    editor.setTheme("ace/theme/monokai");
+    
+    // Map markdown language names to Ace mode names
+    var modeMap = {
+        'javascript': 'javascript',
+        'js': 'javascript',
+        'html': 'html',
+        'css': 'css',
+        'python': 'python',
+        'py': 'python',
+        'json': 'json'
+        // Add more mappings as needed
+    };
+    
+    // Set the correct mode based on language
+    var mode = modeMap[language.toLowerCase()] || 'text';
+    editor.session.setMode("ace/mode/" + mode);
+    
+    // Set full code content directly to maintain formatting
+    editor.setValue(code);
+    editor.clearSelection();
+    
+    // Make editor read-only
+    editor.setReadOnly(true);
+    
+    // Disable wrap mode to preserve formatting
+    editor.getSession().setUseWrapMode(false);
+    
+    // Additional editor settings
+    editor.setShowPrintMargin(false);
+    editor.setHighlightActiveLine(true);
+    editor.setOptions({
+        fontSize: "14px",
+        tabSize: 4,
+        useSoftTabs: true,
+        enableBasicAutocompletion: false,
+        enableSnippets: false,
+        enableLiveAutocompletion: false
+    });
+    
+    // Calculate the exact number of lines
+    var lineCount = editor.session.getLength();
+    
+    // Get the actual line height from the renderer
+    var lineHeight = editor.renderer.lineHeight;
+    
+    // Calculate exact height with a tiny buffer
+    var exactHeight = (lineCount * lineHeight);
+    
+    // Set the editor height to exactly fit the content
+    document.getElementById(editorId).style.height = exactHeight + "px";
+    
+    // Final resize to update the editor view
+    editor.resize();
+}
+
+// Helper function to escape HTML
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+        
+        // Get the markdown content (from the hidden div)
+        var markdownText = document.getElementById("markdown-content").innerText;
+
+        // Convert markdown to HTML
+        var htmlContent = md.render(markdownText);
+
+        // Output the rendered HTML to the markdown-output div
+        document.getElementById("markdown-output").innerHTML = htmlContent;
+        
+        // Process all headings to add anchor links
+        document.querySelectorAll('#markdown-output h1, #markdown-output h2, #markdown-output h3, #markdown-output h4, #markdown-output h5, #markdown-output h6').forEach(function(heading) {
+            // Generate ID if none exists
+            if (!heading.id) {
+                heading.id = heading.textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+            }
+            
+            // Create an anchor element
+            var anchor = document.createElement('a');
+            anchor.className = 'header-anchor';
+            anchor.href = '#' + heading.id;
+            anchor.innerHTML = '<i class="fas fa-link"></i>';
+            
+            // Add click event to update URL without refreshing page
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                history.pushState(null, null, this.getAttribute('href'));
+                // Scroll to the element
+                document.getElementById(heading.id).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Add the anchor to the heading
+            heading.appendChild(anchor);
+        });
+        
+        // Process all links in the rendered markdown
+        document.querySelectorAll('#markdown-output a:not(.header-anchor)').forEach(function(link) {
+            // Check if it's an internal anchor link
+            if (link.getAttribute('href').startsWith('#')) {
+                // Add click event to update URL without refreshing page
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var targetId = this.getAttribute('href').substring(1);
+                    history.pushState(null, null, this.getAttribute('href'));
+                    // Scroll to the element
+                    document.getElementById(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            } else {
+                // It's an external link
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+                link.classList.add('external-link');
+            }
+        });
+        
+        // Set up clipboard functionality for copy buttons after DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            setupCopyButtons();
+        });
+        
+        // Also set up copy buttons after the markdown is rendered
+        setTimeout(function() {
+            setupCopyButtons();
+        }, 200);
+        
+        // Function to set up copy buttons
+        function setupCopyButtons() {
+            document.querySelectorAll('.copy-button').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    // Store the current button ID
+                    var buttonId = this.id;
+                    var codeId = this.getAttribute('data-code-id');
+                    var codeElement = document.getElementById(codeId);
+                    var codeText = codeElement.textContent;
+                    
+                    // Create a temporary textarea element to copy from
+                    var textarea = document.createElement('textarea');
+                    textarea.value = codeText;
+                    textarea.setAttribute('readonly', '');
+                    textarea.style.position = 'absolute';
+                    textarea.style.left = '-9999px';
+                    document.body.appendChild(textarea);
+                    
+                    // Select and copy the text
+                    textarea.select();
+                    document.execCommand('copy');
+                    
+                    // Remove the temporary element
+                    document.body.removeChild(textarea);
+                    
+                    // Visual feedback - only for this specific button
+                    var originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    this.classList.add('copy-success');
+                    
+                    // Reset button after 5 seconds
+                    var buttonElement = this;
+                    setTimeout(function() {
+                        // Only reset if it hasn't been changed again
+                        if (buttonElement.classList.contains('copy-success')) {
+                            buttonElement.innerHTML = originalText;
+                            buttonElement.classList.remove('copy-success');
+                        }
+                    }, 5000);
+                });
+            });
+        }
+        
+        // Handle initial hash in URL if any
+        if (window.location.hash) {
+            var targetId = window.location.hash.substring(1);
+            var targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                setTimeout(function() {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }, 100);
+            }
+        }
+    </script>
+</body>
+</html>
