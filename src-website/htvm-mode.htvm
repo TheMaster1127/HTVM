@@ -78,24 +78,81 @@ async function getAllKeyWordsIn() {
             return;
         }
     }
-
-    // If key is missing, fetch data from the remote file
+    else
+    {
+        // If key is missing, fetch data from the remote file
     const url = 'https://raw.githubusercontent.com/TheMaster1127/HTVM/refs/heads/main/HTVM-instructions.txt';
     const fetchedData = await fetchFirst161Lines(url);
-
-    if (fetchedData) {
+    if (fetchedData) 
+    {
         localStorage.setItem(storageKey, JSON.stringify(fetchedData.split('\n'))); // Store in localStorage
         allKeyWordsIn = fetchedData; // Save in global variable
-    } else {
+    } 
+    else
+    {
         console.error('Failed to fetch data from the remote file');
+    } 
     }
+
+
 }
+
 
 
 ___js end
 
 
+func str fixSomeBugUGH()
+{
+str var123Out := ""
 
+
+
+
+___js start
+
+const id = new URLSearchParams(window.location.search).get('id');
+if (!id) {
+    console.error('No ID found in the URL');
+    return;
+}
+
+const storageKey = "htvm_lang_" + id;
+let storedData = localStorage.getItem(storageKey);
+
+// If the key exists, use localStorage data and return
+if (storedData !== null) {
+    allKeyWordsIn = JSON.parse(storedData);
+
+    // Convert the array into a string (each index becomes a new line)
+    allKeyWordsIn = allKeyWordsIn.join('\n'); // This turns the array into a string with each element on a new line
+
+    // Now you can use the allKeyWordsIn string here for further processing
+    //console.log(allKeyWordsIn);  // Example of using the resulting string
+} else {
+    console.error('No data found in localStorage for the given key');
+}
+
+    ___js end    
+        
+str allKeyWordsIn_OUT := ""
+str allKeyWordsIn_OUT_TEMP := ""
+
+Loop, Parse, allKeyWordsIn, `n, `r
+{
+if (A_Index != 0) and (A_Index != 1)
+{
+
+allKeyWordsIn_OUT .= A_LoopField . "`n"
+
+}
+}
+StringTrimRight, allKeyWordsIn_OUT, allKeyWordsIn_OUT, 1
+var123Out := allKeyWordsIn_OUT
+
+
+return var123Out
+}
 
 
 async func str getAllKeyWords()
@@ -103,7 +160,32 @@ async func str getAllKeyWords()
 await getAllKeyWordsIn()
 await getFunctionNames()
 
+___js start
 
+const id = new URLSearchParams(window.location.search).get('id');
+if (!id) {
+    console.error('No ID found in the URL');
+    return;
+}
+
+const storageKey = "htvm_lang_" + id;
+let storedData = localStorage.getItem(storageKey);
+
+// If the key exists, use localStorage data and return
+if (storedData !== null) {
+    allKeyWordsIn = JSON.parse(storedData);
+
+    // Convert the array into a string (each index becomes a new line)
+    allKeyWordsIn = allKeyWordsIn.join('\n'); // This turns the array into a string with each element on a new line
+
+    // Now you can use the allKeyWordsIn string here for further processing
+    //console.log(allKeyWordsIn);  // Example of using the resulting string
+} else {
+    console.error('No data found in localStorage for the given key');
+}
+
+    ___js end    
+        
 str allKeyWordsIn_OUT := ""
 str allKeyWordsIn_OUT_TEMP := ""
 
@@ -190,7 +272,16 @@ if (id) {
 
     // Retrieve 'allFunctionNamesString' from localStorage
     allFunctionNamesString3 = localStorage.getItem(storageKey);
-    allKeyWordsOut3 = localStorage.getItem(storageKey2);
+
+    if (localStorage.getItem("htvm_lang_" + id))
+    {
+        allKeyWordsOut3 = fixSomeBugUGH();
+    }
+    else
+    {
+        allKeyWordsOut3 = localStorage.getItem(storageKey2);    
+    }
+
 
 
 } else {

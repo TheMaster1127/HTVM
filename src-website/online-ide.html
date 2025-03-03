@@ -255,18 +255,20 @@
       cursor: not-allowed;
     }
   </style>
+  
 
-<script>localStorage.removeItem("allInstFromGithubFIX");</script>
  
 <!-- Load Ace Editor core -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+
 
 <!-- Load the language tools extension -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-language_tools.js"></script>
 
   <!-- HTVM syntax -->  
-  <script src="htvm-mode.js"></script>
   <script src="htvm_completions.js"></script>
+  <script src="htvm-mode.js"></script>
+
   <!-- HTVM transpiler in js -->
   <script src="../HTVM.js"></script>
 </head>
@@ -313,7 +315,8 @@
   </div>
 
   <script>
-  
+
+ 
 // Get the saved value from localStorage; default to 'true' if not set
 let runJsAfterHTVM = localStorage.getItem('runJsAfterHTVM');
 
@@ -381,8 +384,8 @@ function sleep(ms) {
       return params.get(param);
     }
 
-const urlParams = new URLSearchParams(window.location.search);
-const id = urlParams.get('id');
+let urlParams = new URLSearchParams(window.location.search);
+let id = urlParams.get('id');
 
 if (id) {
     const storedData = localStorage.getItem(`htvm_lang_${id}`);
@@ -413,6 +416,7 @@ if (id) {
 
 
 allInstFormGithub = localStorage.getItem('allInstFromGithubFIX');
+
 //console.log(allInstFormGithub)
 //console.log("=-----------------------------=")
 //console.log(argHTVMinstrMORE[0])
@@ -1798,6 +1802,7 @@ async function reloadPage() {
 
 // Call the reloadPage function
 reloadPage();
+
 
 
   </script>

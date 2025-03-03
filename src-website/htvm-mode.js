@@ -114,19 +114,41 @@ async function getAllKeyWordsIn() {
             return;
         }
     }
-    // If key is missing, fetch data from the remote file
+    else
+    {
+        // If key is missing, fetch data from the remote file
     const url = 'https://raw.githubusercontent.com/TheMaster1127/HTVM/refs/heads/main/HTVM-instructions.txt';
     const fetchedData = await fetchFirst161Lines(url);
-    if (fetchedData) {
+    if (fetchedData) 
+    {
         localStorage.setItem(storageKey, JSON.stringify(fetchedData.split('\n'))); // Store in localStorage
         allKeyWordsIn = fetchedData; // Save in global variable
-    } else {
+    } 
+    else
+    {
         console.error('Failed to fetch data from the remote file');
+    } 
     }
 }
-async function getAllKeyWords() {
-    await getAllKeyWordsIn();
-    await getFunctionNames();
+function fixSomeBugUGH() {
+    var var123Out = "";
+    const id = new URLSearchParams(window.location.search).get('id');
+if (!id) {
+    console.error('No ID found in the URL');
+    return;
+}
+const storageKey = "htvm_lang_" + id;
+let storedData = localStorage.getItem(storageKey);
+// If the key exists, use localStorage data and return
+if (storedData !== null) {
+    allKeyWordsIn = JSON.parse(storedData);
+    // Convert the array into a string (each index becomes a new line)
+    allKeyWordsIn = allKeyWordsIn.join('\n'); // This turns the array into a string with each element on a new line
+    // Now you can use the allKeyWordsIn string here for further processing
+    //console.log(allKeyWordsIn);  // Example of using the resulting string
+} else {
+    console.error('No data found in localStorage for the given key');
+}
     var allKeyWordsIn_OUT = "";
     var allKeyWordsIn_OUT_TEMP = "";
     items1 = LoopParseFunc(allKeyWordsIn, "\n", "\r")
@@ -134,6 +156,39 @@ async function getAllKeyWords() {
         const A_LoopField1 = items1[A_Index1 - 0];
         if (A_Index1 != 0 && A_Index1 != 1) {
             allKeyWordsIn_OUT += A_LoopField1 + "\n";
+        }
+    }
+    allKeyWordsIn_OUT = StringTrimRight(allKeyWordsIn_OUT, 1);
+    var123Out = allKeyWordsIn_OUT;
+    return var123Out;
+}
+async function getAllKeyWords() {
+    await getAllKeyWordsIn();
+    await getFunctionNames();
+    const id = new URLSearchParams(window.location.search).get('id');
+if (!id) {
+    console.error('No ID found in the URL');
+    return;
+}
+const storageKey = "htvm_lang_" + id;
+let storedData = localStorage.getItem(storageKey);
+// If the key exists, use localStorage data and return
+if (storedData !== null) {
+    allKeyWordsIn = JSON.parse(storedData);
+    // Convert the array into a string (each index becomes a new line)
+    allKeyWordsIn = allKeyWordsIn.join('\n'); // This turns the array into a string with each element on a new line
+    // Now you can use the allKeyWordsIn string here for further processing
+    //console.log(allKeyWordsIn);  // Example of using the resulting string
+} else {
+    console.error('No data found in localStorage for the given key');
+}
+    var allKeyWordsIn_OUT = "";
+    var allKeyWordsIn_OUT_TEMP = "";
+    items2 = LoopParseFunc(allKeyWordsIn, "\n", "\r")
+    for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
+        const A_LoopField2 = items2[A_Index2 - 0];
+        if (A_Index2 != 0 && A_Index2 != 1) {
+            allKeyWordsIn_OUT += A_LoopField2 + "\n";
         }
     }
     allKeyWordsIn_OUT = StringTrimRight(allKeyWordsIn_OUT, 1);
@@ -182,7 +237,14 @@ if (id) {
     const storageKey2 = `htvm_lang_${id}_allKeyWordsOut`;
     // Retrieve 'allFunctionNamesString' from localStorage
     allFunctionNamesString3 = localStorage.getItem(storageKey);
-    allKeyWordsOut3 = localStorage.getItem(storageKey2);
+    if (localStorage.getItem("htvm_lang_" + id))
+    {
+        allKeyWordsOut3 = fixSomeBugUGH();
+    }
+    else
+    {
+        allKeyWordsOut3 = localStorage.getItem(storageKey2);    
+    }
 } else {
     console.error('URL parameter "id" is missing.');
 }
@@ -197,59 +259,59 @@ var htvm_trueFalseGlobalNull_temp = "";
 var htvm_comment_temp = "";
 var htvm_commentOpen1_temp = "";
 var htvm_commentClose2_temp = "";
-items2 = LoopParseFunc(allKeyWordsOut3, "\n", "\r")
-for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
-    const A_LoopField2 = items2[A_Index2 - 0];
-    if (Trim(A_LoopField2) != "") {
-        if (A_Index2 == 0) {
-            items3 = LoopParseFunc(A_LoopField2, "|")
-            for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
-                const A_LoopField3 = items3[A_Index3 - 0];
-                items4 = LoopParseFunc(A_LoopField3, ",");
-                for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
-                    const A_LoopField4 = items4[A_Index4 - 0];
-                    builtInCommands_temp += Trim(A_LoopField4) + "|";
+items3 = LoopParseFunc(allKeyWordsOut3, "\n", "\r")
+for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
+    const A_LoopField3 = items3[A_Index3 - 0];
+    if (Trim(A_LoopField3) != "") {
+        if (A_Index3 == 0) {
+            items4 = LoopParseFunc(A_LoopField3, "|")
+            for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
+                const A_LoopField4 = items4[A_Index4 - 0];
+                items5 = LoopParseFunc(A_LoopField4, ",");
+                for (let A_Index5 = 0; A_Index5 < items5.length + 0; A_Index5++) {
+                    const A_LoopField5 = items5[A_Index5 - 0];
+                    builtInCommands_temp += Trim(A_LoopField5) + "|";
                 }
             }
         }
-        if (A_Index2 == 1 || A_Index2 == 2 || A_Index2 == 3 || A_Index2 == 4 || A_Index2 == 5 || A_Index2 == 64 || A_Index2 == 65 || A_Index2 == 66 || A_Index2 == 67 || A_Index2 == 68 || A_Index2 == 69 || A_Index2 == 70 || A_Index2 == 71 || A_Index2 == 72 || A_Index2 == 73 || A_Index2 == 74 || A_Index2 == 75 || A_Index2 == 76 || A_Index2 == 78 || A_Index2 == 79 || A_Index2 == 80 || A_Index2 == 81 || A_Index2 == 93 || A_Index2 == 94 || A_Index2 == 95 || A_Index2 == 96) {
-            htvmKeywords_temp += A_LoopField2 + "|";
+        if (A_Index3 == 1 || A_Index3 == 2 || A_Index3 == 3 || A_Index3 == 4 || A_Index3 == 5 || A_Index3 == 64 || A_Index3 == 65 || A_Index3 == 66 || A_Index3 == 67 || A_Index3 == 68 || A_Index3 == 69 || A_Index3 == 70 || A_Index3 == 71 || A_Index3 == 72 || A_Index3 == 73 || A_Index3 == 74 || A_Index3 == 75 || A_Index3 == 76 || A_Index3 == 78 || A_Index3 == 79 || A_Index3 == 80 || A_Index3 == 81 || A_Index3 == 93 || A_Index3 == 94 || A_Index3 == 95 || A_Index3 == 96) {
+            htvmKeywords_temp += A_LoopField3 + "|";
         }
-        if (A_Index2 == 77) {
-            allFunctionNamesString3 += "|" + Trim(A_LoopField2);
+        if (A_Index3 == 77) {
+            allFunctionNamesString3 += "|" + Trim(A_LoopField3);
         }
-        if (A_Index2 >= 49 && A_Index2 <= 63) {
-            staticTypes_temp += A_LoopField2 + "|";
+        if (A_Index3 >= 49 && A_Index3 <= 63) {
+            staticTypes_temp += A_LoopField3 + "|";
         }
-        if (A_Index2 >= 88 && A_Index2 <= 92) {
-            staticTypes_temp += A_LoopField2 + "|";
+        if (A_Index3 >= 88 && A_Index3 <= 92) {
+            staticTypes_temp += A_LoopField3 + "|";
         }
-        if (A_Index2 == 145 || A_Index2 == 146 || A_Index2 == 6) {
-            builtInVars_temp += A_LoopField2 + "|";
+        if (A_Index3 == 145 || A_Index3 == 146 || A_Index3 == 6) {
+            builtInVars_temp += A_LoopField3 + "|";
         }
-        if (A_Index2 >= 103 && A_Index2 <= 126) {
-            operators_temp += A_LoopField2 + "|";
+        if (A_Index3 >= 103 && A_Index3 <= 126) {
+            operators_temp += A_LoopField3 + "|";
         }
-        if (A_Index2 >= 140 && A_Index2 <= 141) {
-            operators_temp += A_LoopField2 + "|";
+        if (A_Index3 >= 140 && A_Index3 <= 141) {
+            operators_temp += A_LoopField3 + "|";
         }
-        if (A_Index2 >= 82 && A_Index2 <= 87) {
-            arrayMethods_temp += Trim(StrReplace(A_LoopField2, ".", "")) + "|";
+        if (A_Index3 >= 82 && A_Index3 <= 87) {
+            arrayMethods_temp += Trim(StrReplace(A_LoopField3, ".", "")) + "|";
         }
-        if (A_Index2 >= 7 && A_Index2 <= 43) {
-            programmingBlocksAndImport_temp += A_LoopField2 + "|";
+        if (A_Index3 >= 7 && A_Index3 <= 43) {
+            programmingBlocksAndImport_temp += A_LoopField3 + "|";
         }
-        if (A_Index2 == 98) {
-            htvm_comment_temp = Trim(A_LoopField2);
+        if (A_Index3 == 98) {
+            htvm_comment_temp = Trim(A_LoopField3);
         }
-        if (A_Index2 == 99) {
-            htvm_commentOpen1_temp = Trim(A_LoopField2);
+        if (A_Index3 == 99) {
+            htvm_commentOpen1_temp = Trim(A_LoopField3);
         }
-        if (A_Index2 == 100) {
-            htvm_commentClose2_temp = Trim(A_LoopField2);
+        if (A_Index3 == 100) {
+            htvm_commentClose2_temp = Trim(A_LoopField3);
         }
-        if (A_Index2 == 46 || A_Index2 == 47 || A_Index2 == 48 || A_Index2 == 97) {
-            htvm_trueFalseGlobalNull_temp += A_LoopField2 + "|";
+        if (A_Index3 == 46 || A_Index3 == 47 || A_Index3 == 48 || A_Index3 == 97) {
+            htvm_trueFalseGlobalNull_temp += A_LoopField3 + "|";
         }
     }
 }
