@@ -812,6 +812,7 @@ var htvm_operators = operators_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\
         var editor = ace.edit(id);
         editor.setTheme("ace/theme/monokai");
         editor.session.setMode("ace/mode/" + "ht");
+        editor.setReadOnly(true);
         // editor.setOptions({
         //   enableBasicAutocompletion: true,
         //   enableLiveAutocompletion: true,
