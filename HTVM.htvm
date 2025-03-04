@@ -14588,6 +14588,7 @@ return htCode
 
 
 str fixLuaAndRuby := ""
+str fixLuaAndRubyHELP := ""
 if (langToConvertTo = langFileExtension_2)
 {
 
@@ -14649,14 +14650,18 @@ htCode := indent_nested_curly_braces(htCode, 1)
 
 
 
-if (langToConvertTo = "lua") or (langToConvertTo = "rb")
+if (langToConvertTo = "lua") or (langToConvertTo = "rb") or (langToConvertTo = langFileExtension_2)
 {
+
+if (langToConvertTo = langFileExtension_2) and (useEnd_2 = "on")
+{
+fixLuaAndRubyHELP := Trim(keyWordEnd_2)
 
     Loop, Parse, htCode, `n, `r
     {
         if (Trim(A_LoopField) = "}")
         {
-            fixLuaAndRuby .= StrReplace(A_LoopField, "}", "end") . Chr(10)
+            fixLuaAndRuby .= StrReplace(A_LoopField, "}", fixLuaAndRubyHELP) . Chr(10)
         }
         else if (SubStrLastChars(A_LoopField, 2) = " {")
         {
@@ -14668,15 +14673,80 @@ if (langToConvertTo = "lua") or (langToConvertTo = "rb")
         }
     }
     StringTrimRight, htCode, fixLuaAndRuby, 1
+
+}
+else
+{
+fixLuaAndRubyHELP := "end"
+
+    Loop, Parse, htCode, `n, `r
+    {
+        if (Trim(A_LoopField) = "}")
+        {
+            fixLuaAndRuby .= StrReplace(A_LoopField, "}", fixLuaAndRubyHELP) . Chr(10)
+        }
+        else if (SubStrLastChars(A_LoopField, 2) = " {")
+        {
+            fixLuaAndRuby .= StringTrimRight(A_LoopField, 2) . Chr(10)
+        }
+        else
+        {
+            fixLuaAndRuby .= A_LoopField . Chr(10)
+        }
+    }
+    StringTrimRight, htCode, fixLuaAndRuby, 1
+
+
 }
 
 
 
 }
+
+
+
+}
+
+
+
+
+
 
 
 arr str nextWordEndFix
 str nextWordEndFixOut := ""
+
+
+
+if (langToConvertTo = langFileExtension_2) and (useEnd_2 = "on")
+{
+Loop, Parse, htCode, `n, `r
+{
+nextWordEndFix.add(A_LoopField)
+}
+nextWordEndFix.add(" ")
+
+
+
+Loop, Parse, htCode, `n, `r
+{
+
+if (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (SubStr(Trim(nextWordEndFix[A_Index + 1]), 1, StrLen(Trim(keyWordElseIf) . " ")) = Trim(keyWordElseIf) . " ") or (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (Trim(nextWordEndFix[A_Index + 1]) = Trim(keyWordElse_2))
+{
+nextWordEndFixOut .= ""
+}
+else
+{
+nextWordEndFixOut .= A_LoopField . Chr(10)
+}
+
+}
+StringTrimRight, htCode, nextWordEndFixOut, 1
+}
+
+
+
+
 
 if (langToConvertTo = "lua")
 {
@@ -14705,6 +14775,7 @@ StringTrimRight, htCode, nextWordEndFixOut, 1
 }
 
 
+
 if (langToConvertTo = "rb")
 {
 Loop, Parse, htCode, `n, `r
@@ -14730,6 +14801,7 @@ nextWordEndFixOut .= A_LoopField . Chr(10)
 }
 StringTrimRight, htCode, nextWordEndFixOut, 1
 }
+
 
 
 
