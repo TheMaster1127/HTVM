@@ -14731,7 +14731,7 @@ nextWordEndFix.add(" ")
 Loop, Parse, htCode, `n, `r
 {
 
-if (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (SubStr(Trim(nextWordEndFix[A_Index + 1]), 1, StrLen(Trim(keyWordElseIf) . " ")) = Trim(keyWordElseIf) . " ") or (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (Trim(nextWordEndFix[A_Index + 1]) = Trim(keyWordElse_2))
+if (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (SubStr(Trim(nextWordEndFix[A_Index + 1]), 1, StrLen(Trim(keyWordElseIf_2) . " ")) = Trim(keyWordElseIf_2) . " ") or (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (Trim(nextWordEndFix[A_Index + 1]) = Trim(keyWordElse_2))
 {
 nextWordEndFixOut .= ""
 }
@@ -14836,6 +14836,35 @@ nextWordEndFixOut .= A_LoopField . Chr(10)
 }
 StringTrimRight, htCode, nextWordEndFixOut, 1
 }
+
+
+
+if (langToConvertTo = langFileExtension_2) and (useEnd_2 = "on")
+{
+Loop, Parse, htCode, `n, `r
+{
+nextWordEndFixRB.add(A_LoopField)
+}
+nextWordEndFixRB.add(" ")
+
+
+
+Loop, Parse, htCode, `n, `r
+{
+
+if (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (SubStr(Trim(nextWordEndFixRB[A_Index + 1]), 1, StrLen(Trim(keyWordCatch_2) . " ")) = Trim(keyWordCatch_2) . " ") or (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (Trim(nextWordEndFixRB[A_Index + 1]) = Trim(keyWordFinally_2))
+{
+nextWordEndFixOut .= ""
+}
+else
+{
+nextWordEndFixOut .= A_LoopField . Chr(10)
+}
+
+}
+StringTrimRight, htCode, nextWordEndFixOut, 1
+}
+
 
 
 nextWordEndFixOut := ""
