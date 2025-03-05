@@ -102,7 +102,7 @@ function init(){
     });
 
     $("#ide-bt").click(function  (){
-        window.open('/web-ide//online-ide.html?id=' + lang_ID, '_blank');
+        window.open('web-ide/online-ide.html?id=' + lang_ID, '_blank');
     })
 
     $("#preview-modal, #modal-preview-close-bt").click(function(){
@@ -113,7 +113,7 @@ function init(){
 
     $("#preview-bt").click(function(){
         document.querySelector('#preview-modal').showModal()
-        document.querySelector('#preview-iframe').src = "/web-ide//preview.html?id=" + lang_ID
+        document.querySelector('#preview-iframe').src = "web-ide/preview.html?id=" + lang_ID
     })
 
     $(".preview-title-bar,.prewiew-loading-bg").click(function(event) {
@@ -233,7 +233,7 @@ function drawSettings(){
     reorganizeBoxes()
     reorganizeBoxes()
     movingText()
-    document.querySelector('#preview-iframe').src = "/web-ide/preview.html?id=" + lang_ID
+    document.querySelector('#preview-iframe').src = "web-ide/preview.html?id=" + lang_ID
 }
 
 
