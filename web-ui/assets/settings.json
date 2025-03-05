@@ -1,0 +1,226 @@
+{
+  "groups": [
+    {
+      "name": "Constructs",
+      "items": [
+        {"id": 67, "name": "keyWordIF", "default": "if"},
+        {"id": 68, "name": "keyWordElseIf", "default": "else if"},
+        {"id": 69, "name": "keyWordElse", "default": "else"},
+        {"id": 70, "name": "keyWordWhileLoop", "default": "while"},
+        {"id": 71, "name": "keyWordLoopInfinite", "default": "Loop"},
+        {"id": 72, "name": "keyWordLoop", "default": "Loop,"},
+        {"id": 73, "name": "keyWordLoopParse", "default": "Loop, Parse,"},
+        {"id": 76, "name": "keyWordFunc", "default": "func"},
+        {"id": 81, "name": "keyWordTry", "default": "try"},
+        {"id": 82, "name": "keyWordCatch", "default": "catch"},
+        {"id": 83, "name": "keyWordFinally", "default": "finally"},
+        {"id": 4, "name": "keyWordAlliance", "default": "alliance"},
+        {"id": 5, "name": "keyWordCrew", "default": "crew"},
+        {"id": 6, "name": "keyWordMethod", "default": "method"},
+        {"id": 7, "name": "keyWordDefObj", "default": "def obj"}
+       
+
+      ]
+    },
+    {
+      "name": "Types",
+      "items": [
+        {"id": 52, "name": "keyWordVoid", "default": "void"},
+        {"id": 53, "name": "keyWordDouble", "default": "double"},
+        {"id": 54, "name": "keyWordChar", "default": "char"},
+        {"id": 55, "name": "keyWordUint8", "default": "uint8"},
+        {"id": 56, "name": "keyWordUint16", "default": "uint16"},
+        {"id": 57, "name": "keyWordUint32", "default": "uint32"},
+        {"id": 58, "name": "keyWordUint64", "default": "uint64"},
+        {"id": 59, "name": "keyWordINT", "default": "int"},
+        {"id": 60, "name": "keyWordSTR", "default": "str"},
+        {"id": 61, "name": "keyWordBOOL", "default": "bool"},
+        {"id": 62, "name": "keyWordFLOAT", "default": "float"},
+        {"id": 63, "name": "keyWordINT8", "default": "int8"},
+        {"id": 64, "name": "keyWordINT16", "default": "int16"},
+        {"id": 65, "name": "keyWordINT32", "default": "int32"},
+        {"id": 66, "name": "keyWordINT64", "default": "int64"}
+      ]
+    },
+    {
+      "name": "Operators",
+      "items": [
+        {"id": 106, "name": "keyWordConcat", "default": "."},
+        {"id": 107, "name": "keyWordAdd", "default": "+"},
+        {"id": 108, "name": "keyWordSub", "default": "-"},
+        {"id": 109, "name": "keyWordMul", "default": "*"},
+        {"id": 110, "name": "keyWordDiv", "default": "/"},
+        {"id": 111, "name": "keyWordMod", "default": "%"},
+        {"id": 112, "name": "keyWordExp", "default": "**"},
+        {"id": 113, "name": "keyWordEqual", "default": "="},
+        {"id": 114, "name": "keyWordStrictEqual", "default": "==="},
+        {"id": 115, "name": "keyWordNotEqual", "default": "!="},
+        {"id": 116, "name": "keyWordGreater", "default": ">"},
+        {"id": 117, "name": "keyWordLess", "default": "<"},
+        {"id": 118, "name": "keyWordGreaterEqual", "default": ">="},
+        {"id": 119, "name": "keyWordLessEqual", "default": "<="},
+        {"id": 120, "name": "keyWordAnd", "default": "and"},
+        {"id": 121, "name": "keyWordOr", "default": "or"},
+        {"id": 122, "name": "keyWordNot", "default": "!"},
+        {"id": 123, "name": "keyWordBitAnd", "default": "&"},
+        {"id": 124, "name": "keyWordBitOr", "default": "|"},
+        {"id": 125, "name": "keyWordBitXor", "default": "^"},
+        {"id": 126, "name": "keyWordBitNot", "default": "~"},
+        {"id": 127, "name": "keyWordShiftLeft", "default": "<<"},
+        {"id": 128, "name": "keyWordShiftRight", "default": ">>"},
+        {"id": 129, "name": "keyWordShiftUnsignedRight", "default": ">>>"},
+        {"id": 143, "name": "keyWordTernary1", "default": "?"},
+        {"id": 144, "name": "keyWordTernary2", "default": ":"}
+      ]
+    },
+    {
+      "name": "Assignment Operators",
+      "items": [
+        {"id": 130, "name": "keyWordAssign", "default": ":="},
+        {"id": 131, "name": "keyWordAssignAdd", "default": "+="},
+        {"id": 132, "name": "keyWordAssignConcat", "default": ".="},
+        {"id": 133, "name": "keyWordAssignSub", "default": "-="},
+        {"id": 134, "name": "keyWordAssignMul", "default": "*="},
+        {"id": 135, "name": "keyWordAssignDiv", "default": "/="},
+        {"id": 136, "name": "keyWordAssignMod", "default": "%="},
+        {"id": 137, "name": "keyWordAssignShiftLeft", "default": "<<="},
+        {"id": 138, "name": "keyWordAssignShiftRight", "default": ">>="},
+        {"id": 139, "name": "keyWordLogicalAssignShiftRight", "default": ">>>="},
+        {"id": 140, "name": "keyWordAssignBitAnd", "default": "&="},
+        {"id": 141, "name": "keyWordAssignBitOr", "default": "|="},
+        {"id": 142, "name": "keyWordAssignBitXor", "default": "^="}
+      ]
+    },
+    {
+      "name": "Arrays",
+      "items": [
+        {"id": 91, "name": "keyWordArrayDefinition", "default": "arr"},
+        {"id": 92, "name": "keyWordArrayOfIntegersDefinition", "default": "arr int"},
+        {"id": 93, "name": "keyWordArrayOfStringsDefinition", "default": "arr str"},
+        {"id": 94, "name": "keyWordArrayOfFloatingPointNumbersDefinition", "default": "arr float"},
+        {"id": 95, "name": "keyWordArrayOfBooleansDefinition", "default": "arr bool"},
+        {"id": 85, "name": "keyWordArrayAppend", "default": ".add"},
+        {"id": 86, "name": "keyWordArrayPop", "default": ".pop"},
+        {"id": 87, "name": "keyWordArraySize", "default": ".size"},
+        {"id": 88, "name": "keyWordArrayInsert", "default": ".insert"},
+        {"id": 89, "name": "keyWordArrayRemove", "default": ".rm"},
+        {"id": 90, "name": "keyWordArrayIndexOf", "default": ".indexOf"}
+      ]
+    },
+    {
+      "name": "Programming Blocks",
+      "items": [
+        {"id": 11, "name": "CodeInTheTranspiledLangStart", "default": "keyWordCodeInTheTranspiledLangStart"},
+        {"id": 12, "name": "CodeInTheTranspiledLangEnd", "default": "keyWordCodeInTheTranspiledLangEnd"},
+        {"id": 13, "name": "CodeInTheTranspiledLangStartCPP", "default": "keyWordCodeInTheTranspiledLangStartCPP"},
+        {"id": 14, "name": "CodeInTheTranspiledLangEndCPP", "default": "keyWordCodeInTheTranspiledLangEndCPP"},
+        {"id": 15, "name": "CodeInTheTranspiledLangStartPY", "default": "keyWordCodeInTheTranspiledLangStartPY"},
+        {"id": 16, "name": "CodeInTheTranspiledLangEndPY", "default": "keyWordCodeInTheTranspiledLangEndPY"},
+        {"id": 17, "name": "CodeInTheTranspiledLangStartJS", "default": "___js start"},
+        {"id": 18, "name": "CodeInTheTranspiledLangEndJS", "default": "___js end"},
+        {"id": 19, "name": "CodeInTheTranspiledLangStartGO", "default": "keyWordCodeInTheTranspiledLangStartGO"},
+        {"id": 20, "name": "CodeInTheTranspiledLangEndGO", "default": "keyWordCodeInTheTranspiledLangEndGO"},
+        {"id": 21, "name": "CodeInTheTranspiledLangStartLUA", "default": "keyWordCodeInTheTranspiledLangStartLUA"},
+        {"id": 22, "name": "CodeInTheTranspiledLangEndLUA", "default": "keyWordCodeInTheTranspiledLangEndLUA"},
+        {"id": 23, "name": "CodeInTheTranspiledLangStartCS", "default": "keyWordCodeInTheTranspiledLangStartCS"},
+        {"id": 24, "name": "CodeInTheTranspiledLangEndCS", "default": "keyWordCodeInTheTranspiledLangEndCS"},
+        {"id": 25, "name": "CodeInTheTranspiledLangStartJAVA", "default": "keyWordCodeInTheTranspiledLangStartJAVA"},
+        {"id": 26, "name": "CodeInTheTranspiledLangEndJAVA", "default": "keyWordCodeInTheTranspiledLangEndJAVA"},
+        {"id": 27, "name": "CodeInTheTranspiledLangStartKT", "default": "keyWordCodeInTheTranspiledLangStartKT"},
+        {"id": 28, "name": "CodeInTheTranspiledLangEndKT", "default": "keyWordCodeInTheTranspiledLangEndKT"},
+        {"id": 29, "name": "CodeInTheTranspiledLangStartRB", "default": "keyWordCodeInTheTranspiledLangStartRB"},
+        {"id": 30, "name": "CodeInTheTranspiledLangEndRB", "default": "keyWordCodeInTheTranspiledLangEndRB"},
+        {"id": 31, "name": "CodeInTheTranspiledLangStartNIM", "default": "keyWordCodeInTheTranspiledLangStartNIM"},
+        {"id": 32, "name": "CodeInTheTranspiledLangEndNIM", "default": "keyWordCodeInTheTranspiledLangEndNIM"},
+        {"id": 33, "name": "CodeInTheTranspiledLangStartAHK", "default": "keyWordCodeInTheTranspiledLangStartAHK"},
+        {"id": 34, "name": "CodeInTheTranspiledLangEndAHK", "default": "keyWordCodeInTheTranspiledLangEndAHK"},
+        {"id": 35, "name": "CodeInTheTranspiledLangStartSWIFT", "default": "keyWordCodeInTheTranspiledLangStartSWIFT"},
+        {"id": 36, "name": "CodeInTheTranspiledLangEndSWIFT", "default": "keyWordCodeInTheTranspiledLangEndSWIFT"},
+        {"id": 37, "name": "CodeInTheTranspiledLangStartDART", "default": "keyWordCodeInTheTranspiledLangStartDART"},
+        {"id": 38, "name": "CodeInTheTranspiledLangEndDART", "default": "keyWordCodeInTheTranspiledLangEndDART"},
+        {"id": 39, "name": "CodeInTheTranspiledLangStartTS", "default": "keyWordCodeInTheTranspiledLangStartTS"},
+        {"id": 40, "name": "CodeInTheTranspiledLangEndTS", "default": "keyWordCodeInTheTranspiledLangEndTS"},
+        {"id": 41, "name": "CodeInTheTranspiledLangStartGROOVY", "default": "keyWordCodeInTheTranspiledLangStartGROOVY"},
+        {"id": 42, "name": "CodeInTheTranspiledLangEndGROOVY", "default": "keyWordCodeInTheTranspiledLangEndGROOVY"},
+        {"id": 43, "name": "CodeInTheTranspiledLangStartHTVM", "default": "keyWordCodeInTheTranspiledLangStartHTVM"},
+        {"id": 44, "name": "CodeInTheTranspiledLangEndHTVM", "default": "keyWordCodeInTheTranspiledLangEndHTVM"},
+        {"id": 45, "name": "CodeInHTVMstart", "default": "keyWordCodeInHTVMstart"},
+        {"id": 46, "name": "CodeInHTVMend", "default": "keyWordCodeInHTVMend"}
+      ]
+    },
+    {
+      "name": "Important Others",
+      "items": [
+        {"id": 49, "name": "keyWordNull", "default": "null"},
+        {"id": 50, "name": "keyWordTrue", "default": "true"},
+        {"id": 51, "name": "keyWordFalse", "default": "false"},
+        {"id": 74, "name": "keyWordContinue", "default": "continue"},
+        {"id": 75, "name": "keyWordBreak", "default": "break"},
+        {"id": 77, "name": "keyWordAwait", "default": "await"},
+        {"id": 78, "name": "keyWordAsync", "default": "async"},
+        {"id": 79, "name": "keyWordThrow", "default": "throw"},
+        {"id": 80, "name": "keyWordErrorMsg", "default": "ErrorMsg"},
+        {"id": 84, "name": "keyWordReturnStatement", "default": "return"},
+        {"id": 96, "name": "keyWordVar", "default": "var"},
+        {"id": 97, "name": "keyWordLet", "default": "let"},
+        {"id": 98, "name": "keyWordConst", "default": "const"},
+        {"id": 99, "name": "keyWordEnd", "default": "end"},
+        {"id": 100, "name": "keyWordGlobal", "default": "global"},
+        {"id": 101, "name": "keyWordComment", "default": ";"},
+        {"id": 102, "name": "keyWordCommentOpenMultiLine", "default": "'''1"},
+        {"id": 103, "name": "keyWordCommentCloseMultiLine", "default": "'''2"},
+        {"id": 10, "name": "keyWordInclude", "default": "import"},
+        {"id": 145, "name": "keyWordInc", "default": "++"},
+        {"id": 146, "name": "keyWordDec", "default": "--"}
+      ]
+    },
+    {
+      "name": "Extra Customization",
+      "items": [
+        {"id": 105, "name": "keyWordMainLabel", "default": "main"},
+        {"id": 147, "name": "AHKlikeLoopsIndexedAt", "default": "0"},
+        {"id": 148, "name": "keyWordAIndex", "default": "A_Index"},
+        {"id": 149, "name": "keyWordALoopField", "default": "A_LoopField"},
+        {"id": 104, "name": "keyWordEscpaeChar", "default": "`"},
+        {"id": 47, "name": "keyWordCurlyBraceOpen", "default": "{"},
+        {"id": 48, "name": "keyWordCurlyBraceClose", "default": "}"},
+        {"id": 3, "name": "commands", "default": "StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1"},
+        {"id": 2, "name": "langFileExtension", "default": "htvm"},
+        {"id": 1, "name": "langToConvertTo", "default": "cpp"},
+        {"id": 8, "name": "keyWordPorp", "default": "porp"},
+        {"id": 9, "name": "keyWordThis", "default": "this"}
+      ]
+    },
+    {
+      "name": "Settings",
+      "items": [
+        {"id": 150, "name": "useCurlyBraces", "default": "on", "type": "toggle", "dependencies": [
+          {"id": 151, "action": "off"},
+          {"id": 156, "action": "off"}
+        ]},
+        {"id": 151, "name": "useEnd", "default": "off", "type": "toggle", "dependencies": [
+          {"id": 150, "action": "off"}
+        ]},
+        {"id": 152, "name": "useSemicolon", "default": "off", "type": "toggle"},
+        {"id": 153, "name": "useParentheses", "default": "on", "type": "toggle"},
+        {"id": 154, "name": "usePrefixTypeForTypeDefinition", "default": "on", "type": "toggle", "dependencies": [
+          {"id": 154, "action": "on"},
+          {"id": 155, "action": "off"}
+        ]},
+        {"id": 155, "name": "usePostfixTypeForTypeDefinition", "default": "off", "type": "toggle", "dependencies": [
+          {"id": 155, "action": "on"},
+          {"id": 154, "action": "off"}
+        ]},
+        {"id": 156, "name": "usePythonicColonSyntax", "default": "off", "type": "toggle","dependencies": [
+          {"id": 150, "action": "off"}
+        ]},
+        {"id": 157, "name": "useCurlyBracesSyntaxForArrayDef", "default": "off", "type": "toggle"},
+        {"id": 158, "name": "useInJavaScriptAlwaysUseVar", "default": "on", "type": "toggle"},
+        {"id": 159, "name": "useJavaScriptInAfullHTMLfile", "default": "off", "type": "toggle"},
+        {"id": 160, "name": "useJavaScriptAmainFuncDef", "default": "off", "type": "toggle"},
+        {"id": 161, "name": "useJavaScriptAllFuncsAreAsync", "default": "on", "type": "toggle"},
+        {"id": 162, "name": "useJavaScriptAlwaysTripleEqual", "default": "off", "type": "toggle"}
+      ]
+    }
+  ]
+}
