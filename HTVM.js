@@ -7283,7 +7283,11 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 str1 = StrReplace(str1, ";", "");
                 lineDone = 1;
                 if (langToConvertTo == "py" || langToConvertTo == "ahk" || langToConvertTo == langFileExtension_2) {
-                    str2 = "global " + str1;
+                    if (langToConvertTo == langFileExtension_2) {
+                        str2 = Trim(keyWordGlobal_2) + " " + str1;
+                    } else {
+                        str2 = "global " + str1;
+                    }
                 } else {
                     str2 = "";
                 }
@@ -11145,7 +11149,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         items142 = LoopParseFunc(htCode, "\n", "\r")
         for (let A_Index142 = 0; A_Index142 < items142.length + 0; A_Index142++) {
             const A_LoopField142 = items142[A_Index142 - 0];
-            if (Trim(A_LoopField142) == Trim(keyWordEnd_2) && SubStr(Trim(nextWordEndFix[A_Index142 + 1]), 1, StrLen(Trim(keyWordElseIf_2) + " ")) == Trim(keyWordElseIf_2) + " " || Trim(A_LoopField142) == Trim(keyWordEnd_2) && Trim(nextWordEndFix[A_Index142 + 1]) == Trim(keyWordElse_2)) {
+            if (Trim(A_LoopField142) == Trim(keyWordEnd_2) && SubStr(Trim(nextWordEndFix[A_Index142 + 1]), 1, StrLen(Trim(keyWordElseIf_2) + " ")) == Trim(keyWordElseIf_2) + " " || Trim(A_LoopField142) == Trim(keyWordEnd_2) && (Trim(nextWordEndFix[A_Index142 + 1]) == Trim(keyWordElse_2) || Trim(nextWordEndFix[A_Index142 + 1]) == Trim(keyWordElse_2 + ":"))) {
                 nextWordEndFixOut += "";
             } else {
                 nextWordEndFixOut += A_LoopField142 + Chr(10);
@@ -11219,7 +11223,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         items150 = LoopParseFunc(htCode, "\n", "\r")
         for (let A_Index150 = 0; A_Index150 < items150.length + 0; A_Index150++) {
             const A_LoopField150 = items150[A_Index150 - 0];
-            if (Trim(A_LoopField150) == Trim(keyWordEnd_2) && SubStr(Trim(nextWordEndFixRB[A_Index150 + 1]), 1, StrLen(Trim(keyWordCatch_2) + " ")) == Trim(keyWordCatch_2) + " " || Trim(A_LoopField150) == Trim(keyWordEnd_2) && Trim(nextWordEndFixRB[A_Index150 + 1]) == Trim(keyWordFinally_2)) {
+            if (Trim(A_LoopField150) == Trim(keyWordEnd_2) && SubStr(Trim(nextWordEndFixRB[A_Index150 + 1]), 1, StrLen(Trim(keyWordCatch_2) + " ")) == Trim(keyWordCatch_2) + " " || Trim(A_LoopField150) == Trim(keyWordEnd_2) && Trim(nextWordEndFixRB[A_Index150 + 1]) == Trim(keyWordFinally_2) || Trim(nextWordEndFixRB[A_Index150 + 1]) == Trim(keyWordFinally_2 + ":")) {
                 nextWordEndFixOut += "";
             } else {
                 nextWordEndFixOut += A_LoopField150 + Chr(10);

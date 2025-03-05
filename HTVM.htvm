@@ -9050,7 +9050,14 @@ str1 := StrReplace(str1, ";", "")
 lineDone := 1
 if (langToConvertTo = "py") or (langToConvertTo = "ahk") or (langToConvertTo = langFileExtension_2)
 {
+if (langToConvertTo = langFileExtension_2)
+{
+str2 := Trim(keyWordGlobal_2) . " " . str1
+}
+else
+{
 str2 := "global " . str1
+}
 }
 else
 {
@@ -14734,7 +14741,7 @@ nextWordEndFix.add(" ")
 Loop, Parse, htCode, `n, `r
 {
 
-if (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (SubStr(Trim(nextWordEndFix[A_Index + 1]), 1, StrLen(Trim(keyWordElseIf_2) . " ")) = Trim(keyWordElseIf_2) . " ") or (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (Trim(nextWordEndFix[A_Index + 1]) = Trim(keyWordElse_2))
+if (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (SubStr(Trim(nextWordEndFix[A_Index + 1]), 1, StrLen(Trim(keyWordElseIf_2) . " ")) = Trim(keyWordElseIf_2) . " ") or (Trim(A_LoopField) = Trim(keyWordEnd_2)) and ((Trim(nextWordEndFix[A_Index + 1]) = Trim(keyWordElse_2)) or (Trim(nextWordEndFix[A_Index + 1]) = Trim(keyWordElse_2 . ":")))
 {
 nextWordEndFixOut .= ""
 }
@@ -14855,7 +14862,7 @@ nextWordEndFixRB.add(" ")
 Loop, Parse, htCode, `n, `r
 {
 
-if (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (SubStr(Trim(nextWordEndFixRB[A_Index + 1]), 1, StrLen(Trim(keyWordCatch_2) . " ")) = Trim(keyWordCatch_2) . " ") or (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (Trim(nextWordEndFixRB[A_Index + 1]) = Trim(keyWordFinally_2))
+if (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (SubStr(Trim(nextWordEndFixRB[A_Index + 1]), 1, StrLen(Trim(keyWordCatch_2) . " ")) = Trim(keyWordCatch_2) . " ") or (Trim(A_LoopField) = Trim(keyWordEnd_2)) and (Trim(nextWordEndFixRB[A_Index + 1]) = Trim(keyWordFinally_2) or Trim(nextWordEndFixRB[A_Index + 1]) = Trim(keyWordFinally_2 . ":"))
 {
 nextWordEndFixOut .= ""
 }
