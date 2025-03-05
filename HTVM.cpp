@@ -6380,9 +6380,17 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 theTryCatchVarForErrors = str1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (usePythonicColonSyntax_2 == "on") {
-                        htCode += keyWordCatch_2 + "(" + str1 + "):\n";
+                        if (useParentheses_2 == "on") {
+                            htCode += keyWordCatch_2 + "(" + str1 + "):" + Chr(10);
+                        } else {
+                            htCode += keyWordCatch_2 + str1 + ":" + Chr(10);
+                        }
                     } else {
-                        htCode += keyWordCatch_2 + "(" + str1 + ")\n";
+                        if (useParentheses_2 == "off") {
+                            htCode += keyWordCatch_2 + str1 + Chr(10);
+                        } else {
+                            htCode += keyWordCatch_2 + "(" + str1 + ")" + Chr(10);
+                        }
                     }
                 }
                 if (langToConvertTo == "cpp") {
