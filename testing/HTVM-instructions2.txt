@@ -5,7 +5,7 @@ alliance
 crew
 method
 def obj
-porp
+prop
 this
 importA
 ___start

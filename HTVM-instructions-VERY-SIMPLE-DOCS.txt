@@ -5,7 +5,7 @@ keyWordAlliance
 keyWordCrew
 keyWordMethod
 keyWordDefObj
-keyWordPorp
+keyWordProp
 keyWordThis
 keyWordInclude
 keyWordCodeInTheTranspiledLangStart
