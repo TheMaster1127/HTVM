@@ -7475,7 +7475,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 //MsgBox, % A_LoopField106
                 str1 = StrReplace(str1, ";", "");
                 lineDone = 1;
-                if (langToConvertTo == "py" || langToConvertTo == "ahk") {
+                if (langToConvertTo == "py" || langToConvertTo == "ahk" || langToConvertTo == langFileExtension_2) {
                     str2 = "global " + str1;
                 } else {
                     str2 = "";

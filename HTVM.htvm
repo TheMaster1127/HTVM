@@ -9048,7 +9048,7 @@ str1 := StringTrimLeft(A_LoopField, StrLen(keyWordGlobal))
 ;MsgBox, % A_LoopField
 str1 := StrReplace(str1, ";", "")
 lineDone := 1
-if (langToConvertTo = "py") or (langToConvertTo = "ahk")
+if (langToConvertTo = "py") or (langToConvertTo = "ahk") or (langToConvertTo = langFileExtension_2)
 {
 str2 := "global " . str1
 }
