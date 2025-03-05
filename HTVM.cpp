@@ -175,21 +175,24 @@ double Log(double value) {
 std::string SubStr(const std::string& str, int startPos, int length = -1) {
     std::string result;
     size_t strLen = str.size();
-    // Handle negative starting positions
+    
+    // Handle negative starting positions (counting from the end)
     if (startPos < 0) {
-        startPos += strLen;
-        if (startPos < 0) startPos = 0;
-    } else {
-        if (startPos > static_cast<int>(strLen)) return ""; // Starting position beyond string length
-        startPos -= 1; // Convert to 0-based index
+        startPos = strLen + startPos;
+        if (startPos < 0) startPos = 0;  // Ensure it doesn't go beyond the start of the string
     }
+    else {
+        startPos -= 1; // Convert to 0-based index for internal operations
+    }
+    
     // Handle length
     if (length < 0) {
-        length = strLen - startPos; // Length to end of string
+        length = strLen - startPos; // Length to the end of the string
     } else if (startPos + length > static_cast<int>(strLen)) {
         length = strLen - startPos; // Adjust length to fit within the string
     }
-    // Extract substring
+    
+    // Extract the substring
     result = str.substr(startPos, length);
     return result;
 }
@@ -10880,7 +10883,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 htCode += str4 + Chr(10);
                 allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
             }
-            else if ((SubStr(Trim(A_LoopField106), -2) == ");" || SubStr(Trim(A_LoopField106), -1) == ")") && !(InStr(StrLower(A_LoopField106), " main(")) && lineDone == 0) {
+            else if (RegExMatch(Trim(A_LoopField106), "^[a-zA-Z0-9_\\.]+\\(") && !(InStr(StrLower(A_LoopField106), " main(")) && lineDone == 0) {
                 lineDone = 1;
                 str1 = Trim(A_LoopField106);
                 if (SubStrLastChars(str1, 1) == ";") {
@@ -10914,6 +10917,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             } else {
                 //print("else else else " . A_LoopField106)
                 // this is THE else
+                //;;;;;;;;;;;;;;;;;;
                 if (lineDone != 1) {
                     if (skipLeftCuleyForFuncPLS != 1) {
                         if (SubStr(Trim(StrLower(A_LoopField106)), 1, 1) == Chr(125)) {

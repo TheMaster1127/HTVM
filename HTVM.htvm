@@ -13918,10 +13918,11 @@ str4 := "def " . str2
 htCode .= str4 . Chr(10)
 allVarsSoWeDontReDecVars_FIX_TOGGLE := 0
 }
-else if ((SubStr(Trim(A_LoopField), -2) = ");") or (SubStr(Trim(A_LoopField), -1) = ")")) and (!(InStr(StrLower(A_LoopField), " main("))) and (lineDone = 0)
+else if (RegExMatch(Trim(A_LoopField), "^[a-zA-Z0-9_\.]+\(")) and (!(InStr(StrLower(A_LoopField), " main("))) and (lineDone = 0)
 {
 lineDone := 1
 str1 := Trim(A_LoopField)
+
 
 if (SubStrLastChars(str1, 1) = ";")
 {
@@ -13978,6 +13979,8 @@ else
 {
 ;print("else else else " . A_LoopField)
 ; this is THE else
+;;;;;;;;;;;;;;;;;;;
+
 if (lineDone != 1)
 {
 if (skipLeftCuleyForFuncPLS != 1)

@@ -84,27 +84,27 @@ function Log(value) {
 }
 
 function SubStr(str, startPos, length = -1) {
-    // If str is null or undefined, return an empty string
-    if (str === null || str === undefined) {
-        return "";
-    }
+    let result = "";
     let strLen = str.length;
     
-    // Handle negative starting positions (C++ style)
-    if (startPos < 1) {
+    // Handle negative starting positions (counting from the end)
+    if (startPos < 0) {
         startPos = strLen + startPos;
-        if (startPos < 0) startPos = 0;
+        if (startPos < 0) startPos = 0;  // Ensure it doesn't go beyond the start of the string
     } else {
-        startPos -= 1; // Convert to 0-based index (C++ style)
+        startPos -= 1; // Convert to 0-based index for internal operations
     }
-    // Handle length (C++ style)
+    
+    // Handle length
     if (length < 0) {
-        length = strLen - startPos; // Length to end of string
+        length = strLen - startPos; // Length to the end of the string
     } else if (startPos + length > strLen) {
         length = strLen - startPos; // Adjust length to fit within the string
     }
+    
     // Extract the substring
-    return str.substr(startPos, length);
+    result = str.substr(startPos, length);
+    return result;
 }
 
 function Trim(inputString) {
@@ -10687,7 +10687,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 htCode += str4 + Chr(10);
                 allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
             }
-            else if ((SubStr(Trim(A_LoopField106), -2) == ");" || SubStr(Trim(A_LoopField106), -1) == ")") && !(InStr(StrLower(A_LoopField106), " main(")) && lineDone == 0) {
+            else if (RegExMatch(Trim(A_LoopField106), "^[a-zA-Z0-9_\\.]+\\(") && !(InStr(StrLower(A_LoopField106), " main(")) && lineDone == 0) {
                 lineDone = 1;
                 str1 = Trim(A_LoopField106);
                 if (SubStrLastChars(str1, 1) == ";") {
@@ -10721,6 +10721,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             } else {
                 //print("else else else " . A_LoopField106)
                 // this is THE else
+                //;;;;;;;;;;;;;;;;;;
                 if (lineDone != 1) {
                     if (skipLeftCuleyForFuncPLS != 1) {
                         if (SubStr(Trim(StrLower(A_LoopField106)), 1, 1) == Chr(125)) {
