@@ -8,42 +8,42 @@ def obj
 porp
 this
 importA
-keyWordCodeInTheTranspiledLangStart
-keyWordCodeInTheTranspiledLangEnd
-keyWordCodeInTheTranspiledLangStartCPP
-keyWordCodeInTheTranspiledLangEndCPP
-keyWordCodeInTheTranspiledLangStartPY
-keyWordCodeInTheTranspiledLangEndPY
-___js start
-___js end
-keyWordCodeInTheTranspiledLangStartGO
-keyWordCodeInTheTranspiledLangEndGO
-keyWordCodeInTheTranspiledLangStartLUA
-keyWordCodeInTheTranspiledLangEndLUA
-keyWordCodeInTheTranspiledLangStartCS
-keyWordCodeInTheTranspiledLangEndCS
-keyWordCodeInTheTranspiledLangStartJAVA
-keyWordCodeInTheTranspiledLangEndJAVA
-keyWordCodeInTheTranspiledLangStartKT
-keyWordCodeInTheTranspiledLangEndKT
-keyWordCodeInTheTranspiledLangStartRB
-keyWordCodeInTheTranspiledLangEndRB
-keyWordCodeInTheTranspiledLangStartNIM
-keyWordCodeInTheTranspiledLangEndNIM
-keyWordCodeInTheTranspiledLangStartAHK
-keyWordCodeInTheTranspiledLangEndAHK
-keyWordCodeInTheTranspiledLangStartSWIFT
-keyWordCodeInTheTranspiledLangEndSWIFT
-keyWordCodeInTheTranspiledLangStartDART
-keyWordCodeInTheTranspiledLangEndDART
-keyWordCodeInTheTranspiledLangStartTS
-keyWordCodeInTheTranspiledLangEndTS
-keyWordCodeInTheTranspiledLangStartGROOVY
-keyWordCodeInTheTranspiledLangEndGROOVY
-keyWordCodeInTheTranspiledLangStartHTVM
-keyWordCodeInTheTranspiledLangEndHTVM
-keyWordCodeInHTVMstart
-keyWordCodeInHTVMend
+___start
+___end
+___cpp start
+___cpp end
+___py start
+___py end
+___jsing start
+___jsing end
+___go start
+___go end
+___lua start
+___lua end
+___cs start
+___cs end
+___java start
+___java end
+___kt start
+___kt end
+___rb start
+___rb end
+___nim start
+___nim end
+___ahk start
+___ahk end
+___swift start
+___swift end
+___dart start
+___dart end
+___ts start
+___ts end
+___groovy start
+___groovy end
+___htvm start
+___htvm end
+___inhtvm start
+___inhtvm end
 (
 )
 nullA

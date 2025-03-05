@@ -1,6 +1,6 @@
 # HTVM Documentation
 
-1. [Introduction](#introduction-to-htvm)  
+1. [Introduction](#introduction-to-htvm) 
 Understand why HTVM is the future of programming.  
 
 2. [OSP (Objectively Simplified Programming) Paradigm](#osp-objectively-simplified-programming-paradigm)  
@@ -213,7 +213,7 @@ Here’s how OSP works:
 ---
 
 ### **Explanation Using the Example**:
-```cpp
+```htvm
 method void move(this) {
     if (this == "Movable.Vehicles.Car") {
         if (Movable.Vehicles.Car.fuel > 0) {
@@ -242,7 +242,7 @@ method void move(this) {
 
 - If you try to use `this` **outside of any method**, it won’t work because `this` has no object context to refer to.  
   For example:
-  ``` cpp
+  ``` htvm
   def obj Car {
       prop int fuel = 100
       print(this)  // This will cause an error!
@@ -260,7 +260,7 @@ method void move(this) {
 
 3. **Example: Calling a Method with an Object**:  
    - To use the `this` keyword, you must **pass an object** when invoking the method:  
-   ```cpp
+   ```htvm
    allianceName.crewName.move(allianceName.crewName.objName)
    ```
    - Here:
@@ -275,7 +275,7 @@ method void move(this) {
 - This makes it flexible to create standalone objects when you don’t need a larger structure.  
 
 ### **Example: Standalone Object Definition**
-```cpp
+```htvm
 def obj Standalone {
     prop int value = 10
     prop str name = "Independent"
@@ -284,7 +284,7 @@ def obj Standalone {
 
 to access later just use:
 
-```cpp
+```htvm
 Standalone.value
 Standalone.name
 ```
@@ -295,7 +295,7 @@ Standalone.name
 - Methods can also be defined directly in an **alliance**, without being part of a **crew** and the opposite is well.
 
 ### **Example: Method in an Alliance**
-```cpp
+```htvm
 alliance ExampleAlliance {
     method void greet() {
         print("Hello from ExampleAlliance!")
@@ -305,7 +305,7 @@ alliance ExampleAlliance {
 
 to call greet just do:
 
-```cpp
+```htvm
 ExampleAlliance.greet()
 ```
 
@@ -315,7 +315,7 @@ ExampleAlliance.greet()
 ## Arrays:  
   - When using arrays you need to create a temporary array and then copy it to another like this:
 
-```py
+```htvm
 def obj name {
     arr str temp
     prop arr str prop1 = temp
@@ -341,7 +341,7 @@ def obj name {
 
 #### Example of OSP
 
-```cpp
+```htvm
 alliance Movable {
     crew Vehicles {
         def obj Car {
