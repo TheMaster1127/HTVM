@@ -102,7 +102,7 @@ function init(){
     });
 
     $("#ide-bt").click(function  (){
-        window.open('web-ide/online-ide.html?id=' + lang_ID, '_blank');
+        window.open('web-ide/?id=' + lang_ID, '_blank');
     })
 
     $("#preview-modal, #modal-preview-close-bt").click(function(){
