@@ -111,3 +111,5 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\preview.ht
 C:\Users\The_M\Downloads\Untitled-1.html
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile483815.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile483815.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile460881.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile460881.js

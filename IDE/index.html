@@ -11,6 +11,10 @@
       content="width=device-width, initial-scale=1.0"
     />
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Sixtyfour+Convergence&family=Whisper&display=swap" rel="stylesheet">
+
     <title>
       HTVM
       IDE
@@ -41,11 +45,12 @@
         position: absolute;
         width: 99vw; /* 99% of the viewport width */
         height: 99vh; /* 99% of the viewport height */
+
         background: linear-gradient(
           90deg,
-          #121212
+          #000000
             0%,
-          #121212
+          #000000
             100%
         );
         color: white;
@@ -62,7 +67,7 @@
       /* Tabs styling */
       #tabs {
         display: flex; /* Flexbox for horizontal alignment */
-        background-color: #2b2b2b; /* Background color for tabs */
+        background-color: #000000; /* Background color for tabs */
         padding: 5px; /* Padding around tabs */
         z-index: 20; /* Ensure tabs are above the IDE */
         overflow-x: scroll; /* Allow scrolling */
@@ -84,12 +89,21 @@
         right: 0; /* Align to right */
         width: 20px; /* Align to right */
         height: 75vh;
-    
+
+  padding-left: 0.2em; /* Adds padding to the left side */
+  margin-left: 0;    /* Ensures no margin is added, keeping it aligned to the left */
+
         box-sizing: border-box; /* Include padding and border in width/height calculations */
         font-size: 18px; /* Default font size */
         overflow-y: absolute; /* Allow scrolling if content overflows */
+
+
       }
       
+
+
+
+
      @media (max-width: 600px) {
         #Gui1 {
           width: 100%; /* Full width on small screens */
@@ -99,6 +113,9 @@
         }
         #Gui1IDE1 {
           font-size: 14px; /* Smaller font size for IDE on mobile */
+  padding-left: 0.2em; /* Adds padding to the left side */
+  margin-left: 0;    /* Ensures no margin is added, keeping it aligned to the left */
+
         }
       }
 
@@ -112,7 +129,7 @@
 
       /* Console styling */
       #console {
-        background-color: #121212; /* Console background */
+        background-color: #000000; /* Console background */
         color: white; /* Console text color */
         padding: 10px; /* Padding inside console */
         height: 9vw; /* Fixed height for console */
@@ -726,21 +743,67 @@ let startTimeForDiscord = Date.now();
                             }
 
                             .ace-monokai .ace_marker-layer .ace_active-line {
+
                               background-color: #103010 !important;
-                            }
+
+			    }
 
                             .ace-monokai {
-                              background-color: #050505 !important;
+                              background-color: #040404 !important;
                               color: #f8f8f2;
+
                             }
 
-                            .ace-monokai .ace_gutter {
-                              background: #204020 !important;
-                              color: #cbcdc3 !important;
+
+
+.ace_text-layer > .ace_line, .ace_text-layer > .ace_line_group {
+
+    contain: style size layout;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    right: 0px;
+}
+
+.ace_layer {
+    margin-left: 0.2em;
+}
+
+                            .ace_scroller {
+  margin-left: -1.0em;    /* Ensures no margin is added, keeping it aligned to the left */
+
                             }
+
+
+.ace_cursor-layer {
+    z-index: 4;
+    left: -4px;
+}
+
+
+.ace-monokai .ace_marker-layer .ace_selection {
+    background: #49483E;
+    margin-left: -4px;
+}
+
+.ace-monokai .ace_gutter {
+    background: #000000 !important;
+    color: #999999 !important;
+    font-weight: bold !important;
+    margin-left: -1.0em; /* This shifts the gutter */
+   
+}
+
+.ace_dark.ace_editor.ace_autocomplete .ace_completion-highlight {
+    color: #93ca12;
+    margin-left: 9px;
+}
 
                             .ace-monokai .ace_gutter-active-line {
                               background-color: transparent !important;
+  padding-left: 0.2em; /* Adds padding to the left side */
+  margin-left: 0;    /* Ensures no margin is added, keeping it aligned to the left */
+
                             }
 
                             .ace-monokai .ace_entity.ace_name.ace_tag,
@@ -836,18 +899,53 @@ let startTimeForDiscord = Date.now();
                               color: #ffa0a0 !important;
                             }
 
-                            *::-webkit-scrollbar {
-                              width: 1em;
-                            }
 
-                            *::-webkit-scrollbar-track {
-                              box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-                            }
+/* General styles for both vertical and horizontal scrollbars */
+*::-webkit-scrollbar {
+  width: 18px; /* Vertical scrollbar width */
+  height: 18px; /* Horizontal scrollbar height */
+  background-color: transparent; /* No background for both scrollbars */
+}
 
-                            *::-webkit-scrollbar-thumb {
-                              background-color: darkgrey;
-                              outline: 1px solid slategrey;
-                            }
+/* Style for the scrollbar thumb (the draggable part) */
+*::-webkit-scrollbar-thumb {
+  background-color: #4a90e2; /* Blue color for the thumb */
+  border-radius: 3px; /* Round the thumb corners */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Hover effect for the scrollbar thumb */
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #0078d4; /* Lighter blue on hover */
+  box-shadow: 0 0 10px rgba(0, 120, 212, 0.8); /* Add a subtle glow effect on hover */
+}
+
+/* Style for the scrollbar track (background of the scrollbar) */
+*::-webkit-scrollbar-track {
+  background-color: transparent; /* Transparent background for the track */
+}
+
+/* Specifically style the horizontal scrollbar */
+*::-webkit-scrollbar-horizontal {
+  height: 2em; /* Set the height to 1 em for a small horizontal thumb */
+  background-color: transparent; /* No background for the horizontal scrollbar */
+}
+
+/* Style for the horizontal scrollbar thumb */
+*::-webkit-scrollbar-horizontal::-webkit-scrollbar-thumb {
+  background-color: #4a90e2; /* Blue color for the thumb */
+  outline: none; /* No outline for the thumb */
+  border-radius: 3px; /* Round the thumb corners */
+}
+
+/* Make the horizontal track transparent */
+*::-webkit-scrollbar-horizontal::-webkit-scrollbar-track {
+  background-color: transparent; /* No background for the horizontal track */
+}
+
+
+
+
                           `;
 
             var style = document.createElement("style");
@@ -1374,8 +1472,9 @@ let startTimeForDiscord = Date.now();
             outputArea.id = "outputArea";
             outputArea.style.width = "100%"; // Full width
             outputArea.style.height = "100%"; // Full height of the console
-            outputArea.style.background = "#121212"; // Background color
+            outputArea.style.background = "#000000"; // Background color
             outputArea.style.color = "white"; // Text color
+	    outputArea.style.fontFamily = "Consolas, 'DM Mono', monospace";
             outputArea.style.border = "none"; // No border
             outputArea.style.resize = "none"; // Prevent resizing
             outputArea.style.fontSize = "15px"; // Set font size (change value as needed)
@@ -1385,7 +1484,7 @@ let startTimeForDiscord = Date.now();
             Gui1.style.position = "absolute";
             Gui1.style.width = "100vw"; // Set width to 80% of the viewport width
             Gui1.style.height = "100vh"; // Set height to 80% of the viewport height
-            Gui1.style.background = "linear-gradient(90deg, #121212 0%, #121212 100%)";
+            Gui1.style.background = "linear-gradient(90deg, #000000 0%, #000000 100%)";
             Gui1.style.color = "white";
             Gui1.style.fontSize = "2vw"; // Set font size to a percentage of the viewport width
             Gui1.style.padding = "0px";
@@ -2083,11 +2182,15 @@ let smallImageTextNANE = "." + fileExtension;
                 // Check if the tab's text matches the current path
                 if (tab.textContent === currentTabFullPath.replace(/\\/g, "/").split("/").pop()) {
                   // Change background color
-                  tab.style.backgroundColor = "#2B2B2B"; // Set background color to #2B2B2B       
+                  tab.style.backgroundColor = "#2B2B2B"; // Set background color to #2B2B2B    
+		tab.style.fontFamily = "Consolas";   
+tab.style.fontWeight = "bold";  // This makes the text bold
                 } else {
                   // Reset background color for other tabs
-                  tab.style.backgroundColor = "rgb(11, 12, 13)"; // Reset to original color
-                }
+                  tab.style.backgroundColor = "rgb(7, 8, 9)"; // Reset to original color
+
+tab.style.fontWeight = "bold";  // This makes the text bold
+		}
               }
                               
                 document.querySelectorAll("button").forEach((button) => {
