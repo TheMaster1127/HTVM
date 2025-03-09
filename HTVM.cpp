@@ -631,7 +631,7 @@ std::string keyWordAlliance = "";
 std::string keyWordCrew = "";
 std::string keyWordMethod = "";
 std::string keyWordDefObj = "";
-std::string keyWordPorp = "";
+std::string keyWordProp = "";
 std::string keyWordThis = "";
 std::string keyWordInclude = "";
 std::string keyWordCodeInTheTranspiledLangStart = "";
@@ -796,7 +796,7 @@ std::string keyWordAlliance_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordCrew_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordMethod_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordDefObj_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-std::string keyWordPorp_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+std::string keyWordProp_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordThis_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordInclude_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordCodeInTheTranspiledLangStart_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
@@ -3890,7 +3890,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             keyWordDefObj = Trim(A_LoopField75) + " ";
         }
         if (A_Index75 == 7) {
-            keyWordPorp = Trim(A_LoopField75) + " ";
+            keyWordProp = Trim(A_LoopField75) + " ";
         }
         if (A_Index75 == 8) {
             keyWordThis = Trim(A_LoopField75);
@@ -4387,7 +4387,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 keyWordDefObj_2 = Trim(A_LoopField76) + " ";
             }
             if (A_Index76 == 7) {
-                keyWordPorp_2 = Trim(A_LoopField76) + " ";
+                keyWordProp_2 = Trim(A_LoopField76) + " ";
             }
             if (A_Index76 == 8) {
                 keyWordThis_2 = Trim(A_LoopField76);
@@ -4867,6 +4867,18 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         isNotHTVMfile = 1;
     } else {
         isNotHTVMfile = 0;
+    }
+    if (useEnd == "on") {
+        keyWordCurlyBraceOpen = "{";
+        keyWordCurlyBraceClose = "}";
+        keyWordCurlyBraceOpen_2 = "{";
+        keyWordCurlyBraceClose_2 = "}";
+    }
+    if (useEnd_2 == "on") {
+        keyWordCurlyBraceOpen = "{";
+        keyWordCurlyBraceClose = "}";
+        keyWordCurlyBraceOpen_2 = "{";
+        keyWordCurlyBraceClose_2 = "}";
     }
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

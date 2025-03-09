@@ -435,7 +435,7 @@ var keyWordAlliance = "";
 var keyWordCrew = "";
 var keyWordMethod = "";
 var keyWordDefObj = "";
-var keyWordPorp = "";
+var keyWordProp = "";
 var keyWordThis = "";
 var keyWordInclude = "";
 var keyWordCodeInTheTranspiledLangStart = "";
@@ -600,7 +600,7 @@ var keyWordAlliance_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordCrew_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordMethod_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordDefObj_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-var keyWordPorp_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+var keyWordProp_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordThis_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordInclude_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordCodeInTheTranspiledLangStart_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
@@ -3694,7 +3694,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             keyWordDefObj = Trim(A_LoopField75) + " ";
         }
         if (A_Index75 == 7) {
-            keyWordPorp = Trim(A_LoopField75) + " ";
+            keyWordProp = Trim(A_LoopField75) + " ";
         }
         if (A_Index75 == 8) {
             keyWordThis = Trim(A_LoopField75);
@@ -4191,7 +4191,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 keyWordDefObj_2 = Trim(A_LoopField76) + " ";
             }
             if (A_Index76 == 7) {
-                keyWordPorp_2 = Trim(A_LoopField76) + " ";
+                keyWordProp_2 = Trim(A_LoopField76) + " ";
             }
             if (A_Index76 == 8) {
                 keyWordThis_2 = Trim(A_LoopField76);
@@ -4671,6 +4671,18 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         isNotHTVMfile = 1;
     } else {
         isNotHTVMfile = 0;
+    }
+    if (useEnd == "on") {
+        keyWordCurlyBraceOpen = "{";
+        keyWordCurlyBraceClose = "}";
+        keyWordCurlyBraceOpen_2 = "{";
+        keyWordCurlyBraceClose_2 = "}";
+    }
+    if (useEnd_2 == "on") {
+        keyWordCurlyBraceOpen = "{";
+        keyWordCurlyBraceClose = "}";
+        keyWordCurlyBraceOpen_2 = "{";
+        keyWordCurlyBraceClose_2 = "}";
     }
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
