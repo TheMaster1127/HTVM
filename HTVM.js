@@ -4675,12 +4675,8 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     if (useEnd == "on") {
         keyWordCurlyBraceOpen = "{";
         keyWordCurlyBraceClose = "}";
-        keyWordCurlyBraceOpen_2 = "{";
-        keyWordCurlyBraceClose_2 = "}";
     }
     if (useEnd_2 == "on") {
-        keyWordCurlyBraceOpen = "{";
-        keyWordCurlyBraceClose = "}";
         keyWordCurlyBraceOpen_2 = "{";
         keyWordCurlyBraceClose_2 = "}";
     }

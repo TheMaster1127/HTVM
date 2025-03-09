@@ -4871,12 +4871,8 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     if (useEnd == "on") {
         keyWordCurlyBraceOpen = "{";
         keyWordCurlyBraceClose = "}";
-        keyWordCurlyBraceOpen_2 = "{";
-        keyWordCurlyBraceClose_2 = "}";
     }
     if (useEnd_2 == "on") {
-        keyWordCurlyBraceOpen = "{";
-        keyWordCurlyBraceClose = "}";
         keyWordCurlyBraceOpen_2 = "{";
         keyWordCurlyBraceClose_2 = "}";
     }

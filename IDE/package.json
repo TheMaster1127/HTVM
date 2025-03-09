@@ -14,6 +14,7 @@
     "electron": "^32.2.0"
   },
   "dependencies": {
-    "discord-rpc": "^4.0.1"
+    "discord-rpc": "^4.0.1",
+    "suncalc": "^1.9.0"
   }
 }
