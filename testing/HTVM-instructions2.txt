@@ -1,11 +1,11 @@
 cpp
-htvm
+htvm2
 StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1
 alliance
 crew
 method
 def obj
-porp
+prop
 this
 import
 keyWordCodeInTheTranspiledLangStart
@@ -147,8 +147,8 @@ or
 0
 A_Index
 A_LoopField
-off
 on
+off
 off
 on
 on
