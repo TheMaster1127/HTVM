@@ -1,82 +1,100 @@
+#EscapeChar \
+
+
+; Print function for various types
+print(value) {
+        MsgBox % value
+}
+
+HTVM_Append(arr, value) {
+    arr.Push(value)
+}
+
+HTVM_Size(arr) {
+    return arr.Length()
+}
+
+
 ; This is a preview of your language and how it will look.
 ; This is a preview of your language and how it will look.
 ; Here's how types will appear if you only define them:
-int varName1
-str varName2
-bool varName3
-float varName4
-int8 varName5
-int16 varName6
-int32 varName7
-int64 varName8
+varName1 := ""
+varName2 := ""
+varName3 := ""
+varName4 := ""
+varName5 := ""
+varName6 := ""
+varName7 := ""
+varName8 := ""
 ; Alternatively, you can define them like this:
-int varName9 := 34
+varName9 := 34
 ; Here is how to define a function with static types if you convert to C++.
 ; However, it will still work even if you are not converting to C++; types will be stripped away.
-func void funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5)
-    ; This is how the global keyword works if we convert to Python.
-    ; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
+funcName1(paramVar1, paramVar2 := "", paramVar3 := false, paramVar4 := 1.5) {
     global varName5
-    ; Here's how if, else if, and else statements will look:
-    if (varName1 = paramVar1)
+    if (varName1 = paramVar1) {
         print("varName1 is equal to paramVar1")
-    else if (varName1 != paramVar1 or varName1 <= paramVar1)
+    }
+    else if (varName1 != paramVar1 || varName1 <= paramVar1) {
         print("varName1 is less than or equal to paramVar1")
-    else
+    } else {
         print("varName1 is NOT less than or equal to paramVar1 or something else")
-    end
-    ; this is how the return keyword will look like in your lang
+    }
     return
-end
+}
 funcName1(varName9)
 ; this is how a while loop works in your lang
-bool var1 := false
-while (var1 = false)
+var1 := false
+while (var1 = false) {
     print("we are inside the while loop")
     var1 := true
-end
+}
 print("we are outside the while loop")
 ; this is how to use a loop whit arrays
-arr str array123 := ["hey"]
-array123.add("hello")
-array123.add("how")
-array123.add("are")
-array123.add("you")
-array123.add("doing")
-Loop, % array123.size()
+array123 := ["hey"]
+HTVM_Append(array123, "hello")
+HTVM_Append(array123, "how")
+HTVM_Append(array123, "are")
+HTVM_Append(array123, "you")
+HTVM_Append(array123, "doing")
+Loop, % HTVM_Size(array123) {
     print("iteration: " . STR(A_Index))
     print("Item: " . array123[A_Index])
-end
-print("this is how the escape char looks like `nthis is a new line")
-'''1
+}
+print("this is how the escape char looks like \nthis is a new line")
+/*
 this is a comment block
 this is a comment block
-'''2
+*/
 ; this is how to use an AutoHotKey like Loop
-Loop, 10
-    if (A_Index % 2 = 0)
+Loop, 10 {
+    if (A_Index THIS OPERATOR DOES NOT EXIST IN THIS LANG SORRY FOR THIS ERROR 2 = 0) {
         continue
-    end
+    }
     print(A_Index)
-end
+}
 ; this is how to use an AutoHotKey like infinite Loop
-Loop
-    if (A_Index = 5)
+Loop {
+    if (A_Index = 5) {
         break
-    else
+    } else {
         print(A_Index)
-    end
-end
+    }
+}
 ; this is how to use an AutoHotKey like Loop, parse
-str someText := "hello how are you doing`ntoday we are good."
-Loop, Parse, someText, " ", `n
+someText := "hello how are you doing\ntoday we are good."
+Loop, Parse, someText, " ", "\n" 
+{
+
     print(A_LoopField)
-end
+}
 ; Error Handling
-try
-    throw  ErrorMsg("Something went wrong!")
-catch (e)
+try {
+    throw "Something went wrong!"
+}
+catch e {
     print(e)
-finally
+}
+finally {
     print("Finally block executed")
-end
+}

@@ -1,5 +1,5 @@
 cpp
-htvm2
+htvm
 StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1
 alliance
 crew
@@ -7,7 +7,7 @@ method
 def obj
 porp
 this
-importA
+import
 keyWordCodeInTheTranspiledLangStart
 keyWordCodeInTheTranspiledLangEnd
 keyWordCodeInTheTranspiledLangStartCPP
@@ -44,81 +44,81 @@ keyWordCodeInTheTranspiledLangStartHTVM
 keyWordCodeInTheTranspiledLangEndHTVM
 keyWordCodeInHTVMstart
 keyWordCodeInHTVMend
-(
-)
-nullA
-verno
-neeeeeeeeeee
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-double_A
-char_A
-uint8_A
-uint16_A
-uint32_A
-uint64_A
-werdtwerdr es dfgsewr dd KK HHUDOHI HOUS DHIOSODz
-str_A
-bool_A
-float_A
-int8_A
-int16_A
-int32_A
-int64_A
-ako
-ama ako
-elskata
-dokato
-infLoop
-spin
-stringLoop,
-ctn
-stop
-funcA
-awaitA
-asyncA
-im fucking around...
-ErrorMsgGGGGGGGGGGGGGGGGGG
-fuck around
-and find out
-nai setne
-yeet
-.push
-.PAP
-.howBig
+{
+}
+null
+true
+false
+void
+double
+char
+uint8
+uint16
+uint32
+uint64
+int
+str
+bool
+float
+int8
+int16
+int32
+int64
+if
+else if
+else
+while
+Loop
+Loop,
+Loop, Parse,
+continue
+break
+func
+await
+async
+throw
+ErrorMsg
+try
+catch
+finally
+return
+.add
+.pop
+.size
 .insert
-.rm-rf
-.indexOf_A
-arrRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-arr int_A
-arr str_A
-arr float_A
-arr bool_A
-varkata
-letkata
-eternal pain
-end2
-globolizum
-#--
-[-O-]
-[-_-]
-~	
-STARTING...
-CAT
-plus
-minus
+.rm
+.indexOf
+arr
+arr int
+arr str
+arr float
+arr bool
+var
+let
+const
+end
+global
+;
+'''1
+'''2
+`
+main
+.
++
+-
 *
 /
 %
 **
-is
-big is
+=
+===
 !=
 >
 <
 >=
 <=
-&&
-||
+and
+or
 !
 &
 |
@@ -127,7 +127,7 @@ big is
 <<
 >>
 >>>
-eKakvo?
+:=
 +=
 .=
 -=
@@ -142,19 +142,19 @@ eKakvo?
 ^=
 ?
 :
-+PLUS+
--MINUS-
+++
+--
 0
-A_IndexA
-A_LoopFieldA
-off
+A_Index
+A_LoopField
 off
 on
-off
 off
 on
 on
-on
+off
+off
+off
 on
 off
 off
@@ -1139,27 +1139,33 @@ lang: cpp
 name: SubStr
 libs: #include <string>
 description: string~~~SubStr is a function that extracts a substring from a given string, starting from a specified position and for a specified length, adjusting for edge cases like null inputs or missing parameters.~~~here is how the func looks like:~~~```~~~SubStr(str, int startPos, int length [= str.length - startPos + 1])~~~```~~~
+
+
 std::string SubStr(const std::string& str, int startPos, int length = -1) {
     std::string result;
     size_t strLen = str.size();
-    // Handle negative starting positions
+    
+    // Handle negative starting positions (counting from the end)
     if (startPos < 0) {
-        startPos += strLen;
-        if (startPos < 0) startPos = 0;
-    } else {
-        if (startPos > static_cast<int>(strLen)) return ""; // Starting position beyond string length
-        startPos -= 1; // Convert to 0-based index
+        startPos = strLen + startPos;
+        if (startPos < 0) startPos = 0;  // Ensure it doesn't go beyond the start of the string
     }
+    else {
+        startPos -= 1; // Convert to 0-based index for internal operations
+    }
+    
     // Handle length
     if (length < 0) {
-        length = strLen - startPos; // Length to end of string
+        length = strLen - startPos; // Length to the end of the string
     } else if (startPos + length > static_cast<int>(strLen)) {
         length = strLen - startPos; // Adjust length to fit within the string
     }
-    // Extract substring
+    
+    // Extract the substring
     result = str.substr(startPos, length);
     return result;
 }
+
 funcEND======================funcEND==============
 func======================func==============
 lang: cpp
@@ -2033,14 +2039,28 @@ lang: py
 name: SubStr
 libs: null
 description: string~~~SubStr is a function that extracts a substring from a given string, starting from a specified position and for a specified length, adjusting for edge cases like null inputs or missing parameters.~~~here is how the func looks like:~~~```~~~SubStr(str, int startPos, int length [= str.length - startPos + 1])~~~```~~~
-def SubStr(s, startPos, length=None):
-    if s is None or s == "":
-        return ""
-    if length is None or length == "":
-        length = len(s) - startPos + 1
-    if startPos < 1:
-        startPos = len(s) + startPos
-    return s[startPos - 1:startPos - 1 + length]
+def SubStr(s, startPos, length=-1):
+    result = ""
+    strLen = len(s)
+    
+    # Handle negative starting positions (counting from the end)
+    if startPos < 0:
+        startPos = strLen + startPos
+        if startPos < 0:
+            startPos = 0  # Ensure it doesn't go beyond the start of the string
+    else:
+        startPos -= 1  # Convert to 0-based index for internal operations
+    
+    # Handle length
+    if length < 0:
+        length = strLen - startPos  # Length to the end of the string
+    elif startPos + length > strLen:
+        length = strLen - startPos  # Adjust length to fit within the string
+    
+    # Extract the substring
+    result = s[startPos:startPos + length]
+    return result
+
 funcEND======================funcEND==============
 func======================func==============
 lang: js
@@ -2048,29 +2068,27 @@ name: SubStr
 libs: null
 description: string~~~SubStr is a function that extracts a substring from a given string, starting from a specified position and for a specified length, adjusting for edge cases like null inputs or missing parameters.~~~here is how the func looks like:~~~```~~~SubStr(str, int startPos, int length [= str.length - startPos + 1])~~~```~~~
 function SubStr(str, startPos, length = -1) {
-    // If str is null or undefined, return an empty string
-    if (str === null || str === undefined) {
-        return "";
-    }
+    let result = "";
     let strLen = str.length;
     
-    // Handle negative starting positions (C++ style)
-    if (startPos < 1) {
+    // Handle negative starting positions (counting from the end)
+    if (startPos < 0) {
         startPos = strLen + startPos;
-        if (startPos < 0) startPos = 0;
+        if (startPos < 0) startPos = 0;  // Ensure it doesn't go beyond the start of the string
     } else {
-        startPos -= 1; // Convert to 0-based index (C++ style)
+        startPos -= 1; // Convert to 0-based index for internal operations
     }
-
-    // Handle length (C++ style)
+    
+    // Handle length
     if (length < 0) {
-        length = strLen - startPos; // Length to end of string
+        length = strLen - startPos; // Length to the end of the string
     } else if (startPos + length > strLen) {
         length = strLen - startPos; // Adjust length to fit within the string
     }
-
+    
     // Extract the substring
-    return str.substr(startPos, length);
+    result = str.substr(startPos, length);
+    return result;
 }
 funcEND======================funcEND==============
 func======================func==============
