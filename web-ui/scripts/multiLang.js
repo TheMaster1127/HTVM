@@ -8,10 +8,10 @@ function switchLang(langID){
     if(!langID) langID = Math.max(...(getLangIDList().length ? getLangIDList() : [0])) + 1;    
     let localStorageKey = "htvm_lang_" + langID
     if (!localStorage.getItem(localStorageKey)) createDefault(localStorageKey)
-    const lang_ID = langID
-    const lang_ID_str = localStorageKey
     drawSettings()
     createLangTabs()
+    window.lang_ID_str = localStorageKey
+    window.lang_ID = langID
     document.querySelector("#" + localStorageKey + "_tab_bt .active-lang").style.visibility = "visible"
 }
 

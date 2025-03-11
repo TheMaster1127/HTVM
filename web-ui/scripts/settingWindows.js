@@ -1,4 +1,4 @@
-import { getConfigFromLocalStorage } from "./storage.js";
+import { getConfigFromLocalStorage, chanegVal } from "./storage.js";
 import { settings_data } from "./globs.js";
 import { reorganizeBoxes } from "./uiActions.js";
 import { getSpeed } from "./utils.js";
@@ -28,7 +28,7 @@ function createSettingBox(title, config){
                 if (!this.checked) return
                 if(s.dependencies){
                     s.dependencies.forEach(dep =>{
-                        q = "#sw-"+ (dep.id) + " input"
+                        const q = "#sw-"+ (dep.id) + " input"
                         document.querySelector(q).checked = dep.action == 'on' ? true : false;
                         document.querySelector(q).dispatchEvent(new Event("change", { bubbles: true }));
                     })
