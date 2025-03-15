@@ -100,11 +100,12 @@ void main(List<String> arguments) {
     }
     // Error Handling
     try {
-        throw Exception("Something went wrong!");n}
-        catch (e) {
-            print(e);
-        }
-        finally {
-            print("Finally block executed");
-        }
+        throw Exception("Something went wrong!");
+    }
+    catch (e) {
+        print(e);
+    }
+    finally {
+        print("Finally block executed");
+    }
 }

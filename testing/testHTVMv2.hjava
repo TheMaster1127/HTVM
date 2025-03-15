@@ -118,12 +118,12 @@ public static void main(String[] args) {
     try {
         throw new Exception("Something went wrong!");
     }
-    catch (Exception e)n{
-    print(e.getMessage());
-}
-finally {
-    print("Finally block executed");
-}
+    catch (Exception e) {
+        print(e.getMessage());
+    }
+    finally {
+        print("Finally block executed");
+    }
 
 }
 }

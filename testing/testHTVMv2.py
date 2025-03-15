@@ -13,117 +13,119 @@ def STR(value):
     else:
         raise TypeError("Unsupported type")
 
+def HTVM_Append(arr, value):
+    arr.append(value)
+
 def HTVM_Size(arr):
     return len(arr)
 
 
-[][][][][] Movable_Vehicles_Car [][][][][]
-[end][end][end][end][end] Movable_Vehicles_Car [end][end][end][end][end]
-[][][][][] Movable_Vehicles_Bike [][][][][]
-[end][end][end][end][end] Movable_Vehicles_Bike [end][end][end][end][end]
-def OSPHTVMOSP_Movable_Vehicles_move(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD):
-    if (this == "Movable.Vehicles.Car"):
-        if (Movable.Vehicles.Car.fuel > 0):
+Movable_Vehicles_Car_door = 4
+Movable_Vehicles_Car_fuel = 100
+Movable_Vehicles_Car_hasFUEL = True
+Movable_Vehicles_Bike_hasGears = True
+Movable_Vehicles_Bike_energy = 100
+Movable_Vehicles_Bike_hasENERGY = True
+def OSPHTVMOSP_Movable_Vehicles_move(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = ""):
+    global Movable_Vehicles_Car_fuel
+    global Movable_Vehicles_Car_hasFUEL
+    global Movable_Vehicles_Bike_energy
+    global Movable_Vehicles_Bike_hasENERGY
+    if (OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD == "Movable.Vehicles.Car"):
+        if (Movable_Vehicles_Car_fuel > 0):
             print("The car is driving.")
-            Movable.Vehicles.Car.fuel = Movable.Vehicles.Car.fuel - 10
+            Movable_Vehicles_Car_fuel = Movable_Vehicles_Car_fuel - 10
         else:
             print("The car is out of fuel.")
-            Movable.Vehicles.Car.hasFUEL = False
-    elif (this == "Movable.Vehicles.Bike"):
-        if (Movable.Vehicles.Bike.energy > 0):
+            Movable_Vehicles_Car_hasFUEL = False
+    elif (OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD == "Movable.Vehicles.Bike"):
+        if (Movable_Vehicles_Bike_energy > 0):
             print("The bike is pedaling.")
-            Movable.Vehicles.Bike.energy = Movable.Vehicles.Bike.energy - 5
+            Movable_Vehicles_Bike_energy = Movable_Vehicles_Bike_energy - 5
         else:
             print("The bike is out of energy.")
-            Movable.Vehicles.Bike.hasENERGY = False
-[][][][][] Movable_settings_GeneralSettings [][][][][]
-[end][end][end][end][end] Movable_settings_GeneralSettings [end][end][end][end][end]
-[][][][][] Movable_settings_AudioSettings [][][][][]
-[end][end][end][end][end] Movable_settings_AudioSettings [end][end][end][end][end]
-[][][][][] Movable_settings_DisplaySettings [][][][][]
-[end][end][end][end][end] Movable_settings_DisplaySettings [end][end][end][end][end]
-def OSPHTVMOSP_Movable_actions_resetGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD):
-    Movable.settings.GeneralSettings.difficulty = STR("normal")
-    Movable.settings.GeneralSettings.volume = 50
-    Movable.settings.GeneralSettings.resolution = STR("1920x1080")
+            Movable_Vehicles_Bike_hasENERGY = False
+Movable_settings_GeneralSettings_difficulty = "normal"
+Movable_settings_GeneralSettings_volume = 50
+Movable_settings_GeneralSettings_resolution = "1920x1080"
+Movable_settings_AudioSettings_masterVolume = 70
+Movable_settings_AudioSettings_musicVolume = 50
+Movable_settings_AudioSettings_sfxVolume = 40
+Movable_settings_DisplaySettings_fullscreen = True
+Movable_settings_DisplaySettings_aspectRatio = "16:9"
+def OSPHTVMOSP_Movable_actions_resetGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = ""):
+    Movable_settings_GeneralSettings_difficulty = STR("normal")
+    Movable_settings_GeneralSettings_volume = 50
+    Movable_settings_GeneralSettings_resolution = STR("1920x1080")
     print("General settings reset to default.")
-def OSPHTVMOSP_Movable_actions_printGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD):
+def OSPHTVMOSP_Movable_actions_printGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = ""):
     print("General Settings:")
-    print("Difficulty: " + Movable.settings.GeneralSettings.difficulty)
-    print("Volume: " + STR(Movable.settings.GeneralSettings.volume))
-    print("Resolution: " + Movable.settings.GeneralSettings.resolution)
-def OSPHTVMOSP_Movable_actions_resetAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD):
-    Movable.settings.AudioSettings.masterVolume = 70
-    Movable.settings.AudioSettings.musicVolume = 50
-    Movable.settings.AudioSettings.sfxVolume = 40
+    print("Difficulty: " + Movable_settings_GeneralSettings_difficulty)
+    print("Volume: " + STR(Movable_settings_GeneralSettings_volume))
+    print("Resolution: " + Movable_settings_GeneralSettings_resolution)
+def OSPHTVMOSP_Movable_actions_resetAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = ""):
+    Movable_settings_AudioSettings_masterVolume = 70
+    Movable_settings_AudioSettings_musicVolume = 50
+    Movable_settings_AudioSettings_sfxVolume = 40
     print("Audio settings reset to default.")
-def OSPHTVMOSP_Movable_actions_printAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD):
+def OSPHTVMOSP_Movable_actions_printAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = ""):
     print("Audio Settings:")
-    print("Master Volume: " + STR(Movable.settings.AudioSettings.masterVolume))
-    print("Music Volume: " + STR(Movable.settings.AudioSettings.musicVolume))
-    print("SFX Volume: " + STR(Movable.settings.AudioSettings.sfxVolume))
-def OSPHTVMOSP_Movable_actions_resetDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD):
-    Movable.settings.DisplaySettings.fullscreen = True
-    Movable.settings.DisplaySettings.aspectRatio = STR("16:9")
+    print("Master Volume: " + STR(Movable_settings_AudioSettings_masterVolume))
+    print("Music Volume: " + STR(Movable_settings_AudioSettings_musicVolume))
+    print("SFX Volume: " + STR(Movable_settings_AudioSettings_sfxVolume))
+def OSPHTVMOSP_Movable_actions_resetDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = ""):
+    Movable_settings_DisplaySettings_fullscreen = True
+    Movable_settings_DisplaySettings_aspectRatio = STR("16:9")
     print("Display settings reset to default.")
-def OSPHTVMOSP_Movable_actions_printDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD):
+def OSPHTVMOSP_Movable_actions_printDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = ""):
     print("Display Settings:")
-    print("Fullscreen: " + STR(Movable.settings.DisplaySettings.fullscreen))
-    print("Aspect Ratio: " + Movable.settings.DisplaySettings.aspectRatio)
-[][][][][] Movable_array_name [][][][][]
-temp = []
-[end][end][end][end][end] Movable_array_name [end][end][end][end][end]
-def AWSDF():
-    return "hi"
+    print("Fullscreen: " + STR(Movable_settings_DisplaySettings_fullscreen))
+    print("Aspect Ratio: " + Movable_settings_DisplaySettings_aspectRatio)
+Movable_array_name_prop1 = []
+Movable_array_name_prop2 = []
+Movable_array_name_prop3 = []
+Movable_array_name_prop4 = []
 # Test vehicle movement
-while (Movable.Vehicles.Car.hasFUEL == True and Movable.Vehicles.Bike.hasENERGY == True):
-    Movable.Vehicles.move(Movable.Vehicles.Car)
-    Movable.Vehicles.move(Movable.Vehicles.Bike)
+while (Movable_Vehicles_Car_hasFUEL == True and Movable_Vehicles_Bike_hasENERGY == True):
+    OSPHTVMOSP_Movable_Vehicles_move("Movable.Vehicles.Car")
+    OSPHTVMOSP_Movable_Vehicles_move("Movable.Vehicles.Bike")
     print("=====================================")
 # Test settings manipulation
-Movable.settings.GeneralSettings.difficulty = STR("hard")
-Movable.settings.GeneralSettings.volume = 80
-Movable.settings.GeneralSettings.resolution = STR("2560x1440")
-Movable.settings.AudioSettings.masterVolume = 90
-Movable.settings.AudioSettings.musicVolume = 60
-Movable.settings.AudioSettings.sfxVolume = 50
-Movable.settings.DisplaySettings.fullscreen = False
-Movable.settings.DisplaySettings.aspectRatio = STR("21:9")
-Movable.actions.printGeneralSettings()
-Movable.actions.printAudioSettings()
-Movable.actions.printDisplaySettings()
-Movable.actions.resetGeneralSettings()
-Movable.actions.resetAudioSettings()
-Movable.actions.resetDisplaySettings()
-Movable.actions.printGeneralSettings()
-Movable.actions.printAudioSettings()
-Movable.actions.printDisplaySettings()
+Movable_settings_GeneralSettings_difficulty = STR("hard")
+Movable_settings_GeneralSettings_volume = 80
+Movable_settings_GeneralSettings_resolution = STR("2560x1440")
+Movable_settings_AudioSettings_masterVolume = 90
+Movable_settings_AudioSettings_musicVolume = 60
+Movable_settings_AudioSettings_sfxVolume = 50
+Movable_settings_DisplaySettings_fullscreen = False
+Movable_settings_DisplaySettings_aspectRatio = STR("21:9")
+OSPHTVMOSP_Movable_actions_printGeneralSettings()
+OSPHTVMOSP_Movable_actions_printAudioSettings()
+OSPHTVMOSP_Movable_actions_printDisplaySettings()
+OSPHTVMOSP_Movable_actions_resetGeneralSettings()
+OSPHTVMOSP_Movable_actions_resetAudioSettings()
+OSPHTVMOSP_Movable_actions_resetDisplaySettings()
+OSPHTVMOSP_Movable_actions_printGeneralSettings()
+OSPHTVMOSP_Movable_actions_printAudioSettings()
+OSPHTVMOSP_Movable_actions_printDisplaySettings()
 # Test array manipulation
-Movable.array.name.prop1.push("1text1")
-Movable.array.name.prop1.push("1text2")
-Movable.array.name.prop1.push("1text3")
-Movable.array.name.prop2.push("2text1")
-Movable.array.name.prop2.push("2text2")
-Movable.array.name.prop2.push("2text3")
-Movable.array.name.prop3.push("3text1")
-Movable.array.name.prop3.push("3text2")
-Movable.array.name.prop3.push("3text3")
-Movable.array.name.prop4.push("4text1")
-Movable.array.name.prop4.push("4text2")
-Movable.array.name.prop4.push("4text3")
-# why this
-# cuz python used len(param) insed of param.len() so it meses up evrything
-# if using OSP objects that have a dot (.) it doset work in python to get the lenght
-# but for a name whit no dots it works
-arrayTempOnlyGetSize1 = [Movable.array.name.prop1]
-arrayTempOnlyGetSize2 = [Movable.array.name.prop2]
-arrayTempOnlyGetSize3 = [Movable.array.name.prop3]
-arrayTempOnlyGetSize4 = [Movable.array.name.prop4]
-for A_Index1 in range(0, HTVM_Size(arrayTempOnlyGetSize1) + 0):
-    print(Movable.array.name.prop1[A_Index1])
-for A_Index2 in range(0, HTVM_Size(arrayTempOnlyGetSize2) + 0):
-    print(Movable.array.name.prop2[A_Index2])
-for A_Index3 in range(0, HTVM_Size(arrayTempOnlyGetSize3) + 0):
-    print(Movable.array.name.prop3[A_Index3])
-for A_Index4 in range(0, HTVM_Size(arrayTempOnlyGetSize4) + 0):
-    print(Movable.array.name.prop4[A_Index4])
+HTVM_Append(Movable_array_name_prop1, "1text1")
+HTVM_Append(Movable_array_name_prop1, "1text2")
+HTVM_Append(Movable_array_name_prop1, "1text3")
+HTVM_Append(Movable_array_name_prop2, "2text1")
+HTVM_Append(Movable_array_name_prop2, "2text2")
+HTVM_Append(Movable_array_name_prop2, "2text3")
+HTVM_Append(Movable_array_name_prop3, "3text1")
+HTVM_Append(Movable_array_name_prop3, "3text2")
+HTVM_Append(Movable_array_name_prop3, "3text3")
+HTVM_Append(Movable_array_name_prop4, "4text1")
+HTVM_Append(Movable_array_name_prop4, "4text2")
+HTVM_Append(Movable_array_name_prop4, "4text3")
+for A_Index1 in range(0, HTVM_Size(Movable_array_name_prop1) + 0):
+    print(Movable_array_name_prop1[A_Index1])
+for A_Index2 in range(0, HTVM_Size(Movable_array_name_prop2) + 0):
+    print(Movable_array_name_prop2[A_Index2])
+for A_Index3 in range(0, HTVM_Size(Movable_array_name_prop3) + 0):
+    print(Movable_array_name_prop3[A_Index3])
+for A_Index4 in range(0, HTVM_Size(Movable_array_name_prop4) + 0):
+    print(Movable_array_name_prop4[A_Index4])
