@@ -4681,7 +4681,7 @@ expression := StringTrimLeft(expression, fixExpertionLineFuncOnlyTEXT_numDelete)
 ; osp dosent work in:
 ;java 
 ;groovy 
-;min 
+;nim
 ;ruby 
 ;lua 
 
