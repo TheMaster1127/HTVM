@@ -227,6 +227,75 @@
     }
 
 
+
+
+
+
+
+/* Basic styles for the dropdown */
+.select-container {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  color: #dddddd;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  border: 1px solid #ddd;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+  background-color: #202020;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #dddddd;
+}
+
+.dropdown-item:hover {
+  background-color: #303030;
+}
+
+.dropdown-item img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-color: #202020;
+  color: #dddddd;
+}
+
+.selected-item {
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  background-color: #202020;
+  color: #dddddd;
+}
+
+.selected-item img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  background-color: #202020;
+  color: #dddddd;
+}
+
+
+
+
+
     /* Sidebar items */
     .item {
       padding: 8px;
@@ -321,6 +390,8 @@
     <!-- IDE Column (Editor & Console) -->
     <div id="ide-container">
       <div id="buttons-container">
+
+
         <button onclick="createNew('file')">New File</button>
         <button onclick="createNew('folder')">New Folder</button>
         <button onclick="runFile()" id="run-btn">Run (Ctrl+Enter)</button>
@@ -330,6 +401,80 @@
           <span class="slider"></span>
         </label>
         <span>Run JS after HTVM Conversion</span>
+              <!-- Language Selection Dropdown -->
+        <div class="select-container">
+          <div class="selected-item" onclick="toggleDropdown()">
+            <img id="selected-lang-img" src="images/js.png" alt="JS">
+            <span id="selected-lang-name">JavaScript</span>
+          </div>
+          
+          
+<div id="lang-dropdown" class="dropdown">
+  <div class="dropdown-item" onclick="changeLanguage('JavaScript', 'images/js.png', 'js')">
+    <img src="images/js.png" alt="JS">
+    <span>JavaScript</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('Python', 'images/python.png', 'py')">
+    <img src="images/python.png" alt="Python">
+    <span>Python</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('C++', 'images/cpp.png', 'cpp')">
+    <img src="images/cpp.png" alt="C++">
+    <span>C++</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('Go', 'images/go.png', 'go')">
+    <img src="images/go.png" alt="Go">
+    <span>Go</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('Lua', 'images/lua.png', 'lua')">
+    <img src="images/lua.png" alt="Lua">
+    <span>Lua</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('C#', 'images/csharp.png', 'cs')">
+    <img src="images/csharp.png" alt="C#">
+    <span>C#</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('Java', 'images/java.png', 'java')">
+    <img src="images/java.png" alt="Java">
+    <span>Java</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('Kotlin', 'images/kotlin.png', 'kt')">
+    <img src="images/kotlin.png" alt="Kotlin">
+    <span>Kotlin</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('Ruby', 'images/ruby.png', 'rb')">
+    <img src="images/ruby.png" alt="Ruby">
+    <span>Ruby</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('Nim', 'images/nim.png', 'nim')">
+    <img src="images/nim.png" alt="Nim">
+    <span>Nim</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('AutoHotKey', 'images/ahk.png', 'ahk')">
+    <img src="images/ahk.png" alt="AutoHotKey">
+    <span>AutoHotKey</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('Swift', 'images/swift.png', 'swift')">
+    <img src="images/swift.png" alt="Swift">
+    <span>Swift</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('Dart', 'images/dart.png', 'dart')">
+    <img src="images/dart.png" alt="Dart">
+    <span>Dart</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('TypeScript', 'images/ts.png', 'ts')">
+    <img src="images/ts.png" alt="TypeScript">
+    <span>TypeScript</span>
+  </div>
+  <div class="dropdown-item" onclick="changeLanguage('Groovy', 'images/groovy.png', 'groovy')">
+    <img src="images/groovy.png" alt="Groovy">
+    <span>Groovy</span>
+  </div>
+</div>
+
+
+
+        </div>
       </div>
       <div id="editor"></div>
       <div id="ide-horizontal-splitter"></div>
@@ -350,6 +495,107 @@
   </div>
 
   <script>
+
+// Global variable to store the selected language extension
+let selectedLangExtension = "js";  // Default to JavaScript (.js)
+
+// Toggle the dropdown visibility
+function toggleDropdown() {
+  const dropdown = document.getElementById('lang-dropdown');
+  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+// Change language and update selected item
+function changeLanguage(languageName, languageImage, langExtension) {
+  // Update the global variable with the language extension
+  selectedLangExtension = langExtension;
+
+  // Update the selected language's name and image on the page
+  const selectedLangName = document.getElementById('selected-lang-name');
+  const selectedLangImg = document.getElementById('selected-lang-img');
+  selectedLangName.textContent = languageName;
+  selectedLangImg.src = languageImage;
+
+  // Save the selected language extension to localStorage
+  localStorage.setItem('selectedLangExtension', langExtension);
+
+  // Close the dropdown after selection
+  document.getElementById('lang-dropdown').style.display = 'none';
+}
+
+// Load the selected language extension from localStorage (if available) when the page loads
+window.onload = function() {
+  // Check if there's a saved language extension in localStorage
+  const savedLangExtension = localStorage.getItem('selectedLangExtension');
+  
+  // If saved language extension exists, use it, else default to 'js'
+  if (savedLangExtension) {
+    selectedLangExtension = savedLangExtension;
+  }
+
+  // Log to see the value of selectedLangExtension
+  console.log("Selected Language Extension:", selectedLangExtension);
+
+  // Update the UI with the selected language or default (JavaScript)
+  const selectedLangName = document.getElementById('selected-lang-name');
+  const selectedLangImg = document.getElementById('selected-lang-img');
+
+  // Set default to JavaScript if no saved extension found
+    if (selectedLangExtension === "js") {
+      selectedLangName.textContent = "JavaScript";
+      selectedLangImg.src = "images/js.png";
+    } else if (selectedLangExtension === "py") {
+      selectedLangName.textContent = "Python";
+      selectedLangImg.src = "images/python.png";
+    } else if (selectedLangExtension === "cpp") {
+      selectedLangName.textContent = "C++";
+      selectedLangImg.src = "images/cpp.png";
+    } else if (selectedLangExtension === "rb") {
+      selectedLangName.textContent = "Ruby";
+      selectedLangImg.src = "images/ruby.png";
+    } else if (selectedLangExtension === "go") {
+      selectedLangName.textContent = "Go";
+      selectedLangImg.src = "images/go.png";
+    } else if (selectedLangExtension === "lua") {
+      selectedLangName.textContent = "Lua";
+      selectedLangImg.src = "images/lua.png";
+    } else if (selectedLangExtension === "cs") {
+      selectedLangName.textContent = "C#";
+      selectedLangImg.src = "images/csharp.png";
+    } else if (selectedLangExtension === "java") {
+      selectedLangName.textContent = "Java";
+      selectedLangImg.src = "images/java.png";
+    } else if (selectedLangExtension === "kt") {
+      selectedLangName.textContent = "Kotlin";
+      selectedLangImg.src = "images/kotlin.png";
+    } else if (selectedLangExtension === "nim") {
+      selectedLangName.textContent = "Nim";
+      selectedLangImg.src = "images/nim.png";
+    } else if (selectedLangExtension === "ahk") {
+      selectedLangName.textContent = "AutoHotKey";
+      selectedLangImg.src = "images/ahk.png";
+    } else if (selectedLangExtension === "swift") {
+      selectedLangName.textContent = "Swift";
+      selectedLangImg.src = "images/swift.png";
+    } else if (selectedLangExtension === "dart") {
+      selectedLangName.textContent = "Dart";
+      selectedLangImg.src = "images/dart.png";
+    } else if (selectedLangExtension === "ts") {
+      selectedLangName.textContent = "TypeScript";
+      selectedLangImg.src = "images/ts.png";
+    } else if (selectedLangExtension === "groovy") {
+      selectedLangName.textContent = "Groovy";
+      selectedLangImg.src = "images/groovy.png";
+    } else {
+    // If somehow the extension is unknown, default to JavaScript
+    selectedLangName.textContent = "JavaScript";
+    selectedLangImg.src = "images/js.png";
+  }
+};
+
+
+
+
 
 
     // Get the saved value from localStorage; default to 'true' if not set
@@ -1024,12 +1270,12 @@ Loop, 5 {
 
         // Now you have the full instruction string in htvm_instr
         OUTCODE = "";
-        OUTCODE = compiler(fileContents, htvm_instr, "full", "js");
+        OUTCODE = compiler(fileContents, htvm_instr, "full", selectedLangExtension);
 
         resetGlobalVarsOfHTVMjs();
 
         // Replace the extension with '.js'
-        fileName = fileName.replace(/\.[^/.]+$/, ".js");
+        fileName = fileName.replace(/\.[^/.]+$/, "." + selectedLangExtension);
 
         // Call fileMakeOrOverride to save the output
         fileMakeOrOverride(fileName, OUTCODE);
@@ -1040,7 +1286,7 @@ Loop, 5 {
 
 
 
-        if (runJsAfterHTVM) {
+        if (runJsAfterHTVM && selectedLangExtension == "js") {
           const consoleDiv = document.getElementById("console-log");
           consoleDiv.innerHTML = ""; // Clear previous logs
           console.clear();
@@ -1133,7 +1379,7 @@ Loop, 5 {
         outputContainer.insertBefore(iframe, outputContainer.firstChild);
       }
       else {
-        alert("File type not supported for execution.");
+        alert("File type not supported for execution. You can only run .js and .html files.");
       }
     }
     function closeIframe() {

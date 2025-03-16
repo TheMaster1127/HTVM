@@ -15115,7 +15115,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             }
         }
         allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTop, 1);
-        var allLibsToPutAtTopTEMP;
+        var allLibsToPutAtTopTEMP = "";
         items213 = LoopParseFunc(allLibsToPutAtTop, "|")
         for (let A_Index213 = 0; A_Index213 < items213.length + 0; A_Index213++) {
             const A_LoopField213 = items213[A_Index213 - 0];

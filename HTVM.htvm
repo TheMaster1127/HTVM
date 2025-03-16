@@ -20499,7 +20499,7 @@ allLibsToPutAtTop .= allFuncLibs[A_Index] . "|"
 }
 StringTrimRight, allLibsToPutAtTop, allLibsToPutAtTop, 1
 
-str allLibsToPutAtTopTEMP
+str allLibsToPutAtTopTEMP := ""
 Loop, Parse, allLibsToPutAtTop, "|"
 {
 allLibsToPutAtTopTEMP .= A_LoopField . Chr(10)
