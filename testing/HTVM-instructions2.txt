@@ -1015,15 +1015,7 @@ name: STR
 libs: null
 description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
 STR(value) {
-    if (IsInt(value)) {
-        return value
-    } else if (IsFloat(value)) {
-        return value
-    } else if (value = "True" or value = "False") {
-        return (value = "True") ? "1" : "0"
-    } else {
-        return value
-    }
+    return value
 }
 funcEND======================funcEND==============
 
