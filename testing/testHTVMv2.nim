@@ -5,13 +5,12 @@ proc print(value: auto) =  # Use 'auto' instead of 'untyped'
   echo value
 
 proc STR(value: auto): string =
-  case value
-  of int, int64, float, double:
+  when value is int | int64 | float | float64:
     return $value
-  of bool:
+  elif value is bool:
     return if value: "1" else: "0"
-  of cstring:
-    return cast[cstring](value).toSeq().toString()
+  elif value is cstring:
+    return $value
   else:
     return $value
 
@@ -28,7 +27,7 @@ var Movable_Vehicles_Car_hasFUEL: bool = true
 var Movable_Vehicles_Bike_hasGears: bool = true
 var Movable_Vehicles_Bike_energy: int = 100
 var Movable_Vehicles_Bike_hasENERGY: bool = true
-proc OSPHTVMOSP_Movable_Vehicles_move(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "")
+proc OSPHTVMOSP_Movable_Vehicles_move(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "") =
     if (OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD == "Movable.Vehicles.Car"):
         if (Movable_Vehicles_Car_fuel > 0):
             print("The car is driving.")
@@ -51,34 +50,34 @@ var Movable_settings_AudioSettings_musicVolume: int = 50
 var Movable_settings_AudioSettings_sfxVolume: int = 40
 var Movable_settings_DisplaySettings_fullscreen: bool = true
 var Movable_settings_DisplaySettings_aspectRatio: string = "16:9"
-proc OSPHTVMOSP_Movable_actions_resetGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "")
+proc OSPHTVMOSP_Movable_actions_resetGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "") =
     Movable_settings_GeneralSettings_difficulty = STR("normal")
     Movable_settings_GeneralSettings_volume = 50
     Movable_settings_GeneralSettings_resolution = STR("1920x1080")
     print("General settings reset to default.")
-proc OSPHTVMOSP_Movable_actions_printGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "")
+proc OSPHTVMOSP_Movable_actions_printGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "") =
     print("General Settings:")
-    print("Difficulty: " + Movable_settings_GeneralSettings_difficulty)
-    print("Volume: " + STR(Movable_settings_GeneralSettings_volume))
-    print("Resolution: " + Movable_settings_GeneralSettings_resolution)
-proc OSPHTVMOSP_Movable_actions_resetAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "")
+    print("Difficulty: " & Movable_settings_GeneralSettings_difficulty)
+    print("Volume: " & STR(Movable_settings_GeneralSettings_volume))
+    print("Resolution: " & Movable_settings_GeneralSettings_resolution)
+proc OSPHTVMOSP_Movable_actions_resetAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "") =
     Movable_settings_AudioSettings_masterVolume = 70
     Movable_settings_AudioSettings_musicVolume = 50
     Movable_settings_AudioSettings_sfxVolume = 40
     print("Audio settings reset to default.")
-proc OSPHTVMOSP_Movable_actions_printAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "")
+proc OSPHTVMOSP_Movable_actions_printAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "") =
     print("Audio Settings:")
-    print("Master Volume: " + STR(Movable_settings_AudioSettings_masterVolume))
-    print("Music Volume: " + STR(Movable_settings_AudioSettings_musicVolume))
-    print("SFX Volume: " + STR(Movable_settings_AudioSettings_sfxVolume))
-proc OSPHTVMOSP_Movable_actions_resetDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "")
+    print("Master Volume: " & STR(Movable_settings_AudioSettings_masterVolume))
+    print("Music Volume: " & STR(Movable_settings_AudioSettings_musicVolume))
+    print("SFX Volume: " & STR(Movable_settings_AudioSettings_sfxVolume))
+proc OSPHTVMOSP_Movable_actions_resetDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "") =
     Movable_settings_DisplaySettings_fullscreen = true
     Movable_settings_DisplaySettings_aspectRatio = STR("16:9")
     print("Display settings reset to default.")
-proc OSPHTVMOSP_Movable_actions_printDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "")
+proc OSPHTVMOSP_Movable_actions_printDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = "") =
     print("Display Settings:")
-    print("Fullscreen: " + STR(Movable_settings_DisplaySettings_fullscreen))
-    print("Aspect Ratio: " + Movable_settings_DisplaySettings_aspectRatio)
+    print("Fullscreen: " & STR(Movable_settings_DisplaySettings_fullscreen))
+    print("Aspect Ratio: " & Movable_settings_DisplaySettings_aspectRatio)
 var Movable_array_name_prop1: seq[string] = @[]
 var Movable_array_name_prop2: seq[string] = @[]
 var Movable_array_name_prop3: seq[string] = @[]

@@ -999,13 +999,12 @@ name: STR
 libs: null
 description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
 proc STR(value: auto): string =
-  case value
-  of int, int64, float, double:
+  when value is int | int64 | float | float64:
     return $value
-  of bool:
+  elif value is bool:
     return if value: "1" else: "0"
-  of cstring:
-    return cast[cstring](value).toSeq().toString()
+  elif value is cstring:
+    return $value
   else:
     return $value
 funcEND======================funcEND==============

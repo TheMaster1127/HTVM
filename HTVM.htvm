@@ -4679,11 +4679,9 @@ expression := StringTrimLeft(expression, fixExpertionLineFuncOnlyTEXT_numDelete)
 }
 
 ; osp dosent work in:
-;java 
+;java kinda works
 ;groovy 
-;nim
-;ruby 
-;lua 
+;ruby
 
 ; but
 ;go works but kinda need to use:
@@ -11732,7 +11730,7 @@ if (langToConvertTo = "nim")
 {
 if (str3 = keyWordVoid)
 {
-    htCode .= "proc " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " . Chr(34) . Chr(34) . ")" . Chr(10)
+    htCode .= "proc " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " . Chr(34) . Chr(34) . ") =" . Chr(10)
 }
 else
 {

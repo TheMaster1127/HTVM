@@ -175,7 +175,6 @@ double Log(double value) {
 std::string SubStr(const std::string& str, int startPos, int length = -1) {
     std::string result;
     size_t strLen = str.size();
-    
     // Handle negative starting positions (counting from the end)
     if (startPos < 0) {
         startPos = strLen + startPos;
@@ -184,14 +183,12 @@ std::string SubStr(const std::string& str, int startPos, int length = -1) {
     else {
         startPos -= 1; // Convert to 0-based index for internal operations
     }
-    
     // Handle length
     if (length < 0) {
         length = strLen - startPos; // Length to the end of the string
     } else if (startPos + length > static_cast<int>(strLen)) {
         length = strLen - startPos; // Adjust length to fit within the string
     }
-    
     // Extract the substring
     result = str.substr(startPos, length);
     return result;
@@ -335,7 +332,6 @@ std::string Sort(const std::string& input, const std::string& options) {
     // Separate uppercase and lowercase items
     std::vector<std::string> uppercaseItems;
     std::vector<std::string> lowercaseItems;
-    
     for (const auto& item : items) {
         if (std::isupper(item[0])) {
             uppercaseItems.push_back(item);
@@ -4002,6 +3998,14 @@ std::string expressionParserTranspiler(std::string expression) {
         fixExpertionLineFuncOnlyTEXT_numDelete = StrLen(fixExpertionLineFuncOnlyTEXT_func) + 1;
         expression = StringTrimLeft(expression, fixExpertionLineFuncOnlyTEXT_numDelete);
     }
+    // osp dosent work in:
+    //java kinda works
+    //groovy
+    //ruby
+    // but
+    //go works but kinda need to use:
+    //print(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)
+    // the other langs works
     // osp
     if (langToConvertTo != langFileExtension_2) {
         for (int A_Index86 = 0; A_Index86 < HTVM_Size(ospDic1) + 0; A_Index86++) {
@@ -9285,7 +9289,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 }
                 if (langToConvertTo == "nim") {
                     if (str3 == keyWordVoid) {
-                        htCode += "proc " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                        htCode += "proc " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " + Chr(34) + Chr(34) + ") =" + Chr(10);
                     } else {
                         htCode += "proc " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " + Chr(34) + Chr(34) + "): " + getFuncTypeConvert(str3) + " =" + Chr(10);
                     }

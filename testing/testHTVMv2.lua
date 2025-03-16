@@ -67,9 +67,9 @@ end
 function OSPHTVMOSP_Movable_actions_printGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)
 OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD or ""
 print("General Settings:")
-print("Difficulty: " + Movable_settings_GeneralSettings_difficulty)
-print("Volume: " + STR(Movable_settings_GeneralSettings_volume))
-print("Resolution: " + Movable_settings_GeneralSettings_resolution)
+print("Difficulty: " .. Movable_settings_GeneralSettings_difficulty)
+print("Volume: " .. STR(Movable_settings_GeneralSettings_volume))
+print("Resolution: " .. Movable_settings_GeneralSettings_resolution)
 end
 function OSPHTVMOSP_Movable_actions_resetAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)
 OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD or ""
@@ -81,9 +81,9 @@ end
 function OSPHTVMOSP_Movable_actions_printAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)
 OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD or ""
 print("Audio Settings:")
-print("Master Volume: " + STR(Movable_settings_AudioSettings_masterVolume))
-print("Music Volume: " + STR(Movable_settings_AudioSettings_musicVolume))
-print("SFX Volume: " + STR(Movable_settings_AudioSettings_sfxVolume))
+print("Master Volume: " .. STR(Movable_settings_AudioSettings_masterVolume))
+print("Music Volume: " .. STR(Movable_settings_AudioSettings_musicVolume))
+print("SFX Volume: " .. STR(Movable_settings_AudioSettings_sfxVolume))
 end
 function OSPHTVMOSP_Movable_actions_resetDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)
 OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD or ""
@@ -94,8 +94,8 @@ end
 function OSPHTVMOSP_Movable_actions_printDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)
 OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD or ""
 print("Display Settings:")
-print("Fullscreen: " + STR(Movable_settings_DisplaySettings_fullscreen))
-print("Aspect Ratio: " + Movable_settings_DisplaySettings_aspectRatio)
+print("Fullscreen: " .. STR(Movable_settings_DisplaySettings_fullscreen))
+print("Aspect Ratio: " .. Movable_settings_DisplaySettings_aspectRatio)
 end
 Movable_array_name_prop1 = {}
 Movable_array_name_prop2 = {}

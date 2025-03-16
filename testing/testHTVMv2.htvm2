@@ -64,9 +64,9 @@ alliance Movable {
         }
         method void printGeneralSettings() {
             print("General Settings:")
-            print("Difficulty: " + Movable.settings.GeneralSettings.difficulty)
-            print("Volume: " + STR(Movable.settings.GeneralSettings.volume))
-            print("Resolution: " + Movable.settings.GeneralSettings.resolution)
+            print("Difficulty: " . Movable.settings.GeneralSettings.difficulty)
+            print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
+            print("Resolution: " . Movable.settings.GeneralSettings.resolution)
         }
 
         ; Audio Settings Methods
@@ -78,9 +78,9 @@ alliance Movable {
         }
         method void printAudioSettings() {
             print("Audio Settings:")
-            print("Master Volume: " + STR(Movable.settings.AudioSettings.masterVolume))
-            print("Music Volume: " + STR(Movable.settings.AudioSettings.musicVolume))
-            print("SFX Volume: " + STR(Movable.settings.AudioSettings.sfxVolume))
+            print("Master Volume: " . STR(Movable.settings.AudioSettings.masterVolume))
+            print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
+            print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
         }
 
         ; Display Settings Methods
@@ -91,8 +91,8 @@ alliance Movable {
         }
         method void printDisplaySettings() {
             print("Display Settings:")
-            print("Fullscreen: " + STR(Movable.settings.DisplaySettings.fullscreen))
-            print("Aspect Ratio: " + Movable.settings.DisplaySettings.aspectRatio)
+            print("Fullscreen: " . STR(Movable.settings.DisplaySettings.fullscreen))
+            print("Aspect Ratio: " . Movable.settings.DisplaySettings.aspectRatio)
         }
     }
 

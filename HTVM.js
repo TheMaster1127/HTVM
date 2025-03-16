@@ -86,7 +86,6 @@ function Log(value) {
 function SubStr(str, startPos, length = -1) {
     let result = "";
     let strLen = str.length;
-    
     // Handle negative starting positions (counting from the end)
     if (startPos < 0) {
         startPos = strLen + startPos;
@@ -94,14 +93,12 @@ function SubStr(str, startPos, length = -1) {
     } else {
         startPos -= 1; // Convert to 0-based index for internal operations
     }
-    
     // Handle length
     if (length < 0) {
         length = strLen - startPos; // Length to the end of the string
     } else if (startPos + length > strLen) {
         length = strLen - startPos; // Adjust length to fit within the string
     }
-    
     // Extract the substring
     result = str.substr(startPos, length);
     return result;
@@ -3806,6 +3803,15 @@ function expressionParserTranspiler(expression) {
         fixExpertionLineFuncOnlyTEXT_numDelete = StrLen(fixExpertionLineFuncOnlyTEXT_func) + 1;
         expression = StringTrimLeft(expression, fixExpertionLineFuncOnlyTEXT_numDelete);
     }
+    // osp dosent work in:
+    //java
+    //groovy
+    //nim
+    //ruby
+    // but
+    //go works but kinda need to use:
+    //print(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)
+    // the other langs works
     // osp
     if (langToConvertTo != langFileExtension_2) {
         for (let A_Index86 = 0; A_Index86 < HTVM_Size(ospDic1) + 0; A_Index86++) {
@@ -9089,7 +9095,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 }
                 if (langToConvertTo == "nim") {
                     if (str3 == keyWordVoid) {
-                        htCode += "proc " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                        htCode += "proc " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " + Chr(34) + Chr(34) + ") =" + Chr(10);
                     } else {
                         htCode += "proc " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " + Chr(34) + Chr(34) + "): " + getFuncTypeConvert(str3) + " =" + Chr(10);
                     }

@@ -7,7 +7,15 @@ print(value) {
 }
 
 STR(value) {
-    return value
+    if (IsInt(value)) {
+        return value
+    } else if (IsFloat(value)) {
+        return value
+    } else if (value = "True" or value = "False") {
+        return (value = "True") ? "1" : "0"
+    } else {
+        return value
+    }
 }
 
 HTVM_Append(arr, value) {
@@ -65,9 +73,9 @@ OSPHTVMOSP_Movable_actions_resetGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_TH
 }
 OSPHTVMOSP_Movable_actions_printGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD := "") {
     print("General Settings:")
-    print("Difficulty: " + Movable_settings_GeneralSettings_difficulty)
-    print("Volume: " + STR(Movable_settings_GeneralSettings_volume))
-    print("Resolution: " + Movable_settings_GeneralSettings_resolution)
+    print("Difficulty: " . Movable_settings_GeneralSettings_difficulty)
+    print("Volume: " . STR(Movable_settings_GeneralSettings_volume))
+    print("Resolution: " . Movable_settings_GeneralSettings_resolution)
 }
 OSPHTVMOSP_Movable_actions_resetAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD := "") {
     Movable_settings_AudioSettings_masterVolume := 70
@@ -77,9 +85,9 @@ OSPHTVMOSP_Movable_actions_resetAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS
 }
 OSPHTVMOSP_Movable_actions_printAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD := "") {
     print("Audio Settings:")
-    print("Master Volume: " + STR(Movable_settings_AudioSettings_masterVolume))
-    print("Music Volume: " + STR(Movable_settings_AudioSettings_musicVolume))
-    print("SFX Volume: " + STR(Movable_settings_AudioSettings_sfxVolume))
+    print("Master Volume: " . STR(Movable_settings_AudioSettings_masterVolume))
+    print("Music Volume: " . STR(Movable_settings_AudioSettings_musicVolume))
+    print("SFX Volume: " . STR(Movable_settings_AudioSettings_sfxVolume))
 }
 OSPHTVMOSP_Movable_actions_resetDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD := "") {
     Movable_settings_DisplaySettings_fullscreen := true
@@ -88,8 +96,8 @@ OSPHTVMOSP_Movable_actions_resetDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_TH
 }
 OSPHTVMOSP_Movable_actions_printDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD := "") {
     print("Display Settings:")
-    print("Fullscreen: " + STR(Movable_settings_DisplaySettings_fullscreen))
-    print("Aspect Ratio: " + Movable_settings_DisplaySettings_aspectRatio)
+    print("Fullscreen: " . STR(Movable_settings_DisplaySettings_fullscreen))
+    print("Aspect Ratio: " . Movable_settings_DisplaySettings_aspectRatio)
 }
 Movable_array_name_prop1 := []
 Movable_array_name_prop2 := []
@@ -144,4 +152,3 @@ Loop, % HTVM_Size(Movable_array_name_prop3) {
 Loop, % HTVM_Size(Movable_array_name_prop4) {
     print(Movable_array_name_prop4[A_Index])
 }
-
