@@ -450,3 +450,703 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
+
+
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+---
+
+# HTVM  
+
+### HTVM: The Revolution in Programming  
+
+## HTVM: The Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine
+
+HTVM is a powerful engine that converts code to 15 languages, including C++, Python, JavaScript, and more (see langs.txt for the full list). It offers extreme customizability in syntax and code generation, along with a built-in IDE. And introducing groundbreaking features:  
+- **Customizable Syntax**: Define your own syntax without restrictions.  
+- **No More Build-In Libraries**: Forget importing libraries—everything you need is built-in for simplicity and efficiency.  
+- **HTVM IDE**: To enhance your development experience, HTVM comes with a dedicated IDE.
+
+HTVM makes programming simpler, more flexible, and revolutionary.  
+
+---
+
+!!! HTVM IS STILL IN DEVELOPMENT !!!
+
+**What is HTVM?**  
+HTVM is an Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine. It allows users to create their own programming languages. It’s not just about programming in a new language, but about designing your own syntax. This means that whether you're a professional programmer or even someone with basic computer skills, you can tailor the way you write code to fit your preferences. It’s like giving everyone the power to define the grammar rules for their code without having to be stuck with traditional programming language limitations.
+
+BTW, HTVM is bootstrapped to `C++` so it can run locally and to `JavaScript` so it can work in the browser.
+
+Alright, let's make this crystal clear.  
+
+### **What HTVM Is NOT**  
+HTVM is **not** a general-purpose transpiler that lets you convert between existing languages. You **cannot** use HTVM to convert Python to JavaScript, JavaScript to C++, or any other combination like that. If you have a Python script and want to turn it into JavaScript, **HTVM is not what you're looking for.**  
+
+Similarly, you **cannot** take existing code from languages like Python, Java, or C# and convert it to HTVM. That’s simply not how HTVM works. **HTVM is its own thing**—it’s a language that has its own syntax, which can be customized to your liking, and that syntax is what gets converted into other languages.  
+
+However, what **is** possible is converting **HTVM to HTVM**—meaning, you can have different custom syntaxes within HTVM and convert between them. That’s something no other system really does. But again, **HTVM does not translate between standard programming languages—it only translates its own customizable syntax to these languages.**  
+
+---
+
+### **What HTVM Actually Is**  
+HTVM is **a revolutionary, next-level programming system** that lets you define your own syntax and then convert that syntax into **fifteen different programming languages**:  
+
+**C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript, and Groovy.**  
+
+It’s not just a transpiler—it’s an entire **ecosystem** that allows you to **create your own language, structure it however you want, and then generate real-world code in multiple target languages.**  
+
+But here’s where it gets insane: **HTVM is not locked into any one syntax.** You can **completely customize** how your code looks. 
+
+### **Total Syntax Customization – The Ultimate Flexibility**  
+
+HTVM **isn’t just about converting your custom language to multiple targets—it’s about letting you build your language exactly the way you want.** And when I say customizable, I mean **everything** is customizable:  
+
+---
+
+### 🌐 OSP: Objectively Simplified Programming Paradigm  
+HTVM introduces the **Objectively Simplified Programming (OSP)** paradigm, which eliminates the complexities of traditional object-oriented programming while still supporting objects.  
+- OSP focuses on intuitive and powerful object usage.  
+- For more details, check out the **[OSP Documentation](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#osp-objectively-simplified-programming-paradigm)**.
+- Or, build your own HTVM language, and the documentation for it will be generated once you create it here on the [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/). Then, you can read about OSP.
+
+---
+
+### 🛠️ HTVM IDE: Integrated development environment
+To enhance your development experience, HTVM comes with a dedicated **HTVM IDE**, featuring:  
+- Syntax highlighting.  
+- Code completion for efficient programming.  
+- And more see [🛠️ HTVM IDE](#%EF%B8%8F-htvm-ide)
+
+---
+
+### 📚 Documentation
+The documentation for your HTVM language will be generated once you create it here on the [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/).
+
+---
+
+### Table of Contents
+
+1. [📘 Usage](#-usage)  
+   **Description**: Learn how to compile and execute your language code using HTVM and the HTVM IDE.
+
+2. [📂 Adding Built-In Functions](#-adding-built-in-functions)  
+   **Description**: Add custom built-in functions to your language by following simple syntax rules.
+
+3. [🔄 Syntax Highlighting and Code Completion Regeneration](#-syntax-highlighting-and-code-completion-regeneration)  
+   **Description**: Use the **Autocomplete-Syntax-Highlighting-Regenerator** tool to refresh syntax highlighting and code completion.
+
+4. [📜 Documentation Regeneration](#-documentation-regeneration)  
+   **Description**: Update your language’s documentation whenever new features or changes are made.
+
+5. [🛠️ HTVM IDE](#%EF%B8%8F-htvm-ide)  
+   **Description**: Set up and use the HTVM IDE for coding, testing, and compiling your language.
+
+---
+
+### 📘 Usage  
+
+[Go Back To The Table of Contents ](#table-of-contents)
+
+### 1. **Clone the Repository**
+
+First, clone the HTVM repository:
+
+```bash
+git clone https://github.com/TheMaster1127/HTVM
+```
+
+Navigate into the directory:
+
+```bash
+cd HTVM
+```
+
+2. **Adjust Syntax**:  
+   - Use the website: [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/), or  
+   - Edit `HTVM-instructions.txt` directly (NOT RECOMMENDED!).  
+     - Each line corresponds to the same line in `HTVM-instructions-VERY-SIMPLE-DOCS.txt`.  
+
+#### Usage of the HTVM compiler
+```bash
+HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> [optional LangToTranspileTo]
+```  
+
+#### Options  
+- **Required Parameters**:  
+  - `yourCodeFileName.yourExtension`: The source code file.  
+  - `HTVM-instructions.txt`: Instructions file for transpilation.  
+- **Optional**:  
+  - Specify the target language (`cpp`, `py`, `js`, `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, `htvm` or <yourExtension>) directly in the command.  
+
+**Example**:  
+```bash
+HTVM main.htvm HTVM-instructions.txt cpp
+```  
+
+### 3. Compile and Run `HTVM`
+
+1. **Compile `HTVM.cpp`**:  
+   **Recommended Command**:  
+   ```bash
+   g++ HTVM.cpp -o HTVM
+   ```  
+
+
+2. **Run the Transpiler**:  
+   After compiling, you will get a new executable file.  
+
+   **General Usage**:  
+   ```bash
+   HTVM main.htvm HTVM-instructions.txt cpp
+   ```  
+
+   **Linux Users**:  
+   Prepend `./` to the command:  
+   ```bash
+   ./HTVM main.htvm HTVM-instructions.txt cpp
+   ```  
+
+3. **Specify Target Language (Optional)**:  
+   Add `cpp`, `py`, `js`, `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, `htvm` or <yourExtension> at the end of the command to specify the target language.  
+
+   **Examples**:  
+   - Generate C++ code:  
+     ```bash
+     HTVM main.htvm HTVM-instructions.txt cpp
+     ```  
+     For Linux:  
+     ```bash
+     ./HTVM main.htvm HTVM-instructions.txt cpp
+     ```  
+
+   - Generate Python code:  
+     ```bash
+     HTVM main.htvm HTVM-instructions.txt py
+     ```  
+     For Linux:  
+     ```bash
+     ./HTVM main.htvm HTVM-instructions.txt py
+     ```  
+
+   - Generate JavaScript code:  
+     ```bash
+     HTVM main.htvm HTVM-instructions.txt js
+     ```  
+     For Linux:  
+     ```bash
+     ./HHTVM main.htvm HTVM-instructions.txt js
+     ```  
+
+### And so on HTVM can convert to 15 languages `cpp`, `py`, `js`, `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, `htvm` or yourExtension
+
+--- 
+
+### 📂 Adding Built-In Functions  
+
+[Go Back To The Table of Contents ](#table-of-contents)
+
+**Description**: Add custom built-in functions to your language by following simple syntax rules.
+
+1. Open `HTVM-instructions.txt`.  
+2. Copy the last function block and paste it at the bottom.  
+3. Follow these rules:  
+   - **Language Specification**: Use `lang: cpp`, `lang: py`, `lang: js`, `lang: go`, `lang: lua`, `lang: cs`, `lang: java`, `lang: kt`, `lang: rb`, `lang: nim`, `lang: ahk`, `lang: swift`, `lang: dart`, `lang: ts`, or `lang: groovy` to define the language-specific implementation.
+   - **Function Name**: Use `name: functionName`.  
+   - **Libraries**: List required libraries with a `|` delimiter. For example:  
+      - **C++**: `libs: #include <iostream>|#include <cstdlib>`
+      - **JavaScript (not in a full .html file)**: `libs: import { readFileSync } from 'fs';|import { EventEmitter } from 'events';`
+      - **JavaScript (in a full .html file)**: `libs: <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>`
+      - **JavaScript (in a full .html file for more than one)**: `libs: <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>|<script src="myModule.js"></script>`
+      - For other languages, just use the same format. For `Go`, use `libs: )|"theLibName"`. The reason for using `)` is that in HTVM, it doesn't know when the import `()` ends, so we add the `)` as a placeholder. It ensures that the import is correctly handled and will be sorted out at the end. Also, don't worry about including the same lib multiple times, since HTVM will remove duplicates.
+   - **Description**:  
+     - Format:  
+       ```  
+       description: string~~~[One-line description of the function]~~~Here is how the function looks:~~~```~~~[Function signature]~~~```  
+       ```  
+     - Example:  
+       ```  
+       description: string~~~Sort is a function to sort elements based on various criteria like numeric, random, alphabetical order, etc.~~~Here is how the function looks:~~~```~~~Sort(string input, [string options = ""])~~~```  
+       ```
+
+       Note: The ~~~ delimiters in the description section are placeholders that will be replaced with new lines in the final documentation.
+
+**Here is how a build-in function in HTVM-instructions.txt looks like:**
+
+```
+func======================func==============
+lang: cpp
+name: Sleep
+libs: #include <thread>|#include <chrono>
+description: system~~~Sleep is a function that pauses execution for a specified number of milliseconds.~~~here is how the func looks like:~~~```~~~Sleep(int milliseconds)~~~```~~~
+// Function to sleep for a specified number of milliseconds
+void Sleep(int milliseconds) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+}
+funcEND======================funcEND==============
+```
+
+4. **ChatGPT Prompt for Function Descriptions:**  
+   To generate descriptions for functions, use the following ChatGPT prompt to ensure the response follows a specific format:  
+
+   **ChatGPT Prompt:**  
+```
+here is what you will do structly so i wil give you a func like something like this it can be in c++ py or js dosnet matter from what it is it what you must do is give me output in this format:
+
+MAKRE SURE IT SATRST WHIT description: and all in one code block
+
+description: string~~~StrTitleCase is a func balalbla bla bal~~~here is how the func looks like:~~~```~~~StrTitleCase(string, [optanalName], string, [optanal], string, [optanal], [optanal])~~~```~~~
+
+all of the ~~~ and all the same format DONT change it only chamge words
+
+allways start like this description: category_name~~~
+
+the param dosnet have to be the same name juts a simlpe name no _ pls
+
+Use square brackets: When you mention the function or describe the parameters, put optional parameters in square brackets [ ]. This is the most common notation for optional parameters. For example:
+
+functionName(param1, [param2], [param3])
+This means that param2 and param3 are optional.
+Provide a description or note: You can also mention which parameters are optional in a description or a comment, such as:
+
+"The param2 and param3 parameters are optional."
+"The optional parameters are param2 and param3."
+Default values in code: If the function includes default values for parameters, you can also point this out. For example:
+
+functionName(param1, param2 = "default", param3 = 10)
+This means that param2 and param3 have default values and are optional.
+
+YOU MUST SPECIFY THE TYPE AS WELL like this
+
+funcName(int asd, str, waeds, bool, waedsf, arr str, waesdf, bool [awsesrs = false], bool [awsesrs = true])
+
+YOU MUST SPECIFY THE TYPE EVEN IF YOU DONT KNOW TRY TO GUESS HERE IS THE TYPE SYNTAX
+str
+int
+bool
+arr str
+func
+... otherwize made them up
+
+respond in a ```txt all in one line
+
+so the ~~~ = to a new line ok ~~~ is a new line and the first one where we typed string is the category and it must alwas be one word the bets word for thet category like string math gui io files bla...
+THE description BUST BE ONLY IN ONE LINE
+here is func and replay in one line:
+================================================
+
+// Function to sleep for a specified number of milliseconds
+void Sleep(int milliseconds) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+}
+
+```  
+
+Open it in a text editor and make sure the response is in 1 line. Otherwise, if ChatGPT replies in more than one line, tell it:
+
+```txt
+I SAID REPLY IN ONE LINE
+```
+
+**Important**: Do not modify the first 162 lines of `HTVM-instructions.txt`.  
+
+---
+
+### 📜 Documentation Regeneration  
+
+[Go Back To The Table of Contents ](#table-of-contents)
+
+**Description**: Update your language’s documentation whenever new features or changes are made.
+
+Go to the [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/), make your changes to your language, build your language, and you will get the new DOCUMENTATION. Or:
+
+Regenerate `DOCUMENTATION.md` or `DOCUMENTATION.html` using:  
+1. Compile the `DOCUMENTATION_Generator.cpp` file:  
+   ```bash
+   g++ DOCUMENTATION_Generator.cpp -o DOCUMENTATION_Generator
+   ```  
+
+2. Run the executable:  
+   ```bash
+   DOCUMENTATION_Generator.exe HTVM-instructions.txt
+   ```  
+
+   or in linux
+
+   ```bash
+   ./DOCUMENTATION_Generator HTVM-instructions.txt
+   ``` 
+
+---
+
+### 🛠️ HTVM IDE
+
+[Go Back To The Table of Contents ](#table-of-contents)
+
+**Description**: Set up and use the HTVM IDE for coding, testing, and compiling your language.
+
+1. [How to set up the HTVM IDE](#set-up-the-htvm-ide)
+2. [How to use the HTVM IDE and its Keyboard shortcuts](#How-to-use-the-htvm-ide-and-its-keyboard-shortcuts)
+3. [How to use the HTVM IDE Property Files](#htvm-ide-property-files)
+
+---
+
+## **Set Up the HTVM IDE**
+
+[Go Back](#%EF%B8%8F-htvm-ide)
+
+After cloning the repository, go to the `IDE` directory where the files are located:
+
+**Navigate to the HTVM folder**
+
+```bash
+cd HTVM
+```
+
+**Then navigate to the IDE folder**
+
+```bash
+cd IDE
+```
+
+---
+
+### 1. **Ensure Node.js and npm are Installed**
+
+The HTVM IDE requires **Node.js** and **npm** to run.
+
+If either **Node.js** or **npm** is not installed, follow the installation steps below.
+
+#### **Installing Node.js and npm**
+
+- **Windows**: Download the prebuilt installer from the official Node.js website:  
+  [https://nodejs.org/en/download/prebuilt-installer](https://nodejs.org/en/download/prebuilt-installer)
+
+- **Linux**:  
+  1. Open your terminal and update your package index:
+     ```bash
+     sudo apt update
+     ```
+  2. Install Node.js and npm using your package manager:
+     ```bash
+     sudo apt install nodejs npm
+     ```
+
+   > **Note**: Ensure you are using a terminal with `sudo` privileges to install the packages.
+
+---
+
+#### **Check if Node.js is Installed**
+
+To check if **Node.js** is installed, use the following command:
+
+```bash
+node --version
+```
+
+If Node.js is installed, this will display the version number, for example:
+
+```
+v20.11.0
+```
+
+The specific version doesn't matter as long as it's compatible.
+
+#### **Check if npm is Installed**
+
+npm is a package manager that comes with Node.js. To check if **npm** is installed, use the following command:
+
+```bash
+npm --version
+```
+
+If npm is installed, this will display the version number, for example:
+
+```
+10.2.4
+```
+
+Again, the specific version doesn't matter as long as it's compatible.
+
+---
+
+### 2. **Install Project Dependencies**
+
+In the `IDE` directory, install the required dependencies using npm:
+
+```bash
+npm install
+```
+
+This will install all the necessary packages listed in the `package.json` file.
+
+> **Note**: You only need to run `npm install` **once** during the initial setup. After the dependencies are installed, you don't need to run it again unless you pull changes from the repository that update the dependencies.
+
+---
+
+### 3. **Start the HTVM IDE**
+
+Once the dependencies are installed, you can launch the HTVM IDE using:
+
+```bash
+npm start
+```
+
+This will open the Electron application, providing the HTVM IDE interface.
+
+---
+
+#### **Troubleshooting**:
+
+- If you encounter issues with `npm install` or `npm start`, make sure that **Node.js** and **npm** are correctly installed.
+- On **Linux**, if you run into permission errors during installation, prepend `sudo` to the `npm install` or `npm start` commands (e.g., `sudo npm install`).
+
+---
+
+### **How to Use the HTVM IDE and Its Keyboard Shortcuts**
+
+[Go Back](#%EF%B8%8F-htvm-ide)
+
+### **Defined Global Hotkeys**
+1. **Run and Compile:**
+   - **`F5`**: Runs the current file and saves it.
+   - **`Ctrl+F7`**: Compiles the current file and saves it.
+
+2. **File Management:**
+   - **`Ctrl+S`**: Saves the current file.
+   - **`Ctrl+N`**: Creates a new file.
+   - **`Ctrl+O`**: Opens an existing file.
+   - **`Ctrl+W`**: Saves and closes the current tab, updates file tracking, and manages active tabs.
+   - **`Ctrl+Shift+T`**: Reopens the last closed tab and restores it to the active session.
+
+3. **Tab Navigation:**
+   - **`Ctrl+Tab`**: Switches between open tabs, with logic for cycling through tabs and tracking the most recent tab.
+
+4. **Advanced Features:**
+   - **`Ctrl+Shift+Alt+F`**: **Warning!** This command **permanently** formats the current code with no undo option. Use with extreme caution, as there is no way to recover the original formatting once this action is performed.
+   - **`Ctrl+Shift+Alt+V`**: Toggles Vim mode on and off.
+
+5. **Drag-and-Drop Support:**
+   - Allows users to drag files into the IDE to open them as new tabs.
+
+6. **Others:**
+   - Press `Ctrl+Shift+R` to reload the IDE.
+
+---
+
+### **HTVM IDE Keyboard Shortcuts**
+
+The HTVM IDE is built around the [Ace Editor](https://ace.c9.io/), a powerful, web-based code editor that offers many keyboard shortcuts for efficient navigation and editing. Below is a categorized list of the most commonly used keyboard shortcuts within the HTVM IDE.
+
+---
+
+#### **File Management**  
+- **Select All**: `Ctrl-A`  
+- **Go to Line**: `Ctrl-L`  
+- **Replace**: `Ctrl-H`  
+- **Find**: `Ctrl-F`  
+- **Find Next**: `Ctrl-K`  
+- **Find Previous**: `Ctrl-Shift-K`  
+- **Select or Find Next**: `Alt-K`  
+- **Select or Find Previous**: `Alt-Shift-K`  
+- **Find All**: `Ctrl-Alt-K`  
+
+#### **Editing and Navigation**  
+- **Duplicate Selection**: `Ctrl-Shift-D`  
+- **Remove Line**: `Ctrl-D` 
+- **Undo**: `Ctrl-Z`  
+- **Redo**: `Ctrl-Shift-Z` or `Ctrl-Y`  
+- **Indent**: `Tab`  
+- **Outdent**: `Shift-Tab`  
+- **Block Indent**: `Ctrl-]`  
+- **Block Outdent**: `Ctrl-[`  
+
+#### **Cursor and Selection**  
+- **Expand to Matching**: `Ctrl-Shift-M`  
+- **Jump to Matching**: `Ctrl-\` or `Ctrl-P`  
+- **Select to Matching**: `Ctrl-Shift-\` or `Ctrl-Shift-P`  
+- **Add Cursor Above**: `Ctrl-Alt-Up`  
+- **Add Cursor Below**: `Ctrl-Alt-Down`  
+- **Align Cursors**: `Ctrl-Alt-A`  
+
+#### **Line Movement and Manipulation**  
+- **Move Line Up**: `Alt-Up`  
+- **Move Line Down**: `Alt-Down`  
+- **Copy Line Up**: `Alt-Shift-Up`  
+- **Copy Line Down**: `Alt-Shift-Down`  
+- **Sort Lines**: `Ctrl-Alt-S`  
+
+#### **Scrolling and View**  
+- **Scroll Up**: `Ctrl-Up`  
+- **Scroll Down**: `Ctrl-Down`  
+- **Page Up**: `PageUp`  
+- **Page Down**: `PageDown`  
+- **Select Page Up**: `Shift-PageUp`  
+- **Select Page Down**: `Shift-PageDown`  
+
+#### **Macros**  
+- **Toggle Recording**: `Ctrl-Alt-E`  
+- **Replay Macro**: `Ctrl-Shift-E`  
+
+#### **Case Modification**  
+- **To Uppercase**: `Ctrl-U`  
+- **To Lowercase**: `Ctrl-Shift-U`
+
+---
+
+### HTVM IDE Property Files
+
+[Go Back](#%EF%B8%8F-htvm-ide)
+
+HTVM IDE uses property files with the extensions `.htpc` and `.htpr` for compiling and running your code. These files provide the commands needed to execute or compile your code based on the file type (e.g., `.cpp`, `.py`, `.js` or more...). The files are located in the `/property files/` folder in the IDE, and you can create your own property files for different languages.
+
+---
+
+### File Extensions and Corresponding Property Files
+
+For each programming language you use in the **HTVM IDE**, the property files should have matching names with the extension `.htpc` for compile commands and `.htpr` for run commands. For example:
+
+| Language        | File Extension     | HTVM Property File Extensions |
+|-----------------|--------------------|-------------------------------|
+| C++             | .cpp               | `cpp.htpc` (compile), `cpp.htpr` (run)  |
+| Python          | .py                | `py.htpc` (compile), `py.htpr` (run)    |
+| JavaScript      | .js                | `js.htpc` (compile), `js.htpr` (run)    |
+| Go              | .go                | `go.htpc` (compile), `go.htpr` (run)    |
+| Lua             | .lua               | `lua.htpc` (compile), `lua.htpr` (run)  |
+| C#              | .cs                | `cs.htpc` (compile), `cs.htpr` (run)    |
+| Java            | .java              | `java.htpc` (compile), `java.htpr` (run)|
+| Kotlin          | .kt                | `kt.htpc` (compile), `kt.htpr` (run)    |
+| Ruby            | .rb                | `rb.htpc` (compile), `rb.htpr` (run)    |
+| Nim             | .nim               | `nim.htpc` (compile), `nim.htpr` (run)  |
+| AutoHotKey      | .ahk               | `ahk.htpc` (compile), `ahk.htpr` (run)  |
+| Swift           | .swift             | `swift.htpc` (compile), `swift.htpr` (run)|
+| Dart            | .dart              | `dart.htpc` (compile), `dart.htpr` (run)|
+| TypeScript      | .ts                | `ts.htpc` (compile), `ts.htpr` (run)    |
+| Groovy          | .groovy            | `groovy.htpc` (compile), `groovy.htpr` (run)|
+
+Or any other file extention
+
+In other words, the file extension of the code corresponds to the name of the property file.
+
+---
+
+- **.htpc**: Property file for compiling when pressing `Ctrl+F7`
+- **.htpr**: Property file for running your code when pressing `F5`
+
+Here's how the syntax works in these property files:
+
+- **Placeholders**:
+  - `%FILENAME%`: Full file path of the file being processed
+  - `%ONLYFILENAME%`: The filename without its extension
+  - `%DIRFULLPATH%`: The full directory path of the file
+
+- **Commands**:
+  - `~~~`: A placeholder for space, used to replace any `~~~` occurrences in the commands
+
+#### Example Property File (`htvm.htpr`)
+
+The following example shows how to set up a property file to run code in C++, Python, and JavaScript. In this example, the lines for Python and JavaScript are commented out, but they can be enabled by removing the semicolon (`;`).
+
+```plaintext
+; for cpp
+
+"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-instructions.txt" "cpp"
+g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
+cd "%DIRFULLPATH%" && "%ONLYFILENAME%.exe"
+
+; for py
+
+;"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-instructions.txt" "py"
+;cd "%DIRFULLPATH%" && node "%ONLYFILENAME%.js"
+
+; for js
+
+;"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-instructions.txt" "js"
+;cd "%DIRFULLPATH%" && node "%ONLYFILENAME%.js"
+```
+
+#### Breakdown of the Code:
+
+1. **For C++**:
+   - The `g++` command compiles the file into an executable.
+   - The output executable is then run from the directory using `%DIRFULLPATH%`.
+
+2. **For Python**:
+   - This section is commented out, but it would run the Python script using the `python` command.
+
+3. **For JavaScript**:
+   - This section is also commented out, but it would run a JavaScript file.
+
+#### How to Use the Property File:
+
+1. **To Compile** (Ctrl+F7):
+   - Press `Ctrl+F7` to compile your code based on the `.htpc` property file.
+   - Ensure the correct commands are in place for your desired language.
+
+2. **To Run** (F5):
+   - Press `F5` to run your code based on the `.htpr` property file.
+   - Make sure the relevant sections for your language are uncommented to run the commands properly.
+
+#### Example Workflow:
+
+1. **Compile C++**:
+   - In the property file, uncomment the C++ section by removing the `;`.
+   - Press `Ctrl+F7` to compile the C++ code.
+
+2. **Run Python**:
+   - Uncomment the Python section in the `.htpr` property file.
+   - Press `F5` to run the Python script.
