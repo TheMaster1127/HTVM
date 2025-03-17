@@ -116,9 +116,7 @@ When you're done, come back to the configuration site and click **Build** to gen
 
 ### Local Usage
 
-To use your language offline, follow **See How to Use Locally** below.
-
-[📘 Usage](#-usage)
+To use your language offline, click [📘 Usage](#-usage).
 
 ---
 
