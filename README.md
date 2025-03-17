@@ -912,7 +912,7 @@ HTVM allows you to **customize various function-related keywords** to suit your 
   
 - **Global Variables**: The `global` keyword is supported in **Python** and **AutoHotKey**, but it will be ignored in other languages like **JavaScript** or **C++**. Ensure you understand how this will behave across different languages.
 
-- **Async Functions in JavaScript/TypeScript**: By default, functions are asynchronous. This is especially useful for **JavaScript** and **TypeScript** but can be customized to suit your project’s needs.
+- **Async Functions in JavaScript/TypeScript**: This is especially useful for **JavaScript** and **TypeScript** but can be customized to suit your project’s needs.
 
 ---
 
