@@ -82,6 +82,46 @@ The documentation for your HTVM language will be generated once you create it he
 
 ---
 
+## Using HTVM Online
+
+When you visit the [HTVM Configuration Website](https://themaster1127.github.io/HTVM/web-ui/), part of the main [HTVM website](https://themaster1127.github.io/HTVM/), you'll be welcomed by a powerful and customizable interface for creating your own programming language.
+
+### Step 1: Create Your Language
+
+Start by clicking **Create** to generate your language. Without this step, the interface will remain empty.
+
+### Step 2: Customize Your Language
+
+You'll find **many input boxes** and **toggle switches** to fully control your language's syntax and behavior.  
+
+- Use **Preview** to instantly visualize how your language looks with **syntax highlighting**.
+
+### Step 3: IDE Environment
+
+Once you've customized your language, click the **IDE** button to enter a fully-featured environment that provides:  
+- **File system support** for managing files and projects.  
+- **Automatic Syntax Highlighting** based on your custom language.  
+- **Autocomplete** for a faster coding experience.  
+- **Run Code** to execute your code directly in JavaScript, just like writing inside an HTML file and seeing the output in the console.  
+
+You can also **convert your code to any of the 15 supported programming languages**, but only JavaScript can be executed directly on the website. For other languages, you need to copy the output and run it locally.
+
+### Step 4: Build Your Language
+
+When you're done, come back to the configuration site and click **Build** to generate a **zip folder** containing:  
+- An **HTML file** with custom syntax highlighting and example code in your language.  
+- A **Markdown file** without syntax highlighting for environments without browser access.  
+- A **HTVM-instructions.txt** file that contains detailed instructions on how to use your language both locally and in the browser.  
+- And potentially some additional files.
+
+### Local Usage
+
+To use your language offline, follow **See How to Use Locally** below.
+
+[📘 Usage](#-usage)
+
+---
+
 ### Table of Contents
 
 1. [📘 Usage](#-usage)  
