@@ -1,4 +1,14 @@
-# HTVM  
+# HTVM
+
+# 🚧 **HTVM Is Still Under Development** 🚧
+
+#### Please be aware that this README file provides information about HTVM, but not everything may be fully functional yet. Some links might not work, and some features are still in development. While this file outlines what HTVM aims to offer, it's not entirely accurate at the moment, so we recommend coming back later for a fully polished experience.
+
+#### We expect most features to be operational by the end of April 2025, and everything should be completed by the end of May 2025.
+
+# 🚧 **HTVM Is Still Under Development** 🚧
+
+---
 
 ### HTVM: The Revolution in Programming  
 
@@ -12,8 +22,6 @@ HTVM is a powerful engine that converts code to 15 languages, including C++, Pyt
 HTVM makes programming simpler, more flexible, and revolutionary.  
 
 ---
-
-!!! HTVM IS STILL IN DEVELOPMENT !!!
 
 **What is HTVM?**  
 HTVM is an Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine. It allows users to create their own programming languages. It’s not just about programming in a new language, but about designing your own syntax. This means that whether you're a professional programmer or even someone with basic computer skills, you can tailor the way you write code to fit your preferences. It’s like giving everyone the power to define the grammar rules for their code without having to be stuck with traditional programming language limitations.
@@ -68,7 +76,7 @@ The documentation for your HTVM language will be generated once you create it he
 ---
 
 ### 🔄 HTVM to HTVM Converter
-**Description**: Since HTVM allows you to convert between different HTVM syntaxes, you can easily convert code written in one HTVM language to another. By obtaining the `htvm-instruction.txt` file from your own language or someone else's, you can take their code and convert it into your language, or vice versa. This flexibility makes it easy to work with multiple HTVM languages and customize your programming experience to your needs.
+**Description**: Since HTVM allows you to convert between different HTVM syntaxes, you can easily convert code written in one HTVM language to another. By obtaining the `HTVM-instructions.txt` file from your own language or someone else's, you can take their code and convert it into your language, or vice versa. This flexibility makes it easy to work with multiple HTVM languages and customize your programming experience to your needs.
 
 [Visit the HTVM Converter Site](https://www.example.com/)
 
