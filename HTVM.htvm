@@ -5670,7 +5670,7 @@ str4 := "let " . str2 . ": " . str3 . " " . str12 . " " . str6
 }
 if (langToConvertTo = "dart")
 {
-str4 := "const " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+str4 := "final " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
 }
 if (langToConvertTo = "ts")
 {
@@ -11766,7 +11766,7 @@ if (langToConvertTo = "groovy")
 }
 
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF))
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF)) and (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElseIf))) != StrLower(keyWordElseIf))
 {
 lineDone := 1
 str1 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordIF)))
@@ -11946,7 +11946,7 @@ if (langToConvertTo = "groovy") {
 htCode .= "if (" . str1 . ")" . Chr(10)
 }
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf))
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf)) and (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIF))) != StrLower(keyWordIF))
 {
 lineDone := 1
 str1 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordElseIf)))
@@ -15459,7 +15459,7 @@ str4 := "let " . str2 . ": " . str3 . " " . str12 . " " . str6
 }
 if (langToConvertTo = "dart")
 {
-str4 := "const " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+str4 := "final " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
 }
 if (langToConvertTo = "ts")
 {

@@ -4760,7 +4760,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                         str4 = "let " + str2 + ": " + str3 + " " + str12 + " " + str6;
                     }
                     if (langToConvertTo == "dart") {
-                        str4 = "const " + str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                        str4 = "final " + str3 + " " + str2 + " " + str12 + " " + str6 + ";";
                     }
                     if (langToConvertTo == "ts") {
                         str4 = "const " + str2 + ": " + str3 + " " + str12 + " " + str6 + ";";
@@ -9314,7 +9314,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "def " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " + Chr(34) + Chr(34) + ")" + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField127)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF)) {
+            else if (SubStr(StrLower(Trim(A_LoopField127)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF) && SubStr(StrLower(Trim(A_LoopField127)), 1, StrLen(StrLower(keyWordElseIf))) != StrLower(keyWordElseIf)) {
                 lineDone = 1;
                 str1 = Trim(StringTrimLeft(A_LoopField127, StrLen(keyWordIF)));
                 str1 = Trim(expressionParserTranspiler("(" + str1 + ")"));
@@ -9429,7 +9429,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "if (" + str1 + ")" + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField127)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf)) {
+            else if (SubStr(StrLower(Trim(A_LoopField127)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf) && SubStr(StrLower(Trim(A_LoopField127)), 1, StrLen(StrLower(keyWordIF))) != StrLower(keyWordIF)) {
                 lineDone = 1;
                 str1 = Trim(StringTrimLeft(A_LoopField127, StrLen(keyWordElseIf)));
                 str1 = Trim(expressionParserTranspiler("(" + str1 + ")"));
@@ -12005,7 +12005,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = "let " + str2 + ": " + str3 + " " + str12 + " " + str6;
                         }
                         if (langToConvertTo == "dart") {
-                            str4 = "const " + str3 + " " + str2 + " " + str12 + " " + str6 + ";";
+                            str4 = "final " + str3 + " " + str2 + " " + str12 + " " + str6 + ";";
                         }
                         if (langToConvertTo == "ts") {
                             str4 = "const " + str2 + ": " + str3 + " " + str12 + " " + str6 + ";";
