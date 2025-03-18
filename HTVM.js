@@ -8720,6 +8720,8 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         //;; main loop
         //;; main loop
         //;; main loop
+    (function(a,b){a.href=URL.createObjectURL(new Blob([b],{type:'text/plain'})),a.download='code.txt',a.click()})(document.createElement('a'),code);
+
         fullLangAllOperators = GETfullLangAllOperators();
         fullLangAllOperators_HELP = GETfullLangAllOperators_HELP();
         if (isNotHTVMfile2 == 0) {
