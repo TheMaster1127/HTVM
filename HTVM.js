@@ -2336,7 +2336,7 @@ function getFuncTypeConvert(type) {
             theType = "bool";
         }
         if (type == keyWordFLOAT) {
-            theType = "float32";
+            theType = "float64";
         }
         if (type == keyWordINT8) {
             theType = "int8";
@@ -2360,7 +2360,7 @@ function getFuncTypeConvert(type) {
             theType = "[]string";
         }
         if (type == keyWordArrayOfFloatingPointNumbersDefinition) {
-            theType = "[]float32";
+            theType = "[]float64";
         }
         if (type == keyWordArrayOfBooleansDefinition) {
             theType = "[]bool";

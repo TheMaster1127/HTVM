@@ -2757,7 +2757,7 @@ if (type = keyWordBOOL)
 }
 if (type = keyWordFLOAT)
 {
-    theType := "float32"
+    theType := "float64"
 }
 if (type = keyWordINT8)
 {
@@ -2789,7 +2789,7 @@ if (type = keyWordArrayOfStringsDefinition)
 }
 if (type = keyWordArrayOfFloatingPointNumbersDefinition)
 {
-    theType := "[]float32"
+    theType := "[]float64"
 }
 if (type = keyWordArrayOfBooleansDefinition)
 {
