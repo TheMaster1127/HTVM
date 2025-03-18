@@ -8921,7 +8921,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             std::vector<std::string> items125 = LoopParseFunc(code, "\n", "\r");
             for (size_t A_Index125 = 0; A_Index125 < items125.size() + 0; A_Index125++) {
                 std::string A_LoopField125 = items125[A_Index125 - 0];
-                if (StrLower(A_LoopField125) == StrLower(keyWordMainLabel)) {
+                if (StrLower(Trim(A_LoopField125)) == StrLower(keyWordMainLabel)) {
                     didWeUseMainLabel = 1;
                     if (langToConvertTo == langFileExtension_2) {
                         codeOutFixAndAddMainFunc += keyWordMainLabel_2 + Chr(10);

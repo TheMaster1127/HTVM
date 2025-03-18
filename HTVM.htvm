@@ -11262,7 +11262,7 @@ if (isNotHTVMfile2 = 0)
 Loop, Parse, code, `n, `r
 {
 
-if (StrLower(A_LoopField) = StrLower(keyWordMainLabel))
+if (StrLower(Trim(A_LoopField)) = StrLower(keyWordMainLabel))
 {
 didWeUseMainLabel := 1
 if (langToConvertTo = langFileExtension_2) 
@@ -11945,8 +11945,8 @@ htCode .= "if (" . str1 . ")" . Chr(10)
 if (langToConvertTo = "groovy") {
 htCode .= "if (" . str1 . ")" . Chr(10)
 }
-}
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf)) and (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIF))) != StrLower(keyWordIF))
+} 
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf)) and (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIF))) != StrLower(keyWordIF)) 
 {
 lineDone := 1
 str1 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordElseIf)))
@@ -11956,7 +11956,7 @@ str1 := Trim(expressionParserTranspiler("(" . str1 . ")"))
 StringTrimRight, str1, str1, 1
 StringTrimLeft, str1, str1, 1
 
-if (langToConvertTo = langFileExtension_2) 
+if (langToConvertTo = langFileExtension_2)  
 {
 if (usePythonicColonSyntax_2 = "on")
 {
