@@ -9032,7 +9032,19 @@ return htCodeOUTOUT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+func arr str slidingWinFixCommentsRmFUNC(str line)
+{
+arr str slidingWinFixCommentsRmFFFF
+Loop, Parse, line
+{
+slidingWinFixCommentsRmFFFF.add(A_LoopField)
+}
+Loop, % StrLen(keyWordComment . keyWordComment) + 2
+{
+slidingWinFixCommentsRmFFFF.add(" ")
+}
+return slidingWinFixCommentsRmFFFF
+}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -10720,7 +10732,9 @@ int areWEinSome34sNum := 0
 int theIdNumOfThe34 := 0
 
 
-
+arr str slidingWinFixCommentsRm
+str slidingWinFixCommentsRmHold := ""
+int slidingWinFixCommentsRmI := 0
 
 arr str theIdNumOfThe34theVar
 
@@ -10923,24 +10937,58 @@ theIdNumOfThe34theVar.add(Chr(34))
 
 code := StrReplace(code, Chr(13), "")
 
+slidingWinFixCommentsRmI := 0
 newStringOutCode := ""
 Loop, Parse, code, `n, `r
 {
-    originalStringForRemoveCommentsOnTheEndOfTheLine := A_LoopField
-    posForRemoveCommentsOnTheEndOfTheLine := InStr(originalStringForRemoveCommentsOnTheEndOfTheLine, " " . keyWordComment)
+if (InStr(A_LoopField, " " . keyWordComment) != false)
+{
 
-    if (posForRemoveCommentsOnTheEndOfTheLine > 0) and (InStr(originalStringForRemoveCommentsOnTheEndOfTheLine, " " . keyWordComment))
+
+posForRemoveCommentsOnTheEndOfTheLine := 0
+slidingWinFixCommentsRmI := 0
+
+slidingWinFixCommentsRm := slidingWinFixCommentsRmFUNC(A_LoopField)
+
+Loop, % slidingWinFixCommentsRm.size()
+{
+slidingWinFixCommentsRmI := A_Index
+slidingWinFixCommentsRmHold := ""
+Loop, % StrLen(" " . keyWordComment)
+{
+slidingWinFixCommentsRmHold .= slidingWinFixCommentsRm[slidingWinFixCommentsRmI + A_Index]
+}
+
+if (Trim(slidingWinFixCommentsRmHold) = keyWordComment)
+{
+posForRemoveCommentsOnTheEndOfTheLine := A_Index
+break
+}
+
+}
+
+    if (posForRemoveCommentsOnTheEndOfTheLine > 0)
     {
         ; Keep only the part before the comment
-        newStringOutCode .= SubStr(A_LoopField, 1, posForRemoveCommentsOnTheEndOfTheLine - 1) . Chr(10)
+        newStringOutCode .= SubStr(A_LoopField, 1, posForRemoveCommentsOnTheEndOfTheLine) . Chr(10)
     }
     else
     {
+        ; Keep the whole line as it is
         newStringOutCode .= A_LoopField . Chr(10)
     }
+    
+}
+else
+{
+newStringOutCode .= A_LoopField . Chr(10)
+}
+    
 }
 
+; Trim the last character (line break) from the final string
 StringTrimRight, code, newStringOutCode, 1
+
 
 
 
@@ -14667,7 +14715,29 @@ str13 .= "{" . Chr(10)
 
 Loop, Parse, str12, `,
 {
-str13 .= Trim(A_LoopField) . ";" . Chr(10)
+str19 := Trim(A_LoopField)
+str20 := "" 
+
+Loop, Parse, str19, " "
+{
+if (A_Index = 3)
+{
+if (RegExMatch(A_LoopField, "^\d+(\.\d+)?$"))
+{
+str20 .= A_LoopField . "f "
+}
+else
+{
+str20 .= A_LoopField . " "
+}
+}
+else
+{
+str20 .= A_LoopField . " "
+}
+}
+StringTrimRight, str20, str20, 1
+str13 .= Trim(str20) . ";" . Chr(10)
 }
 
 
@@ -14783,7 +14853,29 @@ str13 .= "{" . Chr(10)
 
 Loop, Parse, str11, `,
 {
-str13 .= Trim(A_LoopField) . ";" . Chr(10)
+str19 := Trim(A_LoopField)
+str20 := "" 
+
+Loop, Parse, str19, " "
+{
+if (A_Index = 3)
+{
+if (RegExMatch(A_LoopField, "^\d+(\.\d+)?$"))
+{
+str20 .= A_LoopField . "f "
+}
+else
+{
+str20 .= A_LoopField . " "
+}
+}
+else
+{
+str20 .= A_LoopField . " "
+}
+}
+StringTrimRight, str20, str20, 1
+str13 .= Trim(str20) . ";" . Chr(10)
 }
 
 
@@ -20510,12 +20602,12 @@ includeLibsInCppIf := 1
 
 if (langToConvertTo = "cpp")
 {
-allLibsToPutAtTop := "#include <iostream>`n#include <sstream>`n#include <string>`n#include <cstdint>`n#include <algorithm>`n#include <vector>`n#include <any>`n#include <optional>`n" . allLibsToPutAtTop
+allLibsToPutAtTop := "#include <iostream>" . Chr(10) . "#include <sstream>" . Chr(10) . "#include <string>" . Chr(10) . "#include <cstdint>" . Chr(10) . "#include <algorithm>" . Chr(10) . "#include <vector>" . Chr(10) . "#include <any>" . Chr(10) . "#include <optional>" . Chr(10) . allLibsToPutAtTop
 }
 
 if (langToConvertTo = "cs")
 {
-allLibsToPutAtTop := "using System;`nusing System.Collections.Generic;`n" . allLibsToPutAtTop
+allLibsToPutAtTop := "using System;" . Chr(10) . "using System.Collections.Generic;" . Chr(10) . allLibsToPutAtTop
 }
 
 Sort, allLibsToPutAtTop, U
@@ -20667,7 +20759,7 @@ htCode := StrReplace(htCode, "std::string(" . Chr(34) . Chr(34) . ";),", "std::s
 
 
 
-str jsHTMLupCode := "<!doctype html>" . Chr(10) . "<html lang=" . Chr(34) . "en" . Chr(34) . ">" . Chr(10) . "    <head>`n        <meta charset=" . Chr(34) . "UTF-8" . Chr(34) . " />" . Chr(10) . "        <meta name=" . Chr(34) . "viewport" . Chr(34) . " content=" . Chr(34) . "width=device-width, initial-scale=1.0" . Chr(34) . " />" . Chr(10) . "        <title>HTVM</title>" . Chr(10) . "        <style>" . Chr(10) . "            body {" . Chr(10) . "                background-color: #202020;" . Chr(10) . "                font-family:" . Chr(10) . "                    " . Chr(34) . "Open Sans" . Chr(34) . "," . Chr(10) . "                    -apple-system," . Chr(10) . "                    BlinkMacSystemFont," . Chr(10) . "                    " . Chr(34) . "Segoe UI" . Chr(34) . "," . Chr(10) . "                    Roboto," . Chr(10) . "                    Oxygen-Sans," . Chr(10) . "                    Ubuntu," . Chr(10) . "                    Cantarell," . Chr(10) . "                    " . Chr(34) . "Helvetica Neue" . Chr(34) . "," . Chr(10) . "                    Helvetica," . Chr(10) . "                    Arial," . Chr(10) . "                    sans-serif;" . Chr(10) . "            }" . Chr(10) . "        </style>" . Chr(10) . allLibsToPutAtTop . Chr(10) . "</head>" . Chr(10) . "    <body>`n<script>"
+str jsHTMLupCode := "<!doctype html>" . Chr(10) . "<html lang=" . Chr(34) . "en" . Chr(34) . ">" . Chr(10) . "    <head>`n        <meta charset=" . Chr(34) . "UTF-8" . Chr(34) . " />" . Chr(10) . "        <meta name=" . Chr(34) . "viewport" . Chr(34) . " content=" . Chr(34) . "width=device-width, initial-scale=1.0" . Chr(34) . " />" . Chr(10) . "        <title>HTVM</title>" . Chr(10) . "        <style>" . Chr(10) . "            body {" . Chr(10) . "                background-color: #202020;" . Chr(10) . "                font-family:" . Chr(10) . "                    " . Chr(34) . "Open Sans" . Chr(34) . "," . Chr(10) . "                    -apple-system," . Chr(10) . "                    BlinkMacSystemFont," . Chr(10) . "                    " . Chr(34) . "Segoe UI" . Chr(34) . "," . Chr(10) . "                    Roboto," . Chr(10) . "                    Oxygen-Sans," . Chr(10) . "                    Ubuntu," . Chr(10) . "                    Cantarell," . Chr(10) . "                    " . Chr(34) . "Helvetica Neue" . Chr(34) . "," . Chr(10) . "                    Helvetica," . Chr(10) . "                    Arial," . Chr(10) . "                    sans-serif;" . Chr(10) . "            }" . Chr(10) . "        </style>" . Chr(10) . allLibsToPutAtTop . Chr(10) . "</head>" . Chr(10) . "    <body>" . Chr(10) . "<script>"
 
 
 if (isNotHTVMfile2 = 0)
