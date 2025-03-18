@@ -5719,7 +5719,7 @@ function propHELP(line, lineOspHelpLine) {
                     str4 = "var " + str2 + ": " + str3 + ";";
                 }
                 if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2;
+                    str4 = str2 + " = null";
                 }
                 //;;;
             }
@@ -6100,7 +6100,7 @@ function propHELP(line, lineOspHelpLine) {
                     str4 = "let " + str2 + ": " + str3 + ";";
                 }
                 if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2;
+                    str4 = str2 + " = null";
                 }
                 //;;;
             }
@@ -6476,7 +6476,7 @@ function propHELP(line, lineOspHelpLine) {
                     }
                 }
                 if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2;
+                    str4 = str2 + " = null";
                 }
                 //;;;
             }
@@ -6855,7 +6855,7 @@ function propHELP(line, lineOspHelpLine) {
                     }
                 }
                 if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2;
+                    str4 = str2 + " = null";
                 }
                 //;;;
             }
@@ -13045,7 +13045,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         str4 = "var " + str2 + ": " + str3 + ";";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2;
+                        str4 = str2 + " = null";
                     }
                     //;;;
                 }
@@ -13426,7 +13426,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         str4 = "let " + str2 + ": " + str3 + ";";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2;
+                        str4 = str2 + " = null";
                     }
                     //;;;
                 }
@@ -13802,7 +13802,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2;
+                        str4 = str2 + " = null";
                     }
                     //;;;
                 }
@@ -14181,7 +14181,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2;
+                        str4 = str2 + " = null";
                     }
                     //;;;
                 }

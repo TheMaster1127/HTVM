@@ -5914,7 +5914,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                     str4 = "var " + str2 + ": " + str3 + ";";
                 }
                 if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2;
+                    str4 = str2 + " = null";
                 }
                 //;;;
             }
@@ -6295,7 +6295,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                     str4 = "let " + str2 + ": " + str3 + ";";
                 }
                 if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2;
+                    str4 = str2 + " = null";
                 }
                 //;;;
             }
@@ -6671,7 +6671,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                     }
                 }
                 if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2;
+                    str4 = str2 + " = null";
                 }
                 //;;;
             }
@@ -7050,7 +7050,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                     }
                 }
                 if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2;
+                    str4 = str2 + " = null";
                 }
                 //;;;
             }
@@ -13240,7 +13240,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         str4 = "var " + str2 + ": " + str3 + ";";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2;
+                        str4 = str2 + " = null";
                     }
                     //;;;
                 }
@@ -13621,7 +13621,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         str4 = "let " + str2 + ": " + str3 + ";";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2;
+                        str4 = str2 + " = null";
                     }
                     //;;;
                 }
@@ -13997,7 +13997,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         }
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2;
+                        str4 = str2 + " = null";
                     }
                     //;;;
                 }
@@ -14376,7 +14376,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         }
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2;
+                        str4 = str2 + " = null";
                     }
                     //;;;
                 }

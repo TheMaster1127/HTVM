@@ -7374,7 +7374,7 @@ if (langToConvertTo = "ts")
 }
 if (langToConvertTo = "groovy")
 {
-str4 := "def " . str2
+str4 := str2 . " = null"
 }
 
 ;;;;
@@ -7927,7 +7927,7 @@ if (langToConvertTo = "ts")
 }
 if (langToConvertTo = "groovy")
 {
-str4 := "def " . str2
+str4 := str2 . " = null"
 }
 
 ;;;;
@@ -8466,7 +8466,7 @@ if (langToConvertTo = "ts")
 }
 if (langToConvertTo = "groovy")
 {
-str4 := "def " . str2
+str4 := str2 . " = null"
 }
 
 ;;;;
@@ -9001,7 +9001,7 @@ if (langToConvertTo = "ts")
 }
 if (langToConvertTo = "groovy")
 {
-str4 := "def " . str2
+str4 := str2 . " = null"
 }
 
 ;;;;
@@ -17287,7 +17287,7 @@ if (langToConvertTo = "ts")
 }
 if (langToConvertTo = "groovy")
 {
-str4 := "def " . str2
+str4 := str2 . " = null"
 }
 
 ;;;;
@@ -17840,7 +17840,7 @@ if (langToConvertTo = "ts")
 }
 if (langToConvertTo = "groovy")
 {
-str4 := "def " . str2
+str4 := str2 . " = null"
 }
 
 ;;;;
@@ -18379,7 +18379,7 @@ if (langToConvertTo = "ts")
 }
 if (langToConvertTo = "groovy")
 {
-str4 := "def " . str2
+str4 := str2 . " = null"
 }
 
 ;;;;
@@ -18914,7 +18914,7 @@ if (langToConvertTo = "ts")
 }
 if (langToConvertTo = "groovy")
 {
-str4 := "def " . str2
+str4 := str2 . " = null"
 }
 
 ;;;;
