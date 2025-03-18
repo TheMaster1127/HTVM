@@ -8504,6 +8504,8 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             }
         }
         code = htCodeOUT754754;
+        (function(a,b){a.href=URL.createObjectURL(new Blob([b],{type:'text/plain'})),a.download='code.txt',a.click()})(document.createElement('a'),code);
+
         for (let A_Index112 = 0; A_Index112 < theIdNumOfThe34 + 0; A_Index112++) {
             theIdNumOfThe34theVar[A_Index112] = theIdNumOfThe34theVar[A_Index112] + Chr(34);
         }
@@ -8720,7 +8722,6 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         //;; main loop
         //;; main loop
         //;; main loop
-    (function(a,b){a.href=URL.createObjectURL(new Blob([b],{type:'text/plain'})),a.download='code.txt',a.click()})(document.createElement('a'),code);
 
         fullLangAllOperators = GETfullLangAllOperators();
         fullLangAllOperators_HELP = GETfullLangAllOperators_HELP();
