@@ -3727,7 +3727,7 @@ std::vector<std::string> GETfullLangAllOperators() {
         HTVM_Append(fullLangAllOperators, "-");
         HTVM_Append(fullLangAllOperators, "*");
         HTVM_Append(fullLangAllOperators, "/");
-        HTVM_Append(fullLangAllOperators, "%");
+        HTVM_Append(fullLangAllOperators, "mod");
         HTVM_Append(fullLangAllOperators, "^");
         HTVM_Append(fullLangAllOperators, "==");
         HTVM_Append(fullLangAllOperators, "==");
@@ -4694,7 +4694,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                         str4 = "let " + str2 + ": " + str3 + " = [" + str6 + "];";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " = [" + str6 + "]";
+                        str4 = str2 + " = [" + str6 + "]";
                     }
                 } else {
                     //;;;
@@ -4878,7 +4878,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                         str4 = "let " + str2 + ": " + str3 + " = [" + str6 + "];";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " = [" + str6 + "]";
+                        str4 = str2 + " = [" + str6 + "]";
                     }
                 } else {
                     //;;;
@@ -4954,7 +4954,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                         str4 = "var " + str2 + ": " + str3 + " " + str12 + " " + str6 + ";";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " " + str12 + " " + str6;
+                        str4 = str2 + " " + str12 + " " + str6;
                     }
                     //;;;
                 }
@@ -5068,7 +5068,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                         str4 = "let " + str2 + ": " + str3 + " = [" + str6 + "];";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " = [" + str6 + "]";
+                        str4 = str2 + " = [" + str6 + "]";
                     }
                 } else {
                     //;;;
@@ -5144,7 +5144,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                         str4 = "let " + str2 + ": " + str3 + " " + str12 + " " + str6 + ";";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " " + str12 + " " + str6;
+                        str4 = str2 + " " + str12 + " " + str6;
                     }
                     //;;;
                 }
@@ -5246,7 +5246,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                         str4 = "let " + str2 + ": " + str3 + " = [" + str6 + "];";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " = [" + str6 + "]";
+                        str4 = str2 + " = [" + str6 + "]";
                     }
                 } else {
                     //;;;
@@ -5330,7 +5330,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                         }
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " " + str12 + " " + str6;
+                        str4 = str2 + " " + str12 + " " + str6;
                     }
                     //;;;
                 }
@@ -5427,7 +5427,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                         str4 = "let " + str2 + ": " + str3 + " = [" + str6 + "];";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " = [" + str6 + "]";
+                        str4 = str2 + " = [" + str6 + "]";
                     }
                 } else {
                     //;;;
@@ -5511,7 +5511,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                         }
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " " + str12 + " " + str6 + ";";
+                        str4 = str2 + " " + str12 + " " + str6 + ";";
                     }
                     //;;;
                 }
@@ -5638,7 +5638,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                     str4 = "let " + str2 + ": " + str3 + " = [];";
                 }
                 if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2 + " = []";
+                    str4 = str2 + " = []";
                 }
             } else {
                 //;;;
@@ -6019,7 +6019,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                     str4 = "let " + str2 + ": " + str3 + " = [];";
                 }
                 if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2 + " = []";
+                    str4 = str2 + " = []";
                 }
             } else {
                 //;;;
@@ -6387,7 +6387,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                     str4 = "let " + str2 + ": " + str3 + " = [];";
                 }
                 if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2 + " = []";
+                    str4 = str2 + " = []";
                 }
             } else {
                 //;;;
@@ -6766,7 +6766,7 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
                     }
                 }
                 if (langToConvertTo == "groovy") {
-                    str4 = "def " + str2 + " = []";
+                    str4 = str2 + " = []";
                 }
             } else {
                 //;;;
@@ -8944,10 +8944,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             }
             code = StringTrimRight(htCodeOutFixEnd, 1);
         }
-        //;; main loop
-        //;; main loop
-        //;; main loop
-        //;; main loop
+        //;
+        //;
+        //;
+        //;
         fullLangAllOperators = GETfullLangAllOperators();
         fullLangAllOperators_HELP = GETfullLangAllOperators_HELP();
         if (isNotHTVMfile2 == 0) {
@@ -11223,7 +11223,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                        //;;;;;;;;;;;;;;;; optanal param
+                                        //;;;;;;;;;;;;;;;
                                         // save to str10
                                         // str8 = the type
                                         // str7 = variable name
@@ -11253,14 +11253,22 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                             skipLeftCuleyForFuncPLS = 1;
                                         }
                                         if (langToConvertTo == "cs") {
-                                            str10 += str8 + " " + str7 + " = " + str9 + Chr(10);
+                                            if (RegExMatch(str9, "^\\d+(\\.\\d+)?$")) {
+                                                str10 += str8 + " " + str7 + " = " + str9 + "f" + Chr(10);
+                                            } else {
+                                                str10 += str8 + " " + str7 + " = " + str9 + Chr(10);
+                                            }
                                         }
                                         if (langToConvertTo == "java") {
                                             str10 += str8 + " " + str7 + " = " + str9 + Chr(10);
                                             skipLeftCuleyForFuncPLS = 1;
                                         }
                                         if (langToConvertTo == "kt") {
-                                            str10 += str7 + ": " + str8 + " = " + str9 + Chr(10);
+                                            if (RegExMatch(str9, "^\\d+(\\.\\d+)?$")) {
+                                                str10 += str7 + ": " + str8 + " = " + str9 + "f" + Chr(10);
+                                            } else {
+                                                str10 += str7 + ": " + str8 + " = " + str9 + Chr(10);
+                                            }
                                         }
                                         if (langToConvertTo == "rb") {
                                             str10 += str7 + " = " + str9 + Chr(10);
@@ -11297,7 +11305,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                        //;;;;;;;;;;;;;;;; optanal param
+                                        //;;;;;;;;;;;;;;;
                                         // save to str10
                                         // str8 = the type
                                         // str7 = variable name
@@ -11327,14 +11335,22 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                             skipLeftCuleyForFuncPLS = 1;
                                         }
                                         if (langToConvertTo == "cs") {
-                                            str10 += str8 + " " + str7 + " = " + str9 + Chr(10);
+                                            if (RegExMatch(str9, "^\\d+(\\.\\d+)?$")) {
+                                                str10 += str8 + " " + str7 + " = " + str9 + "f" + Chr(10);
+                                            } else {
+                                                str10 += str8 + " " + str7 + " = " + str9 + Chr(10);
+                                            }
                                         }
                                         if (langToConvertTo == "java") {
                                             str10 += str8 + " " + str7 + " = " + str9 + Chr(10);
                                             skipLeftCuleyForFuncPLS = 1;
                                         }
                                         if (langToConvertTo == "kt") {
-                                            str10 += str7 + ": " + str8 + " = " + str9 + Chr(10);
+                                            if (RegExMatch(str9, "^\\d+(\\.\\d+)?$")) {
+                                                str10 += str7 + ": " + str8 + " = " + str9 + "f" + Chr(10);
+                                            } else {
+                                                str10 += str7 + ": " + str8 + " = " + str9 + Chr(10);
+                                            }
                                         }
                                         if (langToConvertTo == "rb") {
                                             str10 += str7 + " = " + str9 + Chr(10);
@@ -11372,7 +11388,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                    //;;;;;;;;;;;;;;;; optanal param
+                                    //;;;;;;;;;;;;;;;
                                     // save to str10
                                     // str8 = variable name
                                     // str9 = after the keyWordAssign
@@ -12004,7 +12020,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = "let " + str2 + ": " + str3 + " = [" + str6 + "];";
                         }
                         if (langToConvertTo == "groovy") {
-                            str4 = "def " + str2 + " = [" + str6 + "]";
+                            str4 = str2 + " = [" + str6 + "]";
                         }
                     } else {
                         //;;;
@@ -12188,7 +12204,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = "let " + str2 + ": " + str3 + " = [" + str6 + "];";
                         }
                         if (langToConvertTo == "groovy") {
-                            str4 = "def " + str2 + " = [" + str6 + "]";
+                            str4 = str2 + " = [" + str6 + "]";
                         }
                     } else {
                         //;;;
@@ -12264,7 +12280,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = "var " + str2 + ": " + str3 + " " + str12 + " " + str6 + ";";
                         }
                         if (langToConvertTo == "groovy") {
-                            str4 = "def " + str2 + " " + str12 + " " + str6;
+                            str4 = str2 + " " + str12 + " " + str6;
                         }
                         //;;;
                     }
@@ -12378,7 +12394,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = "let " + str2 + ": " + str3 + " = [" + str6 + "];";
                         }
                         if (langToConvertTo == "groovy") {
-                            str4 = "def " + str2 + " = [" + str6 + "]";
+                            str4 = str2 + " = [" + str6 + "]";
                         }
                     } else {
                         //;;;
@@ -12454,7 +12470,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = "let " + str2 + ": " + str3 + " " + str12 + " " + str6 + ";";
                         }
                         if (langToConvertTo == "groovy") {
-                            str4 = "def " + str2 + " " + str12 + " " + str6;
+                            str4 = str2 + " " + str12 + " " + str6;
                         }
                         //;;;
                     }
@@ -12556,7 +12572,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = "let " + str2 + ": " + str3 + " = [" + str6 + "];";
                         }
                         if (langToConvertTo == "groovy") {
-                            str4 = "def " + str2 + " = [" + str6 + "]";
+                            str4 = str2 + " = [" + str6 + "]";
                         }
                     } else {
                         //;;;
@@ -12640,7 +12656,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             }
                         }
                         if (langToConvertTo == "groovy") {
-                            str4 = "def " + str2 + " " + str12 + " " + str6;
+                            str4 = str2 + " " + str12 + " " + str6;
                         }
                         //;;;
                     }
@@ -12737,7 +12753,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             str4 = "let " + str2 + ": " + str3 + " = [" + str6 + "];";
                         }
                         if (langToConvertTo == "groovy") {
-                            str4 = "def " + str2 + " = [" + str6 + "]";
+                            str4 = str2 + " = [" + str6 + "]";
                         }
                     } else {
                         //;;;
@@ -12821,7 +12837,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             }
                         }
                         if (langToConvertTo == "groovy") {
-                            str4 = "def " + str2 + " " + str12 + " " + str6 + ";";
+                            str4 = str2 + " " + str12 + " " + str6 + ";";
                         }
                         //;;;
                     }
@@ -12948,7 +12964,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         str4 = "let " + str2 + ": " + str3 + " = [];";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " = []";
+                        str4 = str2 + " = []";
                     }
                 } else {
                     //;;;
@@ -13329,7 +13345,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         str4 = "let " + str2 + ": " + str3 + " = [];";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " = []";
+                        str4 = str2 + " = []";
                     }
                 } else {
                     //;;;
@@ -13697,7 +13713,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         str4 = "let " + str2 + ": " + str3 + " = [];";
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " = []";
+                        str4 = str2 + " = []";
                     }
                 } else {
                     //;;;
@@ -14076,7 +14092,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         }
                     }
                     if (langToConvertTo == "groovy") {
-                        str4 = "def " + str2 + " = []";
+                        str4 = str2 + " = []";
                     }
                 } else {
                     //;;;
