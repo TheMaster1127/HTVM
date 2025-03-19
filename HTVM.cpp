@@ -11456,7 +11456,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             std::vector<std::string> items136 = LoopParseFunc(str12, ",");
                             for (size_t A_Index136 = 0; A_Index136 < items136.size() + 0; A_Index136++) {
                                 std::string A_LoopField136 = items136[A_Index136 - 0];
-                                str14 += Trim(StrSplit(Trim(A_LoopField136), " = ", 1)) + ", ";
+                                str14 += Trim(StrSplit(Trim(A_LoopField136), " = ", 1)) + " = " + Trim(StrSplit(Trim(A_LoopField136), " = ", 1)) + " or " + Trim(StrSplit(Trim(A_LoopField136), " = ", 2)) + Chr(10);
                             }
                             str14 = StringTrimRight(str14, 2);
                             str13 += "{" + Chr(10);
@@ -11465,7 +11465,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                 std::string A_LoopField137 = items137[A_Index137 - 0];
                                 str13 += Trim(StrSplit(Trim(A_LoopField137), " = ", 1)) + " = " + Trim(StrSplit(Trim(A_LoopField137), " = ", 1)) + " or " + Trim(StrSplit(Trim(A_LoopField137), " = ", 2)) + Chr(10);
                             }
-                            str12 = str13;
+                            str12 = str14;
                         }
                         if (langToConvertTo == "go") {
                             str14 = "__HTVM_V2_TO_GO_optionalParams__ ...interface{}";
@@ -11547,7 +11547,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             std::vector<std::string> items145 = LoopParseFunc(str11, ",");
                             for (size_t A_Index145 = 0; A_Index145 < items145.size() + 0; A_Index145++) {
                                 std::string A_LoopField145 = items145[A_Index145 - 0];
-                                str14 += Trim(StrSplit(Trim(A_LoopField145), " = ", 1)) + ", ";
+                                str14 += Trim(StrSplit(Trim(A_LoopField145), " = ", 1)) + " = " + Trim(StrSplit(Trim(A_LoopField145), " = ", 1)) + " or " + Trim(StrSplit(Trim(A_LoopField145), " = ", 2)) + Chr(10);
                             }
                             str14 = StringTrimRight(str14, 2);
                             str13 += "{" + Chr(10);
@@ -11556,7 +11556,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                 std::string A_LoopField146 = items146[A_Index146 - 0];
                                 str13 += Trim(StrSplit(Trim(A_LoopField146), " = ", 1)) + " = " + Trim(StrSplit(Trim(A_LoopField146), " = ", 1)) + " or " + Trim(StrSplit(Trim(A_LoopField146), " = ", 2)) + Chr(10);
                             }
-                            str11 = str13;
+                            str11 = str14;
                         }
                         if (langToConvertTo == "go") {
                             str14 = "__HTVM_V2_TO_GO_optionalParams__ ...interface{}";

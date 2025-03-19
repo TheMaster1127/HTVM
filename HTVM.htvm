@@ -14686,7 +14686,7 @@ if (langToConvertTo = "lua")
 
 Loop, Parse, str12, `,
 {
-str14 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . ", "
+str14 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " = " . Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " or " . Trim(StrSplit(Trim(A_LoopField), " = ", 2)) . Chr(10)
 }
 StringTrimRight, str14, str14, 2
 
@@ -14698,7 +14698,7 @@ str13 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " = " . Trim(StrSplit(Tri
 
 
 
-str12 := str13
+str12 := str14
 
 }
 
@@ -14828,7 +14828,7 @@ if (langToConvertTo = "lua")
 
 Loop, Parse, str11, `,
 {
-str14 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . ", "
+str14 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " = " . Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " or " . Trim(StrSplit(Trim(A_LoopField), " = ", 2)) . Chr(10)
 }
 StringTrimRight, str14, str14, 2
 
@@ -14840,7 +14840,7 @@ str13 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " = " . Trim(StrSplit(Tri
 
 
 
-str11 := str13
+str11 := str14
 
 }
 
