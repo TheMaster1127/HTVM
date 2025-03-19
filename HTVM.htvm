@@ -14165,6 +14165,7 @@ if (langToConvertTo = "groovy")
 
 
 
+str4 := ""
 str5 := ""
 str6 := ""
 str7 := ""
@@ -14670,6 +14671,41 @@ str11 .= A_LoopField . ", "
 }
 
 
+if (str10 != "")
+{
+str4 := ""
+Loop, Parse, str10, `n, `r
+{
+if (InStr(A_LoopField, " := "))
+{
+    
+    if (InStr(Trim(StrSplit(A_LoopField, " := ", 1)), " ") != true)
+    {
+    str4 .= "optanal " . A_LoopField . Chr(10)
+    }
+    else
+    {
+    str4 .= A_LoopField . Chr(10)
+    }
+
+}
+else
+{
+    if (InStr(Trim(StrSplit(A_LoopField, " = ", 1)), " ") != true)
+    {
+    str4 .= "optanal " . A_LoopField . Chr(10)
+    }
+    else
+    {
+    str4 .= A_LoopField . Chr(10)
+    }
+}
+
+
+}
+StringTrimRight, str10, str4, 1
+}
+
 Loop, Parse, str10, `n, `r
 {
 str12 .= A_LoopField . ", "
@@ -14686,7 +14722,7 @@ if (langToConvertTo = "lua")
 
 Loop, Parse, str12, `,
 {
-str14 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " = " . Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " or " . Trim(StrSplit(Trim(A_LoopField), " = ", 2)) . Chr(10)
+str14 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . ", "
 }
 StringTrimRight, str14, str14, 2
 
@@ -14828,7 +14864,7 @@ if (langToConvertTo = "lua")
 
 Loop, Parse, str11, `,
 {
-str14 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " = " . Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " or " . Trim(StrSplit(Trim(A_LoopField), " = ", 2)) . Chr(10)
+str14 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . ", "
 }
 StringTrimRight, str14, str14, 2
 
