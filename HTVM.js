@@ -10748,6 +10748,33 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     int1 = 0;
                     str1 = Trim(StringTrimLeft(A_LoopField131, StrLen(StrLower(keyWordFunc))));
                 }
+                if (str1 != "") {
+                    str4 = "";
+                    items133 = LoopParseFunc(str1, ",");
+                    for (let A_Index133 = 0; A_Index133 < items133.length + 0; A_Index133++) {
+                        const A_LoopField133 = items133[A_Index133 - 0];
+                        if (InStr(A_LoopField133, " := ")) {
+                            if (InStr(Trim(StrSplit(A_LoopField133, " := ", 1)), " ") != true) {
+                                str4 += "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " + A_LoopField133 + ", ";
+                            } else {
+                                str4 += A_LoopField133 + ", ";
+                            }
+                        }
+                        else if (InStr(A_LoopField133, " = ")) {
+                            if (InStr(Trim(StrSplit(A_LoopField133, " = ", 1)), " ") != true) {
+                                str4 += "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " + A_LoopField133 + ", ";
+                            } else {
+                                str4 += A_LoopField133 + ", ";
+                            }
+                        } else {
+                            str4 += A_LoopField133 + ", ";
+                        }
+                    }
+                    str1 = StringTrimRight(str4, 2);
+                    str1 = StrReplace(str1, "  ", " ");
+                }
+                str4 = "";
+                str1 = Trim(str1);
                 if (usePrefixTypeForTypeDefinition == "on") {
                     str2 = Trim(StrSplit(str1, "(", 1));
                     // func body
@@ -10874,16 +10901,16 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     str18 = "";
                     str19 = "";
                     str20 = "";
-                    items133 = LoopParseFunc(str1, ",");
-                    for (let A_Index133 = 0; A_Index133 < items133.length + 0; A_Index133++) {
-                        const A_LoopField133 = items133[A_Index133 - 0];
-                        //print("|" . Trim(A_LoopField133) . "|")
-                        if (InStr(Trim(A_LoopField133), " ")) {
+                    items134 = LoopParseFunc(str1, ",");
+                    for (let A_Index134 = 0; A_Index134 < items134.length + 0; A_Index134++) {
+                        const A_LoopField134 = items134[A_Index134 - 0];
+                        //print("|" . Trim(A_LoopField134) . "|")
+                        if (InStr(Trim(A_LoopField134), " ")) {
                             // there is space aka there is a type
-                            if (InStr(A_LoopField133, " " + Trim(keyWordAssign) + " ") == false) {
+                            if (InStr(A_LoopField134, " " + Trim(keyWordAssign) + " ") == false) {
                                 if (usePrefixTypeForTypeDefinition == "on") {
                                     // normal
-                                    str6 = Trim(A_LoopField133);
+                                    str6 = Trim(A_LoopField134);
                                     str7 = getTheLastWord(str6);
                                     str8 = getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)));
                                     // str5 .= str8 . " " . str7 . Chr(10)
@@ -10950,7 +10977,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                 } else {
                                     // not normal
-                                    str6 = Trim(A_LoopField133);
+                                    str6 = Trim(A_LoopField134);
                                     str7 = Trim(StrSplit(str6, ":", 1));
                                     str8 = getFuncTypeConvert(Trim(StrSplit(str6, ":", 2)));
                                     // str5 .= str7 . " :" . str8 . Chr(10)
@@ -11018,12 +11045,12 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                 }
                             } else {
                                 // optanal param
-                                if (InStr(Trim(StrSplit(Trim(A_LoopField133), " " + Trim(keyWordAssign) + " ", 1)), " ")) {
+                                if (InStr(Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 1)), " ")) {
                                     // there is a type
                                     if (usePrefixTypeForTypeDefinition == "on") {
                                         // normal
-                                        str6 = Trim(StrSplit(Trim(A_LoopField133), " " + Trim(keyWordAssign) + " ", 1));
-                                        str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField133), " " + Trim(keyWordAssign) + " ", 2))));
+                                        str6 = Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 1));
+                                        str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 2))));
                                         str7 = getTheLastWord(str6);
                                         str8 = getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)));
                                         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -11104,8 +11131,8 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                         // skipLeftCuleyForFuncPLS := 1
                                     } else {
                                         // not normal
-                                        str6 = Trim(StrSplit(Trim(A_LoopField133), " " + Trim(keyWordAssign) + " ", 1));
-                                        str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField133), " " + Trim(keyWordAssign) + " ", 2))));
+                                        str6 = Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 1));
+                                        str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 2))));
                                         str7 = Trim(StrSplit(str6, ":", 1));
                                         str8 = getFuncTypeConvert(Trim(StrSplit(str6, ":", 2)));
                                         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -11187,8 +11214,8 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                     }
                                 } else {
                                     // there is no type
-                                    str8 = Trim(StrSplit(Trim(A_LoopField133), " " + Trim(keyWordAssign) + " ", 1));
-                                    str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField133), " " + Trim(keyWordAssign) + " ", 2))));
+                                    str8 = Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 1));
+                                    str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 2))));
                                     // str10
                                     // skipLeftCuleyForFuncPLS := 1
                                     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -11230,7 +11257,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                 }
                             }
                         } else {
-                            str5 += Trim(A_LoopField133) + Chr(10);
+                            str5 += Trim(A_LoopField134) + Chr(10);
                         }
                     }
                     //print(str5)
@@ -11244,31 +11271,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     str5 = Trim(str5);
                     str10 = Trim(str10);
                     if (Trim(str5) != "" && Trim(str10) != "") {
-                        items134 = LoopParseFunc(str5, "\n", "\r")
-                        for (let A_Index134 = 0; A_Index134 < items134.length + 0; A_Index134++) {
-                            const A_LoopField134 = items134[A_Index134 - 0];
-                            str11 += A_LoopField134 + ", ";
-                        }
-                        if (str10 != "") {
-                            str4 = "";
-                            items135 = LoopParseFunc(str10, "\n", "\r")
-                            for (let A_Index135 = 0; A_Index135 < items135.length + 0; A_Index135++) {
-                                const A_LoopField135 = items135[A_Index135 - 0];
-                                if (InStr(A_LoopField135, " := ")) {
-                                    if (InStr(Trim(StrSplit(A_LoopField135, " := ", 1)), " ") != true) {
-                                        str4 += "optanal " + A_LoopField135 + Chr(10);
-                                    } else {
-                                        str4 += A_LoopField135 + Chr(10);
-                                    }
-                                } else {
-                                    if (InStr(Trim(StrSplit(A_LoopField135, " = ", 1)), " ") != true) {
-                                        str4 += "optanal " + A_LoopField135 + Chr(10);
-                                    } else {
-                                        str4 += A_LoopField135 + Chr(10);
-                                    }
-                                }
-                            }
-                            str10 = StringTrimRight(str4, 1);
+                        items135 = LoopParseFunc(str5, "\n", "\r")
+                        for (let A_Index135 = 0; A_Index135 < items135.length + 0; A_Index135++) {
+                            const A_LoopField135 = items135[A_Index135 - 0];
+                            str11 += A_LoopField135 + ", ";
                         }
                         items136 = LoopParseFunc(str10, "\n", "\r")
                         for (let A_Index136 = 0; A_Index136 < items136.length + 0; A_Index136++) {
@@ -15288,6 +15294,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             HTVM_Pop(ospDic2);
         }
     }
+    htCode = StrReplace(htCode, "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc ", "");
     for (let A_Index224 = 0; A_Index224 < theIdNumOfThe34 + 0; A_Index224++) {
         if (theIdNumOfThe34 == A_Index224 + 1) {
             if (langToConvertTo == langFileExtension_2) {
