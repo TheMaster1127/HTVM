@@ -11270,7 +11270,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                 const A_LoopField137 = items137[A_Index137 - 0];
                                 str13 += Trim(StrSplit(Trim(A_LoopField137), " = ", 1)) + " = " + Trim(StrSplit(Trim(A_LoopField137), " = ", 1)) + " or " + Trim(StrSplit(Trim(A_LoopField137), " = ", 2)) + Chr(10);
                             }
-                            str12 = str14;
+                            str12 = str13;
                         }
                         if (langToConvertTo == "go") {
                             str14 = "__HTVM_V2_TO_GO_optionalParams__ ...interface{}";
@@ -11361,7 +11361,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                 const A_LoopField146 = items146[A_Index146 - 0];
                                 str13 += Trim(StrSplit(Trim(A_LoopField146), " = ", 1)) + " = " + Trim(StrSplit(Trim(A_LoopField146), " = ", 1)) + " or " + Trim(StrSplit(Trim(A_LoopField146), " = ", 2)) + Chr(10);
                             }
-                            str11 = str14;
+                            str11 = str13;
                         }
                         if (langToConvertTo == "go") {
                             str14 = "__HTVM_V2_TO_GO_optionalParams__ ...interface{}";

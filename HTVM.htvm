@@ -14698,7 +14698,7 @@ str13 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " = " . Trim(StrSplit(Tri
 
 
 
-str12 := str14
+str12 := str13
 
 }
 
@@ -14840,7 +14840,7 @@ str13 .= Trim(StrSplit(Trim(A_LoopField), " = ", 1)) . " = " . Trim(StrSplit(Tri
 
 
 
-str11 := str14
+str11 := str13
 
 }
 

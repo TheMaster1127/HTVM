@@ -444,7 +444,7 @@ outMD .= str3 . "`n"
 }
 
 
-outMD .= "`n---`n`n**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**`n`n**HTVM build-in functions availability.**`n`n| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |`n|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|`n"
+outMD .= "`n---`n`n**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**`n`n**HTVM build-in functions availability.**`n`n| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |`n|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|`n"
 
 Loop, Parse, categoriesElement, `n, `r
 {
@@ -525,6 +525,7 @@ str7 .= A_LoopField . "`n"
 }
 }
 }
+
 
 
 outMD .= str2 . str3 . "`n`n" . str8 . "`n---`n`n"
