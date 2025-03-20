@@ -168,7 +168,7 @@ cd HTVM
 
 #### Usage of the HTVM compiler
 ```bash
-HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> [optional LangToTranspileTo]
+HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> [optional LangToTranspileTo] [optional HTVM-instructions2.txt for HTVM to HTVM the targer HTVM lang]
 ```  
 
 #### Options  
@@ -176,11 +176,18 @@ HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> [optional LangToTr
   - `yourCodeFileName.yourExtension`: The source code file.  
   - `HTVM-instructions.txt`: Instructions file for transpilation.  
 - **Optional**:  
-  - Specify the target language (`cpp`, `py`, `js`, `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, `htvm` or <yourExtension>) directly in the command.  
+  - Specify the target language (`cpp`, `py`, `js`, `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, `htvm` or <yourExtension>) directly in the command.
+  - Another HTVM instruction file so when you are converting to another HTVM lang you must alos tell HTVM what is the syntax of the targer HTVM lang.
 
 **Example**:  
 ```bash
 HTVM main.htvm HTVM-instructions.txt cpp
+```
+
+or HTVM to HTVM:
+
+```bash
+HTVM main.htvm HTVM-instructions.txt htvm HTVM-instructions2.txt
 ```  
 
 ### 3. Compile and Run `HTVM`
