@@ -981,7 +981,7 @@ name: STR
 libs: null
 description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
 def STR(value)
-  if value.is_a?(Integer) || value.is_a?(Float) || value.is_a?(Fixnum) || value.is_a?(Bignum)
+  if value.is_a?(Integer) || value.is_a?(Float)
     return value.to_s
   elsif value.is_a?(TrueClass) || value.is_a?(FalseClass)
     return value ? "1" : "0"
