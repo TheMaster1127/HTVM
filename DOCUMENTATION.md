@@ -461,7 +461,7 @@ Here’s how OSP works:
 
 ### **Explanation Using the Example**:
 ```htvm
-func void move(this) {
+method void move(this) {
     if (this = "Movable.Vehicles.Car") {
         if (Movable.Vehicles.Car.fuel > 0) {
             print("The car is driving.")
@@ -550,8 +550,10 @@ Standalone.name
 
 ### **Example: Method in an Alliance**
 ```htvm
-func void greet(this) {
-    print("Hello from ExampleAlliance!")
+alliance ExampleAlliance {
+    method void greet(this) {
+        print("Hello from ExampleAlliance!")
+    }
 }
 
 ```
@@ -596,95 +598,105 @@ def obj name {
 #### Example of OSP
 
 ```htvm
-def obj Movable.Vehicles.Car {
-    prop int door := 4
-    prop int fuel := 100
-    prop bool hasFUEL := true
-}
-def obj Movable.Vehicles.Bike {
-    prop bool hasGears := true
-    prop int energy := 100
-    prop bool hasENERGY := true
-}
-func void move(this) {
-    global Movable.Vehicles.Car.fuel
-    global Movable.Vehicles.Car.hasFUEL
-    global Movable.Vehicles.Bike.energy
-    global Movable.Vehicles.Bike.hasENERGY
-    if (this = "Movable.Vehicles.Car") {
-        if (Movable.Vehicles.Car.fuel > 0) {
-            print("The car is driving.")
-            Movable_Vehicles_Car_fuel := Movable.Vehicles.Car.fuel - 10
+alliance Movable {
+    crew Vehicles {
+        def obj Car {
+            prop int door := 4
+            prop int fuel := 100
+            prop bool hasFUEL := true
         }
-        else {
-            print("The car is out of fuel.")
-            Movable_Vehicles_Car_hasFUEL := false
+        def obj Bike {
+            prop bool hasGears := true
+            prop int energy := 100
+            prop bool hasENERGY := true
+        }
+        method void move(this) {
+            global Movable.Vehicles.Car.fuel
+            global Movable.Vehicles.Car.hasFUEL
+            global Movable.Vehicles.Bike.energy
+            global Movable.Vehicles.Bike.hasENERGY
+            if (this = "Movable.Vehicles.Car") {
+                if (Movable.Vehicles.Car.fuel > 0) {
+                    print("The car is driving.")
+                    Movable_Vehicles_Car_fuel := Movable.Vehicles.Car.fuel - 10
+                }
+                else {
+                    print("The car is out of fuel.")
+                    Movable_Vehicles_Car_hasFUEL := false
+                }
+            }
+            else if (this = "Movable.Vehicles.Bike") {
+                if (Movable.Vehicles.Bike.energy > 0) {
+                    print("The bike is pedaling.")
+                    Movable_Vehicles_Bike_energy := Movable.Vehicles.Bike.energy - 5
+                }
+                else {
+                    print("The bike is out of energy.")
+                    Movable_Vehicles_Bike_hasENERGY := false
+                }
+            }
         }
     }
-    else if (this = "Movable.Vehicles.Bike") {
-        if (Movable.Vehicles.Bike.energy > 0) {
-            print("The bike is pedaling.")
-            Movable_Vehicles_Bike_energy := Movable.Vehicles.Bike.energy - 5
+    crew settings {
+        def obj GeneralSettings {
+            prop str difficulty := "normal"
+            prop int volume := 50
+            prop str resolution := "1920x1080"
         }
-        else {
-            print("The bike is out of energy.")
-            Movable_Vehicles_Bike_hasENERGY := false
+        def obj AudioSettings {
+            prop int masterVolume := 70
+            prop int musicVolume := 50
+            prop int sfxVolume := 40
+        }
+        def obj DisplaySettings {
+            prop bool fullscreen := true
+            prop str aspectRatio := "16:9"
         }
     }
-}
-def obj Movable.settings.GeneralSettings {
-    prop str difficulty := "normal"
-    prop int volume := 50
-    prop str resolution := "1920x1080"
-}
-def obj Movable.settings.AudioSettings {
-    prop int masterVolume := 70
-    prop int musicVolume := 50
-    prop int sfxVolume := 40
-}
-def obj Movable.settings.DisplaySettings {
-    prop bool fullscreen := true
-    prop str aspectRatio := "16:9"
-}
-func void resetGeneralSettings(this) {
-    Movable_settings_GeneralSettings_difficulty := STR("normal")
-    Movable_settings_GeneralSettings_volume := 50
-    Movable_settings_GeneralSettings_resolution := STR("1920x1080")
-    print("General settings reset to default.")
-}
-func void printGeneralSettings(this) {
-    print("General Settings:")
-    print("Difficulty: " . Movable.settings.GeneralSettings.difficulty)
-    print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
-    print("Resolution: " . Movable.settings.GeneralSettings.resolution)
-}
-func void resetAudioSettings(this) {
-    Movable_settings_AudioSettings_masterVolume := 70
-    Movable_settings_AudioSettings_musicVolume := 50
-    Movable_settings_AudioSettings_sfxVolume := 40
-    print("Audio settings reset to default.")
-}
-func void printAudioSettings(this) {
-    print("Audio Settings:")
-    print("Master Volume: " . STR(Movable.settings.AudioSettings.masterVolume))
-    print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
-    print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
-}
-func void resetDisplaySettings(this) {
-    Movable_settings_DisplaySettings_fullscreen := true
-    Movable_settings_DisplaySettings_aspectRatio := STR("16:9")
-    print("Display settings reset to default.")
-}
-func void printDisplaySettings(this) {
-    print("Display Settings:")
-    print("Fullscreen: " . STR(Movable.settings.DisplaySettings.fullscreen))
-    print("Aspect Ratio: " . Movable.settings.DisplaySettings.aspectRatio)
-}
-def obj Movable.array.name {
-    prop arr str prop1
-    prop arr str prop2
-    prop arr str prop3
-    prop arr str prop4
+    crew actions {
+        method void resetGeneralSettings(this) {
+            Movable_settings_GeneralSettings_difficulty := STR("normal")
+            Movable_settings_GeneralSettings_volume := 50
+            Movable_settings_GeneralSettings_resolution := STR("1920x1080")
+            print("General settings reset to default.")
+        }
+        method void printGeneralSettings(this) {
+            print("General Settings:")
+            print("Difficulty: " . Movable.settings.GeneralSettings.difficulty)
+            print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
+            print("Resolution: " . Movable.settings.GeneralSettings.resolution)
+        }
+        method void resetAudioSettings(this) {
+            Movable_settings_AudioSettings_masterVolume := 70
+            Movable_settings_AudioSettings_musicVolume := 50
+            Movable_settings_AudioSettings_sfxVolume := 40
+            print("Audio settings reset to default.")
+        }
+        method void printAudioSettings(this) {
+            print("Audio Settings:")
+            print("Master Volume: " . STR(Movable.settings.AudioSettings.masterVolume))
+            print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
+            print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
+        }
+        method void resetDisplaySettings(this) {
+            Movable_settings_DisplaySettings_fullscreen := true
+            Movable_settings_DisplaySettings_aspectRatio := STR("16:9")
+            print("Display settings reset to default.")
+        }
+        method void printDisplaySettings(this) {
+            print("Display Settings:")
+            print("Fullscreen: " . STR(Movable.settings.DisplaySettings.fullscreen))
+            print("Aspect Ratio: " . Movable.settings.DisplaySettings.aspectRatio)
+        }
+    }
+    crew array {
+        def obj name {
+            prop arr str prop1
+            prop arr str prop2
+            prop arr str prop3
+            prop arr str prop4
+        }
+    }
 }
 main
 ; Test vehicle movement

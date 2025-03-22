@@ -10736,6 +10736,8 @@ arr str slidingWinFixCommentsRm
 str slidingWinFixCommentsRmHold := ""
 int slidingWinFixCommentsRmI := 0
 
+str fixSomeOSPbigHTVMtoHTVM := ""
+
 arr str theIdNumOfThe34theVar
 
 str ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes := ""
@@ -11404,6 +11406,8 @@ StringTrimRight, code, codeOutFixAndAddMainFunc, 1
 ; main loop
 }
 
+
+
 Loop, Parse, code, `n, `r
 {
 lookIntoTheNextLineForFuncWhitNoKeyWord.add(A_LoopField)
@@ -11411,9 +11415,12 @@ lookIntoTheNextLineForFuncWhitNoKeyWord.add(A_LoopField)
 lookIntoTheNextLineForFuncWhitNoKeyWord.add(" ")
 
 
- 
+if (langToConvertTo != langFileExtension_2) 
+{
 code := OSP(code)
 code := StrReplace(code, "}_HTVM-OSP-HTVM-OSP-REMOVE-OSP-HTVMv2--OSP", "}")
+code := StrReplace(code, "{_HTVM-OSP-HTVM-OSP-REMOVE-OSP-HTVMv2--OSP", "{")
+}
 
 htCode := ""
 ;print("=======UP==========")
@@ -11600,6 +11607,36 @@ htCode .= keyWordDefObj_2 . StrReplace(str1, "_", ".") . Chr(10) . "{" . Chr(10)
 
 
 }
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordDefObj))) = StrLower(keyWordDefObj))
+{
+lineDone := 1
+str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordDefObj)))
+if (langToConvertTo = langFileExtension_2) 
+{
+htCode .= Trim(keyWordDefObj_2) . " " . str0 . Chr(10)
+}
+
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordAlliance))) = StrLower(keyWordAlliance))
+{
+lineDone := 1
+str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordAlliance)))
+if (langToConvertTo = langFileExtension_2) 
+{
+htCode .= Trim(keyWordAlliance_2) . " " . str0 . Chr(10)
+}
+
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCrew))) = StrLower(keyWordCrew))
+{
+lineDone := 1
+str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordCrew)))
+if (langToConvertTo = langFileExtension_2) 
+{
+htCode .= Trim(keyWordCrew_2) . " " . str0 . Chr(10)
+}
+
+}
 else if (InStr(A_LoopField, "[end][end][end][end][end] "))
 {
 lineDone := 1
@@ -11617,12 +11654,12 @@ str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordProp)))
 str1 := Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 1))
 str20 := Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 2))
 
-if (str20 = "")
+if (str20 = "") and (langToConvertTo != langFileExtension_2)
 {
 continue
 }
 
-if (langToConvertTo = langFileExtension_2) 
+if (langToConvertTo = langFileExtension_2)
 {
 htCode .= keyWordProp_2 . propHELP(str1, "no-no") . Chr(10)
 }
@@ -13997,7 +14034,8 @@ int1 := 0
 str1 := Trim(StringTrimLeft(A_LoopField, StrLen(StrLower(keyWordFunc))))
 }
 
-
+if (langToConvertTo != "cpp") and (langToConvertTo != "go") and (langToConvertTo != "cs") and (langToConvertTo != "java") and (langToConvertTo != "kt") and (langToConvertTo != "nim") and (langToConvertTo != "swift") and (langToConvertTo != "dart") and (langToConvertTo != "ts")
+{
 
 if (str1 != "")
 {
@@ -14038,6 +14076,10 @@ else
 StringTrimRight, str1, str4, 2
 str1 := StrReplace(str1, "  ", " ")
 }
+
+}
+
+
 str4 := ""
 
 str1 := Trim(str1)
