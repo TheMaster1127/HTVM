@@ -565,7 +565,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -827,7 +827,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -840,7 +840,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 | InStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | RegExMatch | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | RegExReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| STR | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
 | Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
@@ -957,7 +957,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| STR | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
 
 
 ---
@@ -1155,7 +1155,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -1234,7 +1234,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -1353,7 +1353,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -1457,7 +1457,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -1728,7 +1728,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -1790,7 +1790,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 

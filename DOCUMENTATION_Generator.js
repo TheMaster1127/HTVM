@@ -34,9 +34,47 @@ function STR(value) {
     }
 }
 
+// Convert value to integer
+function INT(value) {
+    const intValue = parseInt(value, 10);
+    if (Number.isNaN(intValue)) {
+        console.warn(`Invalid input: ${value} cannot be converted to an integer.`);
+        return 0;  // Or any other default value
+    }
+    return intValue;
+}
+
+// Convert value to float
+function FLOAT(value) {
+    const floatValue = parseFloat(value);
+    if (isNaN(floatValue)) {
+        throw new TypeError("Cannot convert to float");
+    }
+    return floatValue;
+}
+
+// Function to generate a random integer between min and max (inclusive)
+function Random(min, max) {
+    // Generate and return a random number within the specified range
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function Sleep(milliseconds) {
+    // Sleep for the specified number of milliseconds
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
 function Chr(number) {
     // Return the character corresponding to the Unicode code point, or an empty string if out of range
     return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
+}
+
+function Exp(value) {
+    return Math.exp(value);
+}
+
+function Log(value) {
+    return Math.log10(value);
 }
 
 function SubStr(str, startPos, length = -1) {
@@ -68,6 +106,10 @@ function StrReplace(originalString, find, replaceWith) {
     return originalString.split(find).join(replaceWith);
 }
 
+function StringTrimLeft(input, numChars) {
+    return (numChars <= input.length) ? input.substring(numChars) : input;
+}
+
 function StringTrimRight(input, numChars) {
     return (numChars <= input.length) ? input.substring(0, input.length - numChars) : input;
 }
@@ -79,6 +121,182 @@ function StrLower(string) {
 function StrSplit(inputStr, delimiter, num) {
     const parts = inputStr.split(delimiter);
     return (num > 0 && num <= parts.length) ? parts[num - 1] : "";
+}
+
+function Mod(dividend, divisor) {
+    return dividend % divisor;
+}
+
+function Sort(varName, options = "") {
+    let delimiter = '\n'; // Default delimiter
+    let delimiterIndex = options.indexOf('D');
+    if (delimiterIndex !== -1) {
+        let delimiterChar = options[delimiterIndex + 1];
+        delimiter = delimiterChar === '' ? ',' : delimiterChar;
+    }
+    let items = varName.split(new RegExp(delimiter === ',' ? ',' : '\\' + delimiter));
+    // Remove empty items and trim whitespace
+    items = items.filter(item => item.trim() !== '');
+    // Apply sorting based on options
+    if (options.includes('N')) {
+        // Numeric sort
+        items.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
+    } else if (options.includes('Random')) {
+        // Random sort
+        for (let i = items.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [items[i], items[j]] = [items[j], items[i]];
+        }
+    } else {
+        // Default alphabetical sort
+        items.sort((a, b) => {
+            const keyA = options.includes('C') ? a : a.toLowerCase();
+            const keyB = options.includes('C') ? b : b.toLowerCase();
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+        });
+    }
+    // Reverse if 'R' option is present
+    if (options.includes('R')) {
+        items.reverse();
+    }
+    // Remove duplicates if 'U' option is present
+    if (options.includes('U')) {
+        const seen = new Map();
+        items = items.filter(item => {
+            const key = options.includes('C') ? item : item.toLowerCase();
+            if (!seen.has(key)) {
+                seen.set(key, item);
+                return true;
+            }
+            return false;
+        });
+    }
+    // Join the sorted items back into a string
+    const sortedVar = items.join(delimiter === ',' ? ',' : '\n');
+    return sortedVar;
+}
+
+function MsgBox(text, title = " ", value = 0, timeout = null) {
+    return new Promise((resolve) => {
+        // Define default options for the message box
+        let defaultOptions = {
+            title: title || " ", // Default title is empty
+            text: text || "Press OK to continue.", // Default text if not provided
+            showCancelButton: false, // Default is to not show Cancel button
+            showDenyButton: false, // Default is to not show Deny button
+            confirmButtonText: "OK", // Default text for OK button
+            focusConfirm: true, // Default focus on OK button
+        };
+        let numOriginal = value;
+        let num = numOriginal;
+        let done1 = 0;
+        let done2 = 0;
+        let done3 = 0;
+        let AIndex = 0;
+        for (AIndex = 1; AIndex <= 1; AIndex++) {
+            // Handle special case for value adjustments
+            if (num >= 262144) {
+                num = num - 262144;
+                numOriginal = numOriginal - 262144;
+            }
+            if (num >= 256 && num < 500) {
+                num = num - 256;
+                done3 = 256;
+            }
+            if (num >= 512) {
+                num = num - 512;
+                done3 = 512;
+            }
+            if (num == 0) {
+                done1 = 0;
+                break;
+            }
+            if (num <= 6) {
+                done1 = num;
+                break;
+            }
+            if (num >= 64 && num < 64 * 2) {
+                done2 = 64;
+                if (num == 64) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 64;
+                    break;
+                }
+            }
+            if (num >= 48 && num < 63) {
+                done2 = 48;
+                if (num == 48) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 48;
+                    break;
+                }
+            }
+            if (num >= 32 && num < 47) {
+                done2 = 32;
+                if (num == 32) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 32;
+                    break;
+                }
+            }
+            if (num >= 16 && num < 30) {
+                done2 = 16;
+                if (num == 16) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 16;
+                    break;
+                }
+            }
+        }
+        let doneAdded = done1 + done2 + done3;
+        if (doneAdded !== numOriginal) {
+            // displayMessage("The calc was wrong!");
+        } else {
+            // displayMessage("num was: " + numOriginal + "\ndone1: " + done1 + "\ndone2: " + done2 + "\ndone3: " + done3);
+        }
+        // Parse the value to determine the options for the message box
+        if (done1 === 1) defaultOptions.showCancelButton = true;
+        if (done1 === 3) {
+            defaultOptions.showCancelButton = true;
+            defaultOptions.showDenyButton = true;
+        }
+        if (done1 === 4) {
+            defaultOptions.showDenyButton = true;
+        }
+        if (done1 === 5) {
+            defaultOptions.showCancelButton = true;
+        }
+        if (done2 === 16) defaultOptions.icon = "error";
+        if (done2 === 32) defaultOptions.icon = "question";
+        if (done2 === 48) defaultOptions.icon = "warning";
+        if (done2 === 64) defaultOptions.icon = "info";
+        if (done3 === 256) defaultOptions.focusDeny = true;
+        if (done3 === 512) defaultOptions.focusCancel = true;
+        // Set timeout if provided
+        if (timeout) {
+            defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds
+        }
+        // Display the message box with the constructed options
+        Swal.fire(defaultOptions).then((result) => {
+            if (result.isConfirmed) {
+                resolve("OK");
+            } else if (result.isDenied) {
+                resolve("No");
+            } else {
+                resolve("Cancel");
+            }
+        });
+    });
 }
 
 // Function to sort and remove duplicates
@@ -138,6 +356,640 @@ function escapeStr(str) {
               .replace(/\t/g, "\\t")    // Escape tabs
               .replace(/\r/g, "\\r");   // Escape carriage returns
 }
+// RunCMD(
+
+
+function convertSnipetToAnotherSyntax(instrFile, codeSnippet) {
+    var out = "";
+    var str0 = "";
+    var instr0 = "";
+    var instr1 = "";
+    var instr2 = "";
+    var instr3 = "";
+    var instr4 = "";
+    var directoryPath = "";
+    if (HTVM_getLang_HTVM() == "cpp") {
+        str0 = "";
+        str0 = FileRead(Trim(instrFile));
+        items1 = LoopParseFunc(str0, "\n", "\r")
+        for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
+            const A_LoopField1 = items1[A_Index1 - 0];
+            if (A_Index1 == 1) {
+                instr3 = Trim(A_LoopField1);
+                break;
+            }
+        }
+        instr0 = "cpp\n" + instr3 + "\nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1\nalliance\ncrew\nmethod\ndef obj\nprop\nthis\nimport\n___start\n___end\n___cpp start\n___cpp end\n___py start\n___py end\n___js start\n___js end\n___go start\n___go end\n___lua start\n___lua end\n___cs start\n___cs end\n___java start\n___java end\n___kt start\n___kt end\n___rb start\n___rb end\n___nim start\n___nim end\n___ahk start\n___ahk end\n___swift start\n___swift end\n___dart start\n___dart end\n___ts start\n___ts end\n___groovy start\n___groovy end\n___htvm start\n___htvm end\n___inhtvm start\n___inhtvm end\n{\n}\nnull\ntrue\nfalse\nvoid\ndouble\nchar\nuint8\nuint16\nuint32\nuint64\nint\nstr\nbool\nfloat\nint8\nint16\nint32\nint64\nif\nelse if\nelse\nwhile\nLoop\nLoop,\nLoop, Parse,\ncontinue\nbreak\nfunc\nawait\nasync\nthrow\nErrorMsg\ntry\ncatch\nfinally\nreturn\n.add\n.pop\n.size\n.insert\n.rm\n.indexOf\narr\narr int\narr str\narr float\narr bool\nvar\nlet\nconst\nend\nglobal\n;\n'''1\n'''2\n" + Chr(96) + "\nmain\n.\n+\n-\n*\n/\n%\n**\n=\n===\n!=\n" + Chr(62) + "\n" + Chr(60) + "\n" + Chr(62) + "=\n" + Chr(60) + "=\nand\nor\n!\n&\n|\n^\n~\n" + Chr(60) + "" + Chr(60) + "\n" + Chr(62) + "" + Chr(62) + "\n" + Chr(62) + "" + Chr(62) + "" + Chr(62) + "\n:=\n+=\n.=\n-=\n*=\n/=\n%=\n" + Chr(60) + "" + Chr(60) + "=\n" + Chr(62) + "" + Chr(62) + "=\n" + Chr(62) + "" + Chr(62) + "" + Chr(62) + "=\n&=\n|=\n^=\n?\n:\n++\n--\n0\nA_Index\nA_LoopField\non\noff\noff\non\non\noff\noff\noff\non\noff\noff\non\noff\n\n";
+        FileDelete("HTVM-Instr-temp.txt");
+        FileDelete("HTVM-code-temp." + instr3);
+        FileAppend(Trim(instr0), "HTVM-Instr-temp.txt");
+        FileAppend(Trim(codeSnippet), "HTVM-code-temp." + instr3);
+        // Extract directory path from instrFile
+        directoryPath = GetDirectoryPath(instrFile);
+        instr1 = directoryPath + "/" + "HTVM-code-temp." + instr3;
+        instr2 = instrFile;
+        // instr3
+        instr4 = directoryPath + "/" + "HTVM-Instr-temp.txt";
+        
+
+        out = FileRead("HTVM-code-temp." + instr3);
+        FileDelete("HTVM-Instr-temp.txt");
+        FileDelete("HTVM-code-temp." + instr3);
+    }
+    var fixInstrFile = "";
+    if (HTVM_getLang_HTVM() == "js") {
+        str0 = "";
+        instr0 = `cpp
+htvm
+StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1
+alliance
+crew
+method
+def obj
+prop
+this
+import
+\_\_\_start
+\_\_\_end
+\_\_\_cpp start
+\_\_\_cpp end
+\_\_\_py start
+\_\_\_py end
+\_\_\_js start
+\_\_\_js end
+\_\_\_go start
+\_\_\_go end
+\_\_\_lua start
+\_\_\_lua end
+\_\_\_cs start
+\_\_\_cs end
+\_\_\_java start
+\_\_\_java end
+\_\_\_kt start
+\_\_\_kt end
+\_\_\_rb start
+\_\_\_rb end
+\_\_\_nim start
+\_\_\_nim end
+\_\_\_ahk start
+\_\_\_ahk end
+\_\_\_swift start
+\_\_\_swift end
+\_\_\_dart start
+\_\_\_dart end
+\_\_\_ts start
+\_\_\_ts end
+\_\_\_groovy start
+\_\_\_groovy end
+\_\_\_htvm start
+\_\_\_htvm end
+\_\_\_inhtvm start
+\_\_\_inhtvm end
+{
+}
+null
+true
+false
+void
+double
+char
+uint8
+uint16
+uint32
+uint64
+int
+str
+bool
+float
+int8
+int16
+int32
+int64
+if
+else if
+else
+while
+Loop
+Loop,
+Loop, Parse,
+continue
+break
+func
+await
+async
+throw
+ErrorMsg
+try
+catch
+finally
+return
+.add
+.pop
+.size
+.insert
+.rm
+.indexOf
+arr
+arr int
+arr str
+arr float
+arr bool
+var
+let
+const
+end
+global
+;
+\'\'\'1
+\'\'\'2
+\`
+main
+.
++
+-
+*
+/
+%
+**
+=
+===
+!=
+>
+<
+>=
+<=
+and
+or
+!
+&
+|
+^
+~
+<<
+>>
+>>>
+:=
++=
+.=
+-=
+*=
+/=
+%=
+<<=
+>>=
+>>>=
+&=
+|=
+^=
+?
+:
+++
+--
+0
+A_Index
+A_LoopField
+on
+off
+off
+on
+on
+off
+off
+off
+on
+off
+off
+on
+off`
+        fixInstrFile = "";
+        items2 = LoopParseFunc(instrFile, "\n", "\r")
+        for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
+            const A_LoopField2 = items2[A_Index2 - 0];
+            if (A_Index2 == 1) {
+                fixInstrFile += "htvm" + Chr(10);
+            } else {
+                fixInstrFile += Trim(A_LoopField2) + Chr(10);
+            }
+        }
+        instrFile = StringTrimRight(fixInstrFile, 1);
+        instr1 = Trim(codeSnippet);
+        instr4 = Trim(instrFile);
+        instr3 = "htvm";
+        instr2 = Trim(instr0);
+        str0 = "nothing";
+str00 = "nothing";
+str1 = "";
+str2 = "";
+str3 = "";
+str4 = "";
+str5 = "";
+str6 = "";
+str7 = "";
+str8 = "";
+str9 = "";
+str10 = "";
+str11 = "";
+str12 = "";
+str13 = "";
+str14 = "";
+str15 = "";
+str16 = "";
+str17 = "";
+str18 = "";
+str19 = "";
+str20 = "";
+str21 = "";
+int0 = 0;
+int1 = 0;
+int2 = 0;
+int3 = 0;
+int4 = 0;
+int5 = 0;
+int6 = 0;
+int7 = 0;
+argHTVMinstrMORE = [];
+isNotHTVMfileEXTRA_INT = 0;
+isNotHTVMfile2 = 0;
+isNotHTVMfileEXTRA_LIB_INFO = "";
+isNotHTVMfileEXTRA_FUNCS_INFO = "";
+programmingBlock_InTheTranspiledLang = [];
+programmingBlock_CPP = [];
+programmingBlock_PY = [];
+programmingBlock_JS = [];
+programmingBlock_GO = [];
+programmingBlock_LUA = [];
+programmingBlock_CS = [];
+programmingBlock_JAVA = [];
+programmingBlock_KT = [];
+programmingBlock_RB = [];
+programmingBlock_NIM = [];
+programmingBlock_AHK = [];
+programmingBlock_SWIFT = [];
+programmingBlock_DART = [];
+programmingBlock_TS = [];
+programmingBlock_GROOVY = [];
+programmingBlock_HTVM = [];
+programmingBlock_HTVMsyntax = [];
+fullLangAllOperators = [];
+fullLangAllOperators_HELP = [];
+fixExpertionLineFuncOnly = 0;
+langToConvertTo = "";
+langFileExtension = "";
+commands = "";
+keyWordAlliance = "";
+keyWordCrew = "";
+keyWordMethod = "";
+keyWordDefObj = "";
+keyWordProp = "";
+keyWordThis = "";
+keyWordInclude = "";
+keyWordCodeInTheTranspiledLangStart = "";
+keyWordCodeInTheTranspiledLangEnd = "";
+keyWordCodeInTheTranspiledLangStartCPP = "";
+keyWordCodeInTheTranspiledLangEndCPP = "";
+keyWordCodeInTheTranspiledLangStartPY = "";
+keyWordCodeInTheTranspiledLangEndPY = "";
+keyWordCodeInTheTranspiledLangStartJS = "";
+keyWordCodeInTheTranspiledLangEndJS = "";
+keyWordCodeInTheTranspiledLangStartGO = "";
+keyWordCodeInTheTranspiledLangEndGO = "";
+keyWordCodeInTheTranspiledLangStartLUA = "";
+keyWordCodeInTheTranspiledLangEndLUA = "";
+keyWordCodeInTheTranspiledLangStartCS = "";
+keyWordCodeInTheTranspiledLangEndCS = "";
+keyWordCodeInTheTranspiledLangStartJAVA = "";
+keyWordCodeInTheTranspiledLangEndJAVA = "";
+keyWordCodeInTheTranspiledLangStartKT = "";
+keyWordCodeInTheTranspiledLangEndKT = "";
+keyWordCodeInTheTranspiledLangStartRB = "";
+keyWordCodeInTheTranspiledLangEndRB = "";
+keyWordCodeInTheTranspiledLangStartNIM = "";
+keyWordCodeInTheTranspiledLangEndNIM = "";
+keyWordCodeInTheTranspiledLangStartAHK = "";
+keyWordCodeInTheTranspiledLangEndAHK = "";
+keyWordCodeInTheTranspiledLangStartSWIFT = "";
+keyWordCodeInTheTranspiledLangEndSWIFT = "";
+keyWordCodeInTheTranspiledLangStartDART = "";
+keyWordCodeInTheTranspiledLangEndDART = "";
+keyWordCodeInTheTranspiledLangStartTS = "";
+keyWordCodeInTheTranspiledLangEndTS = "";
+keyWordCodeInTheTranspiledLangStartGROOVY = "";
+keyWordCodeInTheTranspiledLangEndGROOVY = "";
+keyWordCodeInTheTranspiledLangStartHTVM = "";
+keyWordCodeInTheTranspiledLangEndHTVM = "";
+keyWordCodeInHTVMstart = "";
+keyWordCodeInHTVMend = "";
+keyWordCurlyBraceOpen = "";
+keyWordCurlyBraceClose = "";
+keyWordNull = "";
+keyWordTrue = "";
+keyWordFalse = "";
+keyWordVoid = "";
+keyWordDouble = "";
+keyWordChar = "";
+keyWordUint8 = "";
+keyWordUint16 = "";
+keyWordUint32 = "";
+keyWordUint64 = "";
+keyWordINT = "";
+keyWordSTR = "";
+keyWordBOOL = "";
+keyWordFLOAT = "";
+keyWordINT8 = "";
+keyWordINT16 = "";
+keyWordINT32 = "";
+keyWordINT64 = "";
+keyWordIF = "";
+keyWordElseIf = "";
+keyWordElse = "";
+keyWordWhileLoop = "";
+keyWordLoopInfinite = "";
+keyWordLoop = "";
+keyWordLoopParse = "";
+keyWordContinue = "";
+keyWordBreak = "";
+keyWordFunc = "";
+keyWordAwait = "";
+keyWordAsync = "";
+keyWordThrow = "";
+keyWordErrorMsg = "";
+keyWordTry = "";
+keyWordCatch = "";
+keyWordFinally = "";
+keyWordReturnStatement = "";
+keyWordArrayAppend = "";
+keyWordArrayPop = "";
+keyWordArraySize = "";
+keyWordArrayInsert = "";
+keyWordArrayRemove = "";
+keyWordArrayIndexOf = "";
+keyWordArrayDefinition = "";
+keyWordArrayOfIntegersDefinition = "";
+keyWordArrayOfStringsDefinition = "";
+keyWordArrayOfFloatingPointNumbersDefinition = "";
+keyWordArrayOfBooleansDefinition = "";
+keyWordVar = "";
+keyWordLet = "";
+keyWordConst = "";
+keyWordEnd = "";
+keyWordGlobal = "";
+keyWordComment = "";
+keyWordCommentOpenMultiLine = "";
+keyWordCommentCloseMultiLine = "";
+keyWordEscpaeChar = "";
+keyWordMainLabel = "";
+keyWordConcat = "";
+keyWordAdd = "";
+keyWordSub = "";
+keyWordMul = "";
+keyWordDiv = "";
+keyWordMod = "";
+keyWordExp = "";
+keyWordEqual = "";
+keyWordStrictEqual = "";
+keyWordNotEqual = "";
+keyWordGreater = "";
+keyWordLess = "";
+keyWordGreaterEqual = "";
+keyWordLessEqual = "";
+keyWordAnd = "";
+keyWordOr = "";
+keyWordNot = "";
+keyWordBitAnd = "";
+keyWordBitOr = "";
+keyWordBitXor = "";
+keyWordBitNot = "";
+keyWordShiftLeft = "";
+keyWordShiftRight = "";
+keyWordShiftUnsignedRight = "";
+keyWordAssign = "";
+keyWordAssignAdd = "";
+keyWordAssignConcat = "";
+keyWordAssignSub = "";
+keyWordAssignMul = "";
+keyWordAssignDiv = "";
+keyWordAssignMod = "";
+keyWordAssignShiftLeft = "";
+keyWordAssignShiftRight = "";
+keyWordLogicalAssignShiftRight = "";
+keyWordAssignBitAnd = "";
+keyWordAssignBitOr = "";
+keyWordAssignBitXor = "";
+keyWordTernary1 = "";
+keyWordTernary2 = "";
+keyWordInc = "";
+keyWordDec = "";
+AHKlikeLoopsIndexedAt = "";
+keyWordAIndex = "";
+keyWordALoopField = "";
+useFuncKeyWord = "";
+useCurlyBraces = "";
+useEnd = "";
+useSemicolon = "";
+theSemicolon = "";
+theColon = "";
+useParentheses = "";
+usePrefixTypeForTypeDefinition = "";
+usePostfixTypeForTypeDefinition = "";
+usePythonicColonSyntax = "";
+useCurlyBracesSyntaxForArrayDef = "";
+useInJavaScriptAlwaysUseVar = "";
+useJavaScriptInAfullHTMLfile = "";
+useJavaScriptAmainFuncDef = "";
+useJavaScriptAllFuncsAreAsync = "";
+useJavaScriptAlwaysTripleEqual = "";
+langToConvertTo_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+langFileExtension_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+commands_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAlliance_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCrew_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordMethod_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordDefObj_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordProp_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordThis_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordInclude_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStart_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEnd_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartCPP_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndCPP_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartPY_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndPY_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartJS_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndJS_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartGO_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndGO_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartLUA_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndLUA_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartCS_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndCS_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartJAVA_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndJAVA_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartKT_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndKT_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartRB_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndRB_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartNIM_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndNIM_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartAHK_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndAHK_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartSWIFT_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndSWIFT_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartDART_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndDART_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartTS_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndTS_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartGROOVY_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndGROOVY_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangStartHTVM_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInTheTranspiledLangEndHTVM_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInHTVMstart_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCodeInHTVMend_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCurlyBraceOpen_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCurlyBraceClose_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordNull_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordTrue_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordFalse_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordVoid_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordDouble_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordChar_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordUint8_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordUint16_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordUint32_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordUint64_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordINT_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordSTR_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordBOOL_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordFLOAT_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordINT8_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordINT16_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordINT32_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordINT64_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordIF_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordElseIf_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordElse_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordWhileLoop_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordLoopInfinite_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordLoop_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordLoopParse_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordContinue_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordBreak_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordFunc_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAwait_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAsync_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordThrow_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordErrorMsg_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordTry_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCatch_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordFinally_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordReturnStatement_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordArrayAppend_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordArrayPop_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordArraySize_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordArrayInsert_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordArrayRemove_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordArrayIndexOf_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordArrayDefinition_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordArrayOfIntegersDefinition_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordArrayOfStringsDefinition_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordArrayOfFloatingPointNumbersDefinition_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordArrayOfBooleansDefinition_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordVar_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordLet_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordConst_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordEnd_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordGlobal_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordComment_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCommentOpenMultiLine_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordCommentCloseMultiLine_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordEscpaeChar_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordMainLabel_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordConcat_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAdd_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordSub_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordMul_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordDiv_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordMod_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordExp_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordEqual_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordStrictEqual_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordNotEqual_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordGreater_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordLess_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordGreaterEqual_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordLessEqual_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAnd_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordOr_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordNot_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordBitAnd_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordBitOr_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordBitXor_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordBitNot_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordShiftLeft_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordShiftRight_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordShiftUnsignedRight_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAssign_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAssignAdd_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAssignConcat_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAssignSub_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAssignMul_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAssignDiv_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAssignMod_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAssignShiftLeft_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAssignShiftRight_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordLogicalAssignShiftRight_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAssignBitAnd_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAssignBitOr_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAssignBitXor_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordTernary1_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordTernary2_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordInc_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordDec_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+AHKlikeLoopsIndexedAt_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordAIndex_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordALoopField_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+useCurlyBraces_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+useEnd_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+useSemicolon_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+useParentheses_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+usePrefixTypeForTypeDefinition_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+usePostfixTypeForTypeDefinition_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+usePythonicColonSyntax_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+useCurlyBracesSyntaxForArrayDef_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+useInJavaScriptAlwaysUseVar_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+useJavaScriptInAfullHTMLfile_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+useJavaScriptAmainFuncDef_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+useJavaScriptAllFuncsAreAsync_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+useJavaScriptAlwaysTripleEqual_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+keyWordALoopFieldOriginal = "";
+keyWordAIndexOriginal = "";
+out_KeyWordsCommands = "";
+outTrimCode = "";
+htCode = "";
+outVarOperator = "";
+lineDone = 0;
+areWeInAFuncFromInstructions = 0;
+areWeInAFuncFromInstructionsLineNum = 0;
+javaMainFuncSeen = 0;
+csMainFuncSeen = 0;
+howMany_fixAindexInGoUnused = 0;
+luaContinueFix_Num = 0;
+theTryCatchVarForErrors = "jhku-dfsds-ds-d-ffdsf-sdfsfdsedsf";
+allVarsSoWeDontReDecVars = [];
+allVarsSoWeDontReDecVars_FIX_uint8 = [];
+allVarsSoWeDontReDecVars_FIX_uint16 = [];
+allVarsSoWeDontReDecVars_FIX_uint32 = [];
+allVarsSoWeDontReDecVars_FIX_uint64 = [];
+allVarsSoWeDontReDecVars_FIX_int64 = [];
+allVarsSoWeDontReDecVars_FIX_float = [];
+allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
+ospDic = [];
+ospDic1 = [];
+ospDic2 = [];
+argHTVMinstrMORE.push(instr4)
+out = compiler(instr1, instr2, "full", instr3);
+    }
+    return out;
+}
 function genDocs(mode) {
     var outDocs = "";
     if (Trim(instructionFileData) == "") {
@@ -148,35 +1000,36 @@ function genDocs(mode) {
     let funcData_lang = [];
     let funcData_name = [];
     let funcData_desc = [];
-    items1 = LoopParseFunc(instructionFileData, "\n", "\r")
-    for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
-        const A_LoopField1 = items1[A_Index1 - 0];
-        if (Trim(A_LoopField1) == "funcEND======================funcEND==============") {
+    items3 = LoopParseFunc(instructionFileData, "\n", "\r")
+    for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
+        const A_LoopField3 = items3[A_Index3 - 0];
+        if (Trim(A_LoopField3) == "funcEND======================funcEND==============") {
             inFunc = 0;
         }
         if (inFunc == 1) {
-            if (SubStr(Trim(A_LoopField1), 1, 6) == "lang: ") {
-                HTVM_Append(funcData_lang, Trim(A_LoopField1));
+            if (SubStr(Trim(A_LoopField3), 1, 6) == "lang: ") {
+                HTVM_Append(funcData_lang, Trim(A_LoopField3));
             }
-            else if (SubStr(Trim(A_LoopField1), 1, 6) == "name: ") {
-                HTVM_Append(funcData_name, Trim(A_LoopField1));
+            else if (SubStr(Trim(A_LoopField3), 1, 6) == "name: ") {
+                HTVM_Append(funcData_name, Trim(A_LoopField3));
             }
-            else if (SubStr(Trim(A_LoopField1), 1, 13) == "description: ") {
-                HTVM_Append(funcData_desc, Trim(A_LoopField1));
+            else if (SubStr(Trim(A_LoopField3), 1, 13) == "description: ") {
+                HTVM_Append(funcData_desc, Trim(A_LoopField3));
             }
         }
-        if (Trim(A_LoopField1) == "func======================func==============") {
+        if (Trim(A_LoopField3) == "func======================func==============") {
             inFunc = 1;
         }
     }
-    let allFuncNames = [sortArr(funcData_name)];
+    let allFuncNames = [];
+    allFuncNames = sortArr(funcData_name);
     var theFuncThatExistsIsCalled = "";
     if (DOCS_checkIfFuncNameExists == 1) {
         var exitedLoopCheckIfFuncNameExists = 0;
-        for (let A_Index2 = 0; A_Index2 < HTVM_Size(allFuncNames) + 0; A_Index2++) {
-            print(allFuncNames[A_Index2]);
-            if (StrLower(DOCS_param2) == StrLower(Trim(StrSplit(allFuncNames[A_Index2], ":", 2)))) {
-                theFuncThatExistsIsCalled = Trim(StrSplit(allFuncNames[A_Index2], ":", 2));
+        for (let A_Index4 = 0; A_Index4 < HTVM_Size(allFuncNames) + 0; A_Index4++) {
+            print(allFuncNames[A_Index4]);
+            if (StrLower(DOCS_param2) == StrLower(Trim(StrSplit(allFuncNames[A_Index4], ":", 2)))) {
+                theFuncThatExistsIsCalled = Trim(StrSplit(allFuncNames[A_Index4], ":", 2));
                 exitedLoopCheckIfFuncNameExists = 1;
                 break;
             }
@@ -193,17 +1046,17 @@ function genDocs(mode) {
     var allFuncNamesTemp = "";
     var tempDesc = "";
     var tempLang = "";
-    for (let A_Index3 = 0; A_Index3 < HTVM_Size(funcData_name) + 0; A_Index3++) {
-        //print(funcData_name[A_Index3])
-        allFuncNamesTemp = funcData_name[A_Index3];
-        tempLang = funcData_lang[A_Index3];
-        tempDesc = funcData_desc[A_Index3];
-        for (let A_Index4 = 0; A_Index4 < HTVM_Size(allFuncNames) + 0; A_Index4++) {
-            if (Trim(allFuncNamesTemp) == Trim(StrSplit(allFuncNames[A_Index4], "|", 1))) {
-                if (countChars(allFuncNames[A_Index4], "|") == 0) {
-                    allFuncNames[A_Index4] = allFuncNames[A_Index4] + "|" + Trim(tempDesc) + "|" + Trim(tempLang);
+    for (let A_Index5 = 0; A_Index5 < HTVM_Size(funcData_name) + 0; A_Index5++) {
+        //print(funcData_name[A_Index5])
+        allFuncNamesTemp = funcData_name[A_Index5];
+        tempLang = funcData_lang[A_Index5];
+        tempDesc = funcData_desc[A_Index5];
+        for (let A_Index6 = 0; A_Index6 < HTVM_Size(allFuncNames) + 0; A_Index6++) {
+            if (Trim(allFuncNamesTemp) == Trim(StrSplit(allFuncNames[A_Index6], "|", 1))) {
+                if (countChars(allFuncNames[A_Index6], "|") == 0) {
+                    allFuncNames[A_Index6] = allFuncNames[A_Index6] + "|" + Trim(tempDesc) + "|" + Trim(tempLang);
                 } else {
-                    allFuncNames[A_Index4] = allFuncNames[A_Index4] + "|" + Trim(tempLang);
+                    allFuncNames[A_Index6] = allFuncNames[A_Index6] + "|" + Trim(tempLang);
                 }
             }
         }
@@ -227,9 +1080,9 @@ function genDocs(mode) {
     var isLangGroovy = "";
     var allFuncsTempAdd = "";
     var isDescNull = 0;
-    for (let A_Index5 = 0; A_Index5 < HTVM_Size(allFuncNames) + 0; A_Index5++) {
-        //print(allFuncNames[A_Index5])
-        tempstr = Trim(allFuncNames[A_Index5]);
+    for (let A_Index7 = 0; A_Index7 < HTVM_Size(allFuncNames) + 0; A_Index7++) {
+        //print(allFuncNames[A_Index7])
+        tempstr = Trim(allFuncNames[A_Index7]);
         isDescNull = 0;
         allFuncsTempAdd = "";
         isLangCpp = "No";
@@ -247,61 +1100,61 @@ function genDocs(mode) {
         isLangDart = "No";
         isLangTs = "No";
         isLangGroovy = "No";
-        items6 = LoopParseFunc(tempstr, "|")
-        for (let A_Index6 = 0; A_Index6 < items6.length + 0; A_Index6++) {
-            const A_LoopField6 = items6[A_Index6 - 0];
-            if (SubStr(Trim(A_LoopField6), 1, 8) == "lang: js") {
+        items8 = LoopParseFunc(tempstr, "|")
+        for (let A_Index8 = 0; A_Index8 < items8.length + 0; A_Index8++) {
+            const A_LoopField8 = items8[A_Index8 - 0];
+            if (SubStr(Trim(A_LoopField8), 1, 8) == "lang: js") {
                 isLangJs = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 8) == "lang: py") {
+            else if (SubStr(Trim(A_LoopField8), 1, 8) == "lang: py") {
                 isLangPy = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 9) == "lang: cpp") {
+            else if (SubStr(Trim(A_LoopField8), 1, 9) == "lang: cpp") {
                 isLangCpp = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 8) == "lang: go") {
+            else if (SubStr(Trim(A_LoopField8), 1, 8) == "lang: go") {
                 isLangGo = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 9) == "lang: lua") {
+            else if (SubStr(Trim(A_LoopField8), 1, 9) == "lang: lua") {
                 isLangLua = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 8) == "lang: cs") {
+            else if (SubStr(Trim(A_LoopField8), 1, 8) == "lang: cs") {
                 isLangCs = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 10) == "lang: java") {
+            else if (SubStr(Trim(A_LoopField8), 1, 10) == "lang: java") {
                 isLangJava = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 12) == "lang: kotlin") {
+            else if (SubStr(Trim(A_LoopField8), 1, 12) == "lang: kotlin") {
                 isLangKotlin = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 10) == "lang: ruby") {
+            else if (SubStr(Trim(A_LoopField8), 1, 10) == "lang: ruby") {
                 isLangRuby = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 9) == "lang: nim") {
+            else if (SubStr(Trim(A_LoopField8), 1, 9) == "lang: nim") {
                 isLangNim = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 9) == "lang: ahk") {
+            else if (SubStr(Trim(A_LoopField8), 1, 9) == "lang: ahk") {
                 isLangAhk = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 11) == "lang: swift") {
+            else if (SubStr(Trim(A_LoopField8), 1, 11) == "lang: swift") {
                 isLangSwift = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 10) == "lang: dart") {
+            else if (SubStr(Trim(A_LoopField8), 1, 10) == "lang: dart") {
                 isLangDart = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 8) == "lang: ts") {
+            else if (SubStr(Trim(A_LoopField8), 1, 8) == "lang: ts") {
                 isLangTs = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 12) == "lang: groovy") {
+            else if (SubStr(Trim(A_LoopField8), 1, 12) == "lang: groovy") {
                 isLangGroovy = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 6) == "name: ") {
-                allFuncsTempAdd += Trim(A_LoopField6) + "|";
+            else if (SubStr(Trim(A_LoopField8), 1, 6) == "name: ") {
+                allFuncsTempAdd += Trim(A_LoopField8) + "|";
             }
-            else if (SubStr(Trim(A_LoopField6), 1, 13) == "description: ") {
-                allFuncsTempAdd += Trim(A_LoopField6) + "|";
+            else if (SubStr(Trim(A_LoopField8), 1, 13) == "description: ") {
+                allFuncsTempAdd += Trim(A_LoopField8) + "|";
             }
-            if (Trim(StrLower(A_LoopField6)) == "description: null") {
+            if (Trim(StrLower(A_LoopField8)) == "description: null") {
                 isDescNull = 1;
             }
         }
@@ -310,7 +1163,7 @@ function genDocs(mode) {
             HTVM_Append(allFuncs, allFuncsTempAdd);
         }
     }
-    for (let A_Index7 = 0; A_Index7 < 20 + 0; A_Index7++) {
+    for (let A_Index9 = 0; A_Index9 < 20 + 0; A_Index9++) {
         //print("===========================================")
     }
     let categories = [];
@@ -318,10 +1171,10 @@ function genDocs(mode) {
     var theCurrentDescCategory = "";
     var once = 0;
     var didWeFindSameCategory = 0;
-    for (let A_Index8 = 0; A_Index8 < HTVM_Size(allFuncs) + 0; A_Index8++) {
-        //print(allFuncs[A_Index8])
+    for (let A_Index10 = 0; A_Index10 < HTVM_Size(allFuncs) + 0; A_Index10++) {
+        //print(allFuncs[A_Index10])
         once++;
-        theCurrentLine = Trim(allFuncs[A_Index8]);
+        theCurrentLine = Trim(allFuncs[A_Index10]);
         theCurrentDescCategory = Trim(StrSplit(theCurrentLine, "|", 2));
         theCurrentDescCategory = Trim(StrSplit(theCurrentDescCategory, ":", 2));
         theCurrentDescCategory = Trim(StrLower(Trim(StrSplit(theCurrentDescCategory, "~~~", 1))));
@@ -329,10 +1182,10 @@ function genDocs(mode) {
         if (once == 1) {
             HTVM_Append(categories, theCurrentDescCategory + "\n" + theCurrentLine);
         } else {
-            for (let A_Index9 = 0; A_Index9 < HTVM_Size(categories) + 0; A_Index9++) {
-                if (Trim(StrLower(StrSplit(categories[A_Index9], "\n", 1))) == Trim(theCurrentDescCategory)) {
+            for (let A_Index11 = 0; A_Index11 < HTVM_Size(categories) + 0; A_Index11++) {
+                if (Trim(StrLower(StrSplit(categories[A_Index11], "\n", 1))) == Trim(theCurrentDescCategory)) {
                     didWeFindSameCategory = 1;
-                    categories[A_Index9] = categories[A_Index9] + "\n" + theCurrentLine;
+                    categories[A_Index11] = categories[A_Index11] + "\n" + theCurrentLine;
                     break;
                 }
             }
@@ -340,6 +1193,11 @@ function genDocs(mode) {
                 HTVM_Append(categories, theCurrentDescCategory + "\n" + theCurrentLine);
             }
         }
+    }
+    if (HTVM_getLang_HTVM() == "cpp") {
+        print(convertSnipetToAnotherSyntax(DOCS_param1, "   int var1 := 6"));
+    } else {
+        print(convertSnipetToAnotherSyntax(instructionFileData, "   int var1 := 6"));
     }
     var outMDup = "# HTVM Documentation\n\n1. [Introduction](#introduction-to-htvm) \nUnderstand why HTVM is the future of programming.  \n\n2. [OSP (Objectively Simplified Programming) Paradigm](#osp-objectively-simplified-programming-paradigm)  \nLearn about the new paradigm that replaces traditional object-oriented programming.  \n\n3. [Built-in Functions](#built-in-functions)  \nExplore the wide range of built-in functions categorized for ease of use.  \n\n---\n\n## Introduction to HTVM\n\n[Go back](#htvm-documentation) \n\nHTVM is a revolutionary tool designed to replace traditional programming. With HTVM, you can create your own programming language directly [here](https://themaster1127.github.io/HTVM/).\n\nWhat makes HTVM powerful:  \n- **Syntax Customization**:  \n  Here’s what you can change:  \n  - **Keywords**: Modify the keywords used for " + Chr(96) + "if" + Chr(96) + " statements, " + Chr(96) + "while" + Chr(96) + " loops, " + Chr(96) + "for" + Chr(96) + " loops, and more.  \n  - **Operators**: Change the operators like " + Chr(96) + "==" + Chr(96) + ", " + Chr(96) + "!=" + Chr(96) + ", and others to suit your needs.  \n\n- **Inspiration from AutoHotKey**:  \n  Features like " + Chr(96) + "Loop" + Chr(96) + " and " + Chr(96) + "Loop, Parse" + Chr(96) + " (just like in AutoHotKey) are supported and customizable.  \n\n- **Cross-Language Compatibility**:  \n  Languages created with HTVM can be transpiled into **C++**, **Python**, and **JavaScript**.  \n\n- **Static Typing**:  \n  Types are required when converting to C++, but are optional for Python and JavaScript.  \n\n- **Built-in Functions**:  \n  Instead of libraries, HTVM offers built-in functions organized into categories. Scroll to the [Built-in Functions](#built-in-functions) section for more details.  \n\n## Core Features\n\n### Language Configuration\n- **Target Language Selection**\n  - Choose between **C++**, **Python** and **JavaScript** \n  - Specify file extensions for output files\n  - Configure HTML wrapping for JavaScript output\n\n### Syntax Customization\n- **Code Block Style**\n  - Toggle between curly braces " + Chr(96) + "{}" + Chr(96) + " or " + Chr(96) + "end" + Chr(96) + " keywords\n  - Enable/disable Python-style colon syntax\n  - Customize parentheses usage\n  - Control semicolon placement\n\n- **Function Definitions**\n  - Toggle function keywords\n  - Customize async main function for JavaScript\n  - Configure global variable handling\n\n### Type System\n- **Basic Types**\n  - Integer (INT)\n  - String (STR)\n  - Boolean (BOOL)\n  - Float (FLOAT)\n\n- **Extended Integer Types**\n  - INT8\n  - INT16\n  - INT32\n  - INT64\n\n### Control Structures\n- **Conditional Statements**\n  - If/Else/ElseIf\n  - Switch/Case/Default\n  - Custom keywords for all conditional operators\n\n- **Loops**\n  - While loops\n  - For loops with customizable syntax\n  - Infinite loops\n  - Parse loops (AutoHotkey-style)\n  - Custom indexing (0-based or 1-based)\n  - Loop control (break, continue)\n\n### Arrays and Collections\n- **Array Types**\n  - Integer arrays\n  - String arrays\n  - Float arrays\n  - Boolean arrays\n\n- **Array Operations**\n  - Append\n  - Pop\n  - Insert\n  - Remove\n  - Size\n  - IndexOf\n\n### Error Handling\n- **Exception Management**\n  - Try blocks\n  - Catch blocks\n  - Finally blocks\n  - Custom error messages\n  - Throw statements\n\n### JavaScript-Specific Features\n- **Variable Declaration**\n  - var, let, const keywords\n  - Automatic var declaration option\n  - await keyword support\n\n### Operators\n- **Assignment Operators**\n  - Basic assignment\n  - Addition assignment\n  - Subtraction assignment\n  - Multiplication assignment\n  - Division assignment\n  - Concatenation assignment\n\n- **Comparison Operators**\n  - Equal to\n  - Not equal to\n  - Greater than\n  - Less than\n  - Greater than or equal to\n  - Less than or equal to\n\n- **Logical Operators**\n  - AND\n  - OR\n  - NOT\n\n### Comments\n- Single-line comments\n- Multi-line comments\n- Custom comment symbols\n\n### AutoHotkey-Inspired Features\n- **Loop Variables**\n  - A_Index (customizable)\n  - A_LoopField (customizable)\n- **Loop Types**\n  - Parse loops\n  - Count loops\n  - Infinite loops\n\n## Configuration Options\n\n### Syntax Style\n- " + Chr(96) + "useFuncKeyWord" + Chr(96) + ": Toggle function definition keywords\n- " + Chr(96) + "useCurlyBraces" + Chr(96) + ": Toggle curly brace block definitions\n- " + Chr(96) + "useEnd" + Chr(96) + ": Toggle 'end' keyword for block closure\n- " + Chr(96) + "useSemicolon" + Chr(96) + ": Toggle statement-ending semicolons\n- " + Chr(96) + "useParentheses" + Chr(96) + ": Configure parentheses requirements\n- " + Chr(96) + "usePythonicColonSyntax" + Chr(96) + ": Enable Python-style block definitions\n\n### JavaScript Configuration\n- " + Chr(96) + "useInJavaScriptAlwaysUseVar" + Chr(96) + ": Force 'var' declarations\n- " + Chr(96) + "useJavaScriptInAfullHTMLfile" + Chr(96) + ": Enable HTML wrapping\n- " + Chr(96) + "useJavaScriptAmainFuncDef" + Chr(96) + ": Configure async main function\n\n### Loop Configuration\n- " + Chr(96) + "AHKlikeLoopsIndexedAt" + Chr(96) + ": Set loop index starting value\n- " + Chr(96) + "forLoopLang" + Chr(96) + ": Select loop syntax style\n- " + Chr(96) + "keyWordAIndex" + Chr(96) + ": Customize loop index variable name\n- " + Chr(96) + "keyWordALoopField" + Chr(96) + ": Customize loop field variable name\n\n\nHTVM empowers developers to create programming languages tailored to their needs while maintaining compatibility with modern technologies.  \n\n---\n\n## OSP (Objectively Simplified Programming) Paradigm  \n\n[Go back](#htvm-documentation) \n\nOSP (Objectively Simplified Programming) is a paradigm designed to replace OOP since OOP was a mistake. To learn OSP you need to first forget everything about OOP. Forget about concepts like inheritance, polymorphism, encapsulation, private/public keywords and instances.\n\nOSP eliminates the complexities of object-oriented programming.  \n\nHere’s how OSP works:  \n- **Hierarchies**:  \n  - **Alliance**: The top-level structure, defined using the " + Chr(96) + "alliance" + Chr(96) + " keyword. \n  - **Crew**: Sub-levels within an alliance, defined using the " + Chr(96) + "crew" + Chr(96) + " keyword.  \n  - **Method**: Functions defined within alliances or crews using the " + Chr(96) + "method" + Chr(96) + " keyword.  \n  - **Object**: Objects are defined using the " + Chr(96) + "def obj" + Chr(96) + " keyword.  \n\n- **Properties**:  \n  - Defined within objects using the " + Chr(96) + "porp" + Chr(96) + " keyword. You must specify the type, even when converting to Python or JavaScript, for readability.  \n\n\n### **The " + Chr(96) + "this" + Chr(96) + " Keyword**:\n\n- **Definition**:  \n  The " + Chr(96) + "this" + Chr(96) + " keyword is a reference to the current object that invoked a method. In OSP, " + Chr(96) + "this" + Chr(96) + " is **explicitly required to refer to objects**, and **you must always specify the full path** of objects and their properties when using it. Additionally, " + Chr(96) + "this" + Chr(96) + " is **only valid within methods**, as it represents the object calling that specific method.\n\n---\n\n### **Key Rules**:\n1. **Full Path Requirement**:  \n   - In OSP, **you must always specify the full path** of objects and properties when using " + Chr(96) + "this" + Chr(96) + ".  \n   - For example:  \n     - **Correct**: " + Chr(96) + "Movable.Vehicles.Car.fuel" + Chr(96) + "  \n     - **Incorrect**: " + Chr(96) + "fuel" + Chr(96) + "\n\n2. **Only Inside Methods**:  \n   - The " + Chr(96) + "this" + Chr(96) + " keyword can **only** be used inside a method. It refers to the object that invoked the method and provides context for operations on that object.  \n   - Using " + Chr(96) + "this" + Chr(96) + " outside of a method will result in an error, as there is no calling object to reference.\n\n---\n\n### **Explanation Using the Example**:\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "htvm\nmethod void move(this) {\n    if (this == " + Chr(34) + "Movable.Vehicles.Car" + Chr(34) + ") {\n        if (Movable.Vehicles.Car.fuel " + Chr(62) + " 0) {\n            print(" + Chr(34) + "The car is driving." + Chr(34) + ")\n            Movable.Vehicles.Car.fuel = Movable.Vehicles.Car.fuel - 10\n        } else {\n            print(" + Chr(34) + "The car is out of fuel." + Chr(34) + ")\n            Movable.Vehicles.Car.hasFUEL = false\n        }\n    }\n    else if (this == " + Chr(34) + "Movable.Vehicles.Bike" + Chr(34) + ") {\n        if (Movable.Vehicles.Bike.energy " + Chr(62) + " 0) {\n            print(" + Chr(34) + "The bike is pedaling." + Chr(34) + ")\n            Movable.Vehicles.Bike.energy = Movable.Vehicles.Bike.energy - 5\n        } else {\n            print(" + Chr(34) + "The bike is out of energy." + Chr(34) + ")\n            Movable.Vehicles.Bike.hasENERGY = false\n        }\n    }\n}\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "\n- The " + Chr(96) + "this" + Chr(96) + " keyword in this method represents the specific object calling " + Chr(96) + "move()" + Chr(96) + ".  \n  For instance:\n  - If " + Chr(96) + "this == " + Chr(34) + "Movable.Vehicles.Car" + Chr(34) + "" + Chr(96) + ", the method knows the caller is the **Car object**, and it manipulates " + Chr(96) + "Movable.Vehicles.Car" + Chr(96) + " properties.\n  - Similarly, if " + Chr(96) + "this == " + Chr(34) + "Movable.Vehicles.Bike" + Chr(34) + "" + Chr(96) + ", the method operates on the **Bike object**.\n\n- If you try to use " + Chr(96) + "this" + Chr(96) + " **outside of any method**, it won’t work because " + Chr(96) + "this" + Chr(96) + " has no object context to refer to.  \n  For example:\n  " + Chr(96) + "" + Chr(96) + "" + Chr(96) + " htvm\n  def obj Car {\n      prop int fuel = 100\n      print(this)  // This will cause an error!\n  }\n  " + Chr(96) + "" + Chr(96) + "" + Chr(96) + "\n\n---\n\n### **Why This Restriction Exists**:\n1. **Object Context**:  \n   - The " + Chr(96) + "this" + Chr(96) + " keyword needs a calling object to provide context. Without a method invocation, there’s no object to reference.\n\n2. **Scope Control**:  \n   - Limiting " + Chr(96) + "this" + Chr(96) + " to methods ensures clear and explicit usage, making code easier to understand and debug.\n\n3. **Example: Calling a Method with an Object**:  \n   - To use the " + Chr(96) + "this" + Chr(96) + " keyword, you must **pass an object** when invoking the method:  \n   " + Chr(96) + "" + Chr(96) + "" + Chr(96) + "htvm\n   allianceName.crewName.move(allianceName.crewName.objName)\n   " + Chr(96) + "" + Chr(96) + "" + Chr(96) + "\n   - Here:\n     - " + Chr(96) + "allianceName" + Chr(96) + " is the main alliance.\n     - " + Chr(96) + "crewName" + Chr(96) + " is the crew containing the method " + Chr(96) + "move" + Chr(96) + ".\n     - " + Chr(96) + "objName" + Chr(96) + " is the specific object being passed to the method. This allows " + Chr(96) + "this" + Chr(96) + " to refer to " + Chr(96) + "objName" + Chr(96) + " inside the method.\n\n---\n\n## **You Don’t Need an Alliance or Crew to Define Objects**\n- In OSP, you can define objects (" + Chr(96) + "def obj" + Chr(96) + ") directly without placing them inside an **alliance** or a **crew**.  \n- This makes it flexible to create standalone objects when you don’t need a larger structure.  \n\n### **Example: Standalone Object Definition**\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "htvm\ndef obj Standalone {\n    prop int value = 10\n    prop str name = " + Chr(34) + "Independent" + Chr(34) + "\n}\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "\n\nto access later just use:\n\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "htvm\nStandalone.value\nStandalone.name\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "\n\n---\n\n### **Methods in Alliances**\n- Methods can also be defined directly in an **alliance**, without being part of a **crew** and the opposite is well.\n\n### **Example: Method in an Alliance**\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "htvm\nalliance ExampleAlliance {\n    method void greet() {\n        print(" + Chr(34) + "Hello from ExampleAlliance!" + Chr(34) + ")\n    }\n}\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "\n\nto call greet just do:\n\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "htvm\nExampleAlliance.greet()\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "\n\n## Global Accessibility:  \n  - There are no scopes in OSP. As long as a variable or structure is defined above, it is accessible below. Everything is global, and the full path must always be used.  \n\n## Arrays:  \n  - When using arrays you need to create a temporary array and then copy it to another like this:\n\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "htvm\ndef obj name {\n    arr str temp\n    prop arr str prop1 = temp\n    prop arr str prop2 = temp\n    prop arr str prop3 = temp\n    prop arr str prop4 = temp\n}\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "\n\n### **Summary**:\n- **Full Paths Always**: Explicit references, such as " + Chr(96) + "Movable.Vehicles.Car.fuel" + Chr(96) + ", are mandatory in OSP. Always use the full path to reference objects. This avoids ambiguity and ensures that each object is uniquely identified within the code.\n- **Only Inside Methods**: The " + Chr(96) + "this" + Chr(96) + " keyword can only be used inside a method to refer to the calling object. It is not valid outside of a method because it requires the context of the method invocation to work correctly.\n- **Promotes Clarity**: These rules ensure consistency, clarity, and unambiguous functionality in OSP. By restricting the use of " + Chr(96) + "this" + Chr(96) + " to methods and requiring full paths, the code remains explicit and easier to follow.\n- **Helps with Debugging**: Since " + Chr(96) + "this" + Chr(96) + " is only valid inside methods, errors related to improper use are easier to detect. Using full paths also helps pinpoint issues more precisely by avoiding confusion with similarly named objects.\n- **Encourages Best Practices**: These guidelines encourage a more structured and organized approach to coding in OSP, fostering a clearer and more maintainable codebase in larger projects.\n\n---\n\n## Note:\n\n### Never use underscores when naming things in OSP. Otherwise, you can use them, but be cautious because underscores can be unstable.\n\n\n#### Example of OSP\n\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "htvm\nalliance Movable {\n    crew Vehicles {\n        def obj Car {\n            prop int door = 4\n            prop int fuel = 100\n            prop bool hasFUEL = true\n        }\n        def obj Bike {\n            prop bool hasGears = true\n            prop int energy = 100\n            prop bool hasENERGY = true\n        }\n\n        method void move(this) {\n            if (this == " + Chr(34) + "Movable.Vehicles.Car" + Chr(34) + ") {\n                if (Movable.Vehicles.Car.fuel " + Chr(62) + " 0) {\n                    print(" + Chr(34) + "The car is driving." + Chr(34) + ")\n                    Movable.Vehicles.Car.fuel = Movable.Vehicles.Car.fuel - 10\n                } else {\n                    print(" + Chr(34) + "The car is out of fuel." + Chr(34) + ")\n                    Movable.Vehicles.Car.hasFUEL = false\n                }\n            }\n            else if (this == " + Chr(34) + "Movable.Vehicles.Bike" + Chr(34) + ") {\n                if (Movable.Vehicles.Bike.energy " + Chr(62) + " 0) {\n                    print(" + Chr(34) + "The bike is pedaling." + Chr(34) + ")\n                    Movable.Vehicles.Bike.energy = Movable.Vehicles.Bike.energy - 5\n                } else {\n                    print(" + Chr(34) + "The bike is out of energy." + Chr(34) + ")\n                    Movable.Vehicles.Bike.hasENERGY = false\n                }\n            }\n        }\n    }\n    \n    crew settings {\n        def obj GeneralSettings {\n            prop str difficulty = " + Chr(34) + "normal" + Chr(34) + "\n            prop int volume = 50\n            prop str resolution = " + Chr(34) + "1920x1080" + Chr(34) + "\n        }\n        def obj AudioSettings {\n            prop int masterVolume = 70\n            prop int musicVolume = 50\n            prop int sfxVolume = 40\n        }\n        def obj DisplaySettings {\n            prop bool fullscreen = true\n            prop str aspectRatio = " + Chr(34) + "16:9" + Chr(34) + "\n        }\n    }\n    \n    crew actions {\n        // General Settings Methods\n        method void resetGeneralSettings() {\n            Movable.settings.GeneralSettings.difficulty = STR(" + Chr(34) + "normal" + Chr(34) + ")\n            Movable.settings.GeneralSettings.volume = 50\n            Movable.settings.GeneralSettings.resolution = STR(" + Chr(34) + "1920x1080" + Chr(34) + ")\n            print(" + Chr(34) + "General settings reset to default." + Chr(34) + ")\n        }\n        method void printGeneralSettings() {\n            print(" + Chr(34) + "General Settings:" + Chr(34) + ")\n            print(" + Chr(34) + "Difficulty: " + Chr(34) + " + Movable.settings.GeneralSettings.difficulty)\n            print(" + Chr(34) + "Volume: " + Chr(34) + " + STR(Movable.settings.GeneralSettings.volume))\n            print(" + Chr(34) + "Resolution: " + Chr(34) + " + Movable.settings.GeneralSettings.resolution)\n        }\n\n        // Audio Settings Methods\n        method void resetAudioSettings() {\n            Movable.settings.AudioSettings.masterVolume = 70\n            Movable.settings.AudioSettings.musicVolume = 50\n            Movable.settings.AudioSettings.sfxVolume = 40\n            print(" + Chr(34) + "Audio settings reset to default." + Chr(34) + ")\n        }\n        method void printAudioSettings() {\n            print(" + Chr(34) + "Audio Settings:" + Chr(34) + ")\n            print(" + Chr(34) + "Master Volume: " + Chr(34) + " + STR(Movable.settings.AudioSettings.masterVolume))\n            print(" + Chr(34) + "Music Volume: " + Chr(34) + " + STR(Movable.settings.AudioSettings.musicVolume))\n            print(" + Chr(34) + "SFX Volume: " + Chr(34) + " + STR(Movable.settings.AudioSettings.sfxVolume))\n        }\n\n        // Display Settings Methods\n        method void resetDisplaySettings() {\n            Movable.settings.DisplaySettings.fullscreen = true\n            Movable.settings.DisplaySettings.aspectRatio = STR(" + Chr(34) + "16:9" + Chr(34) + ")\n            print(" + Chr(34) + "Display settings reset to default." + Chr(34) + ")\n        }\n        method void printDisplaySettings() {\n            print(" + Chr(34) + "Display Settings:" + Chr(34) + ")\n            print(" + Chr(34) + "Fullscreen: " + Chr(34) + " + STR(Movable.settings.DisplaySettings.fullscreen))\n            print(" + Chr(34) + "Aspect Ratio: " + Chr(34) + " + Movable.settings.DisplaySettings.aspectRatio)\n        }\n    }\n\n    crew array {\n        def obj name {\n            arr str temp\n            prop arr str prop1 = temp\n            prop arr str prop2 = temp\n            prop arr str prop3 = temp\n            prop arr str prop4 = temp\n        }\n    }\n    \n}\n\nmain\n// Test vehicle movement\nwhile (Movable.Vehicles.Car.hasFUEL == true) && (Movable.Vehicles.Bike.hasENERGY = true) {\n    Movable.Vehicles.move(Movable.Vehicles.Car)\n    Movable.Vehicles.move(Movable.Vehicles.Bike)\n    print(" + Chr(34) + "=====================================" + Chr(34) + ")\n}\n\n// Test settings manipulation\nMovable.settings.GeneralSettings.difficulty = STR(" + Chr(34) + "hard" + Chr(34) + ")\nMovable.settings.GeneralSettings.volume = 80\nMovable.settings.GeneralSettings.resolution = STR(" + Chr(34) + "2560x1440" + Chr(34) + ")\nMovable.settings.AudioSettings.masterVolume = 90\nMovable.settings.AudioSettings.musicVolume = 60\nMovable.settings.AudioSettings.sfxVolume = 50\nMovable.settings.DisplaySettings.fullscreen = false\nMovable.settings.DisplaySettings.aspectRatio = STR(" + Chr(34) + "21:9" + Chr(34) + ")\n\nMovable.actions.printGeneralSettings()\nMovable.actions.printAudioSettings()\nMovable.actions.printDisplaySettings()\n\nMovable.actions.resetGeneralSettings()\nMovable.actions.resetAudioSettings()\nMovable.actions.resetDisplaySettings()\n\nMovable.actions.printGeneralSettings()\nMovable.actions.printAudioSettings()\nMovable.actions.printDisplaySettings()\n\n// Test array manipulation\nMovable.array.name.prop1.push(" + Chr(34) + "1text1" + Chr(34) + ")\nMovable.array.name.prop1.push(" + Chr(34) + "1text2" + Chr(34) + ")\nMovable.array.name.prop1.push(" + Chr(34) + "1text3" + Chr(34) + ")\nMovable.array.name.prop2.push(" + Chr(34) + "2text1" + Chr(34) + ")\nMovable.array.name.prop2.push(" + Chr(34) + "2text2" + Chr(34) + ")\nMovable.array.name.prop2.push(" + Chr(34) + "2text3" + Chr(34) + ")\nMovable.array.name.prop3.push(" + Chr(34) + "3text1" + Chr(34) + ")\nMovable.array.name.prop3.push(" + Chr(34) + "3text2" + Chr(34) + ")\nMovable.array.name.prop3.push(" + Chr(34) + "3text3" + Chr(34) + ")\nMovable.array.name.prop4.push(" + Chr(34) + "4text1" + Chr(34) + ")\nMovable.array.name.prop4.push(" + Chr(34) + "4text2" + Chr(34) + ")\nMovable.array.name.prop4.push(" + Chr(34) + "4text3" + Chr(34) + ")\n\n// why this\n// cuz python used len(param) insed of param.len() so it meses up evrything\n// if using OSP objects that have a dot (.) it doset work in python to get the lenght\n// but for a name whit no dots it works\n\narr str arrayTempOnlyGetSize1 = Movable.array.name.prop1\narr str arrayTempOnlyGetSize2 = Movable.array.name.prop2\narr str arrayTempOnlyGetSize3 = Movable.array.name.prop3\narr str arrayTempOnlyGetSize4 = Movable.array.name.prop4\n\n\n\n\nLoop, % arrayTempOnlyGetSize1.size() \n{\nprint(Movable.array.name.prop1[A_Index])\n}\nLoop, % arrayTempOnlyGetSize2.size() {\n    print(Movable.array.name.prop2[A_Index])\n}\nLoop, % arrayTempOnlyGetSize3.size() {\n    print(Movable.array.name.prop3[A_Index])\n}\nLoop, % arrayTempOnlyGetSize4.size() {\n    print(Movable.array.name.prop4[A_Index])\n}\n\n" + Chr(96) + "" + Chr(96) + "" + Chr(96) + "\n\nOSP simplifies programming while ensuring compatibility with **C++**, **Python**, and **JavaScript**.  \n\n---\n\n## Built-in Functions  \n\n[Go back](#htvm-documentation) \n\nHTVM includes a variety of built-in functions organized into categories for convenience.\n\n";
     var outMD = "";
@@ -370,19 +1228,19 @@ function genDocs(mode) {
     var str25 = "";
     var str26 = "";
     var str27 = "";
-    for (let A_Index10 = 0; A_Index10 < HTVM_Size(categories) + 0; A_Index10++) {
-        //print(categories[A_Index10])
-        str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index10], "\n", 1)))) + " Functions";
+    for (let A_Index12 = 0; A_Index12 < HTVM_Size(categories) + 0; A_Index12++) {
+        //print(categories[A_Index12])
+        str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index12], "\n", 1)))) + " Functions";
         // 1. [String Functions](#string-functions)
-        str2 = STR(A_Index10 + 1) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
+        str2 = STR(A_Index12 + 1) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
         outMD += str2 + "\n";
         // [Go back](#built-in-functions)
     }
     outMD += "\n---\n\n";
     var categoriesElement = "";
-    for (let A_Index11 = 0; A_Index11 < HTVM_Size(categories) + 0; A_Index11++) {
-        //print(categories[A_Index11])
-        str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index11], "\n", 1)))) + " Functions";
+    for (let A_Index13 = 0; A_Index13 < HTVM_Size(categories) + 0; A_Index13++) {
+        //print(categories[A_Index13])
+        str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index13], "\n", 1)))) + " Functions";
         // ## String Functions
         str2 = "## " + Trim(str1) + "\n\n[Go back](#built-in-functions)\n\n";
         str10 = "[Go back](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
@@ -390,42 +1248,42 @@ function genDocs(mode) {
         // 1. [str1](#str1)
         // 2. [str2](#str2)
         // 3. [str3](#str3)
-        categoriesElement = categories[A_Index11];
-        items12 = LoopParseFunc(categoriesElement, "\n", "\r")
-        for (let A_Index12 = 0; A_Index12 < items12.length + 0; A_Index12++) {
-            const A_LoopField12 = items12[A_Index12 - 0];
-            if (A_Index12 != 0) {
-                if (Trim(A_LoopField12) != "") {
-                    str1 = Trim(StrSplit(StrSplit(A_LoopField12, "|", 1), ":", 2));
-                    str3 = STR(A_Index12) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
+        categoriesElement = categories[A_Index13];
+        items14 = LoopParseFunc(categoriesElement, "\n", "\r")
+        for (let A_Index14 = 0; A_Index14 < items14.length + 0; A_Index14++) {
+            const A_LoopField14 = items14[A_Index14 - 0];
+            if (A_Index14 != 0) {
+                if (Trim(A_LoopField14) != "") {
+                    str1 = Trim(StrSplit(StrSplit(A_LoopField14, "|", 1), ":", 2));
+                    str3 = STR(A_Index14) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
                     outMD += str3 + "\n";
                 }
             }
         }
-        outMD += "\n---\n\n**HTVM built-in functions are designed to work across C++, Python, and JavaScript, with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**\n\n**HTVM build-in functions availability.**\n\n| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |\n|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|\n";
-        items13 = LoopParseFunc(categoriesElement, "\n", "\r")
-        for (let A_Index13 = 0; A_Index13 < items13.length + 0; A_Index13++) {
-            const A_LoopField13 = items13[A_Index13 - 0];
-            if (A_Index13 != 0) {
-                if (Trim(A_LoopField13) != "") {
-                    str1 = Trim(StrSplit(StrSplit(A_LoopField13, "|", 1), ":", 2));
+        outMD += "\n---\n\n**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**\n\n**HTVM build-in functions availability.**\n\n| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |\n|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|\n";
+        items15 = LoopParseFunc(categoriesElement, "\n", "\r")
+        for (let A_Index15 = 0; A_Index15 < items15.length + 0; A_Index15++) {
+            const A_LoopField15 = items15[A_Index15 - 0];
+            if (A_Index15 != 0) {
+                if (Trim(A_LoopField15) != "") {
+                    str1 = Trim(StrSplit(StrSplit(A_LoopField15, "|", 1), ":", 2));
                     // cpp py js and more
-                    str4 = Trim(StrSplit(A_LoopField13, "|", 3));
-                    str5 = Trim(StrSplit(A_LoopField13, "|", 4));
-                    str6 = Trim(StrSplit(A_LoopField13, "|", 5));
-                    str7 = Trim(StrSplit(A_LoopField13, "|", 6));
+                    str4 = Trim(StrSplit(A_LoopField15, "|", 3));
+                    str5 = Trim(StrSplit(A_LoopField15, "|", 4));
+                    str6 = Trim(StrSplit(A_LoopField15, "|", 5));
+                    str7 = Trim(StrSplit(A_LoopField15, "|", 6));
                     //
-                    str11 = Trim(StrSplit(A_LoopField13, "|", 7));
-                    str12 = Trim(StrSplit(A_LoopField13, "|", 8));
-                    str13 = Trim(StrSplit(A_LoopField13, "|", 9));
-                    str14 = Trim(StrSplit(A_LoopField13, "|", 10));
-                    str15 = Trim(StrSplit(A_LoopField13, "|", 11));
-                    str16 = Trim(StrSplit(A_LoopField13, "|", 12));
-                    str17 = Trim(StrSplit(A_LoopField13, "|", 13));
-                    str18 = Trim(StrSplit(A_LoopField13, "|", 14));
-                    str19 = Trim(StrSplit(A_LoopField13, "|", 15));
-                    str20 = Trim(StrSplit(A_LoopField13, "|", 16));
-                    str21 = Trim(StrSplit(A_LoopField13, "|", 17));
+                    str11 = Trim(StrSplit(A_LoopField15, "|", 7));
+                    str12 = Trim(StrSplit(A_LoopField15, "|", 8));
+                    str13 = Trim(StrSplit(A_LoopField15, "|", 9));
+                    str14 = Trim(StrSplit(A_LoopField15, "|", 10));
+                    str15 = Trim(StrSplit(A_LoopField15, "|", 11));
+                    str16 = Trim(StrSplit(A_LoopField15, "|", 12));
+                    str17 = Trim(StrSplit(A_LoopField15, "|", 13));
+                    str18 = Trim(StrSplit(A_LoopField15, "|", 14));
+                    str19 = Trim(StrSplit(A_LoopField15, "|", 15));
+                    str20 = Trim(StrSplit(A_LoopField15, "|", 16));
+                    str21 = Trim(StrSplit(A_LoopField15, "|", 17));
                     // | str1 | Yes | No | Yes | and more
                     str3 = "| " + str1 + " | " + str4 + " | " + str5 + " | " + str6 + " | " + str7 + " |" + str11 + " |" + str12 + " |" + str13 + " |" + str14 + " |" + str15 + " |" + str16 + " |" + str17 + " |" + str18 + " |" + str19 + " |" + str20 + " |" + str21 + " |";
                     outMD += str3 + "\n";
@@ -433,40 +1291,40 @@ function genDocs(mode) {
             }
         }
         outMD += "\n---\n\n";
-        items14 = LoopParseFunc(categoriesElement, "\n", "\r")
-        for (let A_Index14 = 0; A_Index14 < items14.length + 0; A_Index14++) {
-            const A_LoopField14 = items14[A_Index14 - 0];
-            if (A_Index14 != 0) {
-                if (Trim(A_LoopField14) != "") {
-                    str1 = Trim(StrSplit(StrSplit(A_LoopField14, "|", 1), ":", 2));
+        items16 = LoopParseFunc(categoriesElement, "\n", "\r")
+        for (let A_Index16 = 0; A_Index16 < items16.length + 0; A_Index16++) {
+            const A_LoopField16 = items16[A_Index16 - 0];
+            if (A_Index16 != 0) {
+                if (Trim(A_LoopField16) != "") {
+                    str1 = Trim(StrSplit(StrSplit(A_LoopField16, "|", 1), ":", 2));
                     str2 = "### " + str1 + "\n\n" + Trim(str10) + "\n\n**HTVM build-in functions availability.**\n\n| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |\n|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|\n";
                     // cpp py js
-                    str4 = Trim(StrSplit(A_LoopField14, "|", 3));
-                    str5 = Trim(StrSplit(A_LoopField14, "|", 4));
-                    str6 = Trim(StrSplit(A_LoopField14, "|", 5));
-                    str7 = Trim(StrSplit(A_LoopField14, "|", 6));
+                    str4 = Trim(StrSplit(A_LoopField16, "|", 3));
+                    str5 = Trim(StrSplit(A_LoopField16, "|", 4));
+                    str6 = Trim(StrSplit(A_LoopField16, "|", 5));
+                    str7 = Trim(StrSplit(A_LoopField16, "|", 6));
                     //
-                    str11 = Trim(StrSplit(A_LoopField14, "|", 7));
-                    str12 = Trim(StrSplit(A_LoopField14, "|", 8));
-                    str13 = Trim(StrSplit(A_LoopField14, "|", 9));
-                    str14 = Trim(StrSplit(A_LoopField14, "|", 10));
-                    str15 = Trim(StrSplit(A_LoopField14, "|", 11));
-                    str16 = Trim(StrSplit(A_LoopField14, "|", 12));
-                    str17 = Trim(StrSplit(A_LoopField14, "|", 13));
-                    str18 = Trim(StrSplit(A_LoopField14, "|", 14));
-                    str19 = Trim(StrSplit(A_LoopField14, "|", 15));
-                    str20 = Trim(StrSplit(A_LoopField14, "|", 16));
-                    str21 = Trim(StrSplit(A_LoopField14, "|", 17));
+                    str11 = Trim(StrSplit(A_LoopField16, "|", 7));
+                    str12 = Trim(StrSplit(A_LoopField16, "|", 8));
+                    str13 = Trim(StrSplit(A_LoopField16, "|", 9));
+                    str14 = Trim(StrSplit(A_LoopField16, "|", 10));
+                    str15 = Trim(StrSplit(A_LoopField16, "|", 11));
+                    str16 = Trim(StrSplit(A_LoopField16, "|", 12));
+                    str17 = Trim(StrSplit(A_LoopField16, "|", 13));
+                    str18 = Trim(StrSplit(A_LoopField16, "|", 14));
+                    str19 = Trim(StrSplit(A_LoopField16, "|", 15));
+                    str20 = Trim(StrSplit(A_LoopField16, "|", 16));
+                    str21 = Trim(StrSplit(A_LoopField16, "|", 17));
                     // | str1 | Yes | No | Yes | and more
                     str3 = "| " + str1 + " | " + str4 + " | " + str5 + " | " + str6 + " | " + str7 + " |" + str11 + " |" + str12 + " |" + str13 + " |" + str14 + " |" + str15 + " |" + str16 + " |" + str17 + " |" + str18 + " |" + str19 + " |" + str20 + " |" + str21 + " |";
                     str8 = "";
-                    str9 = Trim(StrSplit(StrSplit(A_LoopField14, "|", 2), "description:", 2));
-                    items15 = LoopParseFunc(str9, "~~~")
-                    for (let A_Index15 = 0; A_Index15 < items15.length + 0; A_Index15++) {
-                        const A_LoopField15 = items15[A_Index15 - 0];
-                        if (A_Index15 != 0) {
-                            if (A_LoopField15 != "") {
-                                str7 += A_LoopField15 + "\n";
+                    str9 = Trim(StrSplit(StrSplit(A_LoopField16, "|", 2), "description:", 2));
+                    items17 = LoopParseFunc(str9, "~~~")
+                    for (let A_Index17 = 0; A_Index17 < items17.length + 0; A_Index17++) {
+                        const A_LoopField17 = items17[A_Index17 - 0];
+                        if (A_Index17 != 0) {
+                            if (A_LoopField17 != "") {
+                                str7 += A_LoopField17 + "\n";
                             }
                         }
                     }
@@ -476,11 +1334,11 @@ function genDocs(mode) {
         }
     }
     var THEINSTESCEPAED = "";
-    items16 = LoopParseFunc(instructionFileData, "\n", "\r")
-    for (let A_Index16 = 0; A_Index16 < items16.length + 0; A_Index16++) {
-        const A_LoopField16 = items16[A_Index16 - 0];
-        if (A_Index16 <= 161) {
-            THEINSTESCEPAED += escapeStr(Trim(A_LoopField16)) + "\n";
+    items18 = LoopParseFunc(instructionFileData, "\n", "\r")
+    for (let A_Index18 = 0; A_Index18 < items18.length + 0; A_Index18++) {
+        const A_LoopField18 = items18[A_Index18 - 0];
+        if (A_Index18 <= 161) {
+            THEINSTESCEPAED += escapeStr(Trim(A_LoopField18)) + "\n";
         }
     }
     THEINSTESCEPAED = StringTrimRight(THEINSTESCEPAED, 1);
@@ -506,16 +1364,16 @@ if (HTVM_getLang_HTVM() != "js") {
         print("no params Exiting...");
         ExitApp();
     }
-    items17 = LoopParseFunc(DOCS_params, "\n", "\r")
-    for (let A_Index17 = 0; A_Index17 < items17.length + 0; A_Index17++) {
-        const A_LoopField17 = items17[A_Index17 - 0];
-        if (A_Index17 == 0) {
-            print(A_LoopField17);
-            DOCS_param1 = Trim(A_LoopField17);
+    items19 = LoopParseFunc(DOCS_params, "\n", "\r")
+    for (let A_Index19 = 0; A_Index19 < items19.length + 0; A_Index19++) {
+        const A_LoopField19 = items19[A_Index19 - 0];
+        if (A_Index19 == 0) {
+            print(A_LoopField19);
+            DOCS_param1 = Trim(A_LoopField19);
         }
-        if (A_Index17 == 1) {
-            print(A_LoopField17);
-            DOCS_param2 = Trim(A_LoopField17);
+        if (A_Index19 == 1) {
+            print(A_LoopField19);
+            DOCS_param2 = Trim(A_LoopField19);
         }
     }
     if (!FileExist(DOCS_param1)) {

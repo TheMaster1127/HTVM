@@ -8420,6 +8420,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     var ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes = "";
     let getAllCharForTheFurtureSoIcanAddEscapeChar = [];
     var removeNexFixkeyWordEscpaeChar = 0;
+
     if (isNotHTVMfile == 0) {
         //print("============programmingBlock_CPP==================")
         //print("============programmingBlock_CPP==================")
@@ -8519,6 +8520,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             }
         }
         code = htCodeOUT754754;
+                   
         for (let A_Index114 = 0; A_Index114 < theIdNumOfThe34 + 0; A_Index114++) {
             theIdNumOfThe34theVar[A_Index114] = theIdNumOfThe34theVar[A_Index114] + Chr(34);
         }

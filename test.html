@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #editbox {
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Documentation Generator</h1>
+
+  <h3>Edit the instruction data below:</h3>
+  <textarea id="editbox"></textarea>
+  <button onclick="generateDocs()">Generate Documentation</button>
+
+  <h3>Generated HTML Documentation:</h3>
+  <pre id="htmlOutput"></pre>
+
+  <h3>Generated Markdown Documentation:</h3>
+  <pre id="mdOutput"></pre>
+
+  <!-- Import HTVM.js -->
+  <script src="HTVM.js"></script>
+
+  <!-- Import DOCUMENTATION_Generator.js -->
+  <script src="DOCUMENTATION_Generator.js"></script>
+
+  <script>
+    // Function to generate documentation
+    function generateDocs() {
+      // Get the input data from the edit box
+      instructionFileData = document.getElementById("editbox").value;
+
+      // Ensure all vars are reset
+      DOCS_params = "";
+      DOCS_param1 = "";
+      DOCS_param2 = "";
+      DOCS_checkIfFuncNameExists = 0;
+      OUTdocs_HTML = "";
+      OUTdocs_MD = "";
+
+      // Generate documentation in both formats
+      OUTdocs_HTML = genDocs("html");
+      OUTdocs_MD = genDocs("md");
+
+      // Display the output in the respective areas
+      document.getElementById("htmlOutput").textContent = OUTdocs_HTML;
+      document.getElementById("mdOutput").textContent = OUTdocs_MD;
+
+    }
+
+    // Function to download a file with the given content
+    function downloadFile(filename, content) {
+      var link = document.createElement("a");
+      link.href = "data:text/plain;charset=utf-8," + encodeURIComponent(content);
+      link.download = filename;
+      link.click();
+    }
+  </script>
+
+</body>
+</html>
