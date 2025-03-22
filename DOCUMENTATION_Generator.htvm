@@ -9,6 +9,8 @@ str OUTdocs_HTML := ""
 str OUTdocs_MD := ""
 
 
+
+
 ___cpp start
 
 std::string escapeStr(const std::string& str) {
@@ -31,6 +33,23 @@ ___cpp end
 
 
 ___js start
+
+function fetchFile(filePath) {
+  fetch(filePath)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text(); // Parse the response as text (file contents)
+    })
+    .then(data => {
+      console.log(data); // Handle the data (contents of the .txt file)
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
+}
+
 
 function escapeStr(str) {
     return str.replace(/\\/g, "\\\\")   // Escape backslashes
