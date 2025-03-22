@@ -655,6 +655,7 @@ alliance Movable {
         }
     }
     crew actions {
+        ; General Settings Methods
         method void resetGeneralSettings(this) {
             Movable_settings_GeneralSettings_difficulty := STR("normal")
             Movable_settings_GeneralSettings_volume := 50
@@ -667,6 +668,7 @@ alliance Movable {
             print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
             print("Resolution: " . Movable.settings.GeneralSettings.resolution)
         }
+        ; Audio Settings Methods
         method void resetAudioSettings(this) {
             Movable_settings_AudioSettings_masterVolume := 70
             Movable_settings_AudioSettings_musicVolume := 50
@@ -679,6 +681,7 @@ alliance Movable {
             print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
             print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
         }
+        ; Display Settings Methods
         method void resetDisplaySettings(this) {
             Movable_settings_DisplaySettings_fullscreen := true
             Movable_settings_DisplaySettings_aspectRatio := STR("16:9")

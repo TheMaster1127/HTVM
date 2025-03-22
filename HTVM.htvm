@@ -4678,16 +4678,9 @@ fixExpertionLineFuncOnlyTEXT_numDelete := StrLen(fixExpertionLineFuncOnlyTEXT_fu
 expression := StringTrimLeft(expression, fixExpertionLineFuncOnlyTEXT_numDelete)
 }
 
-; osp dosent work in:
-;java kinda works
-;groovy 
-;ruby
 
-; but
 ;go works but kinda need to use:
-;print(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)
-
-; the other langs works
+;print(osp_osp_this_keyword_htvm_osp_this_htvm_keyword)
 
 ; osp
 if (langToConvertTo != langFileExtension_2) 
@@ -4696,8 +4689,16 @@ Loop, % ospDic1.size()
 {
 str00 := ospDic1[A_Index]
 
-
+if (langToConvertTo = "rb")
+{
+expression := StrReplace(expression, "$" . Trim(StrReplace(str00, "_", ".")) . ".", str00 . "_")
+}
+else
+{
 expression := StrReplace(expression, StrReplace(str00, "_", ".") . ".", str00 . "_")
+}
+
+
 
 
 }
@@ -4851,7 +4852,7 @@ expression := RegExReplace(expression, "\b" . keyWordThis . "\b", keyWordThis_2)
 }
 else
 {
-expression := RegExReplace(expression, "\b" . keyWordThis . "\b", "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD")
+expression := RegExReplace(expression, "\b" . keyWordThis . "\b", "osp_osp_this_keyword_htvm_osp_this_htvm_keyword")
 }
 
 if (langToConvertTo = "cpp") {
@@ -10943,8 +10944,9 @@ slidingWinFixCommentsRmI := 0
 newStringOutCode := ""
 Loop, Parse, code, `n, `r
 {
-if (InStr(A_LoopField, " " . keyWordComment) != false)
+if (InStr(A_LoopField, " " . keyWordComment) != false) and (SubStr(Trim(A_LoopField), 1, StrLen(keyWordComment)) != keyWordComment)
 {
+
 
 
 posForRemoveCommentsOnTheEndOfTheLine := 0
@@ -11666,7 +11668,15 @@ htCode .= keyWordProp_2 . propHELP(str1, "no-no") . Chr(10)
 else
 {
 
+if (langToConvertTo = "rb")
+{
+htCode .= propHELP(str1, "$" . Trim(StrReplace(str20, ".", "_") . "_")) . Chr(10)
+}
+else
+{
 htCode .= propHELP(str1, StrReplace(str20, ".", "_") . "_") . Chr(10)
+}
+
 }
 
 
@@ -11750,18 +11760,18 @@ str3 := Trim(str3)
     }
 
 if (langToConvertTo = "cpp") {
-    htCode .= getFuncTypeConvert(str3) . " " . str15 . "(std::string OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " . Chr(34) . Chr(34) . ")" . Chr(10)
+    htCode .= getFuncTypeConvert(str3) . " " . str15 . "(std::string osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
 }
 
 if (langToConvertTo = "py") {
-    htCode .= "def " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " . Chr(34) . Chr(34) . "):" . Chr(10)
+    htCode .= "def " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . "):" . Chr(10)
 }
 
 if (langToConvertTo = "js") {
     if (int1 = 1) { ; int1 1 = is async, 0 = not async
-        htCode .= "async function " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " . Chr(34) . Chr(34) . ")" . Chr(10)
+        htCode .= "async function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
     } else {
-        htCode .= "function " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " . Chr(34) . Chr(34) . ")" . Chr(10)
+        htCode .= "function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
     }
 }
 
@@ -11772,82 +11782,82 @@ if (langToConvertTo = "go")
 skipLeftCuleyForFuncPLS := 1
 if (str3 = keyWordVoid)
 {
-    htCode .= "func " . str15 . "(__HTVM_V2_TO_GO_optionalParams__ ...interface{})" . Chr(10) . "{" . Chr(10) . "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD := " . Chr(34) . Chr(34) . Chr(10) . "if len(__HTVM_V2_TO_GO_optionalParams__) " . Chr(62) . " 0 " . Chr(10) . "{" . Chr(10) . "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = __HTVM_V2_TO_GO_optionalParams__[0].(string)" . Chr(10) . "}" . Chr(10)
+    htCode .= "func " . str15 . "(__HTVM_V2_TO_GO_optionalParams__ ...interface{})" . Chr(10) . "{" . Chr(10) . "osp_osp_this_keyword_htvm_osp_this_htvm_keyword := " . Chr(34) . Chr(34) . Chr(10) . "if len(__HTVM_V2_TO_GO_optionalParams__) " . Chr(62) . " 0 " . Chr(10) . "{" . Chr(10) . "osp_osp_this_keyword_htvm_osp_this_htvm_keyword = __HTVM_V2_TO_GO_optionalParams__[0].(string)" . Chr(10) . "}" . Chr(10)
 }
 else
 {
-    htCode .= "func " . str15 . "(__HTVM_V2_TO_GO_optionalParams__ ...interface{}) " . getFuncTypeConvert(str3) . Chr(10) . "{" . Chr(10) . "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD := " . Chr(34) . Chr(34) . Chr(10) . "if len(__HTVM_V2_TO_GO_optionalParams__) " . Chr(62) . " 0 {" . Chr(10) . "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = __HTVM_V2_TO_GO_optionalParams__[0].(string)" . Chr(10) . "}" . Chr(10)
+    htCode .= "func " . str15 . "(__HTVM_V2_TO_GO_optionalParams__ ...interface{}) " . getFuncTypeConvert(str3) . Chr(10) . "{" . Chr(10) . "osp_osp_this_keyword_htvm_osp_this_htvm_keyword := " . Chr(34) . Chr(34) . Chr(10) . "if len(__HTVM_V2_TO_GO_optionalParams__) " . Chr(62) . " 0 {" . Chr(10) . "osp_osp_this_keyword_htvm_osp_this_htvm_keyword = __HTVM_V2_TO_GO_optionalParams__[0].(string)" . Chr(10) . "}" . Chr(10)
 }
 
 }
 if (langToConvertTo = "lua")
 {
 skipLeftCuleyForFuncPLS := 1
-    htCode .= "function " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD) {" . Chr(10) . "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD or " . Chr(34) . Chr(34) . Chr(10)
+    htCode .= "function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword) {" . Chr(10) . "osp_osp_this_keyword_htvm_osp_this_htvm_keyword = osp_osp_this_keyword_htvm_osp_this_htvm_keyword or " . Chr(34) . Chr(34) . Chr(10)
 }
 if (langToConvertTo = "cs")
 {
-    htCode .= "static " . getFuncTypeConvert(str3) . " " . str15 . "(string OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " . Chr(34) . Chr(34) . ")" . Chr(10)
+    htCode .= "static " . getFuncTypeConvert(str3) . " " . str15 . "(string osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
 }
 if (langToConvertTo = "java")
 {
 skipLeftCuleyForFuncPLS := 1
-    htCode .= "public static " . getFuncTypeConvert(str3) . " " . str15 . "(Object... __HTVM_V2_TO_JAVA_optionalParams__)" . Chr(10) . "{" . Chr(10) . "String OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " . Chr(34) . Chr(34) . ";" . Chr(10)
+    htCode .= "public static " . getFuncTypeConvert(str3) . " " . str15 . "(Object... __HTVM_V2_TO_JAVA_optionalParams__)" . Chr(10) . "{" . Chr(10) . "String osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ";" . Chr(10)
 }
 if (langToConvertTo = "kt")
 {
 
 if (str3 = keyWordVoid)
 {
-    htCode .= "fun " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: String = " . Chr(34) . Chr(34) . ")" . Chr(10)
+    htCode .= "fun " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: String = " . Chr(34) . Chr(34) . ")" . Chr(10)
 }
 else
 {
-    htCode .= "fun " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: String = " . Chr(34) . Chr(34) . "): " . getFuncTypeConvert(str3) . Chr(10)
+    htCode .= "fun " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: String = " . Chr(34) . Chr(34) . "): " . getFuncTypeConvert(str3) . Chr(10)
 }
 
 }
 if (langToConvertTo = "rb")
 {
-    htCode .= "def " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " . Chr(34) . Chr(34) . ")" . Chr(10)
+    htCode .= "def " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
 }
 if (langToConvertTo = "nim")
 {
 if (str3 = keyWordVoid)
 {
-    htCode .= "proc " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " . Chr(34) . Chr(34) . ") =" . Chr(10)
+    htCode .= "proc " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " . Chr(34) . Chr(34) . ") =" . Chr(10)
 }
 else
 {
-    htCode .= "proc " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " . Chr(34) . Chr(34) . "): " . getFuncTypeConvert(str3) . " =" . Chr(10)
+    htCode .= "proc " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " . Chr(34) . Chr(34) . "): " . getFuncTypeConvert(str3) . " =" . Chr(10)
 }
 }
 if (langToConvertTo = "ahk")
 {
-    htCode .= str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD := " . Chr(34) . Chr(34) . ")" . Chr(10)
+    htCode .= str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword := " . Chr(34) . Chr(34) . ")" . Chr(10)
 }
 if (langToConvertTo = "swift")
 {
 if (str3 = keyWordVoid)
 {
-    htCode .= "func " . str15 . "(_ OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: String = " . Chr(34) . Chr(34) . ")" . Chr(10)
+    htCode .= "func " . str15 . "(_ osp_osp_this_keyword_htvm_osp_this_htvm_keyword: String = " . Chr(34) . Chr(34) . ")" . Chr(10)
 }
 else
 {
-    htCode .= "func " . str15 . "(_ OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: String = " . Chr(34) . Chr(34) . ") -> " . getFuncTypeConvert(str3) . Chr(10)
+    htCode .= "func " . str15 . "(_ osp_osp_this_keyword_htvm_osp_this_htvm_keyword: String = " . Chr(34) . Chr(34) . ") -> " . getFuncTypeConvert(str3) . Chr(10)
 }
 }
 if (langToConvertTo = "dart")
 {
-    htCode .= getFuncTypeConvert(str3) . " " . str15 . "([String OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " . Chr(34) . Chr(34) . "])" . Chr(10)
+    htCode .= getFuncTypeConvert(str3) . " " . str15 . "([String osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . "])" . Chr(10)
 }
 if (langToConvertTo = "ts")
 {
-    htCode .= "function " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " . Chr(34) . Chr(34) . "): " . getFuncTypeConvert(str3) . Chr(10)
+    htCode .= "function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " . Chr(34) . Chr(34) . "): " . getFuncTypeConvert(str3) . Chr(10)
 }
 if (langToConvertTo = "groovy")
 {
-    htCode .= "def " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " . Chr(34) . Chr(34) . ")" . Chr(10)
+    htCode .= "def " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
 }
 
 }

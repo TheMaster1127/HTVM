@@ -4004,13 +4004,17 @@ std::string expressionParserTranspiler(std::string expression) {
     //ruby
     // but
     //go works but kinda need to use:
-    //print(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)
+    //print(osp_osp_this_keyword_htvm_osp_this_htvm_keyword)
     // the other langs works
     // osp
     if (langToConvertTo != langFileExtension_2) {
         for (int A_Index86 = 0; A_Index86 < HTVM_Size(ospDic1) + 0; A_Index86++) {
             str00 = ospDic1[A_Index86];
-            expression = StrReplace(expression, StrReplace(str00, "_", ".") + ".", str00 + "_");
+            if (langToConvertTo == "rb") {
+                expression = StrReplace(expression, "$" + Trim(StrReplace(str00, "_", ".")) + ".", str00 + "_");
+            } else {
+                expression = StrReplace(expression, StrReplace(str00, "_", ".") + ".", str00 + "_");
+            }
         }
         for (int A_Index87 = 0; A_Index87 < HTVM_Size(ospDic2) + 0; A_Index87++) {
             str00 = ospDic2[A_Index87];
@@ -4099,7 +4103,7 @@ std::string expressionParserTranspiler(std::string expression) {
     if (langToConvertTo == langFileExtension_2) {
         expression = RegExReplace(expression, "\\b" + keyWordThis + "\\b", keyWordThis_2);
     } else {
-        expression = RegExReplace(expression, "\\b" + keyWordThis + "\\b", "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD");
+        expression = RegExReplace(expression, "\\b" + keyWordThis + "\\b", "osp_osp_this_keyword_htvm_osp_this_htvm_keyword");
     }
     if (langToConvertTo == "cpp") {
         expression = RegExReplace(expression, "\\b" + theTryCatchVarForErrors + "\\b", theTryCatchVarForErrors + ".what()");
@@ -8725,7 +8729,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         std::vector<std::string> items115 = LoopParseFunc(code, "\n", "\r");
         for (size_t A_Index115 = 0; A_Index115 < items115.size() + 0; A_Index115++) {
             std::string A_LoopField115 = items115[A_Index115 - 0];
-            if (InStr(A_LoopField115, " " + keyWordComment) != false) {
+            if (InStr(A_LoopField115, " " + keyWordComment) != false && SubStr(Trim(A_LoopField115), 1, StrLen(keyWordComment)) != keyWordComment) {
                 posForRemoveCommentsOnTheEndOfTheLine = 0;
                 slidingWinFixCommentsRmI = 0;
                 slidingWinFixCommentsRm = slidingWinFixCommentsRmFUNC(A_LoopField115);
@@ -9242,7 +9246,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 if (langToConvertTo == langFileExtension_2) {
                     htCode += keyWordProp_2 + propHELP(str1, "no-no") + Chr(10);
                 } else {
-                    htCode += propHELP(str1, StrReplace(str20, ".", "_") + "_") + Chr(10);
+                    if (langToConvertTo == "rb") {
+                        htCode += propHELP(str1, "$" + Trim(StrReplace(str20, ".", "_") + "_")) + Chr(10);
+                    } else {
+                        htCode += propHELP(str1, StrReplace(str20, ".", "_") + "_") + Chr(10);
+                    }
                 }
             }
             else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
@@ -9303,73 +9311,73 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += getFuncTypeConvert(str3) + " " + str15 + "(std::string OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                    htCode += getFuncTypeConvert(str3) + " " + str15 + "(std::string osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ")" + Chr(10);
                 }
                 if (langToConvertTo == "py") {
-                    htCode += "def " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " + Chr(34) + Chr(34) + "):" + Chr(10);
+                    htCode += "def " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + "):" + Chr(10);
                 }
                 if (langToConvertTo == "js") {
                     if (int1 == 1) {
-                        htCode += "async function " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                        htCode += "async function " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ")" + Chr(10);
                     } else {
-                        htCode += "function " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                        htCode += "function " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ")" + Chr(10);
                     }
                 }
                 // Go
                 if (langToConvertTo == "go") {
                     skipLeftCuleyForFuncPLS = 1;
                     if (str3 == keyWordVoid) {
-                        htCode += "func " + str15 + "(__HTVM_V2_TO_GO_optionalParams__ ...interface{})" + Chr(10) + "{" + Chr(10) + "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD := " + Chr(34) + Chr(34) + Chr(10) + "if len(__HTVM_V2_TO_GO_optionalParams__) " + Chr(62) + " 0 " + Chr(10) + "{" + Chr(10) + "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = __HTVM_V2_TO_GO_optionalParams__[0].(string)" + Chr(10) + "}" + Chr(10);
+                        htCode += "func " + str15 + "(__HTVM_V2_TO_GO_optionalParams__ ...interface{})" + Chr(10) + "{" + Chr(10) + "osp_osp_this_keyword_htvm_osp_this_htvm_keyword := " + Chr(34) + Chr(34) + Chr(10) + "if len(__HTVM_V2_TO_GO_optionalParams__) " + Chr(62) + " 0 " + Chr(10) + "{" + Chr(10) + "osp_osp_this_keyword_htvm_osp_this_htvm_keyword = __HTVM_V2_TO_GO_optionalParams__[0].(string)" + Chr(10) + "}" + Chr(10);
                     } else {
-                        htCode += "func " + str15 + "(__HTVM_V2_TO_GO_optionalParams__ ...interface{}) " + getFuncTypeConvert(str3) + Chr(10) + "{" + Chr(10) + "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD := " + Chr(34) + Chr(34) + Chr(10) + "if len(__HTVM_V2_TO_GO_optionalParams__) " + Chr(62) + " 0 {" + Chr(10) + "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = __HTVM_V2_TO_GO_optionalParams__[0].(string)" + Chr(10) + "}" + Chr(10);
+                        htCode += "func " + str15 + "(__HTVM_V2_TO_GO_optionalParams__ ...interface{}) " + getFuncTypeConvert(str3) + Chr(10) + "{" + Chr(10) + "osp_osp_this_keyword_htvm_osp_this_htvm_keyword := " + Chr(34) + Chr(34) + Chr(10) + "if len(__HTVM_V2_TO_GO_optionalParams__) " + Chr(62) + " 0 {" + Chr(10) + "osp_osp_this_keyword_htvm_osp_this_htvm_keyword = __HTVM_V2_TO_GO_optionalParams__[0].(string)" + Chr(10) + "}" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "lua") {
                     skipLeftCuleyForFuncPLS = 1;
-                    htCode += "function " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD) {" + Chr(10) + "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD or " + Chr(34) + Chr(34) + Chr(10);
+                    htCode += "function " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword) {" + Chr(10) + "osp_osp_this_keyword_htvm_osp_this_htvm_keyword = osp_osp_this_keyword_htvm_osp_this_htvm_keyword or " + Chr(34) + Chr(34) + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += "static " + getFuncTypeConvert(str3) + " " + str15 + "(string OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                    htCode += "static " + getFuncTypeConvert(str3) + " " + str15 + "(string osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ")" + Chr(10);
                 }
                 if (langToConvertTo == "java") {
                     skipLeftCuleyForFuncPLS = 1;
-                    htCode += "public static " + getFuncTypeConvert(str3) + " " + str15 + "(Object... __HTVM_V2_TO_JAVA_optionalParams__)" + Chr(10) + "{" + Chr(10) + "String OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " + Chr(34) + Chr(34) + ";" + Chr(10);
+                    htCode += "public static " + getFuncTypeConvert(str3) + " " + str15 + "(Object... __HTVM_V2_TO_JAVA_optionalParams__)" + Chr(10) + "{" + Chr(10) + "String osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ";" + Chr(10);
                 }
                 if (langToConvertTo == "kt") {
                     if (str3 == keyWordVoid) {
-                        htCode += "fun " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: String = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                        htCode += "fun " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: String = " + Chr(34) + Chr(34) + ")" + Chr(10);
                     } else {
-                        htCode += "fun " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: String = " + Chr(34) + Chr(34) + "): " + getFuncTypeConvert(str3) + Chr(10);
+                        htCode += "fun " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: String = " + Chr(34) + Chr(34) + "): " + getFuncTypeConvert(str3) + Chr(10);
                     }
                 }
                 if (langToConvertTo == "rb") {
-                    htCode += "def " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                    htCode += "def " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ")" + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
                     if (str3 == keyWordVoid) {
-                        htCode += "proc " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " + Chr(34) + Chr(34) + ") =" + Chr(10);
+                        htCode += "proc " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " + Chr(34) + Chr(34) + ") =" + Chr(10);
                     } else {
-                        htCode += "proc " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " + Chr(34) + Chr(34) + "): " + getFuncTypeConvert(str3) + " =" + Chr(10);
+                        htCode += "proc " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " + Chr(34) + Chr(34) + "): " + getFuncTypeConvert(str3) + " =" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "ahk") {
-                    htCode += str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD := " + Chr(34) + Chr(34) + ")" + Chr(10);
+                    htCode += str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword := " + Chr(34) + Chr(34) + ")" + Chr(10);
                 }
                 if (langToConvertTo == "swift") {
                     if (str3 == keyWordVoid) {
-                        htCode += "func " + str15 + "(_ OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: String = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                        htCode += "func " + str15 + "(_ osp_osp_this_keyword_htvm_osp_this_htvm_keyword: String = " + Chr(34) + Chr(34) + ")" + Chr(10);
                     } else {
-                        htCode += "func " + str15 + "(_ OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: String = " + Chr(34) + Chr(34) + ") -> " + getFuncTypeConvert(str3) + Chr(10);
+                        htCode += "func " + str15 + "(_ osp_osp_this_keyword_htvm_osp_this_htvm_keyword: String = " + Chr(34) + Chr(34) + ") -> " + getFuncTypeConvert(str3) + Chr(10);
                     }
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += getFuncTypeConvert(str3) + " " + str15 + "([String OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " + Chr(34) + Chr(34) + "])" + Chr(10);
+                    htCode += getFuncTypeConvert(str3) + " " + str15 + "([String osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + "])" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += "function " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = " + Chr(34) + Chr(34) + "): " + getFuncTypeConvert(str3) + Chr(10);
+                    htCode += "function " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " + Chr(34) + Chr(34) + "): " + getFuncTypeConvert(str3) + Chr(10);
                 }
                 if (langToConvertTo == "groovy") {
-                    htCode += "def " + str15 + "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                    htCode += "def " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ")" + Chr(10);
                 }
             }
             else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF) && SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordElseIf))) != StrLower(keyWordElseIf)) {
