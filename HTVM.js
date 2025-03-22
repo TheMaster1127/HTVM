@@ -9041,7 +9041,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 str0 = Trim(StringTrimLeft(A_LoopField131, StrLen(keyWordProp)));
                 str1 = Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 1));
                 str20 = Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 2));
-                if (str20 == "" && langToConvertTo != langFileExtension_2) { {
+                if (str20 == "" && langToConvertTo != langFileExtension_2) {
                     continue;
                 }
                 if (langToConvertTo == langFileExtension_2) {
