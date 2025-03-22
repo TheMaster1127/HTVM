@@ -558,180 +558,144 @@ def obj name {
 #### Example of OSP
 
 ```htvm
-alliance Movable {
-    crew Vehicles {
-        def obj Car {
-            prop int door = 4
-            prop int fuel = 100
-            prop bool hasFUEL = true
-        }
-        def obj Bike {
-            prop bool hasGears = true
-            prop int energy = 100
-            prop bool hasENERGY = true
-        }
-
-        method void move(this) {
-            if (this == "Movable.Vehicles.Car") {
-                if (Movable.Vehicles.Car.fuel > 0) {
-                    print("The car is driving.")
-                    Movable.Vehicles.Car.fuel = Movable.Vehicles.Car.fuel - 10
-                } else {
-                    print("The car is out of fuel.")
-                    Movable.Vehicles.Car.hasFUEL = false
-                }
-            }
-            else if (this == "Movable.Vehicles.Bike") {
-                if (Movable.Vehicles.Bike.energy > 0) {
-                    print("The bike is pedaling.")
-                    Movable.Vehicles.Bike.energy = Movable.Vehicles.Bike.energy - 5
-                } else {
-                    print("The bike is out of energy.")
-                    Movable.Vehicles.Bike.hasENERGY = false
-                }
-            }
-        }
-    }
-    
-    crew settings {
-        def obj GeneralSettings {
-            prop str difficulty = "normal"
-            prop int volume = 50
-            prop str resolution = "1920x1080"
-        }
-        def obj AudioSettings {
-            prop int masterVolume = 70
-            prop int musicVolume = 50
-            prop int sfxVolume = 40
-        }
-        def obj DisplaySettings {
-            prop bool fullscreen = true
-            prop str aspectRatio = "16:9"
-        }
-    }
-    
-    crew actions {
-        // General Settings Methods
-        method void resetGeneralSettings() {
-            Movable.settings.GeneralSettings.difficulty = STR("normal")
-            Movable.settings.GeneralSettings.volume = 50
-            Movable.settings.GeneralSettings.resolution = STR("1920x1080")
-            print("General settings reset to default.")
-        }
-        method void printGeneralSettings() {
-            print("General Settings:")
-            print("Difficulty: " + Movable.settings.GeneralSettings.difficulty)
-            print("Volume: " + STR(Movable.settings.GeneralSettings.volume))
-            print("Resolution: " + Movable.settings.GeneralSettings.resolution)
-        }
-
-        // Audio Settings Methods
-        method void resetAudioSettings() {
-            Movable.settings.AudioSettings.masterVolume = 70
-            Movable.settings.AudioSettings.musicVolume = 50
-            Movable.settings.AudioSettings.sfxVolume = 40
-            print("Audio settings reset to default.")
-        }
-        method void printAudioSettings() {
-            print("Audio Settings:")
-            print("Master Volume: " + STR(Movable.settings.AudioSettings.masterVolume))
-            print("Music Volume: " + STR(Movable.settings.AudioSettings.musicVolume))
-            print("SFX Volume: " + STR(Movable.settings.AudioSettings.sfxVolume))
-        }
-
-        // Display Settings Methods
-        method void resetDisplaySettings() {
-            Movable.settings.DisplaySettings.fullscreen = true
-            Movable.settings.DisplaySettings.aspectRatio = STR("16:9")
-            print("Display settings reset to default.")
-        }
-        method void printDisplaySettings() {
-            print("Display Settings:")
-            print("Fullscreen: " + STR(Movable.settings.DisplaySettings.fullscreen))
-            print("Aspect Ratio: " + Movable.settings.DisplaySettings.aspectRatio)
-        }
-    }
-
-    crew array {
-        def obj name {
-            arr str temp
-            prop arr str prop1 = temp
-            prop arr str prop2 = temp
-            prop arr str prop3 = temp
-            prop arr str prop4 = temp
-        }
-    }
-    
+def obj Movable.Vehicles.Car {
+    prop int door := 4
+    prop int fuel := 100
+    prop bool hasFUEL := true
 }
-
+def obj Movable.Vehicles.Bike {
+    prop bool hasGears := true
+    prop int energy := 100
+    prop bool hasENERGY := true
+}
+func void move(this) {
+    global Movable.Vehicles.Car.fuel
+    global Movable.Vehicles.Car.hasFUEL
+    global Movable.Vehicles.Bike.energy
+    global Movable.Vehicles.Bike.hasENERGY
+    if (this = "Movable.Vehicles.Car") {
+        if (Movable.Vehicles.Car.fuel > 0) {
+            print("The car is driving.")
+            Movable_Vehicles_Car_fuel := Movable.Vehicles.Car.fuel - 10
+        }
+        else {
+            print("The car is out of fuel.")
+            Movable_Vehicles_Car_hasFUEL := false
+        }
+    }
+    else if (this = "Movable.Vehicles.Bike") {
+        if (Movable.Vehicles.Bike.energy > 0) {
+            print("The bike is pedaling.")
+            Movable_Vehicles_Bike_energy := Movable.Vehicles.Bike.energy - 5
+        }
+        else {
+            print("The bike is out of energy.")
+            Movable_Vehicles_Bike_hasENERGY := false
+        }
+    }
+}
+def obj Movable.settings.GeneralSettings {
+    prop str difficulty := "normal"
+    prop int volume := 50
+    prop str resolution := "1920x1080"
+}
+def obj Movable.settings.AudioSettings {
+    prop int masterVolume := 70
+    prop int musicVolume := 50
+    prop int sfxVolume := 40
+}
+def obj Movable.settings.DisplaySettings {
+    prop bool fullscreen := true
+    prop str aspectRatio := "16:9"
+}
+func void resetGeneralSettings(this) {
+    Movable_settings_GeneralSettings_difficulty := STR("normal")
+    Movable_settings_GeneralSettings_volume := 50
+    Movable_settings_GeneralSettings_resolution := STR("1920x1080")
+    print("General settings reset to default.")
+}
+func void printGeneralSettings(this) {
+    print("General Settings:")
+    print("Difficulty: " . Movable.settings.GeneralSettings.difficulty)
+    print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
+    print("Resolution: " . Movable.settings.GeneralSettings.resolution)
+}
+func void resetAudioSettings(this) {
+    Movable_settings_AudioSettings_masterVolume := 70
+    Movable_settings_AudioSettings_musicVolume := 50
+    Movable_settings_AudioSettings_sfxVolume := 40
+    print("Audio settings reset to default.")
+}
+func void printAudioSettings(this) {
+    print("Audio Settings:")
+    print("Master Volume: " . STR(Movable.settings.AudioSettings.masterVolume))
+    print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
+    print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
+}
+func void resetDisplaySettings(this) {
+    Movable_settings_DisplaySettings_fullscreen := true
+    Movable_settings_DisplaySettings_aspectRatio := STR("16:9")
+    print("Display settings reset to default.")
+}
+func void printDisplaySettings(this) {
+    print("Display Settings:")
+    print("Fullscreen: " . STR(Movable.settings.DisplaySettings.fullscreen))
+    print("Aspect Ratio: " . Movable.settings.DisplaySettings.aspectRatio)
+}
+def obj Movable.array.name {
+    prop arr str prop1
+    prop arr str prop2
+    prop arr str prop3
+    prop arr str prop4
+}
 main
-// Test vehicle movement
-while (Movable.Vehicles.Car.hasFUEL == true) && (Movable.Vehicles.Bike.hasENERGY = true) {
-    Movable.Vehicles.move(Movable.Vehicles.Car)
-    Movable.Vehicles.move(Movable.Vehicles.Bike)
+; Test vehicle movement
+while (Movable.Vehicles.Car.hasFUEL = true) and (Movable.Vehicles.Bike.hasENERGY = true) {
+    Movable.Vehicles.move("Movable.Vehicles.Car")
+    Movable.Vehicles.move("Movable.Vehicles.Bike")
     print("=====================================")
 }
-
-// Test settings manipulation
-Movable.settings.GeneralSettings.difficulty = STR("hard")
-Movable.settings.GeneralSettings.volume = 80
-Movable.settings.GeneralSettings.resolution = STR("2560x1440")
-Movable.settings.AudioSettings.masterVolume = 90
-Movable.settings.AudioSettings.musicVolume = 60
-Movable.settings.AudioSettings.sfxVolume = 50
-Movable.settings.DisplaySettings.fullscreen = false
-Movable.settings.DisplaySettings.aspectRatio = STR("21:9")
-
+; Test settings manipulation
+Movable_settings_GeneralSettings_difficulty := STR("hard")
+Movable_settings_GeneralSettings_volume := 80
+Movable_settings_GeneralSettings_resolution := STR("2560x1440")
+Movable_settings_AudioSettings_masterVolume := 90
+Movable_settings_AudioSettings_musicVolume := 60
+Movable_settings_AudioSettings_sfxVolume := 50
+Movable_settings_DisplaySettings_fullscreen := false
+Movable_settings_DisplaySettings_aspectRatio := STR("21:9")
 Movable.actions.printGeneralSettings()
 Movable.actions.printAudioSettings()
 Movable.actions.printDisplaySettings()
-
 Movable.actions.resetGeneralSettings()
 Movable.actions.resetAudioSettings()
 Movable.actions.resetDisplaySettings()
-
 Movable.actions.printGeneralSettings()
 Movable.actions.printAudioSettings()
 Movable.actions.printDisplaySettings()
-
-// Test array manipulation
-Movable.array.name.prop1.push("1text1")
-Movable.array.name.prop1.push("1text2")
-Movable.array.name.prop1.push("1text3")
-Movable.array.name.prop2.push("2text1")
-Movable.array.name.prop2.push("2text2")
-Movable.array.name.prop2.push("2text3")
-Movable.array.name.prop3.push("3text1")
-Movable.array.name.prop3.push("3text2")
-Movable.array.name.prop3.push("3text3")
-Movable.array.name.prop4.push("4text1")
-Movable.array.name.prop4.push("4text2")
-Movable.array.name.prop4.push("4text3")
-
-// why this
-// cuz python used len(param) insed of param.len() so it meses up evrything
-// if using OSP objects that have a dot (.) it doset work in python to get the lenght
-// but for a name whit no dots it works
-
-arr str arrayTempOnlyGetSize1 = Movable.array.name.prop1
-arr str arrayTempOnlyGetSize2 = Movable.array.name.prop2
-arr str arrayTempOnlyGetSize3 = Movable.array.name.prop3
-arr str arrayTempOnlyGetSize4 = Movable.array.name.prop4
-
-
-
-
-Loop, % arrayTempOnlyGetSize1.size() 
-{
-print(Movable.array.name.prop1[A_Index])
+; Test array manipulation
+Movable.array.name.prop1.add("1text1")
+Movable.array.name.prop1.add("1text2")
+Movable.array.name.prop1.add("1text3")
+Movable.array.name.prop2.add("2text1")
+Movable.array.name.prop2.add("2text2")
+Movable.array.name.prop2.add("2text3")
+Movable.array.name.prop3.add("3text1")
+Movable.array.name.prop3.add("3text2")
+Movable.array.name.prop3.add("3text3")
+Movable.array.name.prop4.add("4text1")
+Movable.array.name.prop4.add("4text2")
+Movable.array.name.prop4.add("4text3")
+Loop, % Movable.array.name.prop1.size() {
+    print(Movable.array.name.prop1[A_Index])
 }
-Loop, % arrayTempOnlyGetSize2.size() {
+Loop, % Movable.array.name.prop2.size() {
     print(Movable.array.name.prop2[A_Index])
 }
-Loop, % arrayTempOnlyGetSize3.size() {
+Loop, % Movable.array.name.prop3.size() {
     print(Movable.array.name.prop3[A_Index])
 }
-Loop, % arrayTempOnlyGetSize4.size() {
+Loop, % Movable.array.name.prop4.size() {
     print(Movable.array.name.prop4[A_Index])
 }
 
@@ -781,7 +745,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -1043,7 +1007,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -1371,7 +1335,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -1450,7 +1414,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -1569,7 +1533,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -1673,7 +1637,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -1944,7 +1908,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -2006,7 +1970,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ---
 
-**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++, while others are available in all or some languages.**
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**
 
 **HTVM build-in functions availability.**
 
@@ -2658,7 +2622,7 @@ uint8
 uint16
 uint32
 uint64
-inta
+int
 str
 bool
 float

@@ -7,15 +7,7 @@ print(value) {
 }
 
 STR(value) {
-    if (IsInt(value)) {
-        return value
-    } else if (IsFloat(value)) {
-        return value
-    } else if (value = "True" or value = "False") {
-        return (value = "True") ? "1" : "0"
-    } else {
-        return value
-    }
+    return value
 }
 
 HTVM_Append(arr, value) {

@@ -35,12 +35,12 @@ def HTVM_Size(arr) {
 }
 
 
-def Movable_Vehicles_Car_door = 4
-def Movable_Vehicles_Car_fuel = 100
-def Movable_Vehicles_Car_hasFUEL = true
-def Movable_Vehicles_Bike_hasGears = true
-def Movable_Vehicles_Bike_energy = 100
-def Movable_Vehicles_Bike_hasENERGY = true
+Movable_Vehicles_Car_door = 4
+Movable_Vehicles_Car_fuel = 100
+Movable_Vehicles_Car_hasFUEL = true
+Movable_Vehicles_Bike_hasGears = true
+Movable_Vehicles_Bike_energy = 100
+Movable_Vehicles_Bike_hasENERGY = true
 def OSPHTVMOSP_Movable_Vehicles_move(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = "") {
     if ((OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD == "Movable.Vehicles.Car")) {
         if ((Movable_Vehicles_Car_fuel > 0)) {
@@ -61,14 +61,14 @@ def OSPHTVMOSP_Movable_Vehicles_move(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEY
         }
     }
 }
-def Movable_settings_GeneralSettings_difficulty = "normal"
-def Movable_settings_GeneralSettings_volume = 50
-def Movable_settings_GeneralSettings_resolution = "1920x1080"
-def Movable_settings_AudioSettings_masterVolume = 70
-def Movable_settings_AudioSettings_musicVolume = 50
-def Movable_settings_AudioSettings_sfxVolume = 40
-def Movable_settings_DisplaySettings_fullscreen = true
-def Movable_settings_DisplaySettings_aspectRatio = "16:9"
+Movable_settings_GeneralSettings_difficulty = "normal"
+Movable_settings_GeneralSettings_volume = 50
+Movable_settings_GeneralSettings_resolution = "1920x1080"
+Movable_settings_AudioSettings_masterVolume = 70
+Movable_settings_AudioSettings_musicVolume = 50
+Movable_settings_AudioSettings_sfxVolume = 40
+Movable_settings_DisplaySettings_fullscreen = true
+Movable_settings_DisplaySettings_aspectRatio = "16:9"
 def OSPHTVMOSP_Movable_actions_resetGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD = "") {
     Movable_settings_GeneralSettings_difficulty = STR("normal")
     Movable_settings_GeneralSettings_volume = 50
@@ -103,10 +103,10 @@ def OSPHTVMOSP_Movable_actions_printDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OS
     print("Fullscreen: " + STR(Movable_settings_DisplaySettings_fullscreen))
     print("Aspect Ratio: " + Movable_settings_DisplaySettings_aspectRatio)
 }
-def Movable_array_name_prop1 = []
-def Movable_array_name_prop2 = []
-def Movable_array_name_prop3 = []
-def Movable_array_name_prop4 = []
+Movable_array_name_prop1 = []
+Movable_array_name_prop2 = []
+Movable_array_name_prop3 = []
+Movable_array_name_prop4 = []
 // Test vehicle movement
 while ((Movable_Vehicles_Car_hasFUEL == true && Movable_Vehicles_Bike_hasENERGY == true)) {
     OSPHTVMOSP_Movable_Vehicles_move("Movable.Vehicles.Car")
