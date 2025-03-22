@@ -1,0 +1,5 @@
+; Open Python block
+___py start
+print("Hello, world!")
+___py end
+; End Python block

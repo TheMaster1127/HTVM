@@ -1,0 +1,5 @@
+; Open JavaScript block
+___js start
+console.log("Hello, world!");
+___js end
+; End JavaScript block

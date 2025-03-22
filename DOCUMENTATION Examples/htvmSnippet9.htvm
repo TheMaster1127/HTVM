@@ -1,0 +1,5 @@
+; This is a JavaScript programming block. It will stay intact and included in the JS output.
+___js start
+// this is now JavaScript code
+console.log("==========================")
+___js end

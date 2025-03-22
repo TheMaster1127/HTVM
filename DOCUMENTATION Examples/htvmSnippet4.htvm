@@ -1,0 +1,4 @@
+def obj Standalone {
+    prop int value := 10
+    prop str name := "Independent"
+}

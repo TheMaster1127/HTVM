@@ -1,0 +1,20 @@
+method void move(this) {
+    if (this = "Movable.Vehicles.Car") {
+        if (Movable.Vehicles.Car.fuel > 0) {
+            print("The car is driving.")
+            Movable.Vehicles.Car.fuel := Movable.Vehicles.Car.fuel - 10
+        } else {
+            print("The car is out of fuel.")
+            Movable.Vehicles.Car.hasFUEL := false
+        }
+    }
+    else if (this = "Movable.Vehicles.Bike") {
+        if (Movable.Vehicles.Bike.energy > 0) {
+            print("The bike is pedaling.")
+            Movable.Vehicles.Bike.energy := Movable.Vehicles.Bike.energy - 5
+        } else {
+            print("The bike is out of energy.")
+            Movable.Vehicles.Bike.hasENERGY := false
+        }
+    }
+}
