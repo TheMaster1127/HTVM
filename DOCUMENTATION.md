@@ -495,6 +495,7 @@ For example:
 ``` htvm
 def obj Car {
     prop int fuel := 100
+    ; This will cause an error!
     print(this)
 }
 
