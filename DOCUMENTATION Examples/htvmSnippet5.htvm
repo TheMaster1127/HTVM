@@ -1,4 +1,5 @@
 def obj Car {
     prop int fuel := 100
-    print(this) ; This will cause an error!
+    ; This will cause an error!
+    print(this)
 }

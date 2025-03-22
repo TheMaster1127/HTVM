@@ -9072,15 +9072,15 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 if (langToConvertTo == langFileExtension_2) {
                     if (int1 == 1) {
                         if (usePrefixTypeForTypeDefinition_2 == "on") {
-                            htCode += keyWordAsync_2 + keyWordFunc_2 + getFuncTypeConvert(str3) + " " + str2 + "(" + keyWordThis_2 + ")" + Chr(10);
+                            htCode += keyWordAsync_2 + keyWordMethod_2 + getFuncTypeConvert(str3) + " " + str2 + "(" + keyWordThis_2 + ")" + Chr(10);
                         } else {
-                            htCode += keyWordAsync_2 + keyWordFunc_2 + str2 + "(" + keyWordThis_2 + "): " + getFuncTypeConvert(str3) + Chr(10);
+                            htCode += keyWordAsync_2 + keyWordMethod_2 + str2 + "(" + keyWordThis_2 + "): " + getFuncTypeConvert(str3) + Chr(10);
                         }
                     } else {
                         if (usePrefixTypeForTypeDefinition_2 == "on") {
-                            htCode += keyWordFunc_2 + getFuncTypeConvert(str3) + " " + str2 + "(" + keyWordThis_2 + ")" + Chr(10);
+                            htCode += keyWordMethod_2 + getFuncTypeConvert(str3) + " " + str2 + "(" + keyWordThis_2 + ")" + Chr(10);
                         } else {
-                            htCode += keyWordFunc_2 + str2 + "(" + keyWordThis_2 + "): " + getFuncTypeConvert(str3) + Chr(10);
+                            htCode += keyWordMethod_2 + str2 + "(" + keyWordThis_2 + "): " + getFuncTypeConvert(str3) + Chr(10);
                         }
                     }
                 }
