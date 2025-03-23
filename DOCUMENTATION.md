@@ -1,13 +1,59 @@
 # HTVM Documentation
 
-1. [Introduction](#introduction-to-htvm) 
-Understand why HTVM is the future of programming.  
+
+1. [Introduction](#introduction-to-htvm)  
+Understand why HTVM is the future of programming.
 
 2. [OSP (Objectively Simplified Programming) Paradigm](#osp-objectively-simplified-programming-paradigm)  
-Learn about the new paradigm that replaces traditional object-oriented programming.  
+Learn about the new paradigm that replaces traditional object-oriented programming.
 
-3. [Built-in Functions](#built-in-functions)  
-Explore the wide range of built-in functions categorized for ease of use.  
+3. [How Your Language Looks Like](#how-your-language-looks-like)  
+Get to know how HTVM code is structured and its syntax style.
+
+4. [Programming Blocks](#programming-blocks)  
+HTVM introduces **programming blocks** that allow you to code in the target language seamlessly in your code. This feature is designed to handle cases where HTVM itself can't achieve something directly or when you'd prefer to rely on another language for specific tasks.
+
+5. [Variables](#variables)  
+Learn how to declare and use variables in HTVM for storing and manipulating data.
+
+6. [Functions](#functions)  
+Explore how to define and use functions for modular and reusable code.
+
+7. [Arrays](#arrays)  
+Dive into working with arrays, one of the most essential data structures in HTVM.
+
+8. [Types](#types)  
+Explore the different data types supported by HTVM and how to use them effectively.
+
+9. [Loops](#loops)  
+Master the looping structures available in HTVM, such as the standard loop and infinite loops.
+
+10. [If, Else, Else If](#if-else-else-if)  
+Learn how to control the flow of your program with conditional statements.
+
+11. [Comments](#comments)  
+Add clarity to your code by using comments to document and explain your code.
+
+12. [Error Handling](#error-handling)  
+Understand how to manage errors and handle exceptions in HTVM to make your programs more robust.
+
+13. [Operators](#operators)  
+Explore the logical and mathematical operators available in HTVM for performing calculations and comparisons.
+
+14. [Assignment Operators](#assignment-operators)  
+Learn how to use assignment operators for storing values and manipulating them in your code.
+
+15. [Include](#include)  
+Discover how to include external files and resources in your HTVM project for enhanced functionality.
+
+16. [Extra Stuff](#extra-stuff)  
+Explore additional unique features and utilities HTVM offers for greater flexibility and ease of use.
+
+17. [Commands](#commands)  
+Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency.
+
+18. [Built-in Functions](#built-in-functions)  
+Explore the wide range of built-in functions categorized for ease of use.
 
 ---
 
@@ -758,6 +804,158 @@ Loop, % Movable.array.name.prop4.size() {
 **OSP** simplifies programming while ensuring compatibility with all languages.
 
 ---
+
+### How Your Language Looks Like
+
+[Go back](#htvm-documentation)
+
+Get to know how HTVM code is structured and its syntax style. HTVM uses a clean, human-readable syntax that focuses on simplicity and ease of use. You can define your own syntax, making HTVM incredibly flexible and tailored to your needs.
+
+---
+
+
+### Programming Blocks
+
+[Go back](#htvm-documentation)
+
+HTVM introduces **programming blocks** that allow you to code in the target language seamlessly in your code. This feature is designed to handle cases where HTVM itself can't achieve something directly or when you'd prefer to rely on another language for specific tasks.
+
+---
+
+
+### Variables
+
+[Go back](#htvm-documentation)
+
+Learn how to declare and use variables in HTVM for storing and manipulating data. HTVM makes working with variables straightforward by providing flexible types and easy handling of data.
+
+---
+
+
+### Functions
+
+[Go back](#htvm-documentation)
+
+Explore how to define and use functions for modular and reusable code. Functions in HTVM can be written easily, and the language supports efficient handling of function calls, parameters, and returns.
+
+---
+
+
+### Arrays
+
+[Go back](#htvm-documentation)
+
+Dive into working with arrays, one of the most essential data structures in HTVM. Arrays are simple to declare and manipulate, enabling you to store and process collections of data easily.
+
+---
+
+
+
+### Types
+
+[Go back](#htvm-documentation)
+
+Explore the different data types supported by HTVM and how to use them effectively. HTVM includes various types such as numbers, strings, and objects, making it easy to handle different kinds of data in a seamless way.
+
+---
+
+
+
+### Loops
+
+[Go back](#htvm-documentation)
+
+Master the looping structures available in HTVM, such as the standard loop and infinite loops.
+
+Example:
+```htvm
+Loop, 5 {
+    print(A_Index)
+}
+```
+
+---
+
+
+
+### If, Else, Else If
+
+[Go back](#htvm-documentation)
+
+Learn how to control the flow of your program with conditional statements like **if**, **else**, and **else if**. These structures allow you to handle decisions and branching logic in your code effectively.
+
+---
+
+
+
+### Comments
+
+[Go back](#htvm-documentation)
+
+Add clarity to your code by using comments to document and explain your code. Comments are crucial for maintaining readability and ensuring that others can understand your thought process.
+
+---
+
+
+
+### Error Handling
+
+[Go back](#htvm-documentation)
+
+Understand how to manage errors and handle exceptions in HTVM to make your programs more robust. HTVM provides simple ways to catch and handle errors, helping you write more stable and reliable code.
+
+---
+
+
+
+### Operators
+
+[Go back](#htvm-documentation)
+
+Explore the logical and mathematical operators available in HTVM for performing calculations and comparisons. HTVM supports a wide range of operators to enable complex operations in your programs.
+
+---
+
+
+
+### Assignment Operators
+
+[Go back](#htvm-documentation)
+
+Learn how to use assignment operators for storing values and manipulating them in your code. Assignment operators in HTVM simplify the process of assigning and updating values in variables.
+
+---
+
+
+
+### Include
+
+[Go back](#htvm-documentation)
+
+Discover how to include external files and resources in your HTVM project for enhanced functionality. The **include** feature in HTVM allows you to integrate additional code or libraries into your project seamlessly.
+
+---
+
+
+
+### Extra Stuff
+
+[Go back](#htvm-documentation)
+
+Explore additional unique features and utilities HTVM offers for greater flexibility and ease of use. These features help make programming in HTVM even more powerful and efficient.
+
+---
+
+
+
+### Commands
+
+[Go back](#htvm-documentation)
+
+Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency. Commands help streamline your code and reduce unnecessary complexity.
+
+---
+
 
 ## Built-in Functions  
 
