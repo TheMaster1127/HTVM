@@ -15134,7 +15134,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         for (int A_Index206 = 0; A_Index206 < HTVM_Size(ospDic1) + 0; A_Index206++) {
             str00 = ospDic1[A_Index206];
             if (langToConvertTo == "rb") {
-                htCode = StrReplace(htCode, StrReplace(str00, "_", ".") + ".", "$" + str00 + "_");
+                htCode = StrReplace(htCode, StrReplace(str00, "_", "_") + "_", "$" + str00 + "_");
             }
         }
     }

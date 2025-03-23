@@ -20304,7 +20304,7 @@ str00 := ospDic1[A_Index]
 
 if (langToConvertTo = "rb")
 {
-htCode := StrReplace(htCode, StrReplace(str00, "_", ".") . ".", "$" . str00 . "_")
+htCode := StrReplace(htCode, StrReplace(str00, "_", "_") . "_", "$" . str00 . "_")
 }
 }
 }
