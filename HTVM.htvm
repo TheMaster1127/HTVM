@@ -4272,7 +4272,28 @@ return expression
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+func str FixRubyGlobalVars(str line)
+{
+arr str htCodeFixRubyGlobalVars
 
+Loop, Parse, line, `n, `r
+{
+    if (RegExMatch(A_LoopField, "^[a-zA-Z_][a-zA-Z0-9_]* = .*"))
+    {
+        htCodeFixRubyGlobalVars.add(Trim(StrSplit(A_LoopField, " = ", 1)))
+    }
+
+}
+
+
+Loop, % htCodeFixRubyGlobalVars.size()
+{
+    line := RegExReplace(line, "\b" . htCodeFixRubyGlobalVars[A_Index] . "\b", "$" . htCodeFixRubyGlobalVars[A_Index])
+}
+
+
+return line
+}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -5229,10 +5250,12 @@ if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) 
 {
 
 str3 := getFuncTypeConvert(str3)
+int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
 {
 if (SubStr(str6, 1, 1) = "{")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
@@ -5241,20 +5264,29 @@ else
 {
 if (SubStr(str6, 1, 1) = "[")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
 }
 
+
 if (langToConvertTo = langFileExtension_2) {
 
 if (useCurlyBracesSyntaxForArrayDef_2 = "on")
 {
+if (int5 != 0)
+{
 str6 := "{" . str6 . "}"
+}
+
 }
 else
 {
+if (int5 != 0)
+{
 str6 := "[" . str6 . "]"
+}
 }
    if (useSemicolon_2 = "on") {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
@@ -5272,37 +5304,96 @@ str6 := "[" . str6 . "]"
 }
 
 if (langToConvertTo = "cpp") {
-
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " " . str12 . " {" . str6 . "};"
+}
+else
+{
+str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
+
+
 }
 
 if (langToConvertTo = "py") {
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 . ""
+}
+
 }
 
 if (langToConvertTo = "js") {
-        str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+
+if (int5 != 0)
+{
+str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . " " . str12 . " " . str6 . ";"
+}
+
 }
 
 if (langToConvertTo = "go") 
 {
-
+if (int5 != 0)
+{
 str4 := str2 . " := " . str3 . "{" . str6 . "}"
+}
+else
+{
+str4 := str2 . " := " . str3 . " " . str6
+}
+
 }
 if (langToConvertTo = "lua")
 {
+
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " {" . str6 . "}"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 
+}
+
 }
 if (langToConvertTo = "cs")
 {
 
 if (csMainFuncSeen = 1)
 {
+
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
 }
 else
 {
-str4 := "static " . str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+str4 := str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
 }
 
 
@@ -5312,45 +5403,125 @@ if (langToConvertTo = "java")
 
 if (javaMainFuncSeen = 1)
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
 }
 else
 {
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
 str4 := "static " . str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 
 }
 if (langToConvertTo = "kt")
 {
+if (int5 != 0)
+{
 str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+}
+else
+{
+str4 := "val " . str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "rb")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "nim")
 {
-str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6
+}
+
 }
 if (langToConvertTo = "ahk")
 {
+if (int5 != 0)
+{
 str4 := str2 . " := [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " := " . str6
+}
+
 }
 if (langToConvertTo = "swift")
 {
+if (int5 != 0)
+{
 str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = [" . str6 . "]"
+}
+else
+{
+str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = " . str6
+}
+
 }
 if (langToConvertTo = "dart")
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = [" . str6 . "];"
+}
+else
+{
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "ts")
 {
-        str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "groovy")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 
 }
@@ -5517,10 +5688,12 @@ if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) 
 {
 
 str3 := getFuncTypeConvert(str3)
+int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
 {
 if (SubStr(str6, 1, 1) = "{")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
@@ -5529,20 +5702,29 @@ else
 {
 if (SubStr(str6, 1, 1) = "[")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
 }
 str6 := allVarsSoWeDontReDecVarsFixFunc(str6, str2)
+
 if (langToConvertTo = langFileExtension_2) {
 
 if (useCurlyBracesSyntaxForArrayDef_2 = "on")
 {
+if (int5 != 0)
+{
 str6 := "{" . str6 . "}"
+}
+
 }
 else
 {
+if (int5 != 0)
+{
 str6 := "[" . str6 . "]"
+}
 }
    if (useSemicolon_2 = "on") {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
@@ -5560,37 +5742,96 @@ str6 := "[" . str6 . "]"
 }
 
 if (langToConvertTo = "cpp") {
-
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " " . str12 . " {" . str6 . "};"
+}
+else
+{
+str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
+
+
 }
 
 if (langToConvertTo = "py") {
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 . ""
+}
+
 }
 
 if (langToConvertTo = "js") {
-        str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+
+if (int5 != 0)
+{
+str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . " " . str12 . " " . str6 . ";"
+}
+
 }
 
 if (langToConvertTo = "go") 
 {
-
+if (int5 != 0)
+{
 str4 := str2 . " := " . str3 . "{" . str6 . "}"
+}
+else
+{
+str4 := str2 . " := " . str3 . " " . str6
+}
+
 }
 if (langToConvertTo = "lua")
 {
+
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " {" . str6 . "}"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 
+}
+
 }
 if (langToConvertTo = "cs")
 {
 
 if (csMainFuncSeen = 1)
 {
+
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
 }
 else
 {
-str4 := "static " . str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+str4 := str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
 }
 
 
@@ -5600,45 +5841,125 @@ if (langToConvertTo = "java")
 
 if (javaMainFuncSeen = 1)
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
 }
 else
 {
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
 str4 := "static " . str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 
 }
 if (langToConvertTo = "kt")
 {
+if (int5 != 0)
+{
 str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+}
+else
+{
+str4 := "val " . str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "rb")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "nim")
 {
-str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6
+}
+
 }
 if (langToConvertTo = "ahk")
 {
+if (int5 != 0)
+{
 str4 := str2 . " := [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " := " . str6
+}
+
 }
 if (langToConvertTo = "swift")
 {
+if (int5 != 0)
+{
 str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = [" . str6 . "]"
+}
+else
+{
+str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = " . str6
+}
+
 }
 if (langToConvertTo = "dart")
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = [" . str6 . "];"
+}
+else
+{
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "ts")
 {
-        str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "groovy")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 
 }
@@ -5787,10 +6108,12 @@ if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) 
 {
 
 str3 := getFuncTypeConvert(str3)
+int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
 {
 if (SubStr(str6, 1, 1) = "{")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
@@ -5799,19 +6122,29 @@ else
 {
 if (SubStr(str6, 1, 1) = "[")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
 }
+
+
 if (langToConvertTo = langFileExtension_2) {
 
 if (useCurlyBracesSyntaxForArrayDef_2 = "on")
 {
+if (int5 != 0)
+{
 str6 := "{" . str6 . "}"
+}
+
 }
 else
 {
+if (int5 != 0)
+{
 str6 := "[" . str6 . "]"
+}
 }
    if (useSemicolon_2 = "on") {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
@@ -5829,39 +6162,98 @@ str6 := "[" . str6 . "]"
 }
 
 if (langToConvertTo = "cpp") {
-
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " " . str12 . " {" . str6 . "};"
+}
+else
+{
+str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
+
+
 }
 
 if (langToConvertTo = "py") {
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 . ""
+}
+
 }
 
 if (langToConvertTo = "js") {
-        str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+
+if (int5 != 0)
+{
+str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . " " . str12 . " " . str6 . ";"
+}
+
 }
 
 if (langToConvertTo = "go") 
 {
-
+if (int5 != 0)
+{
 str4 := str2 . " := " . str3 . "{" . str6 . "}"
+}
+else
+{
+str4 := str2 . " := " . str3 . " " . str6
+}
+
 }
 if (langToConvertTo = "lua")
 {
+
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " {" . str6 . "}"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 
+}
+
 }
 if (langToConvertTo = "cs")
 {
 
-
 if (csMainFuncSeen = 1)
+{
+
+if (int5 != 0)
 {
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
 }
 else
 {
-str4 := "static " . str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+str4 := str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
 }
+
+}
+else
+{
+if (int5 != 0)
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
+}
+
 
 }
 if (langToConvertTo = "java")
@@ -5869,45 +6261,125 @@ if (langToConvertTo = "java")
 
 if (javaMainFuncSeen = 1)
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
 }
 else
 {
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
 str4 := "static " . str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 
 }
 if (langToConvertTo = "kt")
 {
+if (int5 != 0)
+{
 str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+}
+else
+{
+str4 := "val " . str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "rb")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "nim")
 {
-str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6
+}
+
 }
 if (langToConvertTo = "ahk")
 {
+if (int5 != 0)
+{
 str4 := str2 . " := [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " := " . str6
+}
+
 }
 if (langToConvertTo = "swift")
 {
+if (int5 != 0)
+{
 str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = [" . str6 . "]"
+}
+else
+{
+str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = " . str6
+}
+
 }
 if (langToConvertTo = "dart")
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = [" . str6 . "];"
+}
+else
+{
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "ts")
 {
-        str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "groovy")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 
 }
@@ -6051,10 +6523,12 @@ if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) 
 {
 
 str3 := getFuncTypeConvert(str3)
+int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
 {
 if (SubStr(str6, 1, 1) = "{")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
@@ -6063,20 +6537,29 @@ else
 {
 if (SubStr(str6, 1, 1) = "[")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
 }
-if (langToConvertTo = langFileExtension_2) {
 
+
+if (langToConvertTo = langFileExtension_2) {
 
 if (useCurlyBracesSyntaxForArrayDef_2 = "on")
 {
+if (int5 != 0)
+{
 str6 := "{" . str6 . "}"
+}
+
 }
 else
 {
+if (int5 != 0)
+{
 str6 := "[" . str6 . "]"
+}
 }
 
    if (useSemicolon_2 = "on") {
@@ -6095,38 +6578,98 @@ str6 := "[" . str6 . "]"
 }
 
 if (langToConvertTo = "cpp") {
-
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " " . str12 . " {" . str6 . "};"
+}
+else
+{
+str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
+
+
 }
 
 if (langToConvertTo = "py") {
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 . ""
+}
+
 }
 
 if (langToConvertTo = "js") {
-        str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+
+if (int5 != 0)
+{
+str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . " " . str12 . " " . str6 . ";"
+}
+
 }
 
 if (langToConvertTo = "go") 
 {
-
+if (int5 != 0)
+{
 str4 := str2 . " := " . str3 . "{" . str6 . "}"
+}
+else
+{
+str4 := str2 . " := " . str3 . " " . str6
+}
+
 }
 if (langToConvertTo = "lua")
 {
+
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " {" . str6 . "}"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 
+}
+
 }
 if (langToConvertTo = "cs")
 {
 
 if (csMainFuncSeen = 1)
 {
+
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
 }
 else
 {
-str4 := "static " . str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+str4 := str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
 }
+
+}
+else
+{
+if (int5 != 0)
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
+}
+
 
 }
 if (langToConvertTo = "java")
@@ -6134,45 +6677,125 @@ if (langToConvertTo = "java")
 
 if (javaMainFuncSeen = 1)
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
 }
 else
 {
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
 str4 := "static " . str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 
 }
 if (langToConvertTo = "kt")
 {
+if (int5 != 0)
+{
 str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+}
+else
+{
+str4 := "val " . str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "rb")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "nim")
 {
-str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6
+}
+
 }
 if (langToConvertTo = "ahk")
 {
+if (int5 != 0)
+{
 str4 := str2 . " := [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " := " . str6
+}
+
 }
 if (langToConvertTo = "swift")
 {
+if (int5 != 0)
+{
 str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = [" . str6 . "]"
+}
+else
+{
+str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = " . str6
+}
+
 }
 if (langToConvertTo = "dart")
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = [" . str6 . "];"
+}
+else
+{
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "ts")
 {
-        str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "groovy")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 
 }
@@ -14949,10 +15572,12 @@ if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) 
 
 str3 := getFuncTypeConvert(str3)
 
+int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
 {
 if (SubStr(str6, 1, 1) = "{")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
@@ -14961,6 +15586,7 @@ else
 {
 if (SubStr(str6, 1, 1) = "[")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
@@ -14971,11 +15597,18 @@ if (langToConvertTo = langFileExtension_2) {
 
 if (useCurlyBracesSyntaxForArrayDef_2 = "on")
 {
+if (int5 != 0)
+{
 str6 := "{" . str6 . "}"
+}
+
 }
 else
 {
+if (int5 != 0)
+{
 str6 := "[" . str6 . "]"
+}
 }
    if (useSemicolon_2 = "on") {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
@@ -14993,37 +15626,96 @@ str6 := "[" . str6 . "]"
 }
 
 if (langToConvertTo = "cpp") {
-
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " " . str12 . " {" . str6 . "};"
+}
+else
+{
+str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
+
+
 }
 
 if (langToConvertTo = "py") {
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 . ""
+}
+
 }
 
 if (langToConvertTo = "js") {
-        str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+
+if (int5 != 0)
+{
+str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . " " . str12 . " " . str6 . ";"
+}
+
 }
 
 if (langToConvertTo = "go") 
 {
-
+if (int5 != 0)
+{
 str4 := str2 . " := " . str3 . "{" . str6 . "}"
+}
+else
+{
+str4 := str2 . " := " . str3 . " " . str6
+}
+
 }
 if (langToConvertTo = "lua")
 {
+
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " {" . str6 . "}"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 
+}
+
 }
 if (langToConvertTo = "cs")
 {
 
 if (csMainFuncSeen = 1)
 {
+
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
 }
 else
 {
+str4 := str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
 str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
 }
 
 
@@ -15033,45 +15725,125 @@ if (langToConvertTo = "java")
 
 if (javaMainFuncSeen = 1)
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
 }
 else
 {
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
 str4 := "static " . str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 
 }
 if (langToConvertTo = "kt")
 {
+if (int5 != 0)
+{
 str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+}
+else
+{
+str4 := "val " . str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "rb")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "nim")
 {
+if (int5 != 0)
+{
 str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6
+}
+
 }
 if (langToConvertTo = "ahk")
 {
+if (int5 != 0)
+{
 str4 := str2 . " := [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " := " . str6
+}
+
 }
 if (langToConvertTo = "swift")
 {
+if (int5 != 0)
+{
 str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = [" . str6 . "]"
+}
+else
+{
+str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = " . str6
+}
+
 }
 if (langToConvertTo = "dart")
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = [" . str6 . "];"
+}
+else
+{
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "ts")
 {
-        str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "groovy")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 
 }
@@ -15234,10 +16006,12 @@ if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) 
 {
 
 str3 := getFuncTypeConvert(str3)
+int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
 {
 if (SubStr(str6, 1, 1) = "{")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
@@ -15246,20 +16020,29 @@ else
 {
 if (SubStr(str6, 1, 1) = "[")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
 }
 
+
 if (langToConvertTo = langFileExtension_2) {
 
 if (useCurlyBracesSyntaxForArrayDef_2 = "on")
 {
+if (int5 != 0)
+{
 str6 := "{" . str6 . "}"
+}
+
 }
 else
 {
+if (int5 != 0)
+{
 str6 := "[" . str6 . "]"
+}
 }
    if (useSemicolon_2 = "on") {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
@@ -15277,37 +16060,96 @@ str6 := "[" . str6 . "]"
 }
 
 if (langToConvertTo = "cpp") {
-
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " " . str12 . " {" . str6 . "};"
+}
+else
+{
+str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
+
+
 }
 
 if (langToConvertTo = "py") {
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 . ""
+}
+
 }
 
 if (langToConvertTo = "js") {
-        str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+
+if (int5 != 0)
+{
+str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . " " . str12 . " " . str6 . ";"
+}
+
 }
 
 if (langToConvertTo = "go") 
 {
-
+if (int5 != 0)
+{
 str4 := str2 . " := " . str3 . "{" . str6 . "}"
+}
+else
+{
+str4 := str2 . " := " . str3 . " " . str6
+}
+
 }
 if (langToConvertTo = "lua")
 {
+
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " {" . str6 . "}"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 
+}
+
 }
 if (langToConvertTo = "cs")
 {
 
 if (csMainFuncSeen = 1)
 {
+
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
 }
 else
 {
-str4 := "static " . str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+str4 := str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
 }
 
 
@@ -15317,45 +16159,125 @@ if (langToConvertTo = "java")
 
 if (javaMainFuncSeen = 1)
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
 }
 else
 {
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
 str4 := "static " . str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 
 }
 if (langToConvertTo = "kt")
 {
+if (int5 != 0)
+{
 str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+}
+else
+{
+str4 := "val " . str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "rb")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "nim")
 {
-str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6
+}
+
 }
 if (langToConvertTo = "ahk")
 {
+if (int5 != 0)
+{
 str4 := str2 . " := [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " := " . str6
+}
+
 }
 if (langToConvertTo = "swift")
 {
+if (int5 != 0)
+{
 str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = [" . str6 . "]"
+}
+else
+{
+str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = " . str6
+}
+
 }
 if (langToConvertTo = "dart")
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = [" . str6 . "];"
+}
+else
+{
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "ts")
 {
-        str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "groovy")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 
 }
@@ -15522,10 +16444,12 @@ if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) 
 {
 
 str3 := getFuncTypeConvert(str3)
+int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
 {
 if (SubStr(str6, 1, 1) = "{")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
@@ -15534,20 +16458,30 @@ else
 {
 if (SubStr(str6, 1, 1) = "[")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
 }
+
 str6 := allVarsSoWeDontReDecVarsFixFunc(str6, str2)
+
 if (langToConvertTo = langFileExtension_2) {
 
 if (useCurlyBracesSyntaxForArrayDef_2 = "on")
 {
+if (int5 != 0)
+{
 str6 := "{" . str6 . "}"
+}
+
 }
 else
 {
+if (int5 != 0)
+{
 str6 := "[" . str6 . "]"
+}
 }
    if (useSemicolon_2 = "on") {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
@@ -15565,37 +16499,96 @@ str6 := "[" . str6 . "]"
 }
 
 if (langToConvertTo = "cpp") {
-
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " " . str12 . " {" . str6 . "};"
+}
+else
+{
+str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
+
+
 }
 
 if (langToConvertTo = "py") {
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 . ""
+}
+
 }
 
 if (langToConvertTo = "js") {
-        str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+
+if (int5 != 0)
+{
+str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . " " . str12 . " " . str6 . ";"
+}
+
 }
 
 if (langToConvertTo = "go") 
 {
-
+if (int5 != 0)
+{
 str4 := str2 . " := " . str3 . "{" . str6 . "}"
+}
+else
+{
+str4 := str2 . " := " . str3 . " " . str6
+}
+
 }
 if (langToConvertTo = "lua")
 {
+
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " {" . str6 . "}"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 
+}
+
 }
 if (langToConvertTo = "cs")
 {
 
 if (csMainFuncSeen = 1)
 {
+
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
 }
 else
 {
-str4 := "static " . str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+str4 := str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
 }
 
 
@@ -15605,45 +16598,125 @@ if (langToConvertTo = "java")
 
 if (javaMainFuncSeen = 1)
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
 }
 else
 {
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
 str4 := "static " . str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 
 }
 if (langToConvertTo = "kt")
 {
+if (int5 != 0)
+{
 str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+}
+else
+{
+str4 := "val " . str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "rb")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "nim")
 {
-str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6
+}
+
 }
 if (langToConvertTo = "ahk")
 {
+if (int5 != 0)
+{
 str4 := str2 . " := [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " := " . str6
+}
+
 }
 if (langToConvertTo = "swift")
 {
+if (int5 != 0)
+{
 str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = [" . str6 . "]"
+}
+else
+{
+str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = " . str6
+}
+
 }
 if (langToConvertTo = "dart")
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = [" . str6 . "];"
+}
+else
+{
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "ts")
 {
-        str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "groovy")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 
 }
@@ -15792,10 +16865,12 @@ if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) 
 {
 
 str3 := getFuncTypeConvert(str3)
+int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
 {
 if (SubStr(str6, 1, 1) = "{")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
@@ -15804,19 +16879,29 @@ else
 {
 if (SubStr(str6, 1, 1) = "[")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
 }
+
+
 if (langToConvertTo = langFileExtension_2) {
 
 if (useCurlyBracesSyntaxForArrayDef_2 = "on")
 {
+if (int5 != 0)
+{
 str6 := "{" . str6 . "}"
+}
+
 }
 else
 {
+if (int5 != 0)
+{
 str6 := "[" . str6 . "]"
+}
 }
    if (useSemicolon_2 = "on") {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
@@ -15834,39 +16919,98 @@ str6 := "[" . str6 . "]"
 }
 
 if (langToConvertTo = "cpp") {
-
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " " . str12 . " {" . str6 . "};"
+}
+else
+{
+str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
+
+
 }
 
 if (langToConvertTo = "py") {
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 . ""
+}
+
 }
 
 if (langToConvertTo = "js") {
-        str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+
+if (int5 != 0)
+{
+str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . " " . str12 . " " . str6 . ";"
+}
+
 }
 
 if (langToConvertTo = "go") 
 {
-
+if (int5 != 0)
+{
 str4 := str2 . " := " . str3 . "{" . str6 . "}"
+}
+else
+{
+str4 := str2 . " := " . str3 . " " . str6
+}
+
 }
 if (langToConvertTo = "lua")
 {
+
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " {" . str6 . "}"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 
+}
+
 }
 if (langToConvertTo = "cs")
 {
 
-
 if (csMainFuncSeen = 1)
+{
+
+if (int5 != 0)
 {
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
 }
 else
 {
-str4 := "static " . str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+str4 := str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
 }
+
+}
+else
+{
+if (int5 != 0)
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
+}
+
 
 }
 if (langToConvertTo = "java")
@@ -15874,45 +17018,125 @@ if (langToConvertTo = "java")
 
 if (javaMainFuncSeen = 1)
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
 }
 else
 {
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
 str4 := "static " . str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 
 }
 if (langToConvertTo = "kt")
 {
+if (int5 != 0)
+{
 str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+}
+else
+{
+str4 := "val " . str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "rb")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "nim")
 {
-str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6
+}
+
 }
 if (langToConvertTo = "ahk")
 {
+if (int5 != 0)
+{
 str4 := str2 . " := [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " := " . str6
+}
+
 }
 if (langToConvertTo = "swift")
 {
+if (int5 != 0)
+{
 str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = [" . str6 . "]"
+}
+else
+{
+str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = " . str6
+}
+
 }
 if (langToConvertTo = "dart")
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = [" . str6 . "];"
+}
+else
+{
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "ts")
 {
-        str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "groovy")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 
 }
@@ -16056,10 +17280,12 @@ if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) 
 {
 
 str3 := getFuncTypeConvert(str3)
+int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
 {
 if (SubStr(str6, 1, 1) = "{")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
@@ -16068,20 +17294,29 @@ else
 {
 if (SubStr(str6, 1, 1) = "[")
 {
+int5 := 1
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 }
 }
-if (langToConvertTo = langFileExtension_2) {
 
+
+if (langToConvertTo = langFileExtension_2) {
 
 if (useCurlyBracesSyntaxForArrayDef_2 = "on")
 {
+if (int5 != 0)
+{
 str6 := "{" . str6 . "}"
+}
+
 }
 else
 {
+if (int5 != 0)
+{
 str6 := "[" . str6 . "]"
+}
 }
 
    if (useSemicolon_2 = "on") {
@@ -16100,38 +17335,98 @@ str6 := "[" . str6 . "]"
 }
 
 if (langToConvertTo = "cpp") {
-
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " " . str12 . " {" . str6 . "};"
+}
+else
+{
+str4 := str3 . " " . str2 . " " . str12 . " " . str6 . ";"
+}
+
+
+
 }
 
 if (langToConvertTo = "py") {
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 . ""
+}
+
 }
 
 if (langToConvertTo = "js") {
-        str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+
+if (int5 != 0)
+{
+str4 := "let " . str2 . " " . str12 . " [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . " " . str12 . " " . str6 . ";"
+}
+
 }
 
 if (langToConvertTo = "go") 
 {
-
+if (int5 != 0)
+{
 str4 := str2 . " := " . str3 . "{" . str6 . "}"
+}
+else
+{
+str4 := str2 . " := " . str3 . " " . str6
+}
+
 }
 if (langToConvertTo = "lua")
 {
+
+if (int5 != 0)
+{
 str4 := str2 . " " . str12 . " {" . str6 . "}"
+}
+else
+{
+str4 := str2 . " " . str12 . " " . str6 
+}
+
 }
 if (langToConvertTo = "cs")
 {
 
 if (csMainFuncSeen = 1)
 {
+
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
 }
 else
 {
-str4 := "static " . str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+str4 := str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
 }
+
+}
+else
+{
+if (int5 != 0)
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " {" . str6 . "};"
+}
+else
+{
+str4 := "static " .  str3 . " " . str2 . " = new " . str3 . " " . str6 . ";"
+}
+
+}
+
 
 }
 if (langToConvertTo = "java")
@@ -16139,45 +17434,125 @@ if (langToConvertTo = "java")
 
 if (javaMainFuncSeen = 1)
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
 }
 else
 {
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
+}
+else
+{
+if (int5 != 0)
+{
 str4 := "static " . str3 . " " . str2 . " = new ArrayList<>(List.of(" . str6 . "));"
+}
+else
+{
+str4 := "static " . str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 
 }
 if (langToConvertTo = "kt")
 {
+if (int5 != 0)
+{
 str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+}
+else
+{
+str4 := "val " . str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "rb")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 if (langToConvertTo = "nim")
 {
-str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6
+}
+
 }
 if (langToConvertTo = "ahk")
 {
+if (int5 != 0)
+{
 str4 := str2 . " := [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " := " . str6
+}
+
 }
 if (langToConvertTo = "swift")
 {
+if (int5 != 0)
+{
 str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = [" . str6 . "]"
+}
+else
+{
+str4 := "var " . str2 . ": " . Trim(StrSplit(str3, " ", 2)) . " = " . str6
+}
+
 }
 if (langToConvertTo = "dart")
 {
+if (int5 != 0)
+{
 str4 := str3 . " " . str2 . " = [" . str6 . "];"
+}
+else
+{
+str4 := str3 . " " . str2 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "ts")
 {
-        str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+if (int5 != 0)
+{
+str4 := "let " . str2 . ": " . str3 . " = [" . str6 . "];"
+}
+else
+{
+str4 := "let " . str2 . ": " . str3 . " = " . str6 . ";"
+}
+
 }
 if (langToConvertTo = "groovy")
 {
+if (int5 != 0)
+{
 str4 := str2 . " = [" . str6 . "]"
+}
+else
+{
+str4 := str2 . " = " . str6
+}
+
 }
 
 }
@@ -20336,8 +21711,10 @@ if (size_ospDic2 != 0) {
     }
 }
 
-
-
+if (langToConvertTo = "rb")
+{
+htCode := FixRubyGlobalVars(htCode)
+}
 
 htCode := StrReplace(htCode, "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc ", "")
 
