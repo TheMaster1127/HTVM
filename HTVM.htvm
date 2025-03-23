@@ -4033,14 +4033,9 @@ Loop, % ospDic1.size()
 {
 str00 := ospDic1[A_Index]
 
-if (langToConvertTo = "rb")
-{
-expression := StrReplace(expression, StrReplace(str00, "_", ".") . ".", "$" . str00 . "_")
-}
-else
-{
+
 expression := StrReplace(expression, StrReplace(str00, "_", ".") . ".", str00 . "_")
-}
+
 
 
 
@@ -11160,14 +11155,9 @@ htCode .= keyWordProp_2 . propHELP(str1, "no-no") . Chr(10)
 else
 {
 
-if (langToConvertTo = "rb")
-{
-htCode .= propHELP(str1, "$" . Trim(StrReplace(str20, ".", "_") . "_")) . Chr(10)
-}
-else
-{
+
 htCode .= propHELP(str1, StrReplace(str20, ".", "_") . "_") . Chr(10)
-}
+
 
 }
 
@@ -20306,7 +20296,18 @@ if (langToConvertTo = "go")
 
 
 
+if (langToConvertTo != langFileExtension_2) 
+{
+Loop, % ospDic1.size()
+{
+str00 := ospDic1[A_Index]
 
+if (langToConvertTo = "rb")
+{
+htCode := StrReplace(htCode, StrReplace(str00, "_", ".") . ".", "$" . str00 . "_")
+}
+}
+}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -20334,6 +20335,9 @@ if (size_ospDic2 != 0) {
         ospDic2.pop()
     }
 }
+
+
+
 
 htCode := StrReplace(htCode, "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc ", "")
 
