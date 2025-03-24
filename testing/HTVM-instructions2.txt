@@ -8,42 +8,42 @@ def obj
 prop
 this
 import
-keyWordCodeInTheTranspiledLangStart
-keyWordCodeInTheTranspiledLangEnd
-keyWordCodeInTheTranspiledLangStartCPP
-keyWordCodeInTheTranspiledLangEndCPP
-keyWordCodeInTheTranspiledLangStartPY
-keyWordCodeInTheTranspiledLangEndPY
+___start
+___end
+___cpp start
+___cpp end
+___py start
+___py end
 ___js start
 ___js end
-keyWordCodeInTheTranspiledLangStartGO
-keyWordCodeInTheTranspiledLangEndGO
-keyWordCodeInTheTranspiledLangStartLUA
-keyWordCodeInTheTranspiledLangEndLUA
-keyWordCodeInTheTranspiledLangStartCS
-keyWordCodeInTheTranspiledLangEndCS
-keyWordCodeInTheTranspiledLangStartJAVA
-keyWordCodeInTheTranspiledLangEndJAVA
-keyWordCodeInTheTranspiledLangStartKT
-keyWordCodeInTheTranspiledLangEndKT
-keyWordCodeInTheTranspiledLangStartRB
-keyWordCodeInTheTranspiledLangEndRB
-keyWordCodeInTheTranspiledLangStartNIM
-keyWordCodeInTheTranspiledLangEndNIM
-keyWordCodeInTheTranspiledLangStartAHK
-keyWordCodeInTheTranspiledLangEndAHK
-keyWordCodeInTheTranspiledLangStartSWIFT
-keyWordCodeInTheTranspiledLangEndSWIFT
-keyWordCodeInTheTranspiledLangStartDART
-keyWordCodeInTheTranspiledLangEndDART
-keyWordCodeInTheTranspiledLangStartTS
-keyWordCodeInTheTranspiledLangEndTS
-keyWordCodeInTheTranspiledLangStartGROOVY
-keyWordCodeInTheTranspiledLangEndGROOVY
-keyWordCodeInTheTranspiledLangStartHTVM
-keyWordCodeInTheTranspiledLangEndHTVM
-keyWordCodeInHTVMstart
-keyWordCodeInHTVMend
+___go start
+___go end
+___lua start
+___lua end
+___cs start
+___cs end
+___java start
+___java end
+___kt start
+___kt end
+___rb start
+___rb end
+___nim start
+___nim end
+___ahk start
+___ahk end
+___swift start
+___swift end
+___dart start
+___dart end
+___ts start
+___ts end
+___groovy start
+___groovy end
+___htvm start
+___htvm end
+___inhtvm start
+___inhtvm end
 {
 }
 null
@@ -160,6 +160,7 @@ off
 off
 on
 off
+
 
 
 func======================func==============
@@ -302,7 +303,7 @@ function LoopParseFunc(varString, delimiter1, delimiter2)
     local items = {}
     delimiter1 = delimiter1 or ""
     delimiter2 = delimiter2 or ""
-    
+
     -- Changed: Don't escape the delimiters since we want them literal
     -- Just use them directly in the pattern
     if delimiter1 == "" and delimiter2 == "" then
@@ -419,7 +420,7 @@ description: null
 
 proc LoopParseFunc(varString: string, delimiter1: string = "", delimiter2: string = ""): seq[string] =
   var items: seq[string] = @[]
-  
+
   if delimiter1.len == 0 and delimiter2.len == 0:
     # If no delimiters are provided, return a sequence of characters
     for i in 0..<varString.len:
@@ -437,7 +438,7 @@ proc LoopParseFunc(varString: string, delimiter1: string = "", delimiter2: strin
         for subItem in subItems:
           if subItem.len > 0:  # Only add non-empty items
             items.add(subItem)
-            
+
   return items
 
 
@@ -569,7 +570,7 @@ func======================func==============
 lang: py
 name: print
 libs: null
-description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the 
+description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the
 # used the print func
 funcEND======================funcEND==============
 
@@ -617,7 +618,6 @@ description: io~~~print is a function that outputs the specified data to the con
         System.out.println(value);
     }
 
-
 funcEND======================funcEND==============
 
 func======================func==============
@@ -662,7 +662,6 @@ description: io~~~print is a function that outputs the specified data to the con
 # Print function for various types
 proc print(value: auto) =  # Use 'auto' instead of 'untyped'
   echo value
-
 
 funcEND======================funcEND==============
 
@@ -858,6 +857,263 @@ std::string STR(const char* value) {
     return std::string(value);
 }
 funcEND======================funcEND==============
+
+
+
+
+
+func======================func==============
+lang: go
+name: STR
+libs: )|"strconv"
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+func STR(value interface{}) string {
+    switch v := value.(type) {
+    case int:
+        return strconv.Itoa(v)
+    case int64:
+        return strconv.FormatInt(v, 10)
+    case float64:
+        return fmt.Sprintf("%f", v)
+    case bool:
+        if v {
+            return "1"
+        } else {
+            return "0"
+        }
+    case string:
+        return v
+    default:
+        return fmt.Sprintf("%v", v)
+    }
+}
+funcEND======================funcEND==============
+
+func======================func==============
+lang: lua
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+function STR(value)
+    if type(value) == "number" then
+        return tostring(value)
+    elseif type(value) == "boolean" then
+        return value and "1" or "0"
+    elseif type(value) == "string" then
+        return value
+    else
+        return tostring(value)
+    end
+end
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: cs
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+public static string STR(object value) {
+    if (value is int)
+        return value.ToString();
+    else if (value is long)
+        return value.ToString();
+    else if (value is float)
+        return value.ToString();
+    else if (value is double)
+        return value.ToString();
+    else if (value is bool)
+        return (bool)value ? "1" : "0";
+    else if (value is string)
+        return (string)value;
+    else
+        return value.ToString();
+}
+funcEND======================funcEND==============
+
+func======================func==============
+lang: java
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+public static String STR(Object value) {
+    if (value instanceof Integer) {
+        return value.toString();
+    } else if (value instanceof Long) {
+        return value.toString();
+    } else if (value instanceof Float) {
+        return value.toString();
+    } else if (value instanceof Double) {
+        return value.toString();
+    } else if (value instanceof Boolean) {
+        return (Boolean) value ? "1" : "0";
+    } else if (value instanceof String) {
+        return (String) value;
+    } else {
+        return value.toString();
+    }
+}
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: kt
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+fun STR(value: Any): String {
+    return when (value) {
+        is Int -> value.toString()
+        is Long -> value.toString()
+        is Float -> value.toString()
+        is Double -> value.toString()
+        is Boolean -> if (value) "1" else "0"
+        is String -> value
+        else -> value.toString()
+    }
+}
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: rb
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+def STR(value)
+  if value.is_a?(Integer) || value.is_a?(Float)
+    return value.to_s
+  elsif value.is_a?(TrueClass) || value.is_a?(FalseClass)
+    return value ? "1" : "0"
+  elsif value.is_a?(String)
+    return value
+  else
+    return value.to_s
+  end
+end
+funcEND======================funcEND==============
+
+func======================func==============
+lang: nim
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+proc STR(value: auto): string =
+  when value is int | int64 | float | float64:
+    return $value
+  elif value is bool:
+    return if value: "1" else: "0"
+  elif value is cstring:
+    return $value
+  else:
+    return $value
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ahk
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+STR(value) {
+    return value
+}
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: swift
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+func STR(_ value: Any) -> String {
+    if let value = value as? Int {
+        return String(value)
+    } else if let value = value as? Float {
+        return String(value)
+    } else if let value = value as? Double {
+        return String(value)
+    } else if let value = value as? Bool {
+        return value ? "1" : "0"
+    } else if let value = value as? String {
+        return value
+    } else {
+        return "\(value)"
+    }
+}
+funcEND======================funcEND==============
+
+
+func======================func==============
+lang: dart
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+String STR(dynamic value) {
+  if (value is int || value is double || value is num) {
+    return value.toString();
+  } else if (value is bool) {
+    return value ? "1" : "0";
+  } else if (value is String) {
+    return value;
+  } else {
+    return value.toString();
+  }
+}
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ts
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+function STR(value: any): string {
+    if (typeof value === "number") {
+        return value.toString();
+    } else if (typeof value === "boolean") {
+        return value ? "1" : "0";
+    } else if (typeof value === "string") {
+        return value;
+    } else {
+        return String(value);
+    }
+}
+funcEND======================funcEND==============
+
+
+
+func======================func==============
+lang: groovy
+name: STR
+libs: null
+description: string~~~STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.~~~here is how the func looks like:~~~```~~~STR(value)~~~```~~~
+// Convert various types to String
+String STR(int value) {
+    return value.toString()
+}
+
+// Convert various types to String
+String STR(long value) {
+    return value.toString()
+}
+
+String STR(float value) {
+    return value.toString()
+}
+
+String STR(double value) {
+    return value.toString()
+}
+
+String STR(boolean value) {
+    return value ? "1" : "0"
+}
+
+String STR(String value) {
+    return value
+}
+funcEND======================funcEND==============
+
+
 func======================func==============
 lang: cpp
 name: FLOAT
@@ -890,13 +1146,13 @@ description: math~~~Random is a function that generates and returns a random int
 int Random(int min, int max) {
     // Create a random device to seed the generator
     std::random_device rd;
-    
+
     // Create a generator seeded with the random device
     std::mt19937 gen(rd());
-    
+
     // Define a distribution within the specified range
     std::uniform_int_distribution<> dis(min, max);
-    
+
     // Generate and return a random number within the specified range
     return dis(gen);
 }
@@ -1144,7 +1400,7 @@ description: string~~~SubStr is a function that extracts a substring from a give
 std::string SubStr(const std::string& str, int startPos, int length = -1) {
     std::string result;
     size_t strLen = str.size();
-    
+
     // Handle negative starting positions (counting from the end)
     if (startPos < 0) {
         startPos = strLen + startPos;
@@ -1153,18 +1409,19 @@ std::string SubStr(const std::string& str, int startPos, int length = -1) {
     else {
         startPos -= 1; // Convert to 0-based index for internal operations
     }
-    
+
     // Handle length
     if (length < 0) {
         length = strLen - startPos; // Length to the end of the string
     } else if (startPos + length > static_cast<int>(strLen)) {
         length = strLen - startPos; // Adjust length to fit within the string
     }
-    
+
     // Extract the substring
     result = str.substr(startPos, length);
     return result;
 }
+
 
 funcEND======================funcEND==============
 func======================func==============
@@ -1362,7 +1619,7 @@ std::string Sort(const std::string& input, const std::string& options) {
     // Separate uppercase and lowercase items
     std::vector<std::string> uppercaseItems;
     std::vector<std::string> lowercaseItems;
-    
+
     for (const auto& item : items) {
         if (std::isupper(item[0])) {
             uppercaseItems.push_back(item);
@@ -2042,7 +2299,7 @@ description: string~~~SubStr is a function that extracts a substring from a give
 def SubStr(s, startPos, length=-1):
     result = ""
     strLen = len(s)
-    
+
     # Handle negative starting positions (counting from the end)
     if startPos < 0:
         startPos = strLen + startPos
@@ -2050,13 +2307,13 @@ def SubStr(s, startPos, length=-1):
             startPos = 0  # Ensure it doesn't go beyond the start of the string
     else:
         startPos -= 1  # Convert to 0-based index for internal operations
-    
+
     # Handle length
     if length < 0:
         length = strLen - startPos  # Length to the end of the string
     elif startPos + length > strLen:
         length = strLen - startPos  # Adjust length to fit within the string
-    
+
     # Extract the substring
     result = s[startPos:startPos + length]
     return result
@@ -2070,7 +2327,7 @@ description: string~~~SubStr is a function that extracts a substring from a give
 function SubStr(str, startPos, length = -1) {
     let result = "";
     let strLen = str.length;
-    
+
     // Handle negative starting positions (counting from the end)
     if (startPos < 0) {
         startPos = strLen + startPos;
@@ -2078,18 +2335,19 @@ function SubStr(str, startPos, length = -1) {
     } else {
         startPos -= 1; // Convert to 0-based index for internal operations
     }
-    
+
     // Handle length
     if (length < 0) {
         length = strLen - startPos; // Length to the end of the string
     } else if (startPos + length > strLen) {
         length = strLen - startPos; // Adjust length to fit within the string
     }
-    
+
     // Extract the substring
     result = str.substr(startPos, length);
     return result;
 }
+
 funcEND======================funcEND==============
 func======================func==============
 lang: py
@@ -2239,13 +2497,13 @@ def Sort(var_name, options):
     delimiter = '\n'
     if 'D' in options:
         delimiter = options[options.index('D') + 1]
-    
+
     # Split the input variable by delimiter
     items = var_name.split(delimiter)
-    
+
     # Remove empty items and strip whitespace
     items = [item.strip() for item in items if item.strip()]
-    
+
     # Apply sorting based on options
     if 'N' in options:
         # Numeric sort
@@ -2256,11 +2514,11 @@ def Sort(var_name, options):
     else:
         # Default alphabetical sort
         items.sort(key=lambda x: x.lower() if 'C' not in options else x)
-    
+
     # Reverse if 'R' option is present
     if 'R' in options:
         items.reverse()
-    
+
     # Remove duplicates if 'U' option is present
     if 'U' in options:
         seen = set()
@@ -2271,10 +2529,10 @@ def Sort(var_name, options):
                 seen.add(lower_item)
                 unique_items.append(item)
         items = unique_items
-    
+
     # Join the sorted items back into a string
     sorted_var = delimiter.join(items)
-    
+
     return sorted_var
 funcEND======================funcEND==============
 func======================func==============
@@ -2420,7 +2678,7 @@ libs: import re
 description: string~~~RegExReplace is a function that performs a regular expression-based replacement on a string using a given pattern and replacement string.~~~here is how the func looks like:~~~```~~~RegExReplace(str inputStr, str regexPattern, str replacement)~~~```~~~
 def RegExReplace(inputStr, regexPattern, replacement):
     # Create a regular expression object using the provided pattern
-    
+
     regex = re.compile(regexPattern, re.MULTILINE)  # re.MULTILINE for multi-line matching
     # Use the sub() method to perform the regex replacement
     resultStr = regex.sub(replacement, inputStr)
@@ -2563,7 +2821,7 @@ description: string~~~getUrlParams is a function that extracts and decodes param
         const resultString = paramValues.join("&");
         return resultString;
       }
- 
+
 funcEND======================funcEND==============
 func======================func==============
 lang: js
@@ -3125,7 +3383,7 @@ function GuiControl(action, divId, id, param1, param2, param3, param4) {
     const actionLower = action.toLowerCase();
     const element = document.getElementById(id);
     const divElement = document.getElementById(divId);
-    
+
     if (element) {
         // Handle DOM elements
         if (actionLower === "move") {
@@ -3212,10 +3470,10 @@ description: gui~~~Gui_DropDownList is a function that creates a dropdown list (
 function Gui_DropDownList(parent, id, data, leftPos, topPos, width, height, color, onChangeFunction) {
     // Split the data string into an array of options
     const options = data.split("|").map((option) => option.trim());
-    
+
     // Create a select element (dropdown)
     const selectElement = document.createElement("select");
-    
+
     // Set attributes and styles for the select element
     selectElement.id = id;
     selectElement.style.width = width + "px";
@@ -3229,20 +3487,20 @@ function Gui_DropDownList(parent, id, data, leftPos, topPos, width, height, colo
     selectElement.style.borderRadius = "5px"; // Add border radius
     selectElement.style.padding = "5px"; // Add padding
     selectElement.style.cursor = "pointer"; // Change cursor on hover
-    
+
     // Populate the dropdown with options
     options.forEach((optionText) => {
       const optionElement = document.createElement("option");
       optionElement.textContent = optionText;
       selectElement.appendChild(optionElement);
     });
-    
+
     // Add event listener to handle option selection
     selectElement.addEventListener("change", function () {
       const selectedText = this.options[this.selectedIndex].textContent;
       onChangeFunction(selectedText);
     });
-    
+
     // Append the dropdown to the specified parent element (Gui1 div)
     const parentElement = parent instanceof HTMLElement ? parent : document.getElementById(parent);
     if (parentElement) {
@@ -3273,12 +3531,12 @@ libs: null
 description: gui~~~Gui_Move is a function that moves or resizes a GUI element by modifying its position and dimensions based on the provided parameters.~~~here is how the func looks like:~~~```~~~Gui_Move(str guiID, [int x = null], [int y = null], [int w = null], [int h = null])~~~```~~~
 function Gui_Move(guiID, x = null, y = null, w = null, h = null) {
     let div = HTVM_guiElements[guiID];
-    
+
     if (!div) {
         console.warn(`Element with ID '${guiID}' not found in HTVM_guiElements.`);
         return;
     }
-    
+
     // Set position if x or y is provided
     if (x !== null && x !== undefined) {
         div.style.left = `${x}px`;
@@ -3302,12 +3560,12 @@ libs: null
 description: gui~~~Gui_Color is a function that sets the background color of a specific HTML element identified by the given guiID. If the element is not found, it logs a warning.~~~here is how the func looks like:~~~```~~~Gui_Color(str guiID, str color)~~~```~~~
 function Gui_Color(guiID, color) {
     let div = HTVM_guiElements[guiID];
-    
+
     if (!div) {
         console.warn(`Element with ID '${guiID}' not found in HTVM_guiElements.`);
         return;
     }
-    
+
     // Set background color
     div.style.backgroundColor = color;
 }
@@ -3384,15 +3642,15 @@ function Gui_Toggle(guiID, id, label, color = null, leftPos, topPos, width = nul
         // Append the div to the body
         document.body.appendChild(parentDiv);
     }
-    
+
     if (width == null || width == undefined) {
     width = 60; // Default width
     }
-    
+
     if (height == null || height == undefined) {
         height = 30; // Default height - this was incorrectly set to width before
     }
-        
+
     if (color == null || color == undefined) {
        color = "#2196F3";
     }
@@ -3775,7 +4033,7 @@ description: backend~~~addEndpoint is a function that registers a given function
 def addEndpoint(func, method="POST"):
     """Register a function as an endpoint with a single HTTP method."""
     endpoint = f"/{func.__name__}"
-    
+
     def handle_request():
         if request.method == "GET":
             # Extract raw query string
@@ -3786,15 +4044,15 @@ def addEndpoint(func, method="POST"):
                 return func(key)  # Pass the extracted key to the function
             else:
                 return "No query string provided", 400
-        
+
         elif request.method in {"POST", "PUT", "PATCH"}:
             data = request.get_json()
             return func(data)
-        
+
         elif request.method == "DELETE":
             data = request.args.to_dict() if not request.is_json else request.get_json()
             return func(data)
-        
+
         else:
             return f"Method {request.method} not supported", 405
 
@@ -4003,6 +4261,7 @@ return
 
 funcEND======================funcEND==============
 
+
 func======================func==============
 lang: cpp
 name: HTVM_Append
@@ -4188,6 +4447,7 @@ int HTVM_IndexOf(const std::vector<bool>& arr, bool value) {
 }
 
 funcEND======================funcEND==============
+
 
 func======================func==============
 lang: py
@@ -4554,6 +4814,7 @@ lang: cs
 name: HTVM_Remove
 libs: using System;|using System.Collections.Generic;
 description: null
+
 public static void HTVM_Remove<T>(List<T> arr, int index)
 {
     if (index >= 0 && index < arr.Count)
@@ -4561,7 +4822,6 @@ public static void HTVM_Remove<T>(List<T> arr, int index)
         arr.RemoveAt(index);
     }
 }
-
 funcEND======================funcEND==============
 
 func======================func==============
@@ -4798,6 +5058,7 @@ end
 
 funcEND======================funcEND==============
 
+
 func======================func==============
 lang: nim
 name: HTVM_Append
@@ -5001,6 +5262,7 @@ func HTVM_Insert<T>(_ arr: inout [T], _ index: Int, _ value: T) {
 
 funcEND======================funcEND==============
 
+
 func======================func==============
 lang: swift
 name: HTVM_Remove
@@ -5167,6 +5429,7 @@ function HTVM_Remove(arr: any[], value: any): void {
     if (index !== -1) arr.splice(index, 1);
 }
 
+
 funcEND======================funcEND==============
 
 func======================func==============
@@ -5239,7 +5502,7 @@ def HTVM_Remove(list, index) {
     if (index >= 0 && index < list.size()) {
         list.remove(index)
     }
-}	
+}
 
 funcEND======================funcEND==============
 

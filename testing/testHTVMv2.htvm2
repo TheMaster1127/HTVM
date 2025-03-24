@@ -1,5 +1,3 @@
-
-
 alliance Movable {
     crew Vehicles {
         def obj Car {
@@ -14,6 +12,10 @@ alliance Movable {
         }
 
         method void move(this) {
+            global Movable.Vehicles.Car.fuel
+            global Movable.Vehicles.Car.hasFUEL
+            global Movable.Vehicles.Bike.energy
+            global Movable.Vehicles.Bike.hasENERGY
             if (this = "Movable.Vehicles.Car") {
                 if (Movable.Vehicles.Car.fuel > 0) {
                     print("The car is driving.")
@@ -62,9 +64,9 @@ alliance Movable {
         }
         method void printGeneralSettings() {
             print("General Settings:")
-            print("Difficulty: " + Movable.settings.GeneralSettings.difficulty)
-            print("Volume: " + STR(Movable.settings.GeneralSettings.volume))
-            print("Resolution: " + Movable.settings.GeneralSettings.resolution)
+            print("Difficulty: " . Movable.settings.GeneralSettings.difficulty)
+            print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
+            print("Resolution: " . Movable.settings.GeneralSettings.resolution)
         }
 
         ; Audio Settings Methods
@@ -76,9 +78,9 @@ alliance Movable {
         }
         method void printAudioSettings() {
             print("Audio Settings:")
-            print("Master Volume: " + STR(Movable.settings.AudioSettings.masterVolume))
-            print("Music Volume: " + STR(Movable.settings.AudioSettings.musicVolume))
-            print("SFX Volume: " + STR(Movable.settings.AudioSettings.sfxVolume))
+            print("Master Volume: " . STR(Movable.settings.AudioSettings.masterVolume))
+            print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
+            print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
         }
 
         ; Display Settings Methods
@@ -89,35 +91,27 @@ alliance Movable {
         }
         method void printDisplaySettings() {
             print("Display Settings:")
-            print("Fullscreen: " + STR(Movable.settings.DisplaySettings.fullscreen))
-            print("Aspect Ratio: " + Movable.settings.DisplaySettings.aspectRatio)
+            print("Fullscreen: " . STR(Movable.settings.DisplaySettings.fullscreen))
+            print("Aspect Ratio: " . Movable.settings.DisplaySettings.aspectRatio)
         }
     }
 
     crew array {
         def obj name {
-            arr str temp
-            prop arr str prop1 := temp
-            prop arr str prop2 := temp
-            prop arr str prop3 := temp
-            prop arr str prop4 := temp
+            prop arr str prop1
+            prop arr str prop2
+            prop arr str prop3
+            prop arr str prop4
         }
     }
     
 }
 
-
-func str AWSDF()
-{
-
-return "hi"
-}
-
 main
 ; Test vehicle movement
 while (Movable.Vehicles.Car.hasFUEL = true) and (Movable.Vehicles.Bike.hasENERGY = true) {
-    Movable.Vehicles.move(Movable.Vehicles.Car)
-    Movable.Vehicles.move(Movable.Vehicles.Bike)
+    Movable.Vehicles.move("Movable.Vehicles.Car")
+    Movable.Vehicles.move("Movable.Vehicles.Bike")
     print("=====================================")
 }
 
@@ -144,43 +138,32 @@ Movable.actions.printAudioSettings()
 Movable.actions.printDisplaySettings()
 
 ; Test array manipulation
-Movable.array.name.prop1.push("1text1")
-Movable.array.name.prop1.push("1text2")
-Movable.array.name.prop1.push("1text3")
-Movable.array.name.prop2.push("2text1")
-Movable.array.name.prop2.push("2text2")
-Movable.array.name.prop2.push("2text3")
-Movable.array.name.prop3.push("3text1")
-Movable.array.name.prop3.push("3text2")
-Movable.array.name.prop3.push("3text3")
-Movable.array.name.prop4.push("4text1")
-Movable.array.name.prop4.push("4text2")
-Movable.array.name.prop4.push("4text3")
-
-; why this
-; cuz python used len(param) insed of param.len() so it meses up evrything
-; if using OSP objects that have a dot (.) it doset work in python to get the lenght
-; but for a name whit no dots it works
-
-arr str arrayTempOnlyGetSize1 := Movable.array.name.prop1
-arr str arrayTempOnlyGetSize2 := Movable.array.name.prop2
-arr str arrayTempOnlyGetSize3 := Movable.array.name.prop3
-arr str arrayTempOnlyGetSize4 := Movable.array.name.prop4
+Movable.array.name.prop1.add("1text1")
+Movable.array.name.prop1.add("1text2")
+Movable.array.name.prop1.add("1text3")
+Movable.array.name.prop2.add("2text1")
+Movable.array.name.prop2.add("2text2")
+Movable.array.name.prop2.add("2text3")
+Movable.array.name.prop3.add("3text1")
+Movable.array.name.prop3.add("3text2")
+Movable.array.name.prop3.add("3text3")
+Movable.array.name.prop4.add("4text1")
+Movable.array.name.prop4.add("4text2")
+Movable.array.name.prop4.add("4text3")
 
 
 
 
-Loop, % arrayTempOnlyGetSize1.size() 
+Loop, % Movable.array.name.prop1.size() 
 {
 print(Movable.array.name.prop1[A_Index])
 }
-Loop, % arrayTempOnlyGetSize2.size() {
+Loop, % Movable.array.name.prop2.size() {
     print(Movable.array.name.prop2[A_Index])
 }
-Loop, % arrayTempOnlyGetSize3.size() {
+Loop, % Movable.array.name.prop3.size() {
     print(Movable.array.name.prop3[A_Index])
 }
-Loop, % arrayTempOnlyGetSize4.size() {
+Loop, % Movable.array.name.prop4.size() {
     print(Movable.array.name.prop4[A_Index])
 }
-

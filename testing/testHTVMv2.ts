@@ -5,135 +5,145 @@ function print(value: any): void {
     console.log(value);
 }
 
+function STR(value: any): string {
+    if (typeof value === "number") {
+        return value.toString();
+    } else if (typeof value === "boolean") {
+        return value ? "1" : "0";
+    } else if (typeof value === "string") {
+        return value;
+    } else {
+        return String(value);
+    }
+}
+
+function HTVM_Append<T>(arr: T[], value: T): void {
+    arr.push(value);
+}
+
 function HTVM_Size<T>(arr: T[]): number {
     return arr.length;
 }
 
 
-[][][][][] Movable_Vehicles_Car [][][][][]
-[end][end][end][end][end] Movable_Vehicles_Car [end][end][end][end][end]
-[][][][][] Movable_Vehicles_Bike [][][][][]
-[end][end][end][end][end] Movable_Vehicles_Bike [end][end][end][end][end]
-function OSPHTVMOSP_Movable_Vehicles_move(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD): void {
-    if (this == "Movable.Vehicles.Car") {
-        if (Movable.Vehicles.Car.fuel > 0) {
+var Movable_Vehicles_Car_door: number = 4;
+var Movable_Vehicles_Car_fuel: number = 100;
+var Movable_Vehicles_Car_hasFUEL: boolean = true;
+var Movable_Vehicles_Bike_hasGears: boolean = true;
+var Movable_Vehicles_Bike_energy: number = 100;
+var Movable_Vehicles_Bike_hasENERGY: boolean = true;
+function OSPHTVMOSP_Movable_Vehicles_move(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = ""): void {
+    if (OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD == "Movable.Vehicles.Car") {
+        if (Movable_Vehicles_Car_fuel > 0) {
             print("The car is driving.");
-            Movable.Vehicles.Car.fuel = Movable.Vehicles.Car.fuel - 10;
+            Movable_Vehicles_Car_fuel = Movable_Vehicles_Car_fuel - 10;
         } else {
             print("The car is out of fuel.");
-            Movable.Vehicles.Car.hasFUEL = false;
+            Movable_Vehicles_Car_hasFUEL = false;
         }
     }
-    else if (this == "Movable.Vehicles.Bike") {
-        if (Movable.Vehicles.Bike.energy > 0) {
+    else if (OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD == "Movable.Vehicles.Bike") {
+        if (Movable_Vehicles_Bike_energy > 0) {
             print("The bike is pedaling.");
-            Movable.Vehicles.Bike.energy = Movable.Vehicles.Bike.energy - 5;
+            Movable_Vehicles_Bike_energy = Movable_Vehicles_Bike_energy - 5;
         } else {
             print("The bike is out of energy.");
-            Movable.Vehicles.Bike.hasENERGY = false;
+            Movable_Vehicles_Bike_hasENERGY = false;
         }
     }
 }
-[][][][][] Movable_settings_GeneralSettings [][][][][]
-[end][end][end][end][end] Movable_settings_GeneralSettings [end][end][end][end][end]
-[][][][][] Movable_settings_AudioSettings [][][][][]
-[end][end][end][end][end] Movable_settings_AudioSettings [end][end][end][end][end]
-[][][][][] Movable_settings_DisplaySettings [][][][][]
-[end][end][end][end][end] Movable_settings_DisplaySettings [end][end][end][end][end]
-function OSPHTVMOSP_Movable_actions_resetGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD): void {
-    Movable.settings.GeneralSettings.difficulty = STR("normal");
-    Movable.settings.GeneralSettings.volume = 50;
-    Movable.settings.GeneralSettings.resolution = STR("1920x1080");
+var Movable_settings_GeneralSettings_difficulty: string = "normal";
+var Movable_settings_GeneralSettings_volume: number = 50;
+var Movable_settings_GeneralSettings_resolution: string = "1920x1080";
+var Movable_settings_AudioSettings_masterVolume: number = 70;
+var Movable_settings_AudioSettings_musicVolume: number = 50;
+var Movable_settings_AudioSettings_sfxVolume: number = 40;
+var Movable_settings_DisplaySettings_fullscreen: boolean = true;
+var Movable_settings_DisplaySettings_aspectRatio: string = "16:9";
+function OSPHTVMOSP_Movable_actions_resetGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = ""): void {
+    Movable_settings_GeneralSettings_difficulty = STR("normal");
+    Movable_settings_GeneralSettings_volume = 50;
+    Movable_settings_GeneralSettings_resolution = STR("1920x1080");
     print("General settings reset to default.");
 }
-function OSPHTVMOSP_Movable_actions_printGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD): void {
+function OSPHTVMOSP_Movable_actions_printGeneralSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = ""): void {
     print("General Settings:");
-    print("Difficulty: " + Movable.settings.GeneralSettings.difficulty);
-    print("Volume: " + STR(Movable.settings.GeneralSettings.volume));
-    print("Resolution: " + Movable.settings.GeneralSettings.resolution);
+    print("Difficulty: " + Movable_settings_GeneralSettings_difficulty);
+    print("Volume: " + STR(Movable_settings_GeneralSettings_volume));
+    print("Resolution: " + Movable_settings_GeneralSettings_resolution);
 }
-function OSPHTVMOSP_Movable_actions_resetAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD): void {
-    Movable.settings.AudioSettings.masterVolume = 70;
-    Movable.settings.AudioSettings.musicVolume = 50;
-    Movable.settings.AudioSettings.sfxVolume = 40;
+function OSPHTVMOSP_Movable_actions_resetAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = ""): void {
+    Movable_settings_AudioSettings_masterVolume = 70;
+    Movable_settings_AudioSettings_musicVolume = 50;
+    Movable_settings_AudioSettings_sfxVolume = 40;
     print("Audio settings reset to default.");
 }
-function OSPHTVMOSP_Movable_actions_printAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD): void {
+function OSPHTVMOSP_Movable_actions_printAudioSettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = ""): void {
     print("Audio Settings:");
-    print("Master Volume: " + STR(Movable.settings.AudioSettings.masterVolume));
-    print("Music Volume: " + STR(Movable.settings.AudioSettings.musicVolume));
-    print("SFX Volume: " + STR(Movable.settings.AudioSettings.sfxVolume));
+    print("Master Volume: " + STR(Movable_settings_AudioSettings_masterVolume));
+    print("Music Volume: " + STR(Movable_settings_AudioSettings_musicVolume));
+    print("SFX Volume: " + STR(Movable_settings_AudioSettings_sfxVolume));
 }
-function OSPHTVMOSP_Movable_actions_resetDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD): void {
-    Movable.settings.DisplaySettings.fullscreen = true;
-    Movable.settings.DisplaySettings.aspectRatio = STR("16:9");
+function OSPHTVMOSP_Movable_actions_resetDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = ""): void {
+    Movable_settings_DisplaySettings_fullscreen = true;
+    Movable_settings_DisplaySettings_aspectRatio = STR("16:9");
     print("Display settings reset to default.");
 }
-function OSPHTVMOSP_Movable_actions_printDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD): void {
+function OSPHTVMOSP_Movable_actions_printDisplaySettings(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD: string = ""): void {
     print("Display Settings:");
-    print("Fullscreen: " + STR(Movable.settings.DisplaySettings.fullscreen));
-    print("Aspect Ratio: " + Movable.settings.DisplaySettings.aspectRatio);
+    print("Fullscreen: " + STR(Movable_settings_DisplaySettings_fullscreen));
+    print("Aspect Ratio: " + Movable_settings_DisplaySettings_aspectRatio);
 }
-[][][][][] Movable_array_name [][][][][]
-let temp: string[] = [];
-[end][end][end][end][end] Movable_array_name [end][end][end][end][end]
-function AWSDF(): string {
-    return "hi";
-}
+let Movable_array_name_prop1: string[] = [];
+let Movable_array_name_prop2: string[] = [];
+let Movable_array_name_prop3: string[] = [];
+let Movable_array_name_prop4: string[] = [];
 // Test vehicle movement
-while (Movable.Vehicles.Car.hasFUEL == true && Movable.Vehicles.Bike.hasENERGY == true) {
-    Movable.Vehicles.move(Movable.Vehicles.Car);
-    Movable.Vehicles.move(Movable.Vehicles.Bike);
+while (Movable_Vehicles_Car_hasFUEL == true && Movable_Vehicles_Bike_hasENERGY == true) {
+    OSPHTVMOSP_Movable_Vehicles_move("Movable.Vehicles.Car");
+    OSPHTVMOSP_Movable_Vehicles_move("Movable.Vehicles.Bike");
     print("=====================================");
 }
 // Test settings manipulation
-Movable.settings.GeneralSettings.difficulty = STR("hard");
-Movable.settings.GeneralSettings.volume = 80;
-Movable.settings.GeneralSettings.resolution = STR("2560x1440");
-Movable.settings.AudioSettings.masterVolume = 90;
-Movable.settings.AudioSettings.musicVolume = 60;
-Movable.settings.AudioSettings.sfxVolume = 50;
-Movable.settings.DisplaySettings.fullscreen = false;
-Movable.settings.DisplaySettings.aspectRatio = STR("21:9");
-Movable.actions.printGeneralSettings();
-Movable.actions.printAudioSettings();
-Movable.actions.printDisplaySettings();
-Movable.actions.resetGeneralSettings();
-Movable.actions.resetAudioSettings();
-Movable.actions.resetDisplaySettings();
-Movable.actions.printGeneralSettings();
-Movable.actions.printAudioSettings();
-Movable.actions.printDisplaySettings();
+Movable_settings_GeneralSettings_difficulty = STR("hard");
+Movable_settings_GeneralSettings_volume = 80;
+Movable_settings_GeneralSettings_resolution = STR("2560x1440");
+Movable_settings_AudioSettings_masterVolume = 90;
+Movable_settings_AudioSettings_musicVolume = 60;
+Movable_settings_AudioSettings_sfxVolume = 50;
+Movable_settings_DisplaySettings_fullscreen = false;
+Movable_settings_DisplaySettings_aspectRatio = STR("21:9");
+OSPHTVMOSP_Movable_actions_printGeneralSettings();
+OSPHTVMOSP_Movable_actions_printAudioSettings();
+OSPHTVMOSP_Movable_actions_printDisplaySettings();
+OSPHTVMOSP_Movable_actions_resetGeneralSettings();
+OSPHTVMOSP_Movable_actions_resetAudioSettings();
+OSPHTVMOSP_Movable_actions_resetDisplaySettings();
+OSPHTVMOSP_Movable_actions_printGeneralSettings();
+OSPHTVMOSP_Movable_actions_printAudioSettings();
+OSPHTVMOSP_Movable_actions_printDisplaySettings();
 // Test array manipulation
-Movable.array.name.prop1.push("1text1");
-Movable.array.name.prop1.push("1text2");
-Movable.array.name.prop1.push("1text3");
-Movable.array.name.prop2.push("2text1");
-Movable.array.name.prop2.push("2text2");
-Movable.array.name.prop2.push("2text3");
-Movable.array.name.prop3.push("3text1");
-Movable.array.name.prop3.push("3text2");
-Movable.array.name.prop3.push("3text3");
-Movable.array.name.prop4.push("4text1");
-Movable.array.name.prop4.push("4text2");
-Movable.array.name.prop4.push("4text3");
-// why this
-// cuz python used len(param) insed of param.len() so it meses up evrything
-// if using OSP objects that have a dot (.) it doset work in python to get the lenght
-// but for a name whit no dots it works
-let arrayTempOnlyGetSize1: string[] = [Movable.array.name.prop1];
-let arrayTempOnlyGetSize2: string[] = [Movable.array.name.prop2];
-let arrayTempOnlyGetSize3: string[] = [Movable.array.name.prop3];
-let arrayTempOnlyGetSize4: string[] = [Movable.array.name.prop4];
-for (let A_Index1 = 0; A_Index1 < HTVM_Size(arrayTempOnlyGetSize1) + 0; A_Index1++) {
-    print(Movable.array.name.prop1[A_Index1]);
+HTVM_Append(Movable_array_name_prop1, "1text1");
+HTVM_Append(Movable_array_name_prop1, "1text2");
+HTVM_Append(Movable_array_name_prop1, "1text3");
+HTVM_Append(Movable_array_name_prop2, "2text1");
+HTVM_Append(Movable_array_name_prop2, "2text2");
+HTVM_Append(Movable_array_name_prop2, "2text3");
+HTVM_Append(Movable_array_name_prop3, "3text1");
+HTVM_Append(Movable_array_name_prop3, "3text2");
+HTVM_Append(Movable_array_name_prop3, "3text3");
+HTVM_Append(Movable_array_name_prop4, "4text1");
+HTVM_Append(Movable_array_name_prop4, "4text2");
+HTVM_Append(Movable_array_name_prop4, "4text3");
+for (let A_Index1 = 0; A_Index1 < HTVM_Size(Movable_array_name_prop1) + 0; A_Index1++) {
+    print(Movable_array_name_prop1[A_Index1]);
 }
-for (let A_Index2 = 0; A_Index2 < HTVM_Size(arrayTempOnlyGetSize2) + 0; A_Index2++) {
-    print(Movable.array.name.prop2[A_Index2]);
+for (let A_Index2 = 0; A_Index2 < HTVM_Size(Movable_array_name_prop2) + 0; A_Index2++) {
+    print(Movable_array_name_prop2[A_Index2]);
 }
-for (let A_Index3 = 0; A_Index3 < HTVM_Size(arrayTempOnlyGetSize3) + 0; A_Index3++) {
-    print(Movable.array.name.prop3[A_Index3]);
+for (let A_Index3 = 0; A_Index3 < HTVM_Size(Movable_array_name_prop3) + 0; A_Index3++) {
+    print(Movable_array_name_prop3[A_Index3]);
 }
-for (let A_Index4 = 0; A_Index4 < HTVM_Size(arrayTempOnlyGetSize4) + 0; A_Index4++) {
-    print(Movable.array.name.prop4[A_Index4]);
+for (let A_Index4 = 0; A_Index4 < HTVM_Size(Movable_array_name_prop4) + 0; A_Index4++) {
+    print(Movable_array_name_prop4[A_Index4]);
 }

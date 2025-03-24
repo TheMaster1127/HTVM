@@ -41,7 +41,7 @@ Loop, % myArr0.size() {
 }
 
 if (var1 = 6)
-{
+{   
 print(var1)
 }
 else if (var1 = 7)

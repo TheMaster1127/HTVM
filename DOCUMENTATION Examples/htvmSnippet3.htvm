@@ -1,0 +1,5 @@
+alliance ExampleAlliance {
+    method void greet() {
+        print("Hello from ExampleAlliance!")
+    }
+}
