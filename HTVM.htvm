@@ -423,6 +423,12 @@ arr str allVarsSoWeDontReDecVars_FIX_float
 
 int allVarsSoWeDontReDecVars_FIX_TOGGLE := 0
 
+
+arr str ospDic
+arr str ospDic1
+arr str ospDic2
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3529,6 +3535,399 @@ return line
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+func bool OSPhelp(str line, str keyWorddddddddddddd)
+{
+
+arr str lookAhead
+
+Loop, Parse, line, `n, `r
+{
+lookAhead.add(A_LoopField)
+}
+lookAhead.add(" ")
+
+Loop, Parse, line, `n, `r
+{
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWorddddddddddddd)) = StrLower(keyWorddddddddddddd)) and (lookAhead[A_Index + 1] = "{")
+{
+return true
+}
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWorddddddddddddd)) = StrLower(keyWorddddddddddddd)) and (lookAhead[A_Index + 1] = "{")
+{
+return true
+}
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(StrLower(keyWorddddddddddddd))) = StrLower(keyWorddddddddddddd)) and (lookAhead[A_Index + 1] = "{")
+{
+return true
+}
+}
+
+return false
+}
+
+func str OSP(str line)
+{
+str lineOriginal := line
+str outOSP := ""
+
+arr str lookAhead
+
+Loop, Parse, line, `n, `r
+{
+lookAhead.add(A_LoopField)
+}
+lookAhead.add(" ")
+
+arr str stack
+int inConstructOSP := 0
+int countParentheses := 0
+int countParenthesesStart := 0
+int countParenthesesOfSet := 0
+str stackRN := ""
+
+int alredy := 0
+
+
+
+
+outOSP := ""
+
+if (OSPhelp(line, keyWordAlliance))
+{
+
+Loop, Parse, line, `n, `r
+{
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(StrLower(keyWordAlliance))) = StrLower(keyWordAlliance)) and (lookAhead[A_Index + 1] = "{")
+{
+print(A_LoopField)
+
+stackRN := A_LoopField
+countParentheses := 0
+countParenthesesStart := 0
+}
+
+
+
+
+
+if (A_LoopField = "{")
+{
+countParentheses++
+
+countParenthesesStart := 1
+}
+if (A_LoopField = "}")
+{
+countParentheses--
+}
+
+
+if (countParenthesesStart = 1) and (countParentheses = 0)
+{
+; escaped
+countParentheses := 0
+countParenthesesStart := 0
+alredy := 1
+outOSP .= A_LoopField + "_HTVM-OSP-HTVM-OSP-REMOVE-OSP-HTVMv2--OSP" . Chr(10)
+
+countParentheses := 1
+
+}
+
+
+
+if (alredy = 0)
+{
+outOSP .= A_LoopField . "`n"
+}
+alredy := 0
+
+}
+
+
+StringTrimRight, outOSP, outOSP, 1
+line := outOSP
+}
+
+inConstructOSP := 0
+countParentheses := 0
+countParenthesesStart := 0
+countParenthesesOfSet := 0
+stackRN := ""
+alredy := 0
+
+
+
+
+outOSP := ""
+
+if (OSPhelp(line, keyWordCrew))
+{
+
+
+Loop, Parse, line, `n, `r
+{
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordCrew)) = StrLower(keyWordCrew)) and (lookAhead[A_Index + 1] = "{")
+{
+print(A_LoopField)
+
+stackRN := A_LoopField
+countParentheses := 0
+countParenthesesStart := 0
+}
+
+
+
+
+
+if (A_LoopField = "{")
+{
+countParentheses++
+
+countParenthesesStart := 1
+}
+if (A_LoopField = "}")
+{
+countParentheses--
+}
+
+
+if (countParenthesesStart = 1) and (countParentheses = 0)
+{
+; escaped
+countParentheses := 0
+countParenthesesStart := 0
+alredy := 1
+outOSP .= A_LoopField + "_HTVM-OSP-HTVM-OSP-REMOVE-OSP-HTVMv2--OSP" . Chr(10)
+
+countParentheses := 1
+
+}
+
+
+
+if (alredy = 0)
+{
+outOSP .= A_LoopField . "`n"
+}
+alredy := 0
+
+}
+
+
+StringTrimRight, outOSP, outOSP, 1
+line := outOSP
+}
+
+inConstructOSP := 0
+countParentheses := 0
+countParenthesesStart := 0
+countParenthesesOfSet := 0
+stackRN := ""
+alredy := 0
+
+
+
+
+outOSP := ""
+
+if (OSPhelp(line, keyWordDefObj))
+{
+
+Loop, Parse, line, `n, `r
+{
+
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordDefObj)) = StrLower(keyWordDefObj)) and (lookAhead[A_Index + 1] = "{")
+{
+print(A_LoopField)
+
+stackRN := A_LoopField
+countParentheses := 0
+countParenthesesStart := 0
+}
+
+
+
+
+
+if (A_LoopField = "{")
+{
+countParentheses++
+
+countParenthesesStart := 1
+}
+if (A_LoopField = "}")
+{
+countParentheses--
+}
+
+
+if (countParenthesesStart = 1) and (countParentheses = 0)
+{
+; escaped
+countParentheses := 0
+countParenthesesStart := 0
+alredy := 1
+outOSP .= A_LoopField + "_HTVM-OSP-HTVM-OSP-REMOVE-OSP-HTVMv2--OSP" . Chr(10)
+
+countParentheses := 1
+
+}
+
+
+
+if (alredy = 0)
+{
+outOSP .= A_LoopField . "`n"
+}
+alredy := 0
+
+}
+
+line := outOSP
+}
+
+
+inConstructOSP := 0
+countParentheses := 0
+countParenthesesStart := 0
+countParenthesesOfSet := 0
+stackRN := ""
+alredy := 0
+
+
+
+
+int inOBJ := 0
+
+str tempStackText := ""
+
+outOSP := ""
+
+
+Loop, Parse, line, `n, `r
+{
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordDefObj)) = StrLower(keyWordDefObj)) and (lookAhead[A_Index + 1] = "{")
+{
+str1 := Trim(StringTrimLeft(A_LoopField, StrLen(SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordDefObj)))))
+
+ospDic.add(str1)
+
+alredy := 2
+inOBJ := 1
+
+
+tempStackText := ""
+
+Loop, % ospDic.size()
+{
+tempStackText .= ospDic[A_Index] . "."
+}
+StringTrimRight, tempStackText, tempStackText, 1
+
+outOSP .= "[][][][][] " . StrReplace(tempStackText, ".", "_") . " [][][][][]" . Chr(10)
+
+}
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordProp)) = StrLower(keyWordProp))
+{
+tempStackText := ""
+
+Loop, % ospDic.size()
+{
+tempStackText .= ospDic[A_Index] . "."
+}
+StringTrimRight, tempStackText, tempStackText, 1
+
+outOSP .= A_LoopField . "-----------------------HTVM-OSP-HTVM-OBJ--------------" . tempStackText . Chr(10)
+
+}
+
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordMethod)) = StrLower(keyWordMethod)) and (lookAhead[A_Index + 1] = "{")
+{
+
+tempStackText := ""
+
+Loop, % ospDic.size()
+{
+tempStackText .= ospDic[A_Index] . "."
+}
+StringTrimRight, tempStackText, tempStackText, 1
+alredy := 1
+outOSP .= A_LoopField . "-----------------------HTVM-OSP-HTVM-OBJ-------------- " . "OSPHTVMOSP_" . StrReplace(tempStackText, ".", "_") . Chr(10)
+}
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordCrew)) = StrLower(keyWordCrew)) and (lookAhead[A_Index + 1] = "{")
+{
+str1 := Trim(StringTrimLeft(A_LoopField, StrLen(SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordCrew)))))
+print("DEBUG11111111111111111111: " + str1)
+ospDic.add(str1)
+print(A_LoopField)
+alredy := 2
+}
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordAlliance)) = StrLower(keyWordAlliance)) and (lookAhead[A_Index + 1] = "{")
+{
+str1 := Trim(StringTrimLeft(A_LoopField, StrLen(SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordAlliance)))))
+
+ospDic.add(str1)
+print(A_LoopField)
+alredy := 2
+}
+
+if (A_LoopField = "}_HTVM-OSP-HTVM-OSP-REMOVE-OSP-HTVMv2--OSP")
+{
+if (inOBJ = 1)
+{
+; extra code
+
+tempStackText := ""
+
+Loop, % ospDic.size()
+{
+tempStackText .= ospDic[A_Index] . "."
+}
+StringTrimRight, tempStackText, tempStackText, 1
+
+outOSP .= "[end][end][end][end][end] " . StrReplace(tempStackText, ".", "_") . " [end][end][end][end][end]" . Chr(10)
+inOBJ := 0
+}
+
+alredy := 1
+ospDic.pop()
+}
+
+
+if (alredy <= 0)
+{
+outOSP .= A_LoopField . "`n"
+}
+alredy--
+
+}
+
+
+
+
+StringTrimRight, outOSP, outOSP, 1
+
+if (Trim(outOSP) = "")
+{
+return lineOriginal
+}
+return outOSP
+}
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 func str fixGoAindexUnseen(str codeToFixTheGoUNSEEN)
 {
@@ -4219,7 +4618,20 @@ fullLangAllOperators_HELP.add(keyWordTernary2)
 return fullLangAllOperators_HELP
 }
 
-
+func str ospHELP2(str line) {
+    str outHelp := ""
+    int outHelpInt := 0
+    int outHelpInt2 := 1
+    Loop, Parse, line {
+        if (A_LoopField = ".") {
+            outHelpInt2++
+        }
+    }
+    outHelpInt := StrLen(StrSplit(line, ".", outHelpInt2))
+    outHelpInt++
+    StringTrimRight, outHelp, line, outHelpInt
+    return outHelp
+}
 
 
 func str expressionParserTranspiler(str expression)
@@ -4366,10 +4778,27 @@ expression := StrReplace(expression, ") || (", " || ")
 }
 }
 
+if (langToConvertTo != langFileExtension_2) 
+{
+Loop, % ospDic1.size()
+{
+expression := RegExReplace(expression, "\b" . StrSplit(ospDic1[A_Index], "|", 1) . "\b", StrReplace(ospHELP2(Trim(StrSplit(ospDic1[A_Index], "|", 1))) . "[" . StrSplit(ospDic1[A_Index], "|", 2) . "]"), ".", "_")
+}
 
+Loop, % ospDic2.size()
+{
+expression := RegExReplace(expression, "\b" . ospDic2[A_Index] . "\b", "OSPHTVMOSP_" . StrReplace(ospDic2[A_Index], ".", "_"))
+}
+}
 
-
-
+if (langToConvertTo = langFileExtension_2) 
+{
+expression := RegExReplace(expression, "\b" . keyWordThis . "\b", keyWordThis_2)
+}
+else
+{
+expression := RegExReplace(expression, "\b" . keyWordThis . "\b", "OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD[0]")
+}
 
 if (langToConvertTo = "cpp") {
 expression := RegExReplace(expression, "\b" . theTryCatchVarForErrors . "\b", theTryCatchVarForErrors . ".what()")
@@ -6136,13 +6565,7 @@ if (isNotHTVMfile = 0)
 
 ;print("============programmingBlock_CPP==================")
 ;print("============programmingBlock_CPP==================")
-if (programmingBlock_CPP.size() > 0)
-{
-Loop, % programmingBlock_CPP.size()
-{
-;print(programmingBlock_CPP[A_Index])
-}
-}
+
 ;print("============programmingBlock_CPP==================")
 ;print("============programmingBlock_CPP==================")
 
@@ -6771,9 +7194,9 @@ lookIntoTheNextLineForFuncWhitNoKeyWord.add(A_LoopField)
 lookIntoTheNextLineForFuncWhitNoKeyWord.add(" ")
 
 
-
-
-
+ 
+code := OSP(code)
+code := StrReplace(code, "}_HTVM-OSP-HTVM-OSP-REMOVE-OSP-HTVMv2--OSP", "}")
 
 htCode := ""
 ;print("=======UP==========")
@@ -6785,6 +7208,7 @@ lineDone := 0
 
 if (SubStr(A_LoopField, 1, StrLen(keyWordComment)) = keyWordComment)
 {
+lineDone := 1
 str1 := StringTrimLeft(A_LoopField, StrLen(keyWordComment))
 if (langToConvertTo = langFileExtension_2) 
 {
@@ -6839,6 +7263,7 @@ htCode .= "//" . str1 . Chr(10)
 }
 else if (Trim(A_LoopField) = keyWordCommentOpenMultiLine)
 {
+lineDone := 1
 if (langToConvertTo = langFileExtension_2) 
 {
 htCode .= keyWordCommentOpenMultiLine_2 . Chr(10)
@@ -6892,6 +7317,7 @@ htCode .= "/*" . Chr(10)
 }
 else if (Trim(A_LoopField) = keyWordCommentCloseMultiLine)
 {
+lineDone := 1
 if (langToConvertTo = langFileExtension_2) 
 {
 htCode .= keyWordCommentCloseMultiLine_2 . Chr(10)
@@ -6943,8 +7369,191 @@ if (langToConvertTo = "groovy") {
 htCode .= "*/" . Chr(10)
 }
 }
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordProp))) = StrLower(keyWordProp))
+{
+lineDone := 1
+
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordMethod))) = StrLower(keyWordMethod))
+{
+lineDone := 1
+str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordMethod)))
+str1 := Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 1))
+str20 := Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 2))
+
+str16 := Trim(StrSplit(str1, "(", 1))
+str18 := Trim(StrSplit(str1, ")", 2))
+
+int1 := 0
+str17 := ""
+Loop, Parse, str16, " "
+{
+str17 := Trim(A_LoopField)
+}
+
+; last word aka the method name
+;str17
+
+str15 := StrReplace(str20 . "_" . str17, "_", ".")
+ospDic2.add(StringTrimLeft(str15, 11))
+str15 := StrReplace(str15, ".", "_")
+
+str1 := StrReplace(str1, "(" . keyWordThis . ")", "()")
+
+if (usePrefixTypeForTypeDefinition = "on")
+{
+
+str2 := Trim(StrSplit(str1, "(", 1))
+
+; func body 
+str1 := Trim(StringTrimLeft(str1, StrLen(str2)))
+StringTrimRight, str1, str1, 1
+
+; type of the func
+str3 := Trim(StringTrimRight(str2, StrLen(StrSplit(str2, " ", countChars(str2, " ") + 1))))
+
+; name of func
+str2 := Trim(StrSplit(str2, " ", countChars(str2, " ") + 1))
+}
+if (usePostfixTypeForTypeDefinition = "on")
+{
+; name of func
+str2 := Trim(StrSplit(str1, "(", 1))
+
+; func body 
+str1 := Trim(StringTrimLeft(str1, StrLen(str2)))
+
+; type of the func
+str3 := Trim(StrSplit(str1, ")", countChars(str1, ")") + 1))
+StringTrimLeft, str3, str3, 1
+
+str1 := Trim(StringTrimRight(str1, StrLen(str3) + 2))
+
+}
+StringTrimLeft, str1, str1, 1
+
+str3 := Trim(str3)
+
+
+    if (langToConvertTo = langFileExtension_2) {
+        if (int1 = 1) { ; int1 1 = is async 0 = not async
+            if (usePrefixTypeForTypeDefinition_2 = "on") {
+                htCode .= keyWordAsync_2 . keyWordFunc_2 . getFuncTypeConvert(str3) . " " . str2 . "(" . keyWordThis_2 . ")" . Chr(10)
+            } else {
+                htCode .= keyWordAsync_2 . keyWordFunc_2 . str2 . "(" . keyWordThis_2 . "): " . getFuncTypeConvert(str3) . Chr(10)
+            }
+        } else {
+            if (usePrefixTypeForTypeDefinition_2 = "on") {
+                htCode .= keyWordFunc_2 . getFuncTypeConvert(str3) . " " . str2 . "(" . keyWordThis_2 . ")" . Chr(10)
+            } else {
+                htCode .= keyWordFunc_2 . str2 . "(" . keyWordThis_2 . "): " . getFuncTypeConvert(str3) . Chr(10)
+            }
+        }
+    }
+
+if (langToConvertTo = "cpp") {
+    htCode .= getFuncTypeConvert(str3) . " " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+}
+
+if (langToConvertTo = "py") {
+    htCode .= "def " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD):" . Chr(10)
+}
+
+if (langToConvertTo = "js") {
+    if (int1 = 1) { ; int1 1 = is async, 0 = not async
+        htCode .= "async function " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+    } else {
+        htCode .= "function " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+    }
+}
+
+
+; Go
+if (langToConvertTo = "go") 
+{
+
+if (str3 = keyWordVoid)
+{
+    htCode .= "func " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+}
+else
+{
+    htCode .= "func " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD) " . getFuncTypeConvert(str3) . Chr(10)
+}
+
+}
+if (langToConvertTo = "lua")
+{
+    htCode .= "function " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+}
+if (langToConvertTo = "cs")
+{
+    htCode .= "static " . getFuncTypeConvert(str3) . " " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+}
+if (langToConvertTo = "java")
+{
+    htCode .= "public static " . getFuncTypeConvert(str3) . " " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+}
+if (langToConvertTo = "kt")
+{
+
+if (str3 = keyWordVoid)
+{
+    htCode .= "fun " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+}
+else
+{
+    htCode .= "fun " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD): " . getFuncTypeConvert(str3) . Chr(10)
+}
+
+}
+if (langToConvertTo = "rb")
+{
+    htCode .= "def " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+}
+if (langToConvertTo = "nim")
+{
+if (str3 = keyWordVoid)
+{
+    htCode .= "proc " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD) =" . Chr(10)
+}
+else
+{
+    htCode .= "proc " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD): " . getFuncTypeConvert(str3) . " =" . Chr(10)
+}
+}
+if (langToConvertTo = "ahk")
+{
+    htCode .= str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+}
+if (langToConvertTo = "swift")
+{
+if (str3 = keyWordVoid)
+{
+    htCode .= "func " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+}
+else
+{
+    htCode .= "func " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD) -> " . getFuncTypeConvert(str3) . Chr(10)
+}
+}
+if (langToConvertTo = "dart")
+{
+    htCode .= getFuncTypeConvert(str3) . " " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+}
+if (langToConvertTo = "ts")
+{
+    htCode .= "function " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD): " . getFuncTypeConvert(str3) . Chr(10)
+}
+if (langToConvertTo = "groovy")
+{
+    htCode .= "def " . str15 . "(OSP_OSP_THIS_KEYWORD_HTVM_OSP_THIS_HTVM_KEYWORD)" . Chr(10)
+}
+
+}
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordIF))) = StrLower(keyWordIF))
 {
+lineDone := 1
 str1 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordIF)))
 
 str1 := Trim(expressionParserTranspiler("(" . str1 . ")"))
@@ -7124,6 +7733,7 @@ htCode .= "if (" . str1 . ")" . Chr(10)
 }
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordElseIf))) = StrLower(keyWordElseIf))
 {
+lineDone := 1
 str1 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordElseIf)))
 
 str1 := Trim(expressionParserTranspiler("(" . str1 . ")"))
@@ -7303,6 +7913,7 @@ htCode .= "else if (" . str1 . ")" . Chr(10)
 }
 else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordElse)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordElse . ":"))
 {
+lineDone := 1
 if (langToConvertTo = langFileExtension_2) 
 {
 if (usePythonicColonSyntax_2 = "on")
@@ -7363,6 +7974,7 @@ htCode .= "else`n"
 }
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordWhileLoop))) = StrLower(keyWordWhileLoop))
 {
+lineDone := 1
 str1 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordWhileLoop)))
 
 str1 := Trim(expressionParserTranspiler("(" . str1 . ")"))
@@ -7542,6 +8154,7 @@ htCode .= "while (" . str1 . ")" .  Chr(10)
 }
 else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordTry)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordTry . ":"))
 {
+lineDone := 1
 if (langToConvertTo = langFileExtension_2) 
 {
 if (usePythonicColonSyntax_2 = "on")
@@ -7602,6 +8215,7 @@ htCode .= "try`n"
 }
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordCatch))) = StrLower(keyWordCatch))
 {
+lineDone := 1
 str1 := Trim(StrReplace(StrReplace(StringTrimLeft(A_LoopField, StrLen(keyWordCatch)), "(", ""), ")", ""))
 theTryCatchVarForErrors := str1
 if (langToConvertTo = langFileExtension_2) 
@@ -7681,6 +8295,7 @@ htCode .= "catch (Exception " . str1 . ")`n"
 }
 else if (StrLower(Trim(A_LoopField)) = StrLower(keyWordFinally)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordFinally . ":"))
 {
+lineDone := 1
 if (langToConvertTo = langFileExtension_2) 
 {
 if (usePythonicColonSyntax_2 = "on")
@@ -7741,6 +8356,7 @@ htCode .= "finally`n"
 }
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordThrow))) = StrLower(keyWordThrow))
 {
+lineDone := 1
 str1 := Trim(A_LoopField)
 if (SubStrLastChars(str1, 1) = ";")
 {
@@ -7808,6 +8424,7 @@ htCode .= "throw new Exception(" . str1 . ")`n"
 }
 else if (StrLower(A_LoopField) = StrLower(keyWordBreak)) or (StrLower(A_LoopField) = StrLower(keyWordBreak . ";"))
 {
+lineDone := 1
 if (langToConvertTo = langFileExtension_2) 
 {
 if (useSemicolon_2 = "on")
@@ -7868,7 +8485,7 @@ htCode .= "break;`n"
 }
 else if (StrLower(A_LoopField) = StrLower(Trim(keyWordReturnStatement))) or (StrLower(A_LoopField) = StrLower(Trim(keyWordReturnStatement) . ";"))
 {
-
+lineDone := 1
 if (langToConvertTo = langFileExtension_2) 
 {
 if (useSemicolon_2 = "on")
@@ -7929,6 +8546,7 @@ htCode .= "return;`n"
 }
 else if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(StrLower(keyWordReturnStatement))) = StrLower(keyWordReturnStatement))
 {
+lineDone := 1
 str1 := Trim(expressionParserTranspiler(Trim(StringTrimLeft(A_LoopField, StrLen(keyWordReturnStatement)))))
 
 if (SubStrLastChars(str1, 1) = ";")
@@ -7997,6 +8615,7 @@ htCode .= "return " . str1 . ";`n"
 }
 else if (StrLower(A_LoopField) = StrLower(keyWordContinue)) or (StrLower(A_LoopField) = StrLower(keyWordContinue . ";"))
 {
+lineDone := 1
 if (langToConvertTo = langFileExtension_2) 
 {
 if (useSemicolon_2 = "on")
@@ -8057,6 +8676,7 @@ htCode .= "continue;`n"
 }
 else if (StrLower(A_LoopField) = "::" . keyWordContinue)
 {
+lineDone := 1
 if (langToConvertTo = langFileExtension_2) 
 {
 htCode .= "::" . keyWordContinue_2 . Chr(10)
@@ -15749,6 +16369,32 @@ if (langToConvertTo = "go")
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ospDic.add("end")
+int size_ospDic := ospDic.size()
+if (size_ospDic != 0) {
+    Loop, % size_ospDic {
+        ospDic.pop()
+    }
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ospDic1.add("end")
+int size_ospDic1 := ospDic1.size()
+if (size_ospDic1 != 0) {
+    Loop, % size_ospDic1 {
+        ospDic1.pop()
+    }
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ospDic2.add("end")
+int size_ospDic2 := ospDic2.size()
+if (size_ospDic2 != 0) {
+    Loop, % size_ospDic2 {
+        ospDic2.pop()
+    }
+}
 
 
 
