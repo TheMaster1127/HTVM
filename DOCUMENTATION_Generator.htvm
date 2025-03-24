@@ -23,6 +23,38 @@ str htvmSnippet10 := ""
 str htvmSnippet11 := ""
 str htvmSnippet12 := ""
 str htvmSnippet13 := ""
+str htvmSnippet14 := ""
+str htvmSnippet15 := ""
+str htvmSnippet16 := ""
+str htvmSnippet17 := ""
+str htvmSnippet18 := ""
+str htvmSnippet19 := ""
+str htvmSnippet20 := ""
+str htvmSnippet21 := ""
+str htvmSnippet22 := ""
+str htvmSnippet23 := ""
+str htvmSnippet24 := ""
+str htvmSnippet25 := ""
+str htvmSnippet26 := ""
+str htvmSnippet27 := ""
+str htvmSnippet28 := ""
+str htvmSnippet29 := ""
+str htvmSnippet30 := ""
+str htvmSnippet31 := ""
+str htvmSnippet32 := ""
+str htvmSnippet33 := ""
+str htvmSnippet34 := ""
+str htvmSnippet35 := ""
+str htvmSnippet36 := ""
+str htvmSnippet37 := ""
+str htvmSnippet38 := ""
+str htvmSnippet39 := ""
+str htvmSnippet40 := ""
+str htvmSnippet41 := ""
+str htvmSnippet42 := ""
+str htvmSnippet43 := ""
+str htvmSnippet44 := ""
+str htvmSnippet45 := ""
 
 ___cpp start
 
@@ -844,6 +876,7 @@ htvmSnippet8 := FileRead("DOCUMENTATION Examples\htvmSnippet8.htvm")
 htvmSnippet9 := FileRead("DOCUMENTATION Examples\htvmSnippet9.htvm")
 htvmSnippet10 := FileRead("DOCUMENTATION Examples\htvmSnippet10.htvm")
 htvmSnippet11 := FileRead("DOCUMENTATION Examples\htvmSnippet11.htvm")
+htvmSnippet12 := FileRead("DOCUMENTATION Examples\htvmSnippet12.htvm")
 
 htvmSnippet0 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet0)
 htvmSnippet1 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet1)
@@ -857,6 +890,7 @@ htvmSnippet8 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet8)
 htvmSnippet9 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet9)
 htvmSnippet10 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet10)
 htvmSnippet11 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet11)
+htvmSnippet12 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet12)
 
 }
 else
@@ -875,6 +909,7 @@ htvmSnippet8 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/m
 htvmSnippet9 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet9.htvm');
 htvmSnippet10 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet10.htvm');
 htvmSnippet11 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet11.htvm');
+htvmSnippet12 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet12.htvm');
 
 htvmSnippet0 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet0);
 htvmSnippet1 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet1);
@@ -888,6 +923,7 @@ htvmSnippet8 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet8);
 htvmSnippet9 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet9);
 htvmSnippet10 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet10);
 htvmSnippet11 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet11);
+htvmSnippet12 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet12);
 
 
 ___js end
@@ -923,9 +959,80 @@ arr str funcData_desc
 
 
 
+str on_useCurlyBraces := ""
+str on_useEnd := ""
+str on_useSemicolon := ""
+str on_useParentheses := ""
+str on_usePrefixTypeForTypeDefinition := ""
+str on_usePostfixTypeForTypeDefinition := ""
+str on_usePythonicColonSyntax := ""
+str on_useCurlyBracesSyntaxForArrayDef := ""
+str on_useInJavaScriptAlwaysUseVar := ""
+str on_useJavaScriptInAfullHTMLfile := ""
+str on_useJavaScriptAmainFuncDef := ""
+str on_useJavaScriptAllFuncsAreAsync := ""
+str on_useJavaScriptAlwaysTripleEqual := ""
 
 Loop, Parse, instructionFileData, `n, `r
 {
+
+
+if (A_Index = 149)
+{
+on_useCurlyBraces := Trim(A_LoopField)
+}
+if (A_Index = 150)
+{
+on_useEnd := Trim(A_LoopField)
+}
+if (A_Index = 151)
+{
+on_useSemicolon := Trim(A_LoopField)
+}
+if (A_Index = 152)
+{
+on_useParentheses := Trim(A_LoopField)
+}
+if (A_Index = 153)
+{
+on_usePrefixTypeForTypeDefinition := Trim(A_LoopField)
+}
+if (A_Index = 154)
+{
+on_usePostfixTypeForTypeDefinition := Trim(A_LoopField)
+}
+if (A_Index = 155)
+{
+on_usePythonicColonSyntax := Trim(A_LoopField)
+}
+if (A_Index = 156)
+{
+on_useCurlyBracesSyntaxForArrayDef := Trim(A_LoopField)
+}
+if (A_Index = 157)
+{
+on_useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
+}
+if (A_Index = 158)
+{
+on_useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
+}
+if (A_Index = 159)
+{
+on_useJavaScriptAmainFuncDef := Trim(A_LoopField)
+}
+if (A_Index = 160)
+{
+on_useJavaScriptAllFuncsAreAsync := Trim(A_LoopField)
+}
+if (A_Index = 161)
+{
+on_useJavaScriptAlwaysTripleEqual := Trim(A_LoopField)
+}
+
+
+
+
 
 if (Trim(A_LoopField) = "funcEND======================funcEND==============")
 {
@@ -1218,8 +1325,124 @@ categories.add(theCurrentDescCategory . "`n" . theCurrentLine)
 
 htvmSnippetLoad()
 
+
+___js start
+
+
+let features = [];
+
+// Indentation styles
+if (on_useCurlyBraces === "on" && on_useEnd === "off") {
+    features.push("curly braces for indentation");
+} else if (on_useCurlyBraces === "off" && on_useEnd === "on") {
+    features.push("Lua-style indentation (using `end` keywords)");
+} else if (on_useCurlyBraces === "off" && on_useEnd === "off") {
+    features.push("Pythonic indentation style (using spaces for indentation)");
+}
+
+// Array syntax
+if (on_useCurlyBracesSyntaxForArrayDef === "off") {
+    features.push("square brackets for array definitions");
+} else {
+    features.push("curly braces for array definitions");
+}
+
+// Semicolons
+if (on_useSemicolon === "on") {
+    features.push("semicolon to terminate statements (marks the end of a statement in your language)");
+}
+
+// Parentheses for control flow statements
+if (on_useParentheses === "on") {
+    features.push("parentheses around conditions in control flow statements (e.g., if, else if, while loops, like `if (condition)` or `while (condition)`)");
+} else {
+    features.push("no parentheses around conditions in control flow statements (e.g., if condition or while condition, like `if condition` or `while condition`)");
+}
+
+// Type definitions
+if (on_usePrefixTypeForTypeDefinition === "on") {
+    let prefixExample = on_useSemicolon === "on" ? "int var1 = 5;" : "int var1 = 5";
+    features.push(`prefix type for variable definitions (similar to C-style type declaration, e.g., \`${prefixExample}\`)`);
+}
+if (on_usePostfixTypeForTypeDefinition === "on") {
+    let postfixExample = on_useSemicolon === "on" ? "var1: int = 5;" : "var1: int = 5";
+    features.push(`postfix type for variable definitions (similar to TypeScript-style declaration, e.g., \`${postfixExample}\`)`);
+}
+
+// Pythonic colon syntax
+if (on_usePythonicColonSyntax === "on") {
+    features.push("Pythonic colon syntax (colon used at the beginning of constructs like conditionals, loops, and function definitions, marking the start of a code block, similar to Python)");
+}
+
+// Constructing the sentence
+let sentence = "Your language uses " + features.join(", ") + ".";
+
+___js end
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+___cpp start
+
+std::vector<std::string> features;
+
+// Indentation styles
+if (on_useCurlyBraces == "on" && on_useEnd == "off") {
+    features.push_back("curly braces for indentation");
+} else if (on_useCurlyBraces == "off" && on_useEnd == "on") {
+    features.push_back("Lua-style indentation (using `end` keywords)");
+} else if (on_useCurlyBraces == "off" && on_useEnd == "off") {
+    features.push_back("Pythonic indentation style (using spaces for indentation)");
+}
+
+// Array syntax
+if (on_useCurlyBracesSyntaxForArrayDef == "off") {
+    features.push_back("square brackets for array definitions");
+} else {
+    features.push_back("curly braces for array definitions");
+}
+
+// Semicolons
+if (on_useSemicolon == "on") {
+    features.push_back("semicolon to terminate statements (marks the end of a statement in your language)");
+}
+
+// Parentheses for control flow statements
+if (on_useParentheses == "on") {
+    features.push_back("parentheses around conditions in control flow statements (e.g., if, else if, while loops, like `if (condition)` or `while (condition)`)");
+} else {
+    features.push_back("no parentheses around conditions in control flow statements (e.g., if condition or while condition, like `if condition` or `while condition`)");
+}
+
+// Type definitions
+if (on_usePrefixTypeForTypeDefinition == "on") {
+    std::string prefixExample = (on_useSemicolon == "on") ? "int var1 = 5;" : "int var1 = 5";
+    features.push_back("prefix type for variable definitions (similar to C-style type declaration, e.g., `" + prefixExample + "`)");
+}
+if (on_usePostfixTypeForTypeDefinition == "on") {
+    std::string postfixExample = (on_useSemicolon == "on") ? "var1: int = 5;" : "var1: int = 5";
+    features.push_back("postfix type for variable definitions (similar to TypeScript-style declaration, e.g., `" + postfixExample + "`)");
+}
+
+// Pythonic colon syntax
+if (on_usePythonicColonSyntax == "on") {
+    features.push_back("Pythonic colon syntax (colon used at the beginning of constructs like conditionals, loops, and function definitions, marking the start of a code block, similar to Python)");
+}
+
+// Constructing the sentence
+std::string sentence = "Your language uses ";
+for (size_t i = 0; i < features.size(); ++i) {
+    sentence += features[i];
+    if (i < features.size() - 1) {  
+        sentence += ", ";
+    }
+}
+sentence += ".";
+
+
+___cpp end
+
 str outMDsec0 := Chr(10) . "1. [Introduction](#introduction-to-htvm)  " . Chr(10) . "Understand why HTVM is the future of programming." . Chr(10) . "" . Chr(10) . "2. [OSP (Objectively Simplified Programming) Paradigm](#osp-objectively-simplified-programming-paradigm)  " . Chr(10) . "Learn about the new paradigm that replaces traditional object-oriented programming." . Chr(10) . "" . Chr(10) . "3. [How Your Language Looks Like](#how-your-language-looks-like)  " . Chr(10) . "Get to know how HTVM code is structured and its syntax style." . Chr(10) . "" . Chr(10) . "4. [Programming Blocks](#programming-blocks)  " . Chr(10) . "HTVM introduces **programming blocks** that allow you to code in the target language seamlessly in your code. This feature is designed to handle cases where HTVM itself can't achieve something directly or when you'd prefer to rely on another language for specific tasks." . Chr(10) . "" . Chr(10) . "5. [Variables](#variables)  " . Chr(10) . "Learn how to declare and use variables in HTVM for storing and manipulating data." . Chr(10) . "" . Chr(10) . "6. [Functions](#functions)  " . Chr(10) . "Explore how to define and use functions for modular and reusable code." . Chr(10) . "" . Chr(10) . "7. [Arrays](#arrays)  " . Chr(10) . "Dive into working with arrays, one of the most essential data structures in HTVM." . Chr(10) . "" . Chr(10) . "8. [Types](#types)  " . Chr(10) . "Explore the different data types supported by HTVM and how to use them effectively." . Chr(10) . "" . Chr(10) . "9. [Loops](#loops)  " . Chr(10) . "Master the looping structures available in HTVM, such as the standard loop and infinite loops." . Chr(10) . "" . Chr(10) . "10. [If, Else, Else If](#if-else-else-if)  " . Chr(10) . "Learn how to control the flow of your program with conditional statements." . Chr(10) . "" . Chr(10) . "11. [Comments](#comments)  " . Chr(10) . "Add clarity to your code by using comments to document and explain your code." . Chr(10) . "" . Chr(10) . "12. [Error Handling](#error-handling)  " . Chr(10) . "Understand how to manage errors and handle exceptions in HTVM to make your programs more robust." . Chr(10) . "" . Chr(10) . "13. [Operators](#operators)  " . Chr(10) . "Explore the logical and mathematical operators available in HTVM for performing calculations and comparisons." . Chr(10) . "" . Chr(10) . "14. [Assignment Operators](#assignment-operators)  " . Chr(10) . "Learn how to use assignment operators for storing values and manipulating them in your code." . Chr(10) . "" . Chr(10) . "15. [Include](#include)  " . Chr(10) . "Discover how to include external files and resources in your HTVM project for enhanced functionality." . Chr(10) . "" . Chr(10) . "16. [Extra Stuff](#extra-stuff)  " . Chr(10) . "Explore additional unique features and utilities HTVM offers for greater flexibility and ease of use." . Chr(10) . "" . Chr(10) . "17. [Commands](#commands)  " . Chr(10) . "Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency." . Chr(10) . "" . Chr(10) . "18. [Built-in Functions](#built-in-functions)  " . Chr(10) . "Explore the wide range of built-in functions categorized for ease of use." . Chr(10)
-str outMDsec1 := "### How Your Language Looks Like" . Chr(10) . "" . Chr(10) . "[Go back](#htvm-documentation)" . Chr(10) . "" . Chr(10) . "Get to know how HTVM code is structured and its syntax style. HTVM uses a clean, human-readable syntax that focuses on simplicity and ease of use. You can define your own syntax, making HTVM incredibly flexible and tailored to your needs." . Chr(10) . "" . Chr(10) . "---" . Chr(10) . ""
+str outMDsec1 := "### How Your Language Looks Like" . Chr(10) . "" . Chr(10) . "[Go back](#htvm-documentation)" . Chr(10) . "" . Chr(10) . "Get to know how HTVM code is structured and its syntax style. HTVM uses a clean, human-readable syntax that focuses on simplicity and ease of use. You can define your own syntax, making HTVM incredibly flexible and tailored to your needs." . Chr(10) . Chr(10) . sentence . Chr(10) . Chr(10) . "Here is how it looks like:" . Chr(10) . Chr(10) . "" . Chr(96) . "" . Chr(96) . "" . Chr(96) . "htvm" . Chr(10) . htvmSnippet12 . Chr(10) . "" . Chr(96) . "" . Chr(96) . "" . Chr(96) . "" . Chr(10) . Chr(10) . "---" . Chr(10) . ""
 str outMDsec2 := "### Programming Blocks" . Chr(10) . "" . Chr(10) . "[Go back](#htvm-documentation)" . Chr(10) . "" . Chr(10) . "HTVM introduces **programming blocks** that allow you to code in the target language seamlessly in your code. This feature is designed to handle cases where HTVM itself can't achieve something directly or when you'd prefer to rely on another language for specific tasks." . Chr(10) . "" . Chr(10) . "---" . Chr(10) . ""
 str outMDsec3 := "### Variables" . Chr(10) . "" . Chr(10) . "[Go back](#htvm-documentation)" . Chr(10) . "" . Chr(10) . "Learn how to declare and use variables in HTVM for storing and manipulating data. HTVM makes working with variables straightforward by providing flexible types and easy handling of data." . Chr(10) . "" . Chr(10) . "---" . Chr(10) . ""
 str outMDsec4 := "### Functions" . Chr(10) . "" . Chr(10) . "[Go back](#htvm-documentation)" . Chr(10) . "" . Chr(10) . "Explore how to define and use functions for modular and reusable code. Functions in HTVM can be written easily, and the language supports efficient handling of function calls, parameters, and returns." . Chr(10) . "" . Chr(10) . "---" . Chr(10) . ""

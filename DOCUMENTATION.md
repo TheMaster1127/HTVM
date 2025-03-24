@@ -811,6 +811,102 @@ Loop, % Movable.array.name.prop4.size() {
 
 Get to know how HTVM code is structured and its syntax style. HTVM uses a clean, human-readable syntax that focuses on simplicity and ease of use. You can define your own syntax, making HTVM incredibly flexible and tailored to your needs.
 
+Your language uses curly braces for indentation, square brackets for array definitions, parentheses around conditions in control flow statements (e.g., if, else if, while loops, like `if (condition)` or `while (condition)`), prefix type for variable definitions (similar to C-style type declaration, e.g., `int var1 = 5`).
+
+Here is how it looks like:
+
+```htvm
+; This is how your language looks like.
+; Here's how types will appear if you only define them:
+int varName1
+str varName2
+bool varName3
+float varName4
+int8 varName5
+int16 varName6
+int32 varName7
+int64 varName8
+; Alternatively, you can define them like this:
+int varName9 := 34
+; Here is how to define a function with static types if you convert to C++.
+; However, it will still work even if you are not converting to C++; types will be stripped away.
+func void funcName1(int paramVar1, paramVar2 := "",  paramVar3 := false,  paramVar4 := 1.5) {
+    ; This is how the global keyword works if we convert to Python.
+    ; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
+    global varName5
+    ; Here's how if, else if, and else statements will look:
+    if (varName1 = paramVar1) {
+        print("varName1 is equal to paramVar1")
+    }
+    else if (varName1 != paramVar1 or varName1 <= paramVar1) {
+        print("varName1 is less than or equal to paramVar1")
+    }
+    else {
+        print("varName1 is NOT less than or equal to paramVar1 or something else")
+    }
+    ; this is how the return keyword will look like in your lang
+    return
+}
+; This is where the main function will start. It's just a label, so don't worry.
+main
+funcName1(varName9)
+; this is how a while loop works in your lang
+bool var1 := false
+while (var1 = false) {
+    print("we are inside the while loop")
+    var1 := true
+}
+print("we are outside the while loop")
+; this is how to use a loop whit arrays
+arr str array123 := ["hey"]
+array123.add("hello")
+array123.add("how")
+array123.add("are")
+array123.add("you")
+array123.add("doing")
+Loop, % array123.size() {
+    print("iteration: " . STR(A_Index))
+    print("Item: " . array123[A_Index])
+}
+print("this is how the escape char looks like `nthis is a new line")
+'''1
+this is a comment block
+this is a comment block
+'''2
+; this is how to use an AutoHotKey like Loop
+Loop, 10 {
+    if (A_Index % 2 = 0) {
+        continue
+    }
+    print(A_Index)
+}
+; this is how to use an AutoHotKey like infinite Loop
+Loop {
+    if (A_Index = 5) {
+        break
+    }
+    else {
+        print(A_Index)
+    }
+}
+; this is how to use an AutoHotKey like Loop, parse
+str someText := "hello how are you doing`ntoday we are good."
+Loop, Parse, someText, " ", `n {
+    print(A_LoopField)
+}
+; Error Handling
+try {
+    throw ErrorMsg("Something went wrong!")
+}
+catch (e) {
+    print(e)
+}
+finally {
+    print("Finally block executed")
+}
+
+```
+
 ---
 
 
@@ -1032,8 +1128,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ACos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### ASin
 
@@ -1045,8 +1140,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ASin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### ATan
 
@@ -1058,8 +1152,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ATan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Abs
 
@@ -1071,8 +1164,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Abs | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Ceil
 
@@ -1084,8 +1176,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Ceil | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Cos
 
@@ -1097,8 +1188,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Cos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Exp
 
@@ -1110,8 +1200,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Exp | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Floor
 
@@ -1123,8 +1212,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Floor | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Ln
 
@@ -1136,8 +1224,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Ln | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Log
 
@@ -1149,8 +1236,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Log | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Mod
 
@@ -1162,8 +1248,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Mod | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Random
 
@@ -1175,8 +1260,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Random | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Round
 
@@ -1188,8 +1272,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Round | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Sin
 
@@ -1201,8 +1284,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Sqrt
 
@@ -1214,8 +1296,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sqrt | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Tan
 
@@ -1227,8 +1308,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Tan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ## String Functions
 
@@ -1300,8 +1380,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Asc | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Chr
 
@@ -1313,8 +1392,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Chr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### FLOAT
 
@@ -1326,8 +1404,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FLOAT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### INT
 
@@ -1339,8 +1416,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | INT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### InStr
 
@@ -1352,8 +1428,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | InStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### RegExMatch
 
@@ -1365,8 +1440,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | RegExMatch | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### RegExReplace
 
@@ -1378,8 +1452,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | RegExReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### STR
 
@@ -1391,8 +1464,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
 
-
----
+n---
 
 ### Sort
 
@@ -1404,8 +1476,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### StrLen
 
@@ -1417,8 +1488,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### StrLower
 
@@ -1430,8 +1500,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### StrReplace
 
@@ -1443,8 +1512,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### StrSplit
 
@@ -1456,8 +1524,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### StrTitleCase
 
@@ -1469,8 +1536,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrTitleCase | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### StringTrimLeft
 
@@ -1482,8 +1548,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StringTrimLeft | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### StringTrimRight
 
@@ -1495,8 +1560,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StringTrimRight | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### SubStr
 
@@ -1508,8 +1572,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Trim
 
@@ -1521,8 +1584,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### countChars
 
@@ -1534,8 +1596,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | countChars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### getUrlParams
 
@@ -1547,8 +1608,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### sortArr
 
@@ -1560,8 +1620,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### sortArrByLenOnly
 
@@ -1573,8 +1632,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ## System Functions
 
@@ -1610,8 +1668,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | BuildInVars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### ExitApp
 
@@ -1623,8 +1680,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### HTVM_getLang_HTVM
 
@@ -1636,8 +1692,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Sleep
 
@@ -1649,8 +1704,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ## File Functions
 
@@ -1692,8 +1746,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileAppend | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### FileAppendJs
 
@@ -1705,8 +1758,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileAppendJs | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### FileCreateDir
 
@@ -1718,8 +1770,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileCreateDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### FileDelete
 
@@ -1731,8 +1782,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileDelete | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### FileExist
 
@@ -1744,8 +1794,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### FileRead
 
@@ -1757,8 +1806,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### FileRemoveDir
 
@@ -1770,8 +1818,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ## Io Functions
 
@@ -1809,8 +1856,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### RunCMD
 
@@ -1822,8 +1868,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### getDataFromAPI
 
@@ -1835,8 +1880,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### input
 
@@ -1848,8 +1892,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### print
 
@@ -1861,8 +1904,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
 
-
----
+n---
 
 ## Gui Functions
 
@@ -1926,8 +1968,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | GuiControl | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Button
 
@@ -1939,8 +1980,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Button | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_CheckBox
 
@@ -1952,8 +1992,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_CheckBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Color
 
@@ -1965,8 +2004,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Color | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_DropDownList
 
@@ -1978,8 +2016,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_DropDownList | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Edit
 
@@ -1991,8 +2028,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Edit | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Font
 
@@ -2004,8 +2040,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Font | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Font_Id
 
@@ -2017,8 +2052,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Font_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Hide
 
@@ -2030,8 +2064,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Hide | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Image
 
@@ -2043,8 +2076,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Image | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Move
 
@@ -2056,8 +2088,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Move | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Show
 
@@ -2069,8 +2100,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Show | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Size
 
@@ -2082,8 +2112,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Size | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Size_Id
 
@@ -2095,8 +2124,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Size_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Text
 
@@ -2108,8 +2136,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Text | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Toggle
 
@@ -2121,8 +2148,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Toggle | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### Gui_Update
 
@@ -2134,8 +2160,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Update | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### MsgBox
 
@@ -2147,8 +2172,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | MsgBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ## Other Functions
 
@@ -2182,8 +2206,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### MakeHotKey
 
@@ -2195,8 +2218,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### isWindows
 
@@ -2208,8 +2230,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ## Backend Functions
 
@@ -2245,8 +2266,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | addEndpoint | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### createBackendInit
 
@@ -2258,8 +2278,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | createBackendInit | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### getDataFromEndpoint
 
@@ -2271,8 +2290,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | getDataFromEndpoint | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 
 ### startServer
 
@@ -2284,6 +2302,5 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | startServer | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-
----
+n---
 

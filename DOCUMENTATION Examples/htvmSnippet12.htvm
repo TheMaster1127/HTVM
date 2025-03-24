@@ -1,0 +1,88 @@
+; This is how your language looks like.
+; Here's how types will appear if you only define them:
+int varName1
+str varName2
+bool varName3
+float varName4
+int8 varName5
+int16 varName6
+int32 varName7
+int64 varName8
+; Alternatively, you can define them like this:
+int varName9 := 34
+; Here is how to define a function with static types if you convert to C++.
+; However, it will still work even if you are not converting to C++; types will be stripped away.
+func void funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5) {
+    ; This is how the global keyword works if we convert to Python.
+    ; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
+    global varName5
+    ; Here's how if, else if, and else statements will look:
+    if (varName1 = paramVar1) {
+        print("varName1 is equal to paramVar1")
+    }
+    else if (varName1 != paramVar1 or varName1 <= paramVar1) {
+        print("varName1 is less than or equal to paramVar1")
+    }
+    else {
+        print("varName1 is NOT less than or equal to paramVar1 or something else")
+    }
+    ; this is how the return keyword will look like in your lang
+    return
+}
+; This is where the main function will start. It's just a label, so don't worry.
+main
+funcName1(varName9)
+; this is how a while loop works in your lang
+bool var1 := false
+while (var1 = false) {
+    print("we are inside the while loop")
+    var1 := true
+}
+print("we are outside the while loop")
+; this is how to use a loop whit arrays
+arr str array123 := ["hey"]
+array123.add("hello")
+array123.add("how")
+array123.add("are")
+array123.add("you")
+array123.add("doing")
+Loop, % array123.size() {
+    print("iteration: " . STR(A_Index))
+    print("Item: " . array123[A_Index])
+}
+print("this is how the escape char looks like `nthis is a new line")
+'''1
+this is a comment block
+this is a comment block
+'''2
+; this is how to use an AutoHotKey like Loop
+Loop, 10 {
+    if (A_Index % 2 = 0) {
+        continue
+    }
+    print(A_Index)
+}
+; this is how to use an AutoHotKey like infinite Loop
+Loop {
+    if (A_Index = 5) {
+        break
+    }
+    else {
+        print(A_Index)
+    }
+}
+; this is how to use an AutoHotKey like Loop, parse
+str someText := "hello how are you doing`ntoday we are good."
+Loop, Parse, someText, " ", `n {
+    print(A_LoopField)
+}
+; Error Handling
+try {
+    throw ErrorMsg("Something went wrong!")
+}
+catch (e) {
+    print(e)
+}
+finally {
+    print("Finally block executed")
+}
