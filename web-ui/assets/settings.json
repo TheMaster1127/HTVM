@@ -205,9 +205,13 @@
         {"id": 152, "name": "useParentheses", "default": "on", "type": "toggle"},
         {"id": 153, "name": "usePrefixTypeForTypeDefinition", "default": "on", "type": "toggle", "dependencies": [
           {"id": 154, "action": "off"}
+        ], "onDisable": [
+          {"id": 154, "action": "on"}
         ]},
         {"id": 154, "name": "usePostfixTypeForTypeDefinition", "default": "off", "type": "toggle", "dependencies": [
           {"id": 153, "action": "off"}
+        ], "onDisable": [
+          {"id": 153, "action": "on"}
         ]},
         {"id": 155, "name": "usePythonicColonSyntax", "default": "off", "type": "toggle","dependencies": [
           {"id": 149, "action": "off"}
