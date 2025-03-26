@@ -1,0 +1,2 @@
+; In (e.g., JavaScript, Python), this will be inferred as an array of integers
+arr myArray := [1, 2, 3, 4]

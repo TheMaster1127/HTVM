@@ -1130,7 +1130,71 @@ finally {
 
 [Go back](#htvm-documentation)
 
-HTVM introduces **programming blocks** that allow you to code in the target language seamlessly in your code. This feature is designed to handle cases where HTVM itself can't achieve something directly or when you'd prefer to rely on another language for specific tasks.
+Programming blocks in HTVM allow you to write code directly in the target language when HTVM itself cannot handle certain tasks. These blocks give you the flexibility to insert language-specific code into your HTVM project without disrupting the overall flow. There are two main use cases for programming blocks: single-language programming blocks and multi-language programming blocks.
+
+#### **Single-Language Programming Block**
+
+A single-language programming block allows you to write code directly in the target language. If you're converting HTVM code to, say, C++, you can open a programming block and write C++ code inside. This block will only be valid in the context of converting to C++ and will disappear when converting to another language.
+
+**Example:**
+
+```htvm
+; Open a programming block for C++
+___cpp start
+// Write C++ code here
+___cpp end
+
+```
+
+#### **Multiple-Language Programming Block**
+
+HTVM also supports multiple-language programming blocks, where you can write code in different languages for the same functionality. For instance, if you're converting to both C++ and JavaScript, you can write separate blocks for each language but ensure the code behaves similarly in both.
+
+**Example:**
+
+```htvm
+; Open a programming block for C++
+___cpp start
+// Write C++ code here
+___cpp end
+; Open a programming block for JavaScript
+___js start
+// Write JavaScript code here
+___js end
+
+```
+
+When using multi-language blocks, the syntax and implementation might differ, but the core functionality should remain the same. This is a great way to ensure consistency across multiple target languages.
+
+#### **Warning About AI-Generated Code**
+
+**WARNING:** Be cautious when using AI-generated code. While AI can help speed up development, relying too heavily on it can be dangerous. You must understand the code you're incorporating into your project. **MAKE SURE YOU KNOW WHAT YOU'RE DOING BEFORE USING AI**. 
+
+If you don't have a solid understanding of the concepts you're asking the AI to handle, it can harm your learning process. **It could also negatively affect your development as a programmer.** Are you truly understanding the code you’re working with, or just relying on AI to do the heavy lifting for you?
+
+Use AI to *assist*, not replace your learning process. **Be careful and make sure you understand every line of code** before integrating it into your project. This is essential for becoming a proficient programmer.
+
+#### **Reverse Programming Blocks**
+
+Reverse programming blocks in HTVM allow you to write HTVM code in another file, which the HTVM compiler can recognize. These reverse blocks are helpful when you need to convert code written in HTVM into a target language while automatically including the necessary libraries and built-in functions.
+
+The syntax for reverse programming blocks is the same as for regular programming blocks, but you'll write HTVM code inside files of supported languages (e.g., `.cpp`, `.js`, etc.). Once you pass both the source file (e.g., `main.cpp`) and the HTVM instruction file to HTVM, the compiler will automatically replace the HTVM code with the appropriate target language code.
+
+HTVM will also ensure that all necessary libraries and built-in functions are included. It will automatically show you which libraries need to be included at the top of the file and which built-in functions you must import if they're not already part of the language's standard library.
+
+**Example of reverse programming block:**
+
+1. Create a `.cpp` file (or any supported language file).
+2. Open the HTVM programming block using the syntax below:
+- To open - `___inhtvm start`
+- To close - `___inhtvm end`
+
+3. Pass both the `.cpp` file and the HTVM instruction file to HTVM.
+
+HTVM will:
+
+- Replace the HTVM code with C++ (or the corresponding language).
+- Display the libraries and built-in functions that need to be included.
 
 ---
 
@@ -1140,6 +1204,219 @@ HTVM introduces **programming blocks** that allow you to code in the target lang
 [Go back](#htvm-documentation)
 
 Learn how to declare and use variables in HTVM for storing and manipulating data. HTVM makes working with variables straightforward by providing flexible types and easy handling of data.
+
+
+### **Variables in HTVM**  
+
+A variable is a way to store and reference data in your code. In HTVM, you can use different variable types depending on your needs. Here are all the variable types supported by HTVM:  
+
+| Type         | Description |
+|-------------|------------|
+| `int`       | Regular integer (size depends on the target language) |
+| `int8`      | 8-bit signed integer |
+| `int16`     | 16-bit signed integer |
+| `int32`     | 32-bit signed integer |
+| `int64`     | 64-bit signed integer |
+| `uint8`     | 8-bit unsigned integer |
+| `uint16`    | 16-bit unsigned integer |
+| `uint32`    | 32-bit unsigned integer |
+| `uint64`    | 64-bit unsigned integer |
+| `float`     | Floating-point number (usually 32-bit) |
+| `double`    | Double-precision floating-point number |
+| `char`      | Single character |
+| `string`    | Text string |
+| `bool`      | Boolean (`true` or `false`) |
+
+> **Note:** We won't mention arrays here because they have a separate section under.
+
+---
+
+### **HTVM Variable Example**  
+
+Here’s a simple example of declaring and printing variables in HTVM:  
+
+```htvm
+int myInt := 42
+int8 mySmallInt := -5
+uint16 myPositiveInt := 500
+float myFloat := 3.14
+double myDouble := 2.718
+char myChar := 'A'
+str myText := "Hello, HTVM!"
+bool myBool := true
+; print all variables
+print(myInt)
+print(mySmallInt)
+print(myPositiveInt)
+print(myFloat)
+print(myDouble)
+print(myChar)
+print(myText)
+print(myBool)
+
+```
+
+This will correctly convert to the target language with the appropriate syntax.
+
+---
+
+### **Static vs. Dynamic Typing in HTVM**  
+
+HTVM itself is **neither statically typed nor dynamically typed**. It simply converts code to the target language, which may be either.  
+
+| **Language**  | **Typing** |
+|--------------|------------|
+| JavaScript   | Dynamic    |
+| Python       | Dynamic    |
+| Lua          | Dynamic    |
+| Ruby         | Dynamic    |
+| Groovy       | Dynamic    |
+| TypeScript   | Static     |
+| C++          | Static     |
+| Go (Golang)  | Static     |
+| C#           | Static     |
+| Java         | Static     |
+| Kotlin       | Static     |
+| Nim          | Static     |
+| Swift        | Static     |
+| Dart         | Static     |
+| AutoHotKey   | Dynamic    |
+
+- **For static languages**, you **must** use types; otherwise, the conversion will result in invalid code.
+- **For dynamic languages**, you **can** use types, but HTVM will **strip them away** automatically.
+- **HTVM does not provide type safety** – it will not warn you about type mismatches. You'll find out only when running the target language.
+
+---
+
+#### **`let` and `var` Keywords**
+
+The `let` and `var` keywords in HTVM are mainly useful when converting to languages that support these keywords, like **JavaScript** and **TypeScript**. These keywords are used to define mutable variables, but outside of those specific languages, you can ignore them, as HTVM will convert them appropriately based on the target language.
+
+---
+
+### **The `const` Keyword**  
+
+HTVM supports the `const` keyword, but it **does not enforce it** in any way. It simply converts it to the target language if the language supports `const`.  
+
+| **Language**  | **Supports `const`?** |
+|--------------|--------------------|
+| JavaScript   | ✅ Yes |
+| TypeScript   | ✅ Yes |
+| C++          | ✅ Yes |
+| Go (Golang)  | ✅ Yes |
+| C#           | ✅ Yes |
+| Java         | ✅ Yes |
+| Kotlin       | ✅ Yes |
+| Swift        | ✅ Yes |
+| Dart         | ✅ Yes |
+| Python       | ❌ No (ignored) |
+| Lua          | ❌ No (ignored) |
+| Ruby         | ❌ No (ignored) |
+| Groovy       | ❌ No (ignored) |
+| Nim          | ✅ Yes |
+| AutoHotKey   | ❌ No (ignored) |
+
+HTVM **does not check** whether you're violating `const`. If a language doesn’t support `const`, HTVM **removes it** without warning.
+
+Example:  
+
+```htvm
+const int x := 10
+
+```
+
+- If converting to **C++**, this becomes `const int x = 10;`
+- If converting to **Python**, this becomes `x = 10` (no `const`).
+- If converting to **Java**, this becomes `final int x = 10;`
+- ... etc.
+
+---
+
+### **Programming Blocks & Variable Scope**  
+
+HTVM allows **programming blocks**, where you write code directly in a target language. These blocks **do not convert** – they remain as-is.
+
+#### **Variable Accessibility in Programming Blocks**
+- **HTVM variables can be accessed inside programming blocks.**
+- **Modifications inside a block persist after the block.**
+- **Programming blocks are not scoped – they are part of the converted language.**
+- **However, different programming languages do not share scope.**  
+
+Example (Converting to Python):  
+
+```htvm
+int myNumber := 5
+___py start
+myNumber += 10
+___py end
+; Will print 15 in Python
+print(myNumber)
+
+```
+
+This converts to:  
+
+```python
+myNumber = 5
+myNumber += 10  # Python block stays intact
+print(myNumber)  # 15
+```
+
+---
+
+### **Multiple Programming Blocks & Limitations**  
+
+#### **Single Language Conversion**
+If you are converting to just **one language**, everything works as expected. Variables declared in HTVM can be used inside the programming block and modified.
+
+#### **Multiple Language Conversion**
+If you are converting to **multiple languages**, each programming block is isolated per language.  
+- **You cannot access variables across different language blocks.**  
+- You must **manually maintain the same logic** in each block.  
+
+Example (Invalid cross-language access):  
+
+```htvm
+int sharedNumber := 20
+___cpp start
+sharedNumber += 5;
+___cpp end
+___py start
+print(sharedNumber)  # ❌ This won't work because Python can't access C++ variables
+___py end
+
+```
+
+To fix this, you need to **manually synchronize values** in each programming block.
+
+---
+
+### **Unsigned Integers & Java**  
+
+- **Java does not support unsigned integers** (`uint8`, `uint16`, etc.).
+- If you try to use them, **HTVM will not warn you**, but Java might throw errors.
+- **Avoid using unsigned integers when converting to Java.**  
+
+Example of bad practice:  
+
+```htvm
+uint32 myUnsigned := 500
+
+```
+
+- **Works in C++** (`uint32_t myUnsigned = 500;`)
+- **Might fail in Java since unsigned ints are converted to signed ones**
+
+---
+
+### **Summary**
+
+- HTVM has multiple **variable types**, including integers, floats, chars, strings, and booleans.
+- HTVM **converts to both static and dynamic languages** but does not enforce type safety.
+- The `const` keyword is supported but **ignored** in languages that don’t use it.
+- **Programming blocks do not convert** – they stay in the target language.
+- **Variables persist inside programming blocks** but do not transfer between different language blocks.
+- **Java does not support unsigned integers**, so try to avoid them when converting to Java.
 
 ---
 
@@ -1158,6 +1435,281 @@ Explore how to define and use functions for modular and reusable code. Functions
 [Go back](#htvm-documentation)
 
 Dive into working with arrays, one of the most essential data structures in HTVM. Arrays are simple to declare and manipulate, enabling you to store and process collections of data easily.
+
+### **Arrays in HTVM**
+
+Arrays in HTVM are collections of values stored in a single variable. Arrays can hold multiple values of the same type. HTVM supports a variety of array types and offers flexibility, especially in dynamic languages. Here's an overview of how arrays work in HTVM:
+
+---
+
+### **Supported Array Types**  
+
+HTVM supports the following array types:
+
+| Type        | Description |
+|-------------|------------|
+| `arr int`     | Array of integers (regular size depends on the target language) |
+| `arr float`   | Array of floating-point numbers |
+| `arr bool`    | Array of booleans (true or false) |
+| `arr str`  | Array of strings (text) |
+
+> **Note:** In dynamic languages like JavaScript and Python, you can use arrays without explicitly defining the type. The type will be inferred or stripped out, depending on the language.
+
+---
+
+### **The Generic Array Type**  
+
+In addition to the specific array types above, HTVM provides a more flexible **generic array** keyword which is `arr`. This allows you to create arrays without specifying a type. When you use this keyword:
+
+- In **dynamically typed languages** (e.g., JavaScript, Python), HTVM will infer the type based on the values you assign.
+- In **statically typed languages** (e.g., C++, Java), HTVM will convert it into a `std::vector<std::string>` / `string[]`.
+
+This provides flexibility, but also means you lose type checking, and you’ll need to ensure the elements in the array match the expected type.
+
+Example (Dynamic Language):
+```htvm
+; In (e.g., JavaScript, Python), this will be inferred as an array of integers
+arr myArray := [1, 2, 3, 4]
+
+```
+
+---
+
+### **Array Methods in HTVM**
+
+| **Method**                          | **Description**                                                                                |
+|-------------------------------------|------------------------------------------------------------------------------------------------|
+| `.add()`    | Adds an element to the end of the array.                                                       |
+| `.pop()`       | Removes and returns the last element of the array.                                             |
+| `.size()`      | Returns the number of elements in the array.                                                   |
+| `.insert()`    | Inserts an element at a specific index.                                                        |
+| `.rm()`    | Removes the element at the specified index.                                                    |
+| `.indexOf()`   | Returns the index of the first occurrence of the specified element. Returns `-1` if not found. |
+
+---
+
+### **Array Methods in Detail**
+
+HTVM provides a set of useful methods to manipulate arrays in your programs. These methods follow a consistent `.method()` syntax, making it easy to interact with arrays. Below are the array methods supported in HTVM:
+
+1. **`.add()`**  
+
+Adds an element to the end of the array.  
+Example:
+```htvm
+arr int myArray := [1, 2, 3]
+myArray.add(4)
+; myArray is now [1, 2, 3, 4]
+print(myArray)
+
+```
+
+2. **`.pop()`**  
+
+Removes and returns the last element of the array.  
+Example:
+```htvm
+arr int myArray := [1, 2, 3, 4]
+myArray.pop()
+; myArray is now [1, 2, 3]
+print(myArray)
+
+```
+
+3. **`.size()`**  
+
+Returns the number of elements in the array.  
+Example:
+```htvm
+arr int myArray := [1, 2, 3]
+; returns 3
+print(myArray.size())
+
+```
+
+4. **`.insert()`** 
+ 
+Inserts an element at a specific index. The index is the first argument, and the element to insert is the second argument.  
+Example:
+```htvm
+arr int myArray := [1, 2, 3]
+myArray.insert(1, 4)
+; myArray is now [1, 4, 2, 3]
+print(myArray)
+
+```
+
+5. **`.rm()`**  
+
+Removes the element at the specified index.  
+Example:
+```htvm
+arr int myArray := [1, 2, 3, 4]
+myArray.rm(2)
+; myArray is now [1, 2, 4]
+print(myArray)
+
+```
+
+6. **`.indexOf()`**  
+
+Returns the index of the first occurrence of the specified element. If the element is not found, it returns `-1`.  
+Example:
+```htvm
+arr int myArray := [1, 2, 3, 2]
+print(myArray.indexOf(2))
+; returns 1
+
+```
+
+---
+
+### **Example of Using Array Methods in HTVM**
+
+```htvm
+arr int myArray := [1, 2, 3]
+myArray.add(4)
+; Removes the element at index 1
+myArray.rm(1)
+; Inserts 5 at index 1
+myArray.insert(1, 5)
+; Output: [1, 5, 3, 4]
+print(myArray)
+
+```
+
+In the example above, you can see how various methods like `.add()`, `.rm()`, and `.insert()` are used in sequence to manipulate the array.
+
+---
+
+### **Summary of Array Methods**
+
+- **`.add()`**: Adds an element to the end of the array.
+- **`.pop()`**: Removes and returns the last element of the array.
+- **`.size()`**: Returns the size of the array.
+- **`.insert(index, element)`**: Inserts an element at the specified index.
+- **`.rm(index)`**: Removes the element at the specified index.
+- **`.indexOf(element)`**: Finds the index of the first occurrence of the specified element.
+
+---
+
+### **Arrays in Programming Blocks**  
+
+Just like variables, arrays can be accessed and modified inside **programming blocks**. Programming blocks in HTVM are directly written in the target language and do not undergo conversion. The following behaviors apply to arrays inside programming blocks:
+
+- **Arrays persist across blocks**, meaning changes made to an array within a block are retained when the block ends.
+- **Arrays are not scoped**—they are part of the target language’s code.
+- **Different programming languages do not share arrays across blocks**, just like variables.
+
+Example (Converting to Python):
+
+```htvm
+arr int myArray := [1, 2, 3]
+___py start
+myArray.append(4)  # Modifying the array inside the Python block
+___py end
+; Will print: [1, 2, 3, 4] if converted to python otherwise it will print [1, 2, 3]
+print(myArray)
+
+```
+
+This will convert to:
+
+```python
+myArray = [1, 2, 3]
+myArray.append(4)  # Python block stays intact
+print(myArray)  # Output: [1, 2, 3, 4]
+```
+
+---
+
+### **No Type Checking for Arrays**  
+
+HTVM **does not perform type checking** for arrays. It will **not warn you** if you accidentally try to mix types within an array or if you make other mistakes related to array types. You will only notice errors during runtime in the target language.
+
+Example:
+
+```htvm
+; In JavaScript, this will be an array with mixed types, but HTVM won't warn you
+arr int myArray := [1, "two", 3]
+
+```
+
+In **JavaScript**, this would become:
+
+```javascript
+let myArray = [1, "two", 3];  // Valid in JavaScript, but mixed types
+```
+
+However, you might get unexpected results in a **statically typed language**, like **C++**.
+
+---
+
+### **No `const` Arrays**  
+
+HTVM does not support **constant arrays** or array immutability like some languages might (e.g., `const` arrays in JavaScript). If you want to have immutable arrays, you will need to **use programming blocks** and ensure the logic prevents modification.
+
+Example:
+
+```htvm
+arr int myArray := [1, 2, 3]
+___cpp start
+myArray.push_back(4);  // In C++, this works, but HTVM does not enforce immutability
+___cpp end
+; If we print this in HTVM, we will get:
+;
+; When converting to C++, we can't just print the array directly. However, in some other languages,
+; we don't need to loop over the array to print it.
+Loop, % myArray.size() {
+    print(myArray[A_Index])
+}
+; If you convert this to any language other than C++ (cpp), it will print:
+; 1
+; 2
+; 3
+
+```
+
+If you want immutability or similar behavior, you must handle it manually within programming blocks or by controlling logic in your code.
+
+---
+
+### **Arrays in Multiple Language Conversions**  
+
+When converting to **multiple languages**, arrays function similarly to variables in programming blocks. However, you cannot directly **share arrays between different language blocks**. Each block is isolated in its respective language, so any array manipulations within one block will not affect another block.
+
+Example (Invalid cross-language access):
+
+```htvm
+arr int myArray := [1, 2, 3]
+___cpp start
+myArray.push_back(4);  // Modifies the array in C++
+___cpp end
+___py start
+# It will print [1, 2, 3]
+print(myArray)  # ❌ This will not work because Python can't access the C++ array. 
+# Since the C++ block is gone, it will only print [1, 2, 3].
+___py end
+; If converted to Python, it will print: [1, 2, 3]
+; If converted to C++, it will print: [1, 2, 3, 4]
+; If converted to another language, it will print: [1, 2, 3]
+print(myArray)
+
+```
+
+You’ll need to manually synchronize arrays between programming blocks if needed.
+
+---
+
+### **Summary**  
+
+- HTVM supports **integer arrays**, **floating-point arrays**, **boolean arrays**, and **string arrays**.
+- **Array Methods in HTVM**
+- HTVM offers a **generic array type**, which is flexible but removes type checking in dynamic languages.
+- **Arrays in programming blocks persist**, but they are not scoped across blocks.
+- **No type checking** is performed on arrays, so errors related to mismatched types will not be caught until runtime.
+- **No support for constant arrays**—you need to manage immutability yourself using programming blocks.
+- **Arrays cannot be shared across different language blocks** in multiple language conversions.
 
 ---
 
@@ -1344,7 +1896,8 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ACos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### ASin
 
@@ -1356,7 +1909,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ASin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### ATan
 
@@ -1368,7 +1922,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ATan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Abs
 
@@ -1380,7 +1935,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Abs | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Ceil
 
@@ -1392,7 +1948,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Ceil | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Cos
 
@@ -1404,7 +1961,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Cos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Exp
 
@@ -1416,7 +1974,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Exp | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Floor
 
@@ -1428,7 +1987,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Floor | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Ln
 
@@ -1440,7 +2000,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Ln | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Log
 
@@ -1452,7 +2013,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Log | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Mod
 
@@ -1464,7 +2026,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Mod | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Random
 
@@ -1476,7 +2039,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Random | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Round
 
@@ -1488,7 +2052,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Round | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Sin
 
@@ -1500,7 +2065,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Sqrt
 
@@ -1512,7 +2078,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sqrt | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Tan
 
@@ -1524,7 +2091,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Tan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ## String Functions
 
@@ -1596,7 +2164,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Asc | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Chr
 
@@ -1608,7 +2177,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Chr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### FLOAT
 
@@ -1620,7 +2190,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FLOAT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### INT
 
@@ -1632,7 +2203,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | INT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### InStr
 
@@ -1644,7 +2216,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | InStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### RegExMatch
 
@@ -1656,7 +2229,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | RegExMatch | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### RegExReplace
 
@@ -1668,7 +2242,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | RegExReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### STR
 
@@ -1680,7 +2255,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
 
-n---
+
+---
 
 ### Sort
 
@@ -1692,7 +2268,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### StrLen
 
@@ -1704,7 +2281,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### StrLower
 
@@ -1716,7 +2294,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### StrReplace
 
@@ -1728,7 +2307,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### StrSplit
 
@@ -1740,7 +2320,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### StrTitleCase
 
@@ -1752,7 +2333,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrTitleCase | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### StringTrimLeft
 
@@ -1764,7 +2346,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StringTrimLeft | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### StringTrimRight
 
@@ -1776,7 +2359,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StringTrimRight | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### SubStr
 
@@ -1788,7 +2372,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Trim
 
@@ -1800,7 +2385,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### countChars
 
@@ -1812,7 +2398,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | countChars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### getUrlParams
 
@@ -1824,7 +2411,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### sortArr
 
@@ -1836,7 +2424,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### sortArrByLenOnly
 
@@ -1848,7 +2437,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ## System Functions
 
@@ -1884,7 +2474,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | BuildInVars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### ExitApp
 
@@ -1896,7 +2487,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### HTVM_getLang_HTVM
 
@@ -1908,7 +2500,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Sleep
 
@@ -1920,7 +2513,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ## File Functions
 
@@ -1962,7 +2556,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileAppend | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### FileAppendJs
 
@@ -1974,7 +2569,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileAppendJs | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### FileCreateDir
 
@@ -1986,7 +2582,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileCreateDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### FileDelete
 
@@ -1998,7 +2595,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileDelete | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### FileExist
 
@@ -2010,7 +2608,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### FileRead
 
@@ -2022,7 +2621,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### FileRemoveDir
 
@@ -2034,7 +2634,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ## Io Functions
 
@@ -2072,7 +2673,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### RunCMD
 
@@ -2084,7 +2686,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### getDataFromAPI
 
@@ -2096,7 +2699,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### input
 
@@ -2108,7 +2712,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### print
 
@@ -2120,7 +2725,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
 
-n---
+
+---
 
 ## Gui Functions
 
@@ -2184,7 +2790,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | GuiControl | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Button
 
@@ -2196,7 +2803,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Button | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_CheckBox
 
@@ -2208,7 +2816,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_CheckBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Color
 
@@ -2220,7 +2829,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Color | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_DropDownList
 
@@ -2232,7 +2842,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_DropDownList | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Edit
 
@@ -2244,7 +2855,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Edit | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Font
 
@@ -2256,7 +2868,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Font | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Font_Id
 
@@ -2268,7 +2881,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Font_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Hide
 
@@ -2280,7 +2894,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Hide | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Image
 
@@ -2292,7 +2907,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Image | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Move
 
@@ -2304,7 +2920,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Move | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Show
 
@@ -2316,7 +2933,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Show | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Size
 
@@ -2328,7 +2946,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Size | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Size_Id
 
@@ -2340,7 +2959,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Size_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Text
 
@@ -2352,7 +2972,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Text | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Toggle
 
@@ -2364,7 +2985,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Toggle | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### Gui_Update
 
@@ -2376,7 +2998,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Update | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### MsgBox
 
@@ -2388,7 +3011,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | MsgBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ## Other Functions
 
@@ -2422,7 +3046,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### MakeHotKey
 
@@ -2434,7 +3059,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### isWindows
 
@@ -2446,7 +3072,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ## Backend Functions
 
@@ -2482,7 +3109,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | addEndpoint | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### createBackendInit
 
@@ -2494,7 +3122,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | createBackendInit | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### getDataFromEndpoint
 
@@ -2506,7 +3135,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | getDataFromEndpoint | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 ### startServer
 
@@ -2518,7 +3148,8 @@ n---
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | startServer | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-n---
+
+---
 
 
 

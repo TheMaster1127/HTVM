@@ -1,0 +1,6 @@
+arr int myArray := [1, 2, 3]
+___py start
+myArray.append(4)  # Modifying the array inside the Python block
+___py end
+; Will print: [1, 2, 3, 4] if converted to python otherwise it will print [1, 2, 3]
+print(myArray)

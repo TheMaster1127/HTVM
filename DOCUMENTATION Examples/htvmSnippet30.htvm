@@ -1,0 +1,15 @@
+arr int myArray := [1, 2, 3]
+___cpp start
+myArray.push_back(4);  // In C++, this works, but HTVM does not enforce immutability
+___cpp end
+; If we print this in HTVM, we will get:
+; 
+; When converting to C++, we can't just print the array directly. However, in some other languages, 
+; we don't need to loop over the array to print it.
+Loop, % myArray.size() {
+    print(myArray[A_Index])
+}
+; If you convert this to any language other than C++ (cpp), it will print:
+; 1
+; 2
+; 3

@@ -4022,15 +4022,15 @@ function propHELP(line, lineOspHelpLine) {
                         }
                         if (useSemicolon_2 == "on") {
                             if (usePrefixTypeForTypeDefinition_2 == "on") {
-                                str4 = keyWordConst_2 + " " + str3 + " " + str2 + " " + str11 + " " + str6 + ";";
+                                str4 = Trim(keyWordConst_2) + " " + str3 + " " + str2 + " " + str11 + " " + str6 + ";";
                             } else {
-                                str4 = keyWordConst_2 + " " + str2 + ": " + str3 + " " + str11 + " " + str6 + ";";
+                                str4 = Trim(keyWordConst_2) + " " + str2 + ": " + str3 + " " + str11 + " " + str6 + ";";
                             }
                         } else {
                             if (usePrefixTypeForTypeDefinition_2 == "on") {
-                                str4 = keyWordConst_2 + " " + str3 + " " + str2 + " " + str11 + " " + str6;
+                                str4 = Trim(keyWordConst_2) + " " + str3 + " " + str2 + " " + str11 + " " + str6;
                             } else {
-                                str4 = keyWordConst_2 + " " + str2 + ": " + str3 + " " + str11 + " " + str6;
+                                str4 = Trim(keyWordConst_2) + " " + str2 + ": " + str3 + " " + str11 + " " + str6;
                             }
                         }
                     }
@@ -4166,15 +4166,15 @@ function propHELP(line, lineOspHelpLine) {
                     if (langToConvertTo == langFileExtension_2) {
                         if (useSemicolon_2 == "on") {
                             if (usePrefixTypeForTypeDefinition_2 == "on") {
-                                str4 = keyWordConst_2 + " " + str3 + " " + str2 + " " + str11 + " " + str6 + ";";
+                                str4 = Trim(keyWordConst_2) + " " + str3 + " " + str2 + " " + str11 + " " + str6 + ";";
                             } else {
-                                str4 = keyWordConst_2 + " " + str2 + ": " + str3 + " " + str11 + " " + str6 + ";";
+                                str4 = Trim(keyWordConst_2) + " " + str2 + ": " + str3 + " " + str11 + " " + str6 + ";";
                             }
                         } else {
                             if (usePrefixTypeForTypeDefinition_2 == "on") {
-                                str4 = keyWordConst_2 + " " + str3 + " " + str2 + " " + str11 + " " + str6;
+                                str4 = Trim(keyWordConst_2) + " " + str3 + " " + str2 + " " + str11 + " " + str6;
                             } else {
-                                str4 = keyWordConst_2 + " " + str2 + ": " + str3 + " " + str11 + " " + str6;
+                                str4 = Trim(keyWordConst_2) + " " + str2 + ": " + str3 + " " + str11 + " " + str6;
                             }
                         }
                     }
@@ -7646,13 +7646,13 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 keyWordArrayOfBooleansDefinition_2 = Trim(A_LoopField87);
             }
             if (A_Index87 == 95) {
-                keyWordVar_2 = Trim(A_LoopField87) + " ";
+                keyWordVar_2 = Trim(A_LoopField87);
             }
             if (A_Index87 == 96) {
-                keyWordLet_2 = Trim(A_LoopField87) + " ";
+                keyWordLet_2 = Trim(A_LoopField87);
             }
             if (A_Index87 == 97) {
-                keyWordConst_2 = Trim(A_LoopField87) + " ";
+                keyWordConst_2 = Trim(A_LoopField87);
             }
             if (A_Index87 == 98) {
                 keyWordEnd_2 = Trim(A_LoopField87);
@@ -11778,15 +11778,15 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                             }
                             if (useSemicolon_2 == "on") {
                                 if (usePrefixTypeForTypeDefinition_2 == "on") {
-                                    str4 = keyWordConst_2 + " " + str3 + " " + str2 + " " + str11 + " " + str6 + ";";
+                                    str4 = Trim(keyWordConst_2) + " " + str3 + " " + str2 + " " + str11 + " " + str6 + ";";
                                 } else {
-                                    str4 = keyWordConst_2 + " " + str2 + ": " + str3 + " " + str11 + " " + str6 + ";";
+                                    str4 = Trim(keyWordConst_2) + " " + str2 + ": " + str3 + " " + str11 + " " + str6 + ";";
                                 }
                             } else {
                                 if (usePrefixTypeForTypeDefinition_2 == "on") {
-                                    str4 = keyWordConst_2 + " " + str3 + " " + str2 + " " + str11 + " " + str6;
+                                    str4 = Trim(keyWordConst_2) + " " + str3 + " " + str2 + " " + str11 + " " + str6;
                                 } else {
-                                    str4 = keyWordConst_2 + " " + str2 + ": " + str3 + " " + str11 + " " + str6;
+                                    str4 = Trim(keyWordConst_2) + " " + str2 + ": " + str3 + " " + str11 + " " + str6;
                                 }
                             }
                         }
@@ -11922,15 +11922,15 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         if (langToConvertTo == langFileExtension_2) {
                             if (useSemicolon_2 == "on") {
                                 if (usePrefixTypeForTypeDefinition_2 == "on") {
-                                    str4 = keyWordConst_2 + " " + str3 + " " + str2 + " " + str11 + " " + str6 + ";";
+                                    str4 = Trim(keyWordConst_2) + " " + str3 + " " + str2 + " " + str11 + " " + str6 + ";";
                                 } else {
-                                    str4 = keyWordConst_2 + " " + str2 + ": " + str3 + " " + str11 + " " + str6 + ";";
+                                    str4 = Trim(keyWordConst_2) + " " + str2 + ": " + str3 + " " + str11 + " " + str6 + ";";
                                 }
                             } else {
                                 if (usePrefixTypeForTypeDefinition_2 == "on") {
-                                    str4 = keyWordConst_2 + " " + str3 + " " + str2 + " " + str11 + " " + str6;
+                                    str4 = Trim(keyWordConst_2) + " " + str3 + " " + str2 + " " + str11 + " " + str6;
                                 } else {
-                                    str4 = keyWordConst_2 + " " + str2 + ": " + str3 + " " + str11 + " " + str6;
+                                    str4 = Trim(keyWordConst_2) + " " + str2 + ": " + str3 + " " + str11 + " " + str6;
                                 }
                             }
                         }

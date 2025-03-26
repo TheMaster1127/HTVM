@@ -1,0 +1,13 @@
+arr int myArray := [1, 2, 3]
+___cpp start
+myArray.push_back(4);  // Modifies the array in C++
+___cpp end
+___py start
+# It will print [1, 2, 3]
+print(myArray)  # ❌ This will not work because Python can't access the C++ array. 
+# Since the C++ block is gone, it will only print [1, 2, 3].
+___py end
+; If converted to Python, it will print: [1, 2, 3]
+; If converted to C++, it will print: [1, 2, 3, 4]
+; If converted to another language, it will print: [1, 2, 3]
+print(myArray)

@@ -1,0 +1,8 @@
+arr int myArray := [1, 2, 3]
+myArray.add(4)
+; Removes the element at index 1
+myArray.rm(1)
+; Inserts 5 at index 1
+myArray.insert(1, 5)
+; Output: [1, 5, 3, 4]
+print(myArray)

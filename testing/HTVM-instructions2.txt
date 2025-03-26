@@ -670,9 +670,15 @@ lang: ahk
 name: print
 libs: null
 description: io~~~print is a function that outputs the specified data to the console or standard output.~~~here is how the func looks like:~~~```~~~print(str)~~~```~~~
-; Print function for various types
 print(value) {
+    if IsObject(value) {
+        str := ""
+        for index, element in value
+            str .= element ", "
+        MsgBox % Trim(str, ", ")  ; Remove trailing comma and space
+    } else {
         MsgBox % value
+    }
 }
 
 funcEND======================funcEND==============
