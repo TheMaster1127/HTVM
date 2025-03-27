@@ -9,6 +9,8 @@ str OUTdocs_HTML := ""
 str OUTdocs_MD := ""
 
 int htvmSnippetAlredy := 0
+str htvmSnippet000 := ""
+str htvmSnippet00 := ""
 str htvmSnippet0 := ""
 str htvmSnippet1 := ""
 str htvmSnippet2 := ""
@@ -854,88 +856,379 @@ return out
 
 
 
-
 func void htvmSnippetLoad()
 {
+
+int numTemp := 0
 
 if (htvmSnippetAlredy != 1)
 {
 htvmSnippetAlredy := 1
 if (HTVM_getLang_HTVM() = "cpp")
 {
+htvmSnippet000 := ""
+htvmSnippet00 := ""
+htvmSnippet0 := ""
+htvmSnippet1 := ""
+htvmSnippet2 := ""
+htvmSnippet3 := ""
+htvmSnippet4 := ""
+htvmSnippet5 := ""
+htvmSnippet6 := ""
+htvmSnippet7 := ""
+htvmSnippet8 := ""
+htvmSnippet9 := ""
+htvmSnippet10 := ""
+htvmSnippet11 := ""
+htvmSnippet12 := ""
+htvmSnippet13 := ""
+htvmSnippet14 := ""
+htvmSnippet15 := ""
+htvmSnippet16 := ""
+htvmSnippet17 := ""
+htvmSnippet18 := ""
+htvmSnippet19 := ""
+htvmSnippet20 := ""
+htvmSnippet21 := ""
+htvmSnippet22 := ""
+htvmSnippet23 := ""
+htvmSnippet24 := ""
+htvmSnippet25 := ""
+htvmSnippet26 := ""
+htvmSnippet27 := ""
+htvmSnippet28 := ""
+htvmSnippet29 := ""
+htvmSnippet30 := ""
+htvmSnippet31 := ""
+htvmSnippet32 := ""
+htvmSnippet33 := ""
+htvmSnippet34 := ""
+htvmSnippet35 := ""
+htvmSnippet36 := ""
+htvmSnippet37 := ""
+htvmSnippet38 := ""
+htvmSnippet39 := ""
+htvmSnippet40 := ""
+htvmSnippet41 := ""
+htvmSnippet42 := ""
+htvmSnippet43 := ""
+htvmSnippet44 := ""
+htvmSnippet45 := ""
 
-htvmSnippet0 := FileRead("DOCUMENTATION Examples\htvmSnippet0.htvm")
-htvmSnippet1 := FileRead("DOCUMENTATION Examples\htvmSnippet1.htvm")
-htvmSnippet2 := FileRead("DOCUMENTATION Examples\htvmSnippet2.htvm")
-htvmSnippet3 := FileRead("DOCUMENTATION Examples\htvmSnippet3.htvm")
-htvmSnippet4 := FileRead("DOCUMENTATION Examples\htvmSnippet4.htvm")
-htvmSnippet5 := FileRead("DOCUMENTATION Examples\htvmSnippet5.htvm")
-htvmSnippet6 := FileRead("DOCUMENTATION Examples\htvmSnippet6.htvm")
-htvmSnippet7 := FileRead("DOCUMENTATION Examples\htvmSnippet7.htvm")
-htvmSnippet8 := FileRead("DOCUMENTATION Examples\htvmSnippet8.htvm")
-htvmSnippet9 := FileRead("DOCUMENTATION Examples\htvmSnippet9.htvm")
-htvmSnippet10 := FileRead("DOCUMENTATION Examples\htvmSnippet10.htvm")
-htvmSnippet11 := FileRead("DOCUMENTATION Examples\htvmSnippet11.htvm")
-htvmSnippet12 := FileRead("DOCUMENTATION Examples\htvmSnippet12.htvm")
-htvmSnippet13 := FileRead("DOCUMENTATION Examples\htvmSnippet13.htvm")
-htvmSnippet14 := FileRead("DOCUMENTATION Examples\htvmSnippet14.htvm")
-htvmSnippet15 := FileRead("DOCUMENTATION Examples\htvmSnippet15.htvm")
-htvmSnippet16 := FileRead("DOCUMENTATION Examples\htvmSnippet16.htvm")
-htvmSnippet17 := FileRead("DOCUMENTATION Examples\htvmSnippet17.htvm")
-htvmSnippet18 := FileRead("DOCUMENTATION Examples\htvmSnippet18.htvm")
-htvmSnippet19 := FileRead("DOCUMENTATION Examples\htvmSnippet19.htvm")
 
-htvmSnippet20 := FileRead("DOCUMENTATION Examples\htvmSnippet20.htvm")
-htvmSnippet21 := FileRead("DOCUMENTATION Examples\htvmSnippet21.htvm")
-htvmSnippet22 := FileRead("DOCUMENTATION Examples\htvmSnippet22.htvm")
-htvmSnippet23 := FileRead("DOCUMENTATION Examples\htvmSnippet23.htvm")
-htvmSnippet24 := FileRead("DOCUMENTATION Examples\htvmSnippet24.htvm")
-htvmSnippet25 := FileRead("DOCUMENTATION Examples\htvmSnippet25.htvm")
-htvmSnippet26 := FileRead("DOCUMENTATION Examples\htvmSnippet26.htvm")
-htvmSnippet27 := FileRead("DOCUMENTATION Examples\htvmSnippet27.htvm")
-htvmSnippet28 := FileRead("DOCUMENTATION Examples\htvmSnippet28.htvm")
-htvmSnippet29 := FileRead("DOCUMENTATION Examples\htvmSnippet29.htvm")
-htvmSnippet30 := FileRead("DOCUMENTATION Examples\htvmSnippet30.htvm")
-htvmSnippet31 := FileRead("DOCUMENTATION Examples\htvmSnippet31.htvm")
+htvmSnippet00 := FileRead("DOCUMENTATION Examples\htvmSnippet0.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet1.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet2.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet3.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet4.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet5.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet6.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet7.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet8.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet9.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet10.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet11.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet12.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet13.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet14.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet15.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet16.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet17.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet18.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet19.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
 
-htvmSnippet0 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet0)
-htvmSnippet1 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet1)
-htvmSnippet2 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet2)
-htvmSnippet3 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet3)
-htvmSnippet4 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet4)
-htvmSnippet5 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet5)
-htvmSnippet6 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet6)
-htvmSnippet7 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet7)
-htvmSnippet8 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet8)
-htvmSnippet9 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet9)
-htvmSnippet10 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet10)
-htvmSnippet11 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet11)
-htvmSnippet12 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet12)
-htvmSnippet13 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet13)
-htvmSnippet14 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet14)
-htvmSnippet15 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet15)
-htvmSnippet16 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet16)
-htvmSnippet17 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet17)
-htvmSnippet18 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet18)
-htvmSnippet19 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet19)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet20.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet21.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet22.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet23.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet24.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet25.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet26.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet27.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet28.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet29.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet30.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet31.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
+htvmSnippet00 .= FileRead("DOCUMENTATION Examples\htvmSnippet32.htvm") . Chr(10) . "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" . Chr(10)
 
-htvmSnippet20 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet20)
-htvmSnippet21 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet21)
-htvmSnippet22 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet22)
-htvmSnippet23 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet23)
-htvmSnippet24 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet24)
-htvmSnippet25 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet25)
-htvmSnippet26 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet26)
-htvmSnippet27 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet27)
-htvmSnippet28 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet28)
-htvmSnippet29 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet29)
-htvmSnippet30 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet30)
-htvmSnippet31 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet31)
+
+
+
+
+
+htvmSnippet00 := convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet00)
+numTemp := 0
+htvmSnippet000 := ""
+Loop, Parse, htvmSnippet00, `n, `r
+{
+
+
+if (numTemp = 1) && (Trim(htvmSnippet0) = "")
+{
+StringTrimRight, htvmSnippet0, htvmSnippet000, 1
+htvmSnippet0 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 2) && (Trim(htvmSnippet1) = "")
+{
+StringTrimRight, htvmSnippet1, htvmSnippet000, 1
+htvmSnippet1 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 3) && (Trim(htvmSnippet2) = "")
+{
+StringTrimRight, htvmSnippet2, htvmSnippet000, 1
+htvmSnippet2 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 4) && (Trim(htvmSnippet3) = "")
+{
+StringTrimRight, htvmSnippet3, htvmSnippet000, 1
+htvmSnippet3 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 5) && (Trim(htvmSnippet4) = "")
+{
+StringTrimRight, htvmSnippet4, htvmSnippet000, 1
+htvmSnippet4 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 6) && (Trim(htvmSnippet5) = "")
+{
+StringTrimRight, htvmSnippet5, htvmSnippet000, 1
+htvmSnippet5 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 7) && (Trim(htvmSnippet6) = "")
+{
+StringTrimRight, htvmSnippet6, htvmSnippet000, 1
+htvmSnippet6 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 8) && (Trim(htvmSnippet7) = "")
+{
+StringTrimRight, htvmSnippet7, htvmSnippet000, 1
+htvmSnippet7 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 9) && (Trim(htvmSnippet8) = "")
+{
+StringTrimRight, htvmSnippet8, htvmSnippet000, 1
+htvmSnippet8 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 10) && (Trim(htvmSnippet9) = "")
+{
+StringTrimRight, htvmSnippet9, htvmSnippet000, 1
+htvmSnippet9 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 11) && (Trim(htvmSnippet10) = "")
+{
+StringTrimRight, htvmSnippet10, htvmSnippet000, 1
+htvmSnippet10 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 12) && (Trim(htvmSnippet11) = "")
+{
+StringTrimRight, htvmSnippet11, htvmSnippet000, 1
+htvmSnippet11 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 13) && (Trim(htvmSnippet12) = "")
+{
+StringTrimRight, htvmSnippet12, htvmSnippet000, 1
+htvmSnippet12 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 14) && (Trim(htvmSnippet13) = "")
+{
+StringTrimRight, htvmSnippet13, htvmSnippet000, 1
+htvmSnippet13 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 15) && (Trim(htvmSnippet14) = "")
+{
+StringTrimRight, htvmSnippet14, htvmSnippet000, 1
+htvmSnippet14 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 16) && (Trim(htvmSnippet15) = "")
+{
+StringTrimRight, htvmSnippet15, htvmSnippet000, 1
+htvmSnippet15 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 17) && (Trim(htvmSnippet16) = "")
+{
+StringTrimRight, htvmSnippet16, htvmSnippet000, 1
+htvmSnippet16 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 18) && (Trim(htvmSnippet17) = "")
+{
+StringTrimRight, htvmSnippet17, htvmSnippet000, 1
+htvmSnippet17 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 19) && (Trim(htvmSnippet18) = "")
+{
+StringTrimRight, htvmSnippet18, htvmSnippet000, 1
+htvmSnippet18 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 20) && (Trim(htvmSnippet19) = "")
+{
+StringTrimRight, htvmSnippet19, htvmSnippet000, 1
+htvmSnippet19 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 21) && (Trim(htvmSnippet20) = "")
+{
+StringTrimRight, htvmSnippet20, htvmSnippet000, 1
+htvmSnippet20 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 22) && (Trim(htvmSnippet21) = "")
+{
+StringTrimRight, htvmSnippet21, htvmSnippet000, 1
+htvmSnippet21 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 23) && (Trim(htvmSnippet22) = "")
+{
+StringTrimRight, htvmSnippet22, htvmSnippet000, 1
+htvmSnippet22 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 24) && (Trim(htvmSnippet23) = "")
+{
+StringTrimRight, htvmSnippet23, htvmSnippet000, 1
+htvmSnippet23 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 25) && (Trim(htvmSnippet24) = "")
+{
+StringTrimRight, htvmSnippet24, htvmSnippet000, 1
+htvmSnippet24 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 26) && (Trim(htvmSnippet25) = "")
+{
+StringTrimRight, htvmSnippet25, htvmSnippet000, 1
+htvmSnippet25 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 27) && (Trim(htvmSnippet26) = "")
+{
+StringTrimRight, htvmSnippet26, htvmSnippet000, 1
+htvmSnippet26 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 28) && (Trim(htvmSnippet27) = "")
+{
+StringTrimRight, htvmSnippet27, htvmSnippet000, 1
+htvmSnippet27 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 29) && (Trim(htvmSnippet28) = "")
+{
+StringTrimRight, htvmSnippet28, htvmSnippet000, 1
+htvmSnippet28 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 30) && (Trim(htvmSnippet29) = "")
+{
+StringTrimRight, htvmSnippet29, htvmSnippet000, 1
+htvmSnippet29 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 31) && (Trim(htvmSnippet30) = "")
+{
+StringTrimRight, htvmSnippet30, htvmSnippet000, 1
+htvmSnippet30 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 32) && (Trim(htvmSnippet31) = "")
+{
+StringTrimRight, htvmSnippet31, htvmSnippet000, 1
+htvmSnippet31 .= Chr(10)
+htvmSnippet000 := ""
+}
+else if (numTemp = 33) && (Trim(htvmSnippet32) = "")
+{
+StringTrimRight, htvmSnippet32, htvmSnippet000, 1
+htvmSnippet32 .= Chr(10)
+htvmSnippet000 := ""
+}
+
+
+if (Trim(A_LoopField) != "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2")
+{
+htvmSnippet000 .= A_LoopField . Chr(10)
+}
+else
+{
+numTemp++
+}
+
+
+
+}
+
+
 
 }
 else
 {
+htvmSnippet000 := ""
+htvmSnippet00 := ""
 htvmSnippet0 := ""
+htvmSnippet1 := ""
+htvmSnippet2 := ""
+htvmSnippet3 := ""
+htvmSnippet4 := ""
+htvmSnippet5 := ""
+htvmSnippet6 := ""
+htvmSnippet7 := ""
+htvmSnippet8 := ""
+htvmSnippet9 := ""
+htvmSnippet10 := ""
+htvmSnippet11 := ""
+htvmSnippet12 := ""
+htvmSnippet13 := ""
+htvmSnippet14 := ""
+htvmSnippet15 := ""
+htvmSnippet16 := ""
+htvmSnippet17 := ""
+htvmSnippet18 := ""
+htvmSnippet19 := ""
+htvmSnippet20 := ""
+htvmSnippet21 := ""
+htvmSnippet22 := ""
+htvmSnippet23 := ""
+htvmSnippet24 := ""
+htvmSnippet25 := ""
+htvmSnippet26 := ""
+htvmSnippet27 := ""
+htvmSnippet28 := ""
+htvmSnippet29 := ""
+htvmSnippet30 := ""
+htvmSnippet31 := ""
+htvmSnippet32 := ""
+htvmSnippet33 := ""
+htvmSnippet34 := ""
+htvmSnippet35 := ""
+htvmSnippet36 := ""
+htvmSnippet37 := ""
+htvmSnippet38 := ""
+htvmSnippet39 := ""
+htvmSnippet40 := ""
+htvmSnippet41 := ""
+htvmSnippet42 := ""
+htvmSnippet43 := ""
+htvmSnippet44 := ""
+htvmSnippet45 := ""
 ___js start
 htvmSnippet0 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet0.htvm');
 htvmSnippet1 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet1.htvm');
@@ -1596,8 +1889,6 @@ ___cpp end
 
 
 
-
-
 str outMDsec0 := Chr(10) . "1. [Introduction](#introduction-to-htvm)  " . Chr(10) . "Understand why HTVM is the future of programming." . Chr(10) . "" . Chr(10) . "2. [OSP (Objectively Simplified Programming) Paradigm](#osp-objectively-simplified-programming-paradigm)  " . Chr(10) . "Learn about the new paradigm that replaces traditional object-oriented programming." . Chr(10) . "" . Chr(10) . "3. [How Your Language Looks Like](#how-your-language-looks-like)  " . Chr(10) . "Get to know how HTVM code is structured and its syntax style." . Chr(10) . "" . Chr(10) . "4. [Programming Blocks](#programming-blocks)  " . Chr(10) . "HTVM introduces **programming blocks** that allow you to code in the target language seamlessly in your code. This feature is designed to handle cases where HTVM itself can't achieve something directly or when you'd prefer to rely on another language for specific tasks." . Chr(10) . "" . Chr(10) . "5. [Variables](#variables)  " . Chr(10) . "Learn how to declare and use variables in HTVM for storing and manipulating data." . Chr(10) . "" . Chr(10) . "6. [Functions](#functions)  " . Chr(10) . "Explore how to define and use functions for modular and reusable code." . Chr(10) . "" . Chr(10) . "7. [Arrays](#arrays)  " . Chr(10) . "Dive into working with arrays, one of the most essential data structures in HTVM." . Chr(10) . "" . Chr(10) . "8. [Types](#types)  " . Chr(10) . "Explore the different data types supported by HTVM and how to use them effectively." . Chr(10) . "" . Chr(10) . "9. [Loops](#loops)  " . Chr(10) . "Master the looping structures available in HTVM, such as the standard loop and infinite loops." . Chr(10) . "" . Chr(10) . "10. [If, Else, Else If](#if-else-else-if)  " . Chr(10) . "Learn how to control the flow of your program with conditional statements." . Chr(10) . "" . Chr(10) . "11. [Comments](#comments)  " . Chr(10) . "Add clarity to your code by using comments to document and explain your code." . Chr(10) . "" . Chr(10) . "12. [Error Handling](#error-handling)  " . Chr(10) . "Understand how to manage errors and handle exceptions in HTVM to make your programs more robust." . Chr(10) . "" . Chr(10) . "13. [Operators](#operators)  " . Chr(10) . "Explore the logical and mathematical operators available in HTVM for performing calculations and comparisons." . Chr(10) . "" . Chr(10) . "14. [Assignment Operators](#assignment-operators)  " . Chr(10) . "Learn how to use assignment operators for storing values and manipulating them in your code." . Chr(10) . "" . Chr(10) . "15. [Include](#include)  " . Chr(10) . "Discover how to include external files and resources in your HTVM project for enhanced functionality." . Chr(10) . "" . Chr(10) . "16. [Extra Stuff](#extra-stuff)  " . Chr(10) . "Explore additional unique features and utilities HTVM offers for greater flexibility and ease of use." . Chr(10) . "" . Chr(10) . "17. [Commands](#commands)  " . Chr(10) . "Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency." . Chr(10) . "" . Chr(10) . "18. [Built-in Functions](#built-in-functions)  " . Chr(10) . "Explore the wide range of built-in functions categorized for ease of use." . Chr(10)
 str outMDsec1 := "### How Your Language Looks Like" . Chr(10) . "" . Chr(10) . "[Go back](#htvm-documentation)" . Chr(10) . "" . Chr(10) . "Get to know how HTVM code is structured and its syntax style. HTVM uses a clean, human-readable syntax that focuses on simplicity and ease of use. You can define your own syntax, making HTVM incredibly flexible and tailored to your needs." . Chr(10) . Chr(10) . sentence . Chr(10) . Chr(10) . "Here is how it looks like:" . Chr(10) . Chr(10) . "" . Chr(96) . "" . Chr(96) . "" . Chr(96) . "htvm" . Chr(10) . htvmSnippet12 . Chr(10) . "" . Chr(96) . "" . Chr(96) . "" . Chr(96) . "" . Chr(10) . Chr(10) . "---" . Chr(10) . ""
 str outMDsec2 := "### Programming Blocks" . Chr(10) . "" . Chr(10) . "[Go back](#htvm-documentation)" . Chr(10) . "" . Chr(10) . "Programming blocks in HTVM allow you to write code directly in the target language when HTVM itself cannot handle certain tasks. These blocks give you the flexibility to insert language-specific code into your HTVM project without disrupting the overall flow. There are two main use cases for programming blocks: single-language programming blocks and multi-language programming blocks." . Chr(10) . "" . Chr(10) . "#### **Single-Language Programming Block**" . Chr(10) . "" . Chr(10) . "A single-language programming block allows you to write code directly in the target language. If you're converting HTVM code to, say, C++, you can open a programming block and write C++ code inside. This block will only be valid in the context of converting to C++ and will disappear when converting to another language." . Chr(10) . "" . Chr(10) . "**Example:**" . Chr(10) . "" . Chr(10) . "" . Chr(96) . "" . Chr(96) . "" . Chr(96) . "htvm" . Chr(10) . htvmSnippet13 . Chr(10) . "" . Chr(96) . "" . Chr(96) . "" . Chr(96) . "" . Chr(10) . "" . Chr(10) . "#### **Multiple-Language Programming Block**" . Chr(10) . "" . Chr(10) . "HTVM also supports multiple-language programming blocks, where you can write code in different languages for the same functionality. For instance, if you're converting to both C++ and JavaScript, you can write separate blocks for each language but ensure the code behaves similarly in both." . Chr(10) . "" . Chr(10) . "**Example:**" . Chr(10) . "" . Chr(10) . "" . Chr(96) . "" . Chr(96) . "" . Chr(96) . "htvm" . Chr(10) . htvmSnippet14 . Chr(10) . "" . Chr(96) . "" . Chr(96) . "" . Chr(96) . "" . Chr(10) . "" . Chr(10) . "When using multi-language blocks, the syntax and implementation might differ, but the core functionality should remain the same. This is a great way to ensure consistency across multiple target languages." . Chr(10) . "" . Chr(10) . "#### **Warning About AI-Generated Code**" . Chr(10) . "" . Chr(10) . "**WARNING:** Be cautious when using AI-generated code. While AI can help speed up development, relying too heavily on it can be dangerous. You must understand the code you're incorporating into your project. **MAKE SURE YOU KNOW WHAT YOU'RE DOING BEFORE USING AI**. " . Chr(10) . "" . Chr(10) . "If you don't have a solid understanding of the concepts you're asking the AI to handle, it can harm your learning process. **It could also negatively affect your development as a programmer.** Are you truly understanding the code you’re working with, or just relying on AI to do the heavy lifting for you?" . Chr(10) . "" . Chr(10) . "Use AI to *assist*, not replace your learning process. **Be careful and make sure you understand every line of code** before integrating it into your project. This is essential for becoming a proficient programmer." . Chr(10) . "" . Chr(10) . "#### **Reverse Programming Blocks**" . Chr(10) . "" . Chr(10) . "Reverse programming blocks in HTVM allow you to write HTVM code in another file, which the HTVM compiler can recognize. These reverse blocks are helpful when you need to convert code written in HTVM into a target language while automatically including the necessary libraries and built-in functions." . Chr(10) . "" . Chr(10) . "The syntax for reverse programming blocks is the same as for regular programming blocks, but you'll write HTVM code inside files of supported languages (e.g., " . Chr(96) . ".cpp" . Chr(96) . ", " . Chr(96) . ".js" . Chr(96) . ", etc.). Once you pass both the source file (e.g., " . Chr(96) . "main.cpp" . Chr(96) . ") and the HTVM instruction file to HTVM, the compiler will automatically replace the HTVM code with the appropriate target language code." . Chr(10) . "" . Chr(10) . "HTVM will also ensure that all necessary libraries and built-in functions are included. It will automatically show you which libraries need to be included at the top of the file and which built-in functions you must import if they're not already part of the language's standard library." . Chr(10) . "" . Chr(10) . "**Example of reverse programming block:**" . Chr(10) . "" . Chr(10) . "1. Create a " . Chr(96) . ".cpp" . Chr(96) . " file (or any supported language file)." . Chr(10) . "2. Open the HTVM programming block using the syntax below:" . Chr(10) . "- To open - " . Chr(96) . htvmOpenPrgBlock . Chr(96) . "" . Chr(10) . "- To close - " . Chr(96) . htvmClosePrgBlock . Chr(96) . "" . Chr(10) . "" . Chr(10) . "3. Pass both the " . Chr(96) . ".cpp" . Chr(96) . " file and the HTVM instruction file to HTVM." . Chr(10) . "" . Chr(10) . "HTVM will:" . Chr(10) . "" . Chr(10) . "- Replace the HTVM code with C++ (or the corresponding language)." . Chr(10) . "- Display the libraries and built-in functions that need to be included." . Chr(10) . "" . Chr(10) . "---" . Chr(10) . ""
@@ -1828,7 +2119,7 @@ else
 outDocs := htmlUP . Chr(10) . outMDup . outMD . Chr(10) . htmlDOWN
 }
 
-outDocs := StrReplace(outDocs, Chr(10) . Chr(96) . Chr(96) . Chr(96), Chr(96) . Chr(96) . Chr(96))
+
 
 return outDocs
 }
@@ -1883,6 +2174,8 @@ DOCS_checkIfFuncNameExists := 1
 instructionFileData := FileRead(Trim(DOCS_param1))
 OUTdocs_HTML := genDocs("html")
 OUTdocs_MD := genDocs("md")
+
+
 
 FileDelete("DOCUMENTATION.md")
 FileAppend(OUTdocs_MD, "DOCUMENTATION.md")

@@ -347,6 +347,8 @@ var DOCS_checkIfFuncNameExists = 0;
 var OUTdocs_HTML = "";
 var OUTdocs_MD = "";
 var htvmSnippetAlredy = 0;
+var htvmSnippet000 = "";
+var htvmSnippet00 = "";
 var htvmSnippet0 = "";
 var htvmSnippet1 = "";
 var htvmSnippet2 = "";
@@ -1070,75 +1072,317 @@ out = compiler(instr1, instr2, "full", instr3);
     return out;
 }
 function htvmSnippetLoad() {
+    var numTemp = 0;
     if (htvmSnippetAlredy != 1) {
         htvmSnippetAlredy = 1;
         if (HTVM_getLang_HTVM() == "cpp") {
-            htvmSnippet0 = FileRead("DOCUMENTATION Examples\\htvmSnippet0.htvm");
-            htvmSnippet1 = FileRead("DOCUMENTATION Examples\\htvmSnippet1.htvm");
-            htvmSnippet2 = FileRead("DOCUMENTATION Examples\\htvmSnippet2.htvm");
-            htvmSnippet3 = FileRead("DOCUMENTATION Examples\\htvmSnippet3.htvm");
-            htvmSnippet4 = FileRead("DOCUMENTATION Examples\\htvmSnippet4.htvm");
-            htvmSnippet5 = FileRead("DOCUMENTATION Examples\\htvmSnippet5.htvm");
-            htvmSnippet6 = FileRead("DOCUMENTATION Examples\\htvmSnippet6.htvm");
-            htvmSnippet7 = FileRead("DOCUMENTATION Examples\\htvmSnippet7.htvm");
-            htvmSnippet8 = FileRead("DOCUMENTATION Examples\\htvmSnippet8.htvm");
-            htvmSnippet9 = FileRead("DOCUMENTATION Examples\\htvmSnippet9.htvm");
-            htvmSnippet10 = FileRead("DOCUMENTATION Examples\\htvmSnippet10.htvm");
-            htvmSnippet11 = FileRead("DOCUMENTATION Examples\\htvmSnippet11.htvm");
-            htvmSnippet12 = FileRead("DOCUMENTATION Examples\\htvmSnippet12.htvm");
-            htvmSnippet13 = FileRead("DOCUMENTATION Examples\\htvmSnippet13.htvm");
-            htvmSnippet14 = FileRead("DOCUMENTATION Examples\\htvmSnippet14.htvm");
-            htvmSnippet15 = FileRead("DOCUMENTATION Examples\\htvmSnippet15.htvm");
-            htvmSnippet16 = FileRead("DOCUMENTATION Examples\\htvmSnippet16.htvm");
-            htvmSnippet17 = FileRead("DOCUMENTATION Examples\\htvmSnippet17.htvm");
-            htvmSnippet18 = FileRead("DOCUMENTATION Examples\\htvmSnippet18.htvm");
-            htvmSnippet19 = FileRead("DOCUMENTATION Examples\\htvmSnippet19.htvm");
-            htvmSnippet20 = FileRead("DOCUMENTATION Examples\\htvmSnippet20.htvm");
-            htvmSnippet21 = FileRead("DOCUMENTATION Examples\\htvmSnippet21.htvm");
-            htvmSnippet22 = FileRead("DOCUMENTATION Examples\\htvmSnippet22.htvm");
-            htvmSnippet23 = FileRead("DOCUMENTATION Examples\\htvmSnippet23.htvm");
-            htvmSnippet24 = FileRead("DOCUMENTATION Examples\\htvmSnippet24.htvm");
-            htvmSnippet25 = FileRead("DOCUMENTATION Examples\\htvmSnippet25.htvm");
-            htvmSnippet26 = FileRead("DOCUMENTATION Examples\\htvmSnippet26.htvm");
-            htvmSnippet27 = FileRead("DOCUMENTATION Examples\\htvmSnippet27.htvm");
-            htvmSnippet28 = FileRead("DOCUMENTATION Examples\\htvmSnippet28.htvm");
-            htvmSnippet29 = FileRead("DOCUMENTATION Examples\\htvmSnippet29.htvm");
-            htvmSnippet30 = FileRead("DOCUMENTATION Examples\\htvmSnippet30.htvm");
-            htvmSnippet31 = FileRead("DOCUMENTATION Examples\\htvmSnippet31.htvm");
-            htvmSnippet0 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet0);
-            htvmSnippet1 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet1);
-            htvmSnippet2 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet2);
-            htvmSnippet3 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet3);
-            htvmSnippet4 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet4);
-            htvmSnippet5 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet5);
-            htvmSnippet6 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet6);
-            htvmSnippet7 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet7);
-            htvmSnippet8 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet8);
-            htvmSnippet9 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet9);
-            htvmSnippet10 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet10);
-            htvmSnippet11 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet11);
-            htvmSnippet12 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet12);
-            htvmSnippet13 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet13);
-            htvmSnippet14 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet14);
-            htvmSnippet15 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet15);
-            htvmSnippet16 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet16);
-            htvmSnippet17 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet17);
-            htvmSnippet18 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet18);
-            htvmSnippet19 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet19);
-            htvmSnippet20 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet20);
-            htvmSnippet21 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet21);
-            htvmSnippet22 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet22);
-            htvmSnippet23 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet23);
-            htvmSnippet24 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet24);
-            htvmSnippet25 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet25);
-            htvmSnippet26 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet26);
-            htvmSnippet27 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet27);
-            htvmSnippet28 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet28);
-            htvmSnippet29 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet29);
-            htvmSnippet30 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet30);
-            htvmSnippet31 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet31);
-        } else {
+            htvmSnippet000 = "";
+            htvmSnippet00 = "";
             htvmSnippet0 = "";
+            htvmSnippet1 = "";
+            htvmSnippet2 = "";
+            htvmSnippet3 = "";
+            htvmSnippet4 = "";
+            htvmSnippet5 = "";
+            htvmSnippet6 = "";
+            htvmSnippet7 = "";
+            htvmSnippet8 = "";
+            htvmSnippet9 = "";
+            htvmSnippet10 = "";
+            htvmSnippet11 = "";
+            htvmSnippet12 = "";
+            htvmSnippet13 = "";
+            htvmSnippet14 = "";
+            htvmSnippet15 = "";
+            htvmSnippet16 = "";
+            htvmSnippet17 = "";
+            htvmSnippet18 = "";
+            htvmSnippet19 = "";
+            htvmSnippet20 = "";
+            htvmSnippet21 = "";
+            htvmSnippet22 = "";
+            htvmSnippet23 = "";
+            htvmSnippet24 = "";
+            htvmSnippet25 = "";
+            htvmSnippet26 = "";
+            htvmSnippet27 = "";
+            htvmSnippet28 = "";
+            htvmSnippet29 = "";
+            htvmSnippet30 = "";
+            htvmSnippet31 = "";
+            htvmSnippet32 = "";
+            htvmSnippet33 = "";
+            htvmSnippet34 = "";
+            htvmSnippet35 = "";
+            htvmSnippet36 = "";
+            htvmSnippet37 = "";
+            htvmSnippet38 = "";
+            htvmSnippet39 = "";
+            htvmSnippet40 = "";
+            htvmSnippet41 = "";
+            htvmSnippet42 = "";
+            htvmSnippet43 = "";
+            htvmSnippet44 = "";
+            htvmSnippet45 = "";
+            htvmSnippet00 = FileRead("DOCUMENTATION Examples\\htvmSnippet0.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet1.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet2.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet3.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet4.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet5.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet6.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet7.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet8.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet9.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet10.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet11.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet12.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet13.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet14.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet15.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet16.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet17.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet18.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet19.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet20.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet21.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet22.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet23.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet24.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet25.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet26.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet27.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet28.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet29.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet30.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet31.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet32.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet00);
+            numTemp = 0;
+            htvmSnippet000 = "";
+            items3 = LoopParseFunc(htvmSnippet00, "\n", "\r")
+            for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
+                const A_LoopField3 = items3[A_Index3 - 0];
+                if (numTemp == 1 && Trim(htvmSnippet0) == "") {
+                    htvmSnippet0 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet0 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 2 && Trim(htvmSnippet1) == "") {
+                    htvmSnippet1 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet1 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 3 && Trim(htvmSnippet2) == "") {
+                    htvmSnippet2 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet2 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 4 && Trim(htvmSnippet3) == "") {
+                    htvmSnippet3 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet3 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 5 && Trim(htvmSnippet4) == "") {
+                    htvmSnippet4 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet4 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 6 && Trim(htvmSnippet5) == "") {
+                    htvmSnippet5 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet5 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 7 && Trim(htvmSnippet6) == "") {
+                    htvmSnippet6 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet6 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 8 && Trim(htvmSnippet7) == "") {
+                    htvmSnippet7 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet7 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 9 && Trim(htvmSnippet8) == "") {
+                    htvmSnippet8 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet8 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 10 && Trim(htvmSnippet9) == "") {
+                    htvmSnippet9 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet9 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 11 && Trim(htvmSnippet10) == "") {
+                    htvmSnippet10 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet10 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 12 && Trim(htvmSnippet11) == "") {
+                    htvmSnippet11 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet11 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 13 && Trim(htvmSnippet12) == "") {
+                    htvmSnippet12 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet12 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 14 && Trim(htvmSnippet13) == "") {
+                    htvmSnippet13 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet13 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 15 && Trim(htvmSnippet14) == "") {
+                    htvmSnippet14 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet14 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 16 && Trim(htvmSnippet15) == "") {
+                    htvmSnippet15 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet15 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 17 && Trim(htvmSnippet16) == "") {
+                    htvmSnippet16 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet16 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 18 && Trim(htvmSnippet17) == "") {
+                    htvmSnippet17 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet17 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 19 && Trim(htvmSnippet18) == "") {
+                    htvmSnippet18 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet18 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 20 && Trim(htvmSnippet19) == "") {
+                    htvmSnippet19 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet19 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 21 && Trim(htvmSnippet20) == "") {
+                    htvmSnippet20 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet20 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 22 && Trim(htvmSnippet21) == "") {
+                    htvmSnippet21 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet21 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 23 && Trim(htvmSnippet22) == "") {
+                    htvmSnippet22 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet22 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 24 && Trim(htvmSnippet23) == "") {
+                    htvmSnippet23 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet23 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 25 && Trim(htvmSnippet24) == "") {
+                    htvmSnippet24 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet24 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 26 && Trim(htvmSnippet25) == "") {
+                    htvmSnippet25 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet25 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 27 && Trim(htvmSnippet26) == "") {
+                    htvmSnippet26 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet26 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 28 && Trim(htvmSnippet27) == "") {
+                    htvmSnippet27 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet27 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 29 && Trim(htvmSnippet28) == "") {
+                    htvmSnippet28 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet28 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 30 && Trim(htvmSnippet29) == "") {
+                    htvmSnippet29 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet29 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 31 && Trim(htvmSnippet30) == "") {
+                    htvmSnippet30 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet30 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 32 && Trim(htvmSnippet31) == "") {
+                    htvmSnippet31 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet31 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 33 && Trim(htvmSnippet32) == "") {
+                    htvmSnippet32 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet32 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                if (Trim(A_LoopField3) != "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2") {
+                    htvmSnippet000 += A_LoopField3 + Chr(10);
+                } else {
+                    numTemp++;
+                }
+            }
+        } else {
+            htvmSnippet000 = "";
+            htvmSnippet00 = "";
+            htvmSnippet0 = "";
+            htvmSnippet1 = "";
+            htvmSnippet2 = "";
+            htvmSnippet3 = "";
+            htvmSnippet4 = "";
+            htvmSnippet5 = "";
+            htvmSnippet6 = "";
+            htvmSnippet7 = "";
+            htvmSnippet8 = "";
+            htvmSnippet9 = "";
+            htvmSnippet10 = "";
+            htvmSnippet11 = "";
+            htvmSnippet12 = "";
+            htvmSnippet13 = "";
+            htvmSnippet14 = "";
+            htvmSnippet15 = "";
+            htvmSnippet16 = "";
+            htvmSnippet17 = "";
+            htvmSnippet18 = "";
+            htvmSnippet19 = "";
+            htvmSnippet20 = "";
+            htvmSnippet21 = "";
+            htvmSnippet22 = "";
+            htvmSnippet23 = "";
+            htvmSnippet24 = "";
+            htvmSnippet25 = "";
+            htvmSnippet26 = "";
+            htvmSnippet27 = "";
+            htvmSnippet28 = "";
+            htvmSnippet29 = "";
+            htvmSnippet30 = "";
+            htvmSnippet31 = "";
+            htvmSnippet32 = "";
+            htvmSnippet33 = "";
+            htvmSnippet34 = "";
+            htvmSnippet35 = "";
+            htvmSnippet36 = "";
+            htvmSnippet37 = "";
+            htvmSnippet38 = "";
+            htvmSnippet39 = "";
+            htvmSnippet40 = "";
+            htvmSnippet41 = "";
+            htvmSnippet42 = "";
+            htvmSnippet43 = "";
+            htvmSnippet44 = "";
+            htvmSnippet45 = "";
             htvmSnippet0 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet0.htvm');
 htvmSnippet1 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet1.htvm');
 htvmSnippet2 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet2.htvm');
@@ -1242,104 +1486,104 @@ function genDocs(mode) {
     var doc_keyWordArrayOfBooleansDefinition = "";
     var htvmOpenPrgBlock = "";
     var htvmClosePrgBlock = "";
-    items3 = LoopParseFunc(instructionFileData, "\n", "\r")
-    for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
-        const A_LoopField3 = items3[A_Index3 - 0];
-        if (A_Index3 == 44) {
-            htvmOpenPrgBlock = Trim(A_LoopField3);
+    items4 = LoopParseFunc(instructionFileData, "\n", "\r")
+    for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
+        const A_LoopField4 = items4[A_Index4 - 0];
+        if (A_Index4 == 44) {
+            htvmOpenPrgBlock = Trim(A_LoopField4);
         }
-        if (A_Index3 == 45) {
-            htvmClosePrgBlock = Trim(A_LoopField3);
+        if (A_Index4 == 45) {
+            htvmClosePrgBlock = Trim(A_LoopField4);
         }
         //;;;;;;;;;;;;;;;;;;;;;;;;;
-        if (A_Index3 == 84) {
-            doc_keyWordArrayAppend = Trim(A_LoopField3);
+        if (A_Index4 == 84) {
+            doc_keyWordArrayAppend = Trim(A_LoopField4);
         }
-        if (A_Index3 == 85) {
-            doc_keyWordArrayPop = Trim(A_LoopField3);
+        if (A_Index4 == 85) {
+            doc_keyWordArrayPop = Trim(A_LoopField4);
         }
-        if (A_Index3 == 86) {
-            doc_keyWordArraySize = Trim(A_LoopField3);
+        if (A_Index4 == 86) {
+            doc_keyWordArraySize = Trim(A_LoopField4);
         }
-        if (A_Index3 == 87) {
-            doc_keyWordArrayInsert = Trim(A_LoopField3);
+        if (A_Index4 == 87) {
+            doc_keyWordArrayInsert = Trim(A_LoopField4);
         }
-        if (A_Index3 == 88) {
-            doc_keyWordArrayRemove = Trim(A_LoopField3);
+        if (A_Index4 == 88) {
+            doc_keyWordArrayRemove = Trim(A_LoopField4);
         }
-        if (A_Index3 == 89) {
-            doc_keyWordArrayIndexOf = Trim(A_LoopField3);
+        if (A_Index4 == 89) {
+            doc_keyWordArrayIndexOf = Trim(A_LoopField4);
         }
-        if (A_Index3 == 90) {
-            doc_keyWordArrayDefinition = Trim(A_LoopField3);
+        if (A_Index4 == 90) {
+            doc_keyWordArrayDefinition = Trim(A_LoopField4);
         }
-        if (A_Index3 == 91) {
-            doc_keyWordArrayOfIntegersDefinition = Trim(A_LoopField3);
+        if (A_Index4 == 91) {
+            doc_keyWordArrayOfIntegersDefinition = Trim(A_LoopField4);
         }
-        if (A_Index3 == 92) {
-            doc_keyWordArrayOfStringsDefinition = Trim(A_LoopField3);
+        if (A_Index4 == 92) {
+            doc_keyWordArrayOfStringsDefinition = Trim(A_LoopField4);
         }
-        if (A_Index3 == 93) {
-            doc_keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField3);
+        if (A_Index4 == 93) {
+            doc_keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField4);
         }
-        if (A_Index3 == 94) {
-            doc_keyWordArrayOfBooleansDefinition = Trim(A_LoopField3);
+        if (A_Index4 == 94) {
+            doc_keyWordArrayOfBooleansDefinition = Trim(A_LoopField4);
         }
         //;;;;;;;;;;;;;;;;;;;;;;;;
-        if (A_Index3 == 149) {
-            on_useCurlyBraces = Trim(A_LoopField3);
+        if (A_Index4 == 149) {
+            on_useCurlyBraces = Trim(A_LoopField4);
         }
-        if (A_Index3 == 150) {
-            on_useEnd = Trim(A_LoopField3);
+        if (A_Index4 == 150) {
+            on_useEnd = Trim(A_LoopField4);
         }
-        if (A_Index3 == 151) {
-            on_useSemicolon = Trim(A_LoopField3);
+        if (A_Index4 == 151) {
+            on_useSemicolon = Trim(A_LoopField4);
         }
-        if (A_Index3 == 152) {
-            on_useParentheses = Trim(A_LoopField3);
+        if (A_Index4 == 152) {
+            on_useParentheses = Trim(A_LoopField4);
         }
-        if (A_Index3 == 153) {
-            on_usePrefixTypeForTypeDefinition = Trim(A_LoopField3);
+        if (A_Index4 == 153) {
+            on_usePrefixTypeForTypeDefinition = Trim(A_LoopField4);
         }
-        if (A_Index3 == 154) {
-            on_usePostfixTypeForTypeDefinition = Trim(A_LoopField3);
+        if (A_Index4 == 154) {
+            on_usePostfixTypeForTypeDefinition = Trim(A_LoopField4);
         }
-        if (A_Index3 == 155) {
-            on_usePythonicColonSyntax = Trim(A_LoopField3);
+        if (A_Index4 == 155) {
+            on_usePythonicColonSyntax = Trim(A_LoopField4);
         }
-        if (A_Index3 == 156) {
-            on_useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField3);
+        if (A_Index4 == 156) {
+            on_useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField4);
         }
-        if (A_Index3 == 157) {
-            on_useInJavaScriptAlwaysUseVar = Trim(A_LoopField3);
+        if (A_Index4 == 157) {
+            on_useInJavaScriptAlwaysUseVar = Trim(A_LoopField4);
         }
-        if (A_Index3 == 158) {
-            on_useJavaScriptInAfullHTMLfile = Trim(A_LoopField3);
+        if (A_Index4 == 158) {
+            on_useJavaScriptInAfullHTMLfile = Trim(A_LoopField4);
         }
-        if (A_Index3 == 159) {
-            on_useJavaScriptAmainFuncDef = Trim(A_LoopField3);
+        if (A_Index4 == 159) {
+            on_useJavaScriptAmainFuncDef = Trim(A_LoopField4);
         }
-        if (A_Index3 == 160) {
-            on_useJavaScriptAllFuncsAreAsync = Trim(A_LoopField3);
+        if (A_Index4 == 160) {
+            on_useJavaScriptAllFuncsAreAsync = Trim(A_LoopField4);
         }
-        if (A_Index3 == 161) {
-            on_useJavaScriptAlwaysTripleEqual = Trim(A_LoopField3);
+        if (A_Index4 == 161) {
+            on_useJavaScriptAlwaysTripleEqual = Trim(A_LoopField4);
         }
-        if (Trim(A_LoopField3) == "funcEND======================funcEND==============") {
+        if (Trim(A_LoopField4) == "funcEND======================funcEND==============") {
             inFunc = 0;
         }
         if (inFunc == 1) {
-            if (SubStr(Trim(A_LoopField3), 1, 6) == "lang: ") {
-                HTVM_Append(funcData_lang, Trim(A_LoopField3));
+            if (SubStr(Trim(A_LoopField4), 1, 6) == "lang: ") {
+                HTVM_Append(funcData_lang, Trim(A_LoopField4));
             }
-            else if (SubStr(Trim(A_LoopField3), 1, 6) == "name: ") {
-                HTVM_Append(funcData_name, Trim(A_LoopField3));
+            else if (SubStr(Trim(A_LoopField4), 1, 6) == "name: ") {
+                HTVM_Append(funcData_name, Trim(A_LoopField4));
             }
-            else if (SubStr(Trim(A_LoopField3), 1, 13) == "description: ") {
-                HTVM_Append(funcData_desc, Trim(A_LoopField3));
+            else if (SubStr(Trim(A_LoopField4), 1, 13) == "description: ") {
+                HTVM_Append(funcData_desc, Trim(A_LoopField4));
             }
         }
-        if (Trim(A_LoopField3) == "func======================func==============") {
+        if (Trim(A_LoopField4) == "func======================func==============") {
             inFunc = 1;
         }
     }
@@ -1348,10 +1592,10 @@ function genDocs(mode) {
     var theFuncThatExistsIsCalled = "";
     if (DOCS_checkIfFuncNameExists == 1) {
         var exitedLoopCheckIfFuncNameExists = 0;
-        for (let A_Index4 = 0; A_Index4 < HTVM_Size(allFuncNames) + 0; A_Index4++) {
-            print(allFuncNames[A_Index4]);
-            if (StrLower(DOCS_param2) == StrLower(Trim(StrSplit(allFuncNames[A_Index4], ":", 2)))) {
-                theFuncThatExistsIsCalled = Trim(StrSplit(allFuncNames[A_Index4], ":", 2));
+        for (let A_Index5 = 0; A_Index5 < HTVM_Size(allFuncNames) + 0; A_Index5++) {
+            print(allFuncNames[A_Index5]);
+            if (StrLower(DOCS_param2) == StrLower(Trim(StrSplit(allFuncNames[A_Index5], ":", 2)))) {
+                theFuncThatExistsIsCalled = Trim(StrSplit(allFuncNames[A_Index5], ":", 2));
                 exitedLoopCheckIfFuncNameExists = 1;
                 break;
             }
@@ -1368,17 +1612,17 @@ function genDocs(mode) {
     var allFuncNamesTemp = "";
     var tempDesc = "";
     var tempLang = "";
-    for (let A_Index5 = 0; A_Index5 < HTVM_Size(funcData_name) + 0; A_Index5++) {
-        //print(funcData_name[A_Index5])
-        allFuncNamesTemp = funcData_name[A_Index5];
-        tempLang = funcData_lang[A_Index5];
-        tempDesc = funcData_desc[A_Index5];
-        for (let A_Index6 = 0; A_Index6 < HTVM_Size(allFuncNames) + 0; A_Index6++) {
-            if (Trim(allFuncNamesTemp) == Trim(StrSplit(allFuncNames[A_Index6], "|", 1))) {
-                if (countChars(allFuncNames[A_Index6], "|") == 0) {
-                    allFuncNames[A_Index6] = allFuncNames[A_Index6] + "|" + Trim(tempDesc) + "|" + Trim(tempLang);
+    for (let A_Index6 = 0; A_Index6 < HTVM_Size(funcData_name) + 0; A_Index6++) {
+        //print(funcData_name[A_Index6])
+        allFuncNamesTemp = funcData_name[A_Index6];
+        tempLang = funcData_lang[A_Index6];
+        tempDesc = funcData_desc[A_Index6];
+        for (let A_Index7 = 0; A_Index7 < HTVM_Size(allFuncNames) + 0; A_Index7++) {
+            if (Trim(allFuncNamesTemp) == Trim(StrSplit(allFuncNames[A_Index7], "|", 1))) {
+                if (countChars(allFuncNames[A_Index7], "|") == 0) {
+                    allFuncNames[A_Index7] = allFuncNames[A_Index7] + "|" + Trim(tempDesc) + "|" + Trim(tempLang);
                 } else {
-                    allFuncNames[A_Index6] = allFuncNames[A_Index6] + "|" + Trim(tempLang);
+                    allFuncNames[A_Index7] = allFuncNames[A_Index7] + "|" + Trim(tempLang);
                 }
             }
         }
@@ -1402,9 +1646,9 @@ function genDocs(mode) {
     var isLangGroovy = "";
     var allFuncsTempAdd = "";
     var isDescNull = 0;
-    for (let A_Index7 = 0; A_Index7 < HTVM_Size(allFuncNames) + 0; A_Index7++) {
-        //print(allFuncNames[A_Index7])
-        tempstr = Trim(allFuncNames[A_Index7]);
+    for (let A_Index8 = 0; A_Index8 < HTVM_Size(allFuncNames) + 0; A_Index8++) {
+        //print(allFuncNames[A_Index8])
+        tempstr = Trim(allFuncNames[A_Index8]);
         isDescNull = 0;
         allFuncsTempAdd = "";
         isLangCpp = "No";
@@ -1422,61 +1666,61 @@ function genDocs(mode) {
         isLangDart = "No";
         isLangTs = "No";
         isLangGroovy = "No";
-        items8 = LoopParseFunc(tempstr, "|")
-        for (let A_Index8 = 0; A_Index8 < items8.length + 0; A_Index8++) {
-            const A_LoopField8 = items8[A_Index8 - 0];
-            if (SubStr(Trim(A_LoopField8), 1, 8) == "lang: js") {
+        items9 = LoopParseFunc(tempstr, "|")
+        for (let A_Index9 = 0; A_Index9 < items9.length + 0; A_Index9++) {
+            const A_LoopField9 = items9[A_Index9 - 0];
+            if (SubStr(Trim(A_LoopField9), 1, 8) == "lang: js") {
                 isLangJs = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 8) == "lang: py") {
+            else if (SubStr(Trim(A_LoopField9), 1, 8) == "lang: py") {
                 isLangPy = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 9) == "lang: cpp") {
+            else if (SubStr(Trim(A_LoopField9), 1, 9) == "lang: cpp") {
                 isLangCpp = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 8) == "lang: go") {
+            else if (SubStr(Trim(A_LoopField9), 1, 8) == "lang: go") {
                 isLangGo = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 9) == "lang: lua") {
+            else if (SubStr(Trim(A_LoopField9), 1, 9) == "lang: lua") {
                 isLangLua = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 8) == "lang: cs") {
+            else if (SubStr(Trim(A_LoopField9), 1, 8) == "lang: cs") {
                 isLangCs = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 10) == "lang: java") {
+            else if (SubStr(Trim(A_LoopField9), 1, 10) == "lang: java") {
                 isLangJava = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 12) == "lang: kotlin") {
+            else if (SubStr(Trim(A_LoopField9), 1, 12) == "lang: kotlin") {
                 isLangKotlin = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 10) == "lang: ruby") {
+            else if (SubStr(Trim(A_LoopField9), 1, 10) == "lang: ruby") {
                 isLangRuby = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 9) == "lang: nim") {
+            else if (SubStr(Trim(A_LoopField9), 1, 9) == "lang: nim") {
                 isLangNim = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 9) == "lang: ahk") {
+            else if (SubStr(Trim(A_LoopField9), 1, 9) == "lang: ahk") {
                 isLangAhk = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 11) == "lang: swift") {
+            else if (SubStr(Trim(A_LoopField9), 1, 11) == "lang: swift") {
                 isLangSwift = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 10) == "lang: dart") {
+            else if (SubStr(Trim(A_LoopField9), 1, 10) == "lang: dart") {
                 isLangDart = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 8) == "lang: ts") {
+            else if (SubStr(Trim(A_LoopField9), 1, 8) == "lang: ts") {
                 isLangTs = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 12) == "lang: groovy") {
+            else if (SubStr(Trim(A_LoopField9), 1, 12) == "lang: groovy") {
                 isLangGroovy = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 6) == "name: ") {
-                allFuncsTempAdd += Trim(A_LoopField8) + "|";
+            else if (SubStr(Trim(A_LoopField9), 1, 6) == "name: ") {
+                allFuncsTempAdd += Trim(A_LoopField9) + "|";
             }
-            else if (SubStr(Trim(A_LoopField8), 1, 13) == "description: ") {
-                allFuncsTempAdd += Trim(A_LoopField8) + "|";
+            else if (SubStr(Trim(A_LoopField9), 1, 13) == "description: ") {
+                allFuncsTempAdd += Trim(A_LoopField9) + "|";
             }
-            if (Trim(StrLower(A_LoopField8)) == "description: null") {
+            if (Trim(StrLower(A_LoopField9)) == "description: null") {
                 isDescNull = 1;
             }
         }
@@ -1485,7 +1729,7 @@ function genDocs(mode) {
             HTVM_Append(allFuncs, allFuncsTempAdd);
         }
     }
-    for (let A_Index9 = 0; A_Index9 < 20 + 0; A_Index9++) {
+    for (let A_Index10 = 0; A_Index10 < 20 + 0; A_Index10++) {
         //print("===========================================")
     }
     let categories = [];
@@ -1493,10 +1737,10 @@ function genDocs(mode) {
     var theCurrentDescCategory = "";
     var once = 0;
     var didWeFindSameCategory = 0;
-    for (let A_Index10 = 0; A_Index10 < HTVM_Size(allFuncs) + 0; A_Index10++) {
-        //print(allFuncs[A_Index10])
+    for (let A_Index11 = 0; A_Index11 < HTVM_Size(allFuncs) + 0; A_Index11++) {
+        //print(allFuncs[A_Index11])
         once++;
-        theCurrentLine = Trim(allFuncs[A_Index10]);
+        theCurrentLine = Trim(allFuncs[A_Index11]);
         theCurrentDescCategory = Trim(StrSplit(theCurrentLine, "|", 2));
         theCurrentDescCategory = Trim(StrSplit(theCurrentDescCategory, ":", 2));
         theCurrentDescCategory = Trim(StrLower(Trim(StrSplit(theCurrentDescCategory, "~~~", 1))));
@@ -1504,10 +1748,10 @@ function genDocs(mode) {
         if (once == 1) {
             HTVM_Append(categories, theCurrentDescCategory + "\n" + theCurrentLine);
         } else {
-            for (let A_Index11 = 0; A_Index11 < HTVM_Size(categories) + 0; A_Index11++) {
-                if (Trim(StrLower(StrSplit(categories[A_Index11], "\n", 1))) == Trim(theCurrentDescCategory)) {
+            for (let A_Index12 = 0; A_Index12 < HTVM_Size(categories) + 0; A_Index12++) {
+                if (Trim(StrLower(StrSplit(categories[A_Index12], "\n", 1))) == Trim(theCurrentDescCategory)) {
                     didWeFindSameCategory = 1;
-                    categories[A_Index11] = categories[A_Index11] + "\n" + theCurrentLine;
+                    categories[A_Index12] = categories[A_Index12] + "\n" + theCurrentLine;
                     break;
                 }
             }
@@ -1607,77 +1851,46 @@ let sentence = "Your language uses " + features.join(", ") + ".";
     var str25 = "";
     var str26 = "";
     var str27 = "";
-    for (let A_Index12 = 0; A_Index12 < HTVM_Size(categories) + 0; A_Index12++) {
-        //print(categories[A_Index12])
-        str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index12], "\n", 1)))) + " Functions";
+    for (let A_Index13 = 0; A_Index13 < HTVM_Size(categories) + 0; A_Index13++) {
+        //print(categories[A_Index13])
+        str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index13], "\n", 1)))) + " Functions";
         // 1. [String Functions](#string-functions)
-        str2 = STR(A_Index12 + 1) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
+        str2 = STR(A_Index13 + 1) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
         outMD += str2 + "\n";
         // [Go back](#built-in-functions)
     }
     outMD += "\n---\n\n";
     var categoriesElement = "";
-    for (let A_Index13 = 0; A_Index13 < HTVM_Size(categories) + 0; A_Index13++) {
-        //print(categories[A_Index13])
-        str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index13], "\n", 1)))) + " Functions";
+    for (let A_Index14 = 0; A_Index14 < HTVM_Size(categories) + 0; A_Index14++) {
+        //print(categories[A_Index14])
+        str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index14], "\n", 1)))) + " Functions";
         // ## String Functions
-        str2 = "## " + Trim(str1) + "\n\n[Go back](#built-in-functions)\n\n";
+        str2 = "## " + Trim(str1) + "\n\n[Go back](#built-in-functions)n\n";
         str10 = "[Go back](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
         outMD += str2;
         // 1. [str1](#str1)
         // 2. [str2](#str2)
         // 3. [str3](#str3)
-        categoriesElement = categories[A_Index13];
-        items14 = LoopParseFunc(categoriesElement, "\n", "\r")
-        for (let A_Index14 = 0; A_Index14 < items14.length + 0; A_Index14++) {
-            const A_LoopField14 = items14[A_Index14 - 0];
-            if (A_Index14 != 0) {
-                if (Trim(A_LoopField14) != "") {
-                    str1 = Trim(StrSplit(StrSplit(A_LoopField14, "|", 1), ":", 2));
-                    str3 = STR(A_Index14) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
-                    outMD += str3 + "\n";
-                }
-            }
-        }
-        outMD += "\n---\n\n**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**\n\n**HTVM build-in functions availability.**\n\n| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |\n|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|\n";
+        categoriesElement = categories[A_Index14];
         items15 = LoopParseFunc(categoriesElement, "\n", "\r")
         for (let A_Index15 = 0; A_Index15 < items15.length + 0; A_Index15++) {
             const A_LoopField15 = items15[A_Index15 - 0];
             if (A_Index15 != 0) {
                 if (Trim(A_LoopField15) != "") {
                     str1 = Trim(StrSplit(StrSplit(A_LoopField15, "|", 1), ":", 2));
-                    // cpp py js and more
-                    str4 = Trim(StrSplit(A_LoopField15, "|", 3));
-                    str5 = Trim(StrSplit(A_LoopField15, "|", 4));
-                    str6 = Trim(StrSplit(A_LoopField15, "|", 5));
-                    str7 = Trim(StrSplit(A_LoopField15, "|", 6));
-                    //
-                    str11 = Trim(StrSplit(A_LoopField15, "|", 7));
-                    str12 = Trim(StrSplit(A_LoopField15, "|", 8));
-                    str13 = Trim(StrSplit(A_LoopField15, "|", 9));
-                    str14 = Trim(StrSplit(A_LoopField15, "|", 10));
-                    str15 = Trim(StrSplit(A_LoopField15, "|", 11));
-                    str16 = Trim(StrSplit(A_LoopField15, "|", 12));
-                    str17 = Trim(StrSplit(A_LoopField15, "|", 13));
-                    str18 = Trim(StrSplit(A_LoopField15, "|", 14));
-                    str19 = Trim(StrSplit(A_LoopField15, "|", 15));
-                    str20 = Trim(StrSplit(A_LoopField15, "|", 16));
-                    str21 = Trim(StrSplit(A_LoopField15, "|", 17));
-                    // | str1 | Yes | No | Yes | and more
-                    str3 = "| " + str1 + " | " + str4 + " | " + str5 + " | " + str6 + " | " + str7 + " |" + str11 + " |" + str12 + " |" + str13 + " |" + str14 + " |" + str15 + " |" + str16 + " |" + str17 + " |" + str18 + " |" + str19 + " |" + str20 + " |" + str21 + " |";
+                    str3 = STR(A_Index15) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
                     outMD += str3 + "\n";
                 }
             }
         }
-        outMD += "\n---\n\n";
+        outMD += "\n---\n\n**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**\n\n**HTVM build-in functions availability.**\n\n| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |\n|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|\n";
         items16 = LoopParseFunc(categoriesElement, "\n", "\r")
         for (let A_Index16 = 0; A_Index16 < items16.length + 0; A_Index16++) {
             const A_LoopField16 = items16[A_Index16 - 0];
             if (A_Index16 != 0) {
                 if (Trim(A_LoopField16) != "") {
                     str1 = Trim(StrSplit(StrSplit(A_LoopField16, "|", 1), ":", 2));
-                    str2 = "### " + str1 + "\n\n" + Trim(str10) + "\n\n**HTVM build-in functions availability.**\n\n| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |\n|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|\n";
-                    // cpp py js
+                    // cpp py js and more
                     str4 = Trim(StrSplit(A_LoopField16, "|", 3));
                     str5 = Trim(StrSplit(A_LoopField16, "|", 4));
                     str6 = Trim(StrSplit(A_LoopField16, "|", 5));
@@ -1696,28 +1909,59 @@ let sentence = "Your language uses " + features.join(", ") + ".";
                     str21 = Trim(StrSplit(A_LoopField16, "|", 17));
                     // | str1 | Yes | No | Yes | and more
                     str3 = "| " + str1 + " | " + str4 + " | " + str5 + " | " + str6 + " | " + str7 + " |" + str11 + " |" + str12 + " |" + str13 + " |" + str14 + " |" + str15 + " |" + str16 + " |" + str17 + " |" + str18 + " |" + str19 + " |" + str20 + " |" + str21 + " |";
+                    outMD += str3 + "\n";
+                }
+            }
+        }
+        outMD += "\n---\n\n";
+        items17 = LoopParseFunc(categoriesElement, "\n", "\r")
+        for (let A_Index17 = 0; A_Index17 < items17.length + 0; A_Index17++) {
+            const A_LoopField17 = items17[A_Index17 - 0];
+            if (A_Index17 != 0) {
+                if (Trim(A_LoopField17) != "") {
+                    str1 = Trim(StrSplit(StrSplit(A_LoopField17, "|", 1), ":", 2));
+                    str2 = "### " + str1 + "\n\n" + Trim(str10) + "\n\n**HTVM build-in functions availability.**\n\n| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |\n|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|\n";
+                    // cpp py js
+                    str4 = Trim(StrSplit(A_LoopField17, "|", 3));
+                    str5 = Trim(StrSplit(A_LoopField17, "|", 4));
+                    str6 = Trim(StrSplit(A_LoopField17, "|", 5));
+                    str7 = Trim(StrSplit(A_LoopField17, "|", 6));
+                    //
+                    str11 = Trim(StrSplit(A_LoopField17, "|", 7));
+                    str12 = Trim(StrSplit(A_LoopField17, "|", 8));
+                    str13 = Trim(StrSplit(A_LoopField17, "|", 9));
+                    str14 = Trim(StrSplit(A_LoopField17, "|", 10));
+                    str15 = Trim(StrSplit(A_LoopField17, "|", 11));
+                    str16 = Trim(StrSplit(A_LoopField17, "|", 12));
+                    str17 = Trim(StrSplit(A_LoopField17, "|", 13));
+                    str18 = Trim(StrSplit(A_LoopField17, "|", 14));
+                    str19 = Trim(StrSplit(A_LoopField17, "|", 15));
+                    str20 = Trim(StrSplit(A_LoopField17, "|", 16));
+                    str21 = Trim(StrSplit(A_LoopField17, "|", 17));
+                    // | str1 | Yes | No | Yes | and more
+                    str3 = "| " + str1 + " | " + str4 + " | " + str5 + " | " + str6 + " | " + str7 + " |" + str11 + " |" + str12 + " |" + str13 + " |" + str14 + " |" + str15 + " |" + str16 + " |" + str17 + " |" + str18 + " |" + str19 + " |" + str20 + " |" + str21 + " |";
                     str8 = "";
-                    str9 = Trim(StrSplit(StrSplit(A_LoopField16, "|", 2), "description:", 2));
-                    items17 = LoopParseFunc(str9, "~~~")
-                    for (let A_Index17 = 0; A_Index17 < items17.length + 0; A_Index17++) {
-                        const A_LoopField17 = items17[A_Index17 - 0];
-                        if (A_Index17 != 0) {
-                            if (A_LoopField17 != "") {
-                                str7 += A_LoopField17 + "\n";
+                    str9 = Trim(StrSplit(StrSplit(A_LoopField17, "|", 2), "description:", 2));
+                    items18 = LoopParseFunc(str9, "~~~")
+                    for (let A_Index18 = 0; A_Index18 < items18.length + 0; A_Index18++) {
+                        const A_LoopField18 = items18[A_Index18 - 0];
+                        if (A_Index18 != 0) {
+                            if (A_LoopField18 != "") {
+                                str7 += A_LoopField18 + "\n";
                             }
                         }
                     }
-                    outMD += str2 + str3 + "\n\n" + str8 + "\n---\n\n";
+                    outMD += str2 + str3 + "n\n" + str8 + "\n---\n\n";
                 }
             }
         }
     }
     var THEINSTESCEPAED = "";
-    items18 = LoopParseFunc(instructionFileData, "\n", "\r")
-    for (let A_Index18 = 0; A_Index18 < items18.length + 0; A_Index18++) {
-        const A_LoopField18 = items18[A_Index18 - 0];
-        if (A_Index18 <= 161) {
-            THEINSTESCEPAED += escapeStr(Trim(A_LoopField18)) + "\n";
+    items19 = LoopParseFunc(instructionFileData, "\n", "\r")
+    for (let A_Index19 = 0; A_Index19 < items19.length + 0; A_Index19++) {
+        const A_LoopField19 = items19[A_Index19 - 0];
+        if (A_Index19 <= 161) {
+            THEINSTESCEPAED += escapeStr(Trim(A_LoopField19)) + "\n";
         }
     }
     THEINSTESCEPAED = StringTrimRight(THEINSTESCEPAED, 1);
@@ -1728,7 +1972,6 @@ let sentence = "Your language uses " + features.join(", ") + ".";
     } else {
         outDocs = htmlUP + Chr(10) + outMDup + outMD + Chr(10) + htmlDOWN;
     }
-    outDocs = StrReplace(outDocs, Chr(10) + Chr(96) + Chr(96) + Chr(96), Chr(96) + Chr(96) + Chr(96));
     return outDocs;
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1744,16 +1987,16 @@ if (HTVM_getLang_HTVM() != "js") {
         print("no params Exiting...");
         ExitApp();
     }
-    items19 = LoopParseFunc(DOCS_params, "\n", "\r")
-    for (let A_Index19 = 0; A_Index19 < items19.length + 0; A_Index19++) {
-        const A_LoopField19 = items19[A_Index19 - 0];
-        if (A_Index19 == 0) {
-            print(A_LoopField19);
-            DOCS_param1 = Trim(A_LoopField19);
+    items20 = LoopParseFunc(DOCS_params, "\n", "\r")
+    for (let A_Index20 = 0; A_Index20 < items20.length + 0; A_Index20++) {
+        const A_LoopField20 = items20[A_Index20 - 0];
+        if (A_Index20 == 0) {
+            print(A_LoopField20);
+            DOCS_param1 = Trim(A_LoopField20);
         }
-        if (A_Index19 == 1) {
-            print(A_LoopField19);
-            DOCS_param2 = Trim(A_LoopField19);
+        if (A_Index20 == 1) {
+            print(A_LoopField20);
+            DOCS_param2 = Trim(A_LoopField20);
         }
     }
     if (!FileExist(DOCS_param1)) {

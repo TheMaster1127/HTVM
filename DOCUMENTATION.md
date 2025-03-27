@@ -337,9 +337,9 @@ HTVM also supports **modularity** through the `include` keyword:
 
 ### Key Takeaways:
 
-- **Ternary Operator**: Customizable to fit different syntaxes across languages, with automatic conversion. However, unsupported languages like **Go** and **Lua** will display a message instead of running.
+- **Ternary Operator**: Customizable to fit different syntaxes across languages, with automatic conversion. However, unsupported in **Go** and it will hardcode a message instead of running.
   
-- **Error Handling**: Customizable for the `try`, `catch`, `finally`, and `throw` keywords, and the function name for error messages can also be customized. HTVM does not handle errors itself but relies on the target language’s error handling.
+- **Error Handling**: Customizable for the `try`, `catch`, `finally`, and `throw` keywords, and the function name for error messages can also be customized. HTVM does not handle errors itself but relies on the target language’s error handling. However, unsupported languages like **Go** and **Lua** will hardcode a message instead of running.
 
 - **Include**: Supports modularity by including external HTVM files, and the keyword itself is customizable.
 
@@ -507,25 +507,27 @@ Here’s how OSP works:
 
 ### **Explanation Using the Example**:
 ```htvm
-method void move(this) {
-    if (this = "Movable.Vehicles.Car") {
-        if (Movable.Vehicles.Car.fuel > 0) {
-            print("The car is driving.")
-            Movable_Vehicles_Car_fuel := Movable.Vehicles.Car.fuel - 10
+crew someCrew {
+    method void move(this) {
+        if (this = "Movable.Vehicles.Car") {
+            if (Movable.Vehicles.Car.fuel > 0) {
+                print("The car is driving.")
+                Movable_Vehicles_Car_fuel := Movable.Vehicles.Car.fuel - 10
+            }
+            else {
+                print("The car is out of fuel.")
+                Movable_Vehicles_Car_hasFUEL := false
+            }
         }
-        else {
-            print("The car is out of fuel.")
-            Movable_Vehicles_Car_hasFUEL := false
-        }
-    }
-    else if (this = "Movable.Vehicles.Bike") {
-        if (Movable.Vehicles.Bike.energy > 0) {
-            print("The bike is pedaling.")
-            Movable_Vehicles_Bike_energy := Movable.Vehicles.Bike.energy - 5
-        }
-        else {
-            print("The bike is out of energy.")
-            Movable_Vehicles_Bike_hasENERGY := false
+        else if (this = "Movable.Vehicles.Bike") {
+            if (Movable.Vehicles.Bike.energy > 0) {
+                print("The bike is pedaling.")
+                Movable_Vehicles_Bike_energy := Movable.Vehicles.Bike.energy - 5
+            }
+            else {
+                print("The bike is out of energy.")
+                Movable_Vehicles_Bike_hasENERGY := false
+            }
         }
     }
 }
@@ -1624,8 +1626,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 ## Math Functions
 
-[Go back](#built-in-functions)
-
+[Go back](#built-in-functions)n
 1. [ACos](#acos)
 2. [ASin](#asin)
 3. [ATan](#atan)
@@ -1678,8 +1679,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| ACos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| ACos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1691,8 +1691,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| ASin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| ASin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1704,8 +1703,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| ATan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| ATan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1717,8 +1715,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Abs | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Abs | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1730,8 +1727,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Ceil | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Ceil | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1743,8 +1739,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Cos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Cos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1756,8 +1751,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Exp | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Exp | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1769,8 +1763,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Floor | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Floor | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1782,8 +1775,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Ln | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Ln | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1795,8 +1787,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Log | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Log | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1808,8 +1799,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Mod | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Mod | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1821,8 +1811,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Random | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Random | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1834,8 +1823,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Round | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Round | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1847,8 +1835,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Sin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Sin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1860,8 +1847,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Sqrt | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Sqrt | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1873,15 +1859,13 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Tan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Tan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
 ## String Functions
 
-[Go back](#built-in-functions)
-
+[Go back](#built-in-functions)n
 1. [Asc](#asc)
 2. [Chr](#chr)
 3. [FLOAT](#float)
@@ -1946,8 +1930,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Asc | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Asc | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1959,8 +1942,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Chr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Chr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1972,8 +1954,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FLOAT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| FLOAT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1985,8 +1966,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| INT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| INT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -1998,8 +1978,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| InStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| InStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2011,8 +1990,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| RegExMatch | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| RegExMatch | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2024,8 +2002,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| RegExReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| RegExReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2037,8 +2014,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
-
+| STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |n
 
 ---
 
@@ -2050,8 +2026,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2063,8 +2038,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2076,8 +2050,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2089,8 +2062,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StrReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| StrReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2102,8 +2074,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2115,8 +2086,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StrTitleCase | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| StrTitleCase | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2128,8 +2098,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StringTrimLeft | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| StringTrimLeft | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2141,8 +2110,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StringTrimRight | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| StringTrimRight | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2154,8 +2122,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2167,8 +2134,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2180,8 +2146,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| countChars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| countChars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2193,8 +2158,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2206,8 +2170,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2219,15 +2182,13 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
 ## System Functions
 
-[Go back](#built-in-functions)
-
+[Go back](#built-in-functions)n
 1. [BuildInVars](#buildinvars)
 2. [ExitApp](#exitapp)
 3. [HTVM_getLang_HTVM](#htvm_getlang_htvm)
@@ -2256,8 +2217,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| BuildInVars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| BuildInVars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2269,8 +2229,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2282,8 +2241,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2295,15 +2253,13 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
 ## File Functions
 
-[Go back](#built-in-functions)
-
+[Go back](#built-in-functions)n
 1. [FileAppend](#fileappend)
 2. [FileAppendJs](#fileappendjs)
 3. [FileCreateDir](#filecreatedir)
@@ -2338,8 +2294,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileAppend | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| FileAppend | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2351,8 +2306,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileAppendJs | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| FileAppendJs | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2364,8 +2318,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileCreateDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| FileCreateDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2377,8 +2330,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileDelete | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| FileDelete | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2390,8 +2342,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2403,8 +2354,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2416,15 +2366,13 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
 ## Io Functions
 
-[Go back](#built-in-functions)
-
+[Go back](#built-in-functions)n
 1. [GetParams](#getparams)
 2. [RunCMD](#runcmd)
 3. [getDataFromAPI](#getdatafromapi)
@@ -2455,8 +2403,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2468,8 +2415,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2481,8 +2427,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2494,8 +2439,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2507,15 +2451,13 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
-
+| print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |n
 
 ---
 
 ## Gui Functions
 
-[Go back](#built-in-functions)
-
+[Go back](#built-in-functions)n
 1. [GuiControl](#guicontrol)
 2. [Gui_Button](#gui_button)
 3. [Gui_CheckBox](#gui_checkbox)
@@ -2572,8 +2514,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| GuiControl | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| GuiControl | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2585,8 +2526,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Button | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Button | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2598,8 +2538,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_CheckBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_CheckBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2611,8 +2550,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Color | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Color | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2624,8 +2562,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_DropDownList | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_DropDownList | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2637,8 +2574,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Edit | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Edit | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2650,8 +2586,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Font | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Font | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2663,8 +2598,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Font_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Font_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2676,8 +2610,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Hide | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Hide | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2689,8 +2622,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Image | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Image | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2702,8 +2634,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Move | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Move | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2715,8 +2646,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Show | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Show | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2728,8 +2658,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Size | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Size | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2741,8 +2670,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Size_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Size_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2754,8 +2682,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Text | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Text | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2767,8 +2694,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Toggle | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Toggle | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2780,8 +2706,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Update | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| Gui_Update | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2793,15 +2718,13 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| MsgBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| MsgBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
 ## Other Functions
 
-[Go back](#built-in-functions)
-
+[Go back](#built-in-functions)n
 1. [HTVM_v2_HTVM](#htvm_v2_htvm)
 2. [MakeHotKey](#makehotkey)
 3. [isWindows](#iswindows)
@@ -2828,8 +2751,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2841,8 +2763,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2854,15 +2775,13 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
 ## Backend Functions
 
-[Go back](#built-in-functions)
-
+[Go back](#built-in-functions)n
 1. [addEndpoint](#addendpoint)
 2. [createBackendInit](#createbackendinit)
 3. [getDataFromEndpoint](#getdatafromendpoint)
@@ -2891,8 +2810,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| addEndpoint | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| addEndpoint | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2904,8 +2822,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| createBackendInit | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| createBackendInit | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2917,8 +2834,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| getDataFromEndpoint | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| getDataFromEndpoint | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
@@ -2930,8 +2846,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| startServer | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
+| startServer | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |n
 
 ---
 
