@@ -1,0 +1,6 @@
+func void greet() {
+    print("Hello, world!")
+}
+; You can just use this label, and it's all handled for you
+main
+greet()

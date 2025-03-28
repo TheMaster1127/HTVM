@@ -1,0 +1,3 @@
+func str addStringPlusInt(str a, int b) {
+    return a . STR(b)
+}

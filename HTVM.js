@@ -10727,7 +10727,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     int1 = 0;
                     str1 = Trim(StringTrimLeft(A_LoopField118, StrLen(StrLower(keyWordFunc))));
                 }
-                if (langToConvertTo != "cpp" && langToConvertTo != "go" && langToConvertTo != "cs" && langToConvertTo != "java" && langToConvertTo != "kt" && langToConvertTo != "nim" && langToConvertTo != "swift" && langToConvertTo != "dart" && langToConvertTo != "ts") {
+                if (langToConvertTo != langFileExtension_2 && langToConvertTo != "cpp" && langToConvertTo != "go" && langToConvertTo != "cs" && langToConvertTo != "java" && langToConvertTo != "kt" && langToConvertTo != "nim" && langToConvertTo != "swift" && langToConvertTo != "dart" && langToConvertTo != "ts") {
                     if (str1 != "") {
                         str4 = "";
                         items120 = LoopParseFunc(str1, ",");
@@ -10742,6 +10742,13 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                             }
                             else if (InStr(A_LoopField120, " = ")) {
                                 if (InStr(Trim(StrSplit(A_LoopField120, " = ", 1)), " ") != true) {
+                                    str4 += "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " + A_LoopField120 + ", ";
+                                } else {
+                                    str4 += A_LoopField120 + ", ";
+                                }
+                            }
+                            else if (InStr(A_LoopField120, " " + Trim(keyWordAssign) + " ")) {
+                                if (InStr(Trim(StrSplit(A_LoopField120, " " + Trim(keyWordAssign) + " ", 1)), " ") != true) {
                                     str4 += "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " + A_LoopField120 + ", ";
                                 } else {
                                     str4 += A_LoopField120 + ", ";

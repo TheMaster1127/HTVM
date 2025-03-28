@@ -14149,7 +14149,7 @@ int1 := 0
 str1 := Trim(StringTrimLeft(A_LoopField, StrLen(StrLower(keyWordFunc))))
 }
 
-if (langToConvertTo != "cpp") and (langToConvertTo != "go") and (langToConvertTo != "cs") and (langToConvertTo != "java") and (langToConvertTo != "kt") and (langToConvertTo != "nim") and (langToConvertTo != "swift") and (langToConvertTo != "dart") and (langToConvertTo != "ts")
+if (langToConvertTo != langFileExtension_2) and (langToConvertTo != "cpp") and (langToConvertTo != "go") and (langToConvertTo != "cs") and (langToConvertTo != "java") and (langToConvertTo != "kt") and (langToConvertTo != "nim") and (langToConvertTo != "swift") and (langToConvertTo != "dart") and (langToConvertTo != "ts")
 {
 
 if (str1 != "")
@@ -14173,6 +14173,17 @@ if (InStr(A_LoopField, " := "))
 else if (InStr(A_LoopField, " = "))
 {
     if (InStr(Trim(StrSplit(A_LoopField, " = ", 1)), " ") != true)
+    {
+    str4 .= "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " . A_LoopField . ", "
+    }
+    else
+    {
+    str4 .= A_LoopField . ", "
+    }
+}
+else if (InStr(A_LoopField, " " . Trim(keyWordAssign) . " "))
+{
+    if (InStr(Trim(StrSplit(A_LoopField, " " . Trim(keyWordAssign) . " ", 1)), " ") != true)
     {
     str4 .= "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " . A_LoopField . ", "
     }
