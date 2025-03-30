@@ -507,9 +507,9 @@ Here’s how OSP works:
 crew someCrew {
     method void move(this) {
         if (this = "Movable.Vehicles.Car") {
-            if (Movable.Vehicles.Car.fuel > 0) {
+            if uel > 0))(Car(Vehicles(((Movable)) {
                 print("The car is driving.")
-                Movable_Vehicles_Car_fuel := Movable.Vehicles.Car.fuel - 10
+                Movable_Vehicles_Car_fuel := fuel(Car(Vehicles(Movable))) - 10
             }
             else {
                 print("The car is out of fuel.")
@@ -517,9 +517,9 @@ crew someCrew {
             }
         }
         else if (this = "Movable.Vehicles.Bike") {
-            if (Movable.Vehicles.Bike.energy > 0) {
+            if nergy > 0))(Bike(Vehicles(((Movable)) {
                 print("The bike is pedaling.")
-                Movable_Vehicles_Bike_energy := Movable.Vehicles.Bike.energy - 5
+                Movable_Vehicles_Bike_energy := energy(Bike(Vehicles(Movable))) - 5
             }
             else {
                 print("The bike is out of energy.")
@@ -607,7 +607,7 @@ alliance ExampleAlliance {
 to call greet just do:
 
 ```htvm
-ExampleAlliance.greet()
+greet(ExampleAlliance)
 
 ```
 
@@ -662,9 +662,9 @@ alliance Movable {
             global Movable.Vehicles.Bike.energy
             global Movable.Vehicles.Bike.hasENERGY
             if (this = "Movable.Vehicles.Car") {
-                if (Movable.Vehicles.Car.fuel > 0) {
+                if uel > 0))(Car(Vehicles(((Movable)) {
                     print("The car is driving.")
-                    Movable_Vehicles_Car_fuel := Movable.Vehicles.Car.fuel - 10
+                    Movable_Vehicles_Car_fuel := fuel(Car(Vehicles(Movable))) - 10
                 }
                 else {
                     print("The car is out of fuel.")
@@ -672,9 +672,9 @@ alliance Movable {
                 }
             }
             else if (this = "Movable.Vehicles.Bike") {
-                if (Movable.Vehicles.Bike.energy > 0) {
+                if nergy > 0))(Bike(Vehicles(((Movable)) {
                     print("The bike is pedaling.")
-                    Movable_Vehicles_Bike_energy := Movable.Vehicles.Bike.energy - 5
+                    Movable_Vehicles_Bike_energy := energy(Bike(Vehicles(Movable))) - 5
                 }
                 else {
                     print("The bike is out of energy.")
@@ -709,9 +709,9 @@ alliance Movable {
         }
         method void printGeneralSettings(this) {
             print("General Settings:")
-            print("Difficulty: " . Movable.settings.GeneralSettings.difficulty)
-            print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
-            print("Resolution: " . Movable.settings.GeneralSettings.resolution)
+            difficulty)(GeneralSettings(settings( Movable(print("Difficulty: " ))))
+            volume))(GeneralSettings(settings( STR(print("Volume: " , Movabl))))
+            resolution)(GeneralSettings(settings( Movable(print("Resolution: " ))))
         }
         ; Audio Settings Methods
         method void resetAudioSettings(this) {
@@ -722,9 +722,9 @@ alliance Movable {
         }
         method void printAudioSettings(this) {
             print("Audio Settings:")
-            print("Master Volume: " . STR(Movable.settings.AudioSettings.masterVolume))
-            print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
-            print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
+            masterVolume))(AudioSettings(settings( STR(print("Master Volume: " , Movabl))))
+            musicVolume))(AudioSettings(settings( STR(print("Music Volume: " , Movabl))))
+            sfxVolume))(AudioSettings(settings( STR(print("SFX Volume: " , Movabl))))
         }
         ; Display Settings Methods
         method void resetDisplaySettings(this) {
@@ -734,8 +734,8 @@ alliance Movable {
         }
         method void printDisplaySettings(this) {
             print("Display Settings:")
-            print("Fullscreen: " . STR(Movable.settings.DisplaySettings.fullscreen))
-            print("Aspect Ratio: " . Movable.settings.DisplaySettings.aspectRatio)
+            fullscreen))(DisplaySettings(settings( STR(print("Fullscreen: " , Movabl))))
+            aspectRatio)(DisplaySettings(settings( Movable(print("Aspect Ratio: " ))))
         }
     }
     crew array {
@@ -749,9 +749,9 @@ alliance Movable {
 }
 main
 ; Test vehicle movement
-while (Movable.Vehicles.Car.hasFUEL = true) and (Movable.Vehicles.Bike.hasENERGY = true) {
-    Movable.Vehicles.move("Movable.Vehicles.Car")
-    Movable.Vehicles.move("Movable.Vehicles.Bike")
+while asENERGY = true))(Bike(Vehicles(hasFUEL = true) and (Movabl, Car(Vehicles(((Movable))))) {
+    move("Movable.Vehicles.Car", Vehicles(Movable))
+    move("Movable.Vehicles.Bike", Vehicles(Movable))
     print("=====================================")
 }
 ; Test settings manipulation
@@ -763,39 +763,39 @@ Movable_settings_AudioSettings_musicVolume := 60
 Movable_settings_AudioSettings_sfxVolume := 50
 Movable_settings_DisplaySettings_fullscreen := false
 Movable_settings_DisplaySettings_aspectRatio := STR("21:9")
-Movable.actions.printGeneralSettings()
-Movable.actions.printAudioSettings()
-Movable.actions.printDisplaySettings()
-Movable.actions.resetGeneralSettings()
-Movable.actions.resetAudioSettings()
-Movable.actions.resetDisplaySettings()
-Movable.actions.printGeneralSettings()
-Movable.actions.printAudioSettings()
-Movable.actions.printDisplaySettings()
+printGeneralSettings(actions(Movable))
+printAudioSettings(actions(Movable))
+printDisplaySettings(actions(Movable))
+resetGeneralSettings(actions(Movable))
+resetAudioSettings(actions(Movable))
+resetDisplaySettings(actions(Movable))
+printGeneralSettings(actions(Movable))
+printAudioSettings(actions(Movable))
+printDisplaySettings(actions(Movable))
 ; Test array manipulation
-Movable.array.name.prop1.add("1text1")
-Movable.array.name.prop1.add("1text2")
-Movable.array.name.prop1.add("1text3")
-Movable.array.name.prop2.add("2text1")
-Movable.array.name.prop2.add("2text2")
-Movable.array.name.prop2.add("2text3")
-Movable.array.name.prop3.add("3text1")
-Movable.array.name.prop3.add("3text2")
-Movable.array.name.prop3.add("3text3")
-Movable.array.name.prop4.add("4text1")
-Movable.array.name.prop4.add("4text2")
-Movable.array.name.prop4.add("4text3")
-Loop, % Movable.array.name.prop1.size() {
-    print(Movable.array.name.prop1[A_Index])
+add("1text1", prop1(name(array(Movable))))
+add("1text2", prop1(name(array(Movable))))
+add("1text3", prop1(name(array(Movable))))
+add("2text1", prop2(name(array(Movable))))
+add("2text2", prop2(name(array(Movable))))
+add("2text3", prop2(name(array(Movable))))
+add("3text1", prop3(name(array(Movable))))
+add("3text2", prop3(name(array(Movable))))
+add("3text3", prop3(name(array(Movable))))
+add("4text1", prop4(name(array(Movable))))
+add("4text2", prop4(name(array(Movable))))
+add("4text3", prop4(name(array(Movable))))
+Loop, % size(prop1(name(array(Movable)))) {
+    prop1[A_Index])(name(array(print(Movable)))
 }
-Loop, % Movable.array.name.prop2.size() {
-    print(Movable.array.name.prop2[A_Index])
+Loop, % size(prop2(name(array(Movable)))) {
+    prop2[A_Index])(name(array(print(Movable)))
 }
-Loop, % Movable.array.name.prop3.size() {
-    print(Movable.array.name.prop3[A_Index])
+Loop, % size(prop3(name(array(Movable)))) {
+    prop3[A_Index])(name(array(print(Movable)))
 }
-Loop, % Movable.array.name.prop4.size() {
-    print(Movable.array.name.prop4[A_Index])
+Loop, % size(prop4(name(array(Movable)))) {
+    prop4[A_Index])(name(array(print(Movable)))
 }
 
 ```
@@ -829,7 +829,7 @@ int64 varName8
 int varName9 := 34
 ; Here is how to define a function with static types if you convert to C++.
 ; However, it will still work even if you are not converting to C++; types will be stripped away.
-func void funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5) {
+func void funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 5(1)) {
     ; This is how the global keyword works if we convert to Python.
     ; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
     global varName5
@@ -858,12 +858,12 @@ while (var1 = false) {
 print("we are outside the while loop")
 ; this is how to use a loop whit arrays
 arr str array123 := ["hey"]
-array123.add("hello")
-array123.add("how")
-array123.add("are")
-array123.add("you")
-array123.add("doing")
-Loop, % array123.size() {
+add(array123, "hello")
+add(array123, "how")
+add(array123, "are")
+add(array123, "you")
+add(array123, "doing")
+Loop, % size(array123) {
     print("iteration: " . STR(A_Index))
     print("Item: " . array123[A_Index])
 }
@@ -1022,8 +1022,8 @@ Here’s a simple example of declaring and printing variables in HTVM:
 int myInt := 42
 int8 mySmallInt := -5
 uint16 myPositiveInt := 500
-float myFloat := 3.14
-double myDouble := 2.718
+float myFloat := 14(3)
+double myDouble := 718(2)
 char myChar := 'A'
 str myText := "Hello, HTVM!"
 bool myBool := true
@@ -1241,7 +1241,7 @@ Optional parameters example:
 
 ```htvm
 str varName5 := "hi"
-func str funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5) {
+func str funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 5(1)) {
     ; This is how the global keyword works if we convert to Python.
     ; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
     global varName5
@@ -1278,6 +1278,86 @@ greet()
 - The `main` function calls `greet()` to execute the code.
 
 If you do not define the `main` label, HTVM will automatically add it at the top of the code, but **you must include it if you are using functions** to ensure everything works correctly.
+
+### **HTVM: Flexible Function Call Syntax**
+
+#### **Overview**  
+HTVM introduces a unique and flexible function call syntax that allows developers to call functions in multiple ways while maintaining simplicity and readability. This enhancement does not change the fundamental nature of functions in HTVM—they remain regular functions rather than methods. However, HTVM allows them to be called using dot notation for convenience.
+
+#### **Features**
+
+- **Traditional Function Calls**  
+  Functions can be called using the standard syntax:  
+  ```htvm
+  StrLower(var1)
+  Trim(var1)
+  ```
+
+- **Dot Notation for Function Calls**  
+  HTVM allows functions to be called using dot notation for enhanced readability and convenience:  
+  ```htvm
+  var1.StrLower()
+  var1.Trim()
+  ```
+
+- **Optional Parentheses**  
+  When a function does not require additional parameters, parentheses can be omitted:  
+  ```htvm
+  var1.StrLower
+  var1.Trim
+  ```
+
+- **Chained Function Calls**  
+  Functions can be chained together using dot notation:  
+  ```htvm
+  var1.StrLower().Trim()
+  ```
+
+  Since parentheses are optional, the same operation can be written as:  
+  ```htvm
+  var1.StrLower.Trim
+  ```
+
+  It is also possible to mix both styles:  
+  ```htvm
+  var1.StrLower().Trim
+  ```
+
+- **Seamless Transpilation**  
+  HTVM automatically converts these function calls into standard function calls durring conversion. This ensures that the underlying implementation remains consistent while providing developers with flexibility in how they write their code.
+
+#### **Examples**
+
+### **Standard Function Calls**  
+```htvm
+StrLower(var1)
+Trim(var1)
+```
+
+### **Dot Notation Function Calls**  
+```htvm
+var1.StrLower()
+var1.Trim()
+```
+
+### **Dot Notation Without Parentheses**  
+```htvm
+var1.StrLower
+var1.Trim
+```
+
+### **Chained Function Calls**  
+```htvm
+var1.StrLower().Trim()
+```
+
+### **Mixed Parentheses Usage**  
+```htvm
+var1.StrLower().Trim
+```
+
+#### **Conclusion**  
+This feature enhances HTVM's usability by providing developers with multiple ways to call functions. While functions remain standard, the optional dot notation and omission of parentheses make coding more intuitive and efficient.
 
 ---
 
@@ -1350,7 +1430,7 @@ Adds an element to the end of the array.
 Example:
 ```htvm
 arr int myArray := [1, 2, 3]
-myArray.add(4)
+add(myArray, 4)
 ; myArray is now [1, 2, 3, 4]
 print(myArray)
 
@@ -1362,7 +1442,7 @@ Removes and returns the last element of the array.
 Example:
 ```htvm
 arr int myArray := [1, 2, 3, 4]
-myArray.pop()
+pop(myArray)
 ; myArray is now [1, 2, 3]
 print(myArray)
 
@@ -1375,7 +1455,7 @@ Example:
 ```htvm
 arr int myArray := [1, 2, 3]
 ; returns 3
-print(myArray.size())
+size(print(myArray, ))
 
 ```
 
@@ -1385,7 +1465,7 @@ Inserts an element at a specific index. The index is the first argument, and the
 Example:
 ```htvm
 arr int myArray := [1, 2, 3]
-myArray.insert(1, 4)
+insert(myArray, 1, 4)
 ; myArray is now [1, 4, 2, 3]
 print(myArray)
 
@@ -1397,7 +1477,7 @@ Removes the element at the specified index.
 Example:
 ```htvm
 arr int myArray := [1, 2, 3, 4]
-myArray.rm(2)
+rm(myArray, 2)
 ; myArray is now [1, 2, 4]
 print(myArray)
 
@@ -1409,7 +1489,7 @@ Returns the index of the first occurrence of the specified element. If the eleme
 Example:
 ```htvm
 arr int myArray := [1, 2, 3, 2]
-print(myArray.indexOf(2))
+indexOf(print(myArray, 2))
 ; returns 1
 
 ```
@@ -1420,11 +1500,11 @@ print(myArray.indexOf(2))
 
 ```htvm
 arr int myArray := [1, 2, 3]
-myArray.add(4)
+add(myArray, 4)
 ; Removes the element at index 1
-myArray.rm(1)
+rm(myArray, 1)
 ; Inserts 5 at index 1
-myArray.insert(1, 5)
+insert(myArray, 1, 5)
 ; Output: [1, 5, 3, 4]
 print(myArray)
 
@@ -1512,7 +1592,7 @@ ___cpp end
 ;
 ; When converting to C++, we can't just print the array directly. However, in some other languages,
 ; we don't need to loop over the array to print it.
-Loop, % myArray.size() {
+Loop, % size(myArray) {
     print(myArray[A_Index])
 }
 ; If you convert this to any language other than C++ (cpp), it will print:

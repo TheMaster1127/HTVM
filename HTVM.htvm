@@ -4011,6 +4011,186 @@ func str ospHELP2(str line) {
 }
 
 
+
+
+func str extraFlexableFuncCallsHelp(str line)
+{
+arr str allFuncsDot
+str temp := ""
+
+Loop, Parse, line, "."
+{
+if (A_Index = 0)
+{
+; the value name/other
+temp := A_LoopField
+}
+else
+{
+allFuncsDot.add(StrSplit(A_LoopField, "(", 1) . "|" . StringTrimRight(StrSplit(A_LoopField, "(", 2), 1))
+}
+}
+
+
+str out := ""
+int endParentesesToPut := 0
+
+Loop, % allFuncsDot.size()
+{
+if (allFuncsDot.size() = A_Index + 1)
+{
+
+
+if (Trim(StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 2)) = "")
+{
+out .= StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 1) . "(" . temp
+}
+else
+{
+out .= StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 1) . "(" . temp . ", " . Trim(StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 2))
+}
+
+Loop, % endParentesesToPut + 1
+{
+out .= ")"
+}
+
+
+}
+else
+{
+endParentesesToPut++
+if (Trim(StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 2)) = "")
+{
+out .= StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 1) . "("
+}
+else
+{
+out .= StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 1) . "(" . Trim(StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 2)) . ", "
+}
+
+}
+}
+;print("=================================")
+
+return out
+}
+
+
+func str splitFunctionCalls(str line)
+{
+    arr str funcCalls
+    str temp := ""
+    int parenthesesDepth := 0 ; Track parentheses depth
+
+    Loop, Parse, line
+    {
+        ; Handle spaces
+        if (A_LoopField = " ")
+        {
+            if (parenthesesDepth = 0) ; Split only outside parentheses
+            {
+                if (temp != "")
+                {
+                    funcCalls.add(temp)
+                    temp := ""
+                }
+            }
+            else
+            {
+                temp .= A_LoopField ; Inside parentheses, accumulate
+            }
+        }
+        else if (A_LoopField = "(")
+        {
+            parenthesesDepth++ ; Increase depth for function argument list
+            temp .= A_LoopField
+        }
+        else if (A_LoopField = ")")
+        {
+            parenthesesDepth-- ; Decrease depth after closing argument list
+            temp .= A_LoopField
+        }
+        else
+        {
+            temp .= A_LoopField ; Accumulate characters for function name/args
+        }
+    }
+
+    if (temp != "")
+    {
+        funcCalls.add(temp) ; Add the last accumulated segment
+    }
+
+
+str arrToStrSTR := ""
+
+Loop, % funcCalls.size()
+{
+if (RegExMatch(funcCalls[A_Index], "\.[a-zA-Z_][a-zA-Z0-9_]*"))
+{
+arrToStrSTR .= extraFlexableFuncCallsHelp(funcCalls[A_Index]) . " "
+}
+else
+{
+arrToStrSTR .= funcCalls[A_Index] . " "
+}
+}
+StringTrimRight, arrToStrSTR, arrToStrSTR, 1
+
+return arrToStrSTR
+}
+
+func str extraFlexableFuncCalls(str line)
+{
+str origLine := line
+
+str out := line
+
+int dotCount := 0
+str temp := ""
+
+    if (InStr(Trim(line), " ") = false)
+    {
+    Loop, Parse, line
+    {
+        if (A_LoopField = ".")
+        {
+            dotCount++
+        }
+    }
+    
+    if (dotCount = 0)
+    {
+    return line
+    }
+    
+        if (dotCount = 1)
+        {
+        
+out := extraFlexableFuncCallsHelp(line)
+        
+        }
+        else
+        {
+
+
+;print("DEBUGGG: " . line)
+out := extraFlexableFuncCallsHelp(line)
+
+        }
+    
+    }
+else
+{
+out := splitFunctionCalls(line)
+}
+
+
+return out
+}
+
+
 func str expressionParserTranspiler(str expression)
 {
 str fixExpertionLineFuncOnlyTEXT_func := ""
@@ -4224,6 +4404,9 @@ expression := RegExReplace(expression, "\b" . theTryCatchVarForErrors . "\b", th
 if (langToConvertTo = "groovy") {
 expression := RegExReplace(expression, "\b" . theTryCatchVarForErrors . "\b", theTryCatchVarForErrors . ".message")
 }
+
+
+expression := extraFlexableFuncCalls(expression)
 
 ; fix java arrName[A_Index] not existing
 if (langToConvertTo = "java") 
