@@ -14693,6 +14693,14 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 fixExpertionLineFuncOnly = 0;
                 htCode += str2 + Chr(10);
             }
+            else if (RegExMatch(A_LoopField123, "\\.[a-zA-Z_][a-zA-Z0-9_]*") && lineDone == 0) {
+                lineDone = 1;
+                if (langToConvertTo != langFileExtension_2) {
+                    htCode += extraFlexableFuncCalls(A_LoopField123) + Chr(10);
+                } else {
+                    htCode += A_LoopField123 + Chr(10);
+                }
+            }
             else if (KeyWordsCommands(A_LoopField123, "check", commands, langToConvertTo) == "true" && lineDone == 0) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {

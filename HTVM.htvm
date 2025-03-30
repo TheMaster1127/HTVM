@@ -20085,7 +20085,7 @@ str2 := expressionParserTranspiler(Trim(str1)) . ";"
 fixExpertionLineFuncOnly := 0
 htCode .= str2 . Chr(10)
 }
-else if (RegExMatch(expression, "\.[a-zA-Z_][a-zA-Z0-9_]*")) and (lineDone = 0)
+else if (RegExMatch(A_LoopField, "\.[a-zA-Z_][a-zA-Z0-9_]*")) and (lineDone = 0)
 {
 lineDone := 1
 if (langToConvertTo != langFileExtension_2)
