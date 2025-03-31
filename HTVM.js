@@ -3366,7 +3366,10 @@ function ospHELP2(line) {
     outHelp = StringTrimRight(line, outHelpInt);
     return outHelp;
 }
-function extraFlexableFuncCallsHelp(line) {
+//;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;
+function extraFlexableFuncCallsHelp2(line) {
     let allFuncsDot = [];
     var temp = "";
     items71 = LoopParseFunc(line, ".")
@@ -3376,7 +3379,9 @@ function extraFlexableFuncCallsHelp(line) {
             // the value name/other
             temp = A_LoopField71;
         } else {
-            HTVM_Append(allFuncsDot, StrSplit(A_LoopField71, "(", 1) + "|" + StringTrimRight(StrSplit(A_LoopField71, "(", 2), 1));
+            if (RegExMatch(StringTrimRight(StrSplit(A_LoopField71, "(", 2), 1), "\\.[a-zA-Z_][a-zA-Z0-9_]*")) {
+                HTVM_Append(allFuncsDot, StrSplit(A_LoopField71, "(", 1) + "|" + StringTrimRight(StrSplit(A_LoopField71, "(", 2), 1));
+            }
         }
     }
     var out = "";
@@ -3403,7 +3408,7 @@ function extraFlexableFuncCallsHelp(line) {
     //print("=================================")
     return out;
 }
-function splitFunctionCalls(line) {
+function splitFunctionCalls2(line) {
     var doWeAddParentisiesLater = 0;
     line = Trim(line);
     for (let A_Index74 = 0; ; A_Index74++) {
@@ -3515,8 +3520,7 @@ function splitFunctionCalls(line) {
     var arrToStrSTR = "";
     for (let A_Index79 = 0; A_Index79 < HTVM_Size(funcCalls) + 0; A_Index79++) {
         if (RegExMatch(funcCalls[A_Index79], "\\.[a-zA-Z_][a-zA-Z0-9_]*")) {
-            print(funcCalls[A_Index79]);
-            arrToStrSTR += extraFlexableFuncCallsHelp(funcCalls[A_Index79]) + " ";
+            arrToStrSTR += extraFlexableFuncCallsHelp2(funcCalls[A_Index79]) + " ";
         } else {
             arrToStrSTR += funcCalls[A_Index79] + " ";
         }
@@ -3542,6 +3546,185 @@ function splitFunctionCalls(line) {
     }
     return arrToStrSTR;
 }
+function extraFlexableFuncCallsHelp(line) {
+    let allFuncsDot = [];
+    var temp = "";
+    items84 = LoopParseFunc(line, ".")
+    for (let A_Index84 = 0; A_Index84 < items84.length + 0; A_Index84++) {
+        const A_LoopField84 = items84[A_Index84 - 0];
+        if (A_Index84 == 0) {
+            // the value name/other
+            temp = A_LoopField84;
+        } else {
+            if (RegExMatch(StringTrimRight(StrSplit(A_LoopField84, "(", 2), 1), "\\.[a-zA-Z_][a-zA-Z0-9_]*")) {
+                HTVM_Append(allFuncsDot, StrSplit(A_LoopField84, "(", 1) + "|" + splitFunctionCalls2(StringTrimRight(StrSplit(A_LoopField84, "(", 2), 1)));
+            } else {
+                HTVM_Append(allFuncsDot, StrSplit(A_LoopField84, "(", 1) + "|" + StringTrimRight(StrSplit(A_LoopField84, "(", 2), 1));
+            }
+        }
+    }
+    var out = "";
+    var endParentesesToPut = 0;
+    for (let A_Index85 = 0; A_Index85 < HTVM_Size(allFuncsDot) + 0; A_Index85++) {
+        if (HTVM_Size(allFuncsDot) == A_Index85 + 1) {
+            if (Trim(StrSplit(allFuncsDot[HTVM_Size(allFuncsDot) - A_Index85 - 1], "|", 2)) == "") {
+                out += StrSplit(allFuncsDot[HTVM_Size(allFuncsDot) - A_Index85 - 1], "|", 1) + "(" + temp;
+            } else {
+                out += StrSplit(allFuncsDot[HTVM_Size(allFuncsDot) - A_Index85 - 1], "|", 1) + "(" + temp + ", " + Trim(StrSplit(allFuncsDot[HTVM_Size(allFuncsDot) - A_Index85 - 1], "|", 2));
+            }
+            for (let A_Index86 = 0; A_Index86 < endParentesesToPut + 1 + 0; A_Index86++) {
+                out += ")";
+            }
+        } else {
+            endParentesesToPut++;
+            if (Trim(StrSplit(allFuncsDot[HTVM_Size(allFuncsDot) - A_Index85 - 1], "|", 2)) == "") {
+                out += StrSplit(allFuncsDot[HTVM_Size(allFuncsDot) - A_Index85 - 1], "|", 1) + "(";
+            } else {
+                out += StrSplit(allFuncsDot[HTVM_Size(allFuncsDot) - A_Index85 - 1], "|", 1) + "(" + Trim(StrSplit(allFuncsDot[HTVM_Size(allFuncsDot) - A_Index85 - 1], "|", 2)) + ", ";
+            }
+        }
+    }
+    //print("=================================")
+    return out;
+}
+function splitFunctionCalls(line) {
+    var doWeAddParentisiesLater = 0;
+    line = Trim(line);
+    for (let A_Index87 = 0; ; A_Index87++) {
+        if (SubStr(line, 1, 1) == "(") {
+            line = StringTrimRight(line, 1);
+            line = StringTrimLeft(line, 1);
+            doWeAddParentisiesLater++;
+        } else {
+            break;
+        }
+    }
+    var doseBracketsExist = 0;
+    let saveDoseBracketsExist = [];
+    var saveDoseBracketsExistTEMP = "";
+    var inBarkets = 0;
+    var inBarketsNum = 0;
+    var lineOut = "";
+    if (InStr(line, "[")) {
+        doseBracketsExist = 1;
+        items88 = LoopParseFunc(line)
+        for (let A_Index88 = 0; A_Index88 < items88.length + 0; A_Index88++) {
+            const A_LoopField88 = items88[A_Index88 - 0];
+            if (A_LoopField88 == "[") {
+                inBarkets = 1;
+                saveDoseBracketsExistTEMP += A_LoopField88;
+            }
+            if (A_LoopField88 == "]") {
+                inBarkets = 0;
+                saveDoseBracketsExistTEMP += A_LoopField88;
+                HTVM_Append(saveDoseBracketsExist, saveDoseBracketsExistTEMP);
+                saveDoseBracketsExistTEMP = "";
+                lineOut += "brackests--rpelacse-brackets--HTVM-new-BUG--AA" + STR(inBarketsNum) + "AA";
+                inBarketsNum++;
+            }
+            if (inBarkets == 1 && A_LoopField88 != "[" && A_LoopField88 != "]") {
+                saveDoseBracketsExistTEMP += A_LoopField88;
+            } else {
+                lineOut += A_LoopField88;
+            }
+        }
+        line = lineOut;
+    }
+    var doseFuncAtTheBegggging = 0;
+    var doWeAddParentisiesLater2 = 0;
+    var numRemoveFunc = 0;
+    let FuncAtTheBegggging = [];
+    var FuncAtTheBeggggingTEMP = "";
+    if (RegExMatch(line, "^[a-zA-Z_][a-zA-Z0-9_]*\\(")) {
+        doseFuncAtTheBegggging = 1;
+        for (let A_Index89 = 0; ; A_Index89++) {
+            if (RegExMatch(line, "^[a-zA-Z_][a-zA-Z0-9_]*\\(")) {
+                FuncAtTheBeggggingTEMP = "";
+                items90 = LoopParseFunc(line)
+                for (let A_Index90 = 0; A_Index90 < items90.length + 0; A_Index90++) {
+                    const A_LoopField90 = items90[A_Index90 - 0];
+                    if (A_LoopField90 == "(") {
+                        numRemoveFunc++;
+                        FuncAtTheBeggggingTEMP += A_LoopField90;
+                        HTVM_Append(FuncAtTheBegggging, FuncAtTheBeggggingTEMP);
+                        FuncAtTheBeggggingTEMP = "";
+                        break;
+                    }
+                    FuncAtTheBeggggingTEMP += A_LoopField90;
+                    numRemoveFunc++;
+                }
+                line = StringTrimLeft(line, numRemoveFunc);
+                numRemoveFunc = 0;
+                line = StringTrimRight(line, 1);
+                doWeAddParentisiesLater2++;
+            } else {
+                break;
+            }
+        }
+    }
+    let funcCalls = [];
+    var temp = "";
+    var parenthesesDepth = 0;
+    var seenDot = 0;
+    items91 = LoopParseFunc(line)
+    for (let A_Index91 = 0; A_Index91 < items91.length + 0; A_Index91++) {
+        const A_LoopField91 = items91[A_Index91 - 0];
+        if (A_LoopField91 == ".") {
+            seenDot = 1;
+        }
+        if (A_LoopField91 == " ") {
+            if (parenthesesDepth == 0) {
+                if (temp != "") {
+                    HTVM_Append(funcCalls, temp);
+                    temp = "";
+                }
+            } else {
+                temp += A_LoopField91;
+            }
+        }
+        else if (A_LoopField91 == "(" && seenDot == 1) {
+            parenthesesDepth++;
+            temp += A_LoopField91;
+        }
+        else if (A_LoopField91 == ")" && seenDot == 1) {
+            parenthesesDepth--;
+            temp += A_LoopField91;
+        } else {
+            temp += A_LoopField91;
+        }
+    }
+    if (temp != "") {
+        HTVM_Append(funcCalls, temp);
+    }
+    var arrToStrSTR = "";
+    for (let A_Index92 = 0; A_Index92 < HTVM_Size(funcCalls) + 0; A_Index92++) {
+        if (RegExMatch(funcCalls[A_Index92], "\\.[a-zA-Z_][a-zA-Z0-9_]*")) {
+            arrToStrSTR += extraFlexableFuncCallsHelp(funcCalls[A_Index92]) + " ";
+        } else {
+            arrToStrSTR += funcCalls[A_Index92] + " ";
+        }
+    }
+    arrToStrSTR = StringTrimRight(arrToStrSTR, 1);
+    if (doWeAddParentisiesLater != 0) {
+        for (let A_Index93 = 0; A_Index93 < doWeAddParentisiesLater + 0; A_Index93++) {
+            arrToStrSTR = "(" + arrToStrSTR + ")";
+        }
+    }
+    if (doseBracketsExist == 1) {
+        for (let A_Index94 = 0; A_Index94 < HTVM_Size(saveDoseBracketsExist) + 0; A_Index94++) {
+            arrToStrSTR = StrReplace(arrToStrSTR, "brackests--rpelacse-brackets--HTVM-new-BUG--AA" + STR(A_Index94) + "AA", StringTrimLeft(StringTrimRight(saveDoseBracketsExist[A_Index94], 1), 1));
+        }
+    }
+    if (doseFuncAtTheBegggging == 1) {
+        for (let A_Index95 = 0; A_Index95 < HTVM_Size(FuncAtTheBegggging) + 0; A_Index95++) {
+            arrToStrSTR = FuncAtTheBegggging[A_Index95] + arrToStrSTR;
+        }
+        for (let A_Index96 = 0; A_Index96 < doWeAddParentisiesLater2 + 0; A_Index96++) {
+            arrToStrSTR = arrToStrSTR + ")";
+        }
+    }
+    return arrToStrSTR;
+}
 function extraFlexableFuncCalls(line) {
     var out = line;
     out = splitFunctionCalls(line);
@@ -3559,12 +3742,12 @@ function expressionParserTranspiler(expression) {
     //print(osp_osp_this_keyword_htvm_osp_this_htvm_keyword)
     // osp
     if (langToConvertTo != langFileExtension_2) {
-        for (let A_Index84 = 0; A_Index84 < HTVM_Size(ospDic1) + 0; A_Index84++) {
-            str00 = ospDic1[A_Index84];
+        for (let A_Index97 = 0; A_Index97 < HTVM_Size(ospDic1) + 0; A_Index97++) {
+            str00 = ospDic1[A_Index97];
             expression = StrReplace(expression, StrReplace(str00, "_", ".") + ".", str00 + "_");
         }
-        for (let A_Index85 = 0; A_Index85 < HTVM_Size(ospDic2) + 0; A_Index85++) {
-            str00 = ospDic2[A_Index85];
+        for (let A_Index98 = 0; A_Index98 < HTVM_Size(ospDic2) + 0; A_Index98++) {
+            str00 = ospDic2[A_Index98];
             expression = RegExReplace(expression, "\\b" + str00 + "\\b", "OSPHTVMOSP_" + StrReplace(str00, ".", "_"));
         }
     }
@@ -3579,24 +3762,24 @@ function expressionParserTranspiler(expression) {
     if (langToConvertTo != "js" && langToConvertTo != "ts" && langToConvertTo != langFileExtension_2) {
         expression = RegExReplace(expression, "\\b" + keyWordAwait + "\\b", "");
     }
-    for (let A_Index86 = 0; A_Index86 < 29 + 0; A_Index86++) {
-        if (InStr(expression, fullLangAllOperators_HELP[A_Index86])) {
-            if (A_Index86 == 0 || A_Index86 == 1 || A_Index86 == 2) {
-                expression = RegExReplace(expression, "\\b" + fullLangAllOperators_HELP[A_Index86] + "\\b", fullLangAllOperators[A_Index86]);
+    for (let A_Index99 = 0; A_Index99 < 29 + 0; A_Index99++) {
+        if (InStr(expression, fullLangAllOperators_HELP[A_Index99])) {
+            if (A_Index99 == 0 || A_Index99 == 1 || A_Index99 == 2) {
+                expression = RegExReplace(expression, "\\b" + fullLangAllOperators_HELP[A_Index99] + "\\b", fullLangAllOperators[A_Index99]);
             } else {
-                if (A_Index86 == 19) {
+                if (A_Index99 == 19) {
                     if (langToConvertTo == "py" || langToConvertTo == "lua" || langToConvertTo == "nim") {
-                        expression = RegExReplace(expression, "\\b" + fullLangAllOperators_HELP[A_Index86] + "\\b", "not");
+                        expression = RegExReplace(expression, "\\b" + fullLangAllOperators_HELP[A_Index99] + "\\b", "not");
                     } else {
-                        expression = RegExReplace(expression, "\\b" + fullLangAllOperators_HELP[A_Index86] + "\\b", "!");
+                        expression = RegExReplace(expression, "\\b" + fullLangAllOperators_HELP[A_Index99] + "\\b", "!");
                     }
                     if (langToConvertTo == "py" || langToConvertTo == "lua" || langToConvertTo == "nim") {
                         expression = RegExReplace(expression, "!([\\w]+)", "not $1");
                     }
                     expression = StrReplace(expression, " not= ", " != ");
                 } else {
-                    expression = StrReplace(expression, " " + fullLangAllOperators_HELP[A_Index86] + " ", " " + fullLangAllOperators[A_Index86] + " ");
-                    if (A_Index86 == 28) {
+                    expression = StrReplace(expression, " " + fullLangAllOperators_HELP[A_Index99] + " ", " " + fullLangAllOperators[A_Index99] + " ");
+                    if (A_Index99 == 28) {
                         if (langToConvertTo == "py") {
                             // Convert C-like ternary to Python ternary using RegExReplace
                             expression = RegExReplace(expression, "(.*?)\\s*\\?\\s*(.*?)\\s*:\\s*(.*?)", "$2 if $1 else $3");
@@ -3720,15 +3903,15 @@ function expressionParserTranspiler(expression) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 function FixRubyGlobalVars(line) {
     let htCodeFixRubyGlobalVars = [];
-    items87 = LoopParseFunc(line, "\n", "\r")
-    for (let A_Index87 = 0; A_Index87 < items87.length + 0; A_Index87++) {
-        const A_LoopField87 = items87[A_Index87 - 0];
-        if (RegExMatch(A_LoopField87, "^[a-zA-Z_][a-zA-Z0-9_]* = .*")) {
-            HTVM_Append(htCodeFixRubyGlobalVars, Trim(StrSplit(A_LoopField87, " = ", 1)));
+    items100 = LoopParseFunc(line, "\n", "\r")
+    for (let A_Index100 = 0; A_Index100 < items100.length + 0; A_Index100++) {
+        const A_LoopField100 = items100[A_Index100 - 0];
+        if (RegExMatch(A_LoopField100, "^[a-zA-Z_][a-zA-Z0-9_]* = .*")) {
+            HTVM_Append(htCodeFixRubyGlobalVars, Trim(StrSplit(A_LoopField100, " = ", 1)));
         }
     }
-    for (let A_Index88 = 0; A_Index88 < HTVM_Size(htCodeFixRubyGlobalVars) + 0; A_Index88++) {
-        line = RegExReplace(line, "\\b" + htCodeFixRubyGlobalVars[A_Index88] + "\\b", "$" + htCodeFixRubyGlobalVars[A_Index88]);
+    for (let A_Index101 = 0; A_Index101 < HTVM_Size(htCodeFixRubyGlobalVars) + 0; A_Index101++) {
+        line = RegExReplace(line, "\\b" + htCodeFixRubyGlobalVars[A_Index101] + "\\b", "$" + htCodeFixRubyGlobalVars[A_Index101]);
     }
     return line;
 }
@@ -3956,10 +4139,10 @@ function propHELP(line, lineOspHelpLine) {
     }
     var htCodeOUTOUT = "";
     var ALoopField = "";
-    items89 = LoopParseFunc(line, "\n", "\r")
-    for (let A_Index89 = 0; A_Index89 < items89.length + 0; A_Index89++) {
-        const A_LoopField89 = items89[A_Index89 - 0];
-        if (InStr(A_LoopField89, " " + keyWordAssign + " ") || InStr(A_LoopField89, " " + keyWordAssignAdd + " ") || InStr(A_LoopField89, " " + keyWordAssignConcat + " ") || InStr(A_LoopField89, " " + keyWordAssignSub + " ") || InStr(A_LoopField89, " " + keyWordAssignMul + " ") || InStr(A_LoopField89, " " + keyWordAssignDiv + " ") || InStr(A_LoopField89, " " + keyWordAssignMod + " ") || InStr(A_LoopField89, " " + keyWordAssignShiftLeft + " ") || InStr(A_LoopField89, " " + keyWordAssignShiftRight + " ") || InStr(A_LoopField89, " " + keyWordLogicalAssignShiftRight + " ") || InStr(A_LoopField89, " " + keyWordAssignBitAnd + " ") || InStr(A_LoopField89, " " + keyWordAssignBitOr + " ") || InStr(A_LoopField89, " " + keyWordAssignBitXor + " ") && lineDone == 0) {
+    items102 = LoopParseFunc(line, "\n", "\r")
+    for (let A_Index102 = 0; A_Index102 < items102.length + 0; A_Index102++) {
+        const A_LoopField102 = items102[A_Index102 - 0];
+        if (InStr(A_LoopField102, " " + keyWordAssign + " ") || InStr(A_LoopField102, " " + keyWordAssignAdd + " ") || InStr(A_LoopField102, " " + keyWordAssignConcat + " ") || InStr(A_LoopField102, " " + keyWordAssignSub + " ") || InStr(A_LoopField102, " " + keyWordAssignMul + " ") || InStr(A_LoopField102, " " + keyWordAssignDiv + " ") || InStr(A_LoopField102, " " + keyWordAssignMod + " ") || InStr(A_LoopField102, " " + keyWordAssignShiftLeft + " ") || InStr(A_LoopField102, " " + keyWordAssignShiftRight + " ") || InStr(A_LoopField102, " " + keyWordLogicalAssignShiftRight + " ") || InStr(A_LoopField102, " " + keyWordAssignBitAnd + " ") || InStr(A_LoopField102, " " + keyWordAssignBitOr + " ") || InStr(A_LoopField102, " " + keyWordAssignBitXor + " ") && lineDone == 0) {
             allVarsSoWeDontReDecVars_FIX_TOGGLE = 1;
             //keyWordAssign
             //keyWordAssignAdd
@@ -3984,9 +4167,9 @@ function propHELP(line, lineOspHelpLine) {
             //allVarsSoWeDontReDecVars_FIX_uint64
             //allVarsSoWeDontReDecVars_FIX_int64
             //allVarsSoWeDontReDecVars_FIX_float
-            if (InStr(A_LoopField89, " " + keyWordAssign + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordAssign + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordAssign + " ", 2);
+            if (InStr(A_LoopField102, " " + keyWordAssign + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordAssign + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordAssign + " ", 2);
                 str10 = keyWordAssign;
                 str11 = keyWordAssign_2;
                 if (langToConvertTo == "ahk") {
@@ -3995,16 +4178,16 @@ function propHELP(line, lineOspHelpLine) {
                     str12 = "=";
                 }
             }
-            else if (InStr(A_LoopField89, " " + keyWordAssignAdd + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordAssignAdd + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordAssignAdd + " ", 2);
+            else if (InStr(A_LoopField102, " " + keyWordAssignAdd + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordAssignAdd + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordAssignAdd + " ", 2);
                 str10 = keyWordAssignAdd;
                 str11 = keyWordAssignAdd_2;
                 str12 = "+=";
             }
-            else if (InStr(A_LoopField89, " " + keyWordAssignConcat + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordAssignConcat + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordAssignConcat + " ", 2);
+            else if (InStr(A_LoopField102, " " + keyWordAssignConcat + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordAssignConcat + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordAssignConcat + " ", 2);
                 str10 = keyWordAssignConcat;
                 str11 = keyWordAssignConcat_2;
                 if (langToConvertTo == "ahk") {
@@ -4013,72 +4196,72 @@ function propHELP(line, lineOspHelpLine) {
                     str12 = "+=";
                 }
             }
-            else if (InStr(A_LoopField89, " " + keyWordAssignSub + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordAssignSub + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordAssignSub + " ", 2);
+            else if (InStr(A_LoopField102, " " + keyWordAssignSub + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordAssignSub + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordAssignSub + " ", 2);
                 str10 = keyWordAssignSub;
                 str11 = keyWordAssignSub_2;
                 str12 = "-=";
             }
-            else if (InStr(A_LoopField89, " " + keyWordAssignMul + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordAssignMul + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordAssignMul + " ", 2);
+            else if (InStr(A_LoopField102, " " + keyWordAssignMul + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordAssignMul + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordAssignMul + " ", 2);
                 str10 = keyWordAssignMul;
                 str11 = keyWordAssignMul_2;
                 str12 = "*=";
             }
-            else if (InStr(A_LoopField89, " " + keyWordAssignDiv + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordAssignDiv + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordAssignDiv + " ", 2);
+            else if (InStr(A_LoopField102, " " + keyWordAssignDiv + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordAssignDiv + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordAssignDiv + " ", 2);
                 str10 = keyWordAssignDiv;
                 str11 = keyWordAssignDiv_2;
                 str12 = "/=";
             }
-            else if (InStr(A_LoopField89, " " + keyWordAssignMod + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordAssignMod + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordAssignMod + " ", 2);
+            else if (InStr(A_LoopField102, " " + keyWordAssignMod + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordAssignMod + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordAssignMod + " ", 2);
                 str10 = keyWordAssignMod;
                 str11 = keyWordAssignMod_2;
                 str12 = "%=";
             }
-            else if (InStr(A_LoopField89, " " + keyWordAssignShiftLeft + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordAssignShiftLeft + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordAssignShiftLeft + " ", 2);
+            else if (InStr(A_LoopField102, " " + keyWordAssignShiftLeft + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordAssignShiftLeft + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordAssignShiftLeft + " ", 2);
                 str10 = keyWordAssignShiftLeft;
                 str11 = keyWordAssignShiftLeft_2;
                 str12 = "<<=";
             }
-            else if (InStr(A_LoopField89, " " + keyWordAssignShiftRight + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordAssignShiftRight + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordAssignShiftRight + " ", 2);
+            else if (InStr(A_LoopField102, " " + keyWordAssignShiftRight + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordAssignShiftRight + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordAssignShiftRight + " ", 2);
                 str10 = keyWordAssignShiftRight;
                 str11 = keyWordAssignShiftRight_2;
                 str12 = ">>=";
             }
-            else if (InStr(A_LoopField89, " " + keyWordLogicalAssignShiftRight + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordLogicalAssignShiftRight + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordLogicalAssignShiftRight + " ", 2);
+            else if (InStr(A_LoopField102, " " + keyWordLogicalAssignShiftRight + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordLogicalAssignShiftRight + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordLogicalAssignShiftRight + " ", 2);
                 str10 = keyWordLogicalAssignShiftRight;
                 str11 = keyWordLogicalAssignShiftRight_2;
                 str12 = ">>>=";
             }
-            else if (InStr(A_LoopField89, " " + keyWordAssignBitAnd + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordAssignBitAnd + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordAssignBitAnd + " ", 2);
+            else if (InStr(A_LoopField102, " " + keyWordAssignBitAnd + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordAssignBitAnd + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordAssignBitAnd + " ", 2);
                 str10 = keyWordAssignBitAnd;
                 str11 = keyWordAssignBitAnd_2;
                 str12 = "&=";
             }
-            else if (InStr(A_LoopField89, " " + keyWordAssignBitOr + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordAssignBitOr + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordAssignBitOr + " ", 2);
+            else if (InStr(A_LoopField102, " " + keyWordAssignBitOr + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordAssignBitOr + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordAssignBitOr + " ", 2);
                 str10 = keyWordAssignBitOr;
                 str11 = keyWordAssignBitOr_2;
                 str12 = "|=";
             }
-            else if (InStr(A_LoopField89, " " + keyWordAssignBitXor + " ")) {
-                str1 = StrSplit(A_LoopField89, " " + keyWordAssignBitXor + " ", 1);
-                str6 = StrSplit(A_LoopField89, " " + keyWordAssignBitXor + " ", 2);
+            else if (InStr(A_LoopField102, " " + keyWordAssignBitXor + " ")) {
+                str1 = StrSplit(A_LoopField102, " " + keyWordAssignBitXor + " ", 1);
+                str6 = StrSplit(A_LoopField102, " " + keyWordAssignBitXor + " ", 2);
                 str10 = keyWordAssignBitXor;
                 str11 = keyWordAssignBitXor_2;
                 str12 = "^=";
@@ -4160,10 +4343,10 @@ function propHELP(line, lineOspHelpLine) {
                 if (usePostfixTypeForTypeDefinition == "off") {
                     lineDone = 1;
                     str1 = Trim(StringTrimLeft(Trim(str1), StrLen(keyWordConst)));
-                    items90 = LoopParseFunc(str1, " ")
-                    for (let A_Index90 = 0; A_Index90 < items90.length + 0; A_Index90++) {
-                        const A_LoopField90 = items90[A_Index90 - 0];
-                        str2 = A_LoopField90;
+                    items103 = LoopParseFunc(str1, " ")
+                    for (let A_Index103 = 0; A_Index103 < items103.length + 0; A_Index103++) {
+                        const A_LoopField103 = items103[A_Index103 - 0];
+                        str2 = A_LoopField103;
                     }
                     str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                     str2 = lineOspHelpLine + Trim(str2);
@@ -4419,10 +4602,10 @@ function propHELP(line, lineOspHelpLine) {
                 lineDone = 1;
                 if (usePostfixTypeForTypeDefinition == "off") {
                     str1 = Trim(StringTrimLeft(Trim(str1), StrLen(keyWordVar)));
-                    items91 = LoopParseFunc(str1, " ")
-                    for (let A_Index91 = 0; A_Index91 < items91.length + 0; A_Index91++) {
-                        const A_LoopField91 = items91[A_Index91 - 0];
-                        str2 = A_LoopField91;
+                    items104 = LoopParseFunc(str1, " ")
+                    for (let A_Index104 = 0; A_Index104 < items104.length + 0; A_Index104++) {
+                        const A_LoopField104 = items104[A_Index104 - 0];
+                        str2 = A_LoopField104;
                     }
                     str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                     str2 = lineOspHelpLine + Trim(str2);
@@ -4682,10 +4865,10 @@ function propHELP(line, lineOspHelpLine) {
                 lineDone = 1;
                 if (usePostfixTypeForTypeDefinition == "off") {
                     str1 = Trim(StringTrimLeft(Trim(str1), StrLen(keyWordLet)));
-                    items92 = LoopParseFunc(str1, " ")
-                    for (let A_Index92 = 0; A_Index92 < items92.length + 0; A_Index92++) {
-                        const A_LoopField92 = items92[A_Index92 - 0];
-                        str2 = A_LoopField92;
+                    items105 = LoopParseFunc(str1, " ")
+                    for (let A_Index105 = 0; A_Index105 < items105.length + 0; A_Index105++) {
+                        const A_LoopField105 = items105[A_Index105 - 0];
+                        str2 = A_LoopField105;
                     }
                     str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                     str2 = lineOspHelpLine + Trim(str2);
@@ -4945,10 +5128,10 @@ function propHELP(line, lineOspHelpLine) {
             }
             else if (SubStr(Trim(ALoopField), 1, StrLen(keyWordDouble + " ")) == keyWordDouble + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordChar + " ")) == keyWordChar + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordUint8 + " ")) == keyWordUint8 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordUint16 + " ")) == keyWordUint16 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordUint32 + " ")) == keyWordUint32 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordUint64 + " ")) == keyWordUint64 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordINT + " ")) == keyWordINT + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordSTR + " ")) == keyWordSTR + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordBOOL + " ")) == keyWordBOOL + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordFLOAT + " ")) == keyWordFLOAT + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordINT8 + " ")) == keyWordINT8 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordINT16 + " ")) == keyWordINT16 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordINT32 + " ")) == keyWordINT32 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordINT64 + " ")) == keyWordINT64 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayDefinition + " ")) == keyWordArrayDefinition + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfIntegersDefinition + " ")) == keyWordArrayOfIntegersDefinition + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfStringsDefinition + " ")) == keyWordArrayOfStringsDefinition + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfFloatingPointNumbersDefinition + " ")) == keyWordArrayOfFloatingPointNumbersDefinition + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfBooleansDefinition + " ")) == keyWordArrayOfBooleansDefinition + " " && usePrefixTypeForTypeDefinition == "on" && lineDone == 0) {
                 lineDone = 1;
-                items93 = LoopParseFunc(str1, " ")
-                for (let A_Index93 = 0; A_Index93 < items93.length + 0; A_Index93++) {
-                    const A_LoopField93 = items93[A_Index93 - 0];
-                    str2 = A_LoopField93;
+                items106 = LoopParseFunc(str1, " ")
+                for (let A_Index106 = 0; A_Index106 < items106.length + 0; A_Index106++) {
+                    const A_LoopField106 = items106[A_Index106 - 0];
+                    str2 = A_LoopField106;
                 }
                 str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                 str2 = lineOspHelpLine + Trim(str2);
@@ -5484,18 +5667,18 @@ function propHELP(line, lineOspHelpLine) {
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; vars
             allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
         }
-        else if (SubStr(Trim(A_LoopField89), 1, StrLen(keyWordVar)) == keyWordVar && lineDone == 0) {
+        else if (SubStr(Trim(A_LoopField102), 1, StrLen(keyWordVar)) == keyWordVar && lineDone == 0) {
             allVarsSoWeDontReDecVars_FIX_TOGGLE = 1;
             if (usePostfixTypeForTypeDefinition == "off") {
                 lineDone = 1;
-                str1 = Trim(StringTrimLeft(Trim(A_LoopField89), StrLen(keyWordVar)));
+                str1 = Trim(StringTrimLeft(Trim(A_LoopField102), StrLen(keyWordVar)));
                 if (SubStrLastChars(str1, 1) == ";") {
                     str1 = StringTrimRight(str1, 1);
                 }
-                items94 = LoopParseFunc(str1, " ")
-                for (let A_Index94 = 0; A_Index94 < items94.length + 0; A_Index94++) {
-                    const A_LoopField94 = items94[A_Index94 - 0];
-                    str2 = A_LoopField94;
+                items107 = LoopParseFunc(str1, " ")
+                for (let A_Index107 = 0; A_Index107 < items107.length + 0; A_Index107++) {
+                    const A_LoopField107 = items107[A_Index107 - 0];
+                    str2 = A_LoopField107;
                 }
                 str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                 str2 = lineOspHelpLine + Trim(str2);
@@ -5504,7 +5687,7 @@ function propHELP(line, lineOspHelpLine) {
                 HTVM_Append(allVarsSoWeDontReDecVars, str2);
             } else {
                 lineDone = 1;
-                str1 = Trim(StringTrimLeft(Trim(A_LoopField89), StrLen(keyWordVar)));
+                str1 = Trim(StringTrimLeft(Trim(A_LoopField102), StrLen(keyWordVar)));
                 if (SubStrLastChars(str1, 1) == ";") {
                     str1 = StringTrimRight(str1, 1);
                 }
@@ -5864,18 +6047,18 @@ function propHELP(line, lineOspHelpLine) {
             htCodeOUTOUT += str4 + Chr(10);
             allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
         }
-        else if (SubStr(Trim(A_LoopField89), 1, StrLen(keyWordLet)) == keyWordLet && lineDone == 0) {
+        else if (SubStr(Trim(A_LoopField102), 1, StrLen(keyWordLet)) == keyWordLet && lineDone == 0) {
             allVarsSoWeDontReDecVars_FIX_TOGGLE = 1;
             if (usePostfixTypeForTypeDefinition == "off") {
                 lineDone = 1;
-                str1 = Trim(StringTrimLeft(Trim(A_LoopField89), StrLen(keyWordLet)));
+                str1 = Trim(StringTrimLeft(Trim(A_LoopField102), StrLen(keyWordLet)));
                 if (SubStrLastChars(str1, 1) == ";") {
                     str1 = StringTrimRight(str1, 1);
                 }
-                items95 = LoopParseFunc(str1, " ")
-                for (let A_Index95 = 0; A_Index95 < items95.length + 0; A_Index95++) {
-                    const A_LoopField95 = items95[A_Index95 - 0];
-                    str2 = A_LoopField95;
+                items108 = LoopParseFunc(str1, " ")
+                for (let A_Index108 = 0; A_Index108 < items108.length + 0; A_Index108++) {
+                    const A_LoopField108 = items108[A_Index108 - 0];
+                    str2 = A_LoopField108;
                 }
                 str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                 str2 = lineOspHelpLine + Trim(str2);
@@ -5884,7 +6067,7 @@ function propHELP(line, lineOspHelpLine) {
                 HTVM_Append(allVarsSoWeDontReDecVars, str2);
             } else {
                 lineDone = 1;
-                str1 = Trim(StringTrimLeft(Trim(A_LoopField89), StrLen(keyWordLet)));
+                str1 = Trim(StringTrimLeft(Trim(A_LoopField102), StrLen(keyWordLet)));
                 if (SubStrLastChars(str1, 1) == ";") {
                     str1 = StringTrimRight(str1, 1);
                 }
@@ -6245,17 +6428,17 @@ function propHELP(line, lineOspHelpLine) {
             htCodeOUTOUT += str4 + Chr(10);
             allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
         }
-        else if (SubStr(Trim(A_LoopField89), 1, StrLen(keyWordDouble + " ")) == keyWordDouble + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordChar + " ")) == keyWordChar + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordUint8 + " ")) == keyWordUint8 + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordUint16 + " ")) == keyWordUint16 + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordUint32 + " ")) == keyWordUint32 + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordUint64 + " ")) == keyWordUint64 + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordINT + " ")) == keyWordINT + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordSTR + " ")) == keyWordSTR + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordBOOL + " ")) == keyWordBOOL + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordFLOAT + " ")) == keyWordFLOAT + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordINT8 + " ")) == keyWordINT8 + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordINT16 + " ")) == keyWordINT16 + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordINT32 + " ")) == keyWordINT32 + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordINT64 + " ")) == keyWordINT64 + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordArrayDefinition + " ")) == keyWordArrayDefinition + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordArrayOfIntegersDefinition + " ")) == keyWordArrayOfIntegersDefinition + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordArrayOfStringsDefinition + " ")) == keyWordArrayOfStringsDefinition + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordArrayOfFloatingPointNumbersDefinition + " ")) == keyWordArrayOfFloatingPointNumbersDefinition + " " || SubStr(Trim(A_LoopField89), 1, StrLen(keyWordArrayOfBooleansDefinition + " ")) == keyWordArrayOfBooleansDefinition + " " && usePrefixTypeForTypeDefinition == "on" && lineDone == 0) {
+        else if (SubStr(Trim(A_LoopField102), 1, StrLen(keyWordDouble + " ")) == keyWordDouble + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordChar + " ")) == keyWordChar + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordUint8 + " ")) == keyWordUint8 + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordUint16 + " ")) == keyWordUint16 + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordUint32 + " ")) == keyWordUint32 + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordUint64 + " ")) == keyWordUint64 + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordINT + " ")) == keyWordINT + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordSTR + " ")) == keyWordSTR + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordBOOL + " ")) == keyWordBOOL + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordFLOAT + " ")) == keyWordFLOAT + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordINT8 + " ")) == keyWordINT8 + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordINT16 + " ")) == keyWordINT16 + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordINT32 + " ")) == keyWordINT32 + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordINT64 + " ")) == keyWordINT64 + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordArrayDefinition + " ")) == keyWordArrayDefinition + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordArrayOfIntegersDefinition + " ")) == keyWordArrayOfIntegersDefinition + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordArrayOfStringsDefinition + " ")) == keyWordArrayOfStringsDefinition + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordArrayOfFloatingPointNumbersDefinition + " ")) == keyWordArrayOfFloatingPointNumbersDefinition + " " || SubStr(Trim(A_LoopField102), 1, StrLen(keyWordArrayOfBooleansDefinition + " ")) == keyWordArrayOfBooleansDefinition + " " && usePrefixTypeForTypeDefinition == "on" && lineDone == 0) {
             lineDone = 1;
             allVarsSoWeDontReDecVars_FIX_TOGGLE = 1;
-            str1 = Trim(A_LoopField89);
+            str1 = Trim(A_LoopField102);
             if (SubStrLastChars(str1, 1) == ";") {
                 str1 = StringTrimRight(str1, 1);
             }
-            items96 = LoopParseFunc(str1, " ")
-            for (let A_Index96 = 0; A_Index96 < items96.length + 0; A_Index96++) {
-                const A_LoopField96 = items96[A_Index96 - 0];
-                str2 = A_LoopField96;
+            items109 = LoopParseFunc(str1, " ")
+            for (let A_Index109 = 0; A_Index109 < items109.length + 0; A_Index109++) {
+                const A_LoopField109 = items109[A_Index109 - 0];
+                str2 = A_LoopField109;
             }
             str3 = Trim(StringTrimRight(str1, StrLen(str2)));
             str2 = lineOspHelpLine + Trim(str2);
@@ -6621,10 +6804,10 @@ function propHELP(line, lineOspHelpLine) {
             htCodeOUTOUT += str4 + Chr(10);
             allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
         }
-        else if (RegExMatch(Trim(A_LoopField89), "^[a-zA-Z_][a-zA-Z0-9_]*: [^:]*;?$") && usePostfixTypeForTypeDefinition == "on" && lineDone == 0) {
+        else if (RegExMatch(Trim(A_LoopField102), "^[a-zA-Z_][a-zA-Z0-9_]*: [^:]*;?$") && usePostfixTypeForTypeDefinition == "on" && lineDone == 0) {
             lineDone = 1;
             allVarsSoWeDontReDecVars_FIX_TOGGLE = 1;
-            str1 = Trim(A_LoopField89);
+            str1 = Trim(A_LoopField102);
             if (SubStrLastChars(str1, 1) == ";") {
                 str1 = StringTrimRight(str1, 1);
             }
@@ -7000,7 +7183,7 @@ function propHELP(line, lineOspHelpLine) {
             htCodeOUTOUT += str4 + Chr(10);
             allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
         } else {
-            htCodeOUTOUT += A_LoopField89 + Chr(10);
+            htCodeOUTOUT += A_LoopField102 + Chr(10);
         }
     }
     htCodeOUTOUT = StringTrimRight(htCodeOUTOUT, 1);
@@ -7018,12 +7201,12 @@ function propHELP(line, lineOspHelpLine) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 function slidingWinFixCommentsRmFUNC(line) {
     let slidingWinFixCommentsRmFFFF = [];
-    items97 = LoopParseFunc(line)
-    for (let A_Index97 = 0; A_Index97 < items97.length + 0; A_Index97++) {
-        const A_LoopField97 = items97[A_Index97 - 0];
-        HTVM_Append(slidingWinFixCommentsRmFFFF, A_LoopField97);
+    items110 = LoopParseFunc(line)
+    for (let A_Index110 = 0; A_Index110 < items110.length + 0; A_Index110++) {
+        const A_LoopField110 = items110[A_Index110 - 0];
+        HTVM_Append(slidingWinFixCommentsRmFFFF, A_LoopField110);
     }
-    for (let A_Index98 = 0; A_Index98 < StrLen(keyWordComment + keyWordComment) + 2 + 0; A_Index98++) {
+    for (let A_Index111 = 0; A_Index111 < StrLen(keyWordComment + keyWordComment) + 2 + 0; A_Index111++) {
         HTVM_Append(slidingWinFixCommentsRmFFFF, " ");
     }
     return slidingWinFixCommentsRmFFFF;
@@ -7044,494 +7227,494 @@ function slidingWinFixCommentsRmFUNC(line) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     var instructions = allInstructionFile;
-    items99 = LoopParseFunc(allInstructionFile, "\n", "\r")
-    for (let A_Index99 = 0; A_Index99 < items99.length + 0; A_Index99++) {
-        const A_LoopField99 = items99[A_Index99 - 0];
-        if (A_Index99 == 0) {
-            langToConvertTo = Trim(A_LoopField99);
+    items112 = LoopParseFunc(allInstructionFile, "\n", "\r")
+    for (let A_Index112 = 0; A_Index112 < items112.length + 0; A_Index112++) {
+        const A_LoopField112 = items112[A_Index112 - 0];
+        if (A_Index112 == 0) {
+            langToConvertTo = Trim(A_LoopField112);
         }
-        if (A_Index99 == 1) {
-            langFileExtension = Trim(A_LoopField99);
+        if (A_Index112 == 1) {
+            langFileExtension = Trim(A_LoopField112);
         }
-        if (A_Index99 == 2) {
-            commands = Trim(A_LoopField99);
+        if (A_Index112 == 2) {
+            commands = Trim(A_LoopField112);
         }
-        if (A_Index99 == 3) {
-            keyWordAlliance = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 3) {
+            keyWordAlliance = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 4) {
-            keyWordCrew = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 4) {
+            keyWordCrew = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 5) {
-            keyWordMethod = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 5) {
+            keyWordMethod = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 6) {
-            keyWordDefObj = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 6) {
+            keyWordDefObj = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 7) {
-            keyWordProp = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 7) {
+            keyWordProp = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 8) {
-            keyWordThis = Trim(A_LoopField99);
+        if (A_Index112 == 8) {
+            keyWordThis = Trim(A_LoopField112);
         }
-        if (A_Index99 == 9) {
-            keyWordInclude = Trim(A_LoopField99);
+        if (A_Index112 == 9) {
+            keyWordInclude = Trim(A_LoopField112);
         }
-        if (A_Index99 == 10) {
-            keyWordCodeInTheTranspiledLangStart = Trim(A_LoopField99);
+        if (A_Index112 == 10) {
+            keyWordCodeInTheTranspiledLangStart = Trim(A_LoopField112);
         }
-        if (A_Index99 == 11) {
-            keyWordCodeInTheTranspiledLangEnd = Trim(A_LoopField99);
+        if (A_Index112 == 11) {
+            keyWordCodeInTheTranspiledLangEnd = Trim(A_LoopField112);
         }
-        if (A_Index99 == 12) {
-            keyWordCodeInTheTranspiledLangStartCPP = Trim(A_LoopField99);
+        if (A_Index112 == 12) {
+            keyWordCodeInTheTranspiledLangStartCPP = Trim(A_LoopField112);
         }
-        if (A_Index99 == 13) {
-            keyWordCodeInTheTranspiledLangEndCPP = Trim(A_LoopField99);
+        if (A_Index112 == 13) {
+            keyWordCodeInTheTranspiledLangEndCPP = Trim(A_LoopField112);
         }
-        if (A_Index99 == 14) {
-            keyWordCodeInTheTranspiledLangStartPY = Trim(A_LoopField99);
+        if (A_Index112 == 14) {
+            keyWordCodeInTheTranspiledLangStartPY = Trim(A_LoopField112);
         }
-        if (A_Index99 == 15) {
-            keyWordCodeInTheTranspiledLangEndPY = Trim(A_LoopField99);
+        if (A_Index112 == 15) {
+            keyWordCodeInTheTranspiledLangEndPY = Trim(A_LoopField112);
         }
-        if (A_Index99 == 16) {
-            keyWordCodeInTheTranspiledLangStartJS = Trim(A_LoopField99);
+        if (A_Index112 == 16) {
+            keyWordCodeInTheTranspiledLangStartJS = Trim(A_LoopField112);
         }
-        if (A_Index99 == 17) {
-            keyWordCodeInTheTranspiledLangEndJS = Trim(A_LoopField99);
+        if (A_Index112 == 17) {
+            keyWordCodeInTheTranspiledLangEndJS = Trim(A_LoopField112);
         }
-        if (A_Index99 == 18) {
-            keyWordCodeInTheTranspiledLangStartGO = Trim(A_LoopField99);
+        if (A_Index112 == 18) {
+            keyWordCodeInTheTranspiledLangStartGO = Trim(A_LoopField112);
         }
-        if (A_Index99 == 19) {
-            keyWordCodeInTheTranspiledLangEndGO = Trim(A_LoopField99);
+        if (A_Index112 == 19) {
+            keyWordCodeInTheTranspiledLangEndGO = Trim(A_LoopField112);
         }
-        if (A_Index99 == 20) {
-            keyWordCodeInTheTranspiledLangStartLUA = Trim(A_LoopField99);
+        if (A_Index112 == 20) {
+            keyWordCodeInTheTranspiledLangStartLUA = Trim(A_LoopField112);
         }
-        if (A_Index99 == 21) {
-            keyWordCodeInTheTranspiledLangEndLUA = Trim(A_LoopField99);
+        if (A_Index112 == 21) {
+            keyWordCodeInTheTranspiledLangEndLUA = Trim(A_LoopField112);
         }
-        if (A_Index99 == 22) {
-            keyWordCodeInTheTranspiledLangStartCS = Trim(A_LoopField99);
+        if (A_Index112 == 22) {
+            keyWordCodeInTheTranspiledLangStartCS = Trim(A_LoopField112);
         }
-        if (A_Index99 == 23) {
-            keyWordCodeInTheTranspiledLangEndCS = Trim(A_LoopField99);
+        if (A_Index112 == 23) {
+            keyWordCodeInTheTranspiledLangEndCS = Trim(A_LoopField112);
         }
-        if (A_Index99 == 24) {
-            keyWordCodeInTheTranspiledLangStartJAVA = Trim(A_LoopField99);
+        if (A_Index112 == 24) {
+            keyWordCodeInTheTranspiledLangStartJAVA = Trim(A_LoopField112);
         }
-        if (A_Index99 == 25) {
-            keyWordCodeInTheTranspiledLangEndJAVA = Trim(A_LoopField99);
+        if (A_Index112 == 25) {
+            keyWordCodeInTheTranspiledLangEndJAVA = Trim(A_LoopField112);
         }
-        if (A_Index99 == 26) {
-            keyWordCodeInTheTranspiledLangStartKT = Trim(A_LoopField99);
+        if (A_Index112 == 26) {
+            keyWordCodeInTheTranspiledLangStartKT = Trim(A_LoopField112);
         }
-        if (A_Index99 == 27) {
-            keyWordCodeInTheTranspiledLangEndKT = Trim(A_LoopField99);
+        if (A_Index112 == 27) {
+            keyWordCodeInTheTranspiledLangEndKT = Trim(A_LoopField112);
         }
-        if (A_Index99 == 28) {
-            keyWordCodeInTheTranspiledLangStartRB = Trim(A_LoopField99);
+        if (A_Index112 == 28) {
+            keyWordCodeInTheTranspiledLangStartRB = Trim(A_LoopField112);
         }
-        if (A_Index99 == 29) {
-            keyWordCodeInTheTranspiledLangEndRB = Trim(A_LoopField99);
+        if (A_Index112 == 29) {
+            keyWordCodeInTheTranspiledLangEndRB = Trim(A_LoopField112);
         }
-        if (A_Index99 == 30) {
-            keyWordCodeInTheTranspiledLangStartNIM = Trim(A_LoopField99);
+        if (A_Index112 == 30) {
+            keyWordCodeInTheTranspiledLangStartNIM = Trim(A_LoopField112);
         }
-        if (A_Index99 == 31) {
-            keyWordCodeInTheTranspiledLangEndNIM = Trim(A_LoopField99);
+        if (A_Index112 == 31) {
+            keyWordCodeInTheTranspiledLangEndNIM = Trim(A_LoopField112);
         }
-        if (A_Index99 == 32) {
-            keyWordCodeInTheTranspiledLangStartAHK = Trim(A_LoopField99);
+        if (A_Index112 == 32) {
+            keyWordCodeInTheTranspiledLangStartAHK = Trim(A_LoopField112);
         }
-        if (A_Index99 == 33) {
-            keyWordCodeInTheTranspiledLangEndAHK = Trim(A_LoopField99);
+        if (A_Index112 == 33) {
+            keyWordCodeInTheTranspiledLangEndAHK = Trim(A_LoopField112);
         }
-        if (A_Index99 == 34) {
-            keyWordCodeInTheTranspiledLangStartSWIFT = Trim(A_LoopField99);
+        if (A_Index112 == 34) {
+            keyWordCodeInTheTranspiledLangStartSWIFT = Trim(A_LoopField112);
         }
-        if (A_Index99 == 35) {
-            keyWordCodeInTheTranspiledLangEndSWIFT = Trim(A_LoopField99);
+        if (A_Index112 == 35) {
+            keyWordCodeInTheTranspiledLangEndSWIFT = Trim(A_LoopField112);
         }
-        if (A_Index99 == 36) {
-            keyWordCodeInTheTranspiledLangStartDART = Trim(A_LoopField99);
+        if (A_Index112 == 36) {
+            keyWordCodeInTheTranspiledLangStartDART = Trim(A_LoopField112);
         }
-        if (A_Index99 == 37) {
-            keyWordCodeInTheTranspiledLangEndDART = Trim(A_LoopField99);
+        if (A_Index112 == 37) {
+            keyWordCodeInTheTranspiledLangEndDART = Trim(A_LoopField112);
         }
-        if (A_Index99 == 38) {
-            keyWordCodeInTheTranspiledLangStartTS = Trim(A_LoopField99);
+        if (A_Index112 == 38) {
+            keyWordCodeInTheTranspiledLangStartTS = Trim(A_LoopField112);
         }
-        if (A_Index99 == 39) {
-            keyWordCodeInTheTranspiledLangEndTS = Trim(A_LoopField99);
+        if (A_Index112 == 39) {
+            keyWordCodeInTheTranspiledLangEndTS = Trim(A_LoopField112);
         }
-        if (A_Index99 == 40) {
-            keyWordCodeInTheTranspiledLangStartGROOVY = Trim(A_LoopField99);
+        if (A_Index112 == 40) {
+            keyWordCodeInTheTranspiledLangStartGROOVY = Trim(A_LoopField112);
         }
-        if (A_Index99 == 41) {
-            keyWordCodeInTheTranspiledLangEndGROOVY = Trim(A_LoopField99);
+        if (A_Index112 == 41) {
+            keyWordCodeInTheTranspiledLangEndGROOVY = Trim(A_LoopField112);
         }
-        if (A_Index99 == 42) {
-            keyWordCodeInTheTranspiledLangStartHTVM = Trim(A_LoopField99);
+        if (A_Index112 == 42) {
+            keyWordCodeInTheTranspiledLangStartHTVM = Trim(A_LoopField112);
         }
-        if (A_Index99 == 43) {
-            keyWordCodeInTheTranspiledLangEndHTVM = Trim(A_LoopField99);
+        if (A_Index112 == 43) {
+            keyWordCodeInTheTranspiledLangEndHTVM = Trim(A_LoopField112);
         }
-        if (A_Index99 == 44) {
-            keyWordCodeInHTVMstart = Trim(A_LoopField99);
+        if (A_Index112 == 44) {
+            keyWordCodeInHTVMstart = Trim(A_LoopField112);
         }
-        if (A_Index99 == 45) {
-            keyWordCodeInHTVMend = Trim(A_LoopField99);
+        if (A_Index112 == 45) {
+            keyWordCodeInHTVMend = Trim(A_LoopField112);
         }
-        if (A_Index99 == 46) {
-            keyWordCurlyBraceOpen = Trim(A_LoopField99);
+        if (A_Index112 == 46) {
+            keyWordCurlyBraceOpen = Trim(A_LoopField112);
         }
-        if (A_Index99 == 47) {
-            keyWordCurlyBraceClose = Trim(A_LoopField99);
+        if (A_Index112 == 47) {
+            keyWordCurlyBraceClose = Trim(A_LoopField112);
         }
-        if (A_Index99 == 48) {
-            keyWordNull = Trim(A_LoopField99);
+        if (A_Index112 == 48) {
+            keyWordNull = Trim(A_LoopField112);
         }
-        if (A_Index99 == 49) {
-            keyWordTrue = Trim(A_LoopField99);
+        if (A_Index112 == 49) {
+            keyWordTrue = Trim(A_LoopField112);
         }
-        if (A_Index99 == 50) {
-            keyWordFalse = Trim(A_LoopField99);
+        if (A_Index112 == 50) {
+            keyWordFalse = Trim(A_LoopField112);
         }
-        if (A_Index99 == 51) {
-            keyWordVoid = Trim(A_LoopField99);
+        if (A_Index112 == 51) {
+            keyWordVoid = Trim(A_LoopField112);
         }
-        if (A_Index99 == 52) {
-            keyWordDouble = Trim(A_LoopField99);
+        if (A_Index112 == 52) {
+            keyWordDouble = Trim(A_LoopField112);
         }
-        if (A_Index99 == 53) {
-            keyWordChar = Trim(A_LoopField99);
+        if (A_Index112 == 53) {
+            keyWordChar = Trim(A_LoopField112);
         }
-        if (A_Index99 == 54) {
-            keyWordUint8 = Trim(A_LoopField99);
+        if (A_Index112 == 54) {
+            keyWordUint8 = Trim(A_LoopField112);
         }
-        if (A_Index99 == 55) {
-            keyWordUint16 = Trim(A_LoopField99);
+        if (A_Index112 == 55) {
+            keyWordUint16 = Trim(A_LoopField112);
         }
-        if (A_Index99 == 56) {
-            keyWordUint32 = Trim(A_LoopField99);
+        if (A_Index112 == 56) {
+            keyWordUint32 = Trim(A_LoopField112);
         }
-        if (A_Index99 == 57) {
-            keyWordUint64 = Trim(A_LoopField99);
+        if (A_Index112 == 57) {
+            keyWordUint64 = Trim(A_LoopField112);
         }
-        if (A_Index99 == 58) {
-            keyWordINT = Trim(A_LoopField99);
+        if (A_Index112 == 58) {
+            keyWordINT = Trim(A_LoopField112);
         }
-        if (A_Index99 == 59) {
-            keyWordSTR = Trim(A_LoopField99);
+        if (A_Index112 == 59) {
+            keyWordSTR = Trim(A_LoopField112);
         }
-        if (A_Index99 == 60) {
-            keyWordBOOL = Trim(A_LoopField99);
+        if (A_Index112 == 60) {
+            keyWordBOOL = Trim(A_LoopField112);
         }
-        if (A_Index99 == 61) {
-            keyWordFLOAT = Trim(A_LoopField99);
+        if (A_Index112 == 61) {
+            keyWordFLOAT = Trim(A_LoopField112);
         }
-        if (A_Index99 == 62) {
-            keyWordINT8 = Trim(A_LoopField99);
+        if (A_Index112 == 62) {
+            keyWordINT8 = Trim(A_LoopField112);
         }
-        if (A_Index99 == 63) {
-            keyWordINT16 = Trim(A_LoopField99);
+        if (A_Index112 == 63) {
+            keyWordINT16 = Trim(A_LoopField112);
         }
-        if (A_Index99 == 64) {
-            keyWordINT32 = Trim(A_LoopField99);
+        if (A_Index112 == 64) {
+            keyWordINT32 = Trim(A_LoopField112);
         }
-        if (A_Index99 == 65) {
-            keyWordINT64 = Trim(A_LoopField99);
+        if (A_Index112 == 65) {
+            keyWordINT64 = Trim(A_LoopField112);
         }
-        if (A_Index99 == 66) {
-            keyWordIF = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 66) {
+            keyWordIF = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 67) {
-            keyWordElseIf = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 67) {
+            keyWordElseIf = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 68) {
-            keyWordElse = Trim(A_LoopField99);
+        if (A_Index112 == 68) {
+            keyWordElse = Trim(A_LoopField112);
         }
-        if (A_Index99 == 69) {
-            keyWordWhileLoop = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 69) {
+            keyWordWhileLoop = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 70) {
-            keyWordLoopInfinite = Trim(A_LoopField99);
+        if (A_Index112 == 70) {
+            keyWordLoopInfinite = Trim(A_LoopField112);
         }
-        if (A_Index99 == 71) {
-            keyWordLoop = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 71) {
+            keyWordLoop = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 72) {
-            keyWordLoopParse = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 72) {
+            keyWordLoopParse = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 73) {
-            keyWordContinue = Trim(A_LoopField99);
+        if (A_Index112 == 73) {
+            keyWordContinue = Trim(A_LoopField112);
         }
-        if (A_Index99 == 74) {
-            keyWordBreak = Trim(A_LoopField99);
+        if (A_Index112 == 74) {
+            keyWordBreak = Trim(A_LoopField112);
         }
-        if (A_Index99 == 75) {
-            keyWordFunc = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 75) {
+            keyWordFunc = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 76) {
-            keyWordAwait = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 76) {
+            keyWordAwait = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 77) {
-            keyWordAsync = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 77) {
+            keyWordAsync = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 78) {
-            keyWordThrow = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 78) {
+            keyWordThrow = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 79) {
-            keyWordErrorMsg = Trim(A_LoopField99);
+        if (A_Index112 == 79) {
+            keyWordErrorMsg = Trim(A_LoopField112);
         }
-        if (A_Index99 == 80) {
-            keyWordTry = Trim(A_LoopField99);
+        if (A_Index112 == 80) {
+            keyWordTry = Trim(A_LoopField112);
         }
-        if (A_Index99 == 81) {
-            keyWordCatch = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 81) {
+            keyWordCatch = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 82) {
-            keyWordFinally = Trim(A_LoopField99);
+        if (A_Index112 == 82) {
+            keyWordFinally = Trim(A_LoopField112);
         }
-        if (A_Index99 == 83) {
-            keyWordReturnStatement = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 83) {
+            keyWordReturnStatement = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 84) {
-            keyWordArrayAppend = Trim(A_LoopField99);
+        if (A_Index112 == 84) {
+            keyWordArrayAppend = Trim(A_LoopField112);
         }
-        if (A_Index99 == 85) {
-            keyWordArrayPop = Trim(A_LoopField99);
+        if (A_Index112 == 85) {
+            keyWordArrayPop = Trim(A_LoopField112);
         }
-        if (A_Index99 == 86) {
-            keyWordArraySize = Trim(A_LoopField99);
+        if (A_Index112 == 86) {
+            keyWordArraySize = Trim(A_LoopField112);
         }
-        if (A_Index99 == 87) {
-            keyWordArrayInsert = Trim(A_LoopField99);
+        if (A_Index112 == 87) {
+            keyWordArrayInsert = Trim(A_LoopField112);
         }
-        if (A_Index99 == 88) {
-            keyWordArrayRemove = Trim(A_LoopField99);
+        if (A_Index112 == 88) {
+            keyWordArrayRemove = Trim(A_LoopField112);
         }
-        if (A_Index99 == 89) {
-            keyWordArrayIndexOf = Trim(A_LoopField99);
+        if (A_Index112 == 89) {
+            keyWordArrayIndexOf = Trim(A_LoopField112);
         }
-        if (A_Index99 == 90) {
-            keyWordArrayDefinition = Trim(A_LoopField99);
+        if (A_Index112 == 90) {
+            keyWordArrayDefinition = Trim(A_LoopField112);
         }
-        if (A_Index99 == 91) {
-            keyWordArrayOfIntegersDefinition = Trim(A_LoopField99);
+        if (A_Index112 == 91) {
+            keyWordArrayOfIntegersDefinition = Trim(A_LoopField112);
         }
-        if (A_Index99 == 92) {
-            keyWordArrayOfStringsDefinition = Trim(A_LoopField99);
+        if (A_Index112 == 92) {
+            keyWordArrayOfStringsDefinition = Trim(A_LoopField112);
         }
-        if (A_Index99 == 93) {
-            keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField99);
+        if (A_Index112 == 93) {
+            keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField112);
         }
-        if (A_Index99 == 94) {
-            keyWordArrayOfBooleansDefinition = Trim(A_LoopField99);
+        if (A_Index112 == 94) {
+            keyWordArrayOfBooleansDefinition = Trim(A_LoopField112);
         }
-        if (A_Index99 == 95) {
-            keyWordVar = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 95) {
+            keyWordVar = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 96) {
-            keyWordLet = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 96) {
+            keyWordLet = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 97) {
-            keyWordConst = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 97) {
+            keyWordConst = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 98) {
-            keyWordEnd = Trim(A_LoopField99);
+        if (A_Index112 == 98) {
+            keyWordEnd = Trim(A_LoopField112);
         }
-        if (A_Index99 == 99) {
-            keyWordGlobal = Trim(A_LoopField99) + " ";
+        if (A_Index112 == 99) {
+            keyWordGlobal = Trim(A_LoopField112) + " ";
         }
-        if (A_Index99 == 100) {
-            keyWordComment = Trim(A_LoopField99);
+        if (A_Index112 == 100) {
+            keyWordComment = Trim(A_LoopField112);
         }
-        if (A_Index99 == 101) {
-            keyWordCommentOpenMultiLine = Trim(A_LoopField99);
+        if (A_Index112 == 101) {
+            keyWordCommentOpenMultiLine = Trim(A_LoopField112);
         }
-        if (A_Index99 == 102) {
-            keyWordCommentCloseMultiLine = Trim(A_LoopField99);
+        if (A_Index112 == 102) {
+            keyWordCommentCloseMultiLine = Trim(A_LoopField112);
         }
-        if (A_Index99 == 103) {
-            keyWordEscpaeChar = Trim(A_LoopField99);
+        if (A_Index112 == 103) {
+            keyWordEscpaeChar = Trim(A_LoopField112);
         }
-        if (A_Index99 == 104) {
-            keyWordMainLabel = Trim(A_LoopField99);
+        if (A_Index112 == 104) {
+            keyWordMainLabel = Trim(A_LoopField112);
         }
-        if (A_Index99 == 105) {
-            keyWordConcat = Trim(A_LoopField99);
+        if (A_Index112 == 105) {
+            keyWordConcat = Trim(A_LoopField112);
         }
-        if (A_Index99 == 106) {
-            keyWordAdd = Trim(A_LoopField99);
+        if (A_Index112 == 106) {
+            keyWordAdd = Trim(A_LoopField112);
         }
-        if (A_Index99 == 107) {
-            keyWordSub = Trim(A_LoopField99);
+        if (A_Index112 == 107) {
+            keyWordSub = Trim(A_LoopField112);
         }
-        if (A_Index99 == 108) {
-            keyWordMul = Trim(A_LoopField99);
+        if (A_Index112 == 108) {
+            keyWordMul = Trim(A_LoopField112);
         }
-        if (A_Index99 == 109) {
-            keyWordDiv = Trim(A_LoopField99);
+        if (A_Index112 == 109) {
+            keyWordDiv = Trim(A_LoopField112);
         }
-        if (A_Index99 == 110) {
-            keyWordMod = Trim(A_LoopField99);
+        if (A_Index112 == 110) {
+            keyWordMod = Trim(A_LoopField112);
         }
-        if (A_Index99 == 111) {
-            keyWordExp = Trim(A_LoopField99);
+        if (A_Index112 == 111) {
+            keyWordExp = Trim(A_LoopField112);
         }
-        if (A_Index99 == 112) {
-            keyWordEqual = Trim(A_LoopField99);
+        if (A_Index112 == 112) {
+            keyWordEqual = Trim(A_LoopField112);
         }
-        if (A_Index99 == 113) {
-            keyWordStrictEqual = Trim(A_LoopField99);
+        if (A_Index112 == 113) {
+            keyWordStrictEqual = Trim(A_LoopField112);
         }
-        if (A_Index99 == 114) {
-            keyWordNotEqual = Trim(A_LoopField99);
+        if (A_Index112 == 114) {
+            keyWordNotEqual = Trim(A_LoopField112);
         }
-        if (A_Index99 == 115) {
-            keyWordGreater = Trim(A_LoopField99);
+        if (A_Index112 == 115) {
+            keyWordGreater = Trim(A_LoopField112);
         }
-        if (A_Index99 == 116) {
-            keyWordLess = Trim(A_LoopField99);
+        if (A_Index112 == 116) {
+            keyWordLess = Trim(A_LoopField112);
         }
-        if (A_Index99 == 117) {
-            keyWordGreaterEqual = Trim(A_LoopField99);
+        if (A_Index112 == 117) {
+            keyWordGreaterEqual = Trim(A_LoopField112);
         }
-        if (A_Index99 == 118) {
-            keyWordLessEqual = Trim(A_LoopField99);
+        if (A_Index112 == 118) {
+            keyWordLessEqual = Trim(A_LoopField112);
         }
-        if (A_Index99 == 119) {
-            keyWordAnd = Trim(A_LoopField99);
+        if (A_Index112 == 119) {
+            keyWordAnd = Trim(A_LoopField112);
         }
-        if (A_Index99 == 120) {
-            keyWordOr = Trim(A_LoopField99);
+        if (A_Index112 == 120) {
+            keyWordOr = Trim(A_LoopField112);
         }
-        if (A_Index99 == 121) {
-            keyWordNot = Trim(A_LoopField99);
+        if (A_Index112 == 121) {
+            keyWordNot = Trim(A_LoopField112);
         }
-        if (A_Index99 == 122) {
-            keyWordBitAnd = Trim(A_LoopField99);
+        if (A_Index112 == 122) {
+            keyWordBitAnd = Trim(A_LoopField112);
         }
-        if (A_Index99 == 123) {
-            keyWordBitOr = Trim(A_LoopField99);
+        if (A_Index112 == 123) {
+            keyWordBitOr = Trim(A_LoopField112);
         }
-        if (A_Index99 == 124) {
-            keyWordBitXor = Trim(A_LoopField99);
+        if (A_Index112 == 124) {
+            keyWordBitXor = Trim(A_LoopField112);
         }
-        if (A_Index99 == 125) {
-            keyWordBitNot = Trim(A_LoopField99);
+        if (A_Index112 == 125) {
+            keyWordBitNot = Trim(A_LoopField112);
         }
-        if (A_Index99 == 126) {
-            keyWordShiftLeft = Trim(A_LoopField99);
+        if (A_Index112 == 126) {
+            keyWordShiftLeft = Trim(A_LoopField112);
         }
-        if (A_Index99 == 127) {
-            keyWordShiftRight = Trim(A_LoopField99);
+        if (A_Index112 == 127) {
+            keyWordShiftRight = Trim(A_LoopField112);
         }
-        if (A_Index99 == 128) {
-            keyWordShiftUnsignedRight = Trim(A_LoopField99);
+        if (A_Index112 == 128) {
+            keyWordShiftUnsignedRight = Trim(A_LoopField112);
         }
-        if (A_Index99 == 129) {
-            keyWordAssign = Trim(A_LoopField99);
+        if (A_Index112 == 129) {
+            keyWordAssign = Trim(A_LoopField112);
         }
-        if (A_Index99 == 130) {
-            keyWordAssignAdd = Trim(A_LoopField99);
+        if (A_Index112 == 130) {
+            keyWordAssignAdd = Trim(A_LoopField112);
         }
-        if (A_Index99 == 131) {
-            keyWordAssignConcat = Trim(A_LoopField99);
+        if (A_Index112 == 131) {
+            keyWordAssignConcat = Trim(A_LoopField112);
         }
-        if (A_Index99 == 132) {
-            keyWordAssignSub = Trim(A_LoopField99);
+        if (A_Index112 == 132) {
+            keyWordAssignSub = Trim(A_LoopField112);
         }
-        if (A_Index99 == 133) {
-            keyWordAssignMul = Trim(A_LoopField99);
+        if (A_Index112 == 133) {
+            keyWordAssignMul = Trim(A_LoopField112);
         }
-        if (A_Index99 == 134) {
-            keyWordAssignDiv = Trim(A_LoopField99);
+        if (A_Index112 == 134) {
+            keyWordAssignDiv = Trim(A_LoopField112);
         }
-        if (A_Index99 == 135) {
-            keyWordAssignMod = Trim(A_LoopField99);
+        if (A_Index112 == 135) {
+            keyWordAssignMod = Trim(A_LoopField112);
         }
-        if (A_Index99 == 136) {
-            keyWordAssignShiftLeft = Trim(A_LoopField99);
+        if (A_Index112 == 136) {
+            keyWordAssignShiftLeft = Trim(A_LoopField112);
         }
-        if (A_Index99 == 137) {
-            keyWordAssignShiftRight = Trim(A_LoopField99);
+        if (A_Index112 == 137) {
+            keyWordAssignShiftRight = Trim(A_LoopField112);
         }
-        if (A_Index99 == 138) {
-            keyWordLogicalAssignShiftRight = Trim(A_LoopField99);
+        if (A_Index112 == 138) {
+            keyWordLogicalAssignShiftRight = Trim(A_LoopField112);
         }
-        if (A_Index99 == 139) {
-            keyWordAssignBitAnd = Trim(A_LoopField99);
+        if (A_Index112 == 139) {
+            keyWordAssignBitAnd = Trim(A_LoopField112);
         }
-        if (A_Index99 == 140) {
-            keyWordAssignBitOr = Trim(A_LoopField99);
+        if (A_Index112 == 140) {
+            keyWordAssignBitOr = Trim(A_LoopField112);
         }
-        if (A_Index99 == 141) {
-            keyWordAssignBitXor = Trim(A_LoopField99);
+        if (A_Index112 == 141) {
+            keyWordAssignBitXor = Trim(A_LoopField112);
         }
-        if (A_Index99 == 142) {
-            keyWordTernary1 = Trim(A_LoopField99);
+        if (A_Index112 == 142) {
+            keyWordTernary1 = Trim(A_LoopField112);
         }
-        if (A_Index99 == 143) {
-            keyWordTernary2 = Trim(A_LoopField99);
+        if (A_Index112 == 143) {
+            keyWordTernary2 = Trim(A_LoopField112);
         }
-        if (A_Index99 == 144) {
-            keyWordInc = Trim(A_LoopField99);
+        if (A_Index112 == 144) {
+            keyWordInc = Trim(A_LoopField112);
         }
-        if (A_Index99 == 145) {
-            keyWordDec = Trim(A_LoopField99);
+        if (A_Index112 == 145) {
+            keyWordDec = Trim(A_LoopField112);
         }
-        if (A_Index99 == 146) {
-            AHKlikeLoopsIndexedAt = Trim(A_LoopField99);
+        if (A_Index112 == 146) {
+            AHKlikeLoopsIndexedAt = Trim(A_LoopField112);
         }
-        if (A_Index99 == 147) {
-            keyWordAIndex = Trim(A_LoopField99);
+        if (A_Index112 == 147) {
+            keyWordAIndex = Trim(A_LoopField112);
         }
-        if (A_Index99 == 148) {
-            keyWordALoopField = Trim(A_LoopField99);
+        if (A_Index112 == 148) {
+            keyWordALoopField = Trim(A_LoopField112);
         }
-        if (A_Index99 == 149) {
-            useCurlyBraces = Trim(A_LoopField99);
+        if (A_Index112 == 149) {
+            useCurlyBraces = Trim(A_LoopField112);
         }
-        if (A_Index99 == 150) {
-            useEnd = Trim(A_LoopField99);
+        if (A_Index112 == 150) {
+            useEnd = Trim(A_LoopField112);
         }
-        if (A_Index99 == 151) {
-            useSemicolon = Trim(A_LoopField99);
+        if (A_Index112 == 151) {
+            useSemicolon = Trim(A_LoopField112);
         }
-        if (A_Index99 == 152) {
-            useParentheses = Trim(A_LoopField99);
+        if (A_Index112 == 152) {
+            useParentheses = Trim(A_LoopField112);
         }
-        if (A_Index99 == 153) {
-            usePrefixTypeForTypeDefinition = Trim(A_LoopField99);
+        if (A_Index112 == 153) {
+            usePrefixTypeForTypeDefinition = Trim(A_LoopField112);
         }
-        if (A_Index99 == 154) {
-            usePostfixTypeForTypeDefinition = Trim(A_LoopField99);
+        if (A_Index112 == 154) {
+            usePostfixTypeForTypeDefinition = Trim(A_LoopField112);
         }
-        if (A_Index99 == 155) {
-            usePythonicColonSyntax = Trim(A_LoopField99);
+        if (A_Index112 == 155) {
+            usePythonicColonSyntax = Trim(A_LoopField112);
         }
-        if (A_Index99 == 156) {
-            useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField99);
+        if (A_Index112 == 156) {
+            useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField112);
         }
-        if (A_Index99 == 157) {
-            useInJavaScriptAlwaysUseVar = Trim(A_LoopField99);
+        if (A_Index112 == 157) {
+            useInJavaScriptAlwaysUseVar = Trim(A_LoopField112);
         }
-        if (A_Index99 == 158) {
-            useJavaScriptInAfullHTMLfile = Trim(A_LoopField99);
+        if (A_Index112 == 158) {
+            useJavaScriptInAfullHTMLfile = Trim(A_LoopField112);
         }
-        if (A_Index99 == 159) {
-            useJavaScriptAmainFuncDef = Trim(A_LoopField99);
+        if (A_Index112 == 159) {
+            useJavaScriptAmainFuncDef = Trim(A_LoopField112);
         }
-        if (A_Index99 == 160) {
-            useJavaScriptAllFuncsAreAsync = Trim(A_LoopField99);
+        if (A_Index112 == 160) {
+            useJavaScriptAllFuncsAreAsync = Trim(A_LoopField112);
         }
-        if (A_Index99 == 161) {
-            useJavaScriptAlwaysTripleEqual = Trim(A_LoopField99);
+        if (A_Index112 == 161) {
+            useJavaScriptAlwaysTripleEqual = Trim(A_LoopField112);
         }
     }
     if (HTVM_Size(argHTVMinstrMORE) > 0) {
@@ -7541,494 +7724,494 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         } else {
             allInstructionFile_2 = Trim(FileRead(Trim(argHTVMinstrMORE[0])));
         }
-        items100 = LoopParseFunc(allInstructionFile_2, "\n", "\r")
-        for (let A_Index100 = 0; A_Index100 < items100.length + 0; A_Index100++) {
-            const A_LoopField100 = items100[A_Index100 - 0];
-            if (A_Index100 == 0) {
-                langToConvertTo_2 = Trim(A_LoopField100);
+        items113 = LoopParseFunc(allInstructionFile_2, "\n", "\r")
+        for (let A_Index113 = 0; A_Index113 < items113.length + 0; A_Index113++) {
+            const A_LoopField113 = items113[A_Index113 - 0];
+            if (A_Index113 == 0) {
+                langToConvertTo_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 1) {
-                langFileExtension_2 = Trim(A_LoopField100);
+            if (A_Index113 == 1) {
+                langFileExtension_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 2) {
-                commands_2 = Trim(A_LoopField100);
+            if (A_Index113 == 2) {
+                commands_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 3) {
-                keyWordAlliance_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 3) {
+                keyWordAlliance_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 4) {
-                keyWordCrew_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 4) {
+                keyWordCrew_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 5) {
-                keyWordMethod_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 5) {
+                keyWordMethod_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 6) {
-                keyWordDefObj_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 6) {
+                keyWordDefObj_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 7) {
-                keyWordProp_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 7) {
+                keyWordProp_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 8) {
-                keyWordThis_2 = Trim(A_LoopField100);
+            if (A_Index113 == 8) {
+                keyWordThis_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 9) {
-                keyWordInclude_2 = Trim(A_LoopField100);
+            if (A_Index113 == 9) {
+                keyWordInclude_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 10) {
-                keyWordCodeInTheTranspiledLangStart_2 = Trim(A_LoopField100);
+            if (A_Index113 == 10) {
+                keyWordCodeInTheTranspiledLangStart_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 11) {
-                keyWordCodeInTheTranspiledLangEnd_2 = Trim(A_LoopField100);
+            if (A_Index113 == 11) {
+                keyWordCodeInTheTranspiledLangEnd_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 12) {
-                keyWordCodeInTheTranspiledLangStartCPP_2 = Trim(A_LoopField100);
+            if (A_Index113 == 12) {
+                keyWordCodeInTheTranspiledLangStartCPP_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 13) {
-                keyWordCodeInTheTranspiledLangEndCPP_2 = Trim(A_LoopField100);
+            if (A_Index113 == 13) {
+                keyWordCodeInTheTranspiledLangEndCPP_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 14) {
-                keyWordCodeInTheTranspiledLangStartPY_2 = Trim(A_LoopField100);
+            if (A_Index113 == 14) {
+                keyWordCodeInTheTranspiledLangStartPY_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 15) {
-                keyWordCodeInTheTranspiledLangEndPY_2 = Trim(A_LoopField100);
+            if (A_Index113 == 15) {
+                keyWordCodeInTheTranspiledLangEndPY_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 16) {
-                keyWordCodeInTheTranspiledLangStartJS_2 = Trim(A_LoopField100);
+            if (A_Index113 == 16) {
+                keyWordCodeInTheTranspiledLangStartJS_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 17) {
-                keyWordCodeInTheTranspiledLangEndJS_2 = Trim(A_LoopField100);
+            if (A_Index113 == 17) {
+                keyWordCodeInTheTranspiledLangEndJS_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 18) {
-                keyWordCodeInTheTranspiledLangStartGO_2 = Trim(A_LoopField100);
+            if (A_Index113 == 18) {
+                keyWordCodeInTheTranspiledLangStartGO_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 19) {
-                keyWordCodeInTheTranspiledLangEndGO_2 = Trim(A_LoopField100);
+            if (A_Index113 == 19) {
+                keyWordCodeInTheTranspiledLangEndGO_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 20) {
-                keyWordCodeInTheTranspiledLangStartLUA_2 = Trim(A_LoopField100);
+            if (A_Index113 == 20) {
+                keyWordCodeInTheTranspiledLangStartLUA_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 21) {
-                keyWordCodeInTheTranspiledLangEndLUA_2 = Trim(A_LoopField100);
+            if (A_Index113 == 21) {
+                keyWordCodeInTheTranspiledLangEndLUA_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 22) {
-                keyWordCodeInTheTranspiledLangStartCS_2 = Trim(A_LoopField100);
+            if (A_Index113 == 22) {
+                keyWordCodeInTheTranspiledLangStartCS_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 23) {
-                keyWordCodeInTheTranspiledLangEndCS_2 = Trim(A_LoopField100);
+            if (A_Index113 == 23) {
+                keyWordCodeInTheTranspiledLangEndCS_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 24) {
-                keyWordCodeInTheTranspiledLangStartJAVA_2 = Trim(A_LoopField100);
+            if (A_Index113 == 24) {
+                keyWordCodeInTheTranspiledLangStartJAVA_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 25) {
-                keyWordCodeInTheTranspiledLangEndJAVA_2 = Trim(A_LoopField100);
+            if (A_Index113 == 25) {
+                keyWordCodeInTheTranspiledLangEndJAVA_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 26) {
-                keyWordCodeInTheTranspiledLangStartKT_2 = Trim(A_LoopField100);
+            if (A_Index113 == 26) {
+                keyWordCodeInTheTranspiledLangStartKT_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 27) {
-                keyWordCodeInTheTranspiledLangEndKT_2 = Trim(A_LoopField100);
+            if (A_Index113 == 27) {
+                keyWordCodeInTheTranspiledLangEndKT_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 28) {
-                keyWordCodeInTheTranspiledLangStartRB_2 = Trim(A_LoopField100);
+            if (A_Index113 == 28) {
+                keyWordCodeInTheTranspiledLangStartRB_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 29) {
-                keyWordCodeInTheTranspiledLangEndRB_2 = Trim(A_LoopField100);
+            if (A_Index113 == 29) {
+                keyWordCodeInTheTranspiledLangEndRB_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 30) {
-                keyWordCodeInTheTranspiledLangStartNIM_2 = Trim(A_LoopField100);
+            if (A_Index113 == 30) {
+                keyWordCodeInTheTranspiledLangStartNIM_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 31) {
-                keyWordCodeInTheTranspiledLangEndNIM_2 = Trim(A_LoopField100);
+            if (A_Index113 == 31) {
+                keyWordCodeInTheTranspiledLangEndNIM_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 32) {
-                keyWordCodeInTheTranspiledLangStartAHK_2 = Trim(A_LoopField100);
+            if (A_Index113 == 32) {
+                keyWordCodeInTheTranspiledLangStartAHK_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 33) {
-                keyWordCodeInTheTranspiledLangEndAHK_2 = Trim(A_LoopField100);
+            if (A_Index113 == 33) {
+                keyWordCodeInTheTranspiledLangEndAHK_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 34) {
-                keyWordCodeInTheTranspiledLangStartSWIFT_2 = Trim(A_LoopField100);
+            if (A_Index113 == 34) {
+                keyWordCodeInTheTranspiledLangStartSWIFT_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 35) {
-                keyWordCodeInTheTranspiledLangEndSWIFT_2 = Trim(A_LoopField100);
+            if (A_Index113 == 35) {
+                keyWordCodeInTheTranspiledLangEndSWIFT_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 36) {
-                keyWordCodeInTheTranspiledLangStartDART_2 = Trim(A_LoopField100);
+            if (A_Index113 == 36) {
+                keyWordCodeInTheTranspiledLangStartDART_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 37) {
-                keyWordCodeInTheTranspiledLangEndDART_2 = Trim(A_LoopField100);
+            if (A_Index113 == 37) {
+                keyWordCodeInTheTranspiledLangEndDART_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 38) {
-                keyWordCodeInTheTranspiledLangStartTS_2 = Trim(A_LoopField100);
+            if (A_Index113 == 38) {
+                keyWordCodeInTheTranspiledLangStartTS_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 39) {
-                keyWordCodeInTheTranspiledLangEndTS_2 = Trim(A_LoopField100);
+            if (A_Index113 == 39) {
+                keyWordCodeInTheTranspiledLangEndTS_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 40) {
-                keyWordCodeInTheTranspiledLangStartGROOVY_2 = Trim(A_LoopField100);
+            if (A_Index113 == 40) {
+                keyWordCodeInTheTranspiledLangStartGROOVY_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 41) {
-                keyWordCodeInTheTranspiledLangEndGROOVY_2 = Trim(A_LoopField100);
+            if (A_Index113 == 41) {
+                keyWordCodeInTheTranspiledLangEndGROOVY_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 42) {
-                keyWordCodeInTheTranspiledLangStartHTVM_2 = Trim(A_LoopField100);
+            if (A_Index113 == 42) {
+                keyWordCodeInTheTranspiledLangStartHTVM_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 43) {
-                keyWordCodeInTheTranspiledLangEndHTVM_2 = Trim(A_LoopField100);
+            if (A_Index113 == 43) {
+                keyWordCodeInTheTranspiledLangEndHTVM_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 44) {
-                keyWordCodeInHTVMstart_2 = Trim(A_LoopField100);
+            if (A_Index113 == 44) {
+                keyWordCodeInHTVMstart_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 45) {
-                keyWordCodeInHTVMend_2 = Trim(A_LoopField100);
+            if (A_Index113 == 45) {
+                keyWordCodeInHTVMend_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 46) {
-                keyWordCurlyBraceOpen_2 = Trim(A_LoopField100);
+            if (A_Index113 == 46) {
+                keyWordCurlyBraceOpen_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 47) {
-                keyWordCurlyBraceClose_2 = Trim(A_LoopField100);
+            if (A_Index113 == 47) {
+                keyWordCurlyBraceClose_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 48) {
-                keyWordNull_2 = Trim(A_LoopField100);
+            if (A_Index113 == 48) {
+                keyWordNull_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 49) {
-                keyWordTrue_2 = Trim(A_LoopField100);
+            if (A_Index113 == 49) {
+                keyWordTrue_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 50) {
-                keyWordFalse_2 = Trim(A_LoopField100);
+            if (A_Index113 == 50) {
+                keyWordFalse_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 51) {
-                keyWordVoid_2 = Trim(A_LoopField100);
+            if (A_Index113 == 51) {
+                keyWordVoid_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 52) {
-                keyWordDouble_2 = Trim(A_LoopField100);
+            if (A_Index113 == 52) {
+                keyWordDouble_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 53) {
-                keyWordChar_2 = Trim(A_LoopField100);
+            if (A_Index113 == 53) {
+                keyWordChar_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 54) {
-                keyWordUint8_2 = Trim(A_LoopField100);
+            if (A_Index113 == 54) {
+                keyWordUint8_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 55) {
-                keyWordUint16_2 = Trim(A_LoopField100);
+            if (A_Index113 == 55) {
+                keyWordUint16_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 56) {
-                keyWordUint32_2 = Trim(A_LoopField100);
+            if (A_Index113 == 56) {
+                keyWordUint32_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 57) {
-                keyWordUint64_2 = Trim(A_LoopField100);
+            if (A_Index113 == 57) {
+                keyWordUint64_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 58) {
-                keyWordINT_2 = Trim(A_LoopField100);
+            if (A_Index113 == 58) {
+                keyWordINT_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 59) {
-                keyWordSTR_2 = Trim(A_LoopField100);
+            if (A_Index113 == 59) {
+                keyWordSTR_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 60) {
-                keyWordBOOL_2 = Trim(A_LoopField100);
+            if (A_Index113 == 60) {
+                keyWordBOOL_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 61) {
-                keyWordFLOAT_2 = Trim(A_LoopField100);
+            if (A_Index113 == 61) {
+                keyWordFLOAT_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 62) {
-                keyWordINT8_2 = Trim(A_LoopField100);
+            if (A_Index113 == 62) {
+                keyWordINT8_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 63) {
-                keyWordINT16_2 = Trim(A_LoopField100);
+            if (A_Index113 == 63) {
+                keyWordINT16_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 64) {
-                keyWordINT32_2 = Trim(A_LoopField100);
+            if (A_Index113 == 64) {
+                keyWordINT32_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 65) {
-                keyWordINT64_2 = Trim(A_LoopField100);
+            if (A_Index113 == 65) {
+                keyWordINT64_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 66) {
-                keyWordIF_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 66) {
+                keyWordIF_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 67) {
-                keyWordElseIf_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 67) {
+                keyWordElseIf_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 68) {
-                keyWordElse_2 = Trim(A_LoopField100);
+            if (A_Index113 == 68) {
+                keyWordElse_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 69) {
-                keyWordWhileLoop_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 69) {
+                keyWordWhileLoop_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 70) {
-                keyWordLoopInfinite_2 = Trim(A_LoopField100);
+            if (A_Index113 == 70) {
+                keyWordLoopInfinite_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 71) {
-                keyWordLoop_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 71) {
+                keyWordLoop_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 72) {
-                keyWordLoopParse_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 72) {
+                keyWordLoopParse_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 73) {
-                keyWordContinue_2 = Trim(A_LoopField100);
+            if (A_Index113 == 73) {
+                keyWordContinue_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 74) {
-                keyWordBreak_2 = Trim(A_LoopField100);
+            if (A_Index113 == 74) {
+                keyWordBreak_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 75) {
-                keyWordFunc_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 75) {
+                keyWordFunc_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 76) {
-                keyWordAwait_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 76) {
+                keyWordAwait_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 77) {
-                keyWordAsync_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 77) {
+                keyWordAsync_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 78) {
-                keyWordThrow_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 78) {
+                keyWordThrow_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 79) {
-                keyWordErrorMsg_2 = Trim(A_LoopField100);
+            if (A_Index113 == 79) {
+                keyWordErrorMsg_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 80) {
-                keyWordTry_2 = Trim(A_LoopField100);
+            if (A_Index113 == 80) {
+                keyWordTry_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 81) {
-                keyWordCatch_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 81) {
+                keyWordCatch_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 82) {
-                keyWordFinally_2 = Trim(A_LoopField100);
+            if (A_Index113 == 82) {
+                keyWordFinally_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 83) {
-                keyWordReturnStatement_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 83) {
+                keyWordReturnStatement_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 84) {
-                keyWordArrayAppend_2 = Trim(A_LoopField100);
+            if (A_Index113 == 84) {
+                keyWordArrayAppend_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 85) {
-                keyWordArrayPop_2 = Trim(A_LoopField100);
+            if (A_Index113 == 85) {
+                keyWordArrayPop_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 86) {
-                keyWordArraySize_2 = Trim(A_LoopField100);
+            if (A_Index113 == 86) {
+                keyWordArraySize_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 87) {
-                keyWordArrayInsert_2 = Trim(A_LoopField100);
+            if (A_Index113 == 87) {
+                keyWordArrayInsert_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 88) {
-                keyWordArrayRemove_2 = Trim(A_LoopField100);
+            if (A_Index113 == 88) {
+                keyWordArrayRemove_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 89) {
-                keyWordArrayIndexOf_2 = Trim(A_LoopField100);
+            if (A_Index113 == 89) {
+                keyWordArrayIndexOf_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 90) {
-                keyWordArrayDefinition_2 = Trim(A_LoopField100);
+            if (A_Index113 == 90) {
+                keyWordArrayDefinition_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 91) {
-                keyWordArrayOfIntegersDefinition_2 = Trim(A_LoopField100);
+            if (A_Index113 == 91) {
+                keyWordArrayOfIntegersDefinition_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 92) {
-                keyWordArrayOfStringsDefinition_2 = Trim(A_LoopField100);
+            if (A_Index113 == 92) {
+                keyWordArrayOfStringsDefinition_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 93) {
-                keyWordArrayOfFloatingPointNumbersDefinition_2 = Trim(A_LoopField100);
+            if (A_Index113 == 93) {
+                keyWordArrayOfFloatingPointNumbersDefinition_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 94) {
-                keyWordArrayOfBooleansDefinition_2 = Trim(A_LoopField100);
+            if (A_Index113 == 94) {
+                keyWordArrayOfBooleansDefinition_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 95) {
-                keyWordVar_2 = Trim(A_LoopField100);
+            if (A_Index113 == 95) {
+                keyWordVar_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 96) {
-                keyWordLet_2 = Trim(A_LoopField100);
+            if (A_Index113 == 96) {
+                keyWordLet_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 97) {
-                keyWordConst_2 = Trim(A_LoopField100);
+            if (A_Index113 == 97) {
+                keyWordConst_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 98) {
-                keyWordEnd_2 = Trim(A_LoopField100);
+            if (A_Index113 == 98) {
+                keyWordEnd_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 99) {
-                keyWordGlobal_2 = Trim(A_LoopField100) + " ";
+            if (A_Index113 == 99) {
+                keyWordGlobal_2 = Trim(A_LoopField113) + " ";
             }
-            if (A_Index100 == 100) {
-                keyWordComment_2 = Trim(A_LoopField100);
+            if (A_Index113 == 100) {
+                keyWordComment_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 101) {
-                keyWordCommentOpenMultiLine_2 = Trim(A_LoopField100);
+            if (A_Index113 == 101) {
+                keyWordCommentOpenMultiLine_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 102) {
-                keyWordCommentCloseMultiLine_2 = Trim(A_LoopField100);
+            if (A_Index113 == 102) {
+                keyWordCommentCloseMultiLine_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 103) {
-                keyWordEscpaeChar_2 = Trim(A_LoopField100);
+            if (A_Index113 == 103) {
+                keyWordEscpaeChar_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 104) {
-                keyWordMainLabel_2 = Trim(A_LoopField100);
+            if (A_Index113 == 104) {
+                keyWordMainLabel_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 105) {
-                keyWordConcat_2 = Trim(A_LoopField100);
+            if (A_Index113 == 105) {
+                keyWordConcat_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 106) {
-                keyWordAdd_2 = Trim(A_LoopField100);
+            if (A_Index113 == 106) {
+                keyWordAdd_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 107) {
-                keyWordSub_2 = Trim(A_LoopField100);
+            if (A_Index113 == 107) {
+                keyWordSub_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 108) {
-                keyWordMul_2 = Trim(A_LoopField100);
+            if (A_Index113 == 108) {
+                keyWordMul_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 109) {
-                keyWordDiv_2 = Trim(A_LoopField100);
+            if (A_Index113 == 109) {
+                keyWordDiv_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 110) {
-                keyWordMod_2 = Trim(A_LoopField100);
+            if (A_Index113 == 110) {
+                keyWordMod_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 111) {
-                keyWordExp_2 = Trim(A_LoopField100);
+            if (A_Index113 == 111) {
+                keyWordExp_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 112) {
-                keyWordEqual_2 = Trim(A_LoopField100);
+            if (A_Index113 == 112) {
+                keyWordEqual_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 113) {
-                keyWordStrictEqual_2 = Trim(A_LoopField100);
+            if (A_Index113 == 113) {
+                keyWordStrictEqual_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 114) {
-                keyWordNotEqual_2 = Trim(A_LoopField100);
+            if (A_Index113 == 114) {
+                keyWordNotEqual_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 115) {
-                keyWordGreater_2 = Trim(A_LoopField100);
+            if (A_Index113 == 115) {
+                keyWordGreater_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 116) {
-                keyWordLess_2 = Trim(A_LoopField100);
+            if (A_Index113 == 116) {
+                keyWordLess_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 117) {
-                keyWordGreaterEqual_2 = Trim(A_LoopField100);
+            if (A_Index113 == 117) {
+                keyWordGreaterEqual_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 118) {
-                keyWordLessEqual_2 = Trim(A_LoopField100);
+            if (A_Index113 == 118) {
+                keyWordLessEqual_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 119) {
-                keyWordAnd_2 = Trim(A_LoopField100);
+            if (A_Index113 == 119) {
+                keyWordAnd_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 120) {
-                keyWordOr_2 = Trim(A_LoopField100);
+            if (A_Index113 == 120) {
+                keyWordOr_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 121) {
-                keyWordNot_2 = Trim(A_LoopField100);
+            if (A_Index113 == 121) {
+                keyWordNot_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 122) {
-                keyWordBitAnd_2 = Trim(A_LoopField100);
+            if (A_Index113 == 122) {
+                keyWordBitAnd_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 123) {
-                keyWordBitOr_2 = Trim(A_LoopField100);
+            if (A_Index113 == 123) {
+                keyWordBitOr_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 124) {
-                keyWordBitXor_2 = Trim(A_LoopField100);
+            if (A_Index113 == 124) {
+                keyWordBitXor_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 125) {
-                keyWordBitNot_2 = Trim(A_LoopField100);
+            if (A_Index113 == 125) {
+                keyWordBitNot_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 126) {
-                keyWordShiftLeft_2 = Trim(A_LoopField100);
+            if (A_Index113 == 126) {
+                keyWordShiftLeft_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 127) {
-                keyWordShiftRight_2 = Trim(A_LoopField100);
+            if (A_Index113 == 127) {
+                keyWordShiftRight_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 128) {
-                keyWordShiftUnsignedRight_2 = Trim(A_LoopField100);
+            if (A_Index113 == 128) {
+                keyWordShiftUnsignedRight_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 129) {
-                keyWordAssign_2 = Trim(A_LoopField100);
+            if (A_Index113 == 129) {
+                keyWordAssign_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 130) {
-                keyWordAssignAdd_2 = Trim(A_LoopField100);
+            if (A_Index113 == 130) {
+                keyWordAssignAdd_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 131) {
-                keyWordAssignConcat_2 = Trim(A_LoopField100);
+            if (A_Index113 == 131) {
+                keyWordAssignConcat_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 132) {
-                keyWordAssignSub_2 = Trim(A_LoopField100);
+            if (A_Index113 == 132) {
+                keyWordAssignSub_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 133) {
-                keyWordAssignMul_2 = Trim(A_LoopField100);
+            if (A_Index113 == 133) {
+                keyWordAssignMul_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 134) {
-                keyWordAssignDiv_2 = Trim(A_LoopField100);
+            if (A_Index113 == 134) {
+                keyWordAssignDiv_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 135) {
-                keyWordAssignMod_2 = Trim(A_LoopField100);
+            if (A_Index113 == 135) {
+                keyWordAssignMod_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 136) {
-                keyWordAssignShiftLeft_2 = Trim(A_LoopField100);
+            if (A_Index113 == 136) {
+                keyWordAssignShiftLeft_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 137) {
-                keyWordAssignShiftRight_2 = Trim(A_LoopField100);
+            if (A_Index113 == 137) {
+                keyWordAssignShiftRight_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 138) {
-                keyWordLogicalAssignShiftRight_2 = Trim(A_LoopField100);
+            if (A_Index113 == 138) {
+                keyWordLogicalAssignShiftRight_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 139) {
-                keyWordAssignBitAnd_2 = Trim(A_LoopField100);
+            if (A_Index113 == 139) {
+                keyWordAssignBitAnd_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 140) {
-                keyWordAssignBitOr_2 = Trim(A_LoopField100);
+            if (A_Index113 == 140) {
+                keyWordAssignBitOr_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 141) {
-                keyWordAssignBitXor_2 = Trim(A_LoopField100);
+            if (A_Index113 == 141) {
+                keyWordAssignBitXor_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 142) {
-                keyWordTernary1_2 = Trim(A_LoopField100);
+            if (A_Index113 == 142) {
+                keyWordTernary1_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 143) {
-                keyWordTernary2_2 = Trim(A_LoopField100);
+            if (A_Index113 == 143) {
+                keyWordTernary2_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 144) {
-                keyWordInc_2 = Trim(A_LoopField100);
+            if (A_Index113 == 144) {
+                keyWordInc_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 145) {
-                keyWordDec_2 = Trim(A_LoopField100);
+            if (A_Index113 == 145) {
+                keyWordDec_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 146) {
-                AHKlikeLoopsIndexedAt_2 = Trim(A_LoopField100);
+            if (A_Index113 == 146) {
+                AHKlikeLoopsIndexedAt_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 147) {
-                keyWordAIndex_2 = Trim(A_LoopField100);
+            if (A_Index113 == 147) {
+                keyWordAIndex_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 148) {
-                keyWordALoopField_2 = Trim(A_LoopField100);
+            if (A_Index113 == 148) {
+                keyWordALoopField_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 149) {
-                useCurlyBraces_2 = Trim(A_LoopField100);
+            if (A_Index113 == 149) {
+                useCurlyBraces_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 150) {
-                useEnd_2 = Trim(A_LoopField100);
+            if (A_Index113 == 150) {
+                useEnd_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 151) {
-                useSemicolon_2 = Trim(A_LoopField100);
+            if (A_Index113 == 151) {
+                useSemicolon_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 152) {
-                useParentheses_2 = Trim(A_LoopField100);
+            if (A_Index113 == 152) {
+                useParentheses_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 153) {
-                usePrefixTypeForTypeDefinition_2 = Trim(A_LoopField100);
+            if (A_Index113 == 153) {
+                usePrefixTypeForTypeDefinition_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 154) {
-                usePostfixTypeForTypeDefinition_2 = Trim(A_LoopField100);
+            if (A_Index113 == 154) {
+                usePostfixTypeForTypeDefinition_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 155) {
-                usePythonicColonSyntax_2 = Trim(A_LoopField100);
+            if (A_Index113 == 155) {
+                usePythonicColonSyntax_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 156) {
-                useCurlyBracesSyntaxForArrayDef_2 = Trim(A_LoopField100);
+            if (A_Index113 == 156) {
+                useCurlyBracesSyntaxForArrayDef_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 157) {
-                useInJavaScriptAlwaysUseVar_2 = Trim(A_LoopField100);
+            if (A_Index113 == 157) {
+                useInJavaScriptAlwaysUseVar_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 158) {
-                useJavaScriptInAfullHTMLfile_2 = Trim(A_LoopField100);
+            if (A_Index113 == 158) {
+                useJavaScriptInAfullHTMLfile_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 159) {
-                useJavaScriptAmainFuncDef_2 = Trim(A_LoopField100);
+            if (A_Index113 == 159) {
+                useJavaScriptAmainFuncDef_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 160) {
-                useJavaScriptAllFuncsAreAsync_2 = Trim(A_LoopField100);
+            if (A_Index113 == 160) {
+                useJavaScriptAllFuncsAreAsync_2 = Trim(A_LoopField113);
             }
-            if (A_Index100 == 161) {
-                useJavaScriptAlwaysTripleEqual_2 = Trim(A_LoopField100);
+            if (A_Index113 == 161) {
+                useJavaScriptAlwaysTripleEqual_2 = Trim(A_LoopField113);
             }
         }
     }
@@ -8199,10 +8382,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     var programmingBlocksTemp = "";
     var inProgarmmingBlock = 0;
     var holdTempDataProgrammingBlockThenPutInArr = "";
-    items101 = LoopParseFunc(code, "\n", "\r")
-    for (let A_Index101 = 0; A_Index101 < items101.length + 0; A_Index101++) {
-        const A_LoopField101 = items101[A_Index101 - 0];
-        if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEnd)) {
+    items114 = LoopParseFunc(code, "\n", "\r")
+    for (let A_Index114 = 0; A_Index114 < items114.length + 0; A_Index114++) {
+        const A_LoopField114 = items114[A_Index114 - 0];
+        if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEnd)) {
             COUNT_programmingBlock_InTheTranspiledLang++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" + STR(COUNT_programmingBlock_InTheTranspiledLang) + "AA\n";
@@ -8210,7 +8393,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndCPP)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndCPP)) {
             COUNT_programmingBlock_CPP++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(COUNT_programmingBlock_CPP) + "AA\n";
@@ -8218,7 +8401,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndPY)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndPY)) {
             COUNT_programmingBlock_PY++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_PY-programmingBlock_PY-AA" + STR(COUNT_programmingBlock_PY) + "AA\n";
@@ -8226,7 +8409,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndJS)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndJS)) {
             COUNT_programmingBlock_JS++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_JS-programmingBlock_JS-AA" + STR(COUNT_programmingBlock_JS) + "AA\n";
@@ -8234,7 +8417,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndGO)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndGO)) {
             COUNT_programmingBlock_GO++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_GO-programmingBlock_GO-AA" + STR(COUNT_programmingBlock_GO) + "AA\n";
@@ -8242,7 +8425,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndLUA)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndLUA)) {
             COUNT_programmingBlock_LUA++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(COUNT_programmingBlock_LUA) + "AA\n";
@@ -8250,7 +8433,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndCS)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndCS)) {
             COUNT_programmingBlock_CS++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_CS-programmingBlock_CS-AA" + STR(COUNT_programmingBlock_CS) + "AA\n";
@@ -8258,7 +8441,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndJAVA)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndJAVA)) {
             COUNT_programmingBlock_JAVA++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(COUNT_programmingBlock_JAVA) + "AA\n";
@@ -8266,7 +8449,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndKT)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndKT)) {
             COUNT_programmingBlock_KT++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_KT-programmingBlock_KT-AA" + STR(COUNT_programmingBlock_KT) + "AA\n";
@@ -8274,7 +8457,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndRB)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndRB)) {
             COUNT_programmingBlock_RB++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_RB-programmingBlock_RB-AA" + STR(COUNT_programmingBlock_RB) + "AA\n";
@@ -8282,7 +8465,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndNIM)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndNIM)) {
             COUNT_programmingBlock_NIM++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(COUNT_programmingBlock_NIM) + "AA\n";
@@ -8290,7 +8473,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndAHK)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndAHK)) {
             COUNT_programmingBlock_AHK++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(COUNT_programmingBlock_AHK) + "AA\n";
@@ -8298,7 +8481,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndSWIFT)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndSWIFT)) {
             COUNT_programmingBlock_SWIFT++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(COUNT_programmingBlock_SWIFT) + "AA\n";
@@ -8306,7 +8489,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndDART)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndDART)) {
             COUNT_programmingBlock_DART++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_DART-programmingBlock_DART-AA" + STR(COUNT_programmingBlock_DART) + "AA\n";
@@ -8314,7 +8497,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndTS)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndTS)) {
             COUNT_programmingBlock_TS++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_TS-programmingBlock_TS-AA" + STR(COUNT_programmingBlock_TS) + "AA\n";
@@ -8322,7 +8505,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndGROOVY)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndGROOVY)) {
             COUNT_programmingBlock_GROOVY++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(COUNT_programmingBlock_GROOVY) + "AA\n";
@@ -8330,7 +8513,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangEndHTVM)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangEndHTVM)) {
             COUNT_programmingBlock_HTVM++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
             programmingBlocksTemp += "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(COUNT_programmingBlock_HTVM) + "AA\n";
@@ -8338,7 +8521,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInHTVMend)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInHTVMend)) {
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             COUNT_programmingBlock_HTVMsyntax++;
@@ -8351,77 +8534,77 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         }
         else if (inProgarmmingBlock == 1) {
-            holdTempDataProgrammingBlockThenPutInArr += A_LoopField101 + Chr(10);
+            holdTempDataProgrammingBlockThenPutInArr += A_LoopField114 + Chr(10);
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStart)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStart)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartCPP)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartCPP)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartPY)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartPY)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartJS)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartJS)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartGO)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartGO)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartLUA)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartLUA)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartCS)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartCS)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartJAVA)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartJAVA)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartKT)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartKT)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartRB)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartRB)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartNIM)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartNIM)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartAHK)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartAHK)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartSWIFT)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartSWIFT)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartDART)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartDART)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartTS)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartTS)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartGROOVY)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartGROOVY)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInTheTranspiledLangStartHTVM)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInTheTranspiledLangStartHTVM)) {
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 1;
         }
-        else if (Trim(StrLower(A_LoopField101)) == StrLower(keyWordCodeInHTVMstart)) {
+        else if (Trim(StrLower(A_LoopField114)) == StrLower(keyWordCodeInHTVMstart)) {
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             holdTempDataProgrammingBlockThenPutInArr = "";
@@ -8429,7 +8612,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         } else {
-            programmingBlocksTemp += A_LoopField101 + Chr(10);
+            programmingBlocksTemp += A_LoopField114 + Chr(10);
         }
     }
     code = StringTrimRight(programmingBlocksTemp, 1);
@@ -8469,58 +8652,58 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     if (isNotHTVMfile == 0) {
         if (langToConvertTo != langFileExtension_2) {
             if (InStr(StrLower(code), StrLower(keyWordInclude + " "))) {
-                for (let A_Index102 = 0; A_Index102 < 10000 + 0; A_Index102++) {
+                for (let A_Index115 = 0; A_Index115 < 10000 + 0; A_Index115++) {
                     doseCodeHaveLibs = 0;
                     allLibCODE = "";
-                    if (A_Index102 == 0) {
-                        items103 = LoopParseFunc(code, "\n", "\r")
-                        for (let A_Index103 = 0; A_Index103 < items103.length + 0; A_Index103++) {
-                            const A_LoopField103 = items103[A_Index103 - 0];
-                            if (SubStr(StrLower(Trim(A_LoopField103)), 1, StrLen(StrLower(keyWordInclude + " "))) == StrLower(keyWordInclude + " ")) {
-                                HTVM_Append(allLibsWeSee, StrReplace(StringTrimLeft(Trim(A_LoopField103), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), ""));
-                                HTVM_Append(allLibsWeSeeSEE, StrReplace(StringTrimLeft(Trim(A_LoopField103), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), ""));
+                    if (A_Index115 == 0) {
+                        items116 = LoopParseFunc(code, "\n", "\r")
+                        for (let A_Index116 = 0; A_Index116 < items116.length + 0; A_Index116++) {
+                            const A_LoopField116 = items116[A_Index116 - 0];
+                            if (SubStr(StrLower(Trim(A_LoopField116)), 1, StrLen(StrLower(keyWordInclude + " "))) == StrLower(keyWordInclude + " ")) {
+                                HTVM_Append(allLibsWeSee, StrReplace(StringTrimLeft(Trim(A_LoopField116), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), ""));
+                                HTVM_Append(allLibsWeSeeSEE, StrReplace(StringTrimLeft(Trim(A_LoopField116), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), ""));
                                 doseCodeHaveLibs = 1;
                             }
                         }
                     } else {
-                        items104 = LoopParseFunc(code, "\n", "\r")
-                        for (let A_Index104 = 0; A_Index104 < items104.length + 0; A_Index104++) {
-                            const A_LoopField104 = items104[A_Index104 - 0];
-                            ALoopField = A_LoopField104;
-                            if (SubStr(StrLower(Trim(A_LoopField104)), 1, StrLen(StrLower(keyWordInclude + " "))) == StrLower(keyWordInclude + " ")) {
+                        items117 = LoopParseFunc(code, "\n", "\r")
+                        for (let A_Index117 = 0; A_Index117 < items117.length + 0; A_Index117++) {
+                            const A_LoopField117 = items117[A_Index117 - 0];
+                            ALoopField = A_LoopField117;
+                            if (SubStr(StrLower(Trim(A_LoopField117)), 1, StrLen(StrLower(keyWordInclude + " "))) == StrLower(keyWordInclude + " ")) {
                                 doseCodeHaveLibs_HAS_SEEN = 0;
-                                for (let A_Index105 = 0; A_Index105 < HTVM_Size(allLibsWeSee) + 0; A_Index105++) {
-                                    if (StrReplace(StringTrimLeft(Trim(ALoopField), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), "") == allLibsWeSee[A_Index105]) {
+                                for (let A_Index118 = 0; A_Index118 < HTVM_Size(allLibsWeSee) + 0; A_Index118++) {
+                                    if (StrReplace(StringTrimLeft(Trim(ALoopField), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), "") == allLibsWeSee[A_Index118]) {
                                         doseCodeHaveLibs_HAS_SEEN = 1;
                                     }
                                 }
                                 if (doseCodeHaveLibs_HAS_SEEN == 0) {
-                                    HTVM_Append(allLibsWeSee, StrReplace(StringTrimLeft(Trim(A_LoopField104), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), ""));
-                                    HTVM_Append(allLibsWeSeeSEE, StrReplace(StringTrimLeft(Trim(A_LoopField104), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), ""));
+                                    HTVM_Append(allLibsWeSee, StrReplace(StringTrimLeft(Trim(A_LoopField117), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), ""));
+                                    HTVM_Append(allLibsWeSeeSEE, StrReplace(StringTrimLeft(Trim(A_LoopField117), StrLen(StrLower(keyWordInclude) + " ")), Chr(34), ""));
                                     doseCodeHaveLibs = 1;
                                 }
                             }
                         }
                     }
-                    for (let A_Index106 = 0; A_Index106 < HTVM_Size(allLibsWeSee) + 0; A_Index106++) {
-                        allLibsWeSeeHOLD = allLibsWeSee[A_Index106];
+                    for (let A_Index119 = 0; A_Index119 < HTVM_Size(allLibsWeSee) + 0; A_Index119++) {
+                        allLibsWeSeeHOLD = allLibsWeSee[A_Index119];
                         doseCodeHaveLibs_HAS_SEEN2 = 0;
-                        for (let A_Index107 = 0; A_Index107 < HTVM_Size(allLibsWeSeeSEE) - HTVM_Size(allLibsWeSee) + 0; A_Index107++) {
-                            if (allLibsWeSeeHOLD == allLibsWeSeeSEE[A_Index107]) {
+                        for (let A_Index120 = 0; A_Index120 < HTVM_Size(allLibsWeSeeSEE) - HTVM_Size(allLibsWeSee) + 0; A_Index120++) {
+                            if (allLibsWeSeeHOLD == allLibsWeSeeSEE[A_Index120]) {
                                 doseCodeHaveLibs_HAS_SEEN2 = 1;
                             }
                         }
                         if (doseCodeHaveLibs_HAS_SEEN2 == 0) {
-                            allLibCODE += FileRead(Trim(allLibsWeSee[HTVM_Size(allLibsWeSee) - A_Index106 - 1])) + Chr(10);
+                            allLibCODE += FileRead(Trim(allLibsWeSee[HTVM_Size(allLibsWeSee) - A_Index119 - 1])) + Chr(10);
                         }
                         HTVM_Pop(allLibsWeSee);
                     }
                     allLibCODEfix = "";
-                    items108 = LoopParseFunc(code, "\n", "\r")
-                    for (let A_Index108 = 0; A_Index108 < items108.length + 0; A_Index108++) {
-                        const A_LoopField108 = items108[A_Index108 - 0];
-                        if (SubStr(StrLower(Trim(A_LoopField108)), 1, StrLen(StrLower(keyWordInclude + " "))) != StrLower(keyWordInclude + " ")) {
-                            allLibCODEfix += A_LoopField108 + Chr(10);
+                    items121 = LoopParseFunc(code, "\n", "\r")
+                    for (let A_Index121 = 0; A_Index121 < items121.length + 0; A_Index121++) {
+                        const A_LoopField121 = items121[A_Index121 - 0];
+                        if (SubStr(StrLower(Trim(A_LoopField121)), 1, StrLen(StrLower(keyWordInclude + " "))) != StrLower(keyWordInclude + " ")) {
+                            allLibCODEfix += A_LoopField121 + Chr(10);
                         }
                     }
                     code = StringTrimRight(allLibCODEfix, 1);
@@ -8564,29 +8747,29 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         //print("============programmingBlock_CPP==================")
         //print("============programmingBlock_CPP==================")
         //print("============programmingBlock_CPP==================")
-        items109 = LoopParseFunc(code)
-        for (let A_Index109 = 0; A_Index109 < items109.length + 0; A_Index109++) {
-            const A_LoopField109 = items109[A_Index109 - 0];
+        items122 = LoopParseFunc(code)
+        for (let A_Index122 = 0; A_Index122 < items122.length + 0; A_Index122++) {
+            const A_LoopField122 = items122[A_Index122 - 0];
             HTVM_Append(theIdNumOfThe34theVar, "");
             HTVM_Append(theIdNumOfThe34theVar, "");
         }
-        items110 = LoopParseFunc(code)
-        for (let A_Index110 = 0; A_Index110 < items110.length + 0; A_Index110++) {
-            const A_LoopField110 = items110[A_Index110 - 0];
-            theIdNumOfThe34theVar[A_Index110] = theIdNumOfThe34theVar[A_Index110] + Chr(34);
-            HTVM_Append(getAllCharForTheFurtureSoIcanAddEscapeChar, A_LoopField110);
+        items123 = LoopParseFunc(code)
+        for (let A_Index123 = 0; A_Index123 < items123.length + 0; A_Index123++) {
+            const A_LoopField123 = items123[A_Index123 - 0];
+            theIdNumOfThe34theVar[A_Index123] = theIdNumOfThe34theVar[A_Index123] + Chr(34);
+            HTVM_Append(getAllCharForTheFurtureSoIcanAddEscapeChar, A_LoopField123);
         }
         HTVM_Append(getAllCharForTheFurtureSoIcanAddEscapeChar, " ");
         ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes = Chr(34) + "ihuiuuhuuhtheidFor" + str21 + "--" + str21 + "asds" + str21 + "as--" + str21 + "theuhtuwaesphoutr" + Chr(34);
-        items111 = LoopParseFunc(code)
-        for (let A_Index111 = 0; A_Index111 < items111.length + 0; A_Index111++) {
-            const A_LoopField111 = items111[A_Index111 - 0];
-            if (A_LoopField111 == keyWordEscpaeChar && getAllCharForTheFurtureSoIcanAddEscapeChar[A_Index111 + 1] == Chr(34)) {
+        items124 = LoopParseFunc(code)
+        for (let A_Index124 = 0; A_Index124 < items124.length + 0; A_Index124++) {
+            const A_LoopField124 = items124[A_Index124 - 0];
+            if (A_LoopField124 == keyWordEscpaeChar && getAllCharForTheFurtureSoIcanAddEscapeChar[A_Index124 + 1] == Chr(34)) {
                 fixOutFixDoubleQuotesInsideDoubleQuotesFIXok = 1;
                 OutFixDoubleQuotesInsideDoubleQuotes += ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes;
             } else {
                 if (fixOutFixDoubleQuotesInsideDoubleQuotesFIXok != 1) {
-                    OutFixDoubleQuotesInsideDoubleQuotes += A_LoopField111;
+                    OutFixDoubleQuotesInsideDoubleQuotes += A_LoopField124;
                 } else {
                     fixOutFixDoubleQuotesInsideDoubleQuotesFIXok = 0;
                 }
@@ -8597,18 +8780,18 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             code = StrReplace(code, Chr(92), Chr(92) + Chr(92));
         }
         if (keyWordEscpaeChar == Chr(92) && langToConvertTo != langFileExtension_2) {
-            items112 = LoopParseFunc(code)
-            for (let A_Index112 = 0; A_Index112 < items112.length + 0; A_Index112++) {
-                const A_LoopField112 = items112[A_Index112 - 0];
-                if (A_LoopField112 == Chr(34)) {
+            items125 = LoopParseFunc(code)
+            for (let A_Index125 = 0; A_Index125 < items125.length + 0; A_Index125++) {
+                const A_LoopField125 = items125[A_Index125 - 0];
+                if (A_LoopField125 == Chr(34)) {
                     areWEinSome34sNum++;
                 }
                 if (areWEinSome34sNum == 1) {
-                    if (A_LoopField112 != Chr(34)) {
-                        if (A_LoopField112 == keyWordEscpaeChar && langToConvertTo != langFileExtension_2) {
+                    if (A_LoopField125 != Chr(34)) {
+                        if (A_LoopField125 == keyWordEscpaeChar && langToConvertTo != langFileExtension_2) {
                             theIdNumOfThe34theVar[theIdNumOfThe34] = theIdNumOfThe34theVar[theIdNumOfThe34] + Chr(92);
                         } else {
-                            theIdNumOfThe34theVar[theIdNumOfThe34] = theIdNumOfThe34theVar[theIdNumOfThe34] + A_LoopField112;
+                            theIdNumOfThe34theVar[theIdNumOfThe34] = theIdNumOfThe34theVar[theIdNumOfThe34] + A_LoopField125;
                         }
                     } else {
                         theIdNumOfThe34++;
@@ -8616,33 +8799,33 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     }
                 }
                 if (areWEinSome34sNum == 2 || areWEinSome34sNum == 0) {
-                    if (A_LoopField112 != Chr(34)) {
-                        htCodeOUT754754 += A_LoopField112;
+                    if (A_LoopField125 != Chr(34)) {
+                        htCodeOUT754754 += A_LoopField125;
                     }
                     areWEinSome34sNum = 0;
                 }
             }
         } else {
-            items113 = LoopParseFunc(code)
-            for (let A_Index113 = 0; A_Index113 < items113.length + 0; A_Index113++) {
-                const A_LoopField113 = items113[A_Index113 - 0];
-                if (A_LoopField113 == Chr(34)) {
+            items126 = LoopParseFunc(code)
+            for (let A_Index126 = 0; A_Index126 < items126.length + 0; A_Index126++) {
+                const A_LoopField126 = items126[A_Index126 - 0];
+                if (A_LoopField126 == Chr(34)) {
                     areWEinSome34sNum++;
                 }
                 if (areWEinSome34sNum == 1) {
-                    if (A_LoopField113 != Chr(34)) {
-                        if (A_LoopField113 == keyWordEscpaeChar && keyWordEscpaeChar == getAllCharForTheFurtureSoIcanAddEscapeChar[A_Index113 + 1] && langToConvertTo != langFileExtension_2) {
+                    if (A_LoopField126 != Chr(34)) {
+                        if (A_LoopField126 == keyWordEscpaeChar && keyWordEscpaeChar == getAllCharForTheFurtureSoIcanAddEscapeChar[A_Index126 + 1] && langToConvertTo != langFileExtension_2) {
                             theIdNumOfThe34theVar[theIdNumOfThe34] = theIdNumOfThe34theVar[theIdNumOfThe34] + keyWordEscpaeChar;
                             removeNexFixkeyWordEscpaeChar = 1;
                         }
-                        else if (A_LoopField113 == keyWordEscpaeChar && langToConvertTo != langFileExtension_2) {
+                        else if (A_LoopField126 == keyWordEscpaeChar && langToConvertTo != langFileExtension_2) {
                             if (removeNexFixkeyWordEscpaeChar != 1) {
                                 theIdNumOfThe34theVar[theIdNumOfThe34] = theIdNumOfThe34theVar[theIdNumOfThe34] + Chr(92);
                             } else {
                                 removeNexFixkeyWordEscpaeChar = 0;
                             }
                         } else {
-                            theIdNumOfThe34theVar[theIdNumOfThe34] = theIdNumOfThe34theVar[theIdNumOfThe34] + A_LoopField113;
+                            theIdNumOfThe34theVar[theIdNumOfThe34] = theIdNumOfThe34theVar[theIdNumOfThe34] + A_LoopField126;
                         }
                     } else {
                         theIdNumOfThe34++;
@@ -8650,46 +8833,46 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     }
                 }
                 if (areWEinSome34sNum == 2 || areWEinSome34sNum == 0) {
-                    if (A_LoopField113 != Chr(34)) {
-                        htCodeOUT754754 += A_LoopField113;
+                    if (A_LoopField126 != Chr(34)) {
+                        htCodeOUT754754 += A_LoopField126;
                     }
                     areWEinSome34sNum = 0;
                 }
             }
         }
         code = htCodeOUT754754;
-        for (let A_Index114 = 0; A_Index114 < theIdNumOfThe34 + 0; A_Index114++) {
-            theIdNumOfThe34theVar[A_Index114] = theIdNumOfThe34theVar[A_Index114] + Chr(34);
+        for (let A_Index127 = 0; A_Index127 < theIdNumOfThe34 + 0; A_Index127++) {
+            theIdNumOfThe34theVar[A_Index127] = theIdNumOfThe34theVar[A_Index127] + Chr(34);
         }
         HTVM_Append(theIdNumOfThe34theVar, Chr(34));
         code = StrReplace(code, Chr(13), "");
         slidingWinFixCommentsRmI = 0;
         newStringOutCode = "";
-        items115 = LoopParseFunc(code, "\n", "\r")
-        for (let A_Index115 = 0; A_Index115 < items115.length + 0; A_Index115++) {
-            const A_LoopField115 = items115[A_Index115 - 0];
-            if (InStr(A_LoopField115, " " + keyWordComment) != false && SubStr(Trim(A_LoopField115), 1, StrLen(keyWordComment)) != keyWordComment) {
+        items128 = LoopParseFunc(code, "\n", "\r")
+        for (let A_Index128 = 0; A_Index128 < items128.length + 0; A_Index128++) {
+            const A_LoopField128 = items128[A_Index128 - 0];
+            if (InStr(A_LoopField128, " " + keyWordComment) != false && SubStr(Trim(A_LoopField128), 1, StrLen(keyWordComment)) != keyWordComment) {
                 posForRemoveCommentsOnTheEndOfTheLine = 0;
                 slidingWinFixCommentsRmI = 0;
-                slidingWinFixCommentsRm = slidingWinFixCommentsRmFUNC(A_LoopField115);
-                for (let A_Index116 = 0; A_Index116 < HTVM_Size(slidingWinFixCommentsRm) + 0; A_Index116++) {
-                    slidingWinFixCommentsRmI = A_Index116;
+                slidingWinFixCommentsRm = slidingWinFixCommentsRmFUNC(A_LoopField128);
+                for (let A_Index129 = 0; A_Index129 < HTVM_Size(slidingWinFixCommentsRm) + 0; A_Index129++) {
+                    slidingWinFixCommentsRmI = A_Index129;
                     slidingWinFixCommentsRmHold = "";
-                    for (let A_Index117 = 0; A_Index117 < StrLen(" " + keyWordComment) + 0; A_Index117++) {
-                        slidingWinFixCommentsRmHold += slidingWinFixCommentsRm[slidingWinFixCommentsRmI + A_Index117];
+                    for (let A_Index130 = 0; A_Index130 < StrLen(" " + keyWordComment) + 0; A_Index130++) {
+                        slidingWinFixCommentsRmHold += slidingWinFixCommentsRm[slidingWinFixCommentsRmI + A_Index130];
                     }
                     if (Trim(slidingWinFixCommentsRmHold) == keyWordComment) {
-                        posForRemoveCommentsOnTheEndOfTheLine = A_Index116;
+                        posForRemoveCommentsOnTheEndOfTheLine = A_Index129;
                         break;
                     }
                 }
                 if (posForRemoveCommentsOnTheEndOfTheLine > 0) {
-                    newStringOutCode += SubStr(A_LoopField115, 1, posForRemoveCommentsOnTheEndOfTheLine) + Chr(10);
+                    newStringOutCode += SubStr(A_LoopField128, 1, posForRemoveCommentsOnTheEndOfTheLine) + Chr(10);
                 } else {
-                    newStringOutCode += A_LoopField115 + Chr(10);
+                    newStringOutCode += A_LoopField128 + Chr(10);
                 }
             } else {
-                newStringOutCode += A_LoopField115 + Chr(10);
+                newStringOutCode += A_LoopField128 + Chr(10);
             }
         }
         // Trim the last character (line break) from the final string
@@ -8723,28 +8906,28 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         }
         if (useCurlyBraces == "on") {
             if (keyWordCurlyBraceOpen != "{") {
-                items118 = LoopParseFunc(code, "\n", "\r")
-                for (let A_Index118 = 0; A_Index118 < items118.length + 0; A_Index118++) {
-                    const A_LoopField118 = items118[A_Index118 - 0];
+                items131 = LoopParseFunc(code, "\n", "\r")
+                for (let A_Index131 = 0; A_Index131 < items131.length + 0; A_Index131++) {
+                    const A_LoopField131 = items131[A_Index131 - 0];
                     htCodeOutFixINT2 = 0;
-                    if (isLineAconstruct(Trim(A_LoopField118)) == true || Trim(A_LoopField118) == keyWordCurlyBraceOpen) {
+                    if (isLineAconstruct(Trim(A_LoopField131)) == true || Trim(A_LoopField131) == keyWordCurlyBraceOpen) {
                         htCodeOutFixINT2 = 1;
                     }
                     htCodeOutFixINT = 0;
-                    items119 = LoopParseFunc(A_LoopField118, " ")
-                    for (let A_Index119 = 0; A_Index119 < items119.length + 0; A_Index119++) {
-                        const A_LoopField119 = items119[A_Index119 - 0];
+                    items132 = LoopParseFunc(A_LoopField131, " ")
+                    for (let A_Index132 = 0; A_Index132 < items132.length + 0; A_Index132++) {
+                        const A_LoopField132 = items132[A_Index132 - 0];
                         htCodeOutFixINT++;
                     }
                     htCodeOutFixINT--;
-                    items120 = LoopParseFunc(A_LoopField118, " ")
-                    for (let A_Index120 = 0; A_Index120 < items120.length + 0; A_Index120++) {
-                        const A_LoopField120 = items120[A_Index120 - 0];
-                        if (htCodeOutFixINT == A_Index120 && htCodeOutFixINT2 == 1) {
+                    items133 = LoopParseFunc(A_LoopField131, " ")
+                    for (let A_Index133 = 0; A_Index133 < items133.length + 0; A_Index133++) {
+                        const A_LoopField133 = items133[A_Index133 - 0];
+                        if (htCodeOutFixINT == A_Index133 && htCodeOutFixINT2 == 1) {
                             htCodeOutFixINT2 = 0;
-                            htCodeOutFixEnd += HTVMmatchStrRrplace(A_LoopField120, keyWordCurlyBraceOpen, "{") + " ";
+                            htCodeOutFixEnd += HTVMmatchStrRrplace(A_LoopField133, keyWordCurlyBraceOpen, "{") + " ";
                         } else {
-                            htCodeOutFixEnd += A_LoopField120 + " ";
+                            htCodeOutFixEnd += A_LoopField133 + " ";
                         }
                     }
                     htCodeOutFixEnd = StringTrimRight(htCodeOutFixEnd, 1);
@@ -8755,21 +8938,21 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             htCodeOutFixEnd = "";
             if (keyWordCurlyBraceClose != "}") {
-                items121 = LoopParseFunc(code, "\n", "\r")
-                for (let A_Index121 = 0; A_Index121 < items121.length + 0; A_Index121++) {
-                    const A_LoopField121 = items121[A_Index121 - 0];
+                items134 = LoopParseFunc(code, "\n", "\r")
+                for (let A_Index134 = 0; A_Index134 < items134.length + 0; A_Index134++) {
+                    const A_LoopField134 = items134[A_Index134 - 0];
                     htCodeOutFixINT2 = 0;
-                    if (isLineAconstruct(Trim(A_LoopField121)) == true || Trim(A_LoopField121) == keyWordCurlyBraceClose) {
+                    if (isLineAconstruct(Trim(A_LoopField134)) == true || Trim(A_LoopField134) == keyWordCurlyBraceClose) {
                         htCodeOutFixINT2 = 1;
                     }
-                    items122 = LoopParseFunc(A_LoopField121, " ")
-                    for (let A_Index122 = 0; A_Index122 < items122.length + 0; A_Index122++) {
-                        const A_LoopField122 = items122[A_Index122 - 0];
-                        if (htCodeOutFixINT2 == 1 || Trim(A_LoopField122) == keyWordCurlyBraceClose) {
+                    items135 = LoopParseFunc(A_LoopField134, " ")
+                    for (let A_Index135 = 0; A_Index135 < items135.length + 0; A_Index135++) {
+                        const A_LoopField135 = items135[A_Index135 - 0];
+                        if (htCodeOutFixINT2 == 1 || Trim(A_LoopField135) == keyWordCurlyBraceClose) {
                             htCodeOutFixINT2 = 0;
-                            htCodeOutFixEnd += HTVMmatchStrRrplace(A_LoopField122, keyWordCurlyBraceClose, "}") + " ";
+                            htCodeOutFixEnd += HTVMmatchStrRrplace(A_LoopField135, keyWordCurlyBraceClose, "}") + " ";
                         } else {
-                            htCodeOutFixEnd += A_LoopField122 + " ";
+                            htCodeOutFixEnd += A_LoopField135 + " ";
                         }
                     }
                     htCodeOutFixEnd = StringTrimRight(htCodeOutFixEnd, 1);
@@ -8784,34 +8967,34 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         htCodeOutFixEnd = "";
         if (useEnd == "on") {
-            items123 = LoopParseFunc(code, "\n", "\r")
-            for (let A_Index123 = 0; A_Index123 < items123.length + 0; A_Index123++) {
-                const A_LoopField123 = items123[A_Index123 - 0];
-                if (StrLower(Trim(A_LoopField123)) == StrLower(keyWordEnd)) {
+            items136 = LoopParseFunc(code, "\n", "\r")
+            for (let A_Index136 = 0; A_Index136 < items136.length + 0; A_Index136++) {
+                const A_LoopField136 = items136[A_Index136 - 0];
+                if (StrLower(Trim(A_LoopField136)) == StrLower(keyWordEnd)) {
                     htCodeOutFixEnd += "}\n";
                 }
-                else if (SubStr(StrLower(Trim(A_LoopField123)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF) && isLineAconstruct(Trim(A_LoopField123)) == true) {
-                    htCodeOutFixEnd += A_LoopField123 + "\n{\n";
+                else if (SubStr(StrLower(Trim(A_LoopField136)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF) && isLineAconstruct(Trim(A_LoopField136)) == true) {
+                    htCodeOutFixEnd += A_LoopField136 + "\n{\n";
                 }
-                else if (SubStr(StrLower(Trim(A_LoopField123)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop) && isLineAconstruct(Trim(A_LoopField123)) == true) {
-                    htCodeOutFixEnd += A_LoopField123 + "\n{\n";
+                else if (SubStr(StrLower(Trim(A_LoopField136)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop) && isLineAconstruct(Trim(A_LoopField136)) == true) {
+                    htCodeOutFixEnd += A_LoopField136 + "\n{\n";
                 }
-                else if (SubStr(StrLower(Trim(A_LoopField123)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf) && isLineAconstruct(Trim(A_LoopField123)) == true) {
-                    htCodeOutFixEnd += "\n}\n" + A_LoopField123 + "\n{\n";
+                else if (SubStr(StrLower(Trim(A_LoopField136)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf) && isLineAconstruct(Trim(A_LoopField136)) == true) {
+                    htCodeOutFixEnd += "\n}\n" + A_LoopField136 + "\n{\n";
                 }
-                else if (SubStr(StrLower(Trim(A_LoopField123)), 1, StrLen(StrLower(keyWordElse))) == StrLower(keyWordElse) && isLineAconstruct(Trim(A_LoopField123)) == true) {
-                    htCodeOutFixEnd += "\n}\n" + A_LoopField123 + "\n{\n";
+                else if (SubStr(StrLower(Trim(A_LoopField136)), 1, StrLen(StrLower(keyWordElse))) == StrLower(keyWordElse) && isLineAconstruct(Trim(A_LoopField136)) == true) {
+                    htCodeOutFixEnd += "\n}\n" + A_LoopField136 + "\n{\n";
                 }
-                else if (SubStr(StrLower(Trim(A_LoopField123)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch) && isLineAconstruct(Trim(A_LoopField123)) == true) {
-                    htCodeOutFixEnd += "\n}\n" + A_LoopField123 + "\n{\n";
+                else if (SubStr(StrLower(Trim(A_LoopField136)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch) && isLineAconstruct(Trim(A_LoopField136)) == true) {
+                    htCodeOutFixEnd += "\n}\n" + A_LoopField136 + "\n{\n";
                 }
-                else if (SubStr(StrLower(Trim(A_LoopField123)), 1, StrLen(StrLower(keyWordFinally))) == StrLower(keyWordFinally) && isLineAconstruct(Trim(A_LoopField123)) == true) {
-                    htCodeOutFixEnd += "\n}\n" + A_LoopField123 + "\n{\n";
+                else if (SubStr(StrLower(Trim(A_LoopField136)), 1, StrLen(StrLower(keyWordFinally))) == StrLower(keyWordFinally) && isLineAconstruct(Trim(A_LoopField136)) == true) {
+                    htCodeOutFixEnd += "\n}\n" + A_LoopField136 + "\n{\n";
                 }
-                else if (isLineAconstruct(Trim(A_LoopField123)) == true) {
-                    htCodeOutFixEnd += A_LoopField123 + "\n{\n";
+                else if (isLineAconstruct(Trim(A_LoopField136)) == true) {
+                    htCodeOutFixEnd += A_LoopField136 + "\n{\n";
                 } else {
-                    htCodeOutFixEnd += A_LoopField123 + Chr(10);
+                    htCodeOutFixEnd += A_LoopField136 + Chr(10);
                 }
             }
             code = StringTrimRight(htCodeOutFixEnd, 1);
@@ -8819,13 +9002,13 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         if (usePythonicColonSyntax == "off") {
             if (useEnd == "off" && useCurlyBraces == "off") {
                 htCodeOutFixEnd = "";
-                items124 = LoopParseFunc(code, "\n", "\r")
-                for (let A_Index124 = 0; A_Index124 < items124.length + 0; A_Index124++) {
-                    const A_LoopField124 = items124[A_Index124 - 0];
-                    if (isLineAconstruct(Trim(A_LoopField124)) == true) {
-                        htCodeOutFixEnd += A_LoopField124 + ":\n";
+                items137 = LoopParseFunc(code, "\n", "\r")
+                for (let A_Index137 = 0; A_Index137 < items137.length + 0; A_Index137++) {
+                    const A_LoopField137 = items137[A_Index137 - 0];
+                    if (isLineAconstruct(Trim(A_LoopField137)) == true) {
+                        htCodeOutFixEnd += A_LoopField137 + ":\n";
                     } else {
-                        htCodeOutFixEnd += A_LoopField124 + Chr(10);
+                        htCodeOutFixEnd += A_LoopField137 + Chr(10);
                     }
                 }
                 code = StringTrimRight(htCodeOutFixEnd, 1);
@@ -8835,41 +9018,41 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             code = AddCurlyBraces(code);
         }
         outTrimCode = "";
-        items125 = LoopParseFunc(code, "\n", "\r")
-        for (let A_Index125 = 0; A_Index125 < items125.length + 0; A_Index125++) {
-            const A_LoopField125 = items125[A_Index125 - 0];
-            outTrimCode += Trim(A_LoopField125) + Chr(10);
+        items138 = LoopParseFunc(code, "\n", "\r")
+        for (let A_Index138 = 0; A_Index138 < items138.length + 0; A_Index138++) {
+            const A_LoopField138 = items138[A_Index138 - 0];
+            outTrimCode += Trim(A_LoopField138) + Chr(10);
         }
         code = StringTrimRight(outTrimCode, 1);
         // for converting c++ to js and py
         //code := StrReplace(code, "{}", "[]")
         var outCodeFixBraces = "";
-        for (let A_Index126 = 0; A_Index126 < 2 + 0; A_Index126++) {
+        for (let A_Index139 = 0; A_Index139 < 2 + 0; A_Index139++) {
             outCodeFixBraces = "";
-            items127 = LoopParseFunc(code, "\n", "\r")
-            for (let A_Index127 = 0; A_Index127 < items127.length + 0; A_Index127++) {
-                const A_LoopField127 = items127[A_Index127 - 0];
-                if (InStr(A_LoopField127, " " + keyWordAssign + " ") || InStr(A_LoopField127, " " + keyWordAssignAdd + " ") || InStr(A_LoopField127, " " + keyWordAssignConcat + " ") || InStr(A_LoopField127, " " + keyWordAssignSub + " ") || InStr(A_LoopField127, " " + keyWordAssignMul + " ") || InStr(A_LoopField127, " " + keyWordAssignDiv + " ") || InStr(A_LoopField127, " " + keyWordAssignMod + " ") || InStr(A_LoopField127, " " + keyWordAssignShiftLeft + " ") || InStr(A_LoopField127, " " + keyWordAssignShiftRight + " ") || InStr(A_LoopField127, " " + keyWordLogicalAssignShiftRight + " ") || InStr(A_LoopField127, " " + keyWordAssignBitAnd + " ") || InStr(A_LoopField127, " " + keyWordAssignBitOr + " ") || InStr(A_LoopField127, " " + keyWordAssignBitXor + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
-                    if (SubStr(StrLower(A_LoopField127), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc) || SubStr(StrLower(A_LoopField127), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc)) {
-                        if (InStr(Trim(A_LoopField127), "{") && Trim(A_LoopField127) != "{") {
-                            outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField127), "{", "")) + "\n{\n";
+            items140 = LoopParseFunc(code, "\n", "\r")
+            for (let A_Index140 = 0; A_Index140 < items140.length + 0; A_Index140++) {
+                const A_LoopField140 = items140[A_Index140 - 0];
+                if (InStr(A_LoopField140, " " + keyWordAssign + " ") || InStr(A_LoopField140, " " + keyWordAssignAdd + " ") || InStr(A_LoopField140, " " + keyWordAssignConcat + " ") || InStr(A_LoopField140, " " + keyWordAssignSub + " ") || InStr(A_LoopField140, " " + keyWordAssignMul + " ") || InStr(A_LoopField140, " " + keyWordAssignDiv + " ") || InStr(A_LoopField140, " " + keyWordAssignMod + " ") || InStr(A_LoopField140, " " + keyWordAssignShiftLeft + " ") || InStr(A_LoopField140, " " + keyWordAssignShiftRight + " ") || InStr(A_LoopField140, " " + keyWordLogicalAssignShiftRight + " ") || InStr(A_LoopField140, " " + keyWordAssignBitAnd + " ") || InStr(A_LoopField140, " " + keyWordAssignBitOr + " ") || InStr(A_LoopField140, " " + keyWordAssignBitXor + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
+                    if (SubStr(StrLower(A_LoopField140), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc) || SubStr(StrLower(A_LoopField140), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc)) {
+                        if (InStr(Trim(A_LoopField140), "{") && Trim(A_LoopField140) != "{") {
+                            outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField140), "{", "")) + "\n{\n";
                         }
-                        else if (InStr(Trim(A_LoopField127), "}") && Trim(A_LoopField127) != "}") {
-                            outCodeFixBraces += "}\n" + Trim(StrReplace(Trim(A_LoopField127), "}", "")) + Chr(10);
+                        else if (InStr(Trim(A_LoopField140), "}") && Trim(A_LoopField140) != "}") {
+                            outCodeFixBraces += "}\n" + Trim(StrReplace(Trim(A_LoopField140), "}", "")) + Chr(10);
                         } else {
-                            outCodeFixBraces += Trim(A_LoopField127) + Chr(10);
+                            outCodeFixBraces += Trim(A_LoopField140) + Chr(10);
                         }
                     } else {
-                        outCodeFixBraces += Trim(A_LoopField127) + Chr(10);
+                        outCodeFixBraces += Trim(A_LoopField140) + Chr(10);
                     }
                 } else {
-                    if (InStr(Trim(A_LoopField127), "{") && Trim(A_LoopField127) != "{") {
-                        outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField127), "{", "")) + "\n{\n";
+                    if (InStr(Trim(A_LoopField140), "{") && Trim(A_LoopField140) != "{") {
+                        outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField140), "{", "")) + "\n{\n";
                     }
-                    else if (InStr(Trim(A_LoopField127), "}") && Trim(A_LoopField127) != "}") {
-                        outCodeFixBraces += "}\n" + Trim(StrReplace(Trim(A_LoopField127), "}", "")) + Chr(10);
+                    else if (InStr(Trim(A_LoopField140), "}") && Trim(A_LoopField140) != "}") {
+                        outCodeFixBraces += "}\n" + Trim(StrReplace(Trim(A_LoopField140), "}", "")) + Chr(10);
                     } else {
-                        outCodeFixBraces += Trim(A_LoopField127) + Chr(10);
+                        outCodeFixBraces += Trim(A_LoopField140) + Chr(10);
                     }
                 }
             }
@@ -8877,13 +9060,13 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         }
         htCodeOutFixEnd = "";
         if (usePythonicColonSyntax == "on" || useCurlyBraces == "off" && useEnd == "off") {
-            items128 = LoopParseFunc(code, "\n", "\r")
-            for (let A_Index128 = 0; A_Index128 < items128.length + 0; A_Index128++) {
-                const A_LoopField128 = items128[A_Index128 - 0];
-                if (isLineAconstruct(Trim(A_LoopField128)) == true) {
-                    htCodeOutFixEnd += StringTrimRight(A_LoopField128, 1) + Chr(10);
+            items141 = LoopParseFunc(code, "\n", "\r")
+            for (let A_Index141 = 0; A_Index141 < items141.length + 0; A_Index141++) {
+                const A_LoopField141 = items141[A_Index141 - 0];
+                if (isLineAconstruct(Trim(A_LoopField141)) == true) {
+                    htCodeOutFixEnd += StringTrimRight(A_LoopField141, 1) + Chr(10);
                 } else {
-                    htCodeOutFixEnd += A_LoopField128 + Chr(10);
+                    htCodeOutFixEnd += A_LoopField141 + Chr(10);
                 }
             }
             code = StringTrimRight(htCodeOutFixEnd, 1);
@@ -8895,10 +9078,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         fullLangAllOperators = GETfullLangAllOperators();
         fullLangAllOperators_HELP = GETfullLangAllOperators_HELP();
         if (isNotHTVMfile2 == 0) {
-            items129 = LoopParseFunc(code, "\n", "\r")
-            for (let A_Index129 = 0; A_Index129 < items129.length + 0; A_Index129++) {
-                const A_LoopField129 = items129[A_Index129 - 0];
-                if (StrLower(Trim(A_LoopField129)) == StrLower(keyWordMainLabel)) {
+            items142 = LoopParseFunc(code, "\n", "\r")
+            for (let A_Index142 = 0; A_Index142 < items142.length + 0; A_Index142++) {
+                const A_LoopField142 = items142[A_Index142 - 0];
+                if (StrLower(Trim(A_LoopField142)) == StrLower(keyWordMainLabel)) {
                     didWeUseMainLabel = 1;
                     if (langToConvertTo == langFileExtension_2) {
                         codeOutFixAndAddMainFunc += keyWordMainLabel_2 + Chr(10);
@@ -8931,7 +9114,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         codeOutFixAndAddMainFunc += "void main(List<String> arguments)" + Chr(10) + "{" + Chr(10);
                     }
                 } else {
-                    codeOutFixAndAddMainFunc += A_LoopField129 + Chr(10);
+                    codeOutFixAndAddMainFunc += A_LoopField142 + Chr(10);
                 }
             }
             if (didWeUseMainLabel != 1 && langToConvertTo == "cpp") {
@@ -8965,10 +9148,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             // main loop
             // main loop
         }
-        items130 = LoopParseFunc(code, "\n", "\r")
-        for (let A_Index130 = 0; A_Index130 < items130.length + 0; A_Index130++) {
-            const A_LoopField130 = items130[A_Index130 - 0];
-            HTVM_Append(lookIntoTheNextLineForFuncWhitNoKeyWord, A_LoopField130);
+        items143 = LoopParseFunc(code, "\n", "\r")
+        for (let A_Index143 = 0; A_Index143 < items143.length + 0; A_Index143++) {
+            const A_LoopField143 = items143[A_Index143 - 0];
+            HTVM_Append(lookIntoTheNextLineForFuncWhitNoKeyWord, A_LoopField143);
         }
         HTVM_Append(lookIntoTheNextLineForFuncWhitNoKeyWord, " ");
         if (langToConvertTo != langFileExtension_2) {
@@ -8980,13 +9163,13 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         //print("=======UP==========")
         //print(code)
         //print("=======DOWN==========")
-        items131 = LoopParseFunc(code, "\n", "\r")
-        for (let A_Index131 = 0; A_Index131 < items131.length + 0; A_Index131++) {
-            const A_LoopField131 = items131[A_Index131 - 0];
+        items144 = LoopParseFunc(code, "\n", "\r")
+        for (let A_Index144 = 0; A_Index144 < items144.length + 0; A_Index144++) {
+            const A_LoopField144 = items144[A_Index144 - 0];
             lineDone = 0;
-            if (SubStr(A_LoopField131, 1, StrLen(keyWordComment)) == keyWordComment) {
+            if (SubStr(A_LoopField144, 1, StrLen(keyWordComment)) == keyWordComment) {
                 lineDone = 1;
-                str1 = StringTrimLeft(A_LoopField131, StrLen(keyWordComment));
+                str1 = StringTrimLeft(A_LoopField144, StrLen(keyWordComment));
                 if (langToConvertTo == langFileExtension_2) {
                     htCode += keyWordComment_2 + str1 + Chr(10);
                 }
@@ -9036,7 +9219,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "//" + str1 + Chr(10);
                 }
             }
-            else if (Trim(A_LoopField131) == keyWordCommentOpenMultiLine) {
+            else if (Trim(A_LoopField144) == keyWordCommentOpenMultiLine) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     htCode += keyWordCommentOpenMultiLine_2 + Chr(10);
@@ -9087,7 +9270,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "/*" + Chr(10);
                 }
             }
-            else if (Trim(A_LoopField131) == keyWordCommentCloseMultiLine) {
+            else if (Trim(A_LoopField144) == keyWordCommentCloseMultiLine) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     htCode += keyWordCommentCloseMultiLine_2 + Chr(10);
@@ -9138,45 +9321,45 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "*/" + Chr(10);
                 }
             }
-            else if (InStr(A_LoopField131, "[][][][][] ")) {
+            else if (InStr(A_LoopField144, "[][][][][] ")) {
                 lineDone = 1;
-                str1 = StrSplit(A_LoopField131, " ", 2);
+                str1 = StrSplit(A_LoopField144, " ", 2);
                 HTVM_Append(ospDic1, str1);
                 strOspHold = StrReplace(str1, "_", ".");
                 if (langToConvertTo == langFileExtension_2) {
                     htCode += keyWordDefObj_2 + StrReplace(str1, "_", ".") + Chr(10) + "{" + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordDefObj))) == StrLower(keyWordDefObj)) {
+            else if (SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordDefObj))) == StrLower(keyWordDefObj)) {
                 lineDone = 1;
-                str0 = Trim(StringTrimLeft(A_LoopField131, StrLen(keyWordDefObj)));
+                str0 = Trim(StringTrimLeft(A_LoopField144, StrLen(keyWordDefObj)));
                 if (langToConvertTo == langFileExtension_2) {
                     htCode += Trim(keyWordDefObj_2) + " " + str0 + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordAlliance))) == StrLower(keyWordAlliance)) {
+            else if (SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordAlliance))) == StrLower(keyWordAlliance)) {
                 lineDone = 1;
-                str0 = Trim(StringTrimLeft(A_LoopField131, StrLen(keyWordAlliance)));
+                str0 = Trim(StringTrimLeft(A_LoopField144, StrLen(keyWordAlliance)));
                 if (langToConvertTo == langFileExtension_2) {
                     htCode += Trim(keyWordAlliance_2) + " " + str0 + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordCrew))) == StrLower(keyWordCrew)) {
+            else if (SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordCrew))) == StrLower(keyWordCrew)) {
                 lineDone = 1;
-                str0 = Trim(StringTrimLeft(A_LoopField131, StrLen(keyWordCrew)));
+                str0 = Trim(StringTrimLeft(A_LoopField144, StrLen(keyWordCrew)));
                 if (langToConvertTo == langFileExtension_2) {
                     htCode += Trim(keyWordCrew_2) + " " + str0 + Chr(10);
                 }
             }
-            else if (InStr(A_LoopField131, "[end][end][end][end][end] ")) {
+            else if (InStr(A_LoopField144, "[end][end][end][end][end] ")) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     htCode += "}" + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordProp))) == StrLower(keyWordProp)) {
+            else if (SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordProp))) == StrLower(keyWordProp)) {
                 lineDone = 1;
-                str0 = Trim(StringTrimLeft(A_LoopField131, StrLen(keyWordProp)));
+                str0 = Trim(StringTrimLeft(A_LoopField144, StrLen(keyWordProp)));
                 str1 = Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 1));
                 str20 = Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 2));
                 if (str20 == "" && langToConvertTo != langFileExtension_2) {
@@ -9188,19 +9371,19 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += propHELP(str1, StrReplace(str20, ".", "_") + "_") + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
+            else if (SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
                 lineDone = 1;
-                str0 = Trim(StringTrimLeft(A_LoopField131, StrLen(keyWordMethod)));
+                str0 = Trim(StringTrimLeft(A_LoopField144, StrLen(keyWordMethod)));
                 str1 = Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 1));
                 str20 = Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 2));
                 str16 = Trim(StrSplit(str1, "(", 1));
                 str18 = Trim(StrSplit(str1, ")", 2));
                 int1 = 0;
                 str17 = "";
-                items132 = LoopParseFunc(str16, " ")
-                for (let A_Index132 = 0; A_Index132 < items132.length + 0; A_Index132++) {
-                    const A_LoopField132 = items132[A_Index132 - 0];
-                    str17 = Trim(A_LoopField132);
+                items145 = LoopParseFunc(str16, " ")
+                for (let A_Index145 = 0; A_Index145 < items145.length + 0; A_Index145++) {
+                    const A_LoopField145 = items145[A_Index145 - 0];
+                    str17 = Trim(A_LoopField145);
                 }
                 // last word aka the method name
                 //str17
@@ -9315,9 +9498,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "def " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ")" + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF) && SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordElseIf))) != StrLower(keyWordElseIf)) {
+            else if (SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF) && SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordElseIf))) != StrLower(keyWordElseIf)) {
                 lineDone = 1;
-                str1 = Trim(StringTrimLeft(A_LoopField131, StrLen(keyWordIF)));
+                str1 = Trim(StringTrimLeft(A_LoopField144, StrLen(keyWordIF)));
                 str1 = Trim(expressionParserTranspiler("(" + str1 + ")"));
                 str1 = StringTrimRight(str1, 1);
                 str1 = StringTrimLeft(str1, 1);
@@ -9430,9 +9613,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "if (" + str1 + ")" + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf) && SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordIF))) != StrLower(keyWordIF)) {
+            else if (SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf) && SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordIF))) != StrLower(keyWordIF)) {
                 lineDone = 1;
-                str1 = Trim(StringTrimLeft(A_LoopField131, StrLen(keyWordElseIf)));
+                str1 = Trim(StringTrimLeft(A_LoopField144, StrLen(keyWordElseIf)));
                 str1 = Trim(expressionParserTranspiler("(" + str1 + ")"));
                 str1 = StringTrimRight(str1, 1);
                 str1 = StringTrimLeft(str1, 1);
@@ -9545,7 +9728,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "else if (" + str1 + ")" + Chr(10);
                 }
             }
-            else if (StrLower(Trim(A_LoopField131)) == StrLower(keyWordElse) || StrLower(Trim(A_LoopField131)) == StrLower(keyWordElse + ":")) {
+            else if (StrLower(Trim(A_LoopField144)) == StrLower(keyWordElse) || StrLower(Trim(A_LoopField144)) == StrLower(keyWordElse + ":")) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (usePythonicColonSyntax_2 == "on") {
@@ -9600,9 +9783,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "else\n";
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop)) {
+            else if (SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop)) {
                 lineDone = 1;
-                str1 = Trim(StringTrimLeft(A_LoopField131, StrLen(keyWordWhileLoop)));
+                str1 = Trim(StringTrimLeft(A_LoopField144, StrLen(keyWordWhileLoop)));
                 str1 = Trim(expressionParserTranspiler("(" + str1 + ")"));
                 str1 = StringTrimRight(str1, 1);
                 str1 = StringTrimLeft(str1, 1);
@@ -9715,7 +9898,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "while (" + str1 + ")" +  Chr(10);
                 }
             }
-            else if (StrLower(Trim(A_LoopField131)) == StrLower(keyWordTry) || StrLower(Trim(A_LoopField131)) == StrLower(keyWordTry + ":")) {
+            else if (StrLower(Trim(A_LoopField144)) == StrLower(keyWordTry) || StrLower(Trim(A_LoopField144)) == StrLower(keyWordTry + ":")) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (usePythonicColonSyntax_2 == "on") {
@@ -9725,7 +9908,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += "try\n";
+                    htCode += "tryn";
                 }
                 if (langToConvertTo == "py") {
                     htCode += "try:\n";
@@ -9770,9 +9953,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "try\n";
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch)) {
+            else if (SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch)) {
                 lineDone = 1;
-                str1 = Trim(StrReplace(StrReplace(StringTrimLeft(A_LoopField131, StrLen(keyWordCatch)), "(", ""), ")", ""));
+                str1 = Trim(StrReplace(StrReplace(StringTrimLeft(A_LoopField144, StrLen(keyWordCatch)), "(", ""), ")", ""));
                 theTryCatchVarForErrors = str1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (usePythonicColonSyntax_2 == "on") {
@@ -9835,7 +10018,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "catch (Exception " + str1 + ")\n";
                 }
             }
-            else if (StrLower(Trim(A_LoopField131)) == StrLower(keyWordFinally) || StrLower(Trim(A_LoopField131)) == StrLower(keyWordFinally + ":")) {
+            else if (StrLower(Trim(A_LoopField144)) == StrLower(keyWordFinally) || StrLower(Trim(A_LoopField144)) == StrLower(keyWordFinally + ":")) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (usePythonicColonSyntax_2 == "on") {
@@ -9890,9 +10073,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "finally\n";
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordThrow))) == StrLower(keyWordThrow)) {
+            else if (SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordThrow))) == StrLower(keyWordThrow)) {
                 lineDone = 1;
-                str1 = Trim(A_LoopField131);
+                str1 = Trim(A_LoopField144);
                 if (SubStrLastChars(str1, 1) == ";") {
                     str1 = StringTrimRight(str1, 1);
                 }
@@ -9950,7 +10133,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "throw new Exception(" + str1 + ")\n";
                 }
             }
-            else if (StrLower(A_LoopField131) == StrLower(keyWordBreak) || StrLower(A_LoopField131) == StrLower(keyWordBreak + ";")) {
+            else if (StrLower(A_LoopField144) == StrLower(keyWordBreak) || StrLower(A_LoopField144) == StrLower(keyWordBreak + ";")) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -10005,7 +10188,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "break;\n";
                 }
             }
-            else if (StrLower(A_LoopField131) == StrLower(Trim(keyWordReturnStatement)) || StrLower(A_LoopField131) == StrLower(Trim(keyWordReturnStatement) + ";")) {
+            else if (StrLower(A_LoopField144) == StrLower(Trim(keyWordReturnStatement)) || StrLower(A_LoopField144) == StrLower(Trim(keyWordReturnStatement) + ";")) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -10060,9 +10243,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "return;\n";
                 }
             }
-            else if (SubStr(Trim(StrLower(A_LoopField131)), 1, StrLen(StrLower(keyWordReturnStatement))) == StrLower(keyWordReturnStatement)) {
+            else if (SubStr(Trim(StrLower(A_LoopField144)), 1, StrLen(StrLower(keyWordReturnStatement))) == StrLower(keyWordReturnStatement)) {
                 lineDone = 1;
-                str1 = Trim(expressionParserTranspiler(Trim(StringTrimLeft(A_LoopField131, StrLen(keyWordReturnStatement)))));
+                str1 = Trim(expressionParserTranspiler(Trim(StringTrimLeft(A_LoopField144, StrLen(keyWordReturnStatement)))));
                 if (SubStrLastChars(str1, 1) == ";") {
                     str1 = StringTrimRight(str1, 1);
                 }
@@ -10119,7 +10302,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "return " + str1 + ";\n";
                 }
             }
-            else if (StrLower(A_LoopField131) == StrLower(keyWordContinue) || StrLower(A_LoopField131) == StrLower(keyWordContinue + ";")) {
+            else if (StrLower(A_LoopField144) == StrLower(keyWordContinue) || StrLower(A_LoopField144) == StrLower(keyWordContinue + ";")) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -10174,7 +10357,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "continue;\n";
                 }
             }
-            else if (StrLower(A_LoopField131) == "::" + keyWordContinue) {
+            else if (StrLower(A_LoopField144) == "::" + keyWordContinue) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     htCode += "::" + keyWordContinue_2 + Chr(10);
@@ -10184,7 +10367,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     luaContinueFix_Num++;
                 }
             }
-            else if (StrLower(A_LoopField131) == StrLower(keyWordLoopInfinite) || StrLower(A_LoopField131) == StrLower(keyWordLoopInfinite + ":")) {
+            else if (StrLower(A_LoopField144) == StrLower(keyWordLoopInfinite) || StrLower(A_LoopField144) == StrLower(keyWordLoopInfinite + ":")) {
                 // infinity loops
                 haveWeEverUsedAloop = 1;
                 lineDone = 1;
@@ -10252,8 +10435,8 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 AindexcharLength++;
                 htCode += htCodeLoopfixa1 + Chr(10) + var1 + Chr(10);
             }
-            else if (SubStr(Trim(StrLower(A_LoopField131)), 1, StrLen(StrLower(keyWordLoop))) == StrLower(keyWordLoop) && SubStr(Trim(StrLower(A_LoopField131)), 1, StrLen(StrLower(keyWordLoop)) + 2) != StrLower(keyWordLoop) + "% " && SubStr(Trim(StrLower(A_LoopField131)), 1, StrLen(StrLower(keyWordLoopParse))) != StrLower(keyWordLoopParse)) {
-                out2 = StringTrimLeft(A_LoopField131, StrLen(keyWordLoop));
+            else if (SubStr(Trim(StrLower(A_LoopField144)), 1, StrLen(StrLower(keyWordLoop))) == StrLower(keyWordLoop) && SubStr(Trim(StrLower(A_LoopField144)), 1, StrLen(StrLower(keyWordLoop)) + 2) != StrLower(keyWordLoop) + "% " && SubStr(Trim(StrLower(A_LoopField144)), 1, StrLen(StrLower(keyWordLoopParse))) != StrLower(keyWordLoopParse)) {
+                out2 = StringTrimLeft(A_LoopField144, StrLen(keyWordLoop));
                 out2 = StrReplace(out2, ":", "");
                 //MsgBox % out2
                 howMany_fixAindexInGoUnused++;
@@ -10327,9 +10510,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 lineDone = 1;
                 htCode += htCodeLoopfixa1 + Chr(10) + var1 + Chr(10);
             }
-            else if (SubStr(Trim(StrLower(A_LoopField131)), 1, StrLen(StrLower(keyWordLoop)) + 2) == StrLower(keyWordLoop) + "% ") {
+            else if (SubStr(Trim(StrLower(A_LoopField144)), 1, StrLen(StrLower(keyWordLoop)) + 2) == StrLower(keyWordLoop) + "% ") {
                 howMany_fixAindexInGoUnused++;
-                out2 = StringTrimLeft(A_LoopField131, StrLen(keyWordLoop) + 2);
+                out2 = StringTrimLeft(A_LoopField144, StrLen(keyWordLoop) + 2);
                 out2 = StrReplace(out2, ":", "");
                 //MsgBox % out2
                 //MsgBox, % out2
@@ -10402,9 +10585,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 lineDone = 1;
                 htCode += htCodeLoopfixa1 + Chr(10) + var1 + Chr(10);
             }
-            else if (SubStr(StrLower(A_LoopField131), 1, StrLen(StrLower(keyWordLoopParse))) == StrLower(keyWordLoopParse)) {
+            else if (SubStr(StrLower(A_LoopField144), 1, StrLen(StrLower(keyWordLoopParse))) == StrLower(keyWordLoopParse)) {
                 howMany_fixAindexInGoUnused++;
-                var1 = StringTrimLeft(A_LoopField131, StrLen(keyWordLoopParse));
+                var1 = StringTrimLeft(A_LoopField144, StrLen(keyWordLoopParse));
                 out2 = StrReplace(out2, ":", "");
                 lineDone = 1;
                 line1 = Trim(StrSplit(var1, ",", 1));
@@ -10723,11 +10906,11 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += htCodeLoopfixa1 + Chr(10) + var1out + Chr(10);
                 }
             }
-            else if (SubStrLastChars(Trim(A_LoopField131), StrLen(keyWordInc)) == keyWordInc || SubStrLastChars(Trim(A_LoopField131), StrLen(keyWordInc + ";")) == keyWordInc + ";" && lineDone == 0) {
+            else if (SubStrLastChars(Trim(A_LoopField144), StrLen(keyWordInc)) == keyWordInc || SubStrLastChars(Trim(A_LoopField144), StrLen(keyWordInc + ";")) == keyWordInc + ";" && lineDone == 0) {
                 if (useSemicolon == "on") {
-                    str1 = Trim(StringTrimRight(Trim(A_LoopField131), StrLen(keyWordInc + ";")));
+                    str1 = Trim(StringTrimRight(Trim(A_LoopField144), StrLen(keyWordInc + ";")));
                 } else {
-                    str1 = Trim(StringTrimRight(Trim(A_LoopField131), StrLen(keyWordInc)));
+                    str1 = Trim(StringTrimRight(Trim(A_LoopField144), StrLen(keyWordInc)));
                 }
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -10782,11 +10965,11 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += str1 + "++;" + Chr(10);
                 }
             }
-            else if (SubStrLastChars(Trim(A_LoopField131), StrLen(keyWordDec)) == keyWordDec || SubStrLastChars(Trim(A_LoopField131), StrLen(keyWordDec + ";")) == keyWordDec + ";" && lineDone == 0) {
+            else if (SubStrLastChars(Trim(A_LoopField144), StrLen(keyWordDec)) == keyWordDec || SubStrLastChars(Trim(A_LoopField144), StrLen(keyWordDec + ";")) == keyWordDec + ";" && lineDone == 0) {
                 if (useSemicolon == "on") {
-                    str1 = Trim(StringTrimRight(Trim(A_LoopField131), StrLen(keyWordDec + ";")));
+                    str1 = Trim(StringTrimRight(Trim(A_LoopField144), StrLen(keyWordDec + ";")));
                 } else {
-                    str1 = Trim(StringTrimRight(Trim(A_LoopField131), StrLen(keyWordDec)));
+                    str1 = Trim(StringTrimRight(Trim(A_LoopField144), StrLen(keyWordDec)));
                 }
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -10841,17 +11024,17 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += str1 + "--;" + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField131)), 1, StrLen(StrLower(keyWordInclude + " "))) == StrLower(keyWordInclude + " ") && langToConvertTo == langFileExtension_2) {
-                htCode += keyWordInclude_2 + " " + Trim(StringTrimLeft(Trim(A_LoopField131), StrLen(StrLower(keyWordInclude) + " "))) + Chr(10);
+            else if (SubStr(StrLower(Trim(A_LoopField144)), 1, StrLen(StrLower(keyWordInclude + " "))) == StrLower(keyWordInclude + " ") && langToConvertTo == langFileExtension_2) {
+                htCode += keyWordInclude_2 + " " + Trim(StringTrimLeft(Trim(A_LoopField144), StrLen(StrLower(keyWordInclude) + " "))) + Chr(10);
             }
-            else if (StrLower(A_LoopField131) == StrLower(keyWordGlobal) || StrLower(A_LoopField131) == StrLower(keyWordGlobal + ";")) {
+            else if (StrLower(A_LoopField144) == StrLower(keyWordGlobal) || StrLower(A_LoopField144) == StrLower(keyWordGlobal + ";")) {
                 if (langToConvertTo == "ahk") {
                     htCode += "global\n";
                 }
             }
-            else if (SubStr(StrLower(A_LoopField131), 1, StrLen(StrLower(keyWordAwait))) == StrLower(keyWordAwait)) {
-                str1 = StringTrimLeft(A_LoopField131, StrLen(keyWordAwait));
-                //MsgBox, % A_LoopField131
+            else if (SubStr(StrLower(A_LoopField144), 1, StrLen(StrLower(keyWordAwait))) == StrLower(keyWordAwait)) {
+                str1 = StringTrimLeft(A_LoopField144, StrLen(keyWordAwait));
+                //MsgBox, % A_LoopField144
                 lineDone = 1;
                 fixExpertionLineFuncOnly = 1;
                 if (langToConvertTo == langFileExtension_2) {
@@ -10884,9 +11067,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += str2 + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(A_LoopField131), 1, StrLen(StrLower(keyWordGlobal))) == StrLower(keyWordGlobal)) {
-                str1 = StringTrimLeft(A_LoopField131, StrLen(keyWordGlobal));
-                //MsgBox, % A_LoopField131
+            else if (SubStr(StrLower(A_LoopField144), 1, StrLen(StrLower(keyWordGlobal))) == StrLower(keyWordGlobal)) {
+                str1 = StringTrimLeft(A_LoopField144, StrLen(keyWordGlobal));
+                //MsgBox, % A_LoopField144
                 str1 = StrReplace(str1, ";", "");
                 lineDone = 1;
                 if (langToConvertTo == "py" || langToConvertTo == "ahk" || langToConvertTo == langFileExtension_2) {
@@ -10900,45 +11083,45 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 }
                 htCode += str2 + Chr(10);
             }
-            else if (SubStr(StrLower(A_LoopField131), 1, StrLen(keyWordFunc)) == StrLower(keyWordFunc) || SubStr(StrLower(A_LoopField131), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc) && InStr(StrLower(A_LoopField131), " main(") == false && lineDone == 0) {
+            else if (SubStr(StrLower(A_LoopField144), 1, StrLen(keyWordFunc)) == StrLower(keyWordFunc) || SubStr(StrLower(A_LoopField144), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc) && InStr(StrLower(A_LoopField144), " main(") == false && lineDone == 0) {
                 lineDone = 1;
-                if (SubStr(StrLower(A_LoopField131), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc)) {
+                if (SubStr(StrLower(A_LoopField144), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc)) {
                     // is async
                     int1 = 1;
-                    str1 = Trim(StringTrimLeft(A_LoopField131, StrLen(StrLower(keyWordAsync + keyWordFunc))));
+                    str1 = Trim(StringTrimLeft(A_LoopField144, StrLen(StrLower(keyWordAsync + keyWordFunc))));
                 } else {
                     // is async
                     int1 = 0;
-                    str1 = Trim(StringTrimLeft(A_LoopField131, StrLen(StrLower(keyWordFunc))));
+                    str1 = Trim(StringTrimLeft(A_LoopField144, StrLen(StrLower(keyWordFunc))));
                 }
                 if (langToConvertTo != langFileExtension_2 && langToConvertTo != "cpp" && langToConvertTo != "go" && langToConvertTo != "cs" && langToConvertTo != "java" && langToConvertTo != "kt" && langToConvertTo != "nim" && langToConvertTo != "swift" && langToConvertTo != "dart" && langToConvertTo != "ts") {
                     if (str1 != "") {
                         str4 = "";
-                        items133 = LoopParseFunc(str1, ",");
-                        for (let A_Index133 = 0; A_Index133 < items133.length + 0; A_Index133++) {
-                            const A_LoopField133 = items133[A_Index133 - 0];
-                            if (InStr(A_LoopField133, " := ")) {
-                                if (InStr(Trim(StrSplit(A_LoopField133, " := ", 1)), " ") != true) {
-                                    str4 += "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " + A_LoopField133 + ", ";
+                        items146 = LoopParseFunc(str1, ",");
+                        for (let A_Index146 = 0; A_Index146 < items146.length + 0; A_Index146++) {
+                            const A_LoopField146 = items146[A_Index146 - 0];
+                            if (InStr(A_LoopField146, " := ")) {
+                                if (InStr(Trim(StrSplit(A_LoopField146, " := ", 1)), " ") != true) {
+                                    str4 += "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " + A_LoopField146 + ", ";
                                 } else {
-                                    str4 += A_LoopField133 + ", ";
+                                    str4 += A_LoopField146 + ", ";
                                 }
                             }
-                            else if (InStr(A_LoopField133, " = ")) {
-                                if (InStr(Trim(StrSplit(A_LoopField133, " = ", 1)), " ") != true) {
-                                    str4 += "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " + A_LoopField133 + ", ";
+                            else if (InStr(A_LoopField146, " = ")) {
+                                if (InStr(Trim(StrSplit(A_LoopField146, " = ", 1)), " ") != true) {
+                                    str4 += "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " + A_LoopField146 + ", ";
                                 } else {
-                                    str4 += A_LoopField133 + ", ";
+                                    str4 += A_LoopField146 + ", ";
                                 }
                             }
-                            else if (InStr(A_LoopField133, " " + Trim(keyWordAssign) + " ")) {
-                                if (InStr(Trim(StrSplit(A_LoopField133, " " + Trim(keyWordAssign) + " ", 1)), " ") != true) {
-                                    str4 += "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " + A_LoopField133 + ", ";
+                            else if (InStr(A_LoopField146, " " + Trim(keyWordAssign) + " ")) {
+                                if (InStr(Trim(StrSplit(A_LoopField146, " " + Trim(keyWordAssign) + " ", 1)), " ") != true) {
+                                    str4 += "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " + A_LoopField146 + ", ";
                                 } else {
-                                    str4 += A_LoopField133 + ", ";
+                                    str4 += A_LoopField146 + ", ";
                                 }
                             } else {
-                                str4 += A_LoopField133 + ", ";
+                                str4 += A_LoopField146 + ", ";
                             }
                         }
                         str1 = StringTrimRight(str4, 2);
@@ -11073,16 +11256,16 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     str18 = "";
                     str19 = "";
                     str20 = "";
-                    items134 = LoopParseFunc(str1, ",");
-                    for (let A_Index134 = 0; A_Index134 < items134.length + 0; A_Index134++) {
-                        const A_LoopField134 = items134[A_Index134 - 0];
-                        //print("|" . Trim(A_LoopField134) . "|")
-                        if (InStr(Trim(A_LoopField134), " ")) {
+                    items147 = LoopParseFunc(str1, ",");
+                    for (let A_Index147 = 0; A_Index147 < items147.length + 0; A_Index147++) {
+                        const A_LoopField147 = items147[A_Index147 - 0];
+                        //print("|" . Trim(A_LoopField147) . "|")
+                        if (InStr(Trim(A_LoopField147), " ")) {
                             // there is space aka there is a type
-                            if (InStr(A_LoopField134, " " + Trim(keyWordAssign) + " ") == false) {
+                            if (InStr(A_LoopField147, " " + Trim(keyWordAssign) + " ") == false) {
                                 if (usePrefixTypeForTypeDefinition == "on") {
                                     // normal
-                                    str6 = Trim(A_LoopField134);
+                                    str6 = Trim(A_LoopField147);
                                     str7 = getTheLastWord(str6);
                                     str8 = getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)));
                                     // str5 .= str8 . " " . str7 . Chr(10)
@@ -11149,7 +11332,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                 } else {
                                     // not normal
-                                    str6 = Trim(A_LoopField134);
+                                    str6 = Trim(A_LoopField147);
                                     str7 = Trim(StrSplit(str6, ":", 1));
                                     str8 = getFuncTypeConvert(Trim(StrSplit(str6, ":", 2)));
                                     // str5 .= str7 . " :" . str8 . Chr(10)
@@ -11217,12 +11400,12 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                 }
                             } else {
                                 // optanal param
-                                if (InStr(Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 1)), " ")) {
+                                if (InStr(Trim(StrSplit(Trim(A_LoopField147), " " + Trim(keyWordAssign) + " ", 1)), " ")) {
                                     // there is a type
                                     if (usePrefixTypeForTypeDefinition == "on") {
                                         // normal
-                                        str6 = Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 1));
-                                        str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 2))));
+                                        str6 = Trim(StrSplit(Trim(A_LoopField147), " " + Trim(keyWordAssign) + " ", 1));
+                                        str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField147), " " + Trim(keyWordAssign) + " ", 2))));
                                         str7 = getTheLastWord(str6);
                                         str8 = getFuncTypeConvert(Trim(StringTrimRight(str6, StrLen(Trim(str7)) + 1)));
                                         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -11303,8 +11486,8 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                         // skipLeftCuleyForFuncPLS := 1
                                     } else {
                                         // not normal
-                                        str6 = Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 1));
-                                        str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 2))));
+                                        str6 = Trim(StrSplit(Trim(A_LoopField147), " " + Trim(keyWordAssign) + " ", 1));
+                                        str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField147), " " + Trim(keyWordAssign) + " ", 2))));
                                         str7 = Trim(StrSplit(str6, ":", 1));
                                         str8 = getFuncTypeConvert(Trim(StrSplit(str6, ":", 2)));
                                         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -11386,8 +11569,8 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                     }
                                 } else {
                                     // there is no type
-                                    str8 = Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 1));
-                                    str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField134), " " + Trim(keyWordAssign) + " ", 2))));
+                                    str8 = Trim(StrSplit(Trim(A_LoopField147), " " + Trim(keyWordAssign) + " ", 1));
+                                    str9 = Trim(expressionParserTranspiler(Trim(StrSplit(Trim(A_LoopField147), " " + Trim(keyWordAssign) + " ", 2))));
                                     // str10
                                     // skipLeftCuleyForFuncPLS := 1
                                     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -11429,7 +11612,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                 }
                             }
                         } else {
-                            str5 += Trim(A_LoopField134) + Chr(10);
+                            str5 += Trim(A_LoopField147) + Chr(10);
                         }
                     }
                     //print(str5)
@@ -11443,179 +11626,179 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     str5 = Trim(str5);
                     str10 = Trim(str10);
                     if (Trim(str5) != "" && Trim(str10) != "") {
-                        items135 = LoopParseFunc(str5, "\n", "\r")
-                        for (let A_Index135 = 0; A_Index135 < items135.length + 0; A_Index135++) {
-                            const A_LoopField135 = items135[A_Index135 - 0];
-                            str11 += A_LoopField135 + ", ";
+                        items148 = LoopParseFunc(str5, "\n", "\r")
+                        for (let A_Index148 = 0; A_Index148 < items148.length + 0; A_Index148++) {
+                            const A_LoopField148 = items148[A_Index148 - 0];
+                            str11 += A_LoopField148 + ", ";
                         }
-                        items136 = LoopParseFunc(str10, "\n", "\r")
-                        for (let A_Index136 = 0; A_Index136 < items136.length + 0; A_Index136++) {
-                            const A_LoopField136 = items136[A_Index136 - 0];
-                            str12 += A_LoopField136 + ", ";
+                        items149 = LoopParseFunc(str10, "\n", "\r")
+                        for (let A_Index149 = 0; A_Index149 < items149.length + 0; A_Index149++) {
+                            const A_LoopField149 = items149[A_Index149 - 0];
+                            str12 += A_LoopField149 + ", ";
                         }
                         str12 = StringTrimRight(str12, 2);
                         if (langToConvertTo == "dart") {
                             str12 = "[" + str12 + "]";
                         }
                         if (langToConvertTo == "lua") {
-                            items137 = LoopParseFunc(str12, ",");
-                            for (let A_Index137 = 0; A_Index137 < items137.length + 0; A_Index137++) {
-                                const A_LoopField137 = items137[A_Index137 - 0];
-                                str14 += Trim(StrSplit(Trim(A_LoopField137), " = ", 1)) + ", ";
+                            items150 = LoopParseFunc(str12, ",");
+                            for (let A_Index150 = 0; A_Index150 < items150.length + 0; A_Index150++) {
+                                const A_LoopField150 = items150[A_Index150 - 0];
+                                str14 += Trim(StrSplit(Trim(A_LoopField150), " = ", 1)) + ", ";
                             }
                             str14 = StringTrimRight(str14, 2);
                             str13 += "{" + Chr(10);
-                            items138 = LoopParseFunc(str12, ",");
-                            for (let A_Index138 = 0; A_Index138 < items138.length + 0; A_Index138++) {
-                                const A_LoopField138 = items138[A_Index138 - 0];
-                                str13 += Trim(StrSplit(Trim(A_LoopField138), " = ", 1)) + " = " + Trim(StrSplit(Trim(A_LoopField138), " = ", 1)) + " or " + Trim(StrSplit(Trim(A_LoopField138), " = ", 2)) + Chr(10);
+                            items151 = LoopParseFunc(str12, ",");
+                            for (let A_Index151 = 0; A_Index151 < items151.length + 0; A_Index151++) {
+                                const A_LoopField151 = items151[A_Index151 - 0];
+                                str13 += Trim(StrSplit(Trim(A_LoopField151), " = ", 1)) + " = " + Trim(StrSplit(Trim(A_LoopField151), " = ", 1)) + " or " + Trim(StrSplit(Trim(A_LoopField151), " = ", 2)) + Chr(10);
                             }
                             str12 = str14;
                         }
                         if (langToConvertTo == "go") {
                             str14 = "__HTVM_V2_TO_GO_optionalParams__ ...interface{}";
                             str13 += "{" + Chr(10) + " ";
-                            items139 = LoopParseFunc(str12, ",");
-                            for (let A_Index139 = 0; A_Index139 < items139.length + 0; A_Index139++) {
-                                const A_LoopField139 = items139[A_Index139 - 0];
-                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField139), " = ", 1)), " ", 1));
-                                str17 = Trim(StrSplit(Trim(A_LoopField139), " = ", 2));
+                            items152 = LoopParseFunc(str12, ",");
+                            for (let A_Index152 = 0; A_Index152 < items152.length + 0; A_Index152++) {
+                                const A_LoopField152 = items152[A_Index152 - 0];
+                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField152), " = ", 1)), " ", 1));
+                                str17 = Trim(StrSplit(Trim(A_LoopField152), " = ", 2));
                                 str13 += str16 + " := " + str17 + Chr(10);
                             }
-                            items140 = LoopParseFunc(str12, ",");
-                            for (let A_Index140 = 0; A_Index140 < items140.length + 0; A_Index140++) {
-                                const A_LoopField140 = items140[A_Index140 - 0];
-                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField140), " = ", 1)), " ", 1));
-                                str18 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField140), " = ", 1)), " ", 2));
+                            items153 = LoopParseFunc(str12, ",");
+                            for (let A_Index153 = 0; A_Index153 < items153.length + 0; A_Index153++) {
+                                const A_LoopField153 = items153[A_Index153 - 0];
+                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField153), " = ", 1)), " ", 1));
+                                str18 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField153), " = ", 1)), " ", 2));
                                 // str16 = var name
                                 // str18 = var type
-                                str13 += "if len(__HTVM_V2_TO_GO_optionalParams__) " + Chr(62) + " " + STR(A_Index140) + Chr(10) + "{" + Chr(10) + str16 + " = __HTVM_V2_TO_GO_optionalParams__[" + STR(A_Index140) + "].(" + str18 + ")" + Chr(10) + "}" + Chr(10);
+                                str13 += "if len(__HTVM_V2_TO_GO_optionalParams__) " + Chr(62) + " " + STR(A_Index153) + Chr(10) + "{" + Chr(10) + str16 + " = __HTVM_V2_TO_GO_optionalParams__[" + STR(A_Index153) + "].(" + str18 + ")" + Chr(10) + "}" + Chr(10);
                             }
                             str12 = str14;
                         }
                         if (langToConvertTo == "java") {
                             str14 = "Object... __HTVM_V2_TO_JAVA_optionalParams__";
                             str13 += "{" + Chr(10);
-                            items141 = LoopParseFunc(str12, ",");
-                            for (let A_Index141 = 0; A_Index141 < items141.length + 0; A_Index141++) {
-                                const A_LoopField141 = items141[A_Index141 - 0];
-                                str19 = Trim(A_LoopField141);
+                            items154 = LoopParseFunc(str12, ",");
+                            for (let A_Index154 = 0; A_Index154 < items154.length + 0; A_Index154++) {
+                                const A_LoopField154 = items154[A_Index154 - 0];
+                                str19 = Trim(A_LoopField154);
                                 str20 = "";
-                                items142 = LoopParseFunc(str19, " ")
-                                for (let A_Index142 = 0; A_Index142 < items142.length + 0; A_Index142++) {
-                                    const A_LoopField142 = items142[A_Index142 - 0];
-                                    if (A_Index142 == 3) {
-                                        if (RegExMatch(A_LoopField142, "^\\d+(\\.\\d+)?$")) {
-                                            str20 += A_LoopField142 + "f ";
+                                items155 = LoopParseFunc(str19, " ")
+                                for (let A_Index155 = 0; A_Index155 < items155.length + 0; A_Index155++) {
+                                    const A_LoopField155 = items155[A_Index155 - 0];
+                                    if (A_Index155 == 3) {
+                                        if (RegExMatch(A_LoopField155, "^\\d+(\\.\\d+)?$")) {
+                                            str20 += A_LoopField155 + "f ";
                                         } else {
-                                            str20 += A_LoopField142 + " ";
+                                            str20 += A_LoopField155 + " ";
                                         }
                                     } else {
-                                        str20 += A_LoopField142 + " ";
+                                        str20 += A_LoopField155 + " ";
                                     }
                                 }
                                 str20 = StringTrimRight(str20, 1);
                                 str13 += Trim(str20) + ";" + Chr(10);
                             }
-                            items143 = LoopParseFunc(str12, ",");
-                            for (let A_Index143 = 0; A_Index143 < items143.length + 0; A_Index143++) {
-                                const A_LoopField143 = items143[A_Index143 - 0];
-                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField143), " = ", 1)), " ", 2));
-                                str17 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField143), " = ", 1)), " ", 1));
+                            items156 = LoopParseFunc(str12, ",");
+                            for (let A_Index156 = 0; A_Index156 < items156.length + 0; A_Index156++) {
+                                const A_LoopField156 = items156[A_Index156 - 0];
+                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField156), " = ", 1)), " ", 2));
+                                str17 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField156), " = ", 1)), " ", 1));
                                 // str16 = var name
                                 // str17 = type name
-                                str13 += "if (__HTVM_V2_TO_JAVA_optionalParams__.length " + Chr(62) + " " + STR(A_Index143) + ") " + str16 + " = (" + str17 + ") __HTVM_V2_TO_JAVA_optionalParams__[" + STR(A_Index143) + "];" + Chr(10);
+                                str13 += "if (__HTVM_V2_TO_JAVA_optionalParams__.length " + Chr(62) + " " + STR(A_Index156) + ") " + str16 + " = (" + str17 + ") __HTVM_V2_TO_JAVA_optionalParams__[" + STR(A_Index156) + "];" + Chr(10);
                             }
                             str12 = str14;
                         }
                         str11 += str12;
                     }
                     if (Trim(str5) != "" && Trim(str10) == "") {
-                        items144 = LoopParseFunc(str5, "\n", "\r")
-                        for (let A_Index144 = 0; A_Index144 < items144.length + 0; A_Index144++) {
-                            const A_LoopField144 = items144[A_Index144 - 0];
-                            str11 += A_LoopField144 + ", ";
+                        items157 = LoopParseFunc(str5, "\n", "\r")
+                        for (let A_Index157 = 0; A_Index157 < items157.length + 0; A_Index157++) {
+                            const A_LoopField157 = items157[A_Index157 - 0];
+                            str11 += A_LoopField157 + ", ";
                         }
                         str11 = StringTrimRight(str11, 2);
                     }
                     if (Trim(str5) == "" && Trim(str10) != "") {
-                        items145 = LoopParseFunc(str10, "\n", "\r")
-                        for (let A_Index145 = 0; A_Index145 < items145.length + 0; A_Index145++) {
-                            const A_LoopField145 = items145[A_Index145 - 0];
-                            str11 += A_LoopField145 + ", ";
+                        items158 = LoopParseFunc(str10, "\n", "\r")
+                        for (let A_Index158 = 0; A_Index158 < items158.length + 0; A_Index158++) {
+                            const A_LoopField158 = items158[A_Index158 - 0];
+                            str11 += A_LoopField158 + ", ";
                         }
                         str11 = StringTrimRight(str11, 2);
                         if (langToConvertTo == "dart") {
                             str11 = "[" + str11 + "]";
                         }
                         if (langToConvertTo == "lua") {
-                            items146 = LoopParseFunc(str11, ",");
-                            for (let A_Index146 = 0; A_Index146 < items146.length + 0; A_Index146++) {
-                                const A_LoopField146 = items146[A_Index146 - 0];
-                                str14 += Trim(StrSplit(Trim(A_LoopField146), " = ", 1)) + ", ";
+                            items159 = LoopParseFunc(str11, ",");
+                            for (let A_Index159 = 0; A_Index159 < items159.length + 0; A_Index159++) {
+                                const A_LoopField159 = items159[A_Index159 - 0];
+                                str14 += Trim(StrSplit(Trim(A_LoopField159), " = ", 1)) + ", ";
                             }
                             str14 = StringTrimRight(str14, 2);
                             str13 += "{" + Chr(10);
-                            items147 = LoopParseFunc(str11, ",");
-                            for (let A_Index147 = 0; A_Index147 < items147.length + 0; A_Index147++) {
-                                const A_LoopField147 = items147[A_Index147 - 0];
-                                str13 += Trim(StrSplit(Trim(A_LoopField147), " = ", 1)) + " = " + Trim(StrSplit(Trim(A_LoopField147), " = ", 1)) + " or " + Trim(StrSplit(Trim(A_LoopField147), " = ", 2)) + Chr(10);
+                            items160 = LoopParseFunc(str11, ",");
+                            for (let A_Index160 = 0; A_Index160 < items160.length + 0; A_Index160++) {
+                                const A_LoopField160 = items160[A_Index160 - 0];
+                                str13 += Trim(StrSplit(Trim(A_LoopField160), " = ", 1)) + " = " + Trim(StrSplit(Trim(A_LoopField160), " = ", 1)) + " or " + Trim(StrSplit(Trim(A_LoopField160), " = ", 2)) + Chr(10);
                             }
                             str11 = str14;
                         }
                         if (langToConvertTo == "go") {
                             str14 = "__HTVM_V2_TO_GO_optionalParams__ ...interface{}";
                             str13 += "{" + Chr(10) + " ";
-                            items148 = LoopParseFunc(str11, ",");
-                            for (let A_Index148 = 0; A_Index148 < items148.length + 0; A_Index148++) {
-                                const A_LoopField148 = items148[A_Index148 - 0];
-                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField148), " = ", 1)), " ", 1));
-                                str17 = Trim(StrSplit(Trim(A_LoopField148), " = ", 2));
+                            items161 = LoopParseFunc(str11, ",");
+                            for (let A_Index161 = 0; A_Index161 < items161.length + 0; A_Index161++) {
+                                const A_LoopField161 = items161[A_Index161 - 0];
+                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField161), " = ", 1)), " ", 1));
+                                str17 = Trim(StrSplit(Trim(A_LoopField161), " = ", 2));
                                 str13 += str16 + " := " + str17 + Chr(10);
                             }
-                            items149 = LoopParseFunc(str11, ",");
-                            for (let A_Index149 = 0; A_Index149 < items149.length + 0; A_Index149++) {
-                                const A_LoopField149 = items149[A_Index149 - 0];
-                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField149), " = ", 1)), " ", 1));
-                                str18 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField149), " = ", 1)), " ", 2));
+                            items162 = LoopParseFunc(str11, ",");
+                            for (let A_Index162 = 0; A_Index162 < items162.length + 0; A_Index162++) {
+                                const A_LoopField162 = items162[A_Index162 - 0];
+                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField162), " = ", 1)), " ", 1));
+                                str18 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField162), " = ", 1)), " ", 2));
                                 // str16 = var name
                                 // str18 = var type
-                                str13 += "if len(__HTVM_V2_TO_GO_optionalParams__) " + Chr(62) + " " + STR(A_Index149) + Chr(10) + "{" + Chr(10) + str16 + " = __HTVM_V2_TO_GO_optionalParams__[" + STR(A_Index149) + "].(" + str18 + ")" + Chr(10) + "}" + Chr(10);
+                                str13 += "if len(__HTVM_V2_TO_GO_optionalParams__) " + Chr(62) + " " + STR(A_Index162) + Chr(10) + "{" + Chr(10) + str16 + " = __HTVM_V2_TO_GO_optionalParams__[" + STR(A_Index162) + "].(" + str18 + ")" + Chr(10) + "}" + Chr(10);
                             }
                             str11 = str14;
                         }
                         if (langToConvertTo == "java") {
                             str14 = "Object... __HTVM_V2_TO_JAVA_optionalParams__";
                             str13 += "{" + Chr(10);
-                            items150 = LoopParseFunc(str11, ",");
-                            for (let A_Index150 = 0; A_Index150 < items150.length + 0; A_Index150++) {
-                                const A_LoopField150 = items150[A_Index150 - 0];
-                                str19 = Trim(A_LoopField150);
+                            items163 = LoopParseFunc(str11, ",");
+                            for (let A_Index163 = 0; A_Index163 < items163.length + 0; A_Index163++) {
+                                const A_LoopField163 = items163[A_Index163 - 0];
+                                str19 = Trim(A_LoopField163);
                                 str20 = "";
-                                items151 = LoopParseFunc(str19, " ")
-                                for (let A_Index151 = 0; A_Index151 < items151.length + 0; A_Index151++) {
-                                    const A_LoopField151 = items151[A_Index151 - 0];
-                                    if (A_Index151 == 3) {
-                                        if (RegExMatch(A_LoopField151, "^\\d+(\\.\\d+)?$")) {
-                                            str20 += A_LoopField151 + "f ";
+                                items164 = LoopParseFunc(str19, " ")
+                                for (let A_Index164 = 0; A_Index164 < items164.length + 0; A_Index164++) {
+                                    const A_LoopField164 = items164[A_Index164 - 0];
+                                    if (A_Index164 == 3) {
+                                        if (RegExMatch(A_LoopField164, "^\\d+(\\.\\d+)?$")) {
+                                            str20 += A_LoopField164 + "f ";
                                         } else {
-                                            str20 += A_LoopField151 + " ";
+                                            str20 += A_LoopField164 + " ";
                                         }
                                     } else {
-                                        str20 += A_LoopField151 + " ";
+                                        str20 += A_LoopField164 + " ";
                                     }
                                 }
                                 str20 = StringTrimRight(str20, 1);
                                 str13 += Trim(str20) + ";" + Chr(10);
                             }
-                            items152 = LoopParseFunc(str11, ",");
-                            for (let A_Index152 = 0; A_Index152 < items152.length + 0; A_Index152++) {
-                                const A_LoopField152 = items152[A_Index152 - 0];
-                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField152), " = ", 1)), " ", 2));
-                                str17 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField152), " = ", 1)), " ", 1));
+                            items165 = LoopParseFunc(str11, ",");
+                            for (let A_Index165 = 0; A_Index165 < items165.length + 0; A_Index165++) {
+                                const A_LoopField165 = items165[A_Index165 - 0];
+                                str16 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField165), " = ", 1)), " ", 2));
+                                str17 = Trim(StrSplit(Trim(StrSplit(Trim(A_LoopField165), " = ", 1)), " ", 1));
                                 // str16 = var name
                                 // str17 = type name
-                                str13 += "if (__HTVM_V2_TO_JAVA_optionalParams__.length " + Chr(62) + " " + STR(A_Index152) + ") " + str16 + " = (" + str17 + ") __HTVM_V2_TO_JAVA_optionalParams__[" + STR(A_Index152) + "];" + Chr(10);
+                                str13 += "if (__HTVM_V2_TO_JAVA_optionalParams__.length " + Chr(62) + " " + STR(A_Index165) + ") " + str16 + " = (" + str17 + ") __HTVM_V2_TO_JAVA_optionalParams__[" + STR(A_Index165) + "];" + Chr(10);
                             }
                             str11 = str14;
                         }
@@ -11716,13 +11899,13 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     }
                 }
             }
-            else if (InStr(StrLower(A_LoopField131), " main(") && lineDone == 0) {
+            else if (InStr(StrLower(A_LoopField144), " main(") && lineDone == 0) {
                 lineDone = 1;
                 javaMainFuncSeen = 1;
                 csMainFuncSeen = 1;
-                htCode += A_LoopField131 + Chr(10);
+                htCode += A_LoopField144 + Chr(10);
             }
-            else if (InStr(A_LoopField131, " " + keyWordAssign + " ") || InStr(A_LoopField131, " " + keyWordAssignAdd + " ") || InStr(A_LoopField131, " " + keyWordAssignConcat + " ") || InStr(A_LoopField131, " " + keyWordAssignSub + " ") || InStr(A_LoopField131, " " + keyWordAssignMul + " ") || InStr(A_LoopField131, " " + keyWordAssignDiv + " ") || InStr(A_LoopField131, " " + keyWordAssignMod + " ") || InStr(A_LoopField131, " " + keyWordAssignShiftLeft + " ") || InStr(A_LoopField131, " " + keyWordAssignShiftRight + " ") || InStr(A_LoopField131, " " + keyWordLogicalAssignShiftRight + " ") || InStr(A_LoopField131, " " + keyWordAssignBitAnd + " ") || InStr(A_LoopField131, " " + keyWordAssignBitOr + " ") || InStr(A_LoopField131, " " + keyWordAssignBitXor + " ") && lineDone == 0) {
+            else if (InStr(A_LoopField144, " " + keyWordAssign + " ") || InStr(A_LoopField144, " " + keyWordAssignAdd + " ") || InStr(A_LoopField144, " " + keyWordAssignConcat + " ") || InStr(A_LoopField144, " " + keyWordAssignSub + " ") || InStr(A_LoopField144, " " + keyWordAssignMul + " ") || InStr(A_LoopField144, " " + keyWordAssignDiv + " ") || InStr(A_LoopField144, " " + keyWordAssignMod + " ") || InStr(A_LoopField144, " " + keyWordAssignShiftLeft + " ") || InStr(A_LoopField144, " " + keyWordAssignShiftRight + " ") || InStr(A_LoopField144, " " + keyWordLogicalAssignShiftRight + " ") || InStr(A_LoopField144, " " + keyWordAssignBitAnd + " ") || InStr(A_LoopField144, " " + keyWordAssignBitOr + " ") || InStr(A_LoopField144, " " + keyWordAssignBitXor + " ") && lineDone == 0) {
                 allVarsSoWeDontReDecVars_FIX_TOGGLE = 1;
                 //keyWordAssign
                 //keyWordAssignAdd
@@ -11747,9 +11930,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 //allVarsSoWeDontReDecVars_FIX_uint64
                 //allVarsSoWeDontReDecVars_FIX_int64
                 //allVarsSoWeDontReDecVars_FIX_float
-                if (InStr(A_LoopField131, " " + keyWordAssign + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordAssign + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordAssign + " ", 2);
+                if (InStr(A_LoopField144, " " + keyWordAssign + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordAssign + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordAssign + " ", 2);
                     str10 = keyWordAssign;
                     str11 = keyWordAssign_2;
                     if (langToConvertTo == "ahk") {
@@ -11758,16 +11941,16 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         str12 = "=";
                     }
                 }
-                else if (InStr(A_LoopField131, " " + keyWordAssignAdd + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordAssignAdd + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordAssignAdd + " ", 2);
+                else if (InStr(A_LoopField144, " " + keyWordAssignAdd + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordAssignAdd + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordAssignAdd + " ", 2);
                     str10 = keyWordAssignAdd;
                     str11 = keyWordAssignAdd_2;
                     str12 = "+=";
                 }
-                else if (InStr(A_LoopField131, " " + keyWordAssignConcat + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordAssignConcat + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordAssignConcat + " ", 2);
+                else if (InStr(A_LoopField144, " " + keyWordAssignConcat + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordAssignConcat + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordAssignConcat + " ", 2);
                     str10 = keyWordAssignConcat;
                     str11 = keyWordAssignConcat_2;
                     if (langToConvertTo == "ahk") {
@@ -11776,72 +11959,72 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         str12 = "+=";
                     }
                 }
-                else if (InStr(A_LoopField131, " " + keyWordAssignSub + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordAssignSub + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordAssignSub + " ", 2);
+                else if (InStr(A_LoopField144, " " + keyWordAssignSub + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordAssignSub + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordAssignSub + " ", 2);
                     str10 = keyWordAssignSub;
                     str11 = keyWordAssignSub_2;
                     str12 = "-=";
                 }
-                else if (InStr(A_LoopField131, " " + keyWordAssignMul + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordAssignMul + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordAssignMul + " ", 2);
+                else if (InStr(A_LoopField144, " " + keyWordAssignMul + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordAssignMul + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordAssignMul + " ", 2);
                     str10 = keyWordAssignMul;
                     str11 = keyWordAssignMul_2;
                     str12 = "*=";
                 }
-                else if (InStr(A_LoopField131, " " + keyWordAssignDiv + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordAssignDiv + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordAssignDiv + " ", 2);
+                else if (InStr(A_LoopField144, " " + keyWordAssignDiv + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordAssignDiv + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordAssignDiv + " ", 2);
                     str10 = keyWordAssignDiv;
                     str11 = keyWordAssignDiv_2;
                     str12 = "/=";
                 }
-                else if (InStr(A_LoopField131, " " + keyWordAssignMod + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordAssignMod + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordAssignMod + " ", 2);
+                else if (InStr(A_LoopField144, " " + keyWordAssignMod + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordAssignMod + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordAssignMod + " ", 2);
                     str10 = keyWordAssignMod;
                     str11 = keyWordAssignMod_2;
                     str12 = "%=";
                 }
-                else if (InStr(A_LoopField131, " " + keyWordAssignShiftLeft + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordAssignShiftLeft + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordAssignShiftLeft + " ", 2);
+                else if (InStr(A_LoopField144, " " + keyWordAssignShiftLeft + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordAssignShiftLeft + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordAssignShiftLeft + " ", 2);
                     str10 = keyWordAssignShiftLeft;
                     str11 = keyWordAssignShiftLeft_2;
                     str12 = "<<=";
                 }
-                else if (InStr(A_LoopField131, " " + keyWordAssignShiftRight + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordAssignShiftRight + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordAssignShiftRight + " ", 2);
+                else if (InStr(A_LoopField144, " " + keyWordAssignShiftRight + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordAssignShiftRight + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordAssignShiftRight + " ", 2);
                     str10 = keyWordAssignShiftRight;
                     str11 = keyWordAssignShiftRight_2;
                     str12 = ">>=";
                 }
-                else if (InStr(A_LoopField131, " " + keyWordLogicalAssignShiftRight + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordLogicalAssignShiftRight + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordLogicalAssignShiftRight + " ", 2);
+                else if (InStr(A_LoopField144, " " + keyWordLogicalAssignShiftRight + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordLogicalAssignShiftRight + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordLogicalAssignShiftRight + " ", 2);
                     str10 = keyWordLogicalAssignShiftRight;
                     str11 = keyWordLogicalAssignShiftRight_2;
                     str12 = ">>>=";
                 }
-                else if (InStr(A_LoopField131, " " + keyWordAssignBitAnd + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordAssignBitAnd + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordAssignBitAnd + " ", 2);
+                else if (InStr(A_LoopField144, " " + keyWordAssignBitAnd + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordAssignBitAnd + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordAssignBitAnd + " ", 2);
                     str10 = keyWordAssignBitAnd;
                     str11 = keyWordAssignBitAnd_2;
                     str12 = "&=";
                 }
-                else if (InStr(A_LoopField131, " " + keyWordAssignBitOr + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordAssignBitOr + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordAssignBitOr + " ", 2);
+                else if (InStr(A_LoopField144, " " + keyWordAssignBitOr + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordAssignBitOr + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordAssignBitOr + " ", 2);
                     str10 = keyWordAssignBitOr;
                     str11 = keyWordAssignBitOr_2;
                     str12 = "|=";
                 }
-                else if (InStr(A_LoopField131, " " + keyWordAssignBitXor + " ")) {
-                    str1 = StrSplit(A_LoopField131, " " + keyWordAssignBitXor + " ", 1);
-                    str6 = StrSplit(A_LoopField131, " " + keyWordAssignBitXor + " ", 2);
+                else if (InStr(A_LoopField144, " " + keyWordAssignBitXor + " ")) {
+                    str1 = StrSplit(A_LoopField144, " " + keyWordAssignBitXor + " ", 1);
+                    str6 = StrSplit(A_LoopField144, " " + keyWordAssignBitXor + " ", 2);
                     str10 = keyWordAssignBitXor;
                     str11 = keyWordAssignBitXor_2;
                     str12 = "^=";
@@ -11923,10 +12106,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     if (usePostfixTypeForTypeDefinition == "off") {
                         lineDone = 1;
                         str1 = Trim(StringTrimLeft(Trim(str1), StrLen(keyWordConst)));
-                        items153 = LoopParseFunc(str1, " ")
-                        for (let A_Index153 = 0; A_Index153 < items153.length + 0; A_Index153++) {
-                            const A_LoopField153 = items153[A_Index153 - 0];
-                            str2 = A_LoopField153;
+                        items166 = LoopParseFunc(str1, " ")
+                        for (let A_Index166 = 0; A_Index166 < items166.length + 0; A_Index166++) {
+                            const A_LoopField166 = items166[A_Index166 - 0];
+                            str2 = A_LoopField166;
                         }
                         str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                         str2 = Trim(str2);
@@ -12182,10 +12365,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     lineDone = 1;
                     if (usePostfixTypeForTypeDefinition == "off") {
                         str1 = Trim(StringTrimLeft(Trim(str1), StrLen(keyWordVar)));
-                        items154 = LoopParseFunc(str1, " ")
-                        for (let A_Index154 = 0; A_Index154 < items154.length + 0; A_Index154++) {
-                            const A_LoopField154 = items154[A_Index154 - 0];
-                            str2 = A_LoopField154;
+                        items167 = LoopParseFunc(str1, " ")
+                        for (let A_Index167 = 0; A_Index167 < items167.length + 0; A_Index167++) {
+                            const A_LoopField167 = items167[A_Index167 - 0];
+                            str2 = A_LoopField167;
                         }
                         str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                         str2 = Trim(str2);
@@ -12445,10 +12628,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     lineDone = 1;
                     if (usePostfixTypeForTypeDefinition == "off") {
                         str1 = Trim(StringTrimLeft(Trim(str1), StrLen(keyWordLet)));
-                        items155 = LoopParseFunc(str1, " ")
-                        for (let A_Index155 = 0; A_Index155 < items155.length + 0; A_Index155++) {
-                            const A_LoopField155 = items155[A_Index155 - 0];
-                            str2 = A_LoopField155;
+                        items168 = LoopParseFunc(str1, " ")
+                        for (let A_Index168 = 0; A_Index168 < items168.length + 0; A_Index168++) {
+                            const A_LoopField168 = items168[A_Index168 - 0];
+                            str2 = A_LoopField168;
                         }
                         str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                         str2 = Trim(str2);
@@ -12708,10 +12891,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 }
                 else if (SubStr(Trim(ALoopField), 1, StrLen(keyWordDouble + " ")) == keyWordDouble + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordChar + " ")) == keyWordChar + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordUint8 + " ")) == keyWordUint8 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordUint16 + " ")) == keyWordUint16 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordUint32 + " ")) == keyWordUint32 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordUint64 + " ")) == keyWordUint64 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordINT + " ")) == keyWordINT + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordSTR + " ")) == keyWordSTR + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordBOOL + " ")) == keyWordBOOL + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordFLOAT + " ")) == keyWordFLOAT + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordINT8 + " ")) == keyWordINT8 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordINT16 + " ")) == keyWordINT16 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordINT32 + " ")) == keyWordINT32 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordINT64 + " ")) == keyWordINT64 + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayDefinition + " ")) == keyWordArrayDefinition + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfIntegersDefinition + " ")) == keyWordArrayOfIntegersDefinition + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfStringsDefinition + " ")) == keyWordArrayOfStringsDefinition + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfFloatingPointNumbersDefinition + " ")) == keyWordArrayOfFloatingPointNumbersDefinition + " " || SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfBooleansDefinition + " ")) == keyWordArrayOfBooleansDefinition + " " && usePrefixTypeForTypeDefinition == "on" && lineDone == 0) {
                     lineDone = 1;
-                    items156 = LoopParseFunc(str1, " ")
-                    for (let A_Index156 = 0; A_Index156 < items156.length + 0; A_Index156++) {
-                        const A_LoopField156 = items156[A_Index156 - 0];
-                        str2 = A_LoopField156;
+                    items169 = LoopParseFunc(str1, " ")
+                    for (let A_Index169 = 0; A_Index169 < items169.length + 0; A_Index169++) {
+                        const A_LoopField169 = items169[A_Index169 - 0];
+                        str2 = A_LoopField169;
                     }
                     str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                     str2 = Trim(str2);
@@ -13247,18 +13430,18 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; vars
                 allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
             }
-            else if (SubStr(Trim(A_LoopField131), 1, StrLen(keyWordVar)) == keyWordVar && lineDone == 0) {
+            else if (SubStr(Trim(A_LoopField144), 1, StrLen(keyWordVar)) == keyWordVar && lineDone == 0) {
                 allVarsSoWeDontReDecVars_FIX_TOGGLE = 1;
                 if (usePostfixTypeForTypeDefinition == "off") {
                     lineDone = 1;
-                    str1 = Trim(StringTrimLeft(Trim(A_LoopField131), StrLen(keyWordVar)));
+                    str1 = Trim(StringTrimLeft(Trim(A_LoopField144), StrLen(keyWordVar)));
                     if (SubStrLastChars(str1, 1) == ";") {
                         str1 = StringTrimRight(str1, 1);
                     }
-                    items157 = LoopParseFunc(str1, " ")
-                    for (let A_Index157 = 0; A_Index157 < items157.length + 0; A_Index157++) {
-                        const A_LoopField157 = items157[A_Index157 - 0];
-                        str2 = A_LoopField157;
+                    items170 = LoopParseFunc(str1, " ")
+                    for (let A_Index170 = 0; A_Index170 < items170.length + 0; A_Index170++) {
+                        const A_LoopField170 = items170[A_Index170 - 0];
+                        str2 = A_LoopField170;
                     }
                     str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                     str2 = Trim(str2);
@@ -13267,7 +13450,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 } else {
                     lineDone = 1;
-                    str1 = Trim(StringTrimLeft(Trim(A_LoopField131), StrLen(keyWordVar)));
+                    str1 = Trim(StringTrimLeft(Trim(A_LoopField144), StrLen(keyWordVar)));
                     if (SubStrLastChars(str1, 1) == ";") {
                         str1 = StringTrimRight(str1, 1);
                     }
@@ -13627,18 +13810,18 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 htCode += str4 + Chr(10);
                 allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
             }
-            else if (SubStr(Trim(A_LoopField131), 1, StrLen(keyWordLet)) == keyWordLet && lineDone == 0) {
+            else if (SubStr(Trim(A_LoopField144), 1, StrLen(keyWordLet)) == keyWordLet && lineDone == 0) {
                 allVarsSoWeDontReDecVars_FIX_TOGGLE = 1;
                 if (usePostfixTypeForTypeDefinition == "off") {
                     lineDone = 1;
-                    str1 = Trim(StringTrimLeft(Trim(A_LoopField131), StrLen(keyWordLet)));
+                    str1 = Trim(StringTrimLeft(Trim(A_LoopField144), StrLen(keyWordLet)));
                     if (SubStrLastChars(str1, 1) == ";") {
                         str1 = StringTrimRight(str1, 1);
                     }
-                    items158 = LoopParseFunc(str1, " ")
-                    for (let A_Index158 = 0; A_Index158 < items158.length + 0; A_Index158++) {
-                        const A_LoopField158 = items158[A_Index158 - 0];
-                        str2 = A_LoopField158;
+                    items171 = LoopParseFunc(str1, " ")
+                    for (let A_Index171 = 0; A_Index171 < items171.length + 0; A_Index171++) {
+                        const A_LoopField171 = items171[A_Index171 - 0];
+                        str2 = A_LoopField171;
                     }
                     str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                     str2 = Trim(str2);
@@ -13647,7 +13830,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 } else {
                     lineDone = 1;
-                    str1 = Trim(StringTrimLeft(Trim(A_LoopField131), StrLen(keyWordLet)));
+                    str1 = Trim(StringTrimLeft(Trim(A_LoopField144), StrLen(keyWordLet)));
                     if (SubStrLastChars(str1, 1) == ";") {
                         str1 = StringTrimRight(str1, 1);
                     }
@@ -14008,17 +14191,17 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 htCode += str4 + Chr(10);
                 allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
             }
-            else if (SubStr(Trim(A_LoopField131), 1, StrLen(keyWordDouble + " ")) == keyWordDouble + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordChar + " ")) == keyWordChar + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordUint8 + " ")) == keyWordUint8 + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordUint16 + " ")) == keyWordUint16 + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordUint32 + " ")) == keyWordUint32 + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordUint64 + " ")) == keyWordUint64 + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordINT + " ")) == keyWordINT + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordSTR + " ")) == keyWordSTR + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordBOOL + " ")) == keyWordBOOL + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordFLOAT + " ")) == keyWordFLOAT + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordINT8 + " ")) == keyWordINT8 + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordINT16 + " ")) == keyWordINT16 + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordINT32 + " ")) == keyWordINT32 + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordINT64 + " ")) == keyWordINT64 + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordArrayDefinition + " ")) == keyWordArrayDefinition + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordArrayOfIntegersDefinition + " ")) == keyWordArrayOfIntegersDefinition + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordArrayOfStringsDefinition + " ")) == keyWordArrayOfStringsDefinition + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordArrayOfFloatingPointNumbersDefinition + " ")) == keyWordArrayOfFloatingPointNumbersDefinition + " " || SubStr(Trim(A_LoopField131), 1, StrLen(keyWordArrayOfBooleansDefinition + " ")) == keyWordArrayOfBooleansDefinition + " " && usePrefixTypeForTypeDefinition == "on" && lineDone == 0) {
+            else if (SubStr(Trim(A_LoopField144), 1, StrLen(keyWordDouble + " ")) == keyWordDouble + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordChar + " ")) == keyWordChar + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordUint8 + " ")) == keyWordUint8 + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordUint16 + " ")) == keyWordUint16 + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordUint32 + " ")) == keyWordUint32 + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordUint64 + " ")) == keyWordUint64 + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordINT + " ")) == keyWordINT + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordSTR + " ")) == keyWordSTR + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordBOOL + " ")) == keyWordBOOL + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordFLOAT + " ")) == keyWordFLOAT + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordINT8 + " ")) == keyWordINT8 + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordINT16 + " ")) == keyWordINT16 + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordINT32 + " ")) == keyWordINT32 + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordINT64 + " ")) == keyWordINT64 + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordArrayDefinition + " ")) == keyWordArrayDefinition + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordArrayOfIntegersDefinition + " ")) == keyWordArrayOfIntegersDefinition + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordArrayOfStringsDefinition + " ")) == keyWordArrayOfStringsDefinition + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordArrayOfFloatingPointNumbersDefinition + " ")) == keyWordArrayOfFloatingPointNumbersDefinition + " " || SubStr(Trim(A_LoopField144), 1, StrLen(keyWordArrayOfBooleansDefinition + " ")) == keyWordArrayOfBooleansDefinition + " " && usePrefixTypeForTypeDefinition == "on" && lineDone == 0) {
                 lineDone = 1;
                 allVarsSoWeDontReDecVars_FIX_TOGGLE = 1;
-                str1 = Trim(A_LoopField131);
+                str1 = Trim(A_LoopField144);
                 if (SubStrLastChars(str1, 1) == ";") {
                     str1 = StringTrimRight(str1, 1);
                 }
-                items159 = LoopParseFunc(str1, " ")
-                for (let A_Index159 = 0; A_Index159 < items159.length + 0; A_Index159++) {
-                    const A_LoopField159 = items159[A_Index159 - 0];
-                    str2 = A_LoopField159;
+                items172 = LoopParseFunc(str1, " ")
+                for (let A_Index172 = 0; A_Index172 < items172.length + 0; A_Index172++) {
+                    const A_LoopField172 = items172[A_Index172 - 0];
+                    str2 = A_LoopField172;
                 }
                 str3 = Trim(StringTrimRight(str1, StrLen(str2)));
                 str2 = Trim(str2);
@@ -14384,10 +14567,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 htCode += str4 + Chr(10);
                 allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
             }
-            else if (RegExMatch(Trim(A_LoopField131), "^[a-zA-Z_][a-zA-Z0-9_]*: [^:]*;?$") && usePostfixTypeForTypeDefinition == "on" && lineDone == 0) {
+            else if (RegExMatch(Trim(A_LoopField144), "^[a-zA-Z_][a-zA-Z0-9_]*: [^:]*;?$") && usePostfixTypeForTypeDefinition == "on" && lineDone == 0) {
                 lineDone = 1;
                 allVarsSoWeDontReDecVars_FIX_TOGGLE = 1;
-                str1 = Trim(A_LoopField131);
+                str1 = Trim(A_LoopField144);
                 if (SubStrLastChars(str1, 1) == ";") {
                     str1 = StringTrimRight(str1, 1);
                 }
@@ -14763,9 +14946,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 htCode += str4 + Chr(10);
                 allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
             }
-            else if (RegExMatch(Trim(A_LoopField131), "^[a-zA-Z0-9_\\.]+\\(") && !(InStr(StrLower(A_LoopField131), " main(")) && lineDone == 0) {
+            else if (RegExMatch(Trim(A_LoopField144), "^[a-zA-Z0-9_\\.]+\\(") && !(InStr(StrLower(A_LoopField144), " main(")) && lineDone == 0) {
                 lineDone = 1;
-                str1 = Trim(A_LoopField131);
+                str1 = Trim(A_LoopField144);
                 if (SubStrLastChars(str1, 1) == ";") {
                     str1 = StringTrimRight(str1, 1);
                 }
@@ -14786,9 +14969,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 fixExpertionLineFuncOnly = 0;
                 htCode += str2 + Chr(10);
             }
-            else if (RegExMatch(A_LoopField131, "\\.[a-zA-Z_][a-zA-Z0-9_]*") && lineDone == 0) {
+            else if (RegExMatch(A_LoopField144, "\\.[a-zA-Z_][a-zA-Z0-9_]*") && lineDone == 0) {
                 lineDone = 1;
-                str1 = Trim(A_LoopField131);
+                str1 = Trim(A_LoopField144);
                 if (SubStrLastChars(str1, 1) == ";") {
                     str1 = StringTrimRight(str1, 1);
                 }
@@ -14806,32 +14989,32 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     }
                 }
             }
-            else if (KeyWordsCommands(A_LoopField131, "check", commands, langToConvertTo) == "true" && lineDone == 0) {
+            else if (KeyWordsCommands(A_LoopField144, "check", commands, langToConvertTo) == "true" && lineDone == 0) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode += A_LoopField131 + Chr(10);
+                    htCode += A_LoopField144 + Chr(10);
                 } else {
-                    out_KeyWordsCommands = KeyWordsCommands(A_LoopField131, "transpile", commands, langToConvertTo);
+                    out_KeyWordsCommands = KeyWordsCommands(A_LoopField144, "transpile", commands, langToConvertTo);
                     htCode += out_KeyWordsCommands + Chr(10);
                 }
             } else {
-                //print("else else else " . A_LoopField131)
+                //print("else else else " . A_LoopField144)
                 // this is THE else
                 //;;;;;;;;;;;;;;;;;;
                 if (lineDone != 1) {
                     if (skipLeftCuleyForFuncPLS != 1) {
-                        if (SubStr(Trim(StrLower(A_LoopField131)), 1, 1) == Chr(125)) {
+                        if (SubStr(Trim(StrLower(A_LoopField144)), 1, 1) == Chr(125)) {
                             htCode += Chr(125) + Chr(10);
                         } else {
-                            if (htCodeAcurlyBraceAddSomeVrasFixLP == 1 && SubStr(Trim(StrLower(A_LoopField131)), 1, 1) == Chr(123)) {
+                            if (htCodeAcurlyBraceAddSomeVrasFixLP == 1 && SubStr(Trim(StrLower(A_LoopField144)), 1, 1) == Chr(123)) {
                                 htCodeAcurlyBraceAddSomeVrasFixLP = 0;
-                                htCode += A_LoopField131 + Chr(10) + theFixTextLoopLP + Chr(10);
+                                htCode += A_LoopField144 + Chr(10) + theFixTextLoopLP + Chr(10);
                             } else {
-                                if (htCodeAcurlyBraceAddSomeVrasFixNL == 1 && SubStr(Trim(StrLower(A_LoopField131)), 1, 1) == Chr(123)) {
+                                if (htCodeAcurlyBraceAddSomeVrasFixNL == 1 && SubStr(Trim(StrLower(A_LoopField144)), 1, 1) == Chr(123)) {
                                     htCodeAcurlyBraceAddSomeVrasFixNL = 0;
-                                    htCode += A_LoopField131 + Chr(10) + theFixTextLoopNL + Chr(10);
+                                    htCode += A_LoopField144 + Chr(10) + theFixTextLoopNL + Chr(10);
                                 } else {
-                                    htCode += A_LoopField131 + Chr(10);
+                                    htCode += A_LoopField144 + Chr(10);
                                 }
                             }
                         }
@@ -14851,11 +15034,11 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 htCodeLoopfixa = StringTrimRight(htCodeLoopfixa, 1);
                 //OutputDebug, |%htCodeLoopfixa%|
                 AIndexLoopCurlyFix = 1;
-                items160 = LoopParseFunc(htCodeLoopfixa, "\n", "\r")
-                for (let A_Index160 = 0; A_Index160 < items160.length + 0; A_Index160++) {
-                    const A_LoopField160 = items160[A_Index160 - 0];
-                    sstr123 = A_LoopField160;
-                    fixLoopLokingFor = A_LoopField160;
+                items173 = LoopParseFunc(htCodeLoopfixa, "\n", "\r")
+                for (let A_Index173 = 0; A_Index173 < items173.length + 0; A_Index173++) {
+                    const A_LoopField173 = items173[A_Index173 - 0];
+                    sstr123 = A_LoopField173;
+                    fixLoopLokingFor = A_LoopField173;
                     fixLoopLokingForfound = 1;
                     out1 = StrSplit(sstr123 ,"|" , 1);
                     out2 = StrSplit(sstr123 ,"|" , 3);
@@ -14876,17 +15059,17 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         insdeAnestedLoopBAD = 0;
                         foundTheTopLoop = 0;
                         out4758686d86d86d86578991a = "";
-                        items161 = LoopParseFunc(htCode, "\n", "\r")
-                        for (let A_Index161 = 0; A_Index161 < items161.length + 0; A_Index161++) {
-                            const A_LoopField161 = items161[A_Index161 - 0];
+                        items174 = LoopParseFunc(htCode, "\n", "\r")
+                        for (let A_Index174 = 0; A_Index174 < items174.length + 0; A_Index174++) {
+                            const A_LoopField174 = items174[A_Index174 - 0];
                             //MsgBox, dsfgsdefgesrdg1
-                            //MsgBox, |%A_LoopField161%|`n|%fixLoopLokingFor%|
-                            if (InStr(A_LoopField161, fixLoopLokingFor) && insdeAnestedLoopBAD != 1) {
+                            //MsgBox, |%A_LoopField174%|`n|%fixLoopLokingFor%|
+                            if (InStr(A_LoopField174, fixLoopLokingFor) && insdeAnestedLoopBAD != 1) {
                                 fixLoopLokingForNum = 1;
                                 //MsgBox, do we came here 1
                             }
-                            if (SubStr(Trim(A_LoopField161), 1, 4) == "for " && weAreDoneHereCurly != 1 && insdeAnestedLoopBAD != 1 && fixLoopLokingForNum == 1) {
-                                s = StrSplit(A_LoopField161 ,"" + keyWordAIndex + "", 2);
+                            if (SubStr(Trim(A_LoopField174), 1, 4) == "for " && weAreDoneHereCurly != 1 && insdeAnestedLoopBAD != 1 && fixLoopLokingForNum == 1) {
+                                s = StrSplit(A_LoopField174 ,"" + keyWordAIndex + "", 2);
                                 out1z = s;
                                 s = StrSplit(out1z, " ", 1);
                                 out1z = Trim(s);
@@ -14895,23 +15078,23 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                 fixLoopLokingForNum = 0;
                                 foundTheTopLoop++;
                                 inTarget = 1;
-                                //MsgBox, % A_LoopField161
+                                //MsgBox, % A_LoopField174
                                 dontSaveStr = 1;
-                                ALoopField = A_LoopField161;
+                                ALoopField = A_LoopField174;
                                 DeleayOneCuzOfLoopParse = 1;
                                 out4758686d86d86d86578991a += ALoopField + Chr(10);
                             }
-                            if (inTarget == 1 && InStr(A_LoopField161, Chr(123)) && insdeAnestedLoopBAD != 1) {
+                            if (inTarget == 1 && InStr(A_LoopField174, Chr(123)) && insdeAnestedLoopBAD != 1) {
                                 insideBracket = 1;
                             }
-                            if (insideBracket == 1 && InStr(A_LoopField161, Chr(123)) && insdeAnestedLoopBAD != 1) {
+                            if (insideBracket == 1 && InStr(A_LoopField174, Chr(123)) && insdeAnestedLoopBAD != 1) {
                                 netsedCurly++;
                             }
-                            if (insideBracket == 1 && InStr(A_LoopField161, Chr(125)) && insdeAnestedLoopBAD != 1) {
+                            if (insideBracket == 1 && InStr(A_LoopField174, Chr(125)) && insdeAnestedLoopBAD != 1) {
                                 netsedCurly--;
                                 readyToEnd = 1;
                             }
-                            if (SubStr(Trim(A_LoopField161), 1, 4) == "for " && insdeAnestedLoopBAD != 1 && foundTheTopLoop >= 2) {
+                            if (SubStr(Trim(A_LoopField174), 1, 4) == "for " && insdeAnestedLoopBAD != 1 && foundTheTopLoop >= 2) {
                                 insdeAnestedLoopBAD = 1;
                                 insideBracket1 = 0;
                                 netsedCurly1 = 0;
@@ -14920,37 +15103,37 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                 foundTheTopLoop++;
                             }
                             if (insdeAnestedLoopBAD == 1) {
-                                if (InStr(A_LoopField161, Chr(123))) {
+                                if (InStr(A_LoopField174, Chr(123))) {
                                     insideBracket1 = 1;
                                 }
-                                if (insideBracket1 == 1 && InStr(A_LoopField161, Chr(123))) {
+                                if (insideBracket1 == 1 && InStr(A_LoopField174, Chr(123))) {
                                     netsedCurly1++;
                                 }
-                                if (insideBracket1 == 1 && InStr(A_LoopField161, Chr(125))) {
+                                if (insideBracket1 == 1 && InStr(A_LoopField174, Chr(125))) {
                                     netsedCurly1--;
                                     readyToEnd1 = 1;
                                 }
-                                if (InStr(A_LoopField161, Chr(125)) && readyToEnd1 == 1 && netsedCurly1 == 0 && insideBracket == 1) {
-                                    //MsgBox, % A_LoopField161
+                                if (InStr(A_LoopField174, Chr(125)) && readyToEnd1 == 1 && netsedCurly1 == 0 && insideBracket == 1) {
+                                    //MsgBox, % A_LoopField174
                                     eldLoopNestedBADlol = 1;
                                 }
-                                out4758686d86d86d86578991a += A_LoopField161 + Chr(10);
+                                out4758686d86d86d86578991a += A_LoopField174 + Chr(10);
                             }
                             if (inTarget == 1 && dontSaveStr != 1 && fixLoopLokingForNum != 1 && insdeAnestedLoopBAD != 1) {
-                                ALoopField = A_LoopField161;
+                                ALoopField = A_LoopField174;
                                 // Replace "A_Index" with or without a following digit with "A_Index" + out1z
                                 ALoopField = RegExReplace(ALoopField, "" + keyWordAIndex + "\\d*", "" + keyWordAIndex + "" + out1z);
                                 out4758686d86d86d86578991a += ALoopField + Chr(10);
                             }
-                            if (inTarget == 1 && InStr(A_LoopField161, Chr(125)) && readyToEnd == 1 && netsedCurly == 0 && weAreDoneHereCurly == 0 && dontSaveStr != 1 && insdeAnestedLoopBAD != 1) {
-                                //MsgBox, % A_LoopField161
+                            if (inTarget == 1 && InStr(A_LoopField174, Chr(125)) && readyToEnd == 1 && netsedCurly == 0 && weAreDoneHereCurly == 0 && dontSaveStr != 1 && insdeAnestedLoopBAD != 1) {
+                                //MsgBox, % A_LoopField174
                                 weAreDoneHereCurly = 1;
                                 inTarget = 0;
                                 endBracketDOntPutThere = 1;
                             }
                             dontSaveStr = 0;
                             if (inTarget != 1 && endBracketDOntPutThere != 1 && insdeAnestedLoopBAD != 1) {
-                                out4758686d86d86d86578991a += A_LoopField161 + Chr(10);
+                                out4758686d86d86d86578991a += A_LoopField174 + Chr(10);
                             }
                             endBracketDOntPutThere = 0;
                             if (eldLoopNestedBADlol == 1) {
@@ -14976,15 +15159,15 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         insdeAnestedLoopBAD = 0;
                         foundTheTopLoop = 0;
                         out4758686d86d86d86578991a = "";
-                        items162 = LoopParseFunc(htCode, "\n", "\r")
-                        for (let A_Index162 = 0; A_Index162 < items162.length + 0; A_Index162++) {
-                            const A_LoopField162 = items162[A_Index162 - 0];
-                            if (InStr(A_LoopField162 , fixLoopLokingFor) && insdeAnestedLoopBAD != 1) {
+                        items175 = LoopParseFunc(htCode, "\n", "\r")
+                        for (let A_Index175 = 0; A_Index175 < items175.length + 0; A_Index175++) {
+                            const A_LoopField175 = items175[A_Index175 - 0];
+                            if (InStr(A_LoopField175 , fixLoopLokingFor) && insdeAnestedLoopBAD != 1) {
                                 fixLoopLokingForNum = 1;
                                 //MsgBox, do we came here 3
                             }
-                            if (SubStr(Trim(A_LoopField162), 1, 4) == "for " && weAreDoneHereCurly != 1 && insdeAnestedLoopBAD != 1 && fixLoopLokingForNum == 1) {
-                                s = StrSplit(A_LoopField162 ,"" + keyWordAIndex + "", 2);
+                            if (SubStr(Trim(A_LoopField175), 1, 4) == "for " && weAreDoneHereCurly != 1 && insdeAnestedLoopBAD != 1 && fixLoopLokingForNum == 1) {
+                                s = StrSplit(A_LoopField175 ,"" + keyWordAIndex + "", 2);
                                 out1z = s;
                                 s = StrSplit(out1z, " ", 1);
                                 out1z = Trim(StrReplace(s, "|", ""));
@@ -14993,23 +15176,23 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                 //MsgBox, do we came here 4
                                 foundTheTopLoop++;
                                 inTarget = 1;
-                                //MsgBox, % A_LoopField162
+                                //MsgBox, % A_LoopField175
                                 dontSaveStr = 1;
-                                ALoopField = A_LoopField162;
+                                ALoopField = A_LoopField175;
                                 DeleayOneCuzOfLoopParse = 1;
                                 out4758686d86d86d86578991a += ALoopField + Chr(10);
                             }
-                            if (inTarget == 1 && InStr(A_LoopField162, Chr(123)) && insdeAnestedLoopBAD != 1) {
+                            if (inTarget == 1 && InStr(A_LoopField175, Chr(123)) && insdeAnestedLoopBAD != 1) {
                                 insideBracket = 1;
                             }
-                            if (insideBracket == 1 && InStr(A_LoopField162, Chr(123)) && insdeAnestedLoopBAD != 1) {
+                            if (insideBracket == 1 && InStr(A_LoopField175, Chr(123)) && insdeAnestedLoopBAD != 1) {
                                 netsedCurly++;
                             }
-                            if (insideBracket == 1 && InStr(A_LoopField162, Chr(125)) && insdeAnestedLoopBAD != 1) {
+                            if (insideBracket == 1 && InStr(A_LoopField175, Chr(125)) && insdeAnestedLoopBAD != 1) {
                                 netsedCurly--;
                                 readyToEnd = 1;
                             }
-                            if (SubStr(Trim(A_LoopField162), 1, 4) == "for " && insdeAnestedLoopBAD != 1 && foundTheTopLoop >= 2) {
+                            if (SubStr(Trim(A_LoopField175), 1, 4) == "for " && insdeAnestedLoopBAD != 1 && foundTheTopLoop >= 2) {
                                 insdeAnestedLoopBAD = 1;
                                 insideBracket1 = 0;
                                 netsedCurly1 = 0;
@@ -15018,39 +15201,39 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                                 foundTheTopLoop++;
                             }
                             if (insdeAnestedLoopBAD == 1) {
-                                if (InStr(A_LoopField162, Chr(123))) {
+                                if (InStr(A_LoopField175, Chr(123))) {
                                     insideBracket1 = 1;
                                 }
-                                if (insideBracket1 == 1 && InStr(A_LoopField162, Chr(123))) {
+                                if (insideBracket1 == 1 && InStr(A_LoopField175, Chr(123))) {
                                     netsedCurly1++;
                                 }
-                                if (insideBracket1 == 1 && InStr(A_LoopField162, Chr(125))) {
+                                if (insideBracket1 == 1 && InStr(A_LoopField175, Chr(125))) {
                                     netsedCurly1--;
                                     readyToEnd1 = 1;
                                 }
-                                if (InStr(A_LoopField162, Chr(125)) && readyToEnd1 == 1 && netsedCurly1 == 0 && insideBracket == 1) {
-                                    //MsgBox, % A_LoopField162
+                                if (InStr(A_LoopField175, Chr(125)) && readyToEnd1 == 1 && netsedCurly1 == 0 && insideBracket == 1) {
+                                    //MsgBox, % A_LoopField175
                                     eldLoopNestedBADlol = 1;
                                 }
-                                out4758686d86d86d86578991a += A_LoopField162 + Chr(10);
+                                out4758686d86d86d86578991a += A_LoopField175 + Chr(10);
                             }
                             if (inTarget == 1 && dontSaveStr != 1 && fixLoopLokingForNum != 1 && insdeAnestedLoopBAD != 1) {
-                                ALoopField = A_LoopField162;
+                                ALoopField = A_LoopField175;
                                 // Replace "A_Index" with or without a following digit with "A_Index" + out1z
                                 ALoopField = RegExReplace(ALoopField, "" + keyWordAIndex + "\\d*", "" + keyWordAIndex + "" + out1z);
                                 // Replace "A_Index" with or without a following digit with "A_Index" + out1z
                                 ALoopField = RegExReplace(ALoopField, "" + keyWordALoopField + "\\d*", "" + keyWordALoopField + "" + out1z);
                                 out4758686d86d86d86578991a += ALoopField + Chr(10);
                             }
-                            if ((inTarget == 1 && InStr(A_LoopField162, Chr(125)) && readyToEnd == 1 && netsedCurly == 0 && weAreDoneHereCurly == 0 && dontSaveStr != 1 && insdeAnestedLoopBAD != 1)) {
-                                //MsgBox, % A_LoopField162
+                            if ((inTarget == 1 && InStr(A_LoopField175, Chr(125)) && readyToEnd == 1 && netsedCurly == 0 && weAreDoneHereCurly == 0 && dontSaveStr != 1 && insdeAnestedLoopBAD != 1)) {
+                                //MsgBox, % A_LoopField175
                                 weAreDoneHereCurly = 1;
                                 inTarget = 0;
                                 endBracketDOntPutThere = 1;
                             }
                             dontSaveStr = 0;
                             if (inTarget != 1 && endBracketDOntPutThere != 1 && insdeAnestedLoopBAD != 1) {
-                                out4758686d86d86d86578991a += A_LoopField162 + Chr(10);
+                                out4758686d86d86d86578991a += A_LoopField175 + Chr(10);
                             }
                             endBracketDOntPutThere = 0;
                             if (eldLoopNestedBADlol == 1) {
@@ -15070,30 +15253,30 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 }
                 out4758686d86dgt8r754444444 = "";
                 hold = 0;
-                items163 = LoopParseFunc(htCode, "\n", "\r")
-                for (let A_Index163 = 0; A_Index163 < items163.length + 0; A_Index163++) {
-                    const A_LoopField163 = items163[A_Index163 - 0];
+                items176 = LoopParseFunc(htCode, "\n", "\r")
+                for (let A_Index176 = 0; A_Index176 < items176.length + 0; A_Index176++) {
+                    const A_LoopField176 = items176[A_Index176 - 0];
                     ignore = 0;
-                    if (SubStr(Trim(A_LoopField163), 1, 4) == "for ") {
-                        if (hold == 1 && holdText == A_LoopField163) {
+                    if (SubStr(Trim(A_LoopField176), 1, 4) == "for ") {
+                        if (hold == 1 && holdText == A_LoopField176) {
                             ignore = 1;
                         } else {
-                            holdText = A_LoopField163;
+                            holdText = A_LoopField176;
                             hold = 1;
                         }
                     }
                     if (!ignore) {
-                        out4758686d86dgt8r754444444 += A_LoopField163 + Chr(10);
+                        out4758686d86dgt8r754444444 += A_LoopField176 + Chr(10);
                     }
                 }
                 out4758686d86dgt8r754444444 = StringTrimRight(out4758686d86dgt8r754444444, 1);
                 htCode = out4758686d86dgt8r754444444;
             }
             htCodeOut1234565432 = "";
-            items164 = LoopParseFunc(htCode, "\n", "\r")
-            for (let A_Index164 = 0; A_Index164 < items164.length + 0; A_Index164++) {
-                const A_LoopField164 = items164[A_Index164 - 0];
-                out = A_LoopField164;
+            items177 = LoopParseFunc(htCode, "\n", "\r")
+            for (let A_Index177 = 0; A_Index177 < items177.length + 0; A_Index177++) {
+                const A_LoopField177 = items177[A_Index177 - 0];
+                out = A_LoopField177;
                 if (!InStr(out, "|itsaersdtgtgfergsdgfsegdfsedAA|")) {
                     htCodeOut1234565432 += out + Chr(10);
                 }
@@ -15114,15 +15297,15 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     var ADD_ALL_programmingBlock_HTVMsyntax = "";
     if (COUNT_programmingBlock_HTVMsyntax != 0) {
         isNotHTVMfileEXTRA_INT = 1;
-        for (let A_Index165 = 0; A_Index165 < COUNT_programmingBlock_HTVMsyntax + 0; A_Index165++) {
-            ADD_ALL_programmingBlock_HTVMsyntax += programmingBlock_HTVMsyntax[A_Index165] + Chr(10);
+        for (let A_Index178 = 0; A_Index178 < COUNT_programmingBlock_HTVMsyntax + 0; A_Index178++) {
+            ADD_ALL_programmingBlock_HTVMsyntax += programmingBlock_HTVMsyntax[A_Index178] + Chr(10);
         }
         ADD_ALL_programmingBlock_HTVMsyntax = StringTrimRight(ADD_ALL_programmingBlock_HTVMsyntax, 1);
         ADD_ALL_programmingBlock_HTVMsyntax = compiler(ADD_ALL_programmingBlock_HTVMsyntax, allInstructionFile, "full", langToConvertToParam);
         isNotHTVMfileEXTRA_INT = 0;
         isNotHTVMfile2 = 1;
-        for (let A_Index166 = 0; A_Index166 < COUNT_programmingBlock_HTVMsyntax + 0; A_Index166++) {
-            htCode = StrReplace(htCode, "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" + STR(A_Index166 + 1) + "AA", compiler(programmingBlock_HTVMsyntax[A_Index166], allInstructionFile, "full", langToConvertToParam));
+        for (let A_Index179 = 0; A_Index179 < COUNT_programmingBlock_HTVMsyntax + 0; A_Index179++) {
+            htCode = StrReplace(htCode, "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" + STR(A_Index179 + 1) + "AA", compiler(programmingBlock_HTVMsyntax[A_Index179], allInstructionFile, "full", langToConvertToParam));
         }
         isNotHTVMfile2 = 0;
     }
@@ -15171,16 +15354,16 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             htCode = indent_nested_curly_braces(htCode, 1);
         }
         if (useEnd_2 == "on") {
-            items167 = LoopParseFunc(htCode, "\n", "\r")
-            for (let A_Index167 = 0; A_Index167 < items167.length + 0; A_Index167++) {
-                const A_LoopField167 = items167[A_Index167 - 0];
-                if (Trim(A_LoopField167) == keyWordCurlyBraceClose_2) {
-                    fixLuaAndRuby += StrReplace(A_LoopField167, keyWordCurlyBraceClose_2, Trim(keyWordEnd_2)) + Chr(10);
+            items180 = LoopParseFunc(htCode, "\n", "\r")
+            for (let A_Index180 = 0; A_Index180 < items180.length + 0; A_Index180++) {
+                const A_LoopField180 = items180[A_Index180 - 0];
+                if (Trim(A_LoopField180) == keyWordCurlyBraceClose_2) {
+                    fixLuaAndRuby += StrReplace(A_LoopField180, keyWordCurlyBraceClose_2, Trim(keyWordEnd_2)) + Chr(10);
                 }
-                else if (SubStrLastChars(A_LoopField167, 2) == " " + keyWordCurlyBraceOpen_2) {
-                    fixLuaAndRuby += StringTrimRight(A_LoopField167, 2) + Chr(10);
+                else if (SubStrLastChars(A_LoopField180, 2) == " " + keyWordCurlyBraceOpen_2) {
+                    fixLuaAndRuby += StringTrimRight(A_LoopField180, 2) + Chr(10);
                 } else {
-                    fixLuaAndRuby += A_LoopField167 + Chr(10);
+                    fixLuaAndRuby += A_LoopField180 + Chr(10);
                 }
             }
             htCode = StringTrimRight(fixLuaAndRuby, 1);
@@ -15198,31 +15381,31 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         if (langToConvertTo == "lua" || langToConvertTo == "rb" || langToConvertTo == langFileExtension_2) {
             if (langToConvertTo == langFileExtension_2 && useEnd_2 == "on") {
                 fixLuaAndRubyHELP = Trim(keyWordEnd_2);
-                items168 = LoopParseFunc(htCode, "\n", "\r")
-                for (let A_Index168 = 0; A_Index168 < items168.length + 0; A_Index168++) {
-                    const A_LoopField168 = items168[A_Index168 - 0];
-                    if (Trim(A_LoopField168) == "}") {
-                        fixLuaAndRuby += StrReplace(A_LoopField168, "}", fixLuaAndRubyHELP) + Chr(10);
+                items181 = LoopParseFunc(htCode, "\n", "\r")
+                for (let A_Index181 = 0; A_Index181 < items181.length + 0; A_Index181++) {
+                    const A_LoopField181 = items181[A_Index181 - 0];
+                    if (Trim(A_LoopField181) == "}") {
+                        fixLuaAndRuby += StrReplace(A_LoopField181, "}", fixLuaAndRubyHELP) + Chr(10);
                     }
-                    else if (SubStrLastChars(A_LoopField168, 2) == " {") {
-                        fixLuaAndRuby += StringTrimRight(A_LoopField168, 2) + Chr(10);
+                    else if (SubStrLastChars(A_LoopField181, 2) == " {") {
+                        fixLuaAndRuby += StringTrimRight(A_LoopField181, 2) + Chr(10);
                     } else {
-                        fixLuaAndRuby += A_LoopField168 + Chr(10);
+                        fixLuaAndRuby += A_LoopField181 + Chr(10);
                     }
                 }
                 htCode = StringTrimRight(fixLuaAndRuby, 1);
             } else {
                 fixLuaAndRubyHELP = "end";
-                items169 = LoopParseFunc(htCode, "\n", "\r")
-                for (let A_Index169 = 0; A_Index169 < items169.length + 0; A_Index169++) {
-                    const A_LoopField169 = items169[A_Index169 - 0];
-                    if (Trim(A_LoopField169) == "}") {
-                        fixLuaAndRuby += StrReplace(A_LoopField169, "}", fixLuaAndRubyHELP) + Chr(10);
+                items182 = LoopParseFunc(htCode, "\n", "\r")
+                for (let A_Index182 = 0; A_Index182 < items182.length + 0; A_Index182++) {
+                    const A_LoopField182 = items182[A_Index182 - 0];
+                    if (Trim(A_LoopField182) == "}") {
+                        fixLuaAndRuby += StrReplace(A_LoopField182, "}", fixLuaAndRubyHELP) + Chr(10);
                     }
-                    else if (SubStrLastChars(A_LoopField169, 2) == " {") {
-                        fixLuaAndRuby += StringTrimRight(A_LoopField169, 2) + Chr(10);
+                    else if (SubStrLastChars(A_LoopField182, 2) == " {") {
+                        fixLuaAndRuby += StringTrimRight(A_LoopField182, 2) + Chr(10);
                     } else {
-                        fixLuaAndRuby += A_LoopField169 + Chr(10);
+                        fixLuaAndRuby += A_LoopField182 + Chr(10);
                     }
                 }
                 htCode = StringTrimRight(fixLuaAndRuby, 1);
@@ -15232,55 +15415,55 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     let nextWordEndFix = [];
     var nextWordEndFixOut = "";
     if (langToConvertTo == langFileExtension_2 && useEnd_2 == "on") {
-        items170 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index170 = 0; A_Index170 < items170.length + 0; A_Index170++) {
-            const A_LoopField170 = items170[A_Index170 - 0];
-            HTVM_Append(nextWordEndFix, A_LoopField170);
+        items183 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index183 = 0; A_Index183 < items183.length + 0; A_Index183++) {
+            const A_LoopField183 = items183[A_Index183 - 0];
+            HTVM_Append(nextWordEndFix, A_LoopField183);
         }
         HTVM_Append(nextWordEndFix, " ");
-        items171 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index171 = 0; A_Index171 < items171.length + 0; A_Index171++) {
-            const A_LoopField171 = items171[A_Index171 - 0];
-            if (Trim(A_LoopField171) == Trim(keyWordEnd_2) && SubStr(Trim(nextWordEndFix[A_Index171 + 1]), 1, StrLen(Trim(keyWordElseIf_2) + " ")) == Trim(keyWordElseIf_2) + " " || Trim(A_LoopField171) == Trim(keyWordEnd_2) && (Trim(nextWordEndFix[A_Index171 + 1]) == Trim(keyWordElse_2) || Trim(nextWordEndFix[A_Index171 + 1]) == Trim(keyWordElse_2 + ":"))) {
+        items184 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index184 = 0; A_Index184 < items184.length + 0; A_Index184++) {
+            const A_LoopField184 = items184[A_Index184 - 0];
+            if (Trim(A_LoopField184) == Trim(keyWordEnd_2) && SubStr(Trim(nextWordEndFix[A_Index184 + 1]), 1, StrLen(Trim(keyWordElseIf_2) + " ")) == Trim(keyWordElseIf_2) + " " || Trim(A_LoopField184) == Trim(keyWordEnd_2) && (Trim(nextWordEndFix[A_Index184 + 1]) == Trim(keyWordElse_2) || Trim(nextWordEndFix[A_Index184 + 1]) == Trim(keyWordElse_2 + ":"))) {
                 nextWordEndFixOut += "";
             } else {
-                nextWordEndFixOut += A_LoopField171 + Chr(10);
+                nextWordEndFixOut += A_LoopField184 + Chr(10);
             }
         }
         htCode = StringTrimRight(nextWordEndFixOut, 1);
     }
     if (langToConvertTo == "lua") {
-        items172 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index172 = 0; A_Index172 < items172.length + 0; A_Index172++) {
-            const A_LoopField172 = items172[A_Index172 - 0];
-            HTVM_Append(nextWordEndFix, A_LoopField172);
+        items185 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index185 = 0; A_Index185 < items185.length + 0; A_Index185++) {
+            const A_LoopField185 = items185[A_Index185 - 0];
+            HTVM_Append(nextWordEndFix, A_LoopField185);
         }
         HTVM_Append(nextWordEndFix, " ");
-        items173 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index173 = 0; A_Index173 < items173.length + 0; A_Index173++) {
-            const A_LoopField173 = items173[A_Index173 - 0];
-            if (Trim(A_LoopField173) == "end" && SubStr(Trim(nextWordEndFix[A_Index173 + 1]), 1, StrLen("elseif ")) == "elseif " || Trim(A_LoopField173) == "end" && Trim(nextWordEndFix[A_Index173 + 1]) == "else") {
+        items186 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index186 = 0; A_Index186 < items186.length + 0; A_Index186++) {
+            const A_LoopField186 = items186[A_Index186 - 0];
+            if (Trim(A_LoopField186) == "end" && SubStr(Trim(nextWordEndFix[A_Index186 + 1]), 1, StrLen("elseif ")) == "elseif " || Trim(A_LoopField186) == "end" && Trim(nextWordEndFix[A_Index186 + 1]) == "else") {
                 nextWordEndFixOut += "";
             } else {
-                nextWordEndFixOut += A_LoopField173 + Chr(10);
+                nextWordEndFixOut += A_LoopField186 + Chr(10);
             }
         }
         htCode = StringTrimRight(nextWordEndFixOut, 1);
     }
     if (langToConvertTo == "rb") {
-        items174 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index174 = 0; A_Index174 < items174.length + 0; A_Index174++) {
-            const A_LoopField174 = items174[A_Index174 - 0];
-            HTVM_Append(nextWordEndFix, A_LoopField174);
+        items187 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index187 = 0; A_Index187 < items187.length + 0; A_Index187++) {
+            const A_LoopField187 = items187[A_Index187 - 0];
+            HTVM_Append(nextWordEndFix, A_LoopField187);
         }
         HTVM_Append(nextWordEndFix, " ");
-        items175 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index175 = 0; A_Index175 < items175.length + 0; A_Index175++) {
-            const A_LoopField175 = items175[A_Index175 - 0];
-            if (Trim(A_LoopField175) == "end" && SubStr(Trim(nextWordEndFix[A_Index175 + 1]), 1, StrLen("elsif ")) == "elsif " || Trim(A_LoopField175) == "end" && Trim(nextWordEndFix[A_Index175 + 1]) == "else") {
+        items188 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index188 = 0; A_Index188 < items188.length + 0; A_Index188++) {
+            const A_LoopField188 = items188[A_Index188 - 0];
+            if (Trim(A_LoopField188) == "end" && SubStr(Trim(nextWordEndFix[A_Index188 + 1]), 1, StrLen("elsif ")) == "elsif " || Trim(A_LoopField188) == "end" && Trim(nextWordEndFix[A_Index188 + 1]) == "else") {
                 nextWordEndFixOut += "";
             } else {
-                nextWordEndFixOut += A_LoopField175 + Chr(10);
+                nextWordEndFixOut += A_LoopField188 + Chr(10);
             }
         }
         htCode = StringTrimRight(nextWordEndFixOut, 1);
@@ -15288,89 +15471,89 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     let nextWordEndFixRB = [];
     nextWordEndFixOut = "";
     if (langToConvertTo == "rb") {
-        items176 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index176 = 0; A_Index176 < items176.length + 0; A_Index176++) {
-            const A_LoopField176 = items176[A_Index176 - 0];
-            HTVM_Append(nextWordEndFixRB, A_LoopField176);
+        items189 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index189 = 0; A_Index189 < items189.length + 0; A_Index189++) {
+            const A_LoopField189 = items189[A_Index189 - 0];
+            HTVM_Append(nextWordEndFixRB, A_LoopField189);
         }
         HTVM_Append(nextWordEndFixRB, " ");
-        items177 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index177 = 0; A_Index177 < items177.length + 0; A_Index177++) {
-            const A_LoopField177 = items177[A_Index177 - 0];
-            if (Trim(A_LoopField177) == "end" && SubStr(Trim(nextWordEndFixRB[A_Index177 + 1]), 1, StrLen("rescue ")) == "rescue " || Trim(A_LoopField177) == "end" && Trim(nextWordEndFixRB[A_Index177 + 1]) == "ensure") {
+        items190 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index190 = 0; A_Index190 < items190.length + 0; A_Index190++) {
+            const A_LoopField190 = items190[A_Index190 - 0];
+            if (Trim(A_LoopField190) == "end" && SubStr(Trim(nextWordEndFixRB[A_Index190 + 1]), 1, StrLen("rescue ")) == "rescue " || Trim(A_LoopField190) == "end" && Trim(nextWordEndFixRB[A_Index190 + 1]) == "ensure") {
                 nextWordEndFixOut += "";
             } else {
-                nextWordEndFixOut += A_LoopField177 + Chr(10);
+                nextWordEndFixOut += A_LoopField190 + Chr(10);
             }
         }
         htCode = StringTrimRight(nextWordEndFixOut, 1);
     }
     if (langToConvertTo == langFileExtension_2 && useEnd_2 == "on") {
-        items178 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index178 = 0; A_Index178 < items178.length + 0; A_Index178++) {
-            const A_LoopField178 = items178[A_Index178 - 0];
-            HTVM_Append(nextWordEndFixRB, A_LoopField178);
+        items191 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index191 = 0; A_Index191 < items191.length + 0; A_Index191++) {
+            const A_LoopField191 = items191[A_Index191 - 0];
+            HTVM_Append(nextWordEndFixRB, A_LoopField191);
         }
         HTVM_Append(nextWordEndFixRB, " ");
-        items179 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index179 = 0; A_Index179 < items179.length + 0; A_Index179++) {
-            const A_LoopField179 = items179[A_Index179 - 0];
-            if (Trim(A_LoopField179) == Trim(keyWordEnd_2) && SubStr(Trim(nextWordEndFixRB[A_Index179 + 1]), 1, StrLen(Trim(keyWordCatch_2) + " ")) == Trim(keyWordCatch_2) + " " || Trim(A_LoopField179) == Trim(keyWordEnd_2) && Trim(nextWordEndFixRB[A_Index179 + 1]) == Trim(keyWordFinally_2) || Trim(nextWordEndFixRB[A_Index179 + 1]) == Trim(keyWordFinally_2 + ":")) {
+        items192 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index192 = 0; A_Index192 < items192.length + 0; A_Index192++) {
+            const A_LoopField192 = items192[A_Index192 - 0];
+            if (Trim(A_LoopField192) == Trim(keyWordEnd_2) && SubStr(Trim(nextWordEndFixRB[A_Index192 + 1]), 1, StrLen(Trim(keyWordCatch_2) + " ")) == Trim(keyWordCatch_2) + " " || Trim(A_LoopField192) == Trim(keyWordEnd_2) && Trim(nextWordEndFixRB[A_Index192 + 1]) == Trim(keyWordFinally_2) || Trim(nextWordEndFixRB[A_Index192 + 1]) == Trim(keyWordFinally_2 + ":")) {
                 nextWordEndFixOut += "";
             } else {
-                nextWordEndFixOut += A_LoopField179 + Chr(10);
+                nextWordEndFixOut += A_LoopField192 + Chr(10);
             }
         }
         htCode = StringTrimRight(nextWordEndFixOut, 1);
     }
     nextWordEndFixOut = "";
     if (langToConvertTo == "ahk") {
-        items180 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index180 = 0; A_Index180 < items180.length + 0; A_Index180++) {
-            const A_LoopField180 = items180[A_Index180 - 0];
-            if (SubStr(Trim(A_LoopField180), 1, StrLen("Loop, Parse, ")) == "Loop, Parse, ") {
-                nextWordEndFixOut += StrReplace(A_LoopField180, "{", Chr(10) + "{" + Chr(10)) + Chr(10);
+        items193 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index193 = 0; A_Index193 < items193.length + 0; A_Index193++) {
+            const A_LoopField193 = items193[A_Index193 - 0];
+            if (SubStr(Trim(A_LoopField193), 1, StrLen("Loop, Parse, ")) == "Loop, Parse, ") {
+                nextWordEndFixOut += StrReplace(A_LoopField193, "{", Chr(10) + "{" + Chr(10)) + Chr(10);
             } else {
-                nextWordEndFixOut += A_LoopField180 + Chr(10);
+                nextWordEndFixOut += A_LoopField193 + Chr(10);
             }
         }
         htCode = StringTrimRight(nextWordEndFixOut, 1);
     }
     if (langToConvertTo == "go") {
         let fixGoManGoIsSoAnnoyingBroooFurure = [];
-        items181 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index181 = 0; A_Index181 < items181.length + 0; A_Index181++) {
-            const A_LoopField181 = items181[A_Index181 - 0];
-            HTVM_Append(fixGoManGoIsSoAnnoyingBroooFurure, A_LoopField181);
+        items194 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index194 = 0; A_Index194 < items194.length + 0; A_Index194++) {
+            const A_LoopField194 = items194[A_Index194 - 0];
+            HTVM_Append(fixGoManGoIsSoAnnoyingBroooFurure, A_LoopField194);
         }
         HTVM_Append(fixGoManGoIsSoAnnoyingBroooFurure, " ");
         var fixGoManGoIsSoAnnoyingBroooSkip = 0;
         var fixGoManGoIsSoAnnoyingBroooCount = 0;
         var fixGoManGoIsSoAnnoyingBroooCountSpaceses = "";
         var fixGoManGoIsSoAnnoyingBrooo = "";
-        items182 = LoopParseFunc(htCode, "\n", "\r")
-        for (let A_Index182 = 0; A_Index182 < items182.length + 0; A_Index182++) {
-            const A_LoopField182 = items182[A_Index182 - 0];
-            if (Trim(A_LoopField182) == "}" && SubStr(Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index182 + 1]), 1, StrLen("else if ")) == "else if ") {
+        items195 = LoopParseFunc(htCode, "\n", "\r")
+        for (let A_Index195 = 0; A_Index195 < items195.length + 0; A_Index195++) {
+            const A_LoopField195 = items195[A_Index195 - 0];
+            if (Trim(A_LoopField195) == "}" && SubStr(Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index195 + 1]), 1, StrLen("else if ")) == "else if ") {
                 fixGoManGoIsSoAnnoyingBroooSkip = 1;
                 fixGoManGoIsSoAnnoyingBroooCount = 0;
-                items183 = LoopParseFunc(fixGoManGoIsSoAnnoyingBroooFurure[A_Index182 + 1])
-                for (let A_Index183 = 0; A_Index183 < items183.length + 0; A_Index183++) {
-                    const A_LoopField183 = items183[A_Index183 - 0];
-                    if (A_LoopField183 == " ") {
+                items196 = LoopParseFunc(fixGoManGoIsSoAnnoyingBroooFurure[A_Index195 + 1])
+                for (let A_Index196 = 0; A_Index196 < items196.length + 0; A_Index196++) {
+                    const A_LoopField196 = items196[A_Index196 - 0];
+                    if (A_LoopField196 == " ") {
                         fixGoManGoIsSoAnnoyingBroooCount++;
                     } else {
                         break;
                     }
                 }
                 fixGoManGoIsSoAnnoyingBroooCountSpaceses = "";
-                for (let A_Index184 = 0; A_Index184 < fixGoManGoIsSoAnnoyingBroooCount + 0; A_Index184++) {
+                for (let A_Index197 = 0; A_Index197 < fixGoManGoIsSoAnnoyingBroooCount + 0; A_Index197++) {
                     fixGoManGoIsSoAnnoyingBroooCountSpaceses += " ";
                 }
-                fixGoManGoIsSoAnnoyingBrooo += fixGoManGoIsSoAnnoyingBroooCountSpaceses + "} " + Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index182 + 1]) + Chr(10);
+                fixGoManGoIsSoAnnoyingBrooo += fixGoManGoIsSoAnnoyingBroooCountSpaceses + "} " + Trim(fixGoManGoIsSoAnnoyingBroooFurure[A_Index195 + 1]) + Chr(10);
             } else {
                 if (fixGoManGoIsSoAnnoyingBroooSkip == 0) {
-                    fixGoManGoIsSoAnnoyingBrooo += A_LoopField182 + Chr(10);
+                    fixGoManGoIsSoAnnoyingBrooo += A_LoopField195 + Chr(10);
                 }
                 fixGoManGoIsSoAnnoyingBroooSkip = 0;
             }
@@ -15381,261 +15564,261 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         htCode = fixCSandJAVAstaticBugForFunc(htCode);
     }
     if (COUNT_programmingBlock_InTheTranspiledLang != 0) {
-        for (let A_Index185 = 0; A_Index185 < COUNT_programmingBlock_InTheTranspiledLang + 0; A_Index185++) {
-            htCode = StrReplace(htCode, "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" + STR(A_Index185 + 1) + "AA", programmingBlock_InTheTranspiledLang[A_Index185]);
+        for (let A_Index198 = 0; A_Index198 < COUNT_programmingBlock_InTheTranspiledLang + 0; A_Index198++) {
+            htCode = StrReplace(htCode, "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" + STR(A_Index198 + 1) + "AA", programmingBlock_InTheTranspiledLang[A_Index198]);
         }
     }
     if (langToConvertTo == "cpp") {
         if (COUNT_programmingBlock_CPP != 0) {
-            for (let A_Index186 = 0; A_Index186 < COUNT_programmingBlock_CPP + 0; A_Index186++) {
-                htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index186 + 1) + "AA", programmingBlock_CPP[A_Index186]);
+            for (let A_Index199 = 0; A_Index199 < COUNT_programmingBlock_CPP + 0; A_Index199++) {
+                htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index199 + 1) + "AA", programmingBlock_CPP[A_Index199]);
             }
         }
     } else {
         if (COUNT_programmingBlock_CPP != 0) {
-            for (let A_Index187 = 0; A_Index187 < COUNT_programmingBlock_CPP + 0; A_Index187++) {
+            for (let A_Index200 = 0; A_Index200 < COUNT_programmingBlock_CPP + 0; A_Index200++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index187 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCPP_2 + Chr(10) + programmingBlock_CPP[A_Index187] + Chr(10) + keyWordCodeInTheTranspiledLangEndCPP_2);
+                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index200 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCPP_2 + Chr(10) + programmingBlock_CPP[A_Index200] + Chr(10) + keyWordCodeInTheTranspiledLangEndCPP_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index187 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index200 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "py") {
         if (COUNT_programmingBlock_PY != 0) {
-            for (let A_Index188 = 0; A_Index188 < COUNT_programmingBlock_PY + 0; A_Index188++) {
-                htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index188 + 1) + "AA", programmingBlock_PY[A_Index188]);
+            for (let A_Index201 = 0; A_Index201 < COUNT_programmingBlock_PY + 0; A_Index201++) {
+                htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index201 + 1) + "AA", programmingBlock_PY[A_Index201]);
             }
         }
     } else {
         if (COUNT_programmingBlock_PY != 0) {
-            for (let A_Index189 = 0; A_Index189 < COUNT_programmingBlock_PY + 0; A_Index189++) {
+            for (let A_Index202 = 0; A_Index202 < COUNT_programmingBlock_PY + 0; A_Index202++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index189 + 1) + "AA", keyWordCodeInTheTranspiledLangStartPY_2 + Chr(10) + programmingBlock_PY[A_Index189] + Chr(10) + keyWordCodeInTheTranspiledLangEndPY_2);
+                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index202 + 1) + "AA", keyWordCodeInTheTranspiledLangStartPY_2 + Chr(10) + programmingBlock_PY[A_Index202] + Chr(10) + keyWordCodeInTheTranspiledLangEndPY_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index189 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index202 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "js") {
         if (COUNT_programmingBlock_JS != 0) {
-            for (let A_Index190 = 0; A_Index190 < COUNT_programmingBlock_JS + 0; A_Index190++) {
-                htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index190 + 1) + "AA", programmingBlock_JS[A_Index190]);
+            for (let A_Index203 = 0; A_Index203 < COUNT_programmingBlock_JS + 0; A_Index203++) {
+                htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index203 + 1) + "AA", programmingBlock_JS[A_Index203]);
             }
         }
     } else {
         if (COUNT_programmingBlock_JS != 0) {
-            for (let A_Index191 = 0; A_Index191 < COUNT_programmingBlock_JS + 0; A_Index191++) {
+            for (let A_Index204 = 0; A_Index204 < COUNT_programmingBlock_JS + 0; A_Index204++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index191 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJS_2 + Chr(10) + programmingBlock_JS[A_Index191] + Chr(10) + keyWordCodeInTheTranspiledLangEndJS_2);
+                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index204 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJS_2 + Chr(10) + programmingBlock_JS[A_Index204] + Chr(10) + keyWordCodeInTheTranspiledLangEndJS_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index191 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index204 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "go") {
         if (COUNT_programmingBlock_GO != 0) {
-            for (let A_Index192 = 0; A_Index192 < COUNT_programmingBlock_GO + 0; A_Index192++) {
-                htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index192 + 1) + "AA", programmingBlock_GO[A_Index192]);
+            for (let A_Index205 = 0; A_Index205 < COUNT_programmingBlock_GO + 0; A_Index205++) {
+                htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index205 + 1) + "AA", programmingBlock_GO[A_Index205]);
             }
         }
     } else {
         if (COUNT_programmingBlock_GO != 0) {
-            for (let A_Index193 = 0; A_Index193 < COUNT_programmingBlock_GO + 0; A_Index193++) {
+            for (let A_Index206 = 0; A_Index206 < COUNT_programmingBlock_GO + 0; A_Index206++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index193 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGO_2 + Chr(10) + programmingBlock_GO[A_Index193] + Chr(10) + keyWordCodeInTheTranspiledLangEndGO_2);
+                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index206 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGO_2 + Chr(10) + programmingBlock_GO[A_Index206] + Chr(10) + keyWordCodeInTheTranspiledLangEndGO_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index193 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index206 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "lua") {
         if (COUNT_programmingBlock_LUA != 0) {
-            for (let A_Index194 = 0; A_Index194 < COUNT_programmingBlock_LUA + 0; A_Index194++) {
-                htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index194 + 1) + "AA", programmingBlock_LUA[A_Index194]);
+            for (let A_Index207 = 0; A_Index207 < COUNT_programmingBlock_LUA + 0; A_Index207++) {
+                htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index207 + 1) + "AA", programmingBlock_LUA[A_Index207]);
             }
         }
     } else {
         if (COUNT_programmingBlock_LUA != 0) {
-            for (let A_Index195 = 0; A_Index195 < COUNT_programmingBlock_LUA + 0; A_Index195++) {
+            for (let A_Index208 = 0; A_Index208 < COUNT_programmingBlock_LUA + 0; A_Index208++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index195 + 1) + "AA", keyWordCodeInTheTranspiledLangStartLUA_2 + Chr(10) + programmingBlock_LUA[A_Index195] + Chr(10) + keyWordCodeInTheTranspiledLangEndLUA_2);
+                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index208 + 1) + "AA", keyWordCodeInTheTranspiledLangStartLUA_2 + Chr(10) + programmingBlock_LUA[A_Index208] + Chr(10) + keyWordCodeInTheTranspiledLangEndLUA_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index195 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index208 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "cs") {
         if (COUNT_programmingBlock_CS != 0) {
-            for (let A_Index196 = 0; A_Index196 < COUNT_programmingBlock_CS + 0; A_Index196++) {
-                htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index196 + 1) + "AA", programmingBlock_CS[A_Index196]);
+            for (let A_Index209 = 0; A_Index209 < COUNT_programmingBlock_CS + 0; A_Index209++) {
+                htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index209 + 1) + "AA", programmingBlock_CS[A_Index209]);
             }
         }
     } else {
         if (COUNT_programmingBlock_CS != 0) {
-            for (let A_Index197 = 0; A_Index197 < COUNT_programmingBlock_CS + 0; A_Index197++) {
+            for (let A_Index210 = 0; A_Index210 < COUNT_programmingBlock_CS + 0; A_Index210++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index197 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCS_2 + Chr(10) + programmingBlock_CS[A_Index197] + Chr(10) + keyWordCodeInTheTranspiledLangEndCS_2);
+                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index210 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCS_2 + Chr(10) + programmingBlock_CS[A_Index210] + Chr(10) + keyWordCodeInTheTranspiledLangEndCS_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index197 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index210 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "java") {
         if (COUNT_programmingBlock_JAVA != 0) {
-            for (let A_Index198 = 0; A_Index198 < COUNT_programmingBlock_JAVA + 0; A_Index198++) {
-                htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index198 + 1) + "AA", programmingBlock_JAVA[A_Index198]);
+            for (let A_Index211 = 0; A_Index211 < COUNT_programmingBlock_JAVA + 0; A_Index211++) {
+                htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index211 + 1) + "AA", programmingBlock_JAVA[A_Index211]);
             }
         }
     } else {
         if (COUNT_programmingBlock_JAVA != 0) {
-            for (let A_Index199 = 0; A_Index199 < COUNT_programmingBlock_JAVA + 0; A_Index199++) {
+            for (let A_Index212 = 0; A_Index212 < COUNT_programmingBlock_JAVA + 0; A_Index212++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index199 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJAVA_2 + Chr(10) + programmingBlock_JAVA[A_Index199] + Chr(10) + keyWordCodeInTheTranspiledLangEndJAVA_2);
+                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index212 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJAVA_2 + Chr(10) + programmingBlock_JAVA[A_Index212] + Chr(10) + keyWordCodeInTheTranspiledLangEndJAVA_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index199 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index212 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "kt") {
         if (COUNT_programmingBlock_KT != 0) {
-            for (let A_Index200 = 0; A_Index200 < COUNT_programmingBlock_KT + 0; A_Index200++) {
-                htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index200 + 1) + "AA", programmingBlock_KT[A_Index200]);
+            for (let A_Index213 = 0; A_Index213 < COUNT_programmingBlock_KT + 0; A_Index213++) {
+                htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index213 + 1) + "AA", programmingBlock_KT[A_Index213]);
             }
         }
     } else {
         if (COUNT_programmingBlock_KT != 0) {
-            for (let A_Index201 = 0; A_Index201 < COUNT_programmingBlock_KT + 0; A_Index201++) {
+            for (let A_Index214 = 0; A_Index214 < COUNT_programmingBlock_KT + 0; A_Index214++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index201 + 1) + "AA", keyWordCodeInTheTranspiledLangStartKT_2 + Chr(10) + programmingBlock_KT[A_Index201] + Chr(10) + keyWordCodeInTheTranspiledLangEndKT_2);
+                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index214 + 1) + "AA", keyWordCodeInTheTranspiledLangStartKT_2 + Chr(10) + programmingBlock_KT[A_Index214] + Chr(10) + keyWordCodeInTheTranspiledLangEndKT_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index201 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index214 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "rb") {
         if (COUNT_programmingBlock_RB != 0) {
-            for (let A_Index202 = 0; A_Index202 < COUNT_programmingBlock_RB + 0; A_Index202++) {
-                htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index202 + 1) + "AA", programmingBlock_RB[A_Index202]);
+            for (let A_Index215 = 0; A_Index215 < COUNT_programmingBlock_RB + 0; A_Index215++) {
+                htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index215 + 1) + "AA", programmingBlock_RB[A_Index215]);
             }
         }
     } else {
         if (COUNT_programmingBlock_RB != 0) {
-            for (let A_Index203 = 0; A_Index203 < COUNT_programmingBlock_RB + 0; A_Index203++) {
+            for (let A_Index216 = 0; A_Index216 < COUNT_programmingBlock_RB + 0; A_Index216++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index203 + 1) + "AA", keyWordCodeInTheTranspiledLangStartRB_2 + Chr(10) + programmingBlock_RB[A_Index203] + Chr(10) + keyWordCodeInTheTranspiledLangEndRB_2);
+                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index216 + 1) + "AA", keyWordCodeInTheTranspiledLangStartRB_2 + Chr(10) + programmingBlock_RB[A_Index216] + Chr(10) + keyWordCodeInTheTranspiledLangEndRB_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index203 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index216 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "nim") {
         if (COUNT_programmingBlock_NIM != 0) {
-            for (let A_Index204 = 0; A_Index204 < COUNT_programmingBlock_NIM + 0; A_Index204++) {
-                htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index204 + 1) + "AA", programmingBlock_NIM[A_Index204]);
+            for (let A_Index217 = 0; A_Index217 < COUNT_programmingBlock_NIM + 0; A_Index217++) {
+                htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index217 + 1) + "AA", programmingBlock_NIM[A_Index217]);
             }
         }
     } else {
         if (COUNT_programmingBlock_NIM != 0) {
-            for (let A_Index205 = 0; A_Index205 < COUNT_programmingBlock_NIM + 0; A_Index205++) {
+            for (let A_Index218 = 0; A_Index218 < COUNT_programmingBlock_NIM + 0; A_Index218++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index205 + 1) + "AA", keyWordCodeInTheTranspiledLangStartNIM_2 + Chr(10) + programmingBlock_NIM[A_Index205] + Chr(10) + keyWordCodeInTheTranspiledLangEndNIM_2);
+                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index218 + 1) + "AA", keyWordCodeInTheTranspiledLangStartNIM_2 + Chr(10) + programmingBlock_NIM[A_Index218] + Chr(10) + keyWordCodeInTheTranspiledLangEndNIM_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index205 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index218 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "ahk") {
         if (COUNT_programmingBlock_AHK != 0) {
-            for (let A_Index206 = 0; A_Index206 < COUNT_programmingBlock_AHK + 0; A_Index206++) {
-                htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index206 + 1) + "AA", programmingBlock_AHK[A_Index206]);
+            for (let A_Index219 = 0; A_Index219 < COUNT_programmingBlock_AHK + 0; A_Index219++) {
+                htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index219 + 1) + "AA", programmingBlock_AHK[A_Index219]);
             }
         }
     } else {
         if (COUNT_programmingBlock_AHK != 0) {
-            for (let A_Index207 = 0; A_Index207 < COUNT_programmingBlock_AHK + 0; A_Index207++) {
+            for (let A_Index220 = 0; A_Index220 < COUNT_programmingBlock_AHK + 0; A_Index220++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index207 + 1) + "AA", keyWordCodeInTheTranspiledLangStartAHK_2 + Chr(10) + programmingBlock_AHK[A_Index207] + Chr(10) + keyWordCodeInTheTranspiledLangEndAHK_2);
+                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index220 + 1) + "AA", keyWordCodeInTheTranspiledLangStartAHK_2 + Chr(10) + programmingBlock_AHK[A_Index220] + Chr(10) + keyWordCodeInTheTranspiledLangEndAHK_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index207 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index220 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "swift") {
         if (COUNT_programmingBlock_SWIFT != 0) {
-            for (let A_Index208 = 0; A_Index208 < COUNT_programmingBlock_SWIFT + 0; A_Index208++) {
-                htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index208 + 1) + "AA", programmingBlock_SWIFT[A_Index208]);
+            for (let A_Index221 = 0; A_Index221 < COUNT_programmingBlock_SWIFT + 0; A_Index221++) {
+                htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index221 + 1) + "AA", programmingBlock_SWIFT[A_Index221]);
             }
         }
     } else {
         if (COUNT_programmingBlock_SWIFT != 0) {
-            for (let A_Index209 = 0; A_Index209 < COUNT_programmingBlock_SWIFT + 0; A_Index209++) {
+            for (let A_Index222 = 0; A_Index222 < COUNT_programmingBlock_SWIFT + 0; A_Index222++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index209 + 1) + "AA", keyWordCodeInTheTranspiledLangStartSWIFT_2 + Chr(10) + programmingBlock_SWIFT[A_Index209] + Chr(10) + keyWordCodeInTheTranspiledLangEndSWIFT_2);
+                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index222 + 1) + "AA", keyWordCodeInTheTranspiledLangStartSWIFT_2 + Chr(10) + programmingBlock_SWIFT[A_Index222] + Chr(10) + keyWordCodeInTheTranspiledLangEndSWIFT_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index209 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index222 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "dart") {
         if (COUNT_programmingBlock_DART != 0) {
-            for (let A_Index210 = 0; A_Index210 < COUNT_programmingBlock_DART + 0; A_Index210++) {
-                htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index210 + 1) + "AA", programmingBlock_DART[A_Index210]);
+            for (let A_Index223 = 0; A_Index223 < COUNT_programmingBlock_DART + 0; A_Index223++) {
+                htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index223 + 1) + "AA", programmingBlock_DART[A_Index223]);
             }
         }
     } else {
         if (COUNT_programmingBlock_DART != 0) {
-            for (let A_Index211 = 0; A_Index211 < COUNT_programmingBlock_DART + 0; A_Index211++) {
+            for (let A_Index224 = 0; A_Index224 < COUNT_programmingBlock_DART + 0; A_Index224++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index211 + 1) + "AA", keyWordCodeInTheTranspiledLangStartDART_2 + Chr(10) + programmingBlock_DART[A_Index211] + Chr(10) + keyWordCodeInTheTranspiledLangEndDART_2);
+                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index224 + 1) + "AA", keyWordCodeInTheTranspiledLangStartDART_2 + Chr(10) + programmingBlock_DART[A_Index224] + Chr(10) + keyWordCodeInTheTranspiledLangEndDART_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index211 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index224 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "ts") {
         if (COUNT_programmingBlock_TS != 0) {
-            for (let A_Index212 = 0; A_Index212 < COUNT_programmingBlock_TS + 0; A_Index212++) {
-                htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index212 + 1) + "AA", programmingBlock_TS[A_Index212]);
+            for (let A_Index225 = 0; A_Index225 < COUNT_programmingBlock_TS + 0; A_Index225++) {
+                htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index225 + 1) + "AA", programmingBlock_TS[A_Index225]);
             }
         }
     } else {
         if (COUNT_programmingBlock_TS != 0) {
-            for (let A_Index213 = 0; A_Index213 < COUNT_programmingBlock_TS + 0; A_Index213++) {
+            for (let A_Index226 = 0; A_Index226 < COUNT_programmingBlock_TS + 0; A_Index226++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index213 + 1) + "AA", keyWordCodeInTheTranspiledLangStartTS_2 + Chr(10) + programmingBlock_TS[A_Index213] + Chr(10) + keyWordCodeInTheTranspiledLangEndTS_2);
+                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index226 + 1) + "AA", keyWordCodeInTheTranspiledLangStartTS_2 + Chr(10) + programmingBlock_TS[A_Index226] + Chr(10) + keyWordCodeInTheTranspiledLangEndTS_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index213 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index226 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "groovy") {
         if (COUNT_programmingBlock_GROOVY != 0) {
-            for (let A_Index214 = 0; A_Index214 < COUNT_programmingBlock_GROOVY + 0; A_Index214++) {
-                htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index214 + 1) + "AA", programmingBlock_GROOVY[A_Index214]);
+            for (let A_Index227 = 0; A_Index227 < COUNT_programmingBlock_GROOVY + 0; A_Index227++) {
+                htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index227 + 1) + "AA", programmingBlock_GROOVY[A_Index227]);
             }
         }
     } else {
         if (COUNT_programmingBlock_GROOVY != 0) {
-            for (let A_Index215 = 0; A_Index215 < COUNT_programmingBlock_GROOVY + 0; A_Index215++) {
+            for (let A_Index228 = 0; A_Index228 < COUNT_programmingBlock_GROOVY + 0; A_Index228++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index215 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGROOVY_2 + Chr(10) + programmingBlock_GROOVY[A_Index215] + Chr(10) + keyWordCodeInTheTranspiledLangEndGROOVY_2);
+                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index228 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGROOVY_2 + Chr(10) + programmingBlock_GROOVY[A_Index228] + Chr(10) + keyWordCodeInTheTranspiledLangEndGROOVY_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index215 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index228 + 1) + "AA", Chr(10));
                 }
             }
         }
@@ -15643,14 +15826,14 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     //;;;;;;;;;;
     if (langToConvertTo == langFileExtension_2) {
         if (COUNT_programmingBlock_HTVM != 0) {
-            for (let A_Index216 = 0; A_Index216 < COUNT_programmingBlock_HTVM + 0; A_Index216++) {
-                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index216 + 1) + "AA", programmingBlock_HTVM[A_Index216]);
+            for (let A_Index229 = 0; A_Index229 < COUNT_programmingBlock_HTVM + 0; A_Index229++) {
+                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index229 + 1) + "AA", programmingBlock_HTVM[A_Index229]);
             }
         }
     } else {
         if (COUNT_programmingBlock_HTVM != 0) {
-            for (let A_Index217 = 0; A_Index217 < COUNT_programmingBlock_HTVM + 0; A_Index217++) {
-                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index217 + 1) + "AA", Chr(10));
+            for (let A_Index230 = 0; A_Index230 < COUNT_programmingBlock_HTVM + 0; A_Index230++) {
+                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index230 + 1) + "AA", Chr(10));
             }
         }
     }
@@ -15667,10 +15850,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     let allFuncs = [];
     let allfuncDescription = [];
     var correctLang = 0;
-    items218 = LoopParseFunc(instructions, "\n", "\r")
-    for (let A_Index218 = 0; A_Index218 < items218.length + 0; A_Index218++) {
-        const A_LoopField218 = items218[A_Index218 - 0];
-        if (Trim(A_LoopField218) == "funcEND======================funcEND==============") {
+    items231 = LoopParseFunc(instructions, "\n", "\r")
+    for (let A_Index231 = 0; A_Index231 < items231.length + 0; A_Index231++) {
+        const A_LoopField231 = items231[A_Index231 - 0];
+        if (Trim(A_LoopField231) == "funcEND======================funcEND==============") {
             areWeInAFuncFromInstructions = 0;
             areWeInAFuncFromInstructionsLineNum = 0;
             if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
@@ -15683,7 +15866,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         if (areWeInAFuncFromInstructions == 1) {
             if (areWeInAFuncFromInstructionsLineNum == 1) {
                 // name of the func
-                funcLangHolder = StringTrimLeft(A_LoopField218, 5);
+                funcLangHolder = StringTrimLeft(A_LoopField231, 5);
                 if (Trim(funcLangHolder) == langToConvertTo) {
                     HTVM_Append(allFuncLang, Trim(funcLangHolder));
                     correctLang = 1;
@@ -15691,21 +15874,21 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             }
             if (areWeInAFuncFromInstructionsLineNum == 2) {
                 // name of the func
-                funcNameHolder = StringTrimLeft(A_LoopField218, 5);
+                funcNameHolder = StringTrimLeft(A_LoopField231, 5);
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
                     HTVM_Append(allFuncNames, Trim(funcNameHolder));
                 }
             }
             if (areWeInAFuncFromInstructionsLineNum == 3) {
                 // all libs
-                funcLibsHolder = StringTrimLeft(A_LoopField218, 5);
+                funcLibsHolder = StringTrimLeft(A_LoopField231, 5);
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
                     HTVM_Append(allFuncLibs, Trim(funcLibsHolder));
                 }
             }
             if (areWeInAFuncFromInstructionsLineNum == 4) {
                 // func description
-                funcDescriptionHolder = StringTrimLeft(A_LoopField218, 12);
+                funcDescriptionHolder = StringTrimLeft(A_LoopField231, 12);
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
                     HTVM_Append(allfuncDescription, Trim(funcDescriptionHolder));
                 }
@@ -15713,13 +15896,13 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             if (areWeInAFuncFromInstructionsLineNum >= 5) {
                 // the full func
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
-                    funcFuncHolder += A_LoopField218 + Chr(10);
+                    funcFuncHolder += A_LoopField231 + Chr(10);
                 }
             }
-            //MsgBox, % A_LoopField218
+            //MsgBox, % A_LoopField231
             areWeInAFuncFromInstructionsLineNum++;
         }
-        if (Trim(A_LoopField218) == "func======================func==============") {
+        if (Trim(A_LoopField231) == "func======================func==============") {
             areWeInAFuncFromInstructions = 1;
             areWeInAFuncFromInstructionsLineNum = 1;
             correctLang = 0;
@@ -15780,21 +15963,21 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     var allFuncsToPutAtTop = Chr(10);
     var allLibsToPutAtTop = "";
     if (!(HTVM_Size(allFuncNames) <= 0)) {
-        for (let A_Index219 = 0; A_Index219 < HTVM_Size(allFuncNames) + 0; A_Index219++) {
-            if (InStr(htCode, allFuncNames[A_Index219]) + "(") {
-                //MsgBox, % allFuncNames[A_Index219]
-                allFuncsToPutAtTop += allFuncs[A_Index219] + Chr(10);
-                if (Trim(allFuncLibs[A_Index219]) != "null") {
-                    allLibsToPutAtTop += allFuncLibs[A_Index219] + "|";
+        for (let A_Index232 = 0; A_Index232 < HTVM_Size(allFuncNames) + 0; A_Index232++) {
+            if (InStr(htCode, allFuncNames[A_Index232]) + "(") {
+                //MsgBox, % allFuncNames[A_Index232]
+                allFuncsToPutAtTop += allFuncs[A_Index232] + Chr(10);
+                if (Trim(allFuncLibs[A_Index232]) != "null") {
+                    allLibsToPutAtTop += allFuncLibs[A_Index232] + "|";
                 }
             }
         }
         allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTop, 1);
         var allLibsToPutAtTopTEMP = "";
-        items220 = LoopParseFunc(allLibsToPutAtTop, "|")
-        for (let A_Index220 = 0; A_Index220 < items220.length + 0; A_Index220++) {
-            const A_LoopField220 = items220[A_Index220 - 0];
-            allLibsToPutAtTopTEMP += A_LoopField220 + Chr(10);
+        items233 = LoopParseFunc(allLibsToPutAtTop, "|")
+        for (let A_Index233 = 0; A_Index233 < items233.length + 0; A_Index233++) {
+            const A_LoopField233 = items233[A_Index233 - 0];
+            allLibsToPutAtTopTEMP += A_LoopField233 + Chr(10);
         }
         allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTopTEMP, 1);
         includeLibsInCppIf = 1;
@@ -15836,8 +16019,8 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         }
     }
     if (langToConvertTo != langFileExtension_2) {
-        for (let A_Index221 = 0; A_Index221 < HTVM_Size(ospDic1) + 0; A_Index221++) {
-            str00 = ospDic1[A_Index221];
+        for (let A_Index234 = 0; A_Index234 < HTVM_Size(ospDic1) + 0; A_Index234++) {
+            str00 = ospDic1[A_Index234];
             if (langToConvertTo == "rb") {
                 htCode = StrReplace(htCode, StrReplace(str00, "_", "_") + "_", "$" + str00 + "_");
             }
@@ -15849,7 +16032,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     HTVM_Append(ospDic, "end");
     var size_ospDic = HTVM_Size(ospDic);
     if (size_ospDic != 0) {
-        for (let A_Index222 = 0; A_Index222 < size_ospDic + 0; A_Index222++) {
+        for (let A_Index235 = 0; A_Index235 < size_ospDic + 0; A_Index235++) {
             HTVM_Pop(ospDic);
         }
     }
@@ -15857,7 +16040,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     HTVM_Append(ospDic1, "end");
     var size_ospDic1 = HTVM_Size(ospDic1);
     if (size_ospDic1 != 0) {
-        for (let A_Index223 = 0; A_Index223 < size_ospDic1 + 0; A_Index223++) {
+        for (let A_Index236 = 0; A_Index236 < size_ospDic1 + 0; A_Index236++) {
             HTVM_Pop(ospDic1);
         }
     }
@@ -15865,7 +16048,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     HTVM_Append(ospDic2, "end");
     var size_ospDic2 = HTVM_Size(ospDic2);
     if (size_ospDic2 != 0) {
-        for (let A_Index224 = 0; A_Index224 < size_ospDic2 + 0; A_Index224++) {
+        for (let A_Index237 = 0; A_Index237 < size_ospDic2 + 0; A_Index237++) {
             HTVM_Pop(ospDic2);
         }
     }
@@ -15873,26 +16056,26 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         htCode = FixRubyGlobalVars(htCode);
     }
     htCode = StrReplace(htCode, "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc ", "");
-    for (let A_Index225 = 0; A_Index225 < theIdNumOfThe34 + 0; A_Index225++) {
-        if (theIdNumOfThe34 == A_Index225 + 1) {
+    for (let A_Index238 = 0; A_Index238 < theIdNumOfThe34 + 0; A_Index238++) {
+        if (theIdNumOfThe34 == A_Index238 + 1) {
             if (langToConvertTo == langFileExtension_2) {
                 if (keyWordEscpaeChar_2 == "\\" && keyWordEscpaeChar != "\\") {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index225 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index225 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index238 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index238 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
                 } else {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index225 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index225 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index238 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index238 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
                 }
             } else {
-                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index225 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index225 + 1], keyWordEscpaeChar, "\\") + Chr(34));
+                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index238 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index238 + 1], keyWordEscpaeChar, "\\") + Chr(34));
             }
         } else {
             if (langToConvertTo == langFileExtension_2) {
                 if (keyWordEscpaeChar_2 == "\\" && keyWordEscpaeChar != "\\") {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index225 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index225 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index238 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index238 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2));
                 } else {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index225 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index225 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index238 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index238 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2));
                 }
             } else {
-                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index225 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index225 + 1], keyWordEscpaeChar, "\\"));
+                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index238 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index238 + 1], keyWordEscpaeChar, "\\"));
             }
         }
     }
@@ -15950,10 +16133,10 @@ function HTVMv2() {
     if (noParams == true) {
         return;
     }
-    items226 = LoopParseFunc(str0)
-    for (let A_Index226 = 0; A_Index226 < items226.length + 0; A_Index226++) {
-        const A_LoopField226 = items226[A_Index226 - 0];
-        str00 = Trim(A_LoopField226);
+    items239 = LoopParseFunc(str0)
+    for (let A_Index239 = 0; A_Index239 < items239.length + 0; A_Index239++) {
+        const A_LoopField239 = items239[A_Index239 - 0];
+        str00 = Trim(A_LoopField239);
         str00 = StringTrimRight(str00, 1);
     }
     //print("HTVM v2")
@@ -15964,29 +16147,29 @@ function HTVMv2() {
         if (HTVM_getLang_HTVM() == "py") {
             //print("PY")
         }
-        items227 = LoopParseFunc(allArgs, "\n", "\r")
-        for (let A_Index227 = 0; A_Index227 < items227.length + 0; A_Index227++) {
-            const A_LoopField227 = items227[A_Index227 - 0];
-            if (A_Index227 == 0) {
+        items240 = LoopParseFunc(allArgs, "\n", "\r")
+        for (let A_Index240 = 0; A_Index240 < items240.length + 0; A_Index240++) {
+            const A_LoopField240 = items240[A_Index240 - 0];
+            if (A_Index240 == 0) {
                 numOfParams++;
-                argCODE = FileRead(Trim(A_LoopField227));
-                argCODEfile = Trim(A_LoopField227);
+                argCODE = FileRead(Trim(A_LoopField240));
+                argCODEfile = Trim(A_LoopField240);
             }
-            else if (A_Index227 == 1) {
+            else if (A_Index240 == 1) {
                 numOfParams++;
-                argHTVMinstr = Trim(A_LoopField227);
+                argHTVMinstr = Trim(A_LoopField240);
             }
-            else if (A_Index227 == 2) {
+            else if (A_Index240 == 2) {
                 numOfParams++;
-                argLangTo = Trim(A_LoopField227);
+                argLangTo = Trim(A_LoopField240);
             } else {
                 numOfParams++;
-                HTVM_Append(argHTVMinstrMORE, Trim(A_LoopField227));
+                HTVM_Append(argHTVMinstrMORE, Trim(A_LoopField240));
             }
         }
         //print("===============123431234===========start=====")
-        for (let A_Index228 = 0; A_Index228 < HTVM_Size(argHTVMinstrMORE) + 0; A_Index228++) {
-            //print(argHTVMinstrMORE[A_Index228])
+        for (let A_Index241 = 0; A_Index241 < HTVM_Size(argHTVMinstrMORE) + 0; A_Index241++) {
+            //print(argHTVMinstrMORE[A_Index241])
         }
         //print("===============123431234==========end======")
         //print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConvertTo)

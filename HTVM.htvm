@@ -4010,8 +4010,279 @@ func str ospHELP2(str line) {
     return outHelp
 }
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+
+func str extraFlexableFuncCallsHelp2(str line)
+{
+arr str allFuncsDot
+str temp := ""
+
+Loop, Parse, line, "."
+{
+if (A_Index = 0)
+{
+; the value name/other
+temp := A_LoopField
+}
+else
+{
+if (RegExMatch(StringTrimRight(StrSplit(A_LoopField, "(", 2), 1), "\.[a-zA-Z_][a-zA-Z0-9_]*"))
+{
+allFuncsDot.add(StrSplit(A_LoopField, "(", 1) . "|" . StringTrimRight(StrSplit(A_LoopField, "(", 2), 1))
+}
+}
+}
+
+
+str out := ""
+int endParentesesToPut := 0
+
+Loop, % allFuncsDot.size()
+{
+if (allFuncsDot.size() = A_Index + 1)
+{
+
+
+if (Trim(StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 2)) = "")
+{
+out .= StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 1) . "(" . temp
+}
+else
+{
+out .= StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 1) . "(" . temp . ", " . Trim(StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 2))
+}
+
+Loop, % endParentesesToPut + 1
+{
+out .= ")"
+}
+
+
+}
+else
+{
+endParentesesToPut++
+if (Trim(StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 2)) = "")
+{
+out .= StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 1) . "("
+}
+else
+{
+out .= StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 1) . "(" . Trim(StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 2)) . ", "
+}
+
+}
+}
+;print("=================================")
+
+return out
+}
+
+
+
+
+func str splitFunctionCalls2(str line)
+{
+int doWeAddParentisiesLater := 0
+line := Trim(line)
+Loop
+{
+if (SubStr(line, 1, 1) = "(")
+{
+StringTrimRight, line, line, 1
+StringTrimLeft, line, line, 1
+doWeAddParentisiesLater++
+}
+else
+{
+break
+}
+}
+
+int doseBracketsExist := 0
+
+arr str saveDoseBracketsExist
+str saveDoseBracketsExistTEMP := ""
+int inBarkets := 0
+int inBarketsNum := 0
+str lineOut := ""
+if (InStr(line, "["))
+{
+doseBracketsExist := 1
+
+Loop, Parse, line
+{
+if (A_LoopField = "[")
+{
+inBarkets := 1
+saveDoseBracketsExistTEMP .= A_LoopField
+}
+if (A_LoopField = "]")
+{
+inBarkets := 0
+saveDoseBracketsExistTEMP .= A_LoopField
+saveDoseBracketsExist.add(saveDoseBracketsExistTEMP)
+saveDoseBracketsExistTEMP := ""
+lineOut .= "brackests--rpelacse-brackets--HTVM-new-BUG--AA" . STR(inBarketsNum) . "AA"
+inBarketsNum++
+}
+
+if (inBarkets = 1) and (A_LoopField != "[") and (A_LoopField != "]")
+{
+saveDoseBracketsExistTEMP .= A_LoopField
+}
+else
+{
+lineOut .= A_LoopField
+}
+
+
+}
+line := lineOut
+}
+
+
+int doseFuncAtTheBegggging := 0
+int doWeAddParentisiesLater2 := 0
+int numRemoveFunc := 0
+arr str FuncAtTheBegggging
+str FuncAtTheBeggggingTEMP := ""
+if (RegExMatch(line, "^[a-zA-Z_][a-zA-Z0-9_]*\("))
+{
+doseFuncAtTheBegggging := 1
+
+Loop
+{
+if (RegExMatch(line, "^[a-zA-Z_][a-zA-Z0-9_]*\("))
+{
+FuncAtTheBeggggingTEMP := ""
+Loop, Parse, line
+{
+if (A_LoopField = "(")
+{
+numRemoveFunc++
+FuncAtTheBeggggingTEMP .= A_LoopField
+FuncAtTheBegggging.add(FuncAtTheBeggggingTEMP)
+FuncAtTheBeggggingTEMP := ""
+break
+}
+FuncAtTheBeggggingTEMP .= A_LoopField
+numRemoveFunc++
+
+}
+line := StringTrimLeft(line, numRemoveFunc)
+numRemoveFunc := 0
+StringTrimRight, line, line, 1
+doWeAddParentisiesLater2++
+}
+else
+{
+break
+}
+}
+
+}
+
+    arr str funcCalls
+    str temp := ""
+    int parenthesesDepth := 0 ; Track parentheses depth
+    int seenDot := 0
+    Loop, Parse, line
+    {
+    if (A_LoopField = ".")
+    {
+    seenDot := 1
+    }
+        ; Handle spaces
+        if (A_LoopField = " ")
+        {
+            if (parenthesesDepth = 0) ; Split only outside parentheses
+            {
+                if (temp != "")
+                {
+                    funcCalls.add(temp)
+                    temp := ""
+                }
+            }
+            else
+            {
+                temp .= A_LoopField ; Inside parentheses, accumulate
+            }
+        }
+        else if (A_LoopField = "(") and (seenDot = 1)
+        {
+            parenthesesDepth++ ; Increase depth for function argument list
+            temp .= A_LoopField
+        }
+        else if (A_LoopField = ")") and (seenDot = 1)
+        {
+            parenthesesDepth-- ; Decrease depth after closing argument list
+            temp .= A_LoopField
+        }
+        else
+        {
+            temp .= A_LoopField ; Accumulate characters for function name/args
+        }
+    }
+
+    if (temp != "")
+    {
+        funcCalls.add(temp) ; Add the last accumulated segment
+    }
+
+
+str arrToStrSTR := ""
+
+Loop, % funcCalls.size()
+{
+if (RegExMatch(funcCalls[A_Index], "\.[a-zA-Z_][a-zA-Z0-9_]*"))
+{
+arrToStrSTR .= extraFlexableFuncCallsHelp2(funcCalls[A_Index]) . " "
+}
+else
+{
+arrToStrSTR .= funcCalls[A_Index] . " "
+}
+}
+StringTrimRight, arrToStrSTR, arrToStrSTR, 1    
+
+if (doWeAddParentisiesLater != 0)
+{
+Loop, % doWeAddParentisiesLater
+{
+arrToStrSTR := "(" . arrToStrSTR . ")"
+}
+}
+
+if (doseBracketsExist = 1)
+{
+Loop, % saveDoseBracketsExist.size()
+{
+arrToStrSTR := StrReplace(arrToStrSTR, "brackests--rpelacse-brackets--HTVM-new-BUG--AA" . STR(A_Index) . "AA", StringTrimLeft(StringTrimRight(saveDoseBracketsExist[A_Index], 1), 1))
+}
+}
+
+
+if (doseFuncAtTheBegggging = 1)
+{
+
+Loop, % FuncAtTheBegggging.size()
+{
+arrToStrSTR := FuncAtTheBegggging[A_Index] . arrToStrSTR
+}
+Loop, % doWeAddParentisiesLater2
+{
+arrToStrSTR := arrToStrSTR . ")"
+}
+
+}
+
+return arrToStrSTR
+}
 
 
 func str extraFlexableFuncCallsHelp(str line)
@@ -4028,7 +4299,14 @@ temp := A_LoopField
 }
 else
 {
+if (RegExMatch(StringTrimRight(StrSplit(A_LoopField, "(", 2), 1), "\.[a-zA-Z_][a-zA-Z0-9_]*"))
+{
+allFuncsDot.add(StrSplit(A_LoopField, "(", 1) . "|" . splitFunctionCalls2(StringTrimRight(StrSplit(A_LoopField, "(", 2), 1)))
+}
+else
+{
 allFuncsDot.add(StrSplit(A_LoopField, "(", 1) . "|" . StringTrimRight(StrSplit(A_LoopField, "(", 2), 1))
+}
 }
 }
 
@@ -4234,7 +4512,6 @@ Loop, % funcCalls.size()
 {
 if (RegExMatch(funcCalls[A_Index], "\.[a-zA-Z_][a-zA-Z0-9_]*"))
 {
-print(funcCalls[A_Index])
 arrToStrSTR .= extraFlexableFuncCallsHelp(funcCalls[A_Index]) . " "
 }
 else
