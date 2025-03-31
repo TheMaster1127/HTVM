@@ -4011,10 +4011,6 @@ func str ospHELP2(str line) {
 }
 
 
-
-
-
-
 func str extraFlexableFuncCallsHelp(str line)
 {
 arr str allFuncsDot
@@ -4081,6 +4077,22 @@ return out
 
 func str splitFunctionCalls(str line)
 {
+int doWeAddParentisiesLater := 0
+line := Trim(line)
+Loop
+{
+if (SubStr(line, 1, 1) = "(")
+{
+StringTrimRight, line, line, 1
+StringTrimLeft, line, line, 1
+doWeAddParentisiesLater++
+}
+else
+{
+break
+}
+}
+
     arr str funcCalls
     str temp := ""
     int parenthesesDepth := 0 ; Track parentheses depth
@@ -4143,6 +4155,14 @@ arrToStrSTR .= funcCalls[A_Index] . " "
 }
 }
 StringTrimRight, arrToStrSTR, arrToStrSTR, 1
+
+if (doWeAddParentisiesLater != 0)
+{
+Loop, % doWeAddParentisiesLater
+{
+arrToStrSTR := "(" . arrToStrSTR . ")"
+}
+}
 
 return arrToStrSTR
 }
@@ -20088,13 +20108,37 @@ htCode .= str2 . Chr(10)
 else if (RegExMatch(A_LoopField, "\.[a-zA-Z_][a-zA-Z0-9_]*")) and (lineDone = 0)
 {
 lineDone := 1
+str1 := Trim(A_LoopField)
+
+
+if (SubStrLastChars(str1, 1) = ";")
+{
+StringTrimRight, str1, str1, 1
+}
 if (langToConvertTo != langFileExtension_2)
 {
-htCode .= extraFlexableFuncCalls(A_LoopField) . Chr(10)
+
+if (langToConvertTo = "py") or (langToConvertTo = "nim") or (langToConvertTo = "ahk") or (langToConvertTo = "go") or (langToConvertTo = "lua") or (langToConvertTo = "kt") or (langToConvertTo = "rb") or (langToConvertTo = "swift") or (langToConvertTo = "groovy") 
+{
+htCode .= extraFlexableFuncCalls(str1) . Chr(10)
 }
 else
 {
-htCode .= A_LoopField . Chr(10)
+htCode .= extraFlexableFuncCalls(str1) . ";" . Chr(10)
+}
+
+
+}
+else
+{
+if (useSemicolon_2 = "on")
+{
+htCode .= str1 . ";" . Chr(10)
+}
+else
+{
+htCode .= str1 . Chr(10)
+}
 }
 
 }
