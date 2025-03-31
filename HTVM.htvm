@@ -4011,6 +4011,9 @@ func str ospHELP2(str line) {
 }
 
 
+
+
+
 func str extraFlexableFuncCallsHelp(str line)
 {
 arr str allFuncsDot
@@ -4136,6 +4139,46 @@ line := lineOut
 }
 
 
+int doseFuncAtTheBegggging := 0
+int doWeAddParentisiesLater2 := 0
+int numRemoveFunc := 0
+arr str FuncAtTheBegggging
+str FuncAtTheBeggggingTEMP := ""
+if (RegExMatch(line, "^[a-zA-Z_][a-zA-Z0-9_]*\("))
+{
+doseFuncAtTheBegggging := 1
+
+Loop
+{
+if (RegExMatch(line, "^[a-zA-Z_][a-zA-Z0-9_]*\("))
+{
+FuncAtTheBeggggingTEMP := ""
+Loop, Parse, line
+{
+if (A_LoopField = "(")
+{
+numRemoveFunc++
+FuncAtTheBeggggingTEMP .= A_LoopField
+FuncAtTheBegggging.add(FuncAtTheBeggggingTEMP)
+FuncAtTheBeggggingTEMP := ""
+break
+}
+FuncAtTheBeggggingTEMP .= A_LoopField
+numRemoveFunc++
+
+}
+line := StringTrimLeft(line, numRemoveFunc)
+numRemoveFunc := 0
+StringTrimRight, line, line, 1
+doWeAddParentisiesLater2++
+}
+else
+{
+break
+}
+}
+
+}
 
     arr str funcCalls
     str temp := ""
@@ -4191,6 +4234,7 @@ Loop, % funcCalls.size()
 {
 if (RegExMatch(funcCalls[A_Index], "\.[a-zA-Z_][a-zA-Z0-9_]*"))
 {
+print(funcCalls[A_Index])
 arrToStrSTR .= extraFlexableFuncCallsHelp(funcCalls[A_Index]) . " "
 }
 else
@@ -4198,7 +4242,7 @@ else
 arrToStrSTR .= funcCalls[A_Index] . " "
 }
 }
-StringTrimRight, arrToStrSTR, arrToStrSTR, 1
+StringTrimRight, arrToStrSTR, arrToStrSTR, 1    
 
 if (doWeAddParentisiesLater != 0)
 {
@@ -4217,6 +4261,22 @@ arrToStrSTR := StrReplace(arrToStrSTR, "brackests--rpelacse-brackets--HTVM-new-B
 }
 
 
+if (doseFuncAtTheBegggging = 1)
+{
+
+Loop, % FuncAtTheBegggging.size()
+{
+arrToStrSTR := FuncAtTheBegggging[A_Index] . arrToStrSTR
+}
+Loop, % doWeAddParentisiesLater2
+{
+arrToStrSTR := arrToStrSTR . ")"
+}
+
+}
+
+
+
 return arrToStrSTR
 }
 
@@ -4226,6 +4286,7 @@ str out := line
 out := splitFunctionCalls(line)
 return out
 }
+
 
 
 
