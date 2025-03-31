@@ -4093,6 +4093,50 @@ break
 }
 }
 
+int doseBracketsExist := 0
+
+arr str saveDoseBracketsExist
+str saveDoseBracketsExistTEMP := ""
+int inBarkets := 0
+int inBarketsNum := 0
+str lineOut := ""
+if (InStr(line, "["))
+{
+doseBracketsExist := 1
+
+Loop, Parse, line
+{
+if (A_LoopField = "[")
+{
+inBarkets := 1
+saveDoseBracketsExistTEMP .= A_LoopField
+}
+if (A_LoopField = "]")
+{
+inBarkets := 0
+saveDoseBracketsExistTEMP .= A_LoopField
+saveDoseBracketsExist.add(saveDoseBracketsExistTEMP)
+saveDoseBracketsExistTEMP := ""
+lineOut .= "brackests--rpelacse-brackets--HTVM-new-BUG--AA" . STR(inBarketsNum) . "AA"
+inBarketsNum++
+}
+
+if (inBarkets = 1) and (A_LoopField != "[") and (A_LoopField != "]")
+{
+saveDoseBracketsExistTEMP .= A_LoopField
+}
+else
+{
+lineOut .= A_LoopField
+}
+
+
+}
+line := lineOut
+}
+
+
+
     arr str funcCalls
     str temp := ""
     int parenthesesDepth := 0 ; Track parentheses depth
@@ -4163,6 +4207,15 @@ Loop, % doWeAddParentisiesLater
 arrToStrSTR := "(" . arrToStrSTR . ")"
 }
 }
+
+if (doseBracketsExist = 1)
+{
+Loop, % saveDoseBracketsExist.size()
+{
+arrToStrSTR := StrReplace(arrToStrSTR, "brackests--rpelacse-brackets--HTVM-new-BUG--AA" . STR(A_Index) . "AA", StringTrimLeft(StringTrimRight(saveDoseBracketsExist[A_Index], 1), 1))
+}
+}
+
 
 return arrToStrSTR
 }
@@ -20133,7 +20186,7 @@ else
 {
 if (useSemicolon_2 = "on")
 {
-htCode .= str1 . ";" . Chr(10)
+htCode .= str1 . "; " . Chr(10)
 }
 else
 {
