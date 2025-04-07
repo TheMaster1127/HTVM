@@ -423,6 +423,7 @@ arr str allVarsSoWeDontReDecVars_FIX_float
 
 int allVarsSoWeDontReDecVars_FIX_TOGGLE := 0
 
+str availableFuncsInHTVMInHTVM := ""
 
 arr str ospDic
 arr str ospDic1
@@ -4014,6 +4015,7 @@ func str ospHELP2(str line) {
 
 
 
+
 func str extraFlexableFuncCallsHelp(str line)
 {
 arr str allFuncsDot
@@ -4234,7 +4236,7 @@ Loop, % funcCalls.size()
 {
 if (RegExMatch(funcCalls[A_Index], "\.[a-zA-Z_][a-zA-Z0-9_]*"))
 {
-print(funcCalls[A_Index])
+;print(funcCalls[A_Index])
 arrToStrSTR .= extraFlexableFuncCallsHelp(funcCalls[A_Index]) . " "
 }
 else
@@ -4280,12 +4282,93 @@ arrToStrSTR := arrToStrSTR . ")"
 return arrToStrSTR
 }
 
-func str extraFlexableFuncCalls(str line)
+func str extraFlexableFuncCalls(str line, str availableFuncsInHTVMInHTVM)
 {
+StringTrimRight, availableFuncsInHTVMInHTVM, availableFuncsInHTVMInHTVM, 1
 str out := line
-out := splitFunctionCalls(line)
+
+    arr str funcCalls
+    str temp := ""
+    int parenthesesDepth := 0 ; Track parentheses depth
+    int seenDot := 0
+    Loop, Parse, line
+    {
+    if (A_LoopField = "(")
+    {
+    seenDot := 1
+    }
+        ; Handle spaces
+        if (A_LoopField = " ")
+        {
+            if (parenthesesDepth = 0) ; Split only outside parentheses
+            {
+                if (temp != "")
+                {
+                    funcCalls.add(temp)
+                    temp := ""
+                }
+            }
+            else
+            {
+                temp .= A_LoopField ; Inside parentheses, accumulate
+            }
+        }
+        else if (A_LoopField = "(") and (seenDot = 1)
+        {
+            parenthesesDepth++ ; Increase depth for function argument list
+            temp .= A_LoopField
+        }
+        else if (A_LoopField = ")") and (seenDot = 1)
+        {
+            parenthesesDepth-- ; Decrease depth after closing argument list
+            temp .= A_LoopField
+        }
+        else
+        {
+            temp .= A_LoopField ; Accumulate characters for function name/args
+        }
+    }
+
+    if (temp != "")
+    {
+        funcCalls.add(temp) ; Add the last accumulated segment
+    }
+
+
+int isFuncExist := 0
+out := ""
+int i := 0
+Loop, % funcCalls.size()
+{
+i := A_Index
+isFuncExist := 0
+Loop, Parse, availableFuncsInHTVMInHTVM, `n, `r
+{
+if (RegExMatch(funcCalls[i], "\b" . A_LoopField . "\b"))
+{
+isFuncExist := 1
+}
+}
+
+if (isFuncExist = 1)
+{
+out .= splitFunctionCalls(funcCalls[A_Index]) . " "
+}
+else
+{
+out .= funcCalls[A_Index] . " "
+}
+
+
+
+
+}
+StringTrimRight, out, out, 1
+
+
 return out
 }
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
@@ -4511,7 +4594,7 @@ expression := RegExReplace(expression, "\b" . theTryCatchVarForErrors . "\b", th
 
 if (RegExMatch(expression, "\.[a-zA-Z_][a-zA-Z0-9_]*")) and (langToConvertTo != langFileExtension_2)
 {
-expression := extraFlexableFuncCalls(expression)
+expression := extraFlexableFuncCalls(expression, availableFuncsInHTVMInHTVM)
 }
 
 ; fix java arrName[A_Index] not existing
@@ -10589,6 +10672,21 @@ keyWordALoopField := StrLower(keyWordALoopField)
 
 
 
+availableFuncsInHTVMInHTVM := ""
+
+
+
+Loop, Parse, allInstructionFile, `n, `r
+{
+if (RegExMatch(Trim(A_LoopField), "^name: [A-Za-z0-9_]+"))
+{
+availableFuncsInHTVMInHTVM .= Trim(StrSplit(Trim(A_LoopField), "name: ", 2)) . Chr(10)
+}
+}
+
+
+
+
 int haveWeEverUsedAloop := 0
 int lineDone := 0
 str var1 := ""
@@ -12152,7 +12250,7 @@ str3 := Trim(str3)
             }
         }
     }
-
+availableFuncsInHTVMInHTVM .= str15 . Chr(10)
 if (langToConvertTo = "cpp") {
     htCode .= getFuncTypeConvert(str3) . " " . str15 . "(std::string osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
 }
@@ -14508,11 +14606,15 @@ str2 := Trim(StrSplit(str1, "(", 1))
 str1 := Trim(StringTrimLeft(str1, StrLen(str2)))
 StringTrimRight, str1, str1, 1
 
+
 ; type of the func
 str3 := Trim(StringTrimRight(str2, StrLen(StrSplit(str2, " ", countChars(str2, " ") + 1))))
 
 ; name of func
 str2 := Trim(StrSplit(str2, " ", countChars(str2, " ") + 1))
+
+
+
 }
 if (usePostfixTypeForTypeDefinition = "on")
 {
@@ -14549,7 +14651,7 @@ if (Trim(str1) = "") {
             }
         }
     }
-
+availableFuncsInHTVMInHTVM .= str2 . Chr(10)
 if (langToConvertTo = "cpp") {
     htCode .= getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
 }
@@ -15454,7 +15556,7 @@ str11 := str14
             }
         }
     }
-
+availableFuncsInHTVMInHTVM .= str2 . Chr(10)
 if (langToConvertTo = "cpp") {
     htCode .= getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
 }
@@ -20242,11 +20344,11 @@ if (langToConvertTo != langFileExtension_2)
 
 if (langToConvertTo = "py") or (langToConvertTo = "nim") or (langToConvertTo = "ahk") or (langToConvertTo = "go") or (langToConvertTo = "lua") or (langToConvertTo = "kt") or (langToConvertTo = "rb") or (langToConvertTo = "swift") or (langToConvertTo = "groovy") 
 {
-htCode .= extraFlexableFuncCalls(str1) . Chr(10)
+htCode .= extraFlexableFuncCalls(str1, availableFuncsInHTVMInHTVM) . Chr(10)
 }
 else
 {
-htCode .= extraFlexableFuncCalls(str1) . ";" . Chr(10)
+htCode .= extraFlexableFuncCalls(str1, availableFuncsInHTVMInHTVM) . ";" . Chr(10)
 }
 
 
@@ -22050,6 +22152,8 @@ if (size_ospDic2 != 0) {
         ospDic2.pop()
     }
 }
+
+availableFuncsInHTVMInHTVM := ""
 
 if (langToConvertTo = "rb")
 {
