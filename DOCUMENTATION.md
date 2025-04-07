@@ -507,23 +507,23 @@ Here’s how OSP works:
 crew someCrew {
     method void move(this) {
         if (this = "Movable.Vehicles.Car") {
-            if uel > 0))(Car(Vehicles(((Movable)) {
+            if (Movable.Vehicles.Car.fuel > 0) {
                 print("The car is driving.")
-                Movable_Vehicles_Car_fuel := fuel(Car(Vehicles(Movable))) - 10
+                Movable.Vehicles.Car.fuel := Movable.Vehicles.Car.fuel - 10
             }
             else {
                 print("The car is out of fuel.")
-                Movable_Vehicles_Car_hasFUEL := false
+                Movable.Vehicles.Car.hasFUEL := false
             }
         }
         else if (this = "Movable.Vehicles.Bike") {
-            if nergy > 0))(Bike(Vehicles(((Movable)) {
+            if (Movable.Vehicles.Bike.energy > 0) {
                 print("The bike is pedaling.")
-                Movable_Vehicles_Bike_energy := energy(Bike(Vehicles(Movable))) - 5
+                Movable.Vehicles.Bike.energy := Movable.Vehicles.Bike.energy - 5
             }
             else {
                 print("The bike is out of energy.")
-                Movable_Vehicles_Bike_hasENERGY := false
+                Movable.Vehicles.Bike.hasENERGY := false
             }
         }
     }
@@ -607,7 +607,7 @@ alliance ExampleAlliance {
 to call greet just do:
 
 ```htvm
-greet(ExampleAlliance)
+ExampleAlliance.greet()
 
 ```
 
@@ -662,23 +662,23 @@ alliance Movable {
             global Movable.Vehicles.Bike.energy
             global Movable.Vehicles.Bike.hasENERGY
             if (this = "Movable.Vehicles.Car") {
-                if uel > 0))(Car(Vehicles(((Movable)) {
+                if (Movable.Vehicles.Car.fuel > 0) {
                     print("The car is driving.")
-                    Movable_Vehicles_Car_fuel := fuel(Car(Vehicles(Movable))) - 10
+                    Movable.Vehicles.Car.fuel := Movable.Vehicles.Car.fuel - 10
                 }
                 else {
                     print("The car is out of fuel.")
-                    Movable_Vehicles_Car_hasFUEL := false
+                    Movable.Vehicles.Car.hasFUEL := false
                 }
             }
             else if (this = "Movable.Vehicles.Bike") {
-                if nergy > 0))(Bike(Vehicles(((Movable)) {
+                if (Movable.Vehicles.Bike.energy > 0) {
                     print("The bike is pedaling.")
-                    Movable_Vehicles_Bike_energy := energy(Bike(Vehicles(Movable))) - 5
+                    Movable.Vehicles.Bike.energy := Movable.Vehicles.Bike.energy - 5
                 }
                 else {
                     print("The bike is out of energy.")
-                    Movable_Vehicles_Bike_hasENERGY := false
+                    Movable.Vehicles.Bike.hasENERGY := false
                 }
             }
         }
@@ -702,40 +702,40 @@ alliance Movable {
     crew actions {
         ; General Settings Methods
         method void resetGeneralSettings(this) {
-            Movable_settings_GeneralSettings_difficulty := STR("normal")
-            Movable_settings_GeneralSettings_volume := 50
-            Movable_settings_GeneralSettings_resolution := STR("1920x1080")
+            Movable.settings.GeneralSettings.difficulty := STR("normal")
+            Movable.settings.GeneralSettings.volume := 50
+            Movable.settings.GeneralSettings.resolution := STR("1920x1080")
             print("General settings reset to default.")
         }
         method void printGeneralSettings(this) {
             print("General Settings:")
-            difficulty)(GeneralSettings(settings( Movable(print("Difficulty: " ))))
-            volume))(GeneralSettings(settings( STR(print("Volume: " , Movabl))))
-            resolution)(GeneralSettings(settings( Movable(print("Resolution: " ))))
+            print("Difficulty: " . Movable.settings.GeneralSettings.difficulty)
+            print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
+            print("Resolution: " . Movable.settings.GeneralSettings.resolution)
         }
         ; Audio Settings Methods
         method void resetAudioSettings(this) {
-            Movable_settings_AudioSettings_masterVolume := 70
-            Movable_settings_AudioSettings_musicVolume := 50
-            Movable_settings_AudioSettings_sfxVolume := 40
+            Movable.settings.AudioSettings.masterVolume := 70
+            Movable.settings.AudioSettings.musicVolume := 50
+            Movable.settings.AudioSettings.sfxVolume := 40
             print("Audio settings reset to default.")
         }
         method void printAudioSettings(this) {
             print("Audio Settings:")
-            masterVolume))(AudioSettings(settings( STR(print("Master Volume: " , Movabl))))
-            musicVolume))(AudioSettings(settings( STR(print("Music Volume: " , Movabl))))
-            sfxVolume))(AudioSettings(settings( STR(print("SFX Volume: " , Movabl))))
+            print("Master Volume: " . STR(Movable.settings.AudioSettings.masterVolume))
+            print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
+            print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
         }
         ; Display Settings Methods
         method void resetDisplaySettings(this) {
-            Movable_settings_DisplaySettings_fullscreen := true
-            Movable_settings_DisplaySettings_aspectRatio := STR("16:9")
+            Movable.settings.DisplaySettings.fullscreen := true
+            Movable.settings.DisplaySettings.aspectRatio := STR("16:9")
             print("Display settings reset to default.")
         }
         method void printDisplaySettings(this) {
             print("Display Settings:")
-            fullscreen))(DisplaySettings(settings( STR(print("Fullscreen: " , Movabl))))
-            aspectRatio)(DisplaySettings(settings( Movable(print("Aspect Ratio: " ))))
+            print("Fullscreen: " . STR(Movable.settings.DisplaySettings.fullscreen))
+            print("Aspect Ratio: " . Movable.settings.DisplaySettings.aspectRatio)
         }
     }
     crew array {
@@ -749,53 +749,53 @@ alliance Movable {
 }
 main
 ; Test vehicle movement
-while asENERGY = true))(Bike(Vehicles(hasFUEL = true) and (Movabl, Car(Vehicles(((Movable))))) {
-    move("Movable.Vehicles.Car", Vehicles(Movable))
-    move("Movable.Vehicles.Bike", Vehicles(Movable))
+while (Movable.Vehicles.Car.hasFUEL = true) and (Movable.Vehicles.Bike.hasENERGY = true) {
+    Movable.Vehicles.move("Movable.Vehicles.Car")
+    Movable.Vehicles.move("Movable.Vehicles.Bike")
     print("=====================================")
 }
 ; Test settings manipulation
-Movable_settings_GeneralSettings_difficulty := STR("hard")
-Movable_settings_GeneralSettings_volume := 80
-Movable_settings_GeneralSettings_resolution := STR("2560x1440")
-Movable_settings_AudioSettings_masterVolume := 90
-Movable_settings_AudioSettings_musicVolume := 60
-Movable_settings_AudioSettings_sfxVolume := 50
-Movable_settings_DisplaySettings_fullscreen := false
-Movable_settings_DisplaySettings_aspectRatio := STR("21:9")
-printGeneralSettings(actions(Movable))
-printAudioSettings(actions(Movable))
-printDisplaySettings(actions(Movable))
-resetGeneralSettings(actions(Movable))
-resetAudioSettings(actions(Movable))
-resetDisplaySettings(actions(Movable))
-printGeneralSettings(actions(Movable))
-printAudioSettings(actions(Movable))
-printDisplaySettings(actions(Movable))
+Movable.settings.GeneralSettings.difficulty := STR("hard")
+Movable.settings.GeneralSettings.volume := 80
+Movable.settings.GeneralSettings.resolution := STR("2560x1440")
+Movable.settings.AudioSettings.masterVolume := 90
+Movable.settings.AudioSettings.musicVolume := 60
+Movable.settings.AudioSettings.sfxVolume := 50
+Movable.settings.DisplaySettings.fullscreen := false
+Movable.settings.DisplaySettings.aspectRatio := STR("21:9")
+Movable.actions.printGeneralSettings()
+Movable.actions.printAudioSettings()
+Movable.actions.printDisplaySettings()
+Movable.actions.resetGeneralSettings()
+Movable.actions.resetAudioSettings()
+Movable.actions.resetDisplaySettings()
+Movable.actions.printGeneralSettings()
+Movable.actions.printAudioSettings()
+Movable.actions.printDisplaySettings()
 ; Test array manipulation
-add("1text1", prop1(name(array(Movable))))
-add("1text2", prop1(name(array(Movable))))
-add("1text3", prop1(name(array(Movable))))
-add("2text1", prop2(name(array(Movable))))
-add("2text2", prop2(name(array(Movable))))
-add("2text3", prop2(name(array(Movable))))
-add("3text1", prop3(name(array(Movable))))
-add("3text2", prop3(name(array(Movable))))
-add("3text3", prop3(name(array(Movable))))
-add("4text1", prop4(name(array(Movable))))
-add("4text2", prop4(name(array(Movable))))
-add("4text3", prop4(name(array(Movable))))
-Loop, % size(prop1(name(array(Movable)))) {
-    prop1[A_Index])(name(array(print(Movable)))
+Movable.array.name.prop1.add("1text1")
+Movable.array.name.prop1.add("1text2")
+Movable.array.name.prop1.add("1text3")
+Movable.array.name.prop2.add("2text1")
+Movable.array.name.prop2.add("2text2")
+Movable.array.name.prop2.add("2text3")
+Movable.array.name.prop3.add("3text1")
+Movable.array.name.prop3.add("3text2")
+Movable.array.name.prop3.add("3text3")
+Movable.array.name.prop4.add("4text1")
+Movable.array.name.prop4.add("4text2")
+Movable.array.name.prop4.add("4text3")
+Loop, % Movable.array.name.prop1.size() {
+    print(Movable.array.name.prop1[A_Index])
 }
-Loop, % size(prop2(name(array(Movable)))) {
-    prop2[A_Index])(name(array(print(Movable)))
+Loop, % Movable.array.name.prop2.size() {
+    print(Movable.array.name.prop2[A_Index])
 }
-Loop, % size(prop3(name(array(Movable)))) {
-    prop3[A_Index])(name(array(print(Movable)))
+Loop, % Movable.array.name.prop3.size() {
+    print(Movable.array.name.prop3[A_Index])
 }
-Loop, % size(prop4(name(array(Movable)))) {
-    prop4[A_Index])(name(array(print(Movable)))
+Loop, % Movable.array.name.prop4.size() {
+    print(Movable.array.name.prop4[A_Index])
 }
 
 ```
@@ -829,7 +829,7 @@ int64 varName8
 int varName9 := 34
 ; Here is how to define a function with static types if you convert to C++.
 ; However, it will still work even if you are not converting to C++; types will be stripped away.
-func void funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 5(1)) {
+func void funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5) {
     ; This is how the global keyword works if we convert to Python.
     ; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
     global varName5
@@ -858,12 +858,12 @@ while (var1 = false) {
 print("we are outside the while loop")
 ; this is how to use a loop whit arrays
 arr str array123 := ["hey"]
-add(array123, "hello")
-add(array123, "how")
-add(array123, "are")
-add(array123, "you")
-add(array123, "doing")
-Loop, % size(array123) {
+array123.add("hello")
+array123.add("how")
+array123.add("are")
+array123.add("you")
+array123.add("doing")
+Loop, % array123.size() {
     print("iteration: " . STR(A_Index))
     print("Item: " . array123[A_Index])
 }
@@ -1022,8 +1022,8 @@ Here’s a simple example of declaring and printing variables in HTVM:
 int myInt := 42
 int8 mySmallInt := -5
 uint16 myPositiveInt := 500
-float myFloat := 14(3)
-double myDouble := 718(2)
+float myFloat := 3.14
+double myDouble := 2.718
 char myChar := 'A'
 str myText := "Hello, HTVM!"
 bool myBool := true
@@ -1241,7 +1241,7 @@ Optional parameters example:
 
 ```htvm
 str varName5 := "hi"
-func str funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 5(1)) {
+func str funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5) {
     ; This is how the global keyword works if we convert to Python.
     ; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
     global varName5
@@ -1430,7 +1430,7 @@ Adds an element to the end of the array.
 Example:
 ```htvm
 arr int myArray := [1, 2, 3]
-add(myArray, 4)
+myArray.add(4)
 ; myArray is now [1, 2, 3, 4]
 print(myArray)
 
@@ -1442,7 +1442,7 @@ Removes and returns the last element of the array.
 Example:
 ```htvm
 arr int myArray := [1, 2, 3, 4]
-pop(myArray)
+myArray.pop()
 ; myArray is now [1, 2, 3]
 print(myArray)
 
@@ -1455,7 +1455,7 @@ Example:
 ```htvm
 arr int myArray := [1, 2, 3]
 ; returns 3
-size(print(myArray, ))
+print(myArray.size())
 
 ```
 
@@ -1465,7 +1465,7 @@ Inserts an element at a specific index. The index is the first argument, and the
 Example:
 ```htvm
 arr int myArray := [1, 2, 3]
-insert(myArray, 1, 4)
+myArray.insert(1, 4)
 ; myArray is now [1, 4, 2, 3]
 print(myArray)
 
@@ -1477,7 +1477,7 @@ Removes the element at the specified index.
 Example:
 ```htvm
 arr int myArray := [1, 2, 3, 4]
-rm(myArray, 2)
+myArray.rm(2)
 ; myArray is now [1, 2, 4]
 print(myArray)
 
@@ -1489,7 +1489,7 @@ Returns the index of the first occurrence of the specified element. If the eleme
 Example:
 ```htvm
 arr int myArray := [1, 2, 3, 2]
-indexOf(print(myArray, 2))
+print(myArray.indexOf(2))
 ; returns 1
 
 ```
@@ -1500,11 +1500,11 @@ indexOf(print(myArray, 2))
 
 ```htvm
 arr int myArray := [1, 2, 3]
-add(myArray, 4)
+myArray.add(4)
 ; Removes the element at index 1
-rm(myArray, 1)
+myArray.rm(1)
 ; Inserts 5 at index 1
-insert(myArray, 1, 5)
+myArray.insert(1, 5)
 ; Output: [1, 5, 3, 4]
 print(myArray)
 
@@ -1592,7 +1592,7 @@ ___cpp end
 ;
 ; When converting to C++, we can't just print the array directly. However, in some other languages,
 ; we don't need to loop over the array to print it.
-Loop, % size(myArray) {
+Loop, % myArray.size() {
     print(myArray[A_Index])
 }
 ; If you convert this to any language other than C++ (cpp), it will print:

@@ -3742,6 +3742,12 @@ std::string extraFlexableFuncCalls(std::string line) {
     out = splitFunctionCalls(line);
     return out;
 }
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 std::string expressionParserTranspiler(std::string expression) {
     std::string fixExpertionLineFuncOnlyTEXT_func = "";
     int fixExpertionLineFuncOnlyTEXT_numDelete = 0;
@@ -12051,7 +12057,9 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 ALoopField = str1;
                 if (InStr(ALoopField, " ") == false) {
                     lineDone = 1;
-                    str1 = StrReplace(Trim(str1), ".", "_");
+                    if (langToConvertTo != langFileExtension_2) {
+                        str1 = StrReplace(Trim(str1), ".", "_");
+                    }
                     str6 = allVarsSoWeDontReDecVarsFixFunc(str6, str1);
                     if (langToConvertTo == langFileExtension_2) {
                         if (useSemicolon_2 == "on") {

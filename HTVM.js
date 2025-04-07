@@ -3547,6 +3547,12 @@ function extraFlexableFuncCalls(line) {
     out = splitFunctionCalls(line);
     return out;
 }
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 function expressionParserTranspiler(expression) {
     var fixExpertionLineFuncOnlyTEXT_func = "";
     var fixExpertionLineFuncOnlyTEXT_numDelete = 0;
@@ -11856,7 +11862,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 ALoopField = str1;
                 if (InStr(ALoopField, " ") == false) {
                     lineDone = 1;
-                    str1 = StrReplace(Trim(str1), ".", "_");
+                    if (langToConvertTo != langFileExtension_2) {
+                        str1 = StrReplace(Trim(str1), ".", "_");
+                    }
                     str6 = allVarsSoWeDontReDecVarsFixFunc(str6, str1);
                     if (langToConvertTo == langFileExtension_2) {
                         if (useSemicolon_2 == "on") {
