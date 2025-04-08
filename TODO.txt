@@ -1,15 +1,17 @@
 TODO.txt
-
-1. Build the Documentation Generator – Start Date: March 17, 2025 – End Date: March 24, 2025  
-2. Add Built-in Function – Start Date: March 25, 2025 – End Date: March 27, 2025  
-3. Create Syntax Highlighting for Electron IDE & Support New Syntax Engine – Start Date: March 28, 2025 – End Date: March 30, 2025  
-4. Add Error Handling – Start Date: March 31, 2025 – End Date: April 1, 2025  
-5. Polish Everything – Start Date: April 2, 2025 – End Date: April 3, 2025  
-6. Create Landing Page – Start Date: April 4, 2025 – End Date: April 5, 2025  
-7. Double-Check the README File & File Generator – Start Date: April 6, 2025 – End Date: April 6, 2025  
-8. Create Discord Server & Subreddit – Start Date: April 7, 2025 – End Date: April 7, 2025  
-9. Create YouTube Video – Start Date: April 8, 2025 – End Date: April 14, 2025  
-10. Fully Release HTVM (Alpha Release) – Start Date: April 15, 2025 – End Date: April 15, 2025  
-11. Conduct Testing – Start Date: April 16, 2025 – End Date: April 29, 2025  
-12. Re-Release (Alpha Release Feedback) – Start Date: April 30, 2025 – End Date: April 30, 2025  
-13. Popularize HTVM – Start Date: May 1, 2025 – Ongoing
+1. Make the documentation generator work.
+2. Work on error handling for user input on the HTVM Configurator website.
+3. Finalize the HTVM Configurator website.
+4. Upgrade the IDE to use the new engine for syntax highlighting and autocomplete.
+5. Add all the built-in functions to HTVM for the remaining languages.
+6. Test HTVM functionality after adding the built-in functions.
+7. Set up the Discord server and the subreddit (together).
+8. Build the HTVM landing page.
+9. Polish everything to ensure it's working.
+10. Prepare the YouTube video (include the title).
+11. Make an alpha stable release on GitHub.
+12. Conduct some extra testing with users.
+13. Remake your own IDE with more customizability, more autocomplete, and potentially integrate it with the Gemini free API.
+14. Add additional features like an instruction file manager and other customizability improvements.
+15. After 6-7 months from the alpha stable release, consider making HTVM version 2.0.0 the official release.
+16. Begin popularizing HTVM after the official release.
