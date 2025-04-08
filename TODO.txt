@@ -8,7 +8,7 @@ TODO.txt
 7. Set up the Discord server and a subreddit for HTVM.
 8. Build the HTVM landing page.
 9. Polish everything to ensure it's working.
-10. Prepare the YouTube video (include the title).
+10. Prepare the YouTube video called HTVM: Alpha Stable Release | The Future of Programming
 11. Make an alpha stable release on GitHub.
 12. Conduct some extra testing with users.
 13. Remake your own IDE with more customizability, more autocomplete, and potentially integrate it with the Gemini free API.
