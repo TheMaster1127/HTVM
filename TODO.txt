@@ -5,7 +5,7 @@ TODO.txt
 4. Upgrade the IDE to use the new engine for syntax highlighting and autocomplete.
 5. Add all the built-in functions to HTVM for the remaining languages.
 6. Test HTVM functionality after adding the built-in functions.
-7. Set up the Discord server and the subreddit (together).
+7. Set up the Discord server and a subreddit for HTVM.
 8. Build the HTVM landing page.
 9. Polish everything to ensure it's working.
 10. Prepare the YouTube video (include the title).
