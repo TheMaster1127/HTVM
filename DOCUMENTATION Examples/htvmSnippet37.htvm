@@ -1,0 +1,47 @@
+crew someCrew {
+    def obj someObj {
+        prop str someText := ""
+    }
+    method str someMethod(this) {
+        print(this)
+        return this
+    }
+}
+main
+"hqwesr".print
+"hqwesr".print(
+"hqwesr".print()
+print("hawesd")
+str var1 := " helLO "
+var1 := Trim(StrLower(var1))
+var1 := var1.StrLower.Trim
+var1 := var1.StrLower(.Trim(
+var1 := var1.StrLower(.Trim
+var1 := var1.StrLower.Trim(
+var1 := var1.StrLower().Trim()
+var1 := var1.StrLower().Trim
+var1 := var1.StrLower.Trim()
+someCrew.someObj.someText := var1
+; for OSP you need to use () they are not optional unless it's not at the beginning of the line like this:
+if (someCrew.someObj.someText.someCrew.someMethod = "hello") {
+    print("hi")
+}
+; or
+; We can't use someCrew.someObj.someText.someCrew.someMethod(
+; We need to use () since it's not at the beginning of the line.
+if (someCrew.someObj.someText.someCrew.someMethod() = "hello") {
+    print("hi")
+}
+; or
+if (someCrew.someMethod(someCrew.someObj.someText) = "hello") {
+    print("hi")
+}
+; otherwise, if it's at the beginning of the line we need to use () for OSP
+someCrew.someObj.someText.someCrew.someMethod()
+; or you can use only 1 ( for extra fast typing
+someCrew.someObj.someText.someCrew.someMethod(
+; or
+someCrew.someMethod(someCrew.someObj.someText)
+; WARNING: If you are not calling it at the beginning of the line
+; and you are inside an if statement or other places,
+; don't use only 1 ( use both ().

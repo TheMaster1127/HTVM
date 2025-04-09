@@ -13476,7 +13476,7 @@ if (langToConvertTo = "groovy") {
 htCode .= "continue;`n"
 }
 }
-else if (StrLower(A_LoopField) = "::" . keyWordContinue)
+else if (StrLower(A_LoopField) = "::" . keyWordContinue) or (StrLower(A_LoopField) = "::" . keyWordContinue . ";")
 {
 lineDone := 1
 if (langToConvertTo = langFileExtension_2) 

@@ -1,0 +1,7 @@
+; While loop example
+bool var1 := false
+while (var1 = false) {
+    print("we are inside the while loop")
+    var1 := true
+}
+print("we are outside the while loop")

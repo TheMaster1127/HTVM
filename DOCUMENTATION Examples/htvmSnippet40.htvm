@@ -1,0 +1,6 @@
+; Loop Parse with new line delimiter
+str multiLineText := "line 1`nline 2`nline 3"
+Loop, Parse, multiLineText, `n {
+    ; Output each line of text
+    print(A_LoopField)
+}

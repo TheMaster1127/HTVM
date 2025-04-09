@@ -1,0 +1,6 @@
+; Loop Parse each character when using no delimiters
+str word := "master"
+Loop, Parse, word {
+    ; Output each character
+    print(A_LoopField)
+}

@@ -241,31 +241,19 @@ Dive into working with arrays, one of the most essential data structures in HTVM
 8. [Loops](#loops)  
 Master the looping structures available in HTVM, such as the standard loop and infinite loops.
 
-9. [If, Else, Else If](#if-else-else-if)  
-Learn how to control the flow of your program with conditional statements.
-
-10. [Comments](#comments)  
+9. [Comments](#comments)  
 Add clarity to your code by using comments to document and explain your code.
 
-11. [Error Handling](#error-handling)  
+10. [Error Handling](#error-handling)  
 Understand how to manage errors and handle exceptions in HTVM to make your programs more robust.
 
-12. [Operators](#operators)  
-Explore the logical and mathematical operators available in HTVM for performing calculations and comparisons.
-
-13. [Assignment Operators](#assignment-operators)  
-Learn how to use assignment operators for storing values and manipulating them in your code.
-
-14. [Include](#include)  
+11. [Include](#include)  
 Discover how to include external files and resources in your HTVM project for enhanced functionality.
 
-15. [Extra Stuff](#extra-stuff)  
-Explore additional unique features and utilities HTVM offers for greater flexibility and ease of use.
-
-16. [Commands](#commands)  
+12. [Commands](#commands)  
 Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency.
 
-17. [Built-in Functions](#built-in-functions)  
+13. [Built-in Functions](#built-in-functions)  
 Explore the wide range of built-in functions categorized for ease of use.
 
 ---
@@ -1498,7 +1486,7 @@ If you do not define the `main` label, HTVM will automatically add it at the top
 ### **HTVM: Flexible Function Call Syntax**
 
 #### **Overview**  
-HTVM introduces a unique and flexible function call syntax that allows developers to call functions in multiple ways while maintaining simplicity and readability. This enhancement does not change the fundamental nature of functions in HTVM—they remain regular functions rather than methods. However, HTVM allows them to be called using dot notation for convenience.
+HTVM introduces a unique and flexible function call syntax that allows developers to call functions in multiple ways while maintaining simplicity and readability. This enhancement does not change the fundamental nature of functions in HTVM—they remain regular functions rather than methods. However, HTVM allows them to be called using dot notation for convenience. No programming language supports this level of freedom—this is a new invention: a flexible and freeing way to call HTVM functions.
 
 #### **Features**
 
@@ -1540,7 +1528,7 @@ HTVM introduces a unique and flexible function call syntax that allows developer
   ```
 
 - **Seamless Transpilation**  
-  HTVM automatically converts these function calls into standard function calls durring conversion. This ensures that the underlying implementation remains consistent while providing developers with flexibility in how they write their code.
+  HTVM automatically converts these function calls into standard function calls during conversion. This ensures that the underlying implementation remains consistent while providing developers with flexibility in how they write their code.
 
 #### **Examples**
 
@@ -1572,8 +1560,77 @@ var1.StrLower().Trim()
 var1.StrLower().Trim
 ```
 
+### **Full Example with OSP**
+
+```htvm
+crew someCrew {
+    def obj someObj {
+        prop str someText := ""
+    }
+    method str someMethod(this) {
+        print(this)
+        return this
+    }
+}
+main
+"hqwesr".print
+"hqwesr".print(
+"hqwesr".print()
+print("hawesd")
+str var1 := " helLO "
+var1 := Trim(StrLower(var1))
+var1 := var1.StrLower.Trim
+var1 := var1.StrLower(.Trim(
+var1 := var1.StrLower(.Trim
+var1 := var1.StrLower.Trim(
+var1 := var1.StrLower().Trim()
+var1 := var1.StrLower().Trim
+var1 := var1.StrLower.Trim()
+someCrew.someObj.someText := var1
+; for OSP you need to use () they are not optional unless it's not at the beginning of the line like this:
+if (someCrew.someObj.someText.someCrew.someMethod = "hello") {
+    print("hi")
+}
+; or
+; We can't use someCrew.someObj.someText.someCrew.someMethod(
+; We need to use () since it's not at the beginning of the line.
+if (someCrew.someObj.someText.someCrew.someMethod() = "hello") {
+    print("hi")
+}
+; or
+if (someCrew.someMethod(someCrew.someObj.someText) = "hello") {
+    print("hi")
+}
+; otherwise, if it's at the beginning of the line we need to use () for OSP
+someCrew.someObj.someText.someCrew.someMethod()
+; or you can use only 1 ( for extra fast typing
+someCrew.someObj.someText.someCrew.someMethod(
+; or
+someCrew.someMethod(someCrew.someObj.someText)
+; WARNING: If you are not calling it at the beginning of the line
+; and you are inside an if statement or other places,
+; don't use only 1 ( use both ().
+
+```
+
+---
+
+#### This only works with HTVM built-in functions and user-defined functions.  
+When using the `varName.funcName` format, HTVM will only convert it to a regular function call (`funcName(varName)`) **if** the function is either a built-in function in HTVM or explicitly defined by the user.
+
+HTVM **does not care** whether the function is built-in in the target language (e.g. Python). If the function is not recognized by HTVM, it will not be converted — even if it's valid in the output language.
+
+For example:
+```py
+strVar.upper()
+```
+- If `upper` is not a built-in HTVM function or user-defined in your code, HTVM will **not** convert this into `upper(strVar)` for Python.  
+- It will stay as `strVar.upper()` or may cause unexpected output depending on the target.
+
+---
+
 #### **Conclusion**  
-This feature enhances HTVM's usability by providing developers with multiple ways to call functions. While functions remain standard, the optional dot notation and omission of parentheses make coding more intuitive and efficient.
+This feature enhances HTVM's usability by providing developers with multiple ways to call functions. While function calls remain standard behind the scenes, the optional dot notation and support for omitting parentheses make the syntax more intuitive, readable, and faster to write — especially in casual or repetitive scenarios.
 
 ---
 
@@ -1871,24 +1928,345 @@ You’ll need to manually synchronize arrays between programming blocks if neede
 
 [Go back](#htvm-documentation)
 
-Master the looping structures available in HTVM, such as the standard loop and infinite loops.
+### **Understanding Loops in HTVM**
 
-Example:
+HTVM supports multiple types of loops, inspired by AutoHotKey (AHK) syntax. These loops are designed to be simple and efficient, offering flexibility for various tasks. Let’s explore the **Regular Loop**, **Loop Parse**, **Infinite Loop**, and the **while** loop.
+
+**Regular Loop** = `Loop,`
+
+**Loop Parse** = `Loop, Parse,`
+
+**Infinite Loop** = `Loop`
+
+**While** loop = `while`
+
+**continue** = `continue`
+
+**break** = `break`
+
+**A_Index** = `A_Index`
+
+**A_LoopField** = `A_LoopField`
+
+
+### **1. Regular Loop**
+
+The `Loop,` keyword in HTVM is the simplest and most common type of loop. It runs a specified number of iterations, and you can use the `A_Index` keyword to track the current iteration number.
+
+#### Example:
+
 ```htvm
-Loop, 5 {
+; Regular loop example
+Loop, 10 {
+    if (A_Index % 2 = 0) {
+        ; Skip even numbers
+        continue
+    }
+    ; Output only odd numbers from 1 to 9
     print(A_Index)
 }
+
 ```
+
+In this loop, `A_Index` is used to track the current iteration number. The `continue` keyword is used to skip even numbers, so only odd numbers will be printed.
 
 ---
 
+### **2. Loop Parse**
 
+The `Loop, Parse,` is similar to AutoHotKey’s loop parsing method, where you can iterate over a string or text with different delimiters. In HTVM, `A_LoopField` is used to access the current field (or token) in the string being parsed.
 
-### If, Else, Else If
+#### **Example 1: Delimited by Space (" ")**
 
-[Go back](#htvm-documentation)
+```htvm
+; Loop Parse with space delimiter
+str someText := "hello how are you doing today"
+Loop, Parse, someText, " " {
+    ; Output each word in the string separated by spaces
+    print(A_LoopField)
+}
 
-Learn how to control the flow of your program with conditional statements like **if**, **else**, and **else if**. These structures allow you to handle decisions and branching logic in your code effectively.
+```
+
+In this example, the loop iterates over each word in the string `someText`, which is delimited by spaces. The `A_LoopField` holds the current word from the string.
+
+#### **Example 2: Delimited by New Line**
+
+```htvm
+; Loop Parse with new line delimiter
+str multiLineText := "line 1`nline 2`nline 3"
+Loop, Parse, multiLineText, `n {
+    ; Output each line of text
+    print(A_LoopField)
+}
+
+```
+
+Here, the loop splits the text by new lines, and `A_LoopField` holds each line individually.
+
+#### **Example 3: Delimited by Carriage Return**
+
+```htvm
+; Loop Parse with carriage return delimiter
+str textWithCarriageReturn := "line 1`rline 2`rline 3"
+Loop, Parse, textWithCarriageReturn, `r {
+    ; Output each line separated by carriage returns
+    print(A_LoopField)
+}
+
+```
+
+In this case, the text is delimited by carriage returns, and each line is printed separately.
+
+#### **Example 4: Delimited by Both Space and New Line**
+
+```htvm
+; Loop Parse with space and new line delimiters
+str mixedText := "hello world`nhow are you doing today"
+Loop, Parse, mixedText, " ", `n {
+    ; Output each word or line separated by spaces or new lines
+    print(A_LoopField)
+}
+
+```
+
+This example uses both a space and a new line as delimiters to split the string into tokens.
+
+#### **Example 5: No delimited**
+
+```htvm
+; Loop Parse each character when using no delimiters
+str word := "master"
+Loop, Parse, word {
+    ; Output each character
+    print(A_LoopField)
+}
+
+```
+
+This example uses no delimiters to parse each character.
+
+---
+
+### **3. Infinite Loop**
+
+HTVM also supports infinite loops using the `Loop` keyword without a defined number of iterations. The loop will continue running until a `break` condition or manual termination occurs. The `continue` keyword can be used inside the infinite loop to skip the current iteration and continue with the next one.
+
+#### Example (Infinite Loop):
+
+```htvm
+; Infinite Loop example
+Loop {
+    if (A_Index = 5) {
+        ; Exit the loop when A_Index is 5
+        break
+    }
+    else {
+        ; Print the current value of A_Index
+        print(A_Index)
+    }
+}
+
+```
+
+Here, the loop runs indefinitely, printing the current value of `A_Index`. When `A_Index` reaches 5, the loop breaks. You can also use `continue` to skip iterations as needed.
+
+---
+
+### **4. While Loop**
+
+The `while` loop in HTVM works like a typical while loop in other languages. It continues to execute the loop body as long as the specified condition evaluates to true.
+
+#### Example (While Loop):
+
+```htvm
+; While loop example
+bool var1 := false
+while (var1 = false) {
+    print("we are inside the while loop")
+    var1 := true
+}
+print("we are outside the while loop")
+
+```
+
+In this example, the `while` loop runs once because the condition is initially true, then changes `var1` to true, causing the loop to terminate.
+
+---
+
+### **Array Example in Loop**
+
+HTVM also allows arrays, which can be used in loops for more complex tasks. Here’s an example that iterates over an array:
+
+```htvm
+; Array example in loop
+arr123 := ["apple", "banana", "cherry"]
+Loop, % arr123.size() {
+    ; Output each element in the array
+    print(arr123[A_Index])
+}
+
+```
+
+In this case, the loop iterates through each element of the array `arr123` using `A_Index` to reference the array's index.
+
+---
+
+### **Variable Example in Loop**
+
+With HTVM, you can also use variables to control loops. Here's an example:
+
+```htvm
+; Loop example with variable range
+var1 := 5
+Loop, % var1 {
+    ; Output the current iteration
+    print(A_Index)
+}
+
+```
+
+This example shows how HTVM allows you to use variables like `var1` to control the number of iterations in the loop, with `A_Index` printing the current iteration number.
+
+---
+
+### **Key Notes:**
+- **`A_Index`**: Used in all loops except for `while` loops.
+- **`A_LoopField`**: Used only in `Loop, Parse,` to reference the current field.
+- **`continue`**: Can be used in any loop to skip the current iteration and continue with the next one. When converting to Lua, place the `::continue` at the end of the loop, just before it ends.
+
+---
+
+### **Lua Conversion**
+
+For the **Loop,**, **Loop, Parse,**, and **Loop** types, the Lua conversion looks like this:
+
+```htvm
+; Regular loop example
+Loop, 10 {
+    if (A_Index % 2 = 0) {
+        continue
+    }
+    ; Output only odd numbers from 1 to 9
+    print(A_Index)
+    ::continue
+}
+print("=====================")
+; Infinite loop example
+Loop {
+    if (A_Index % 2 = 0) {
+        continue
+    }
+    ; Output only odd numbers from 1 to 9
+    print(A_Index)
+    if (A_Index = 9) {
+        break
+    }
+    ::continue
+}
+print("=====================")
+; Loop, Parse loop example
+str var1 := "hello whats up bro how are you doing"
+Loop, Parse, var1, " " {
+    if (A_LoopField = "bro") {
+        continue
+    }
+    ; 3 will never print
+    print(A_Index)
+    ::continue
+}
+
+```
+
+In Lua, the conversion for these loops would use the `goto` statement to achieve the continue behavior. Here's how it would look in Lua:
+
+```lua
+function infinite_HTVM_Lua_Loop_HTVM()
+    local i = 0
+    return function()
+        i = i + 1
+        return i
+    end
+end
+
+function LoopParseFunc(varString, delimiter1, delimiter2)
+    local items = {}
+    delimiter1 = delimiter1 or ""
+    delimiter2 = delimiter2 or ""
+    -- Changed: Don't escape the delimiters since we want them literal
+    -- Just use them directly in the pattern
+    if delimiter1 == "" and delimiter2 == "" then
+        for i = 1, #varString do
+            table.insert(items, varString:sub(i, i))
+        end
+    else
+        -- Changed: Simplified pattern to directly match \n and \r
+        local pattern = delimiter1 .. delimiter2
+        for item in varString:gmatch("([^" .. pattern .. "]+)") do
+            table.insert(items, item)
+        end
+    end
+    return items
+end
+
+-- Regular loop example
+for A_Index1 = 0 + 1 , 10 + 0 do
+    if (A_Index1 % 2 == 0) then
+        goto continue0
+    end
+    -- Output only odd numbers from 1 to 9
+    print(A_Index1)
+    ::continue0::
+end
+
+print("=====================")
+
+-- Infinite loop example
+for A_Index2 in infinite_HTVM_Lua_Loop_HTVM() do
+    if (A_Index2 % 2 == 0) then
+        goto continue1
+    end
+    -- Output only odd numbers from 1 to 9
+    print(A_Index2)
+    if (A_Index2 == 9) then
+        break
+    end
+    ::continue1::
+end
+
+print("=====================")
+
+-- Loop, Parse loop example
+var1 = "hello whats up bro how are you doing"
+items3 = LoopParseFunc(var1, " ")
+for A_Index3 , A_LoopField3 in ipairs(items3) do
+    A_LoopField3 = items3[A_Index3 - 0]
+    if (A_LoopField3 == "bro") then
+        goto continue2
+    end
+    -- 3 will never print
+    print(A_Index3)
+    ::continue2::
+end
+```
+
+This approach with `::continue` is used only for the 3 types of loops but NOT the `while` loop.
+
+> **Note:** Lua does not support a native `continue` statement. To mimic this behavior, we use a labeled `goto`—specifically `goto continue`—followed by a `::continue::` label at the end of the loop.  
+> This approach is **only required when converting to Lua**. If you're using HTVM with JavaScript, Python etc... as the target language, there's **no need to write or worry about `::continue`**—it's automatically ignored or excluded in those environments.
+
+---
+
+### **Conclusion**
+
+In HTVM, we have three main types of loops:
+
+1. **Regular Loop** - `Loop,` - Simple iteration over a specified number of times.
+2. **Loop Parse** - `Loop, Parse,` - Iterates over fields in a string or text, with customizable delimiters.
+3. **Infinite Loop** - `Loop` - A loop that runs indefinitely until broken manually or a condition is met.
+4. **While Loop** - `while` - A standard loop that runs while a condition is true.
+
+Each of these loops is intuitive and makes it easy to handle a variety of looping needs. Make sure to use `A_Index` and `A_LoopField` where appropriate, and use the `continue` keyword to control loop flow. When converting to Lua, remember to add `::continue` just before the loop ends.
 
 ---
 
@@ -1898,9 +2276,77 @@ Learn how to control the flow of your program with conditional statements like *
 
 [Go back](#htvm-documentation)
 
-Add clarity to your code by using comments to document and explain your code. Comments are crucial for maintaining readability and ensuring that others can understand your thought process.
+## **Comments in HTVM**
+
+Comments are essential for writing clear and maintainable code. They allow you to document your code without affecting how it runs. In HTVM, there are different types of comments: **Standalone Comments**, **Multi-line Comments**, **Inline Comments**, and **Comments in Programming Blocks**. Here's how each of them works:
 
 ---
+
+### **Standalone Comments:**
+
+**Standalone comments** are written on their own line and **will convert** properly when transforming to **other HTVM languages** or any target programming languages. These comments are perfect for leaving explanations or notes that need to be preserved across conversions.
+
+```htvm
+; ✅ This comment will convert to any HTVM language or target language conversion.
+```
+
+**💡 Tip:** Standalone comments are **ideal** when you need your notes to **convert** correctly across different languages and maintain clarity for others who may work with your code.
+
+---
+
+### **Multi-line Comments:**
+
+**Multi-line comments** are used for writing longer explanations or comments that span multiple lines. They must **always start and end on their own lines**—you cannot place extra text before or after the opening and closing markers. Inside multi-line comments, you can write as much text as you want.
+
+```htvm
+'''1
+This is a multi-line comment.
+It will be preserved in all conversions.
+'''2
+```
+
+#### **⚠️ Important Rules:**
+- The opening of a multi-line comment **must always be on its own line**. 
+- The closing of a multi-line comment **must always be on its own line**.
+- **🚨 WARNING**: If you write **code** inside multi-line comments, that code **MAY get converted** during language conversion! ❗️
+  - The code **won’t run**, but **it could still appear in the final code**! 
+  - This means that if you have code inside multi-line comments, **be extra cautious**. If you don’t want the code to be accidentally included or converted, consider using **regular standalone comments** instead.
+
+**💡 Tip:** If you want the code inside multi-line comments to be **preserved** and not accidentally converted during the conversion process, **use regular standalone comments** instead of multi-line comments for code explanation. **Regular standalone comments** are safer for maintaining the integrity of your code.
+
+---
+
+### **Inline Comments:**
+
+**Inline comments** are written on the same line as your code. They’re useful for short explanations but **will disappear** when converting to **another HTVM language** or to other programming languages (e.g., **Python**, **JavaScript**, **C++**, **etc.**). This makes them **not recommended**, especially if you're working with code that will be converted, as they might carry important context that others won’t be able to see.
+
+```htvm
+print("some text") ; ❌ is comment will disappear when converting to another HTVM language or any target language.
+```
+
+**⚠️ Important:** **Avoid** using inline comments whenever possible. Inline comments **will disappear** even when converting to another HTVM language. This is because they won’t be included in the converted code. If you rely on these comments for important context, it’s better to avoid using them. **Not recommended**, unless you know exactly what you’re doing, as it can lead to the loss of important information when others view or convert your code.
+
+> *Note:* When converting code that includes Multiline Comments with commented-out code, the code will be converted into the target language as well. This ensures that even commented-out code is reflected in the converted language, making it easier for others to understand or reuse. This can be especially useful when converting to another HTVM language. For example, if someone is reading your code and has converted it to their own HTVM language, any commented-out code will be converted into their language, allowing them to read and understand what you intended to comment out. But only inside multiline comments will the code be converted into the target language.
+>
+> Regular Standalone Comments will also be converted, but only the comment keyword will be converted—nothing inside them will be converted. Only code inside Multiline Comments will be converted into the target language.
+>
+> But don’t worry, that code will not run because it’s just text, though it will be converted. This means you can use Multiline Comments to explain something without needing to include any code. Just plain text will work as well.
+
+---
+
+### **Comments in Programming Blocks:**
+
+**Comments in programming blocks** must use the correct syntax for the target language. This is a **must**, not a best practice. You have to use the correct comment syntax based on the target language (e.g., **Python**, **JavaScript**, **C++**, **etc.**) inside their respective programming blocks.
+
+```py
+# This is a Python comment inside a Python programming block.
+```
+
+**⚠️ Important:** When working with **programming blocks**, make sure that you use the correct comment **syntax for that programming block language**. Otherwise, you may encounter issues in the code. Make sure you know which **characters** or **keywords** are used for comments in that language (for example, **#** for Python or **//** for JavaScript) to avoid mistakes.
+
+---
+
+
 
 
 
@@ -1914,23 +2360,7 @@ Understand how to manage errors and handle exceptions in HTVM to make your progr
 
 
 
-### Operators
 
-[Go back](#htvm-documentation)
-
-Explore the logical and mathematical operators available in HTVM for performing calculations and comparisons. HTVM supports a wide range of operators to enable complex operations in your programs.
-
----
-
-
-
-### Assignment Operators
-
-[Go back](#htvm-documentation)
-
-Learn how to use assignment operators for storing values and manipulating them in your code. Assignment operators in HTVM simplify the process of assigning and updating values in variables.
-
----
 
 
 
@@ -1943,14 +2373,6 @@ Discover how to include external files and resources in your HTVM project for en
 ---
 
 
-
-### Extra Stuff
-
-[Go back](#htvm-documentation)
-
-Explore additional unique features and utilities HTVM offers for greater flexibility and ease of use. These features help make programming in HTVM even more powerful and efficient.
-
----
 
 
 

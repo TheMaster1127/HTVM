@@ -1,0 +1,6 @@
+; Array example in loop
+arr123 := ["apple", "banana", "cherry"]
+Loop, % arr123.size() {
+    ; Output each element in the array
+    print(arr123[A_Index])
+}

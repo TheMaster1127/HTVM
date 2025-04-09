@@ -1,0 +1,9 @@
+; Regular loop example
+Loop, 10 {
+    if (A_Index % 2 = 0) {
+        ; Skip even numbers
+        continue
+    }
+    ; Output only odd numbers from 1 to 9
+    print(A_Index)
+}
