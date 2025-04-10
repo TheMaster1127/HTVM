@@ -3917,6 +3917,9 @@ std::string expressionParserTranspiler(std::string expression) {
     } else {
         expression = RegExReplace(expression, "\\b" + keyWordThis + "\\b", "osp_osp_this_keyword_htvm_osp_this_htvm_keyword");
     }
+    if (RegExMatch(expression, "\\.[a-zA-Z_][a-zA-Z0-9_]*") && langToConvertTo != langFileExtension_2) {
+        expression = extraFlexableFuncCalls(expression, availableFuncsInHTVMInHTVM);
+    }
     if (langToConvertTo == "cpp") {
         expression = RegExReplace(expression, "\\b" + theTryCatchVarForErrors + "\\b", theTryCatchVarForErrors + ".what()");
     }
@@ -3946,9 +3949,6 @@ std::string expressionParserTranspiler(std::string expression) {
     }
     if (langToConvertTo == "groovy") {
         expression = RegExReplace(expression, "\\b" + theTryCatchVarForErrors + "\\b", theTryCatchVarForErrors + ".message");
-    }
-    if (RegExMatch(expression, "\\.[a-zA-Z_][a-zA-Z0-9_]*") && langToConvertTo != langFileExtension_2) {
-        expression = extraFlexableFuncCalls(expression, availableFuncsInHTVMInHTVM);
     }
     // fix java arrName[A_Index] not existing
     if (langToConvertTo == "java") {
