@@ -960,6 +960,15 @@ function KeyWordsCommands(theCodeCommands, mode, keyWordsCommands, langToConvert
         if (langToConvertTo != "py" && langToConvertTo != "nim" && langToConvertTo != "ahk" && langToConvertTo != "go" && langToConvertTo != "lua" && langToConvertTo != "kt" && langToConvertTo != "rb" && langToConvertTo != "swift" && langToConvertTo != "groovy") {
             semicolon = ";";
         }
+        var assignmentOperatorKeyWord = "=";
+        if (langToConvertTo == langFileExtension_2) {
+            assignmentOperatorKeyWord = keyWordAssign_2;
+        }
+        else if (langToConvertTo == "ahk") {
+            assignmentOperatorKeyWord = ":=";
+        } else {
+            assignmentOperatorKeyWord = "=";
+        }
         let theCodeCommand = [];
         theCodeCommands = Trim(theCodeCommands);
         items12 = LoopParseFunc(theCodeCommands, ",");
@@ -1034,9 +1043,9 @@ function KeyWordsCommands(theCodeCommands, mode, keyWordsCommands, langToConvert
         outConstuctTheOutFromTheCommandsParams = StringTrimRight(outConstuctTheOutFromTheCommandsParams, 2);
         if (outConstuctTheOutFromTheCommandsOutVar != "") {
             if (outConstuctTheOutFromTheCommandsParams == "") {
-                outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsOutVar + " = " + outConstuctTheOutFromTheCommandsFucnName + "(" + outConstuctTheOutFromTheCommandsInVar + ")" + semicolon;
+                outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsOutVar + " " + assignmentOperatorKeyWord + " " + outConstuctTheOutFromTheCommandsFucnName + "(" + outConstuctTheOutFromTheCommandsInVar + ")" + semicolon;
             } else {
-                outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsOutVar + " = " + outConstuctTheOutFromTheCommandsFucnName + "(" + outConstuctTheOutFromTheCommandsInVar + ", " + outConstuctTheOutFromTheCommandsParams + ")" + semicolon;
+                outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsOutVar + " " + assignmentOperatorKeyWord + " " + outConstuctTheOutFromTheCommandsFucnName + "(" + outConstuctTheOutFromTheCommandsInVar + ", " + outConstuctTheOutFromTheCommandsParams + ")" + semicolon;
             }
         }
         if (outConstuctTheOutFromTheCommandsOutVar == "") {
@@ -10244,7 +10253,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += "continue;\n";
                 }
             }
-            else if (StrLower(A_LoopField135) == "::" + keyWordContinue) {
+            else if (StrLower(A_LoopField135) == "::" + keyWordContinue || StrLower(A_LoopField135) == "::" + keyWordContinue + ";") {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     htCode += "::" + keyWordContinue_2 + Chr(10);

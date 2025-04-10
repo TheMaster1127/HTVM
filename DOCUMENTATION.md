@@ -37,7 +37,10 @@ Discover how to include external files and resources in your HTVM project for en
 12. [Commands](#commands)  
 Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency.
 
-13. [Built-in Functions](#built-in-functions)  
+13. [All Syntax](#all-syntax)  
+This is all of your syntax.
+
+14. [Built-in Functions](#built-in-functions)  
 Explore the wide range of built-in functions categorized for ease of use.
 
 ---
@@ -2158,13 +2161,187 @@ Discover how to include external files and resources in your HTVM project for en
 
 
 
-
-
 ### Commands
 
 [Go back](#htvm-documentation)
 
 Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency. Commands help streamline your code and reduce unnecessary complexity.
+
+---
+
+
+
+### All Syntax
+
+[Go back](#htvm-documentation)
+
+#### Here is all of the syntax in this language:
+
+| kewWordName                                   | Syntax                               |
+|-----------------------------------------------|-----------------------------------|
+|  langToConvertTo  | cpp        |
+|  langFileExtension  | htvm        |
+|  commands  | StringTrimLeft,OUTVAR,INVAR,param1 &#124; StringTrimRight,OUTVAR,INVAR,param1 &#124; Random,OUTVAR,param1,param2 &#124; Sleep,INVAR &#124; FileRead,OUTVAR,'param1 &#124; FileAppend,INVAR,'param1 &#124; FileDelete,'INVAR &#124; Sort,INOUTVAR,'param1 &#124; MsgBox,'param1        |
+|  keyWordAlliance  | alliance        |
+|  keyWordCrew  | crew        |
+|  keyWordMethod  | method        |
+|  keyWordDefObj  | def obj        |
+|  keyWordProp  | prop        |
+|  keyWordThis  | this        |
+|  keyWordInclude  | import        |
+|  keyWordCodeInTheTranspiledLangStart  | ___start        |
+|  keyWordCodeInTheTranspiledLangEnd  | ___end        |
+|  keyWordCodeInTheTranspiledLangStartCPP  | ___cpp start        |
+|  keyWordCodeInTheTranspiledLangEndCPP  | ___cpp end        |
+|  keyWordCodeInTheTranspiledLangStartPY  | ___py start        |
+|  keyWordCodeInTheTranspiledLangEndPY  | ___py end        |
+|  keyWordCodeInTheTranspiledLangStartJS  | ___js start        |
+|  keyWordCodeInTheTranspiledLangEndJS  | ___js end        |
+|  keyWordCodeInTheTranspiledLangStartGO  | ___go start        |
+|  keyWordCodeInTheTranspiledLangEndGO  | ___go end        |
+|  keyWordCodeInTheTranspiledLangStartLUA  | ___lua start        |
+|  keyWordCodeInTheTranspiledLangEndLUA  | ___lua end        |
+|  keyWordCodeInTheTranspiledLangStartCS  | ___cs start        |
+|  keyWordCodeInTheTranspiledLangEndCS  | ___cs end        |
+|  keyWordCodeInTheTranspiledLangStartJAVA  | ___java start        |
+|  keyWordCodeInTheTranspiledLangEndJAVA  | ___java end        |
+|  keyWordCodeInTheTranspiledLangStartKT  | ___kt start        |
+|  keyWordCodeInTheTranspiledLangEndKT  | ___kt end        |
+|  keyWordCodeInTheTranspiledLangStartRB  | ___rb start        |
+|  keyWordCodeInTheTranspiledLangEndRB  | ___rb end        |
+|  keyWordCodeInTheTranspiledLangStartNIM  | ___nim start        |
+|  keyWordCodeInTheTranspiledLangEndNIM  | ___nim end        |
+|  keyWordCodeInTheTranspiledLangStartAHK  | ___ahk start        |
+|  keyWordCodeInTheTranspiledLangEndAHK  | ___ahk end        |
+|  keyWordCodeInTheTranspiledLangStartSWIFT  | ___swift start        |
+|  keyWordCodeInTheTranspiledLangEndSWIFT  | ___swift end        |
+|  keyWordCodeInTheTranspiledLangStartDART  | ___dart start        |
+|  keyWordCodeInTheTranspiledLangEndDART  | ___dart end        |
+|  keyWordCodeInTheTranspiledLangStartTS  | ___ts start        |
+|  keyWordCodeInTheTranspiledLangEndTS  | ___ts end        |
+|  keyWordCodeInTheTranspiledLangStartGROOVY  | ___groovy start        |
+|  keyWordCodeInTheTranspiledLangEndGROOVY  | ___groovy end        |
+|  keyWordCodeInTheTranspiledLangStartHTVM  | ___htvm start        |
+|  keyWordCodeInTheTranspiledLangEndHTVM  | ___htvm end        |
+|  keyWordCodeInHTVMstart  | ___inhtvm start        |
+|  keyWordCodeInHTVMend  | ___inhtvm end        |
+|  keyWordCurlyBraceOpen  | {        |
+|  keyWordCurlyBraceClose  | }        |
+|  keyWordNull  | null        |
+|  keyWordTrue  | true        |
+|  keyWordFalse  | false        |
+|  keyWordVoid  | void        |
+|  keyWordDouble  | double        |
+|  keyWordChar  | char        |
+|  keyWordUint8  | uint8        |
+|  keyWordUint16  | uint16        |
+|  keyWordUint32  | uint32        |
+|  keyWordUint64  | uint64        |
+|  keyWordINT  | int        |
+|  keyWordSTR  | str        |
+|  keyWordBOOL  | bool        |
+|  keyWordFLOAT  | float        |
+|  keyWordINT8  | int8        |
+|  keyWordINT16  | int16        |
+|  keyWordINT32  | int32        |
+|  keyWordINT64  | int64        |
+|  keyWordIF  | if        |
+|  keyWordElseIf  | else if        |
+|  keyWordElse  | else        |
+|  keyWordWhileLoop  | while        |
+|  keyWordLoopInfinite  | Loop        |
+|  keyWordLoop  | Loop,        |
+|  keyWordLoopParse  | Loop, Parse,        |
+|  keyWordContinue  | continue        |
+|  keyWordBreak  | break        |
+|  keyWordFunc  | func        |
+|  keyWordAwait  | await        |
+|  keyWordAsync  | async        |
+|  keyWordThrow  | throw        |
+|  keyWordErrorMsg  | ErrorMsg        |
+|  keyWordTry  | try        |
+|  keyWordCatch  | catch        |
+|  keyWordFinally  | finally        |
+|  keyWordReturnStatement  | return        |
+|  keyWordArrayAppend  | .add        |
+|  keyWordArrayPop  | .pop        |
+|  keyWordArraySize  | .size        |
+|  keyWordArrayInsert  | .insert        |
+|  keyWordArrayRemove  | .rm        |
+|  keyWordArrayIndexOf  | .indexOf        |
+|  keyWordArrayDefinition  | arr        |
+|  keyWordArrayOfIntegersDefinition  | arr int        |
+|  keyWordArrayOfStringsDefinition  | arr str        |
+|  keyWordArrayOfFloatingPointNumbersDefinition  | arr float        |
+|  keyWordArrayOfBooleansDefinition  | arr bool        |
+|  keyWordVar  | var        |
+|  keyWordLet  | let        |
+|  keyWordConst  | const        |
+|  keyWordEnd  | end        |
+|  keyWordGlobal  | global        |
+|  keyWordComment  | ;        |
+|  keyWordCommentOpenMultiLine  | &#39;&#39;&#39;1        |
+|  keyWordCommentCloseMultiLine  | &#39;&#39;&#39;2        |
+|  keyWordEscpaeChar  | `        |
+|  keyWordMainLabel  | main        |
+|  keyWordConcat  | .        |
+|  keyWordAdd  | +        |
+|  keyWordSub  | -        |
+|  keyWordMul  | *        |
+|  keyWordDiv  | /        |
+|  keyWordMod  | %        |
+|  keyWordExp  | **        |
+|  keyWordEqual  | =        |
+|  keyWordStrictEqual  | ===        |
+|  keyWordNotEqual  | !=        |
+|  keyWordGreater  | &gt;        |
+|  keyWordLess  | &lt;        |
+|  keyWordGreaterEqual  | &gt;=        |
+|  keyWordLessEqual  | &lt;=        |
+|  keyWordAnd  | and        |
+|  keyWordOr  | or        |
+|  keyWordNot  | !        |
+|  keyWordBitAnd  | &amp;        |
+|  keyWordBitOr  | &#124;        |
+|  keyWordBitXor  | ^        |
+|  keyWordBitNot  | ~        |
+|  keyWordShiftLeft  | &lt;&lt;        |
+|  keyWordShiftRight  | &gt;&gt;        |
+|  keyWordShiftUnsignedRight  | &gt;&gt;&gt;        |
+|  keyWordAssign  | :=        |
+|  keyWordAssignAdd  | +=        |
+|  keyWordAssignConcat  | .=        |
+|  keyWordAssignSub  | -=        |
+|  keyWordAssignMul  | *=        |
+|  keyWordAssignDiv  | /=        |
+|  keyWordAssignMod  | %=        |
+|  keyWordAssignShiftLeft  | &lt;&lt;=        |
+|  keyWordAssignShiftRight  | &gt;&gt;=        |
+|  keyWordLogicalAssignShiftRight  | &gt;&gt;&gt;=        |
+|  keyWordAssignBitAnd  | &amp;=        |
+|  keyWordAssignBitOr  | &#124;=        |
+|  keyWordAssignBitXor  | ^=        |
+|  keyWordTernary1  | ?        |
+|  keyWordTernary2  | :        |
+|  keyWordInc  | ++        |
+|  keyWordDec  | --        |
+|  AHKlikeLoopsIndexedAt  | 0        |
+|  keyWordAIndex  | A_Index        |
+|  keyWordALoopField  | A_LoopField        |
+|  useCurlyBraces  | on        |
+|  useEnd  | off        |
+|  useSemicolon  | off        |
+|  useParentheses  | on        |
+|  usePrefixTypeForTypeDefinition  | on        |
+|  usePostfixTypeForTypeDefinition  | off        |
+|  usePythonicColonSyntax  | off        |
+|  useCurlyBracesSyntaxForArrayDef  | off        |
+|  useInJavaScriptAlwaysUseVar  | on        |
+|  useJavaScriptInAfullHTMLfile  | off        |
+|  useJavaScriptAmainFuncDef  | off        |
+|  useJavaScriptAllFuncsAreAsync  | on        |
+|  useJavaScriptAlwaysTripleEqual  | off        |
+
 
 ---
 
@@ -2244,6 +2421,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ACos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+ACos is a function that returns the arc cosine (inverse cosine) of a number, which must be between -1 and 1.
+here is how the func looks like:
+```htvm
+ACos(float)
+```
 
 ---
 
@@ -2257,6 +2439,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ASin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+ASin is a function that calculates the arcsine (inverse sine) of a given value, throwing an error if the value is outside the range of -1 to 1.
+here is how the func looks like:
+```htvm
+ASin(float value)
+```
 
 ---
 
@@ -2270,6 +2457,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ATan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+ATan is a function that calculates the arctangent of a number, returning the angle in radians.
+here is how the func looks like:
+```htvm
+ATan(float)
+```
 
 ---
 
@@ -2283,6 +2475,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Abs | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Abs is a function that returns the absolute value of the provided number.
+here is how the func looks like:
+```htvm
+Abs(int value)
+```
 
 ---
 
@@ -2296,6 +2493,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Ceil | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Ceil is a function that takes a numerical value and returns the smallest integer greater than or equal to that value.
+here is how the func looks like:
+```htvm
+Ceil(num)
+```
 
 ---
 
@@ -2309,6 +2511,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Cos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Cos is a function that calculates the cosine of a given angle in radians.
+here is how the func looks like:
+```htvm
+Cos(float angle)
+```
 
 ---
 
@@ -2322,6 +2529,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Exp | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Exp is a function that takes a numeric value and returns the value of e raised to the power of the given value using the Math.exp() function.
+here is how the func looks like:
+```htvm
+Exp(value)
+```
 
 ---
 
@@ -2335,6 +2547,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Floor | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Floor is a function that returns the largest integer less than or equal to a given number, or NaN if the input is not a number.
+here is how the func looks like:
+```htvm
+Floor(num)
+```
 
 ---
 
@@ -2348,6 +2565,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Ln | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Ln is a function that calculates the natural logarithm (base e) of a given value.
+here is how the func looks like:
+```htvm
+Ln(int value)
+```
 
 ---
 
@@ -2361,6 +2583,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Log | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Log is a function that calculates the base 10 logarithm of a given value.
+here is how the func looks like:
+```htvm
+Log(int value)
+```
 
 ---
 
@@ -2374,6 +2601,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Mod | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Mod is a function that returns the remainder when the dividend is divided by the divisor.
+here is how the func looks like:
+```htvm
+Mod(int dividend, int divisor)
+```
 
 ---
 
@@ -2387,6 +2619,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Random | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Random is a function that generates and returns a random integer between a specified minimum and maximum value, inclusive.
+here is how the func looks like:
+```htvm
+Random(min, max)
+```
 
 ---
 
@@ -2400,6 +2637,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Round | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Round is a function that rounds a given numeric value to the nearest integer.
+here is how the func looks like:
+```htvm
+Round(num)
+```
 
 ---
 
@@ -2413,6 +2655,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Sin is a function that takes an angle (in radians) and returns the sine of that angle.
+here is how the func looks like:
+```htvm
+Sin(float)
+```
 
 ---
 
@@ -2426,6 +2673,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sqrt | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Sqrt is a function that calculates the square root of a given numeric value.
+here is how the func looks like:
+```htvm
+Sqrt(num)
+```
 
 ---
 
@@ -2439,6 +2691,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Tan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Tan is a function that calculates the tangent of the given angle (in radians).
+here is how the func looks like:
+```htvm
+Tan(float)
+```
 
 ---
 
@@ -2484,7 +2741,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 | InStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | RegExMatch | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | RegExReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
+| STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
@@ -2512,6 +2769,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Asc | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Asc is a function that takes a string and returns the ASCII value of its first character, or -1 if the string is empty.
+here is how the func looks like:
+```htvm
+Asc(str s)
+```
 
 ---
 
@@ -2525,6 +2787,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Chr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Chr is a function that returns the character corresponding to the given Unicode code point or an empty string if the number is out of range.
+here is how the func looks like:
+```htvm
+Chr(int number)
+```
 
 ---
 
@@ -2538,6 +2805,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FLOAT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+FLOAT is a function that converts a given value to a float and throws an error if the value cannot be converted.
+here is how the func looks like:
+```htvm
+FLOAT(str value)
+```
 
 ---
 
@@ -2551,6 +2823,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | INT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+INT is a function that converts a value to an integer, throwing an error if the conversion fails.
+here is how the func looks like:
+```htvm
+INT(str value)
+```
 
 ---
 
@@ -2564,6 +2841,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | InStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+InStr is a function that finds the position of the substring needle within the string haystack and returns its position (1-based index), or 0 if the substring is not found.
+here is how the func looks like:
+```htvm
+InStr(str haystack, str needle)
+```
 
 ---
 
@@ -2577,6 +2859,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | RegExMatch | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+RegExMatch is a function that returns the 1-based index of the first regex match or 0 if no match is found.
+here is how the func looks like:
+```htvm
+RegExMatch(str haystack, str needle)
+```
 
 ---
 
@@ -2590,6 +2877,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | RegExReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+RegExReplace is a function that performs a regular expression-based replacement on a string using a given pattern and replacement string.
+here is how the func looks like:
+```htvm
+RegExReplace(str inputStr, str regexPattern, str replacement)
+```
 
 ---
 
@@ -2601,8 +2893,13 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
+| STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
+STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.
+here is how the func looks like:
+```htvm
+STR(value)
+```
 
 ---
 
@@ -2616,6 +2913,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Sort is a function that takes a string and optional options to sort its elements based on various criteria such as numeric, random, alphabetical, case sensitivity, and more, with support for delimiters and unique filtering.
+here is how the func looks like:
+```htvm
+Sort(str varName, [str options = ""])
+```
 
 ---
 
@@ -2629,6 +2931,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+StrLen is a function that takes a string as input and returns its length as a size_t value.
+here is how the func looks like:
+```htvm
+StrLen(str)
+```
 
 ---
 
@@ -2642,6 +2949,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+StrLower is a function that takes a string as input and converts all characters to lowercase.
+here is how the func looks like:
+```htvm
+StrLower(string)
+```
 
 ---
 
@@ -2655,6 +2967,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+StrReplace is a function that takes an original string, a substring to find, and a substring to replace it with, returning the modified string.
+here is how the func looks like:
+```htvm
+StrReplace(str originalString, str find, str replaceWith)
+```
 
 ---
 
@@ -2668,6 +2985,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+StrSplit is a function that splits an input string by a specified delimiter and returns the part at the specified index, or an empty string if the index is out of range.
+here is how the func looks like:
+```htvm
+StrSplit(str inputStr, str delimiter, int num)
+```
 
 ---
 
@@ -2681,6 +3003,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrTitleCase | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.
+here is how the func looks like:
+```htvm
+StrTitleCase(str inputString)
+```
 
 ---
 
@@ -2694,6 +3021,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StringTrimLeft | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+StringTrimLeft is a function that trims a specified number of characters from the left side of a given string.
+here is how the func looks like:
+```htvm
+StringTrimLeft(str input, int numChars)
+```
 
 ---
 
@@ -2707,6 +3039,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StringTrimRight | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+StringTrimRight is a function that trims a specified number of characters from the right side of a given string.
+here is how the func looks like:
+```htvm
+StringTrimRight(str input, int numChars)
+```
 
 ---
 
@@ -2720,6 +3057,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+SubStr is a function that extracts a substring from a given string, starting from a specified position and for a specified length, adjusting for edge cases like null inputs or missing parameters.
+here is how the func looks like:
+```htvm
+SubStr(str, int startPos, int length [= str.length - startPos + 1])
+```
 
 ---
 
@@ -2733,6 +3075,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Trim is a function that removes leading and trailing whitespace from the input string.
+here is how the func looks like:
+```htvm
+Trim(string)
+```
 
 ---
 
@@ -2746,6 +3093,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | countChars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.
+here is how the func looks like:
+```htvm
+countChars(str string, str theChar)
+```
 
 ---
 
@@ -2759,6 +3111,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+getUrlParams is a function that extracts and decodes parameter values from the URL query string, returning a combined string of values separated by '&'.
+here is how the func looks like:
+```htvm
+getUrlParams()
+```
 
 ---
 
@@ -2772,6 +3129,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+sortArr is a function that takes an array, removes any duplicate values using a Set, and returns the array sorted in ascending order.
+here is how the func looks like:
+```htvm
+sortArr(arr str stringArray)
+```
 
 ---
 
@@ -2785,6 +3147,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+sortArrByLenOnly is a function that sorts an array of strings by length in descending order
+here is how the func looks like:
+```htvm
+sortArrByLenOnly(arr str array)
+```
 
 ---
 
@@ -2822,6 +3189,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | BuildInVars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+BuildInVars is a function that retrieves various system-related values or states, including screen dimensions, timestamps, key presses, and more, based on the specified variable name.
+here is how the func looks like:
+```htvm
+BuildInVars(str varName)
+```
 
 ---
 
@@ -2835,6 +3207,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+ExitApp is a function that terminates the application immediately.
+here is how the func looks like:
+```htvm
+ExitApp()
+```
 
 ---
 
@@ -2848,6 +3225,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+HTVM_getLang_HTVM is a func that returns the current language of HTVM as a string
+here is how the func looks like:
+```htvm
+HTVM_getLang_HTVM()
+```
 
 ---
 
@@ -2861,6 +3243,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Sleep is a function that pauses execution for a specified number of milliseconds.
+here is how the func looks like:
+```htvm
+Sleep(int milliseconds)
+```
 
 ---
 
@@ -2904,6 +3291,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileAppend | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+FileAppend is a function that appends the given content to a file at the specified path and returns a boolean indicating success or failure.
+here is how the func looks like:
+```htvm
+FileAppend(str content, str path)
+```
 
 ---
 
@@ -2917,6 +3309,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileAppendJs | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+FileAppendJs is a function that appends content to a file by creating a Blob, generating a download link, and triggering a download with the specified filename.
+here is how the func looks like:
+```htvm
+FileAppendJs(str content, str filename)
+```
 
 ---
 
@@ -2930,6 +3327,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileCreateDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+FileCreateDir is a function that checks if a directory exists, and if not, it creates the directory.
+here is how the func looks like:
+```htvm
+FileCreateDir(str directory)
+```
 
 ---
 
@@ -2943,6 +3345,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileDelete | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+FileDelete is a function that checks if a file exists at the given path and deletes it if found, returning True if the file is deleted, otherwise False.
+here is how the func looks like:
+```htvm
+FileDelete(str path)
+```
 
 ---
 
@@ -2956,6 +3363,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+FileExist is a function that checks if a file or directory exists at the specified path.
+here is how the func looks like:
+```htvm
+FileExist(str path)
+```
 
 ---
 
@@ -2969,6 +3381,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+FileRead is a function that reads the content of a file given a path, prepends the current working directory if the path is not absolute, and returns the file content as a string.
+here is how the func looks like:
+```htvm
+FileRead(path: str)
+```
 
 ---
 
@@ -2982,6 +3399,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+FileRemoveDir is a function that removes a directory and its contents if the directory exists.
+here is how the func looks like:
+```htvm
+FileRemoveDir(str directory)
+```
 
 ---
 
@@ -3007,7 +3429,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 | RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 | getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
+| print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 ---
 
@@ -3021,6 +3443,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+GetParams is a function that retrieves command line arguments, checks if they correspond to existing paths, and returns them as absolute paths in new lines, or as they are if they do not exist.
+here is how the func looks like:
+```htvm
+GetParams()
+```
 
 ---
 
@@ -3034,6 +3461,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+RunCMD is a function that executes a shell command and captures its output or errors.
+here is how the func looks like:
+```htvm
+RunCMD(str command)
+```
 
 ---
 
@@ -3047,6 +3479,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+getDataFromAPI is a function that asynchronously fetches JSON data from a given URL and returns it, handling errors and non-OK responses.
+here is how the func looks like:
+```htvm
+getDataFromAPI(str url)
+```
 
 ---
 
@@ -3060,6 +3497,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+input is a function that displays a prompt with the given text and returns the user's input.
+here is how the func looks like:
+```htvm
+input(str promptText)
+```
 
 ---
 
@@ -3071,8 +3513,13 @@ HTVM includes a variety of built-in functions organized into categories for conv
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |No |No |Yes |Yes |Yes |Yes |Yes |Yes |
+| print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
+print is a function that outputs the specified data to the console or standard output.
+here is how the func looks like:
+```htvm
+print(str)
+```
 
 ---
 
@@ -3138,6 +3585,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | GuiControl | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+GuiControl is a function that handles various DOM manipulations like moving, showing, hiding, and modifying elements based on the provided action and parameters.
+here is how the func looks like:
+```htvm
+GuiControl(str action, str divId, str id, [any param1 = ?], [any param2 = ?], [any param3 = ?], [any param4 = ?])
+```
 
 ---
 
@@ -3151,6 +3603,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Button | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Button is a function that creates a button inside a specified div and allows customization of its position, size, color, and click behavior.
+here is how the func looks like:
+```htvm
+Gui_Button(str guiID, str buttonID, str buttonText, [int x = null], [int y = null], [int w = 150], [int h = 50], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onClickCallback = null])
+```
 
 ---
 
@@ -3164,6 +3621,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_CheckBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_CheckBox is a function that creates a checkbox within a specified GUI element, allowing for custom label, position, color, initial checked state, and scaling. The checkbox is added to a specified parent div, and a callback function is executed when the checkbox state changes.
+here is how the func looks like:
+```htvm
+Gui_CheckBox(str guiID, str id, str label, [str color = "#ffffff"], int leftPos, int topPos, func checkFunction, [bool isCheckedAtTheBeginning = false], [float scale = 1.5])
+```
 
 ---
 
@@ -3177,6 +3639,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Color | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Color is a function that sets the background color of a specific HTML element identified by the given guiID. If the element is not found, it logs a warning.
+here is how the func looks like:
+```htvm
+Gui_Color(str guiID, str color)
+```
 
 ---
 
@@ -3190,6 +3657,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_DropDownList | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_DropDownList is a function that creates a dropdown list (select element) with options from a string, sets styles, attaches an event listener for selection changes, and appends it to a specified parent element.
+here is how the func looks like:
+```htvm
+Gui_DropDownList(parent, str id, str data, int leftPos, int topPos, int width, int height, str color, func onChangeFunction)
+```
 
 ---
 
@@ -3203,6 +3675,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Edit | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Edit is a function that creates a textarea element within a div, allowing customization of its appearance, position, and behavior, with optional parameters for width, height, colors, borders, and a callback for input changes.
+here is how the func looks like:
+```htvm
+Gui_Edit(str guiID, str editID, str placeholderText, [int x = null], [int y = null], [int w = null], [int h = null], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onChangeCallback = null])
+```
 
 ---
 
@@ -3216,6 +3693,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Font | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Font is a function that sets the font family for a specified element and all its descendants, including buttons, inputs, and textareas.
+here is how the func looks like:
+```htvm
+Gui_Font(str divID, str fontFamily)
+```
 
 ---
 
@@ -3229,6 +3711,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Font_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Font_Id is a function that changes the font family of specified elements in the HTML document based on provided div and element IDs.
+here is how the func looks like:
+```htvm
+Gui_Font_Id(str divID, str elementID, str fontFamily)
+```
 
 ---
 
@@ -3242,6 +3729,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Hide | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Hide is a function that hides an HTML element by setting its display style to "none" based on the provided element ID.
+here is how the func looks like:
+```htvm
+Gui_Hide(str elementId)
+```
 
 ---
 
@@ -3255,6 +3747,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Image | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Image is a function that creates and displays an image within a specified div element on the webpage. It optionally sets the image's position, size, and corner roundness, while ensuring that the image maintains its aspect ratio if only one dimension is provided.
+here is how the func looks like:
+```htvm
+Gui_Image(str guiID, str imageID, str imageUrl, [int x = null], [int y = null], [int w = null], [int h = null], [int roundness = null])
+```
 
 ---
 
@@ -3268,6 +3765,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Move | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Move is a function that moves or resizes a GUI element by modifying its position and dimensions based on the provided parameters.
+here is how the func looks like:
+```htvm
+Gui_Move(str guiID, [int x = null], [int y = null], [int w = null], [int h = null])
+```
 
 ---
 
@@ -3281,6 +3783,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Show | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Show is a function that displays a div element on the screen with customizable properties such as position, size, border, background color, and z-index. It creates the div if it doesn't exist and centers it by default.
+here is how the func looks like:
+```htvm
+Gui_Show(guiID, [x], [y], [w], [h], [removeBorder = false], [color = '#121212'], [roundness], [zIndex])
+```
 
 ---
 
@@ -3294,6 +3801,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Size | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Size is a function that adjusts the font size of the specified HTML element and its children based on the given font size value.
+here is how the func looks like:
+```htvm
+Gui_Size(str divID, int fontSize)
+```
 
 ---
 
@@ -3307,6 +3819,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Size_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Size_Id is a function that changes the font size of a specified div and another specified element by their respective IDs.
+here is how the func looks like:
+```htvm
+Gui_Size_Id(str divID, str elementID, int fontSize)
+```
 
 ---
 
@@ -3320,6 +3837,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Text | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Text is a function that creates and inserts a text element into a specified GUI container, with optional parameters for positioning, color, roundness, and z-index.
+here is how the func looks like:
+```htvm
+Gui_Text(str guiID, str textID, str text, [int x = null], [int y = null], [str color = '#FFFFFF'], [int roundness = null], [int zIndex = null])
+```
 
 ---
 
@@ -3333,6 +3855,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Toggle | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Toggle is a function that creates a toggle switch UI element, allowing users to toggle between two states (on/off) with customizable properties such as label, position, size, and color. It also includes a callback function to handle the state change.
+here is how the func looks like:
+```htvm
+Gui_Toggle(str guiID, str id, str label, str [color = null], int leftPos, int topPos, [int width = null], [int height = null], func switchFunction, bool [isToggledAtTheBeginning = false])
+```
 
 ---
 
@@ -3346,6 +3873,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Gui_Update | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+Gui_Update is a function that updates or creates a div element based on the provided guiID, setting its dimensions, position, background color, border, border-radius, and z-index, with optional parameters for customization.
+here is how the func looks like:
+```htvm
+Gui_Update(str guiID, [int x = null], [int y = null], [int w = 450], [int h = 450], [bool removeBorder = false], [str color = '#121212'], [int roundness = null], [int zIndex = null])
+```
 
 ---
 
@@ -3359,6 +3891,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | MsgBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+MsgBox is a function that displays a message box with customizable text, title, buttons, and icons, handling various options based on the provided value and timeout.
+here is how the func looks like:
+```htvm
+MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
+```
 
 ---
 
@@ -3394,6 +3931,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+HTVM_v2_HTVM is a func that will help me make HTVM v2 DONT USE IT!!!
 
 ---
 
@@ -3407,6 +3945,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+MakeHotKey is a function that listens for a specific key combination (hotkey) and triggers a callback when the hotkey is pressed. It handles modifiers like Ctrl, Shift, and Alt, as well as specific keys such as arrows and backspace. The callback function is invoked with the hotkey in either uppercase or lowercase, depending on the Shift modifier.
+here is how the func looks like:
+```htvm
+MakeHotKey(str hotkey, function callback)
+```
 
 ---
 
@@ -3420,6 +3963,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+isWindows is a function that checks if the current operating system is Windows by comparing the system name to "windows".
+here is how the func looks like:
+```htvm
+isWindows()
+```
 
 ---
 
@@ -3457,6 +4005,29 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | addEndpoint | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+addEndpoint is a function that registers a given function as an endpoint with a specified HTTP method (default is POST).
+here is how the func looks like:
+```htvm
+addEndpoint(func func, str method [default = "POST"])
+```
+Here is an exmaple how to use the backend
+```py
+# Initialize Flask app
+createBackendInit()
+# Define your custom endpoint functions using camelCase
+def helloWord(data):
+    # Handle data and return plain text response
+    return f"Hello, you sent: {data['message']}"
+def uppercaseText(data):
+    # Handle data and return plain text response
+    return data['text'].upper()
+# Register the endpoints
+addEndpoint(helloWord)
+addEndpoint(uppercaseText)
+# Start the server
+startServer()
+```
+This exmaple is in python but the funcs works in HTVM like normal funcs.
 
 ---
 
@@ -3470,6 +4041,29 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | createBackendInit | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+createBackendInit is a function that initializes a Flask app, sets up a default route to serve an `index.html` file, and registers a custom 404 error handler and uses the app variable so never use the app variable please
+here is how the func looks like:
+```htvm
+createBackendInit([filename = "index.html"])
+```
+Here is an exmaple how to use the backend
+```py
+# Initialize Flask app
+createBackendInit()
+# Define your custom endpoint functions using camelCase
+def helloWord(data):
+    # Handle data and return plain text response
+    return f"Hello, you sent: {data['message']}"
+def uppercaseText(data):
+    # Handle data and return plain text response
+    return data['text'].upper()
+# Register the endpoints
+addEndpoint(helloWord)
+addEndpoint(uppercaseText)
+# Start the server
+startServer()
+```
+This exmaple is in python but the funcs works in HTVM like normal funcs.
 
 ---
 
@@ -3483,6 +4077,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | getDataFromEndpoint | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
+getDataFromEndpoint is a function that fetches data from a specified endpoint using a provided HTTP method (default is POST), sends the data as a JSON string, and parses the response based on its content type.
+here is how the func looks like:
+```htvm
+getDataFromEndpoint(data, endpoint, method = "POST")
+```
 
 ---
 
@@ -3496,6 +4095,29 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | startServer | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
+startServer is a function that runs a Flask web application on a specified host and port, with default values for the host and port parameters.
+here is how the func looks like:
+```htvm
+startServer([port=8000], [host="0.0.0.0"])
+```
+Here is an exmaple how to use the backend
+```py
+# Initialize Flask app
+createBackendInit()
+# Define your custom endpoint functions using camelCase
+def helloWord(data):
+    # Handle data and return plain text response
+    return f"Hello, you sent: {data['message']}"
+def uppercaseText(data):
+    # Handle data and return plain text response
+    return data['text'].upper()
+# Register the endpoints
+addEndpoint(helloWord)
+addEndpoint(uppercaseText)
+# Start the server
+startServer()
+```
+This exmaple is in python but the funcs works in HTVM like normal funcs.
 
 ---
 

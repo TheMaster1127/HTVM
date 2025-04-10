@@ -1155,6 +1155,15 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
         if (langToConvertTo != "py" && langToConvertTo != "nim" && langToConvertTo != "ahk" && langToConvertTo != "go" && langToConvertTo != "lua" && langToConvertTo != "kt" && langToConvertTo != "rb" && langToConvertTo != "swift" && langToConvertTo != "groovy") {
             semicolon = ";";
         }
+        std::string assignmentOperatorKeyWord = "=";
+        if (langToConvertTo == langFileExtension_2) {
+            assignmentOperatorKeyWord = keyWordAssign_2;
+        }
+        else if (langToConvertTo == "ahk") {
+            assignmentOperatorKeyWord = ":=";
+        } else {
+            assignmentOperatorKeyWord = "=";
+        }
         std::vector<std::string> theCodeCommand;
         theCodeCommands = Trim(theCodeCommands);
         std::vector<std::string> items12 = LoopParseFunc(theCodeCommands, ",");
@@ -1229,9 +1238,9 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
         outConstuctTheOutFromTheCommandsParams = StringTrimRight(outConstuctTheOutFromTheCommandsParams, 2);
         if (outConstuctTheOutFromTheCommandsOutVar != "") {
             if (outConstuctTheOutFromTheCommandsParams == "") {
-                outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsOutVar + " = " + outConstuctTheOutFromTheCommandsFucnName + "(" + outConstuctTheOutFromTheCommandsInVar + ")" + semicolon;
+                outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsOutVar + " " + assignmentOperatorKeyWord + " " + outConstuctTheOutFromTheCommandsFucnName + "(" + outConstuctTheOutFromTheCommandsInVar + ")" + semicolon;
             } else {
-                outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsOutVar + " = " + outConstuctTheOutFromTheCommandsFucnName + "(" + outConstuctTheOutFromTheCommandsInVar + ", " + outConstuctTheOutFromTheCommandsParams + ")" + semicolon;
+                outConstuctTheOutFromTheCommands = outConstuctTheOutFromTheCommandsOutVar + " " + assignmentOperatorKeyWord + " " + outConstuctTheOutFromTheCommandsFucnName + "(" + outConstuctTheOutFromTheCommandsInVar + ", " + outConstuctTheOutFromTheCommandsParams + ")" + semicolon;
             }
         }
         if (outConstuctTheOutFromTheCommandsOutVar == "") {
@@ -10439,7 +10448,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "continue;\n";
                 }
             }
-            else if (StrLower(A_LoopField135) == "::" + keyWordContinue) {
+            else if (StrLower(A_LoopField135) == "::" + keyWordContinue || StrLower(A_LoopField135) == "::" + keyWordContinue + ";") {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     htCode += "::" + keyWordContinue_2 + Chr(10);

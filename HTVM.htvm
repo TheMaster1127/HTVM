@@ -734,6 +734,22 @@ if (langToConvertTo != "py") and (langToConvertTo != "nim") and (langToConvertTo
 semicolon := ";"
 }
 
+str assignmentOperatorKeyWord := "="
+if (langToConvertTo = langFileExtension_2)
+{
+assignmentOperatorKeyWord := keyWordAssign_2
+}
+else if (langToConvertTo = "ahk")
+{
+assignmentOperatorKeyWord := ":="
+}
+else
+{
+assignmentOperatorKeyWord := "="
+}
+
+
+
 arr str theCodeCommand
 theCodeCommands := Trim(theCodeCommands)
 Loop, Parse, theCodeCommands, `,
@@ -861,11 +877,16 @@ if (outConstuctTheOutFromTheCommandsOutVar != "")
 {
 if (outConstuctTheOutFromTheCommandsParams = "")
 {
-outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsOutVar . " = " . outConstuctTheOutFromTheCommandsFucnName . "(" . outConstuctTheOutFromTheCommandsInVar . ")" . semicolon
+
+
+
+outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsOutVar . " " . assignmentOperatorKeyWord . " " . outConstuctTheOutFromTheCommandsFucnName . "(" . outConstuctTheOutFromTheCommandsInVar . ")" . semicolon
+
+
 }
 else
 {
-outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsOutVar . " = " . outConstuctTheOutFromTheCommandsFucnName . "(" . outConstuctTheOutFromTheCommandsInVar . ", " . outConstuctTheOutFromTheCommandsParams . ")" . semicolon
+outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsOutVar . " " . assignmentOperatorKeyWord . " " . outConstuctTheOutFromTheCommandsFucnName . "(" . outConstuctTheOutFromTheCommandsInVar . ", " . outConstuctTheOutFromTheCommandsParams . ")" . semicolon
 }
 
 }
