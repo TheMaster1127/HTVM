@@ -301,7 +301,9 @@ here is what you will do structly so i wil give you a func like something like t
 
 MAKRE SURE IT SATRST WHIT description: and all in one code block
 
-description: string~~~StrTitleCase is a func balalbla bla bal~~~here is how the func looks like:~~~```~~~StrTitleCase(string, [optanalName], string, [optanal], string, [optanal], [optanal])~~~```~~~
+description: string~~~StrTitleCase is a func balalbla bla bal~~~here is how the func looks like:~~~```htvm~~~StrTitleCase(string, [optanalName], string, [optanal], string, [optanal], [optanal])~~~```~~~
+
+it must be ```htvm not ```cpp or others IT MUST BE ```htvm
 
 all of the ~~~ and all the same format DONT change it only chamge words
 
