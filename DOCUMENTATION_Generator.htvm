@@ -2521,7 +2521,6 @@ str8 .= A_LoopField . "`n"
 }
 
 
-
 outMD .= str2 . str3 . "`n`n" . str8 . "`n---`n`n"
 }
 }
