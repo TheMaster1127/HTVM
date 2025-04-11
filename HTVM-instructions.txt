@@ -201,6 +201,25 @@ function infinite_HTVM_Lua_Loop_HTVM()
     end
 end
 funcEND======================funcEND==============
+
+
+
+
+
+
+func======================func==============
+lang: cs
+name: ResetList
+libs: null
+description: null
+    // Dynamic function to reset lists
+    static dynamic ResetList(dynamic arr)
+    {
+        return new List<dynamic>();  // Return a new empty list, dynamic type inferred
+    }
+funcEND======================funcEND==============
+
+
 func======================func==============
 lang: cpp
 name: LoopParseFunc

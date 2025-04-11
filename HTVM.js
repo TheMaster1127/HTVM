@@ -4165,6 +4165,60 @@ function propHELP(line, lineOspHelpLine) {
                 lineDone = 1;
                 str1 = lineOspHelpLine + Trim(str1);
                 str6 = allVarsSoWeDontReDecVarsFixFunc(str6, str1);
+                if (Trim(str6) == "[]" || Trim(str6) == "{}") {
+                    if (useCurlyBracesSyntaxForArrayDef_2 == "on" && langToConvertTo == langFileExtension_2) {
+                        str6 = "{}";
+                    } else {
+                        str6 = "[]";
+                    }
+                    if (langToConvertTo == "cpp") {
+                        str6 = "{}";
+                    }
+                    if (langToConvertTo == "py") {
+                        str6 = "[]";
+                    }
+                    if (langToConvertTo == "js") {
+                        str6 = "[]";
+                    }
+                    if (langToConvertTo == "go") {
+                        str6 = Trim(str1) + "[:0]";
+                    }
+                    if (langToConvertTo == "lua") {
+                        str6 = "{}";
+                    }
+                    if (langToConvertTo == "cs") {
+                        str6 = "ResetList(" + Trim(str1) + ")";
+                    }
+                    if (langToConvertTo == "java") {
+                        str6 = "new ArrayList<>()";
+                    }
+                    if (langToConvertTo == "kt") {
+                        str6 = "ArrayList()";
+                    }
+                    if (langToConvertTo == "rb") {
+                        str6 = "[]";
+                    }
+                    if (langToConvertTo == "nim") {
+                        str6 = "@[]";
+                    }
+                    if (langToConvertTo == "ahk") {
+                        str6 = "[]";
+                    }
+                    if (langToConvertTo == "swift") {
+                        str6 = "[]";
+                    }
+                    if (langToConvertTo == "dart") {
+                        str6 = "[]";
+                    }
+                    if (langToConvertTo == "ts") {
+                        str6 = "[]";
+                    }
+                    if (langToConvertTo == "groovy") {
+                        str6 = "[]";
+                    }
+                }
+                //;;;;;;;;;;;;;;;;;
+                //;;;;;;;;;;;;;;;;;
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
                         str4 = str1 + " " + str11 + " " + str6 + ";";
@@ -11941,6 +11995,60 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         str1 = StrReplace(Trim(str1), ".", "_");
                     }
                     str6 = allVarsSoWeDontReDecVarsFixFunc(str6, str1);
+                    if (Trim(str6) == "[]" || Trim(str6) == "{}") {
+                        if (useCurlyBracesSyntaxForArrayDef_2 == "on" && langToConvertTo == langFileExtension_2) {
+                            str6 = "{}";
+                        } else {
+                            str6 = "[]";
+                        }
+                        if (langToConvertTo == "cpp") {
+                            str6 = "{}";
+                        }
+                        if (langToConvertTo == "py") {
+                            str6 = "[]";
+                        }
+                        if (langToConvertTo == "js") {
+                            str6 = "[]";
+                        }
+                        if (langToConvertTo == "go") {
+                            str6 = Trim(str1) + "[:0]";
+                        }
+                        if (langToConvertTo == "lua") {
+                            str6 = "{}";
+                        }
+                        if (langToConvertTo == "cs") {
+                            str6 = "ResetList(" + Trim(str1) + ")";
+                        }
+                        if (langToConvertTo == "java") {
+                            str6 = "new ArrayList<>()";
+                        }
+                        if (langToConvertTo == "kt") {
+                            str6 = "ArrayList()";
+                        }
+                        if (langToConvertTo == "rb") {
+                            str6 = "[]";
+                        }
+                        if (langToConvertTo == "nim") {
+                            str6 = "@[]";
+                        }
+                        if (langToConvertTo == "ahk") {
+                            str6 = "[]";
+                        }
+                        if (langToConvertTo == "swift") {
+                            str6 = "[]";
+                        }
+                        if (langToConvertTo == "dart") {
+                            str6 = "[]";
+                        }
+                        if (langToConvertTo == "ts") {
+                            str6 = "[]";
+                        }
+                        if (langToConvertTo == "groovy") {
+                            str6 = "[]";
+                        }
+                    }
+                    //;;;;;;;;;;;;;;;;;
+                    //;;;;;;;;;;;;;;;;;
                     if (langToConvertTo == langFileExtension_2) {
                         if (useSemicolon_2 == "on") {
                             str4 = str1 + " " + str11 + " " + str6 + ";";
