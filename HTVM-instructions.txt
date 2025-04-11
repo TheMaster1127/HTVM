@@ -202,23 +202,22 @@ function infinite_HTVM_Lua_Loop_HTVM()
 end
 funcEND======================funcEND==============
 
-
-
-
-
-
 func======================func==============
 lang: cs
 name: ResetList
 libs: null
 description: null
-    // Dynamic function to reset lists
+    // Dynamic function to reset lists, detects type and returns an empty list of the same type
     static dynamic ResetList(dynamic arr)
     {
-        return new List<dynamic>();  // Return a new empty list, dynamic type inferred
+        // Get the type of the elements in the list
+        Type elementType = arr.GetType().GetGenericArguments()[0];
+
+        // Create a new empty list of the same type and return it
+        Type listType = typeof(List<>).MakeGenericType(elementType);
+        return Activator.CreateInstance(listType);
     }
 funcEND======================funcEND==============
-
 
 func======================func==============
 lang: cpp
