@@ -5215,7 +5215,7 @@ if (langToConvertTo = "java") {
 
 if (Trim(str6) = "[]") or (Trim(str6) = "{}")
 {
-str6 := Trim(str6)
+str4 := str1 . " " . str12 . " " . str6 . ";"
 }
 else
 {
@@ -16098,7 +16098,7 @@ if (langToConvertTo = "java") {
 
 if (Trim(str6) = "[]") or (Trim(str6) = "{}")
 {
-str6 := Trim(str6)
+str4 := str1 . " " . str12 . " " . str6 . ";"
 }
 else
 {
@@ -20557,11 +20557,11 @@ if (langToConvertTo != langFileExtension_2)
 
 if (langToConvertTo = "py") or (langToConvertTo = "nim") or (langToConvertTo = "ahk") or (langToConvertTo = "go") or (langToConvertTo = "lua") or (langToConvertTo = "kt") or (langToConvertTo = "rb") or (langToConvertTo = "swift") or (langToConvertTo = "groovy") 
 {
-htCode .= extraFlexableFuncCalls(str1, availableFuncsInHTVMInHTVM) . Chr(10)
+htCode .= expressionParserTranspiler(extraFlexableFuncCalls(str1, availableFuncsInHTVMInHTVM)) . Chr(10)
 }
 else
 {
-htCode .= extraFlexableFuncCalls(str1, availableFuncsInHTVMInHTVM) . ";" . Chr(10)
+htCode .= expressionParserTranspiler(extraFlexableFuncCalls(str1, availableFuncsInHTVMInHTVM)) . ";" . Chr(10)
 }
 
 
@@ -22342,6 +22342,12 @@ htCode := StrReplace(htCode, StrReplace(str00, "_", "_") . "_", "$" . str00 . "_
 }
 }
 
+if (langToConvertTo = "rb")
+{
+htCode := StrReplace(htCode, "$$", "$")
+htCode := StrReplace(htCode, "$$", "$")
+htCode := StrReplace(htCode, "$$", "$")
+}
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -4246,7 +4246,7 @@ function propHELP(line, lineOspHelpLine) {
                 }
                 if (langToConvertTo == "java") {
                     if (Trim(str6) == "[]" || Trim(str6) == "{}") {
-                        str6 = Trim(str6);
+                        str4 = str1 + " " + str12 + " " + str6 + ";";
                     } else {
                         if (InStr(str1, "[")) {
                             // Convert arr[something] to arr.set(something, value);
@@ -12080,7 +12080,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     }
                     if (langToConvertTo == "java") {
                         if (Trim(str6) == "[]" || Trim(str6) == "{}") {
-                            str6 = Trim(str6);
+                            str4 = str1 + " " + str12 + " " + str6 + ";";
                         } else {
                             if (InStr(str1, "[")) {
                                 // Convert arr[something] to arr.set(something, value);
@@ -14993,9 +14993,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 }
                 if (langToConvertTo != langFileExtension_2) {
                     if (langToConvertTo == "py" || langToConvertTo == "nim" || langToConvertTo == "ahk" || langToConvertTo == "go" || langToConvertTo == "lua" || langToConvertTo == "kt" || langToConvertTo == "rb" || langToConvertTo == "swift" || langToConvertTo == "groovy") {
-                        htCode += extraFlexableFuncCalls(str1, availableFuncsInHTVMInHTVM) + Chr(10);
+                        htCode += expressionParserTranspiler(extraFlexableFuncCalls(str1, availableFuncsInHTVMInHTVM)) + Chr(10);
                     } else {
-                        htCode += extraFlexableFuncCalls(str1, availableFuncsInHTVMInHTVM) + ";" + Chr(10);
+                        htCode += expressionParserTranspiler(extraFlexableFuncCalls(str1, availableFuncsInHTVMInHTVM)) + ";" + Chr(10);
                     }
                 } else {
                     if (useSemicolon_2 == "on") {
@@ -16043,6 +16043,11 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 }
             }
         }
+    }
+    if (langToConvertTo == "rb") {
+        htCode = StrReplace(htCode, "$$", "$");
+        htCode = StrReplace(htCode, "$$", "$");
+        htCode = StrReplace(htCode, "$$", "$");
     }
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
