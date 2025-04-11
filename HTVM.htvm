@@ -22342,12 +22342,7 @@ htCode := StrReplace(htCode, StrReplace(str00, "_", "_") . "_", "$" . str00 . "_
 }
 }
 
-if (langToConvertTo = "rb")
-{
-htCode := StrReplace(htCode, "$$", "$")
-htCode := StrReplace(htCode, "$$", "$")
-htCode := StrReplace(htCode, "$$", "$")
-}
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -22383,6 +22378,20 @@ htCode := FixRubyGlobalVars(htCode)
 }
 
 htCode := StrReplace(htCode, "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc ", "")
+
+if (langToConvertTo = "rb")
+{
+htCode := StrReplace(htCode, "$$", "$")
+htCode := StrReplace(htCode, "$$", "$")
+htCode := StrReplace(htCode, "$$", "$")
+}
+
+
+if (langToConvertTo = "java")
+{
+htCode := StrReplace(htCode, "= [);", "= new ArrayList<>();")
+
+}
 
 
 Loop, % theIdNumOfThe34 {

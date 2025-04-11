@@ -16239,11 +16239,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             }
         }
     }
-    if (langToConvertTo == "rb") {
-        htCode = StrReplace(htCode, "$$", "$");
-        htCode = StrReplace(htCode, "$$", "$");
-        htCode = StrReplace(htCode, "$$", "$");
-    }
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -16275,6 +16270,14 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         htCode = FixRubyGlobalVars(htCode);
     }
     htCode = StrReplace(htCode, "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc ", "");
+    if (langToConvertTo == "rb") {
+        htCode = StrReplace(htCode, "$$", "$");
+        htCode = StrReplace(htCode, "$$", "$");
+        htCode = StrReplace(htCode, "$$", "$");
+    }
+    if (langToConvertTo == "java") {
+        htCode = StrReplace(htCode, "= [);", "= new ArrayList<>();");
+    }
     for (int A_Index229 = 0; A_Index229 < theIdNumOfThe34 + 0; A_Index229++) {
         if (theIdNumOfThe34 == A_Index229 + 1) {
             if (langToConvertTo == langFileExtension_2) {
