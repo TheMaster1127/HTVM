@@ -4245,12 +4245,16 @@ function propHELP(line, lineOspHelpLine) {
                     str4 = str1 + " " + str12 + " " + str6 + ";";
                 }
                 if (langToConvertTo == "java") {
-                    if (InStr(str1, "[")) {
-                        // Convert arr[something] to arr.set(something, value);
-                        str1 = RegExReplace(str1, "(\\b[A-Za-z_]\\w*)\\s*\\[(.*?)\\]", "$1.set($2, ");
-                        str4 = str1 + str6 + ");";
+                    if (Trim(str6) == "[]" || Trim(str6) == "{}") {
+                        str6 = Trim(str6);
                     } else {
-                        str4 = str1 + " " + str12 + " " + str6 + ";";
+                        if (InStr(str1, "[")) {
+                            // Convert arr[something] to arr.set(something, value);
+                            str1 = RegExReplace(str1, "(\\b[A-Za-z_]\\w*)\\s*\\[(.*?)\\]", "$1.set($2, ");
+                            str4 = str1 + str6 + ");";
+                        } else {
+                            str4 = str1 + " " + str12 + " " + str6 + ";";
+                        }
                     }
                 }
                 if (langToConvertTo == "kt") {
@@ -4409,9 +4413,9 @@ function propHELP(line, lineOspHelpLine) {
                     }
                     if (langToConvertTo == "kt") {
                         if (int5 != 0) {
-                            str4 = "val " + str2 + " = arrayListOf(" + str6 + ")";
+                            str4 = "var " + str2 + " = arrayListOf(" + str6 + ")";
                         } else {
-                            str4 = "val " + str2 + " = " + str6;
+                            str4 = "var " + str2 + " = " + str6;
                         }
                     }
                     if (langToConvertTo == "rb") {
@@ -4423,9 +4427,9 @@ function propHELP(line, lineOspHelpLine) {
                     }
                     if (langToConvertTo == "nim") {
                         if (int5 != 0) {
-                            str4 = "let " + str2 + ": " + str3 + " = @[" + str6 + "]";
+                            str4 = "var " + str2 + ": " + str3 + " = @[" + str6 + "]";
                         } else {
-                            str4 = "let " + str2 + ": " + str3 + " = " + str6;
+                            str4 = "var " + str2 + ": " + str3 + " = " + str6;
                         }
                     }
                     if (langToConvertTo == "ahk") {
@@ -4668,9 +4672,9 @@ function propHELP(line, lineOspHelpLine) {
                     }
                     if (langToConvertTo == "kt") {
                         if (int5 != 0) {
-                            str4 = "val " + str2 + " = arrayListOf(" + str6 + ")";
+                            str4 = "var " + str2 + " = arrayListOf(" + str6 + ")";
                         } else {
-                            str4 = "val " + str2 + " = " + str6;
+                            str4 = "var " + str2 + " = " + str6;
                         }
                     }
                     if (langToConvertTo == "rb") {
@@ -4682,9 +4686,9 @@ function propHELP(line, lineOspHelpLine) {
                     }
                     if (langToConvertTo == "nim") {
                         if (int5 != 0) {
-                            str4 = "let " + str2 + ": " + str3 + " = @[" + str6 + "]";
+                            str4 = "var " + str2 + ": " + str3 + " = @[" + str6 + "]";
                         } else {
-                            str4 = "let " + str2 + ": " + str3 + " = " + str6;
+                            str4 = "var " + str2 + ": " + str3 + " = " + str6;
                         }
                     }
                     if (langToConvertTo == "ahk") {
@@ -4933,9 +4937,9 @@ function propHELP(line, lineOspHelpLine) {
                     }
                     if (langToConvertTo == "kt") {
                         if (int5 != 0) {
-                            str4 = "val " + str2 + " = arrayListOf(" + str6 + ")";
+                            str4 = "var " + str2 + " = arrayListOf(" + str6 + ")";
                         } else {
-                            str4 = "val " + str2 + " = " + str6;
+                            str4 = "var " + str2 + " = " + str6;
                         }
                     }
                     if (langToConvertTo == "rb") {
@@ -4947,9 +4951,9 @@ function propHELP(line, lineOspHelpLine) {
                     }
                     if (langToConvertTo == "nim") {
                         if (int5 != 0) {
-                            str4 = "let " + str2 + ": " + str3 + " = @[" + str6 + "]";
+                            str4 = "var " + str2 + ": " + str3 + " = @[" + str6 + "]";
                         } else {
-                            str4 = "let " + str2 + ": " + str3 + " = " + str6;
+                            str4 = "var " + str2 + ": " + str3 + " = " + str6;
                         }
                     }
                     if (langToConvertTo == "ahk") {
@@ -5186,9 +5190,9 @@ function propHELP(line, lineOspHelpLine) {
                     }
                     if (langToConvertTo == "kt") {
                         if (int5 != 0) {
-                            str4 = "val " + str2 + " = arrayListOf(" + str6 + ")";
+                            str4 = "var " + str2 + " = arrayListOf(" + str6 + ")";
                         } else {
-                            str4 = "val " + str2 + " = " + str6;
+                            str4 = "var " + str2 + " = " + str6;
                         }
                     }
                     if (langToConvertTo == "rb") {
@@ -5200,9 +5204,9 @@ function propHELP(line, lineOspHelpLine) {
                     }
                     if (langToConvertTo == "nim") {
                         if (int5 != 0) {
-                            str4 = "let " + str2 + ": " + str3 + " = @[" + str6 + "]";
+                            str4 = "var " + str2 + ": " + str3 + " = @[" + str6 + "]";
                         } else {
-                            str4 = "let " + str2 + ": " + str3 + " = " + str6;
+                            str4 = "var " + str2 + ": " + str3 + " = " + str6;
                         }
                     }
                     if (langToConvertTo == "ahk") {
@@ -5442,9 +5446,9 @@ function propHELP(line, lineOspHelpLine) {
                     }
                     if (langToConvertTo == "kt") {
                         if (int5 != 0) {
-                            str4 = "val " + str2 + " = arrayListOf(" + str6 + ")";
+                            str4 = "var " + str2 + " = arrayListOf(" + str6 + ")";
                         } else {
-                            str4 = "val " + str2 + " = " + str6;
+                            str4 = "var " + str2 + " = " + str6;
                         }
                     }
                     if (langToConvertTo == "rb") {
@@ -5456,9 +5460,9 @@ function propHELP(line, lineOspHelpLine) {
                     }
                     if (langToConvertTo == "nim") {
                         if (int5 != 0) {
-                            str4 = "let " + str2 + ": " + str3 + " = @[" + str6 + "]";
+                            str4 = "var " + str2 + ": " + str3 + " = @[" + str6 + "]";
                         } else {
-                            str4 = "let " + str2 + ": " + str3 + " = " + str6;
+                            str4 = "var " + str2 + ": " + str3 + " = " + str6;
                         }
                     }
                     if (langToConvertTo == "ahk") {
@@ -5684,7 +5688,7 @@ function propHELP(line, lineOspHelpLine) {
                     }
                 }
                 if (langToConvertTo == "kt") {
-                    str4 = "val " + str2 + " = " + str3 + "()";
+                    str4 = "var " + str2 + " = " + str3 + "()";
                 }
                 if (langToConvertTo == "rb") {
                     str4 = str2 + " = []";
@@ -6065,7 +6069,7 @@ function propHELP(line, lineOspHelpLine) {
                     }
                 }
                 if (langToConvertTo == "kt") {
-                    str4 = "val " + str2 + " = " + str3 + "()";
+                    str4 = "var " + str2 + " = " + str3 + "()";
                 }
                 if (langToConvertTo == "rb") {
                     str4 = str2 + " = []";
@@ -6433,7 +6437,7 @@ function propHELP(line, lineOspHelpLine) {
                     }
                 }
                 if (langToConvertTo == "kt") {
-                    str4 = "val " + str2 + " = " + str3 + "()";
+                    str4 = "var " + str2 + " = " + str3 + "()";
                 }
                 if (langToConvertTo == "rb") {
                     str4 = str2 + " = []";
@@ -6808,7 +6812,7 @@ function propHELP(line, lineOspHelpLine) {
                     }
                 }
                 if (langToConvertTo == "kt") {
-                    str4 = "val " + str2 + " = " + str3 + "()";
+                    str4 = "var " + str2 + " = " + str3 + "()";
                 }
                 if (langToConvertTo == "rb") {
                     str4 = str2 + " = []";
@@ -12075,12 +12079,16 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         str4 = str1 + " " + str12 + " " + str6 + ";";
                     }
                     if (langToConvertTo == "java") {
-                        if (InStr(str1, "[")) {
-                            // Convert arr[something] to arr.set(something, value);
-                            str1 = RegExReplace(str1, "(\\b[A-Za-z_]\\w*)\\s*\\[(.*?)\\]", "$1.set($2, ");
-                            str4 = str1 + str6 + ");";
+                        if (Trim(str6) == "[]" || Trim(str6) == "{}") {
+                            str6 = Trim(str6);
                         } else {
-                            str4 = str1 + " " + str12 + " " + str6 + ";";
+                            if (InStr(str1, "[")) {
+                                // Convert arr[something] to arr.set(something, value);
+                                str1 = RegExReplace(str1, "(\\b[A-Za-z_]\\w*)\\s*\\[(.*?)\\]", "$1.set($2, ");
+                                str4 = str1 + str6 + ");";
+                            } else {
+                                str4 = str1 + " " + str12 + " " + str6 + ";";
+                            }
                         }
                     }
                     if (langToConvertTo == "kt") {
@@ -12239,9 +12247,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                         if (langToConvertTo == "kt") {
                             if (int5 != 0) {
-                                str4 = "val " + str2 + " = arrayListOf(" + str6 + ")";
+                                str4 = "var " + str2 + " = arrayListOf(" + str6 + ")";
                             } else {
-                                str4 = "val " + str2 + " = " + str6;
+                                str4 = "var " + str2 + " = " + str6;
                             }
                         }
                         if (langToConvertTo == "rb") {
@@ -12253,9 +12261,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                         if (langToConvertTo == "nim") {
                             if (int5 != 0) {
-                                str4 = "let " + str2 + ": " + str3 + " = @[" + str6 + "]";
+                                str4 = "var " + str2 + ": " + str3 + " = @[" + str6 + "]";
                             } else {
-                                str4 = "let " + str2 + ": " + str3 + " = " + str6;
+                                str4 = "var " + str2 + ": " + str3 + " = " + str6;
                             }
                         }
                         if (langToConvertTo == "ahk") {
@@ -12498,9 +12506,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                         if (langToConvertTo == "kt") {
                             if (int5 != 0) {
-                                str4 = "val " + str2 + " = arrayListOf(" + str6 + ")";
+                                str4 = "var " + str2 + " = arrayListOf(" + str6 + ")";
                             } else {
-                                str4 = "val " + str2 + " = " + str6;
+                                str4 = "var " + str2 + " = " + str6;
                             }
                         }
                         if (langToConvertTo == "rb") {
@@ -12512,9 +12520,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                         if (langToConvertTo == "nim") {
                             if (int5 != 0) {
-                                str4 = "let " + str2 + ": " + str3 + " = @[" + str6 + "]";
+                                str4 = "var " + str2 + ": " + str3 + " = @[" + str6 + "]";
                             } else {
-                                str4 = "let " + str2 + ": " + str3 + " = " + str6;
+                                str4 = "var " + str2 + ": " + str3 + " = " + str6;
                             }
                         }
                         if (langToConvertTo == "ahk") {
@@ -12763,9 +12771,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                         if (langToConvertTo == "kt") {
                             if (int5 != 0) {
-                                str4 = "val " + str2 + " = arrayListOf(" + str6 + ")";
+                                str4 = "var " + str2 + " = arrayListOf(" + str6 + ")";
                             } else {
-                                str4 = "val " + str2 + " = " + str6;
+                                str4 = "var " + str2 + " = " + str6;
                             }
                         }
                         if (langToConvertTo == "rb") {
@@ -12777,9 +12785,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                         if (langToConvertTo == "nim") {
                             if (int5 != 0) {
-                                str4 = "let " + str2 + ": " + str3 + " = @[" + str6 + "]";
+                                str4 = "var " + str2 + ": " + str3 + " = @[" + str6 + "]";
                             } else {
-                                str4 = "let " + str2 + ": " + str3 + " = " + str6;
+                                str4 = "var " + str2 + ": " + str3 + " = " + str6;
                             }
                         }
                         if (langToConvertTo == "ahk") {
@@ -13016,9 +13024,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                         if (langToConvertTo == "kt") {
                             if (int5 != 0) {
-                                str4 = "val " + str2 + " = arrayListOf(" + str6 + ")";
+                                str4 = "var " + str2 + " = arrayListOf(" + str6 + ")";
                             } else {
-                                str4 = "val " + str2 + " = " + str6;
+                                str4 = "var " + str2 + " = " + str6;
                             }
                         }
                         if (langToConvertTo == "rb") {
@@ -13030,9 +13038,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                         if (langToConvertTo == "nim") {
                             if (int5 != 0) {
-                                str4 = "let " + str2 + ": " + str3 + " = @[" + str6 + "]";
+                                str4 = "var " + str2 + ": " + str3 + " = @[" + str6 + "]";
                             } else {
-                                str4 = "let " + str2 + ": " + str3 + " = " + str6;
+                                str4 = "var " + str2 + ": " + str3 + " = " + str6;
                             }
                         }
                         if (langToConvertTo == "ahk") {
@@ -13272,9 +13280,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                         if (langToConvertTo == "kt") {
                             if (int5 != 0) {
-                                str4 = "val " + str2 + " = arrayListOf(" + str6 + ")";
+                                str4 = "var " + str2 + " = arrayListOf(" + str6 + ")";
                             } else {
-                                str4 = "val " + str2 + " = " + str6;
+                                str4 = "var " + str2 + " = " + str6;
                             }
                         }
                         if (langToConvertTo == "rb") {
@@ -13286,9 +13294,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                         if (langToConvertTo == "nim") {
                             if (int5 != 0) {
-                                str4 = "let " + str2 + ": " + str3 + " = @[" + str6 + "]";
+                                str4 = "var " + str2 + ": " + str3 + " = @[" + str6 + "]";
                             } else {
-                                str4 = "let " + str2 + ": " + str3 + " = " + str6;
+                                str4 = "var " + str2 + ": " + str3 + " = " + str6;
                             }
                         }
                         if (langToConvertTo == "ahk") {
@@ -13514,7 +13522,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                     }
                     if (langToConvertTo == "kt") {
-                        str4 = "val " + str2 + " = " + str3 + "()";
+                        str4 = "var " + str2 + " = " + str3 + "()";
                     }
                     if (langToConvertTo == "rb") {
                         str4 = str2 + " = []";
@@ -13895,7 +13903,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                     }
                     if (langToConvertTo == "kt") {
-                        str4 = "val " + str2 + " = " + str3 + "()";
+                        str4 = "var " + str2 + " = " + str3 + "()";
                     }
                     if (langToConvertTo == "rb") {
                         str4 = str2 + " = []";
@@ -14263,7 +14271,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                     }
                     if (langToConvertTo == "kt") {
-                        str4 = "val " + str2 + " = " + str3 + "()";
+                        str4 = "var " + str2 + " = " + str3 + "()";
                     }
                     if (langToConvertTo == "rb") {
                         str4 = str2 + " = []";
@@ -14638,7 +14646,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         }
                     }
                     if (langToConvertTo == "kt") {
-                        str4 = "val " + str2 + " = " + str3 + "()";
+                        str4 = "var " + str2 + " = " + str3 + "()";
                     }
                     if (langToConvertTo == "rb") {
                         str4 = str2 + " = []";
@@ -16030,7 +16038,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         for (let A_Index225 = 0; A_Index225 < HTVM_Size(ospDic1) + 0; A_Index225++) {
             str00 = ospDic1[A_Index225];
             if (langToConvertTo == "rb") {
-                htCode = StrReplace(htCode, StrReplace(str00, "_", "_") + "_", "$" + str00 + "_");
+                if (SubStr(Trim(htCode), 1, 1) != "$") {
+                    htCode = StrReplace(htCode, StrReplace(str00, "_", "_") + "_", "$" + str00 + "_");
+                }
             }
         }
     }

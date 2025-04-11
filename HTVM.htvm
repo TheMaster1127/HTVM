@@ -5213,6 +5213,12 @@ str4 := str1 . " " . str12 . " " . str6 . ";"
 }
 if (langToConvertTo = "java") {
 
+if (Trim(str6) = "[]") or (Trim(str6) = "{}")
+{
+str6 := Trim(str6)
+}
+else
+{
 if (InStr(str1, "["))
 {
 ; Convert arr[something] to arr.set(something, value);
@@ -5222,6 +5228,7 @@ str4 := str1 . str6 . ");"
 else
 {
 str4 := str1 . " " . str12 . " " . str6 . ";"
+}
 }
 
 }
@@ -5480,11 +5487,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -5504,11 +5511,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -5914,11 +5921,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -5938,11 +5945,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -6352,11 +6359,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -6376,11 +6383,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -6772,11 +6779,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -6796,11 +6803,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -7188,11 +7195,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -7212,11 +7219,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -7553,7 +7560,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -8104,7 +8111,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -8636,7 +8643,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -9167,7 +9174,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -16089,6 +16096,12 @@ str4 := str1 . " " . str12 . " " . str6 . ";"
 }
 if (langToConvertTo = "java") {
 
+if (Trim(str6) = "[]") or (Trim(str6) = "{}")
+{
+str6 := Trim(str6)
+}
+else
+{
 if (InStr(str1, "["))
 {
 ; Convert arr[something] to arr.set(something, value);
@@ -16098,6 +16111,7 @@ str4 := str1 . str6 . ");"
 else
 {
 str4 := str1 . " " . str12 . " " . str6 . ";"
+}
 }
 
 }
@@ -16357,11 +16371,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -16381,11 +16395,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -16791,11 +16805,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -16815,11 +16829,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -17230,11 +17244,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -17254,11 +17268,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -17650,11 +17664,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -17674,11 +17688,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -18066,11 +18080,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -18090,11 +18104,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -18431,7 +18445,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -18982,7 +18996,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -19514,7 +19528,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -20045,7 +20059,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -22320,7 +22334,10 @@ str00 := ospDic1[A_Index]
 
 if (langToConvertTo = "rb")
 {
+if (SubStr(Trim(htCode), 1, 1) != "$")
+{
 htCode := StrReplace(htCode, StrReplace(str00, "_", "_") . "_", "$" . str00 . "_")
+}
 }
 }
 }
