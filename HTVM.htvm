@@ -14405,6 +14405,8 @@ else
 str1 := Trim(StringTrimRight(Trim(A_LoopField), StrLen(keyWordInc)))
 }
 
+str1 := Trim(expressionParserTranspiler(str1))
+
 if (langToConvertTo = langFileExtension_2) 
 {
 if (useSemicolon_2 = "on")
@@ -14477,6 +14479,8 @@ else
 {
 str1 := Trim(StringTrimRight(Trim(A_LoopField), StrLen(keyWordDec)))
 }
+
+str1 := Trim(expressionParserTranspiler(str1))
 
 if (langToConvertTo = langFileExtension_2) 
 {

@@ -10866,6 +10866,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 } else {
                     str1 = Trim(StringTrimRight(Trim(A_LoopField135), StrLen(keyWordInc)));
                 }
+                str1 = Trim(expressionParserTranspiler(str1));
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
                         htCode += str1 + keyWordInc_2 + ";" + Chr(10);
@@ -10925,6 +10926,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 } else {
                     str1 = Trim(StringTrimRight(Trim(A_LoopField135), StrLen(keyWordDec)));
                 }
+                str1 = Trim(expressionParserTranspiler(str1));
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
                         htCode += str1 + keyWordDec_2 + ";" + Chr(10);
