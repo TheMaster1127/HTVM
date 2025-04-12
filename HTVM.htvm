@@ -11361,6 +11361,9 @@ arr str getAllCharForTheFurtureSoIcanAddEscapeChar
 
 int removeNexFixkeyWordEscpaeChar := 0
 
+str fixSomeCurlyBraceForExratFlexability := ""
+str fixSomeCurlyBraceForExratFlexabilityTriHELP := ""
+
 if (isNotHTVMfile = 0)
 {
 
@@ -11661,6 +11664,39 @@ if (langToConvertTo != "py") and (langToConvertTo != "nim") and (usePythonicColo
 
 if (useCurlyBraces = "on")
 {
+
+fixSomeCurlyBraceForExratFlexability := ""
+str1 := ""
+Loop, Parse, code, `n, `r
+{
+str1 := ""
+if (InStr(A_LoopField, keyWordCurlyBraceOpen)) or (InStr(A_LoopField, keyWordCurlyBraceClose))
+{
+str1 := StrReplace(A_LoopField, keyWordCurlyBraceOpen, "{")
+str1 := StrReplace(str1, keyWordCurlyBraceClose, "}")
+str1 := StrReplace(str1, "{", Chr(10) . "{" . Chr(10))
+str1 := StrReplace(str1, "}", Chr(10) . "}" . Chr(10))
+
+fixSomeCurlyBraceForExratFlexability .= str1 . Chr(10)
+}
+else
+{
+fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
+}
+}
+StringTrimRight, code, fixSomeCurlyBraceForExratFlexability, 1
+fixSomeCurlyBraceForExratFlexabilityTriHELP := ""
+Loop, Parse, code, `n, `r
+{
+fixSomeCurlyBraceForExratFlexabilityTriHELP .= Trim(A_LoopField) . Chr(10)
+}
+StringTrimRight, code, fixSomeCurlyBraceForExratFlexabilityTriHELP, 1
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 if (keyWordCurlyBraceOpen != "{")
 {
 
@@ -11735,6 +11771,9 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 
 }
 }
+
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

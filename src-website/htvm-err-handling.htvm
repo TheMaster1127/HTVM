@@ -3,32 +3,60 @@
 func str handleError(str htvmInstrText)  
 {
 
-let fixTrim := ""
+str fixTrim := ""
 Loop, Parse, htvmInstrText, `n, `r 
 {
 fixTrim .= Trim(A_LoopField) . Chr(10)
 }
 StringTrimRight, htvmInstrText, fixTrim, 1
 
+; " newline carage retrun
+arr str disallowedChars_Globaly := [Chr(34), Chr(10), Chr(13)]
+; " newline carage retrun ( ) [ ] { }
+arr str disallowedChars_InExprTranspiler := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125)]
+; " newline carage retrun ( ) [ ] { }
+arr str disallowedChars_BeginEndLine := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125)]
+; " newline carage retrun ( ) [ ] { } :
+arr str disallowedChars_NOT_AT_THE_END := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125), Chr(58)]
+
+; separate disallowing only for those indexed lines
+
+; " newline carage retrun
+arr str disallowedChars_For_2 := [Chr(34), Chr(10), Chr(13)]
+; " newline carage retrun :
+arr str disallowedChars_For_46_47 := [Chr(34), Chr(10), Chr(13), Chr(58)]
+; " newline carage retrun
+arr str disallowedChars_For_103 := [Chr(34), Chr(10), Chr(13)]
+
+; lines that cant have spacses
+arr int lineThatCANNOThaveSpacses := [0, 1, 46, 47, 84, 85, 86, 87, 88, 89, 103, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161]
+
+; special stuff
+; 0. we can only have those
+arr str onlyAllowed_0 := ["cpp", "py", "js", "go", "lua", "cs", "java", "kt", "rb", "nim", "ahk", "swift", "dart", "ts", "groovy"]
+; 1. for matching custom file extensions in HTVM we only allow them to start with a lowercase letter, followed by lowercase letters or numbers, and be at least 2 characters long.
+; This is the regex: "^[a-z][a-z0-9]{1,}$"
+
+; 2. this is complex so um i will just leave it and just use disallowedChars_For_2 array to check if any of those chars exists.
+; 3 - 9 - for OSP and include - so just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_NOT_AT_THE_END
+; 10 - 45 - so just use the following arrays disallowedChars_Globaly
+; 46 and 47 - this are keyWordCurlyBraceOpen and keyWordCurlyBraceClose so no spacses and use the arrays disallowedChars_For_46_47, disallowedChars_Globaly
+; 48 - 83 - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_NOT_AT_THE_END
+; 84 - 89 - for the array methods, they must have NO SPACE and must start with a dot (.) followed by at least one character from [A-Za-z0-9_]. Use the regex "^\.[A-Za-z0-9_]+$"
+; 90 - 102 - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_NOT_AT_THE_END
+; 103 is the keyWordEscpaeChar so it must be any char BUT MUST BE 1 single char NOT MORE THEN 1 CHAR and use the array disallowedChars_Globaly, disallowedChars_For_103
+; 104 - 128 - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_NOT_AT_THE_END
+; 129 - 
+
 Loop, Parse, htvmInstrText, `n, `r 
 {
 if (InStr(A_LoopField, Chr(34)))
 {
-throw ErrorMsg("You cant use " . Chr(34) . " in line " . STR(A_Index + 1) . "!!!")
-}
-if (InStr(A_LoopField, Chr(39))) 
-{
-throw ErrorMsg("You cant use " . Chr(39) . " in line " . STR(A_Index + 1) . "!!!")
-}
-if (InStr(A_LoopField, Chr(123))) 
-{
-throw ErrorMsg("You cant use " . Chr(123) . " in line " . STR(A_Index + 1) . "!!!")
-}
-if (InStr(A_LoopField, Chr(125))) 
-{
-throw ErrorMsg("You cant use " . Chr(125) . " in line " . STR(A_Index + 1) . "!!!")
+return "You cant use " . Chr(34) . " in line " . STR(A_Index + 1) . "!!!"
 }
 
+
 }
+
 return "noERROR"
 }
