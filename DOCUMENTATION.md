@@ -63,8 +63,6 @@ You can **customize the block delimiters**, which define the start and end of co
 - Curly braces `{}` (default).
 - **Other characters**, words, or even single letters, as long as the opening and closing delimiters are different from each other.
 
-**Important Structural Rule:** Regardless of the chosen delimiters, statements inside a code block must always start on a new line following the opening delimiter or the **construct** that initiates the block. Placing the first statement of a block on the same line as the opening delimiter or the initiating **construct** is not permitted. Each statement within the block requires its own line.
-
 ### Indentation Styles
 
 You have the ability to choose between multiple **indentation styles**:
@@ -1704,6 +1702,8 @@ You’ll need to manually synchronize arrays between programming blocks if neede
 - **No type checking** is performed on arrays, so errors related to mismatched types will not be caught until runtime.
 - **No support for constant arrays**—you need to manage immutability yourself using programming blocks.
 - **Arrays cannot be shared across different language blocks** in multiple language conversions.
+
+#### ⚠️ WARNING: We can't use nested arrays or multiline arrays (like arrays inside arrays or 2D/3D arrays). To achieve that, use a programming block.
 
 ---
 
