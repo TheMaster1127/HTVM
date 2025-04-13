@@ -5368,7 +5368,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
+    saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -11089,7 +11089,7 @@ if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEnd))
 COUNT_programmingBlock_InTheTranspiledLang++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" . STR(COUNT_programmingBlock_InTheTranspiledLang) . "AA`n"
-programmingBlock_InTheTranspiledLang.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_InTheTranspiledLang.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11099,7 +11099,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_CPP++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_CPP-programmingBlock_CPP-AA" . STR(COUNT_programmingBlock_CPP) . "AA`n"
-programmingBlock_CPP.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_CPP.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11109,7 +11109,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_PY++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_PY-programmingBlock_PY-AA" . STR(COUNT_programmingBlock_PY) . "AA`n"
-programmingBlock_PY.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_PY.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11119,7 +11119,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_JS++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_JS-programmingBlock_JS-AA" . STR(COUNT_programmingBlock_JS) . "AA`n"
-programmingBlock_JS.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_JS.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11129,7 +11129,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_GO++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_GO-programmingBlock_GO-AA" . STR(COUNT_programmingBlock_GO) . "AA`n"
-programmingBlock_GO.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_GO.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11139,7 +11139,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_LUA++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_LUA-programmingBlock_LUA-AA" . STR(COUNT_programmingBlock_LUA) . "AA`n"
-programmingBlock_LUA.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_LUA.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11149,7 +11149,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_CS++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_CS-programmingBlock_CS-AA" . STR(COUNT_programmingBlock_CS) . "AA`n"
-programmingBlock_CS.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_CS.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11159,7 +11159,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_JAVA++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_JAVA-programmingBlock_JAVA-AA" . STR(COUNT_programmingBlock_JAVA) . "AA`n"
-programmingBlock_JAVA.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_JAVA.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11169,7 +11169,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_KT++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_KT-programmingBlock_KT-AA" . STR(COUNT_programmingBlock_KT) . "AA`n"
-programmingBlock_KT.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_KT.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11179,7 +11179,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_RB++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_RB-programmingBlock_RB-AA" . STR(COUNT_programmingBlock_RB) . "AA`n"
-programmingBlock_RB.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_RB.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11189,7 +11189,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_NIM++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_NIM-programmingBlock_NIM-AA" . STR(COUNT_programmingBlock_NIM) . "AA`n"
-programmingBlock_NIM.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_NIM.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11199,7 +11199,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_AHK++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_AHK-programmingBlock_AHK-AA" . STR(COUNT_programmingBlock_AHK) . "AA`n"
-programmingBlock_AHK.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_AHK.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11209,7 +11209,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_SWIFT++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" . STR(COUNT_programmingBlock_SWIFT) . "AA`n"
-programmingBlock_SWIFT.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_SWIFT.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11219,7 +11219,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_DART++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_DART-programmingBlock_DART-AA" . STR(COUNT_programmingBlock_DART) . "AA`n"
-programmingBlock_DART.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_DART.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11229,7 +11229,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_TS++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_TS-programmingBlock_TS-AA" . STR(COUNT_programmingBlock_TS) . "AA`n"
-programmingBlock_TS.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_TS.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11239,7 +11239,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_GROOVY++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" . STR(COUNT_programmingBlock_GROOVY) . "AA`n"
-programmingBlock_GROOVY.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_GROOVY.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11249,7 +11249,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_HTVM++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_HTVM-programmingBlock_HTVM-AA" . STR(COUNT_programmingBlock_HTVM) . "AA`n"
-programmingBlock_HTVM.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_HTVM.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -11261,7 +11261,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInHTVMend))
 COUNT_programmingBlock_HTVMsyntax++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" . STR(COUNT_programmingBlock_HTVMsyntax) . "AA`n"
-programmingBlock_HTVMsyntax.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_HTVMsyntax.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
