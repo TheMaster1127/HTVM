@@ -4358,7 +4358,7 @@ function propHELP(line, lineOspHelpLine) {
                     // str3 = type
                 }
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                    saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     int5 = 0;
                     if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -4618,7 +4618,7 @@ function propHELP(line, lineOspHelpLine) {
                     // str3 = type
                 }
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                    saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     int5 = 0;
                     if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -4883,7 +4883,7 @@ function propHELP(line, lineOspHelpLine) {
                     HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 }
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                    saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     int5 = 0;
                     if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -5138,7 +5138,7 @@ function propHELP(line, lineOspHelpLine) {
                 // str3 = type
                 HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                    saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     int5 = 0;
                     if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -5395,7 +5395,7 @@ function propHELP(line, lineOspHelpLine) {
                 // str3 = type
                 HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                    saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     int5 = 0;
                     if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -5698,7 +5698,7 @@ function propHELP(line, lineOspHelpLine) {
                 // str3 = type
             }
             if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                 str3 = getFuncTypeConvert(str3);
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -6080,7 +6080,7 @@ function propHELP(line, lineOspHelpLine) {
                 HTVM_Append(allVarsSoWeDontReDecVars, str2);
             }
             if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                 str3 = getFuncTypeConvert(str3);
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -6449,7 +6449,7 @@ function propHELP(line, lineOspHelpLine) {
             // str3 = type
             HTVM_Append(allVarsSoWeDontReDecVars, str2);
             if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                 str3 = getFuncTypeConvert(str3);
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -6821,7 +6821,7 @@ function propHELP(line, lineOspHelpLine) {
             // str3 = type
             HTVM_Append(allVarsSoWeDontReDecVars, str2);
             if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                 str3 = getFuncTypeConvert(str3);
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -12371,7 +12371,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         // str3 = type
                     }
                     if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                        saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                        saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                         str3 = getFuncTypeConvert(str3);
                         int5 = 0;
                         if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -12631,7 +12631,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         // str3 = type
                     }
                     if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                        saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                        saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                         str3 = getFuncTypeConvert(str3);
                         int5 = 0;
                         if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -12896,7 +12896,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         HTVM_Append(allVarsSoWeDontReDecVars, str2);
                     }
                     if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                        saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                        saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                         str3 = getFuncTypeConvert(str3);
                         int5 = 0;
                         if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -13151,7 +13151,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     // str3 = type
                     HTVM_Append(allVarsSoWeDontReDecVars, str2);
                     if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                        saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                        saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                         str3 = getFuncTypeConvert(str3);
                         int5 = 0;
                         if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -13408,7 +13408,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     // str3 = type
                     HTVM_Append(allVarsSoWeDontReDecVars, str2);
                     if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                        saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                        saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                         str3 = getFuncTypeConvert(str3);
                         int5 = 0;
                         if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -13711,7 +13711,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     // str3 = type
                 }
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                    saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     if (langToConvertTo == langFileExtension_2) {
                         if (useSemicolon_2 == "on") {
@@ -14093,7 +14093,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 }
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                    saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     if (langToConvertTo == langFileExtension_2) {
                         if (useSemicolon_2 == "on") {
@@ -14462,7 +14462,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 // str3 = type
                 HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                    saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     if (langToConvertTo == langFileExtension_2) {
                         if (useSemicolon_2 == "on") {
@@ -14834,7 +14834,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 // str3 = type
                 HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
-                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
+                    saveAllArrayVarNamesSoWeCanDoAfix += "|" + Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     if (langToConvertTo == langFileExtension_2) {
                         if (useSemicolon_2 == "on") {

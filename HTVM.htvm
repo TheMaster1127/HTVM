@@ -5368,7 +5368,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -5802,7 +5802,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -6240,7 +6240,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -6660,7 +6660,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -7075,7 +7075,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -7553,7 +7553,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -8105,7 +8105,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -8635,7 +8635,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -9164,7 +9164,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -16487,7 +16487,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 
 int5 := 0
@@ -16922,7 +16922,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -17360,7 +17360,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -17781,7 +17781,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -18196,7 +18196,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -18674,7 +18674,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -19226,7 +19226,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -19756,7 +19756,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -20285,7 +20285,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-saveAllArrayVarNamesSoWeCanDoAfix .= Trim(str2) . "|"
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
