@@ -9725,6 +9725,7 @@ return slidingWinFixCommentsRmFFFF
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
 func str fixIfElseIfMultiLineStatementHELP(str aloopfield)
 {
 str out := ""
@@ -9756,22 +9757,21 @@ return ""
 return out
 }
 
+
 func str fixIfElseIfMultiLineStatement(str someHTVMcode)
 {
+
 str out := ""
 str out2 := ""
-
 ; this will make sure we exit once we dont have if else if while
 int doWeJustExit := 0
-
 ; this will make sure we exit once we dont fix the if else if while
 bool doWeExit := false
-
+int doWeExitHELP := 0
 out := someHTVMcode
-; 2147483000 just in case the loop somehow becomes infinite 
+; 2147483000 just in case the loop somehow becomes infinite
 Loop, 2147483000
 {
-
 out2 := out
 out := ""
 doWeExit := false
@@ -9782,65 +9782,67 @@ if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(keyWordIF)) = keyWordIF)
 doWeJustExit := 1
 if (fixIfElseIfMultiLineStatementHELP(A_LoopField) = "")
 {
-out .= Trim(A_LoopField)
+out .= Trim(A_LoopField) . " "
 doWeExit := false
+doWeExitHELP--
 }
 else
 {
 doWeExit := true
 out .= Trim(A_LoopField) . Chr(10)
 }
-
 }
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(keyWordWhileLoop)) = keyWordWhileLoop)
 {
 doWeJustExit := 1
 if (fixIfElseIfMultiLineStatementHELP(A_LoopField) = "")
 {
-out .= Trim(A_LoopField)
+out .= Trim(A_LoopField) . " "
 doWeExit := false
+doWeExitHELP--
 }
 else
 {
 doWeExit := true
 out .= Trim(A_LoopField) . Chr(10)
 }
-
 }
 else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(keyWordElseIf)) = keyWordElseIf)
 {
 doWeJustExit := 1
 if (fixIfElseIfMultiLineStatementHELP(A_LoopField) = "")
 {
-out .= Trim(A_LoopField)
+out .= Trim(A_LoopField) . " "
 doWeExit := false
+doWeExitHELP--
 }
 else
 {
 doWeExit := true
 out .= Trim(A_LoopField) . Chr(10)
 }
-
 }
 else
 {
 out .= Trim(A_LoopField) . Chr(10)
 }
 }
-
 StringTrimRight, out, out, 1
+
 ;print(A_Index)
 if (doWeJustExit = 0)
 {
 break
 }
-if (doWeExit)
+if (doWeExit = true)
 {
-break
+doWeExitHELP++
+if (doWeExitHELP > 2) 
+{
+break 
 }
 }
-
-
+}
 return out
 }
 

@@ -7249,6 +7249,7 @@ function fixIfElseIfMultiLineStatement(someHTVMcode) {
     var doWeJustExit = 0;
     // this will make sure we exit once we dont fix the if else if while
     var doWeExit = false;
+    var doWeExitHELP = 0;
     out = someHTVMcode;
     // 2147483000 just in case the loop somehow becomes infinite
     for (let A_Index103 = 0; A_Index103 < 2147483000 + 0; A_Index103++) {
@@ -7261,8 +7262,9 @@ function fixIfElseIfMultiLineStatement(someHTVMcode) {
             if (SubStr(StrLower(Trim(A_LoopField104)), 1, StrLen(keyWordIF)) == keyWordIF) {
                 doWeJustExit = 1;
                 if (fixIfElseIfMultiLineStatementHELP(A_LoopField104) == "") {
-                    out += Trim(A_LoopField104);
+                    out += Trim(A_LoopField104) + " ";
                     doWeExit = false;
+                    doWeExitHELP--;
                 } else {
                     doWeExit = true;
                     out += Trim(A_LoopField104) + Chr(10);
@@ -7271,8 +7273,9 @@ function fixIfElseIfMultiLineStatement(someHTVMcode) {
             else if (SubStr(StrLower(Trim(A_LoopField104)), 1, StrLen(keyWordWhileLoop)) == keyWordWhileLoop) {
                 doWeJustExit = 1;
                 if (fixIfElseIfMultiLineStatementHELP(A_LoopField104) == "") {
-                    out += Trim(A_LoopField104);
+                    out += Trim(A_LoopField104) + " ";
                     doWeExit = false;
+                    doWeExitHELP--;
                 } else {
                     doWeExit = true;
                     out += Trim(A_LoopField104) + Chr(10);
@@ -7281,8 +7284,9 @@ function fixIfElseIfMultiLineStatement(someHTVMcode) {
             else if (SubStr(StrLower(Trim(A_LoopField104)), 1, StrLen(keyWordElseIf)) == keyWordElseIf) {
                 doWeJustExit = 1;
                 if (fixIfElseIfMultiLineStatementHELP(A_LoopField104) == "") {
-                    out += Trim(A_LoopField104);
+                    out += Trim(A_LoopField104) + " ";
                     doWeExit = false;
+                    doWeExitHELP--;
                 } else {
                     doWeExit = true;
                     out += Trim(A_LoopField104) + Chr(10);
@@ -7296,8 +7300,11 @@ function fixIfElseIfMultiLineStatement(someHTVMcode) {
         if (doWeJustExit == 0) {
             break;
         }
-        if (doWeExit) {
-            break;
+        if (doWeExit == true) {
+            doWeExitHELP++;
+            if (doWeExitHELP > 2) {
+                break;
+            }
         }
     }
     return out;
