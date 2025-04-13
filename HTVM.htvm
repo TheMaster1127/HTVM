@@ -5096,8 +5096,7 @@ str1 := lineOspHelpLine . Trim(str1)
 str6 := allVarsSoWeDontReDecVarsFixFunc(str6, str1)
 
 
-if (SubStr(Trim(str6), 1, 1) = "[") and ((SubStr(Trim(str6), 2, 2) != "]")) or (SubStr(Trim(str6), 1, 1) = "{") and ((SubStr(Trim(str6), 2, 2) != "}"))
-{
+
 if (InStr(saveAllArrayVarNamesSoWeCanDoAfix, "|" . Trim(str1) . "|"))
 {
 
@@ -5156,14 +5155,6 @@ str6 := "[" . str6 . "]"
 }
 
 
-
-
-
-
-
-
-
-}
 }
 
 
@@ -16219,8 +16210,7 @@ str6 := allVarsSoWeDontReDecVarsFixFunc(str6, str1)
 
 
 
-if (SubStr(Trim(str6), 1, 1) = "[") and ((SubStr(Trim(str6), 2, 2) != "]")) or (SubStr(Trim(str6), 1, 1) = "{") and ((SubStr(Trim(str6), 2, 2) != "}"))
-{
+
 if (InStr(saveAllArrayVarNamesSoWeCanDoAfix, "|" . Trim(str1) . "|"))
 {
 
@@ -16282,11 +16272,6 @@ str6 := "[" . str6 . "]"
 
 
 
-
-
-
-
-}
 }
 
 
