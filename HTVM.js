@@ -775,6 +775,7 @@ let allVarsSoWeDontReDecVars_FIX_int64 = [];
 let allVarsSoWeDontReDecVars_FIX_float = [];
 var allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
 var availableFuncsInHTVMInHTVM = "";
+var saveAllArrayVarNamesSoWeCanDoAfix = "|";
 let ospDic = [];
 let ospDic1 = [];
 let ospDic2 = [];
@@ -4161,10 +4162,62 @@ function propHELP(line, lineOspHelpLine) {
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; vars
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; vars
             ALoopField = str1;
-            if (InStr(ALoopField, " ") == false) {
+            if (InStr(ALoopField, " ") == false || SubStrLastChars(ALoopField, 1) == "]") {
                 lineDone = 1;
                 str1 = lineOspHelpLine + Trim(str1);
                 str6 = allVarsSoWeDontReDecVarsFixFunc(str6, str1);
+                if (SubStr(Trim(str6), 1, 1) == "[" && (SubStr(Trim(str6), 2, 2) != "]") || SubStr(Trim(str6), 1, 1) == "{" && (SubStr(Trim(str6), 2, 2) != "}")) {
+                    if (InStr(saveAllArrayVarNamesSoWeCanDoAfix, "|" + Trim(str1) + "|")) {
+                        str6 = Trim(str6);
+                        str6 = StringTrimRight(str6, 1);
+                        str6 = StringTrimLeft(str6, 1);
+                        if (langToConvertTo == "cpp") {
+                            str6 = "{" + str6 + "}";
+                        }
+                        if (langToConvertTo == "py") {
+                            str6 = "[" + str6 + "]";
+                        }
+                        if (langToConvertTo == "js") {
+                            str6 = "[" + str6 + "]";
+                        }
+                        if (langToConvertTo == "go") {
+                            str6 = "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" + str6 + "]";
+                        }
+                        if (langToConvertTo == "lua") {
+                            str6 = "{" + str6 + "}";
+                        }
+                        if (langToConvertTo == "cs") {
+                            str6 = "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" + str6 + "]";
+                        }
+                        if (langToConvertTo == "java") {
+                            str6 = "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" + str6 + "]";
+                        }
+                        if (langToConvertTo == "kt") {
+                            str6 = "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" + str6 + "]";
+                        }
+                        if (langToConvertTo == "rb") {
+                            str6 = "[" + str6 + "]";
+                        }
+                        if (langToConvertTo == "nim") {
+                            str6 = "@[" + str6 + "]";
+                        }
+                        if (langToConvertTo == "ahk") {
+                            str6 = "[" + str6 + "]";
+                        }
+                        if (langToConvertTo == "swift") {
+                            str6 = "[" + str6 + "]";
+                        }
+                        if (langToConvertTo == "dart") {
+                            str6 = "[" + str6 + "]";
+                        }
+                        if (langToConvertTo == "ts") {
+                            str6 = "[" + str6 + "]";
+                        }
+                        if (langToConvertTo == "groovy") {
+                            str6 = "[" + str6 + "]";
+                        }
+                    }
+                }
                 if (Trim(str6) == "[]" || Trim(str6) == "{}") {
                     if (useCurlyBracesSyntaxForArrayDef_2 == "on" && langToConvertTo == langFileExtension_2) {
                         str6 = "{}";
@@ -4307,6 +4360,7 @@ function propHELP(line, lineOspHelpLine) {
                     // str3 = type
                 }
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     int5 = 0;
                     if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -4566,6 +4620,7 @@ function propHELP(line, lineOspHelpLine) {
                     // str3 = type
                 }
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     int5 = 0;
                     if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -4830,6 +4885,7 @@ function propHELP(line, lineOspHelpLine) {
                     HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 }
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     int5 = 0;
                     if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -5084,6 +5140,7 @@ function propHELP(line, lineOspHelpLine) {
                 // str3 = type
                 HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     int5 = 0;
                     if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -5340,6 +5397,7 @@ function propHELP(line, lineOspHelpLine) {
                 // str3 = type
                 HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     int5 = 0;
                     if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -5642,6 +5700,7 @@ function propHELP(line, lineOspHelpLine) {
                 // str3 = type
             }
             if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                 str3 = getFuncTypeConvert(str3);
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -6023,6 +6082,7 @@ function propHELP(line, lineOspHelpLine) {
                 HTVM_Append(allVarsSoWeDontReDecVars, str2);
             }
             if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                 str3 = getFuncTypeConvert(str3);
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -6391,6 +6451,7 @@ function propHELP(line, lineOspHelpLine) {
             // str3 = type
             HTVM_Append(allVarsSoWeDontReDecVars, str2);
             if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                 str3 = getFuncTypeConvert(str3);
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -6762,6 +6823,7 @@ function propHELP(line, lineOspHelpLine) {
             // str3 = type
             HTVM_Append(allVarsSoWeDontReDecVars, str2);
             if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                 str3 = getFuncTypeConvert(str3);
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
@@ -12023,12 +12085,64 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; vars
                 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; vars
                 ALoopField = str1;
-                if (InStr(ALoopField, " ") == false) {
+                if (InStr(ALoopField, " ") == false || SubStrLastChars(ALoopField, 1) == "]") {
                     lineDone = 1;
                     if (langToConvertTo != langFileExtension_2) {
                         str1 = StrReplace(Trim(str1), ".", "_");
                     }
                     str6 = allVarsSoWeDontReDecVarsFixFunc(str6, str1);
+                    if (SubStr(Trim(str6), 1, 1) == "[" && (SubStr(Trim(str6), 2, 2) != "]") || SubStr(Trim(str6), 1, 1) == "{" && (SubStr(Trim(str6), 2, 2) != "}")) {
+                        if (InStr(saveAllArrayVarNamesSoWeCanDoAfix, "|" + Trim(str1) + "|")) {
+                            str6 = Trim(str6);
+                            str6 = StringTrimRight(str6, 1);
+                            str6 = StringTrimLeft(str6, 1);
+                            if (langToConvertTo == "cpp") {
+                                str6 = "{" + str6 + "}";
+                            }
+                            if (langToConvertTo == "py") {
+                                str6 = "[" + str6 + "]";
+                            }
+                            if (langToConvertTo == "js") {
+                                str6 = "[" + str6 + "]";
+                            }
+                            if (langToConvertTo == "go") {
+                                str6 = "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" + str6 + "]";
+                            }
+                            if (langToConvertTo == "lua") {
+                                str6 = "{" + str6 + "}";
+                            }
+                            if (langToConvertTo == "cs") {
+                                str6 = "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" + str6 + "]";
+                            }
+                            if (langToConvertTo == "java") {
+                                str6 = "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" + str6 + "]";
+                            }
+                            if (langToConvertTo == "kt") {
+                                str6 = "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" + str6 + "]";
+                            }
+                            if (langToConvertTo == "rb") {
+                                str6 = "[" + str6 + "]";
+                            }
+                            if (langToConvertTo == "nim") {
+                                str6 = "@[" + str6 + "]";
+                            }
+                            if (langToConvertTo == "ahk") {
+                                str6 = "[" + str6 + "]";
+                            }
+                            if (langToConvertTo == "swift") {
+                                str6 = "[" + str6 + "]";
+                            }
+                            if (langToConvertTo == "dart") {
+                                str6 = "[" + str6 + "]";
+                            }
+                            if (langToConvertTo == "ts") {
+                                str6 = "[" + str6 + "]";
+                            }
+                            if (langToConvertTo == "groovy") {
+                                str6 = "[" + str6 + "]";
+                            }
+                        }
+                    }
                     if (Trim(str6) == "[]" || Trim(str6) == "{}") {
                         if (useCurlyBracesSyntaxForArrayDef_2 == "on" && langToConvertTo == langFileExtension_2) {
                             str6 = "{}";
@@ -12171,6 +12285,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         // str3 = type
                     }
                     if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                        saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                         str3 = getFuncTypeConvert(str3);
                         int5 = 0;
                         if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -12430,6 +12545,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         // str3 = type
                     }
                     if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                        saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                         str3 = getFuncTypeConvert(str3);
                         int5 = 0;
                         if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -12694,6 +12810,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         HTVM_Append(allVarsSoWeDontReDecVars, str2);
                     }
                     if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                        saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                         str3 = getFuncTypeConvert(str3);
                         int5 = 0;
                         if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -12948,6 +13065,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     // str3 = type
                     HTVM_Append(allVarsSoWeDontReDecVars, str2);
                     if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                        saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                         str3 = getFuncTypeConvert(str3);
                         int5 = 0;
                         if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -13204,6 +13322,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     // str3 = type
                     HTVM_Append(allVarsSoWeDontReDecVars, str2);
                     if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                        saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                         str3 = getFuncTypeConvert(str3);
                         int5 = 0;
                         if (useCurlyBracesSyntaxForArrayDef == "on") {
@@ -13506,6 +13625,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     // str3 = type
                 }
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     if (langToConvertTo == langFileExtension_2) {
                         if (useSemicolon_2 == "on") {
@@ -13887,6 +14007,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 }
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     if (langToConvertTo == langFileExtension_2) {
                         if (useSemicolon_2 == "on") {
@@ -14255,6 +14376,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 // str3 = type
                 HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     if (langToConvertTo == langFileExtension_2) {
                         if (useSemicolon_2 == "on") {
@@ -14626,6 +14748,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 // str3 = type
                 HTVM_Append(allVarsSoWeDontReDecVars, str2);
                 if (str3 == keyWordArrayDefinition || str3 == keyWordArrayOfIntegersDefinition || str3 == keyWordArrayOfStringsDefinition || str3 == keyWordArrayOfFloatingPointNumbersDefinition || str3 == keyWordArrayOfBooleansDefinition) {
+                    saveAllArrayVarNamesSoWeCanDoAfix += Trim(str2) + "|";
                     str3 = getFuncTypeConvert(str3);
                     if (langToConvertTo == langFileExtension_2) {
                         if (useSemicolon_2 == "on") {
@@ -16101,6 +16224,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         }
     }
     availableFuncsInHTVMInHTVM = "";
+    saveAllArrayVarNamesSoWeCanDoAfix = "";
     if (langToConvertTo == "rb") {
         htCode = FixRubyGlobalVars(htCode);
     }
