@@ -16216,7 +16216,8 @@ if (InStr(saveAllArrayVarNamesSoWeCanDoAfix, "|" . Trim(str1) . "|"))
 
 
 str6 := Trim(str6)
-
+if (SubStr(str6, 1, 1) = "[") or (SubStr(str6, 1, 1) = "{")
+{
 StringTrimRight, str6, str6, 1
 StringTrimLeft, str6, str6, 1
 
@@ -16267,7 +16268,7 @@ str6 := "[" . str6 . "]"
 if (langToConvertTo = "groovy") {
 str6 := "[" . str6 . "]"
 }
-
+}
 
 
 
