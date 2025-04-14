@@ -9699,6 +9699,18 @@ return htCodeOUTOUT
 
 func str handleMultiLineStrings(str code)
 {
+int didWeFindOrWeOut := 0
+Loop, Parse, code, `n, `r
+{
+if (SubStrLastChars(Trim(A_LoopField), 4) = " mls")
+{
+didWeFindOrWeOut := 1
+}
+if (didWeFindOrWeOut = 1)
+{
+return code
+}
+}
 
 str out := ""
 code := StrReplace(code, Chr(10) , Chr(10) . "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz" . Chr(10))
