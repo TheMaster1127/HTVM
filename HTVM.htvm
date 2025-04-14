@@ -9739,7 +9739,7 @@ out .= Trim(A_LoopField) . keyWordEscpaeChar . "n"
 if (SubStrLastChars(Trim(A_LoopField), 4) = " mls")
 {
 weAreIn := 1
-out .= Trim(StringTrimRight(A_LoopField, 3)) . " " . Chr(34)
+out .= Trim(StringTrimRight(Trim(A_LoopField), 3)) . " " . Chr(34)
 }
 
 }
