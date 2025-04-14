@@ -9695,6 +9695,59 @@ return htCodeOUTOUT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+func str handleMultiLineStrings(str code)
+{
+
+str out := ""
+code := StrReplace(code, Chr(10) , Chr(10) . "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz" . Chr(10))
+
+arr str lookAhead
+Loop, Parse, code, `n, `r
+{
+lookAhead.add(Trim(A_LoopField))
+}
+lookAhead.add(Trim(" "))
+
+int weAreIn := 0
+Loop, Parse, code, `n, `r
+{
+
+
+if (weAreIn = 1) and (Trim(A_LoopField) = "mle")
+{
+StringTrimRight, out, out, 2
+out .= Chr(34) . Chr(10)
+weAreIn := 0
+}
+
+if (weAreIn = 1) and (Trim(A_LoopField) = "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz")
+{
+if (lookAhead[A_Index + 1] = "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz")
+{
+out .= keyWordEscpaeChar . "n"
+}
+
+}
+
+if (weAreIn = 1) and (Trim(A_LoopField) != "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz")
+{
+out .= Trim(A_LoopField) . keyWordEscpaeChar . "n"
+}
+
+if (SubStrLastChars(Trim(A_LoopField), 4) = " mls")
+{
+weAreIn := 1
+out .= Trim(StringTrimRight(A_LoopField, 3)) . " " . Chr(34)
+}
+
+}
+out := StrReplace(out, "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz", Chr(10) . Chr(10))
+StringTrimRight, out, out, 1
+return out
+}
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 func arr str slidingWinFixCommentsRmFUNC(str line)
@@ -11512,6 +11565,14 @@ ALoopField := ""
 ; keyWordInclude
 ; keyWordInclude
 ; keyWordInclude
+
+
+
+if (isNotHTVMfile = 0)
+{
+code := handleMultiLineStrings(code)
+}
+
 
 
 
