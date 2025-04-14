@@ -7405,7 +7405,7 @@ std::string handleMultiLineStrings(std::string code) {
         if (SubStrLastChars(Trim(A_LoopField100), 4) == " mls") {
             didWeFindOrWeOut = 1;
         }
-        if (didWeFindOrWeOut == 1) {
+        if (didWeFindOrWeOut == 0) {
             return code;
         }
     }

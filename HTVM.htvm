@@ -9706,7 +9706,7 @@ if (SubStrLastChars(Trim(A_LoopField), 4) = " mls")
 {
 didWeFindOrWeOut := 1
 }
-if (didWeFindOrWeOut = 1)
+if (didWeFindOrWeOut = 0)
 {
 return code
 }
