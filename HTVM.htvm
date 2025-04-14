@@ -11102,6 +11102,10 @@ int skipLeftCuleyForFuncPLS := 0
 
 str strOspHold := ""
 
+if (isNotHTVMfile = 0)
+{
+code := handleMultiLineStrings(code)
+}
 
 ; PROGRAMMING BLOCK
 ; PROGRAMMING BLOCK
@@ -11568,10 +11572,7 @@ ALoopField := ""
 
 
 
-if (isNotHTVMfile = 0)
-{
-code := handleMultiLineStrings(code)
-}
+
 
 
 

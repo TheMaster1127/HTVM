@@ -8688,6 +8688,9 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     std::string s = "";
     int skipLeftCuleyForFuncPLS = 0;
     std::string strOspHold = "";
+    if (isNotHTVMfile == 0) {
+        code = handleMultiLineStrings(code);
+    }
     // PROGRAMMING BLOCK
     // PROGRAMMING BLOCK
     // PROGRAMMING BLOCK
@@ -9050,9 +9053,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     // keyWordInclude
     // keyWordInclude
     // keyWordInclude
-    if (isNotHTVMfile == 0) {
-        code = handleMultiLineStrings(code);
-    }
     std::vector<std::string> lookIntoTheNextLineForFuncWhitNoKeyWord;
     int didWeUseMainLabel = 0;
     std::string codeOutFixAndAddMainFunc = "";

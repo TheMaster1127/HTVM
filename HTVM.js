@@ -8493,6 +8493,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     var s = "";
     var skipLeftCuleyForFuncPLS = 0;
     var strOspHold = "";
+    if (isNotHTVMfile == 0) {
+        code = handleMultiLineStrings(code);
+    }
     // PROGRAMMING BLOCK
     // PROGRAMMING BLOCK
     // PROGRAMMING BLOCK
@@ -8855,9 +8858,6 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     // keyWordInclude
     // keyWordInclude
     // keyWordInclude
-    if (isNotHTVMfile == 0) {
-        code = handleMultiLineStrings(code);
-    }
     let lookIntoTheNextLineForFuncWhitNoKeyWord = [];
     var didWeUseMainLabel = 0;
     var codeOutFixAndAddMainFunc = "";
