@@ -9748,10 +9748,18 @@ if (weAreIn = 1) and (Trim(A_LoopField) != "HTVM-newLineAHw4y9w730q8237w4e8srhge
 out .= Trim(A_LoopField) . keyWordEscpaeChar . "n"
 }
 
-if (SubStrLastChars(Trim(A_LoopField), 4) = " mls")
+if (SubStrLastChars(Trim(A_LoopField), 4) = " mls") or (SubStrLastChars(Trim(A_LoopField), 5) = " fmls")
 {
 weAreIn := 1
+if (SubStrLastChars(Trim(A_LoopField), 5) = " fmls")
+{
+out .= Trim(StringTrimRight(Trim(A_LoopField), 3)) . Chr(34)
+}
+else
+{
 out .= Trim(StringTrimRight(Trim(A_LoopField), 3)) . " " . Chr(34)
+}
+
 }
 
 }
