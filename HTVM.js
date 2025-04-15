@@ -7240,13 +7240,9 @@ function handleMultiLineStrings(code) {
         if (weAreIn == 1 && Trim(A_LoopField102) != "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
             out += Trim(A_LoopField102) + keyWordEscpaeChar + "n";
         }
-        if (SubStrLastChars(Trim(A_LoopField102), 4) == " mls" || SubStrLastChars(Trim(A_LoopField102), 5) == " fmls") {
+        if (SubStrLastChars(Trim(A_LoopField102), 4) == " mls") {
             weAreIn = 1;
-            if (SubStrLastChars(Trim(A_LoopField102), 5) == " fmls") {
-                out += Trim(StringTrimRight(Trim(A_LoopField102), 3)) + Chr(34);
-            } else {
-                out += Trim(StringTrimRight(Trim(A_LoopField102), 3)) + " " + Chr(34);
-            }
+            out += Trim(StringTrimRight(Trim(A_LoopField102), 3)) + " " + Chr(34);
         }
     }
     out = StrReplace(out, "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz", Chr(10) + Chr(10));
