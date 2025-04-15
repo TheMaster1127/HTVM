@@ -9766,7 +9766,10 @@ out .= Trim(StringTrimRight(Trim(A_LoopField), 3)) . " " . Chr(34)
 
 if (weAreIn = 0)
 {
+if (Trim(A_LoopField) != "mle")
+{
 out .= A_LoopField . Chr(10)
+}
 }
 
 

@@ -7249,7 +7249,9 @@ function handleMultiLineStrings(code) {
             }
         }
         if (weAreIn == 0) {
-            out += A_LoopField102 + Chr(10);
+            if (Trim(A_LoopField102) != "mle") {
+                out += A_LoopField102 + Chr(10);
+            }
         }
     }
     out = StrReplace(out, "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz", Chr(10) + Chr(10));
