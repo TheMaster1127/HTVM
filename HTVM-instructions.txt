@@ -5554,3 +5554,184 @@ func ErrorMsg(_ message: String) throws {
     throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: message])
 }
 funcEND======================funcEND==============
+
+func======================func==============
+lang: cpp
+name: fstr
+libs: null
+description: null
+
+template<typename T>
+std::string fstr(const T& val) {
+    std::ostringstream oss;
+    oss << val;
+    return oss.str();
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: py
+name: fstr
+libs: null
+description: null
+
+def fstr(val):
+    return str(val)
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: js
+name: fstr
+libs: null
+description: null
+
+function fstr(val) {
+    return String(val);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: go
+name: fstr
+libs: null
+description: null
+
+func fstr(val interface{}) string {
+    return fmt.Sprintf("%v", val)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: lua
+name: fstr
+libs: null
+description: null
+
+function fstr(val)
+    return tostring(val)
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: cs
+name: fstr
+libs: null
+description: null
+
+string fstr(object val) {
+    return val?.ToString() ?? "null";
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: java
+name: fstr
+libs: null
+description: null
+
+public static String fstr(Object val) {
+    return String.valueOf(val);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: kt
+name: fstr
+libs: null
+description: null
+
+fun fstr(val: Any?): String {
+    return val.toString()
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: rb
+name: fstr
+libs: null
+description: null
+
+def fstr(val)
+  val.to_s
+end
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: nim
+name: fstr
+libs: null
+description: null
+
+proc fstr(val: auto): string =
+  $val
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ahk
+name: fstr
+libs: null
+description: null
+
+fstr(val) {
+    return val . ""
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: swift
+name: fstr
+libs: null
+description: null
+
+func fstr(_ val: Any) -> String {
+    return String(describing: val)
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: dart
+name: fstr
+libs: null
+description: null
+
+String fstr(dynamic val) {
+  return val.toString();
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: ts
+name: fstr
+libs: null
+description: null
+
+function fstr(val: any): string {
+    return String(val);
+}
+
+funcEND======================funcEND==============
+
+func======================func==============
+lang: groovy
+name: fstr
+libs: null
+description: null
+
+def fstr(val) {
+    return val.toString()
+}
+
+funcEND======================funcEND==============

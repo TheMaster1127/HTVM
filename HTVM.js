@@ -7200,6 +7200,11 @@ function propHELP(line, lineOspHelpLine) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+function fString(line) {
+    line = StrReplace(line, "{", Chr(34) + " + fstr(");
+    line = StrReplace(line, "}", ") + " + Chr(34));
+    return line;
+}
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 // --------------------------------------------------
@@ -16181,6 +16186,31 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             }
         }
     }
+    for (let A_Index230 = 0; A_Index230 < theIdNumOfThe34 + 0; A_Index230++) {
+        if (theIdNumOfThe34 == A_Index230 + 1) {
+            if (langToConvertTo == langFileExtension_2) {
+                if (keyWordEscpaeChar_2 == "\\" && keyWordEscpaeChar != "\\") {
+                    htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index230 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(fString(theIdNumOfThe34theVar[A_Index230 + 1]), "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
+                } else {
+                    htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index230 + 1) + Chr(65) + Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index230 + 1]), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
+                }
+            } else {
+                htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index230 + 1) + Chr(65) + Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index230 + 1]), keyWordEscpaeChar, "\\") + Chr(34));
+            }
+        } else {
+            if (langToConvertTo == langFileExtension_2) {
+                if (keyWordEscpaeChar_2 == "\\" && keyWordEscpaeChar != "\\") {
+                    htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index230 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(fString(theIdNumOfThe34theVar[A_Index230 + 1]), "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2));
+                } else {
+                    htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index230 + 1) + Chr(65) + Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index230 + 1]), keyWordEscpaeChar, keyWordEscpaeChar_2));
+                }
+            } else {
+                htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index230 + 1) + Chr(65) + Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index230 + 1]), keyWordEscpaeChar, "\\"));
+            }
+        }
+    }
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     areWeInAFuncFromInstructions = 0;
     areWeInAFuncFromInstructionsLineNum = 0;
     var funcLangHolder = "";
@@ -16194,10 +16224,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     let allFuncs = [];
     let allfuncDescription = [];
     var correctLang = 0;
-    items230 = LoopParseFunc(instructions, "\n", "\r")
-    for (let A_Index230 = 0; A_Index230 < items230.length + 0; A_Index230++) {
-        const A_LoopField230 = items230[A_Index230 - 0];
-        if (Trim(A_LoopField230) == "funcEND======================funcEND==============") {
+    items231 = LoopParseFunc(instructions, "\n", "\r")
+    for (let A_Index231 = 0; A_Index231 < items231.length + 0; A_Index231++) {
+        const A_LoopField231 = items231[A_Index231 - 0];
+        if (Trim(A_LoopField231) == "funcEND======================funcEND==============") {
             areWeInAFuncFromInstructions = 0;
             areWeInAFuncFromInstructionsLineNum = 0;
             if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
@@ -16210,7 +16240,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         if (areWeInAFuncFromInstructions == 1) {
             if (areWeInAFuncFromInstructionsLineNum == 1) {
                 // name of the func
-                funcLangHolder = StringTrimLeft(A_LoopField230, 5);
+                funcLangHolder = StringTrimLeft(A_LoopField231, 5);
                 if (Trim(funcLangHolder) == langToConvertTo) {
                     HTVM_Append(allFuncLang, Trim(funcLangHolder));
                     correctLang = 1;
@@ -16218,21 +16248,21 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             }
             if (areWeInAFuncFromInstructionsLineNum == 2) {
                 // name of the func
-                funcNameHolder = StringTrimLeft(A_LoopField230, 5);
+                funcNameHolder = StringTrimLeft(A_LoopField231, 5);
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
                     HTVM_Append(allFuncNames, Trim(funcNameHolder));
                 }
             }
             if (areWeInAFuncFromInstructionsLineNum == 3) {
                 // all libs
-                funcLibsHolder = StringTrimLeft(A_LoopField230, 5);
+                funcLibsHolder = StringTrimLeft(A_LoopField231, 5);
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
                     HTVM_Append(allFuncLibs, Trim(funcLibsHolder));
                 }
             }
             if (areWeInAFuncFromInstructionsLineNum == 4) {
                 // func description
-                funcDescriptionHolder = StringTrimLeft(A_LoopField230, 12);
+                funcDescriptionHolder = StringTrimLeft(A_LoopField231, 12);
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
                     HTVM_Append(allfuncDescription, Trim(funcDescriptionHolder));
                 }
@@ -16240,13 +16270,13 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             if (areWeInAFuncFromInstructionsLineNum >= 5) {
                 // the full func
                 if (correctLang == 1 && InStr(htCode, Trim(funcNameHolder))) {
-                    funcFuncHolder += A_LoopField230 + Chr(10);
+                    funcFuncHolder += A_LoopField231 + Chr(10);
                 }
             }
-            //MsgBox, % A_LoopField230
+            //MsgBox, % A_LoopField231
             areWeInAFuncFromInstructionsLineNum++;
         }
-        if (Trim(A_LoopField230) == "func======================func==============") {
+        if (Trim(A_LoopField231) == "func======================func==============") {
             areWeInAFuncFromInstructions = 1;
             areWeInAFuncFromInstructionsLineNum = 1;
             correctLang = 0;
@@ -16307,21 +16337,21 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     var allFuncsToPutAtTop = Chr(10);
     var allLibsToPutAtTop = "";
     if (!(HTVM_Size(allFuncNames) <= 0)) {
-        for (let A_Index231 = 0; A_Index231 < HTVM_Size(allFuncNames) + 0; A_Index231++) {
-            if (InStr(htCode, allFuncNames[A_Index231]) + "(") {
-                //MsgBox, % allFuncNames[A_Index231]
-                allFuncsToPutAtTop += allFuncs[A_Index231] + Chr(10);
-                if (Trim(allFuncLibs[A_Index231]) != "null") {
-                    allLibsToPutAtTop += allFuncLibs[A_Index231] + "|";
+        for (let A_Index232 = 0; A_Index232 < HTVM_Size(allFuncNames) + 0; A_Index232++) {
+            if (InStr(htCode, allFuncNames[A_Index232]) + "(") {
+                //MsgBox, % allFuncNames[A_Index232]
+                allFuncsToPutAtTop += allFuncs[A_Index232] + Chr(10);
+                if (Trim(allFuncLibs[A_Index232]) != "null") {
+                    allLibsToPutAtTop += allFuncLibs[A_Index232] + "|";
                 }
             }
         }
         allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTop, 1);
         var allLibsToPutAtTopTEMP = "";
-        items232 = LoopParseFunc(allLibsToPutAtTop, "|")
-        for (let A_Index232 = 0; A_Index232 < items232.length + 0; A_Index232++) {
-            const A_LoopField232 = items232[A_Index232 - 0];
-            allLibsToPutAtTopTEMP += A_LoopField232 + Chr(10);
+        items233 = LoopParseFunc(allLibsToPutAtTop, "|")
+        for (let A_Index233 = 0; A_Index233 < items233.length + 0; A_Index233++) {
+            const A_LoopField233 = items233[A_Index233 - 0];
+            allLibsToPutAtTopTEMP += A_LoopField233 + Chr(10);
         }
         allLibsToPutAtTop = StringTrimRight(allLibsToPutAtTopTEMP, 1);
         includeLibsInCppIf = 1;
@@ -16363,8 +16393,8 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         }
     }
     if (langToConvertTo != langFileExtension_2) {
-        for (let A_Index233 = 0; A_Index233 < HTVM_Size(ospDic1) + 0; A_Index233++) {
-            str00 = ospDic1[A_Index233];
+        for (let A_Index234 = 0; A_Index234 < HTVM_Size(ospDic1) + 0; A_Index234++) {
+            str00 = ospDic1[A_Index234];
             if (langToConvertTo == "rb") {
                 if (SubStr(Trim(htCode), 1, 1) != "$") {
                     htCode = StrReplace(htCode, StrReplace(str00, "_", "_") + "_", "$" + str00 + "_");
@@ -16378,7 +16408,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     HTVM_Append(ospDic, "end");
     var size_ospDic = HTVM_Size(ospDic);
     if (size_ospDic != 0) {
-        for (let A_Index234 = 0; A_Index234 < size_ospDic + 0; A_Index234++) {
+        for (let A_Index235 = 0; A_Index235 < size_ospDic + 0; A_Index235++) {
             HTVM_Pop(ospDic);
         }
     }
@@ -16386,7 +16416,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     HTVM_Append(ospDic1, "end");
     var size_ospDic1 = HTVM_Size(ospDic1);
     if (size_ospDic1 != 0) {
-        for (let A_Index235 = 0; A_Index235 < size_ospDic1 + 0; A_Index235++) {
+        for (let A_Index236 = 0; A_Index236 < size_ospDic1 + 0; A_Index236++) {
             HTVM_Pop(ospDic1);
         }
     }
@@ -16394,7 +16424,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     HTVM_Append(ospDic2, "end");
     var size_ospDic2 = HTVM_Size(ospDic2);
     if (size_ospDic2 != 0) {
-        for (let A_Index236 = 0; A_Index236 < size_ospDic2 + 0; A_Index236++) {
+        for (let A_Index237 = 0; A_Index237 < size_ospDic2 + 0; A_Index237++) {
             HTVM_Pop(ospDic2);
         }
     }
@@ -16412,26 +16442,26 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     if (langToConvertTo == "java") {
         htCode = StrReplace(htCode, "= [);", "= new ArrayList<>();");
     }
-    for (let A_Index237 = 0; A_Index237 < theIdNumOfThe34 + 0; A_Index237++) {
-        if (theIdNumOfThe34 == A_Index237 + 1) {
+    for (let A_Index238 = 0; A_Index238 < theIdNumOfThe34 + 0; A_Index238++) {
+        if (theIdNumOfThe34 == A_Index238 + 1) {
             if (langToConvertTo == langFileExtension_2) {
                 if (keyWordEscpaeChar_2 == "\\" && keyWordEscpaeChar != "\\") {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index237 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index237 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index238 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index238 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
                 } else {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index237 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index237 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index238 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index238 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
                 }
             } else {
-                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index237 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index237 + 1], keyWordEscpaeChar, "\\") + Chr(34));
+                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index238 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index238 + 1], keyWordEscpaeChar, "\\") + Chr(34));
             }
         } else {
             if (langToConvertTo == langFileExtension_2) {
                 if (keyWordEscpaeChar_2 == "\\" && keyWordEscpaeChar != "\\") {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index237 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index237 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index238 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(theIdNumOfThe34theVar[A_Index238 + 1], "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2));
                 } else {
-                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index237 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index237 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2));
+                    htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index238 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index238 + 1], keyWordEscpaeChar, keyWordEscpaeChar_2));
                 }
             } else {
-                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index237 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index237 + 1], keyWordEscpaeChar, "\\"));
+                htCode = StrReplace(htCode, "ihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index238 + 1) + Chr(65) + Chr(65), StrReplace(theIdNumOfThe34theVar[A_Index238 + 1], keyWordEscpaeChar, "\\"));
             }
         }
     }
@@ -16489,10 +16519,10 @@ function HTVMv2() {
     if (noParams == true) {
         return;
     }
-    items238 = LoopParseFunc(str0)
-    for (let A_Index238 = 0; A_Index238 < items238.length + 0; A_Index238++) {
-        const A_LoopField238 = items238[A_Index238 - 0];
-        str00 = Trim(A_LoopField238);
+    items239 = LoopParseFunc(str0)
+    for (let A_Index239 = 0; A_Index239 < items239.length + 0; A_Index239++) {
+        const A_LoopField239 = items239[A_Index239 - 0];
+        str00 = Trim(A_LoopField239);
         str00 = StringTrimRight(str00, 1);
     }
     //print("HTVM v2")
@@ -16503,29 +16533,29 @@ function HTVMv2() {
         if (HTVM_getLang_HTVM() == "py") {
             //print("PY")
         }
-        items239 = LoopParseFunc(allArgs, "\n", "\r")
-        for (let A_Index239 = 0; A_Index239 < items239.length + 0; A_Index239++) {
-            const A_LoopField239 = items239[A_Index239 - 0];
-            if (A_Index239 == 0) {
+        items240 = LoopParseFunc(allArgs, "\n", "\r")
+        for (let A_Index240 = 0; A_Index240 < items240.length + 0; A_Index240++) {
+            const A_LoopField240 = items240[A_Index240 - 0];
+            if (A_Index240 == 0) {
                 numOfParams++;
-                argCODE = FileRead(Trim(A_LoopField239));
-                argCODEfile = Trim(A_LoopField239);
+                argCODE = FileRead(Trim(A_LoopField240));
+                argCODEfile = Trim(A_LoopField240);
             }
-            else if (A_Index239 == 1) {
+            else if (A_Index240 == 1) {
                 numOfParams++;
-                argHTVMinstr = Trim(A_LoopField239);
+                argHTVMinstr = Trim(A_LoopField240);
             }
-            else if (A_Index239 == 2) {
+            else if (A_Index240 == 2) {
                 numOfParams++;
-                argLangTo = Trim(A_LoopField239);
+                argLangTo = Trim(A_LoopField240);
             } else {
                 numOfParams++;
-                HTVM_Append(argHTVMinstrMORE, Trim(A_LoopField239));
+                HTVM_Append(argHTVMinstrMORE, Trim(A_LoopField240));
             }
         }
         //print("===============123431234===========start=====")
-        for (let A_Index240 = 0; A_Index240 < HTVM_Size(argHTVMinstrMORE) + 0; A_Index240++) {
-            //print(argHTVMinstrMORE[A_Index240])
+        for (let A_Index241 = 0; A_Index241 < HTVM_Size(argHTVMinstrMORE) + 0; A_Index241++) {
+            //print(argHTVMinstrMORE[A_Index241])
         }
         //print("===============123431234==========end======")
         //print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConvertTo)
