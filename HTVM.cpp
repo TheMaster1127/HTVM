@@ -7397,6 +7397,36 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+// --------------------------------------------------
+// TrimR Function Definition
+// Removes trailing whitespace (space, tab, newline, carriage return)
+// from the right side of a string.
+// Parameters:
+//   inputString (str): The string to trim.
+// Returns:
+//   str: The string with trailing whitespace removed.
+// --------------------------------------------------
+std::string TrimR(std::string inputString) {
+    int len = StrLen(inputString);
+    int lastNonWhitespaceIndex = 0;
+    if (len == 0) {
+        return "";
+    }
+    std::string charr = "";
+    int i = len;
+    while (i >= 1) {
+        charr = SubStr(inputString, i, 1);
+        if (charr != " " && charr != Chr(9) && charr != Chr(13) && charr != Chr(10)) {
+            lastNonWhitespaceIndex = i;
+            break;
+        }
+        i = i - 1;
+    }
+    if (lastNonWhitespaceIndex == 0) {
+        return "";
+    }
+    return SubStr(inputString, 1, lastNonWhitespaceIndex);
+}
 std::string handleMultiLineStrings(std::string code) {
     int didWeFindOrWeOut = 0;
     std::vector<std::string> items100 = LoopParseFunc(code, "\n", "\r");
@@ -7433,14 +7463,14 @@ std::string handleMultiLineStrings(std::string code) {
             }
         }
         if (weAreIn == 1 && Trim(A_LoopField102) != "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
-            out += Trim(A_LoopField102) + keyWordEscpaeChar + "n";
+            out += A_LoopField102 + keyWordEscpaeChar + "n";
         }
         if (SubStrLastChars(Trim(A_LoopField102), 4) == " mls" || SubStrLastChars(Trim(A_LoopField102), 5) == " fmls") {
             weAreIn = 1;
             if (SubStrLastChars(Trim(A_LoopField102), 5) == " fmls") {
-                out += Trim(StringTrimRight(Trim(A_LoopField102), 3)) + Chr(34);
+                out += TrimR(StringTrimRight(TrimR(A_LoopField102), 3)) + Chr(34);
             } else {
-                out += Trim(StringTrimRight(Trim(A_LoopField102), 3)) + " " + Chr(34);
+                out += TrimR(StringTrimRight(TrimR(A_LoopField102), 3)) + " " + Chr(34);
             }
         }
         if (weAreIn == 0) {

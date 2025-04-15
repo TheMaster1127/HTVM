@@ -9696,6 +9696,54 @@ return htCodeOUTOUT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; --------------------------------------------------
+; TrimR Function Definition
+; Removes trailing whitespace (space, tab, newline, carriage return)
+; from the right side of a string.
+; Parameters:
+;   inputString (str): The string to trim.
+; Returns:
+;   str: The string with trailing whitespace removed.
+; --------------------------------------------------
+func str TrimR(str inputString) {
+    int len := StrLen(inputString)
+    int lastNonWhitespaceIndex := 0 ; Use 0 to indicate not found yet for 1-based logic
+
+    ; Handle empty string immediately
+    if (len = 0) {
+        return ""
+    }
+
+    str charr := ""
+
+    ; Loop backwards from the last character (index len) down to the first (index 1)
+    int i := len
+    while (i >= 1) {
+        ; Get the character at the current index (using 1-based SubStr)
+        charr := SubStr(inputString, i, 1)
+
+        ; Check if the character is NOT whitespace
+        if (charr != " " and charr != Chr(9) and charr != Chr(13) and charr != Chr(10)) {
+            ; This is the last non-whitespace character found
+            lastNonWhitespaceIndex := i
+            break ; Found it, exit the loop
+        }
+
+        ; Decrement index to check the previous character
+        i := i - 1
+    }
+
+    ; If no non-whitespace character was found (string was all whitespace)
+    if (lastNonWhitespaceIndex = 0) {
+        return ""
+    }
+
+    ; Extract the substring from the beginning (index 1) up to the
+    ; last non-whitespace character found (index lastNonWhitespaceIndex)
+    return SubStr(inputString, 1, lastNonWhitespaceIndex)
+}
+
+
 
 func str handleMultiLineStrings(str code)
 {
@@ -9747,7 +9795,7 @@ out .= keyWordEscpaeChar . "n"
 
 if (weAreIn = 1) and (Trim(A_LoopField) != "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz")
 {
-out .= Trim(A_LoopField) . keyWordEscpaeChar . "n"
+out .= A_LoopField . keyWordEscpaeChar . "n"
 }
 
 if (SubStrLastChars(Trim(A_LoopField), 4) = " mls") or (SubStrLastChars(Trim(A_LoopField), 5) = " fmls")
@@ -9755,11 +9803,11 @@ if (SubStrLastChars(Trim(A_LoopField), 4) = " mls") or (SubStrLastChars(Trim(A_L
 weAreIn := 1
 if (SubStrLastChars(Trim(A_LoopField), 5) = " fmls")
 {
-out .= Trim(StringTrimRight(Trim(A_LoopField), 3)) . Chr(34)
+out .= TrimR(StringTrimRight(TrimR(A_LoopField), 3)) . Chr(34)
 }
 else
 {
-out .= Trim(StringTrimRight(Trim(A_LoopField), 3)) . " " . Chr(34)
+out .= TrimR(StringTrimRight(TrimR(A_LoopField), 3)) . " " . Chr(34)
 }
 
 }
