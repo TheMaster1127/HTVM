@@ -9697,7 +9697,6 @@ func str fString(str line)
 {
 line := StrReplace(line, "{", Chr(34) . " + fstr(")
 line := StrReplace(line, "}", ") + " . Chr(34))
-
 return line
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
