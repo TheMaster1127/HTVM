@@ -7232,12 +7232,12 @@ function handleMultiLineStrings(code) {
             out += Chr(34) + Chr(10);
             weAreIn = 0;
         }
-        if (weAreIn == 1 && Trim(A_LoopField102) == "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
+        else if (weAreIn == 1 && Trim(A_LoopField102) == "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
             if (lookAhead[A_Index102 + 1] == "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
                 out += keyWordEscpaeChar + "n";
             }
         }
-        if (weAreIn == 1 && Trim(A_LoopField102) != "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
+        else if (weAreIn == 1 && Trim(A_LoopField102) != "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
             out += Trim(A_LoopField102) + keyWordEscpaeChar + "n";
         }
         if (SubStrLastChars(Trim(A_LoopField102), 4) == " mls" || SubStrLastChars(Trim(A_LoopField102), 5) == " fmls") {
@@ -7247,6 +7247,8 @@ function handleMultiLineStrings(code) {
             } else {
                 out += Trim(StringTrimRight(Trim(A_LoopField102), 3)) + " " + Chr(34);
             }
+        } else {
+            out += Trim(A_LoopField102) + Chr(34);
         }
     }
     out = StrReplace(out, "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz", Chr(10) + Chr(10));

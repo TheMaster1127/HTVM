@@ -9735,8 +9735,7 @@ StringTrimRight, out, out, 2
 out .= Chr(34) . Chr(10)
 weAreIn := 0
 }
-
-if (weAreIn = 1) and (Trim(A_LoopField) = "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz")
+else if (weAreIn = 1) and (Trim(A_LoopField) = "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz")
 {
 if (lookAhead[A_Index + 1] = "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz")
 {
@@ -9744,8 +9743,7 @@ out .= keyWordEscpaeChar . "n"
 }
 
 }
-
-if (weAreIn = 1) and (Trim(A_LoopField) != "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz")
+else if (weAreIn = 1) and (Trim(A_LoopField) != "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz")
 {
 out .= Trim(A_LoopField) . keyWordEscpaeChar . "n"
 }
@@ -9763,6 +9761,12 @@ out .= Trim(StringTrimRight(Trim(A_LoopField), 3)) . " " . Chr(34)
 }
 
 }
+else
+{
+out .= Trim(A_LoopField) . Chr(34)
+}
+
+
 
 }
 out := StrReplace(out, "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz", Chr(10) . Chr(10))
