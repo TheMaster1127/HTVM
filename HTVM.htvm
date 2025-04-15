@@ -9702,7 +9702,7 @@ func str handleMultiLineStrings(str code)
 int didWeFindOrWeOut := 0
 Loop, Parse, code, `n, `r
 {
-if (SubStrLastChars(Trim(A_LoopField), 4) = " mls")
+if (SubStrLastChars(Trim(A_LoopField), 4) = " mls") or (SubStrLastChars(Trim(A_LoopField), 5) = " fmls")
 {
 didWeFindOrWeOut := 1
 }

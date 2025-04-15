@@ -7207,7 +7207,7 @@ function handleMultiLineStrings(code) {
     items100 = LoopParseFunc(code, "\n", "\r")
     for (let A_Index100 = 0; A_Index100 < items100.length + 0; A_Index100++) {
         const A_LoopField100 = items100[A_Index100 - 0];
-        if (SubStrLastChars(Trim(A_LoopField100), 4) == " mls") {
+        if (SubStrLastChars(Trim(A_LoopField100), 4) == " mls" || SubStrLastChars(Trim(A_LoopField100), 5) == " fmls") {
             didWeFindOrWeOut = 1;
         }
     }

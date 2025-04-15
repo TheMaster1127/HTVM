@@ -7402,7 +7402,7 @@ std::string handleMultiLineStrings(std::string code) {
     std::vector<std::string> items100 = LoopParseFunc(code, "\n", "\r");
     for (size_t A_Index100 = 0; A_Index100 < items100.size() + 0; A_Index100++) {
         std::string A_LoopField100 = items100[A_Index100 - 0];
-        if (SubStrLastChars(Trim(A_LoopField100), 4) == " mls") {
+        if (SubStrLastChars(Trim(A_LoopField100), 4) == " mls" || SubStrLastChars(Trim(A_LoopField100), 5) == " fmls") {
             didWeFindOrWeOut = 1;
         }
     }
