@@ -426,6 +426,8 @@ int allVarsSoWeDontReDecVars_FIX_TOGGLE := 0
 str availableFuncsInHTVMInHTVM := ""
 str saveAllArrayVarNamesSoWeCanDoAfix := "|"
 
+arr str weAreInMLSarr
+
 arr str ospDic
 arr str ospDic1
 arr str ospDic2
@@ -9779,9 +9781,58 @@ lookAhead.add(Trim(A_LoopField))
 lookAhead.add(Trim(" "))
 
 int weAreIn := 0
+int weAreInOnce := 0
+int weAreInNum := 0
+
+str weAreInMLSarrTemp := ""
 Loop, Parse, code, `n, `r
 {
 
+if (langToConvertTo = langFileExtension_2)
+{
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+if (weAreIn = 1) and (Trim(A_LoopField) = "mle")
+{
+weAreInMLSarr.add(StringTrimRight(StringTrimLeft(StrReplace(weAreInMLSarrTemp, "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz", Chr(10)), 1), 1))
+weAreInMLSarrTemp := ""
+weAreInOnce := 0
+weAreIn := 0
+}
+
+
+
+if (weAreIn = 1)
+{
+weAreInOnce++
+if (weAreInOnce = 1)
+{
+out .= "aejsoydoxubviycbdgsut7eoy-ihsxbvhowadesdio6376e7wuwyuau--szd--AA" . STR(weAreInNum) . "AA" . Chr(10)
+weAreInNum++
+}
+weAreInMLSarrTemp .= A_LoopField
+}
+
+if (SubStrLastChars(Trim(A_LoopField), 4) = " mls") or (SubStrLastChars(Trim(A_LoopField), 5) = " fmls")
+{
+weAreIn := 1
+out .= A_LoopField . Chr(10)
+}
+
+if (weAreIn = 0)
+{
+out .= A_LoopField . Chr(10)
+}
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+}
+else
+{
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 if (weAreIn = 1) and (Trim(A_LoopField) = "mle")
 {
@@ -9826,6 +9877,9 @@ out .= A_LoopField . Chr(10)
 }
 }
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+}
 
 }
 out := StrReplace(out, "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz", Chr(10) . Chr(10))
@@ -22943,15 +22997,29 @@ htCode := "import Foundation" . Chr(10) . htCode
 
 
 
-
 if (langToConvertTo = langFileExtension_2)
 {
+
+Loop, weAreInMLSarr.size()
+{
+htCode := StrReplace(htCode, "aejsoydoxubviycbdgsut7eoy-ihsxbvhowadesdio6376e7wuwyuau--szd--AA" . STR(A_Index) . "AA", weAreInMLSarr[A_Index])
+}
+
+
+
 if (SubStr(htCode, 1, 1) = Chr(10))
 {
 StringTrimLeft, htCode, htCode, 1
 }
 }
 
+}
+weAreInMLSarr.add("end")
+int size_weAreInMLSarr := weAreInMLSarr.size()
+if (size_weAreInMLSarr != 0) {
+    Loop, % size_weAreInMLSarr {
+        weAreInMLSarr.pop()
+    }
 }
 
 

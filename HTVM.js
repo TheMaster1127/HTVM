@@ -776,6 +776,7 @@ let allVarsSoWeDontReDecVars_FIX_float = [];
 var allVarsSoWeDontReDecVars_FIX_TOGGLE = 0;
 var availableFuncsInHTVMInHTVM = "";
 var saveAllArrayVarNamesSoWeCanDoAfix = "|";
+let weAreInMLSarr = [];
 let ospDic = [];
 let ospDic1 = [];
 let ospDic2 = [];
@@ -7259,34 +7260,69 @@ function handleMultiLineStrings(code) {
     }
     HTVM_Append(lookAhead, Trim(" "));
     var weAreIn = 0;
+    var weAreInOnce = 0;
+    var weAreInNum = 0;
+    var weAreInMLSarrTemp = "";
     items102 = LoopParseFunc(code, "\n", "\r")
     for (let A_Index102 = 0; A_Index102 < items102.length + 0; A_Index102++) {
         const A_LoopField102 = items102[A_Index102 - 0];
-        if (weAreIn == 1 && Trim(A_LoopField102) == "mle") {
-            out = StringTrimRight(out, 2);
-            out += Chr(34) + Chr(10);
-            weAreIn = 0;
-        }
-        if (weAreIn == 1 && Trim(A_LoopField102) == "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
-            if (lookAhead[A_Index102 + 1] == "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
-                out += keyWordEscpaeChar + "n";
+        if (langToConvertTo == langFileExtension_2) {
+            //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            if (weAreIn == 1 && Trim(A_LoopField102) == "mle") {
+                HTVM_Append(weAreInMLSarr, StringTrimRight(StringTrimLeft(StrReplace(weAreInMLSarrTemp, "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz", Chr(10)), 1), 1));
+                weAreInMLSarrTemp = "";
+                weAreInOnce = 0;
+                weAreIn = 0;
             }
-        }
-        if (weAreIn == 1 && Trim(A_LoopField102) != "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
-            out += A_LoopField102 + keyWordEscpaeChar + "n";
-        }
-        if (SubStrLastChars(Trim(A_LoopField102), 4) == " mls" || SubStrLastChars(Trim(A_LoopField102), 5) == " fmls") {
-            weAreIn = 1;
-            if (SubStrLastChars(Trim(A_LoopField102), 5) == " fmls") {
-                out += TrimR(StringTrimRight(TrimR(A_LoopField102), 3)) + Chr(34);
-            } else {
-                out += TrimR(StringTrimRight(TrimR(A_LoopField102), 3)) + " " + Chr(34);
+            if (weAreIn == 1) {
+                weAreInOnce++;
+                if (weAreInOnce == 1) {
+                    out += "aejsoydoxubviycbdgsut7eoy-ihsxbvhowadesdio6376e7wuwyuau--szd--AA" + STR(weAreInNum) + "AA" + Chr(10);
+                    weAreInNum++;
+                }
+                weAreInMLSarrTemp += A_LoopField102;
             }
-        }
-        if (weAreIn == 0) {
-            if (Trim(A_LoopField102) != "mle") {
+            if (SubStrLastChars(Trim(A_LoopField102), 4) == " mls" || SubStrLastChars(Trim(A_LoopField102), 5) == " fmls") {
+                weAreIn = 1;
                 out += A_LoopField102 + Chr(10);
             }
+            if (weAreIn == 0) {
+                out += A_LoopField102 + Chr(10);
+            }
+            //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        } else {
+            //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            if (weAreIn == 1 && Trim(A_LoopField102) == "mle") {
+                out = StringTrimRight(out, 2);
+                out += Chr(34) + Chr(10);
+                weAreIn = 0;
+            }
+            if (weAreIn == 1 && Trim(A_LoopField102) == "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
+                if (lookAhead[A_Index102 + 1] == "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
+                    out += keyWordEscpaeChar + "n";
+                }
+            }
+            if (weAreIn == 1 && Trim(A_LoopField102) != "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz") {
+                out += A_LoopField102 + keyWordEscpaeChar + "n";
+            }
+            if (SubStrLastChars(Trim(A_LoopField102), 4) == " mls" || SubStrLastChars(Trim(A_LoopField102), 5) == " fmls") {
+                weAreIn = 1;
+                if (SubStrLastChars(Trim(A_LoopField102), 5) == " fmls") {
+                    out += TrimR(StringTrimRight(TrimR(A_LoopField102), 3)) + Chr(34);
+                } else {
+                    out += TrimR(StringTrimRight(TrimR(A_LoopField102), 3)) + " " + Chr(34);
+                }
+            }
+            if (weAreIn == 0) {
+                if (Trim(A_LoopField102) != "mle") {
+                    out += A_LoopField102 + Chr(10);
+                }
+            }
+            //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         }
     }
     out = StrReplace(out, "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz", Chr(10) + Chr(10));
@@ -16489,9 +16525,19 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             htCode = "import Foundation" + Chr(10) + htCode;
         }
         if (langToConvertTo == langFileExtension_2) {
+            for (let A_Index239 = 0; A_Index239 < HTVM_Size(weAreInMLSarr) + 0; A_Index239++) {
+                htCode = StrReplace(htCode, "aejsoydoxubviycbdgsut7eoy-ihsxbvhowadesdio6376e7wuwyuau--szd--AA" + STR(A_Index239) + "AA", weAreInMLSarr[A_Index239]);
+            }
             if (SubStr(htCode, 1, 1) == Chr(10)) {
                 htCode = StringTrimLeft(htCode, 1);
             }
+        }
+    }
+    HTVM_Append(weAreInMLSarr, "end");
+    var size_weAreInMLSarr = HTVM_Size(weAreInMLSarr);
+    if (size_weAreInMLSarr != 0) {
+        for (let A_Index240 = 0; A_Index240 < size_weAreInMLSarr + 0; A_Index240++) {
+            HTVM_Pop(weAreInMLSarr);
         }
     }
     //print(htCode)
@@ -16519,10 +16565,10 @@ function HTVMv2() {
     if (noParams == true) {
         return;
     }
-    items239 = LoopParseFunc(str0)
-    for (let A_Index239 = 0; A_Index239 < items239.length + 0; A_Index239++) {
-        const A_LoopField239 = items239[A_Index239 - 0];
-        str00 = Trim(A_LoopField239);
+    items241 = LoopParseFunc(str0)
+    for (let A_Index241 = 0; A_Index241 < items241.length + 0; A_Index241++) {
+        const A_LoopField241 = items241[A_Index241 - 0];
+        str00 = Trim(A_LoopField241);
         str00 = StringTrimRight(str00, 1);
     }
     //print("HTVM v2")
@@ -16533,29 +16579,29 @@ function HTVMv2() {
         if (HTVM_getLang_HTVM() == "py") {
             //print("PY")
         }
-        items240 = LoopParseFunc(allArgs, "\n", "\r")
-        for (let A_Index240 = 0; A_Index240 < items240.length + 0; A_Index240++) {
-            const A_LoopField240 = items240[A_Index240 - 0];
-            if (A_Index240 == 0) {
+        items242 = LoopParseFunc(allArgs, "\n", "\r")
+        for (let A_Index242 = 0; A_Index242 < items242.length + 0; A_Index242++) {
+            const A_LoopField242 = items242[A_Index242 - 0];
+            if (A_Index242 == 0) {
                 numOfParams++;
-                argCODE = FileRead(Trim(A_LoopField240));
-                argCODEfile = Trim(A_LoopField240);
+                argCODE = FileRead(Trim(A_LoopField242));
+                argCODEfile = Trim(A_LoopField242);
             }
-            else if (A_Index240 == 1) {
+            else if (A_Index242 == 1) {
                 numOfParams++;
-                argHTVMinstr = Trim(A_LoopField240);
+                argHTVMinstr = Trim(A_LoopField242);
             }
-            else if (A_Index240 == 2) {
+            else if (A_Index242 == 2) {
                 numOfParams++;
-                argLangTo = Trim(A_LoopField240);
+                argLangTo = Trim(A_LoopField242);
             } else {
                 numOfParams++;
-                HTVM_Append(argHTVMinstrMORE, Trim(A_LoopField240));
+                HTVM_Append(argHTVMinstrMORE, Trim(A_LoopField242));
             }
         }
         //print("===============123431234===========start=====")
-        for (let A_Index241 = 0; A_Index241 < HTVM_Size(argHTVMinstrMORE) + 0; A_Index241++) {
-            //print(argHTVMinstrMORE[A_Index241])
+        for (let A_Index243 = 0; A_Index243 < HTVM_Size(argHTVMinstrMORE) + 0; A_Index243++) {
+            //print(argHTVMinstrMORE[A_Index243])
         }
         //print("===============123431234==========end======")
         //print(StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConvertTo)
