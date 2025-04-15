@@ -7405,9 +7405,9 @@ std::string handleMultiLineStrings(std::string code) {
         if (SubStrLastChars(Trim(A_LoopField100), 4) == " mls") {
             didWeFindOrWeOut = 1;
         }
-        if (didWeFindOrWeOut == 0) {
-            return code;
-        }
+    }
+    if (didWeFindOrWeOut == 0) {
+        return code;
     }
     std::string out = "";
     code = StrReplace(code, Chr(10) , Chr(10) + "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz" + Chr(10));
