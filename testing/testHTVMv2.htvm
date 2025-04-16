@@ -1,7 +1,6 @@
-main
 ; === Regular F-String Example ===
 int calculation := 10 + 5
-str message := "The result is: " + fstr(calculation) + ". Double is: " + fstr(calculation * 2) + ""
+str message := f"The result is: {calculation}. Double is: {calculation * 2}"
 print("Regular F-String:")
 print(message)
 print("=========================")
@@ -19,7 +18,6 @@ str userName := "Alice"
 int items := 3
 float price := 19.99
 str order_summary := fmls
-
 Order Summary for: {userName}
 
 Items purchased: {items}

@@ -9697,8 +9697,12 @@ return htCodeOUTOUT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 func str fString(str line)
 {
+if (langToConvertTo != langFileExtension_2)
+{
 line := StrReplace(line, "{", Chr(34) . " + fstr(")
 line := StrReplace(line, "}", ") + " . Chr(34))
+}
+
 return line
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -22529,6 +22533,9 @@ if (COUNT_programmingBlock_HTVM != 0)
 
 
 
+if (langToConvertTo != langFileExtension_2)
+{
+
 
 
 Loop, % theIdNumOfThe34 {
@@ -22553,6 +22560,8 @@ Loop, % theIdNumOfThe34 {
             htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, "\"))
         }
     }
+}
+
 }
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
