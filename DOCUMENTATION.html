@@ -1113,6 +1113,59 @@ finally {
 
 ```
 
+### Advanced String Features
+
+HTVM supports powerful string definition methods, including formatted strings (f-strings) and multiline strings for easier text handling.
+
+*   **F-Strings (`f"..."`)**: Allow embedding variables and expressions directly within strings.
+*   **Multiline Strings (`mls`...`mle`)**: Define strings that span multiple lines, preserving formatting (like newlines and indentation) exactly as written. Ideal for raw text, templates, or ASCII art.
+*   **Multiline F-Strings (`fmls`...`mle`)**: Combine the benefits of multiline strings and f-strings, allowing embedded variables and expressions within a multiline block.
+
+Here's how you can use them:
+
+```htvm
+; === Regular F-String Example ===
+int calculation := 10 + 5
+str message := f"The result is: {calculation}. Double is: {calculation * 2}"
+print("Regular F-String:")
+print(message)
+print("=========================")
+; === Multiline String (Raw) Example ===
+str ascii_cat := mls
+ /\_/\
+( o.o )
+ > ^ <
+mle
+print("Multiline String (Raw):")
+print(ascii_cat)
+print("=========================")
+; === Multiline F-String Example ===
+str userName := "Alice"
+int items := 3
+float price := 19.99
+str order_summary := fmls
+Order Summary for: {userName}
+Items purchased: {items}
+Total cost: ${items * price}
+Thank you for your order!
+Newlines and indentation are preserved.
+mle
+print("Multiline F-String:")
+print(order_summary)
+print("=========================")
+
+```
+
+#### Summary: The Power of Advanced Strings
+
+These advanced string features (`f`, `mls`, `fmls`) significantly enhance HTVM's usability and power. They eliminate the need for cumbersome string concatenation and complex formatting logic.
+
+*   **Readability**: Code becomes much cleaner and easier to read, especially when dealing with templates, long text blocks, or dynamic content generation.
+*   **Simplicity**: Constructing complex strings with embedded variables or preserving exact formatting is now straightforward and intuitive.
+*   **Expressiveness**: HTVM becomes even more expressive, allowing you to focus on the logic rather than wrestling with string manipulation quirks.
+
+This level of string handling flexibility is a testament to HTVM's design philosophy: providing powerful, convenient tools that adapt to the programmer's needs, ultimately making development faster and more enjoyable. It's another step towards making HTVM the future of simplified, yet powerful, programming.
+
 ---
 
 
@@ -2628,8 +2681,7 @@ HTVM includes a variety of built-in functions organized into categories for conv
 | Sin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | Sqrt | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | Tan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
----
+n---
 
 ### ACos
 
@@ -2976,8 +3028,7 @@ Tan(float)
 | getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
----
+n---
 
 ### Asc
 
@@ -3396,8 +3447,7 @@ sortArrByLenOnly(arr str array)
 | ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 | HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
----
+n---
 
 ### BuildInVars
 
@@ -3498,8 +3548,7 @@ Sleep(int milliseconds)
 | FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 | FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 | FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
----
+n---
 
 ### FileAppend
 
@@ -3650,8 +3699,7 @@ FileRemoveDir(str directory)
 | getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
-
----
+n---
 
 ### GetParams
 
@@ -3792,8 +3840,7 @@ print(str)
 | Gui_Toggle | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | Gui_Update | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | MsgBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
----
+n---
 
 ### GuiControl
 
@@ -4138,8 +4185,7 @@ MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
 | HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
----
+n---
 
 ### HTVM_v2_HTVM
 
@@ -4212,8 +4258,7 @@ isWindows()
 | createBackendInit | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 | getDataFromEndpoint | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | startServer | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
----
+n---
 
 ### addEndpoint
 
