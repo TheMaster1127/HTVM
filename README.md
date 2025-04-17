@@ -794,6 +794,8 @@ The *real* power, the reason HTVM exists, is writing the bulk of your logic in *
 
 ### 🤔 Concerns, Questions, and Misunderstandings of HTVM
 
+[Go Back To The Table of Contents ](#table-of-contents)
+
 While developing HTVM, we anticipate potential questions and concerns. Here are some common points and the creator's perspective on how HTVM addresses them:
 
 1.  **Concern: Feasibility and Complexity Across 15 Languages**
