@@ -421,7 +421,7 @@ When converting to **JavaScript**, the Python block will disappear, and only the
 - Go to [HTVM's website](https://themaster1127.github.io/HTVM) to explore all the syntax customizability and create your own language.
 
 ### **The Power of HTVM – Beyond Anything Else**  
-This isn’t just some hobby project. **HTVM Version 2 took over three months just for the parser.** And that was with prior experience from HTVM Version 1 and all the work put into previous languages like HT++, HTH, and HTpy. Every single language had to be carefully mapped out—loops, if-statements, try/catch blocks, functions, variables, types—**every detail had to be considered, tested, and tweaked.**  
+This isn’t just some hobby project. **HTVM Version 2 took many months just for the parser.** And that was with prior experience from HTVM Version 1 and all the work put into previous languages like HT++, HTH, and HTpy. Every single language had to be carefully mapped out—loops, if-statements, try/catch blocks, functions, variables, types—**every detail had to be considered, tested, and tweaked.**  
 
 And here’s the thing: **HTVM doesn’t just output to one language at a time—it can compile to multiple languages simultaneously.** That means you can write a single HTVM file and have it generate both JavaScript and Python code at the same time. That alone is something **almost no other tool in the world can do.**  
 
@@ -470,7 +470,7 @@ Here’s how OSP works:
   - **Object**: Objects are defined using the `def obj` keyword.  
 
 - **Properties**:  
-  - Defined within objects using the `porp` keyword.  
+  - Defined within objects using the `prop` keyword.  
 
 
 ### **The `this` Keyword**:
