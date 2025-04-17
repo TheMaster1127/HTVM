@@ -135,13 +135,16 @@ To use your language offline, click [📘 Usage](#-usage).
    **Description**: Set up and use the HTVM IDE for coding, testing, and compiling your language.
      
 5. [💡 Why HTVM Was Created: Understanding Its Purpose, Problems Solved, Use Cases, and Who It Benefits](#-why-htvm-was-created-understanding-its-purpose-problems-solved-use-cases-and-who-it-benefits)
-  **Description**: Delve into the core motivations behind HTVM, what it aims to achieve, the specific problems it tackles, practical applications, and identify who stands to gain the most (and who might not).
+  
+**Description**: Delve into the core motivations behind HTVM, what it aims to achieve, the specific problems it tackles, practical applications, and identify who stands to gain the most (and who might not).
  
 7.  [🤔 Concerns, Questions, and Misunderstandings of HTVM](#-concerns-questions-and-misunderstandings-of-htvm)
-    **Description**: Addresses common questions and potential concerns about HTVM's feasibility, features, and development, providing the creator's perspective.
+    
+**Description**: Addresses common questions and potential concerns about HTVM's feasibility, features, and development, providing the creator's perspective.
 
 8. [⚙️ What Customizations HTVM Offers](#%EF%B8%8F-what-customizations-htvm-offers)  
-   **Description**: Explore the capabilities and features of HTVM that allow you to configure and customize your programming environment, making your coding experience more efficient and tailored to your needs.
+   
+**Description**: Explore the capabilities and features of HTVM that allow you to configure and customize your programming environment, making your coding experience more efficient and tailored to your needs.
 
 
 ---
