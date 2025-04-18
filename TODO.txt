@@ -14,7 +14,7 @@ TODO.txt
 13. Prepare the YouTube video titled "HTVM: Alpha Stable Release | The Future of Programming."
 14. Make an alpha stable release on GitHub.
 15. Conduct user testing.
-16. Remake your own IDE with more customizability, enhanced autocomplete, and potential integration with the Gemini free API.
+16. Polish your own IDE with more customizability, enhanced autocomplete, and potential integration with the Gemini free API.
 17. Add additional features like an instruction file manager and other customizability improvements.
 18. After a few months from the alpha stable release, improve and polish HTVM, then consider making HTVM version 2.0.0 the official release.
 19. Begin popularizing HTVM after the official release.
