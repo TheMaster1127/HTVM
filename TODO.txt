@@ -7,13 +7,14 @@ TODO.txt
 6. Rewrite the HTVM IDE in 3 versions: Desktop (Electron), as a local web app with Python Flask backend, and as a static HTVM IDE that runs fully in the browser using only JavaScript and localStorage; use the new engine for syntax highlighting and autocomplete, and add support for the import keyword and .funcname highlighting. And many more...
 7. Add all the built-in functions to HTVM for the remaining languages.
 8. Test HTVM functionality after adding the built-in functions, especially for Java.
-9. Set up the Discord server and a subreddit for HTVM.
-10. Build the HTVM landing page.
-11. Polish everything to ensure it's working as expected.
-12. Prepare the YouTube video titled "HTVM: Alpha Stable Release | The Future of Programming."
-13. Make an alpha stable release on GitHub.
-14. Conduct user testing.
-15. Remake your own IDE with more customizability, enhanced autocomplete, and potential integration with the Gemini free API.
-16. Add additional features like an instruction file manager and other customizability improvements.
-17. After a few months from the alpha stable release, improve and polish HTVM, then consider making HTVM version 2.0.0 the official release.
-18. Begin popularizing HTVM after the official release.
+9. Build the HTVM to HTVM website.
+10. Set up the Discord server and a subreddit for HTVM.
+11. Build the HTVM landing page.
+12. Polish everything to ensure it's working as expected.
+13. Prepare the YouTube video titled "HTVM: Alpha Stable Release | The Future of Programming."
+14. Make an alpha stable release on GitHub.
+15. Conduct user testing.
+16. Remake your own IDE with more customizability, enhanced autocomplete, and potential integration with the Gemini free API.
+17. Add additional features like an instruction file manager and other customizability improvements.
+18. After a few months from the alpha stable release, improve and polish HTVM, then consider making HTVM version 2.0.0 the official release.
+19. Begin popularizing HTVM after the official release.
