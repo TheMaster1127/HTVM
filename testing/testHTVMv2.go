@@ -28,7 +28,7 @@ func main() {
     var userName string = "Alice"
     var items int = 3
     var price float64 = 19.99
-    var order_summary string = "Order Summary for: " + fstr(userName) + "\n\nItems purchased: " + fstr(items) + "\nTotal cost: $" + fstr(items * price) + "\n\nThank you for your order!\nNewlines and indentation are preserved."
+    var order_summary string = "Order Summary for: " + fstr(userName) + "\n\nItems purchased: " + fstr(items) + "\n\n\nTotal cost: $" + fstr(items * price) + "\n\nThank you for your order!\nNewlines and indentation are preserved."
     print("Multiline F-String:")
     print(order_summary)
     print("=========================")

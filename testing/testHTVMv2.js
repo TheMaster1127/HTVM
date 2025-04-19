@@ -24,7 +24,7 @@ print("=========================");
 var userName = "Alice";
 var items = 3;
 var price = 19.99;
-var order_summary = "Order Summary for: " + fstr(userName) + "\n\nItems purchased: " + fstr(items) + "\nTotal cost: $" + fstr(items * price) + "\n\nThank you for your order!\nNewlines and indentation are preserved.";
+var order_summary = "Order Summary for: " + fstr(userName) + "\n\nItems purchased: " + fstr(items) + "\n\n\nTotal cost: $" + fstr(items * price) + "\n\nThank you for your order!\nNewlines and indentation are preserved.";
 print("Multiline F-String:");
 print(order_summary);
 print("=========================");

@@ -3,22 +3,22 @@
 "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "htvm" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-instructions.txt"
 
 ; for cpp
-;"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "cpp"
+"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "cpp"
 
 ; for python
-;"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "py"
+"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "py"
 
 ; for js
-;"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "js"
+"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "js"
 
 ; for go
-;"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "go"
+"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "go"
 
 ; for lua
-;"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "lua"
+"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "lua"
 
 ; for cs
-;"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "cs"
+"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "cs"
 
 ; for java
 ;"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\testing\HTVM-instructions2.txt" "java"

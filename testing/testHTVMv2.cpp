@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
     std::string userName = "Alice";
     int items = 3;
     float price = 19.99f;
-    std::string order_summary = "Order Summary for: " + fstr(userName) + "\n\nItems purchased: " + fstr(items) + "\nTotal cost: $" + fstr(items * price) + "\n\nThank you for your order!\nNewlines and indentation are preserved.";
+    std::string order_summary = "Order Summary for: " + fstr(userName) + "\n\nItems purchased: " + fstr(items) + "\n\n\nTotal cost: $" + fstr(items * price) + "\n\nThank you for your order!\nNewlines and indentation are preserved.";
     print("Multiline F-String:");
     print(order_summary);
     print("=========================");

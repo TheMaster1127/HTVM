@@ -978,20 +978,40 @@ std::vector<std::string> ospDic2;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+std::string SubStrLastChars(std::string text, int numOfChars) {
+    std::string LastOut = "";
+    int NumOfChars = 0;
+    std::vector<std::string> items1 = LoopParseFunc(text);
+    for (size_t A_Index1 = 0; A_Index1 < items1.size() + 0; A_Index1++) {
+        std::string A_LoopField1 = items1[A_Index1 - 0];
+        NumOfChars++;
+    }
+    for (int A_Index2 = 0; A_Index2 < numOfChars + 0; A_Index2++) {
+        NumOfChars--;
+    }
+    std::vector<std::string> items3 = LoopParseFunc(text);
+    for (size_t A_Index3 = 0; A_Index3 < items3.size() + 0; A_Index3++) {
+        std::string A_LoopField3 = items3[A_Index3 - 0];
+        if (A_Index3 >= NumOfChars) {
+            LastOut += A_LoopField3;
+        }
+    }
+    return LastOut;
+}
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 std::string fixCSandJAVAstaticBugForFunc(std::string line) {
     std::string out = "";
     int haveWeSeenMainFunc = 0;
-    std::vector<std::string> items1 = LoopParseFunc(line, "\n", "\r");
-    for (size_t A_Index1 = 0; A_Index1 < items1.size() + 0; A_Index1++) {
-        std::string A_LoopField1 = items1[A_Index1 - 0];
-        if (haveWeSeenMainFunc == 0 && InStr(A_LoopField1, "    static ")) {
-            out += StrReplace(A_LoopField1, "    static ", "    ") + Chr(10);
+    std::vector<std::string> items4 = LoopParseFunc(line, "\n", "\r");
+    for (size_t A_Index4 = 0; A_Index4 < items4.size() + 0; A_Index4++) {
+        std::string A_LoopField4 = items4[A_Index4 - 0];
+        if (haveWeSeenMainFunc == 0 && InStr(A_LoopField4, "    static ")) {
+            out += StrReplace(A_LoopField4, "    static ", "    ") + Chr(10);
         } else {
-            out += A_LoopField1 + Chr(10);
+            out += A_LoopField4 + Chr(10);
         }
-        if (InStr(StrLower(A_LoopField1), " main(")) {
+        if (InStr(StrLower(A_LoopField4), " main(")) {
             haveWeSeenMainFunc = 1;
         }
     }
@@ -1003,8 +1023,8 @@ std::string fixCSandJAVAstaticBugForFunc(std::string line) {
 std::string allVarsSoWeDontReDecVarsFixFunc(std::string line, std::string varName) {
     std::string out = "";
     if (RegExMatch(line, "^\\d+(\\.\\d+)?$")) {
-        for (int A_Index2 = 0; A_Index2 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_uint8) + 0; A_Index2++) {
-            if (Trim(allVarsSoWeDontReDecVars_FIX_uint8[A_Index2]) == Trim(varName)) {
+        for (int A_Index5 = 0; A_Index5 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_uint8) + 0; A_Index5++) {
+            if (Trim(allVarsSoWeDontReDecVars_FIX_uint8[A_Index5]) == Trim(varName)) {
                 if (langToConvertTo == "java") {
                     out = "(byte) " + line;
                 }
@@ -1013,8 +1033,8 @@ std::string allVarsSoWeDontReDecVarsFixFunc(std::string line, std::string varNam
                 }
             }
         }
-        for (int A_Index3 = 0; A_Index3 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_uint16) + 0; A_Index3++) {
-            if (Trim(allVarsSoWeDontReDecVars_FIX_uint16[A_Index3]) == Trim(varName)) {
+        for (int A_Index6 = 0; A_Index6 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_uint16) + 0; A_Index6++) {
+            if (Trim(allVarsSoWeDontReDecVars_FIX_uint16[A_Index6]) == Trim(varName)) {
                 if (langToConvertTo == "java") {
                     out = "(short) " + line;
                 }
@@ -1023,8 +1043,8 @@ std::string allVarsSoWeDontReDecVarsFixFunc(std::string line, std::string varNam
                 }
             }
         }
-        for (int A_Index4 = 0; A_Index4 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_uint32) + 0; A_Index4++) {
-            if (Trim(allVarsSoWeDontReDecVars_FIX_uint32[A_Index4]) == Trim(varName)) {
+        for (int A_Index7 = 0; A_Index7 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_uint32) + 0; A_Index7++) {
+            if (Trim(allVarsSoWeDontReDecVars_FIX_uint32[A_Index7]) == Trim(varName)) {
                 if (langToConvertTo == "kt") {
                     out = line + "u";
                 }
@@ -1033,8 +1053,8 @@ std::string allVarsSoWeDontReDecVarsFixFunc(std::string line, std::string varNam
                 }
             }
         }
-        for (int A_Index5 = 0; A_Index5 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_uint64) + 0; A_Index5++) {
-            if (Trim(allVarsSoWeDontReDecVars_FIX_uint64[A_Index5]) == Trim(varName)) {
+        for (int A_Index8 = 0; A_Index8 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_uint64) + 0; A_Index8++) {
+            if (Trim(allVarsSoWeDontReDecVars_FIX_uint64[A_Index8]) == Trim(varName)) {
                 if (langToConvertTo == "kt") {
                     out = line + "uL";
                 }
@@ -1061,8 +1081,8 @@ std::string allVarsSoWeDontReDecVarsFixFunc(std::string line, std::string varNam
                 }
             }
         }
-        for (int A_Index6 = 0; A_Index6 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_int64) + 0; A_Index6++) {
-            if (Trim(allVarsSoWeDontReDecVars_FIX_int64[A_Index6]) == Trim(varName)) {
+        for (int A_Index9 = 0; A_Index9 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_int64) + 0; A_Index9++) {
+            if (Trim(allVarsSoWeDontReDecVars_FIX_int64[A_Index9]) == Trim(varName)) {
                 if (langToConvertTo == "kt") {
                     out = line + "L";
                 }
@@ -1077,8 +1097,8 @@ std::string allVarsSoWeDontReDecVarsFixFunc(std::string line, std::string varNam
                 }
             }
         }
-        for (int A_Index7 = 0; A_Index7 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_float) + 0; A_Index7++) {
-            if (Trim(allVarsSoWeDontReDecVars_FIX_float[A_Index7]) == Trim(varName)) {
+        for (int A_Index10 = 0; A_Index10 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_float) + 0; A_Index10++) {
+            if (Trim(allVarsSoWeDontReDecVars_FIX_float[A_Index10]) == Trim(varName)) {
                 if (langToConvertTo == "cpp" || langToConvertTo == "cs" || langToConvertTo == "java" || langToConvertTo == "kt") {
                     out = line + "f";
                 }
@@ -1093,24 +1113,28 @@ std::string allVarsSoWeDontReDecVarsFixFunc(std::string line, std::string varNam
     return out;
 }
 std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std::string keyWordsCommands, std::string langToConvertTo) {
+    theCodeCommands = Trim(theCodeCommands);
     theCodeCommands = StrReplace(theCodeCommands, "%", "");
     theCodeCommands = StrReplace(theCodeCommands, "| ", "|");
     theCodeCommands = StrReplace(theCodeCommands, ", ", ",");
+    if (SubStrLastChars(theCodeCommands, 1) == "|") {
+        theCodeCommands = StringTrimRight(theCodeCommands, 1);
+    }
     if (mode == "check") {
-        std::vector<std::string> items8 = LoopParseFunc(keyWordsCommands, "|");
-        for (size_t A_Index8 = 0; A_Index8 < items8.size() + 0; A_Index8++) {
-            std::string A_LoopField8 = items8[A_Index8 - 0];
-            std::vector<std::string> items9 = LoopParseFunc(A_LoopField8, ",");
-            for (size_t A_Index9 = 0; A_Index9 < items9.size() + 0; A_Index9++) {
-                std::string A_LoopField9 = items9[A_Index9 - 0];
-                if (A_Index9 == 0) {
-                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField9 + ", ")) == StrLower(A_LoopField9 + ", ")) {
+        std::vector<std::string> items11 = LoopParseFunc(keyWordsCommands, "|");
+        for (size_t A_Index11 = 0; A_Index11 < items11.size() + 0; A_Index11++) {
+            std::string A_LoopField11 = items11[A_Index11 - 0];
+            std::vector<std::string> items12 = LoopParseFunc(A_LoopField11, ",");
+            for (size_t A_Index12 = 0; A_Index12 < items12.size() + 0; A_Index12++) {
+                std::string A_LoopField12 = items12[A_Index12 - 0];
+                if (A_Index12 == 0) {
+                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField12 + ", ")) == StrLower(A_LoopField12 + ", ")) {
                         //MsgBox, true
                         return "true";
                     }
                 }
-                if (A_Index9 == 0) {
-                    if (theCodeCommands == A_LoopField9) {
+                if (A_Index12 == 0) {
+                    if (theCodeCommands == A_LoopField12) {
                         //MsgBox, true
                         return "true";
                     }
@@ -1123,23 +1147,23 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
     int AIndex = 0;
     if (mode == "transpile") {
         int keyWordsCommandsNumLine = 1;
-        std::vector<std::string> items10 = LoopParseFunc(keyWordsCommands, "|");
-        for (size_t A_Index10 = 0; A_Index10 < items10.size() + 0; A_Index10++) {
-            std::string A_LoopField10 = items10[A_Index10 - 0];
-            AIndex = A_Index10;
-            std::vector<std::string> items11 = LoopParseFunc(A_LoopField10, ",");
-            for (size_t A_Index11 = 0; A_Index11 < items11.size() + 0; A_Index11++) {
-                std::string A_LoopField11 = items11[A_Index11 - 0];
-                if (A_Index11 == 0) {
-                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField11 + ", ")) == StrLower(A_LoopField11 + ", ")) {
+        std::vector<std::string> items13 = LoopParseFunc(keyWordsCommands, "|");
+        for (size_t A_Index13 = 0; A_Index13 < items13.size() + 0; A_Index13++) {
+            std::string A_LoopField13 = items13[A_Index13 - 0];
+            AIndex = A_Index13;
+            std::vector<std::string> items14 = LoopParseFunc(A_LoopField13, ",");
+            for (size_t A_Index14 = 0; A_Index14 < items14.size() + 0; A_Index14++) {
+                std::string A_LoopField14 = items14[A_Index14 - 0];
+                if (A_Index14 == 0) {
+                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField14 + ", ")) == StrLower(A_LoopField14 + ", ")) {
                         //MsgBox, true
                         keyWordsCommandsNumLine = AIndex;
                         break;
                     }
                 }
-                if (A_Index11 == 0) {
-                    //MsgBox, %theCodeCommands% = %A_LoopField11%
-                    if (theCodeCommands == A_LoopField11) {
+                if (A_Index14 == 0) {
+                    //MsgBox, %theCodeCommands% = %A_LoopField14%
+                    if (theCodeCommands == A_LoopField14) {
                         //MsgBox, true
                         keyWordsCommandsNumLine = AIndex;
                         break;
@@ -1170,53 +1194,53 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
         }
         std::vector<std::string> theCodeCommand;
         theCodeCommands = Trim(theCodeCommands);
-        std::vector<std::string> items12 = LoopParseFunc(theCodeCommands, ",");
-        for (size_t A_Index12 = 0; A_Index12 < items12.size() + 0; A_Index12++) {
-            std::string A_LoopField12 = items12[A_Index12 - 0];
-            HTVM_Append(theCodeCommand, Trim(A_LoopField12));
-            //MsgBox, % A_LoopField12
+        std::vector<std::string> items15 = LoopParseFunc(theCodeCommands, ",");
+        for (size_t A_Index15 = 0; A_Index15 < items15.size() + 0; A_Index15++) {
+            std::string A_LoopField15 = items15[A_Index15 - 0];
+            HTVM_Append(theCodeCommand, Trim(A_LoopField15));
+            //MsgBox, % A_LoopField15
         }
-        std::vector<std::string> items13 = LoopParseFunc(keyWordsCommands, "|");
-        for (size_t A_Index13 = 0; A_Index13 < items13.size() + 0; A_Index13++) {
-            std::string A_LoopField13 = items13[A_Index13 - 0];
-            if (keyWordsCommandsNumLine == A_Index13) {
-                //MsgBox, % A_LoopField13
-                std::vector<std::string> items14 = LoopParseFunc(A_LoopField13, ",");
-                for (size_t A_Index14 = 0; A_Index14 < items14.size() + 0; A_Index14++) {
-                    std::string A_LoopField14 = items14[A_Index14 - 0];
-                    if (A_Index14 == 0) {
-                        outConstuctTheOutFromTheCommandsFucnName = A_LoopField14;
+        std::vector<std::string> items16 = LoopParseFunc(keyWordsCommands, "|");
+        for (size_t A_Index16 = 0; A_Index16 < items16.size() + 0; A_Index16++) {
+            std::string A_LoopField16 = items16[A_Index16 - 0];
+            if (keyWordsCommandsNumLine == A_Index16) {
+                //MsgBox, % A_LoopField16
+                std::vector<std::string> items17 = LoopParseFunc(A_LoopField16, ",");
+                for (size_t A_Index17 = 0; A_Index17 < items17.size() + 0; A_Index17++) {
+                    std::string A_LoopField17 = items17[A_Index17 - 0];
+                    if (A_Index17 == 0) {
+                        outConstuctTheOutFromTheCommandsFucnName = A_LoopField17;
                     }
-                    else if (A_Index14 == 1) {
-                        //MsgBox, % A_LoopField14
-                        if (A_LoopField14 == "lineTranspile") {
+                    else if (A_Index17 == 1) {
+                        //MsgBox, % A_LoopField17
+                        if (A_LoopField17 == "lineTranspile") {
                             outConstuctTheOutFromTheCommandsLineTranspile = 1;
                         }
-                        if (A_LoopField14 == "OUTVAR") {
+                        if (A_LoopField17 == "OUTVAR") {
                             outConstuctTheOutFromTheCommandsOutVar = theCodeCommand[theCodeCommandNum];
                         }
-                        else if (A_LoopField14 == "INOUTVAR") {
+                        else if (A_LoopField17 == "INOUTVAR") {
                             outConstuctTheOutFromTheCommandsOutVar = theCodeCommand[theCodeCommandNum];
                             outConstuctTheOutFromTheCommandsInVar = theCodeCommand[theCodeCommandNum];
                         }
-                        else if (A_LoopField14 == "INVAR") {
+                        else if (A_LoopField17 == "INVAR") {
                             outConstuctTheOutFromTheCommandsInVar = theCodeCommand[theCodeCommandNum];
                         } else {
-                            if (InStr(A_LoopField14, Chr(39))) {
+                            if (InStr(A_LoopField17, Chr(39))) {
                                 outConstuctTheOutFromTheCommandsParams += Chr(34) + theCodeCommand[theCodeCommandNum] + Chr(34) + ", ";
                             } else {
                                 outConstuctTheOutFromTheCommandsParams += theCodeCommand[theCodeCommandNum] + ", ";
                             }
                         }
                     }
-                    else if (A_Index14 == 2) {
+                    else if (A_Index17 == 2) {
                         if (outConstuctTheOutFromTheCommandsLineTranspile == 1) {
-                            outConstuctTheOutFromTheCommandsLineTranspileText = A_LoopField14;
+                            outConstuctTheOutFromTheCommandsLineTranspileText = A_LoopField17;
                         }
-                        if (A_LoopField14 == "INVAR") {
+                        if (A_LoopField17 == "INVAR") {
                             outConstuctTheOutFromTheCommandsInVar = theCodeCommand[theCodeCommandNum];
                         } else {
-                            if (InStr(A_LoopField14, Chr(39))) {
+                            if (InStr(A_LoopField17, Chr(39))) {
                                 outConstuctTheOutFromTheCommandsParams += Chr(34) + theCodeCommand[theCodeCommandNum] + Chr(34) + ", ";
                             } else {
                                 outConstuctTheOutFromTheCommandsParams += theCodeCommand[theCodeCommandNum] + ", ";
@@ -1224,7 +1248,7 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
                         }
                     } else {
                         //MsgBox, % theCodeCommand[theCodeCommandNum]
-                        if (InStr(A_LoopField14, Chr(39))) {
+                        if (InStr(A_LoopField17, Chr(39))) {
                             if (Trim(theCodeCommand[theCodeCommandNum]) != "") {
                                 outConstuctTheOutFromTheCommandsParams += Chr(34) + theCodeCommand[theCodeCommandNum] + Chr(34) + ", ";
                             }
@@ -1270,10 +1294,10 @@ std::string HTVMmatchStrRrplace(std::string line, std::string matchString, std::
     }
     std::string allDelimiters = " ()[].,;:'!&|=<>+-*/^%~" + Chr(34) + Chr(9) + Chr(11);
     std::vector<std::string> lineArr;
-    std::vector<std::string> items15 = LoopParseFunc(line);
-    for (size_t A_Index15 = 0; A_Index15 < items15.size() + 0; A_Index15++) {
-        std::string A_LoopField15 = items15[A_Index15 - 0];
-        HTVM_Append(lineArr, A_LoopField15);
+    std::vector<std::string> items18 = LoopParseFunc(line);
+    for (size_t A_Index18 = 0; A_Index18 < items18.size() + 0; A_Index18++) {
+        std::string A_LoopField18 = items18[A_Index18 - 0];
+        HTVM_Append(lineArr, A_LoopField18);
     }
     int matchStringLEN = StrLen(matchString);
     int replaceStringLEN = StrLen(replaceString);
@@ -1297,19 +1321,19 @@ std::string HTVMmatchStrRrplace(std::string line, std::string matchString, std::
     hasFound2 = 0;
     isStartTrue = 0;
     isEndTrue = 0;
-    for (int A_Index16 = 0; A_Index16 < HTVM_Size(lineArr) + 0; A_Index16++) {
+    for (int A_Index19 = 0; A_Index19 < HTVM_Size(lineArr) + 0; A_Index19++) {
         char1 = "";
         char2 = "";
         char3 = "";
         char4 = "";
         isMatch = 0;
-        if (A_Index16 != 0) {
+        if (A_Index19 != 0) {
             isStart = 0;
         }
         sildingLine = "";
-        for (int A_Index17 = 0; A_Index17 < matchStringLEN + 0; A_Index17++) {
-            if (A_Index17 + i1 <= HTVM_Size(lineArr) - 1) {
-                sildingLine += lineArr[A_Index17 + i1];
+        for (int A_Index20 = 0; A_Index20 < matchStringLEN + 0; A_Index20++) {
+            if (A_Index20 + i1 <= HTVM_Size(lineArr) - 1) {
+                sildingLine += lineArr[A_Index20 + i1];
             }
         }
         if (StrLen(sildingLine) < matchStringLEN) {
@@ -1341,8 +1365,8 @@ std::string HTVMmatchStrRrplace(std::string line, std::string matchString, std::
         }
         if (isMatch == 1) {
             if (HTVM_Size(allPosForReplacing) > 0) {
-                for (int A_Index18 = 0; A_Index18 < HTVM_Size(allPosForReplacing) + 0; A_Index18++) {
-                    if (i1 + 1 != allPosForReplacing[A_Index18]) {
+                for (int A_Index21 = 0; A_Index21 < HTVM_Size(allPosForReplacing) + 0; A_Index21++) {
+                    if (i1 + 1 != allPosForReplacing[A_Index21]) {
                         HTVM_Append(allPosForReplacing, i1 + 1);
                         break;
                     }
@@ -1359,23 +1383,23 @@ std::string HTVMmatchStrRrplace(std::string line, std::string matchString, std::
         int l2 = 0;
         int currentPos = 0;
         int onceEnd = 0;
-        for (int A_Index19 = 0; A_Index19 < HTVM_Size(allPosForReplacing) + 0; A_Index19++) {
-            if (A_Index19 == 0) {
-                currentPos = allPosForReplacing[A_Index19];
+        for (int A_Index22 = 0; A_Index22 < HTVM_Size(allPosForReplacing) + 0; A_Index22++) {
+            if (A_Index22 == 0) {
+                currentPos = allPosForReplacing[A_Index22];
             } else {
-                currentPos = allPosForReplacing[A_Index19] - (matchStringLEN - replaceStringLEN);
+                currentPos = allPosForReplacing[A_Index22] - (matchStringLEN - replaceStringLEN);
             }
             onceEnd = 0;
-            std::vector<std::string> items20 = LoopParseFunc(lineOut);
-            for (size_t A_Index20 = 0; A_Index20 < items20.size() + 0; A_Index20++) {
-                std::string A_LoopField20 = items20[A_Index20 - 0];
-                if (A_Index20 + 2 > currentPos && A_Index20 + 1 < currentPos + matchStringLEN) {
+            std::vector<std::string> items23 = LoopParseFunc(lineOut);
+            for (size_t A_Index23 = 0; A_Index23 < items23.size() + 0; A_Index23++) {
+                std::string A_LoopField23 = items23[A_Index23 - 0];
+                if (A_Index23 + 2 > currentPos && A_Index23 + 1 < currentPos + matchStringLEN) {
                     onceEnd++;
                     if (onceEnd == 1) {
                         lineTEMP += replaceString;
                     }
                 } else {
-                    lineTEMP += A_LoopField20;
+                    lineTEMP += A_LoopField23;
                 }
             }
             lineOut = lineTEMP;
@@ -1386,26 +1410,6 @@ std::string HTVMmatchStrRrplace(std::string line, std::string matchString, std::
         return line;
     }
     return lineOut;
-}
-std::string SubStrLastChars(std::string text, int numOfChars) {
-    std::string LastOut = "";
-    int NumOfChars = 0;
-    std::vector<std::string> items21 = LoopParseFunc(text);
-    for (size_t A_Index21 = 0; A_Index21 < items21.size() + 0; A_Index21++) {
-        std::string A_LoopField21 = items21[A_Index21 - 0];
-        NumOfChars++;
-    }
-    for (int A_Index22 = 0; A_Index22 < numOfChars + 0; A_Index22++) {
-        NumOfChars--;
-    }
-    std::vector<std::string> items23 = LoopParseFunc(text);
-    for (size_t A_Index23 = 0; A_Index23 < items23.size() + 0; A_Index23++) {
-        std::string A_LoopField23 = items23[A_Index23 - 0];
-        if (A_Index23 >= NumOfChars) {
-            LastOut += A_LoopField23;
-        }
-    }
-    return LastOut;
 }
 std::string ExtractDigits(std::string inputString) {
     std::string digits = "";

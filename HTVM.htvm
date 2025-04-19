@@ -436,6 +436,23 @@ arr str ospDic2
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str SubStrLastChars(str text, int numOfChars) {
+    str LastOut := ""
+    int NumOfChars := 0
+    Loop, Parse, text {
+        NumOfChars++
+    }
+    Loop, % numOfChars {
+        NumOfChars--
+    }
+    Loop, Parse, text {
+        if (A_Index >= NumOfChars) {
+            LastOut .= A_LoopField
+        }
+    }
+    return LastOut
+}
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -648,9 +665,16 @@ return out
 
 func str KeyWordsCommands(str theCodeCommands, str mode, str keyWordsCommands, str langToConvertTo)
 {
+theCodeCommands := Trim(theCodeCommands)
 theCodeCommands := StrReplace(theCodeCommands, "%", "")
 theCodeCommands := StrReplace(theCodeCommands, "| ", "|")
 theCodeCommands := StrReplace(theCodeCommands, ", ", ",")
+
+if (SubStrLastChars(theCodeCommands, 1) = "|")
+{
+StringTrimRight, theCodeCommands, theCodeCommands, 1
+}
+
 if (mode = "check")
 {
 Loop, Parse, keyWordsCommands, "|"
@@ -1065,22 +1089,6 @@ func str HTVMmatchStrRrplace(str line, str matchString, str replaceString) {
     return lineOut
 }
 
-func str SubStrLastChars(str text, int numOfChars) {
-    str LastOut := ""
-    int NumOfChars := 0
-    Loop, Parse, text {
-        NumOfChars++
-    }
-    Loop, % numOfChars {
-        NumOfChars--
-    }
-    Loop, Parse, text {
-        if (A_Index >= NumOfChars) {
-            LastOut .= A_LoopField
-        }
-    }
-    return LastOut
-}
 
 
 func str ExtractDigits(str inputString)
