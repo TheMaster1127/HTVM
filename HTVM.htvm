@@ -649,6 +649,8 @@ return out
 func str KeyWordsCommands(str theCodeCommands, str mode, str keyWordsCommands, str langToConvertTo)
 {
 theCodeCommands := StrReplace(theCodeCommands, "%", "")
+theCodeCommands := StrReplace(theCodeCommands, "| ", "|")
+theCodeCommands := StrReplace(theCodeCommands, ", ", ",")
 if (mode = "check")
 {
 Loop, Parse, keyWordsCommands, "|"
@@ -908,7 +910,7 @@ outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsFucnName . "
 
 if (outConstuctTheOutFromTheCommandsLineTranspile = 1)
 {
-outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsLineTranspileText
+outConstuctTheOutFromTheCommands := StrReplace(outConstuctTheOutFromTheCommandsLineTranspileText, "~~~", Chr(10))
 }
 
 
@@ -9947,6 +9949,35 @@ return out
 
 func str fixIfElseIfMultiLineStatement(str someHTVMcode)
 {
+
+
+int doWeExitInsta := 1
+
+Loop, Parse, someHTVMcode, `n, `r
+{
+
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(keyWordIF)) = keyWordIF)
+{
+doWeExitInsta := 0
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(keyWordWhileLoop)) = keyWordWhileLoop)
+{
+doWeExitInsta := 0
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(keyWordElseIf)) = keyWordElseIf)
+{
+doWeExitInsta := 0
+}
+
+}
+
+if (doWeExitInsta = 1)
+{
+return someHTVMcode
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 str out := ""
 str out2 := ""
