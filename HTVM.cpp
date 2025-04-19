@@ -7550,6 +7550,13 @@ std::vector<std::string> slidingWinFixCommentsRmFUNC(std::string line) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 std::string fixIfElseIfMultiLineStatementHELP(std::string aloopfield) {
     std::string out = "";
     int count = 0;
@@ -9449,6 +9456,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         if (useCurlyBraces == "on") {
+            code = fixIfElseIfMultiLineStatement(code);
             int5 = 0;
             std::vector<std::string> items136 = LoopParseFunc(code, "\n", "\r");
             for (size_t A_Index136 = 0; A_Index136 < items136.size() + 0; A_Index136++) {
@@ -9678,7 +9686,9 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             // main loop
             // main loop
         }
-        code = fixIfElseIfMultiLineStatement(code);
+        if (useCurlyBraces == "off") {
+            code = fixIfElseIfMultiLineStatement(code);
+        }
         std::vector<std::string> items146 = LoopParseFunc(code, "\n", "\r");
         for (size_t A_Index146 = 0; A_Index146 < items146.size() + 0; A_Index146++) {
             std::string A_LoopField146 = items146[A_Index146 - 0];
