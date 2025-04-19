@@ -9181,11 +9181,15 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 const A_LoopField129 = items129[A_Index129 - 0];
                 str1 = "";
                 if (InStr(A_LoopField129, keyWordCurlyBraceOpen) || InStr(A_LoopField129, keyWordCurlyBraceClose)) {
-                    str1 = StrReplace(A_LoopField129, keyWordCurlyBraceOpen, "{");
-                    str1 = StrReplace(str1, keyWordCurlyBraceClose, "}");
-                    str1 = StrReplace(str1, "{", Chr(10) + "{" + Chr(10));
-                    str1 = StrReplace(str1, "}", Chr(10) + "}" + Chr(10));
-                    fixSomeCurlyBraceForExratFlexability += str1 + Chr(10);
+                    if (SubStr(Trim(A_LoopField129), 1, StrLen(Trim(keyWordComment))) == Trim(keyWordComment)) {
+                        fixSomeCurlyBraceForExratFlexability += A_LoopField129 + Chr(10);
+                    } else {
+                        str1 = StrReplace(A_LoopField129, keyWordCurlyBraceOpen, "{");
+                        str1 = StrReplace(str1, keyWordCurlyBraceClose, "}");
+                        str1 = StrReplace(str1, "{", Chr(10) + "{" + Chr(10));
+                        str1 = StrReplace(str1, "}", Chr(10) + "}" + Chr(10));
+                        fixSomeCurlyBraceForExratFlexability += str1 + Chr(10);
+                    }
                 } else {
                     fixSomeCurlyBraceForExratFlexability += A_LoopField129 + Chr(10);
                 }
