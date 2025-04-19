@@ -11794,6 +11794,9 @@ int removeNexFixkeyWordEscpaeChar := 0
 str fixSomeCurlyBraceForExratFlexability := ""
 str fixSomeCurlyBraceForExratFlexabilityTriHELP := ""
 
+str semiColonForOneLinerOut := ""
+
+
 if (isNotHTVMfile = 0)
 {
 
@@ -12202,8 +12205,23 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 }
 }
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+semiColonForOneLinerOut := ""
 
+Loop, Parse, code, `n, `r
+{
+if (SubStr(Trim(A_LoopField), 1, 1) != ";")
+{
+semiColonForOneLinerOut .= StrReplace(A_LoopField, ";", Chr(10)) . Chr(10)
+}
+else
+{
+semiColonForOneLinerOut .= A_LoopField . Chr(10)
+}
 
+}
+StringTrimRight, code, semiColonForOneLinerOut, 1
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -14867,7 +14885,7 @@ htCode .= htCodeLoopfixa1 . Chr(10) . var1out . Chr(10)
 }
 else if (SubStrLastChars(Trim(A_LoopField), StrLen(keyWordInc)) = keyWordInc) or (SubStrLastChars(Trim(A_LoopField), StrLen(keyWordInc . ";")) = keyWordInc . ";") and (lineDone = 0)
 {
-if (useSemicolon = "on")
+if (useSemicolon = "on") or (SubStrLastChars(Trim(A_LoopField), 1) = ";")
 {
 str1 := Trim(StringTrimRight(Trim(A_LoopField), StrLen(keyWordInc . ";")))
 }
@@ -14942,7 +14960,7 @@ if (langToConvertTo = "groovy") {
 }
 else if (SubStrLastChars(Trim(A_LoopField), StrLen(keyWordDec)) = keyWordDec) or (SubStrLastChars(Trim(A_LoopField), StrLen(keyWordDec . ";")) = keyWordDec . ";") and (lineDone = 0)
 {
-if (useSemicolon = "on")
+if (useSemicolon = "on") or (SubStrLastChars(Trim(A_LoopField), 1) = ";")
 {
 str1 := Trim(StringTrimRight(Trim(A_LoopField), StrLen(keyWordDec . ";")))
 }
