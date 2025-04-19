@@ -11796,6 +11796,9 @@ str fixSomeCurlyBraceForExratFlexabilityTriHELP := ""
 
 str semiColonForOneLinerOut := ""
 
+str addNoCurlyFixWhenNextLineAfterConstructOut := ""
+arr str addNoCurlyFixWhenNextLineAfterConstructLookAhead
+
 
 if (isNotHTVMfile = 0)
 {
@@ -12207,6 +12210,51 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+if (useCurlyBraces = "on")
+{
+int5 := 0
+Loop, Parse, code, `n, `r
+{
+addNoCurlyFixWhenNextLineAfterConstructLookAhead.add(Trim(A_LoopField))
+}
+addNoCurlyFixWhenNextLineAfterConstructLookAhead.add(" ")
+;;;;
+addNoCurlyFixWhenNextLineAfterConstructOut := ""
+
+Loop, Parse, code, `n, `r
+{
+if (isLineAconstruct(Trim(A_LoopField))) and (addNoCurlyFixWhenNextLineAfterConstructLookAhead[A_Index + 1] != "{")
+{
+int5 := 1
+addNoCurlyFixWhenNextLineAfterConstructOut .= A_LoopField . Chr(10) . "{" . Chr(10)
+}
+else
+{
+if (int5 = 1)
+{
+int5 := 0
+addNoCurlyFixWhenNextLineAfterConstructOut .= A_LoopField . Chr(10) . "}" . Chr(10)
+}
+else
+{
+addNoCurlyFixWhenNextLineAfterConstructOut .= A_LoopField . Chr(10)
+}
+
+}
+}
+
+StringTrimRight, code, addNoCurlyFixWhenNextLineAfterConstructOut, 1
+int5 := 0
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 semiColonForOneLinerOut := ""
 
 Loop, Parse, code, `n, `r
