@@ -684,7 +684,7 @@ Loop, Parse, A_LoopField, `,
 if (A_Index = 0)
 {
 
-if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField . ", ")) = StrLower(A_LoopField . ", "))
+if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField . ",")) = StrLower(A_LoopField . ","))
 {
 ;MsgBox, true
 return "true"
@@ -720,7 +720,7 @@ Loop, Parse, A_LoopField, `,
 {
 if (A_Index = 0)
 {
-if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField . ", ")) = StrLower(A_LoopField . ", "))
+if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField . ",")) = StrLower(A_LoopField . ","))
 {
 ;MsgBox, true
 keyWordsCommandsNumLine := AIndex

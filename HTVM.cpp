@@ -1128,7 +1128,7 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
             for (size_t A_Index12 = 0; A_Index12 < items12.size() + 0; A_Index12++) {
                 std::string A_LoopField12 = items12[A_Index12 - 0];
                 if (A_Index12 == 0) {
-                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField12 + ", ")) == StrLower(A_LoopField12 + ", ")) {
+                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField12 + ",")) == StrLower(A_LoopField12 + ",")) {
                         //MsgBox, true
                         return "true";
                     }
@@ -1155,7 +1155,7 @@ std::string KeyWordsCommands(std::string theCodeCommands, std::string mode, std:
             for (size_t A_Index14 = 0; A_Index14 < items14.size() + 0; A_Index14++) {
                 std::string A_LoopField14 = items14[A_Index14 - 0];
                 if (A_Index14 == 0) {
-                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField14 + ", ")) == StrLower(A_LoopField14 + ", ")) {
+                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField14 + ",")) == StrLower(A_LoopField14 + ",")) {
                         //MsgBox, true
                         keyWordsCommandsNumLine = AIndex;
                         break;

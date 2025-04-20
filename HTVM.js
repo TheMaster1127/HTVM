@@ -933,7 +933,7 @@ function KeyWordsCommands(theCodeCommands, mode, keyWordsCommands, langToConvert
             for (let A_Index12 = 0; A_Index12 < items12.length + 0; A_Index12++) {
                 const A_LoopField12 = items12[A_Index12 - 0];
                 if (A_Index12 == 0) {
-                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField12 + ", ")) == StrLower(A_LoopField12 + ", ")) {
+                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField12 + ",")) == StrLower(A_LoopField12 + ",")) {
                         //MsgBox, true
                         return "true";
                     }
@@ -960,7 +960,7 @@ function KeyWordsCommands(theCodeCommands, mode, keyWordsCommands, langToConvert
             for (let A_Index14 = 0; A_Index14 < items14.length + 0; A_Index14++) {
                 const A_LoopField14 = items14[A_Index14 - 0];
                 if (A_Index14 == 0) {
-                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField14 + ", ")) == StrLower(A_LoopField14 + ", ")) {
+                    if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField14 + ",")) == StrLower(A_LoopField14 + ",")) {
                         //MsgBox, true
                         keyWordsCommandsNumLine = AIndex;
                         break;
