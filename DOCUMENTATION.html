@@ -2438,6 +2438,136 @@ Discover how to include external files and resources in your HTVM project for en
 
 Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency. Commands help streamline your code and reduce unnecessary complexity.
 
+### Commands in HTVM
+
+**What is a Command?**  
+In HTVM, commands are simple, intuitive building blocks that you use to perform actions in your code. They are inspired by AutoHotKey commands, but in HTVM, they automatically convert into function calls, making the process seamless. These commands are designed to be straightforward and concise, so you don’t need to worry about the underlying complexity of function definitions. When you write a command, HTVM handles converting it into an appropriate function call behind the scenes, allowing you to focus on logic rather than syntax.
+
+Each command can accept one or more parameters, depending on its functionality, and follows a consistent format for easy readability and use.
+
+### Structure of a Command  
+A basic command looks like this:
+
+```htvm
+command, parameter1, parameter2, ...
+```
+
+Commands support multiple parameters and follow a simple, comma-separated format. Behind the scenes, these commands are transformed into corresponding function calls, which execute the desired actions with minimal keystrokes.
+
+**⚠️ Disclaimer:**  
+This command syntax is structured and follows a defined format: a command name followed by a comma, then a space, then the next value, and so on — like `text, text, text`. It is different from how GUI definitions work in HTVM. GUI syntax is far more flexible and allows you to do insane stuff, while commands follow this more controlled, predictable pattern.
+
+#### Rules
+
+We can have `OUTVAR` which means it will be `OUTVAR = funcName(...)`
+So if we have `commandName, OUTVAR, someParam` that will equal `OUTVAR = commandName(someParam)` 
+
+If we have `INVAR` which means it will be `funcName(INVAR ...)`
+So if we have `commandName, INVAR, someParam` that will equal `commandName(INVAR, someParam)` 
+
+If we have `INOUTVAR` which means it will be `INOUTVAR = funcName(INOUTVAR ...)`
+So if we have `commandName, INOUTVAR, someParam` that will equal `INOUTVAR = commandName(INOUTVAR, someParam)` 
+
+If we have `'` which means it will be `funcName(someParam ...)`
+So if we have `commandName, someParam` that will equal `commandName("someParam")` 
+Basically, it means it will wrap it in double quotes ("").
+
+If we have `lineTranspile` it means it will do a replace.  
+So if we have `someText, lineTranspile, replacementText`,  
+that means if you put on a single line alone: `someText`,  
+that will simply be replaced with `replacementText`.  
+And if we have ~~~ in the replacement, it will be replaced with actual new lines.
+
+Example:
+If we define `greetUser, lineTranspile, print("Hello!")~~~print("Welcome to HTVM.")`  
+Then this:
+
+    greetUser
+
+Will become:
+
+    print("Hello!")
+    print("Welcome to HTVM.")
+
+> ⚠️ **Important**: You **cannot** use the following characters inside commands: `,` `|` `%` — these are reserved and will break the parsing.
+
+> If we have `'`, it means the param will be wrapped in double quotes. You **don’t actually type `'` in your code** — it’s just used here in the command definition to mark that param.
+
+### Available Commands  
+Here are all the available commands in this HTVM language:
+
+
+
+```htvm
+StringTrimLeft, OUTVAR, INVAR, param1
+```
+
+
+
+```htvm
+StringTrimRight, OUTVAR, INVAR, param1
+```
+
+
+
+```htvm
+Random, OUTVAR, param1, param2
+```
+
+
+
+```htvm
+Sleep, INVAR
+```
+
+
+
+```htvm
+FileRead, OUTVAR, 'param1
+```
+
+
+
+```htvm
+FileAppend, INVAR, 'param1
+```
+
+
+
+```htvm
+FileDelete, 'INVAR
+```
+
+
+
+```htvm
+Sort, INOUTVAR, 'param1
+```
+
+
+
+```htvm
+MsgBox, 'param1
+```
+
+
+
+This was all of them.
+
+### Customizing Commands in HTVM  
+You can configure and customize the syntax of commands—along with the rest of your HTVM language—on the [HTVM Syntax Configurator website](#https://themaster1127.github.io/HTVM/web-ui/). That’s where you define how your custom HTVM language behaves, including how commands are recognized and structured.
+
+### Summary  
+This is a comprehensive guide to the commands in HTVM. With the goal of reducing keystrokes and inspired by AutoHotKey, HTVM provides an intuitive way to program with less effort.  
+To configure and customize your HTVM language, visit the [HTVM Syntax Configurator website](#https://themaster1127.github.io/HTVM/web-ui/). There you can adjust the commands, see how to define them, and other elements to create your own language and fit your coding needs.
+
+### HTVM Philosophy  
+HTVM is built on the idea of simplifying the coding experience through **minimal keystrokes**. It’s not about being lazy—it’s about being efficient. Traditional programming languages often burden the developer with excessive syntax, repetitive structures, and unnecessary complexity.
+
+HTVM flips that by giving you clean, readable code that does more with less. While some may argue that AI can write code for you, HTVM emphasizes control and creativity—two things that get lost when you offload everything to an AI. Besides, coding is fun. You should be able to enjoy it without the clutter.  
+
+HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct reflection of this philosophy—they let you express complex logic in just a few words, automatically converting into efficient function calls with minimal effort.
+
 ---
 
 

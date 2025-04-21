@@ -1650,6 +1650,49 @@ line := StrReplace(line, "|", "\|")
 return line
 }
 
+
+func str makeCommandsTextHELP(str line)
+{
+str out := ""
+line := Trim(line)
+
+Loop, Parse, line, `,
+{
+out .= A_LoopField . ", "
+}
+StringTrimRight, out, out, 2
+return out
+}
+
+func str makeCommandsText(str commands)
+{
+str out := ""
+; posible params and stuff
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+; OUTVAR
+; INVAR
+; INOUTVAR
+; '
+; just param
+; and lineTranspile
+
+commands := Trim(StrReplace(commands, ", ", ","))
+int num := 0
+Loop, Parse, commands, "|"
+{
+
+if (Trim(A_LoopField) != "")
+{
+
+out .= Chr(10) . Chr(10) . Chr(96) . Chr(96) . Chr(96) . "htvm" . Chr(10) . makeCommandsTextHELP(A_LoopField) . Chr(10) . Chr(96) . Chr(96) . Chr(96) . Chr(10) . Chr(10)
+
+}
+}
+
+
+return out
+}
+
 func str genDocs(str mode)
 {
 str outDocs := ""
@@ -1802,8 +1845,14 @@ str doc_keyWordCommentCloseMultiLine := ""
 
 str doc_funcKeyWord := ""
 
+str allCommandsDoc := ""
+
 Loop, Parse, instructionFileData, `n, `r
 {
+if (A_Index = 2)
+{
+allCommandsDoc := makeCommandsText(Trim(A_LoopField))
+}
 
 if (A_Index = 44)
 {
@@ -2428,7 +2477,7 @@ str outMDsec10 := "" . Chr(10) . "### Error Handling" . Chr(10) . "" . Chr(10) .
 str outMDsec11 := ""
 str outMDsec12 := ""
 str outMDsec13 := "" . Chr(10) . "### Include" . Chr(10) . "" . Chr(10) . "[Go back](#htvm-documentation)" . Chr(10) . "" . Chr(10) . "Discover how to include external files and resources in your HTVM project for enhanced functionality. The **include** feature in HTVM allows you to integrate additional code or libraries into your project seamlessly." . Chr(10) . "" . Chr(10) . "---" . Chr(10) . ""
-str outMDsec14 := "" . Chr(10) . "### Commands" . Chr(10) . "" . Chr(10) . "[Go back](#htvm-documentation)" . Chr(10) . "" . Chr(10) . "Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency. Commands help streamline your code and reduce unnecessary complexity." . Chr(10) . "" . Chr(10) . "---" . Chr(10) . ""
+str outMDsec14 := "" . Chr(10) . "### Commands" . Chr(10) . "" . Chr(10) . "[Go back](#htvm-documentation)" . Chr(10) . "" . Chr(10) . "Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency. Commands help streamline your code and reduce unnecessary complexity." . Chr(10) . "" . Chr(10) . "### Commands in HTVM" . Chr(10) . "" . Chr(10) . "**What is a Command?**  " . Chr(10) . "In HTVM, commands are simple, intuitive building blocks that you use to perform actions in your code. They are inspired by AutoHotKey commands, but in HTVM, they automatically convert into function calls, making the process seamless. These commands are designed to be straightforward and concise, so you don’t need to worry about the underlying complexity of function definitions. When you write a command, HTVM handles converting it into an appropriate function call behind the scenes, allowing you to focus on logic rather than syntax." . Chr(10) . "" . Chr(10) . "Each command can accept one or more parameters, depending on its functionality, and follows a consistent format for easy readability and use." . Chr(10) . "" . Chr(10) . "### Structure of a Command  " . Chr(10) . "A basic command looks like this:" . Chr(10) . "" . Chr(10) . "" . Chr(96) . "" . Chr(96) . "" . Chr(96) . "htvm" . Chr(10) . "command, parameter1, parameter2, ..." . Chr(10) . "" . Chr(96) . "" . Chr(96) . "" . Chr(96) . "" . Chr(10) . "" . Chr(10) . "Commands support multiple parameters and follow a simple, comma-separated format. Behind the scenes, these commands are transformed into corresponding function calls, which execute the desired actions with minimal keystrokes." . Chr(10) . "" . Chr(10) . "**⚠️ Disclaimer:**  " . Chr(10) . "This command syntax is structured and follows a defined format: a command name followed by a comma, then a space, then the next value, and so on — like " . Chr(96) . "text, text, text" . Chr(96) . ". It is different from how GUI definitions work in HTVM. GUI syntax is far more flexible and allows you to do insane stuff, while commands follow this more controlled, predictable pattern." . Chr(10) . "" . Chr(10) . "#### Rules" . Chr(10) . "" . Chr(10) . "We can have " . Chr(96) . "OUTVAR" . Chr(96) . " which means it will be " . Chr(96) . "OUTVAR = funcName(...)" . Chr(96) . "" . Chr(10) . "So if we have " . Chr(96) . "commandName, OUTVAR, someParam" . Chr(96) . " that will equal " . Chr(96) . "OUTVAR = commandName(someParam)" . Chr(96) . " " . Chr(10) . "" . Chr(10) . "If we have " . Chr(96) . "INVAR" . Chr(96) . " which means it will be " . Chr(96) . "funcName(INVAR ...)" . Chr(96) . "" . Chr(10) . "So if we have " . Chr(96) . "commandName, INVAR, someParam" . Chr(96) . " that will equal " . Chr(96) . "commandName(INVAR, someParam)" . Chr(96) . " " . Chr(10) . "" . Chr(10) . "If we have " . Chr(96) . "INOUTVAR" . Chr(96) . " which means it will be " . Chr(96) . "INOUTVAR = funcName(INOUTVAR ...)" . Chr(96) . "" . Chr(10) . "So if we have " . Chr(96) . "commandName, INOUTVAR, someParam" . Chr(96) . " that will equal " . Chr(96) . "INOUTVAR = commandName(INOUTVAR, someParam)" . Chr(96) . " " . Chr(10) . "" . Chr(10) . "If we have " . Chr(96) . "'" . Chr(96) . " which means it will be " . Chr(96) . "funcName(someParam ...)" . Chr(96) . "" . Chr(10) . "So if we have " . Chr(96) . "commandName, someParam" . Chr(96) . " that will equal " . Chr(96) . "commandName(" . Chr(34) . "someParam" . Chr(34) . ")" . Chr(96) . " " . Chr(10) . "Basically, it means it will wrap it in double quotes (" . Chr(34) . "" . Chr(34) . ")." . Chr(10) . "" . Chr(10) . "If we have " . Chr(96) . "lineTranspile" . Chr(96) . " it means it will do a replace.  " . Chr(10) . "So if we have " . Chr(96) . "someText, lineTranspile, replacementText" . Chr(96) . ",  " . Chr(10) . "that means if you put on a single line alone: " . Chr(96) . "someText" . Chr(96) . ",  " . Chr(10) . "that will simply be replaced with " . Chr(96) . "replacementText" . Chr(96) . ".  " . Chr(10) . "And if we have ~~~ in the replacement, it will be replaced with actual new lines." . Chr(10) . "" . Chr(10) . "Example:" . Chr(10) . "If we define " . Chr(96) . "greetUser, lineTranspile, print(" . Chr(34) . "Hello!" . Chr(34) . ")~~~print(" . Chr(34) . "Welcome to HTVM." . Chr(34) . ")" . Chr(96) . "  " . Chr(10) . "Then this:" . Chr(10) . "" . Chr(10) . "    greetUser" . Chr(10) . "" . Chr(10) . "Will become:" . Chr(10) . "" . Chr(10) . "    print(" . Chr(34) . "Hello!" . Chr(34) . ")" . Chr(10) . "    print(" . Chr(34) . "Welcome to HTVM." . Chr(34) . ")" . Chr(10) . "" . Chr(10) . "" . Chr(62) . " ⚠️ **Important**: You **cannot** use the following characters inside commands: " . Chr(96) . "," . Chr(96) . " " . Chr(96) . "|" . Chr(96) . " " . Chr(96) . "%" . Chr(96) . " — these are reserved and will break the parsing." . Chr(10) . "" . Chr(10) . "" . Chr(62) . " If we have " . Chr(96) . "'" . Chr(96) . ", it means the param will be wrapped in double quotes. You **don’t actually type " . Chr(96) . "'" . Chr(96) . " in your code** — it’s just used here in the command definition to mark that param." . Chr(10) . "" . Chr(10) . "### Available Commands  " . Chr(10) . "Here are all the available commands in this HTVM language:" . Chr(10) . "" . Chr(10) . allCommandsDoc . Chr(10) . "" . Chr(10) . "This was all of them." . Chr(10) . "" . Chr(10) . "### Customizing Commands in HTVM  " . Chr(10) . "You can configure and customize the syntax of commands—along with the rest of your HTVM language—on the [HTVM Syntax Configurator website](#https://themaster1127.github.io/HTVM/web-ui/). That’s where you define how your custom HTVM language behaves, including how commands are recognized and structured." . Chr(10) . "" . Chr(10) . "### Summary  " . Chr(10) . "This is a comprehensive guide to the commands in HTVM. With the goal of reducing keystrokes and inspired by AutoHotKey, HTVM provides an intuitive way to program with less effort.  " . Chr(10) . "To configure and customize your HTVM language, visit the [HTVM Syntax Configurator website](#https://themaster1127.github.io/HTVM/web-ui/). There you can adjust the commands, see how to define them, and other elements to create your own language and fit your coding needs." . Chr(10) . "" . Chr(10) . "### HTVM Philosophy  " . Chr(10) . "HTVM is built on the idea of simplifying the coding experience through **minimal keystrokes**. It’s not about being lazy—it’s about being efficient. Traditional programming languages often burden the developer with excessive syntax, repetitive structures, and unnecessary complexity." . Chr(10) . "" . Chr(10) . "HTVM flips that by giving you clean, readable code that does more with less. While some may argue that AI can write code for you, HTVM emphasizes control and creativity—two things that get lost when you offload everything to an AI. Besides, coding is fun. You should be able to enjoy it without the clutter.  " . Chr(10) . "" . Chr(10) . "HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct reflection of this philosophy—they let you express complex logic in just a few words, automatically converting into efficient function calls with minimal effort." . Chr(10) . "" . Chr(10) . "---" . Chr(10) . ""
 str outMDsec15 := "" . Chr(10) . "### All Syntax" . Chr(10) . "" . Chr(10) . "[Go back](#htvm-documentation)" . Chr(10) . "" . Chr(10) . "#### Here is all of the syntax in this language:" . Chr(10) . Chr(10) . allSyntax . Chr(10) . "" . Chr(10) . "---" . Chr(10) . ""
 
 

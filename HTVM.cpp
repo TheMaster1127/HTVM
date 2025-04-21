@@ -1746,16 +1746,6 @@ bool isLineAconstruct(std::string line) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-std::string fixDoubleQuotes(std::string line, int isLast) {
-    std::string out = "";
-    if (isLast == 0) {
-        out = StrReplace(line, Chr(92) + Chr(92) + Chr(34), Chr(92) + Chr(34));
-    } else {
-        line = StringTrimRight(line, 1);
-        out = StrReplace(line, Chr(92) + Chr(92) + Chr(34), Chr(92) + Chr(34)) + Chr(34);
-    }
-    return out;
-}
 std::string fixArray1234(std::string line) {
     std::string out = "";
     int started = 0;
@@ -7605,8 +7595,8 @@ std::string fixIfElseIfMultiLineStatement(std::string someHTVMcode) {
     bool doWeExit = false;
     int doWeExitHELP = 0;
     out = someHTVMcode;
-    // 2147483000 just in case the loop somehow becomes infinite
-    for (int A_Index107 = 0; A_Index107 < 2147483000 + 0; A_Index107++) {
+    // 10000 just in case the loop somehow becomes infinite
+    for (int A_Index107 = 0; A_Index107 < 10000 + 0; A_Index107++) {
         out2 = out;
         out = "";
         doWeExit = false;

@@ -1551,16 +1551,6 @@ function isLineAconstruct(line) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-function fixDoubleQuotes(line, isLast) {
-    var out = "";
-    if (isLast == 0) {
-        out = StrReplace(line, Chr(92) + Chr(92) + Chr(34), Chr(92) + Chr(34));
-    } else {
-        line = StringTrimRight(line, 1);
-        out = StrReplace(line, Chr(92) + Chr(92) + Chr(34), Chr(92) + Chr(34)) + Chr(34);
-    }
-    return out;
-}
 function fixArray1234(line) {
     var out = "";
     var started = 0;
@@ -7410,8 +7400,8 @@ function fixIfElseIfMultiLineStatement(someHTVMcode) {
     var doWeExit = false;
     var doWeExitHELP = 0;
     out = someHTVMcode;
-    // 2147483000 just in case the loop somehow becomes infinite
-    for (let A_Index107 = 0; A_Index107 < 2147483000 + 0; A_Index107++) {
+    // 10000 just in case the loop somehow becomes infinite
+    for (let A_Index107 = 0; A_Index107 < 10000 + 0; A_Index107++) {
         out2 = out;
         out = "";
         doWeExit = false;

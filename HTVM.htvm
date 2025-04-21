@@ -1556,24 +1556,6 @@ return false
 
 
 
-func str fixDoubleQuotes(str line, int isLast)
-{
-str out := ""
-if (isLast = 0)
-{
-out := StrReplace(line, Chr(92) . Chr(92) . Chr(34), Chr(92) . Chr(34))
-}
-else
-{
-StringTrimRight, line, line, 1
-
-out := StrReplace(line, Chr(92) . Chr(92) . Chr(34), Chr(92) . Chr(34)) . Chr(34)
-}
-
-return out
-}
-
-
 
 func str fixArray1234(str line)
 {
@@ -10002,8 +9984,8 @@ int doWeJustExit := 0
 bool doWeExit := false
 int doWeExitHELP := 0
 out := someHTVMcode
-; 2147483000 just in case the loop somehow becomes infinite
-Loop, 2147483000
+; 10000 just in case the loop somehow becomes infinite
+Loop, 10000
 {
 out2 := out
 out := ""
