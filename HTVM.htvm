@@ -12044,6 +12044,31 @@ StringTrimRight, code, newStringOutCode, 1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+if (langToConvertTo != langFileExtension_2)
+{
+semiColonForOneLinerOut := ""
+
+Loop, Parse, code, `n, `r
+{
+if (SubStr(Trim(A_LoopField), 1, 1) != ";")
+{
+semiColonForOneLinerOut .= StrReplace(A_LoopField, ";", Chr(10)) . Chr(10)
+}
+else
+{
+semiColonForOneLinerOut .= A_LoopField . Chr(10)
+}
+
+}
+StringTrimRight, code, semiColonForOneLinerOut, 1
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 if (langToConvertTo = langFileExtension_2)
 {
@@ -12261,27 +12286,7 @@ int5 := 0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-semiColonForOneLinerOut := ""
-
-Loop, Parse, code, `n, `r
-{
-if (SubStr(Trim(A_LoopField), 1, 1) != ";")
-{
-semiColonForOneLinerOut .= StrReplace(A_LoopField, ";", Chr(10)) . Chr(10)
-}
-else
-{
-semiColonForOneLinerOut .= A_LoopField . Chr(10)
-}
-
-}
-StringTrimRight, code, semiColonForOneLinerOut, 1
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 htCodeOutFixEnd := ""
