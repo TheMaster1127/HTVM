@@ -9366,7 +9366,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 std::string A_LoopField129 = items129[A_Index129 - 0];
                 str1 = "";
                 if (InStr(A_LoopField129, keyWordCurlyBraceOpen) || InStr(A_LoopField129, keyWordCurlyBraceClose)) {
-                    if (SubStr(Trim(A_LoopField129), 1, StrLen(Trim(keyWordComment))) == Trim(keyWordComment)) {
+                    if (SubStr(Trim(A_LoopField129), 1, StrLen(Trim(keyWordComment))) == Trim(keyWordComment) && isLineAconstruct(Trim(A_LoopField129)) == false) {
                         fixSomeCurlyBraceForExratFlexability += A_LoopField129 + Chr(10);
                     } else {
                         str1 = StrReplace(A_LoopField129, keyWordCurlyBraceOpen, "{");
