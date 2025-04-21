@@ -9566,10 +9566,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 std::string A_LoopField143 = items143[A_Index143 - 0];
                 if (InStr(A_LoopField143, " " + keyWordAssign + " ") || InStr(A_LoopField143, " " + keyWordAssignAdd + " ") || InStr(A_LoopField143, " " + keyWordAssignConcat + " ") || InStr(A_LoopField143, " " + keyWordAssignSub + " ") || InStr(A_LoopField143, " " + keyWordAssignMul + " ") || InStr(A_LoopField143, " " + keyWordAssignDiv + " ") || InStr(A_LoopField143, " " + keyWordAssignMod + " ") || InStr(A_LoopField143, " " + keyWordAssignShiftLeft + " ") || InStr(A_LoopField143, " " + keyWordAssignShiftRight + " ") || InStr(A_LoopField143, " " + keyWordLogicalAssignShiftRight + " ") || InStr(A_LoopField143, " " + keyWordAssignBitAnd + " ") || InStr(A_LoopField143, " " + keyWordAssignBitOr + " ") || InStr(A_LoopField143, " " + keyWordAssignBitXor + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
                     if (SubStr(StrLower(A_LoopField143), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc) || SubStr(StrLower(A_LoopField143), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc)) {
-                        if (InStr(Trim(A_LoopField143), "{") && Trim(A_LoopField143) != "{" && SubStr(Trim(A_LoopField143), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) {
+                        if (InStr(Trim(A_LoopField143), "{") && Trim(A_LoopField143) != "{" && SubStr(Trim(A_LoopField143), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment) && isLineAconstruct(Trim(A_LoopField143)) == true) {
                             outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField143), "{", "")) + "\n{\n";
                         }
-                        else if (InStr(Trim(A_LoopField143), "}") && Trim(A_LoopField143) != "}" && SubStr(Trim(A_LoopField143), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) {
+                        else if (InStr(Trim(A_LoopField143), "}") && Trim(A_LoopField143) != "}" && SubStr(Trim(A_LoopField143), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment) && isLineAconstruct(Trim(A_LoopField143)) == true) {
                             outCodeFixBraces += "}\n" + Trim(StrReplace(Trim(A_LoopField143), "}", "")) + Chr(10);
                         } else {
                             outCodeFixBraces += Trim(A_LoopField143) + Chr(10);
@@ -9578,10 +9578,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         outCodeFixBraces += Trim(A_LoopField143) + Chr(10);
                     }
                 } else {
-                    if (InStr(Trim(A_LoopField143), "{") && Trim(A_LoopField143) != "{" && SubStr(Trim(A_LoopField143), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) {
+                    if (InStr(Trim(A_LoopField143), "{") && Trim(A_LoopField143) != "{" && SubStr(Trim(A_LoopField143), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment) && isLineAconstruct(Trim(A_LoopField143)) == true) {
                         outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField143), "{", "")) + "\n{\n";
                     }
-                    else if (InStr(Trim(A_LoopField143), "}") && Trim(A_LoopField143) != "}" && SubStr(Trim(A_LoopField143), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) {
+                    else if (InStr(Trim(A_LoopField143), "}") && Trim(A_LoopField143) != "}" && SubStr(Trim(A_LoopField143), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment) && isLineAconstruct(Trim(A_LoopField143)) == true) {
                         outCodeFixBraces += "}\n" + Trim(StrReplace(Trim(A_LoopField143), "}", "")) + Chr(10);
                     } else {
                         outCodeFixBraces += Trim(A_LoopField143) + Chr(10);
