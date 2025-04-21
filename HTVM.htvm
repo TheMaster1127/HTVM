@@ -12105,12 +12105,21 @@ fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
 else
 {
 
+
+if (InStr(A_LoopField, " " . keyWordAssign . " ")) or (InStr(A_LoopField, " " . keyWordAssignAdd . " ")) or (InStr(A_LoopField, " " . keyWordAssignConcat . " ")) or (InStr(A_LoopField, " " . keyWordAssignSub . " ")) or (InStr(A_LoopField, " " . keyWordAssignMul . " ")) or (InStr(A_LoopField, " " . keyWordAssignDiv . " ")) or (InStr(A_LoopField, " " . keyWordAssignMod . " ")) or (InStr(A_LoopField, " " . keyWordAssignShiftLeft . " ")) or (InStr(A_LoopField, " " . keyWordAssignShiftRight . " ")) or (InStr(A_LoopField, " " . keyWordLogicalAssignShiftRight . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitAnd . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitOr . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitXor . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
+{
+fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
+}
+else
+{
 str1 := StrReplace(A_LoopField, keyWordCurlyBraceOpen, "{")
 str1 := StrReplace(str1, keyWordCurlyBraceClose, "}")
 str1 := StrReplace(str1, "{", Chr(10) . "{" . Chr(10))
 str1 := StrReplace(str1, "}", Chr(10) . "}" . Chr(10))
 
 fixSomeCurlyBraceForExratFlexability .= str1 . Chr(10)
+}
+
 }
 }
 else
@@ -12376,11 +12385,11 @@ if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(k
 {
 
 
-if (InStr(Trim(A_LoopField), "{")) and (Trim(A_LoopField) != "{") and (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) and (isLineAconstruct(Trim(A_LoopField)) = true)
+if (InStr(Trim(A_LoopField), "{")) and (Trim(A_LoopField) != "{") and (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment))
 {
-outCodeFixBraces .= Trim(StrReplace(Trim(A_LoopField), "{", "")) . "`n{`n"
+    outCodeFixBraces .= Trim(StrReplace(Trim(A_LoopField), "{", "")) . "`n{`n"
 }
-else if (InStr(Trim(A_LoopField), "}")) and (Trim(A_LoopField) != "}") and (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) and (isLineAconstruct(Trim(A_LoopField)) = true)
+else if (InStr(Trim(A_LoopField), "}")) and (Trim(A_LoopField) != "}") and (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment))
 {
 outCodeFixBraces .= "}`n" . Trim(StrReplace(Trim(A_LoopField), "}", "")) . Chr(10)
 }
@@ -12399,11 +12408,11 @@ outCodeFixBraces .= Trim(A_LoopField) . Chr(10)
 else
 {
 
-if (InStr(Trim(A_LoopField), "{")) and (Trim(A_LoopField) != "{") and (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) and (isLineAconstruct(Trim(A_LoopField)) = true)
+if (InStr(Trim(A_LoopField), "{")) and (Trim(A_LoopField) != "{") and (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment))
 {
 outCodeFixBraces .= Trim(StrReplace(Trim(A_LoopField), "{", "")) . "`n{`n"
 }
-else if (InStr(Trim(A_LoopField), "}")) and (Trim(A_LoopField) != "}") and (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) and (isLineAconstruct(Trim(A_LoopField)) = true)
+else if (InStr(Trim(A_LoopField), "}")) and (Trim(A_LoopField) != "}") and (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment))
 {
 outCodeFixBraces .= "}`n" . Trim(StrReplace(Trim(A_LoopField), "}", "")) . Chr(10)
 }
