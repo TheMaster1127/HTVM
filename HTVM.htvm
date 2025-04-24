@@ -12131,7 +12131,7 @@ else
 {
 
 
-if (InStr(A_LoopField, " " . keyWordAssign . " ")) or (InStr(A_LoopField, " " . keyWordAssignAdd . " ")) or (InStr(A_LoopField, " " . keyWordAssignConcat . " ")) or (InStr(A_LoopField, " " . keyWordAssignSub . " ")) or (InStr(A_LoopField, " " . keyWordAssignMul . " ")) or (InStr(A_LoopField, " " . keyWordAssignDiv . " ")) or (InStr(A_LoopField, " " . keyWordAssignMod . " ")) or (InStr(A_LoopField, " " . keyWordAssignShiftLeft . " ")) or (InStr(A_LoopField, " " . keyWordAssignShiftRight . " ")) or (InStr(A_LoopField, " " . keyWordLogicalAssignShiftRight . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitAnd . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitOr . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitXor . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
+if (InStr(A_LoopField, Trim(keyWordArrayDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfIntegersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfStringsDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfBooleansDefinition) . " " . keyWordAssign . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
 {
 fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
 }
@@ -12383,7 +12383,7 @@ outCodeFixBraces := ""
 Loop, Parse, code, `n, `r
 {
 
-if (InStr(A_LoopField, " " . keyWordAssign . " ")) or (InStr(A_LoopField, " " . keyWordAssignAdd . " ")) or (InStr(A_LoopField, " " . keyWordAssignConcat . " ")) or (InStr(A_LoopField, " " . keyWordAssignSub . " ")) or (InStr(A_LoopField, " " . keyWordAssignMul . " ")) or (InStr(A_LoopField, " " . keyWordAssignDiv . " ")) or (InStr(A_LoopField, " " . keyWordAssignMod . " ")) or (InStr(A_LoopField, " " . keyWordAssignShiftLeft . " ")) or (InStr(A_LoopField, " " . keyWordAssignShiftRight . " ")) or (InStr(A_LoopField, " " . keyWordLogicalAssignShiftRight . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitAnd . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitOr . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitXor . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
+if (InStr(A_LoopField, Trim(keyWordArrayDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfIntegersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfStringsDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfBooleansDefinition) . " " . keyWordAssign . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
 {
 
 if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc)) or (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAsync) . StrLower(keyWordFunc))) = StrLower(keyWordAsync) . StrLower(keyWordFunc))

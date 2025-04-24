@@ -2,9 +2,9 @@
 
 
 ; for cpp
-"C:\Users\The_M\Downloads\O3HTVMexe\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-instructions.txt" "cpp"
-g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
-cd "%DIRFULLPATH%" && "%ONLYFILENAME%.exe"
+;"C:\Users\The_M\Downloads\O3HTVMexe\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-instructions.txt" "cpp"
+;g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
+;cd "%DIRFULLPATH%" && "%ONLYFILENAME%.exe"
 
 
 
