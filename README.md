@@ -54,11 +54,12 @@ HTVM **isn’t just about converting your custom language to multiple targets—
 
 ---
 
-### 🌐 OSP: Objectively Simplified Programming Paradigm  
-HTVM introduces the **Objectively Simplified Programming (OSP)** paradigm, which eliminates the complexities of traditional object-oriented programming while still supporting objects.  
-- OSP focuses on intuitive and powerful object usage.  
-- For more details, check out the **[OSP Documentation](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#osp-objectively-simplified-programming-paradigm)**.
-- Or, build your own HTVM language, and the documentation for it will be generated once you create it here on the [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/). Then, you can read about OSP.
+### 🌐 OSP: Ordinal Struct Programming
+
+HTVM features **OSP (Ordinal Struct Programming)**, its unique built-in methodology for structuring code. It uses hierarchical namespaces (`alliance`, `crew`) and data containers (`struct`) with mandatory full-path access.
+-   OSP provides an alternative way to organize data and related procedures (`proc`), emphasizing explicitness and clear structure, which can be beneficial for managing project components without relying on traditional OOP features like inheritance.
+-   For a detailed explanation, see the **[OSP (Ordinal Struct Programming) Documentation](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#osp-ordinal-struct-programming)**.
+-   Or, build your own HTVM language using the [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/web-ui/), and the specific documentation for your language, including OSP details, will be generated. Then you can read about OSP.
 
 ---
 
@@ -730,7 +731,7 @@ HTVM is fundamentally a **meta-programming system** and **language workbench** d
 1.  **Creating Custom Programming Languages:** Its primary purpose is to let users define their *own* syntax, keywords, operators, and overall language structure.
 2.  **Multi-Target Code Generation:** Translating code written in a user's custom HTVM language into 15 different standard programming languages (C++, Python, JS, etc.).
 3.  **Simplifying Development:** Making coding more intuitive and potentially faster by allowing personalized syntax and aiming to reduce library import boilerplate through built-in functions. You can add your own, too.
-4.  **Exploring New Paradigms:** Introducing concepts like OSP (Objectively Simplified Programming) as alternatives to traditional approaches.
+4.  **Exploring New Methodology For Structuring Code:** Introducing concepts like OSP (Ordinal Struct Programming) as alternatives to traditional approaches.
 5.  **Bridging Abstraction and Native Code:** Providing [Programming Blocks](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#programming-blocks) as a mechanism to include target-specific code seamlessly when HTVM's abstractions aren't enough or native features are required.
 6.  **Inter-HTVM Conversion:** Enabling conversion *between different HTVM language syntaxes*, allowing collaboration even when individuals use personalized versions of HTVM.
 
@@ -745,8 +746,7 @@ HTVM addresses several key pain points in modern programming:
 5.  **High Barrier to Entry:** Significantly lowers the entry barrier for non-programmers or beginners by allowing intuitive, self-designed languages.
 6.  **Accessibility Challenges (e.g., ADHD/Dyslexia):** Standard languages have long, complex, or easily misspelled keywords (like `push_back`, `finally`, `continue`). For people with dyslexia or ADHD, this can be a real barrier. HTVM allows customizing these keywords to something shorter, simpler, or personally memorable, making coding significantly more accessible. (As the creator, even I sometimes struggle to spell `continue` right!).
 7.  **Collaboration Across Personalized Syntaxes:** Allows developers using different custom HTVM syntaxes to understand each other's code by converting it to their own preferred format.
-8.  **OOP Complexity:** Offers OSP as a streamlined alternative for those who find traditional OOP cumbersome.
-9.  **Abstraction Gaps:** Intelligently uses [Programming Blocks](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#programming-blocks) to provide access to native features without sacrificing the benefits of the high-level HTVM language.
+8.  **Abstraction Gaps:** Intelligently uses [Programming Blocks](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#programming-blocks) to provide access to native features without sacrificing the benefits of the high-level HTVM language.
 
 #### What it can be used for?
 
@@ -838,7 +838,7 @@ While developing HTVM, we anticipate potential questions and concerns. Here are 
 
 7.  **Concern: OSP Explanation**
     *   *The Question:* The README mentions OSP but doesn't explain it.
-    *   **The Creator's Perspective:** Correct. OSP (Objectively Simplified Programming) is a distinct concept detailed in the main HTVM documentation (which is generated based on your custom language configuration). The README serves as an overview and links to deeper resources.
+    *   **The Creator's Perspective:** Correct. OSP (Ordinal Struct Programming) is a distinct concept detailed in the main HTVM documentation (which is generated based on your custom language configuration). The README serves as an overview and links to deeper resources.
 
 8.  **Concern: Maintenance Burden**
     *   *The Question:* Maintaining correct transpilation for 15 evolving languages seems like a massive task.
