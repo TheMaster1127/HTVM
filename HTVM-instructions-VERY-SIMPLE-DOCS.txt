@@ -3,8 +3,8 @@ langFileExtension
 commands
 keyWordAlliance
 keyWordCrew
-keyWordMethod
-keyWordDefObj
+keyWordProc
+keyWordStruct
 keyWordProp
 keyWordThis
 keyWordInclude

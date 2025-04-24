@@ -2343,8 +2343,8 @@ HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct
 |  commands  | StringTrimLeft,OUTVAR,INVAR,param1 &#124; StringTrimRight,OUTVAR,INVAR,param1 &#124; Random,OUTVAR,param1,param2 &#124; Sleep,INVAR &#124; FileRead,OUTVAR,'param1 &#124; FileAppend,INVAR,'param1 &#124; FileDelete,'INVAR &#124; Sort,INOUTVAR,'param1 &#124; MsgBox,'param1        |
 |  keyWordAlliance  | alliance        |
 |  keyWordCrew  | crew        |
-|  keyWordMethod  | proc        |
-|  keyWordDefObj  | struct        |
+|  keyWordProc  | proc        |
+|  keyWordStruct  | struct        |
 |  keyWordProp  | prop        |
 |  keyWordThis  | this        |
 |  keyWordInclude  | import        |
