@@ -1,4 +1,4 @@
-def obj name {
+struct name {
     prop arr str prop1
     prop arr str prop2
     prop arr str prop3

@@ -1,5 +1,17 @@
-def obj Car {
-    prop int fuel := 100
-    ; This will cause an error!
-    print(this)
+alliance Game {
+    crew Audio {
+	; This is Game.Audio.Settings
+        struct Settings {
+            prop int volume := 80
+        }
+    }
+    crew Video {
+	; This is Game.Video.Settings - no collision!
+        struct Settings {
+            prop str resolution := "1920x1080"
+        }
+    }
 }
+; Access using the full path
+print(Game.Audio.Settings.volume)
+print(Game.Video.Settings.resolution)

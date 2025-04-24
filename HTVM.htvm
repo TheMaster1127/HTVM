@@ -70,8 +70,8 @@ str langFileExtension := ""
 str commands := ""
 str keyWordAlliance := ""
 str keyWordCrew := ""
-str keyWordMethod := ""
-str keyWordDefObj := ""
+str keyWordProc := ""
+str keyWordStruct := ""
 str keyWordProp := ""
 str keyWordThis := ""
 str keyWordInclude := ""
@@ -237,8 +237,8 @@ str langFileExtension_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str commands_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordAlliance_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordCrew_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordMethod_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordDefObj_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
+str keyWordProc_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
+str keyWordStruct_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordProp_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordThis_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordInclude_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
@@ -1514,11 +1514,11 @@ else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordCrew))) = StrLow
 {
 return true
 }
-else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordDefObj))) = StrLower(keyWordDefObj))
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordStruct))) = StrLower(keyWordStruct))
 {
 return true
 }
-else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordMethod))) = StrLower(keyWordMethod))
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordProc))) = StrLower(keyWordProc))
 {
 return true
 }
@@ -1583,7 +1583,7 @@ started := 1
 return out
 }
 
-func str fixArray123(str line, str arrayMethodStr, int mode)
+func str fixArray123(str line, str arrayProcStr, int mode)
 {
 
 
@@ -1677,9 +1677,9 @@ return line
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-func str arrayParserTranspiler1(str line, str arrayMethodStr, int mode)
+func str arrayParserTranspiler1(str line, str arrayProcStr, int mode)
 {
-if (InStr(line, arrayMethodStr) = false)
+if (InStr(line, arrayProcStr) = false)
 {
 return line
 }
@@ -1701,19 +1701,19 @@ arr int holdPositions
 Loop, % arrAll.size()
 {
 tempHold := ""
-if (arrAll.size() - StrLen(arrayMethodStr) + 1 = i1)
+if (arrAll.size() - StrLen(arrayProcStr) + 1 = i1)
 {
 break
 }
 
-Loop, StrLen(arrayMethodStr)
+Loop, StrLen(arrayProcStr)
 {
 tempHold .= arrAll[A_Index + i1]
 }
 
 i1++
 ;print(tempHold)
-if (tempHold = arrayMethodStr)
+if (tempHold = arrayProcStr)
 {
 holdPos := i1
 ;print(holdPos)
@@ -1857,7 +1857,7 @@ beenInside++
 }
 if (beenInside = 1)
 {
-out .= fixArray123(holdDebug, arrayMethodStr, mode)
+out .= fixArray123(holdDebug, arrayProcStr, mode)
 canOut := 0
 }
 else
@@ -3094,14 +3094,14 @@ alredy := 0
 
 outOSP := ""
 
-if (OSPhelp(line, keyWordDefObj))
+if (OSPhelp(line, keyWordStruct))
 {
 
 Loop, Parse, line, `n, `r
 {
 
 
-if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordDefObj)) = StrLower(keyWordDefObj)) and (lookAhead[A_Index + 1] = "{")
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordStruct)) = StrLower(keyWordStruct)) and (lookAhead[A_Index + 1] = "{")
 {
 ;print(A_LoopField)
 
@@ -3172,9 +3172,9 @@ outOSP := ""
 Loop, Parse, line, `n, `r
 {
 
-if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordDefObj)) = StrLower(keyWordDefObj)) and (lookAhead[A_Index + 1] = "{")
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordStruct)) = StrLower(keyWordStruct)) and (lookAhead[A_Index + 1] = "{")
 {
-str1 := Trim(StringTrimLeft(A_LoopField, StrLen(SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordDefObj)))))
+str1 := Trim(StringTrimLeft(A_LoopField, StrLen(SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordStruct)))))
 
 ospDic.add(str1)
 
@@ -3209,7 +3209,7 @@ outOSP .= A_LoopField . "-----------------------HTVM-OSP-HTVM-OBJ--------------"
 }
 
 
-if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordMethod)) = StrLower(keyWordMethod)) and (lookAhead[A_Index + 1] = "{")
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordProc)) = StrLower(keyWordProc)) and (lookAhead[A_Index + 1] = "{")
 {
 
 tempStackText := ""
@@ -10099,10 +10099,10 @@ Loop, Parse, allInstructionFile, `n, `r
 		keyWordCrew := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 5) {
-		keyWordMethod := Trim(A_LoopField) . " "
+		keyWordProc := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 6) {
-		keyWordDefObj := Trim(A_LoopField) . " "
+		keyWordStruct := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 7) {
 		keyWordProp := Trim(A_LoopField) . " "
@@ -10601,10 +10601,10 @@ Loop, Parse, allInstructionFile_2, `n, `r
 		keyWordCrew_2 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 5) {
-		keyWordMethod_2 := Trim(A_LoopField) . " "
+		keyWordProc_2 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 6) {
-		keyWordDefObj_2 := Trim(A_LoopField) . " "
+		keyWordStruct_2 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 7) {
 		keyWordProp_2 := Trim(A_LoopField) . " "
@@ -12770,18 +12770,18 @@ strOspHold := StrReplace(str1, "_", ".")
 
 if (langToConvertTo = langFileExtension_2) 
 {
-htCode .= keyWordDefObj_2 . StrReplace(str1, "_", ".") . Chr(10) . "{" . Chr(10)
+htCode .= keyWordStruct_2 . StrReplace(str1, "_", ".") . Chr(10) . "{" . Chr(10)
 }
 
 
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordDefObj))) = StrLower(keyWordDefObj))
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordStruct))) = StrLower(keyWordStruct))
 {
 lineDone := 1
-str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordDefObj)))
+str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordStruct)))
 if (langToConvertTo = langFileExtension_2) 
 {
-htCode .= Trim(keyWordDefObj_2) . " " . str0 . Chr(10)
+htCode .= Trim(keyWordStruct_2) . " " . str0 . Chr(10)
 }
 
 }
@@ -12843,10 +12843,10 @@ htCode .= propHELP(str1, StrReplace(str20, ".", "_") . "_") . Chr(10)
 
 
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordMethod))) = StrLower(keyWordMethod))
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordProc))) = StrLower(keyWordProc))
 {
 lineDone := 1
-str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordMethod)))
+str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordProc)))
 str1 := Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 1))
 str20 := Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 2))
 
@@ -12860,7 +12860,7 @@ Loop, Parse, str16, " "
 str17 := Trim(A_LoopField)
 }
 
-; last word aka the method name
+; last word aka the proc name
 ;str17
 
 str15 := StrReplace(str20 . "_" . str17, "_", ".")
@@ -12907,15 +12907,15 @@ str3 := Trim(str3)
     if (langToConvertTo = langFileExtension_2) {
         if (int1 = 1) { ; int1 1 = is async 0 = not async
             if (usePrefixTypeForTypeDefinition_2 = "on") {
-                htCode .= keyWordAsync_2 . keyWordMethod_2 . getFuncTypeConvert(str3) . " " . str2 . "(" . keyWordThis_2 . ")" . Chr(10)
+                htCode .= keyWordAsync_2 . keyWordProc_2 . getFuncTypeConvert(str3) . " " . str2 . "(" . keyWordThis_2 . ")" . Chr(10)
             } else {
-                htCode .= keyWordAsync_2 . keyWordMethod_2 . str2 . "(" . keyWordThis_2 . "): " . getFuncTypeConvert(str3) . Chr(10)
+                htCode .= keyWordAsync_2 . keyWordProc_2 . str2 . "(" . keyWordThis_2 . "): " . getFuncTypeConvert(str3) . Chr(10)
             }
         } else {
             if (usePrefixTypeForTypeDefinition_2 = "on") {
-                htCode .= keyWordMethod_2 . getFuncTypeConvert(str3) . " " . str2 . "(" . keyWordThis_2 . ")" . Chr(10)
+                htCode .= keyWordProc_2 . getFuncTypeConvert(str3) . " " . str2 . "(" . keyWordThis_2 . ")" . Chr(10)
             } else {
-                htCode .= keyWordMethod_2 . str2 . "(" . keyWordThis_2 . "): " . getFuncTypeConvert(str3) . Chr(10)
+                htCode .= keyWordProc_2 . str2 . "(" . keyWordThis_2 . "): " . getFuncTypeConvert(str3) . Chr(10)
             }
         }
     }

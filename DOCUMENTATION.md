@@ -4,8 +4,8 @@
 1. [Introduction](#introduction-to-htvm)  
 Understand why HTVM is the future of programming.
 
-2. [OSP (Objectively Simplified Programming) Paradigm](#osp-objectively-simplified-programming-paradigm)  
-Learn about the new paradigm that replaces traditional object-oriented programming.
+2. [OSP (Ordinal Struct Programming)](#osp-ordinal-struct-programming)  
+Learn about OSP (Ordinal Struct Programming) a new way to use Structs.
 
 3. [How Your Language Looks Like](#how-your-language-looks-like)  
 Get to know how HTVM code is structured and its syntax style.
@@ -454,162 +454,132 @@ HTVM **isn’t just another programming tool. It’s a revolution.**
 
 ---
 
-## OSP (Objectively Simplified Programming) Paradigm  
+## OSP (Ordinal Struct Programming)
 
-[Go back](#htvm-documentation) 
+[Go back](#htvm-documentation)
 
-OSP (Objectively Simplified Programming) is a paradigm designed to replace OOP since OOP was a mistake. To learn OSP you need to first forget everything about OOP. Forget about concepts like inheritance, polymorphism, encapsulation, private/public keywords and instances.
+OSP (Ordinal Struct Programming) is HTVM's built-in approach for organizing data and related procedures using hierarchical namespaces and explicit path-based access. It focuses on **ordinal** positioning – meaning the unique location of structures within the defined hierarchy (`alliance`, `crew`). This feature offers an alternative for structuring code, particularly for those who prefer direct data manipulation and clear, absolute referencing over features like inheritance or encapsulation found in traditional OOP.
 
-OSP eliminates the complexities of object-oriented programming.  
+### What is a `struct` in HTVM OSP?
 
-Here’s how OSP works:  
-- **Hierarchies**:  
-  - **Alliance**: The top-level structure, defined using the `alliance` keyword. 
-  - **Crew**: Sub-levels within an alliance, defined using the `crew` keyword.  
-  - **Method**: Functions defined within alliances or crews using the `method` keyword.  
-  - **Object**: Objects are defined using the `def obj` keyword.  
+At its core, a `struct` in HTVM OSP is similar to structs in languages like C: it's a way to **group related data fields together under a single name**.
 
-- **Properties**:  
-  - Defined within objects using the `prop` keyword.  
+-   **Definition:** You define a struct using the `struct` keyword.
+-   **Properties:** Inside a struct, you define its data fields using the `prop` keyword. Each `prop` holds a piece of data (like an integer, string, boolean, or even an array).
+-   **Access:** Crucially, you *always* access struct properties using their **full, absolute path** starting from the top level (or the struct name if defined standalone). For example: `MyAlliance.MyCrew.MyStruct.myProp`.
+-   **Global Nature:** Structs defined in OSP are globally accessible from any point in the code below their definition, using their full path.
 
-
-### **The `this` Keyword**:
-
-- **Definition**:  
-  The `this` keyword is a reference to the current object that invoked a method. In OSP, `this` is **explicitly required to refer to objects**, and **you must always specify the full path** of objects and their properties when using it. Additionally, `this` is **only valid within methods**, as it represents the object calling that specific method.
-
----
-
-### **Key Rules**:
-1. **Full Path Requirement**:  
-   - In OSP, **you must always specify the full path** of objects and properties when using `this`.  
-   - For example:  
-     - **Correct**: `Movable.Vehicles.Car.fuel`  
-     - **Incorrect**: `fuel`
-
-2. **Only Inside Methods**:  
-   - The `this` keyword can **only** be used inside a method. It refers to the object that invoked the method and provides context for operations on that object.  
-   - Using `this` outside of a method will result in an error, as there is no calling object to reference.
-
----
-
-### **Explanation Using the Example**:
 ```htvm
-crew someCrew {
-    method void move(this) {
-        if (this = "Movable.Vehicles.Car") {
-            if (Movable.Vehicles.Car.fuel > 0) {
-                print("The car is driving.")
-                Movable.Vehicles.Car.fuel := Movable.Vehicles.Car.fuel - 10
-            }
-            else {
-                print("The car is out of fuel.")
-                Movable.Vehicles.Car.hasFUEL := false
-            }
+; Example of a simple, standalone struct
+struct Configuration {
+    prop str theme := "dark"
+    prop int fontSize := 12
+    prop bool spellCheck := true
+}
+; Accessing its properties later
+; Access using the struct name as the path
+print(Configuration.theme)
+; Modifying a property
+Configuration.fontSize := 14
+
+```
+
+### Optional Hierarchy: `alliance` and `crew`
+
+While you can define simple `struct`s directly, OSP provides optional hierarchical keywords (`alliance` and `crew`) for better organization, especially in larger projects:
+
+-   **`alliance`**: The top-level organizational container.
+-   **`crew`**: A sub-level container within an `alliance` (or potentially nested within other crews, though nesting isn't shown in examples).
+
+**Why use hierarchy?**
+
+-   **Organization:** Group related structs and procedures together logically (e.g., all UI elements in a `GUI` crew, all vehicle data in a `Vehicles` crew).
+-   **Avoiding Name Collisions:** If you had two different concepts both needing a `struct` named `Settings`, you could place them in different crews (e.g., `Audio.Settings` and `Video.Settings`) allowing them to coexist without conflict. Using `alliance` and `crew` acts like creating namespaces.
+
+Most of the time, for simpler data organization, you might just need standalone `struct`s. Use `alliance` and `crew` when you need the extra structure to avoid naming hurdles and keep related components neatly grouped.
+
+```htvm
+alliance Game {
+    crew Audio {
+        ; This is Game.Audio.Settings
+        struct Settings {
+            prop int volume := 80
         }
-        else if (this = "Movable.Vehicles.Bike") {
-            if (Movable.Vehicles.Bike.energy > 0) {
-                print("The bike is pedaling.")
-                Movable.Vehicles.Bike.energy := Movable.Vehicles.Bike.energy - 5
+    }
+    crew Video {
+        ; This is Game.Video.Settings - no collision!
+        struct Settings {
+            prop str resolution := "1920x1080"
+        }
+    }
+}
+; Access using the full path
+print(Game.Audio.Settings.volume)
+print(Game.Video.Settings.resolution)
+
+```
+
+### Procedures (`proc`)
+
+Procedures are functions defined within the OSP hierarchy (`alliance` or `crew`) using the `proc` keyword. They are intended to perform actions related to the structs within their hierarchy.
+
+-   **Association:** Defining a `proc` inside an `alliance` or `crew` links it semantically to that part of the hierarchy.
+-   **Global Access:** Like structs, `proc`s are globally accessible via their full path (e.g., `MyAlliance.MyCrew.myProc`).
+-   **Context (`this` Keyword):** Procedures can optionally accept a special parameter named `this` to understand *which* struct (identified by its path string) initiated the call.
+
+### The `this` Keyword (Procedure Context)
+
+The `this` keyword in OSP (Ordinal) is **different** from `this` in traditional OOP.
+
+-   **Purpose:** It serves as an **optional input parameter for `proc`s**. When a `proc` is called with a struct's path string, `this` holds that **literal string value** inside the `proc`.
+-   **Usage:** It allows a `proc` to perform different actions based on *which* struct path was passed to it. This is typically checked using simple string comparison (`if (this == "MyAlliance.MyCrew.MyStruct")`).
+-   **Mechanism:** You must explicitly pass the **full path of the struct as a string** when calling the `proc` if you intend for that `proc` to use the `this` context.
+-   **Limitation:** This string-based approach is explicit but requires careful maintenance. If you rename a `struct` or change the hierarchy, you **must** update all the corresponding string literals used in `proc` calls and within the `proc`'s `if/else if` checks. It doesn't automatically track the struct itself.
+
+```htvm
+alliance Movable {
+    crew Vehicles {
+        struct Car {
+            prop int fuel := 100
+        }
+        struct Bike {
+            prop int energy := 100
+        }
+        ; Proc using 'this' to know which struct called it
+        ; 'this' will hold "Movable.Vehicles.Car" or "Movable.Vehicles.Bike"
+        proc void checkStatus(this) {
+            if (this = "Movable.Vehicles.Car") {
+                ; Still use full path for access
+                print("Checking Car fuel: " . Movable.Vehicles.Car.fuel)
+            }
+            else if (this = "Movable.Vehicles.Bike") {
+                ; Still use full path
+                print("Checking Bike energy: " . Movable.Vehicles.Bike.energy)
             }
             else {
-                print("The bike is out of energy.")
-                Movable.Vehicles.Bike.hasENERGY := false
+                print("Unknown vehicle type passed to checkStatus: " . this)
             }
         }
     }
 }
-
-```
-- The `this` keyword in this method represents the specific object calling `move()`.  
-  For instance:
-  - If `this == "Movable.Vehicles.Car"`, the method knows the caller is the **Car object**, and it manipulates `Movable.Vehicles.Car` properties.
-  - Similarly, if `this == "Movable.Vehicles.Bike"`, the method operates on the **Bike object**.
-
-- If you try to use `this` **outside of any method**, it won’t work because `this` has no object context to refer to.  
-For example:
-``` htvm
-def obj Car {
-    prop int fuel := 100
-    ; This will cause an error!
-    print(this)
-}
+main
+; Calling the proc with the context string
+Movable.Vehicles.checkStatus("Movable.Vehicles.Car")
+Movable.Vehicles.checkStatus("Movable.Vehicles.Bike")
 
 ```
 
----
+### Key Rules Recap
 
-### **Why This Restriction Exists**:
-1. **Object Context**:  
-   - The `this` keyword needs a calling object to provide context. Without a method invocation, there’s no object to reference.
+1.  **Full Path Access:** Always use the full, absolute path to access `struct` properties (e.g., `Alliance.Crew.Struct.prop`).
+2.  **`this` is Context String:** The `this` keyword, when used in a `proc`, holds the *path string* passed during the call. It's only valid inside `proc`s and requires explicit string comparison for conditional logic.
 
-2. **Scope Control**:  
-   - Limiting `this` to methods ensures clear and explicit usage, making code easier to understand and debug.
+### Arrays in Structs
 
-3. **Example: Calling a Method with an Object**:  
-   - To use the `this` keyword, you must **pass the object name as a string**  when invoking the method:  
-   ```htvm
-   allianceName.crewName.move("allianceName.crewName.objName")
-   ```
-   - Here:
-     - `allianceName` is the main alliance.
-     - `crewName` is the crew containing the method `move`.
-     - `objName` is the specific object being passed to the method. This allows `this` to refer to `objName` inside the method.
-
-  ### Note: You can't define a method without a **crew**, **alliance**, or both. You need at least one.
-
----
-
-## **You Don’t Need an Alliance or Crew to Define Objects**
-- In OSP, you can define objects (`def obj`) directly without placing them inside an **alliance** or a **crew**.  
-- This makes it flexible to create standalone objects when you don’t need a larger structure.  
-
-### **Example: Standalone Object Definition**
-```htvm
-def obj Standalone {
-    prop int value := 10
-    prop str name := "Independent"
-}
-
-```
-
-to access later just use:
+Arrays can be defined as properties within structs just like any other data type:
 
 ```htvm
-Standalone.value
-Standalone.name
-```
-
----
-
-### **Methods in Alliances**
-- Methods can also be defined directly in an **alliance**, without being part of a **crew** and the opposite is well.
-
-### **Example: Method in an Alliance**
-```htvm
-alliance ExampleAlliance {
-    method void greet(this) {
-        print("Hello from ExampleAlliance!")
-    }
-}
-
-```
-
-to call greet just do:
-
-```htvm
-ExampleAlliance.greet()
-
-```
-
-## Global Accessibility:  
-  - There are no scopes in OSP. As long as a variable or structure is defined above, it is accessible below. Everything is global, and the full path must always be used.  
-
-## Arrays:  
-  - When using arrays you can just define them as normal:
-
-```htvm
-def obj name {
+struct name {
     prop arr str prop1
     prop arr str prop2
     prop arr str prop3
@@ -618,12 +588,14 @@ def obj name {
 
 ```
 
-### **Summary**:
-- **Full Paths Always**: Explicit references, such as `Movable.Vehicles.Car.fuel`, are mandatory in OSP. Always use the full path to reference objects. This avoids ambiguity and ensures that each object is uniquely identified within the code.
-- **Only Inside Methods**: The `this` keyword can only be used inside a method to refer to the calling object. It is not valid outside of a method because it requires the context of the method invocation to work correctly.
-- **Promotes Clarity**: These rules ensure consistency, clarity, and unambiguous functionality in OSP. By restricting the use of `this` to methods and requiring full paths, the code remains explicit and easier to follow.
-- **Helps with Debugging**: Since `this` is only valid inside methods, errors related to improper use are easier to detect. Using full paths also helps pinpoint issues more precisely by avoiding confusion with similarly named objects.
-- **Encourages Best Practices**: These guidelines encourage a more structured and organized approach to coding in OSP, fostering a clearer and more maintainable codebase in larger projects.
+### Summary of OSP (Ordinal Struct Programming)
+
+-   **Organizes** code using optional `alliance`/`crew` hierarchies and `struct` data containers.
+-   **Emphasizes** explicit, **ordinal** (position-based) access via mandatory **full paths**.
+-   Uses `struct` for data aggregation and `proc` for associated procedures within the hierarchy.
+-   Offers an optional `this` keyword for `proc`s to receive the **calling struct's path as a string**, enabling context-specific actions via string comparison.
+-   Provides **global accessibility** for all defined structs and procs via their full paths.
+-   Serves as an **alternative structure** within HTVM, focusing on explicitness and hierarchy, potentially avoiding certain OOP complexities but introducing verbosity and reliance on string paths for context.
 
 ---
 
@@ -631,23 +603,24 @@ def obj name {
 
 ### Never use underscores when naming things in OSP. Otherwise, you can use them, but be cautious because underscores can be unstable.
 
+---
 
-#### Example of OSP
+#### Example of OSP (Ordinal Struct Programming)
 
 ```htvm
 alliance Movable {
     crew Vehicles {
-        def obj Car {
+        struct Car {
             prop int door := 4
             prop int fuel := 100
             prop bool hasFUEL := true
         }
-        def obj Bike {
+        struct Bike {
             prop bool hasGears := true
             prop int energy := 100
             prop bool hasENERGY := true
         }
-        method void move(this) {
+        proc void move(this) {
             global Movable.Vehicles.Car.fuel
             global Movable.Vehicles.Car.hasFUEL
             global Movable.Vehicles.Bike.energy
@@ -675,62 +648,62 @@ alliance Movable {
         }
     }
     crew settings {
-        def obj GeneralSettings {
+        struct GeneralSettings {
             prop str difficulty := "normal"
             prop int volume := 50
             prop str resolution := "1920x1080"
         }
-        def obj AudioSettings {
+        struct AudioSettings {
             prop int masterVolume := 70
             prop int musicVolume := 50
             prop int sfxVolume := 40
         }
-        def obj DisplaySettings {
+        struct DisplaySettings {
             prop bool fullscreen := true
             prop str aspectRatio := "16:9"
         }
     }
     crew actions {
-        ; General Settings Methods
-        method void resetGeneralSettings(this) {
+        ; General Settings Procs
+        proc void resetGeneralSettings() {
             Movable.settings.GeneralSettings.difficulty := STR("normal")
             Movable.settings.GeneralSettings.volume := 50
             Movable.settings.GeneralSettings.resolution := STR("1920x1080")
             print("General settings reset to default.")
         }
-        method void printGeneralSettings(this) {
+        proc void printGeneralSettings() {
             print("General Settings:")
             print("Difficulty: " . Movable.settings.GeneralSettings.difficulty)
             print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
             print("Resolution: " . Movable.settings.GeneralSettings.resolution)
         }
-        ; Audio Settings Methods
-        method void resetAudioSettings(this) {
+        ; Audio Settings Procs
+        proc void resetAudioSettings() {
             Movable.settings.AudioSettings.masterVolume := 70
             Movable.settings.AudioSettings.musicVolume := 50
             Movable.settings.AudioSettings.sfxVolume := 40
             print("Audio settings reset to default.")
         }
-        method void printAudioSettings(this) {
+        proc void printAudioSettings() {
             print("Audio Settings:")
             print("Master Volume: " . STR(Movable.settings.AudioSettings.masterVolume))
             print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
             print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
         }
-        ; Display Settings Methods
-        method void resetDisplaySettings(this) {
+        ; Display Settings Procs
+        proc void resetDisplaySettings() {
             Movable.settings.DisplaySettings.fullscreen := true
             Movable.settings.DisplaySettings.aspectRatio := STR("16:9")
             print("Display settings reset to default.")
         }
-        method void printDisplaySettings(this) {
+        proc void printDisplaySettings() {
             print("Display Settings:")
             print("Fullscreen: " . STR(Movable.settings.DisplaySettings.fullscreen))
             print("Aspect Ratio: " . Movable.settings.DisplaySettings.aspectRatio)
         }
     }
     crew array {
-        def obj name {
+        struct name {
             prop arr str prop1
             prop arr str prop2
             prop arr str prop3
@@ -776,6 +749,7 @@ Movable.array.name.prop3.add("3text3")
 Movable.array.name.prop4.add("4text1")
 Movable.array.name.prop4.add("4text2")
 Movable.array.name.prop4.add("4text3")
+; Loop over and print
 Loop, % Movable.array.name.prop1.size() {
     print(Movable.array.name.prop1[A_Index])
 }
@@ -791,7 +765,7 @@ Loop, % Movable.array.name.prop4.size() {
 
 ```
 
-**OSP** simplifies programming while ensuring compatibility with all languages.
+OSP (Ordinal Struct Programming) provides a structured, path-based approach to organizing data and procedures within HTVM, emphasizing explicit referencing.
 
 ---
 
@@ -821,7 +795,9 @@ int varName9 := 34
 ; Here is how to define a function with static types if you convert to C++.
 ; However, it will still work even if you are not converting to C++; types will be stripped away.
 func void funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5) {
-    ; This is how the global keyword works if we convert to Python.
+{ {
+        ; This is how the global keyword works if we convert to Python.
+    }
     ; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
     global varName5
     ; Here's how if, else if, and else statements will look:
@@ -1286,7 +1262,9 @@ Optional parameters example:
 ```htvm
 str varName5 := "hi"
 func str funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5) {
-    ; This is how the global keyword works if we convert to Python.
+{ {
+        ; This is how the global keyword works if we convert to Python.
+    }
     ; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
     global varName5
     ; this is how the return keyword will look like in your lang
@@ -1404,10 +1382,10 @@ var1.StrLower().Trim
 
 ```htvm
 crew someCrew {
-    def obj someObj {
+    struct someObj {
         prop str someText := ""
     }
-    method str someMethod(this) {
+    proc str someMethod(this) {
         print(this)
         return this
     }
@@ -2369,8 +2347,8 @@ HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct
 |  commands  | StringTrimLeft,OUTVAR,INVAR,param1 &#124; StringTrimRight,OUTVAR,INVAR,param1 &#124; Random,OUTVAR,param1,param2 &#124; Sleep,INVAR &#124; FileRead,OUTVAR,'param1 &#124; FileAppend,INVAR,'param1 &#124; FileDelete,'INVAR &#124; Sort,INOUTVAR,'param1 &#124; MsgBox,'param1        |
 |  keyWordAlliance  | alliance        |
 |  keyWordCrew  | crew        |
-|  keyWordMethod  | method        |
-|  keyWordDefObj  | def obj        |
+|  keyWordMethod  | proc        |
+|  keyWordDefObj  | struct        |
 |  keyWordProp  | prop        |
 |  keyWordThis  | this        |
 |  keyWordInclude  | import        |

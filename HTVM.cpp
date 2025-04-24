@@ -625,8 +625,8 @@ std::string langFileExtension = "";
 std::string commands = "";
 std::string keyWordAlliance = "";
 std::string keyWordCrew = "";
-std::string keyWordMethod = "";
-std::string keyWordDefObj = "";
+std::string keyWordProc = "";
+std::string keyWordStruct = "";
 std::string keyWordProp = "";
 std::string keyWordThis = "";
 std::string keyWordInclude = "";
@@ -790,8 +790,8 @@ std::string langFileExtension_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd
 std::string commands_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordAlliance_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordCrew_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-std::string keyWordMethod_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-std::string keyWordDefObj_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+std::string keyWordProc_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+std::string keyWordStruct_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordProp_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordThis_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 std::string keyWordInclude_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
@@ -1716,10 +1716,10 @@ bool isLineAconstruct(std::string line) {
     else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordCrew))) == StrLower(keyWordCrew)) {
         return true;
     }
-    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordDefObj))) == StrLower(keyWordDefObj)) {
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordStruct))) == StrLower(keyWordStruct)) {
         return true;
     }
-    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordProc))) == StrLower(keyWordProc)) {
         return true;
     }
     else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch)) {
@@ -1764,7 +1764,7 @@ std::string fixArray1234(std::string line) {
     }
     return out;
 }
-std::string fixArray123(std::string line, std::string arrayMethodStr, int mode) {
+std::string fixArray123(std::string line, std::string arrayProcStr, int mode) {
     // mode 1 = Append
     // mode 2 = Pop
     // mode 3 = Size
@@ -1820,8 +1820,8 @@ std::string fixArray123(std::string line, std::string arrayMethodStr, int mode) 
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-std::string arrayParserTranspiler1(std::string line, std::string arrayMethodStr, int mode) {
-    if (InStr(line, arrayMethodStr) == false) {
+std::string arrayParserTranspiler1(std::string line, std::string arrayProcStr, int mode) {
+    if (InStr(line, arrayProcStr) == false) {
         return line;
     }
     std::string out = "";
@@ -1838,15 +1838,15 @@ std::string arrayParserTranspiler1(std::string line, std::string arrayMethodStr,
     std::vector<int> holdPositions;
     for (int A_Index44 = 0; A_Index44 < HTVM_Size(arrAll) + 0; A_Index44++) {
         tempHold = "";
-        if (HTVM_Size(arrAll) - StrLen(arrayMethodStr) + 1 == i1) {
+        if (HTVM_Size(arrAll) - StrLen(arrayProcStr) + 1 == i1) {
             break;
         }
-        for (int A_Index45 = 0; A_Index45 < StrLen(arrayMethodStr) + 0; A_Index45++) {
+        for (int A_Index45 = 0; A_Index45 < StrLen(arrayProcStr) + 0; A_Index45++) {
             tempHold += arrAll[A_Index45 + i1];
         }
         i1++;
         //print(tempHold)
-        if (tempHold == arrayMethodStr) {
+        if (tempHold == arrayProcStr) {
             holdPos = i1;
             //print(holdPos)
             HTVM_Append(holdPositions, holdPos);
@@ -1935,7 +1935,7 @@ std::string arrayParserTranspiler1(std::string line, std::string arrayMethodStr,
                 beenInside++;
             }
             if (beenInside == 1) {
-                out += fixArray123(holdDebug, arrayMethodStr, mode);
+                out += fixArray123(holdDebug, arrayProcStr, mode);
                 canOut = 0;
             } else {
                 if (canOut == 0) {
@@ -2804,11 +2804,11 @@ std::string OSP(std::string line) {
     stackRN = "";
     alredy = 0;
     outOSP = "";
-    if (OSPhelp(line, keyWordDefObj)) {
+    if (OSPhelp(line, keyWordStruct)) {
         std::vector<std::string> items59 = LoopParseFunc(line, "\n", "\r");
         for (size_t A_Index59 = 0; A_Index59 < items59.size() + 0; A_Index59++) {
             std::string A_LoopField59 = items59[A_Index59 - 0];
-            if (SubStr(Trim(StrLower(A_LoopField59)), 1, StrLen(keyWordDefObj)) == StrLower(keyWordDefObj) && lookAhead[A_Index59 + 1] == "{") {
+            if (SubStr(Trim(StrLower(A_LoopField59)), 1, StrLen(keyWordStruct)) == StrLower(keyWordStruct) && lookAhead[A_Index59 + 1] == "{") {
                 //print(A_LoopField59)
                 stackRN = A_LoopField59;
                 countParentheses = 0;
@@ -2848,8 +2848,8 @@ std::string OSP(std::string line) {
     std::vector<std::string> items60 = LoopParseFunc(line, "\n", "\r");
     for (size_t A_Index60 = 0; A_Index60 < items60.size() + 0; A_Index60++) {
         std::string A_LoopField60 = items60[A_Index60 - 0];
-        if (SubStr(Trim(StrLower(A_LoopField60)), 1, StrLen(keyWordDefObj)) == StrLower(keyWordDefObj) && lookAhead[A_Index60 + 1] == "{") {
-            str1 = Trim(StringTrimLeft(A_LoopField60, StrLen(SubStr(Trim(StrLower(A_LoopField60)), 1, StrLen(keyWordDefObj)))));
+        if (SubStr(Trim(StrLower(A_LoopField60)), 1, StrLen(keyWordStruct)) == StrLower(keyWordStruct) && lookAhead[A_Index60 + 1] == "{") {
+            str1 = Trim(StringTrimLeft(A_LoopField60, StrLen(SubStr(Trim(StrLower(A_LoopField60)), 1, StrLen(keyWordStruct)))));
             HTVM_Append(ospDic, str1);
             alredy = 2;
             inOBJ = 1;
@@ -2868,7 +2868,7 @@ std::string OSP(std::string line) {
             tempStackText = StringTrimRight(tempStackText, 1);
             outOSP += A_LoopField60 + "-----------------------HTVM-OSP-HTVM-OBJ--------------" + tempStackText + Chr(10);
         }
-        if (SubStr(Trim(StrLower(A_LoopField60)), 1, StrLen(keyWordMethod)) == StrLower(keyWordMethod) && lookAhead[A_Index60 + 1] == "{") {
+        if (SubStr(Trim(StrLower(A_LoopField60)), 1, StrLen(keyWordProc)) == StrLower(keyWordProc) && lookAhead[A_Index60 + 1] == "{") {
             tempStackText = "";
             for (int A_Index63 = 0; A_Index63 < HTVM_Size(ospDic) + 0; A_Index63++) {
                 tempStackText += ospDic[A_Index63] + ".";
@@ -7684,10 +7684,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             keyWordCrew = Trim(A_LoopField109) + " ";
         }
         if (A_Index109 == 5) {
-            keyWordMethod = Trim(A_LoopField109) + " ";
+            keyWordProc = Trim(A_LoopField109) + " ";
         }
         if (A_Index109 == 6) {
-            keyWordDefObj = Trim(A_LoopField109) + " ";
+            keyWordStruct = Trim(A_LoopField109) + " ";
         }
         if (A_Index109 == 7) {
             keyWordProp = Trim(A_LoopField109) + " ";
@@ -8181,10 +8181,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 keyWordCrew_2 = Trim(A_LoopField110) + " ";
             }
             if (A_Index110 == 5) {
-                keyWordMethod_2 = Trim(A_LoopField110) + " ";
+                keyWordProc_2 = Trim(A_LoopField110) + " ";
             }
             if (A_Index110 == 6) {
-                keyWordDefObj_2 = Trim(A_LoopField110) + " ";
+                keyWordStruct_2 = Trim(A_LoopField110) + " ";
             }
             if (A_Index110 == 7) {
                 keyWordProp_2 = Trim(A_LoopField110) + " ";
@@ -9387,7 +9387,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     if (SubStr(Trim(A_LoopField130), 1, StrLen(Trim(keyWordComment))) == Trim(keyWordComment) && isLineAconstruct(Trim(A_LoopField130)) == false) {
                         fixSomeCurlyBraceForExratFlexability += A_LoopField130 + Chr(10);
                     } else {
-                        if (InStr(A_LoopField130, " " + keyWordAssign + " ") || InStr(A_LoopField130, " " + keyWordAssignAdd + " ") || InStr(A_LoopField130, " " + keyWordAssignConcat + " ") || InStr(A_LoopField130, " " + keyWordAssignSub + " ") || InStr(A_LoopField130, " " + keyWordAssignMul + " ") || InStr(A_LoopField130, " " + keyWordAssignDiv + " ") || InStr(A_LoopField130, " " + keyWordAssignMod + " ") || InStr(A_LoopField130, " " + keyWordAssignShiftLeft + " ") || InStr(A_LoopField130, " " + keyWordAssignShiftRight + " ") || InStr(A_LoopField130, " " + keyWordLogicalAssignShiftRight + " ") || InStr(A_LoopField130, " " + keyWordAssignBitAnd + " ") || InStr(A_LoopField130, " " + keyWordAssignBitOr + " ") || InStr(A_LoopField130, " " + keyWordAssignBitXor + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
+                        if (InStr(A_LoopField130, Trim(keyWordArrayDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField130, Trim(keyWordArrayOfIntegersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField130, Trim(keyWordArrayOfStringsDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField130, Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField130, Trim(keyWordArrayOfBooleansDefinition) + " " + keyWordAssign + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
                             fixSomeCurlyBraceForExratFlexability += A_LoopField130 + Chr(10);
                         } else {
                             str1 = StrReplace(A_LoopField130, keyWordCurlyBraceOpen, "{");
@@ -9573,7 +9573,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             std::vector<std::string> items143 = LoopParseFunc(code, "\n", "\r");
             for (size_t A_Index143 = 0; A_Index143 < items143.size() + 0; A_Index143++) {
                 std::string A_LoopField143 = items143[A_Index143 - 0];
-                if (InStr(A_LoopField143, " " + keyWordAssign + " ") || InStr(A_LoopField143, " " + keyWordAssignAdd + " ") || InStr(A_LoopField143, " " + keyWordAssignConcat + " ") || InStr(A_LoopField143, " " + keyWordAssignSub + " ") || InStr(A_LoopField143, " " + keyWordAssignMul + " ") || InStr(A_LoopField143, " " + keyWordAssignDiv + " ") || InStr(A_LoopField143, " " + keyWordAssignMod + " ") || InStr(A_LoopField143, " " + keyWordAssignShiftLeft + " ") || InStr(A_LoopField143, " " + keyWordAssignShiftRight + " ") || InStr(A_LoopField143, " " + keyWordLogicalAssignShiftRight + " ") || InStr(A_LoopField143, " " + keyWordAssignBitAnd + " ") || InStr(A_LoopField143, " " + keyWordAssignBitOr + " ") || InStr(A_LoopField143, " " + keyWordAssignBitXor + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
+                if (InStr(A_LoopField143, Trim(keyWordArrayDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField143, Trim(keyWordArrayOfIntegersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField143, Trim(keyWordArrayOfStringsDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField143, Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField143, Trim(keyWordArrayOfBooleansDefinition) + " " + keyWordAssign + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
                     if (SubStr(StrLower(A_LoopField143), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc) || SubStr(StrLower(A_LoopField143), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc)) {
                         if (InStr(Trim(A_LoopField143), "{") && Trim(A_LoopField143) != "{" && SubStr(Trim(A_LoopField143), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) {
                             outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField143), "{", "")) + "\n{\n";
@@ -9871,14 +9871,14 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 HTVM_Append(ospDic1, str1);
                 strOspHold = StrReplace(str1, "_", ".");
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode += keyWordDefObj_2 + StrReplace(str1, "_", ".") + Chr(10) + "{" + Chr(10);
+                    htCode += keyWordStruct_2 + StrReplace(str1, "_", ".") + Chr(10) + "{" + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField147)), 1, StrLen(StrLower(keyWordDefObj))) == StrLower(keyWordDefObj)) {
+            else if (SubStr(StrLower(Trim(A_LoopField147)), 1, StrLen(StrLower(keyWordStruct))) == StrLower(keyWordStruct)) {
                 lineDone = 1;
-                str0 = Trim(StringTrimLeft(A_LoopField147, StrLen(keyWordDefObj)));
+                str0 = Trim(StringTrimLeft(A_LoopField147, StrLen(keyWordStruct)));
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode += Trim(keyWordDefObj_2) + " " + str0 + Chr(10);
+                    htCode += Trim(keyWordStruct_2) + " " + str0 + Chr(10);
                 }
             }
             else if (SubStr(StrLower(Trim(A_LoopField147)), 1, StrLen(StrLower(keyWordAlliance))) == StrLower(keyWordAlliance)) {
@@ -9915,9 +9915,9 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += propHELP(str1, StrReplace(str20, ".", "_") + "_") + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField147)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
+            else if (SubStr(StrLower(Trim(A_LoopField147)), 1, StrLen(StrLower(keyWordProc))) == StrLower(keyWordProc)) {
                 lineDone = 1;
-                str0 = Trim(StringTrimLeft(A_LoopField147, StrLen(keyWordMethod)));
+                str0 = Trim(StringTrimLeft(A_LoopField147, StrLen(keyWordProc)));
                 str1 = Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 1));
                 str20 = Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 2));
                 str16 = Trim(StrSplit(str1, "(", 1));
@@ -9929,7 +9929,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     std::string A_LoopField148 = items148[A_Index148 - 0];
                     str17 = Trim(A_LoopField148);
                 }
-                // last word aka the method name
+                // last word aka the proc name
                 //str17
                 str15 = StrReplace(str20 + "_" + str17, "_", ".");
                 HTVM_Append(ospDic2, StringTrimLeft(str15, 11));
@@ -9960,15 +9960,15 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 if (langToConvertTo == langFileExtension_2) {
                     if (int1 == 1) {
                         if (usePrefixTypeForTypeDefinition_2 == "on") {
-                            htCode += keyWordAsync_2 + keyWordMethod_2 + getFuncTypeConvert(str3) + " " + str2 + "(" + keyWordThis_2 + ")" + Chr(10);
+                            htCode += keyWordAsync_2 + keyWordProc_2 + getFuncTypeConvert(str3) + " " + str2 + "(" + keyWordThis_2 + ")" + Chr(10);
                         } else {
-                            htCode += keyWordAsync_2 + keyWordMethod_2 + str2 + "(" + keyWordThis_2 + "): " + getFuncTypeConvert(str3) + Chr(10);
+                            htCode += keyWordAsync_2 + keyWordProc_2 + str2 + "(" + keyWordThis_2 + "): " + getFuncTypeConvert(str3) + Chr(10);
                         }
                     } else {
                         if (usePrefixTypeForTypeDefinition_2 == "on") {
-                            htCode += keyWordMethod_2 + getFuncTypeConvert(str3) + " " + str2 + "(" + keyWordThis_2 + ")" + Chr(10);
+                            htCode += keyWordProc_2 + getFuncTypeConvert(str3) + " " + str2 + "(" + keyWordThis_2 + ")" + Chr(10);
                         } else {
-                            htCode += keyWordMethod_2 + str2 + "(" + keyWordThis_2 + "): " + getFuncTypeConvert(str3) + Chr(10);
+                            htCode += keyWordProc_2 + str2 + "(" + keyWordThis_2 + "): " + getFuncTypeConvert(str3) + Chr(10);
                         }
                     }
                 }

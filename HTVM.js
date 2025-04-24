@@ -430,8 +430,8 @@ var langFileExtension = "";
 var commands = "";
 var keyWordAlliance = "";
 var keyWordCrew = "";
-var keyWordMethod = "";
-var keyWordDefObj = "";
+var keyWordProc = "";
+var keyWordStruct = "";
 var keyWordProp = "";
 var keyWordThis = "";
 var keyWordInclude = "";
@@ -595,8 +595,8 @@ var langFileExtension_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var commands_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordAlliance_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordCrew_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-var keyWordMethod_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-var keyWordDefObj_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+var keyWordProc_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+var keyWordStruct_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordProp_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordThis_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
 var keyWordInclude_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
@@ -1521,10 +1521,10 @@ function isLineAconstruct(line) {
     else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordCrew))) == StrLower(keyWordCrew)) {
         return true;
     }
-    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordDefObj))) == StrLower(keyWordDefObj)) {
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordStruct))) == StrLower(keyWordStruct)) {
         return true;
     }
-    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
+    else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordProc))) == StrLower(keyWordProc)) {
         return true;
     }
     else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch)) {
@@ -1569,7 +1569,7 @@ function fixArray1234(line) {
     }
     return out;
 }
-function fixArray123(line, arrayMethodStr, mode) {
+function fixArray123(line, arrayProcStr, mode) {
     // mode 1 = Append
     // mode 2 = Pop
     // mode 3 = Size
@@ -1625,8 +1625,8 @@ function fixArray123(line, arrayMethodStr, mode) {
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-function arrayParserTranspiler1(line, arrayMethodStr, mode) {
-    if (InStr(line, arrayMethodStr) == false) {
+function arrayParserTranspiler1(line, arrayProcStr, mode) {
+    if (InStr(line, arrayProcStr) == false) {
         return line;
     }
     var out = "";
@@ -1643,15 +1643,15 @@ function arrayParserTranspiler1(line, arrayMethodStr, mode) {
     let holdPositions = [];
     for (let A_Index44 = 0; A_Index44 < HTVM_Size(arrAll) + 0; A_Index44++) {
         tempHold = "";
-        if (HTVM_Size(arrAll) - StrLen(arrayMethodStr) + 1 == i1) {
+        if (HTVM_Size(arrAll) - StrLen(arrayProcStr) + 1 == i1) {
             break;
         }
-        for (let A_Index45 = 0; A_Index45 < StrLen(arrayMethodStr) + 0; A_Index45++) {
+        for (let A_Index45 = 0; A_Index45 < StrLen(arrayProcStr) + 0; A_Index45++) {
             tempHold += arrAll[A_Index45 + i1];
         }
         i1++;
         //print(tempHold)
-        if (tempHold == arrayMethodStr) {
+        if (tempHold == arrayProcStr) {
             holdPos = i1;
             //print(holdPos)
             HTVM_Append(holdPositions, holdPos);
@@ -1740,7 +1740,7 @@ function arrayParserTranspiler1(line, arrayMethodStr, mode) {
                 beenInside++;
             }
             if (beenInside == 1) {
-                out += fixArray123(holdDebug, arrayMethodStr, mode);
+                out += fixArray123(holdDebug, arrayProcStr, mode);
                 canOut = 0;
             } else {
                 if (canOut == 0) {
@@ -2609,11 +2609,11 @@ function OSP(line) {
     stackRN = "";
     alredy = 0;
     outOSP = "";
-    if (OSPhelp(line, keyWordDefObj)) {
+    if (OSPhelp(line, keyWordStruct)) {
         items59 = LoopParseFunc(line, "\n", "\r")
         for (let A_Index59 = 0; A_Index59 < items59.length + 0; A_Index59++) {
             const A_LoopField59 = items59[A_Index59 - 0];
-            if (SubStr(Trim(StrLower(A_LoopField59)), 1, StrLen(keyWordDefObj)) == StrLower(keyWordDefObj) && lookAhead[A_Index59 + 1] == "{") {
+            if (SubStr(Trim(StrLower(A_LoopField59)), 1, StrLen(keyWordStruct)) == StrLower(keyWordStruct) && lookAhead[A_Index59 + 1] == "{") {
                 //print(A_LoopField59)
                 stackRN = A_LoopField59;
                 countParentheses = 0;
@@ -2653,8 +2653,8 @@ function OSP(line) {
     items60 = LoopParseFunc(line, "\n", "\r")
     for (let A_Index60 = 0; A_Index60 < items60.length + 0; A_Index60++) {
         const A_LoopField60 = items60[A_Index60 - 0];
-        if (SubStr(Trim(StrLower(A_LoopField60)), 1, StrLen(keyWordDefObj)) == StrLower(keyWordDefObj) && lookAhead[A_Index60 + 1] == "{") {
-            str1 = Trim(StringTrimLeft(A_LoopField60, StrLen(SubStr(Trim(StrLower(A_LoopField60)), 1, StrLen(keyWordDefObj)))));
+        if (SubStr(Trim(StrLower(A_LoopField60)), 1, StrLen(keyWordStruct)) == StrLower(keyWordStruct) && lookAhead[A_Index60 + 1] == "{") {
+            str1 = Trim(StringTrimLeft(A_LoopField60, StrLen(SubStr(Trim(StrLower(A_LoopField60)), 1, StrLen(keyWordStruct)))));
             HTVM_Append(ospDic, str1);
             alredy = 2;
             inOBJ = 1;
@@ -2673,7 +2673,7 @@ function OSP(line) {
             tempStackText = StringTrimRight(tempStackText, 1);
             outOSP += A_LoopField60 + "-----------------------HTVM-OSP-HTVM-OBJ--------------" + tempStackText + Chr(10);
         }
-        if (SubStr(Trim(StrLower(A_LoopField60)), 1, StrLen(keyWordMethod)) == StrLower(keyWordMethod) && lookAhead[A_Index60 + 1] == "{") {
+        if (SubStr(Trim(StrLower(A_LoopField60)), 1, StrLen(keyWordProc)) == StrLower(keyWordProc) && lookAhead[A_Index60 + 1] == "{") {
             tempStackText = "";
             for (let A_Index63 = 0; A_Index63 < HTVM_Size(ospDic) + 0; A_Index63++) {
                 tempStackText += ospDic[A_Index63] + ".";
@@ -7489,10 +7489,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             keyWordCrew = Trim(A_LoopField109) + " ";
         }
         if (A_Index109 == 5) {
-            keyWordMethod = Trim(A_LoopField109) + " ";
+            keyWordProc = Trim(A_LoopField109) + " ";
         }
         if (A_Index109 == 6) {
-            keyWordDefObj = Trim(A_LoopField109) + " ";
+            keyWordStruct = Trim(A_LoopField109) + " ";
         }
         if (A_Index109 == 7) {
             keyWordProp = Trim(A_LoopField109) + " ";
@@ -7986,10 +7986,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 keyWordCrew_2 = Trim(A_LoopField110) + " ";
             }
             if (A_Index110 == 5) {
-                keyWordMethod_2 = Trim(A_LoopField110) + " ";
+                keyWordProc_2 = Trim(A_LoopField110) + " ";
             }
             if (A_Index110 == 6) {
-                keyWordDefObj_2 = Trim(A_LoopField110) + " ";
+                keyWordStruct_2 = Trim(A_LoopField110) + " ";
             }
             if (A_Index110 == 7) {
                 keyWordProp_2 = Trim(A_LoopField110) + " ";
@@ -9676,14 +9676,14 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 HTVM_Append(ospDic1, str1);
                 strOspHold = StrReplace(str1, "_", ".");
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode += keyWordDefObj_2 + StrReplace(str1, "_", ".") + Chr(10) + "{" + Chr(10);
+                    htCode += keyWordStruct_2 + StrReplace(str1, "_", ".") + Chr(10) + "{" + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField147)), 1, StrLen(StrLower(keyWordDefObj))) == StrLower(keyWordDefObj)) {
+            else if (SubStr(StrLower(Trim(A_LoopField147)), 1, StrLen(StrLower(keyWordStruct))) == StrLower(keyWordStruct)) {
                 lineDone = 1;
-                str0 = Trim(StringTrimLeft(A_LoopField147, StrLen(keyWordDefObj)));
+                str0 = Trim(StringTrimLeft(A_LoopField147, StrLen(keyWordStruct)));
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode += Trim(keyWordDefObj_2) + " " + str0 + Chr(10);
+                    htCode += Trim(keyWordStruct_2) + " " + str0 + Chr(10);
                 }
             }
             else if (SubStr(StrLower(Trim(A_LoopField147)), 1, StrLen(StrLower(keyWordAlliance))) == StrLower(keyWordAlliance)) {
@@ -9720,9 +9720,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += propHELP(str1, StrReplace(str20, ".", "_") + "_") + Chr(10);
                 }
             }
-            else if (SubStr(StrLower(Trim(A_LoopField147)), 1, StrLen(StrLower(keyWordMethod))) == StrLower(keyWordMethod)) {
+            else if (SubStr(StrLower(Trim(A_LoopField147)), 1, StrLen(StrLower(keyWordProc))) == StrLower(keyWordProc)) {
                 lineDone = 1;
-                str0 = Trim(StringTrimLeft(A_LoopField147, StrLen(keyWordMethod)));
+                str0 = Trim(StringTrimLeft(A_LoopField147, StrLen(keyWordProc)));
                 str1 = Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 1));
                 str20 = Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 2));
                 str16 = Trim(StrSplit(str1, "(", 1));
@@ -9734,7 +9734,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     const A_LoopField148 = items148[A_Index148 - 0];
                     str17 = Trim(A_LoopField148);
                 }
-                // last word aka the method name
+                // last word aka the proc name
                 //str17
                 str15 = StrReplace(str20 + "_" + str17, "_", ".");
                 HTVM_Append(ospDic2, StringTrimLeft(str15, 11));
@@ -9765,15 +9765,15 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 if (langToConvertTo == langFileExtension_2) {
                     if (int1 == 1) {
                         if (usePrefixTypeForTypeDefinition_2 == "on") {
-                            htCode += keyWordAsync_2 + keyWordMethod_2 + getFuncTypeConvert(str3) + " " + str2 + "(" + keyWordThis_2 + ")" + Chr(10);
+                            htCode += keyWordAsync_2 + keyWordProc_2 + getFuncTypeConvert(str3) + " " + str2 + "(" + keyWordThis_2 + ")" + Chr(10);
                         } else {
-                            htCode += keyWordAsync_2 + keyWordMethod_2 + str2 + "(" + keyWordThis_2 + "): " + getFuncTypeConvert(str3) + Chr(10);
+                            htCode += keyWordAsync_2 + keyWordProc_2 + str2 + "(" + keyWordThis_2 + "): " + getFuncTypeConvert(str3) + Chr(10);
                         }
                     } else {
                         if (usePrefixTypeForTypeDefinition_2 == "on") {
-                            htCode += keyWordMethod_2 + getFuncTypeConvert(str3) + " " + str2 + "(" + keyWordThis_2 + ")" + Chr(10);
+                            htCode += keyWordProc_2 + getFuncTypeConvert(str3) + " " + str2 + "(" + keyWordThis_2 + ")" + Chr(10);
                         } else {
-                            htCode += keyWordMethod_2 + str2 + "(" + keyWordThis_2 + "): " + getFuncTypeConvert(str3) + Chr(10);
+                            htCode += keyWordProc_2 + str2 + "(" + keyWordThis_2 + "): " + getFuncTypeConvert(str3) + Chr(10);
                         }
                     }
                 }
