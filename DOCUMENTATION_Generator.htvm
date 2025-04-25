@@ -205,8 +205,7 @@ break
 }
 }
 
-instr0 := "cpp`n" . instr3 . "`nStringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1`nalliance`ncrew`nmethod`ndef obj`nprop`nthis`nimport`n___start`n___end`n___cpp start`n___cpp end`n___py start`n___py end`n___js start`n___js end`n___go start`n___go end`n___lua start`n___lua end`n___cs start`n___cs end`n___java start`n___java end`n___kt start`n___kt end`n___rb start`n___rb end`n___nim start`n___nim end`n___ahk start`n___ahk end`n___swift start`n___swift end`n___dart start`n___dart end`n___ts start`n___ts end`n___groovy start`n___groovy end`n___htvm start`n___htvm end`n___inhtvm start`n___inhtvm end`n{`n}`nnull`ntrue`nfalse`nvoid`ndouble`nchar`nuint8`nuint16`nuint32`nuint64`nint`nstr`nbool`nfloat`nint8`nint16`nint32`nint64`nif`nelse if`nelse`nwhile`nLoop`nLoop,`nLoop, Parse,`ncontinue`nbreak`nfunc`nawait`nasync`nthrow`nErrorMsg`ntry`ncatch`nfinally`nreturn`n.add`n.pop`n.size`n.insert`n.rm`n.indexOf`narr`narr int`narr str`narr float`narr bool`nvar`nlet`nconst`nend`nglobal`n;`n'''1`n'''2`n" . Chr(96) . "`nmain`n.`n+`n-`n*`n/`n%`n**`n=`n===`n!=`n" . Chr(62) . "`n" . Chr(60) . "`n" . Chr(62) . "=`n" . Chr(60) . "=`nand`nor`n!`n&`n|`n^`n~`n" . Chr(60) . "" . Chr(60) . "`n" . Chr(62) . "" . Chr(62) . "`n" . Chr(62) . "" . Chr(62) . "" . Chr(62) . "`n:=`n+=`n.=`n-=`n*=`n/=`n%=`n" . Chr(60) . "" . Chr(60) . "=`n" . Chr(62) . "" . Chr(62) . "=`n" . Chr(62) . "" . Chr(62) . "" . Chr(62) . "=`n&=`n|=`n^=`n?`n:`n++`n--`n0`nA_Index`nA_LoopField`non`noff`noff`non`non`noff`noff`noff`non`noff`noff`non`noff`n`n"
-
+instr0 := "cpp" . Chr(10) . instr3 . Chr(10) . "StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1" . Chr(10) . "alliance" . Chr(10) . "crew" . Chr(10) . "proc" . Chr(10) . "struct" . Chr(10) . "prop" . Chr(10) . "this" . Chr(10) . "import" . Chr(10) . "___start" . Chr(10) . "___end" . Chr(10) . "___cpp start" . Chr(10) . "___cpp end" . Chr(10) . "___py start" . Chr(10) . "___py end" . Chr(10) . "___js start" . Chr(10) . "___js end" . Chr(10) . "___go start" . Chr(10) . "___go end" . Chr(10) . "___lua start" . Chr(10) . "___lua end" . Chr(10) . "___cs start" . Chr(10) . "___cs end" . Chr(10) . "___java start" . Chr(10) . "___java end" . Chr(10) . "___kt start" . Chr(10) . "___kt end" . Chr(10) . "___rb start" . Chr(10) . "___rb end" . Chr(10) . "___nim start" . Chr(10) . "___nim end" . Chr(10) . "___ahk start" . Chr(10) . "___ahk end" . Chr(10) . "___swift start" . Chr(10) . "___swift end" . Chr(10) . "___dart start" . Chr(10) . "___dart end" . Chr(10) . "___ts start" . Chr(10) . "___ts end" . Chr(10) . "___groovy start" . Chr(10) . "___groovy end" . Chr(10) . "___htvm start" . Chr(10) . "___htvm end" . Chr(10) . "___inhtvm start" . Chr(10) . "___inhtvm end" . Chr(10) . "{" . Chr(10) . "}" . Chr(10) . "null" . Chr(10) . "true" . Chr(10) . "false" . Chr(10) . "void" . Chr(10) . "double" . Chr(10) . "char" . Chr(10) . "uint8" . Chr(10) . "uint16" . Chr(10) . "uint32" . Chr(10) . "uint64" . Chr(10) . "int" . Chr(10) . "str" . Chr(10) . "bool" . Chr(10) . "float" . Chr(10) . "int8" . Chr(10) . "int16" . Chr(10) . "int32" . Chr(10) . "int64" . Chr(10) . "if" . Chr(10) . "else if" . Chr(10) . "else" . Chr(10) . "while" . Chr(10) . "Loop" . Chr(10) . "Loop," . Chr(10) . "Loop, Parse," . Chr(10) . "continue" . Chr(10) . "break" . Chr(10) . "func" . Chr(10) . "await" . Chr(10) . "async" . Chr(10) . "throw" . Chr(10) . "ErrorMsg" . Chr(10) . "try" . Chr(10) . "catch" . Chr(10) . "finally" . Chr(10) . "return" . Chr(10) . ".add" . Chr(10) . ".pop" . Chr(10) . ".size" . Chr(10) . ".insert" . Chr(10) . ".rm" . Chr(10) . ".indexOf" . Chr(10) . "arr" . Chr(10) . "arr int" . Chr(10) . "arr str" . Chr(10) . "arr float" . Chr(10) . "arr bool" . Chr(10) . "var" . Chr(10) . "let" . Chr(10) . "const" . Chr(10) . "end" . Chr(10) . "global" . Chr(10) . ";" . Chr(10) . "'''1" . Chr(10) . "'''2" . Chr(10) . "" . Chr(96) . "" . Chr(10) . "main" . Chr(10) . "." . Chr(10) . "+" . Chr(10) . "-" . Chr(10) . "*" . Chr(10) . "/" . Chr(10) . "%" . Chr(10) . "**" . Chr(10) . "=" . Chr(10) . "===" . Chr(10) . "!=" . Chr(10) . "" . Chr(62) . "" . Chr(10) . "" . Chr(60) . "" . Chr(10) . "" . Chr(62) . "=" . Chr(10) . "" . Chr(60) . "=" . Chr(10) . "and" . Chr(10) . "or" . Chr(10) . "!" . Chr(10) . "&" . Chr(10) . "|" . Chr(10) . "^" . Chr(10) . "~" . Chr(10) . "" . Chr(60) . "" . Chr(60) . "" . Chr(10) . "" . Chr(62) . "" . Chr(62) . "" . Chr(10) . "" . Chr(62) . "" . Chr(62) . "" . Chr(62) . "" . Chr(10) . ":=" . Chr(10) . "+=" . Chr(10) . ".=" . Chr(10) . "-=" . Chr(10) . "*=" . Chr(10) . "/=" . Chr(10) . "%=" . Chr(10) . "" . Chr(60) . "" . Chr(60) . "=" . Chr(10) . "" . Chr(62) . "" . Chr(62) . "=" . Chr(10) . "" . Chr(62) . "" . Chr(62) . "" . Chr(62) . "=" . Chr(10) . "&=" . Chr(10) . "|=" . Chr(10) . "^=" . Chr(10) . "?" . Chr(10) . ":" . Chr(10) . "++" . Chr(10) . "--" . Chr(10) . "0" . Chr(10) . "A_Index" . Chr(10) . "A_LoopField" . Chr(10) . "on" . Chr(10) . "off" . Chr(10) . "off" . Chr(10) . "on" . Chr(10) . "on" . Chr(10) . "off" . Chr(10) . "off" . Chr(10) . "off" . Chr(10) . "on" . Chr(10) . "off" . Chr(10) . "off" . Chr(10) . "on" . Chr(10) . "off" . Chr(10) . Chr(10)
 
 
 FileDelete("HTVM-Instr-temp.txt")
@@ -2540,7 +2539,7 @@ Loop, % categories.size()
 ;print(categories[A_Index])
 str1 := Trim(StrTitleCase(Trim(StrSplit(categories[A_Index], Chr(10), 1)))) . " Functions"
 ; ## String Functions
-str2 := "## " . Trim(str1) . "`n`n[Go back](#built-in-functions)" . Chr(10) . Chr(10)
+str2 := "## " . Trim(str1) . Chr(10) . Chr(10) . "[Go back](#built-in-functions)" . Chr(10) . Chr(10)
 str10 := "[Go back](#" . Trim(StrReplace(StrLower(str1), " ", "-")) . ")"
 
 
@@ -2599,12 +2598,12 @@ str21 := Trim(StrSplit(A_LoopField, "|", 17))
 
 ; | str1 | Yes | No | Yes | and more
 str3 := "| " . str1 . " | " . str4 . " | " . str5 . " | " . str6 . " | " . str7 . " |" . str11 . " |" . str12 . " |" . str13 . " |" . str14 . " |" . str15 . " |" . str16 . " |" . str17 . " |" . str18 . " |" . str19 . " |" . str20 . " |" . str21 . " |"
-outMD .= str3 . "`n"
+outMD .= str3 . Chr(10)
 }
 }
 }
 
-outMD .= "`n---`n`n"
+outMD .= Chr(10) . "---" . Chr(10) . Chr(10)
 
 Loop, Parse, categoriesElement, `n, `r
 {
@@ -2614,7 +2613,7 @@ if (Trim(A_LoopField) != "")
 {
 
 str1 := Trim(StrSplit(StrSplit(A_LoopField, "|", 1), ":", 2))
-str2 := "### " . str1 . "`n`n" . Trim(str10) . "`n`n**HTVM build-in functions availability.**`n`n| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |`n|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|`n"
+str2 := "### " . str1 . Chr(10) . Chr(10) . Trim(str10) . Chr(10) . Chr(10) . "**HTVM build-in functions availability.**" . Chr(10) . Chr(10) . "| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |" . Chr(10) . "|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|" . Chr(10)
 
 ; cpp py js
 str4 := Trim(StrSplit(A_LoopField, "|", 3))
@@ -2645,13 +2644,13 @@ if (A_Index != 0)
 {
 if (A_LoopField != "")
 {
-str8 .= A_LoopField . "`n"
+str8 .= A_LoopField . Chr(10)
 }
 }
 }
 
 
-outMD .= str2 . str3 . "`n`n" . str8 . "`n---`n`n"
+outMD .= str2 . str3 . Chr(10) . Chr(10) . str8 . Chr(10) . "---" . Chr(10)
 }
 }
 }
@@ -2674,7 +2673,7 @@ Loop, Parse, instructionFileData, `n, `r
 {
 if (A_Index <= 161)
 {
-THEINSTESCEPAED .= escapeStr(Trim(A_LoopField)) . "`n"
+THEINSTESCEPAED .= escapeStr(Trim(A_LoopField)) . Chr(10)
 }
 }
 StringTrimRight, THEINSTESCEPAED, THEINSTESCEPAED, 1
@@ -2711,7 +2710,7 @@ if (HTVM_getLang_HTVM() != "js")
 {
 
 DOCS_params := Trim(GetParams())
-if (Trim(StrSplit(DOCS_params, "`n", 1)) = "")
+if (Trim(StrSplit(DOCS_params, Chr(10), 1)) = "")
 {
 print("Usage: <instruction_file> [function_name]" . Chr(10) . Chr(10) . "- <instruction_file>: Required. Generates DOCUMENTATION.md and DOCUMENTATION.html." . Chr(10) . "- [function_name]: Optional. If provided, checks whether the function exists and it does not output any files.")
 print("no params Exiting...")

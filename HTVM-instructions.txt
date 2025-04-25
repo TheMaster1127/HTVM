@@ -3098,692 +3098,1392 @@ function MsgBox(text, title = " ", value = 0, timeout = null) {
 funcEND======================funcEND==============
 func======================func==============
 lang: js
-name: Gui_Show
+name: guiInit
 libs: null
-description: gui~~~Gui_Show is a function that displays a div element on the screen with customizable properties such as position, size, border, background color, and z-index. It creates the div if it doesn't exist and centers it by default.~~~here is how the func looks like:~~~```htvm~~~Gui_Show(guiID, [x], [y], [w], [h], [removeBorder = false], [color = '#121212'], [roundness], [zIndex])~~~```~~~
-// Global object to hold references to all created divs
-const HTVM_guiElements = {};
-function Gui_Show(guiID, x = null, y = null, w = null, h = null, removeBorder = false, color = '#121212', roundness = null, zIndex = null) {
-    // Check if the div with the given ID already exists
-    let div = document.getElementById(guiID);
-    if (div) {
-        // If only the first parameter is provided, simply show the existing div
-        if (arguments.length === 1) {
-            div.style.display = "block"; // Show the div
-            return;
+description: null
+
+/**
+ * GUI System State
+ * Stores references to elements, counters, and layout information.
+ */
+const guiState = {
+    initialized: false,
+    backgroundDiv: null,
+    elements: {}, // Stores all GUI elements keyed by their ID { id: { elementRef, type, parentId, properties, children?, lastAutoPosChildElement? ... } }
+    elementCounters: {}, // Stores counters for generating default IDs { div: 0, button: 0, text: 0, ... }
+    lastAutoPosElement: { // For the top-level grid layout system
+        id: null,
+        x: 0, // Pixel value
+        y: 0, // Pixel value
+        width: 0, // Pixel value
+        height: 0 // Pixel value
+    },
+    currentZIndex: 0, // For default z-index generation for top-level guiAdd divs
+    autoPosGap: 20, // Gap for automatic grid layout
+    idsInUse: new Set() // Keep track of all manually set and generated IDs
+};
+
+/**
+ * Generates a unique default ID for an element type.
+ * @param {string} elementType - The type of the element (e.g., 'div', 'button', 'text').
+ * @returns {string} A unique ID (e.g., 'button0', 'text1').
+ */
+function generateDefaultId(elementType) {
+    if (guiState.elementCounters[elementType] === undefined) {
+        guiState.elementCounters[elementType] = 0;
+    }
+    let id;
+    do {
+        id = `${elementType}${guiState.elementCounters[elementType]++}`;
+    } while (guiState.idsInUse.has(id)); // Ensure uniqueness
+    guiState.idsInUse.add(id);
+    return id;
+}
+
+/**
+ * Parses a CSS property string (like '10px' or '50%') into value and unit.
+ * Assumes 'px' if no unit is provided for numbers. Returns null for 'auto' or invalid.
+ * @param {string | number | null} value - The value to parse.
+ * @param {string} [defaultUnit='px'] - The default unit if only a number is given.
+ * @returns {{value: number, unit: string} | null} - Parsed value and unit or null if not parsable numerically.
+ */
+function parseCssValue(value, defaultUnit = 'px') {
+    if (value === null || value === undefined) return null;
+    if (typeof value === 'number') {
+        return { value: value, unit: defaultUnit };
+    }
+    if (typeof value === 'string') {
+        const trimmedValue = value.trim().toLowerCase();
+        if (trimmedValue === 'auto') {
+            return null; // Cannot parse 'auto' numerically
         }
-    } else {
-        // Create a new div element if it doesn't exist
-        div = document.createElement('div');
-        div.id = guiID;
-        // Store the div in the global object for future access
-        HTVM_guiElements[guiID] = div;
-        // Append the div to the body
-        document.body.appendChild(div);
+        const match = trimmedValue.match(/^(\d*\.?\d+)\s*([a-z%]*)$/);
+        if (match) {
+            const num = parseFloat(match[1]);
+            const unit = match[2] || defaultUnit;
+            return { value: num, unit: unit };
+        }
     }
-    // Set default width and height if not provided
-    w = (w === null || w === undefined) ? 450 : w; // Default width
-    h = (h === null || h === undefined) ? 450 : h; // Default height
-    // Set default position if x or y is not provided
-    if (x === null || x === undefined || y === null || y === undefined) {
-        x = (window.innerWidth - w) / 2; // Center horizontally
-        y = (window.innerHeight - h) / 2; // Center vertically
+    // Allow number 0 specifically
+    if (value === 0) {
+        return { value: 0, unit: defaultUnit };
     }
-    // Set the dimensions and position
-    div.style.position = 'absolute';
-    div.style.left = `${x}px`;
-    div.style.top = `${y}px`;
-    div.style.width = `${w}px`;
-    div.style.height = `${h}px`;
-    // Set styles
-    div.style.backgroundColor = color;
-    div.style.border = removeBorder ? 'none' : '2px solid #ffffff'; // default border color
-    div.style.borderRadius = roundness ? `${roundness}px` : '0px';
-    // Set z-index if provided
-    if (zIndex !== null && zIndex !== undefined) {
-        div.style.zIndex = zIndex;
-    }
-    // Ensure the div is visible
-    div.style.display = "block";
+    // console.warn(`Could not parse CSS value numerically: ${value}`); // Reduce noise
+    return null; // Indicate parsing failure
 }
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_Update
-libs: null
-description: gui~~~Gui_Update is a function that updates or creates a div element based on the provided guiID, setting its dimensions, position, background color, border, border-radius, and z-index, with optional parameters for customization.~~~here is how the func looks like:~~~```htvm~~~Gui_Update(str guiID, [int x = null], [int y = null], [int w = 450], [int h = 450], [bool removeBorder = false], [str color = '#121212'], [int roundness = null], [int zIndex = null])~~~```~~~
-function Gui_Update(guiID, x = null, y = null, w = null, h = null, removeBorder = false, color = '#121212', roundness = null, zIndex = null) {
-    // Check if the div with the given guiID exists
-    let div = HTVM_guiElements[guiID];
-    if (!div) {
-        // If it doesn't exist, create a new div
-        div = document.createElement('div');
-        div.id = guiID;
-        // Store the newly created div in the global object
-        HTVM_guiElements[guiID] = div;
-        // Append the div to the body
-        document.body.appendChild(div);
-    }
-    // Set default width and height if not provided
-    w = (w === null || w === undefined) ? 450 : w; // Default width
-    h = (h === null || h === undefined) ? 450 : h; // Default height
-    // Set default position if x or y is not provided
-    if (x === null || x === undefined || y === null || y === undefined) {
-        x = (window.innerWidth - w) / 2; // Center horizontally
-        y = (window.innerHeight - h) / 2; // Center vertically
-    }
-    // Update the dimensions and position
-    div.style.position = 'absolute'; // Ensure the position is absolute
-    div.style.left = `${x}px`;
-    div.style.top = `${y}px`;
-    div.style.width = `${w}px`;
-    div.style.height = `${h}px`;
-    // Update styles
-    div.style.backgroundColor = color;
-    div.style.border = removeBorder ? 'none' : '2px solid #ffffff'; // default border color
-    div.style.borderRadius = roundness ? `${roundness}px` : '0px';
-    // Update z-index if provided
-    if (zIndex !== null && zIndex !== undefined) {
-        div.style.zIndex = zIndex;
-    }
-}
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_Button
-libs: null
-description: gui~~~Gui_Button is a function that creates a button inside a specified div and allows customization of its position, size, color, and click behavior.~~~here is how the func looks like:~~~```htvm~~~Gui_Button(str guiID, str buttonID, str buttonText, [int x = null], [int y = null], [int w = 150], [int h = 50], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onClickCallback = null])~~~```~~~
-function Gui_Button(guiID, buttonID, buttonText, x = null, y = null, w = null, h = null, color = '#121212', textColor = '#FFFFFF', removeBorder = false, roundness = null, zIndex = null, onClickCallback = null) {
-    // Check if the div with the given guiID exists
-    let div = HTVM_guiElements[guiID];
-    if (!div) {
-        // If it doesn't exist, create a new div
-        div = document.createElement('div');
-        div.id = guiID;
-        // Store the newly created div in the global object
-        HTVM_guiElements[guiID] = div;
-        // Append the div to the body
-        document.body.appendChild(div);
-    }
-    // Create the button element
-    const button = document.createElement('button');
-    button.innerText = buttonText;
-    // Set the ID of the button
-    button.id = buttonID;
-    // Set default width and height for the button if not provided
-    w = (w === null || w === undefined) ? 150 : w; // Default width
-    h = (h === null || h === undefined) ? 50 : h; // Default height
-    // Set default position if x or y is not provided
-    if (x === null || x === undefined || y === null || y === undefined) {
-        x = (div.clientWidth - w) / 2; // Center horizontally within the div
-        y = (div.clientHeight - h) / 2; // Center vertically within the div
-    }
-    // Set the button's styles
-    button.style.position = 'absolute';
-    button.style.left = `${x}px`;
-    button.style.top = `${y}px`;
-    button.style.width = `${w}px`;
-    button.style.height = `${h}px`;
-    button.style.backgroundColor = color;
-    button.style.color = textColor; // Set button text color
-    button.style.border = removeBorder ? 'none' : '2px solid #ffffff'; // default border color
-    button.style.borderRadius = roundness ? `${roundness}px` : '0px';
-    // Change cursor to pointer on hover
-    button.style.cursor = 'pointer';
-    // Set z-index if provided
-    if (zIndex !== null && zIndex !== undefined) {
-        button.style.zIndex = zIndex;
-    }
-    // Add the click event listener to the button
-    if (onClickCallback) {
-        button.addEventListener('click', () => onClickCallback(buttonID));
-    }
-    // Append the button to the specified div
-    div.appendChild(button);
-}
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_Edit
-libs: null
-description: gui~~~Gui_Edit is a function that creates a textarea element within a div, allowing customization of its appearance, position, and behavior, with optional parameters for width, height, colors, borders, and a callback for input changes.~~~here is how the func looks like:~~~```htvm~~~Gui_Edit(str guiID, str editID, str placeholderText, [int x = null], [int y = null], [int w = null], [int h = null], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onChangeCallback = null])~~~```~~~
-function Gui_Edit(guiID, editID, placeholderText, x = null, y = null, w = null, h = null, color = '#121212', textColor = '#FFFFFF', removeBorder = false, roundness = null, zIndex = null, onChangeCallback = null) {
-    // Check if the div with the given guiID exists
-    let div = HTVM_guiElements[guiID];
-    if (!div) {
-        // If it doesn't exist, create a new div
-        div = document.createElement('div');
-        div.id = guiID;
-        // Store the newly created div in the global object
-        HTVM_guiElements[guiID] = div;
-        // Append the div to the body
-        document.body.appendChild(div);
-    }
-    // Create the textarea element
-    const textarea = document.createElement('textarea');
-    textarea.placeholder = placeholderText;
-    // Set the ID of the textarea
-    textarea.id = editID;
-    // Set default width and height for the textarea if not provided
-    w = (w === null || w === undefined) ? 300 : w; // Default width
-    h = (h === null || h === undefined) ? 100 : h; // Default height
-    // Set default position if x or y is not provided
-    if (x === null || x === undefined || y === null || y === undefined) {
-        x = (div.clientWidth - w) / 2; // Center horizontally within the div
-        y = (div.clientHeight - h) / 2; // Center vertically within the div
-    }
-    // Set the textarea's styles
-    textarea.style.position = 'absolute';
-    textarea.style.left = `${x}px`;
-    textarea.style.top = `${y}px`;
-    textarea.style.width = `${w}px`;
-    textarea.style.height = `${h}px`;
-    textarea.style.backgroundColor = color;
-    textarea.style.color = textColor; // Set textarea text color
-    textarea.style.border = removeBorder ? 'none' : '2px solid #ffffff'; // Default border color
-    textarea.style.borderRadius = roundness ? `${roundness}px` : '0px';
-    // Prevent textarea from being draggable
-    textarea.style.resize = 'none'; // Disable resizing
-    textarea.style.pointerEvents = 'none'; // Disable all mouse events
-    // Change cursor to text on hover
-    textarea.style.cursor = 'text';
-    // Set z-index if provided
-    if (zIndex !== null && zIndex !== undefined) {
-        textarea.style.zIndex = zIndex;
-    }
-    // Enable pointer events for text editing only, if a callback is provided
-    textarea.style.pointerEvents = 'auto'; // Enable pointer events for user input only
-    // Add the change event listener to the textarea
-    if (onChangeCallback) {
-        textarea.addEventListener('input', function() {
-            onChangeCallback(textarea.value); // Pass the current value
+
+
+/**
+ * Applies raw CSS string to an element.
+ * @param {HTMLElement} element - The element to apply styles to.
+ * @param {string | null} rawCss - The raw CSS string (e.g., "color: red; font-weight: bold;").
+ */
+function applyRawCss(element, rawCss) {
+    if (typeof rawCss === 'string' && rawCss.trim() !== '') {
+        const styles = rawCss.split(';');
+        styles.forEach(style => {
+            if (style.trim() !== '') {
+                const [property, value] = style.split(':').map(s => s.trim());
+                if (property && value) {
+                    const camelCaseProperty = property.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+                    try {
+                        // Special handling for common properties that might have existing values cleared
+                        if (element.style[camelCaseProperty] !== undefined) {
+                             element.style[camelCaseProperty] = value;
+                        } else {
+                             // Use setProperty for custom properties or less common ones
+                             element.style.setProperty(property, value);
+                        }
+                    } catch (e) {
+                        console.warn(`Failed to apply raw CSS style: ${property}:${value}`, e);
+                    }
+                }
+            }
         });
     }
-    // Append the textarea to the specified div
-    div.appendChild(textarea);
 }
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_Text
-libs: null
-description: gui~~~Gui_Text is a function that creates and inserts a text element into a specified GUI container, with optional parameters for positioning, color, roundness, and z-index.~~~here is how the func looks like:~~~```htvm~~~Gui_Text(str guiID, str textID, str text, [int x = null], [int y = null], [str color = '#FFFFFF'], [int roundness = null], [int zIndex = null])~~~```~~~
-function Gui_Text(guiID, textID, text, x = null, y = null, color = '#FFFFFF', roundness = null, zIndex = null) {
-    // Check if the div with the given guiID exists
-    let div = HTVM_guiElements[guiID];
-    if (!div) {
-        // If it doesn't exist, create a new div
-        div = document.createElement('div');
-        div.id = guiID;
-        // Store the newly created div in the global object
-        HTVM_guiElements[guiID] = div;
-        // Append the div to the body
-        document.body.appendChild(div);
-    }
-    // Create the text element
-    const textElement = document.createElement('span'); // Use span for inline text
-    // Set the text content
-    textElement.textContent = text;
-    // Set the ID of the text element
-    textElement.id = textID;
-    // Set default position if x or y is not provided
-    if (x === null || x === undefined || y === null || y === undefined) {
-        x = (div.clientWidth - 100) / 2; // Center horizontally (default width of 100px)
-        y = (div.clientHeight - 20) / 2; // Center vertically (default height of 20px)
-    }
-    // Set the text styles
-    textElement.style.position = 'absolute';
-    textElement.style.left = `${x}px`;
-    textElement.style.top = `${y}px`;
-    textElement.style.color = color; // Set text color
-    textElement.style.border = 'none'; // No border
-    textElement.style.backgroundColor = 'transparent'; // No background
-    textElement.style.borderRadius = roundness ? `${roundness}px` : '0px'; // Optional rounding
-    // Set z-index if provided
-    if (zIndex !== null && zIndex !== undefined) {
-        textElement.style.zIndex = zIndex;
-    }
-    // Append the text element to the specified div
-    div.appendChild(textElement);
-}
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_Size
-libs: null
-description: gui~~~Gui_Size is a function that adjusts the font size of the specified HTML element and its children based on the given font size value.~~~here is how the func looks like:~~~```htvm~~~Gui_Size(str divID, int fontSize)~~~```~~~
-function Gui_Size(divID, fontSize) {
-    document.querySelectorAll(`#${divID}, #${divID} *, #${divID} button, #${divID} input, #${divID} textarea`).forEach(el => el.style.fontSize = `${fontSize}px`);
-}
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_Font
-libs: null
-description: gui~~~Gui_Font is a function that sets the font family for a specified element and all its descendants, including buttons, inputs, and textareas.~~~here is how the func looks like:~~~```htvm~~~Gui_Font(str divID, str fontFamily)~~~```~~~
-function Gui_Font(divID, fontFamily) {
-    // Use querySelectorAll to select the target element and all its descendants
-    document.querySelectorAll(`#${divID}, #${divID} *, #${divID} button, #${divID} input, #${divID} textarea`).forEach(el => {
-        el.style.fontFamily = fontFamily; // Set the font family for each selected element
-    });
-}
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_Font_Id
-libs: null
-description: gui~~~Gui_Font_Id is a function that changes the font family of specified elements in the HTML document based on provided div and element IDs.~~~here is how the func looks like:~~~```htvm~~~Gui_Font_Id(str divID, str elementID, str fontFamily)~~~```~~~
-function Gui_Font_Id(divID, elementID, fontFamily) {
-    const divElement = document.getElementById(divID);
-    const specificElement = document.getElementById(elementID);
-    if (divElement) divElement.style.fontFamily = fontFamily;
-    if (specificElement) specificElement.style.fontFamily = fontFamily;
-}
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_Size_Id
-libs: null
-description: gui~~~Gui_Size_Id is a function that changes the font size of a specified div and another specified element by their respective IDs.~~~here is how the func looks like:~~~```htvm~~~Gui_Size_Id(str divID, str elementID, int fontSize)~~~```~~~
-function Gui_Size_Id(divID, elementID, fontSize) {
-    // Change font size for the specified div
-    const divElement = document.getElementById(divID);
-    if (divElement) {
-        divElement.style.fontSize = `${fontSize}px`;
-    }
-    // Change font size for the specific element by ID
-    const specificElement = document.getElementById(elementID);
-    if (specificElement) {
-        specificElement.style.fontSize = `${fontSize}px`;
-    }
-}
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: GuiControl
-libs: null
-description: gui~~~GuiControl is a function that handles various DOM manipulations like moving, showing, hiding, and modifying elements based on the provided action and parameters.~~~here is how the func looks like:~~~```htvm~~~GuiControl(str action, str divId, str id, [any param1 = ?], [any param2 = ?], [any param3 = ?], [any param4 = ?])~~~```~~~
-function GuiControl(action, divId, id, param1, param2, param3, param4) {
-    // Convert action to lowercase to handle case insensitivity
-    const actionLower = action.toLowerCase();
-    const element = document.getElementById(id);
-    const divElement = document.getElementById(divId);
 
-    if (element) {
-        // Handle DOM elements
-        if (actionLower === "move") {
-            // Set position and size
-            element.style.left = param1 + "px";
-            element.style.top = param2 + "px";
-            element.style.width = param3 + "px";
-            element.style.height = param4 + "px";
-        } else if (actionLower === "focus" && (element instanceof HTMLInputElement || element instanceof HTMLElement)) {
-            // Focus on the element
-            element.focus();
-        } else if (actionLower === "text") {
-            // Set new text content
-            element.textContent = param1;
-        } else if (actionLower === "hide") {
-            // Hide the element
-            element.style.display = "none";
-        } else if (actionLower === "show") {
-            // Show the element
-            element.style.display = "";
-        } else if (actionLower === "enable") {
-            // Enable the element
-            element.disabled = false;
-        } else if (actionLower === "disable") {
-            // Disable the element
-            element.disabled = true;
-        } else if (actionLower === "font") {
-            // Set font size
-            element.style.fontSize = param1 + "px";
-        } else if (actionLower === "destroy") {
-            // Remove the element from the DOM
-            element.parentNode.removeChild(element);
-        } else if (actionLower === "color") {
-            // Set color
-            element.style.color = param1;
-        } else if (actionLower === "picture") {
-            // Change the image source
-            if (element instanceof HTMLImageElement) {
-                element.src = param1;
-            } else {
-                console.error("Element is not an <img> tag, cannot change picture.");
+/**
+ * Parses the border string ("size color" or "size|color"). Prefers CSS standard space separation.
+ * @param {string | null} borderString
+ * @param {string} [defaultSize='1px'] - Default border size
+ * @param {string} [defaultColor='transparent'] - Default border color
+ * @returns {{ size: string, style: string, color: string } | null}
+ */
+function parseBorder(borderString, defaultSize = '1px', defaultColor = 'transparent') {
+    if (borderString === null || borderString === undefined || String(borderString).trim() === '') return null;
+
+    const str = String(borderString);
+    // Prioritize pipe, then space
+    const parts = str.includes('|') ? str.split('|').map(s => s.trim()) : str.split(/\s+/).map(s => s.trim());
+
+    // Basic parsing: assumes size [style] color or just size or size color
+    let size = defaultSize;
+    let style = 'solid';
+    let color = defaultColor;
+
+    if (parts.length === 1) {
+        // Is it a color or a size? Assume size if it looks like a CSS unit value
+        if (parseCssValue(parts[0])) {
+            size = parts[0];
+        } else {
+            color = parts[0]; // Assume it's a color name/hex
+        }
+    } else if (parts.length === 2) {
+        // Assume "size color" or "size style" or "style color" - prioritize size/color
+        // If first part looks like size, assume "size color"
+        if (parseCssValue(parts[0])) {
+             size = parts[0];
+             color = parts[1];
+        } else { // Assume "style color" or "color size"? Less common, default to size/color interpretation
+            size = parts[0]; // May not be a valid size, CSS handles it
+            color = parts[1];
+        }
+    } else if (parts.length >= 3) {
+        size = parts[0];
+        style = parts[1]; // Add style parsing if needed
+        color = parts[2];
+    }
+
+    // Ensure size has a unit if it's just a number string that's not 0
+     const parsedSize = parseCssValue(size, 'px');
+     if (parsedSize && parsedSize.unit === 'px' && String(size) === String(parsedSize.value) && parsedSize.value !== 0) {
+         size = `${parsedSize.value}px`;
+     }
+
+
+    return { size: size, style: style, color: color };
+}
+
+// ==========================================================================
+// HELPER: APPLY ENABLED/DISABLED STYLES (REVISED FOR CURSOR)
+// ==========================================================================
+/**
+ * Applies visual and functional styles based on the element's effective enabled state.
+ * @param {HTMLElement} element - The DOM element.
+ * @param {string} elementType - The type of the element ('button', 'text', 'div', etc.).
+ * @param {boolean} isEffectivelyEnabled - The calculated enabled state (considering parent).
+ * @param {object} properties - The element's stored properties (needed for callback check).
+ */
+function _applyEnabledStyles(element, elementType, isEffectivelyEnabled, properties) {
+    // Visual indication (Opacity applies universally)
+    element.style.opacity = isEffectivelyEnabled ? '1' : '0.5';
+
+    // Functional indication (Pointer events & Cursor)
+    if (elementType === 'div') {
+        // --- Container DIV Specific Logic ---
+        if (!isEffectivelyEnabled) {
+            // Disabled Container:
+            // - Apply 'not-allowed' cursor via class.
+            // - *DO NOT* set pointer-events: none, so hover for cursor works.
+            // - Interaction is blocked because children will have pointer-events: none.
+            element.classList.add('gui-container-disabled');
+            // Ensure pointer-events is not 'none' if previously set
+            if (element.style.pointerEvents === 'none') {
+                 element.style.pointerEvents = 'auto'; // Or '', restore default behaviour
             }
-        } else if (actionLower === "textide") {
-            // Set value for Ace editor
-            var editor = ace.edit(id); // Access the Ace editor instance using its ID
-            if (editor && param1) {
-                editor.session.setValue(param1);
-            } else {
-                console.error("Element is not an Ace editor or parameter is missing.");
+        } else {
+            // Enabled Container:
+            // - Remove class.
+            // - Restore default pointer events.
+            // - Reset cursor (let children define theirs).
+            element.classList.remove('gui-container-disabled');
+            element.style.pointerEvents = ''; // Default browser handling
+            element.style.cursor = '';
+        }
+    } else {
+        // --- Child Element Specific Logic ---
+        element.style.pointerEvents = isEffectivelyEnabled ? 'auto' : 'none';
+
+        // Specific disabled attribute for form elements
+        if (element.tagName === 'BUTTON' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA' || element.tagName === 'INPUT') {
+            element.disabled = !isEffectivelyEnabled;
+        }
+
+        // Cursor for child elements
+        element.style.cursor = ''; // Reset first
+
+        if (isEffectivelyEnabled) {
+            // Set appropriate cursor only if enabled
+            const isInteractive = (
+                ['button', 'toggle', 'picture', 'dropdown'].includes(elementType) ||
+                ((elementType === 'rectangle' || elementType === 'circle') && properties?.callback)
+            );
+            if (isInteractive) {
+                element.style.cursor = 'pointer';
+            } else if (elementType === 'text') {
+                element.style.cursor = 'default';
+            } else if (elementType === 'edit'){
+                element.style.cursor = 'text';
             }
-        }
-    } else if (divElement) {
-        // Handle actions specifically for the div element
-        if (actionLower === "move") {
-            // Set position and size for the div
-            divElement.style.left = param1 + "px";
-            divElement.style.top = param2 + "px";
-            divElement.style.width = param3 + "px";
-            divElement.style.height = param4 + "px";
-        } else if (actionLower === "color") {
-            // Set background color for the div
-            divElement.style.backgroundColor = param1;
-        }
-        // Add more actions for divElement as needed
-    } else {
-        // Handle canvas or non-existing element
-        if (actionLower === "move") {
-            // Update position and size of the rectangle
-            updateRectangle(id, param1, param2, param3, param4);
-            redrawCanvas(); // Redraw the canvas with updated rectangles
-        } else if (actionLower === "color") {
-            // Update color of the rectangle
-            updateRectangleColor(id, param1);
-            redrawCanvas(); // Redraw the canvas with updated rectangles
+        } else {
+            // Child element is effectively disabled
+            element.style.cursor = 'default'; // Use 'default' cursor for disabled children
         }
     }
 }
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_DropDownList
-libs: null
-description: gui~~~Gui_DropDownList is a function that creates a dropdown list (select element) with options from a string, sets styles, attaches an event listener for selection changes, and appends it to a specified parent element.~~~here is how the func looks like:~~~```htvm~~~Gui_DropDownList(parent, str id, str data, int leftPos, int topPos, int width, int height, str color, func onChangeFunction)~~~```~~~
-function Gui_DropDownList(parent, id, data, leftPos, topPos, width, height, color, onChangeFunction) {
-    // Split the data string into an array of options
-    const options = data.split("|").map((option) => option.trim());
 
-    // Create a select element (dropdown)
-    const selectElement = document.createElement("select");
 
-    // Set attributes and styles for the select element
-    selectElement.id = id;
-    selectElement.style.width = width + "px";
-    selectElement.style.height = height + "px";
-    selectElement.style.left = leftPos + "px";
-    selectElement.style.top = topPos + "px";
-    selectElement.style.position = "absolute";
-    selectElement.style.backgroundColor = color;
-    selectElement.style.color = "white"; // Set text color to white
-    selectElement.style.border = "none"; // Remove default border
-    selectElement.style.borderRadius = "5px"; // Add border radius
-    selectElement.style.padding = "5px"; // Add padding
-    selectElement.style.cursor = "pointer"; // Change cursor on hover
+// ==========================================================================
+// GUI INIT FUNCTION
+// ==========================================================================
 
-    // Populate the dropdown with options
-    options.forEach((optionText) => {
-      const optionElement = document.createElement("option");
-      optionElement.textContent = optionText;
-      selectElement.appendChild(optionElement);
-    });
-
-    // Add event listener to handle option selection
-    selectElement.addEventListener("change", function () {
-      const selectedText = this.options[this.selectedIndex].textContent;
-      onChangeFunction(selectedText);
-    });
-
-    // Append the dropdown to the specified parent element (Gui1 div)
-    const parentElement = parent instanceof HTMLElement ? parent : document.getElementById(parent);
-    if (parentElement) {
-      parentElement.appendChild(selectElement);
-    } else {
-        console.error(`Parent element "${parent}" not found.`);
+/**
+ * Initializes the main GUI background layer.
+ * @param {string | null} [backgroundColor=null] - Background color (hex). Defaults to '#202020'.
+ * @param {string | null} [centerText=null] - Text to display in the center. Defaults to null (no text).
+ */
+function guiInit(backgroundColor = null, centerText = null) {
+    if (guiState.initialized) {
+        console.warn("GUI already initialized. Re-initializing.");
+        if (guiState.backgroundDiv && guiState.backgroundDiv.parentNode) {
+            guiState.backgroundDiv.parentNode.removeChild(guiState.backgroundDiv);
+        }
+        // Reset state if re-initializing cleanly
+        Object.keys(guiState.elements).forEach(id => {
+             if (guiState.elements[id].elementRef && guiState.elements[id].elementRef.parentNode) {
+                 guiState.elements[id].elementRef.parentNode.removeChild(guiState.elements[id].elementRef);
+             }
+        });
+        guiState.elements = {};
+        guiState.elementCounters = {};
+        guiState.lastAutoPosElement = { id: null, x: 0, y: 0, width: 0, height: 0 };
+        guiState.currentZIndex = 0;
+        guiState.idsInUse.clear();
     }
-}
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_Hide
-libs: null
-description: gui~~~Gui_Hide is a function that hides an HTML element by setting its display style to "none" based on the provided element ID.~~~here is how the func looks like:~~~```htvm~~~Gui_Hide(str elementId)~~~```~~~
-function Gui_Hide(elementId) {
-  const element = document.getElementById(elementId);
-  if (element) {
-    element.style.display = "none";
-  } else {
-    console.warn(`Element with ID '${elementId}' not found.`);
-  }
-}
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_Move
-libs: null
-description: gui~~~Gui_Move is a function that moves or resizes a GUI element by modifying its position and dimensions based on the provided parameters.~~~here is how the func looks like:~~~```htvm~~~Gui_Move(str guiID, [int x = null], [int y = null], [int w = null], [int h = null])~~~```~~~
-function Gui_Move(guiID, x = null, y = null, w = null, h = null) {
-    let div = HTVM_guiElements[guiID];
 
-    if (!div) {
-        console.warn(`Element with ID '${guiID}' not found in HTVM_guiElements.`);
+    const finalBgColor = backgroundColor === null ? '#202020' : backgroundColor; // Match body style bg
+
+    const bgDiv = document.createElement('div');
+    bgDiv.id = 'gui-background';
+    bgDiv.style.position = 'fixed';
+    bgDiv.style.top = '0';
+    bgDiv.style.left = '0';
+    bgDiv.style.width = '100vw';
+    bgDiv.style.height = '100vh';
+    bgDiv.style.backgroundColor = finalBgColor;
+    bgDiv.style.zIndex = '-1'; // Behind other content
+    bgDiv.style.overflow = 'hidden'; // Prevent scrollbars
+
+    if (typeof centerText === 'string' && centerText.trim() !== '') {
+        const textElement = document.createElement('div');
+        textElement.textContent = centerText;
+        textElement.style.position = 'absolute';
+        textElement.style.top = '50%';
+        textElement.style.left = '50%';
+        textElement.style.transform = 'translate(-50%, -50%)';
+        textElement.style.color = 'white'; // Default color
+        textElement.style.fontSize = '20px'; // Default size
+        textElement.style.fontFamily = 'sans-serif'; // Default font
+        textElement.style.textAlign = 'center';
+        textElement.style.pointerEvents = 'none'; // Ignore clicks
+        bgDiv.appendChild(textElement);
+    }
+
+    document.body.appendChild(bgDiv);
+    guiState.backgroundDiv = bgDiv;
+    guiState.initialized = true;
+    console.log("GUI Initialized.");
+}
+
+
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: guiAdd
+libs: null
+description: null
+
+// ==========================================================================
+// GUI ADD FUNCTION (Adds top-level DIVs)
+// ==========================================================================
+/**
+ * Adds or updates a main GUI container element (div).
+ * If ID exists, updates the element (enters edit mode).
+ * If x and y are null during creation, uses automatic grid layout.
+ *
+ * @param {object} options - Configuration options for the element.
+ * @param {string | number | null} [options.id=null] - Element ID. Auto-generated if null. Reuses if existing.
+ * @param {string | number | null} [options.x=null] - Left position ('50px', '50%'). Defaults to auto grid layout on create, center on update if null.
+ * @param {string | number | null} [options.y=null] - Top position ('50px', '50%'). Defaults to auto grid layout on create, center on update if null.
+ * @param {string | number | null} [options.width='50%'] - Width ('100px', '50%').
+ * @param {string | number | null} [options.height='50%'] - Height ('100px', '50%').
+ * @param {number | string | null} [options.zIndex=null] - Stacking order. Auto-increments if null during creation. Defaults to 'auto'.
+ * @param {string | null} [options.backgroundColor=null] - Background color (hex). Defaults to transparent.
+ * @param {number | string | null} [options.rounding=10] - Border radius ('px' or '%'). Null or < 0 for no rounding. Default 10px.
+ * @param {string | null} [options.border=null] - Border style ("size [style] color", e.g., "1px white"). Null for no border.
+ * @param {string | null} [options.rawCss=null] - Additional raw CSS string.
+ * @param {boolean | null} [options.isDeleting=false] - If true, removes the element.
+ * @param {boolean | null} [options.isEnabled=true] - If false, visually disables the element (opacity, pointer-events) AND ITS CHILDREN.
+ * @param {boolean | null} [options.isVisible=true] - If false, hides the element (display: none).
+ */
+function guiAdd({
+    id = null,
+    x = null,
+    y = null,
+    width = '45%', // Default for guiAdd
+    height = '45%', // Default for guiAdd
+    zIndex = null, // Default to null -> auto-increment or keep existing
+    backgroundColor = "#121212",
+    rounding = 10, // Default rounding 10px for guiAdd
+    border = null, // Default no border for guiAdd
+    rawCss = null,
+    isDeleting = false,
+    isEnabled = true, // Default to enabled
+    isVisible = true
+} = {}) {
+
+    if (!guiState.initialized) {
+        console.error("GUI Add Error: guiInit() must be called first.");
         return;
     }
 
-    // Set position if x or y is provided
-    if (x !== null && x !== undefined) {
-        div.style.left = `${x}px`;
+    let elementId = id;
+    let isEditMode = false;
+    let existingElementData = null;
+
+    // --- ID Handling ---
+    if (elementId === null) {
+        elementId = generateDefaultId('div'); // Default type is div for guiAdd
+    } else {
+        elementId = String(elementId);
+        if (guiState.elements[elementId]) {
+            isEditMode = true;
+            existingElementData = guiState.elements[elementId];
+             if (existingElementData.type !== 'div') {
+                 console.warn(`GUI Add Warning: Attempting to update element '${elementId}' which is not a 'div' using guiAdd. Use guiControl or guiAddElement.`);
+                 // Allow update for flexibility, but warn.
+             }
+        } else {
+            if (guiState.idsInUse.has(elementId)) {
+                console.warn(`GUI Add: Provided ID ${elementId} collides with a previously generated or used ID. Behaviour might be unexpected.`);
+            }
+            guiState.idsInUse.add(elementId);
+        }
     }
-    if (y !== null && y !== undefined) {
-        div.style.top = `${y}px`;
+
+    // --- Deleting ---
+    if (isDeleting) {
+        if (isEditMode) {
+            // Recursively delete children first (cleaner state)
+            if (existingElementData.children) {
+                Object.keys(existingElementData.children).forEach(childId => {
+                     // Use guiControl for proper deletion logic of children if needed,
+                     // but simpler to just remove element and data here
+                     const childData = existingElementData.children[childId];
+                     if (childData && childData.elementRef && childData.elementRef.parentNode) {
+                         childData.elementRef.parentNode.removeChild(childData.elementRef);
+                     }
+                     guiState.idsInUse.delete(childId);
+                     // No need to delete from parent's children map, as parent is being deleted
+                });
+            }
+
+            const elRef = existingElementData.elementRef;
+            if (elRef && elRef.parentNode) {
+                elRef.parentNode.removeChild(elRef);
+            }
+            delete guiState.elements[elementId];
+            guiState.idsInUse.delete(elementId);
+            if (guiState.lastAutoPosElement.id === elementId) {
+                 guiState.lastAutoPosElement = { id: null, x: 0, y: 0, width: 0, height: 0 };
+            }
+            console.log(`GUI Add: Deleted element ID: ${elementId} and its children.`);
+        } else {
+            if (id !== null) {
+                 console.warn(`GUI Add: Attempted to delete non-existent element ID: ${elementId}`);
+            }
+        }
+        return; // Stop execution after deletion
     }
-    // Set dimensions if w or h is provided
-    if (w !== null && w !== undefined) {
-        div.style.width = `${w}px`;
+
+    let divElement;
+    let properties = {};
+    let oldIsEnabled = true; // Assume true initially or from existing state
+
+    if (isEditMode) {
+        divElement = existingElementData.elementRef;
+        properties = { ...existingElementData.properties }; // Clone properties for modification
+        oldIsEnabled = properties.isEnabled; // Capture old state before potential update
+    } else {
+        divElement = document.createElement('div');
+        divElement.id = elementId;
+        divElement.style.position = 'absolute';
+        divElement.style.boxSizing = 'border-box';
+        divElement.style.overflow = 'hidden'; // Prevent content spill by default
+        properties = {};
+        // Initialize children map and layout tracker for new elements
+        guiState.elements[elementId] = { // Temporarily add to state for children iteration later
+            elementRef: divElement,
+            type: 'div',
+            parentId: null,
+            properties: properties, // Reference, will be updated
+            children: {},
+            lastAutoPosChildElement: { x: 0, y: 0, width: 0, height: 0 }
+        };
     }
-    if (h !== null && h !== undefined) {
-        div.style.height = `${h}px`;
+
+    // --- Apply Properties (Create or Edit) ---
+
+    // Visibility (Apply early)
+    const finalIsVisible = isVisible !== null ? isVisible : (isEditMode ? properties.isVisible : true);
+    divElement.style.display = finalIsVisible ? '' : 'none';
+    properties.isVisible = finalIsVisible;
+
+    // Size (Width, Height)
+    const finalWidth = width !== null ? String(width) : (isEditMode ? properties.width : '50%');
+    const finalHeight = height !== null ? String(height) : (isEditMode ? properties.height : '50%');
+    divElement.style.width = finalWidth;
+    divElement.style.height = finalHeight;
+    properties.width = finalWidth;
+    properties.height = finalHeight;
+
+    // Position (X, Y)
+    let finalX = x !== null ? String(x) : (isEditMode ? properties.x : null);
+    let finalY = y !== null ? String(y) : (isEditMode ? properties.y : null);
+    let needsCenteringTransform = false;
+    let isAutoLayout = false;
+
+    if (finalX === null && finalY === null && !isEditMode) {
+        isAutoLayout = true;
+        const last = guiState.lastAutoPosElement;
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+
+        let currentW_px = 0;
+        let currentH_px = 0;
+        let wasAddedTemporarily = false;
+        if (!document.body.contains(divElement)) {
+            divElement.style.visibility = 'hidden'; divElement.style.left = '-9999px';
+            document.body.appendChild(divElement); wasAddedTemporarily = true;
+        }
+        currentW_px = divElement.offsetWidth;
+        currentH_px = divElement.offsetHeight;
+        if (wasAddedTemporarily) {
+            document.body.removeChild(divElement);
+            divElement.style.visibility = ''; divElement.style.left = '';
+        }
+         if (currentW_px <= 0) {
+              const parsedW = parseCssValue(finalWidth);
+              currentW_px = parsedW ? ((parsedW.unit === '%') ? (screenWidth * parsedW.value / 100) : parsedW.value) : 200;
+         }
+         if (currentH_px <= 0) {
+              const parsedH = parseCssValue(finalHeight);
+              currentH_px = parsedH ? ((parsedH.unit === '%') ? (screenHeight * parsedH.value / 100) : parsedH.value) : 100;
+         }
+
+        if (last.id !== null && guiState.elements[last.id]) {
+            let nextX = last.x + last.width + guiState.autoPosGap;
+            let nextY = last.y;
+            if (nextX + currentW_px > screenWidth - guiState.autoPosGap) {
+                nextX = guiState.autoPosGap;
+                nextY = last.y + last.height + guiState.autoPosGap;
+            }
+            finalX = nextX + 'px';
+            finalY = nextY + 'px';
+        } else {
+            finalX = guiState.autoPosGap + 'px';
+            finalY = guiState.autoPosGap + 'px';
+        }
+        guiState.lastAutoPosElement = {
+            id: elementId, x: parseFloat(finalX), y: parseFloat(finalY),
+            width: currentW_px, height: currentH_px
+        };
+    } else if (!isAutoLayout && (finalX === null || finalY === null || String(finalX).includes('%') || String(finalY).includes('%'))) {
+         finalX = finalX ?? (isEditMode ? properties.x : '50%');
+         finalY = finalY ?? (isEditMode ? properties.y : '50%');
+         needsCenteringTransform = true;
+    }
+
+    divElement.style.left = finalX !== null ? String(finalX) : '';
+    divElement.style.top = finalY !== null ? String(finalY) : '';
+    properties.x = finalX;
+    properties.y = finalY;
+    divElement.style.transform = needsCenteringTransform ? `translate(-50%, -50%)` : '';
+
+    // Z-Index
+    let finalZIndex = zIndex !== null ? String(zIndex) : (isEditMode ? properties.zIndex : null);
+    if (finalZIndex === null && !isEditMode) {
+        finalZIndex = String(guiState.currentZIndex++);
+    } else if (finalZIndex === null && isEditMode) {
+         finalZIndex = properties.zIndex;
+    }
+    divElement.style.zIndex = finalZIndex ?? 'auto';
+    properties.zIndex = finalZIndex;
+
+    // Background Color
+    const finalBgColor = backgroundColor !== null ? backgroundColor : (isEditMode ? properties.backgroundColor : null);
+    divElement.style.backgroundColor = finalBgColor || 'transparent';
+    properties.backgroundColor = finalBgColor;
+
+    // Rounding
+    const finalRounding = rounding !== null ? rounding : (isEditMode ? properties.rounding : 10);
+    if (finalRounding !== null) {
+         if (typeof finalRounding === 'string' && finalRounding.includes('%')) {
+            divElement.style.borderRadius = finalRounding;
+         } else if (!isNaN(parseFloat(finalRounding)) && parseFloat(finalRounding) >= 0) {
+             divElement.style.borderRadius = `${parseFloat(finalRounding)}px`;
+         } else {
+             divElement.style.borderRadius = '0px';
+         }
+    } else {
+        divElement.style.borderRadius = '0px';
+    }
+    properties.rounding = finalRounding;
+
+    // Border
+    const finalBorder = border !== null ? border : (isEditMode ? properties.border : null);
+    const parsedBorder = parseBorder(finalBorder);
+    divElement.style.border = parsedBorder ? `${parsedBorder.size} ${parsedBorder.style} ${parsedBorder.color}` : 'none';
+    properties.border = finalBorder;
+
+    // Raw CSS
+    const finalRawCss = rawCss !== null ? rawCss : (isEditMode ? properties.rawCss : null);
+    applyRawCss(divElement, finalRawCss);
+    properties.rawCss = finalRawCss;
+
+    // Enabled State (Store intent, apply effective state below)
+    const finalIsEnabled = isEnabled !== null ? isEnabled : (isEditMode ? properties.isEnabled : true);
+    properties.isEnabled = finalIsEnabled; // Store the element's own intended state
+
+    // Apply enabled styles to the div itself
+    _applyEnabledStyles(divElement, 'div', finalIsEnabled, properties); // Pass its own properties
+
+    // --- Cascade Enabled State to Children (Only if state changed) ---
+    const enabledStateChanged = finalIsEnabled !== oldIsEnabled;
+    // Ensure we are referencing the correct element data, especially if just created
+    const currentElementData = guiState.elements[elementId];
+
+    if (enabledStateChanged && currentElementData && currentElementData.children) {
+        // console.log(`Cascading isEnabled=${finalIsEnabled} from ${elementId} to children`);
+        Object.values(currentElementData.children).forEach(childData => {
+            if (childData && childData.elementRef) {
+                // Calculate child's effective state: its own state AND parent's new state
+                const childEffectiveEnabled = childData.properties.isEnabled && finalIsEnabled;
+                // Apply styles based on the *effective* state, passing child's properties
+                _applyEnabledStyles(childData.elementRef, childData.type, childEffectiveEnabled, childData.properties);
+            }
+        });
+    }
+
+    // --- Add to DOM and State (if new) ---
+    if (!isEditMode) {
+        document.body.appendChild(divElement); // Add to body
+        // Update the properties in the already created state entry
+        guiState.elements[elementId].properties = properties;
+    } else {
+         // Update state for edited element (properties already updated)
+         existingElementData.properties = properties; // Ensure update if reference changed
     }
 }
+
 funcEND======================funcEND==============
 func======================func==============
 lang: js
-name: Gui_Color
+name: guiAddElement
 libs: null
-description: gui~~~Gui_Color is a function that sets the background color of a specific HTML element identified by the given guiID. If the element is not found, it logs a warning.~~~here is how the func looks like:~~~```htvm~~~Gui_Color(str guiID, str color)~~~```~~~
-function Gui_Color(guiID, color) {
-    let div = HTVM_guiElements[guiID];
+description: null
 
-    if (!div) {
-        console.warn(`Element with ID '${guiID}' not found in HTVM_guiElements.`);
+
+// ==========================================================================
+// GUI ADD ELEMENT FUNCTION (MODIFIED to handle optional parentId)
+// ==========================================================================
+
+/**
+ * Adds or updates an element (button, text, etc.).
+ * If parentId is provided, adds inside that container.
+ * If parentId is NOT provided, adds directly to the main background.
+ * Handles effective enabled state based on parent (if any).
+ * Uses global auto-layout if no parentId AND no x/y provided.
+ * Uses parent's auto-layout if parentId is provided AND no x/y provided.
+ *
+ * @param {object} options - Configuration options for the element.
+ * @param {string | number | null} [options.parentId=null] - ID of the parent container (optional). If null/omitted, adds to background.
+ * @param {string} options.elementType - Required type of element ('button', 'text', etc.).
+ * @param {string | number | null} [options.id=null] - Element ID. Auto-generated if null. Reuses if existing (within parent or globally if no parent).
+ * @param {string | number | null} [options.x=null] - Left position. Relative to parent if parentId given, otherwise absolute. Auto-layout if null.
+ * @param {string | number | null} [options.y=null] - Top position. Relative to parent if parentId given, otherwise absolute. Auto-layout if null.
+ * @param {string | number | null} [options.width=null] - Width. Defaults vary by elementType.
+ * @param {string | number | null} [options.height=null] - Height. Defaults vary by elementType.
+ * @param {number | string | null} [options.zIndex=null] - Stacking order. Auto-increments globally if null & no parentId. Defaults 'auto' inside parent.
+ * @param {any} [options.value=null] - Content/state (text, URL, boolean, options string). Defaults vary.
+ * @param {string | null} [options.placeholder=null] - Placeholder text (for 'edit').
+ * @param {function | string | null} [options.callback=null] - Interaction callback function or name.
+ * @param {string | null} [options.backgroundColor=null] - Background color. Defaults vary.
+ * @param {string | null} [options.color=null] - Text color. Defaults vary.
+ * @param {number | string | null} [options.rounding=null] - Border radius. Defaults vary.
+ * @param {string | null} [options.border=null] - Border style. Defaults vary.
+ * @param {string | null} [options.rawCss=null] - Additional raw CSS string.
+ * @param {number | null} [options.size=null] - Font size (for text-based elements). Defaults vary.
+ * @param {boolean | null} [options.isDeleting=false] - If true, removes the element.
+ * @param {boolean | null} [options.isEnabled=true] - Element's own intended enabled state.
+ * @param {boolean | null} [options.isVisible=true] - Visibility (display: none).
+ */
+function guiAddElement({
+    // Core Identification & Placement
+    id = null,
+    parentId = null, // <<< MADE OPTIONAL (default null)
+    elementType, // Required
+    x = null,
+    y = null,
+    zIndex = null, // Handled differently if top-level
+
+    // Dimensions
+    width = null,
+    height = null,
+    size = null, // Font size
+
+    // Content & State
+    value = null,
+    placeholder = null,
+    isEnabled = true, // Element's own desired state
+    isVisible = true,
+
+    // Styling
+    backgroundColor = null,
+    color = null,
+    rounding = null,
+    border = null,
+    rawCss = null,
+
+    // Interaction & Deletion
+    callback = null,
+    isDeleting = false
+
+} = {}) { // <<< Added default empty object for destructuring
+
+    // --- INITIAL CHECKS ---
+    if (!guiState.initialized) {
+        console.error("GUI Add Element Error: guiInit() must be called first.");
+        return;
+    }
+    const validElementTypes = ['button', 'text', 'edit', 'picture', 'toggle', 'rectangle', 'circle', 'video', 'dropdown', 'iframe'];
+    if (!elementType || !validElementTypes.includes(elementType)) {
+        console.error(`GUI Add Element Error: Invalid or missing elementType. Must be one of: ${validElementTypes.join(', ')}`); return;
+    }
+
+    // --- DETERMINE PARENT CONTEXT ---  <<< NEW SECTION >>>
+    let parentData = null;
+    let parentElement = null;
+    let parentIdStr = parentId !== null ? String(parentId) : null; // Keep track if a parent was intended
+    let isTopLevelElement = false; // Flag if added directly to background
+
+    if (parentIdStr !== null) {
+        // Parent ID provided: Validate and get parent data/element (Original Logic)
+        if (!guiState.elements[parentIdStr] || guiState.elements[parentIdStr].type !== 'div') {
+            console.error(`GUI Add Element Error: Parent container with ID '${parentIdStr}' not found or is not a div.`); return;
+        }
+        parentData = guiState.elements[parentIdStr];
+        parentElement = parentData.elementRef;
+        isTopLevelElement = false;
+    } else {
+        // No parent ID provided: Use background div
+        parentElement = guiState.backgroundDiv;
+        parentData = null; // No structured parent data in guiState.elements for the background itself
+        isTopLevelElement = true;
+        if (!parentElement) {
+            // This check prevents adding to background if guiInit wasn't called
+            console.error("GUI Add Element Error: Cannot add element without parentId because guiInit() has not been called or backgroundDiv is missing.");
+            return;
+        }
+    }
+    // --- END NEW SECTION ---
+
+
+    // --- ID Handling --- <<< MODIFIED >>>
+    let elementId = id;
+    let isEditMode = false;
+    let existingElementData = null;
+    let oldIsEnabled = true; // For checking change later
+
+    if (elementId === null) {
+        elementId = generateDefaultId(elementType); // Global uniqueness check happens here
+    } else {
+        elementId = String(elementId);
+        // Check for existing element: either in parent's children OR in global state if top-level
+        if (!isTopLevelElement && parentData.children && parentData.children[elementId]) {
+            // Existing child element within the specified parent
+            isEditMode = true;
+            existingElementData = parentData.children[elementId];
+            if (existingElementData.type !== elementType) {
+                 console.warn(`GUI Add Element Warning: Attempting to change elementType for child ID '${elementId}' from '${existingElementData.type}' to '${elementType}'.`);
+            }
+        } else if (isTopLevelElement && guiState.elements[elementId]) {
+            // Existing top-level element (could be a div OR a non-div added previously without parentId)
+            existingElementData = guiState.elements[elementId];
+            // Prevent controlling divs with guiAddElement, guide user to guiAdd/guiControl
+            if (existingElementData.type === 'div') {
+                 console.warn(`GUI Add Element Warning: Attempting to control a 'div' element '${elementId}' using guiAddElement. Use guiAdd or guiControl instead.`);
+                 return; // Stop execution to prevent incorrect control
+            }
+             if (existingElementData.type !== elementType) {
+                 console.warn(`GUI Add Element Warning: Attempting to change elementType for top-level element ID '${elementId}' from '${existingElementData.type}' to '${elementType}'.`);
+             }
+            isEditMode = true; // It exists globally and is not a div
+        } else {
+             // New element ID, ensure it's globally unique before adding
+             if (guiState.idsInUse.has(elementId)) {
+                 // Warn about collision, specifying context
+                 const locationMsg = isTopLevelElement ? "globally" : `for parent ${parentIdStr}`;
+                 console.warn(`GUI Add Element: Provided ID ${elementId} ${locationMsg} collides with a previously generated or used ID.`);
+             }
+             // Add to the global set regardless of where it will be stored in the state tree
+             guiState.idsInUse.add(elementId);
+        }
+
+        // Capture old state if editing an existing element
+        if(isEditMode && existingElementData) {
+             oldIsEnabled = existingElementData.properties.isEnabled;
+             // No automatic type change handling here beyond the warning above
+        }
+    }
+
+     // --- Deleting --- <<< MODIFIED >>>
+    if (isDeleting) {
+        // We only proceed with deletion if we found the element in edit mode
+        if (isEditMode && existingElementData) {
+            const elRef = existingElementData.elementRef;
+            if (elRef && elRef.parentNode) {
+                elRef.parentNode.removeChild(elRef); // Remove from DOM
+            }
+            // Remove from state: either parent's children or global state
+            if (!isTopLevelElement) {
+                delete parentData.children[elementId]; // Remove from parent's children map
+            } else {
+                delete guiState.elements[elementId]; // Remove from global elements map
+                 // Recalculate global last auto-pos element if the deleted one was the last
+                if (guiState.lastAutoPosElement.id === elementId) {
+                    // Simple reset - a more complex recalculation might be needed for perfect layout
+                    guiState.lastAutoPosElement = { id: null, x: 0, y: 0, width: 0, height: 0 };
+                }
+            }
+            guiState.idsInUse.delete(elementId); // Free up the ID
+            const locationMsg = isTopLevelElement ? "globally" : `from parent ${parentIdStr}`;
+            console.log(`GUI Add Element: Deleted element ID: ${elementId} ${locationMsg}`);
+        } else {
+            // Only warn if an explicit ID was given for deletion but not found
+            if (id !== null) {
+                 console.warn(`GUI Add Element: Attempted to delete non-existent element ID: ${elementId}`);
+            }
+        }
+        return; // Stop execution after deletion attempt
+    }
+
+    // --- Element Creation / Property Setup --- <<< MODIFIED to use existingElementData for edit mode >>>
+    let element;
+    let properties = {};
+
+    if (isEditMode) {
+        element = existingElementData.elementRef;
+        properties = { ...existingElementData.properties }; // Clone existing properties for modification
+    } else {
+        // Create the actual DOM element based on type
+        // ... (switch statement for element creation, exactly as before, assigns to 'element') ...
+        switch (elementType) {
+             case 'button': element = document.createElement('button'); element.style.textAlign = 'center'; element.style.padding = '5px'; break;
+             case 'text': element = document.createElement('p'); element.style.margin = '0'; element.style.padding = '0'; element.style.userSelect = 'none'; break;
+             case 'edit': element = document.createElement('textarea'); element.style.resize = 'none'; element.style.padding = '5px'; element.style.fontFamily = 'inherit'; element.style.fontSize = 'inherit'; break;
+             case 'picture': element = document.createElement('img'); element.style.objectFit = 'contain'; element.style.display = 'block'; element.style.userSelect = 'none'; element.style.maxWidth = '100%'; element.style.maxHeight = '100%'; break;
+             case 'toggle': element = document.createElement('div'); element.classList.add('gui-toggle'); element.style.position = 'relative'; element.style.overflow = 'hidden'; element.style.transition = 'background-color 0.3s'; element.style.userSelect = 'none'; const slider = document.createElement('div'); slider.classList.add('gui-toggle-slider'); slider.style.position = 'absolute'; slider.style.backgroundColor = 'white'; slider.style.borderRadius = '50%'; slider.style.transition = 'transform 0.3s ease'; element.appendChild(slider); break;
+             case 'rectangle': element = document.createElement('div'); element.style.userSelect = 'none'; break;
+             case 'circle': element = document.createElement('div'); element.style.userSelect = 'none'; break;
+             case 'video': element = document.createElement('iframe'); element.setAttribute('frameborder', '0'); element.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'); element.setAttribute('allowfullscreen', ''); element.setAttribute('referrerpolicy','strict-origin-when-cross-origin'); break;
+             case 'dropdown': element = document.createElement('select'); element.style.padding = '5px'; element.style.fontFamily = 'inherit'; element.style.fontSize = 'inherit'; break;
+             case 'iframe': element = document.createElement('iframe'); element.setAttribute('frameborder', '0'); element.setAttribute('referrerpolicy','strict-origin-when-cross-origin'); break;
+             default: console.warn("GUI Add Element: Unknown element type fallback:", elementType); element = document.createElement('div'); break;
+        }
+        element.id = elementId;
+        element.style.position = 'absolute'; // All elements are absolutely positioned
+        element.style.boxSizing = 'border-box';
+        properties = {}; // Start fresh properties for new element
+    }
+
+
+    // --- Element Type Specific Defaults --- <<< MOVED definition up, logic remains similar >>>
+    let defaultWidth, defaultHeight, defaultBgColor, defaultColor, defaultRounding, defaultBorder, defaultValue, defaultPlaceholder, defaultFontSize, defaultZIndex = 'auto'; // default zIndex for children
+    // Assign defaults based on elementType (same switch as before, just getting values)
+     switch (elementType) {
+         case 'button': defaultWidth = '100px'; defaultHeight = '30px'; defaultBgColor = '#4CAF50'; defaultColor = 'white'; defaultRounding = 5; defaultValue = `Button`; defaultBorder = null; defaultFontSize = 14; break;
+         case 'text': defaultWidth = 'auto'; defaultHeight = 'auto'; defaultColor = 'white'; defaultBgColor = 'transparent'; defaultRounding = 0; defaultValue = `Text`; defaultBorder = null; defaultFontSize = 16; break;
+         case 'edit': defaultWidth = '150px'; defaultHeight = '30px'; defaultBgColor = 'white'; defaultColor = 'black'; defaultRounding = 3; defaultValue = ''; defaultPlaceholder = ''; defaultBorder = '1px solid #ccc'; defaultFontSize = 14; break;
+         case 'picture': defaultWidth = 'auto'; defaultHeight = 'auto'; defaultBgColor = 'transparent'; defaultRounding = 0; defaultValue = null; defaultBorder = null; break;
+         case 'toggle': defaultWidth = '60px'; defaultHeight = '30px'; defaultBgColor = '#ccc'; defaultRounding = 15; defaultValue = false; defaultBorder = null; break;
+         case 'rectangle': defaultWidth = '100px'; defaultHeight = '50px'; defaultBgColor = '#555'; defaultRounding = 0; defaultBorder = null; break;
+         case 'circle': defaultWidth = '50px'; defaultHeight = '50px'; defaultBgColor = '#555'; defaultRounding = '50%'; defaultBorder = null; break;
+         case 'video': defaultWidth = '320px'; defaultHeight = '180px'; defaultRounding = 0; defaultBorder = null; defaultValue = ''; break;
+         case 'dropdown': defaultWidth = '150px'; defaultHeight = '30px'; defaultRounding = 3; defaultBorder = '1px solid #ccc'; defaultColor = 'black'; defaultBgColor = 'white'; defaultValue = ''; defaultFontSize = 14; break;
+         case 'iframe': defaultWidth = '300px'; defaultHeight = '200px'; defaultRounding = 0; defaultBorder = '1px solid #ccc'; defaultValue = ''; break;
+         default: defaultWidth = 'auto'; defaultHeight = 'auto'; defaultBgColor = 'transparent'; defaultColor = 'white'; defaultRounding = 0; defaultBorder = null; defaultValue = ''; defaultFontSize = 14; break; // Generic fallback defaults
+    }
+
+
+    // --- Apply Common Properties (Merging Options, Defaults, Existing) ---
+
+    // 1. Visibility (Apply early for measurement)
+    const finalIsVisible = isVisible !== null ? isVisible : (isEditMode ? properties.isVisible : true);
+    properties.isVisible = finalIsVisible; // Store intent
+
+    // 2. Size (Width, Height)
+    const finalWidth = width !== null ? String(width) : (isEditMode ? properties.width : defaultWidth);
+    const finalHeight = height !== null ? String(height) : (isEditMode ? properties.height : defaultHeight);
+    element.style.width = finalWidth !== null ? finalWidth : '';
+    element.style.height = finalHeight !== null ? finalHeight : '';
+    properties.width = finalWidth;
+    properties.height = finalHeight;
+
+    // 3. Position (X, Y) - Handles different auto-layout contexts <<< MODIFIED >>>
+    let finalX = x !== null ? String(x) : (isEditMode ? properties.x : null);
+    let finalY = y !== null ? String(y) : (isEditMode ? properties.y : null);
+    let isAutoLayout = false;
+    let needsCenteringTransform = false; // Flag for applying translate(-50%, -50%)
+
+    if (finalX === null && finalY === null && !isEditMode) { // Only apply auto-layout on creation
+        isAutoLayout = true;
+        // Temporarily add to parent (could be background or a div) to measure
+        let currentW_px = 0, currentH_px = 0, wasAddedTemporarily = false;
+        // Ensure element is displayable for measurement, even if finalIsVisible is false
+        const originalDisplay = element.style.display;
+        if (!parentElement.contains(element)) {
+             element.style.visibility = 'hidden'; element.style.display = ''; // Ensure display for offsetWidth/Height
+             element.style.position = 'absolute'; element.style.left = '-9999px';
+             parentElement.appendChild(element); wasAddedTemporarily = true;
+        }
+        currentW_px = element.offsetWidth;
+        currentH_px = element.offsetHeight;
+        if (wasAddedTemporarily) { parentElement.removeChild(element); element.style.visibility = ''; element.style.left = ''; }
+        element.style.display = originalDisplay; // Restore original intended display
+
+        // Fallback size calculation if measurement failed (e.g., parent not visible yet)
+        if (currentW_px <= 0) { const parsedW = parseCssValue(finalWidth); const parentWidthPx = parentElement.clientWidth || window.innerWidth; currentW_px = parsedW ? ((parsedW.unit === '%') ? (parentWidthPx * parsedW.value / 100) : parsedW.value) : (parseCssValue(defaultWidth)?.value || 100); }
+        if (currentH_px <= 0) { const parsedH = parseCssValue(finalHeight); const parentHeightPx = parentElement.clientHeight || window.innerHeight; currentH_px = parsedH ? ((parsedH.unit === '%') ? (parentHeightPx * parsedH.value / 100) : parsedH.value) : (parseCssValue(defaultHeight)?.value || 30); }
+
+
+        if (isTopLevelElement) {
+            // *** Use GLOBAL auto-layout ***
+            const last = guiState.lastAutoPosElement; // Use global tracker
+            const screenWidth = window.innerWidth;
+            if (last.id !== null && guiState.elements[last.id]) { // Check if there WAS a previous element
+                let nextX = last.x + last.width + guiState.autoPosGap;
+                let nextY = last.y;
+                 // Wrap condition based on screen width
+                 if (nextX + currentW_px > screenWidth - guiState.autoPosGap) {
+                    nextX = guiState.autoPosGap;
+                    nextY = last.y + last.height + guiState.autoPosGap; // Simple wrap Y based on last element height
+                }
+                finalX = nextX + 'px';
+                finalY = nextY + 'px';
+            } else { // First top-level auto-positioned element
+                finalX = guiState.autoPosGap + 'px';
+                finalY = guiState.autoPosGap + 'px';
+            }
+            // Update GLOBAL tracker
+            guiState.lastAutoPosElement = { id: elementId, x: parseFloat(finalX), y: parseFloat(finalY), width: currentW_px, height: currentH_px };
+        } else {
+            // *** Use PARENT's auto-layout ***
+             if (!parentData.lastAutoPosChildElement) { parentData.lastAutoPosChildElement = { x: 0, y: 0, width: 0, height: 0 }; } // Initialize if needed
+            const last = parentData.lastAutoPosChildElement;
+            const parentWidthPx = parentElement.clientWidth; // Use actual parent width for wrapping
+            let nextX = 0; let nextY = 0;
+            if (last && last.width > 0 ) { // Check if there WAS a previous auto-pos child in this parent
+                nextX = last.x + last.width + guiState.autoPosGap; nextY = last.y;
+                // Wrap condition within the PARENT
+                if (parentWidthPx > 0 && (nextX + currentW_px > parentWidthPx - guiState.autoPosGap)) {
+                    nextX = guiState.autoPosGap; nextY = last.y + last.height + guiState.autoPosGap;
+                }
+            } else { // First auto-pos child in this parent
+                 nextX = guiState.autoPosGap; nextY = guiState.autoPosGap;
+            }
+            finalX = nextX + 'px'; finalY = nextY + 'px';
+            // Update PARENT'S tracker
+            parentData.lastAutoPosChildElement = { x: nextX, y: nextY, width: currentW_px, height: currentH_px };
+        }
+    } else if (!isAutoLayout && (finalX === null || finalY === null || String(finalX).includes('%') || String(finalY).includes('%'))) {
+         // Centering logic (applies whether top-level or child if % or null used, unless explicit px given for both)
+         finalX = finalX ?? (isEditMode ? properties.x : '50%'); // Default to 50% for centering if null
+         finalY = finalY ?? (isEditMode ? properties.y : '50%'); // Default to 50% for centering if null
+         needsCenteringTransform = true; // Assume centering needed
+         // Avoid transform if specific pixel values are given for BOTH x and y
+         if(parseCssValue(finalX)?.unit !== '%' && parseCssValue(finalY)?.unit !== '%'){
+             needsCenteringTransform = false;
+         }
+    }
+
+    element.style.left = finalX !== null ? String(finalX) : '';
+    element.style.top = finalY !== null ? String(finalY) : '';
+    properties.x = finalX;
+    properties.y = finalY;
+    element.style.transform = needsCenteringTransform ? `translate(-50%, -50%)` : ''; // Apply centering transform if needed
+
+    // 4. Apply final display state now positioning is done
+    element.style.display = finalIsVisible ? '' : 'none';
+
+    // 5. Z-Index <<< MODIFIED >>>
+    let finalZIndex = zIndex !== null ? String(zIndex) : (isEditMode ? properties.zIndex : null);
+    if (finalZIndex === null && !isEditMode) {
+         // Assign z-index from global counter ONLY for new top-level elements
+         if (isTopLevelElement) {
+             finalZIndex = String(guiState.currentZIndex++);
+         } else {
+             finalZIndex = defaultZIndex; // Use element's default ('auto') for children
+         }
+    } else if (finalZIndex === null && isEditMode) {
+         // Keep existing z-index if null is passed during an update
+         finalZIndex = properties.zIndex;
+    }
+    element.style.zIndex = finalZIndex ?? 'auto'; // Fallback to auto
+    properties.zIndex = finalZIndex;
+
+
+    // 6. Value / Content / Source / Placeholder (Logic mostly unchanged)
+    const finalValue = value !== null ? value : (isEditMode ? properties.value : defaultValue);
+    properties.value = finalValue; // Always store the final value intent
+    const finalPlaceholder = placeholder !== null ? placeholder : (isEditMode ? properties.placeholder : defaultPlaceholder);
+    properties.placeholder = finalPlaceholder; // Store placeholder intent
+
+    // Apply value based on type (logic largely unchanged, added checks for element existence)
+    if (elementType === 'edit' && element) {
+        element.value = finalValue !== null ? String(finalValue) : '';
+        element.placeholder = finalPlaceholder !== null ? String(finalPlaceholder) : '';
+    } else if ((elementType === 'button' || elementType === 'text') && element) {
+        element.textContent = finalValue !== null ? String(finalValue) : '';
+    } else if (elementType === 'picture' && element) {
+        const newSrc = finalValue !== null ? String(finalValue) : '';
+        if (element.src !== newSrc) element.src = newSrc;
+        element.alt = elementId; // Use ID as alt text
+        element.onerror = () => { console.warn(`GUI Picture Error: Failed to load image for ID '${elementId}' from src: ${element.src}`); element.style.border = '1px dashed red'; };
+    } else if ((elementType === 'video' || elementType === 'iframe') && element) {
+        let srcUrl = finalValue !== null ? String(finalValue) : '';
+        // YouTube embed conversion (only for video type)
+        if(elementType === 'video') {
+             const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+             const match = srcUrl.match(youtubeRegex);
+             if (match && match[1]) {
+                 srcUrl = `https://www.youtube.com/embed/${match[1]}`;
+             }
+        }
+        // Set src only if changed
+        if (element.src !== srcUrl) {
+             element.src = srcUrl;
+        }
+    } else if (elementType === 'dropdown' && element) {
+        const optionsString = finalValue !== null ? String(finalValue) : '';
+        const options = optionsString.split('|').map(opt => opt.trim()).filter(opt => opt !== '');
+        // Determine selected value - prioritize current element.value if options change slightly, then stored, then first option
+         let targetSelectedValue = null;
+         const currentElementValue = element.value; // Value currently selected in the DOM element
+         const storedSelectedValue = properties.selectedValue; // Value we intended last time
+
+         if (options.includes(currentElementValue)) { // If current DOM value is still valid
+              targetSelectedValue = currentElementValue;
+         } else if (options.includes(storedSelectedValue)) { // If previous stored value is still valid
+              targetSelectedValue = storedSelectedValue;
+         } else if (options.length > 0) { // Otherwise, default to first new option
+              targetSelectedValue = options[0];
+         }
+
+         // Rebuild options only if they have actually changed
+         let optionsChanged = false;
+         if (element.options.length !== options.length) {
+              optionsChanged = true;
+         } else {
+              for (let i = 0; i < options.length; i++) {
+                   if (!element.options[i] || element.options[i].value !== options[i]) {
+                        optionsChanged = true;
+                        break;
+                   }
+              }
+         }
+
+         if (optionsChanged) {
+              element.innerHTML = ''; // Clear existing options
+              options.forEach(optText => {
+                   const option = document.createElement('option');
+                   option.value = optText;
+                   option.textContent = optText;
+                   element.appendChild(option);
+              });
+         }
+
+         properties.selectedValue = targetSelectedValue; // Store the intended selection
+         if (targetSelectedValue !== null) {
+              element.value = targetSelectedValue; // Apply selection to the DOM element
+         } else if (element.options.length > 0) {
+             element.selectedIndex = -1; // Deselect if target is null
+         }
+    } else if (elementType === 'toggle' && element) {
+         // Ensure stored value is strictly boolean
+         properties.value = finalValue === true || String(finalValue).toLowerCase() === 'true';
+         element.dataset.value = properties.value; // Use data attribute for state visualization if needed
+    }
+
+
+    // 7. Background Color
+    const finalBgColor = backgroundColor !== null ? backgroundColor : (isEditMode ? properties.backgroundColor : defaultBgColor);
+     if (elementType !== 'toggle') { // Toggle background is handled based on state later
+        element.style.backgroundColor = finalBgColor || ''; // Use default or transparent if null/empty
+     }
+    properties.backgroundColor = finalBgColor; // Store base color (used by toggle for off state)
+
+    // 8. Text Color
+    const finalColor = color !== null ? color : (isEditMode ? properties.color : defaultColor);
+    element.style.color = finalColor || '';
+    properties.color = finalColor;
+
+    // 9. Font Size
+    const finalFontSize = size !== null ? size : (isEditMode ? properties.size : defaultFontSize);
+    if (['text', 'button', 'edit', 'dropdown'].includes(elementType) && finalFontSize !== null) {
+        element.style.fontSize = `${parseFloat(finalFontSize)}px`;
+        properties.size = finalFontSize;
+    } else {
+         // Clear font size if explicitly set back to null during edit
+         if (isEditMode && properties.size !== null && size === null) { element.style.fontSize = ''; }
+         properties.size = finalFontSize; // Store null if cleared
+    }
+
+    // 10. Rounding
+    const finalRounding = rounding !== null ? rounding : (isEditMode ? properties.rounding : defaultRounding);
+     if (finalRounding !== null) {
+          if (elementType === 'circle') { element.style.borderRadius = '50%'; } // Force circle
+          else if (typeof finalRounding === 'string' && finalRounding.includes('%')) { element.style.borderRadius = finalRounding; }
+          else if (!isNaN(parseFloat(finalRounding)) && parseFloat(finalRounding) >= 0) { element.style.borderRadius = `${parseFloat(finalRounding)}px`; }
+          else { element.style.borderRadius = '0px'; } // Default to 0 if invalid
+     } else { element.style.borderRadius = '0px'; } // Default to 0 if null
+    properties.rounding = finalRounding;
+
+    // 11. Border
+    const finalBorder = border !== null ? border : (isEditMode ? properties.border : defaultBorder);
+    const parsedBorder = parseBorder(finalBorder);
+    element.style.border = parsedBorder ? `${parsedBorder.size} ${parsedBorder.style} ${parsedBorder.color}` : 'none';
+    properties.border = finalBorder;
+
+    // 12. Raw CSS (Apply last before enabled state/visual updates)
+    const finalRawCss = rawCss !== null ? rawCss : (isEditMode ? properties.rawCss : null);
+    applyRawCss(element, finalRawCss); // Applies the new styles
+    properties.rawCss = finalRawCss;
+
+    // 13. Enabled State (Store intent, calculate effective state) <<< MODIFIED >>>
+    const finalIsEnabled = isEnabled !== null ? isEnabled : (isEditMode ? properties.isEnabled : true);
+    properties.isEnabled = finalIsEnabled; // Store the element's own intended state
+
+    // Calculate effective state based on self AND parent (if exists)
+    // Assume background (parent if isTopLevelElement) is always enabled
+    const parentIsEnabled = !isTopLevelElement ? parentData.properties.isEnabled : true;
+    const effectiveIsEnabled = finalIsEnabled && parentIsEnabled;
+
+    // Apply styles based on the EFFECTIVE state
+    // This happens *before* toggle visual update, as toggle needs correct dimensions/opacity
+    _applyEnabledStyles(element, elementType, effectiveIsEnabled, properties);
+
+
+    // --- Special Visual Updates (Toggle - after styles applied) ---
+    if (elementType === 'toggle') {
+         const slider = element.querySelector('.gui-toggle-slider');
+         if (slider) {
+             const isOn = properties.value; // Use the processed boolean value
+             const offBg = properties.backgroundColor || defaultBgColor || '#ccc'; // Use stored base color for off state
+             const onBg = '#4CAF50'; // Hardcoded 'on' color
+             element.style.backgroundColor = isOn ? onBg : offBg; // Set background based on state
+
+             // Measure and position slider (only if visible and dimensions are valid)
+             // Use effective visibility for this check
+             const computedStyle = window.getComputedStyle(element);
+             if(computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden') {
+                 let needsMeasure = !parentElement.contains(element); // Check if attached for measurement
+                 if (needsMeasure) { element.style.visibility = 'hidden'; parentElement.appendChild(element); }
+
+                 const elementHeightPx = element.clientHeight; const elementWidthPx = element.clientWidth;
+                 if (elementHeightPx > 0 && elementWidthPx > 0) {
+                      const padding = 4; const sliderSize = Math.max(1, elementHeightPx - padding); // Ensure size is at least 1px
+                      slider.style.height = `${sliderSize}px`; slider.style.width = `${sliderSize}px`;
+                      slider.style.left = `${padding / 2}px`; slider.style.bottom = `${padding / 2}px`;
+                      // Calculate max translation distance correctly
+                      const maxTranslate = Math.max(0, elementWidthPx - sliderSize - padding);
+                      const sliderTranslateX = isOn ? maxTranslate : 0;
+                      slider.style.transform = `translateX(${sliderTranslateX}px)`;
+                 } else {
+                      console.warn(`GUI Toggle Warning: Cannot accurately size slider for toggle '${elementId}' (measured height/width is zero).`);
+                      // Apply fallback size based on defaults if measurement fails
+                      const fallbackH = parseCssValue(finalHeight)?.value || parseCssValue(defaultHeight)?.value || 30; const sliderSize = Math.max(1, fallbackH - 4); slider.style.height = `${sliderSize}px`; slider.style.width = `${sliderSize}px`;
+                 }
+
+                 if (needsMeasure) { parentElement.removeChild(element); element.style.visibility = ''; }
+             } else {
+                 // If not visible, set a fallback size without positioning
+                 const fallbackH = parseCssValue(finalHeight)?.value || parseCssValue(defaultHeight)?.value || 30; const sliderSize = Math.max(1, fallbackH - 4); slider.style.height = `${sliderSize}px`; slider.style.width = `${sliderSize}px`;
+                 slider.style.transform = 'translateX(0px)'; // Reset position
+             }
+         } else if(!isEditMode && element) { // Check element exists for new toggles
+              console.error(`GUI Toggle Error: Could not find .gui-toggle-slider for new toggle '${elementId}'.`);
+         }
+    }
+
+    // 14. Callback / Event Listener <<< MODIFIED >>>
+    const finalCallback = callback !== null ? callback : (isEditMode ? properties.callback : null);
+    properties.callback = finalCallback; // Store the callback reference/name
+
+    // Remove previous listener before adding a new one (important for updates)
+    const listenerInfo = element.__guiListenerInfo;
+    if (listenerInfo) { element.removeEventListener(listenerInfo.type, listenerInfo.handler); element.__guiListenerInfo = null; }
+
+    let eventType = null; let eventListener = null;
+
+    if (finalCallback) {
+        // Resolve callback function (either direct reference or name string)
+        const callbackFunction = (typeof finalCallback === 'function') ? finalCallback : window[finalCallback];
+
+        if (typeof callbackFunction === 'function') {
+            const currentElementId = elementId; // Capture ID for the closure
+            const currentParentIdStr = parentIdStr; // <<< Capture parent ID status for the closure >>>
+
+            const eventHandlerWrapper = (event) => {
+                 // <<< Get current element and parent data AT EVENT TIME >>>
+                 let elementDataNow = null;
+                 let parentDataNow = null; // Will be null if top-level
+                 if (currentParentIdStr !== null && guiState.elements[currentParentIdStr]) {
+                      // It's a child element, get parent and then child data
+                      parentDataNow = guiState.elements[currentParentIdStr];
+                      elementDataNow = parentDataNow?.children?.[currentElementId];
+                 } else {
+                      // It's a top-level element, get directly from global state
+                      elementDataNow = guiState.elements[currentElementId];
+                 }
+
+                 // If element data was somehow removed between adding listener and event firing
+                 if (!elementDataNow) {
+                     console.warn(`Callback for ${currentElementId} triggered, but element data not found in state.`);
+                     return;
+                 }
+
+                 // Check the effective enabled state AT THE TIME OF THE EVENT
+                 const currentParentIsEnabled = parentDataNow ? (parentDataNow.properties?.isEnabled ?? true) : true; // Assume background enabled
+                 const elementIsEnabled = elementDataNow.properties?.isEnabled ?? true; // Default to true if property missing
+
+                 if (elementIsEnabled && currentParentIsEnabled) { // Check BOTH states
+                     try {
+                         // Logic to update state and call user function based on type
+                         if (elementType === 'edit') {
+                             const newValue = event.target.value;
+                             elementDataNow.properties.value = newValue; // Update state
+                             callbackFunction(currentElementId, newValue, event);
+                         } else if (elementType === 'dropdown') {
+                             const newValue = event.target.value;
+                              elementDataNow.properties.selectedValue = newValue; // Update selected state
+                             callbackFunction(currentElementId, newValue, event);
+                         } else if (elementType === 'toggle') {
+                             const newState = !elementDataNow.properties.value; // Calculate new state
+                             elementDataNow.properties.value = newState; // Update state first
+                             element.dataset.value = newState; // Update data attribute
+
+                             // Update toggle visuals immediately within the handler for responsiveness
+                             const slider = element.querySelector('.gui-toggle-slider');
+                             const offBg = elementDataNow.properties.backgroundColor || defaultBgColor || '#ccc';
+                             const onBg = '#4CAF50';
+                             element.style.backgroundColor = newState ? onBg : offBg;
+                             if (slider) {
+                                 const elementHeightPx = element.clientHeight; const elementWidthPx = element.clientWidth; const padding = 4; const sliderSize = Math.max(1, elementHeightPx - padding);
+                                 const maxTranslate = Math.max(0, elementWidthPx - sliderSize - padding);
+                                 const sliderTranslateX = newState ? maxTranslate : 0;
+                                 slider.style.transform = `translateX(${sliderTranslateX}px)`;
+                              }
+                             callbackFunction(currentElementId, newState, event); // Call user callback AFTER state/visuals updated
+                         } else { // Button, Picture, Rectangle, Circle
+                              callbackFunction(currentElementId, event);
+                         }
+                     } catch (e) {
+                         console.error(`Error executing callback for element ${currentElementId}:`, e);
+                     }
+                 } else {
+                      // Interaction blocked due to disabled state
+                      // console.log(`Interaction blocked for ${currentElementId} (elementEnabled: ${elementIsEnabled}, parentEnabled: ${currentParentIsEnabled})`);
+                      event.preventDefault(); // Prevent default actions if needed (like form submission if inside form)
+                      event.stopPropagation(); // Stop event bubbling
+                 }
+            };
+
+            // Determine event type based on element
+            if (['button', 'picture', 'rectangle', 'circle', 'toggle'].includes(elementType)) { eventType = 'click'; }
+            else if (elementType === 'edit') { eventType = 'input'; }
+            else if (elementType === 'dropdown') { eventType = 'change'; }
+
+            // Add the listener if an event type was determined
+            if (eventType) {
+                 eventListener = eventHandlerWrapper;
+                 element.addEventListener(eventType, eventListener);
+                 // Store listener info on the element itself for easy removal later
+                 element.__guiListenerInfo = { type: eventType, handler: eventListener };
+            }
+        } else if (typeof finalCallback === 'string' && finalCallback.trim() !== ''){
+            // Warn if callback name provided but function not found globally
+            console.warn(`GUI Add Element Warning: Callback function name '${finalCallback}' for ID '${elementId}' was not found globally.`);
+        }
+    }
+
+    // --- Add to Parent DOM and State (if new) --- <<< MODIFIED >>>
+    if (!isEditMode) {
+        // Append to the correct parent element (background or container div)
+        parentElement.appendChild(element);
+
+        // Store state in the correct location with correct parentId reference
+        const elementStateData = {
+            elementRef: element,
+            type: elementType,
+            parentId: parentIdStr, // <<< Store null if top-level, actual parentId if child >>>
+            properties: properties,
+            // Note: Non-container elements don't have .children or .lastAutoPosChildElement props added here
+        };
+
+        if (isTopLevelElement) {
+            // Add to global elements map if it has no parent container
+            guiState.elements[elementId] = elementStateData;
+        } else {
+            // Add to parent's children map if it has a parent container
+            if (!parentData.children) parentData.children = {}; // Ensure children map exists on parent data
+            parentData.children[elementId] = elementStateData;
+        }
+    } else {
+         // Update properties in the existing state data reference (already done by cloning earlier)
+         // Ensure the reference in the state tree points to the updated properties object
+         existingElementData.properties = properties;
+    }
+}
+
+funcEND======================funcEND==============
+func======================func==============
+lang: js
+name: guiControl
+libs: null
+description: null
+
+
+// ==========================================================================
+// GUI CONTROL FUNCTION (Strict Object Syntax with parentId)
+// ==========================================================================
+
+/**
+ * Controls (updates) an existing GUI element using a single options object
+ * that MUST include both `id` and `parentId`.
+ * - For children of a guiAdd container, `parentId` is the container's ID.
+ * - For elements added directly to the background (guiAddElement with no parentId),
+ *   `parentId` MUST be `null`.
+ * - For controlling top-level containers (created by guiAdd), `parentId` MUST be `null`.
+ *
+ * Merges existing properties with new options. Handles cascading isEnabled state.
+ *
+ * @param {object} controlOptions - An object containing the properties to update.
+ * @param {string | number} controlOptions.id - The ID of the element to control. REQUIRED.
+ * @param {string | number | null} controlOptions.parentId - The ID of the parent container, or `null` if controlling a top-level div or a background element. REQUIRED.
+ * @param {boolean} [controlOptions.isDeleting=false] - Set to true to delete the element.
+ * @param {any} [controlOptions.property_name] - Other properties to update (e.g., value, isVisible, isEnabled, etc.).
+ */
+function guiControl(controlOptions) {
+
+    // --- Input Validation ---
+    if (typeof controlOptions !== 'object' || controlOptions === null) {
+        console.error("GUI Control Error: Input must be an object.");
+        return;
+    }
+    if (!controlOptions.hasOwnProperty('id') || (controlOptions.id === null || controlOptions.id === undefined)) {
+        console.error("GUI Control Error: Input object must have an 'id' property.");
+        return;
+    }
+    if (!controlOptions.hasOwnProperty('parentId')) {
+        // Allow parentId to be explicitly null, but it must be present
+        console.error("GUI Control Error: Input object must have a 'parentId' property (use null for top-level/background elements).");
         return;
     }
 
-    // Set background color
-    div.style.backgroundColor = color;
-}
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_Image
-libs: null
-description: gui~~~Gui_Image is a function that creates and displays an image within a specified div element on the webpage. It optionally sets the image's position, size, and corner roundness, while ensuring that the image maintains its aspect ratio if only one dimension is provided.~~~here is how the func looks like:~~~```htvm~~~Gui_Image(str guiID, str imageID, str imageUrl, [int x = null], [int y = null], [int w = null], [int h = null], [int roundness = null])~~~```~~~
-function Gui_Image(guiID, imageID, imageUrl, x = null, y = null, w = null, h = null, roundness = null) {
-    // Check if the div with the given guiID exists
-    let div = HTVM_guiElements[guiID];
-    if (!div) {
-        // If it doesn't exist, create a new div
-        div = document.createElement('div');
-        div.id = guiID;
-        // Store the newly created div in the global object
-        HTVM_guiElements[guiID] = div;
-        // Append the div to the body
-        document.body.appendChild(div);
-    }
-    // Create the image element
-    const img = document.createElement('img');
-    img.src = imageUrl;
-    img.id = imageID;
-    img.onload = function() {
-        // Use natural width and height if not provided
-        const naturalWidth = img.naturalWidth;
-        const naturalHeight = img.naturalHeight;
-        // Maintain aspect ratio if only one dimension is provided
-        if (w === null && h === null) {
-            w = naturalWidth;
-            h = naturalHeight;
-        } else if (w !== null && h === null) {
-            h = (w / naturalWidth) * naturalHeight; // Calculate height based on width
-        } else if (h !== null && w === null) {
-            w = (h / naturalHeight) * naturalWidth; // Calculate width based on height
+    const elementId = String(controlOptions.id);
+    const parentId = controlOptions.parentId === null ? null : String(controlOptions.parentId); // Normalize null or string
+    const options = { ...controlOptions }; // Clone for modification
+
+    // Remove structural properties from the options object passed to adders
+    delete options.id;
+    delete options.parentId;
+
+    // --- Initialization Check ---
+    if (!guiState.initialized) { console.error("GUI Control Error: guiInit() must be called first."); return; }
+
+    // --- Warn about changing immutable properties ---
+    if (options.hasOwnProperty('elementType')) { console.warn(`GUI Control Warning (${elementId}): Property 'elementType' cannot be changed via guiControl. Ignoring.`); delete options.elementType; }
+
+
+    // --- Element Lookup & Validation ---
+    let targetElementData = null;
+    let foundContextCorrect = false; // Flag to ensure lookup matches provided parentId context
+
+    if (parentId === null) {
+        // Expecting a top-level element (div OR background element)
+        if (guiState.elements[elementId]) {
+            targetElementData = guiState.elements[elementId];
+            // Check if the found element's actual parentId matches the expected null context
+            if (targetElementData.parentId === null) {
+                 foundContextCorrect = true;
+            } else {
+                 console.error(`GUI Control Error: Element '${elementId}' found, but it belongs to parent '${targetElementData.parentId}', not the top-level/background (parentId: null was provided).`);
+                 return;
+            }
         }
-        // Set default position if x or y is not provided
-        if (x === null || x === undefined || y === null || y === undefined) {
-            x = (div.clientWidth - w) / 2; // Center horizontally within the div
-            y = (div.clientHeight - h) / 2; // Center vertically within the div
+    } else {
+        // Expecting a child element within a specific parent div
+        if (guiState.elements[parentId] && guiState.elements[parentId].type === 'div') {
+            const parentData = guiState.elements[parentId];
+            if (parentData.children && parentData.children[elementId]) {
+                targetElementData = parentData.children[elementId];
+                // Check if the found element's recorded parentId matches the provided parentId
+                if (targetElementData.parentId === parentId) {
+                     foundContextCorrect = true;
+                } else {
+                     // This case should be rare if state is consistent, but good to check
+                     console.error(`GUI Control Error: Element '${elementId}' found under parent '${parentId}', but its stored parentId is inconsistent ('${targetElementData.parentId}').`);
+                     return; // Indicates a state management issue
+                }
+            }
+        } else if (guiState.elements[parentId]) {
+             console.error(`GUI Control Error: Provided parentId '${parentId}' exists but is not a 'div' container.`);
+             return;
         }
-        // Set image styles without borders
-        img.style.position = 'absolute';
-        img.style.left = `${x}px`;
-        img.style.top = `${y}px`;
-        img.style.width = `${w}px`;
-        img.style.height = `${h}px`;
-        img.style.borderRadius = roundness ? `${roundness}px` : '0px'; // Allow rounded corners
-        // Append the image to the specified div
-        div.appendChild(img);
+    }
+
+    // --- Handle Element Not Found (in the specified context) ---
+    if (!targetElementData || !foundContextCorrect) {
+        // Allow deletion attempt even if not found (maybe already deleted)
+        if (!(options.isDeleting === true && Object.keys(options).length === 1)) {
+            const contextMsg = parentId === null ? "in the top-level/background context" : `under parent '${parentId}'`;
+             console.error(`GUI Control Error: Element with ID '${elementId}' not found ${contextMsg}.`);
+        } else {
+             // If just deleting, ensure ID is removed from use tracking if it exists there
+             if (guiState.idsInUse.has(elementId)) {
+                  guiState.idsInUse.delete(elementId);
+             }
+             console.log(`GUI Control: Attempted to delete element '${elementId}' (context: parentId=${parentId}). If it existed, it's gone.`);
+        }
+        return; // Stop execution if element not found (and not just deleting)
+    }
+
+    // --- Element Found: Merge Options ---
+    const updateOptions = {
+         ...targetElementData.properties, // Start with existing properties
+         ...options                      // Overwrite with new properties from input (excluding id, parentId)
     };
-    // Optional: handle errors in loading the image
-    img.onerror = function() {
-        console.error(`Failed to load image from ${imageUrl}`);
-    };
-}
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_Toggle
-libs: null
-description: gui~~~Gui_Toggle is a function that creates a toggle switch UI element, allowing users to toggle between two states (on/off) with customizable properties such as label, position, size, and color. It also includes a callback function to handle the state change.~~~here is how the func looks like:~~~```htvm~~~Gui_Toggle(str guiID, str id, str label, str [color = null], int leftPos, int topPos, [int width = null], [int height = null], func switchFunction, bool [isToggledAtTheBeginning = false])~~~```~~~
-function Gui_Toggle(guiID, id, label, color = null, leftPos, topPos, width = null, height = null, switchFunction, isToggledAtTheBeginning = false) {
-    // Check if the div with the given guiID exists
-    let parentDiv = HTVM_guiElements[guiID];
-    if (!parentDiv) {
-        // If it doesn't exist, create a new div
-        parentDiv = document.createElement('div');
-        parentDiv.id = guiID;
-        // Store the newly created div in the global object
-        HTVM_guiElements[guiID] = parentDiv;
-        // Append the div to the body
-        document.body.appendChild(parentDiv);
-    }
 
-    if (width == null || width == undefined) {
-    width = 60; // Default width
-    }
-
-    if (height == null || height == undefined) {
-        height = 30; // Default height - this was incorrectly set to width before
-    }
-
-    if (color == null || color == undefined) {
-       color = "#2196F3";
-    }
-    // Create the toggle switch
-    const toggleSwitch = document.createElement("div");
-    toggleSwitch.id = id;
-    toggleSwitch.dataset.isOn = "false"; // Default state is off
-    toggleSwitch.style.width = width + "px"; // Set width
-    toggleSwitch.style.height = height + "px"; // Set height
-    toggleSwitch.style.backgroundColor = "#ccc"; // Default background color
-    toggleSwitch.style.borderRadius = height / 2 + "px"; // Make border radius proportional to height
-    toggleSwitch.style.position = "absolute";
-    toggleSwitch.style.left = leftPos + "px";
-    toggleSwitch.style.top = topPos + "px";
-    toggleSwitch.style.cursor = "pointer"; // Pointer cursor for the toggle switch
-    // Create knob for the toggle switch
-    const knob = document.createElement("div");
-    knob.style.width = (height - 4) + "px"; // Set knob width
-    knob.style.height = (height - 4) + "px"; // Set knob height
-    knob.style.backgroundColor = "#ffffff"; // Knob color
-    knob.style.borderRadius = "50%"; // Circular knob
-    knob.style.position = "absolute";
-    knob.style.top = "50%";
-    knob.style.left = "2px"; // Start position
-    knob.style.transform = "translateY(-50%)"; // Center vertically
-    knob.style.transition = "left 0.3s ease"; // Transition for smooth movement
-    toggleSwitch.appendChild(knob); // Append knob to toggle switch
-    parentDiv.appendChild(toggleSwitch); // Append toggle switch to the specified parent div
-    // Create label for the toggle switch
-    const toggleLabel = document.createElement("div");
-    toggleLabel.textContent = label;
-    toggleLabel.style.position = "absolute";
-    toggleLabel.style.left = (leftPos + width + 10) + "px"; // Position label relative to switch
-    toggleLabel.style.top = (topPos + 5) + "px";
-    parentDiv.appendChild(toggleLabel); // Append label to the parent div
-    // Function to handle the toggle switch click event
-    function toggleSwitchClick() {
-        let isOn = toggleSwitch.dataset.isOn === "true";
-        toggleSwitch.dataset.isOn = String(!isOn); // Toggle the state
-        // Move the knob based on state
-        knob.style.left = isOn ? "2px" : (width - height + 2) + "px";
-        toggleSwitch.style.backgroundColor = isOn ? "#ccc" : color; // Update background color
-        // Call the switch function with toggle state
-        switchFunction(isOn ? "0" : "1");
-    }
-    // Add click event listener
-    toggleSwitch.addEventListener("click", toggleSwitchClick);
-    // Set initial state if isToggledAtTheBeginning is true
-    if (isToggledAtTheBeginning) {
-        toggleSwitch.dataset.isOn = "true"; // Set state to on
-        knob.style.left = (width - height + 2) + "px"; // Move knob to the right
-        toggleSwitch.style.backgroundColor = color; // Set background color to toggled color
-        switchFunction("1"); // Call the switch function with initial state
+    // --- Call Appropriate Adder Function ---
+    if (targetElementData.type === 'div') {
+        // Must be a top-level div (found with parentId: null)
+        // Call guiAdd, passing the merged options PLUS the elementId back in.
+        guiAdd({ ...updateOptions, id: elementId });
+    } else {
+        // Any other element type (found either with parentId: null OR a specific parentId)
+        // Call guiAddElement, passing merged options, PLUS id, elementType, and the original parentId context.
+        guiAddElement({
+            ...updateOptions,
+            id: elementId,
+            elementType: targetElementData.type,
+            parentId: parentId // Pass the validated parentId context (null or string)
+        });
     }
 }
-funcEND======================funcEND==============
-func======================func==============
-lang: js
-name: Gui_CheckBox
-libs: null
-description: gui~~~Gui_CheckBox is a function that creates a checkbox within a specified GUI element, allowing for custom label, position, color, initial checked state, and scaling. The checkbox is added to a specified parent div, and a callback function is executed when the checkbox state changes.~~~here is how the func looks like:~~~```htvm~~~Gui_CheckBox(str guiID, str id, str label, [str color = "#ffffff"], int leftPos, int topPos, func checkFunction, [bool isCheckedAtTheBeginning = false], [float scale = 1.5])~~~```~~~
-function Gui_CheckBox(guiID, id, label, color = null, leftPos, topPos, checkFunction, isCheckedAtTheBeginning = false, scale = 1.5) {
-    // Check if the div with the given guiID exists
-    let parentDiv = HTVM_guiElements[guiID];
-    if (!parentDiv) {
-        // If it doesn't exist, create a new div
-        parentDiv = document.createElement('div');
-        parentDiv.id = guiID;
-        // Store the newly created div in the global object
-        HTVM_guiElements[guiID] = parentDiv;
-        // Append the div to the body
-        document.body.appendChild(parentDiv);
-    }
-    if (color == null || color == undefined) {
-        color = "#ffffff"; // Default label color
-    }
-    // Create the checkbox input
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.id = id;
-    checkbox.style.position = "absolute";
-    checkbox.style.left = leftPos + "px";
-    checkbox.style.top = topPos + "px";
-    checkbox.style.transform = `scale(${scale})`; // Apply scaling
-    // Set initial checked state if specified
-    checkbox.checked = isCheckedAtTheBeginning;
-    // Add the checkbox to the parent div
-    parentDiv.appendChild(checkbox);
-    // Create a label for the checkbox
-    const checkboxLabel = document.createElement("label");
-    checkboxLabel.setAttribute("for", id);
-    checkboxLabel.textContent = label;
-    checkboxLabel.style.position = "absolute";
-    checkboxLabel.style.left = (leftPos + 25 * scale) + "px"; // Adjust position based on scale
-    checkboxLabel.style.top = (topPos + 2 * scale) + "px";
-    checkboxLabel.style.color = color; // Set label color
-    checkboxLabel.style.transform = `scale(${scale})`; // Apply scaling
-    checkboxLabel.style.transformOrigin = "left top"; // Set origin to align the scaling
-    parentDiv.appendChild(checkboxLabel);
-    // Function to handle checkbox change event
-    checkbox.addEventListener("change", () => {
-        checkFunction(checkbox.checked ? "1" : "0");
-    });
-    // Call the check function initially if the checkbox is checked at the beginning
-    if (isCheckedAtTheBeginning) {
-        checkFunction("1");
-    }
-}
+
+
 funcEND======================funcEND==============
 func======================func==============
 lang: js

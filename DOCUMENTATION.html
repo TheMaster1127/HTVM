@@ -881,38 +881,38 @@ alliance Movable {
     }
     crew actions {
         ; General Settings Procs
-        proc void resetGeneralSettings() {
+        proc void resetGeneralSettings(this) {
             Movable.settings.GeneralSettings.difficulty := STR("normal")
             Movable.settings.GeneralSettings.volume := 50
             Movable.settings.GeneralSettings.resolution := STR("1920x1080")
             print("General settings reset to default.")
         }
-        proc void printGeneralSettings() {
+        proc void printGeneralSettings(this) {
             print("General Settings:")
             print("Difficulty: " . Movable.settings.GeneralSettings.difficulty)
             print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
             print("Resolution: " . Movable.settings.GeneralSettings.resolution)
         }
         ; Audio Settings Procs
-        proc void resetAudioSettings() {
+        proc void resetAudioSettings(this) {
             Movable.settings.AudioSettings.masterVolume := 70
             Movable.settings.AudioSettings.musicVolume := 50
             Movable.settings.AudioSettings.sfxVolume := 40
             print("Audio settings reset to default.")
         }
-        proc void printAudioSettings() {
+        proc void printAudioSettings(this) {
             print("Audio Settings:")
             print("Master Volume: " . STR(Movable.settings.AudioSettings.masterVolume))
             print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
             print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
         }
         ; Display Settings Procs
-        proc void resetDisplaySettings() {
+        proc void resetDisplaySettings(this) {
             Movable.settings.DisplaySettings.fullscreen := true
             Movable.settings.DisplaySettings.aspectRatio := STR("16:9")
             print("Display settings reset to default.")
         }
-        proc void printDisplaySettings() {
+        proc void printDisplaySettings(this) {
             print("Display Settings:")
             print("Fullscreen: " . STR(Movable.settings.DisplaySettings.fullscreen))
             print("Aspect Ratio: " . Movable.settings.DisplaySettings.aspectRatio)
@@ -2734,8 +2734,8 @@ HTVM includes a variety of built-in functions organized into categories for conv
 3. [System Functions](#system-functions)
 4. [File Functions](#file-functions)
 5. [Io Functions](#io-functions)
-6. [Gui Functions](#gui-functions)
-7. [Other Functions](#other-functions)
+6. [Other Functions](#other-functions)
+7. [Gui Functions](#gui-functions)
 8. [Backend Functions](#backend-functions)
 
 ---
@@ -2785,7 +2785,8 @@ HTVM includes a variety of built-in functions organized into categories for conv
 | Sin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | Sqrt | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | Tan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-n---
+
+---
 
 ### ACos
 
@@ -2804,7 +2805,6 @@ ACos(float)
 ```
 
 ---
-
 ### ASin
 
 [Go back](#math-functions)
@@ -2822,7 +2822,6 @@ ASin(float value)
 ```
 
 ---
-
 ### ATan
 
 [Go back](#math-functions)
@@ -2840,7 +2839,6 @@ ATan(float)
 ```
 
 ---
-
 ### Abs
 
 [Go back](#math-functions)
@@ -2858,7 +2856,6 @@ Abs(int value)
 ```
 
 ---
-
 ### Ceil
 
 [Go back](#math-functions)
@@ -2876,7 +2873,6 @@ Ceil(num)
 ```
 
 ---
-
 ### Cos
 
 [Go back](#math-functions)
@@ -2894,7 +2890,6 @@ Cos(float angle)
 ```
 
 ---
-
 ### Exp
 
 [Go back](#math-functions)
@@ -2912,7 +2907,6 @@ Exp(value)
 ```
 
 ---
-
 ### Floor
 
 [Go back](#math-functions)
@@ -2930,7 +2924,6 @@ Floor(num)
 ```
 
 ---
-
 ### Ln
 
 [Go back](#math-functions)
@@ -2948,7 +2941,6 @@ Ln(int value)
 ```
 
 ---
-
 ### Log
 
 [Go back](#math-functions)
@@ -2966,7 +2958,6 @@ Log(int value)
 ```
 
 ---
-
 ### Mod
 
 [Go back](#math-functions)
@@ -2984,7 +2975,6 @@ Mod(int dividend, int divisor)
 ```
 
 ---
-
 ### Random
 
 [Go back](#math-functions)
@@ -3002,7 +2992,6 @@ Random(min, max)
 ```
 
 ---
-
 ### Round
 
 [Go back](#math-functions)
@@ -3020,7 +3009,6 @@ Round(num)
 ```
 
 ---
-
 ### Sin
 
 [Go back](#math-functions)
@@ -3038,7 +3026,6 @@ Sin(float)
 ```
 
 ---
-
 ### Sqrt
 
 [Go back](#math-functions)
@@ -3056,7 +3043,6 @@ Sqrt(num)
 ```
 
 ---
-
 ### Tan
 
 [Go back](#math-functions)
@@ -3074,7 +3060,6 @@ Tan(float)
 ```
 
 ---
-
 ## String Functions
 
 [Go back](#built-in-functions)
@@ -3132,7 +3117,8 @@ Tan(float)
 | getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-n---
+
+---
 
 ### Asc
 
@@ -3151,7 +3137,6 @@ Asc(str s)
 ```
 
 ---
-
 ### Chr
 
 [Go back](#string-functions)
@@ -3169,7 +3154,6 @@ Chr(int number)
 ```
 
 ---
-
 ### FLOAT
 
 [Go back](#string-functions)
@@ -3187,7 +3171,6 @@ FLOAT(str value)
 ```
 
 ---
-
 ### INT
 
 [Go back](#string-functions)
@@ -3205,7 +3188,6 @@ INT(str value)
 ```
 
 ---
-
 ### InStr
 
 [Go back](#string-functions)
@@ -3223,7 +3205,6 @@ InStr(str haystack, str needle)
 ```
 
 ---
-
 ### RegExMatch
 
 [Go back](#string-functions)
@@ -3241,7 +3222,6 @@ RegExMatch(str haystack, str needle)
 ```
 
 ---
-
 ### RegExReplace
 
 [Go back](#string-functions)
@@ -3259,7 +3239,6 @@ RegExReplace(str inputStr, str regexPattern, str replacement)
 ```
 
 ---
-
 ### STR
 
 [Go back](#string-functions)
@@ -3277,7 +3256,6 @@ STR(value)
 ```
 
 ---
-
 ### Sort
 
 [Go back](#string-functions)
@@ -3295,7 +3273,6 @@ Sort(str varName, [str options = ""])
 ```
 
 ---
-
 ### StrLen
 
 [Go back](#string-functions)
@@ -3313,7 +3290,6 @@ StrLen(str)
 ```
 
 ---
-
 ### StrLower
 
 [Go back](#string-functions)
@@ -3331,7 +3307,6 @@ StrLower(string)
 ```
 
 ---
-
 ### StrReplace
 
 [Go back](#string-functions)
@@ -3349,7 +3324,6 @@ StrReplace(str originalString, str find, str replaceWith)
 ```
 
 ---
-
 ### StrSplit
 
 [Go back](#string-functions)
@@ -3367,7 +3341,6 @@ StrSplit(str inputStr, str delimiter, int num)
 ```
 
 ---
-
 ### StrTitleCase
 
 [Go back](#string-functions)
@@ -3385,7 +3358,6 @@ StrTitleCase(str inputString)
 ```
 
 ---
-
 ### StringTrimLeft
 
 [Go back](#string-functions)
@@ -3403,7 +3375,6 @@ StringTrimLeft(str input, int numChars)
 ```
 
 ---
-
 ### StringTrimRight
 
 [Go back](#string-functions)
@@ -3421,7 +3392,6 @@ StringTrimRight(str input, int numChars)
 ```
 
 ---
-
 ### SubStr
 
 [Go back](#string-functions)
@@ -3439,7 +3409,6 @@ SubStr(str, int startPos, int length [= str.length - startPos + 1])
 ```
 
 ---
-
 ### Trim
 
 [Go back](#string-functions)
@@ -3457,7 +3426,6 @@ Trim(string)
 ```
 
 ---
-
 ### countChars
 
 [Go back](#string-functions)
@@ -3475,7 +3443,6 @@ countChars(str string, str theChar)
 ```
 
 ---
-
 ### getUrlParams
 
 [Go back](#string-functions)
@@ -3493,7 +3460,6 @@ getUrlParams()
 ```
 
 ---
-
 ### sortArr
 
 [Go back](#string-functions)
@@ -3511,7 +3477,6 @@ sortArr(arr str stringArray)
 ```
 
 ---
-
 ### sortArrByLenOnly
 
 [Go back](#string-functions)
@@ -3529,7 +3494,6 @@ sortArrByLenOnly(arr str array)
 ```
 
 ---
-
 ## System Functions
 
 [Go back](#built-in-functions)
@@ -3551,7 +3515,8 @@ sortArrByLenOnly(arr str array)
 | ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 | HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-n---
+
+---
 
 ### BuildInVars
 
@@ -3570,7 +3535,6 @@ BuildInVars(str varName)
 ```
 
 ---
-
 ### ExitApp
 
 [Go back](#system-functions)
@@ -3588,7 +3552,6 @@ ExitApp()
 ```
 
 ---
-
 ### HTVM_getLang_HTVM
 
 [Go back](#system-functions)
@@ -3606,7 +3569,6 @@ HTVM_getLang_HTVM()
 ```
 
 ---
-
 ### Sleep
 
 [Go back](#system-functions)
@@ -3624,7 +3586,6 @@ Sleep(int milliseconds)
 ```
 
 ---
-
 ## File Functions
 
 [Go back](#built-in-functions)
@@ -3652,7 +3613,8 @@ Sleep(int milliseconds)
 | FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 | FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 | FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-n---
+
+---
 
 ### FileAppend
 
@@ -3671,7 +3633,6 @@ FileAppend(str content, str path)
 ```
 
 ---
-
 ### FileAppendJs
 
 [Go back](#file-functions)
@@ -3689,7 +3650,6 @@ FileAppendJs(str content, str filename)
 ```
 
 ---
-
 ### FileCreateDir
 
 [Go back](#file-functions)
@@ -3707,7 +3667,6 @@ FileCreateDir(str directory)
 ```
 
 ---
-
 ### FileDelete
 
 [Go back](#file-functions)
@@ -3725,7 +3684,6 @@ FileDelete(str path)
 ```
 
 ---
-
 ### FileExist
 
 [Go back](#file-functions)
@@ -3743,7 +3701,6 @@ FileExist(str path)
 ```
 
 ---
-
 ### FileRead
 
 [Go back](#file-functions)
@@ -3761,7 +3718,6 @@ FileRead(path: str)
 ```
 
 ---
-
 ### FileRemoveDir
 
 [Go back](#file-functions)
@@ -3779,7 +3735,6 @@ FileRemoveDir(str directory)
 ```
 
 ---
-
 ## Io Functions
 
 [Go back](#built-in-functions)
@@ -3803,7 +3758,8 @@ FileRemoveDir(str directory)
 | getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
-n---
+
+---
 
 ### GetParams
 
@@ -3822,7 +3778,6 @@ GetParams()
 ```
 
 ---
-
 ### RunCMD
 
 [Go back](#io-functions)
@@ -3840,7 +3795,6 @@ RunCMD(str command)
 ```
 
 ---
-
 ### getDataFromAPI
 
 [Go back](#io-functions)
@@ -3858,7 +3812,6 @@ getDataFromAPI(str url)
 ```
 
 ---
-
 ### input
 
 [Go back](#io-functions)
@@ -3876,7 +3829,6 @@ input(str promptText)
 ```
 
 ---
-
 ### print
 
 [Go back](#io-functions)
@@ -3894,29 +3846,13 @@ print(str)
 ```
 
 ---
-
-## Gui Functions
+## Other Functions
 
 [Go back](#built-in-functions)
 
-1. [GuiControl](#guicontrol)
-2. [Gui_Button](#gui_button)
-3. [Gui_CheckBox](#gui_checkbox)
-4. [Gui_Color](#gui_color)
-5. [Gui_DropDownList](#gui_dropdownlist)
-6. [Gui_Edit](#gui_edit)
-7. [Gui_Font](#gui_font)
-8. [Gui_Font_Id](#gui_font_id)
-9. [Gui_Hide](#gui_hide)
-10. [Gui_Image](#gui_image)
-11. [Gui_Move](#gui_move)
-12. [Gui_Show](#gui_show)
-13. [Gui_Size](#gui_size)
-14. [Gui_Size_Id](#gui_size_id)
-15. [Gui_Text](#gui_text)
-16. [Gui_Toggle](#gui_toggle)
-17. [Gui_Update](#gui_update)
-18. [MsgBox](#msgbox)
+1. [HTVM_v2_HTVM](#htvm_v2_htvm)
+2. [MakeHotKey](#makehotkey)
+3. [isWindows](#iswindows)
 
 ---
 
@@ -3926,329 +3862,74 @@ print(str)
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| GuiControl | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Button | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_CheckBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Color | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_DropDownList | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Edit | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Font | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Font_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Hide | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Image | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Move | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Show | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Size | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Size_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Text | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Toggle | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Gui_Update | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+---
+
+### HTVM_v2_HTVM
+
+[Go back](#other-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+HTVM_v2_HTVM is a func that will help me make HTVM v2 DONT USE IT!!!
+
+---
+### MakeHotKey
+
+[Go back](#other-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+
+MakeHotKey is a function that listens for a specific key combination (hotkey) and triggers a callback when the hotkey is pressed. It handles modifiers like Ctrl, Shift, and Alt, as well as specific keys such as arrows and backspace. The callback function is invoked with the hotkey in either uppercase or lowercase, depending on the Shift modifier.
+here is how the func looks like:
+```htvm
+MakeHotKey(str hotkey, function callback)
+```
+
+---
+### isWindows
+
+[Go back](#other-functions)
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
+| isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+
+isWindows is a function that checks if the current operating system is Windows by comparing the system name to "windows".
+here is how the func looks like:
+```htvm
+isWindows()
+```
+
+---
+## Gui Functions
+
+[Go back](#built-in-functions)
+
+1. [MsgBox](#msgbox)
+
+---
+
+**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**
+
+**HTVM build-in functions availability.**
+
+| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
+|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | MsgBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-n---
-
-### GuiControl
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| GuiControl | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-GuiControl is a function that handles various DOM manipulations like moving, showing, hiding, and modifying elements based on the provided action and parameters.
-here is how the func looks like:
-```htvm
-GuiControl(str action, str divId, str id, [any param1 = ?], [any param2 = ?], [any param3 = ?], [any param4 = ?])
-```
-
----
-
-### Gui_Button
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Button | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Button is a function that creates a button inside a specified div and allows customization of its position, size, color, and click behavior.
-here is how the func looks like:
-```htvm
-Gui_Button(str guiID, str buttonID, str buttonText, [int x = null], [int y = null], [int w = 150], [int h = 50], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onClickCallback = null])
-```
-
----
-
-### Gui_CheckBox
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_CheckBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_CheckBox is a function that creates a checkbox within a specified GUI element, allowing for custom label, position, color, initial checked state, and scaling. The checkbox is added to a specified parent div, and a callback function is executed when the checkbox state changes.
-here is how the func looks like:
-```htvm
-Gui_CheckBox(str guiID, str id, str label, [str color = "#ffffff"], int leftPos, int topPos, func checkFunction, [bool isCheckedAtTheBeginning = false], [float scale = 1.5])
-```
-
----
-
-### Gui_Color
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Color | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Color is a function that sets the background color of a specific HTML element identified by the given guiID. If the element is not found, it logs a warning.
-here is how the func looks like:
-```htvm
-Gui_Color(str guiID, str color)
-```
-
----
-
-### Gui_DropDownList
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_DropDownList | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_DropDownList is a function that creates a dropdown list (select element) with options from a string, sets styles, attaches an event listener for selection changes, and appends it to a specified parent element.
-here is how the func looks like:
-```htvm
-Gui_DropDownList(parent, str id, str data, int leftPos, int topPos, int width, int height, str color, func onChangeFunction)
-```
-
----
-
-### Gui_Edit
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Edit | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Edit is a function that creates a textarea element within a div, allowing customization of its appearance, position, and behavior, with optional parameters for width, height, colors, borders, and a callback for input changes.
-here is how the func looks like:
-```htvm
-Gui_Edit(str guiID, str editID, str placeholderText, [int x = null], [int y = null], [int w = null], [int h = null], [str color = '#121212'], [str textColor = '#FFFFFF'], [bool removeBorder = false], [int roundness = null], [int zIndex = null], [func onChangeCallback = null])
-```
-
----
-
-### Gui_Font
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Font | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Font is a function that sets the font family for a specified element and all its descendants, including buttons, inputs, and textareas.
-here is how the func looks like:
-```htvm
-Gui_Font(str divID, str fontFamily)
-```
-
----
-
-### Gui_Font_Id
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Font_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Font_Id is a function that changes the font family of specified elements in the HTML document based on provided div and element IDs.
-here is how the func looks like:
-```htvm
-Gui_Font_Id(str divID, str elementID, str fontFamily)
-```
-
----
-
-### Gui_Hide
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Hide | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Hide is a function that hides an HTML element by setting its display style to "none" based on the provided element ID.
-here is how the func looks like:
-```htvm
-Gui_Hide(str elementId)
-```
-
----
-
-### Gui_Image
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Image | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Image is a function that creates and displays an image within a specified div element on the webpage. It optionally sets the image's position, size, and corner roundness, while ensuring that the image maintains its aspect ratio if only one dimension is provided.
-here is how the func looks like:
-```htvm
-Gui_Image(str guiID, str imageID, str imageUrl, [int x = null], [int y = null], [int w = null], [int h = null], [int roundness = null])
-```
-
----
-
-### Gui_Move
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Move | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Move is a function that moves or resizes a GUI element by modifying its position and dimensions based on the provided parameters.
-here is how the func looks like:
-```htvm
-Gui_Move(str guiID, [int x = null], [int y = null], [int w = null], [int h = null])
-```
-
----
-
-### Gui_Show
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Show | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Show is a function that displays a div element on the screen with customizable properties such as position, size, border, background color, and z-index. It creates the div if it doesn't exist and centers it by default.
-here is how the func looks like:
-```htvm
-Gui_Show(guiID, [x], [y], [w], [h], [removeBorder = false], [color = '#121212'], [roundness], [zIndex])
-```
-
----
-
-### Gui_Size
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Size | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Size is a function that adjusts the font size of the specified HTML element and its children based on the given font size value.
-here is how the func looks like:
-```htvm
-Gui_Size(str divID, int fontSize)
-```
-
----
-
-### Gui_Size_Id
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Size_Id | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Size_Id is a function that changes the font size of a specified div and another specified element by their respective IDs.
-here is how the func looks like:
-```htvm
-Gui_Size_Id(str divID, str elementID, int fontSize)
-```
-
----
-
-### Gui_Text
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Text | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Text is a function that creates and inserts a text element into a specified GUI container, with optional parameters for positioning, color, roundness, and z-index.
-here is how the func looks like:
-```htvm
-Gui_Text(str guiID, str textID, str text, [int x = null], [int y = null], [str color = '#FFFFFF'], [int roundness = null], [int zIndex = null])
-```
-
----
-
-### Gui_Toggle
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Toggle | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Toggle is a function that creates a toggle switch UI element, allowing users to toggle between two states (on/off) with customizable properties such as label, position, size, and color. It also includes a callback function to handle the state change.
-here is how the func looks like:
-```htvm
-Gui_Toggle(str guiID, str id, str label, str [color = null], int leftPos, int topPos, [int width = null], [int height = null], func switchFunction, bool [isToggledAtTheBeginning = false])
-```
-
----
-
-### Gui_Update
-
-[Go back](#gui-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Gui_Update | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-Gui_Update is a function that updates or creates a div element based on the provided guiID, setting its dimensions, position, background color, border, border-radius, and z-index, with optional parameters for customization.
-here is how the func looks like:
-```htvm
-Gui_Update(str guiID, [int x = null], [int y = null], [int w = 450], [int h = 450], [bool removeBorder = false], [str color = '#121212'], [int roundness = null], [int zIndex = null])
-```
 
 ---
 
@@ -4269,78 +3950,6 @@ MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
 ```
 
 ---
-
-## Other Functions
-
-[Go back](#built-in-functions)
-
-1. [HTVM_v2_HTVM](#htvm_v2_htvm)
-2. [MakeHotKey](#makehotkey)
-3. [isWindows](#iswindows)
-
----
-
-**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-n---
-
-### HTVM_v2_HTVM
-
-[Go back](#other-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-HTVM_v2_HTVM is a func that will help me make HTVM v2 DONT USE IT!!!
-
----
-
-### MakeHotKey
-
-[Go back](#other-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-MakeHotKey is a function that listens for a specific key combination (hotkey) and triggers a callback when the hotkey is pressed. It handles modifiers like Ctrl, Shift, and Alt, as well as specific keys such as arrows and backspace. The callback function is invoked with the hotkey in either uppercase or lowercase, depending on the Shift modifier.
-here is how the func looks like:
-```htvm
-MakeHotKey(str hotkey, function callback)
-```
-
----
-
-### isWindows
-
-[Go back](#other-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
-isWindows is a function that checks if the current operating system is Windows by comparing the system name to "windows".
-here is how the func looks like:
-```htvm
-isWindows()
-```
-
----
-
 ## Backend Functions
 
 [Go back](#built-in-functions)
@@ -4362,7 +3971,8 @@ isWindows()
 | createBackendInit | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 | getDataFromEndpoint | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | startServer | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-n---
+
+---
 
 ### addEndpoint
 
@@ -4399,7 +4009,6 @@ startServer()
 This exmaple is in python but the funcs works in HTVM like normal funcs.
 
 ---
-
 ### createBackendInit
 
 [Go back](#backend-functions)
@@ -4435,7 +4044,6 @@ startServer()
 This exmaple is in python but the funcs works in HTVM like normal funcs.
 
 ---
-
 ### getDataFromEndpoint
 
 [Go back](#backend-functions)
@@ -4453,7 +4061,6 @@ getDataFromEndpoint(data, endpoint, method = "POST")
 ```
 
 ---
-
 ### startServer
 
 [Go back](#backend-functions)
@@ -4489,7 +4096,6 @@ startServer()
 This exmaple is in python but the funcs works in HTVM like normal funcs.
 
 ---
-
 
 
 </div>

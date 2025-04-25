@@ -9687,6 +9687,687 @@ return htCodeOUTOUT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func str guiParserStep3(str guiCode)
+{
+; convert the parsed code to func calls
+str out := ""
+str temp0 := ""
+str temp1 := ""
+str temp2 := ""
+str temp3 := ""
+str temp4 := ""
+str temp5 := ""
+str temp6 := ""
+str temp7 := ""
+str temp8 := ""
+str temp9 := ""
+str temp10 := ""
+str temp11 := ""
+str temp12 := ""
+str temp13 := ""
+str temp14 := ""
+str temp15 := ""
+str temp16 := ""
+str temp17 := ""
+str temp18 := ""
+str temp19 := ""
+str temp20 := ""
+str temp21 := ""
+
+int buttons := 0 
+int texts := 0
+int edits := 0
+int pictures := 0
+int toggles := 0
+int rectangles := 0
+int circles := 0
+int videos := 0
+int dropdowns := 0
+int iframes := 0
+
+int isElement := 0
+str whatElement := ""
+
+Loop, Parse, guiCode, `n, `r
+{
+
+temp1 := ""
+temp2 := ""
+temp3 := ""
+temp4 := ""
+temp5 := ""
+temp6 := ""
+temp7 := ""
+temp8 := ""
+temp9 := ""
+temp10 := ""
+temp11 := ""
+temp12 := ""
+temp13 := ""
+temp14 := ""
+temp15 := ""
+temp16 := ""
+temp17 := ""
+temp18 := ""
+temp19 := ""
+temp20 := ""
+temp21 := ""
+
+temp0 := ""
+if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+isElement := 0
+whatElement := ""
+Loop, Parse, A_LoopField, " "
+{
+if (A_Index != 0)
+{
+;;;;;;; 0start
+if (StrLower(A_LoopField) = "button") {
+buttons++
+isElement := 1
+whatElement := "button"
+}
+else if (StrLower(A_LoopField) = "text") {
+texts++
+isElement := 1
+whatElement := "text"
+}
+else if (StrLower(A_LoopField) = "edit") {
+edits++
+isElement := 1
+whatElement := "edit"
+}
+else if (StrLower(A_LoopField) = "picture") {
+pictures++
+isElement := 1
+whatElement := "picture"
+}
+else if (StrLower(A_LoopField) = "toggle") {
+toggles++
+isElement := 1
+whatElement := "toggle"
+}
+else if (StrLower(A_LoopField) = "rectangle") {
+rectangles++
+isElement := 1
+whatElement := "rectangle"
+}
+else if (StrLower(A_LoopField) = "circle") {
+circles++
+isElement := 1
+whatElement := "circle"
+}
+else if (StrLower(A_LoopField) = "video") {
+videos++
+isElement := 1
+whatElement := "video"
+}
+else if (StrLower(A_LoopField) = "dropdown") {
+dropdowns++
+isElement := 1
+whatElement := "dropdown"
+}
+else if (StrLower(A_LoopField) = "iframe") {
+iframes++
+isElement := 1
+whatElement := "iframe"
+}
+else
+{
+temp1 .= A_LoopField . ", "
+}
+;;;;;;; 0end
+;;;;;; 1start
+
+
+;;;;;; 1end
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+}
+} ;  loop end
+
+;;;;;;;;;;;;;;;;;;;;;; -111
+if (isElement = 1)
+{
+temp0 .= "guiAddElement({ elementType: '" . whatElement . "', " . temp1
+StringTrimRight, temp0, temp0, 2
+temp0 .= " });"
+}
+else
+{
+temp0 .= "guiAdd({ " . temp1
+StringTrimRight, temp0, temp0, 2
+temp0 .= " });"
+}
+;;;;;;;;;;;;;;;;;;;;;; -111
+
+
+out .= temp0 . Chr(10)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol ") or (RegExMatch(StrLower(Trim(A_LoopField)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+isElement := 0
+whatElement := ""
+Loop, Parse, A_LoopField, " "
+{
+if (A_Index != 0)
+{
+;;;;;;; 0start
+if (StrLower(A_LoopField) = "button") {
+buttons++
+isElement := 1
+whatElement := "button"
+}
+else if (StrLower(A_LoopField) = "text") {
+texts++
+isElement := 1
+whatElement := "text"
+}
+else if (StrLower(A_LoopField) = "edit") {
+edits++
+isElement := 1
+whatElement := "edit"
+}
+else if (StrLower(A_LoopField) = "picture") {
+pictures++
+isElement := 1
+whatElement := "picture"
+}
+else if (StrLower(A_LoopField) = "toggle") {
+toggles++
+isElement := 1
+whatElement := "toggle"
+}
+else if (StrLower(A_LoopField) = "rectangle") {
+rectangles++
+isElement := 1
+whatElement := "rectangle"
+}
+else if (StrLower(A_LoopField) = "circle") {
+circles++
+isElement := 1
+whatElement := "circle"
+}
+else if (StrLower(A_LoopField) = "video") {
+videos++
+isElement := 1
+whatElement := "video"
+}
+else if (StrLower(A_LoopField) = "dropdown") {
+dropdowns++
+isElement := 1
+whatElement := "dropdown"
+}
+else if (StrLower(A_LoopField) = "iframe") {
+iframes++
+isElement := 1
+whatElement := "iframe"
+}
+else
+{
+temp1 .= A_LoopField . ", "
+}
+;;;;;;; 0end
+;;;;;; 1start
+
+
+;;;;;; 1end
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+}
+} ;  loop end
+
+;;;;;;;;;;;;;;;;;;;;;; -111
+if (isElement = 1)
+{
+temp0 .= "guiControl({ elementType: '" . whatElement . "', " . temp1
+StringTrimRight, temp0, temp0, 2
+temp0 .= " });"
+}
+else
+{
+temp0 .= "guiControl({ " . temp1
+StringTrimRight, temp0, temp0, 2
+temp0 .= " });"
+}
+;;;;;;;;;;;;;;;;;;;;;; -111
+
+
+out .= temp0 . Chr(10)
+}
+else
+{
+out .= A_LoopField . Chr(10)
+}
+
+}
+StringTrimRight, out, out, 1
+return out
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; the GUI funcs
+; the GUI funcs
+; the GUI funcs
+func str guiParserStep2(str guiCode)
+{
+; remove spacses, commas and format the colon (:) and remove "add"
+
+str out := ""
+
+str temp := ""
+
+Loop, Parse, guiCode, `n, `r
+{
+if (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol,") or (RegExMatch(StrLower(Trim(A_LoopField)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+temp := StrReplace(A_LoopField, ",", " ")
+
+while (InStr(temp, "  "))
+{
+temp := StrReplace(temp, "  ", " ")
+}
+
+while (InStr(temp, ": "))
+{
+temp := StrReplace(temp, ": ", ":")
+}
+
+while (InStr(temp, " :"))
+{
+temp := StrReplace(temp, " :", ":")
+}
+
+out .= Trim(temp) . Chr(10)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui,") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+temp := StrReplace(A_LoopField, ",", " ")
+temp := RegExReplace(temp, "\badd\b(?!\()", " ")
+
+while (InStr(temp, "  "))
+{
+temp := StrReplace(temp, "  ", " ")
+}
+
+while (InStr(temp, ": "))
+{
+temp := StrReplace(temp, ": ", ":")
+}
+
+while (InStr(temp, " :"))
+{
+temp := StrReplace(temp, " :", ":")
+}
+
+out .= Trim(temp) . Chr(10)
+}
+else
+{
+out .= A_LoopField . Chr(10)
+}
+
+}
+StringTrimRight, out, out, 1
+return guiParserStep3(out)
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func str guiParser0(str guiCode)
+{
+str out := ""
+int begin := 0
+
+arr str lookAhead
+
+Loop, Parse, guiCode, `n, `r
+{
+lookAhead.add(Trim(A_LoopField))
+}
+lookAhead.add(" ")
+
+Loop, Parse, guiCode, `n, `r
+{
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol,") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol{") or (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol[") or (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol(") or (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol (") or (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  (") or (RegExMatch(StrLower(Trim(A_LoopField)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+begin := 0
+
+if (Trim(StrLower(lookAhead[A_Index + 1])) = "{") or (Trim(StrLower(lookAhead[A_Index + 1])) = "[") or (Trim(StrLower(lookAhead[A_Index + 1])) = "(")
+{
+begin := 1
+}
+
+if (RegExMatch(StrLower(Trim(A_LoopField)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) and (SubStrLastChars(Trim(A_LoopField), 1) = "{") or (SubStrLastChars(Trim(A_LoopField), 1) = "[") or (SubStrLastChars(Trim(A_LoopField), 1) = "(") 
+{
+begin := 1
+out .= StringTrimRight(Trim(A_LoopField), 1)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol{")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 11)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol[")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 11)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol(")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 11)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol {")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 12)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol [")
+{
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 12)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol (")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 12)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  {")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 13)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  [")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 13)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  (")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 13)
+}
+else
+{
+if (begin = 1)
+{
+out .= Trim(A_LoopField) . " "
+}
+else
+{
+out .= Trim(A_LoopField) . Chr(10)
+}
+
+}
+
+
+
+
+}
+else if (begin = 1)
+{
+
+if (Trim(StrLower(A_LoopField)) = "{") or (Trim(StrLower(A_LoopField)) = "[") or (Trim(StrLower(A_LoopField)) = "(")
+{
+begin := 1
+}
+else if (Trim(StrLower(A_LoopField)) = "}") or (Trim(StrLower(A_LoopField)) = "]") or (Trim(StrLower(A_LoopField)) = ")")
+{
+begin := 0
+out .= Chr(10)
+}
+else
+{
+out .= A_LoopField . " "
+}
+
+
+}
+else if (begin = 1)
+{
+out .= A_LoopField . " "
+}
+else
+{
+out .= A_LoopField . Chr(10)
+}
+
+
+;print("DEBIG123: " . A_LoopField . "|" . STR(begin))
+
+}
+
+
+
+StringTrimRight, out, out, 1
+
+return guiParserStep2(out)
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func str guiParser(str guiCode) {
+
+    if (InStr(StrLower(guiCode), "gui") = false) {
+        return guiCode
+    }
+    
+    
+str out := ""
+int whenGuiBegin := 0
+int whenGuiBeginTHEONE := 0
+int begin := 0
+
+arr str lookAhead
+
+Loop, Parse, guiCode, `n, `r
+{
+lookAhead.add(Trim(A_LoopField))
+}
+lookAhead.add(" ")
+
+Loop, Parse, guiCode, `n, `r
+{
+
+if (Trim(StrLower(A_LoopField)) = "gui") and (Trim(StrLower(lookAhead[A_Index + 1])) != "{") and (Trim(StrLower(lookAhead[A_Index + 1])) != "[") and (Trim(StrLower(lookAhead[A_Index + 1])) != "(")
+{
+begin := 0
+;print("DUBUG HKDOUVISYobusdsfvbaedsf")
+whenGuiBegin++
+if (whenGuiBegin = 1)
+{
+whenGuiBeginTHEONE := 1
+out .= Chr(10) . "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" . Chr(10)
+}
+
+
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui,") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui{") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui[") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui(") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui (") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  (") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+begin := 0
+whenGuiBegin++
+if (whenGuiBegin = 1)
+{
+out .= Chr(10) . "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" . Chr(10)
+}
+
+if (Trim(StrLower(lookAhead[A_Index + 1])) = "{") or (Trim(StrLower(lookAhead[A_Index + 1])) = "[") or (Trim(StrLower(lookAhead[A_Index + 1])) = "(")
+{
+begin := 1
+}
+
+if (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) and (SubStrLastChars(Trim(A_LoopField), 1) = "{") or (SubStrLastChars(Trim(A_LoopField), 1) = "[") or (SubStrLastChars(Trim(A_LoopField), 1) = "(") 
+{
+begin := 1
+out .= StringTrimRight(Trim(A_LoopField), 1)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui{")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 4)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui[")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 4)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui(")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 4)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui {")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 5)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui [")
+{
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 5)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui (")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 5)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  {")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 6)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  [")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 6)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  (")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 6)
+}
+else
+{
+if (begin = 1)
+{
+out .= Trim(A_LoopField) . " "
+}
+else
+{
+out .= Trim(A_LoopField) . Chr(10)
+}
+
+}
+
+
+
+
+}
+else if (begin = 1)
+{
+
+if (Trim(StrLower(A_LoopField)) = "{") or (Trim(StrLower(A_LoopField)) = "[") or (Trim(StrLower(A_LoopField)) = "(")
+{
+begin := 1
+}
+else if (Trim(StrLower(A_LoopField)) = "}") or (Trim(StrLower(A_LoopField)) = "]") or (Trim(StrLower(A_LoopField)) = ")")
+{
+begin := 0
+out .= Chr(10)
+}
+else
+{
+out .= A_LoopField . " "
+}
+
+
+}
+else if (begin = 1)
+{
+out .= A_LoopField . " "
+}
+else
+{
+out .= A_LoopField . Chr(10)
+}
+
+
+;print("DEBIG123: " . A_LoopField . "|" . STR(begin))
+
+}
+
+if (whenGuiBeginTHEONE = 1) and (whenGuiBegin = 1)
+{
+out := StrReplace(out, "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI", "guiInit(" . Chr(34) . "#202020" . Chr(34) . ", " . Chr(34) . "This is a GUI" . Chr(34) . ");")
+}
+else
+{
+out := StrReplace(out, "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI", "guiInit(" . Chr(34) . "#202020" . Chr(34) . ", " . Chr(34) . Chr(34) . ");")
+}
+
+StringTrimRight, out, out, 1
+
+if (InStr(StrLower(out), "guicontrol"))
+{
+return guiParser0(out)
+}
+else
+{
+return guiParserStep2(out)
+}
+
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 func str fString(str line)
 {
 if (langToConvertTo != langFileExtension_2)
@@ -12049,6 +12730,15 @@ StringTrimRight, code, newStringOutCode, 1
 
 if (langToConvertTo != langFileExtension_2)
 {
+
+; GUI
+; GUI
+; GUI
+code := guiParser(code)
+; GUI
+; GUI
+; GUI
+
 semiColonForOneLinerOut := ""
 
 Loop, Parse, code, `n, `r
@@ -12137,12 +12827,21 @@ fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
 }
 else
 {
+
+if (InStr(A_LoopField, "guiInit({")) or (InStr(A_LoopField, "guiAdd({")) or (InStr(A_LoopField, "guiAddElement({")) or (InStr(A_LoopField, "guiControl({"))
+{
+fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
+}
+else
+{
 str1 := StrReplace(A_LoopField, keyWordCurlyBraceOpen, "{")
 str1 := StrReplace(str1, keyWordCurlyBraceClose, "}")
 str1 := StrReplace(str1, "{", Chr(10) . "{" . Chr(10))
 str1 := StrReplace(str1, "}", Chr(10) . "}" . Chr(10))
 
 fixSomeCurlyBraceForExratFlexability .= str1 . Chr(10)
+}
+
 }
 
 }
@@ -12386,7 +13085,7 @@ Loop, Parse, code, `n, `r
 if (InStr(A_LoopField, Trim(keyWordArrayDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfIntegersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfStringsDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfBooleansDefinition) . " " . keyWordAssign . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
 {
 
-if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc)) or (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAsync) . StrLower(keyWordFunc))) = StrLower(keyWordAsync) . StrLower(keyWordFunc))
+if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc)) or (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAsync) . StrLower(keyWordFunc))) = StrLower(keyWordAsync) . StrLower(keyWordFunc)) or (InStr(A_LoopField, "guiInit({")) or (InStr(A_LoopField, "guiAdd({")) or (InStr(A_LoopField, "guiAddElement({")) or (InStr(A_LoopField, "guiControl({"))
 {
 
 
@@ -12597,7 +13296,11 @@ htCode := ""
 Loop, Parse, code, `n, `r
 {
 lineDone := 0
-
+if (InStr(A_LoopField, "guiInit({")) or (InStr(A_LoopField, "guiAdd({")) or (InStr(A_LoopField, "guiAddElement({")) or (InStr(A_LoopField, "guiControl({"))
+{
+lineDone := 1
+htCode .= Trim(A_LoopField) . Chr(10)
+}
 if (SubStr(A_LoopField, 1, StrLen(keyWordComment)) = keyWordComment)
 {
 lineDone := 1
