@@ -1268,6 +1268,10 @@ Loop, 5 {
         // Concatenate everything into htvm_instr with a newline between the two parts
         const htvm_instr = linesString + '\n' + (build_in_funcs || '');
 
+	if (selectedLangExtension == "js" || htvm_instr.split('\n')[158]?.trim(); == "on") {
+		selectedLangExtension = "htvm";
+	}
+
         // Now you have the full instruction string in htvm_instr
         OUTCODE = "";
         OUTCODE = compiler(fileContents, htvm_instr, "full", selectedLangExtension);

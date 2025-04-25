@@ -9719,6 +9719,9 @@ str temp19 := ""
 str temp20 := ""
 str temp21 := ""
 
+str openCurlyTEXT := "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI"
+str closeCurlyTEXT := "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI"
+
 int buttons := 0 
 int texts := 0
 int edits := 0
@@ -9838,15 +9841,15 @@ temp1 .= A_LoopField . ", "
 ;;;;;;;;;;;;;;;;;;;;;; -111
 if (isElement = 1)
 {
-temp0 .= "guiAddElement({ elementType: '" . whatElement . "', " . temp1
+temp0 .= "guiAddElement(" . openCurlyTEXT . " elementType: '" . whatElement . "', " . temp1
 StringTrimRight, temp0, temp0, 2
-temp0 .= " });"
+temp0 .= " " . closeCurlyTEXT . ");"
 }
 else
 {
-temp0 .= "guiAdd({ " . temp1
+temp0 .= "guiAdd(" . openCurlyTEXT . " " . temp1
 StringTrimRight, temp0, temp0, 2
-temp0 .= " });"
+temp0 .= " " . closeCurlyTEXT . ");"
 }
 ;;;;;;;;;;;;;;;;;;;;;; -111
 
@@ -9932,15 +9935,15 @@ temp1 .= A_LoopField . ", "
 ;;;;;;;;;;;;;;;;;;;;;; -111
 if (isElement = 1)
 {
-temp0 .= "guiControl({ elementType: '" . whatElement . "', " . temp1
+temp0 .= "guiControl(" . openCurlyTEXT . " elementType: '" . whatElement . "', " . temp1
 StringTrimRight, temp0, temp0, 2
-temp0 .= " });"
+temp0 .= " " . closeCurlyTEXT . ");"
 }
 else
 {
-temp0 .= "guiControl({ " . temp1
+temp0 .= "guiControl(" . openCurlyTEXT . " " . temp1
 StringTrimRight, temp0, temp0, 2
-temp0 .= " });"
+temp0 .= " " . closeCurlyTEXT . ");"
 }
 ;;;;;;;;;;;;;;;;;;;;;; -111
 
@@ -12731,13 +12734,7 @@ StringTrimRight, code, newStringOutCode, 1
 if (langToConvertTo != langFileExtension_2)
 {
 
-; GUI
-; GUI
-; GUI
-code := guiParser(code)
-; GUI
-; GUI
-; GUI
+
 
 semiColonForOneLinerOut := ""
 
@@ -12759,6 +12756,17 @@ StringTrimRight, code, semiColonForOneLinerOut, 1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+if (langToConvertTo != langFileExtension_2)
+{
+; GUI
+; GUI
+; GUI
+code := guiParser(code)
+; GUI
+; GUI
+; GUI
+}
 
 if (langToConvertTo = langFileExtension_2)
 {
@@ -12828,19 +12836,12 @@ fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
 else
 {
 
-if (InStr(A_LoopField, "guiInit({")) or (InStr(A_LoopField, "guiAdd({")) or (InStr(A_LoopField, "guiAddElement({")) or (InStr(A_LoopField, "guiControl({"))
-{
-fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
-}
-else
-{
 str1 := StrReplace(A_LoopField, keyWordCurlyBraceOpen, "{")
 str1 := StrReplace(str1, keyWordCurlyBraceClose, "}")
 str1 := StrReplace(str1, "{", Chr(10) . "{" . Chr(10))
 str1 := StrReplace(str1, "}", Chr(10) . "}" . Chr(10))
 
 fixSomeCurlyBraceForExratFlexability .= str1 . Chr(10)
-}
 
 }
 
@@ -13085,7 +13086,7 @@ Loop, Parse, code, `n, `r
 if (InStr(A_LoopField, Trim(keyWordArrayDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfIntegersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfStringsDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfBooleansDefinition) . " " . keyWordAssign . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
 {
 
-if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc)) or (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAsync) . StrLower(keyWordFunc))) = StrLower(keyWordAsync) . StrLower(keyWordFunc)) or (InStr(A_LoopField, "guiInit({")) or (InStr(A_LoopField, "guiAdd({")) or (InStr(A_LoopField, "guiAddElement({")) or (InStr(A_LoopField, "guiControl({"))
+if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc)) or (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAsync) . StrLower(keyWordFunc))) = StrLower(keyWordAsync) . StrLower(keyWordFunc))
 {
 
 
@@ -13296,7 +13297,7 @@ htCode := ""
 Loop, Parse, code, `n, `r
 {
 lineDone := 0
-if (InStr(A_LoopField, "guiInit({")) or (InStr(A_LoopField, "guiAdd({")) or (InStr(A_LoopField, "guiAddElement({")) or (InStr(A_LoopField, "guiControl({"))
+if (InStr(A_LoopField, "guiInit(")) or (InStr(A_LoopField, "guiAdd(")) or (InStr(A_LoopField, "guiAddElement(")) or (InStr(A_LoopField, "guiControl("))
 {
 lineDone := 1
 htCode .= Trim(A_LoopField) . Chr(10)
@@ -23853,6 +23854,8 @@ if (size_weAreInMLSarr != 0) {
     }
 }
 
+StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI", "{")
+StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI", "}")
 
 ;print(htCode)
 return htCode

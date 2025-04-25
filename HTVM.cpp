@@ -7420,6 +7420,8 @@ std::string guiParserStep3(std::string guiCode) {
     std::string temp19 = "";
     std::string temp20 = "";
     std::string temp21 = "";
+    std::string openCurlyTEXT = "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI";
+    std::string closeCurlyTEXT = "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI";
     int buttons = 0;
     int texts = 0;
     int edits = 0;
@@ -7525,13 +7527,13 @@ std::string guiParserStep3(std::string guiCode) {
             }
             //;;;;;;;;;;;;;;;;;;;;; -111
             if (isElement == 1) {
-                temp0 += "guiAddElement({ elementType: '" + whatElement + "', " + temp1;
+                temp0 += "guiAddElement(" + openCurlyTEXT + " elementType: '" + whatElement + "', " + temp1;
                 temp0 = StringTrimRight(temp0, 2);
-                temp0 += " });";
+                temp0 += " " + closeCurlyTEXT + ");";
             } else {
-                temp0 += "guiAdd({ " + temp1;
+                temp0 += "guiAdd(" + openCurlyTEXT + " " + temp1;
                 temp0 = StringTrimRight(temp0, 2);
-                temp0 += " });";
+                temp0 += " " + closeCurlyTEXT + ");";
             }
             //;;;;;;;;;;;;;;;;;;;;; -111
             out += temp0 + Chr(10);
@@ -7604,13 +7606,13 @@ std::string guiParserStep3(std::string guiCode) {
             }
             //;;;;;;;;;;;;;;;;;;;;; -111
             if (isElement == 1) {
-                temp0 += "guiControl({ elementType: '" + whatElement + "', " + temp1;
+                temp0 += "guiControl(" + openCurlyTEXT + " elementType: '" + whatElement + "', " + temp1;
                 temp0 = StringTrimRight(temp0, 2);
-                temp0 += " });";
+                temp0 += " " + closeCurlyTEXT + ");";
             } else {
-                temp0 += "guiControl({ " + temp1;
+                temp0 += "guiControl(" + openCurlyTEXT + " " + temp1;
                 temp0 = StringTrimRight(temp0, 2);
-                temp0 += " });";
+                temp0 += " " + closeCurlyTEXT + ");";
             }
             //;;;;;;;;;;;;;;;;;;;;; -111
             out += temp0 + Chr(10);
@@ -9850,13 +9852,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         if (langToConvertTo != langFileExtension_2) {
-            // GUI
-            // GUI
-            // GUI
-            code = guiParser(code);
-            // GUI
-            // GUI
-            // GUI
             semiColonForOneLinerOut = "";
             std::vector<std::string> items137 = LoopParseFunc(code, "\n", "\r");
             for (size_t A_Index137 = 0; A_Index137 < items137.size() + 0; A_Index137++) {
@@ -9872,6 +9867,15 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        if (langToConvertTo != langFileExtension_2) {
+            // GUI
+            // GUI
+            // GUI
+            code = guiParser(code);
+            // GUI
+            // GUI
+            // GUI
+        }
         if (langToConvertTo == langFileExtension_2) {
             if (useSemicolon_2 == "on") {
                 theSemicolon = ";";
@@ -9909,15 +9913,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         if (InStr(A_LoopField138, Trim(keyWordArrayDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField138, Trim(keyWordArrayOfIntegersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField138, Trim(keyWordArrayOfStringsDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField138, Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField138, Trim(keyWordArrayOfBooleansDefinition) + " " + keyWordAssign + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
                             fixSomeCurlyBraceForExratFlexability += A_LoopField138 + Chr(10);
                         } else {
-                            if (InStr(A_LoopField138, "guiInit({") || InStr(A_LoopField138, "guiAdd({") || InStr(A_LoopField138, "guiAddElement({") || InStr(A_LoopField138, "guiControl({")) {
-                                fixSomeCurlyBraceForExratFlexability += A_LoopField138 + Chr(10);
-                            } else {
-                                str1 = StrReplace(A_LoopField138, keyWordCurlyBraceOpen, "{");
-                                str1 = StrReplace(str1, keyWordCurlyBraceClose, "}");
-                                str1 = StrReplace(str1, "{", Chr(10) + "{" + Chr(10));
-                                str1 = StrReplace(str1, "}", Chr(10) + "}" + Chr(10));
-                                fixSomeCurlyBraceForExratFlexability += str1 + Chr(10);
-                            }
+                            str1 = StrReplace(A_LoopField138, keyWordCurlyBraceOpen, "{");
+                            str1 = StrReplace(str1, keyWordCurlyBraceClose, "}");
+                            str1 = StrReplace(str1, "{", Chr(10) + "{" + Chr(10));
+                            str1 = StrReplace(str1, "}", Chr(10) + "}" + Chr(10));
+                            fixSomeCurlyBraceForExratFlexability += str1 + Chr(10);
                         }
                     }
                 } else {
@@ -10097,7 +10097,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             for (size_t A_Index151 = 0; A_Index151 < items151.size() + 0; A_Index151++) {
                 std::string A_LoopField151 = items151[A_Index151 - 0];
                 if (InStr(A_LoopField151, Trim(keyWordArrayDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField151, Trim(keyWordArrayOfIntegersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField151, Trim(keyWordArrayOfStringsDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField151, Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField151, Trim(keyWordArrayOfBooleansDefinition) + " " + keyWordAssign + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
-                    if (SubStr(StrLower(A_LoopField151), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc) || SubStr(StrLower(A_LoopField151), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc) || InStr(A_LoopField151, "guiInit({") || InStr(A_LoopField151, "guiAdd({") || InStr(A_LoopField151, "guiAddElement({") || InStr(A_LoopField151, "guiControl({")) {
+                    if (SubStr(StrLower(A_LoopField151), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc) || SubStr(StrLower(A_LoopField151), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc)) {
                         if (InStr(Trim(A_LoopField151), "{") && Trim(A_LoopField151) != "{" && SubStr(Trim(A_LoopField151), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) {
                             outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField151), "{", "")) + "\n{\n";
                         }
@@ -10234,7 +10234,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         for (size_t A_Index155 = 0; A_Index155 < items155.size() + 0; A_Index155++) {
             std::string A_LoopField155 = items155[A_Index155 - 0];
             lineDone = 0;
-            if (InStr(A_LoopField155, "guiInit({") || InStr(A_LoopField155, "guiAdd({") || InStr(A_LoopField155, "guiAddElement({") || InStr(A_LoopField155, "guiControl({")) {
+            if (InStr(A_LoopField155, "guiInit(") || InStr(A_LoopField155, "guiAdd(") || InStr(A_LoopField155, "guiAddElement(") || InStr(A_LoopField155, "guiControl(")) {
                 lineDone = 1;
                 htCode += Trim(A_LoopField155) + Chr(10);
             }
@@ -17354,6 +17354,8 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             HTVM_Pop(weAreInMLSarr);
         }
     }
+    StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI", "{");
+    StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI", "}");
     //print(htCode)
     return htCode;
 }
