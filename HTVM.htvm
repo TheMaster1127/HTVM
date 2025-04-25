@@ -10169,7 +10169,10 @@ out .= Chr(10)
 }
 else
 {
+if (SubStr(A_LoopField, 1, StrLen(keyWordComment)) != keyWordComment)
+{
 out .= A_LoopField . " "
+}
 }
 
 
@@ -10323,7 +10326,10 @@ out .= Chr(10)
 }
 else
 {
+if (SubStr(A_LoopField, 1, StrLen(keyWordComment)) != keyWordComment)
+{
 out .= A_LoopField . " "
+}
 }
 
 

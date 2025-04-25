@@ -7247,16 +7247,16 @@ function guiParserStep3(guiCode) {
     var temp21 = "";
     var openCurlyTEXT = "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI";
     var closeCurlyTEXT = "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI";
-    var buttons = 0;
-    var texts = 0;
-    var edits = 0;
-    var pictures = 0;
-    var toggles = 0;
-    var rectangles = 0;
-    var circles = 0;
-    var videos = 0;
-    var dropdowns = 0;
-    var iframes = 0;
+    var buttons = -1;
+    var texts = -1;
+    var edits = -1;
+    var pictures = -1;
+    var toggles = -1;
+    var rectangles = -1;
+    var circles = -1;
+    var videos = -1;
+    var dropdowns = -1;
+    var iframes = -1;
     var isElement = 0;
     var whatElement = "";
     items100 = LoopParseFunc(guiCode, "\n", "\r")
@@ -7582,7 +7582,9 @@ function guiParser0(guiCode) {
                 begin = 0;
                 out += Chr(10);
             } else {
-                out += A_LoopField105 + " ";
+                if (SubStr(A_LoopField105, 1, StrLen(keyWordComment)) != keyWordComment) {
+                    out += A_LoopField105 + " ";
+                }
             }
         } else {
             out += A_LoopField105 + Chr(10);
@@ -7684,7 +7686,9 @@ function guiParser(guiCode) {
                 begin = 0;
                 out += Chr(10);
             } else {
-                out += A_LoopField107 + " ";
+                if (SubStr(A_LoopField107, 1, StrLen(keyWordComment)) != keyWordComment) {
+                    out += A_LoopField107 + " ";
+                }
             }
         } else {
             out += A_LoopField107 + Chr(10);

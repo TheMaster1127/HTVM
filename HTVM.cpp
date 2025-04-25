@@ -7442,16 +7442,16 @@ std::string guiParserStep3(std::string guiCode) {
     std::string temp21 = "";
     std::string openCurlyTEXT = "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI";
     std::string closeCurlyTEXT = "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI";
-    int buttons = 0;
-    int texts = 0;
-    int edits = 0;
-    int pictures = 0;
-    int toggles = 0;
-    int rectangles = 0;
-    int circles = 0;
-    int videos = 0;
-    int dropdowns = 0;
-    int iframes = 0;
+    int buttons = -1;
+    int texts = -1;
+    int edits = -1;
+    int pictures = -1;
+    int toggles = -1;
+    int rectangles = -1;
+    int circles = -1;
+    int videos = -1;
+    int dropdowns = -1;
+    int iframes = -1;
     int isElement = 0;
     std::string whatElement = "";
     std::vector<std::string> items100 = LoopParseFunc(guiCode, "\n", "\r");
@@ -7777,7 +7777,9 @@ std::string guiParser0(std::string guiCode) {
                 begin = 0;
                 out += Chr(10);
             } else {
-                out += A_LoopField105 + " ";
+                if (SubStr(A_LoopField105, 1, StrLen(keyWordComment)) != keyWordComment) {
+                    out += A_LoopField105 + " ";
+                }
             }
         } else {
             out += A_LoopField105 + Chr(10);
@@ -7879,7 +7881,9 @@ std::string guiParser(std::string guiCode) {
                 begin = 0;
                 out += Chr(10);
             } else {
-                out += A_LoopField107 + " ";
+                if (SubStr(A_LoopField107, 1, StrLen(keyWordComment)) != keyWordComment) {
+                    out += A_LoopField107 + " ";
+                }
             }
         } else {
             out += A_LoopField107 + Chr(10);
