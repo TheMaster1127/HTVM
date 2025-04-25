@@ -10214,7 +10214,7 @@ whenGuiBegin++
 if (whenGuiBegin = 1)
 {
 whenGuiBeginTHEONE := 1
-out .= Chr(10) . "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" . Chr(10)
+out := "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" . Chr(10) . out
 }
 
 
@@ -10225,7 +10225,7 @@ begin := 0
 whenGuiBegin++
 if (whenGuiBegin = 1)
 {
-out .= Chr(10) . "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" . Chr(10)
+out := "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" . Chr(10) . out
 }
 
 if (Trim(StrLower(lookAhead[A_Index + 1])) = "{") or (Trim(StrLower(lookAhead[A_Index + 1])) = "[") or (Trim(StrLower(lookAhead[A_Index + 1])) = "(")

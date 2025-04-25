@@ -7605,14 +7605,14 @@ function guiParser(guiCode) {
             whenGuiBegin++;
             if (whenGuiBegin == 1) {
                 whenGuiBeginTHEONE = 1;
-                out += Chr(10) + "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" + Chr(10);
+                out = "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" + Chr(10) + out;
             }
         }
         else if (SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui " || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui," || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui{" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui {" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  {" || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui[" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui [" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  [" || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui(" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui (" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  (" || RegExMatch(StrLower(Trim(A_LoopField107)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) {
             begin = 0;
             whenGuiBegin++;
             if (whenGuiBegin == 1) {
-                out += Chr(10) + "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" + Chr(10);
+                out = "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" + Chr(10) + out;
             }
             if (Trim(StrLower(lookAhead[A_Index107 + 1])) == "{" || Trim(StrLower(lookAhead[A_Index107 + 1])) == "[" || Trim(StrLower(lookAhead[A_Index107 + 1])) == "(") {
                 begin = 1;
