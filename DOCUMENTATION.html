@@ -2346,6 +2346,8 @@ It will be preserved in all conversions.
 
 **💡 Tip:** If you want the code inside multi-line comments to be **preserved** and not accidentally converted during the conversion process, **use regular standalone comments** instead of multi-line comments for code explanation. **Regular standalone comments** are safer for maintaining the integrity of your code.
 
+**⚠️ You can't use multiline comments inside a `Gui` code block.**
+
 ---
 
 ### **Inline Comments:**
@@ -2456,12 +2458,16 @@ Example:
 If we define `greetUser, lineTranspile, print("Hello!")~~~print("Welcome to HTVM.")`  
 Then this:
 
-    greetUser
+```htvm
+greetUser
+```
 
 Will become:
 
-    print("Hello!")
-    print("Welcome to HTVM.")
+```htvm
+print("Hello!")
+print("Welcome to HTVM.")
+```
 
 > ⚠️ **Important**: You **cannot** use the following characters inside commands: `,` `|` `%` — these are reserved and will break the parsing.
 
