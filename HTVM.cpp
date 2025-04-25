@@ -7386,15 +7386,35 @@ std::string propHELP(std::string line, std::string lineOspHelpLine) {
     htCodeOUTOUT = StringTrimRight(htCodeOUTOUT, 1);
     return htCodeOUTOUT;
 }
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+// the GUI funcs
+// the GUI funcs
+// the GUI funcs
+// the GUI funcs
+// the GUI funcs
+// the GUI funcs
+// the GUI funcs
 std::string guiParserStep3(std::string guiCode) {
     // convert the parsed code to func calls
     std::string out = "";
@@ -7623,30 +7643,26 @@ std::string guiParserStep3(std::string guiCode) {
     out = StringTrimRight(out, 1);
     return out;
 }
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-// the GUI funcs
-// the GUI funcs
-// the GUI funcs
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 std::string guiParserStep2(std::string guiCode) {
     // remove spacses, commas and format the colon (:) and remove "add"
     std::string out = "";
@@ -7702,7 +7718,7 @@ std::string guiParser0(std::string guiCode) {
     std::vector<std::string> items105 = LoopParseFunc(guiCode, "\n", "\r");
     for (size_t A_Index105 = 0; A_Index105 < items105.size() + 0; A_Index105++) {
         std::string A_LoopField105 = items105[A_Index105 - 0];
-        if (SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol " || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol," || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol{" || SubStr(Trim(StrLower(A_LoopField105)), 1, 12) == "guicontrol {" || SubStr(Trim(StrLower(A_LoopField105)), 1, 13) == "guicontrol  {" || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol[" || SubStr(Trim(StrLower(A_LoopField105)), 1, 12) == "guicontrol [" || SubStr(Trim(StrLower(A_LoopField105)), 1, 13) == "guicontrol  [" || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol(" || SubStr(Trim(StrLower(A_LoopField105)), 1, 12) == "guicontrol (" || SubStr(Trim(StrLower(A_LoopField105)), 1, 13) == "guicontrol  (" || RegExMatch(StrLower(Trim(A_LoopField105)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) {
+        if (Trim(StrLower(A_LoopField105)) == "guicontrol" || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol " || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol," || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol{" || SubStr(Trim(StrLower(A_LoopField105)), 1, 12) == "guicontrol {" || SubStr(Trim(StrLower(A_LoopField105)), 1, 13) == "guicontrol  {" || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol[" || SubStr(Trim(StrLower(A_LoopField105)), 1, 12) == "guicontrol [" || SubStr(Trim(StrLower(A_LoopField105)), 1, 13) == "guicontrol  [" || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol(" || SubStr(Trim(StrLower(A_LoopField105)), 1, 12) == "guicontrol (" || SubStr(Trim(StrLower(A_LoopField105)), 1, 13) == "guicontrol  (" || RegExMatch(StrLower(Trim(A_LoopField105)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) {
             begin = 0;
             if (Trim(StrLower(lookAhead[A_Index105 + 1])) == "{" || Trim(StrLower(lookAhead[A_Index105 + 1])) == "[" || Trim(StrLower(lookAhead[A_Index105 + 1])) == "(") {
                 begin = 1;
@@ -7763,9 +7779,6 @@ std::string guiParser0(std::string guiCode) {
             } else {
                 out += A_LoopField105 + " ";
             }
-        }
-        else if (begin == 1) {
-            out += A_LoopField105 + " ";
         } else {
             out += A_LoopField105 + Chr(10);
         }
@@ -7794,16 +7807,16 @@ std::string guiParser(std::string guiCode) {
     std::vector<std::string> items107 = LoopParseFunc(guiCode, "\n", "\r");
     for (size_t A_Index107 = 0; A_Index107 < items107.size() + 0; A_Index107++) {
         std::string A_LoopField107 = items107[A_Index107 - 0];
-        if (Trim(StrLower(A_LoopField107)) == "gui" && Trim(StrLower(lookAhead[A_Index107 + 1])) != "{" && Trim(StrLower(lookAhead[A_Index107 + 1])) != "[" && Trim(StrLower(lookAhead[A_Index107 + 1])) != "(") {
+        if (Trim(StrLower(lookAhead[A_Index107 + 1])) != "{" && Trim(StrLower(lookAhead[A_Index107 + 1])) != "[" && Trim(StrLower(lookAhead[A_Index107 + 1])) != "(" && Trim(StrLower(A_LoopField107)) == "gui") {
             begin = 0;
-            //print("DUBUG HKDOUVISYobusdsfvbaedsf")
+            print("DUBUG HKDOUVISYobusdsfvbaedsf");
             whenGuiBegin++;
             if (whenGuiBegin == 1) {
                 whenGuiBeginTHEONE = 1;
                 out = "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" + Chr(10) + out;
             }
         }
-        else if (SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui " || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui," || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui{" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui {" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  {" || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui[" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui [" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  [" || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui(" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui (" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  (" || RegExMatch(StrLower(Trim(A_LoopField107)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) {
+        else if (Trim(StrLower(A_LoopField107)) == "gui" || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui " || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui," || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui{" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui {" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  {" || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui[" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui [" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  [" || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui(" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui (" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  (" || RegExMatch(StrLower(Trim(A_LoopField107)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) {
             begin = 0;
             whenGuiBegin++;
             if (whenGuiBegin == 1) {
@@ -7868,9 +7881,6 @@ std::string guiParser(std::string guiCode) {
             } else {
                 out += A_LoopField107 + " ";
             }
-        }
-        else if (begin == 1) {
-            out += A_LoopField107 + " ";
         } else {
             out += A_LoopField107 + Chr(10);
         }
@@ -7888,6 +7898,9 @@ std::string guiParser(std::string guiCode) {
         return guiParserStep2(out);
     }
 }
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

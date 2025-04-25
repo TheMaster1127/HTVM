@@ -9681,17 +9681,35 @@ StringTrimRight, htCodeOUTOUT, htCodeOUTOUT, 1
 return htCodeOUTOUT
 }
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; the GUI funcs
+; the GUI funcs
+; the GUI funcs
+; the GUI funcs
+; the GUI funcs
+; the GUI funcs
+; the GUI funcs
 func str guiParserStep3(str guiCode)
 {
 ; convert the parsed code to func calls
@@ -9722,16 +9740,16 @@ str temp21 := ""
 str openCurlyTEXT := "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI"
 str closeCurlyTEXT := "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI"
 
-int buttons := 0 
-int texts := 0
-int edits := 0
-int pictures := 0
-int toggles := 0
-int rectangles := 0
-int circles := 0
-int videos := 0
-int dropdowns := 0
-int iframes := 0
+int buttons := -1 
+int texts := -1
+int edits := -1
+int pictures := -1
+int toggles := -1
+int rectangles := -1
+int circles := -1
+int videos := -1
+int dropdowns := -1
+int iframes := -1
 
 int isElement := 0
 str whatElement := ""
@@ -9960,30 +9978,26 @@ StringTrimRight, out, out, 1
 return out
 }
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; the GUI funcs
-; the GUI funcs
-; the GUI funcs
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 func str guiParserStep2(str guiCode)
 {
 ; remove spacses, commas and format the colon (:) and remove "add"
@@ -10066,7 +10080,7 @@ lookAhead.add(" ")
 Loop, Parse, guiCode, `n, `r
 {
 
-if (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol,") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol{") or (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol[") or (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol(") or (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol (") or (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  (") or (RegExMatch(StrLower(Trim(A_LoopField)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+if (Trim(StrLower(A_LoopField)) = "guicontrol") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol,") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol{") or (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol[") or (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol(") or (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol (") or (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  (") or (RegExMatch(StrLower(Trim(A_LoopField)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
 {
 begin := 0
 
@@ -10160,10 +10174,6 @@ out .= A_LoopField . " "
 
 
 }
-else if (begin = 1)
-{
-out .= A_LoopField . " "
-}
 else
 {
 out .= A_LoopField . Chr(10)
@@ -10206,10 +10216,10 @@ lookAhead.add(" ")
 Loop, Parse, guiCode, `n, `r
 {
 
-if (Trim(StrLower(A_LoopField)) = "gui") and (Trim(StrLower(lookAhead[A_Index + 1])) != "{") and (Trim(StrLower(lookAhead[A_Index + 1])) != "[") and (Trim(StrLower(lookAhead[A_Index + 1])) != "(")
+if (Trim(StrLower(lookAhead[A_Index + 1])) != "{") and (Trim(StrLower(lookAhead[A_Index + 1])) != "[") and (Trim(StrLower(lookAhead[A_Index + 1])) != "(") and (Trim(StrLower(A_LoopField)) = "gui")
 {
 begin := 0
-;print("DUBUG HKDOUVISYobusdsfvbaedsf")
+print("DUBUG HKDOUVISYobusdsfvbaedsf")
 whenGuiBegin++
 if (whenGuiBegin = 1)
 {
@@ -10219,7 +10229,7 @@ out := "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-
 
 
 }
-else if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui,") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui{") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui[") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui(") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui (") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  (") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+else if (Trim(StrLower(A_LoopField)) = "gui") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui,") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui{") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui[") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui(") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui (") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  (") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
 {
 begin := 0
 whenGuiBegin++
@@ -10318,10 +10328,6 @@ out .= A_LoopField . " "
 
 
 }
-else if (begin = 1)
-{
-out .= A_LoopField . " "
-}
 else
 {
 out .= A_LoopField . Chr(10)
@@ -10353,6 +10359,9 @@ return guiParserStep2(out)
 }
 
 }
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

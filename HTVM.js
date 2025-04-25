@@ -7191,15 +7191,35 @@ function propHELP(line, lineOspHelpLine) {
     htCodeOUTOUT = StringTrimRight(htCodeOUTOUT, 1);
     return htCodeOUTOUT;
 }
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+// the GUI funcs
+// the GUI funcs
+// the GUI funcs
+// the GUI funcs
+// the GUI funcs
+// the GUI funcs
+// the GUI funcs
 function guiParserStep3(guiCode) {
     // convert the parsed code to func calls
     var out = "";
@@ -7428,30 +7448,26 @@ function guiParserStep3(guiCode) {
     out = StringTrimRight(out, 1);
     return out;
 }
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-// the GUI funcs
-// the GUI funcs
-// the GUI funcs
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 function guiParserStep2(guiCode) {
     // remove spacses, commas and format the colon (:) and remove "add"
     var out = "";
@@ -7507,7 +7523,7 @@ function guiParser0(guiCode) {
     items105 = LoopParseFunc(guiCode, "\n", "\r")
     for (let A_Index105 = 0; A_Index105 < items105.length + 0; A_Index105++) {
         const A_LoopField105 = items105[A_Index105 - 0];
-        if (SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol " || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol," || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol{" || SubStr(Trim(StrLower(A_LoopField105)), 1, 12) == "guicontrol {" || SubStr(Trim(StrLower(A_LoopField105)), 1, 13) == "guicontrol  {" || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol[" || SubStr(Trim(StrLower(A_LoopField105)), 1, 12) == "guicontrol [" || SubStr(Trim(StrLower(A_LoopField105)), 1, 13) == "guicontrol  [" || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol(" || SubStr(Trim(StrLower(A_LoopField105)), 1, 12) == "guicontrol (" || SubStr(Trim(StrLower(A_LoopField105)), 1, 13) == "guicontrol  (" || RegExMatch(StrLower(Trim(A_LoopField105)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) {
+        if (Trim(StrLower(A_LoopField105)) == "guicontrol" || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol " || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol," || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol{" || SubStr(Trim(StrLower(A_LoopField105)), 1, 12) == "guicontrol {" || SubStr(Trim(StrLower(A_LoopField105)), 1, 13) == "guicontrol  {" || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol[" || SubStr(Trim(StrLower(A_LoopField105)), 1, 12) == "guicontrol [" || SubStr(Trim(StrLower(A_LoopField105)), 1, 13) == "guicontrol  [" || SubStr(Trim(StrLower(A_LoopField105)), 1, 11) == "guicontrol(" || SubStr(Trim(StrLower(A_LoopField105)), 1, 12) == "guicontrol (" || SubStr(Trim(StrLower(A_LoopField105)), 1, 13) == "guicontrol  (" || RegExMatch(StrLower(Trim(A_LoopField105)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) {
             begin = 0;
             if (Trim(StrLower(lookAhead[A_Index105 + 1])) == "{" || Trim(StrLower(lookAhead[A_Index105 + 1])) == "[" || Trim(StrLower(lookAhead[A_Index105 + 1])) == "(") {
                 begin = 1;
@@ -7568,9 +7584,6 @@ function guiParser0(guiCode) {
             } else {
                 out += A_LoopField105 + " ";
             }
-        }
-        else if (begin == 1) {
-            out += A_LoopField105 + " ";
         } else {
             out += A_LoopField105 + Chr(10);
         }
@@ -7599,16 +7612,16 @@ function guiParser(guiCode) {
     items107 = LoopParseFunc(guiCode, "\n", "\r")
     for (let A_Index107 = 0; A_Index107 < items107.length + 0; A_Index107++) {
         const A_LoopField107 = items107[A_Index107 - 0];
-        if (Trim(StrLower(A_LoopField107)) == "gui" && Trim(StrLower(lookAhead[A_Index107 + 1])) != "{" && Trim(StrLower(lookAhead[A_Index107 + 1])) != "[" && Trim(StrLower(lookAhead[A_Index107 + 1])) != "(") {
+        if (Trim(StrLower(lookAhead[A_Index107 + 1])) != "{" && Trim(StrLower(lookAhead[A_Index107 + 1])) != "[" && Trim(StrLower(lookAhead[A_Index107 + 1])) != "(" && Trim(StrLower(A_LoopField107)) == "gui") {
             begin = 0;
-            //print("DUBUG HKDOUVISYobusdsfvbaedsf")
+            print("DUBUG HKDOUVISYobusdsfvbaedsf");
             whenGuiBegin++;
             if (whenGuiBegin == 1) {
                 whenGuiBeginTHEONE = 1;
                 out = "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" + Chr(10) + out;
             }
         }
-        else if (SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui " || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui," || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui{" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui {" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  {" || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui[" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui [" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  [" || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui(" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui (" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  (" || RegExMatch(StrLower(Trim(A_LoopField107)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) {
+        else if (Trim(StrLower(A_LoopField107)) == "gui" || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui " || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui," || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui{" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui {" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  {" || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui[" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui [" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  [" || SubStr(Trim(StrLower(A_LoopField107)), 1, 4) == "gui(" || SubStr(Trim(StrLower(A_LoopField107)), 1, 5) == "gui (" || SubStr(Trim(StrLower(A_LoopField107)), 1, 6) == "gui  (" || RegExMatch(StrLower(Trim(A_LoopField107)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) {
             begin = 0;
             whenGuiBegin++;
             if (whenGuiBegin == 1) {
@@ -7673,9 +7686,6 @@ function guiParser(guiCode) {
             } else {
                 out += A_LoopField107 + " ";
             }
-        }
-        else if (begin == 1) {
-            out += A_LoopField107 + " ";
         } else {
             out += A_LoopField107 + Chr(10);
         }
@@ -7693,6 +7703,9 @@ function guiParser(guiCode) {
         return guiParserStep2(out);
     }
 }
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
