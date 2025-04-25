@@ -1274,6 +1274,7 @@ Loop, 5 {
         OUTCODE = "";
         OUTCODE = compiler(fileContents, htvm_instr, "full", selectedLangExtension);
 
+let selectedLangExtensionOLD = selectedLangExtension;
 	if (selectedLangExtension == "js" || htvm_instr.split('\n')[158]?.trim() == "on") {
 		selectedLangExtension = "html";
 	}
@@ -1288,7 +1289,7 @@ Loop, 5 {
 
         logToConsole(`Saved the HTVM output to: ${fileName} at: ${new Date().toLocaleTimeString("en-GB", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}.${new Date().getMilliseconds().toString().padStart(3, "0")}`);
 
-
+selectedLangExtension = selectedLangExtensionOLD;
 
 
 
