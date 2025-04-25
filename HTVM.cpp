@@ -7777,7 +7777,7 @@ std::string guiParser0(std::string guiCode) {
                 begin = 0;
                 out += Chr(10);
             } else {
-                if (SubStr(A_LoopField105, 1, StrLen(keyWordComment)) != keyWordComment) {
+                if (SubStr(Trim(A_LoopField105), 1, StrLen(keyWordComment)) != keyWordComment) {
                     out += A_LoopField105 + " ";
                 }
             }
@@ -7881,7 +7881,7 @@ std::string guiParser(std::string guiCode) {
                 begin = 0;
                 out += Chr(10);
             } else {
-                if (SubStr(A_LoopField107, 1, StrLen(keyWordComment)) != keyWordComment) {
+                if (SubStr(Trim(A_LoopField107), 1, StrLen(keyWordComment)) != keyWordComment) {
                     out += A_LoopField107 + " ";
                 }
             }
