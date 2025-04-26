@@ -7220,6 +7220,17 @@ function propHELP(line, lineOspHelpLine) {
 // the GUI funcs
 // the GUI funcs
 // the GUI funcs
+function guiParserStep4(option) {
+    // convert and handle the options to js
+    var out = "";
+    // code TODO
+    return option;
+    //return out
+}
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+//;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 function guiParserStep3(guiCode) {
     // convert the parsed code to func calls
     var out = "";
@@ -7342,7 +7353,7 @@ function guiParserStep3(guiCode) {
                         isElement = 1;
                         whatElement = "iframe";
                     } else {
-                        temp1 += A_LoopField101 + ", ";
+                        temp1 += guiParserStep4(Trim(A_LoopField101)) + ", ";
                     }
                     //;;;;;; 0end
                     //;;;;; 1start
@@ -7421,7 +7432,7 @@ function guiParserStep3(guiCode) {
                         isElement = 1;
                         whatElement = "iframe";
                     } else {
-                        temp1 += A_LoopField102 + ", ";
+                        temp1 += guiParserStep4(Trim(A_LoopField102)) + ", ";
                     }
                     //;;;;;; 0end
                     //;;;;; 1start
@@ -9693,7 +9704,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             // GUI
             // GUI
             // GUI
-            code = guiParser(code);
+            if (langToConvertTo == "js") {
+                code = guiParser(code);
+            }
             // GUI
             // GUI
             // GUI

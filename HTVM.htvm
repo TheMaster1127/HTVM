@@ -12791,7 +12791,10 @@ if (langToConvertTo != langFileExtension_2)
 ; GUI
 ; GUI
 ; GUI
+if (langToConvertTo = "js")
+{
 code := guiParser(code)
+}
 ; GUI
 ; GUI
 ; GUI

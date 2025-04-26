@@ -9888,7 +9888,9 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             // GUI
             // GUI
             // GUI
-            code = guiParser(code);
+            if (langToConvertTo == "js") {
+                code = guiParser(code);
+            }
             // GUI
             // GUI
             // GUI
