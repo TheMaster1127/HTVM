@@ -9710,6 +9710,20 @@ return htCodeOUTOUT
 ; the GUI funcs
 ; the GUI funcs
 ; the GUI funcs
+func str guiParserStep4(str option)
+{
+; convert and handle the options to js
+str out := ""
+
+; code TODO
+
+return option
+;return out
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 func str guiParserStep3(str guiCode)
 {
 ; convert the parsed code to func calls
@@ -9841,7 +9855,7 @@ whatElement := "iframe"
 }
 else
 {
-temp1 .= A_LoopField . ", "
+temp1 .= guiParserStep4(Trim(A_LoopField)) . ", "
 }
 ;;;;;;; 0end
 ;;;;;; 1start
@@ -9935,7 +9949,7 @@ whatElement := "iframe"
 }
 else
 {
-temp1 .= A_LoopField . ", "
+temp1 .= guiParserStep4(Trim(A_LoopField)) . ", "
 }
 ;;;;;;; 0end
 ;;;;;; 1start
