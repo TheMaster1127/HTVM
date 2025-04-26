@@ -9699,6 +9699,9 @@ return htCodeOUTOUT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -9715,10 +9718,457 @@ func str guiParserStep4(str option)
 ; convert and handle the options to js
 str out := ""
 
-; code TODO
+; ============================================================
+; ALIAS DEFINITIONS FOR GUI OPTIONS
+; ============================================================
+; elementType, id, parentId, x, y, width, height, zIndex, value, placeholder, callback, backgroundColor, color, rounding, border, rawCss, size, isEnabled, isVisible, isDeleting
+; These arrays hold the valid aliases for each GUI property.
+; They are used to map user input (e.g., "w", "width", "widh")
+; to the canonical property name used in the generated JS (e.g., "width").
+;
+; - `aliases_single_PROPERTY`: Contains single-letter aliases (used like `w100`).
+; - `aliases_colon_PROPERTY`: Contains aliases used with a colon (e.g., `width:100`).
+; Note: All checks should be case-insensitive.
 
-return option
-;return out
+   
+
+; --- id Aliases ---
+arr str aliases_single_id := ["i", "v"]
+arr str aliases_colon_id := ["id", "elementId", "eid", "elId"]
+str canonical_id := "id"
+
+; --- parentId Aliases ---
+arr str aliases_single_parentId := ["p"]
+arr str aliases_colon_parentId := ["parentId", "pid", "parId", "divId", "guiId"]
+str canonical_parentId := "parentId"
+
+; --- x Aliases ---
+arr str aliases_single_x := ["x"]
+arr str aliases_colon_x := ["x", "xPos", "xCoord", "xCrd"] ; Added 'x' itself
+str canonical_x := "x"
+
+; --- y Aliases ---
+arr str aliases_single_y := ["y"]
+arr str aliases_colon_y := ["y", "yPos", "yCoord", "yCrd"] ; Added 'y' itself
+str canonical_y := "y"
+
+; --- width Aliases ---
+arr str aliases_single_width := ["w"]
+arr str aliases_colon_width := ["width", "wight", "widh", "widht", "widhth", "wdtih", "widhh", "widhts"]
+str canonical_width := "width" ; JS uses 'width'
+
+; --- height Aliases ---
+arr str aliases_single_height := ["h"]
+arr str aliases_colon_height := ["height", "hight", "heigth", "heigtht", "hieght", "hegt", "heihgt"]
+str canonical_height := "height" ; JS uses 'height'
+
+; --- zIndex Aliases ---
+arr str aliases_single_zIndex := ["z"]
+arr str aliases_colon_zIndex := ["zIndex", "z-Index", "zi"] ; Added 'zIndex'
+str canonical_zIndex := "zIndex"
+
+; --- value Aliases ---
+arr str aliases_single_value := ["d"]
+arr str aliases_colon_value := ["value", "displayValue", "dv"]
+str canonical_value := "value" ; Map to text/src/state later based on context
+
+; --- placeholder Aliases ---
+arr str aliases_single_placeholder := ["q"]
+arr str aliases_colon_placeholder := ["placeHolder", "plc", "plch", "ph", "grayText", "editForeGround", "editPlaceHolder", "editGrayInfo", "editPlaceHolderGrayInfoText"]
+str canonical_placeholder := "placeholder"
+
+; --- callback Aliases ---
+arr str aliases_single_callback := ["g", "f"]
+arr str aliases_colon_callback := ["callback", "call", "func", "fn", "function", "point", "back", "bakc"]
+str canonical_callback := "callback"
+
+; --- backgroundColor Aliases ---
+arr str aliases_single_backgroundColor := ["o"]
+arr str aliases_colon_backgroundColor := ["bg", "bc", "bgc", "backgroundColor", "bgColor"]
+str canonical_backgroundColor := "backgroundColor"
+
+; --- color Aliases ---
+arr str aliases_single_color := ["c"]
+arr str aliases_colon_color := ["color", "colour", "clr"]
+str canonical_color := "color"
+
+; --- rounding Aliases ---
+arr str aliases_single_rounding := ["r"]
+arr str aliases_colon_rounding := ["rounding", "round", "rounded", "rnd"]
+str canonical_rounding := "rounding" ; Matches alias name
+
+; --- border Aliases ---
+arr str aliases_single_border := ["b"]
+arr str aliases_colon_border := ["border", "boder", "outline", "brd"] ; Added 'border'
+str canonical_border := "border"
+
+; --- rawCss Aliases ---
+arr str aliases_single_rawCss := ["l"]
+arr str aliases_colon_rawCss := ["rawCss", "luxury", "rawSsc", "rawScc", "css", "scc", "style", "stlye", "styel", "sytle", "sytel", "stylye", "stiyl", "stiyel", "luxary", "luxuary", "luxery", "luxurey"]
+str canonical_rawCss := "rawCss"
+
+; --- size Aliases ---
+arr str aliases_single_size := ["s"]
+arr str aliases_colon_size := ["size", "sz", "szie", "bigness"]
+str canonical_size := "size" ; Map to fontSize later if needed
+
+; --- isEnabled Aliases ---
+arr str aliases_single_isEnabled := ["a"]
+arr str aliases_colon_isEnabled := ["isEnabled", "isE", "isEnb"]
+str canonical_isEnabled := "isEnabled"
+
+; --- isVisible Aliases ---
+arr str aliases_single_isVisible := ["u"]
+arr str aliases_colon_isVisible := ["isVisible", "isV", "isVsb"]
+str canonical_isVisible := "isVisible"
+
+; --- isDeleting Aliases ---
+arr str aliases_single_isDeleting := ["n"]
+arr str aliases_colon_isDeleting := ["isDeleting", "isD", "isDlt", "del", "delete", "remove", "rmv", "rm"]
+str canonical_isDeleting := "isDeleting"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; aliases_single_id               ; aliases_colon_id               ; canonical_id
+; aliases_single_parentId         ; aliases_colon_parentId         ; canonical_parentId
+; aliases_single_x                ; aliases_colon_x                ; canonical_x
+; aliases_single_y                ; aliases_colon_y                ; canonical_y
+; aliases_single_width            ; aliases_colon_width            ; canonical_width
+; aliases_single_height           ; aliases_colon_height           ; canonical_height
+; aliases_single_zIndex           ; aliases_colon_zIndex           ; canonical_zIndex
+; aliases_single_value            ; aliases_colon_value            ; canonical_value
+; aliases_single_placeholder      ; aliases_colon_placeholder      ; canonical_placeholder
+; aliases_single_callback         ; aliases_colon_callback         ; canonical_callback
+; aliases_single_backgroundColor  ; aliases_colon_backgroundColor  ; canonical_backgroundColor
+; aliases_single_color            ; aliases_colon_color            ; canonical_color
+; aliases_single_rounding         ; aliases_colon_rounding         ; canonical_rounding
+; aliases_single_border           ; aliases_colon_border           ; canonical_border
+; aliases_single_rawCss           ; aliases_colon_rawCss           ; canonical_rawCss
+; aliases_single_size             ; aliases_colon_size             ; canonical_size
+; aliases_single_isEnabled        ; aliases_colon_isEnabled        ; canonical_isEnabled
+; aliases_single_isVisible        ; aliases_colon_isVisible        ; canonical_isVisible
+; aliases_single_isDeleting       ; aliases_colon_isDeleting       ; canonical_isDeleting
+
+; option
+
+str option0 := ""
+str option1 := ""
+
+if (InStr(option, ":"))
+{
+
+option0 := Trim(StrSplit(option, ":", 1))
+option1 := Trim(StrSplit(option, ":", 2))
+
+;print("=-=-=-=-=-=-=-=-=-=-::::::::::::::::::=-=-=-=-=-=-=-=-=-=-=-=-=")
+;print(option)
+;print(option0)
+;print(option1)
+;print("=-=-=-=-=-=-=-=-=-=-::::::::::::::::::=-=-=-=-=-=-=-=-=-=-=-=-=")
+
+    Loop, % aliases_colon_id.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_id[A_Index])) {
+            option0 := canonical_id
+        }
+    }
+    Loop, % aliases_colon_parentId.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_parentId[A_Index])) {
+            option0 := canonical_parentId
+        }
+    }
+    Loop, % aliases_colon_x.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_x[A_Index])) {
+            option0 := canonical_x
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+        }
+    }
+    Loop, % aliases_colon_y.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_y[A_Index])) {
+            option0 := canonical_y
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+        }
+    }
+    Loop, % aliases_colon_width.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_width[A_Index])) {
+            option0 := canonical_width
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+        }
+    }
+    Loop, % aliases_colon_height.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_height[A_Index])) {
+            option0 := canonical_height
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+        }
+    }
+    Loop, % aliases_colon_zIndex.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_zIndex[A_Index])) {
+            option0 := canonical_zIndex
+        }
+    }
+    Loop, % aliases_colon_value.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_value[A_Index])) {
+            option0 := canonical_value
+        }
+    }
+    Loop, % aliases_colon_placeholder.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_placeholder[A_Index])) {
+            option0 := canonical_placeholder
+        }
+    }
+    Loop, % aliases_colon_callback.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_callback[A_Index])) {
+            option0 := canonical_callback
+        }
+    }
+    Loop, % aliases_colon_backgroundColor.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_backgroundColor[A_Index])) {
+            option0 := canonical_backgroundColor
+        }
+    }
+    Loop, % aliases_colon_color.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_color[A_Index])) {
+            option0 := canonical_color
+        }
+    }
+    Loop, % aliases_colon_rounding.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_rounding[A_Index])) {
+            option0 := canonical_rounding
+        }
+    }
+    Loop, % aliases_colon_border.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_border[A_Index])) {
+            option0 := canonical_border
+        }
+    }
+    Loop, % aliases_colon_rawCss.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_rawCss[A_Index])) {
+            option0 := canonical_rawCss
+        }
+    }
+    Loop, % aliases_colon_size.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_size[A_Index])) {
+            option0 := canonical_size
+        }
+    }
+    Loop, % aliases_colon_isEnabled.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_isEnabled[A_Index])) {
+            option0 := canonical_isEnabled
+        }
+    }
+    Loop, % aliases_colon_isVisible.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_isVisible[A_Index])) {
+            option0 := canonical_isVisible
+        }
+    }
+    Loop, % aliases_colon_isDeleting.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_isDeleting[A_Index])) {
+            option0 := canonical_isDeleting
+        }
+    }
+
+out := option0 . ":" . option1
+;print("DEBUG out with (:) is: " . out)
+}
+else
+{
+
+option0 := SubStr(option, 1, 1)
+option1 := StringTrimLeft(option, 1)
+
+;print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+;print(option)
+;print(option0)
+;print(option1)
+;print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+
+
+    Loop, % aliases_single_id.size() {
+        if (StrLower(option0) = StrLower(aliases_single_id[A_Index])) {
+            option0 := canonical_id
+        }
+    }
+    Loop, % aliases_single_parentId.size() {
+        if (StrLower(option0) = StrLower(aliases_single_parentId[A_Index])) {
+            option0 := canonical_parentId
+        }
+    }
+    Loop, % aliases_single_x.size() {
+        if (StrLower(option0) = StrLower(aliases_single_x[A_Index])) {
+            option0 := canonical_x
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+        }
+    }
+    Loop, % aliases_single_y.size() {
+        if (StrLower(option0) = StrLower(aliases_single_y[A_Index])) {
+            option0 := canonical_y
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+        }
+    }
+    Loop, % aliases_single_width.size() {
+        if (StrLower(option0) = StrLower(aliases_single_width[A_Index])) {
+            option0 := canonical_width
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+        }
+    }
+    Loop, % aliases_single_height.size() {
+        if (StrLower(option0) = StrLower(aliases_single_height[A_Index])) {
+            option0 := canonical_height
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+        }
+    }
+    Loop, % aliases_single_zIndex.size() {
+        if (StrLower(option0) = StrLower(aliases_single_zIndex[A_Index])) {
+            option0 := canonical_zIndex
+        }
+    }
+    Loop, % aliases_single_value.size() {
+        if (StrLower(option0) = StrLower(aliases_single_value[A_Index])) {
+            option0 := canonical_value
+        }
+    }
+    Loop, % aliases_single_placeholder.size() {
+        if (StrLower(option0) = StrLower(aliases_single_placeholder[A_Index])) {
+            option0 := canonical_placeholder
+        }
+    }
+    Loop, % aliases_single_callback.size() {
+        if (StrLower(option0) = StrLower(aliases_single_callback[A_Index])) {
+            option0 := canonical_callback
+        }
+    }
+    Loop, % aliases_single_backgroundColor.size() {
+        if (StrLower(option0) = StrLower(aliases_single_backgroundColor[A_Index])) {
+            option0 := canonical_backgroundColor
+        }
+    }
+    Loop, % aliases_single_color.size() {
+        if (StrLower(option0) = StrLower(aliases_single_color[A_Index])) {
+            option0 := canonical_color
+        }
+    }
+    Loop, % aliases_single_rounding.size() {
+        if (StrLower(option0) = StrLower(aliases_single_rounding[A_Index])) {
+            option0 := canonical_rounding
+        }
+    }
+    Loop, % aliases_single_border.size() {
+        if (StrLower(option0) = StrLower(aliases_single_border[A_Index])) {
+            option0 := canonical_border
+        }
+    }
+    Loop, % aliases_single_rawCss.size() {
+        if (StrLower(option0) = StrLower(aliases_single_rawCss[A_Index])) {
+            option0 := canonical_rawCss
+        }
+    }
+    Loop, % aliases_single_size.size() {
+        if (StrLower(option0) = StrLower(aliases_single_size[A_Index])) {
+            option0 := canonical_size
+        }
+    }
+    Loop, % aliases_single_isEnabled.size() {
+        if (StrLower(option0) = StrLower(aliases_single_isEnabled[A_Index])) {
+            option0 := canonical_isEnabled
+        }
+    }
+    Loop, % aliases_single_isVisible.size() {
+        if (StrLower(option0) = StrLower(aliases_single_isVisible[A_Index])) {
+            option0 := canonical_isVisible
+        }
+    }
+    Loop, % aliases_single_isDeleting.size() {
+        if (StrLower(option0) = StrLower(aliases_single_isDeleting[A_Index])) {
+            option0 := canonical_isDeleting
+        }
+    }
+
+
+out := option0 . ":" . option1
+;print("DEBUG out no (:) is: " . out)
+}
+
+
+
+return out
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -9750,6 +10200,39 @@ str temp18 := ""
 str temp19 := ""
 str temp20 := ""
 str temp21 := ""
+str temp22 := ""
+str temp23 := ""
+str temp24 := ""
+str temp25 := ""
+str temp26 := ""
+str temp27 := ""
+str temp28 := ""
+str temp29 := ""
+str temp30 := ""
+str temp31 := ""
+str temp32 := ""
+
+
+int found_id := 0
+int found_parentId := 0
+int found_x := 0
+int found_y := 0
+int found_width := 0
+int found_height := 0
+int found_zIndex := 0
+int found_value := 0
+int found_placeholder := 0
+int found_callback := 0
+int found_backgroundColor := 0
+int found_color := 0
+int found_rounding := 0
+int found_border := 0
+int found_rawCss := 0
+int found_size := 0
+int found_isEnabled := 0
+int found_isVisible := 0
+int found_isDeleting := 0
+
 
 str openCurlyTEXT := "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI"
 str closeCurlyTEXT := "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI"
@@ -9767,6 +10250,8 @@ int iframes := -1
 
 int isElement := 0
 str whatElement := ""
+
+str lowerField := ""
 
 Loop, Parse, guiCode, `n, `r
 {
@@ -9792,8 +10277,21 @@ temp18 := ""
 temp19 := ""
 temp20 := ""
 temp21 := ""
+temp22 := ""
+temp23 := ""
+temp24 := ""
+temp25 := ""
+temp26 := ""
+temp27 := ""
+temp28 := ""
+temp29 := ""
+temp30 := ""
+temp31 := ""
+temp32 := ""
 
 temp0 := ""
+
+
 if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
 {
 isElement := 0
@@ -9803,55 +10301,61 @@ Loop, Parse, A_LoopField, " "
 if (A_Index != 0)
 {
 ;;;;;;; 0start
-if (StrLower(A_LoopField) = "button") {
-buttons++
-isElement := 1
-whatElement := "button"
+;;;;;;; 0start (Inside the Loop, Parse, A_LoopField, " " in guiParserStep3)
+
+; --- Check for Element Type Aliases ---
+; Direct name, single-letter prefix 'e', or colon aliases
+
+lowerField := StrLower(Trim(A_LoopField)) ; Trim added here for safety
+if (lowerField = "button" or lowerField = "ebutton" or lowerField = "elementType:button" or lowerField = "element:button" or lowerField = "elmnt:button" or lowerField = "elmenet:button" or lowerField = "elment:button" or lowerField = "elemnt:button") {
+    buttons++
+    isElement := 1
+    whatElement := "button"
 }
-else if (StrLower(A_LoopField) = "text") {
-texts++
-isElement := 1
-whatElement := "text"
+else if (lowerField = "text" or lowerField = "etext" or lowerField = "elementType:text" or lowerField = "element:text" or lowerField = "elmnt:text" or lowerField = "elmenet:text" or lowerField = "elment:text") {
+    texts++
+    isElement := 1
+    whatElement := "text"
 }
-else if (StrLower(A_LoopField) = "edit") {
-edits++
-isElement := 1
-whatElement := "edit"
+else if (lowerField = "edit" or lowerField = "eedit" or lowerField = "elementType:edit" or lowerField = "element:edit" or lowerField = "elmnt:edit" or lowerField = "elmenet:edit" or lowerField = "elment:edit") {
+    edits++
+    isElement := 1
+    whatElement := "edit"
 }
-else if (StrLower(A_LoopField) = "picture") {
-pictures++
-isElement := 1
-whatElement := "picture"
+else if (lowerField = "picture" or lowerField = "epicture" or lowerField = "elementType:picture" or lowerField = "element:picture" or lowerField = "elmnt:picture" or lowerField = "elmenet:picture" or lowerField = "elment:picture") {
+    pictures++
+    isElement := 1
+    whatElement := "picture"
 }
-else if (StrLower(A_LoopField) = "toggle") {
-toggles++
-isElement := 1
-whatElement := "toggle"
+else if (lowerField = "toggle" or lowerField = "etoggle" or lowerField = "elementType:toggle" or lowerField = "element:toggle" or lowerField = "elmnt:toggle" or lowerField = "elmenet:toggle" or lowerField = "elment:toggle") {
+    toggles++
+    isElement := 1
+    whatElement := "toggle"
 }
-else if (StrLower(A_LoopField) = "rectangle") {
-rectangles++
-isElement := 1
-whatElement := "rectangle"
+else if (lowerField = "rectangle" or lowerField = "erectangle" or lowerField = "elementType:rectangle" or lowerField = "element:rectangle" or lowerField = "elmnt:rectangle" or lowerField = "elmenet:rectangle" or lowerField = "elment:rectangle") {
+    rectangles++
+    isElement := 1
+    whatElement := "rectangle"
 }
-else if (StrLower(A_LoopField) = "circle") {
-circles++
-isElement := 1
-whatElement := "circle"
+else if (lowerField = "circle" or lowerField = "ecircle" or lowerField = "elementType:circle" or lowerField = "element:circle" or lowerField = "elmnt:circle" or lowerField = "elmenet:circle" or lowerField = "elment:circle") {
+    circles++
+    isElement := 1
+    whatElement := "circle"
 }
-else if (StrLower(A_LoopField) = "video") {
-videos++
-isElement := 1
-whatElement := "video"
+else if (lowerField = "video" or lowerField = "evideo" or lowerField = "elementType:video" or lowerField = "element:video" or lowerField = "elmnt:video" or lowerField = "elmenet:video" or lowerField = "elment:video") {
+    videos++
+    isElement := 1
+    whatElement := "video"
 }
-else if (StrLower(A_LoopField) = "dropdown") {
-dropdowns++
-isElement := 1
-whatElement := "dropdown"
+else if (lowerField = "dropdown" or lowerField = "edropdown" or lowerField = "elementType:dropdown" or lowerField = "element:dropdown" or lowerField = "elmnt:dropdown" or lowerField = "elmenet:dropdown" or lowerField = "elment:dropdown") {
+    dropdowns++
+    isElement := 1
+    whatElement := "dropdown"
 }
-else if (StrLower(A_LoopField) = "iframe") {
-iframes++
-isElement := 1
-whatElement := "iframe"
+else if (lowerField = "iframe" or lowerField = "eiframe" or lowerField = "elementType:iframe" or lowerField = "element:iframe" or lowerField = "elmnt:iframe" or lowerField = "elmenet:iframe" or lowerField = "elment:iframe") {
+    iframes++
+    isElement := 1
+    whatElement := "iframe"
 }
 else
 {
@@ -9871,6 +10375,152 @@ temp1 .= guiParserStep4(Trim(A_LoopField)) . ", "
 } ;  loop end
 
 ;;;;;;;;;;;;;;;;;;;;;; -111
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; step 5
+; step 5
+; step 5
+
+; step 5 add callback if not defined and more...
+
+
+
+found_id := 0
+found_parentId := 0
+found_x := 0
+found_y := 0
+found_width := 0
+found_height := 0
+found_zIndex := 0
+found_value := 0
+found_placeholder := 0
+found_callback := 0
+found_backgroundColor := 0
+found_color := 0
+found_rounding := 0
+found_border := 0
+found_rawCss := 0
+found_size := 0
+found_isEnabled := 0
+found_isVisible := 0
+found_isDeleting := 0
+
+
+Loop, Parse, temp1, `,
+{
+temp2 := Trim(A_LoopField)
+
+
+if (StrSplit(temp2, ":", 1) = "id")
+{
+    found_id := 1
+}
+else if (StrSplit(temp2, ":", 1) = "parentId")
+{
+    found_parentId := 1
+}
+else if (StrSplit(temp2, ":", 1) = "x")
+{
+    found_x := 1
+}
+else if (StrSplit(temp2, ":", 1) = "y")
+{
+    found_y := 1
+}
+else if (StrSplit(temp2, ":", 1) = "width")
+{
+    found_width := 1
+}
+else if (StrSplit(temp2, ":", 1) = "height")
+{
+    found_height := 1
+}
+else if (StrSplit(temp2, ":", 1) = "zIndex")
+{
+    found_zIndex := 1
+}
+else if (StrSplit(temp2, ":", 1) = "value")
+{
+    found_value := 1
+}
+else if (StrSplit(temp2, ":", 1) = "placeholder")
+{
+    found_placeholder := 1
+}
+else if (StrSplit(temp2, ":", 1) = "callback")
+{
+    found_callback := 1
+}
+else if (StrSplit(temp2, ":", 1) = "backgroundColor")
+{
+    found_backgroundColor := 1
+}
+else if (StrSplit(temp2, ":", 1) = "color")
+{
+    found_color := 1
+}
+else if (StrSplit(temp2, ":", 1) = "rounding")
+{
+    found_rounding := 1
+}
+else if (StrSplit(temp2, ":", 1) = "border")
+{
+    found_border := 1
+}
+else if (StrSplit(temp2, ":", 1) = "rawCss")
+{
+    found_rawCss := 1
+}
+else if (StrSplit(temp2, ":", 1) = "size")
+{
+    found_size := 1
+}
+else if (StrSplit(temp2, ":", 1) = "isEnabled")
+{
+    found_isEnabled := 1
+}
+else if (StrSplit(temp2, ":", 1) = "isVisible")
+{
+    found_isVisible := 1
+}
+else if (StrSplit(temp2, ":", 1) = "isDeleting")
+{
+    found_isDeleting := 1
+}
+
+} ; loop end | Loop, Parse, temp1, `,
+
+print("found_id:              " . STR(found_id))
+print("found_parentId:        " . STR(found_parentId))
+print("found_x:               " . STR(found_x))
+print("found_y:               " . STR(found_y))
+print("found_width:           " . STR(found_width))
+print("found_height:          " . STR(found_height))
+print("found_zIndex:          " . STR(found_zIndex))
+print("found_value:           " . STR(found_value))
+print("found_placeholder:     " . STR(found_placeholder))
+print("found_callback:        " . STR(found_callback))
+print("found_backgroundColor: " . STR(found_backgroundColor))
+print("found_color:           " . STR(found_color))
+print("found_rounding:        " . STR(found_rounding))
+print("found_border:          " . STR(found_border))
+print("found_rawCss:          " . STR(found_rawCss))
+print("found_size:            " . STR(found_size))
+print("found_isEnabled:       " . STR(found_isEnabled))
+print("found_isVisible:       " . STR(found_isVisible))
+print("found_isDeleting:      " . STR(found_isDeleting))
+
+
+; step 5
+; step 5
+; step 5
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 if (isElement = 1)
 {
 temp0 .= "guiAddElement(" . openCurlyTEXT . " elementType: '" . whatElement . "', " . temp1
@@ -9897,55 +10547,61 @@ Loop, Parse, A_LoopField, " "
 if (A_Index != 0)
 {
 ;;;;;;; 0start
-if (StrLower(A_LoopField) = "button") {
-buttons++
-isElement := 1
-whatElement := "button"
+;;;;;;; 0start (Inside the Loop, Parse, A_LoopField, " " in guiParserStep3)
+
+; --- Check for Element Type Aliases ---
+; Direct name, single-letter prefix 'e', or colon aliases - all on one line per type
+
+lowerField := StrLower(Trim(A_LoopField)) ; Trim added here for safety
+if (lowerField = "button" or lowerField = "ebutton" or lowerField = "elementType:button" or lowerField = "element:button" or lowerField = "elmnt:button" or lowerField = "elmenet:button" or lowerField = "elment:button" or lowerField = "elemnt:button") {
+    buttons++
+    isElement := 1
+    whatElement := "button"
 }
-else if (StrLower(A_LoopField) = "text") {
-texts++
-isElement := 1
-whatElement := "text"
+else if (lowerField = "text" or lowerField = "etext" or lowerField = "elementType:text" or lowerField = "element:text" or lowerField = "elmnt:text" or lowerField = "elmenet:text" or lowerField = "elment:text") {
+    texts++
+    isElement := 1
+    whatElement := "text"
 }
-else if (StrLower(A_LoopField) = "edit") {
-edits++
-isElement := 1
-whatElement := "edit"
+else if (lowerField = "edit" or lowerField = "eedit" or lowerField = "elementType:edit" or lowerField = "element:edit" or lowerField = "elmnt:edit" or lowerField = "elmenet:edit" or lowerField = "elment:edit") {
+    edits++
+    isElement := 1
+    whatElement := "edit"
 }
-else if (StrLower(A_LoopField) = "picture") {
-pictures++
-isElement := 1
-whatElement := "picture"
+else if (lowerField = "picture" or lowerField = "epicture" or lowerField = "elementType:picture" or lowerField = "element:picture" or lowerField = "elmnt:picture" or lowerField = "elmenet:picture" or lowerField = "elment:picture") {
+    pictures++
+    isElement := 1
+    whatElement := "picture"
 }
-else if (StrLower(A_LoopField) = "toggle") {
-toggles++
-isElement := 1
-whatElement := "toggle"
+else if (lowerField = "toggle" or lowerField = "etoggle" or lowerField = "elementType:toggle" or lowerField = "element:toggle" or lowerField = "elmnt:toggle" or lowerField = "elmenet:toggle" or lowerField = "elment:toggle") {
+    toggles++
+    isElement := 1
+    whatElement := "toggle"
 }
-else if (StrLower(A_LoopField) = "rectangle") {
-rectangles++
-isElement := 1
-whatElement := "rectangle"
+else if (lowerField = "rectangle" or lowerField = "erectangle" or lowerField = "elementType:rectangle" or lowerField = "element:rectangle" or lowerField = "elmnt:rectangle" or lowerField = "elmenet:rectangle" or lowerField = "elment:rectangle") {
+    rectangles++
+    isElement := 1
+    whatElement := "rectangle"
 }
-else if (StrLower(A_LoopField) = "circle") {
-circles++
-isElement := 1
-whatElement := "circle"
+else if (lowerField = "circle" or lowerField = "ecircle" or lowerField = "elementType:circle" or lowerField = "element:circle" or lowerField = "elmnt:circle" or lowerField = "elmenet:circle" or lowerField = "elment:circle") {
+    circles++
+    isElement := 1
+    whatElement := "circle"
 }
-else if (StrLower(A_LoopField) = "video") {
-videos++
-isElement := 1
-whatElement := "video"
+else if (lowerField = "video" or lowerField = "evideo" or lowerField = "elementType:video" or lowerField = "element:video" or lowerField = "elmnt:video" or lowerField = "elmenet:video" or lowerField = "elment:video") {
+    videos++
+    isElement := 1
+    whatElement := "video"
 }
-else if (StrLower(A_LoopField) = "dropdown") {
-dropdowns++
-isElement := 1
-whatElement := "dropdown"
+else if (lowerField = "dropdown" or lowerField = "edropdown" or lowerField = "elementType:dropdown" or lowerField = "element:dropdown" or lowerField = "elmnt:dropdown" or lowerField = "elmenet:dropdown" or lowerField = "elment:dropdown") {
+    dropdowns++
+    isElement := 1
+    whatElement := "dropdown"
 }
-else if (StrLower(A_LoopField) = "iframe") {
-iframes++
-isElement := 1
-whatElement := "iframe"
+else if (lowerField = "iframe" or lowerField = "eiframe" or lowerField = "elementType:iframe" or lowerField = "element:iframe" or lowerField = "elmnt:iframe" or lowerField = "elmenet:iframe" or lowerField = "elment:iframe") {
+    iframes++
+    isElement := 1
+    whatElement := "iframe"
 }
 else
 {
@@ -10212,7 +10868,17 @@ return guiParserStep2(out)
 
 func str guiParser(str guiCode) {
 
-    if (InStr(StrLower(guiCode), "gui") = false) {
+int doWeExitGUIfuncCuzNoGuiFound := 1
+
+Loop, Parse, guiCode, `n, `r
+{
+if (Trim(StrLower(A_LoopField)) = "gui") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui,") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui{") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui[") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui(") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui (") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  (") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+doWeExitGUIfuncCuzNoGuiFound := 0
+}
+}
+
+    if (doWeExitGUIfuncCuzNoGuiFound = 1) {
         return guiCode
     }
     
@@ -10380,6 +11046,11 @@ return guiParserStep2(out)
 
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -12791,7 +13462,7 @@ if (langToConvertTo != langFileExtension_2)
 ; GUI
 ; GUI
 ; GUI
-if (langToConvertTo = "js")
+if (langToConvertTo = "js") and (InStr(Trim(code), "gui"))
 {
 code := guiParser(code)
 }
