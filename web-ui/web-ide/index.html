@@ -1324,11 +1324,18 @@ console.log = function (...args) {
       line.textContent = String(arg);
     }
 
+    // Remove the last newline character if it exists
+    if (line.textContent.endsWith("\n")) {
+      line.textContent = line.textContent.slice(0, -1);
+    }
+
     consoleDiv.appendChild(line);
   });
 
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
+
 
 
 
@@ -1401,11 +1408,18 @@ console.log = function (...args) {
       line.textContent = String(arg);
     }
 
+    // Remove the last newline character if it exists
+    if (line.textContent.endsWith("\n")) {
+      line.textContent = line.textContent.slice(0, -1);
+    }
+
     consoleDiv.appendChild(line);
   });
 
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
+
 
 
 
