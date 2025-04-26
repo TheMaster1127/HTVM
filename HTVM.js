@@ -7903,7 +7903,7 @@ function guiParserStep3(guiCode) {
                 temp0 = StringTrimRight(temp0, 2);
                 temp0 += " " + closeCurlyTEXT + ");";
             } else {
-                temp0 += "guiAdd(" + openCurlyTEXT + " " + temp1;
+                temp0 += "guiAdd(" + openCurlyTEXT + " " + StrReplace(temp1, "parentId:", "id:");
                 temp0 = StringTrimRight(temp0, 2);
                 temp0 += " " + closeCurlyTEXT + ");";
             }
