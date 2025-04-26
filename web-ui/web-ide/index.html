@@ -1311,26 +1311,19 @@ selectedLangExtension = selectedLangExtensionOLD;
 
 const originalLog = console.log;
 console.log = function (...args) {
-    originalLog.apply(console, args);
-
-    const consoleDiv = document.getElementById("console-log");
-
-    const message = args.map(arg => {
-        if (typeof arg === 'object') {
-            try {
-                return JSON.stringify(arg, null, 2);
-            } catch {
-                return String(arg);
-            }
-        }
-        return String(arg);
-    }).join(' ');
-
-    // ADD one <div> per log call
+  originalLog.apply(console, args);
+  
+  args.forEach(arg => {
     const line = document.createElement("div");
-    line.textContent = message;
+    line.textContent = (typeof arg === "object" && arg !== null) 
+      ? JSON.stringify(arg, null, 2) // pretty print objects
+      : String(arg);
     consoleDiv.appendChild(line);
+  });
+
+  consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
 
 
 
@@ -1380,26 +1373,19 @@ console.log = function (...args) {
 
 const originalLog = console.log;
 console.log = function (...args) {
-    originalLog.apply(console, args);
-
-    const consoleDiv = document.getElementById("console-log");
-
-    const message = args.map(arg => {
-        if (typeof arg === 'object') {
-            try {
-                return JSON.stringify(arg, null, 2);
-            } catch {
-                return String(arg);
-            }
-        }
-        return String(arg);
-    }).join(' ');
-
-    // ADD one <div> per log call
+  originalLog.apply(console, args);
+  
+  args.forEach(arg => {
     const line = document.createElement("div");
-    line.textContent = message;
+    line.textContent = (typeof arg === "object" && arg !== null) 
+      ? JSON.stringify(arg, null, 2) // pretty print objects
+      : String(arg);
     consoleDiv.appendChild(line);
+  });
+
+  consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
 
 
         try {
