@@ -8159,8 +8159,10 @@ function guiParser(guiCode) {
         if (Trim(A_LoopField145) == Trim(keyWordCommentCloseMultiLine)) {
             doWeExitGUIfuncCuzNoGuiFoundINcommentBlock = 0;
         }
-        if (Trim(StrLower(A_LoopField145)) == "gui" || SubStr(Trim(StrLower(A_LoopField145)), 1, 4) == "gui " || SubStr(Trim(StrLower(A_LoopField145)), 1, 4) == "gui," || SubStr(Trim(StrLower(A_LoopField145)), 1, 4) == "gui{" || SubStr(Trim(StrLower(A_LoopField145)), 1, 5) == "gui {" || SubStr(Trim(StrLower(A_LoopField145)), 1, 6) == "gui  {" || SubStr(Trim(StrLower(A_LoopField145)), 1, 4) == "gui[" || SubStr(Trim(StrLower(A_LoopField145)), 1, 5) == "gui [" || SubStr(Trim(StrLower(A_LoopField145)), 1, 6) == "gui  [" || SubStr(Trim(StrLower(A_LoopField145)), 1, 4) == "gui(" || SubStr(Trim(StrLower(A_LoopField145)), 1, 5) == "gui (" || SubStr(Trim(StrLower(A_LoopField145)), 1, 6) == "gui  (" || RegExMatch(StrLower(Trim(A_LoopField145)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)") && doWeExitGUIfuncCuzNoGuiFoundINcommentBlock == 0) {
-            doWeExitGUIfuncCuzNoGuiFound = 0;
+        if (Trim(StrLower(A_LoopField145)) == "gui" || SubStr(Trim(StrLower(A_LoopField145)), 1, 4) == "gui " || SubStr(Trim(StrLower(A_LoopField145)), 1, 4) == "gui," || SubStr(Trim(StrLower(A_LoopField145)), 1, 4) == "gui{" || SubStr(Trim(StrLower(A_LoopField145)), 1, 5) == "gui {" || SubStr(Trim(StrLower(A_LoopField145)), 1, 6) == "gui  {" || SubStr(Trim(StrLower(A_LoopField145)), 1, 4) == "gui[" || SubStr(Trim(StrLower(A_LoopField145)), 1, 5) == "gui [" || SubStr(Trim(StrLower(A_LoopField145)), 1, 6) == "gui  [" || SubStr(Trim(StrLower(A_LoopField145)), 1, 4) == "gui(" || SubStr(Trim(StrLower(A_LoopField145)), 1, 5) == "gui (" || SubStr(Trim(StrLower(A_LoopField145)), 1, 6) == "gui  (" || RegExMatch(StrLower(Trim(A_LoopField145)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) {
+            if (doWeExitGUIfuncCuzNoGuiFoundINcommentBlock == 0) {
+                doWeExitGUIfuncCuzNoGuiFound = 0;
+            }
         }
     }
     if (doWeExitGUIfuncCuzNoGuiFound == 1) {
