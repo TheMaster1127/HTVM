@@ -1316,18 +1316,21 @@ console.log = function (...args) {
   args.forEach(arg => {
     const line = document.createElement("div");
 
-    let text = (typeof arg === "object" && arg !== null)
-      ? Object.prototype.toString.call(arg)
-      : String(arg);
+    if (typeof arg === "object" && arg !== null) {
+      // Use Object.prototype.toString.call(arg) if you want better handling
+      // But just printing [object Object] would not match console!
+      line.textContent = Object.prototype.toString.call(arg);
+    } else {
+      line.textContent = String(arg);
+    }
 
-    text = text.replace(/\n$/, ""); // <== REMOVE one trailing \n if it exists!
-
-    line.textContent = text;
-    consoleDiv.appendChild(line);
+    // Trim the last character (new line) before appending
+    consoleDiv.appendChild(line.textContent.endsWith("\n") ? line.textContent.slice(0, -1) : line.textContent);
   });
 
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
 
 
 
@@ -1392,18 +1395,21 @@ console.log = function (...args) {
   args.forEach(arg => {
     const line = document.createElement("div");
 
-    let text = (typeof arg === "object" && arg !== null)
-      ? Object.prototype.toString.call(arg)
-      : String(arg);
+    if (typeof arg === "object" && arg !== null) {
+      // Use Object.prototype.toString.call(arg) if you want better handling
+      // But just printing [object Object] would not match console!
+      line.textContent = Object.prototype.toString.call(arg);
+    } else {
+      line.textContent = String(arg);
+    }
 
-    text = text.replace(/\n$/, ""); // <== REMOVE one trailing \n if it exists!
-
-    line.textContent = text;
-    consoleDiv.appendChild(line);
+    // Trim the last character (new line) before appending
+    consoleDiv.appendChild(line.textContent.endsWith("\n") ? line.textContent.slice(0, -1) : line.textContent);
   });
 
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
 
 
 
