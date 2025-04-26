@@ -1314,17 +1314,24 @@ console.log = function (...args) {
     originalLog.apply(console, args);
 
     const consoleDiv = document.getElementById("console-log");
-    const rawText = args.map(arg => {
-        if (typeof arg === 'string') return arg;
-        try {
-            return JSON.stringify(arg, null, 2); // pretty print objects
-        } catch (e) {
-            return String(arg);
+
+    const message = args.map(arg => {
+        if (typeof arg === 'object') {
+            try {
+                return JSON.stringify(arg, null, 2);
+            } catch {
+                return String(arg);
+            }
         }
+        return String(arg);
     }).join(' ');
 
-    consoleDiv.innerHTML += rawText + "<br>";
+    // ADD one <div> per log call
+    const line = document.createElement("div");
+    line.textContent = message;
+    consoleDiv.appendChild(line);
 };
+
 
 
           try {
@@ -1376,17 +1383,24 @@ console.log = function (...args) {
     originalLog.apply(console, args);
 
     const consoleDiv = document.getElementById("console-log");
-    const rawText = args.map(arg => {
-        if (typeof arg === 'string') return arg;
-        try {
-            return JSON.stringify(arg, null, 2); // pretty print objects
-        } catch (e) {
-            return String(arg);
+
+    const message = args.map(arg => {
+        if (typeof arg === 'object') {
+            try {
+                return JSON.stringify(arg, null, 2);
+            } catch {
+                return String(arg);
+            }
         }
+        return String(arg);
     }).join(' ');
 
-    consoleDiv.innerHTML += rawText + "<br>";
+    // ADD one <div> per log call
+    const line = document.createElement("div");
+    line.textContent = message;
+    consoleDiv.appendChild(line);
 };
+
 
         try {
           new Function(openFile.content)();
