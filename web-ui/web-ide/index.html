@@ -1314,15 +1314,26 @@ console.log = function (...args) {
   originalLog.apply(console, args);
   
   args.forEach(arg => {
-    const line = document.createElement("div");
-    line.textContent = (typeof arg === "object" && arg !== null) 
-      ? JSON.stringify(arg, null, 2) // pretty print objects
-      : String(arg);
+    let output;
+    
+    if (typeof arg === "object" && arg !== null) {
+      try {
+        output = JSON.stringify(arg, null, 2); // Indented object
+      } catch (e) {
+        output = '[object Object]';
+      }
+    } else {
+      output = String(arg);
+    }
+    
+    const line = document.createElement("pre"); // <pre> preserves newlines/spaces
+    line.textContent = output;
     consoleDiv.appendChild(line);
   });
 
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
 
 
 
@@ -1376,10 +1387,20 @@ console.log = function (...args) {
   originalLog.apply(console, args);
   
   args.forEach(arg => {
-    const line = document.createElement("div");
-    line.textContent = (typeof arg === "object" && arg !== null) 
-      ? JSON.stringify(arg, null, 2) // pretty print objects
-      : String(arg);
+    let output;
+    
+    if (typeof arg === "object" && arg !== null) {
+      try {
+        output = JSON.stringify(arg, null, 2); // Indented object
+      } catch (e) {
+        output = '[object Object]';
+      }
+    } else {
+      output = String(arg);
+    }
+    
+    const line = document.createElement("pre"); // <pre> preserves newlines/spaces
+    line.textContent = output;
     consoleDiv.appendChild(line);
   });
 
