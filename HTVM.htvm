@@ -10529,7 +10529,7 @@ temp0 .= " " . closeCurlyTEXT . ");"
 }
 else
 {
-temp0 .= "guiAdd(" . openCurlyTEXT . " " . temp1
+temp0 .= "guiAdd(" . openCurlyTEXT . " " . StrReplace(temp1, "parentId:", "id:")
 StringTrimRight, temp0, temp0, 2
 temp0 .= " " . closeCurlyTEXT . ");"
 }
