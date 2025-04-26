@@ -1309,6 +1309,7 @@ selectedLangExtension = selectedLangExtensionOLD;
 
           // Redirect console.log to also log in the browser
 
+
 const originalLog = console.log;
 console.log = function (...args) {
   originalLog.apply(console, args);
@@ -1324,16 +1325,12 @@ console.log = function (...args) {
       line.textContent = String(arg);
     }
 
-    // Remove the last newline character if it exists
-    if (line.textContent.endsWith("\n")) {
-      line.textContent = line.textContent.slice(0, -1);
-    }
-
     consoleDiv.appendChild(line);
   });
 
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
 
 
 
@@ -1393,6 +1390,7 @@ console.log = function (...args) {
 
 
 
+
 const originalLog = console.log;
 console.log = function (...args) {
   originalLog.apply(console, args);
@@ -1406,11 +1404,6 @@ console.log = function (...args) {
       line.textContent = Object.prototype.toString.call(arg);
     } else {
       line.textContent = String(arg);
-    }
-
-    // Remove the last newline character if it exists
-    if (line.textContent.endsWith("\n")) {
-      line.textContent = line.textContent.slice(0, -1);
     }
 
     consoleDiv.appendChild(line);
