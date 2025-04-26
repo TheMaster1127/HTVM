@@ -1327,10 +1327,8 @@ console.log = function (...args) {
       output = String(arg);
     }
 
-    // Remove trailing newline if it exists
-    if (output.endsWith("\n")) {
-      output = output.slice(0, -1);
-    }
+    // Remove trailing newline characters from the output
+    output = output.replace(/\n$/, '');
 
     const line = document.createElement("pre"); // <pre> preserves newlines/spaces
     line.textContent = output;
@@ -1418,10 +1416,8 @@ console.log = function (...args) {
       output = String(arg);
     }
 
-    // Remove trailing newline if it exists
-    if (output.endsWith("\n")) {
-      output = output.slice(0, -1);
-    }
+    // Remove trailing newline characters from the output
+    output = output.replace(/\n$/, '');
 
     const line = document.createElement("pre"); // <pre> preserves newlines/spaces
     line.textContent = output;
@@ -1430,6 +1426,8 @@ console.log = function (...args) {
 
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
+
 
 
 
