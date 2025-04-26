@@ -1315,21 +1315,31 @@ console.log = function (...args) {
   originalLog.apply(console, args);
 
   args.forEach(arg => {
-    const line = document.createElement("div");
+    let output;
 
     if (typeof arg === "object" && arg !== null) {
-      // Use Object.prototype.toString.call(arg) if you want better handling
-      // But just printing [object Object] would not match console!
-      line.textContent = Object.prototype.toString.call(arg);
+      try {
+        output = JSON.stringify(arg, null, 2); // Indented object
+      } catch (e) {
+        output = '[object Object]';
+      }
     } else {
-      line.textContent = String(arg);
+      output = String(arg);
     }
 
+    // Remove trailing newline if it exists
+    if (output.endsWith("\n")) {
+      output = output.slice(0, -1);
+    }
+
+    const line = document.createElement("pre"); // <pre> preserves newlines/spaces
+    line.textContent = output;
     consoleDiv.appendChild(line);
   });
 
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
 
 
 
@@ -1396,21 +1406,31 @@ console.log = function (...args) {
   originalLog.apply(console, args);
 
   args.forEach(arg => {
-    const line = document.createElement("div");
+    let output;
 
     if (typeof arg === "object" && arg !== null) {
-      // Use Object.prototype.toString.call(arg) if you want better handling
-      // But just printing [object Object] would not match console!
-      line.textContent = Object.prototype.toString.call(arg);
+      try {
+        output = JSON.stringify(arg, null, 2); // Indented object
+      } catch (e) {
+        output = '[object Object]';
+      }
     } else {
-      line.textContent = String(arg);
+      output = String(arg);
     }
 
+    // Remove trailing newline if it exists
+    if (output.endsWith("\n")) {
+      output = output.slice(0, -1);
+    }
+
+    const line = document.createElement("pre"); // <pre> preserves newlines/spaces
+    line.textContent = output;
     consoleDiv.appendChild(line);
   });
 
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
 
 
 
