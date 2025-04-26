@@ -9734,12 +9734,12 @@ str out := ""
 
 ; --- id Aliases ---
 arr str aliases_single_id := ["i", "v"]
-arr str aliases_colon_id := ["id", "elementId", "eid", "elId"]
+arr str aliases_colon_id := ["i", "v", "id", "elementId", "eid", "elId"]
 str canonical_id := "id"
 
 ; --- parentId Aliases ---
 arr str aliases_single_parentId := ["p"]
-arr str aliases_colon_parentId := ["parentId", "pid", "parId", "divId", "guiId"]
+arr str aliases_colon_parentId := ["p", "parentId", "pid", "parId", "divId", "guiId"]
 str canonical_parentId := "parentId"
 
 ; --- x Aliases ---
@@ -9754,77 +9754,77 @@ str canonical_y := "y"
 
 ; --- width Aliases ---
 arr str aliases_single_width := ["w"]
-arr str aliases_colon_width := ["width", "wight", "widh", "widht", "widhth", "wdtih", "widhh", "widhts"]
+arr str aliases_colon_width := ["w", "width", "wight", "widh", "widht", "widhth", "wdtih", "widhh", "widhts"]
 str canonical_width := "width" ; JS uses 'width'
 
 ; --- height Aliases ---
 arr str aliases_single_height := ["h"]
-arr str aliases_colon_height := ["height", "hight", "heigth", "heigtht", "hieght", "hegt", "heihgt"]
+arr str aliases_colon_height := ["h", "height", "hight", "heigth", "heigtht", "hieght", "hegt", "heihgt"]
 str canonical_height := "height" ; JS uses 'height'
 
 ; --- zIndex Aliases ---
 arr str aliases_single_zIndex := ["z"]
-arr str aliases_colon_zIndex := ["zIndex", "z-Index", "zi"] ; Added 'zIndex'
+arr str aliases_colon_zIndex := ["z", "zIndex", "z-Index", "zi"] ; Added 'zIndex'
 str canonical_zIndex := "zIndex"
 
 ; --- value Aliases ---
 arr str aliases_single_value := ["d"]
-arr str aliases_colon_value := ["value", "displayValue", "dv"]
+arr str aliases_colon_value := ["d", "value", "displayValue", "dv"]
 str canonical_value := "value" ; Map to text/src/state later based on context
 
 ; --- placeholder Aliases ---
 arr str aliases_single_placeholder := ["q"]
-arr str aliases_colon_placeholder := ["placeHolder", "plc", "plch", "ph", "grayText", "editForeGround", "editPlaceHolder", "editGrayInfo", "editPlaceHolderGrayInfoText"]
+arr str aliases_colon_placeholder := ["q", "placeHolder", "plc", "plch", "ph", "grayText", "editForeGround", "editPlaceHolder", "editGrayInfo", "editPlaceHolderGrayInfoText"]
 str canonical_placeholder := "placeholder"
 
 ; --- callback Aliases ---
 arr str aliases_single_callback := ["g", "f"]
-arr str aliases_colon_callback := ["callback", "call", "func", "fn", "function", "point", "back", "bakc"]
+arr str aliases_colon_callback := ["g", "f", "callback", "call", "func", "fn", "function", "point", "back", "bakc"]
 str canonical_callback := "callback"
 
 ; --- backgroundColor Aliases ---
 arr str aliases_single_backgroundColor := ["o"]
-arr str aliases_colon_backgroundColor := ["bg", "bc", "bgc", "backgroundColor", "bgColor"]
+arr str aliases_colon_backgroundColor := ["o", "bg", "bc", "bgc", "backgroundColor", "bgColor"]
 str canonical_backgroundColor := "backgroundColor"
 
 ; --- color Aliases ---
 arr str aliases_single_color := ["c"]
-arr str aliases_colon_color := ["color", "colour", "clr"]
+arr str aliases_colon_color := ["c", "color", "colour", "clr"]
 str canonical_color := "color"
 
 ; --- rounding Aliases ---
 arr str aliases_single_rounding := ["r"]
-arr str aliases_colon_rounding := ["rounding", "round", "rounded", "rnd"]
+arr str aliases_colon_rounding := ["r", "rounding", "round", "rounded", "rnd"]
 str canonical_rounding := "rounding" ; Matches alias name
 
 ; --- border Aliases ---
 arr str aliases_single_border := ["b"]
-arr str aliases_colon_border := ["border", "boder", "outline", "brd"] ; Added 'border'
+arr str aliases_colon_border := ["b", "border", "boder", "outline", "brd"] ; Added 'border'
 str canonical_border := "border"
 
 ; --- rawCss Aliases ---
 arr str aliases_single_rawCss := ["l"]
-arr str aliases_colon_rawCss := ["rawCss", "luxury", "rawSsc", "rawScc", "css", "scc", "style", "stlye", "styel", "sytle", "sytel", "stylye", "stiyl", "stiyel", "luxary", "luxuary", "luxery", "luxurey"]
+arr str aliases_colon_rawCss := ["l", "rawCss", "luxury", "rawSsc", "rawScc", "css", "scc", "style", "stlye", "styel", "sytle", "sytel", "stylye", "stiyl", "stiyel", "luxary", "luxuary", "luxery", "luxurey"]
 str canonical_rawCss := "rawCss"
 
 ; --- size Aliases ---
 arr str aliases_single_size := ["s"]
-arr str aliases_colon_size := ["size", "sz", "szie", "bigness"]
+arr str aliases_colon_size := ["s", "size", "sz", "szie", "bigness"]
 str canonical_size := "size" ; Map to fontSize later if needed
 
 ; --- isEnabled Aliases ---
 arr str aliases_single_isEnabled := ["a"]
-arr str aliases_colon_isEnabled := ["isEnabled", "isE", "isEnb"]
+arr str aliases_colon_isEnabled := ["a", "isEnabled", "isE", "isEnb"]
 str canonical_isEnabled := "isEnabled"
 
 ; --- isVisible Aliases ---
 arr str aliases_single_isVisible := ["u"]
-arr str aliases_colon_isVisible := ["isVisible", "isV", "isVsb"]
+arr str aliases_colon_isVisible := ["u", "isVisible", "isV", "isVsb"]
 str canonical_isVisible := "isVisible"
 
 ; --- isDeleting Aliases ---
 arr str aliases_single_isDeleting := ["n"]
-arr str aliases_colon_isDeleting := ["isDeleting", "isD", "isDlt", "del", "delete", "remove", "rmv", "rm"]
+arr str aliases_colon_isDeleting := ["n", "isDeleting", "isD", "isDlt", "del", "delete", "remove", "rmv", "rm"]
 str canonical_isDeleting := "isDeleting"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -7237,11 +7237,11 @@ function guiParserStep4(option) {
     // Note: All checks should be case-insensitive.
     // --- id Aliases ---
     let aliases_single_id = ["i", "v"];
-    let aliases_colon_id = ["id", "elementId", "eid", "elId"];
+    let aliases_colon_id = ["i", "v", "id", "elementId", "eid", "elId"];
     var canonical_id = "id";
     // --- parentId Aliases ---
     let aliases_single_parentId = ["p"];
-    let aliases_colon_parentId = ["parentId", "pid", "parId", "divId", "guiId"];
+    let aliases_colon_parentId = ["p", "parentId", "pid", "parId", "divId", "guiId"];
     var canonical_parentId = "parentId";
     // --- x Aliases ---
     let aliases_single_x = ["x"];
@@ -7253,63 +7253,63 @@ function guiParserStep4(option) {
     var canonical_y = "y";
     // --- width Aliases ---
     let aliases_single_width = ["w"];
-    let aliases_colon_width = ["width", "wight", "widh", "widht", "widhth", "wdtih", "widhh", "widhts"];
+    let aliases_colon_width = ["w", "width", "wight", "widh", "widht", "widhth", "wdtih", "widhh", "widhts"];
     var canonical_width = "width";
     // --- height Aliases ---
     let aliases_single_height = ["h"];
-    let aliases_colon_height = ["height", "hight", "heigth", "heigtht", "hieght", "hegt", "heihgt"];
+    let aliases_colon_height = ["h", "height", "hight", "heigth", "heigtht", "hieght", "hegt", "heihgt"];
     var canonical_height = "height";
     // --- zIndex Aliases ---
     let aliases_single_zIndex = ["z"];
-    let aliases_colon_zIndex = ["zIndex", "z-Index", "zi"];
+    let aliases_colon_zIndex = ["z", "zIndex", "z-Index", "zi"];
     var canonical_zIndex = "zIndex";
     // --- value Aliases ---
     let aliases_single_value = ["d"];
-    let aliases_colon_value = ["value", "displayValue", "dv"];
+    let aliases_colon_value = ["d", "value", "displayValue", "dv"];
     var canonical_value = "value";
     // --- placeholder Aliases ---
     let aliases_single_placeholder = ["q"];
-    let aliases_colon_placeholder = ["placeHolder", "plc", "plch", "ph", "grayText", "editForeGround", "editPlaceHolder", "editGrayInfo", "editPlaceHolderGrayInfoText"];
+    let aliases_colon_placeholder = ["q", "placeHolder", "plc", "plch", "ph", "grayText", "editForeGround", "editPlaceHolder", "editGrayInfo", "editPlaceHolderGrayInfoText"];
     var canonical_placeholder = "placeholder";
     // --- callback Aliases ---
     let aliases_single_callback = ["g", "f"];
-    let aliases_colon_callback = ["callback", "call", "func", "fn", "function", "point", "back", "bakc"];
+    let aliases_colon_callback = ["g", "f", "callback", "call", "func", "fn", "function", "point", "back", "bakc"];
     var canonical_callback = "callback";
     // --- backgroundColor Aliases ---
     let aliases_single_backgroundColor = ["o"];
-    let aliases_colon_backgroundColor = ["bg", "bc", "bgc", "backgroundColor", "bgColor"];
+    let aliases_colon_backgroundColor = ["o", "bg", "bc", "bgc", "backgroundColor", "bgColor"];
     var canonical_backgroundColor = "backgroundColor";
     // --- color Aliases ---
     let aliases_single_color = ["c"];
-    let aliases_colon_color = ["color", "colour", "clr"];
+    let aliases_colon_color = ["c", "color", "colour", "clr"];
     var canonical_color = "color";
     // --- rounding Aliases ---
     let aliases_single_rounding = ["r"];
-    let aliases_colon_rounding = ["rounding", "round", "rounded", "rnd"];
+    let aliases_colon_rounding = ["r", "rounding", "round", "rounded", "rnd"];
     var canonical_rounding = "rounding";
     // --- border Aliases ---
     let aliases_single_border = ["b"];
-    let aliases_colon_border = ["border", "boder", "outline", "brd"];
+    let aliases_colon_border = ["b", "border", "boder", "outline", "brd"];
     var canonical_border = "border";
     // --- rawCss Aliases ---
     let aliases_single_rawCss = ["l"];
-    let aliases_colon_rawCss = ["rawCss", "luxury", "rawSsc", "rawScc", "css", "scc", "style", "stlye", "styel", "sytle", "sytel", "stylye", "stiyl", "stiyel", "luxary", "luxuary", "luxery", "luxurey"];
+    let aliases_colon_rawCss = ["l", "rawCss", "luxury", "rawSsc", "rawScc", "css", "scc", "style", "stlye", "styel", "sytle", "sytel", "stylye", "stiyl", "stiyel", "luxary", "luxuary", "luxery", "luxurey"];
     var canonical_rawCss = "rawCss";
     // --- size Aliases ---
     let aliases_single_size = ["s"];
-    let aliases_colon_size = ["size", "sz", "szie", "bigness"];
+    let aliases_colon_size = ["s", "size", "sz", "szie", "bigness"];
     var canonical_size = "size";
     // --- isEnabled Aliases ---
     let aliases_single_isEnabled = ["a"];
-    let aliases_colon_isEnabled = ["isEnabled", "isE", "isEnb"];
+    let aliases_colon_isEnabled = ["a", "isEnabled", "isE", "isEnb"];
     var canonical_isEnabled = "isEnabled";
     // --- isVisible Aliases ---
     let aliases_single_isVisible = ["u"];
-    let aliases_colon_isVisible = ["isVisible", "isV", "isVsb"];
+    let aliases_colon_isVisible = ["u", "isVisible", "isV", "isVsb"];
     var canonical_isVisible = "isVisible";
     // --- isDeleting Aliases ---
     let aliases_single_isDeleting = ["n"];
-    let aliases_colon_isDeleting = ["isDeleting", "isD", "isDlt", "del", "delete", "remove", "rmv", "rm"];
+    let aliases_colon_isDeleting = ["n", "isDeleting", "isD", "isDlt", "del", "delete", "remove", "rmv", "rm"];
     var canonical_isDeleting = "isDeleting";
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
