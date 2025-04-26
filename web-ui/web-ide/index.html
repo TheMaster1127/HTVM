@@ -1325,7 +1325,11 @@ console.log = function (...args) {
     }
 
     // Trim the last character (new line) before appending
-    consoleDiv.appendChild(line.textContent.endsWith("\n") ? line.textContent.slice(0, -1) : line.textContent);
+    if (line.textContent.endsWith("\n")) {
+      line.textContent = line.textContent.slice(0, -1);
+    }
+
+    consoleDiv.appendChild(line);
   });
 
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
@@ -1387,7 +1391,6 @@ console.log = function (...args) {
 
 
 
-
 const originalLog = console.log;
 console.log = function (...args) {
   originalLog.apply(console, args);
@@ -1404,11 +1407,16 @@ console.log = function (...args) {
     }
 
     // Trim the last character (new line) before appending
-    consoleDiv.appendChild(line.textContent.endsWith("\n") ? line.textContent.slice(0, -1) : line.textContent);
+    if (line.textContent.endsWith("\n")) {
+      line.textContent = line.textContent.slice(0, -1);
+    }
+
+    consoleDiv.appendChild(line);
   });
 
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
 
 
 
