@@ -10870,11 +10870,31 @@ func str guiParser(str guiCode) {
 
 int doWeExitGUIfuncCuzNoGuiFound := 1
 
+int doWeExitGUIfuncCuzNoGuiFoundINcommentBlock := 0
+
 Loop, Parse, guiCode, `n, `r
 {
-if (Trim(StrLower(A_LoopField)) = "gui") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui,") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui{") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui[") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui(") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui (") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  (") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+
+
+
+
+
+if (Trim(A_LoopField) = Trim(keyWordCommentOpenMultiLine))
 {
+doWeExitGUIfuncCuzNoGuiFoundINcommentBlock := 1
+}
+
+if (Trim(A_LoopField) = Trim(keyWordCommentCloseMultiLine))
+{
+doWeExitGUIfuncCuzNoGuiFoundINcommentBlock := 0
+}
+
+if (Trim(StrLower(A_LoopField)) = "gui") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui,") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui{") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui[") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui(") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui (") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  (") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) and (doWeExitGUIfuncCuzNoGuiFoundINcommentBlock = 0)
+{
+
 doWeExitGUIfuncCuzNoGuiFound := 0
+
+
 }
 }
 
