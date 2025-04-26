@@ -1309,10 +1309,11 @@ selectedLangExtension = selectedLangExtensionOLD;
 
           // Redirect console.log to also log in the browser
 
-
 const originalLog = console.log;
 console.log = function (...args) {
   originalLog.apply(console, args);
+
+  let combinedOutput = ''; // Combine all outputs into one string
 
   args.forEach(arg => {
     let output;
@@ -1327,16 +1328,29 @@ console.log = function (...args) {
       output = String(arg);
     }
 
-    // Remove trailing newline characters from the output
-    output = output.replace(/\n$/, '');
-
-    const line = document.createElement("pre"); // <pre> preserves newlines/spaces
-    line.textContent = output;
-    consoleDiv.appendChild(line);
+    // Append the output with a newline, but avoid extra newlines
+    combinedOutput += output + '\n';
   });
 
+  // Find the <pre> tag or create a new one if it doesn't exist
+  let consolePre = document.getElementById('console-log-pre');
+  if (!consolePre) {
+    consolePre = document.createElement('pre');
+    consolePre.id = 'console-log-pre'; // Set an ID for future reference
+    consoleDiv.appendChild(consolePre); // Append it only once
+  }
+
+  // Set the text content of the pre tag and preserve newlines
+  consolePre.textContent += combinedOutput; // Append new output to the existing pre tag
+
+  // Scroll to the bottom of the log
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
+
+
+
+
 
 
 
@@ -1403,6 +1417,8 @@ const originalLog = console.log;
 console.log = function (...args) {
   originalLog.apply(console, args);
 
+  let combinedOutput = ''; // Combine all outputs into one string
+
   args.forEach(arg => {
     let output;
 
@@ -1416,16 +1432,27 @@ console.log = function (...args) {
       output = String(arg);
     }
 
-    // Remove trailing newline characters from the output
-    output = output.replace(/\n$/, '');
-
-    const line = document.createElement("pre"); // <pre> preserves newlines/spaces
-    line.textContent = output;
-    consoleDiv.appendChild(line);
+    // Append the output with a newline, but avoid extra newlines
+    combinedOutput += output + '\n';
   });
 
+  // Find the <pre> tag or create a new one if it doesn't exist
+  let consolePre = document.getElementById('console-log-pre');
+  if (!consolePre) {
+    consolePre = document.createElement('pre');
+    consolePre.id = 'console-log-pre'; // Set an ID for future reference
+    consoleDiv.appendChild(consolePre); // Append it only once
+  }
+
+  // Set the text content of the pre tag and preserve newlines
+  consolePre.textContent += combinedOutput; // Append new output to the existing pre tag
+
+  // Scroll to the bottom of the log
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
+
+
 
 
 
