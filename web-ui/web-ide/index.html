@@ -1312,27 +1312,24 @@ selectedLangExtension = selectedLangExtensionOLD;
 const originalLog = console.log;
 console.log = function (...args) {
   originalLog.apply(console, args);
-  
+
   args.forEach(arg => {
-    let output;
-    
+    const line = document.createElement("div");
+
     if (typeof arg === "object" && arg !== null) {
-      try {
-        output = JSON.stringify(arg, null, 2); // Indented object
-      } catch (e) {
-        output = '[object Object]';
-      }
+      // Use Object.prototype.toString.call(arg) if you want better handling
+      // But just printing [object Object] would not match console!
+      line.textContent = Object.prototype.toString.call(arg);
     } else {
-      output = String(arg);
+      line.textContent = String(arg);
     }
-    
-    const line = document.createElement("pre"); // <pre> preserves newlines/spaces
-    line.textContent = output;
+
     consoleDiv.appendChild(line);
   });
 
   consoleDiv.scrollTop = consoleDiv.scrollHeight;
 };
+
 
 
 
@@ -1385,22 +1382,18 @@ console.log = function (...args) {
 const originalLog = console.log;
 console.log = function (...args) {
   originalLog.apply(console, args);
-  
+
   args.forEach(arg => {
-    let output;
-    
+    const line = document.createElement("div");
+
     if (typeof arg === "object" && arg !== null) {
-      try {
-        output = JSON.stringify(arg, null, 2); // Indented object
-      } catch (e) {
-        output = '[object Object]';
-      }
+      // Use Object.prototype.toString.call(arg) if you want better handling
+      // But just printing [object Object] would not match console!
+      line.textContent = Object.prototype.toString.call(arg);
     } else {
-      output = String(arg);
+      line.textContent = String(arg);
     }
-    
-    const line = document.createElement("pre"); // <pre> preserves newlines/spaces
-    line.textContent = output;
+
     consoleDiv.appendChild(line);
   });
 
