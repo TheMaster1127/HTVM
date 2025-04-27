@@ -17728,7 +17728,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode = allLibsToPutAtTop + Chr(10) + allFuncsToPutAtTop + Chr(10) + htCode;
                 } else {
                     if (useJavaScriptInAfullHTMLfile == "on") {
-                        htCode = allLibsToPutAtTop + Chr(10) + allFuncsToPutAtTop + Chr(10) + htCode;
+                        htCode = Chr(10) + allFuncsToPutAtTop + Chr(10) + htCode;
                     } else {
                         htCode = Chr(10) + allFuncsToPutAtTop + Chr(10) + htCode;
                     }
