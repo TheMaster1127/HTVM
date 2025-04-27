@@ -7743,6 +7743,7 @@ function guiParserStep3(guiCode) {
     var iframes = -1;
     var isElement = 0;
     var whatElement = "";
+    var isDIV0 = 0;
     var lowerField = "";
     items138 = LoopParseFunc(guiCode, "\n", "\r")
     for (let A_Index138 = 0; A_Index138 < items138.length + 0; A_Index138++) {
@@ -7968,6 +7969,7 @@ function guiParserStep3(guiCode) {
                 temp0 = StringTrimRight(temp0, 2);
                 temp0 += " " + closeCurlyTEXT + ");";
             } else {
+                isDIV0 = 1;
                 temp0 += "guiAdd(" + openCurlyTEXT + " " + StrReplace(temp1, "parentId:", "id:");
                 temp0 = StringTrimRight(temp0, 2);
                 temp0 += " " + closeCurlyTEXT + ");";
@@ -8081,8 +8083,11 @@ function guiParserStep3(guiCode) {
                 }
             }
             // print("found_parentId: " . STR(found_parentId))
-            if (found_parentId == 0) {
+            if (found_parentId == 0 && isDIV0 == 1) {
                 temp1 += "parentId:" + Chr(34) + "div0" + Chr(34) + ", ";
+            }
+            else if (found_parentId == 0 && isDIV0 == 0) {
+                temp1 += "parentId:" + Chr(34) + "gui-background" + Chr(34) + ", ";
             }
             // step 5
             // step 5

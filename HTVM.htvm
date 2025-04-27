@@ -10344,6 +10344,8 @@ int iframes := -1
 int isElement := 0
 str whatElement := ""
 
+int isDIV0 := 0
+
 str lowerField := ""
 
 Loop, Parse, guiCode, `n, `r
@@ -10627,6 +10629,7 @@ temp0 .= " " . closeCurlyTEXT . ");"
 }
 else
 {
+isDIV0 := 1
 temp0 .= "guiAdd(" . openCurlyTEXT . " " . StrReplace(temp1, "parentId:", "id:")
 StringTrimRight, temp0, temp0, 2
 temp0 .= " " . closeCurlyTEXT . ");"
@@ -10764,9 +10767,13 @@ if (StrSplit(temp2, ":", 1) = "parentId") {
 
 ; print("found_parentId: " . STR(found_parentId))
 
-if (found_parentId = 0) {
+if (found_parentId = 0) and (isDIV0 = 1)  {
 temp1 .= "parentId:" . Chr(34) . "div0" . Chr(34) . ", "
 }
+else if (found_parentId = 0) and (isDIV0 = 0)  {
+temp1 .= "parentId:" . Chr(34) . "gui-background" . Chr(34) . ", "
+}
+
 
 ; step 5
 ; step 5
