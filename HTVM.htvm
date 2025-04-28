@@ -13644,19 +13644,7 @@ StringTrimRight, code, semiColonForOneLinerOut, 1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-if (langToConvertTo != langFileExtension_2)
-{
-; GUI
-; GUI
-; GUI
-if (langToConvertTo = "js") and (InStr(Trim(code), "gui"))
-{
-code := guiParser(code)
-}
-; GUI
-; GUI
-; GUI
-}
+
 
 if (langToConvertTo = langFileExtension_2)
 {
@@ -13751,6 +13739,21 @@ fixSomeCurlyBraceForExratFlexabilityTriHELP .= Trim(A_LoopField) . Chr(10)
 StringTrimRight, code, fixSomeCurlyBraceForExratFlexabilityTriHELP, 1
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+if (langToConvertTo != langFileExtension_2)
+{
+; GUI
+; GUI
+; GUI
+if (langToConvertTo = "js") and (InStr(Trim(code), "gui"))
+{
+code := guiParser(code)
+}
+; GUI
+; GUI
+; GUI
+}
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

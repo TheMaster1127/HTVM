@@ -10373,17 +10373,6 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-        if (langToConvertTo != langFileExtension_2) {
-            // GUI
-            // GUI
-            // GUI
-            if (langToConvertTo == "js" && InStr(Trim(code), "gui")) {
-                code = guiParser(code);
-            }
-            // GUI
-            // GUI
-            // GUI
-        }
         if (langToConvertTo == langFileExtension_2) {
             if (useSemicolon_2 == "on") {
                 theSemicolon = ";";
@@ -10440,6 +10429,19 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 fixSomeCurlyBraceForExratFlexabilityTriHELP += Trim(A_LoopField180) + Chr(10);
             }
             code = StringTrimRight(fixSomeCurlyBraceForExratFlexabilityTriHELP, 1);
+            //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            if (langToConvertTo != langFileExtension_2) {
+                // GUI
+                // GUI
+                // GUI
+                if (langToConvertTo == "js" && InStr(Trim(code), "gui")) {
+                    code = guiParser(code);
+                }
+                // GUI
+                // GUI
+                // GUI
+            }
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             if (keyWordCurlyBraceOpen != "{") {
