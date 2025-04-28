@@ -1,1 +1,2 @@
 *.html linguist-documentation
+*.htvm linguist-language=HTVM
