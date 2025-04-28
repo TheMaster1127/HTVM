@@ -1,2 +1,2 @@
 *.html linguist-documentation
-*.htvm linguist-language=HTVM
+*.htvm linguist-language=C++
