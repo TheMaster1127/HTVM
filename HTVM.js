@@ -8402,10 +8402,10 @@ function initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToF
     for (let A_Index149 = 0; A_Index149 < items149.length + 0; A_Index149++) {
         const A_LoopField149 = items149[A_Index149 - 0];
         if (RegExMatch(Trim(A_LoopField149), "^[a-zA-Z_][a-zA-Z0-9_]*:$") && isLineAconstruct(Trim(A_LoopField149)) == false) {
-            print("DEBUG: " + A_LoopField149);
+            //print("DEBUG: " . A_LoopField149)
             temp = StringTrimRight(Trim(A_LoopField149), 1);
             if (langToConvertTo == "js") {
-                out += Trim(keyWordFunc) + " " + temp + "(A_Id, A_Event, A_Value)" + Chr(10) + "{" + Chr(10);
+                out += Trim(keyWordAsync) + " " + Trim(keyWordFunc) + " " + Trim(temp) + "(A_Id, A_Event, A_Value)" + Chr(10) + "{" + Chr(10);
             }
             else if (langToConvertTo == "py") {
                 out += "NOT YET IMPLEMENTED" + Chr(10);
