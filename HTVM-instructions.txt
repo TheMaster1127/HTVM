@@ -4264,11 +4264,11 @@ function guiAddElement({
                          if (elementType === 'edit') {
                              const newValue = event.target.value;
                              elementDataNow.properties.value = newValue; // Update state
-                             callbackFunction(currentElementId, newValue, event);
+                             callbackFunction(currentElementId, event, newValue);
                          } else if (elementType === 'dropdown') {
                              const newValue = event.target.value;
                               elementDataNow.properties.selectedValue = newValue; // Update selected state
-                             callbackFunction(currentElementId, newValue, event);
+                             callbackFunction(currentElementId, event, newValue);
                          } else if (elementType === 'toggle') {
                              const newState = !elementDataNow.properties.value; // Calculate new state
                              elementDataNow.properties.value = newState; // Update state first
@@ -4285,9 +4285,9 @@ function guiAddElement({
                                  const sliderTranslateX = newState ? maxTranslate : 0;
                                  slider.style.transform = `translateX(${sliderTranslateX}px)`;
                               }
-                             callbackFunction(currentElementId, newState, event); // Call user callback AFTER state/visuals updated
+                             callbackFunction(currentElementId, event, newValue); // Call user callback AFTER state/visuals updated
                          } else { // Button, Picture, Rectangle, Circle
-                              callbackFunction(currentElementId, event);
+                              callbackFunction(currentElementId, event, "null");
                          }
                      } catch (e) {
                          console.error(`Error executing callback for element ${currentElementId}:`, e);
