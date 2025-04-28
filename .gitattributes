@@ -1,3 +1,4 @@
 *.html linguist-documentation
 *.htvm linguist-language=C++
-*.md linguist-documentation
+*.md linguist-detectable
+*.md linguist-language=Markdown
