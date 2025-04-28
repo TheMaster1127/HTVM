@@ -12,7 +12,7 @@
 
 ### HTVM: The Revolution in Programming
 
-## HTVM: The Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine
+## **HTVM: The Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine**
 
 HTVM is a revolutionary system that empowers **you to design your own programming language** with **fully customizable syntax**, tailored precisely to your needs and approach.
 
@@ -22,17 +22,16 @@ Write code using your personalized keywords, operators, and structure, and HTVM'
 
 HTVM fundamentally changes the programming experience with groundbreaking features:
 
-*   **Total Syntax Customization:** Define your own keywords, operators, block structures, comments, and more, without the limitations of traditional languages. Build a language that feels intuitive *to you*.
-*   **Multi-Target Code Generation:** Write your logic once in your custom HTVM language and generate native code for multiple platforms or environments simultaneously.
-*   **Simplified Dependency Management:** Leverage a rich set of built-in functions. HTVM automatically handles adding necessary library includes/imports in the *generated* code, reducing boilerplate in your HTVM source.
-*   **OSP (Ordinal Struct Programming):** Utilize HTVM's built-in methodology for organizing code with hierarchical namespaces and explicit `struct` data containers. [See OSP Docs](#https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#osp-ordinal-struct-programming)
-*   **Programming Blocks:** Seamlessly embed native code for any target language directly within your HTVM files for tasks requiring specific platform features or libraries. [See Programming Blocks Docs](#https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#programming-blocks)
-*   **HTVM IDE:** Develop efficiently with a dedicated IDE featuring custom syntax highlighting (based on *your* rules), code completion, file management, and execution capabilities (JS execution directly, others via generated code).
+- **Total Syntax Customization**: Define your own keywords, operators, block structures, comments, and more, without the limitations of traditional languages. Build a language that feels intuitive *to you*.
+- **Multi-Target Code Generation**: Write your logic once in your custom HTVM language and generate native code for multiple platforms or environments simultaneously.
+- **Simplified Dependency Management**: Leverage a rich set of built-in functions. HTVM automatically handles adding necessary library includes/imports in the *generated* code, reducing boilerplate in your HTVM source.
+- **OSP (Ordinal Struct Programming)**: Utilize HTVM's built-in methodology for organizing code with hierarchical namespaces and explicit `struct` data containers. [See OSP Docs](#https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#osp-ordinal-struct-programming)
+- **Programming Blocks**: Seamlessly embed native code for any target language directly within your HTVM files for tasks requiring specific platform features or libraries. [See Programming Blocks Docs](#https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#programming-blocks)
+- **HTVM IDE**: Develop efficiently with a dedicated IDE featuring custom syntax highlighting (based on *your* rules), code completion, file management, and execution capabilities (JS execution directly, others via generated code).
 
 HTVM aims to make programming faster, more accessible, more personalized, and ultimately, more powerful by putting you in control of the language itself.
 
 ---
-
 **What is HTVM?**  
 HTVM is an Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine. It allows users to create their own programming languages. It’s not just about programming in a new language, but about designing your own syntax. This means that whether you're a professional programmer or even someone with basic computer skills, you can tailor the way you write code to fit your preferences. It’s like giving everyone the power to define the grammar rules for their code without having to be stuck with traditional programming language limitations.
 
