@@ -8405,7 +8405,7 @@ function initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToF
             //print("DEBUG: " . A_LoopField149)
             temp = StringTrimRight(Trim(A_LoopField149), 1);
             if (langToConvertTo == "js") {
-                out += Trim(keyWordAsync) + " " + Trim(keyWordFunc) + " " + Trim(temp) + "(A_Id, A_Event, A_Value)" + Chr(10) + "{" + Chr(10);
+                out += Trim(keyWordAsync) + " " + Trim(keyWordFunc) + " " + Trim(temp) + "(A_Id, A_Event, A_Value )" + Chr(10) + "{" + Chr(10);
             }
             else if (langToConvertTo == "py") {
                 out += "NOT YET IMPLEMENTED" + Chr(10);

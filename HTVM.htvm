@@ -11254,7 +11254,7 @@ if (RegExMatch(Trim(A_LoopField), "^[a-zA-Z_][a-zA-Z0-9_]*:$")) and (isLineAcons
 temp := StringTrimRight(Trim(A_LoopField), 1)
 if (langToConvertTo = "js")
 {
-out .= Trim(keyWordAsync) . " " . Trim(keyWordFunc) . " " . Trim(temp) . "(A_Id, A_Event, A_Value)" . Chr(10) . "{" . Chr(10)
+out .= Trim(keyWordAsync) . " " . Trim(keyWordFunc) . " " . Trim(temp) . "(A_Id, A_Event, A_Value )" . Chr(10) . "{" . Chr(10)
 }
 else if (langToConvertTo = "py")
 {
