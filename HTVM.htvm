@@ -24934,6 +24934,13 @@ if (size_weAreInMLSarr != 0) {
         weAreInMLSarr.pop()
     }
 }
+
+
+if (initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction_WAS_IN_PYTHON = 1)
+{
+htCode := htCode . Chr(10) . Chr(10) . "if __name__ == " . Chr(34) . "__main__" . Chr(34) . ":" . Chr(10) . "    # --- Cleaned up startup messages ---" . Chr(10) . "    # print(f" . Chr(34) . "--- Flask Routes ---" . Chr(34) . ") # REMOVED" . Chr(10) . "    # print(app.url_map) # REMOVED" . Chr(10) . "    # print(f" . Chr(34) . "--------------------" . Chr(34) . ") # REMOVED" . Chr(10) . "    # print(f" . Chr(34) . "Starting server on http://0.0.0.0:{HTVM_server_port_HTVM}" . Chr(34) . ") # REMOVED" . Chr(10) . "    " . Chr(10) . "    # KEEP This specific message:" . Chr(10) . "    print(f" . Chr(34) . "Root '/' will attempt to serve './{HTVM_DEFAULT_FILE_HTVM}' as configured." . Chr(34) . ")" . Chr(10) . "    " . Chr(10) . "    # print(" . Chr(34) . "Endpoints /hello and /goodbye (POST) expect PLAIN TEXT input and return PLAIN TEXT." . Chr(34) . ") # REMOVED" . Chr(10) . "" . Chr(10) . "    # Standard app run" . Chr(10) . "    app.run(host=" . Chr(34) . "0.0.0.0" . Chr(34) . ", port=HTVM_server_port_HTVM, debug=True)"
+}
+
 initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction_WAS_IN_PYTHON := 0
 
 htCode := StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI", "{")
