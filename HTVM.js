@@ -10880,10 +10880,6 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         for (let A_Index200 = 0; A_Index200 < items200.length + 0; A_Index200++) {
             const A_LoopField200 = items200[A_Index200 - 0];
             lineDone = 0;
-            if (InStr(A_LoopField200, "guiInit(") || InStr(A_LoopField200, "guiAdd(") || InStr(A_LoopField200, "guiAddElement(") || InStr(A_LoopField200, "guiControl(") || InStr(A_LoopField200, "HTVM_init(") || InStr(A_LoopField200, "HTVM_register(") || InStr(A_LoopField200, "HTVM_custom_port(")) {
-                lineDone = 1;
-                htCode += Trim(A_LoopField200) + Chr(10);
-            }
             if (SubStr(A_LoopField200, 1, StrLen(keyWordComment)) == keyWordComment) {
                 lineDone = 1;
                 str1 = StringTrimLeft(A_LoopField200, StrLen(keyWordComment));
@@ -10935,6 +10931,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 if (langToConvertTo == "groovy") {
                     htCode += "//" + str1 + Chr(10);
                 }
+            }
+            else if (InStr(A_LoopField, "guiInit(") || InStr(A_LoopField, "guiAdd(") || InStr(A_LoopField, "guiAddElement(") || InStr(A_LoopField, "guiControl(") || InStr(A_LoopField, "HTVM_init(") || InStr(A_LoopField, "HTVM_register(") || InStr(A_LoopField, "HTVM_custom_port(") && lineDone == 0) {
+                lineDone = 1;
+                htCode += Trim(A_LoopField200) + Chr(10);
             }
             else if (Trim(A_LoopField200) == keyWordCommentOpenMultiLine) {
                 lineDone = 1;
