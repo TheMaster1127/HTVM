@@ -426,6 +426,8 @@ int allVarsSoWeDontReDecVars_FIX_TOGGLE := 0
 str availableFuncsInHTVMInHTVM := ""
 str saveAllArrayVarNamesSoWeCanDoAfix := "|"
 
+int initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction_WAS_IN_PYTHON := 0
+
 arr str weAreInMLSarr
 
 arr str ospDic
@@ -11244,7 +11246,10 @@ func str initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToF
 {
 str out := ""
 str temp := ""
-
+str temp1 := ""
+str temp2 := ""
+int firstTimePythonIn := 0
+int wasHereNeedFixEndpointCall := 0
 Loop, Parse, codeToConvert, `n, `r
 {
 
@@ -11258,13 +11263,139 @@ out .= Trim(keyWordAsync) . " " . Trim(keyWordFunc) . " " . Trim(temp) . "(A_Id,
 }
 else if (langToConvertTo = "py")
 {
-out .= "NOT YET IMPLEMENTED" . Chr(10)
+initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction_WAS_IN_PYTHON := 1 
+firstTimePythonIn++
+
+if (firstTimePythonIn = 1)
+{
+out .= Trim(keyWordComment) . " added the HTVM_custom_port()" . Chr(10) . Trim(keyWordComment) . " added the HTVM_register()" . Chr(10) . Trim(keyWordComment) . " added the HTVM_init()" . Chr(10) . Trim(keyWordFunc) . " " . Trim(temp) . "(A_Input=" . Chr(34) . "" . Chr(34) . " )" . Chr(10) . "{" . Chr(10)
+}
+else
+{
+out .= Trim(keyWordFunc) . " " . Trim(temp) . "(A_Input=" . Chr(34) . "" . Chr(34) . " )" . Chr(10) . "{" . Chr(10)
+}
 }
 else
 {
 out .= "!!!NOT POISBLE ONLY POSIBLE IN JS AND PY!!!" . Chr(10)
 }
+; endpoint, enpointName, enpointFunc, [reqType]
+; fileinit, index.html or someJsFile.js or someHtmlFile.html it can be both .html and .js file
+; port, 8000
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 9) = "endpoint,")
+{
 
+; HTVM_register("endpointName", "endpointName", method="POST")
+temp1 := ""
+Loop, Parse, Trim(A_LoopField), `,
+{
+temp := Trim(A_LoopField)
+if (A_Index != 0)
+{
+if (A_Index = 1)
+{
+
+if (InStr(temp, Chr(34)))
+{
+temp1 .= temp . ", "
+temp2 := temp
+}
+else
+{
+temp1 .= Chr(34) . temp . Chr(34) . ", "
+temp2 := Chr(34) . temp . Chr(34)
+}
+
+
+}
+else if (A_Index = 2)
+{
+wasHereNeedFixEndpointCall := 1
+if (InStr(temp, Chr(34)))
+{
+temp1 .= temp . ", "
+}
+else
+{
+temp1 .= Chr(34) . temp . Chr(34) . ", "
+}
+
+}
+else if (A_Index = 3)
+{
+if (InStr(temp, Chr(34)))
+{
+temp1 .= temp . ", "
+}
+else
+{
+temp1 .= Chr(34) . temp . Chr(34) . ", "
+}
+}
+else
+{
+if (InStr(temp, Chr(34)))
+{
+temp1 .= temp . ", "
+}
+else
+{
+temp1 .= Chr(34) . temp . Chr(34) . ", "
+}
+}
+}
+}
+
+if (wasHereNeedFixEndpointCall = 0)
+{
+temp1 .= temp2
+}
+else
+{
+StringTrimRight, temp1, temp1, 2
+}
+
+out .= "HTVM_register(" . temp1 . ")" . Chr(10)
+
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 9) = "fileinit,")
+{
+
+; HTVM_init("fileName")
+temp1 := ""
+Loop, Parse, Trim(A_LoopField), `, {
+    temp := Trim(A_LoopField)
+    if (A_Index != 0) {
+        if (A_Index = 1) {   
+            if (InStr(temp, Chr(34))) {
+                temp1 .= temp
+            } else {
+                temp1 .= Chr(34) . temp . Chr(34)
+            }
+        }
+    }
+}
+out .= "HTVM_init(" . temp1 . ")" . Chr(10)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "port,")
+{
+
+; HTVM_custom_port("fileName")
+temp1 := ""
+Loop, Parse, Trim(A_LoopField), `, 
+{
+temp := Trim(A_LoopField)
+if (A_Index != 0)
+{
+if (A_Index = 1)
+{
+temp1 .= temp
+}
+}
+}
+temp1 := Trim(StrReplace(temp1, Chr(34), ""))
+out .= "HTVM_custom_port(" . temp1 . ")" . Chr(10)
 }
 else if (Trim(StrLower(A_LoopField)) = "subout")
 {
@@ -14247,7 +14378,7 @@ htCode := ""
 Loop, Parse, code, `n, `r
 {
 lineDone := 0
-if (InStr(A_LoopField, "guiInit(")) or (InStr(A_LoopField, "guiAdd(")) or (InStr(A_LoopField, "guiAddElement(")) or (InStr(A_LoopField, "guiControl("))
+if (InStr(A_LoopField, "guiInit(")) or (InStr(A_LoopField, "guiAdd(")) or (InStr(A_LoopField, "guiAddElement(")) or (InStr(A_LoopField, "guiControl(")) or (InStr(A_LoopField, "HTVM_init(")) or (InStr(A_LoopField, "HTVM_register(")) or (InStr(A_LoopField, "HTVM_custom_port("))
 {
 lineDone := 1
 htCode .= Trim(A_LoopField) . Chr(10)
@@ -24803,6 +24934,7 @@ if (size_weAreInMLSarr != 0) {
         weAreInMLSarr.pop()
     }
 }
+initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction_WAS_IN_PYTHON := 0
 
 htCode := StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI", "{")
 htCode := StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI", "}")

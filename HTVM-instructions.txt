@@ -4717,129 +4717,240 @@ def StrTitleCase(input_string):
 funcEND======================funcEND==============
 
 
-
-
-
-
-
 func======================func==============
 lang: py
-name: createBackendInit
-libs: from flask import Flask, request, send_file|import os
-description: backend~~~createBackendInit is a function that initializes a Flask app, sets up a default route to serve an `index.html` file, and registers a custom 404 error handler and uses the app variable so never use the app variable please~~~here is how the func looks like:~~~```htvm~~~createBackendInit([filename = "index.html"])~~~```~~~Here is an exmaple how to use the backend~~~```py~~~# Initialize Flask app~~~createBackendInit()~~~# Define your custom endpoint functions using camelCase~~~def helloWord(data):~~~    # Handle data and return plain text response~~~    return f"Hello, you sent: {data['message']}"~~~def uppercaseText(data):~~~    # Handle data and return plain text response~~~    return data['text'].upper()~~~# Register the endpoints~~~addEndpoint(helloWord)~~~addEndpoint(uppercaseText)~~~# Start the server~~~startServer()~~~```~~~~~~This exmaple is in python but the funcs works in HTVM like normal funcs.
-# Declare the global app variable
-app = None
+name: HTVM_custom_port
+libs: from flask import Flask, request, send_file, Response|import os|import traceback
+description: null
 
-def createBackendInit(filename="index.html"):
-    """Initialize the Flask app with an optional filename to be served."""
-    global app  # Use the global app variable
-    app = Flask(__name__)
 
-    # Define a route to serve the file, defaulting to 'index.html'
-    def appRoute():
-        file_path = os.path.join(os.path.dirname(__file__), filename)
-        return send_file(file_path), 200
+app = Flask(__name__)
 
-    # Add URL rule with the route that calls appRoute
-    app.add_url_rule('/', 'appRoute', appRoute, methods=["GET"])
+# --- Global Variables ---
+# Port Configuration
+HTVM_server_port_HTVM = 8000
+# Default File Configuration - This will store the name of the file to serve for '/'
+HTVM_DEFAULT_FILE_HTVM = "index.html" # Default to index.html initially
 
-    # Handle 404 errors
-    def notFound(e):
-        return "Page not found", 404
-    app.register_error_handler(404, notFound)
+# --- Port Function ---
+def HTVM_custom_port(port=None):
+    global HTVM_server_port_HTVM
+    if port is not None:
+        HTVM_server_port_HTVM = port
+
+
 
 funcEND======================funcEND==============
 
 func======================func==============
 lang: py
-name: addEndpoint
-libs: from flask import Flask, request, send_file|import os
-description: backend~~~addEndpoint is a function that registers a given function as an endpoint with a specified HTTP method (default is POST).~~~here is how the func looks like:~~~```htvm~~~addEndpoint(func func, str method [default = "POST"])~~~```~~~Here is an exmaple how to use the backend~~~```py~~~# Initialize Flask app~~~createBackendInit()~~~# Define your custom endpoint functions using camelCase~~~def helloWord(data):~~~    # Handle data and return plain text response~~~    return f"Hello, you sent: {data['message']}"~~~def uppercaseText(data):~~~    # Handle data and return plain text response~~~    return data['text'].upper()~~~# Register the endpoints~~~addEndpoint(helloWord)~~~addEndpoint(uppercaseText)~~~# Start the server~~~startServer()~~~```~~~~~~This exmaple is in python but the funcs works in HTVM like normal funcs.
-def addEndpoint(func, method="POST"):
-    """Register a function as an endpoint with a single HTTP method."""
-    endpoint = f"/{func.__name__}"
+name: HTVM_register
+libs: from flask import Flask, request, send_file, Response|import os|import traceback
+description: null
 
-    def handle_request():
-        if request.method == "GET":
-            # Extract raw query string
-            raw_query = request.query_string.decode('utf-8')  # Get query string like "WAESRDG="
-            if raw_query:
-                # Split by "=" and get everything before the "="
-                key = raw_query.split('=')[0]
-                return func(key)  # Pass the extracted key to the function
-            else:
-                return "No query string provided", 400
+# --- Dynamic Route Registration (Plain Text In/Out) ---
+def HTVM_register(endpoint, function_name, method="POST"):
+    # (Code for HTVM_register remains the same)
+    endpoint = endpoint.strip()
+    actual_function_name = function_name.strip()
+    flask_endpoint_name = actual_function_name
+    if endpoint.startswith("/"): endpoint = endpoint[1:]
+    if flask_endpoint_name.startswith("/"): flask_endpoint_name = flask_endpoint_name[1:]
+    flask_endpoint_name = flask_endpoint_name.replace("/", "_")
 
-        elif request.method in {"POST", "PUT", "PATCH"}:
-            data = request.get_json()
-            return func(data)
+    def create_handler(func_name_to_call):
+        def HTVM_handler():
+            A_Input = ""
+            error_response = None
+            if request.method in ['POST', 'PUT', 'PATCH']:
+                try: A_Input = request.get_data(as_text=True)
+                except Exception as e: print(f"Err reading req data for {func_name_to_call}: {e}"); error_response = Response(f"Failed read req data: {e}", status=400, mimetype='text/plain; charset=utf-8')
+                if error_response: return error_response
+            target_func = globals().get(func_name_to_call)
+            if target_func and callable(target_func):
+                 try:
+                     result = target_func(A_Input=A_Input)
+                     if isinstance(result, str): return Response(result, mimetype='text/plain; charset=utf-8')
+                     else: print(f"Err: Func '{func_name_to_call}' no return str. Type: {type(result)}"); return Response(f"Server err: Func '{func_name_to_call}' invalid output.", status=500, mimetype='text/plain; charset=utf-8')
+                 except TypeError as te: print(f"TypeError {func_name_to_call} (check A_Input): {te}\n{traceback.format_exc()}"); return Response(f"Server conf err: Func '{func_name_to_call}' cannot process input.", status=500, mimetype='text/plain; charset=utf-8')
+                 except Exception as e: print(f"Err executing {func_name_to_call}: {e}\n{traceback.format_exc()}"); return Response(f"Err in func {func_name_to_call}: {e}", status=500, mimetype='text/plain; charset=utf-8')
+            else: print(f"Err: Func '{func_name_to_call}' not found/callable."); return Response(f"Server Err: Func '{func_name_to_call}' not found.", status=404, mimetype='text/plain; charset=utf-8')
+        HTVM_handler.__name__ = f"handler_{flask_endpoint_name}_{method.lower()}"
+        return HTVM_handler
+    handler_func = create_handler(actual_function_name)
+    app.add_url_rule(f"/{endpoint}", flask_endpoint_name, handler_func, methods=[method.upper()])
 
-        elif request.method == "DELETE":
-            data = request.args.to_dict() if not request.is_json else request.get_json()
-            return func(data)
-
-        else:
-            return f"Method {request.method} not supported", 405
-
-    app.add_url_rule(
-        endpoint,
-        endpoint,
-        handle_request,
-        methods=[method]
-    )
 funcEND======================funcEND==============
 
 
 func======================func==============
 lang: py
-name: startServer
-libs: from flask import Flask, request, send_file|import os
-description: backend~~~startServer is a function that runs a Flask web application on a specified host and port, with default values for the host and port parameters.~~~here is how the func looks like:~~~```htvm~~~startServer([port=8000], [host="0.0.0.0"])~~~```~~~Here is an exmaple how to use the backend~~~```py~~~# Initialize Flask app~~~createBackendInit()~~~# Define your custom endpoint functions using camelCase~~~def helloWord(data):~~~    # Handle data and return plain text response~~~    return f"Hello, you sent: {data['message']}"~~~def uppercaseText(data):~~~    # Handle data and return plain text response~~~    return data['text'].upper()~~~# Register the endpoints~~~addEndpoint(helloWord)~~~addEndpoint(uppercaseText)~~~# Start the server~~~startServer()~~~```~~~~~~This exmaple is in python but the funcs works in HTVM like normal funcs.
-def startServer(port=8000, host="0.0.0.0"):
-    """Run the Flask app."""
-    app.run(host=host, port=port, debug=True)
-funcEND======================funcEND==============
+name: HTVM_init
+libs: from flask import Flask, request, send_file, Response|import os|import traceback
+description: null
 
+# --- HTVM_init - Modified to use and set the global default ---
+def HTVM_init(endpoint=None):
+    """
+    Handles serving files. Updates/uses global HTVM_DEFAULT_FILE_HTVM.
+    - If endpoint is None: Serves the file specified by HTVM_DEFAULT_FILE_HTVM.
+    - If endpoint is not None: Serves that endpoint AND sets it as the new default.
+    Looks only in the base directory. Returns plain text errors.
+    """
+    global HTVM_DEFAULT_FILE_HTVM # Needed to modify the global
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    filename_to_serve = ""
+
+    if endpoint is None:
+        # DEFAULT BEHAVIOR: Use the currently set default file
+        filename_to_serve = HTVM_DEFAULT_FILE_HTVM
+        # Optional: Keep this print if you want to see when the default handler runs
+        # print(f"HTVM_init: Handling default request (serving './{filename_to_serve}' as set globally)")
+    else:
+        # EXPLICIT REQUEST: Serve this file AND set it as the new default
+        filename_to_serve = endpoint
+        # Keep this print as it confirms the configuration step
+        print(f"HTVM_init: Handling explicit request for './{filename_to_serve}' AND setting as new default.")
+        HTVM_DEFAULT_FILE_HTVM = filename_to_serve # Update the global default
+
+    # --- Logic to serve filename_to_serve ---
+    file_path = os.path.join(base_dir, filename_to_serve)
+
+    if not os.path.exists(file_path):
+         context = "Default" if endpoint is None else "Requested"
+         error_msg = f"Server Error: {context} file './{filename_to_serve}' not found."
+         print(error_msg + f" Searched in: '{base_dir}'")
+         return Response(error_msg, status=404, mimetype='text/plain; charset=utf-8')
+
+    if filename_to_serve.endswith(".js"):
+        # Keep this print as it confirms the type handling for configuration
+        print(f"HTVM_init: './{filename_to_serve}' is JS. Wrapping in HTML.")
+        try:
+            with open(file_path, "r", encoding="utf-8") as js_file:
+                js_content = js_file.read()
+            html_content = f"""<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HTVM</title>
+        <style>
+            body {{
+                background-color: #202020;
+                color: #f0f0f0; /* Added text color for visibility */
+                font-family:
+                    "Open Sans",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    Oxygen-Sans,
+                    Ubuntu,
+                    Cantarell,
+                    "Helvetica Neue",
+                    Helvetica,
+                    Arial,
+                    sans-serif;
+            }}
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+        <div id="app"></div> <!-- Added an element for JS to potentially target -->
+        <script>
+            {js_content}
+        </script>
+    </body>
+</html>"""
+
+            return Response(html_content, mimetype='text/html; charset=utf-8')
+        except Exception as e:
+             print(f"Error reading JS file './{file_path}': {e}\n{traceback.format_exc()}")
+             return Response(f"Server Error: Could not read JS file '{filename_to_serve}'.\n{e}", status=500, mimetype='text/plain; charset=utf-8')
+
+    else:
+        # Optional: Keep this print if you want confirmation for non-JS files
+        # print(f"HTVM_init: './{filename_to_serve}' is not JS. Serving directly.")
+        try:
+            return send_file(file_path)
+        except Exception as e:
+            print(f"Error sending file './{file_path}': {e}\n{traceback.format_exc()}")
+            return Response(f"Server Error: Could not send file '{filename_to_serve}'.\n{e}", status=500, mimetype='text/plain; charset=utf-8')
+
+
+# --- Root route uses HTVM_init (will read global HTVM_DEFAULT_FILE_HTVM) ---
+@app.route('/')
+def index():
+  return HTVM_init() # Call without args uses the global default file name
+
+
+funcEND======================funcEND==============
 
 
 func======================func==============
 lang: js
-name: getDataFromEndpoint
+name: callBackend
 libs: null
-description: backend~~~getDataFromEndpoint is a function that fetches data from a specified endpoint using a provided HTTP method (default is POST), sends the data as a JSON string, and parses the response based on its content type.~~~here is how the func looks like:~~~```htvm~~~getDataFromEndpoint(data, endpoint, method = "POST")~~~```~~~
-async function getDataFromEndpoint(data, endpoint, method = "POST") {
-  let url = endpoint;
-  let requestOptions = {
-    method, // Use the provided method
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+description: backend~~~callBackend is a function that fetches data from a specified endpoint using a provided HTTP method (default is POST), sends the textData as a string, and parses the response based on its content type.~~~here is how the func looks like:~~~```htvm~~~callBackend(endpoint, textData, [method = "POST"])~~~```~~~
 
-  // If the method is GET, append data as query parameters
-  if (method === "GET") {
-    const queryParams = new URLSearchParams(data).toString();
-    url += `?${queryParams}`;
-  } else {
-    // For POST/PUT, include the body
-    requestOptions.body = JSON.stringify(data);
-  }
+/**
+ * Calls a backend endpoint (on the same origin) expecting plain text input
+ * and returning plain text output.
+ *
+ * @param {string} endpoint - The path of the endpoint (e.g., '/hello', '/goodbye').
+ *                           Must start with '/'.
+ * @param {string} textData - The plain text string to send in the request body.
+ * @param {string} [method='POST'] - The HTTP method to use (defaults to 'POST').
+ * @returns {Promise<string>} A Promise that resolves with the plain text response from the backend.
+ * @throws {Error} If the network request fails or the server returns an error status (not 2xx).
+ */
+async function callBackend(endpoint, textData, method = 'POST') {
+    // Calls are relative to the current origin (where the script is hosted)
+    const url = endpoint;
 
-  // Fetch data
-  const response = await fetch(url, requestOptions);
+    console.log(`Calling backend: ${method} ${url}`); // Optional: for debugging
 
-  // Handle response
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data from ${url}. Status: ${response.status}`);
-  }
+    try {
+        const response = await fetch(url, {
+            method: method.toUpperCase(), // Ensure method is uppercase
+            headers: {
+                // Crucial header for sending plain text
+                'Content-Type': 'text/plain; charset=utf-8',
+                 // Indicate we accept plain text back (optional but good practice)
+                'Accept': 'text/plain',
+            },
+            // The body is simply the text string
+            body: textData
+        });
 
-  const contentType = response.headers.get("content-type");
-  if (contentType && contentType.includes("application/json")) {
-    return response.json();
-  } else {
-    return response.text();
-  }
+        // Check if the HTTP status code indicates success (e.g., 200 OK)
+        if (!response.ok) {
+            // Try to get error message text from the response body, otherwise use status text
+            let errorText = response.statusText; // Default error text
+            try {
+                 // Since the backend might send plain text errors for 4xx/5xx too
+                errorText = await response.text();
+            } catch (e) {
+                // Ignore if reading text fails, stick with statusText
+                console.warn("Could not read error response body as text.");
+            }
+            // Throw an error to be caught by the caller
+            throw new Error(`HTTP error! Status: ${response.status} - ${errorText}`);
+        }
+
+        // If response is OK, get the body content as plain text
+        const responseText = await response.text();
+        return responseText; // Resolve the promise with the text
+
+    } catch (error) {
+        // Catch network errors (e.g., server unreachable) or the error thrown above
+        console.error('Error calling backend:', error);
+        // Re-throw the error so the calling code can handle it
+        throw error;
+    }
 }
+
+
 funcEND======================funcEND==============
 func======================func==============
 lang: cpp
