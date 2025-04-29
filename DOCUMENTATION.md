@@ -3742,10 +3742,7 @@ MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
 
 [Go back](#built-in-functions)
 
-1. [addEndpoint](#addendpoint)
-2. [createBackendInit](#createbackendinit)
-3. [getDataFromEndpoint](#getdatafromendpoint)
-4. [startServer](#startserver)
+1. [callBackend](#callbackend)
 
 ---
 
@@ -3755,14 +3752,11 @@ MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| addEndpoint | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-| createBackendInit | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-| getDataFromEndpoint | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| startServer | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| callBackend | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 ---
 
-### addEndpoint
+### callBackend
 
 [Go back](#backend-functions)
 
@@ -3770,117 +3764,12 @@ MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| addEndpoint | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| callBackend | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-addEndpoint is a function that registers a given function as an endpoint with a specified HTTP method (default is POST).
+callBackend is a function that fetches data from a specified endpoint using a provided HTTP method (default is POST), sends the textData as a string, and parses the response based on its content type.
 here is how the func looks like:
 ```htvm
-addEndpoint(func func, str method [default = "POST"])
+callBackend(endpoint, textData, [method = "POST"])
 ```
-Here is an exmaple how to use the backend
-```py
-# Initialize Flask app
-createBackendInit()
-# Define your custom endpoint functions using camelCase
-def helloWord(data):
-    # Handle data and return plain text response
-    return f"Hello, you sent: {data['message']}"
-def uppercaseText(data):
-    # Handle data and return plain text response
-    return data['text'].upper()
-# Register the endpoints
-addEndpoint(helloWord)
-addEndpoint(uppercaseText)
-# Start the server
-startServer()
-```
-This exmaple is in python but the funcs works in HTVM like normal funcs.
-
----
-### createBackendInit
-
-[Go back](#backend-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| createBackendInit | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
-createBackendInit is a function that initializes a Flask app, sets up a default route to serve an `index.html` file, and registers a custom 404 error handler and uses the app variable so never use the app variable please
-here is how the func looks like:
-```htvm
-createBackendInit([filename = "index.html"])
-```
-Here is an exmaple how to use the backend
-```py
-# Initialize Flask app
-createBackendInit()
-# Define your custom endpoint functions using camelCase
-def helloWord(data):
-    # Handle data and return plain text response
-    return f"Hello, you sent: {data['message']}"
-def uppercaseText(data):
-    # Handle data and return plain text response
-    return data['text'].upper()
-# Register the endpoints
-addEndpoint(helloWord)
-addEndpoint(uppercaseText)
-# Start the server
-startServer()
-```
-This exmaple is in python but the funcs works in HTVM like normal funcs.
-
----
-### getDataFromEndpoint
-
-[Go back](#backend-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| getDataFromEndpoint | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-getDataFromEndpoint is a function that fetches data from a specified endpoint using a provided HTTP method (default is POST), sends the data as a JSON string, and parses the response based on its content type.
-here is how the func looks like:
-```htvm
-getDataFromEndpoint(data, endpoint, method = "POST")
-```
-
----
-### startServer
-
-[Go back](#backend-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| startServer | No | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-
-startServer is a function that runs a Flask web application on a specified host and port, with default values for the host and port parameters.
-here is how the func looks like:
-```htvm
-startServer([port=8000], [host="0.0.0.0"])
-```
-Here is an exmaple how to use the backend
-```py
-# Initialize Flask app
-createBackendInit()
-# Define your custom endpoint functions using camelCase
-def helloWord(data):
-    # Handle data and return plain text response
-    return f"Hello, you sent: {data['message']}"
-def uppercaseText(data):
-    # Handle data and return plain text response
-    return data['text'].upper()
-# Register the endpoints
-addEndpoint(helloWord)
-addEndpoint(uppercaseText)
-# Start the server
-startServer()
-```
-This exmaple is in python but the funcs works in HTVM like normal funcs.
 
 ---
