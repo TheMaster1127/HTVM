@@ -4,7 +4,7 @@ TODO.txt
 3. Work on error handling for user input on the HTVM Configurator website and write all 162 descriptions for each customization.
 4. Finalize the HTVM Configurator website.
 5. Add GUI commands to HTVM to build UIs so easy that you won't believe it, and ensure backend simplicity.
-6. Rewrite the HTVM IDE in 3 versions: Desktop (Electron), as a local web app with Python Flask backend, and as a static HTVM IDE that runs fully in the browser using only JavaScript and localStorage; use the new engine for syntax highlighting and autocomplete, and add support for the import keyword and .funcname highlighting. And many more...
+6. Rewrite the HTVM IDE, and use the new engine for syntax highlighting and autocomplete, and add support for the import keyword and .funcname highlighting. And many more...
 7. Add all the built-in functions to HTVM for the remaining languages.
 8. Test HTVM functionality after adding the built-in functions, especially for Java.
 9. Build the HTVM-to-HTVM Transpilation webite.
