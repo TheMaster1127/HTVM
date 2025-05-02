@@ -1,5 +1,77 @@
 ; htvm-err-handling.htvm
 
+; Helper function to check for disallowed characters based on mode.
+; Mode 0: Check if any disallowed char exists anywhere in the line.
+; Mode 1: Check if any disallowed char exists ONLY at the beginning of the line.
+; Mode 2: Check if any disallowed char exists ONLY at the end of the line.
+; Returns true if a disallowed character is found according to the mode, false otherwise.
+func bool handleErrorHelper(arr str theArray, str line, int mode := 0)
+{
+    if (mode = 0)
+    {
+        ; Mode 0: Check anywhere in the line
+        bool found := false
+        Loop, % theArray.size()
+        {
+            ; If a disallowed character is found IN the line
+            if (InStr(line, theArray[A_Index])) 
+            {
+                found := true
+                break
+            }
+        }
+        ; Return true if a disallowed character WAS found anywhere
+        return found 
+    }
+    else if (mode = 1)
+    {
+        ; Mode 1: Check ONLY the beginning of the line (first character)
+        if (StrLen(line) = 0) 
+        {
+            return false ; Empty line cannot start with a disallowed char
+        }
+        
+        str firstChar := SubStr(line, 1, 1) ; Get the first character (assuming 1-based index for SubStr)
+        bool foundAtStart := false
+        Loop, % theArray.size()
+        {
+            if (firstChar = theArray[A_Index])
+            {
+                foundAtStart := true
+                break
+            }
+        }
+        ; Return true if a disallowed character WAS found at the start
+        return foundAtStart
+    }
+    else if (mode = 2)
+    {
+        ; Mode 2: Check ONLY the end of the line (last character)
+        int len := StrLen(line)
+        if (len = 0) 
+        {
+            return false ; Empty line cannot end with a disallowed char
+        }
+        
+        str lastChar := SubStr(line, len, 1) ; Get the last character (assuming 1-based index for SubStr)
+        bool foundAtEnd := false
+        Loop, % theArray.size()
+        {
+            if (lastChar = theArray[A_Index])
+            {
+                foundAtEnd := true
+                break
+            }
+        }
+        ; Return true if a disallowed character WAS found at the end
+        return foundAtEnd
+    }
+
+    ; Default case if mode is invalid (shouldn't happen with current structure)
+    return false 
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 func str handleError(str htvmInstrText)  
 {
 
@@ -10,23 +82,45 @@ fixTrim .= Trim(A_LoopField) . Chr(10)
 }
 StringTrimRight, htvmInstrText, fixTrim, 1
 
-; " newline carage retrun
+
+; double quote newline carriage return
 arr str disallowedChars_Globaly := [Chr(34), Chr(10), Chr(13)]
-; " newline carage retrun ( ) [ ] { }
+str disallowedChars_Globaly_EXPLAIN := "double quote, newline, carriage return"
+
+; "double quote newline carriage return ( ) [ ] { }"
 arr str disallowedChars_InExprTranspiler := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125)]
-; " newline carage retrun ( ) [ ] { }
+str disallowedChars_InExprTranspiler_EXPLAIN := "double quote, newline, carriage return, (, ), [, ], {, }"
+
+; "double quote newline carriage return ( ) [ ] { }"
 arr str disallowedChars_BeginEndLine := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125)]
-; " newline carage retrun ( ) [ ] { } :
-arr str disallowedChars_NOT_AT_THE_END := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125), Chr(58)]
+str disallowedChars_BeginEndLine_EXPLAIN := "double quote, newline, carriage return, (, ), [, ], {, }"
 
-; separate disallowing only for those indexed lines
+; "double quote newline carriage return ( ) [ ] { } :"
+arr str disallowedChars_AT_THE_END := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125), Chr(58)]
+str disallowedChars_AT_THE_END_EXPLAIN := "double quote, newline, carriage return, (, ), [, ], {, }, :"
 
-; " newline carage retrun
-arr str disallowedChars_For_2 := [Chr(34), Chr(10), Chr(13)]
-; " newline carage retrun :
+; "double quote newline carriage return ( ) { }"
+arr str disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125)]
+str disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN := "double quote, newline, carriage return, (, ), {, }"
+
+; "double quote newline carriage return ( ) { } :"
+arr str disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125), Chr(58)]
+str disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN := "double quote, newline, carriage return, (, ), {, }, :"
+
+; special/isolated
+
+; newline carriage return
+arr str disallowedChars_For_2 := [Chr(10), Chr(13)]
+str disallowedChars_For_2_EXPLAIN := "newline, carriage return"
+
+; double quote newline carriage return :
 arr str disallowedChars_For_46_47 := [Chr(34), Chr(10), Chr(13), Chr(58)]
-; " newline carage retrun
+str disallowedChars_For_46_47_EXPLAIN := "double quote, newline, carriage return, :"
+
+; double quote newline carriage return
 arr str disallowedChars_For_103 := [Chr(34), Chr(10), Chr(13)]
+str disallowedChars_For_103_EXPLAIN := "double quote, newline, carriage return"
+
 
 ; lines that cant have spacses
 arr int lineThatCANNOThaveSpacses := [0, 1, 46, 47, 84, 85, 86, 87, 88, 89, 103, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161]
@@ -38,24 +132,185 @@ arr str onlyAllowed_0 := ["cpp", "py", "js", "go", "lua", "cs", "java", "kt", "r
 ; This is the regex: "^[a-z][a-z0-9]{1,}$"
 
 ; 2. this is complex so um i will just leave it and just use disallowedChars_For_2 array to check if any of those chars exists.
-; 3 - 9 - for OSP and include - so just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_NOT_AT_THE_END
-; 10 - 45 - so just use the following arrays disallowedChars_Globaly
+; 3 - 9 - for OSP and include - so just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_AT_THE_END
+; 10 - 45 - programming blocks - so just use the following arrays disallowedChars_Globaly
 ; 46 and 47 - this are keyWordCurlyBraceOpen and keyWordCurlyBraceClose so no spacses and use the arrays disallowedChars_For_46_47, disallowedChars_Globaly
-; 48 - 83 - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_NOT_AT_THE_END
-; 84 - 89 - for the array methods, they must have NO SPACE and must start with a dot (.) followed by at least one character from [A-Za-z0-9_]. Use the regex "^\.[A-Za-z0-9_]+$"
-; 90 - 102 - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_NOT_AT_THE_END
+; 48 - 83 - types and constructs - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_AT_THE_END
+; 84 - 89 - array methods - for the array methods, they must have NO SPACE and must start with a dot (.) followed by at least one character from [A-Za-z0-9_]. Use the regex "^\.[A-Za-z0-9_]+$"
+; 90 - 102 - ArrayDefinition and some more - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD
 ; 103 is the keyWordEscpaeChar so it must be any char BUT MUST BE 1 single char NOT MORE THEN 1 CHAR and use the array disallowedChars_Globaly, disallowedChars_For_103
-; 104 - 128 - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_NOT_AT_THE_END
-; 129 - 
+; 104 - 128 - some operators - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_AT_THE_END
+; 129 - 141 - for Assignment operators - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD AND NO SPACSES
+; 142 and 143 - the ternary operators - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD
+; 144 and 145 - (++ and --) - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_AT_THE_END
+; 146 - Use the regex "^-?\d+$" ONLY and disallowedChars_Globaly ig
+; 147 and 148 - A_Index and A_LoopField ARE CUSTOMIZABLE so NO SPACE and use the arrays disallowedChars_Globaly and Use the regex "^[a-zA-Z_][a-zA-Z0-9_]*$"
+; 149 - 161 - settings ONLY allow "on" and "off" THATS IT but the website will automatically handle it since it's a toggle switch and will put "on" or "off" 
+;;;;;;;;;;;;;;;;;;;;;;;; thats all HTVM options 162 of them
 
+
+int for0 := 0
+int AIndex := 0
+str ALoopField := ""
 Loop, Parse, htvmInstrText, `n, `r 
 {
-if (InStr(A_LoopField, Chr(34)))
+AIndex := A_Index
+ALoopField := A_LoopField
+Loop, % lineThatCANNOThaveSpacses.size()
 {
-return "You cant use " . Chr(34) . " in line " . STR(A_Index + 1) . "!!!"
+if (AIndex = lineThatCANNOThaveSpacses[A_Index]) and (InStr(ALoopField, " "))
+{
+return STR(AIndex) . "|You can't use a space here!!!."
+}
+}
+
+; retun format is 
+; index|error msg
+
+if (A_Index = 0) {
+; Code for condition 0
+
+Loop, % onlyAllowed_0.size()
+{
+if (A_LoopField = onlyAllowed_0[A_Index])
+{
+for0 := 1
+}
+}
+if (for0 = 0)
+{
+return STR(A_Index) . "|You can only use: " . "" . Chr(34) . "cpp" . Chr(34) . ", " . Chr(34) . "py" . Chr(34) . ", " . Chr(34) . "js" . Chr(34) . ", " . Chr(34) . "go" . Chr(34) . ", " . Chr(34) . "lua" . Chr(34) . ", " . Chr(34) . "cs" . Chr(34) . ", " . Chr(34) . "java" . Chr(34) . ", " . Chr(34) . "kt" . Chr(34) . ", " . Chr(34) . "rb" . Chr(34) . ", " . Chr(34) . "nim" . Chr(34) . ", " . Chr(34) . "ahk" . Chr(34) . ", " . Chr(34) . "swift" . Chr(34) . ", " . Chr(34) . "dart" . Chr(34) . ", " . Chr(34) . "ts" . Chr(34) . ", " . Chr(34) . "groovy" . Chr(34)
+}
+
+}
+else if (A_Index = 1) {
+; Code for condition 1
+
+if (RegExMatch(A_LoopField, "^[a-z][a-z0-9]{1,}$") = false)
+{
+return STR(A_Index) . "|The file name must start with a lowercase letter and can only contain lowercase letters or numbers afterward."
+}
+
+}
+else if (A_Index = 2) {
+; Code for condition 2
+
+if (InStr(A_LoopField, Chr(13))) or (InStr(A_LoopField, Chr(10)))
+{
+return STR(A_Index) . "|Dont use a newline or a carriage retrun"
+}
+
+}
+else if (A_Index >= 3 and A_Index <= 9) {
+; Code for conditions 3 - 9 (OSP and include)
+
+if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2))
+{
+return STR(A_Index) . "|You can't use the folowing characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
+}
+
+}
+else if (A_Index >= 10 and A_Index <= 45) {
+    ; Code for programming blocks
+
+    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
+        return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
+    }
+}
+else if (A_Index >= 46 and A_Index <= 47) {
+    ; Code for keyWordCurlyBraceOpen and keyWordCurlyBraceClose
+
+    if (handleErrorHelper(disallowedChars_For_46_47, A_LoopField)) or (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) {
+        return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_For_46_47_EXPLAIN . ", " . disallowedChars_Globaly_EXPLAIN
+    }
+}
+
+else if (A_Index >= 48 and A_Index <= 83) {
+    ; Code for types and constructs
+
+    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
+        return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
+    }
+}
+else if (A_Index >= 84 and A_Index <= 89) {
+    ; Code for array methods
+    ; No spaces allowed, must start with a dot (.) followed by at least one character from [A-Za-z0-9_]
+    if (RegExMatch(A_LoopField, "^\.[A-Za-z0-9_]+$") = false) {
+        return STR(A_Index) . "|Array methods must start with a dot and contain only alphanumeric characters or underscores."
+    }
+}
+
+else if (A_Index >= 90 and A_Index <= 102) {
+    ; Code for ArrayDefinition and some more
+    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD, A_LoopField, 2)) {
+        return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN . ", " . disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN
+    }
+}
+
+else if (A_Index = 103) {
+    ; Code for keyWordEscapeChar
+    ; Must be a single character, and no disallowed characters
+    if (StrLen(A_LoopField) != 1 or handleErrorHelper(disallowedChars_Globaly, A_LoopField) or handleErrorHelper(disallowedChars_For_103, A_LoopField)) {
+        return STR(A_Index) . "|Escape character must be a single valid character."
+    }
+}
+
+else if (A_Index >= 104 and A_Index <= 128) {
+    ; Code for some operators
+    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
+        return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
+    }
+}
+
+else if (A_Index >= 129 and A_Index <= 141) {
+    ; Code for Assignment operators
+    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD, A_LoopField, 2) or InStr(A_LoopField, " ")) {
+        return STR(A_Index) . "|Assignment operators can't contain spaces and can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN . ", " . disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN
+    }
+}
+
+else if (A_Index >= 142 and A_Index <= 143) {
+    ; Code for ternary operators
+    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, A_LoopField, 1)) {
+        return STR(A_Index) . "|Ternary operators can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN
+    }
+}
+
+else if (A_Index >= 144 and A_Index <= 145) {
+    ; Code for (++ and --)
+    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
+        return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
+    }
+}
+
+else if (A_Index = 146) {
+    ; Code for regex "^-?\d+$"
+    if (RegExMatch(A_LoopField, "^-?\d+$") = false) {
+        return STR(A_Index) . "|Value must be a valid integer (optionally negative)."
+    }
+}
+
+else if (A_Index >= 147 and A_Index <= 148) {
+    ; Code for A_Index and A_LoopField (customizable variables)
+    if (RegExMatch(A_LoopField, "^[a-zA-Z_][a-zA-Z0-9_]*$") = false) {
+        return STR(A_Index) . "|Variable names must start with a letter or underscore, and contain only alphanumeric characters and underscores."
+    }
+}
+
+else if (A_Index >= 149 and A_Index <= 161) {
+    ; Code for settings (only "on" and "off")
+    if (A_LoopField != "on" and A_LoopField != "off") {
+        return STR(A_Index) . "|Settings can only be 'on' or 'off'."
+    }
 }
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+if (A_Index = 161)
+{
+break
+}
 }
 
 return "noERROR"
