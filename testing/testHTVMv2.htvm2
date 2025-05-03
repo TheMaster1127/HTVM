@@ -1,33 +1,4 @@
-
-func void Button0(str str1, str str2) 
-{
-guiControl, parentId:"gui1", id:"b1", x:"55px"
-}
-main
-str guiID := ""
-str guiID2 := ""
-
-Loop, 2 
-{
-guiID := "gui" . STR(A_Index)
-Gui, id:guiID
-
-Loop, 6
-{
-guiID2 := "b" . STR(A_Index)
-
-Gui 
-{
-    parentId:guiID
-    id:guiID2
-    button
-    callback: "Button0" 
-    rawCss:"font-family: 'Arial', sans-serif; font-size: 16px; font-weight: bold;"
-}
-
-}
-}
-
-
-
-;Gui, add, button, parentId:"gui1" id:"b1" callback: "Button0" 
+; Space separated is often cleaner also different style of defining values
+gui button x:50 y100 w"200px" h:"30px"
+; Comma separated also works
+gui button,x:"50px",y:"100px",w:"200px",h:"30px"
