@@ -4285,7 +4285,7 @@ function guiAddElement({
                                  const sliderTranslateX = newState ? maxTranslate : 0;
                                  slider.style.transform = `translateX(${sliderTranslateX}px)`;
                               }
-                             callbackFunction(currentElementId, event, newValue); // Call user callback AFTER state/visuals updated
+                             callbackFunction(currentElementId, event, newState); // Call user callback AFTER state/visuals updated
                          } else { // Button, Picture, Rectangle, Circle
                               callbackFunction(currentElementId, event, "null");
                          }
