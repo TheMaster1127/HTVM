@@ -1,20 +1,19 @@
 TODO.txt
-1. Make the documentation generator work.
-2. Fix a small bug in HTVM arrays.
-3. Work on error handling for user input on the HTVM Configurator website and write all 162 descriptions for each customization.
-4. Finalize the HTVM Configurator website.
-5. Add GUI commands to HTVM to build UIs so easy that you won't believe it, and ensure backend simplicity.
-6. Rewrite the HTVM IDE, and use the new engine for syntax highlighting and autocomplete, and add support for the import keyword and .funcname highlighting. And many more...
-7. Add all the built-in functions to HTVM for the remaining languages.
-8. Test HTVM functionality after adding the built-in functions, especially for Java.
-9. Build the HTVM-to-HTVM Transpilation webite.
-10. Set up the Discord server and a subreddit for HTVM.
-11. Build the HTVM landing page.
-12. Polish everything to ensure it's working as expected.
-13. Prepare the YouTube video titled "HTVM: Alpha Stable Release | The Future of Programming."
-14. Make an alpha stable release on GitHub.
-15. Conduct user testing.
-16. Polish your own IDE with more customizability, enhanced autocomplete, and potential integration with the Gemini free API.
-17. Add additional features like an instruction file manager and other customizability improvements.
-18. After a few months from the alpha stable release, improve and polish HTVM, then consider making HTVM version 2.0.0 the official release.
-19. Begin popularizing HTVM after the official release.
+1. Finish the documentation generator.
+2. Fix a small bug in HTVM arrays and the comment bug.
+3. Write all 162 descriptions for each customization for the HTVM Configurator website.
+4. Finish the HTVM Configurator website.
+5. Rewrite the HTVM IDE with the new engine for syntax highlighting, autocomplete, import keyword support, .funcname highlighting, and more improvements.
+6. Add all the built-in functions to HTVM for the remaining languages.
+7. Test HTVM functionality after adding the built-in functions.
+8. Build the HTVM-to-HTVM Transpilation website.
+9. Set up the Discord server and a subreddit for HTVM.
+10. Build the HTVM landing page.
+11. Polish everything to ensure it's working as expected.
+12. Prepare the YouTube video titled "HTVM: Alpha-Stable Release | The Future of Programming."
+13. Make an alpha-stable release on GitHub.
+14. Conduct user testing.
+15. Polish the IDE with more customizability, enhanced autocomplete, and potential integration with the Gemini free API.
+16. Add additional features like an instruction file manager and other customizability improvements.
+17. A few months after the alpha-stable release, improve and polish HTVM, then consider making HTVM version 2.0.0 the official release.
+18. Begin popularizing HTVM after the official release.
