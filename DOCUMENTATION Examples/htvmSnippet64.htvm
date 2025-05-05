@@ -1,0 +1,12 @@
+try {
+    ; Your code that might throw an error
+    throw ErrorMsg("Something went wrong!")
+}
+catch (e) {
+    ; Handle the error, e contains the error message
+    print("Caught error: " . e)
+}
+finally {
+    ; Code that will always execute, regardless of an error
+    print("Finally block executed")
+}

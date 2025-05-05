@@ -1,0 +1,36 @@
+; Define an OSP struct to hold GUI state
+struct UserInput {
+  prop str name := ""
+}
+
+; Callback for the edit field (default name Edit0)
+Edit0:
+  ; Store current value from A_Value into the struct property
+  ; NOTE: 'global' keyword is NOT needed here because the target is JavaScript
+  UserInput.name := A_Value
+subout
+
+; Callback for the button
+ShowNameButton:
+  ; Read the value from the struct property
+  await MsgBox("Hello, " . UserInput.name . "!")
+subout
+
+main
+  ; Prepare string variables for dimensions and text
+  str editX_px := 10 . "px"
+  str editY_px := 10 . "px"
+  str editW_px := 200 . "px"
+  str editH_px := 30 . "px"
+  str btnX_px := 10 . "px"
+  str btnY_px := 50 . "px"
+  str btnW_px := 100 . "px"
+  str btnH_px := 30 . "px"
+  str placeholderText := "Enter your name"
+  str btnText := "Greet"
+
+  ; Edit field uses default callback Edit0. Use SPACE separation.
+  gui edit x:editX_px y:editY_px w:editW_px h:editH_px placeholder:placeholderText id:"nameInput"
+
+  ; Button uses explicit callback ShowNameButton. Use SPACE separation.
+  gui button x:btnX_px y:btnY_px w:btnW_px h:btnH_px value:btnText callback:ShowNameButton id:"greetButton"

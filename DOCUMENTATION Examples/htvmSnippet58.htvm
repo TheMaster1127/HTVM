@@ -1,0 +1,57 @@
+sliderValue := 50
+func  IncrementSlider() {
+    sliderValue += 1
+    if (sliderValue > 100) {
+        sliderValue := 100
+    }
+    guiControl pid:"Gui1" i:"sliderValueText" d:sliderValue
+    Button0()
+}
+func  DecrementSlider() {
+    sliderValue -= 1
+    if (sliderValue < 0) {
+        sliderValue := 0
+    }
+    guiControl pid:"Gui1" i:"sliderValueText" d:sliderValue
+    Button0()
+}
+Button0:
+if (editText != "") {
+    guiControl pid:"Gui1" i:"text0" d:editText
+    sliderValue := INT(editText)
+    editText := ""
+}
+else {
+    guiControl pid:"Gui1" i:"text0" d:sliderValue
+}
+subout
+editText := INT(sliderValue)
+Edit0:
+oldText := editText
+if (Trim(A_Value) = "") {
+    guiControl pid:"Gui1" i:"sliderValueText" d:""
+}
+else if (A_Value >= 0) and (A_Value <= 100) {
+    editText := A_Value
+}
+else {
+    MsgBox, ONLY USE NUMBRERS BETTWEN 0-100
+    guiControl pid:"Gui1" i:"sliderValueText" d:oldText
+}
+subout
+; main func
+main
+w := "300px"
+gui {
+    pid:"Gui1"
+    x50%  ,,,,,,,,,,,,,,,,,,,,,
+    y50%,
+    ww ,
+    h500
+}
+; add all elements
+gui pid:"Gui1" text ww y25 d"Simulated Slider Value..." size:25 css:"text-align: center;"
+gui pid:"Gui1" eedit, i"sliderValueText" x50% y125 d:sliderValue
+gui pid:"Gui1" button x50% y225 d"Update Text"
+gui pid:"Gui1" button x50% y325 d"Increase" callback:IncrementSlider
+gui pid:"Gui1" button x50% y425 d"Decrease" callback:DecrementSlider

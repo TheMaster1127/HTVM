@@ -1,0 +1,57 @@
+; --- OSP Struct for state ---
+struct AppState {
+    prop str toggleState := "On"
+    prop str selectedObject := ""
+    prop bool errorInDropdown := false
+}
+; --- Callbacks ---
+ToggleCallback:
+  AppState.toggleState := A_Value ? "On" : "Off"
+  await MsgBox("Toggle is now " . AppState.toggleState)
+subout
+; ------------------
+; Default Picture callback — not needed, but when you click on it, it will call this:
+; (optional)
+Picture0:
+; If you use one MsgBox like this, there's no need to use 'await' — unless you're using two MsgBoxes.
+MsgBox, you clicked on the image
+subout
+; ------------------
+DropdownCallback:
+  if (A_Value = "Select a object") {
+    await MsgBox("Cannot select placeholder!")
+    AppState.errorInDropdown := true
+  } else {
+    AppState.errorInDropdown := false
+    AppState.selectedObject := A_Value
+    await MsgBox("You selected: " . AppState.selectedObject)
+  }
+subout
+; ------------------
+SaveButtonCallback: 
+  if (AppState.errorInDropdown = true) {
+    await MsgBox("Select valid object first.")
+  } else {
+    await MsgBox("Saving... Toggle:" . AppState.toggleState . ", Selection:" . AppState.selectedObject)
+    str newImageUrl := "https://picsum.photos/200"
+    ; Use SPACE separation for guicontrol options
+    guicontrol id:"Image1" value:newImageUrl
+  }
+subout
+; --- Main GUI ---
+main
+; Variables for complex/reused values
+str initialImageUrl := "https://i.ibb.co/Jpty1B8/305182938-1a0efe63-726e-49ca-a13c-d0ed627f2ea7.png"
+str OptionBtest := "Option B"
+str dropdownOptions := "Select a object|" . OptionBtest . "|Option C"
+str saveBtnText := "Save changes"
+; IDs
+str toggleId := "myToggle"
+str dropdownId := "myDropdown"
+str saveBtnId := "saveButton"
+str imageId := "Image1"
+; Use hardcoded pre-formatted strings for simple dimensions/positions, space separated
+gui toggle x10 y10 value:true id:toggleId callback:ToggleCallback
+gui dropdown x210 y10 h30 value:dropdownOptions id:dropdownId callback:DropdownCallback
+gui button x10 y50 w140 h40 value:saveBtnText id:saveBtnId callback:SaveButtonCallback
+gui picture x10 y150 id:imageId value:initialImageUrl

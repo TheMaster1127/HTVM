@@ -1,0 +1,21 @@
+; --- Backend Logic ---
+hello:
+  return "Backend received: [" . A_Input . "] - Response: Hello World!"
+subout
+
+process:
+  ; Using Python's .upper() method directly on the input string
+  return "Data processed by backend: " . A_Input.upper()
+subout
+
+; --- Backend Setup (using commands with commas) ---
+; Optional main label
+main
+  ; Route /hello -> label hello (POST default)
+  endpoint, hello
+  ; Route /processData -> label process, explicitly POST
+  endpoint, processData, process, POST
+  ; Serve frontend.js at /
+  fileinit, frontend.js
+  ; Run on port 5678
+  port, 5678

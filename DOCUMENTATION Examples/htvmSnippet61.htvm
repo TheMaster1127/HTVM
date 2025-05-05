@@ -1,0 +1,7 @@
+; Example frontend callback (correct multi-line format)
+SubmitButton:
+str dataToSend := "Info from GUI"
+; Send data to the '/processData' endpoint via POST
+str responseFromServer := await callBackend("/processData", dataToSend)
+await MsgBox("Backend replied: " . responseFromServer)
+subout

@@ -1487,7 +1487,7 @@ HTVM supports the following array types:
 In addition to the specific array types above, HTVM provides a more flexible **generic array** keyword which is `arr`. This allows you to create arrays without specifying a type. When you use this keyword:
 
 - In **dynamically typed languages** (e.g., JavaScript, Python), HTVM will infer the type based on the values you assign.
-- In **statically typed languages** (e.g., C++, Java), HTVM will convert it into a `std::vector<std::string>` / `string[]`.
+- In **statically typed languages** (e.g., C++, Java), HTVM will convert it into a `std::vector&lt;std::string>` / `string[]`.
 
 This provides flexibility, but also means you lose type checking, and you’ll need to ensure the elements in the array match the expected type.
 
@@ -2172,14 +2172,968 @@ print("some text") ; ❌ is comment will disappear when converting to another HT
 
 
 
+### GUI (Graphical User Interface with HTVM)
+
+[Go back](#htvm-documentation)
+
+**⚠️ Language Limitation: JavaScript Only**
+
+The GUI feature in HTVM allows for the creation of graphical user interfaces specifically for **web browsers (JavaScript)**. It generates the necessary HTML and JavaScript code. It **does not** support creating native GUIs for Python, C++, or other desktop environments. Using these commands when targeting non-JS languages will not work.
+
+HTVM's GUI system lets you build interfaces with elements like buttons, text, edit fields, pictures, and more, using a simplified, flexible syntax designed for efficiency and fewer keystrokes. HTVM handles the basic HTML page setup implicitly when GUI commands are present.
+
+
+
+### GUI Commands
+
+HTVM uses two primary commands for building GUIs: `gui` for creating elements and containers, and `guicontrol` for modifying existing elements.
+
+#### `gui` Command
+
+This command is used to **add new elements** (like buttons, text) or **create container `div`s** to organize your layout.
+
+**Syntax:**
+
+```htvm
+; Create a container (div) - Options separated by spaces OR commas
+gui [Option1:Value1] [Option2:Value2] ...
+gui [Option1:Value1],[Option2:Value2],...
+
+; Add a specific control element - ElementType followed by space/comma separated options
+gui &lt;ElementType&gt; [Option1:Value1] [Option2:Value2] ...
+gui &lt;ElementType&gt;,[Option1:Value1],[Option2:Value2],...
+```
+
+*   **`&lt;ElementType&gt;`**: Specifies the type of control to add (e.g., `button`, `text`, `edit`). If omitted, a container (`div`) is created.
+*   **`[Options...]`**: A series of options defining the element's properties. **Options can be separated by SPACES or COMMAS.**
+
+**Option Flexibility:**
+
+1.  **Separators**: Options can be separated by **SPACES** or **COMMAS**. You can mix them.
+
+```htvm
+; Space separated is often cleaner also different style of defining values
+gui button x:50 y100 w"200px" h:"30px"
+; Comma separated also works
+gui button,x:"50px",y:"100px",w:"200px",h:"30px"
+```
+
+2.  **Key-Value Format**: Use `key:value` or single-letter prefixes `kvalue`. Many aliases exist (see [Options & Aliases](#gui-options-htvm)).
+3.  **Case Insensitivity**: Option *keys* and element types are case-insensitive. Option *values* (like IDs, text content, callback names) are case-sensitive.
+4.  **`add` Keyword**: Optional and ignored (`gui add button` is the same as `gui button`).
+5.  **Grouping**: Options can span multiple lines using `{...}`, `[...]`, or `(...)` for readability. Separator rules (spaces or commas) still apply inside the group.
+
+```htvm
+; Single line with spaces
+gui button x:"10px" y:"10px" w:"100px" h:"30px" id:"myBtn" callback:MyAction value:"Click"
+
+; Multi-line grouping (using spaces within the lines)
+gui button {
+    x:"10px" y:"10px"
+    width:"100px" height:"30px"
+    id:"myBtn"
+    callback:MyAction
+    value:"Click"
+}
+```
+
+**Parenting & Default Container:**
+
+*   Every element belongs inside a container.
+*   If no `parentId` is specified when using the `gui` command to create an element, it is placed in the default background container (internally referred to as `div0`).
+*   To place an element inside *your* custom container (e.g., one created with `gui id:"myPanel" ...`), you **must** use the `parentId:"myPanel"` option on the element being created.
+
+#### `guicontrol` Command
+
+Modifies properties of an **existing** GUI element.
+
+**Syntax:**
+
+```htvm
+; Single line modification
+guicontrol [Option1:Value1] [Option2:Value2] ...
+guicontrol [Option1:Value1],[Option2:Value2],...
+
+; Multi-line modification using flexible grouping (), [], or {}
+guicontrol (
+    Option1:Value1
+    Option2:Value2
+    ...
+)
+```
+
+*   **`[Options...]`**: **SPACE or COMMA-SEPARATED** options.
+    *   **MUST** include `id:&lt;element_id&gt;` (e.g., `id:"myButton"`) to target the element.
+    *   **`parentId` Requirement (CRITICAL CLARIFICATION):**
+        *   **Case 1: No Custom Containers Created:** If your entire script **only** adds elements directly to the background (never using `gui { id:"..." ... }` to create a custom container), then `parentId` is **optional** for `guicontrol`. HTVM will assume the target element is on the default background (`div0`).
+        *   **Case 2: Custom Containers Exist:** As soon as you create **even one** custom container using `gui { id:"..." ... }`, the `parentId` option becomes **mandatory** for **all** `guicontrol` commands to avoid ambiguity.
+            *   To target an element **inside** a custom container: Use `parentId:"containerId"`.
+            *   To target an element that is still on the **default background** (or a top-level container itself): Don't use `parentId:"..."`.
+    *   Other options specify the changes (e.g., `value:"NewText"`, `isVisible:false`).
+
+**Mapping HTH Actions to HTVM Options (using `guicontrol`):**
+
+*   **Move/Resize**: Use `x:`, `y:`, `width:`, `height:` options with pre-formatted string values (e.g., `x:varX_px`).
+*   **Text**: Use `value:` (e.g., `guicontrol id:"myLabel",value:"New Text"`).
+*   **Picture**: Use `value:` with a new URL (e.g., `guicontrol id:"myImage",value:"http://new.url/img.png"`).
+*   **Hide/Show**: Use `isVisible:false` or `isVisible:true`.
+*   **Enable/Disable**: Use `isEnabled:false` or `isEnabled:true`.
+*   **Destroy**: Use `isDeleting:true`.
+*   **Font**: Use `size:` for font size (e.g., `size:16`) and `color:` for text color (e.g., `color:"#FF0000"`). Use `rawCss:` for font family (e.g., `rawCss:"font-family:Courier;"`).
+
+#### Multiple GUI Windows (`num:` prefix - *NOT SUPPORTED*)
+
+HTVM **does not** use HTH's `Gui 2:`, `Gui 3:` syntax. Simulate multiple areas by:
+1.  Creating container `div`s: `gui id:"window1",...`, `gui id:"window2",...`
+2.  Placing elements inside using `parentId:"window1"` or `parentId:"window2"`.
+3.  Toggling visibility using `guicontrol id:"window1",isVisible:false` etc.
+
+### GUI Elements (Controls)
+
+Add elements using `gui &lt;ElementType&gt; [Options...]`:
+
+| Element Type | Description                                     | Default ID Format | Default Callback Format | Notes                                                                           |
+| :----------- | :---------------------------------------------- | :---------------- | :---------------------- | :------------------------------------------------------------------------------ |
+| `button`     | Clickable button                                | `button` + Counter  | `Button` + Counter      |                                                                                 |
+| `text`       | Static text label                               | `text` + Counter    | `Text` + Counter        |                                                                                 |
+| `edit`       | Text input field                                | `edit` + Counter    | `Edit` + Counter        | Use callback + global var/OSP struct to get value.                              |
+| `picture`    | Image display (`&lt;img&gt;`)                         | `picture` + Counter | `Picture` + Counter     | `value` is URL. Local paths *not* auto-encoded.                               |
+| `toggle`     | Checkbox / Switch                               | `toggle` + Counter  | `Toggle` + Counter      | `value` is `true`/`false`. `A_Value` in callback is boolean.                    |
+| `rectangle`  | Colored rectangle (`&lt;div&gt;`)                     | `rectangle` + Counter | `Rectangle` + Counter | Use `backgroundColor`.                                                        |
+| `circle`     | Colored circle (`&lt;div&gt;` + round border)         | `circle` + Counter  | `Circle` + Counter      | Use `backgroundColor`.                                                        |
+| `video`      | Video player (`&lt;video&gt;`)                        | `video` + Counter   | `Video` + Counter       | `value` is URL (video file or YouTube embed).                                 |
+| `dropdown`   | Select dropdown (`&lt;select&gt;`)                    | `dropdown` + Counter| `Dropdown` + Counter    | `value` is pipe separated options. **element1&#124;element2&#124;element3** |
+| `iframe`     | Embed external content (`&lt;iframe&gt;`)             | `iframe` + Counter  | `Iframe` + Counter      | `value` is URL.                                                               |
+
+(Counters start at 0 for each type, e.g., `button0`, `Button0`, `edit0`, `Edit0`...)
+
+#### Exmaple:
+
+```htvm
+; Button0 is automatically assigned as a callback of the button
+Button0:
+; and the ID of the button is automatically assigned to button0
+; for each element, it has a separate counter.
+await MsgBox("You pressed the " . A_Id)
+subout
+; main func
+main
+gui button x50% y50%
+
+```
+
+### Options & Aliases 
+
+
+Configure elements using **SPACE or COMMA-SEPARATED** options.
+
+**Key Rules:**
+
+1.  **Separators**: Use Spaces or Commas between options (`x:"10px" y:"10px"` or `x:"10px",y:"10px"`).
+2.  **No Spaces in Direct Values**: Store values like `var1 + var2` in a variable (`str hw := var1 + var2`) and use `value:hw`.
+3.  **Quote Literal IDs/ParentIDs**: Use quotes for string literals (`id:"myId"`). Do not quote variables (`id:myIdVar`).
+4.  **Pre-concatenate Units**: For `x`, `y`, `width`, `height`, prepare string variables including `px` or `%` **before** using them in the command (e.g., `str width_px := myWidth . "px"`, then use `width:width_px`).
+5.  **Case Sensitivity**: Keys/aliases/types are case-insensitive; values are case-sensitive.
+
+**Common Options Table:**
+
+| Canonical JS      | Purpose                     | Single-Letter Prefix | Colon Aliases (Examples)                    | Notes                                                                 |
+| :---------------- | :-------------------------- | :------------------- | :------------------------------------------ | :-------------------------------------------------------------------- |
+| `id`              | Unique Element Identifier   | `i`, `v`             | `id`, `elementId`, `eid`                    | String. **Quote if literal.** Defaults if omitted.                    |
+| `parentId`        | ID of Container Element     | `p`                  | `parentId`, `pid`, `divId`                  | String. Defaults to `"div0"`. **Quote if literal.**                   |
+| `x`               | Horizontal Position         | `x`                  | `x`, `xPos`, `xCoord`                       | **String var required (e.g., `myVarX_px`).** Supports `px` or `%`.    |
+| `y`               | Vertical Position           | `y`                  | `y`, `yPos`, `yCoord`                       | **String var required (e.g., `myVarY_px`).** Supports `px` or `%`.    |
+| `width`           | Element Width               | `w`                  | `width`, `wight`, `widh`                    | **String var required (e.g., `myVarW_px`).** Supports `px` or `%`.    |
+| `height`          | Element Height              | `h`                  | `height`, `hight`, `heigth`                 | **String var required (e.g., `myVarH_px`).** Supports `px` or `%`.    |
+| `zIndex`          | Stacking Order              | `z`                  | `zIndex`, `z-index`                         | Integer.                                                              |
+| `value`           | Content/State             | `d`                  | `value`, `val`, `displayValue`              | Text/URL/Bool/Options. **Use variable for spaces/commas.**          |
+| `placeholder`     | Placeholder text for Edit | `q`                  | `placeholder`, `plc`, `ph`, `grayText`      | String. **Use variable for spaces.**                                  |
+| `callback`        | Function on Interaction     | `g`, `f`             | `callback`, `func`, `fn`, `call`            | String (HTVM Label Name). Defaults if omitted.                        |
+| `backgroundColor` | Background Color            | `o`                  | `backgroundColor`, `bgColor`, `bg`, `bgc` | String (`"red"`, `"#FF0000"`). Auto-adds `#` for hex.                 |
+| `color`           | Text/Foreground Color       | `c`                  | `color`, `clr`                              | String (`"blue"`, `"#00F"`). Auto-adds `#` for hex.                 |
+| `rounding`        | Corner Rounding (px)        | `r`                  | `rounding`, `round`, `rnd`                  | Integer (pixels).                                                     |
+| `border`          | Element Border              | `b`                  | `border`, `boder`, `outline`                | String (CSS syntax). **Use var for spaces.**                          |
+| `rawCss`          | Additional CSS Styles       | `l`                  | `rawCss`, `css`, `style`, `luxury`          | String (CSS rules). **Use var for multiple.**                         |
+| `size`            | Font Size (px)              | `s`                  | `size`, `sz`                                | Integer (pixels).                                                     |
+| `isEnabled`       | Enable/Disable Interaction  | `a`                  | `isEnabled`, `isEnb`                        | Boolean (`true`/`false`).                                             |
+| `isVisible`       | Show/Hide Element           | `u`                  | `isVisible`, `isVsb`                        | Boolean (`true`/`false`).                                             |
+| `isDeleting`      | Remove Element from GUI   | `n`                  | `isDeleting`, `del`, `remove`, `rm`         | Boolean (`true`). Use with `guicontrol`.                              |
+
+*(See HTVM source (`guiParserStep4`) for a full alias list.)*
+
+#### Exmaple:
+
+```htvm
+str saveEdit := ""
+; Edit0 callback
+Edit0:
+saveEdit := A_Value
+subout
+; Button0 callback
+Button0:
+guiControl p"Gui1" i"text0" dsaveEdit
+subout
+; main func
+main
+w := "300px"
+; define the gui window
+gui pid:"Gui1" x50% y50% ww h200
+; add elements
+gui pid:"Gui1" text ww y27.5% d"Edit box text will be updated here..." css:"text-align: center;"
+gui pid:"Gui1" edit x50% y45% ph:"Type something..."
+gui pid:"Gui1" button x50% y65%
+
+```
+
+### Callbacks and State Management
+
+Callbacks connect GUI events to HTVM logic (labels ending in `subout`). Logic **must start on the line AFTER the label**, not on the same line. Use `await` before functions like `MsgBox` that return Promises in JavaScript.
+
+**Managing State (Input Example):**
+
+To retrieve data entered by the user (e.g., in an `edit` field), store the data from the input's callback (`A_Value`) into a shared state, typically using global variables or an OSP struct. Using an OSP `struct` is often better for organization, but global variables work too.
+
+**Getting Input Example (using OSP Struct - Recommended):**
+
+```htvm
+; Define an OSP struct to hold GUI state
+struct UserInput {
+    prop str name := ""
+}
+; Callback for the edit field (default name Edit0)
+Edit0:
+; Store current value from A_Value into the struct property
+; NOTE: 'global' keyword is NOT needed here because the target is JavaScript
+UserInput.name := A_Value
+subout
+; Callback for the button
+ShowNameButton:
+; Read the value from the struct property
+await MsgBox("Hello, " . UserInput.name . "!")
+subout
+main
+; Prepare string variables for dimensions and text
+str editX_px := 10 . "px"
+str editY_px := 10 . "px"
+str editW_px := 200 . "px"
+str editH_px := 30 . "px"
+str btnX_px := 10 . "px"
+str btnY_px := 50 . "px"
+str btnW_px := 100 . "px"
+str btnH_px := 30 . "px"
+str placeholderText := "Enter your name"
+str btnText := "Greet"
+; Edit field uses default callback Edit0. Use SPACE separation.
+gui edit x:editX_px y:editY_px w:editW_px h:editH_px placeholder:placeholderText id:"nameInput"
+; Button uses explicit callback ShowNameButton. Use SPACE separation.
+gui button x:btnX_px y:btnY_px w:btnW_px h:btnH_px value:btnText callback:ShowNameButton id:"greetButton"
+
+```
+
+**Callback Parameters:** `A_Id`, `A_Value`, `A_Event` provide context within the callback label.
+
+### Examples
+
+*(Using space separation, pre-concatenated units, OSP struct for state where beneficial, correct callback formatting, and await for MsgBox)*
+
+**Example 1: Simple Input and Button (using OSP Struct)**
+
+```htvm
+; OSP Struct for state
+struct FormData {
+    prop str firstName := ""
+    prop str lastName := ""
+}
+; Callbacks
+Edit0:
+FormData.firstName := A_Value
+subout
+Edit1:
+FormData.lastName := A_Value
+subout
+ButtonOK:
+; Use the struct properties
+str greeting := "You entered " . FormData.firstName . " " . FormData.lastName . "."
+await MsgBox(greeting)
+subout
+main
+; Prepare string variables only where needed (e.g., for text with spaces)
+str fNameLabel := "First name:"
+str lNameLabel := "Last name:"
+str fNamePlaceholder := "First Name..."
+str lNamePlaceholder := "Last Name..."
+str btnText := "Send"
+str whiteColor := "white"
+; Use hardcoded pre-formatted strings for simple values, variables for complex ones.
+gui text x:"10px" y:"10px" w:"150px" h:"30px" value:fNameLabel color:whiteColor
+gui edit x:"10px" y:"40px" w:"150px" h:"30px" placeholder:fNamePlaceholder id:"firstNameEdit"
+gui text x:"10px" y:"100px" w:"150px" h:"30px" value:lNameLabel color:whiteColor
+gui edit x:"10px" y:"130px" w:"150px" h:"30px" placeholder:lNamePlaceholder id:"lastNameEdit"
+gui button x:"10px" y:"200px" w:"155px" h:"45px" value:btnText callback:ButtonOK id:"sendButton"
+
+```
+
+**Example 2: Sized Container (Hardcoded)**
+
+```htvm
+main
+; Define text content in variable as it might contain spaces
+str containerId := "mainContainer"
+; Hardcode dimensions and colors directly
+gui id:containerId width:"500px" height:"700px" backgroundColor:"#121212"
+; Add elements inside, hardcoding simple positions/sizes
+gui text parentId:containerId x:"10px" y:"10px" value:"This text is inside" color:"white"
+gui button parentId:containerId x:"10px" y:"60px" width:"80%" height:"50px" value:"Wide Button"
+
+```
+
+**Example 3: Button Grid using Loops (Using A_Id)**
+
+```htvm
+; --- Callbacks ---
+ButtonClicked:
+; Use A_Id to identify which button was clicked
+await MsgBox("You clicked on button with ID: " . A_Id)
+subout
+; --- Main Setup ---
+main
+columns := 3
+rows := 3
+btnWidth := 140
+btnHeight := 40
+gap := 10
+startX := 10
+startY := 10
+str gridContainerId := "gridContainer"
+containerW := startX + (columns * btnWidth) + ((columns - 1) * gap) + startX
+containerH := startY + (rows * btnHeight) + ((rows - 1) * gap) + startY
+str containerW_px := containerW . "px"
+str containerH_px := containerH . "px"
+str btnWidth_px := btnWidth . "px"
+str btnHeight_px := btnHeight . "px"
+str bgColor := "#333"
+; define the grid container
+gui id:gridContainerId x50% y50% width:containerW_px height:containerH_px backgroundColor:bgColor
+currentX := startX
+currentY := startY
+btnCounter := 0
+Loop, % columns {
+    colIndex := A_Index
+    Loop, % rows {
+        btnCounter++
+        str btnId := "gridBtn" . btnCounter
+        str btnText := "Button" . btnCounter
+        str currentX_px := currentX . "px"
+        str currentY_px := currentY . "px"
+        ; Use {} for better readability for the button options
+        gui {
+            button
+            parentId:gridContainerId, id:btnId
+            x:currentX_px, y:currentY_px, w:btnWidth_px, h:btnHeight_px
+            value:btnText
+            callback:ButtonClicked
+        }
+        currentY := currentY + btnHeight + gap
+    }
+    currentX := currentX + btnWidth + gap
+    currentY := startY
+}
+
+```
+
+**Example 4: Toggle, Dropdown, Picture Update (using OSP Struct)**
+
+```htvm
+; --- OSP Struct for state ---
+struct AppState {
+    prop str toggleState := "On"
+    prop str selectedObject := ""
+    prop bool errorInDropdown := false
+}
+; --- Callbacks ---
+ToggleCallback:
+AppState.toggleState := A_Value ? "On" : "Off"
+await MsgBox("Toggle is now " . AppState.toggleState)
+subout
+; ------------------
+; Default Picture callback — not needed, but when you click on it, it will call this:
+; (optional)
+Picture0:
+; If you use one MsgBox like this, there's no need to use 'await' — unless you're using two MsgBoxes.
+MsgBox, you clicked on the image
+subout
+; ------------------
+DropdownCallback:
+if (A_Value = "Select a object") {
+    await MsgBox("Cannot select placeholder!")
+    AppState.errorInDropdown := true
+}
+else {
+    AppState.errorInDropdown := false
+    AppState.selectedObject := A_Value
+    await MsgBox("You selected: " . AppState.selectedObject)
+}
+subout
+; ------------------
+SaveButtonCallback:
+if (AppState.errorInDropdown = true) {
+    await MsgBox("Select valid object first.")
+}
+else {
+    await MsgBox("Saving... Toggle:" . AppState.toggleState . ", Selection:" . AppState.selectedObject)
+    str newImageUrl := "https://picsum.photos/200"
+    ; Use SPACE separation for guicontrol options
+    guicontrol id:"Image1" value:newImageUrl
+}
+subout
+; --- Main GUI ---
+main
+; Variables for complex/reused values
+str initialImageUrl := "https://i.ibb.co/Jpty1B8/305182938-1a0efe63-726e-49ca-a13c-d0ed627f2ea7.png"
+str OptionBtest := "Option B"
+str dropdownOptions := "Select a object|" . OptionBtest . "|Option C"
+str saveBtnText := "Save changes"
+; IDs
+str toggleId := "myToggle"
+str dropdownId := "myDropdown"
+str saveBtnId := "saveButton"
+str imageId := "Image1"
+; Use hardcoded pre-formatted strings for simple dimensions/positions, space separated
+gui toggle x10 y10 value:true id:toggleId callback:ToggleCallback
+gui dropdown x210 y10 h30 value:dropdownOptions id:dropdownId callback:DropdownCallback
+gui button x10 y50 w140 h40 value:saveBtnText id:saveBtnId callback:SaveButtonCallback
+gui picture x10 y150 id:imageId value:initialImageUrl
+
+```
+
+**Example 5: Using `rawCss` for Styling**
+
+```htvm
+Button0:
+MsgBox("You clicked on " . A_Id)
+subout
+main
+; Define CSS styles in variables
+str buttonStyles := "font-weight:bold;text-transform:uppercase;animation:spin 2s infinite linear;filter:hue-rotate(360deg);text-shadow:0 0 5px red,0 0 10px yellow,0 0 15px lime;"
+str panelId := "styledPanel"
+str buttonId := "styledButton"
+str buttonText := "Styled Button"
+; Create a container styled like a window using rawCss or css alias
+gui {
+    id:panelId x:"50px" y:"50px" w:"400px" h:"200px" backgroundColor:"#EEE"
+    css:"border: 2px solid blue; padding: 15px; box-shadow: 5px 5px 10px #888888;"
+}
+; Add a button inside the panel with additional rawCss styles using the other style []
+gui [
+button
+parentId:panelId
+x20 y20 w150 h40
+id:buttonId value:buttonText rawCss:buttonStyles
+]
+
+```
+
+**Example 6: HTVM Simulated Numeric Adjuster Using Buttons and Input Field (0–100 Range)**
+
+```htvm
+sliderValue := 50
+func  IncrementSlider() {
+    sliderValue += 1
+    if (sliderValue > 100) {
+        sliderValue := 100
+    }
+    guiControl pid:"Gui1" i:"sliderValueText" d:sliderValue
+    Button0()
+}
+func  DecrementSlider() {
+    sliderValue -= 1
+    if (sliderValue < 0) {
+        sliderValue := 0
+    }
+    guiControl pid:"Gui1" i:"sliderValueText" d:sliderValue
+    Button0()
+}
+Button0:
+if (editText != "") {
+    guiControl pid:"Gui1" i:"text0" d:editText
+    sliderValue := INT(editText)
+    editText := ""
+}
+else {
+    guiControl pid:"Gui1" i:"text0" d:sliderValue
+}
+subout
+editText := INT(sliderValue)
+Edit0:
+oldText := editText
+if (Trim(A_Value) = "") {
+    guiControl pid:"Gui1" i:"sliderValueText" d:""
+}
+else if (A_Value >= 0) and (A_Value <= 100) {
+    editText := A_Value
+}
+else {
+    MsgBox, ONLY USE NUMBRERS BETTWEN 0-100
+    guiControl pid:"Gui1" i:"sliderValueText" d:oldText
+}
+subout
+; main func
+main
+w := "300px"
+gui {
+    pid:"Gui1"
+    x50%  ,,,,,,,,,,,,,,,,,,,,,
+    y50%,
+    ww ,
+    h500
+}
+; add all elements
+gui pid:"Gui1" text ww y25 d"Simulated Slider Value..." size:25 css:"text-align: center;"
+gui pid:"Gui1" eedit, i"sliderValueText" x50% y125 d:sliderValue
+gui pid:"Gui1" button x50% y225 d"Update Text"
+gui pid:"Gui1" button x50% y325 d"Increase" callback:IncrementSlider
+gui pid:"Gui1" button x50% y425 d"Decrease" callback:DecrementSlider
+
+```
+
+**Example 7: `Tic-tac-toe`**
+
+```htvm
+; ==================================
+; Tic-Tac-Toe Game State Variables
+; ==================================
+arr str boardState := [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+str currentPlayer := "X"
+bool gameIsOver := false
+str gameStatus := "Player X's Turn"
+; ==================================
+; Helper Functions
+; ==================================
+; --- Checks if the current player has won ---
+func bool CheckWin() {
+    arr str winCombos := ["0,1,2", "3,4,5", "6,7,8", "0,3,6", "1,4,7", "2,5,8", "0,4,8", "2,4,6"]
+    Loop, % winCombos.size() {
+        combo := winCombos[A_Index]
+        idx1_str := StrSplit(combo, ",", 1)
+        idx2_str := StrSplit(combo, ",", 2)
+        idx3_str := StrSplit(combo, ",", 3)
+        idx1 := INT(idx1_str)
+        idx2 := INT(idx2_str)
+        idx3 := INT(idx3_str)
+        if (boardState[idx1] = currentPlayer and boardState[idx2] = currentPlayer and boardState[idx3] = currentPlayer) {
+            return true
+        }
+    }
+    return false
+}
+; --- Checks if the game is a draw ---
+func bool CheckDraw() {
+    Loop, % boardState.size() {
+        if (boardState[A_Index] = " ") {
+            return false
+        }
+    }
+    if (gameIsOver = false) {
+        return true
+    }
+    return false
+}
+; --- Updates the status text display ---
+func void UpdateStatusDisplay() {
+    ; We can use () or [] or even mix them like [) or (] — yeah, HTVM is so flexible.
+    guicontrol (
+    parentId:"mainContainer"
+    id:"statusText"
+    value:gameStatus
+    )
+}
+; --- Resets the game board and state ---
+func void ResetBoard() {
+    i := 0
+    while (i < 9) {
+        boardState[i] := " "
+        i := i + 1
+    }
+    Loop, 9 {
+        btnIndex := A_Index
+        str btnIdToReset := "btn" . STR(btnIndex)
+        str emptyVal := " "
+        ; We can use [] or () or even mix them like [) or (] — yeah, HTVM is so flexible.
+        guicontrol [
+        parentId:"mainContainer"
+        id:btnIdToReset
+        value:emptyVal
+        isEnabled:true
+        ]
+    }
+    currentPlayer := "X"
+    gameIsOver := false
+    gameStatus := "Player X's Turn"
+    UpdateStatusDisplay()
+}
+; ==================================
+; GUI Callbacks
+; ==================================
+; --- Handles clicks on any of the 9 grid buttons ---
+GridButtonClicked:
+if (gameIsOver = true) {
+    return
+}
+clickedId := A_Id
+str indexStr := SubStr(clickedId, 4)
+index := INT(indexStr)
+if (boardState[index] != " ") {
+    print("Cell already taken!")
+    return
+}
+boardState[index] := currentPlayer
+; We can also use a one-liner, no problem—but during a one-liner, we can't use {}, (), or [] since it's a single line.
+guicontrol parentId:"mainContainer" id:clickedId value:currentPlayer isEnabled:false
+if (CheckWin() = true) {
+    gameIsOver := true
+    gameStatus := "Player " . currentPlayer . " Wins!"
+    UpdateStatusDisplay()
+    return
+}
+if (CheckDraw() = true) {
+    gameIsOver := true
+    gameStatus := "It's a Draw!"
+    UpdateStatusDisplay()
+    return
+}
+if (currentPlayer = "X") {
+    currentPlayer := "O"
+}
+else {
+    currentPlayer := "X"
+}
+gameStatus := "Player " . currentPlayer . "'s Turn"
+UpdateStatusDisplay()
+subout
+; --- Handles clicks on the Restart button ---
+RestartGame:
+ResetBoard()
+subout
+; ==================================
+; Main GUI Setup
+; ==================================
+main
+; --- Define GUI constants/variables ---
+btnSize := 80
+gap := 10
+boardSize := (btnSize * 3) + (gap * 2)
+containerPadding := 20
+containerWidth := boardSize + (containerPadding * 2)
+containerHeight := boardSize + 100 + (containerPadding * 2)
+; Prepare strings with "px" units
+str btnSize_px := btnSize . "px"
+str containerWidth_px := containerWidth . "px"
+str containerHeight_px := containerHeight . "px"
+statusY_num := boardSize + containerPadding + 10
+restartY_num := statusY_num + 40
+str statusY_px := statusY_num . "px"
+str restartY_px := restartY_num . "px"
+str restartWidth_px := 150 . "px"
+str restartHeight_px := 40 . "px"
+str statusWidth_px := boardSize . "px"
+str statusHeight_px := 30 . "px"
+str containerPadding_px := containerPadding . "px"
+; Colors and styles
+str bgColor := "#282c34"
+str textColor := "white"
+str btnBgColor := "#61dafb"
+str btnFontColor := "#282c34"
+str btnFontSize_px := "40px"
+str statusFontSize_px := "20px"
+str restartBtnBgColor := "#f0ad4e"
+str restartBtnFontColor := "white"
+str restartBtnFontSize_px := "16px"
+; Text variables
+str restartText := "Restart Game"
+; --- Create the main container ---
+gui {
+    id:"mainContainer"
+    x50% y50%
+    w:containerWidth_px h:containerHeight_px
+    backgroundColor:bgColor
+    rounding:10
+}
+; --- Create the Status Display Text ---
+; *** UPDATED: Using multi-line grouping {} ***
+; You can use comma or not doesn't matter use ,,,,,,,,,,,, doesn't matter use 5 spaces no problem use comments no problem either
+gui {
+    ; this means text
+    text
+    parentId:"mainContainer" id:"statusText"
+    x:containerPadding_px, y:statusY_px, w:statusWidth_px, h:statusHeight_px
+    value:gameStatus color:textColor
+    ; Here we see there are no spaces for the option size—that's because spaces aren't allowed during an option.
+    ; Use a variable or a workaround, but NO spaces.
+    size:INT(statusFontSize_px)
+    ; this is a css style for the text
+    rawCss:"text-align:center;font-weight:bold;"
+}
+; --- Create the 3x3 Grid Buttons using nested Loops ---
+currentX := containerPadding
+currentY := containerPadding
+btnCounter := 0
+; Rows
+Loop, 3 {
+    row := A_Index
+    ; Columns
+    Loop, 3 {
+        col := A_Index
+        str btnId := "btn" . STR(btnCounter)
+        str currentX_px := currentX . "px"
+        str currentY_px := currentY . "px"
+        str btnStyle := "font-size:" . btnFontSize_px . ";font-weight:bold;color:" . btnFontColor . ";"
+        ; Adding the buttons
+        gui {
+            button
+            parentId:"mainContainer"
+            id:btnId
+            x:currentX_px, y:currentY_px, w:btnSize_px, h:btnSize_px
+            value:" "
+            callback:GridButtonClicked
+            backgroundColor:btnBgColor
+            rounding:5, rawCss:btnStyle
+        }
+        currentX := currentX + btnSize + gap
+        btnCounter := btnCounter + 1
+    }
+    ; Reset X for next row
+    currentX := containerPadding
+    ; Move Y down for next row
+    currentY := currentY + btnSize + gap
+}
+; --- Create the Restart Button ---
+; Center the restart button
+str restartX_px := ((containerWidth - 150) / 2) . "px"
+str restartBtnStyle := "font-size:" . restartBtnFontSize_px . ";font-weight:bold;"
+; *** UPDATED: Using multi-line grouping {} ***
+gui {
+    button
+    parentId:"mainContainer" id:"restartBtn"
+    x:restartX_px y:restartY_px
+    w:restartWidth_px h:restartHeight_px
+    value:restartText callback:RestartGame
+    backgroundColor:restartBtnBgColor color:restartBtnFontColor
+    rounding:5 rawCss:restartBtnStyle
+}
+; --- Initial status update after GUI is built ---
+UpdateStatusDisplay()
+; --- End of Main ---
+
+```
+
+### Summary
+
+HTVM's GUI system offers a simplified yet powerful way to build graphical user interfaces directly within your HTVM code, targeting **JavaScript web environments**. By using the intuitive `gui` command to define elements and containers, and `guicontrol` to modify them dynamically, you can build interactive web applications. The system leverages flexible option syntax (spaces, commas, shorthand, multi-line grouping) and automatically handles underlying HTML/CSS/JS generation, adhering to HTVM's philosophy of **reducing keystrokes and complexity**. Understanding the conditional requirement for `parentId` in `guicontrol` (it's only optional if no custom containers are defined) is key to correctly manipulating elements.
+
+The `gui` and `guicontrol` features allows developers to focus on interface logic and layout using their custom HTVM syntax, bridging the gap between high-level design and functional web UIs.
+
+---
 
 
 
 
+### Backend in HTVM
 
+[Go back](#htvm-documentation)
 
+**⚠️ Language Limitation: Python Only (Flask)**
 
+HTVM's Backend functionality generates **Python** code using **Flask**. It does **not** support other languages like JavaScript (Node.js) for backend generation. Use these commands only when targeting Python (`py`).
 
+---
+
+### Introduction
+
+HTVM provides simple commands to create basic web backends in Python. This enables communication between your HTVM frontend (JavaScript GUI) and a server for tasks needing server-side logic or access. Communication is primarily plain text over HTTP (defaulting to POST).
+
+### Backend Commands
+
+Use these commands in your backend HTVM file (`.htvm` targeted for Python). They **must** use comma separators.
+
+#### `fileinit, filename`
+
+**Essential.** Initializes Flask and sets the root route (`/`) to serve your main frontend file.
+
+*   **`filename`**: Name of your frontend file (e.g., `main.js`, `index.html`). Must be in the same directory as the generated Python script.
+*   If `.js`, HTVM wraps it in basic HTML (with `sweetalert2`). If `.html`, served directly.
+*   **Must be used before `endpoint,` or `port,`.**
+
+---
+
+#### `endpoint, route_or_label_name, [label_name_if_different], [method]`
+
+Registers an HTVM label (backend logic block) as an HTTP endpoint.
+
+*   **`route_or_label_name` (Mandatory):**
+    *   If **only this parameter** is provided (besides the optional method), it serves as **both** the URL path (e.g., `/hello`) and the HTVM label name (e.g., `hello:`).
+    *   If `label_name_if_different` is also provided, this parameter is treated solely as the URL path (e.g., `processData` becomes route `/processData`). No leading/trailing slashes needed here.
+*   **`[label_name_if_different]` (Optional):** The exact HTVM label name (case-sensitive) if it's different from the URL route name. If omitted, the value from `route_or_label_name` is used.
+*   **`[method]` (Optional):** HTTP method (`POST`, `GET`, etc.). Defaults to `POST`.
+
+**Examples:**
+
+Registers route "/myapi" linked to label "myapi:" (POST default)
+
+`endpoint, myapi`
+
+Registers route "/user/data" linked to label "GetUserData:" (GET method)
+
+`endpoint, user/data, GetUserData, GET`
+
+---
+
+#### `port, port_number`
+
+Specifies the network port the Flask server will listen on.
+
+*   **`port_number`**: e.g., `5000`, `8080` etc.
+*   Defaults to `8000` if omitted.
+
+---
+
+### Defining Backend Logic (Labels & `subout`)
+
+Write endpoint logic within labeled blocks ending with `subout`. Logic **must start on the line after** the label.
+
+*   **Labels**: Define the start (e.g., `myEndpoint:`). Matched with `route_or_label_name` in `endpoint,`.
+*   **`A_Input`**: Variable holding plain text data from the frontend request body.
+*   **Return Value**: **Must** `return` a **string** (the plain text response).
+*   **`subout`**: Marks the end of the block.
+
+```htvm
+; Example backend logic block
+processData:
+; Log to server console (optional)
+print("Backend received: " . A_Input)
+; Leverage Python's string methods directly if needed
+; HTVM won't interfere with '.upper()' as it's not HTVM syntax
+str processed := A_Input.upper()
+str resultString := "Backend processed (uppercase): " . processed
+return resultString
+subout
+
+```
+
+### Frontend-Backend Interaction (`callBackend`)
+
+In your **frontend** HTVM code (JavaScript GUI), use the `callBackend` function.
+
+*   **`async callBackend(endpointPath, textData, [method='POST'])`**:
+    *   Sends plain text `textData` to `endpointPath` using `method`.
+    *   **`endpointPath`**: Backend URL path. **Must start with a slash** (e.g., `"/hello"`).
+    *   **`textData`**: String data to send.
+    *   **`[method='POST']`** (Optional): HTTP method. Match backend definition. Defaults to `'POST'`.
+    *   **Returns**: Promise resolving to the plain text response string. Use `await`.
+    *   **Throws**: Error on network/server failure.
+
+```htvm
+; Example frontend callback (correct multi-line format)
+SubmitButton:
+str dataToSend := "Info from GUI"
+; Send data to the '/processData' endpoint via POST
+str responseFromServer := await callBackend("/processData", dataToSend)
+await MsgBox("Backend replied: " . responseFromServer)
+subout
+
+```
+
+### Example: Simple Backend & Frontend
+
+**1. Backend Code (`backend.htvm`)**
+
+```htvm
+; --- Backend Logic ---
+hello:
+return "Backend received: [" . A_Input . "] - Response: Hello World!"
+subout
+process:
+; Using Python's .upper() method directly on the input string
+return "Data processed by backend: " . A_Input.upper()
+subout
+; --- Backend Setup (using commands with commas) ---
+; Optional main label
+main
+; Route /hello -> label hello (POST default)
+endpoint, hello
+; Route /processData -> label process, explicitly POST
+endpoint, processData, process, POST
+; Serve frontend.js at /
+fileinit, frontend.js
+; Run on port 5678
+port, 5678
+
+```
+
+**2. Frontend Code (`frontend.htvm` -> generates `frontend.js`)**
+
+```htvm
+; --- OSP Struct for state (Recommended) ---
+struct InputState {
+    prop str currentText := ""
+}
+; --- Callbacks ---
+; -----------------------
+; Default for edit
+Edit0:
+; No 'global' needed for JS target
+InputState.currentText := A_Value
+subout
+; -----------------------
+; Callback for first button
+ButtonHello:
+str respHello := await callBackend("/hello", InputState.currentText)
+; Use SPACE separation for guicontrol
+guicontrol id:"responseText" value:respHello
+subout
+; -----------------------
+; Callback for second button
+ButtonProcess:
+str respProcess := await callBackend("/processData", InputState.currentText)
+; Use SPACE separation for guicontrol
+guicontrol id:"responseText" value:respProcess
+subout
+; -----------------------
+; --- GUI Setup ---
+main
+; Prepare string vars only where needed, hardcode simple ones
+str placeholderText := "Enter data..."
+str btn1Text := "Call Hello"
+str btn2Text := "Call Process"
+str initialResponse := "Response..."
+str editId := "inputEdit"
+str helloBtnId := "helloBtn"
+str processBtnId := "processBtn"
+str responseTextId := "responseText"
+str whiteColor := "white"
+; Use SPACE separation for GUI options
+; Uses Edit0
+gui edit id:editId x10 y10 w200 h30 placeholder:placeholderText
+gui button id:helloBtnId x10 y50 w95 h30 value:btn1Text callback:ButtonHello
+gui button id:processBtnId x115 y50 w95 h30 value:btn2Text callback:ButtonProcess
+gui text id:responseTextId x10 y90 w200 h30 value:initialResponse color:whiteColor
+
+```
+
+**To Run:**
+
+1.  **Transpile Backend:** `HTVM backend.htvm HTVM-instructions.txt py`
+2.  **Transpile Frontend:** `HTVM frontend.htvm HTVM-instructions.txt js`
+3.  **Place Files:** Ensure `frontend.js` is in the same directory as `backend.py`.
+4.  **Run Backend:** `python backend.py`
+5.  **Access Frontend:** Open browser to `http://localhost:5678`. Interact with the GUI.
+
+---
+
+### Summary
+
+HTVM's backend feature simplifies the creation of basic web servers using **Python and Flask**. By leveraging straightforward commands like `fileinit,`, `endpoint,`, and `port,`, developers can quickly set up routes that map to specific HTVM logic blocks defined by labels. This system facilitates communication between an HTVM JavaScript frontend (using the `callBackend` function) and the Python server, primarily through plain text requests and responses. This functionality provides a streamlined way to add server-side processing capabilities to HTVM projects without requiring extensive backend framework knowledge, aligning with HTVM's philosophy of simplifying development workflows.
+
+---
 
 
 
@@ -2190,9 +3144,179 @@ print("some text") ; ❌ is comment will disappear when converting to another HT
 
 Understand how to manage errors and handle exceptions in HTVM to make your programs more robust. HTVM provides simple ways to catch and handle errors, helping you write more stable and reliable code.
 
+### Error Handling in HTVM
+
+Error handling is an essential part of writing robust programs. In HTVM, you can handle errors using the `try`, `catch`, and `finally` keywords, similar to other modern programming languages. This allows you to handle exceptions effectively, ensuring that your program can gracefully recover or manage unexpected situations.
+
+HTVM supports error handling, and even if certain target languages don't fully support `finally`, HTVM ensures that the structure remains intact during conversion. For unsupported features, HTVM provides an easy workaround by using **programming blocks**.
+
+### HTVM Error Handling Syntax
+
+| **HTVM Keyword**         | **Description**                                                                   | **Target Language Syntax**     |
+|--------------------------|-----------------------------------------------------------------------------------|--------------------------------|
+| `try`                    | Used to define the block of code where errors may occur.                          | `try`                          |
+| Error message function   | Used to throw an error message.                                                   | `ErrorMsg("message")`          |
+| `catch`                  | Used to catch and handle the error.                                               | `catch`                        |
+| `finally`                | Used to define code that runs after `try`, regardless of whether an error occurs. | `finally`                      |
+
+HTVM's error handling syntax is simple and intuitive. You can use `try` and `catch` to handle errors, and `finally` to ensure that some code is always executed at the end of the try block. Here's a quick overview:
+
+```htvm
+try {
+    ; Your code that might throw an error
+    throw ErrorMsg("Something went wrong!")
+}
+catch (e) {
+    ; Handle the error, e contains the error message
+    print("Caught error: " . e)
+}
+finally {
+    ; Code that will always execute, regardless of an error
+    print("Finally block executed")
+}
+
+```
+
+or
+
+```htvm
+try {
+    ; Your code that might throw an error
+    throw ErrorMsg("Something went wrong!")
+}
+catch (e) {
+    ; Handle the error, e contains the error message
+    ; Calling the STR() function will convert e to a string since in some languages like C++ it's not a string.
+    print("Caught error: " . STR(e))
+}
+finally {
+    ; Code that will always execute, regardless of an error
+    print("Finally block executed")
+}
+
+```
+
+In the above example, the error message is customizable and should be a string. This allows you to define your own error messages in a way that fits your needs.
+
+### Programming Blocks for Unsupported Features
+
+For languages that do not support traditional error handling structures (such as `finally`), HTVM provides **programming blocks**. These allow you to write directly in the target language’s syntax, enabling you to implement your own error handling solutions or other programming structures. For example, if you're converting your HTVM code to Golang or Lua (which do not support `try`, `catch`, or `finally`), you can use programming blocks to write your custom error handling code in the respective language.
+
+A programming block is a way to insert code directly in the target language, bypassing HTVM's standard syntax when necessary. This gives you full control over how your program handles exceptions and other language-specific behaviors.
+
+### Error Handling Support in Target Languages
+
+| Language     | `try` | `catch` | `finally`    | Notes                                                                                            |
+|--------------|-------|---------|--------------|--------------------------------------------------------------------------------------------------|
+| C++          | ✅     | ✅       | ❌         | No support for `finally`.                                                                        |
+| Python       | ✅     | ✅       | ✅         | Full support for `try`, `catch`, and `finally`.                                                  |
+| JavaScript   | ✅     | ✅       | ✅         | Full support for `try`, `catch`, and `finally`.                                                  |
+| Go           | ❌     | ❌       | ❌         | No `try-catch-finally` support. Use programming blocks to implement custom error handling.       |
+| Lua          | ❌     | ❌       | ❌         | No `try-catch-finally` support. Use programming blocks to implement custom error handling.       |
+| C#           | ✅     | ✅       | ✅         | Full support for `try`, `catch`, and `finally`.                                                  |
+| Java         | ✅     | ✅       | ✅         | Full support for `try`, `catch`, and `finally`.                                                  |
+| Kotlin       | ✅     | ✅       | ✅         | Full support for `try`, `catch`, and `finally`.                                                  |
+| Ruby         | ✅     | ✅       | ✅         | Full support for `try`, `catch`, and `finally`.                                                  |
+| Nim          | ✅     | ✅       | ✅         | Full support for `try`, `catch`, and `finally`.                                                  |
+| AutoHotKey   | ✅     | ✅       | ✅         | Full support for `try`, `catch`, and `finally`.                                                  |
+| Swift        | ✅     | ✅       | ❌         | No support for `finally`.                                                                        |
+| Dart         | ✅     | ✅       | ✅         | Full support for `try`, `catch`, and `finally`.                                                  |
+| TypeScript   | ✅     | ✅       | ✅         | Full support for `try`, `catch`, and `finally`.                                                  |
+| Groovy       | ✅     | ✅       | ✅         | Full support for `try`, `catch`, and `finally`.                                                  |
+
+### Notes:
+
+- **Golang and Lua**: These languages don't support traditional `try-catch-finally` blocks. If you try to use HTVM’s error handling in these languages, you will see placeholder strings inserted, which will result in errors. You can instead write custom error handling inside programming blocks in their respective languages.
+  
+- **C++ and Swift**: The `finally` block is not natively supported, but you can include it in your HTVM code, and HTVM will convert it to an if statement. You can still structure your code in a way that mimics `finally` behavior by ensuring that certain code kinda runs.
+
+```cpp
+try {
+    // Your code that might throw an error
+    throw std::runtime_error("Something went wrong!");
+}
+catch (const std::exception& e) {
+    // Handle the error, e contains the error message
+    print("Caught error: " + STR(e.what()));
+}
+if ("finally dosent exist in c++" == "finally dosent exist in c++") {
+    // This simulates a finally block, but it's not guaranteed to behave like one in all cases
+    // HTVM may treat this like a finally block, but behavior can vary across targets
+    // Intended to run after try/catch, but not a true finally block
+    print("Finally block executed");
+}
+```
+
+```swift
+do {
+    // Your code that might throw an error
+    try ErrorMsg("Something went wrong!")
+}
+catch let e as NSError {
+    // Handle the error, e contains the error message
+    print("Caught error: " + e.localizedDescription)
+}
+if ("finally dosent exist in swift" == "finally dosent exist in swift") {
+    // This simulates a finally block, but it's not guaranteed to behave like one in all cases
+    // HTVM may treat this like a finally block, but behavior can vary across targets
+    // Intended to run after try/catch, but not a true finally block
+    print("Finally block executed")
+}
+```
+
+#### Since `Go` and `Lua` don't support `try-catch-finally`, it will look like this:
+
+```go
+GO DOSENT HAVE A TRY USE PROGRAMMING BLOCKS MAYBE IDK {
+    // Your code that might throw an error
+    GO DOSENT HAVE A THROW USE PROGRAMMING BLOCKS MAYBE IDK
+}
+GO DOSENT HAVE A CATCH USE PROGRAMMING BLOCKS MAYBE IDK {
+    // Handle the error, e contains the error message
+    print("Caught error: " + STR(e))
+}
+GO DOSENT HAVE A FINALLY USE PROGRAMMING BLOCKS MAYBE IDK {
+    // Code that will always execute, regardless of an error
+    print("Finally block executed")
+}
+```
+
+```lua
+LUA DOSENT HAVE A TRY USE PROGRAMMING BLOCKS MAYBE IDK
+    -- Your code that might throw an error
+    LUA DOSENT HAVE A THROW USE PROGRAMMING BLOCKS MAYBE IDK
+end
+LUA DOSENT HAVE A CATCH USE PROGRAMMING BLOCKS MAYBE IDK
+    -- Handle the error, e contains the error message
+    print("Caught error: " .. STR(e))
+end
+LUA DOSENT HAVE A FINALLY USE PROGRAMMING BLOCKS MAYBE IDK
+    -- Code that will always execute, regardless of an error
+    print("Finally block executed")
+end
+```
+
+That means you can't use them when converting to `Go` and `Lua`. 
+
+### Catch Block Syntax
+
+The `catch` block syntax in HTVM is simple and flexible. You can write:
+
+```htvm
+catch (e) {
+    ; Handle the error
+}
+
+```
+
+- **e**: This is the error variable, which stores the error message. You can use any variable name here, but `e` is the most common and convenient choice.
+- You don't need parentheses around `e` or other variable names, though you can use them if you prefer.
+
+### Important Notes:
+
+- **Error handling behavior across languages**: The behavior of `try`, `catch`, and `finally` blocks may not be exactly the same across all languages. Make sure to thoroughly test your code when converting between different target languages. While HTVM provides support for error handling in many languages, differences in implementation and behavior can arise.
+
 ---
-
-
 
 
 
@@ -2201,6 +3325,316 @@ Understand how to manage errors and handle exceptions in HTVM to make your progr
 [Go back](#htvm-documentation)
 
 Discover how to include external files and resources in your HTVM project for enhanced functionality. The **include** feature in HTVM allows you to integrate additional code or libraries into your project seamlessly.
+
+### Including Files in HTVM
+
+In HTVM, the `import` keyword allows you to include another HTVM file within your code. This works in a very simple way: just use the `import` keyword followed by a string containing the file path. It's important to remember that this string must be static; you cannot use any operators or dynamic strings.
+
+**Syntax**:
+
+```htvm
+include "path/to/file.htvm"
+
+```
+
+The included file will be appended to the top of your code. If there are other includes within the included file, those will be included as well, creating a chain of inclusions. Be careful of nesting too many includes, as it may lead to unexpected behavior.
+
+In most cases, it's a good idea to specify the full file path if possible, though relative paths may work depending on where your files are located.
+
+---
+
+### The Main Label
+
+The `main` keyword in HTVM is a special label used to define the starting point of your program. It is not required to be inside a programming block and can be used freely to mark the beginning of the main code execution.
+
+The `main` keyword serves as a label and does not require any special syntax. You simply place your main code inside the block after the `main` label. When including code from another file, however, make sure that the `main` label appears immediately after any inclusion from other languages.
+
+**Rules**:
+
+- **Before `main`**: You can define functions and include code.
+- **After `main`**: You **cannot** define functions—only the main body of your program should follow. While some target languages (like JavaScript) might technically allow nested functions or definitions after the main execution point begins, this is strongly discouraged and disallowed by HTVM's structure to maintain clarity and predictable behavior across conversions.
+
+If you're including code from another language, make sure to remove any pre-existing `main` function from that file before including it. This ensures that the `main` label in HTVM is properly used to start your program's execution.
+
+**Using HTVM without Function Definitions**: If you're using HTVM normally, without defining functions or including code from other languages or files, the `main` label becomes optional as the code execution implicitly starts from the top. But when including functions, HTVM files, or programming blocks with definitions, make sure to follow the structure outlined above (definitions before `main`, main execution logic after `main`) for proper execution.
+
+---
+
+### Using Programming Blocks
+
+HTVM supports including code from other programming languages through programming blocks. To include code from another language, open a programming block and write the import or include statement in the respective syntax for the target language. Then close the block to finish.
+
+**Example (Python)**
+
+If you need to import a library in Python, you can write it like this inside a programming block:
+
+```htvm
+___py start
+import math
+___py end
+
+```
+
+In this case, `math` is a Python library that you can use within your HTVM code. If you want to use a function from the library, you would call it as `math.function_name()`.
+
+**Example (JavaScript)**
+
+For JavaScript, it might look like this:
+
+```htvm
+___js start
+import { someFunction } from 'someLibrary';
+___js end
+
+```
+
+**Example (C++)**
+
+For C++, the inclusion might look like this:
+
+```htvm
+___cpp start
+#include <iostream>
+___cpp end
+
+```
+
+Each programming language has its own syntax for imports or includes, so be sure to use the correct syntax for the target language.
+
+---
+
+### Caching Functions
+
+HTVM allows you to cache functions and reuse them across different projects. This process involves writing your functions in HTVM, converting them to the target language, and then including them in your HTVM code using programming blocks.
+
+#### **Directly Caching Functions Using File Conversion**
+
+One way to cache functions is by directly writing and saving them as separate files. When you convert these files, you can reuse them across your projects without manually importing specific libraries or using function names with prefixes.
+
+Here’s how you can achieve this with Python:
+
+1.  **Write your functions in HTVM**.
+
+```htvm
+func int add(int a, int b) {
+    return a + b
+}
+
+```
+
+2.  **Convert the functions to Python** and remove the `main` function (if applicable) from the converted Python file.
+
+```python
+def add(a, b):
+    return a + b
+```
+
+3.  **Save the Python code as a separate file** (e.g., `functions.py`). This file should not include any `main` function.
+
+4.  **Directly import and use the functions without needing to prefix them with a library name** by following Python's normal import syntax. This means that once the `functions.py` file is in the same directory as your HTVM project, you can import the function directly.
+
+**Example (No library prefix)**:
+
+5.  **If `functions.py` is in the same directory**
+
+This import allows you to directly use `add` in your HTVM code without having to prefix it with the filename or a library name (i.e., no need for `functions.add()`).
+
+Use the function as normal in your HTVM code using the following import:
+
+```htvm
+___py start
+from functions import add
+# Alternatively, to import everything directly (use with caution for namespace clarity):
+# from functions import *
+___py end
+main
+; Example call
+print(add(2, 3))
+; or
+add(2, 3).print
+; or
+add(2, 3).print()
+; Showcasing the power of functions called in different ways
+
+```
+
+By following this method, you can write functions in HTVM, convert them to Python (or any other language), and reuse them across different projects while keeping the syntax clean and free of unnecessary library names.
+
+---
+
+#### **Alternative: Inline Caching**
+
+Instead of saving the converted Python (or other language) code to a separate file and importing it, you can directly paste the raw function definitions from the converted output into a programming block within your main HTVM file.
+
+**Example (Python)**:
+
+1.  Convert your HTVM functions (like `add`) to Python.
+2.  Copy the resulting Python function definition(s).
+3.  Paste them directly into a Python programming block in your main HTVM file:
+
+```htvm
+___py start
+# Pasted directly from converted output
+def add(a, b):
+    return a + b
+# You can paste multiple functions here
+___py end
+main
+; Now 'add' is defined directly in the Python scope
+; No import needed
+; Example call
+print(add(2, 3))
+; or
+add(2, 3).print
+; or
+add(2, 3).print()
+; Showcasing the power of functions called in different ways
+
+```
+
+**Trade-offs**:
+*   **Pro**: Keeps all code within a single HTVM file, potentially simplifying distribution or editing if you prefer not to manage separate files. No need to re-transpile the function source HTVM if you only modify the main HTVM file.
+*   **Con**: Can make the main HTVM file very large and harder to navigate if you have many or complex functions. You lose the modularity of separate files.
+
+Functions defined this way are directly available in the subsequent HTVM code (within the same target language context) without needing any `import` statements or library prefixes.
+
+---
+
+Or just add it as a built-in function if you use it often.
+### Adding Built-In Functions
+
+**Description**: Add custom built-in functions to your language by following simple syntax rules.
+
+1.  Open `HTVM-instructions.txt`.
+2.  Copy the last function block and paste it at the bottom.
+3.  Follow these rules:
+    *   **Language Specification**: Use `lang: cpp`, `lang: py`, `lang: js`, `lang: go`, `lang: lua`, `lang: cs`, `lang: java`, `lang: kt`, `lang: rb`, `lang: nim`, `lang: ahk`, `lang: swift`, `lang: dart`, `lang: ts`, or `lang: groovy` to define the language-specific implementation.
+    *   **Function Name**: Use `name: functionName`.
+    *   **Libraries**: List required libraries with a `|` delimiter. For example:
+        *   **C++**: `libs: #include <iostream>|#include <cstdlib>`
+        *   **JavaScript (not in a full .html file)**: `libs: import { readFileSync } from 'fs';|import { EventEmitter } from 'events';`
+        *   **JavaScript (in a full .html file)**: `libs: <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>`
+        *   **JavaScript (in a full .html file for more than one)**: `libs: <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>|<script src="myModule.js"></script>`
+        *   For other languages, just use the same format. For `Go`, use `libs: )|"theLibName"`. The reason for using `)` is that in HTVM, it doesn't know when the import `()` ends, so we add the `)` as a placeholder. It ensures that the import is correctly handled and will be sorted out at the end. Also, don't worry about including the same lib multiple times, since HTVM will remove duplicates.
+    *   **Description**:
+        *   Format:
+            ```
+            description: string~~~[One-line description of the function]~~~Here is how the function looks:~~~```~~~[Function signature]~~~```
+            ```
+        *   Example:
+            ```
+            description: string~~~Sort is a function to sort elements based on various criteria like numeric, random, alphabetical order, etc.~~~Here is how the function looks:~~~```~~~Sort(string input, [string options = ""])~~~```
+            ```
+        Note: The ~~~ delimiters in the description section are placeholders that will be replaced with new lines in the final documentation.
+
+**Here is how a built-in function in HTVM-instructions.txt looks like:**
+
+```
+func======================func==============
+lang: cpp
+name: Sleep
+libs: #include <thread>|#include <chrono>
+description: system~~~Sleep is a function that pauses execution for a specified number of milliseconds.~~~here is how the func looks like:~~~```~~~Sleep(int milliseconds)~~~```~~~
+// Function to sleep for a specified number of milliseconds
+void Sleep(int milliseconds) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+}
+funcEND======================funcEND==============
+```
+
+4.  **ChatGPT Prompt for Function Descriptions:**
+    To generate descriptions for functions, use the following ChatGPT prompt to ensure the response follows a specific format:
+
+    **ChatGPT Prompt:**
+    ```
+    here is what you will do structly so i wil give you a func like something like this it can be in c++ py or js dosnet matter from what it is it what you must do is give me output in this format:
+
+    MAKRE SURE IT SATRST WHIT description: and all in one code block
+
+    description: string~~~StrTitleCase is a func balalbla bla bal~~~here is how the func looks like:~~~```htvm~~~StrTitleCase(string, [optanalName], string, [optanal], string, [optanal], [optanal])~~~```~~~
+
+    it must be ```htvm not ```cpp or others IT MUST BE ```htvm
+
+    all of the ~~~ and all the same format DONT change it only chamge words
+
+    allways start like this description: category_name~~~
+
+    the param dosnet have to be the same name juts a simlpe name no _ pls
+
+    Use square brackets: When you mention the function or describe the parameters, put optional parameters in square brackets [ ]. This is the most common notation for optional parameters. For example:
+
+    functionName(param1, [param2], [param3])
+    This means that param2 and param3 are optional.
+    Provide a description or note: You can also mention which parameters are optional in a description or a comment, such as:
+
+    "The param2 and param3 parameters are optional."
+    "The optional parameters are param2 and param3."
+    Default values in code: If the function includes default values for parameters, you can also point this out. For example:
+
+    functionName(param1, param2 = "default", param3 = 10)
+    This means that param2 and param3 have default values and are optional.
+
+    YOU MUST SPECIFY THE TYPE AS WELL like this
+
+    funcName(int asd, str, waeds, bool, waedsf, arr str, waesdf, bool [awsesrs = false], bool [awsesrs = true])
+
+    YOU MUST SPECIFY THE TYPE EVEN IF YOU DONT KNOW TRY TO GUESS HERE IS THE TYPE SYNTAX
+    str
+    int
+    bool
+    arr str
+    func
+    ... otherwize made them up
+
+    respond in a ```txt all in one line
+
+    so the ~~~ = to a new line ok ~~~ is a new line and the first one where we typed string is the category and it must alwas be one word the bets word for thet category like string math gui io files bla...
+    THE description BUST BE ONLY IN ONE LINE
+    here is func and replay in one line:
+    ================================================
+
+    // Function to sleep for a specified number of milliseconds
+    void Sleep(int milliseconds) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+    }
+
+    ```
+
+Open it in a text editor and make sure the response is in 1 line. Otherwise, if ChatGPT replies in more than one line, tell it:
+
+```txt
+I SAID REPLY IN ONE LINE
+```
+
+**Important**: Do not modify the first 162 lines of `HTVM-instructions.txt`.
+
+---
+
+### Important Notes on Library Usage and Conversions
+
+HTVM is flexible, but there are some important things to keep in mind when working with external libraries or converting code between languages.
+
+#### **Converting Libraries Between Languages**:
+
+- You cannot use a Python library and convert it to JavaScript or any other languages. When including libraries, ensure that they are compatible with the target language. For example, if you want to use the `NumPy` library in Python, you cannot convert your code to JavaScript or C++ because the `NumPy` library won't work in those languages.
+
+#### **Library-Specific Syntax**:
+
+- When including libraries in HTVM, you’ll need to follow the target language's syntax. For example, if you're using Python libraries, you'll have to call them in Python syntax, such as `library_name.function_name()`. This can be cumbersome but is necessary for cross-language compatibility.
+
+#### **Using HTVM Syntax with Other Languages**:
+
+- You can use HTVM to emulate the syntax of another language, such as Lua, while still utilizing Python libraries like Pygame. However, this comes with some limitations—HTVM will allow you to write in a Lua-like style, but the built-in functions will remain HTVM functions, and not all features of the target language will be available.
+
+---
+
+### Final Considerations
+
+- After using the `import` keyword, always ensure that the `main` label is placed underneath any includes or programming blocks containing definitions. **Do not** define functions after the `main` label in your HTVM code. While some target languages (like JavaScript) might technically allow nested functions after the main execution point, this is strongly discouraged and disallowed by HTVM's structure for clarity and predictable behavior.
+
+- When including code from other languages that HTVM has converted, remove their `main` function to avoid conflicts. This is crucial for the proper execution of the HTVM program.
+
+- If you frequently reuse the same set of functions across many projects (especially functions converted from HTVM or native language code), consider adding them as custom built-in functions by editing `HTVM-instructions.txt` (as described in the "Adding Built-In Functions" section) instead of repeatedly using `import` or inline caching via programming blocks. This can centralize your common utilities.
 
 ---
 
@@ -2347,6 +3781,8 @@ HTVM flips that by giving you clean, readable code that does more with less. Whi
 HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct reflection of this philosophy—they let you express complex logic in just a few words, automatically converting into efficient function calls with minimal effort.
 
 ---
+
+
 
 
 

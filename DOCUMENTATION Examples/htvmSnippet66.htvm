@@ -1,0 +1,3 @@
+catch e {
+    ; Handle the error
+}

@@ -1,0 +1,36 @@
+; OSP Struct for state
+struct FormData {
+  prop str firstName := ""
+  prop str lastName := ""
+}
+
+; Callbacks
+Edit0: ; Default for first edit
+  FormData.firstName := A_Value
+subout
+
+Edit1: ; Default for second edit
+  FormData.lastName := A_Value
+subout
+
+ButtonOK:
+  ; Use the struct properties
+  str greeting := "You entered " . FormData.firstName . " " . FormData.lastName . "."
+  await MsgBox(greeting)
+subout
+
+main
+  ; Prepare string variables only where needed (e.g., for text with spaces)
+  str fNameLabel := "First name:"
+  str lNameLabel := "Last name:"
+  str fNamePlaceholder := "First Name..."
+  str lNamePlaceholder := "Last Name..."
+  str btnText := "Send"
+  str whiteColor := "white"
+
+  ; Use hardcoded pre-formatted strings for simple values, variables for complex ones.
+  gui text x:"10px" y:"10px" w:"150px" h:"30px" value:fNameLabel color:whiteColor
+  gui edit x:"10px" y:"40px" w:"150px" h:"30px" placeholder:fNamePlaceholder id:"firstNameEdit" ; Uses Edit0
+  gui text x:"10px" y:"100px" w:"150px" h:"30px" value:lNameLabel color:whiteColor
+  gui edit x:"10px" y:"130px" w:"150px" h:"30px" placeholder:lNamePlaceholder id:"lastNameEdit" ; Uses Edit1
+  gui button x:"10px" y:"200px" w:"155px" h:"45px" value:btnText callback:ButtonOK id:"sendButton"

@@ -1,0 +1,16 @@
+___py start
+# Pasted directly from converted output
+def add(a, b):
+    return a + b
+# You can paste multiple functions here
+___py end
+main
+; Now 'add' is defined directly in the Python scope
+; No import needed
+; Example call
+print(add(2, 3))
+; or
+add(2, 3).print
+; or
+add(2, 3).print()
+; Showcasing the power of functions called in different ways

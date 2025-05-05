@@ -1,0 +1,18 @@
+str saveEdit := ""
+; Edit0 callback
+Edit0:
+saveEdit := A_Value
+subout
+; Button0 callback
+Button0:
+guiControl p"Gui1" i"text0" dsaveEdit
+subout
+; main func
+main
+w := "300px"
+; define the gui window
+gui pid:"Gui1" x50% y50% ww h200
+; add elements
+gui pid:"Gui1" text ww y27.5% d"Edit box text will be updated here..." css:"text-align: center;"
+gui pid:"Gui1" edit x50% y45% ph:"Type something..."
+gui pid:"Gui1" button x50% y65%

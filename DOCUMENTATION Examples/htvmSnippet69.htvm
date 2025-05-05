@@ -1,0 +1,3 @@
+___js start
+import { someFunction } from 'someLibrary';
+___js end

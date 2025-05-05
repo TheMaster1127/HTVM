@@ -1,0 +1,44 @@
+; --- OSP Struct for state (Recommended) ---
+struct InputState {
+    prop str currentText := ""
+}
+; --- Callbacks ---
+; -----------------------
+; Default for edit
+Edit0:
+; No 'global' needed for JS target
+InputState.currentText := A_Value
+subout
+; -----------------------
+; Callback for first button
+ButtonHello:
+str respHello := await callBackend("/hello", InputState.currentText)
+; Use SPACE separation for guicontrol
+guicontrol id:"responseText" value:respHello
+subout
+; -----------------------
+; Callback for second button
+ButtonProcess:
+str respProcess := await callBackend("/processData", InputState.currentText)
+; Use SPACE separation for guicontrol
+guicontrol id:"responseText" value:respProcess
+subout
+; -----------------------
+; --- GUI Setup ---
+main
+; Prepare string vars only where needed, hardcode simple ones
+str placeholderText := "Enter data..."
+str btn1Text := "Call Hello"
+str btn2Text := "Call Process"
+str initialResponse := "Response..."
+str editId := "inputEdit"
+str helloBtnId := "helloBtn"
+str processBtnId := "processBtn"
+str responseTextId := "responseText"
+str whiteColor := "white"
+; Use SPACE separation for GUI options
+; Uses Edit0
+gui edit id:editId x10 y10 w200 h30 placeholder:placeholderText
+gui button id:helloBtnId x10 y50 w95 h30 value:btn1Text callback:ButtonHello
+gui button id:processBtnId x115 y50 w95 h30 value:btn2Text callback:ButtonProcess
+gui text id:responseTextId x10 y90 w200 h30 value:initialResponse color:whiteColor
