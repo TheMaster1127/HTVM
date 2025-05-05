@@ -2218,7 +2218,7 @@ gui button x:50 y100 w"200px" h:"30px"
 gui button,x:"50px",y:"100px",w:"200px",h:"30px"
 ```
 
-2.  **Key-Value Format**: Use `key:value` or single-letter prefixes `kvalue`. Many aliases exist (see [Options & Aliases](#gui-options-htvm)).
+2.  **Key-Value Format**: Use `key:value` or single-letter prefixes `kvalue`. Many aliases exist (see [Options & Aliases](#options--aliases)).
 3.  **Case Insensitivity**: Option *keys* and element types are case-insensitive. Option *values* (like IDs, text content, callback names) are case-sensitive.
 4.  **`add` Keyword**: Optional and ignored (`gui add button` is the same as `gui button`).
 5.  **Grouping**: Options can span multiple lines using `{...}`, `[...]`, or `(...)` for readability. Separator rules (spaces or commas) still apply inside the group.

@@ -10934,7 +10934,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             }
             else if (InStr(A_LoopField200, "guiInit(") || InStr(A_LoopField200, "guiAdd(") || InStr(A_LoopField200, "guiAddElement(") || InStr(A_LoopField200, "guiControl(") || InStr(A_LoopField200, "HTVM_init(") || InStr(A_LoopField200, "HTVM_register(") || InStr(A_LoopField200, "HTVM_custom_port(") && lineDone == 0) {
                 lineDone = 1;
-                htCode += Trim(A_LoopField200) + Chr(10);
+                htCode += Trim(expressionParserTranspiler(Trim(A_LoopField200))) + Chr(10);
             }
             else if (Trim(A_LoopField200) == keyWordCommentOpenMultiLine) {
                 lineDone = 1;
@@ -11156,7 +11156,11 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     if (int1 == 1) {
                         htCode += "async function " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ")" + Chr(10);
                     } else {
-                        htCode += "function " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                        if (useJavaScriptAllFuncsAreAsync == "on") {
+                            htCode += "async function " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                        } else {
+                            htCode += "function " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ")" + Chr(10);
+                        }
                     }
                 }
                 // Go
@@ -11210,7 +11214,11 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     htCode += getFuncTypeConvert(str3) + " " + str15 + "([String osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + "])" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += "function " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " + Chr(34) + Chr(34) + "): " + getFuncTypeConvert(str3) + Chr(10);
+                    if (useJavaScriptAllFuncsAreAsync == "off") {
+                        htCode += "function " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " + Chr(34) + Chr(34) + "): " + getFuncTypeConvert(str3) + Chr(10);
+                    } else {
+                        htCode += "async function " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " + Chr(34) + Chr(34) + "): " + getFuncTypeConvert(str3) + Chr(10);
+                    }
                 }
                 if (langToConvertTo == "groovy") {
                     htCode += "def " + str15 + "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " + Chr(34) + Chr(34) + ")" + Chr(10);
@@ -12899,7 +12907,11 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         if (int1 == 1) {
                             htCode += "async function " + str2 + "()" + Chr(10);
                         } else {
-                            htCode += "function " + str2 + "()" + Chr(10);
+                            if (useJavaScriptAllFuncsAreAsync == "on") {
+                                htCode += "async function " + str2 + "()" + Chr(10);
+                            } else {
+                                htCode += "function " + str2 + "()" + Chr(10);
+                            }
                         }
                     }
                     // Go
@@ -12953,7 +12965,11 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         if (int1 == 1) {
                             htCode += "async function " + str2 + "(): " + getFuncTypeConvert(str3) + Chr(10);
                         } else {
-                            htCode += "function " + str2 + "(): " + getFuncTypeConvert(str3) + Chr(10);
+                            if (useJavaScriptAllFuncsAreAsync == "on") {
+                                htCode += "async function " + str2 + "(): " + getFuncTypeConvert(str3) + Chr(10);
+                            } else {
+                                htCode += "function " + str2 + "(): " + getFuncTypeConvert(str3) + Chr(10);
+                            }
                         }
                     }
                     if (langToConvertTo == "groovy") {
@@ -13554,7 +13570,11 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         if (int1 == 1) {
                             htCode += "async function " + str2 + "(" + str11 + ")" + Chr(10);
                         } else {
-                            htCode += "function " + str2 + "(" + str11 + ")" + Chr(10);
+                            if (useJavaScriptAllFuncsAreAsync == "on") {
+                                htCode += "async function " + str2 + "(" + str11 + ")" + Chr(10);
+                            } else {
+                                htCode += "function " + str2 + "(" + str11 + ")" + Chr(10);
+                            }
                         }
                     }
                     // Go
@@ -13605,7 +13625,15 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                         htCode += getFuncTypeConvert(str3) + " " + str2 + "(" + str11 + ")" + Chr(10);
                     }
                     if (langToConvertTo == "ts") {
-                        htCode += "function " + str2 + "(" + str11 + "): " + getFuncTypeConvert(str3) + Chr(10);
+                        if (int1 == 1) {
+                            htCode += "async function " + str2 + "(" + str11 + "): " + getFuncTypeConvert(str3) + Chr(10);
+                        } else {
+                            if (useJavaScriptAllFuncsAreAsync == "on") {
+                                htCode += "async function " + str2 + "(" + str11 + "): " + getFuncTypeConvert(str3) + Chr(10);
+                            } else {
+                                htCode += "function " + str2 + "(" + str11 + "): " + getFuncTypeConvert(str3) + Chr(10);
+                            }
+                        }
                     }
                     if (langToConvertTo == "groovy") {
                         htCode += "def " + str2 + "(" + str11 + ")" + Chr(10);

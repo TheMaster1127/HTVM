@@ -14436,7 +14436,7 @@ htCode .= "//" . str1 . Chr(10)
 else if (InStr(A_LoopField, "guiInit(")) or (InStr(A_LoopField, "guiAdd(")) or (InStr(A_LoopField, "guiAddElement(")) or (InStr(A_LoopField, "guiControl(")) or (InStr(A_LoopField, "HTVM_init(")) or (InStr(A_LoopField, "HTVM_register(")) or (InStr(A_LoopField, "HTVM_custom_port(")) and (lineDone = 0)
 {
 lineDone := 1
-htCode .= Trim(A_LoopField) . Chr(10)
+htCode .= Trim(expressionParserTranspiler(Trim(A_LoopField))) . Chr(10)
 }
 else if (Trim(A_LoopField) = keyWordCommentOpenMultiLine)
 {
@@ -14717,7 +14717,17 @@ if (langToConvertTo = "js") {
     if (int1 = 1) { ; int1 1 = is async, 0 = not async
         htCode .= "async function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
     } else {
-        htCode .= "function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
+    
+    if (useJavaScriptAllFuncsAreAsync = "on")
+    {
+        htCode .= "async function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
+    }
+    else
+    {
+        htCode .= "function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)    
+    }
+    
+
     }
 }
 
@@ -14799,7 +14809,16 @@ if (langToConvertTo = "dart")
 }
 if (langToConvertTo = "ts")
 {
-    htCode .= "function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " . Chr(34) . Chr(34) . "): " . getFuncTypeConvert(str3) . Chr(10)
+    if (useJavaScriptAllFuncsAreAsync = "off")
+    {
+    htCode .= "function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " . Chr(34) . Chr(34) . "): " . getFuncTypeConvert(str3) . Chr(10)    
+    }
+    else
+    {
+    htCode .= "async function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " . Chr(34) . Chr(34) . "): " . getFuncTypeConvert(str3) . Chr(10)    
+    }
+
+
 }
 if (langToConvertTo = "groovy")
 {
@@ -17122,7 +17141,17 @@ if (langToConvertTo = "js") {
     if (int1 = 1) { ; int1 1 = is async, 0 = not async
         htCode .= "async function " . str2 . "()" . Chr(10)
     } else {
-        htCode .= "function " . str2 . "()" . Chr(10)
+    
+    if (useJavaScriptAllFuncsAreAsync = "on")
+    {
+        htCode .= "async function " . str2 . "()" . Chr(10)
+    }
+    else
+    {
+        htCode .= "function " . str2 . "()" . Chr(10)    
+    }
+    
+
     }
 }
 
@@ -17205,7 +17234,17 @@ if (langToConvertTo = "ts")
     if (int1 = 1) { ; int1 1 = is async, 0 = not async
         htCode .= "async function " . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
     } else {
-        htCode .= "function " . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
+    
+    if (useJavaScriptAllFuncsAreAsync = "on")
+    {
+        htCode .= "async function " . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
+    }
+    else
+    {
+        htCode .= "function " . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)    
+    }
+    
+
     }
 }
 
@@ -18027,7 +18066,17 @@ if (langToConvertTo = "js") {
     if (int1 = 1) { ; int1 1 = is async, 0 = not async
         htCode .= "async function " . str2 . "(" . str11 . ")" . Chr(10)
     } else {
-        htCode .= "function " . str2 . "(" . str11 . ")" . Chr(10)
+    
+    if (useJavaScriptAllFuncsAreAsync = "on")
+    {
+        htCode .= "async function " . str2 . "(" . str11 . ")" . Chr(10)
+    }
+    else
+    {
+        htCode .= "function " . str2 . "(" . str11 . ")" . Chr(10)    
+    }
+    
+
     }
 }
 
@@ -18107,7 +18156,23 @@ if (langToConvertTo = "dart")
 }
 if (langToConvertTo = "ts")
 {
-    htCode .= "function " . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)
+
+    if (int1 = 1) { ; int1 1 = is async, 0 = not async
+        htCode .= "async function " . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)    
+    }
+    else
+    {
+
+    if (useJavaScriptAllFuncsAreAsync = "on")
+    {
+        htCode .= "async function " . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)
+    }
+    else
+    {
+        htCode .= "function " . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)    
+    }
+}
+
 }
 if (langToConvertTo = "groovy")
 {
