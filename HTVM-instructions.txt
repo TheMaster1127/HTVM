@@ -2199,7 +2199,7 @@ funcEND======================funcEND==============
 func======================func==============
 lang: js
 name: Abs
-libs: import math
+libs: null
 description: math~~~Abs is a function that returns the absolute value of the provided number.~~~here is how the func looks like:~~~```htvm~~~Abs(int value)~~~```~~~
 function Abs(value) {
     return Math.abs(value);
@@ -2208,7 +2208,7 @@ funcEND======================funcEND==============
 func======================func==============
 lang: js
 name: ACos
-libs: import math
+libs: null
 description: math~~~ACos is a function that returns the arc cosine (inverse cosine) of a number, which must be between -1 and 1.~~~here is how the func looks like:~~~```htvm~~~ACos(float)~~~```~~~
 function ACos(value) {
     return Math.acos(value);
