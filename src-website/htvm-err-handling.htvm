@@ -71,6 +71,49 @@ func bool handleErrorHelper(arr str theArray, str line, int mode := 0)
     return false 
 }
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+; Function to check for duplicate first words in a multi-line string
+; Returns true if a duplicate first word is found, false otherwise.
+func str handleErrorHelper2(str multiLineText) {
+    arr str uniqueFirstWordsEncountered := []
+    arr int firstOccurrenceIndices := []
+    arr str firstOccurrenceLines := []
+
+    int currentLine0BasedIndex := 0
+
+    Loop, Parse, multiLineText, `n {
+        str trimmedCurrentLine := Trim(A_LoopField)
+
+        if (trimmedCurrentLine != "") {
+            str firstWord := StrSplit(trimmedCurrentLine, " ", 1)
+
+            if (firstWord != "") {
+                int indexOfExisting := uniqueFirstWordsEncountered.indexOf(firstWord)
+
+                if (indexOfExisting != -1) {
+                    int originalIndex := firstOccurrenceIndices[indexOfExisting]
+                    str originalLine := firstOccurrenceLines[indexOfExisting]
+                    str result := STR(originalIndex) . ":" . originalLine . "-HTVM-SPLIT-HTVM~~|kngeuew8r7dygtosuwesdtesedfxo|~~HTVM-SPLIT-HTVM-" . STR(currentLine0BasedIndex) . ":" . trimmedCurrentLine
+                    return result
+                } else {
+                    uniqueFirstWordsEncountered.add(firstWord)
+                    firstOccurrenceIndices.add(currentLine0BasedIndex)
+                    firstOccurrenceLines.add(trimmedCurrentLine)
+                }
+            }
+        }
+        currentLine0BasedIndex := currentLine0BasedIndex + 1
+    }
+
+    return "NONE"
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 func str handleError(str htvmInstrText)  
 {
@@ -149,9 +192,93 @@ arr str onlyAllowed_0 := ["cpp", "py", "js", "go", "lua", "cs", "java", "kt", "r
 ;;;;;;;;;;;;;;;;;;;;;;;; thats all HTVM options 162 of them
 
 
+str allName := "langToConvertTo" . Chr(10) . "langFileExtension" . Chr(10) . "commands" . Chr(10) . "keyWordAlliance" . Chr(10) . "keyWordCrew" . Chr(10) . "keyWordProc" . Chr(10) . "keyWordStruct" . Chr(10) . "keyWordProp" . Chr(10) . "keyWordThis" . Chr(10) . "keyWordInclude" . Chr(10) . "keyWordCodeInTheTranspiledLangStart" . Chr(10) . "keyWordCodeInTheTranspiledLangEnd" . Chr(10) . "keyWordCodeInTheTranspiledLangStartCPP" . Chr(10) . "keyWordCodeInTheTranspiledLangEndCPP" . Chr(10) . "keyWordCodeInTheTranspiledLangStartPY" . Chr(10) . "keyWordCodeInTheTranspiledLangEndPY" . Chr(10) . "keyWordCodeInTheTranspiledLangStartJS" . Chr(10) . "keyWordCodeInTheTranspiledLangEndJS" . Chr(10) . "keyWordCodeInTheTranspiledLangStartGO" . Chr(10) . "keyWordCodeInTheTranspiledLangEndGO" . Chr(10) . "keyWordCodeInTheTranspiledLangStartLUA" . Chr(10) . "keyWordCodeInTheTranspiledLangEndLUA" . Chr(10) . "keyWordCodeInTheTranspiledLangStartCS" . Chr(10) . "keyWordCodeInTheTranspiledLangEndCS" . Chr(10) . "keyWordCodeInTheTranspiledLangStartJAVA" . Chr(10) . "keyWordCodeInTheTranspiledLangEndJAVA" . Chr(10) . "keyWordCodeInTheTranspiledLangStartKT" . Chr(10) . "keyWordCodeInTheTranspiledLangEndKT" . Chr(10) . "keyWordCodeInTheTranspiledLangStartRB" . Chr(10) . "keyWordCodeInTheTranspiledLangEndRB" . Chr(10) . "keyWordCodeInTheTranspiledLangStartNIM" . Chr(10) . "keyWordCodeInTheTranspiledLangEndNIM" . Chr(10) . "keyWordCodeInTheTranspiledLangStartAHK" . Chr(10) . "keyWordCodeInTheTranspiledLangEndAHK" . Chr(10) . "keyWordCodeInTheTranspiledLangStartSWIFT" . Chr(10) . "keyWordCodeInTheTranspiledLangEndSWIFT" . Chr(10) . "keyWordCodeInTheTranspiledLangStartDART" . Chr(10) . "keyWordCodeInTheTranspiledLangEndDART" . Chr(10) . "keyWordCodeInTheTranspiledLangStartTS" . Chr(10) . "keyWordCodeInTheTranspiledLangEndTS" . Chr(10) . "keyWordCodeInTheTranspiledLangStartGROOVY" . Chr(10) . "keyWordCodeInTheTranspiledLangEndGROOVY" . Chr(10) . "keyWordCodeInTheTranspiledLangStartHTVM" . Chr(10) . "keyWordCodeInTheTranspiledLangEndHTVM" . Chr(10) . "keyWordCodeInHTVMstart" . Chr(10) . "keyWordCodeInHTVMend" . Chr(10) . "keyWordCurlyBraceOpen" . Chr(10) . "keyWordCurlyBraceClose" . Chr(10) . "keyWordNull" . Chr(10) . "keyWordTrue" . Chr(10) . "keyWordFalse" . Chr(10) . "keyWordVoid" . Chr(10) . "keyWordDouble" . Chr(10) . "keyWordChar" . Chr(10) . "keyWordUint8" . Chr(10) . "keyWordUint16" . Chr(10) . "keyWordUint32" . Chr(10) . "keyWordUint64" . Chr(10) . "keyWordINT" . Chr(10) . "keyWordSTR" . Chr(10) . "keyWordBOOL" . Chr(10) . "keyWordFLOAT" . Chr(10) . "keyWordINT8" . Chr(10) . "keyWordINT16" . Chr(10) . "keyWordINT32" . Chr(10) . "keyWordINT64" . Chr(10) . "keyWordIF" . Chr(10) . "keyWordElseIf" . Chr(10) . "keyWordElse" . Chr(10) . "keyWordWhileLoop" . Chr(10) . "keyWordLoopInfinite" . Chr(10) . "keyWordLoop" . Chr(10) . "keyWordLoopParse" . Chr(10) . "keyWordContinue" . Chr(10) . "keyWordBreak" . Chr(10) . "keyWordFunc" . Chr(10) . "keyWordAwait" . Chr(10) . "keyWordAsync" . Chr(10) . "keyWordThrow" . Chr(10) . "keyWordErrorMsg" . Chr(10) . "keyWordTry" . Chr(10) . "keyWordCatch" . Chr(10) . "keyWordFinally" . Chr(10) . "keyWordReturnStatement" . Chr(10) . "keyWordArrayAppend" . Chr(10) . "keyWordArrayPop" . Chr(10) . "keyWordArraySize" . Chr(10) . "keyWordArrayInsert" . Chr(10) . "keyWordArrayRemove" . Chr(10) . "keyWordArrayIndexOf" . Chr(10) . "keyWordArrayDefinition" . Chr(10) . "keyWordArrayOfIntegersDefinition" . Chr(10) . "keyWordArrayOfStringsDefinition" . Chr(10) . "keyWordArrayOfFloatingPointNumbersDefinition" . Chr(10) . "keyWordArrayOfBooleansDefinition" . Chr(10) . "keyWordVar" . Chr(10) . "keyWordLet" . Chr(10) . "keyWordConst" . Chr(10) . "keyWordEnd" . Chr(10) . "keyWordGlobal" . Chr(10) . "keyWordComment" . Chr(10) . "keyWordCommentOpenMultiLine" . Chr(10) . "keyWordCommentCloseMultiLine" . Chr(10) . "keyWordEscpaeChar" . Chr(10) . "keyWordMainLabel" . Chr(10) . "keyWordConcat" . Chr(10) . "keyWordAdd" . Chr(10) . "keyWordSub" . Chr(10) . "keyWordMul" . Chr(10) . "keyWordDiv" . Chr(10) . "keyWordMod" . Chr(10) . "keyWordExp" . Chr(10) . "keyWordEqual" . Chr(10) . "keyWordStrictEqual" . Chr(10) . "keyWordNotEqual" . Chr(10) . "keyWordGreater" . Chr(10) . "keyWordLess" . Chr(10) . "keyWordGreaterEqual" . Chr(10) . "keyWordLessEqual" . Chr(10) . "keyWordAnd" . Chr(10) . "keyWordOr" . Chr(10) . "keyWordNot" . Chr(10) . "keyWordBitAnd" . Chr(10) . "keyWordBitOr" . Chr(10) . "keyWordBitXor" . Chr(10) . "keyWordBitNot" . Chr(10) . "keyWordShiftLeft" . Chr(10) . "keyWordShiftRight" . Chr(10) . "keyWordShiftUnsignedRight" . Chr(10) . "keyWordAssign" . Chr(10) . "keyWordAssignAdd" . Chr(10) . "keyWordAssignConcat" . Chr(10) . "keyWordAssignSub" . Chr(10) . "keyWordAssignMul" . Chr(10) . "keyWordAssignDiv" . Chr(10) . "keyWordAssignMod" . Chr(10) . "keyWordAssignShiftLeft" . Chr(10) . "keyWordAssignShiftRight" . Chr(10) . "keyWordLogicalAssignShiftRight" . Chr(10) . "keyWordAssignBitAnd" . Chr(10) . "keyWordAssignBitOr" . Chr(10) . "keyWordAssignBitXor" . Chr(10) . "keyWordTernary1" . Chr(10) . "keyWordTernary2" . Chr(10) . "keyWordInc" . Chr(10) . "keyWordDec" . Chr(10) . "AHKlikeLoopsIndexedAt" . Chr(10) . "keyWordAIndex" . Chr(10) . "keyWordALoopField" . Chr(10) . "useCurlyBraces" . Chr(10) . "useEnd" . Chr(10) . "useSemicolon" . Chr(10) . "useParentheses" . Chr(10) . "usePrefixTypeForTypeDefinition" . Chr(10) . "usePostfixTypeForTypeDefinition" . Chr(10) . "usePythonicColonSyntax" . Chr(10) . "useCurlyBracesSyntaxForArrayDef" . Chr(10) . "useInJavaScriptAlwaysUseVar" . Chr(10) . "useJavaScriptInAfullHTMLfile" . Chr(10) . "useJavaScriptAmainFuncDef" . Chr(10) . "useJavaScriptAllFuncsAreAsync" . Chr(10) . "useJavaScriptAlwaysTripleEqual"
+
+arr str allNameARR
+
+Loop, Parse, allName, `n, `r
+{
+allNameARR.add(A_LoopField)
+}
+
+
+str str1 := ""
+str str2 := ""
+str str3 := ""
+str str4 := ""
+str str5 := ""
+str str6 := ""
+
 int for0 := 0
 int AIndex := 0
 str ALoopField := ""
+str handleErrorHelper2OUT := ""
+handleErrorHelper2OUT := handleErrorHelper2(htvmInstrText)
+
+if (handleErrorHelper2OUT != "NONE")
+{
+
+str1 := StrSplit(handleErrorHelper2OUT, "-HTVM-SPLIT-HTVM~~|kngeuew8r7dygtosuwesdtesedfxo|~~HTVM-SPLIT-HTVM-", 1)
+str2 := StrSplit(handleErrorHelper2OUT, "-HTVM-SPLIT-HTVM~~|kngeuew8r7dygtosuwesdtesedfxo|~~HTVM-SPLIT-HTVM-", 2)
+
+str3 := ""
+str4 := ""
+
+Loop, Parse, str1
+{
+if (A_LoopField = ":")
+{
+break
+}
+else
+{
+str3 .= A_LoopField
+}
+}
+
+
+Loop, Parse, str2
+{
+if (A_LoopField = ":")
+{
+break
+}
+else
+{
+str4 .= A_LoopField
+}
+}
+
+str5 := StringTrimLeft(str1, (StrLen(str3) + 1))
+str6 := StringTrimLeft(str2, (StrLen(str4) + 1))
+
+
+; 51 66
+; 90 94
+if ((INT(str3) >= 51) and (INT(str3) <= 66)) or ((INT(str3) >= 90) and (INT(str3) <= 94))
+{
+str1 := ""
+str2 := ""
+str3 := ""
+str4 := ""
+str5 := ""
+str6 := ""
+}
+else
+{
+
+
+
+str1 := allNameARR[INT(str3)]
+str2 := allNameARR[INT(str4)]
+
+return str3 . "|" . str1 . " and " . str2 . " have the same word at the beginning and we can't have the same first word for different keywords!!!"
+}
+
+
+}
+
+
 Loop, Parse, htvmInstrText, `n, `r 
 {
 AIndex := A_Index
@@ -164,8 +291,18 @@ return STR(AIndex) . "|You can't use a space here!!!."
 }
 }
 
+
+
 ; retun format is 
 ; index|error msg
+
+
+Loop, Parse, htvmInstrText, `n, `r  {
+    if (ALoopField = A_LoopField) and (A_Index != AIndex) {
+        return STR(AIndex) . "|You can't use the same keyword more than once. The problem is whit " . allNameARR[AIndex] . " and " . allNameARR[A_Index] . "!!!"
+    }
+}
+
 
 if (A_Index = 0) {
 ; Code for condition 0
@@ -315,3 +452,4 @@ break
 
 return "noERROR"
 }
+
