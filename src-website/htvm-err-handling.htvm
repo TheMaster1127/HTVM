@@ -296,15 +296,17 @@ return STR(AIndex) . "|You can't use a space here!!!."
 ; retun format is 
 ; index|error msg
 
-
-Loop, Parse, htvmInstrText, `n, `r  {
-    if (ALoopField = A_LoopField) and (A_Index != AIndex) {
-        if (AIndex <= 148) {
-            return STR(AIndex) . "|You can't use the same keyword more than once. The problem is whit " . allNameARR[AIndex] . " and " . allNameARR[A_Index] . "!!!"
+if (A_Index <= 148) {
+    Loop, Parse, htvmInstrText, `n, `r  {
+    if (A_Index <= 148) {
+            if (ALoopField = A_LoopField) and (A_Index != AIndex) {
+                if (AIndex <= 148) {
+                    return STR(AIndex) . "|You can't use the same keyword more than once. The problem is whit " . allNameARR[AIndex] . " and " . allNameARR[A_Index] . "!!!"
+                }
+            }
         }
     }
 }
-
 
 if (A_Index = 0) {
 ; Code for condition 0

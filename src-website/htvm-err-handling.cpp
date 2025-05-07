@@ -435,12 +435,16 @@ int main(int argc, char* argv[]) {
             }
             // retun format is
             // index|error msg
-            std::vector<std::string> items11 = LoopParseFunc(htvmInstrText, "\n", "\r");
-            for (size_t A_Index11 = 0; A_Index11 < items11.size() + 0; A_Index11++) {
-                std::string A_LoopField11 = items11[A_Index11 - 0];
-                if (ALoopField == A_LoopField11 && A_Index11 != AIndex) {
-                    if (AIndex <= 148) {
-                        return STR(AIndex) + "|You can't use the same keyword more than once. The problem is whit " + allNameARR[AIndex] + " and " + allNameARR[A_Index11] + "!!!";
+            if (A_Index9 <= 148) {
+                std::vector<std::string> items11 = LoopParseFunc(htvmInstrText, "\n", "\r");
+                for (size_t A_Index11 = 0; A_Index11 < items11.size() + 0; A_Index11++) {
+                    std::string A_LoopField11 = items11[A_Index11 - 0];
+                    if (A_Index11 <= 148) {
+                        if (ALoopField == A_LoopField11 && A_Index11 != AIndex) {
+                            if (AIndex <= 148) {
+                                return STR(AIndex) + "|You can't use the same keyword more than once. The problem is whit " + allNameARR[AIndex] + " and " + allNameARR[A_Index11] + "!!!";
+                            }
+                        }
                     }
                 }
             }

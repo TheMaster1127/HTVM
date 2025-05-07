@@ -339,12 +339,16 @@ function handleError(htvmInstrText) {
         }
         // retun format is
         // index|error msg
-        items11 = LoopParseFunc(htvmInstrText, "\n", "\r")
-        for (let A_Index11 = 0; A_Index11 < items11.length + 0; A_Index11++) {
-            const A_LoopField11 = items11[A_Index11 - 0];
-            if (ALoopField == A_LoopField11 && A_Index11 != AIndex) {
-                if (AIndex <= 148) {
-                    return STR(AIndex) + "|You can't use the same keyword more than once. The problem is whit " + allNameARR[AIndex] + " and " + allNameARR[A_Index11] + "!!!";
+        if (A_Index9 <= 148) {
+            items11 = LoopParseFunc(htvmInstrText, "\n", "\r")
+            for (let A_Index11 = 0; A_Index11 < items11.length + 0; A_Index11++) {
+                const A_LoopField11 = items11[A_Index11 - 0];
+                if (A_Index11 <= 148) {
+                    if (ALoopField == A_LoopField11 && A_Index11 != AIndex) {
+                        if (AIndex <= 148) {
+                            return STR(AIndex) + "|You can't use the same keyword more than once. The problem is whit " + allNameARR[AIndex] + " and " + allNameARR[A_Index11] + "!!!";
+                        }
+                    }
                 }
             }
         }
