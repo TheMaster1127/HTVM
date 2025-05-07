@@ -4,7 +4,7 @@
 
 #### Please be aware that this README file provides information about HTVM, but not everything may be fully functional yet. Some links might not work, and some features are still in development. While this file outlines what HTVM aims to offer, it's not entirely accurate at the moment, so we recommend coming back later for a fully polished experience.
 
-#### We expect most features to be operational by the end of April 2025, and everything should be completed by the end of May 2025.
+#### Everything should be completed by the end of 2025.
 
 # 🚧 **HTVM Is Still Under Development** 🚧
 
