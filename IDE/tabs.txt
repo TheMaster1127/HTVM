@@ -126,3 +126,5 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile406314.js
 C:\Users\The_M\OneDrive\Desktop\temp Projects\MY AI CHATBOT\gemini2.5-pro.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\EXTREME-HTVM-TESTING\EXTREME-HTVM-TESTING.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\EXTREME-HTVM-TESTING\EXTREME-HTVM-TESTING.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\EXTREME-HTVM-TESTING\EXTREME-HTVM-TESTING.js

@@ -23295,7 +23295,7 @@ ALoopField := A_LoopField
 
 
 ; Replace "A_Index" with or without a following digit with "A_Index" + out1z
-ALoopField := RegExReplace(ALoopField, "" . keyWordAIndex . "\d*", "" . keyWordAIndex . "" . out1z)
+ALoopField := RegExReplace(ALoopField, "\b" . keyWordAIndex . "\d*\b", "" . keyWordAIndex . "" . out1z)
 
 
 
@@ -23461,9 +23461,9 @@ if (inTarget = 1) and (dontSaveStr != 1) and (fixLoopLokingForNum != 1) and (ins
 ALoopField := A_LoopField
 
 ; Replace "A_Index" with or without a following digit with "A_Index" + out1z
-ALoopField := RegExReplace(ALoopField, "" . keyWordAIndex . "\d*", "" . keyWordAIndex . "" . out1z)
+ALoopField := RegExReplace(ALoopField, "\b" . keyWordAIndex . "\d*\b", "" . keyWordAIndex . "" . out1z)
 ; Replace "A_Index" with or without a following digit with "A_Index" + out1z
-ALoopField := RegExReplace(ALoopField, "" . keyWordALoopField . "\d*", "" . keyWordALoopField . "" . out1z)
+ALoopField := RegExReplace(ALoopField, "\b" . keyWordALoopField . "\d*\b", "" . keyWordALoopField . "" . out1z)
 
 
 
