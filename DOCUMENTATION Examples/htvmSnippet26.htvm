@@ -1,0 +1,3 @@
+arr int myArray := [1, 2, 3, 2]
+print(myArray.indexOf(2))
+; returns 1

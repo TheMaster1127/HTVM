@@ -1,4 +1,12 @@
-def obj Standalone {
-    prop int value := 10
-    prop str name := "Independent"
+; Example of a simple, standalone struct
+struct Configuration {
+    prop str theme := "dark"
+    prop int fontSize := 12
+    prop bool spellCheck := true
 }
+
+; Accessing its properties later
+; Access using the struct name as the path
+print(Configuration.theme)
+; Modifying a property
+Configuration.fontSize := 14

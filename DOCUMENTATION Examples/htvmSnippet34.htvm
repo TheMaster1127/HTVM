@@ -1,0 +1,3 @@
+func void greet() {
+    print("Hello, world!")
+}

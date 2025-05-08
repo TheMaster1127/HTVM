@@ -1,0 +1,6 @@
+; Loop Parse with carriage return delimiter
+str textWithCarriageReturn := "line 1`rline 2`rline 3"
+Loop, Parse, textWithCarriageReturn, `r {
+    ; Output each line separated by carriage returns
+    print(A_LoopField)
+}

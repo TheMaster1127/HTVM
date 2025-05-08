@@ -1,0 +1,9 @@
+; Button0 is automatically assigned as a callback of the button
+Button0:
+; and the ID of the button is automatically assigned to button0
+; for each element, it has a separate counter.
+await MsgBox("You pressed the " . A_Id)
+subout
+; main func
+main
+gui button x50% y50%

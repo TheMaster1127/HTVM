@@ -1,0 +1,9 @@
+int sharedNumber := 20
+
+___cpp start
+sharedNumber += 5;
+___cpp end
+
+___py start
+print(sharedNumber)  # ❌ This won't work because Python can't access C++ variables
+___py end

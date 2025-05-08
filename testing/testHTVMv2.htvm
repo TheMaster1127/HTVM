@@ -1,79 +1,57 @@
-async func str func1(str var1)
-{
-return var1 . var1
+sliderValue := 50
+func  IncrementSlider() {
+    sliderValue += 1
+    if (sliderValue > 100) {
+        sliderValue := 100
+    }
+    guiControl pid:"Gui1" i:"sliderValueText" d:sliderValue
+    Button0()
 }
-
-async func void func2(str var1)
-{
-print(var1 . var1)
+func  DecrementSlider() {
+    sliderValue -= 1
+    if (sliderValue < 0) {
+        sliderValue := 0
+    }
+    guiControl pid:"Gui1" i:"sliderValueText" d:sliderValue
+    Button0()
 }
-
-func void func3(str var1, str var2 := "hello")
-{
-print(var1 . " " . var2)
+Button0:
+if (editText != "") {
+    guiControl pid:"Gui1" i:"text0" d:editText
+    sliderValue := INT(editText)
+    editText := ""
 }
-
+else {
+    guiControl pid:"Gui1" i:"text0" d:sliderValue
+}
+subout
+editText := INT(sliderValue)
+Edit0:
+oldText := editText
+if (Trim(A_Value) = "") {
+    guiControl pid:"Gui1" i:"sliderValueText" d:""
+}
+else if (A_Value >= 0) and (A_Value <= 100) {
+    editText := A_Value
+}
+else {
+    MsgBox, ONLY USE NUMBRERS BETTWEN 0-100
+    guiControl pid:"Gui1" i:"sliderValueText" d:oldText
+}
+subout
+; main func
 main
-
-print(await func1("hi1"))
-await func2("hi2")
-func3("hi3")
-func3("hi3", "hello3")
-int var1
-arr bool myArr0
-
-myArr0.add(true)
-myArr0.add(false)
-myArr0.add(true)
-
-
-
-arr int myArr := [5, 6, 7]
-Loop, 5 {
-    var1 := 6 ; QAWESDGFDS
-    myArr.add(A_Index)
+w := "300px"
+gui {
+    pid:"Gui1"
+    x50%  ,,,,,,,,,,,,,,,,,,,,,
+    y50%,
+    ww ,
+    h500
 }
-Loop, % myArr.size() {
-    print(myArr[A_Index])
-}
-Loop, % myArr0.size() {
-    print(myArr0[A_Index])
-}
-
-if (var1 = 6)
-{   
-print(var1)
-}
-else if (var1 = 7)
-{
-print(var1)
-}
-
-str var123 := "sdf`naszdxgvh`newsrdt`nsdr`rdfgcvbnb`n`rsdxfgcvn"
-
-Loop, Parse, var123, `n, `r
-{
-if (A_Index = 0)
-{
-print(A_Index)
-}
-print(A_LoopField)
-}
-
-print("==================")
-str var1234 := "waesrdtg,qwerd,qwe rd,w esrd,wedr d,esrdgfesdrgsdrgf,sdrfg"
-Loop, Parse, var1234, `,
-{
-if (A_Index = 0){
-print(A_Index)
-}
-print(A_LoopField)
-}
-
-
-print("==================")
-str var12345 := "hello"
-Loop, Parse, var12345
-{
-print(A_LoopField)
-}
+; add all elements
+gui pid:"Gui1" text ww y25 d"Simulated Slider Value..." size:25 css:"text-align: center;"
+gui pid:"Gui1" eedit, i"sliderValueText" x50% y125 d:sliderValue
+gui pid:"Gui1" button x50% y225 d"Update Text"
+gui pid:"Gui1" button x50% y325 d"Increase" callback:IncrementSlider
+gui pid:"Gui1" button x50% y425 d"Decrease" callback:DecrementSlider

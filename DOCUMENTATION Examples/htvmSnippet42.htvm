@@ -1,0 +1,6 @@
+; Loop Parse with space and new line delimiters
+str mixedText := "hello world`nhow are you doing today"
+Loop, Parse, mixedText, " ", `n {
+    ; Output each word or line separated by spaces or new lines
+    print(A_LoopField)
+}

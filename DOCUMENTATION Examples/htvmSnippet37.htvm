@@ -1,0 +1,47 @@
+crew someCrew {
+    struct someStruct {
+        prop str someText := ""
+    }
+    proc str someProc(this) {
+        print(this)
+        return this
+    }
+}
+main
+"hqwesr".print
+"hqwesr".print(
+"hqwesr".print()
+print("hawesd")
+str var1 := " helLO "
+var1 := Trim(StrLower(var1))
+var1 := var1.StrLower.Trim
+var1 := var1.StrLower(.Trim(
+var1 := var1.StrLower(.Trim
+var1 := var1.StrLower.Trim(
+var1 := var1.StrLower().Trim()
+var1 := var1.StrLower().Trim
+var1 := var1.StrLower.Trim()
+someCrew.someStruct.someText := var1
+; for OSP you need to use () they are not optional unless it's not at the beginning of the line like this:
+if (someCrew.someStruct.someText.someCrew.someProc = "hello") {
+    print("hi")
+}
+; or
+; We can't use someCrew.someStruct.someText.someCrew.someProc(
+; We need to use () since it's not at the beginning of the line.
+if (someCrew.someStruct.someText.someCrew.someProc() = "hello") {
+    print("hi")
+}
+; or
+if (someCrew.someProc(someCrew.someStruct.someText) = "hello") {
+    print("hi")
+}
+; otherwise, if it's at the beginning of the line we need to use () for OSP
+someCrew.someStruct.someText.someCrew.someProc()
+; or you can use only 1 ( for extra fast typing
+someCrew.someStruct.someText.someCrew.someProc(
+; or
+someCrew.someProc(someCrew.someStruct.someText)
+; WARNING: If you are not calling it at the beginning of the line
+; and you are inside an if statement or other places,
+; don't use only 1 ( use both ().

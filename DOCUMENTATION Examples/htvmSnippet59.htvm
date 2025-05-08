@@ -1,0 +1,224 @@
+; ==================================
+; Tic-Tac-Toe Game State Variables
+; ==================================
+arr str boardState := [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+str currentPlayer := "X"
+bool gameIsOver := false
+str gameStatus := "Player X's Turn"
+; ==================================
+; Helper Functions
+; ==================================
+; --- Checks if the current player has won ---
+func bool CheckWin() {
+    arr str winCombos := ["0,1,2", "3,4,5", "6,7,8", "0,3,6", "1,4,7", "2,5,8", "0,4,8", "2,4,6"]
+    Loop, % winCombos.size() {
+        combo := winCombos[A_Index]
+        idx1_str := StrSplit(combo, ",", 1)
+        idx2_str := StrSplit(combo, ",", 2)
+        idx3_str := StrSplit(combo, ",", 3)
+        idx1 := INT(idx1_str)
+        idx2 := INT(idx2_str)
+        idx3 := INT(idx3_str)
+        if (boardState[idx1] = currentPlayer and boardState[idx2] = currentPlayer and boardState[idx3] = currentPlayer) {
+            return true
+        }
+    }
+    return false
+}
+; --- Checks if the game is a draw ---
+func bool CheckDraw() {
+    Loop, % boardState.size() {
+        if (boardState[A_Index] = " ") {
+            return false
+        }
+    }
+    if (gameIsOver = false) {
+        return true
+    }
+    return false
+}
+; --- Updates the status text display ---
+func void UpdateStatusDisplay() {
+    ; We can use () or [] or even mix them like [) or (] — yeah, HTVM is so flexible.
+    guicontrol (
+    parentId:"mainContainer"
+    id:"statusText"
+    value:gameStatus
+    )
+}
+; --- Resets the game board and state ---
+func void ResetBoard() {
+    i := 0
+    while (i < 9) {
+        boardState[i] := " "
+        i := i + 1
+    }
+    Loop, 9 {
+        btnIndex := A_Index
+        str btnIdToReset := "btn" . STR(btnIndex)
+        str emptyVal := " "
+        ; We can use [] or () or even mix them like [) or (] — yeah, HTVM is so flexible.
+        guicontrol [
+        parentId:"mainContainer"
+        id:btnIdToReset
+        value:emptyVal
+        isEnabled:true
+        ]
+    }
+    currentPlayer := "X"
+    gameIsOver := false
+    gameStatus := "Player X's Turn"
+    UpdateStatusDisplay()
+}
+; ==================================
+; GUI Callbacks
+; ==================================
+; --- Handles clicks on any of the 9 grid buttons ---
+GridButtonClicked:
+if (gameIsOver = true) {
+    return
+}
+clickedId := A_Id
+str indexStr := SubStr(clickedId, 4)
+index := INT(indexStr)
+if (boardState[index] != " ") {
+    print("Cell already taken!")
+    return
+}
+boardState[index] := currentPlayer
+; We can also use a one-liner, no problem—but during a one-liner, we can't use {}, (), or [] since it's a single line.
+guicontrol parentId:"mainContainer" id:clickedId value:currentPlayer isEnabled:false
+if (CheckWin() = true) {
+    gameIsOver := true
+    gameStatus := "Player " . currentPlayer . " Wins!"
+    UpdateStatusDisplay()
+    return
+}
+if (CheckDraw() = true) {
+    gameIsOver := true
+    gameStatus := "It's a Draw!"
+    UpdateStatusDisplay()
+    return
+}
+if (currentPlayer = "X") {
+    currentPlayer := "O"
+}
+else {
+    currentPlayer := "X"
+}
+gameStatus := "Player " . currentPlayer . "'s Turn"
+UpdateStatusDisplay()
+subout
+; --- Handles clicks on the Restart button ---
+RestartGame:
+ResetBoard()
+subout
+; ==================================
+; Main GUI Setup
+; ==================================
+main
+; --- Define GUI constants/variables ---
+btnSize := 80
+gap := 10
+boardSize := (btnSize * 3) + (gap * 2)
+containerPadding := 20
+containerWidth := boardSize + (containerPadding * 2)
+containerHeight := boardSize + 100 + (containerPadding * 2)
+; Prepare strings with "px" units
+str btnSize_px := btnSize . "px"
+str containerWidth_px := containerWidth . "px"
+str containerHeight_px := containerHeight . "px"
+statusY_num := boardSize + containerPadding + 10
+restartY_num := statusY_num + 40
+str statusY_px := statusY_num . "px"
+str restartY_px := restartY_num . "px"
+str restartWidth_px := 150 . "px"
+str restartHeight_px := 40 . "px"
+str statusWidth_px := boardSize . "px"
+str statusHeight_px := 30 . "px"
+str containerPadding_px := containerPadding . "px"
+; Colors and styles
+str bgColor := "#282c34"
+str textColor := "white"
+str btnBgColor := "#61dafb"
+str btnFontColor := "#282c34"
+str btnFontSize_px := "40px"
+str statusFontSize_px := "20px"
+str restartBtnBgColor := "#f0ad4e"
+str restartBtnFontColor := "white"
+str restartBtnFontSize_px := "16px"
+; Text variables
+str restartText := "Restart Game"
+; --- Create the main container ---
+gui {
+    id:"mainContainer"
+    x50% y50%
+    w:containerWidth_px h:containerHeight_px
+    backgroundColor:bgColor
+    rounding:10
+}
+; --- Create the Status Display Text ---
+; *** UPDATED: Using multi-line grouping {} ***
+; You can use comma or not doesn't matter use ,,,,,,,,,,,, doesn't matter use 5 spaces no problem use comments no problem either
+gui {
+    ; this means text
+    text
+    parentId:"mainContainer" id:"statusText"
+    x:containerPadding_px, y:statusY_px, w:statusWidth_px, h:statusHeight_px
+    value:gameStatus color:textColor
+    ; Here we see there are no spaces for the option size—that's because spaces aren't allowed during an option.
+    ; Use a variable or a workaround, but NO spaces.
+    size:INT(statusFontSize_px)
+    ; this is a css style for the text
+    rawCss:"text-align:center;font-weight:bold;"
+}
+; --- Create the 3x3 Grid Buttons using nested Loops ---
+currentX := containerPadding
+currentY := containerPadding
+btnCounter := 0
+; Rows
+Loop, 3 {
+    row := A_Index
+    ; Columns
+    Loop, 3 {
+        col := A_Index
+        str btnId := "btn" . STR(btnCounter)
+        str currentX_px := currentX . "px"
+        str currentY_px := currentY . "px"
+        str btnStyle := "font-size:" . btnFontSize_px . ";font-weight:bold;color:" . btnFontColor . ";"
+        ; Adding the buttons
+        gui {
+            button
+            parentId:"mainContainer"
+            id:btnId
+            x:currentX_px, y:currentY_px, w:btnSize_px, h:btnSize_px
+            value:" "
+            callback:GridButtonClicked
+            backgroundColor:btnBgColor
+            rounding:5, rawCss:btnStyle
+        }
+        currentX := currentX + btnSize + gap
+        btnCounter := btnCounter + 1
+    }
+    ; Reset X for next row
+    currentX := containerPadding
+    ; Move Y down for next row
+    currentY := currentY + btnSize + gap
+}
+; --- Create the Restart Button ---
+; Center the restart button
+str restartX_px := ((containerWidth - 150) / 2) . "px"
+str restartBtnStyle := "font-size:" . restartBtnFontSize_px . ";font-weight:bold;"
+; *** UPDATED: Using multi-line grouping {} ***
+gui {
+    button
+    parentId:"mainContainer" id:"restartBtn"
+    x:restartX_px y:restartY_px
+    w:restartWidth_px h:restartHeight_px
+    value:restartText callback:RestartGame
+    backgroundColor:restartBtnBgColor color:restartBtnFontColor
+    rounding:5 rawCss:restartBtnStyle
+}
+; --- Initial status update after GUI is built ---
+UpdateStatusDisplay()
+; --- End of Main ---

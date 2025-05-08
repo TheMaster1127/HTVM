@@ -1,0 +1,17 @@
+int myInt := 42
+int8 mySmallInt := -5
+uint16 myPositiveInt := 500
+float myFloat := 3.14
+double myDouble := 2.718
+char myChar := 'A'
+str myText := "Hello, HTVM!"
+bool myBool := true
+; print all variables
+print(myInt)
+print(mySmallInt)
+print(myPositiveInt)
+print(myFloat)
+print(myDouble)
+print(myChar)
+print(myText)
+print(myBool)

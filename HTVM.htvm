@@ -70,8 +70,8 @@ str langFileExtension := ""
 str commands := ""
 str keyWordAlliance := ""
 str keyWordCrew := ""
-str keyWordMethod := ""
-str keyWordDefObj := ""
+str keyWordProc := ""
+str keyWordStruct := ""
 str keyWordProp := ""
 str keyWordThis := ""
 str keyWordInclude := ""
@@ -237,8 +237,8 @@ str langFileExtension_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str commands_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordAlliance_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordCrew_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordMethod_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
-str keyWordDefObj_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
+str keyWordProc_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
+str keyWordStruct_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordProp_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordThis_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
 str keyWordInclude_2 := "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd"
@@ -423,6 +423,12 @@ arr str allVarsSoWeDontReDecVars_FIX_float
 
 int allVarsSoWeDontReDecVars_FIX_TOGGLE := 0
 
+str availableFuncsInHTVMInHTVM := ""
+str saveAllArrayVarNamesSoWeCanDoAfix := "|"
+
+int initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction_WAS_IN_PYTHON := 0
+
+arr str weAreInMLSarr
 
 arr str ospDic
 arr str ospDic1
@@ -432,6 +438,23 @@ arr str ospDic2
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str SubStrLastChars(str text, int numOfChars) {
+    str LastOut := ""
+    int NumOfChars := 0
+    Loop, Parse, text {
+        NumOfChars++
+    }
+    Loop, % numOfChars {
+        NumOfChars--
+    }
+    Loop, Parse, text {
+        if (A_Index >= NumOfChars) {
+            LastOut .= A_LoopField
+        }
+    }
+    return LastOut
+}
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -644,7 +667,16 @@ return out
 
 func str KeyWordsCommands(str theCodeCommands, str mode, str keyWordsCommands, str langToConvertTo)
 {
+theCodeCommands := Trim(theCodeCommands)
 theCodeCommands := StrReplace(theCodeCommands, "%", "")
+theCodeCommands := StrReplace(theCodeCommands, "| ", "|")
+theCodeCommands := StrReplace(theCodeCommands, ", ", ",")
+
+if (SubStrLastChars(theCodeCommands, 1) = "|")
+{
+StringTrimRight, theCodeCommands, theCodeCommands, 1
+}
+
 if (mode = "check")
 {
 Loop, Parse, keyWordsCommands, "|"
@@ -654,7 +686,7 @@ Loop, Parse, A_LoopField, `,
 if (A_Index = 0)
 {
 
-if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField . ", ")) = StrLower(A_LoopField . ", "))
+if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField . ",")) = StrLower(A_LoopField . ","))
 {
 ;MsgBox, true
 return "true"
@@ -690,7 +722,7 @@ Loop, Parse, A_LoopField, `,
 {
 if (A_Index = 0)
 {
-if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField . ", ")) = StrLower(A_LoopField . ", "))
+if (SubStr(StrLower(theCodeCommands), 1, StrLen(A_LoopField . ",")) = StrLower(A_LoopField . ","))
 {
 ;MsgBox, true
 keyWordsCommandsNumLine := AIndex
@@ -732,6 +764,22 @@ if (langToConvertTo != "py") and (langToConvertTo != "nim") and (langToConvertTo
 {
 semicolon := ";"
 }
+
+str assignmentOperatorKeyWord := "="
+if (langToConvertTo = langFileExtension_2)
+{
+assignmentOperatorKeyWord := keyWordAssign_2
+}
+else if (langToConvertTo = "ahk")
+{
+assignmentOperatorKeyWord := ":="
+}
+else
+{
+assignmentOperatorKeyWord := "="
+}
+
+
 
 arr str theCodeCommand
 theCodeCommands := Trim(theCodeCommands)
@@ -860,11 +908,16 @@ if (outConstuctTheOutFromTheCommandsOutVar != "")
 {
 if (outConstuctTheOutFromTheCommandsParams = "")
 {
-outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsOutVar . " = " . outConstuctTheOutFromTheCommandsFucnName . "(" . outConstuctTheOutFromTheCommandsInVar . ")" . semicolon
+
+
+
+outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsOutVar . " " . assignmentOperatorKeyWord . " " . outConstuctTheOutFromTheCommandsFucnName . "(" . outConstuctTheOutFromTheCommandsInVar . ")" . semicolon
+
+
 }
 else
 {
-outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsOutVar . " = " . outConstuctTheOutFromTheCommandsFucnName . "(" . outConstuctTheOutFromTheCommandsInVar . ", " . outConstuctTheOutFromTheCommandsParams . ")" . semicolon
+outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsOutVar . " " . assignmentOperatorKeyWord . " " . outConstuctTheOutFromTheCommandsFucnName . "(" . outConstuctTheOutFromTheCommandsInVar . ", " . outConstuctTheOutFromTheCommandsParams . ")" . semicolon
 }
 
 }
@@ -883,7 +936,7 @@ outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsFucnName . "
 
 if (outConstuctTheOutFromTheCommandsLineTranspile = 1)
 {
-outConstuctTheOutFromTheCommands := outConstuctTheOutFromTheCommandsLineTranspileText
+outConstuctTheOutFromTheCommands := StrReplace(outConstuctTheOutFromTheCommandsLineTranspileText, "~~~", Chr(10))
 }
 
 
@@ -1038,22 +1091,6 @@ func str HTVMmatchStrRrplace(str line, str matchString, str replaceString) {
     return lineOut
 }
 
-func str SubStrLastChars(str text, int numOfChars) {
-    str LastOut := ""
-    int NumOfChars := 0
-    Loop, Parse, text {
-        NumOfChars++
-    }
-    Loop, % numOfChars {
-        NumOfChars--
-    }
-    Loop, Parse, text {
-        if (A_Index >= NumOfChars) {
-            LastOut .= A_LoopField
-        }
-    }
-    return LastOut
-}
 
 
 func str ExtractDigits(str inputString)
@@ -1479,11 +1516,11 @@ else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordCrew))) = StrLow
 {
 return true
 }
-else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordDefObj))) = StrLower(keyWordDefObj))
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordStruct))) = StrLower(keyWordStruct))
 {
 return true
 }
-else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordMethod))) = StrLower(keyWordMethod))
+else if (SubStr(StrLower(Trim(line)), 1, StrLen(StrLower(keyWordProc))) = StrLower(keyWordProc))
 {
 return true
 }
@@ -1521,24 +1558,6 @@ return false
 
 
 
-func str fixDoubleQuotes(str line, int isLast)
-{
-str out := ""
-if (isLast = 0)
-{
-out := StrReplace(line, Chr(92) . Chr(92) . Chr(34), Chr(92) . Chr(34))
-}
-else
-{
-StringTrimRight, line, line, 1
-
-out := StrReplace(line, Chr(92) . Chr(92) . Chr(34), Chr(92) . Chr(34)) . Chr(34)
-}
-
-return out
-}
-
-
 
 func str fixArray1234(str line)
 {
@@ -1566,7 +1585,7 @@ started := 1
 return out
 }
 
-func str fixArray123(str line, str arrayMethodStr, int mode)
+func str fixArray123(str line, str arrayProcStr, int mode)
 {
 
 
@@ -1660,9 +1679,9 @@ return line
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-func str arrayParserTranspiler1(str line, str arrayMethodStr, int mode)
+func str arrayParserTranspiler1(str line, str arrayProcStr, int mode)
 {
-if (InStr(line, arrayMethodStr) = false)
+if (InStr(line, arrayProcStr) = false)
 {
 return line
 }
@@ -1684,19 +1703,19 @@ arr int holdPositions
 Loop, % arrAll.size()
 {
 tempHold := ""
-if (arrAll.size() - StrLen(arrayMethodStr) + 1 = i1)
+if (arrAll.size() - StrLen(arrayProcStr) + 1 = i1)
 {
 break
 }
 
-Loop, StrLen(arrayMethodStr)
+Loop, StrLen(arrayProcStr)
 {
 tempHold .= arrAll[A_Index + i1]
 }
 
 i1++
 ;print(tempHold)
-if (tempHold = arrayMethodStr)
+if (tempHold = arrayProcStr)
 {
 holdPos := i1
 ;print(holdPos)
@@ -1840,7 +1859,7 @@ beenInside++
 }
 if (beenInside = 1)
 {
-out .= fixArray123(holdDebug, arrayMethodStr, mode)
+out .= fixArray123(holdDebug, arrayProcStr, mode)
 canOut := 0
 }
 else
@@ -3077,14 +3096,14 @@ alredy := 0
 
 outOSP := ""
 
-if (OSPhelp(line, keyWordDefObj))
+if (OSPhelp(line, keyWordStruct))
 {
 
 Loop, Parse, line, `n, `r
 {
 
 
-if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordDefObj)) = StrLower(keyWordDefObj)) and (lookAhead[A_Index + 1] = "{")
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordStruct)) = StrLower(keyWordStruct)) and (lookAhead[A_Index + 1] = "{")
 {
 ;print(A_LoopField)
 
@@ -3155,9 +3174,9 @@ outOSP := ""
 Loop, Parse, line, `n, `r
 {
 
-if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordDefObj)) = StrLower(keyWordDefObj)) and (lookAhead[A_Index + 1] = "{")
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordStruct)) = StrLower(keyWordStruct)) and (lookAhead[A_Index + 1] = "{")
 {
-str1 := Trim(StringTrimLeft(A_LoopField, StrLen(SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordDefObj)))))
+str1 := Trim(StringTrimLeft(A_LoopField, StrLen(SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordStruct)))))
 
 ospDic.add(str1)
 
@@ -3192,7 +3211,7 @@ outOSP .= A_LoopField . "-----------------------HTVM-OSP-HTVM-OBJ--------------"
 }
 
 
-if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordMethod)) = StrLower(keyWordMethod)) and (lookAhead[A_Index + 1] = "{")
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen(keyWordProc)) = StrLower(keyWordProc)) and (lookAhead[A_Index + 1] = "{")
 {
 
 tempStackText := ""
@@ -4011,6 +4030,372 @@ func str ospHELP2(str line) {
 }
 
 
+
+
+
+
+func str extraFlexableFuncCallsHelp(str line)
+{
+arr str allFuncsDot
+str temp := ""
+
+Loop, Parse, line, "."
+{
+if (A_Index = 0)
+{
+; the value name/other
+temp := A_LoopField
+}
+else
+{
+allFuncsDot.add(StrSplit(A_LoopField, "(", 1) . "|" . StringTrimRight(StrSplit(A_LoopField, "(", 2), 1))
+}
+}
+
+
+str out := ""
+int endParentesesToPut := 0
+
+Loop, % allFuncsDot.size()
+{
+if (allFuncsDot.size() = A_Index + 1)
+{
+
+
+if (Trim(StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 2)) = "")
+{
+out .= StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 1) . "(" . temp
+}
+else
+{
+out .= StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 1) . "(" . temp . ", " . Trim(StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 2))
+}
+
+Loop, % endParentesesToPut + 1
+{
+out .= ")"
+}
+
+
+}
+else
+{
+endParentesesToPut++
+if (Trim(StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 2)) = "")
+{
+out .= StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 1) . "("
+}
+else
+{
+out .= StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 1) . "(" . Trim(StrSplit(allFuncsDot[allFuncsDot.size() - A_Index - 1], "|", 2)) . ", "
+}
+
+}
+}
+;print("=================================")
+
+return out
+}
+
+
+func str splitFunctionCalls(str line)
+{
+int doWeAddParentisiesLater := 0
+line := Trim(line)
+Loop
+{
+if (SubStr(line, 1, 1) = "(")
+{
+StringTrimRight, line, line, 1
+StringTrimLeft, line, line, 1
+doWeAddParentisiesLater++
+}
+else
+{
+break
+}
+}
+
+int doseBracketsExist := 0
+
+arr str saveDoseBracketsExist
+str saveDoseBracketsExistTEMP := ""
+int inBarkets := 0
+int inBarketsNum := 0
+str lineOut := ""
+if (InStr(line, "["))
+{
+doseBracketsExist := 1
+
+Loop, Parse, line
+{
+if (A_LoopField = "[")
+{
+inBarkets := 1
+saveDoseBracketsExistTEMP .= A_LoopField
+}
+if (A_LoopField = "]")
+{
+inBarkets := 0
+saveDoseBracketsExistTEMP .= A_LoopField
+saveDoseBracketsExist.add(saveDoseBracketsExistTEMP)
+saveDoseBracketsExistTEMP := ""
+lineOut .= "brackests--rpelacse-brackets--HTVM-new-BUG--AA" . STR(inBarketsNum) . "AA"
+inBarketsNum++
+}
+
+if (inBarkets = 1) and (A_LoopField != "[") and (A_LoopField != "]")
+{
+saveDoseBracketsExistTEMP .= A_LoopField
+}
+else
+{
+lineOut .= A_LoopField
+}
+
+
+}
+line := lineOut
+}
+
+
+int doseFuncAtTheBegggging := 0
+int doWeAddParentisiesLater2 := 0
+int numRemoveFunc := 0
+arr str FuncAtTheBegggging
+str FuncAtTheBeggggingTEMP := ""
+if (RegExMatch(line, "^[a-zA-Z_][a-zA-Z0-9_]*\("))
+{
+doseFuncAtTheBegggging := 1
+
+Loop
+{
+if (RegExMatch(line, "^[a-zA-Z_][a-zA-Z0-9_]*\("))
+{
+FuncAtTheBeggggingTEMP := ""
+Loop, Parse, line
+{
+if (A_LoopField = "(")
+{
+numRemoveFunc++
+FuncAtTheBeggggingTEMP .= A_LoopField
+FuncAtTheBegggging.add(FuncAtTheBeggggingTEMP)
+FuncAtTheBeggggingTEMP := ""
+break
+}
+FuncAtTheBeggggingTEMP .= A_LoopField
+numRemoveFunc++
+
+}
+line := StringTrimLeft(line, numRemoveFunc)
+numRemoveFunc := 0
+StringTrimRight, line, line, 1
+doWeAddParentisiesLater2++
+}
+else
+{
+break
+}
+}
+
+}
+
+    arr str funcCalls
+    str temp := ""
+    int parenthesesDepth := 0 ; Track parentheses depth
+    int seenDot := 0
+    Loop, Parse, line
+    {
+    if (A_LoopField = ".")
+    {
+    seenDot := 1
+    }
+        ; Handle spaces
+        if (A_LoopField = " ")
+        {
+            if (parenthesesDepth = 0) ; Split only outside parentheses
+            {
+                if (temp != "")
+                {
+                    funcCalls.add(temp)
+                    temp := ""
+                }
+            }
+            else
+            {
+                temp .= A_LoopField ; Inside parentheses, accumulate
+            }
+        }
+        else if (A_LoopField = "(") and (seenDot = 1)
+        {
+            parenthesesDepth++ ; Increase depth for function argument list
+            temp .= A_LoopField
+        }
+        else if (A_LoopField = ")") and (seenDot = 1)
+        {
+            parenthesesDepth-- ; Decrease depth after closing argument list
+            temp .= A_LoopField
+        }
+        else
+        {
+            temp .= A_LoopField ; Accumulate characters for function name/args
+        }
+    }
+
+    if (temp != "")
+    {
+        funcCalls.add(temp) ; Add the last accumulated segment
+    }
+
+
+str arrToStrSTR := ""
+
+Loop, % funcCalls.size()
+{
+if (RegExMatch(funcCalls[A_Index], "\.[a-zA-Z_][a-zA-Z0-9_]*"))
+{
+;print(funcCalls[A_Index])
+arrToStrSTR .= extraFlexableFuncCallsHelp(funcCalls[A_Index]) . " "
+}
+else
+{
+arrToStrSTR .= funcCalls[A_Index] . " "
+}
+}
+StringTrimRight, arrToStrSTR, arrToStrSTR, 1    
+
+if (doWeAddParentisiesLater != 0)
+{
+Loop, % doWeAddParentisiesLater
+{
+arrToStrSTR := "(" . arrToStrSTR . ")"
+}
+}
+
+if (doseBracketsExist = 1)
+{
+Loop, % saveDoseBracketsExist.size()
+{
+arrToStrSTR := StrReplace(arrToStrSTR, "brackests--rpelacse-brackets--HTVM-new-BUG--AA" . STR(A_Index) . "AA", StringTrimLeft(StringTrimRight(saveDoseBracketsExist[A_Index], 1), 1))
+}
+}
+
+
+if (doseFuncAtTheBegggging = 1)
+{
+
+Loop, % FuncAtTheBegggging.size()
+{
+arrToStrSTR := FuncAtTheBegggging[A_Index] . arrToStrSTR
+}
+Loop, % doWeAddParentisiesLater2
+{
+arrToStrSTR := arrToStrSTR . ")"
+}
+
+}
+
+
+
+return arrToStrSTR
+}
+
+func str extraFlexableFuncCalls(str line, str availableFuncsInHTVMInHTVM)
+{
+StringTrimRight, availableFuncsInHTVMInHTVM, availableFuncsInHTVMInHTVM, 1
+str out := line
+
+    arr str funcCalls
+    str temp := ""
+    int parenthesesDepth := 0 ; Track parentheses depth
+    int seenDot := 0
+    Loop, Parse, line
+    {
+    if (A_LoopField = "(")
+    {
+    seenDot := 1
+    }
+        ; Handle spaces
+        if (A_LoopField = " ")
+        {
+            if (parenthesesDepth = 0) ; Split only outside parentheses
+            {
+                if (temp != "")
+                {
+                    funcCalls.add(temp)
+                    temp := ""
+                }
+            }
+            else
+            {
+                temp .= A_LoopField ; Inside parentheses, accumulate
+            }
+        }
+        else if (A_LoopField = "(") and (seenDot = 1)
+        {
+            parenthesesDepth++ ; Increase depth for function argument list
+            temp .= A_LoopField
+        }
+        else if (A_LoopField = ")") and (seenDot = 1)
+        {
+            parenthesesDepth-- ; Decrease depth after closing argument list
+            temp .= A_LoopField
+        }
+        else
+        {
+            temp .= A_LoopField ; Accumulate characters for function name/args
+        }
+    }
+
+    if (temp != "")
+    {
+        funcCalls.add(temp) ; Add the last accumulated segment
+    }
+
+
+int isFuncExist := 0
+out := ""
+int i := 0
+Loop, % funcCalls.size()
+{
+i := A_Index
+isFuncExist := 0
+Loop, Parse, availableFuncsInHTVMInHTVM, `n, `r
+{
+if (RegExMatch(funcCalls[i], "\b" . A_LoopField . "\b"))
+{
+isFuncExist := 1
+}
+}
+
+if (isFuncExist = 1)
+{
+out .= splitFunctionCalls(funcCalls[A_Index]) . " "
+}
+else
+{
+out .= funcCalls[A_Index] . " "
+}
+
+
+
+
+}
+StringTrimRight, out, out, 1
+
+
+return out
+}
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
+
 func str expressionParserTranspiler(str expression)
 {
 str fixExpertionLineFuncOnlyTEXT_func := ""
@@ -4193,6 +4578,14 @@ else
 {
 expression := RegExReplace(expression, "\b" . keyWordThis . "\b", "osp_osp_this_keyword_htvm_osp_this_htvm_keyword")
 }
+
+
+
+if (RegExMatch(expression, "\.[a-zA-Z_][a-zA-Z0-9_]*")) and (langToConvertTo != langFileExtension_2)
+{
+expression := extraFlexableFuncCalls(expression, availableFuncsInHTVMInHTVM)
+}
+
 
 if (langToConvertTo = "cpp") {
 expression := RegExReplace(expression, "\b" . theTryCatchVarForErrors . "\b", theTryCatchVarForErrors . ".what()")
@@ -4692,11 +5085,161 @@ str1 := Trim(str1)
 ALoopField := str1
 
 
-if (InStr(ALoopField, " ") = false)
+if (InStr(ALoopField, " ") = false) or (SubStrLastChars(ALoopField, 1) = "]")
 {
 lineDone := 1
 str1 := lineOspHelpLine . Trim(str1)
 str6 := allVarsSoWeDontReDecVarsFixFunc(str6, str1)
+
+
+
+if (InStr(saveAllArrayVarNamesSoWeCanDoAfix, "|" . Trim(str1) . "|"))
+{
+
+
+str6 := Trim(str6)
+
+StringTrimRight, str6, str6, 1
+StringTrimLeft, str6, str6, 1
+
+
+if (langToConvertTo = "cpp") 
+{
+str6 := "{" . str6 . "}"
+}
+if (langToConvertTo = "py") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "js") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "go") {
+str6 := "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" . str6 . "]"
+}
+if (langToConvertTo = "lua") {
+str6 := "{" . str6 . "}"
+}
+if (langToConvertTo = "cs") {
+str6 := "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" . str6 . "]"
+}
+if (langToConvertTo = "java") {
+str6 := "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" . str6 . "]"
+}
+if (langToConvertTo = "kt") {
+str6 := "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" . str6 . "]"
+}
+if (langToConvertTo = "rb") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "nim") {
+str6 := "@[" . str6 . "]"
+}
+if (langToConvertTo = "ahk") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "swift") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "dart") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "ts") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "groovy") {
+str6 := "[" . str6 . "]"
+}
+
+
+}
+
+
+if (Trim(str6) = "[]") or (Trim(str6) = "{}")
+{
+
+if (useCurlyBracesSyntaxForArrayDef_2 = "on") and (langToConvertTo = langFileExtension_2)
+{
+str6 := "{}"
+}
+else
+{
+str6 := "[]"
+}
+
+
+
+
+
+
+
+
+
+
+if (langToConvertTo = "cpp") 
+{
+str6 := "{}"
+}
+if (langToConvertTo = "py") {
+str6 := "[]"
+}
+if (langToConvertTo = "js") {
+str6 := "[]"
+}
+if (langToConvertTo = "go") {
+str6 := Trim(str1) . "[:0]"
+}
+if (langToConvertTo = "lua") {
+str6 := "{}"
+}
+if (langToConvertTo = "cs") {
+str6 := "ResetList(" . Trim(str1) . ")"
+}
+if (langToConvertTo = "java") {
+str6 := "new ArrayList<>()"
+}
+if (langToConvertTo = "kt") {
+str6 := "ArrayList()"
+}
+if (langToConvertTo = "rb") {
+str6 := "[]"
+}
+if (langToConvertTo = "nim") {
+str6 := "@[]"
+}
+if (langToConvertTo = "ahk") {
+str6 := "[]"
+}
+if (langToConvertTo = "swift") {
+str6 := "[]"
+}
+if (langToConvertTo = "dart") {
+str6 := "[]"
+}
+if (langToConvertTo = "ts") {
+str6 := "[]"
+}
+if (langToConvertTo = "groovy") {
+str6 := "[]"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;
 
 if (langToConvertTo = langFileExtension_2) 
 {
@@ -4730,6 +5273,12 @@ str4 := str1 . " " . str12 . " " . str6 . ";"
 }
 if (langToConvertTo = "java") {
 
+if (Trim(str6) = "[]") or (Trim(str6) = "{}")
+{
+str4 := str1 . " " . str12 . " " . str6 . ";"
+}
+else
+{
 if (InStr(str1, "["))
 {
 ; Convert arr[something] to arr.set(something, value);
@@ -4739,6 +5288,7 @@ str4 := str1 . str6 . ");"
 else
 {
 str4 := str1 . " " . str12 . " " . str6 . ";"
+}
 }
 
 }
@@ -4814,7 +5364,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+    saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -4856,15 +5406,15 @@ str6 := "[" . str6 . "]"
 }
    if (useSemicolon_2 = "on") {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
-            str4 := keyWordConst_2 . " " . str3 . " " . str2 . " " . str11 . " " . str6 . ";"
+            str4 := Trim(keyWordConst_2) . " " . str3 . " " . str2 . " " . str11 . " " . str6 . ";"
         } else {
-            str4 := keyWordConst_2 . " " . str2 . ": " . str3 . " " . str11 . " " . str6 . ";"
+            str4 := Trim(keyWordConst_2) . " " . str2 . ": " . str3 . " " . str11 . " " . str6 . ";"
         }
     } else {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
-            str4 := keyWordConst_2 . " " . str3 . " " . str2 . " " . str11 . " " . str6
+            str4 := Trim(keyWordConst_2) . " " . str3 . " " . str2 . " " . str11 . " " . str6
         } else {
-            str4 := keyWordConst_2 . " " . str2 . ": " . str3 . " " . str11 . " " . str6
+            str4 := Trim(keyWordConst_2) . " " . str2 . ": " . str3 . " " . str11 . " " . str6
         }
     }
 }
@@ -4997,11 +5547,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -5021,11 +5571,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -5104,15 +5654,15 @@ str6 := allVarsSoWeDontReDecVarsFixFunc(str6, str2)
 if (langToConvertTo = langFileExtension_2) {
    if (useSemicolon_2 = "on") {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
-            str4 := keyWordConst_2 . " " . str3 . " " . str2 . " " . str11 . " " . str6 . ";"
+            str4 := Trim(keyWordConst_2) . " " . str3 . " " . str2 . " " . str11 . " " . str6 . ";"
         } else {
-            str4 := keyWordConst_2 . " " . str2 . ": " . str3 . " " . str11 . " " . str6 . ";"
+            str4 := Trim(keyWordConst_2) . " " . str2 . ": " . str3 . " " . str11 . " " . str6 . ";"
         }
     } else {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
-            str4 := keyWordConst_2 . " " . str3 . " " . str2 . " " . str11 . " " . str6
+            str4 := Trim(keyWordConst_2) . " " . str3 . " " . str2 . " " . str11 . " " . str6
         } else {
-            str4 := keyWordConst_2 . " " . str2 . ": " . str3 . " " . str11 . " " . str6
+            str4 := Trim(keyWordConst_2) . " " . str2 . ": " . str3 . " " . str11 . " " . str6
         }
     }
 }
@@ -5248,7 +5798,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -5431,11 +5981,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -5455,11 +6005,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -5686,7 +6236,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -5869,11 +6419,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -5893,11 +6443,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -6106,7 +6656,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -6289,11 +6839,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -6313,11 +6863,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -6521,7 +7071,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -6705,11 +7255,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -6729,11 +7279,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -6999,7 +7549,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -7070,7 +7620,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -7551,7 +8101,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -7621,7 +8171,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -8081,7 +8631,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -8153,7 +8703,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -8610,7 +9160,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -8684,7 +9234,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -9133,6 +9683,1735 @@ StringTrimRight, htCodeOUTOUT, htCodeOUTOUT, 1
 return htCodeOUTOUT
 }
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; the GUI funcs
+; the GUI funcs
+; the GUI funcs
+; the GUI funcs
+; the GUI funcs
+; the GUI funcs
+; the GUI funcs
+func str guiParserStep4(str option)
+{
+; convert and handle the options to js
+str out := ""
+
+; ============================================================
+; ALIAS DEFINITIONS FOR GUI OPTIONS
+; ============================================================
+; elementType, id, parentId, x, y, width, height, zIndex, value, placeholder, callback, backgroundColor, color, rounding, border, rawCss, size, isEnabled, isVisible, isDeleting
+; These arrays hold the valid aliases for each GUI property.
+; They are used to map user input (e.g., "w", "width", "widh")
+; to the canonical property name used in the generated JS (e.g., "width").
+;
+; - `aliases_single_PROPERTY`: Contains single-letter aliases (used like `w100`).
+; - `aliases_colon_PROPERTY`: Contains aliases used with a colon (e.g., `width:100`).
+; Note: All checks should be case-insensitive.
+
+   
+
+; --- id Aliases ---
+arr str aliases_single_id := ["i", "v"]
+arr str aliases_colon_id := ["i", "v", "id", "elementId", "eid", "elId"]
+str canonical_id := "id"
+
+; --- parentId Aliases ---
+arr str aliases_single_parentId := ["p"]
+arr str aliases_colon_parentId := ["p", "parentId", "pid", "parId", "divId", "guiId"]
+str canonical_parentId := "parentId"
+
+; --- x Aliases ---
+arr str aliases_single_x := ["x"]
+arr str aliases_colon_x := ["x", "xPos", "xCoord", "xCrd"] ; Added 'x' itself
+str canonical_x := "x"
+
+; --- y Aliases ---
+arr str aliases_single_y := ["y"]
+arr str aliases_colon_y := ["y", "yPos", "yCoord", "yCrd"] ; Added 'y' itself
+str canonical_y := "y"
+
+; --- width Aliases ---
+arr str aliases_single_width := ["w"]
+arr str aliases_colon_width := ["w", "width", "wight", "widh", "widht", "widhth", "wdtih", "widhh", "widhts"]
+str canonical_width := "width" ; JS uses 'width'
+
+; --- height Aliases ---
+arr str aliases_single_height := ["h"]
+arr str aliases_colon_height := ["h", "height", "hight", "heigth", "heigtht", "hieght", "hegt", "heihgt"]
+str canonical_height := "height" ; JS uses 'height'
+
+; --- zIndex Aliases ---
+arr str aliases_single_zIndex := ["z"]
+arr str aliases_colon_zIndex := ["z", "zIndex", "z-Index", "zi"] ; Added 'zIndex'
+str canonical_zIndex := "zIndex"
+
+; --- value Aliases ---
+arr str aliases_single_value := ["d"]
+arr str aliases_colon_value := ["d", "val", "value", "displayValue", "dv"]
+str canonical_value := "value" ; Map to text/src/state later based on context
+
+; --- placeholder Aliases ---
+arr str aliases_single_placeholder := ["q"]
+arr str aliases_colon_placeholder := ["q", "placeHolder", "plc", "plch", "ph", "grayText", "editForeGround", "editPlaceHolder", "editGrayInfo", "editPlaceHolderGrayInfoText"]
+str canonical_placeholder := "placeholder"
+
+; --- callback Aliases ---
+arr str aliases_single_callback := ["g", "f"]
+arr str aliases_colon_callback := ["g", "f", "callback", "call", "func", "fn", "function", "point", "back", "bakc"]
+str canonical_callback := "callback"
+
+; --- backgroundColor Aliases ---
+arr str aliases_single_backgroundColor := ["o"]
+arr str aliases_colon_backgroundColor := ["o", "bg", "bc", "bgc", "backgroundColor", "bgColor"]
+str canonical_backgroundColor := "backgroundColor"
+
+; --- color Aliases ---
+arr str aliases_single_color := ["c"]
+arr str aliases_colon_color := ["c", "color", "colour", "clr"]
+str canonical_color := "color"
+
+; --- rounding Aliases ---
+arr str aliases_single_rounding := ["r"]
+arr str aliases_colon_rounding := ["r", "rounding", "round", "rounded", "rnd"]
+str canonical_rounding := "rounding" ; Matches alias name
+
+; --- border Aliases ---
+arr str aliases_single_border := ["b"]
+arr str aliases_colon_border := ["b", "border", "boder", "outline", "brd"] ; Added 'border'
+str canonical_border := "border"
+
+; --- rawCss Aliases ---
+arr str aliases_single_rawCss := ["l"]
+arr str aliases_colon_rawCss := ["l", "rawCss", "luxury", "rawSsc", "rawScc", "css", "scc", "style", "stlye", "styel", "sytle", "sytel", "stylye", "stiyl", "stiyel", "luxary", "luxuary", "luxery", "luxurey"]
+str canonical_rawCss := "rawCss"
+
+; --- size Aliases ---
+arr str aliases_single_size := ["s"]
+arr str aliases_colon_size := ["s", "size", "sz", "szie", "bigness"]
+str canonical_size := "size" ; Map to fontSize later if needed
+
+; --- isEnabled Aliases ---
+arr str aliases_single_isEnabled := ["a"]
+arr str aliases_colon_isEnabled := ["a", "isEnabled", "isE", "isEnb"]
+str canonical_isEnabled := "isEnabled"
+
+; --- isVisible Aliases ---
+arr str aliases_single_isVisible := ["u"]
+arr str aliases_colon_isVisible := ["u", "isVisible", "isV", "isVsb"]
+str canonical_isVisible := "isVisible"
+
+; --- isDeleting Aliases ---
+arr str aliases_single_isDeleting := ["n"]
+arr str aliases_colon_isDeleting := ["n", "isDeleting", "isD", "isDlt", "del", "delete", "remove", "rmv", "rm"]
+str canonical_isDeleting := "isDeleting"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; aliases_single_id               ; aliases_colon_id               ; canonical_id
+; aliases_single_parentId         ; aliases_colon_parentId         ; canonical_parentId
+; aliases_single_x                ; aliases_colon_x                ; canonical_x
+; aliases_single_y                ; aliases_colon_y                ; canonical_y
+; aliases_single_width            ; aliases_colon_width            ; canonical_width
+; aliases_single_height           ; aliases_colon_height           ; canonical_height
+; aliases_single_zIndex           ; aliases_colon_zIndex           ; canonical_zIndex
+; aliases_single_value            ; aliases_colon_value            ; canonical_value
+; aliases_single_placeholder      ; aliases_colon_placeholder      ; canonical_placeholder
+; aliases_single_callback         ; aliases_colon_callback         ; canonical_callback
+; aliases_single_backgroundColor  ; aliases_colon_backgroundColor  ; canonical_backgroundColor
+; aliases_single_color            ; aliases_colon_color            ; canonical_color
+; aliases_single_rounding         ; aliases_colon_rounding         ; canonical_rounding
+; aliases_single_border           ; aliases_colon_border           ; canonical_border
+; aliases_single_rawCss           ; aliases_colon_rawCss           ; canonical_rawCss
+; aliases_single_size             ; aliases_colon_size             ; canonical_size
+; aliases_single_isEnabled        ; aliases_colon_isEnabled        ; canonical_isEnabled
+; aliases_single_isVisible        ; aliases_colon_isVisible        ; canonical_isVisible
+; aliases_single_isDeleting       ; aliases_colon_isDeleting       ; canonical_isDeleting
+
+; option
+
+str option0 := ""
+str option1 := ""
+
+if (InStr(option, ":"))
+{
+
+option0 := Trim(StrSplit(option, ":", 1))
+option1 := Trim(StrSplit(option, ":", 2))
+
+;print("=-=-=-=-=-=-=-=-=-=-::::::::::::::::::=-=-=-=-=-=-=-=-=-=-=-=-=")
+;print(option)
+;print(option0)
+;print(option1)
+;print("=-=-=-=-=-=-=-=-=-=-::::::::::::::::::=-=-=-=-=-=-=-=-=-=-=-=-=")
+
+    Loop, % aliases_colon_id.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_id[A_Index])) {
+            option0 := canonical_id
+            break
+        }
+    }
+    Loop, % aliases_colon_parentId.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_parentId[A_Index])) {
+            option0 := canonical_parentId
+            break
+        }
+    }
+    Loop, % aliases_colon_x.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_x[A_Index])) {
+            option0 := canonical_x
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+            break
+        }
+    }
+    Loop, % aliases_colon_y.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_y[A_Index])) {
+            option0 := canonical_y
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+            break
+        }
+    }
+    Loop, % aliases_colon_width.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_width[A_Index])) {
+            option0 := canonical_width
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+            break
+        }
+    }
+    Loop, % aliases_colon_height.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_height[A_Index])) {
+            option0 := canonical_height
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+            break
+        }
+    }
+    Loop, % aliases_colon_zIndex.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_zIndex[A_Index])) {
+            option0 := canonical_zIndex
+            break
+        }
+    }
+    Loop, % aliases_colon_value.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_value[A_Index])) {
+            option0 := canonical_value
+            break
+        }
+    }
+    Loop, % aliases_colon_placeholder.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_placeholder[A_Index])) {
+            option0 := canonical_placeholder
+            break
+        }
+    }
+    Loop, % aliases_colon_callback.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_callback[A_Index])) {
+            option0 := canonical_callback
+            break
+        }
+    }
+    Loop, % aliases_colon_backgroundColor.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_backgroundColor[A_Index])) {
+            option0 := canonical_backgroundColor
+            
+            if (RegExMatch(option1, "^(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$"))
+            {
+            option1 := Chr(34) . "#" . option1 . Chr(34)
+            }
+            else
+            {
+            if (InStr(option1, "#"))
+            {
+            option1 := Chr(34) . option1 . Chr(34)
+            }
+            }
+            ; else it's just a var name, just make sure your var name is not a valid 3- or 6-length hex — yeah, kinda weird
+
+            
+            
+            break
+        }
+    }
+    Loop, % aliases_colon_color.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_color[A_Index])) {
+            option0 := canonical_color
+            if (RegExMatch(option1, "^(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$"))
+            {
+            option1 := Chr(34) . "#" . option1 . Chr(34)
+            }
+            else
+            {
+            if (InStr(option1, "#"))
+            {
+            option1 := Chr(34) . option1 . Chr(34)
+            }
+            }
+            ; else it's just a var name, just make sure your var name is not a valid 3- or 6-length hex — yeah, kinda weird
+
+        break   
+        }
+    }
+    Loop, % aliases_colon_rounding.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_rounding[A_Index])) {
+            option0 := canonical_rounding
+            break
+        }
+    }
+    Loop, % aliases_colon_border.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_border[A_Index])) {
+            option0 := canonical_border
+            break
+        }
+    }
+    Loop, % aliases_colon_rawCss.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_rawCss[A_Index])) {
+            option0 := canonical_rawCss
+            break
+        }
+    }
+    Loop, % aliases_colon_size.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_size[A_Index])) {
+            option0 := canonical_size
+            break
+        }
+    }
+    Loop, % aliases_colon_isEnabled.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_isEnabled[A_Index])) {
+            option0 := canonical_isEnabled
+            break
+        }
+    }
+    Loop, % aliases_colon_isVisible.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_isVisible[A_Index])) {
+            option0 := canonical_isVisible
+            break
+        }
+    }
+    Loop, % aliases_colon_isDeleting.size() {
+        if (StrLower(option0) = StrLower(aliases_colon_isDeleting[A_Index])) {
+            option0 := canonical_isDeleting
+            break
+        }
+    }
+
+out := option0 . ":" . Trim(expressionParserTranspiler(Trim(option1)))
+;print("DEBUG out with (:) is: " . out)
+}
+else
+{
+
+option0 := SubStr(option, 1, 1)
+option1 := StringTrimLeft(option, 1)
+
+;print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+;print(option)
+;print(option0)
+;print(option1)
+;print("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
+
+
+    Loop, % aliases_single_id.size() {
+        if (StrLower(option0) = StrLower(aliases_single_id[A_Index])) {
+            option0 := canonical_id
+            break
+        }
+    }
+    Loop, % aliases_single_parentId.size() {
+        if (StrLower(option0) = StrLower(aliases_single_parentId[A_Index])) {
+            option0 := canonical_parentId
+            break
+        }
+    }
+    Loop, % aliases_single_x.size() {
+        if (StrLower(option0) = StrLower(aliases_single_x[A_Index])) {
+            option0 := canonical_x
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+            break
+        }
+    }
+    Loop, % aliases_single_y.size() {
+        if (StrLower(option0) = StrLower(aliases_single_y[A_Index])) {
+            option0 := canonical_y
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+            break
+        }
+    }
+    Loop, % aliases_single_width.size() {
+        if (StrLower(option0) = StrLower(aliases_single_width[A_Index])) {
+            option0 := canonical_width
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+            break
+        }
+    }
+    Loop, % aliases_single_height.size() {
+        if (StrLower(option0) = StrLower(aliases_single_height[A_Index])) {
+            option0 := canonical_height
+            if (RegExMatch(option1, "^-?\d+(\.\d+)?(px|%)?$"))
+            {
+                if (InStr(option1, "%")) or (InStr(option1, "px"))
+                {
+                option1 := Chr(34) . option1 . Chr(34)
+                }
+                else
+                {
+                option1 := Chr(34) . option1 . "px" . Chr(34)
+                }
+            }
+            break
+        }
+    }
+    Loop, % aliases_single_zIndex.size() {
+        if (StrLower(option0) = StrLower(aliases_single_zIndex[A_Index])) {
+            option0 := canonical_zIndex
+            break
+        }
+    }
+    Loop, % aliases_single_value.size() {
+        if (StrLower(option0) = StrLower(aliases_single_value[A_Index])) {
+            option0 := canonical_value
+            break
+        }
+    }
+    Loop, % aliases_single_placeholder.size() {
+        if (StrLower(option0) = StrLower(aliases_single_placeholder[A_Index])) {
+            option0 := canonical_placeholder
+            break
+        }
+    }
+    Loop, % aliases_single_callback.size() {
+        if (StrLower(option0) = StrLower(aliases_single_callback[A_Index])) {
+            option0 := canonical_callback
+            break
+        }
+    }
+    Loop, % aliases_single_backgroundColor.size() {
+        if (StrLower(option0) = StrLower(aliases_single_backgroundColor[A_Index])) {
+            option0 := canonical_backgroundColor
+            if (RegExMatch(option1, "^(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$"))
+            {
+            option1 := Chr(34) . "#" . option1 . Chr(34)
+            }
+            else
+            {
+            if (InStr(option1, "#"))
+            {
+            option1 := Chr(34) . option1 . Chr(34)
+            }
+            }
+            ; else it's just a var name, just make sure your var name is not a valid 3- or 6-length hex — yeah, kinda weird
+
+        break   
+        }
+    }
+    Loop, % aliases_single_color.size() {
+        if (StrLower(option0) = StrLower(aliases_single_color[A_Index])) {
+            option0 := canonical_color
+            if (RegExMatch(option1, "^(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$"))
+            {
+            option1 := Chr(34) . "#" . option1 . Chr(34)
+            }
+            else
+            {
+            if (InStr(option1, "#"))
+            {
+            option1 := Chr(34) . option1 . Chr(34)
+            }
+            }
+            ; else it's just a var name, just make sure your var name is not a valid 3- or 6-length hex — yeah, kinda weird
+
+        break
+        }
+    }
+    Loop, % aliases_single_rounding.size() {
+        if (StrLower(option0) = StrLower(aliases_single_rounding[A_Index])) {
+            option0 := canonical_rounding
+            break
+        }
+    }
+    Loop, % aliases_single_border.size() {
+        if (StrLower(option0) = StrLower(aliases_single_border[A_Index])) {
+            option0 := canonical_border
+            break
+        }
+    }
+    Loop, % aliases_single_rawCss.size() {
+        if (StrLower(option0) = StrLower(aliases_single_rawCss[A_Index])) {
+            option0 := canonical_rawCss
+            break
+        }
+    }
+    Loop, % aliases_single_size.size() {
+        if (StrLower(option0) = StrLower(aliases_single_size[A_Index])) {
+            option0 := canonical_size
+            break
+        }
+    }
+    Loop, % aliases_single_isEnabled.size() {
+        if (StrLower(option0) = StrLower(aliases_single_isEnabled[A_Index])) {
+            option0 := canonical_isEnabled
+            break
+        }
+    }
+    Loop, % aliases_single_isVisible.size() {
+        if (StrLower(option0) = StrLower(aliases_single_isVisible[A_Index])) {
+            option0 := canonical_isVisible
+            break
+        }
+    }
+    Loop, % aliases_single_isDeleting.size() {
+        if (StrLower(option0) = StrLower(aliases_single_isDeleting[A_Index])) {
+            option0 := canonical_isDeleting
+            break
+        }
+    }
+
+
+out := option0 . ":" . Trim(expressionParserTranspiler(Trim(option1)))
+;print("DEBUG out no (:) is: " . out)
+}
+
+
+
+return out
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str guiParserStep3(str guiCode)
+{
+; convert the parsed code to func calls
+str out := ""
+str temp0 := ""
+str temp1 := ""
+str temp2 := ""
+str temp3 := ""
+str temp4 := ""
+str temp5 := ""
+str temp6 := ""
+str temp7 := ""
+str temp8 := ""
+str temp9 := ""
+str temp10 := ""
+str temp11 := ""
+str temp12 := ""
+str temp13 := ""
+str temp14 := ""
+str temp15 := ""
+str temp16 := ""
+str temp17 := ""
+str temp18 := ""
+str temp19 := ""
+str temp20 := ""
+str temp21 := ""
+str temp22 := ""
+str temp23 := ""
+str temp24 := ""
+str temp25 := ""
+str temp26 := ""
+str temp27 := ""
+str temp28 := ""
+str temp29 := ""
+str temp30 := ""
+str temp31 := ""
+str temp32 := ""
+
+
+int found_id := 0
+int found_parentId := 0
+int found_x := 0
+int found_y := 0
+int found_width := 0
+int found_height := 0
+int found_zIndex := 0
+int found_value := 0
+int found_placeholder := 0
+int found_callback := 0
+int found_backgroundColor := 0
+int found_color := 0
+int found_rounding := 0
+int found_border := 0
+int found_rawCss := 0
+int found_size := 0
+int found_isEnabled := 0
+int found_isVisible := 0
+int found_isDeleting := 0
+
+
+str openCurlyTEXT := "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI"
+str closeCurlyTEXT := "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI"
+
+int buttons := -1 
+int texts := -1
+int edits := -1
+int pictures := -1
+int toggles := -1
+int rectangles := -1
+int circles := -1
+int videos := -1
+int dropdowns := -1
+int iframes := -1
+
+int isElement := 0
+str whatElement := ""
+
+str lowerField := ""
+
+Loop, Parse, guiCode, `n, `r
+{
+
+temp1 := ""
+temp2 := ""
+temp3 := ""
+temp4 := ""
+temp5 := ""
+temp6 := ""
+temp7 := ""
+temp8 := ""
+temp9 := ""
+temp10 := ""
+temp11 := ""
+temp12 := ""
+temp13 := ""
+temp14 := ""
+temp15 := ""
+temp16 := ""
+temp17 := ""
+temp18 := ""
+temp19 := ""
+temp20 := ""
+temp21 := ""
+temp22 := ""
+temp23 := ""
+temp24 := ""
+temp25 := ""
+temp26 := ""
+temp27 := ""
+temp28 := ""
+temp29 := ""
+temp30 := ""
+temp31 := ""
+temp32 := ""
+
+temp0 := ""
+
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+isElement := 0
+whatElement := ""
+Loop, Parse, A_LoopField, " "
+{
+if (A_Index != 0)
+{
+;;;;;;; 0start
+;;;;;;; 0start (Inside the Loop, Parse, A_LoopField, " " in guiParserStep3)
+
+; --- Check for Element Type Aliases ---
+; Direct name, single-letter prefix 'e', or colon aliases
+
+lowerField := StrLower(Trim(A_LoopField)) ; Trim added here for safety
+if (lowerField = "button" or lowerField = "ebutton" or lowerField = "elementType:button" or lowerField = "element:button" or lowerField = "elmnt:button" or lowerField = "elmenet:button" or lowerField = "elment:button" or lowerField = "elemnt:button") {
+    buttons++
+    isElement := 1
+    whatElement := "button"
+}
+else if (lowerField = "text" or lowerField = "etext" or lowerField = "elementType:text" or lowerField = "element:text" or lowerField = "elmnt:text" or lowerField = "elmenet:text" or lowerField = "elment:text") {
+    texts++
+    isElement := 1
+    whatElement := "text"
+}
+else if (lowerField = "edit" or lowerField = "eedit" or lowerField = "elementType:edit" or lowerField = "element:edit" or lowerField = "elmnt:edit" or lowerField = "elmenet:edit" or lowerField = "elment:edit") {
+    edits++
+    isElement := 1
+    whatElement := "edit"
+}
+else if (lowerField = "picture" or lowerField = "epicture" or lowerField = "elementType:picture" or lowerField = "element:picture" or lowerField = "elmnt:picture" or lowerField = "elmenet:picture" or lowerField = "elment:picture") {
+    pictures++
+    isElement := 1
+    whatElement := "picture"
+}
+else if (lowerField = "toggle" or lowerField = "etoggle" or lowerField = "elementType:toggle" or lowerField = "element:toggle" or lowerField = "elmnt:toggle" or lowerField = "elmenet:toggle" or lowerField = "elment:toggle") {
+    toggles++
+    isElement := 1
+    whatElement := "toggle"
+}
+else if (lowerField = "rectangle" or lowerField = "erectangle" or lowerField = "elementType:rectangle" or lowerField = "element:rectangle" or lowerField = "elmnt:rectangle" or lowerField = "elmenet:rectangle" or lowerField = "elment:rectangle") {
+    rectangles++
+    isElement := 1
+    whatElement := "rectangle"
+}
+else if (lowerField = "circle" or lowerField = "ecircle" or lowerField = "elementType:circle" or lowerField = "element:circle" or lowerField = "elmnt:circle" or lowerField = "elmenet:circle" or lowerField = "elment:circle") {
+    circles++
+    isElement := 1
+    whatElement := "circle"
+}
+else if (lowerField = "video" or lowerField = "evideo" or lowerField = "elementType:video" or lowerField = "element:video" or lowerField = "elmnt:video" or lowerField = "elmenet:video" or lowerField = "elment:video") {
+    videos++
+    isElement := 1
+    whatElement := "video"
+}
+else if (lowerField = "dropdown" or lowerField = "edropdown" or lowerField = "elementType:dropdown" or lowerField = "element:dropdown" or lowerField = "elmnt:dropdown" or lowerField = "elmenet:dropdown" or lowerField = "elment:dropdown") {
+    dropdowns++
+    isElement := 1
+    whatElement := "dropdown"
+}
+else if (lowerField = "iframe" or lowerField = "eiframe" or lowerField = "elementType:iframe" or lowerField = "element:iframe" or lowerField = "elmnt:iframe" or lowerField = "elmenet:iframe" or lowerField = "elment:iframe") {
+    iframes++
+    isElement := 1
+    whatElement := "iframe"
+}
+else
+{
+temp1 .= guiParserStep4(Trim(A_LoopField)) . ", "
+}
+;;;;;;; 0end
+;;;;;; 1start
+
+
+;;;;;; 1end
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+}
+} ;  loop end
+
+;;;;;;;;;;;;;;;;;;;;;; -111
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; step 5
+; step 5
+; step 5
+
+; step 5 add callback if not defined and more...
+
+
+
+found_id := 0
+found_parentId := 0
+found_x := 0
+found_y := 0
+found_width := 0
+found_height := 0
+found_zIndex := 0
+found_value := 0
+found_placeholder := 0
+found_callback := 0
+found_backgroundColor := 0
+found_color := 0
+found_rounding := 0
+found_border := 0
+found_rawCss := 0
+found_size := 0
+found_isEnabled := 0
+found_isVisible := 0
+found_isDeleting := 0
+
+
+Loop, Parse, temp1, `,
+{
+temp2 := Trim(A_LoopField)
+
+
+if (StrSplit(temp2, ":", 1) = "id")
+{
+    found_id := 1
+}
+else if (StrSplit(temp2, ":", 1) = "parentId")
+{
+    found_parentId := 1
+}
+else if (StrSplit(temp2, ":", 1) = "x")
+{
+    found_x := 1
+}
+else if (StrSplit(temp2, ":", 1) = "y")
+{
+    found_y := 1
+}
+else if (StrSplit(temp2, ":", 1) = "width")
+{
+    found_width := 1
+}
+else if (StrSplit(temp2, ":", 1) = "height")
+{
+    found_height := 1
+}
+else if (StrSplit(temp2, ":", 1) = "zIndex")
+{
+    found_zIndex := 1
+}
+else if (StrSplit(temp2, ":", 1) = "callback")
+{
+    found_callback := 1
+}
+
+
+
+} ; loop end | Loop, Parse, temp1, `,
+
+print("found_id:              " . STR(found_id))
+print("found_parentId:        " . STR(found_parentId))
+print("found_x:               " . STR(found_x))
+print("found_y:               " . STR(found_y))
+print("found_width:           " . STR(found_width))
+print("found_height:          " . STR(found_height))
+print("found_zIndex:          " . STR(found_zIndex))
+print("found_value:           " . STR(found_value))
+print("found_placeholder:     " . STR(found_placeholder))
+print("found_callback:        " . STR(found_callback))
+print("found_backgroundColor: " . STR(found_backgroundColor))
+print("found_color:           " . STR(found_color))
+print("found_rounding:        " . STR(found_rounding))
+print("found_border:          " . STR(found_border))
+print("found_rawCss:          " . STR(found_rawCss))
+print("found_size:            " . STR(found_size))
+print("found_isEnabled:       " . STR(found_isEnabled))
+print("found_isVisible:       " . STR(found_isVisible))
+print("found_isDeleting:      " . STR(found_isDeleting))
+
+
+if (isElement = 1) and (found_callback = 0)
+{
+    
+if (whatElement = "button")
+{
+    temp1 .= "callback:" . Chr(34) . "Button" . STR(buttons) . Chr(34) . ", "
+}
+else if (whatElement = "text")
+{
+    temp1 .= "callback:" . Chr(34) . "Text" . STR(texts) . Chr(34) . ", "
+}
+else if (whatElement = "edit")
+{
+    temp1 .= "callback:" . Chr(34) . "Edit" . STR(edits) . Chr(34) . ", "
+}
+else if (whatElement = "picture")
+{
+    temp1 .= "callback:" . Chr(34) . "Picture" . STR(pictures) . Chr(34) . ", "
+}
+else if (whatElement = "toggle")
+{
+    temp1 .= "callback:" . Chr(34) . "Toggle" . STR(toggles) . Chr(34) . ", "
+}
+else if (whatElement = "rectangle")
+{
+    temp1 .= "callback:" . Chr(34) . "Rectangle" . STR(rectangles) . Chr(34) . ", "
+}
+else if (whatElement = "circle")
+{
+    temp1 .= "callback:" . Chr(34) . "Circle" . STR(circles) . Chr(34) . ", "
+}
+else if (whatElement = "video")
+{
+    temp1 .= "callback:" . Chr(34) . "Video" . STR(videos) . Chr(34) . ", "
+}
+else if (whatElement = "dropdown")
+{
+    temp1 .= "callback:" . Chr(34) . "Dropdown" . STR(dropdowns) . Chr(34) . ", "
+}
+else if (whatElement = "iframe")
+{
+    temp1 .= "callback:" . Chr(34) . "Iframe" . STR(iframes) . Chr(34) . ", "
+}
+
+
+}
+
+
+if (found_parentId = 0) and (isElement = 1)  {
+temp1 .= "parentId:" . Chr(34) . "div0" . Chr(34) . ", "
+}
+
+
+; step 5
+; step 5
+; step 5
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+if (isElement = 1)
+{
+temp0 .= "guiAddElement(" . openCurlyTEXT . " elementType: '" . whatElement . "', " . temp1
+StringTrimRight, temp0, temp0, 2
+temp0 .= " " . closeCurlyTEXT . ");"
+}
+else
+{
+
+temp0 .= "guiAdd(" . openCurlyTEXT . " " . StrReplace(temp1, "parentId:", "id:")
+StringTrimRight, temp0, temp0, 2
+temp0 .= " " . closeCurlyTEXT . ");"
+}
+;;;;;;;;;;;;;;;;;;;;;; -111
+
+
+out .= temp0 . Chr(10)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol ") or (RegExMatch(StrLower(Trim(A_LoopField)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+isElement := 0
+whatElement := ""
+Loop, Parse, A_LoopField, " "
+{
+if (A_Index != 0)
+{
+;;;;;;; 0start
+;;;;;;; 0start (Inside the Loop, Parse, A_LoopField, " " in guiParserStep3)
+
+; --- Check for Element Type Aliases ---
+; Direct name, single-letter prefix 'e', or colon aliases - all on one line per type
+
+lowerField := StrLower(Trim(A_LoopField)) ; Trim added here for safety
+if (lowerField = "button" or lowerField = "ebutton" or lowerField = "elementType:button" or lowerField = "element:button" or lowerField = "elmnt:button" or lowerField = "elmenet:button" or lowerField = "elment:button" or lowerField = "elemnt:button") {
+    buttons++
+    isElement := 1
+    whatElement := "button"
+}
+else if (lowerField = "text" or lowerField = "etext" or lowerField = "elementType:text" or lowerField = "element:text" or lowerField = "elmnt:text" or lowerField = "elmenet:text" or lowerField = "elment:text") {
+    texts++
+    isElement := 1
+    whatElement := "text"
+}
+else if (lowerField = "edit" or lowerField = "eedit" or lowerField = "elementType:edit" or lowerField = "element:edit" or lowerField = "elmnt:edit" or lowerField = "elmenet:edit" or lowerField = "elment:edit") {
+    edits++
+    isElement := 1
+    whatElement := "edit"
+}
+else if (lowerField = "picture" or lowerField = "epicture" or lowerField = "elementType:picture" or lowerField = "element:picture" or lowerField = "elmnt:picture" or lowerField = "elmenet:picture" or lowerField = "elment:picture") {
+    pictures++
+    isElement := 1
+    whatElement := "picture"
+}
+else if (lowerField = "toggle" or lowerField = "etoggle" or lowerField = "elementType:toggle" or lowerField = "element:toggle" or lowerField = "elmnt:toggle" or lowerField = "elmenet:toggle" or lowerField = "elment:toggle") {
+    toggles++
+    isElement := 1
+    whatElement := "toggle"
+}
+else if (lowerField = "rectangle" or lowerField = "erectangle" or lowerField = "elementType:rectangle" or lowerField = "element:rectangle" or lowerField = "elmnt:rectangle" or lowerField = "elmenet:rectangle" or lowerField = "elment:rectangle") {
+    rectangles++
+    isElement := 1
+    whatElement := "rectangle"
+}
+else if (lowerField = "circle" or lowerField = "ecircle" or lowerField = "elementType:circle" or lowerField = "element:circle" or lowerField = "elmnt:circle" or lowerField = "elmenet:circle" or lowerField = "elment:circle") {
+    circles++
+    isElement := 1
+    whatElement := "circle"
+}
+else if (lowerField = "video" or lowerField = "evideo" or lowerField = "elementType:video" or lowerField = "element:video" or lowerField = "elmnt:video" or lowerField = "elmenet:video" or lowerField = "elment:video") {
+    videos++
+    isElement := 1
+    whatElement := "video"
+}
+else if (lowerField = "dropdown" or lowerField = "edropdown" or lowerField = "elementType:dropdown" or lowerField = "element:dropdown" or lowerField = "elmnt:dropdown" or lowerField = "elmenet:dropdown" or lowerField = "elment:dropdown") {
+    dropdowns++
+    isElement := 1
+    whatElement := "dropdown"
+}
+else if (lowerField = "iframe" or lowerField = "eiframe" or lowerField = "elementType:iframe" or lowerField = "element:iframe" or lowerField = "elmnt:iframe" or lowerField = "elmenet:iframe" or lowerField = "elment:iframe") {
+    iframes++
+    isElement := 1
+    whatElement := "iframe"
+}
+else
+{
+temp1 .= guiParserStep4(Trim(A_LoopField)) . ", "
+}
+;;;;;;; 0end
+;;;;;; 1start
+
+
+;;;;;; 1end
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+}
+} ;  loop end
+
+
+;;;;;;;;;;;;;;;;;;;;;; -111
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; step 5
+; step 5
+; step 5
+
+; step 5 add callback if not defined and more...
+
+
+
+found_id := 0
+found_parentId := 0
+found_x := 0
+found_y := 0
+found_width := 0
+found_height := 0
+found_zIndex := 0
+found_value := 0
+found_placeholder := 0
+found_callback := 0
+found_backgroundColor := 0
+found_color := 0
+found_rounding := 0
+found_border := 0
+found_rawCss := 0
+found_size := 0
+found_isEnabled := 0
+found_isVisible := 0
+found_isDeleting := 0
+
+
+Loop, Parse, temp1, `,
+{
+temp2 := Trim(A_LoopField)
+
+if (StrSplit(temp2, ":", 1) = "parentId") {
+    found_parentId := 1
+}
+
+} ; loop end | Loop, Parse, temp1, `,
+
+; print("found_parentId: " . STR(found_parentId))
+
+if (found_parentId = 0)  {
+temp1 .= "parentId:" . Chr(34) . "div0" . Chr(34) . ", "
+}
+
+
+
+; step 5
+; step 5
+; step 5
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+if (isElement = 1)
+{
+temp0 .= "guiControl(" . openCurlyTEXT . " elementType: '" . whatElement . "', " . temp1
+StringTrimRight, temp0, temp0, 2
+temp0 .= " " . closeCurlyTEXT . ");"
+}
+else
+{
+temp0 .= "guiControl(" . openCurlyTEXT . " " . temp1
+StringTrimRight, temp0, temp0, 2
+temp0 .= " " . closeCurlyTEXT . ");"
+}
+;;;;;;;;;;;;;;;;;;;;;; -111
+
+
+out .= temp0 . Chr(10)
+}
+else
+{
+out .= A_LoopField . Chr(10)
+}
+
+}
+StringTrimRight, out, out, 1
+return out
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str guiParserStep2(str guiCode)
+{
+; remove spacses, commas and format the colon (:) and remove "add"
+
+str out := ""
+
+str temp := ""
+
+Loop, Parse, guiCode, `n, `r
+{
+if (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol,") or (RegExMatch(StrLower(Trim(A_LoopField)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+temp := StrReplace(A_LoopField, ",", " ")
+
+while (InStr(temp, "  "))
+{
+temp := StrReplace(temp, "  ", " ")
+}
+
+while (InStr(temp, ": "))
+{
+temp := StrReplace(temp, ": ", ":")
+}
+
+while (InStr(temp, " :"))
+{
+temp := StrReplace(temp, " :", ":")
+}
+
+out .= Trim(temp) . Chr(10)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui,") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+temp := StrReplace(A_LoopField, ",", " ")
+temp := RegExReplace(temp, "\badd\b(?!\()", " ")
+
+while (InStr(temp, "  "))
+{
+temp := StrReplace(temp, "  ", " ")
+}
+
+while (InStr(temp, ": "))
+{
+temp := StrReplace(temp, ": ", ":")
+}
+
+while (InStr(temp, " :"))
+{
+temp := StrReplace(temp, " :", ":")
+}
+
+out .= Trim(temp) . Chr(10)
+}
+else
+{
+out .= A_LoopField . Chr(10)
+}
+
+}
+StringTrimRight, out, out, 1
+return guiParserStep3(out)
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func str guiParser0(str guiCode)
+{
+str out := ""
+int begin := 0
+
+arr str lookAhead
+
+Loop, Parse, guiCode, `n, `r
+{
+lookAhead.add(Trim(A_LoopField))
+}
+lookAhead.add(" ")
+
+Loop, Parse, guiCode, `n, `r
+{
+
+if (Trim(StrLower(A_LoopField)) = "guicontrol") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol,") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol{") or (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol[") or (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol(") or (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol (") or (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  (") or (RegExMatch(StrLower(Trim(A_LoopField)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+begin := 0
+
+if (Trim(StrLower(lookAhead[A_Index + 1])) = "{") or (Trim(StrLower(lookAhead[A_Index + 1])) = "[") or (Trim(StrLower(lookAhead[A_Index + 1])) = "(")
+{
+begin := 1
+}
+
+if (RegExMatch(StrLower(Trim(A_LoopField)), "^guicontrol[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) and (SubStrLastChars(Trim(A_LoopField), 1) = "{") or (SubStrLastChars(Trim(A_LoopField), 1) = "[") or (SubStrLastChars(Trim(A_LoopField), 1) = "(") 
+{
+begin := 1
+out .= StringTrimRight(Trim(A_LoopField), 1)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol{")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 11)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol[")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 11)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 11) = "guicontrol(")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 11)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol {")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 12)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol [")
+{
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 12)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 12) = "guicontrol (")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 12)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  {")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 13)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  [")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 13)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 13) = "guicontrol  (")
+{
+begin := 1
+out .= "guicontrol " . StringTrimLeft(Trim(A_LoopField), 13)
+}
+else
+{
+if (begin = 1)
+{
+out .= Trim(A_LoopField) . " "
+}
+else
+{
+out .= Trim(A_LoopField) . Chr(10)
+}
+
+}
+
+
+
+
+}
+else if (begin = 1)
+{
+
+if (Trim(StrLower(A_LoopField)) = "{") or (Trim(StrLower(A_LoopField)) = "[") or (Trim(StrLower(A_LoopField)) = "(")
+{
+begin := 1
+}
+else if (Trim(StrLower(A_LoopField)) = "}") or (Trim(StrLower(A_LoopField)) = "]") or (Trim(StrLower(A_LoopField)) = ")")
+{
+begin := 0
+out .= Chr(10)
+}
+else
+{
+if (SubStr(Trim(A_LoopField), 1, StrLen(keyWordComment)) != keyWordComment)
+{
+out .= A_LoopField . " "
+}
+}
+
+
+}
+else
+{
+out .= A_LoopField . Chr(10)
+}
+
+
+;print("DEBIG123: " . A_LoopField . "|" . STR(begin))
+
+}
+
+
+
+StringTrimRight, out, out, 1
+
+return guiParserStep2(out)
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func str guiParser(str guiCode) {
+
+int doWeExitGUIfuncCuzNoGuiFound := 1
+
+int doWeExitGUIfuncCuzNoGuiFoundINcommentBlock := 0
+
+Loop, Parse, guiCode, `n, `r
+{
+
+
+
+
+
+if (Trim(A_LoopField) = Trim(keyWordCommentOpenMultiLine))
+{
+doWeExitGUIfuncCuzNoGuiFoundINcommentBlock := 1
+}
+
+if (Trim(A_LoopField) = Trim(keyWordCommentCloseMultiLine))
+{
+doWeExitGUIfuncCuzNoGuiFoundINcommentBlock := 0
+}
+
+if (Trim(StrLower(A_LoopField)) = "gui") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui,") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui{") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui[") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui(") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui (") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  (") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+if (doWeExitGUIfuncCuzNoGuiFoundINcommentBlock = 0)
+{
+doWeExitGUIfuncCuzNoGuiFound := 0
+}
+
+}
+}
+
+    if (doWeExitGUIfuncCuzNoGuiFound = 1) {
+        return guiCode
+    }
+    
+    
+str out := ""
+int whenGuiBegin := 0
+int whenGuiBeginTHEONE := 0
+int begin := 0
+
+arr str lookAhead
+
+Loop, Parse, guiCode, `n, `r
+{
+lookAhead.add(Trim(A_LoopField))
+}
+lookAhead.add(" ")
+
+Loop, Parse, guiCode, `n, `r
+{
+
+if (Trim(StrLower(lookAhead[A_Index + 1])) != "{") and (Trim(StrLower(lookAhead[A_Index + 1])) != "[") and (Trim(StrLower(lookAhead[A_Index + 1])) != "(") and (Trim(StrLower(A_LoopField)) = "gui")
+{
+begin := 0
+print("DUBUG HKDOUVISYobusdsfvbaedsf")
+whenGuiBegin++
+if (whenGuiBegin = 1)
+{
+whenGuiBeginTHEONE := 1
+out := "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" . Chr(10) . out
+}
+
+
+}
+else if (Trim(StrLower(A_LoopField)) = "gui") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui ") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui,") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui{") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  {") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui[") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  [") or (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui(") or (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui (") or (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  (") or (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)"))
+{
+begin := 0
+whenGuiBegin++
+if (whenGuiBegin = 1)
+{
+out := "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI" . Chr(10) . out
+}
+
+if (Trim(StrLower(lookAhead[A_Index + 1])) = "{") or (Trim(StrLower(lookAhead[A_Index + 1])) = "[") or (Trim(StrLower(lookAhead[A_Index + 1])) = "(")
+{
+begin := 1
+}
+
+if (RegExMatch(StrLower(Trim(A_LoopField)), "^gui[-_][A-Za-z0-9_]+(?:[-_][A-Za-z0-9_]+)*(?=[, ]|$)")) and (SubStrLastChars(Trim(A_LoopField), 1) = "{") or (SubStrLastChars(Trim(A_LoopField), 1) = "[") or (SubStrLastChars(Trim(A_LoopField), 1) = "(") 
+{
+begin := 1
+out .= StringTrimRight(Trim(A_LoopField), 1)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui{")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 4)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui[")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 4)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 4) = "gui(")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 4)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui {")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 5)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui [")
+{
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 5)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "gui (")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 5)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  {")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 6)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  [")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 6)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "gui  (")
+{
+begin := 1
+out .= "gui " . StringTrimLeft(Trim(A_LoopField), 6)
+}
+else
+{
+if (begin = 1)
+{
+out .= Trim(A_LoopField) . " "
+}
+else
+{
+out .= Trim(A_LoopField) . Chr(10)
+}
+
+}
+
+
+
+
+}
+else if (begin = 1)
+{
+
+if (Trim(StrLower(A_LoopField)) = "{") or (Trim(StrLower(A_LoopField)) = "[") or (Trim(StrLower(A_LoopField)) = "(")
+{
+begin := 1
+}
+else if (Trim(StrLower(A_LoopField)) = "}") or (Trim(StrLower(A_LoopField)) = "]") or (Trim(StrLower(A_LoopField)) = ")")
+{
+begin := 0
+out .= Chr(10)
+}
+else
+{
+if (SubStr(Trim(A_LoopField), 1, StrLen(keyWordComment)) != keyWordComment)
+{
+out .= A_LoopField . " "
+}
+}
+
+
+}
+else
+{
+out .= A_LoopField . Chr(10)
+}
+
+
+;print("DEBIG123: " . A_LoopField . "|" . STR(begin))
+
+}
+str openCurlyTEXT := "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI"
+str closeCurlyTEXT := "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI"
+
+if (whenGuiBeginTHEONE = 1) and (whenGuiBegin = 1)
+{
+out := StrReplace(out, "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI", "guiInit(" . Chr(34) . "#202020" . Chr(34) . ", " . Chr(34) . "This is a GUI" . Chr(34) . ");")
+}
+else
+{
+out := StrReplace(out, "HTVM--__gui_init-null,nulllllllllllllldasdfxuoifsedfuiJHTVM---HTVMguiNO-jsadsfpisszdjfpisasJz-HTVM-GUI", "guiInit(" . Chr(34) . "#202020" . Chr(34) . ", " . Chr(34) . Chr(34) . ");" . Chr(10) . " guiAdd(" . openCurlyTEXT . " x:" . Chr(34) . "0px" . Chr(34) . ", y:" . Chr(34) . "0px" . Chr(34) . ", width:" . Chr(34) . "100%" . Chr(34) . ", height:" . Chr(34) . "100%" . Chr(34) . ", id:" . Chr(34) . "div0" . Chr(34) . ", backgroundColor:" . Chr(34) . "#202020" . Chr(34) . ", rounding:0" . " " . closeCurlyTEXT . ");" . Chr(10))
+}
+
+StringTrimRight, out, out, 1
+
+if (InStr(StrLower(out), "guicontrol"))
+{
+return guiParser0(out)
+}
+else
+{
+return guiParserStep2(out)
+}
+
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func str initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction(str codeToConvert)
+{
+str out := ""
+str temp := ""
+str temp1 := ""
+str temp2 := ""
+int firstTimePythonIn := 0
+int wasHereNeedFixEndpointCall := 0
+Loop, Parse, codeToConvert, `n, `r
+{
+
+if (RegExMatch(Trim(A_LoopField), "^[a-zA-Z_][a-zA-Z0-9_]*:$")) and (isLineAconstruct(Trim(A_LoopField)) = false)
+{
+;print("DEBUG: " . A_LoopField)
+temp := StringTrimRight(Trim(A_LoopField), 1)
+if (langToConvertTo = "js")
+{
+out .= Trim(keyWordAsync) . " " . Trim(keyWordFunc) . " " . Trim(temp) . "(A_Id, A_Event, A_Value )" . Chr(10) . "{" . Chr(10)
+}
+else if (langToConvertTo = "py")
+{
+initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction_WAS_IN_PYTHON := 1 
+firstTimePythonIn++
+
+if (firstTimePythonIn = 1)
+{
+out .= Trim(keyWordComment) . " added the HTVM_custom_port()" . Chr(10) . Trim(keyWordComment) . " added the HTVM_register()" . Chr(10) . Trim(keyWordComment) . " added the HTVM_init()" . Chr(10) . Trim(keyWordFunc) . " " . Trim(temp) . "(A_Input=" . Chr(34) . "" . Chr(34) . " )" . Chr(10) . "{" . Chr(10)
+}
+else
+{
+out .= Trim(keyWordFunc) . " " . Trim(temp) . "(A_Input=" . Chr(34) . "" . Chr(34) . " )" . Chr(10) . "{" . Chr(10)
+}
+}
+else
+{
+out .= "!!!NOT POISBLE ONLY POSIBLE IN JS AND PY!!!" . Chr(10)
+}
+; endpoint, enpointName, enpointFunc, [reqType]
+; fileinit, index.html or someJsFile.js or someHtmlFile.html it can be both .html and .js file
+; port, 8000
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 9) = "endpoint,")
+{
+
+; HTVM_register("endpointName", "endpointName", method="POST")
+temp1 := ""
+Loop, Parse, Trim(A_LoopField), `,
+{
+temp := Trim(A_LoopField)
+if (A_Index != 0)
+{
+if (A_Index = 1)
+{
+
+if (InStr(temp, Chr(34)))
+{
+temp1 .= temp . ", "
+temp2 := temp
+}
+else
+{
+temp1 .= Chr(34) . temp . Chr(34) . ", "
+temp2 := Chr(34) . temp . Chr(34)
+}
+
+
+}
+else if (A_Index = 2)
+{
+wasHereNeedFixEndpointCall := 1
+if (InStr(temp, Chr(34)))
+{
+temp1 .= temp . ", "
+}
+else
+{
+temp1 .= Chr(34) . temp . Chr(34) . ", "
+}
+
+}
+else if (A_Index = 3)
+{
+if (InStr(temp, Chr(34)))
+{
+temp1 .= temp . ", "
+}
+else
+{
+temp1 .= Chr(34) . temp . Chr(34) . ", "
+}
+}
+else
+{
+if (InStr(temp, Chr(34)))
+{
+temp1 .= temp . ", "
+}
+else
+{
+temp1 .= Chr(34) . temp . Chr(34) . ", "
+}
+}
+}
+}
+
+if (wasHereNeedFixEndpointCall = 0)
+{
+temp1 .= temp2
+}
+else
+{
+StringTrimRight, temp1, temp1, 2
+}
+
+out .= "HTVM_register(" . temp1 . ")" . Chr(10)
+
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 9) = "fileinit,")
+{
+
+; HTVM_init("fileName")
+temp1 := ""
+Loop, Parse, Trim(A_LoopField), `, {
+    temp := Trim(A_LoopField)
+    if (A_Index != 0) {
+        if (A_Index = 1) {   
+            if (InStr(temp, Chr(34))) {
+                temp1 .= temp
+            } else {
+                temp1 .= Chr(34) . temp . Chr(34)
+            }
+        }
+    }
+}
+out .= "HTVM_init(" . temp1 . ")" . Chr(10)
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, 5) = "port,")
+{
+
+; HTVM_custom_port("fileName")
+temp1 := ""
+Loop, Parse, Trim(A_LoopField), `, 
+{
+temp := Trim(A_LoopField)
+if (A_Index != 0)
+{
+if (A_Index = 1)
+{
+temp1 .= temp
+}
+}
+}
+temp1 := Trim(StrReplace(temp1, Chr(34), ""))
+out .= "HTVM_custom_port(" . temp1 . ")" . Chr(10)
+}
+else if (Trim(StrLower(A_LoopField)) = "subout")
+{
+out .= "}" . Chr(10)
+}
+else
+{
+out .= A_LoopField . Chr(10)
+}
+
+}
+StringTrimRight, out, out, 1
+return out
+}
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -9141,6 +11420,214 @@ return htCodeOUTOUT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str fString(str line)
+{
+if (langToConvertTo != langFileExtension_2)
+{
+line := StrReplace(line, "{", Chr(34) . " + fstr(")
+line := StrReplace(line, "}", ") + " . Chr(34))
+}
+
+return line
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; --------------------------------------------------
+; TrimR Function Definition
+; Removes trailing whitespace (space, tab, newline, carriage return)
+; from the right side of a string.
+; Parameters:
+;   inputString (str): The string to trim.
+; Returns:
+;   str: The string with trailing whitespace removed.
+; --------------------------------------------------
+func str TrimR(str inputString) {
+    int len := StrLen(inputString)
+    int lastNonWhitespaceIndex := 0 ; Use 0 to indicate not found yet for 1-based logic
+
+    ; Handle empty string immediately
+    if (len = 0) {
+        return ""
+    }
+
+    str charr := ""
+
+    ; Loop backwards from the last character (index len) down to the first (index 1)
+    int i := len
+    while (i >= 1) {
+        ; Get the character at the current index (using 1-based SubStr)
+        charr := SubStr(inputString, i, 1)
+
+        ; Check if the character is NOT whitespace
+        if (charr != " " and charr != Chr(9) and charr != Chr(13) and charr != Chr(10)) {
+            ; This is the last non-whitespace character found
+            lastNonWhitespaceIndex := i
+            break ; Found it, exit the loop
+        }
+
+        ; Decrement index to check the previous character
+        i := i - 1
+    }
+
+    ; If no non-whitespace character was found (string was all whitespace)
+    if (lastNonWhitespaceIndex = 0) {
+        return ""
+    }
+
+    ; Extract the substring from the beginning (index 1) up to the
+    ; last non-whitespace character found (index lastNonWhitespaceIndex)
+    return SubStr(inputString, 1, lastNonWhitespaceIndex)
+}
+
+
+
+func str handleMultiLineStrings(str code)
+{
+int didWeFindOrWeOut := 0
+Loop, Parse, code, `n, `r
+{
+if (SubStrLastChars(Trim(A_LoopField), 4) = " mls") or (SubStrLastChars(Trim(A_LoopField), 5) = " fmls")
+{
+didWeFindOrWeOut := 1
+}
+
+}
+
+if (didWeFindOrWeOut = 0)
+{
+return code
+}
+
+str out := ""
+code := StrReplace(code, Chr(10) , Chr(10) . "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz" . Chr(10))
+
+arr str lookAhead
+Loop, Parse, code, `n, `r
+{
+lookAhead.add(Trim(A_LoopField))
+}
+lookAhead.add(Trim(" "))
+
+int weAreIn := 0
+int weAreInOnce := 0
+int weAreInNum := 0
+
+str weAreInMLSarrTemp := ""
+Loop, Parse, code, `n, `r
+{
+
+if (langToConvertTo = langFileExtension_2)
+{
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+if (weAreIn = 1) and (Trim(A_LoopField) = "mle")
+{
+weAreInMLSarr.add(StringTrimRight(StringTrimLeft(StrReplace(weAreInMLSarrTemp, "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz", Chr(10)), 1), 1))
+weAreInMLSarrTemp := ""
+weAreInOnce := 0
+weAreIn := 0
+}
+
+
+
+if (weAreIn = 1)
+{
+weAreInOnce++
+if (weAreInOnce = 1)
+{
+out .= "aejsoydoxubviycbdgsut7eoy-ihsxbvhowadesdio6376e7wuwyuau--szd--AA" . STR(weAreInNum) . "AA" . Chr(10)
+weAreInNum++
+}
+weAreInMLSarrTemp .= A_LoopField
+}
+
+if (SubStrLastChars(Trim(A_LoopField), 4) = " mls") or (SubStrLastChars(Trim(A_LoopField), 5) = " fmls")
+{
+weAreIn := 1
+out .= A_LoopField . Chr(10)
+}
+
+if (weAreIn = 0)
+{
+out .= A_LoopField . Chr(10)
+}
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+}
+else
+{
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+if (weAreIn = 1) and (Trim(A_LoopField) = "mle")
+{
+StringTrimRight, out, out, 2
+out .= Chr(34) . Chr(10)
+weAreIn := 0
+}
+
+if (weAreIn = 1) and (Trim(A_LoopField) = "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz")
+{
+if (lookAhead[A_Index + 1] = "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz")
+{
+out .= keyWordEscpaeChar . "n"
+}
+
+}
+
+if (weAreIn = 1) and (Trim(A_LoopField) != "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz")
+{
+out .= A_LoopField . keyWordEscpaeChar . "n"
+}
+
+if (SubStrLastChars(Trim(A_LoopField), 4) = " mls") or (SubStrLastChars(Trim(A_LoopField), 5) = " fmls")
+{
+weAreIn := 1
+if (SubStrLastChars(Trim(A_LoopField), 5) = " fmls")
+{
+out .= TrimR(StringTrimRight(TrimR(A_LoopField), 3)) . Chr(34)
+}
+else
+{
+out .= TrimR(StringTrimRight(TrimR(A_LoopField), 3)) . " " . Chr(34)
+}
+
+}
+
+if (weAreIn = 0)
+{
+if (Trim(A_LoopField) != "mle")
+{
+out .= A_LoopField . Chr(10)
+}
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+}
+
+}
+out := StrReplace(out, "HTVM-newLineAHw4y9w730q8237w4e8srhgesw0s8rgw04e5g08sgr0e8srdgt--YOU-BETERNOTUSETHISAH--aesdfssz", Chr(10) . Chr(10))
+StringTrimRight, out, out, 1
+return out
+}
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 func arr str slidingWinFixCommentsRmFUNC(str line)
@@ -9161,6 +11648,164 @@ return slidingWinFixCommentsRmFFFF
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+func str fixIfElseIfMultiLineStatementHELP(str aloopfield)
+{
+str out := ""
+
+int count := 0
+Loop, Parse, aloopfield
+{
+if (A_LoopField = "(")
+{
+
+count++
+}
+if (A_LoopField = ")")
+{
+count--
+}
+
+}
+
+if (count = 0)
+{
+return "w"
+}
+else
+{
+return ""
+}
+
+return out
+}
+
+
+func str fixIfElseIfMultiLineStatement(str someHTVMcode)
+{
+
+
+int doWeExitInsta := 1
+
+Loop, Parse, someHTVMcode, `n, `r
+{
+
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(keyWordIF)) = keyWordIF)
+{
+doWeExitInsta := 0
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(keyWordWhileLoop)) = keyWordWhileLoop)
+{
+doWeExitInsta := 0
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(keyWordElseIf)) = keyWordElseIf)
+{
+doWeExitInsta := 0
+}
+
+}
+
+if (doWeExitInsta = 1)
+{
+return someHTVMcode
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+str out := ""
+str out2 := ""
+; this will make sure we exit once we dont have if else if while
+int doWeJustExit := 0
+; this will make sure we exit once we dont fix the if else if while
+bool doWeExit := false
+int doWeExitHELP := 0
+out := someHTVMcode
+; 10000 just in case the loop somehow becomes infinite
+Loop, 10000
+{
+out2 := out
+out := ""
+doWeExit := false
+Loop, Parse, out2, `n, `r
+{
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(keyWordIF)) = keyWordIF)
+{
+doWeJustExit := 1
+if (fixIfElseIfMultiLineStatementHELP(A_LoopField) = "")
+{
+out .= Trim(A_LoopField) . " "
+doWeExit := false
+doWeExitHELP--
+}
+else
+{
+doWeExit := true
+out .= Trim(A_LoopField) . Chr(10)
+}
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(keyWordWhileLoop)) = keyWordWhileLoop)
+{
+doWeJustExit := 1
+if (fixIfElseIfMultiLineStatementHELP(A_LoopField) = "")
+{
+out .= Trim(A_LoopField) . " "
+doWeExit := false
+doWeExitHELP--
+}
+else
+{
+doWeExit := true
+out .= Trim(A_LoopField) . Chr(10)
+}
+}
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(keyWordElseIf)) = keyWordElseIf)
+{
+doWeJustExit := 1
+if (fixIfElseIfMultiLineStatementHELP(A_LoopField) = "")
+{
+out .= Trim(A_LoopField) . " "
+doWeExit := false
+doWeExitHELP--
+}
+else
+{
+doWeExit := true
+out .= Trim(A_LoopField) . Chr(10)
+}
+}
+else
+{
+out .= Trim(A_LoopField) . Chr(10)
+}
+}
+StringTrimRight, out, out, 1
+
+;print(A_Index)
+if (doWeJustExit = 0)
+{
+break
+}
+if (doWeExit = true)
+{
+doWeExitHELP++
+if (doWeExitHELP > 2) 
+{
+break 
+}
+}
+}
+return out
+}
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -9199,10 +11844,10 @@ Loop, Parse, allInstructionFile, `n, `r
 		keyWordCrew := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 5) {
-		keyWordMethod := Trim(A_LoopField) . " "
+		keyWordProc := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 6) {
-		keyWordDefObj := Trim(A_LoopField) . " "
+		keyWordStruct := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 7) {
 		keyWordProp := Trim(A_LoopField) . " "
@@ -9701,10 +12346,10 @@ Loop, Parse, allInstructionFile_2, `n, `r
 		keyWordCrew_2 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 5) {
-		keyWordMethod_2 := Trim(A_LoopField) . " "
+		keyWordProc_2 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 6) {
-		keyWordDefObj_2 := Trim(A_LoopField) . " "
+		keyWordStruct_2 := Trim(A_LoopField) . " "
 	}
 	if (A_Index = 7) {
 		keyWordProp_2 := Trim(A_LoopField) . " "
@@ -9971,13 +12616,13 @@ Loop, Parse, allInstructionFile_2, `n, `r
 		keyWordArrayOfBooleansDefinition_2 := Trim(A_LoopField)
 	}
 	if (A_Index = 95) {
-		keyWordVar_2 := Trim(A_LoopField) . " "
+		keyWordVar_2 := Trim(A_LoopField)
 	}
 	if (A_Index = 96) {
-		keyWordLet_2 := Trim(A_LoopField) . " "
+		keyWordLet_2 := Trim(A_LoopField)
 	}
 	if (A_Index = 97) {
-		keyWordConst_2 := Trim(A_LoopField) . " "
+		keyWordConst_2 := Trim(A_LoopField)
 	}
 	if (A_Index = 98) {
 		keyWordEnd_2 := Trim(A_LoopField)
@@ -10300,6 +12945,21 @@ keyWordALoopField := StrLower(keyWordALoopField)
 
 
 
+availableFuncsInHTVMInHTVM := ""
+
+
+
+Loop, Parse, allInstructionFile, `n, `r
+{
+if (RegExMatch(Trim(A_LoopField), "^name: [A-Za-z0-9_]+"))
+{
+availableFuncsInHTVMInHTVM .= Trim(StrSplit(Trim(A_LoopField), "name: ", 2)) . Chr(10)
+}
+}
+
+
+
+
 int haveWeEverUsedAloop := 0
 int lineDone := 0
 str var1 := ""
@@ -10358,6 +13018,10 @@ int skipLeftCuleyForFuncPLS := 0
 
 str strOspHold := ""
 
+if (isNotHTVMfile = 0)
+{
+code := handleMultiLineStrings(code)
+}
 
 ; PROGRAMMING BLOCK
 ; PROGRAMMING BLOCK
@@ -10398,7 +13062,7 @@ if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEnd))
 COUNT_programmingBlock_InTheTranspiledLang++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" . STR(COUNT_programmingBlock_InTheTranspiledLang) . "AA`n"
-programmingBlock_InTheTranspiledLang.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_InTheTranspiledLang.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10408,7 +13072,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_CPP++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_CPP-programmingBlock_CPP-AA" . STR(COUNT_programmingBlock_CPP) . "AA`n"
-programmingBlock_CPP.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_CPP.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10418,7 +13082,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_PY++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_PY-programmingBlock_PY-AA" . STR(COUNT_programmingBlock_PY) . "AA`n"
-programmingBlock_PY.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_PY.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10428,7 +13092,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_JS++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_JS-programmingBlock_JS-AA" . STR(COUNT_programmingBlock_JS) . "AA`n"
-programmingBlock_JS.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_JS.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10438,7 +13102,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_GO++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_GO-programmingBlock_GO-AA" . STR(COUNT_programmingBlock_GO) . "AA`n"
-programmingBlock_GO.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_GO.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10448,7 +13112,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_LUA++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_LUA-programmingBlock_LUA-AA" . STR(COUNT_programmingBlock_LUA) . "AA`n"
-programmingBlock_LUA.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_LUA.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10458,7 +13122,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_CS++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_CS-programmingBlock_CS-AA" . STR(COUNT_programmingBlock_CS) . "AA`n"
-programmingBlock_CS.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_CS.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10468,7 +13132,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_JAVA++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_JAVA-programmingBlock_JAVA-AA" . STR(COUNT_programmingBlock_JAVA) . "AA`n"
-programmingBlock_JAVA.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_JAVA.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10478,7 +13142,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_KT++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_KT-programmingBlock_KT-AA" . STR(COUNT_programmingBlock_KT) . "AA`n"
-programmingBlock_KT.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_KT.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10488,7 +13152,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_RB++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_RB-programmingBlock_RB-AA" . STR(COUNT_programmingBlock_RB) . "AA`n"
-programmingBlock_RB.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_RB.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10498,7 +13162,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_NIM++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_NIM-programmingBlock_NIM-AA" . STR(COUNT_programmingBlock_NIM) . "AA`n"
-programmingBlock_NIM.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_NIM.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10508,7 +13172,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_AHK++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_AHK-programmingBlock_AHK-AA" . STR(COUNT_programmingBlock_AHK) . "AA`n"
-programmingBlock_AHK.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_AHK.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10518,7 +13182,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_SWIFT++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" . STR(COUNT_programmingBlock_SWIFT) . "AA`n"
-programmingBlock_SWIFT.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_SWIFT.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10528,7 +13192,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_DART++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_DART-programmingBlock_DART-AA" . STR(COUNT_programmingBlock_DART) . "AA`n"
-programmingBlock_DART.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_DART.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10538,7 +13202,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_TS++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_TS-programmingBlock_TS-AA" . STR(COUNT_programmingBlock_TS) . "AA`n"
-programmingBlock_TS.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_TS.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10548,7 +13212,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_GROOVY++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" . STR(COUNT_programmingBlock_GROOVY) . "AA`n"
-programmingBlock_GROOVY.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_GROOVY.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10558,7 +13222,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInTheTranspiledLangEn
 COUNT_programmingBlock_HTVM++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_HTVM-programmingBlock_HTVM-AA" . STR(COUNT_programmingBlock_HTVM) . "AA`n"
-programmingBlock_HTVM.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_HTVM.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 }
@@ -10570,7 +13234,7 @@ else if (Trim(StrLower(A_LoopField)) = StrLower(keyWordCodeInHTVMend))
 COUNT_programmingBlock_HTVMsyntax++
 StringTrimRight, holdTempDataProgrammingBlockThenPutInArr, holdTempDataProgrammingBlockThenPutInArr, 1
 programmingBlocksTemp .= "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" . STR(COUNT_programmingBlock_HTVMsyntax) . "AA`n"
-programmingBlock_HTVMsyntax.add(holdTempDataProgrammingBlockThenPutInArr)
+programmingBlock_HTVMsyntax.add(Chr(10) . holdTempDataProgrammingBlockThenPutInArr)
 holdTempDataProgrammingBlockThenPutInArr := ""
 inProgarmmingBlock := 0
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -10824,6 +13488,11 @@ ALoopField := ""
 
 
 
+
+
+
+
+
 arr str lookIntoTheNextLineForFuncWhitNoKeyWord
 int didWeUseMainLabel := 0
 str codeOutFixAndAddMainFunc := ""
@@ -10855,6 +13524,15 @@ str ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes := ""
 arr str getAllCharForTheFurtureSoIcanAddEscapeChar
 
 int removeNexFixkeyWordEscpaeChar := 0
+
+str fixSomeCurlyBraceForExratFlexability := ""
+str fixSomeCurlyBraceForExratFlexabilityTriHELP := ""
+
+str semiColonForOneLinerOut := ""
+
+str addNoCurlyFixWhenNextLineAfterConstructOut := ""
+arr str addNoCurlyFixWhenNextLineAfterConstructLookAhead
+
 
 if (isNotHTVMfile = 0)
 {
@@ -11111,6 +13789,36 @@ StringTrimRight, code, newStringOutCode, 1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+if (langToConvertTo != langFileExtension_2)
+{
+
+
+
+semiColonForOneLinerOut := ""
+
+Loop, Parse, code, `n, `r
+{
+if (SubStr(Trim(A_LoopField), 1, 1) != ";")
+{
+semiColonForOneLinerOut .= StrReplace(A_LoopField, ";", Chr(10)) . Chr(10)
+}
+else
+{
+semiColonForOneLinerOut .= A_LoopField . Chr(10)
+}
+
+}
+StringTrimRight, code, semiColonForOneLinerOut, 1
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
 
 if (langToConvertTo = langFileExtension_2)
 {
@@ -11156,6 +13864,88 @@ if (langToConvertTo != "py") and (langToConvertTo != "nim") and (usePythonicColo
 
 if (useCurlyBraces = "on")
 {
+
+fixSomeCurlyBraceForExratFlexability := ""
+str1 := ""
+Loop, Parse, code, `n, `r
+{
+str1 := ""
+if (InStr(A_LoopField, keyWordCurlyBraceOpen)) or (InStr(A_LoopField, keyWordCurlyBraceClose))
+{
+
+if (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) = Trim(keyWordComment)) and (isLineAconstruct(Trim(A_LoopField)) = false)
+{
+fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
+}
+else
+{
+
+
+if (InStr(A_LoopField, Trim(keyWordArrayDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfIntegersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfStringsDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfBooleansDefinition) . " " . keyWordAssign . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
+{
+fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
+}
+else
+{
+
+str1 := StrReplace(A_LoopField, keyWordCurlyBraceOpen, "{")
+str1 := StrReplace(str1, keyWordCurlyBraceClose, "}")
+str1 := StrReplace(str1, "{", Chr(10) . "{" . Chr(10))
+str1 := StrReplace(str1, "}", Chr(10) . "}" . Chr(10))
+
+fixSomeCurlyBraceForExratFlexability .= str1 . Chr(10)
+
+}
+
+}
+}
+else
+{
+fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
+}
+}
+StringTrimRight, code, fixSomeCurlyBraceForExratFlexability, 1
+fixSomeCurlyBraceForExratFlexabilityTriHELP := ""
+Loop, Parse, code, `n, `r
+{
+fixSomeCurlyBraceForExratFlexabilityTriHELP .= Trim(A_LoopField) . Chr(10)
+}
+StringTrimRight, code, fixSomeCurlyBraceForExratFlexabilityTriHELP, 1
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+if (langToConvertTo != langFileExtension_2)
+{
+; GUI
+; GUI
+; GUI
+if (langToConvertTo = "js") and (InStr(Trim(code), "gui"))
+{
+code := guiParser(code)
+}
+; GUI
+; GUI
+; GUI
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; name: subroutine/func for GUI and backend
+if (langToConvertTo != langFileExtension_2)
+{
+if (langToConvertTo = "js") or (langToConvertTo = "py")
+{
+code := initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction(code)
+}
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
 if (keyWordCurlyBraceOpen != "{")
 {
 
@@ -11231,9 +14021,53 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 }
 }
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+if (useCurlyBraces = "on")
+{
+code := fixIfElseIfMultiLineStatement(code)
+int5 := 0
+Loop, Parse, code, `n, `r
+{
+addNoCurlyFixWhenNextLineAfterConstructLookAhead.add(Trim(A_LoopField))
+}
+addNoCurlyFixWhenNextLineAfterConstructLookAhead.add(" ")
+;;;;
+addNoCurlyFixWhenNextLineAfterConstructOut := ""
+
+Loop, Parse, code, `n, `r
+{
+if (isLineAconstruct(Trim(A_LoopField))) and (addNoCurlyFixWhenNextLineAfterConstructLookAhead[A_Index + 1] != "{")
+{
+int5 := 1
+addNoCurlyFixWhenNextLineAfterConstructOut .= A_LoopField . Chr(10) . "{" . Chr(10)
+}
+else
+{
+if (int5 = 1)
+{
+int5 := 0
+addNoCurlyFixWhenNextLineAfterConstructOut .= A_LoopField . Chr(10) . "}" . Chr(10)
+}
+else
+{
+addNoCurlyFixWhenNextLineAfterConstructOut .= A_LoopField . Chr(10)
+}
+
+}
+}
+
+StringTrimRight, code, addNoCurlyFixWhenNextLineAfterConstructOut, 1
+int5 := 0
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 htCodeOutFixEnd := ""
@@ -11330,18 +14164,18 @@ outCodeFixBraces := ""
 Loop, Parse, code, `n, `r
 {
 
-if (InStr(A_LoopField, " " . keyWordAssign . " ")) or (InStr(A_LoopField, " " . keyWordAssignAdd . " ")) or (InStr(A_LoopField, " " . keyWordAssignConcat . " ")) or (InStr(A_LoopField, " " . keyWordAssignSub . " ")) or (InStr(A_LoopField, " " . keyWordAssignMul . " ")) or (InStr(A_LoopField, " " . keyWordAssignDiv . " ")) or (InStr(A_LoopField, " " . keyWordAssignMod . " ")) or (InStr(A_LoopField, " " . keyWordAssignShiftLeft . " ")) or (InStr(A_LoopField, " " . keyWordAssignShiftRight . " ")) or (InStr(A_LoopField, " " . keyWordLogicalAssignShiftRight . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitAnd . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitOr . " ")) or (InStr(A_LoopField, " " . keyWordAssignBitXor . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
+if (InStr(A_LoopField, Trim(keyWordArrayDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfIntegersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfStringsDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfBooleansDefinition) . " " . keyWordAssign . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
 {
 
 if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc)) or (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAsync) . StrLower(keyWordFunc))) = StrLower(keyWordAsync) . StrLower(keyWordFunc))
 {
 
 
-if (InStr(Trim(A_LoopField), "{")) and (Trim(A_LoopField) != "{")
+if (InStr(Trim(A_LoopField), "{")) and (Trim(A_LoopField) != "{") and (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment))
 {
-outCodeFixBraces .= Trim(StrReplace(Trim(A_LoopField), "{", "")) . "`n{`n"
+    outCodeFixBraces .= Trim(StrReplace(Trim(A_LoopField), "{", "")) . "`n{`n"
 }
-else if (InStr(Trim(A_LoopField), "}")) and (Trim(A_LoopField) != "}")
+else if (InStr(Trim(A_LoopField), "}")) and (Trim(A_LoopField) != "}") and (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment))
 {
 outCodeFixBraces .= "}`n" . Trim(StrReplace(Trim(A_LoopField), "}", "")) . Chr(10)
 }
@@ -11360,11 +14194,11 @@ outCodeFixBraces .= Trim(A_LoopField) . Chr(10)
 else
 {
 
-if (InStr(Trim(A_LoopField), "{")) and (Trim(A_LoopField) != "{")
+if (InStr(Trim(A_LoopField), "{")) and (Trim(A_LoopField) != "{") and (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment))
 {
 outCodeFixBraces .= Trim(StrReplace(Trim(A_LoopField), "{", "")) . "`n{`n"
 }
-else if (InStr(Trim(A_LoopField), "}")) and (Trim(A_LoopField) != "}")
+else if (InStr(Trim(A_LoopField), "}")) and (Trim(A_LoopField) != "}") and (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment))
 {
 outCodeFixBraces .= "}`n" . Trim(StrReplace(Trim(A_LoopField), "}", "")) . Chr(10)
 }
@@ -11403,6 +14237,7 @@ htCodeOutFixEnd .= A_LoopField . Chr(10)
 
 StringTrimRight, code, htCodeOutFixEnd, 1
 }
+
 
 
 
@@ -11518,7 +14353,10 @@ StringTrimRight, code, codeOutFixAndAddMainFunc, 1
 ; main loop
 }
 
-
+if (useCurlyBraces = "off")
+{
+code := fixIfElseIfMultiLineStatement(code)
+}
 
 Loop, Parse, code, `n, `r
 {
@@ -11541,7 +14379,6 @@ htCode := ""
 Loop, Parse, code, `n, `r
 {
 lineDone := 0
-
 if (SubStr(A_LoopField, 1, StrLen(keyWordComment)) = keyWordComment)
 {
 lineDone := 1
@@ -11596,6 +14433,11 @@ htCode .= "//" . str1 . Chr(10)
 if (langToConvertTo = "groovy") {
 htCode .= "//" . str1 . Chr(10)
 }
+}
+else if (InStr(A_LoopField, "guiInit(")) or (InStr(A_LoopField, "guiAdd(")) or (InStr(A_LoopField, "guiAddElement(")) or (InStr(A_LoopField, "guiControl(")) or (InStr(A_LoopField, "HTVM_init(")) or (InStr(A_LoopField, "HTVM_register(")) or (InStr(A_LoopField, "HTVM_custom_port(")) and (lineDone = 0)
+{
+lineDone := 1
+htCode .= Trim(expressionParserTranspiler(Trim(A_LoopField))) . Chr(10)
 }
 else if (Trim(A_LoopField) = keyWordCommentOpenMultiLine)
 {
@@ -11714,18 +14556,18 @@ strOspHold := StrReplace(str1, "_", ".")
 
 if (langToConvertTo = langFileExtension_2) 
 {
-htCode .= keyWordDefObj_2 . StrReplace(str1, "_", ".") . Chr(10) . "{" . Chr(10)
+htCode .= keyWordStruct_2 . StrReplace(str1, "_", ".") . Chr(10) . "{" . Chr(10)
 }
 
 
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordDefObj))) = StrLower(keyWordDefObj))
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordStruct))) = StrLower(keyWordStruct))
 {
 lineDone := 1
-str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordDefObj)))
+str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordStruct)))
 if (langToConvertTo = langFileExtension_2) 
 {
-htCode .= Trim(keyWordDefObj_2) . " " . str0 . Chr(10)
+htCode .= Trim(keyWordStruct_2) . " " . str0 . Chr(10)
 }
 
 }
@@ -11787,10 +14629,10 @@ htCode .= propHELP(str1, StrReplace(str20, ".", "_") . "_") . Chr(10)
 
 
 }
-else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordMethod))) = StrLower(keyWordMethod))
+else if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordProc))) = StrLower(keyWordProc))
 {
 lineDone := 1
-str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordMethod)))
+str0 := Trim(StringTrimLeft(A_LoopField, StrLen(keyWordProc)))
 str1 := Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 1))
 str20 := Trim(StrSplit(str0, "-----------------------HTVM-OSP-HTVM-OBJ--------------", 2))
 
@@ -11804,7 +14646,7 @@ Loop, Parse, str16, " "
 str17 := Trim(A_LoopField)
 }
 
-; last word aka the method name
+; last word aka the proc name
 ;str17
 
 str15 := StrReplace(str20 . "_" . str17, "_", ".")
@@ -11851,19 +14693,19 @@ str3 := Trim(str3)
     if (langToConvertTo = langFileExtension_2) {
         if (int1 = 1) { ; int1 1 = is async 0 = not async
             if (usePrefixTypeForTypeDefinition_2 = "on") {
-                htCode .= keyWordAsync_2 . keyWordMethod_2 . getFuncTypeConvert(str3) . " " . str2 . "(" . keyWordThis_2 . ")" . Chr(10)
+                htCode .= keyWordAsync_2 . keyWordProc_2 . getFuncTypeConvert(str3) . " " . str2 . "(" . keyWordThis_2 . ")" . Chr(10)
             } else {
-                htCode .= keyWordAsync_2 . keyWordMethod_2 . str2 . "(" . keyWordThis_2 . "): " . getFuncTypeConvert(str3) . Chr(10)
+                htCode .= keyWordAsync_2 . keyWordProc_2 . str2 . "(" . keyWordThis_2 . "): " . getFuncTypeConvert(str3) . Chr(10)
             }
         } else {
             if (usePrefixTypeForTypeDefinition_2 = "on") {
-                htCode .= keyWordMethod_2 . getFuncTypeConvert(str3) . " " . str2 . "(" . keyWordThis_2 . ")" . Chr(10)
+                htCode .= keyWordProc_2 . getFuncTypeConvert(str3) . " " . str2 . "(" . keyWordThis_2 . ")" . Chr(10)
             } else {
-                htCode .= keyWordMethod_2 . str2 . "(" . keyWordThis_2 . "): " . getFuncTypeConvert(str3) . Chr(10)
+                htCode .= keyWordProc_2 . str2 . "(" . keyWordThis_2 . "): " . getFuncTypeConvert(str3) . Chr(10)
             }
         }
     }
-
+availableFuncsInHTVMInHTVM .= str15 . Chr(10)
 if (langToConvertTo = "cpp") {
     htCode .= getFuncTypeConvert(str3) . " " . str15 . "(std::string osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
 }
@@ -11876,7 +14718,17 @@ if (langToConvertTo = "js") {
     if (int1 = 1) { ; int1 1 = is async, 0 = not async
         htCode .= "async function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
     } else {
-        htCode .= "function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
+    
+    if (useJavaScriptAllFuncsAreAsync = "on")
+    {
+        htCode .= "async function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)
+    }
+    else
+    {
+        htCode .= "function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword = " . Chr(34) . Chr(34) . ")" . Chr(10)    
+    }
+    
+
     }
 }
 
@@ -11958,7 +14810,16 @@ if (langToConvertTo = "dart")
 }
 if (langToConvertTo = "ts")
 {
-    htCode .= "function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " . Chr(34) . Chr(34) . "): " . getFuncTypeConvert(str3) . Chr(10)
+    if (useJavaScriptAllFuncsAreAsync = "off")
+    {
+    htCode .= "function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " . Chr(34) . Chr(34) . "): " . getFuncTypeConvert(str3) . Chr(10)    
+    }
+    else
+    {
+    htCode .= "async function " . str15 . "(osp_osp_this_keyword_htvm_osp_this_htvm_keyword: string = " . Chr(34) . Chr(34) . "): " . getFuncTypeConvert(str3) . Chr(10)    
+    }
+
+
 }
 if (langToConvertTo = "groovy")
 {
@@ -13089,7 +15950,7 @@ if (langToConvertTo = "groovy") {
 htCode .= "continue;`n"
 }
 }
-else if (StrLower(A_LoopField) = "::" . keyWordContinue)
+else if (StrLower(A_LoopField) = "::" . keyWordContinue) or (StrLower(A_LoopField) = "::" . keyWordContinue . ";")
 {
 lineDone := 1
 if (langToConvertTo = langFileExtension_2) 
@@ -13891,7 +16752,7 @@ htCode .= htCodeLoopfixa1 . Chr(10) . var1out . Chr(10)
 }
 else if (SubStrLastChars(Trim(A_LoopField), StrLen(keyWordInc)) = keyWordInc) or (SubStrLastChars(Trim(A_LoopField), StrLen(keyWordInc . ";")) = keyWordInc . ";") and (lineDone = 0)
 {
-if (useSemicolon = "on")
+if (useSemicolon = "on") or (SubStrLastChars(Trim(A_LoopField), 1) = ";")
 {
 str1 := Trim(StringTrimRight(Trim(A_LoopField), StrLen(keyWordInc . ";")))
 }
@@ -13899,6 +16760,8 @@ else
 {
 str1 := Trim(StringTrimRight(Trim(A_LoopField), StrLen(keyWordInc)))
 }
+
+str1 := Trim(expressionParserTranspiler(str1))
 
 if (langToConvertTo = langFileExtension_2) 
 {
@@ -13964,7 +16827,7 @@ if (langToConvertTo = "groovy") {
 }
 else if (SubStrLastChars(Trim(A_LoopField), StrLen(keyWordDec)) = keyWordDec) or (SubStrLastChars(Trim(A_LoopField), StrLen(keyWordDec . ";")) = keyWordDec . ";") and (lineDone = 0)
 {
-if (useSemicolon = "on")
+if (useSemicolon = "on") or (SubStrLastChars(Trim(A_LoopField), 1) = ";")
 {
 str1 := Trim(StringTrimRight(Trim(A_LoopField), StrLen(keyWordDec . ";")))
 }
@@ -13972,6 +16835,8 @@ else
 {
 str1 := Trim(StringTrimRight(Trim(A_LoopField), StrLen(keyWordDec)))
 }
+
+str1 := Trim(expressionParserTranspiler(str1))
 
 if (langToConvertTo = langFileExtension_2) 
 {
@@ -14149,7 +17014,7 @@ int1 := 0
 str1 := Trim(StringTrimLeft(A_LoopField, StrLen(StrLower(keyWordFunc))))
 }
 
-if (langToConvertTo != "cpp") and (langToConvertTo != "go") and (langToConvertTo != "cs") and (langToConvertTo != "java") and (langToConvertTo != "kt") and (langToConvertTo != "nim") and (langToConvertTo != "swift") and (langToConvertTo != "dart") and (langToConvertTo != "ts")
+if (langToConvertTo != langFileExtension_2) and (langToConvertTo != "cpp") and (langToConvertTo != "go") and (langToConvertTo != "cs") and (langToConvertTo != "java") and (langToConvertTo != "kt") and (langToConvertTo != "nim") and (langToConvertTo != "swift") and (langToConvertTo != "dart") and (langToConvertTo != "ts")
 {
 
 if (str1 != "")
@@ -14173,6 +17038,17 @@ if (InStr(A_LoopField, " := "))
 else if (InStr(A_LoopField, " = "))
 {
     if (InStr(Trim(StrSplit(A_LoopField, " = ", 1)), " ") != true)
+    {
+    str4 .= "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " . A_LoopField . ", "
+    }
+    else
+    {
+    str4 .= A_LoopField . ", "
+    }
+}
+else if (InStr(A_LoopField, " " . Trim(keyWordAssign) . " "))
+{
+    if (InStr(Trim(StrSplit(A_LoopField, " " . Trim(keyWordAssign) . " ", 1)), " ") != true)
     {
     str4 .= "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc " . A_LoopField . ", "
     }
@@ -14208,11 +17084,15 @@ str2 := Trim(StrSplit(str1, "(", 1))
 str1 := Trim(StringTrimLeft(str1, StrLen(str2)))
 StringTrimRight, str1, str1, 1
 
+
 ; type of the func
 str3 := Trim(StringTrimRight(str2, StrLen(StrSplit(str2, " ", countChars(str2, " ") + 1))))
 
 ; name of func
 str2 := Trim(StrSplit(str2, " ", countChars(str2, " ") + 1))
+
+
+
 }
 if (usePostfixTypeForTypeDefinition = "on")
 {
@@ -14249,7 +17129,7 @@ if (Trim(str1) = "") {
             }
         }
     }
-
+availableFuncsInHTVMInHTVM .= str2 . Chr(10)
 if (langToConvertTo = "cpp") {
     htCode .= getFuncTypeConvert(str3) . " " . str2 . "()" . Chr(10)
 }
@@ -14262,7 +17142,17 @@ if (langToConvertTo = "js") {
     if (int1 = 1) { ; int1 1 = is async, 0 = not async
         htCode .= "async function " . str2 . "()" . Chr(10)
     } else {
-        htCode .= "function " . str2 . "()" . Chr(10)
+    
+    if (useJavaScriptAllFuncsAreAsync = "on")
+    {
+        htCode .= "async function " . str2 . "()" . Chr(10)
+    }
+    else
+    {
+        htCode .= "function " . str2 . "()" . Chr(10)    
+    }
+    
+
     }
 }
 
@@ -14345,7 +17235,17 @@ if (langToConvertTo = "ts")
     if (int1 = 1) { ; int1 1 = is async, 0 = not async
         htCode .= "async function " . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
     } else {
-        htCode .= "function " . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
+    
+    if (useJavaScriptAllFuncsAreAsync = "on")
+    {
+        htCode .= "async function " . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)
+    }
+    else
+    {
+        htCode .= "function " . str2 . "(): " . getFuncTypeConvert(str3) . Chr(10)    
+    }
+    
+
     }
 }
 
@@ -15154,7 +18054,7 @@ str11 := str14
             }
         }
     }
-
+availableFuncsInHTVMInHTVM .= str2 . Chr(10)
 if (langToConvertTo = "cpp") {
     htCode .= getFuncTypeConvert(str3) . " " . str2 . "(" . str11 . ")" . Chr(10)
 }
@@ -15167,7 +18067,17 @@ if (langToConvertTo = "js") {
     if (int1 = 1) { ; int1 1 = is async, 0 = not async
         htCode .= "async function " . str2 . "(" . str11 . ")" . Chr(10)
     } else {
-        htCode .= "function " . str2 . "(" . str11 . ")" . Chr(10)
+    
+    if (useJavaScriptAllFuncsAreAsync = "on")
+    {
+        htCode .= "async function " . str2 . "(" . str11 . ")" . Chr(10)
+    }
+    else
+    {
+        htCode .= "function " . str2 . "(" . str11 . ")" . Chr(10)    
+    }
+    
+
     }
 }
 
@@ -15247,7 +18157,23 @@ if (langToConvertTo = "dart")
 }
 if (langToConvertTo = "ts")
 {
-    htCode .= "function " . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)
+
+    if (int1 = 1) { ; int1 1 = is async, 0 = not async
+        htCode .= "async function " . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)    
+    }
+    else
+    {
+
+    if (useJavaScriptAllFuncsAreAsync = "on")
+    {
+        htCode .= "async function " . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)
+    }
+    else
+    {
+        htCode .= "function " . str2 . "(" . str11 . "): " . getFuncTypeConvert(str3) . Chr(10)    
+    }
+}
+
 }
 if (langToConvertTo = "groovy")
 {
@@ -15447,11 +18373,171 @@ str1 := Trim(str1)
 ALoopField := str1
 
 
-if (InStr(ALoopField, " ") = false)
+if (InStr(ALoopField, " ") = false) or (SubStrLastChars(ALoopField, 1) = "]")
 {
 lineDone := 1
+if (langToConvertTo != langFileExtension_2)
+{
 str1 := StrReplace(Trim(str1), ".", "_")
+}
 str6 := allVarsSoWeDontReDecVarsFixFunc(str6, str1)
+
+
+
+
+
+if (InStr(saveAllArrayVarNamesSoWeCanDoAfix, "|" . Trim(str1) . "|"))
+{
+
+
+str6 := Trim(str6)
+if (SubStr(str6, 1, 1) = "[") or (SubStr(str6, 1, 1) = "{")
+{
+StringTrimRight, str6, str6, 1
+StringTrimLeft, str6, str6, 1
+
+
+if (langToConvertTo = "cpp") 
+{
+str6 := "{" . str6 . "}"
+}
+if (langToConvertTo = "py") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "js") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "go") {
+str6 := "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" . str6 . "]"
+}
+if (langToConvertTo = "lua") {
+str6 := "{" . str6 . "}"
+}
+if (langToConvertTo = "cs") {
+str6 := "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" . str6 . "]"
+}
+if (langToConvertTo = "java") {
+str6 := "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" . str6 . "]"
+}
+if (langToConvertTo = "kt") {
+str6 := "THIS IS NOT POSSIBLE MAYBE TRY TO RESET THE ARRAY AND THEN PUSH INTO IT[" . str6 . "]"
+}
+if (langToConvertTo = "rb") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "nim") {
+str6 := "@[" . str6 . "]"
+}
+if (langToConvertTo = "ahk") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "swift") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "dart") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "ts") {
+str6 := "[" . str6 . "]"
+}
+if (langToConvertTo = "groovy") {
+str6 := "[" . str6 . "]"
+}
+}
+
+
+
+
+}
+
+
+
+if (Trim(str6) = "[]") or (Trim(str6) = "{}")
+{
+
+if (useCurlyBracesSyntaxForArrayDef_2 = "on") and (langToConvertTo = langFileExtension_2)
+{
+str6 := "{}"
+}
+else
+{
+str6 := "[]"
+}
+
+
+
+
+
+
+
+
+
+
+if (langToConvertTo = "cpp") 
+{
+str6 := "{}"
+}
+if (langToConvertTo = "py") {
+str6 := "[]"
+}
+if (langToConvertTo = "js") {
+str6 := "[]"
+}
+if (langToConvertTo = "go") {
+str6 := Trim(str1) . "[:0]"
+}
+if (langToConvertTo = "lua") {
+str6 := "{}"
+}
+if (langToConvertTo = "cs") {
+str6 := "ResetList(" . Trim(str1) . ")"
+}
+if (langToConvertTo = "java") {
+str6 := "new ArrayList<>()"
+}
+if (langToConvertTo = "kt") {
+str6 := "ArrayList()"
+}
+if (langToConvertTo = "rb") {
+str6 := "[]"
+}
+if (langToConvertTo = "nim") {
+str6 := "@[]"
+}
+if (langToConvertTo = "ahk") {
+str6 := "[]"
+}
+if (langToConvertTo = "swift") {
+str6 := "[]"
+}
+if (langToConvertTo = "dart") {
+str6 := "[]"
+}
+if (langToConvertTo = "ts") {
+str6 := "[]"
+}
+if (langToConvertTo = "groovy") {
+str6 := "[]"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;
 
 if (langToConvertTo = langFileExtension_2) 
 {
@@ -15485,6 +18571,12 @@ str4 := str1 . " " . str12 . " " . str6 . ";"
 }
 if (langToConvertTo = "java") {
 
+if (Trim(str6) = "[]") or (Trim(str6) = "{}")
+{
+str4 := str1 . " " . str12 . " " . str6 . ";"
+}
+else
+{
 if (InStr(str1, "["))
 {
 ; Convert arr[something] to arr.set(something, value);
@@ -15494,6 +18586,7 @@ str4 := str1 . str6 . ");"
 else
 {
 str4 := str1 . " " . str12 . " " . str6 . ";"
+}
 }
 
 }
@@ -15569,7 +18662,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 
 int5 := 0
@@ -15612,15 +18705,15 @@ str6 := "[" . str6 . "]"
 }
    if (useSemicolon_2 = "on") {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
-            str4 := keyWordConst_2 . " " . str3 . " " . str2 . " " . str11 . " " . str6 . ";"
+            str4 := Trim(keyWordConst_2) . " " . str3 . " " . str2 . " " . str11 . " " . str6 . ";"
         } else {
-            str4 := keyWordConst_2 . " " . str2 . ": " . str3 . " " . str11 . " " . str6 . ";"
+            str4 := Trim(keyWordConst_2) . " " . str2 . ": " . str3 . " " . str11 . " " . str6 . ";"
         }
     } else {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
-            str4 := keyWordConst_2 . " " . str3 . " " . str2 . " " . str11 . " " . str6
+            str4 := Trim(keyWordConst_2) . " " . str3 . " " . str2 . " " . str11 . " " . str6
         } else {
-            str4 := keyWordConst_2 . " " . str2 . ": " . str3 . " " . str11 . " " . str6
+            str4 := Trim(keyWordConst_2) . " " . str2 . ": " . str3 . " " . str11 . " " . str6
         }
     }
 }
@@ -15753,11 +18846,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -15777,11 +18870,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -15860,15 +18953,15 @@ str6 := allVarsSoWeDontReDecVarsFixFunc(str6, str2)
 if (langToConvertTo = langFileExtension_2) {
    if (useSemicolon_2 = "on") {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
-            str4 := keyWordConst_2 . " " . str3 . " " . str2 . " " . str11 . " " . str6 . ";"
+            str4 := Trim(keyWordConst_2) . " " . str3 . " " . str2 . " " . str11 . " " . str6 . ";"
         } else {
-            str4 := keyWordConst_2 . " " . str2 . ": " . str3 . " " . str11 . " " . str6 . ";"
+            str4 := Trim(keyWordConst_2) . " " . str2 . ": " . str3 . " " . str11 . " " . str6 . ";"
         }
     } else {
         if (usePrefixTypeForTypeDefinition_2 = "on") {
-            str4 := keyWordConst_2 . " " . str3 . " " . str2 . " " . str11 . " " . str6
+            str4 := Trim(keyWordConst_2) . " " . str3 . " " . str2 . " " . str11 . " " . str6
         } else {
-            str4 := keyWordConst_2 . " " . str2 . ": " . str3 . " " . str11 . " " . str6
+            str4 := Trim(keyWordConst_2) . " " . str2 . ": " . str3 . " " . str11 . " " . str6
         }
     }
 }
@@ -16004,7 +19097,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -16187,11 +19280,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -16211,11 +19304,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -16442,7 +19535,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -16626,11 +19719,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -16650,11 +19743,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -16863,7 +19956,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -17046,11 +20139,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -17070,11 +20163,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -17278,7 +20371,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 int5 := 0
 if (useCurlyBracesSyntaxForArrayDef = "on")
@@ -17462,11 +20555,11 @@ if (langToConvertTo = "kt")
 {
 if (int5 != 0)
 {
-str4 := "val " . str2 . " = arrayListOf(" . str6 . ")"
+str4 := "var " . str2 . " = arrayListOf(" . str6 . ")"
 }
 else
 {
-str4 := "val " . str2 . " = " . str6
+str4 := "var " . str2 . " = " . str6
 }
 
 }
@@ -17486,11 +20579,11 @@ if (langToConvertTo = "nim")
 {
 if (int5 != 0)
 {
-str4 := "let " . str2 . ": " . str3 . " = @[" . str6 . "]"
+str4 := "var " . str2 . ": " . str3 . " = @[" . str6 . "]"
 }
 else
 {
-str4 := "let " . str2 . ": " . str3 . " = " . str6
+str4 := "var " . str2 . ": " . str3 . " = " . str6
 }
 
 }
@@ -17756,7 +20849,7 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -17827,7 +20920,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -18308,7 +21401,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -18378,7 +21471,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -18838,7 +21931,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -18910,7 +22003,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -19367,7 +22460,7 @@ allVarsSoWeDontReDecVars.add(str2)
 
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
-
+saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
 str3 := getFuncTypeConvert(str3)
 if (langToConvertTo = langFileExtension_2) {
 
@@ -19441,7 +22534,7 @@ str4 := "static " . str3 . " " . str2 . " = new ArrayList<>();"
 }
 if (langToConvertTo = "kt")
 {
-str4 := "val " . str2 . " = " . str3 . "()"
+str4 := "var " . str2 . " = " . str3 . "()"
 }
 if (langToConvertTo = "rb")
 {
@@ -19924,6 +23017,43 @@ str2 := expressionParserTranspiler(Trim(str1)) . ";"
 fixExpertionLineFuncOnly := 0
 htCode .= str2 . Chr(10)
 }
+else if (RegExMatch(A_LoopField, "\.[a-zA-Z_][a-zA-Z0-9_]*")) and (lineDone = 0)
+{
+lineDone := 1
+str1 := Trim(A_LoopField)
+
+
+if (SubStrLastChars(str1, 1) = ";")
+{
+StringTrimRight, str1, str1, 1
+}
+if (langToConvertTo != langFileExtension_2)
+{
+
+if (langToConvertTo = "py") or (langToConvertTo = "nim") or (langToConvertTo = "ahk") or (langToConvertTo = "go") or (langToConvertTo = "lua") or (langToConvertTo = "kt") or (langToConvertTo = "rb") or (langToConvertTo = "swift") or (langToConvertTo = "groovy") 
+{
+htCode .= expressionParserTranspiler(extraFlexableFuncCalls(str1, availableFuncsInHTVMInHTVM)) . Chr(10)
+}
+else
+{
+htCode .= expressionParserTranspiler(extraFlexableFuncCalls(str1, availableFuncsInHTVMInHTVM)) . ";" . Chr(10)
+}
+
+
+}
+else
+{
+if (useSemicolon_2 = "on")
+{
+htCode .= str1 . "; " . Chr(10)
+}
+else
+{
+htCode .= str1 . Chr(10)
+}
+}
+
+}
 else if (KeyWordsCommands(A_LoopField, "check", commands, langToConvertTo) = "true") and (lineDone = 0)
 {
 lineDone := 1
@@ -20166,7 +23296,7 @@ ALoopField := A_LoopField
 
 
 ; Replace "A_Index" with or without a following digit with "A_Index" + out1z
-ALoopField := RegExReplace(ALoopField, "" . keyWordAIndex . "\d*", "" . keyWordAIndex . "" . out1z)
+ALoopField := RegExReplace(ALoopField, "\b" . keyWordAIndex . "\d*\b", "" . keyWordAIndex . "" . out1z)
 
 
 
@@ -20332,9 +23462,9 @@ if (inTarget = 1) and (dontSaveStr != 1) and (fixLoopLokingForNum != 1) and (ins
 ALoopField := A_LoopField
 
 ; Replace "A_Index" with or without a following digit with "A_Index" + out1z
-ALoopField := RegExReplace(ALoopField, "" . keyWordAIndex . "\d*", "" . keyWordAIndex . "" . out1z)
+ALoopField := RegExReplace(ALoopField, "\b" . keyWordAIndex . "\d*\b", "" . keyWordAIndex . "" . out1z)
 ; Replace "A_Index" with or without a following digit with "A_Index" + out1z
-ALoopField := RegExReplace(ALoopField, "" . keyWordALoopField . "\d*", "" . keyWordALoopField . "" . out1z)
+ALoopField := RegExReplace(ALoopField, "\b" . keyWordALoopField . "\d*\b", "" . keyWordALoopField . "" . out1z)
 
 
 
@@ -21373,7 +24503,39 @@ if (COUNT_programmingBlock_HTVM != 0)
 
 
 
+if (langToConvertTo != langFileExtension_2)
+{
 
+
+
+Loop, % theIdNumOfThe34 {
+    if (theIdNumOfThe34 = A_Index + 1) {
+        if (langToConvertTo = langFileExtension_2) {
+            if (keyWordEscpaeChar_2 = "\") and (keyWordEscpaeChar != "\") {
+                htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), "\", "\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) . Chr(34))
+            } else {
+                htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, keyWordEscpaeChar_2) . Chr(34))
+            }
+        } else {
+            htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, "\") . Chr(34))
+        }
+    } else {
+        if (langToConvertTo = langFileExtension_2) {
+            if (keyWordEscpaeChar_2 = "\") and (keyWordEscpaeChar != "\") {
+                htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), "\", "\\"), keyWordEscpaeChar, keyWordEscpaeChar_2))
+            } else {
+                htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, keyWordEscpaeChar_2))
+            }
+        } else {
+            htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, "\"))
+        }
+    }
+}
+
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 
@@ -21628,7 +24790,7 @@ else
     {
     if (useJavaScriptInAfullHTMLfile = "on")
     {
-    htCode := allLibsToPutAtTop . Chr(10) . allFuncsToPutAtTop . Chr(10) . htCode
+    htCode := Chr(10) . allFuncsToPutAtTop . Chr(10) . htCode
     }
     else
     {
@@ -21679,10 +24841,14 @@ str00 := ospDic1[A_Index]
 
 if (langToConvertTo = "rb")
 {
+if (SubStr(Trim(htCode), 1, 1) != "$")
+{
 htCode := StrReplace(htCode, StrReplace(str00, "_", "_") . "_", "$" . str00 . "_")
 }
 }
 }
+}
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -21711,12 +24877,31 @@ if (size_ospDic2 != 0) {
     }
 }
 
+availableFuncsInHTVMInHTVM := ""
+saveAllArrayVarNamesSoWeCanDoAfix := ""
+
 if (langToConvertTo = "rb")
 {
 htCode := FixRubyGlobalVars(htCode)
 }
 
 htCode := StrReplace(htCode, "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc ", "")
+
+if (langToConvertTo = "rb")
+{
+htCode := StrReplace(htCode, "$$", "$")
+htCode := StrReplace(htCode, "$$", "$")
+htCode := StrReplace(htCode, "$$", "$")
+}
+
+
+if (langToConvertTo = "java")
+{
+htCode := StrReplace(htCode, "= [);", "= new ArrayList<>();")
+
+}
+
+
 
 
 Loop, % theIdNumOfThe34 {
@@ -21791,9 +24976,16 @@ htCode := "import Foundation" . Chr(10) . htCode
 
 
 
-
 if (langToConvertTo = langFileExtension_2)
 {
+
+Loop, weAreInMLSarr.size()
+{
+htCode := StrReplace(htCode, "aejsoydoxubviycbdgsut7eoy-ihsxbvhowadesdio6376e7wuwyuau--szd--AA" . STR(A_Index) . "AA", weAreInMLSarr[A_Index])
+}
+
+
+
 if (SubStr(htCode, 1, 1) = Chr(10))
 {
 StringTrimLeft, htCode, htCode, 1
@@ -21801,7 +24993,24 @@ StringTrimLeft, htCode, htCode, 1
 }
 
 }
+weAreInMLSarr.add("end")
+int size_weAreInMLSarr := weAreInMLSarr.size()
+if (size_weAreInMLSarr != 0) {
+    Loop, % size_weAreInMLSarr {
+        weAreInMLSarr.pop()
+    }
+}
 
+
+if (initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction_WAS_IN_PYTHON = 1)
+{
+htCode := htCode . Chr(10) . Chr(10) . "if __name__ == " . Chr(34) . "__main__" . Chr(34) . ":" . Chr(10) . "    # --- Cleaned up startup messages ---" . Chr(10) . "    # print(f" . Chr(34) . "--- Flask Routes ---" . Chr(34) . ") # REMOVED" . Chr(10) . "    # print(app.url_map) # REMOVED" . Chr(10) . "    # print(f" . Chr(34) . "--------------------" . Chr(34) . ") # REMOVED" . Chr(10) . "    # print(f" . Chr(34) . "Starting server on http://0.0.0.0:{HTVM_server_port_HTVM}" . Chr(34) . ") # REMOVED" . Chr(10) . "    " . Chr(10) . "    # KEEP This specific message:" . Chr(10) . "    print(f" . Chr(34) . "Root '/' will attempt to serve './{HTVM_DEFAULT_FILE_HTVM}' as configured." . Chr(34) . ")" . Chr(10) . "    " . Chr(10) . "    # print(" . Chr(34) . "Endpoints /hello and /goodbye (POST) expect PLAIN TEXT input and return PLAIN TEXT." . Chr(34) . ") # REMOVED" . Chr(10) . "" . Chr(10) . "    # Standard app run" . Chr(10) . "    app.run(host=" . Chr(34) . "0.0.0.0" . Chr(34) . ", port=HTVM_server_port_HTVM, debug=True)"
+}
+
+initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction_WAS_IN_PYTHON := 0
+
+htCode := StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI", "{")
+htCode := StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI", "}")
 
 ;print(htCode)
 return htCode

@@ -1,0 +1,11 @@
+; Infinite Loop example
+Loop {
+    if (A_Index = 5) {
+        ; Exit the loop when A_Index is 5
+        break
+    }
+    else {
+        ; Print the current value of A_Index
+        print(A_Index)
+    }
+}

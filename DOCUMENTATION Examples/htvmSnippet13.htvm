@@ -1,0 +1,4 @@
+; Open a programming block for C++
+___cpp start
+// Write C++ code here
+___cpp end

@@ -1,0 +1,48 @@
+; --- Callbacks ---
+ButtonClicked:
+; Use A_Id to identify which button was clicked
+await MsgBox("You clicked on button with ID: " . A_Id)
+subout
+; --- Main Setup ---
+main
+columns := 3
+rows := 3
+btnWidth := 140
+btnHeight := 40
+gap := 10
+startX := 10
+startY := 10
+str gridContainerId := "gridContainer"
+containerW := startX + (columns * btnWidth) + ((columns - 1) * gap) + startX
+containerH := startY + (rows * btnHeight) + ((rows - 1) * gap) + startY
+str containerW_px := containerW . "px"
+str containerH_px := containerH . "px"
+str btnWidth_px := btnWidth . "px"
+str btnHeight_px := btnHeight . "px"
+str bgColor := "#333"
+; define the grid container
+gui id:gridContainerId x50% y50% width:containerW_px height:containerH_px backgroundColor:bgColor
+currentX := startX
+currentY := startY
+btnCounter := 0
+Loop, % columns {
+    colIndex := A_Index
+    Loop, % rows {
+        btnCounter++
+        str btnId := "gridBtn" . btnCounter
+        str btnText := "Button" . btnCounter
+        str currentX_px := currentX . "px"
+        str currentY_px := currentY . "px"
+        ; Use {} for better readability for the button options
+        gui {
+            button
+            parentId:gridContainerId, id:btnId
+            x:currentX_px, y:currentY_px, w:btnWidth_px, h:btnHeight_px
+            value:btnText
+            callback:ButtonClicked
+        }
+        currentY := currentY + btnHeight + gap
+    }
+    currentX := currentX + btnWidth + gap
+    currentY := startY
+}

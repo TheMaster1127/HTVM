@@ -1,0 +1,2 @@
+; In JavaScript, this will be an array with mixed types, but HTVM won't warn you
+arr int myArray := [1, "two", 3]

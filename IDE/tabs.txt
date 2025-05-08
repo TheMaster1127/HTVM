@@ -87,7 +87,6 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\HTVM.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm-err-handling.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\src-website\htvm-err-handling.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\property files\js.htpr
-C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile638232.ht
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile638232.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile638232.py
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-Game\game.ht
@@ -116,3 +115,16 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\web-ui\web-ide\index.h
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile922459.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile922459.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile922459.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile664801.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile587346.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile587346.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile587346.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile202742.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile202742.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile406314.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile406314.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\IDE\temp files\newfile406314.js
+C:\Users\The_M\OneDrive\Desktop\temp Projects\MY AI CHATBOT\gemini2.5-pro.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\EXTREME-HTVM-TESTING\EXTREME-HTVM-TESTING.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\EXTREME-HTVM-TESTING\EXTREME-HTVM-TESTING.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\EXTREME-HTVM-TESTING\EXTREME-HTVM-TESTING.js

@@ -1,0 +1,10 @@
+main
+  ; Define text content in variable as it might contain spaces
+  str containerId := "mainContainer"
+
+  ; Hardcode dimensions and colors directly
+  gui id:containerId width:"500px" height:"700px" backgroundColor:"#121212"
+
+  ; Add elements inside, hardcoding simple positions/sizes
+  gui text parentId:containerId x:"10px" y:"10px" value:"This text is inside" color:"white"
+  gui button parentId:containerId x:"10px" y:"60px" width:"80%" height:"50px" value:"Wide Button"

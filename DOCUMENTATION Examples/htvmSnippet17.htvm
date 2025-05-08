@@ -1,0 +1,8 @@
+int myNumber := 5
+
+___py start
+myNumber += 10
+___py end
+
+; Will print 15 in Python
+print(myNumber)  

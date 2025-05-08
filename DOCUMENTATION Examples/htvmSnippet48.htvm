@@ -1,0 +1,33 @@
+; Regular loop example
+Loop, 10 {
+    if (A_Index % 2 = 0) {
+        continue 
+    }
+    ; Output only odd numbers from 1 to 9
+    print(A_Index)  
+    ::continue
+}
+print("=====================")
+; Infinite loop example
+Loop {
+    if (A_Index % 2 = 0) {
+        continue 
+    }
+    ; Output only odd numbers from 1 to 9
+    print(A_Index)
+    if (A_Index = 9) {
+        break
+    }
+    ::continue
+}
+print("=====================")
+; Loop, Parse loop example
+str var1 := "hello whats up bro how are you doing"
+Loop, Parse, var1, " " {
+    if (A_LoopField = "bro") {
+        continue
+    }
+    ; 3 will never print
+    print(A_Index)
+    ::continue
+}

@@ -1268,9 +1268,16 @@ Loop, 5 {
         // Concatenate everything into htvm_instr with a newline between the two parts
         const htvm_instr = linesString + '\n' + (build_in_funcs || '');
 
+
+
         // Now you have the full instruction string in htvm_instr
         OUTCODE = "";
         OUTCODE = compiler(fileContents, htvm_instr, "full", selectedLangExtension);
+
+let selectedLangExtensionOLD = selectedLangExtension;
+	if (selectedLangExtension == "js" && htvm_instr.split('\n')[158]?.trim() == "on") {
+		selectedLangExtension = "html";
+	}
 
         resetGlobalVarsOfHTVMjs();
 
@@ -1282,7 +1289,7 @@ Loop, 5 {
 
         logToConsole(`Saved the HTVM output to: ${fileName} at: ${new Date().toLocaleTimeString("en-GB", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })}.${new Date().getMilliseconds().toString().padStart(3, "0")}`);
 
-
+selectedLangExtension = selectedLangExtensionOLD;
 
 
 
@@ -1302,11 +1309,61 @@ Loop, 5 {
 
           // Redirect console.log to also log in the browser
 
-          const originalLog = console.log;
-          console.log = function (...args) {
-            originalLog.apply(console, args);
-            consoleDiv.innerHTML += args.join(" ") + "<br>";
-          };
+const originalLog = console.log;
+console.log = function (...args) {
+  originalLog.apply(console, args);
+
+  let combinedOutput = ''; // Combine all outputs into one string
+
+  args.forEach(arg => {
+    let output;
+
+    if (typeof arg === "object" && arg !== null) {
+      try {
+        output = JSON.stringify(arg, null, 2); // Indented object
+      } catch (e) {
+        output = '[object Object]';
+      }
+    } else {
+      output = String(arg);
+    }
+
+    // Append the output with a newline, but avoid extra newlines
+    combinedOutput += output + '\n';
+  });
+
+  // Find the <pre> tag or create a new one if it doesn't exist
+  let consolePre = document.getElementById('console-log-pre');
+  if (!consolePre) {
+    consolePre = document.createElement('pre');
+    consolePre.id = 'console-log-pre'; // Set an ID for future reference
+    consoleDiv.appendChild(consolePre); // Append it only once
+  }
+
+  // Set the text content of the pre tag and preserve newlines
+  consolePre.textContent += combinedOutput; // Append new output to the existing pre tag
+
+  // Scroll to the bottom of the log
+  consoleDiv.scrollTop = consoleDiv.scrollHeight;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           try {
             new Function(OUTCODE)(); // Execute the generated JS code
@@ -1352,11 +1409,62 @@ Loop, 5 {
         consoleDiv.innerHTML = ""; // Clears the log
         console.clear();
 
-        const originalLog = console.log;
-        console.log = function (...args) {
-          originalLog.apply(console, args);
-          consoleDiv.innerHTML += args.join(" ") + "<br>";
-        };
+
+
+
+
+const originalLog = console.log;
+console.log = function (...args) {
+  originalLog.apply(console, args);
+
+  let combinedOutput = ''; // Combine all outputs into one string
+
+  args.forEach(arg => {
+    let output;
+
+    if (typeof arg === "object" && arg !== null) {
+      try {
+        output = JSON.stringify(arg, null, 2); // Indented object
+      } catch (e) {
+        output = '[object Object]';
+      }
+    } else {
+      output = String(arg);
+    }
+
+    // Append the output with a newline, but avoid extra newlines
+    combinedOutput += output + '\n';
+  });
+
+  // Find the <pre> tag or create a new one if it doesn't exist
+  let consolePre = document.getElementById('console-log-pre');
+  if (!consolePre) {
+    consolePre = document.createElement('pre');
+    consolePre.id = 'console-log-pre'; // Set an ID for future reference
+    consoleDiv.appendChild(consolePre); // Append it only once
+  }
+
+  // Set the text content of the pre tag and preserve newlines
+  consolePre.textContent += combinedOutput; // Append new output to the existing pre tag
+
+  // Scroll to the bottom of the log
+  consoleDiv.scrollTop = consoleDiv.scrollHeight;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         try {
           new Function(openFile.content)();
         } catch (e) {
@@ -1540,8 +1648,8 @@ Loop, 5 {
       commands = "";
       keyWordAlliance = "";
       keyWordCrew = "";
-      keyWordMethod = "";
-      keyWordDefObj = "";
+      keyWordProc = "";
+      keyWordStruct = "";
       keyWordPorp = "";
       keyWordThis = "";
       keyWordInclude = "";
@@ -1705,8 +1813,8 @@ Loop, 5 {
       commands_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
       keyWordAlliance_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
       keyWordCrew_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-      keyWordMethod_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
-      keyWordDefObj_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+      keyWordProc_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
+      keyWordStruct_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
       keyWordPorp_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
       keyWordThis_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";
       keyWordInclude_2 = "awesdgfd-awesrs-awedsfd-aesdg-sc-zsdxfvc-sdfd";

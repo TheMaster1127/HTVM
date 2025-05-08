@@ -1,0 +1,13 @@
+___py start
+from functions import add
+# Alternatively, to import everything directly (use with caution for namespace clarity):
+# from functions import *
+___py end
+main
+; Example call
+print(add(2, 3))
+; or
+add(2, 3).print
+; or
+add(2, 3).print()
+; Showcasing the power of functions called in different ways

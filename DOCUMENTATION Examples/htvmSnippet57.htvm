@@ -1,0 +1,21 @@
+Button0:
+MsgBox("You clicked on " . A_Id)
+subout
+main
+; Define CSS styles in variables
+str buttonStyles := "font-weight:bold;text-transform:uppercase;animation:spin 2s infinite linear;filter:hue-rotate(360deg);text-shadow:0 0 5px red,0 0 10px yellow,0 0 15px lime;"
+str panelId := "styledPanel"
+str buttonId := "styledButton"
+str buttonText := "Styled Button"
+; Create a container styled like a window using rawCss or css alias
+gui {
+    id:panelId x:"50px" y:"50px" w:"400px" h:"200px" backgroundColor:"#EEE"
+    css:"border: 2px solid blue; padding: 15px; box-shadow: 5px 5px 10px #888888;"
+}
+; Add a button inside the panel with additional rawCss styles using the other style []
+gui [
+	button 
+    parentId:panelId
+    x20 y20 w150 h40
+    id:buttonId value:buttonText rawCss:buttonStyles
+]

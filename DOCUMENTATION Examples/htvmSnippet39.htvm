@@ -1,0 +1,6 @@
+; Loop Parse with space delimiter
+str someText := "hello how are you doing today"
+Loop, Parse, someText, " " {
+    ; Output each word in the string separated by spaces
+    print(A_LoopField)
+}

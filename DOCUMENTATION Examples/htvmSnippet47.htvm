@@ -1,0 +1,6 @@
+; Loop example with variable range
+var1 := 5
+Loop, % var1 {
+    ; Output the current iteration
+    print(A_Index)
+}

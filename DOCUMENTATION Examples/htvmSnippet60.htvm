@@ -1,0 +1,10 @@
+; Example backend logic block
+processData:
+; Log to server console (optional)
+print("Backend received: " . A_Input)
+; Leverage Python's string methods directly if needed
+; HTVM won't interfere with '.upper()' as it's not HTVM syntax
+str processed := A_Input.upper()
+str resultString := "Backend processed (uppercase): " . processed
+return resultString
+subout

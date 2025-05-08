@@ -1,0 +1,4 @@
+arr int myArray := [1, 2, 3]
+myArray.add(4)
+; myArray is now [1, 2, 3, 4]
+print(myArray)

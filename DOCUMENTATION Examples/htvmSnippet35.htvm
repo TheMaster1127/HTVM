@@ -1,0 +1,11 @@
+str varName5 := "hi"
+func str funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5) {
+    ; This is how the global keyword works if we convert to Python.
+    ; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
+    global varName5
+    ; this is how the return keyword will look like in your lang
+    return STR(paramVar1)
+}
+; This is where the main function will start. It's just a label, so don't worry.
+main
+print(funcName1(5))

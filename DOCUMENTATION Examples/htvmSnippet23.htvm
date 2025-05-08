@@ -1,0 +1,3 @@
+arr int myArray := [1, 2, 3]
+; returns 3
+print(myArray.size())
