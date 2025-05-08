@@ -1752,7 +1752,7 @@ You’ll need to manually synchronize arrays between programming blocks if neede
 
 ### **Understanding Loops in HTVM**
 
-HTVM supports multiple types of loops, inspired by AutoHotKey (AHK) syntax. These loops are designed to be simple and efficient, offering flexibility for various tasks. Let’s explore the **Regular Loop**, **Loop Parse**, **Infinite Loop**, and the **while** loop.
+HTVM supports multiple types of loops, inspired by AutoHotKey (AHK) syntax. These loops are designed to be simple and efficient, offering flexibility for various tasks. Let’s explore the **Regular Loop**, **Loop Parse**, **Infinite Loop**, and the **while loop**.
 
 **Regular Loop** = `Loop,`
 
@@ -1760,7 +1760,7 @@ HTVM supports multiple types of loops, inspired by AutoHotKey (AHK) syntax. Thes
 
 **Infinite Loop** = `Loop`
 
-**While** loop = `while`
+**While loop** = `while`
 
 **continue** = `continue`
 
