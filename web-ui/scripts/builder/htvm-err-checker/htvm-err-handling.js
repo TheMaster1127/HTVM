@@ -1,6 +1,6 @@
 
 
-function LoopParseFunc(varString, delimiter1="", delimiter2="") {
+function LoopParseFunc(varString, delimiter1 = "", delimiter2 = "") {
     let items;
     if (!delimiter1 && !delimiter2) {
         // If no delimiters are provided, return an array of characters
