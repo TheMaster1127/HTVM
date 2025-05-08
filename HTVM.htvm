@@ -14239,6 +14239,64 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 }
 
 
+htCodeOutFixEnd := ""
+if (usePrefixTypeForTypeDefinition = "on")
+{
+int1 := 0
+int2 := 0
+int3 := 0
+int4 := 0
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+Loop
+{
+
+htCodeOutFixEnd := ""
+Loop, Parse, code, `n, `r
+{
+
+if (SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayDefinition . " ")) = keyWordArrayDefinition . " ") or (SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfIntegersDefinition . " ")) = keyWordArrayOfIntegersDefinition . " ") or (SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfStringsDefinition . " ")) = keyWordArrayOfStringsDefinition . " ") or (SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfFloatingPointNumbersDefinition . " ")) = keyWordArrayOfFloatingPointNumbersDefinition . " ") or (SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfBooleansDefinition . " ")) = keyWordArrayOfBooleansDefinition . " ") and (usePrefixTypeForTypeDefinition = "on") and (SubStrLastChars(Trim(A_LoopField), 1) = "]")
+{
+int1 := 1
+}
+
+if (SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayDefinition . " ")) = keyWordArrayDefinition . " ") or (SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfIntegersDefinition . " ")) = keyWordArrayOfIntegersDefinition . " ") or (SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfStringsDefinition . " ")) = keyWordArrayOfStringsDefinition . " ") or (SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfFloatingPointNumbersDefinition . " ")) = keyWordArrayOfFloatingPointNumbersDefinition . " ") or (SubStr(Trim(ALoopField), 1, StrLen(keyWordArrayOfBooleansDefinition . " ")) = keyWordArrayOfBooleansDefinition . " ") and (usePrefixTypeForTypeDefinition = "on") and (SubStrLastChars(Trim(A_LoopField), 1) != "]")
+{
+print("AAAAAAAA " + A_LoopField)
+if (SubStrLastChars(Trim(A_LoopField), 1) = ",")
+{
+htCodeOutFixEnd .= A_LoopField . " "
+}
+else
+{
+htCodeOutFixEnd .= A_LoopField
+}
+
+}
+else
+{
+htCodeOutFixEnd .= A_LoopField . Chr(10)
+}
+
+
+
+}
+StringTrimRight, code, htCodeOutFixEnd, 1
+if (int1 = 1)
+{
+break
+}
+}
+
+
+}
+
+
+
+
 
 
 ;;; main loop ;;;
