@@ -16297,7 +16297,7 @@ itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", "
 }
 if (langToConvertTo = "js")
 {
-itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ");"
+itemsOut := "let items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ");"
 }
 if (langToConvertTo = "cpp")
 {
@@ -16346,7 +16346,7 @@ if (langToConvertTo = "dart")
 }
 if (langToConvertTo = "ts")
 {
-    itemsOut := "let items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+    itemsOut := "let items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ");"
 }
 if (langToConvertTo = "groovy")
 {
@@ -16361,9 +16361,13 @@ else
 if (line2 = "") and (line3 = "")
 {
 ; nothing so only each char
-if (langToConvertTo = "py") or (langToConvertTo = "js")
+if (langToConvertTo = "py")
 {
 itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ")"
+}
+if (langToConvertTo = "js")
+{
+itemsOut := "let items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ");"
 }
 if (langToConvertTo = "cpp")
 {
@@ -16429,7 +16433,11 @@ if (InStr(line2, keyWordEscpaeChar))
 {
 line2 := Chr(34) . line2 . Chr(34)
 }
-if (langToConvertTo = "py") or (langToConvertTo = "js")
+if (langToConvertTo = "js")
+{
+itemsOut := "let items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ");"
+}
+if (langToConvertTo = "py")
 {
 itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
 }
@@ -16480,7 +16488,7 @@ if (langToConvertTo = "dart")
 }
 if (langToConvertTo = "ts")
 {
-    itemsOut := "let items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ")"
+    itemsOut := "let items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ");"
 }
 if (langToConvertTo = "groovy")
 {
@@ -16502,7 +16510,11 @@ if (InStr(line3, keyWordEscpaeChar))
 line3 := Chr(34) . line3 . Chr(34)
 }
 
-if (langToConvertTo = "py") or (langToConvertTo = "js")
+if (langToConvertTo = "js")
+{
+itemsOut := "let items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ");"
+}
+if (langToConvertTo = "py") 
 {
 itemsOut := "items" . STR(AindexcharLength) . " = LoopParseFunc(" . line1 . ", " . line2 . ", " . line3 . ")"
 }
