@@ -12524,7 +12524,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         itemsOut = "items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ")";
                     }
                     if (langToConvertTo == "js") {
-                        itemsOut = "items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ");";
+                        itemsOut = "let items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ");";
                     }
                     if (langToConvertTo == "cpp") {
                         itemsOut = "std::vector<std::string> items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ");";
@@ -12560,7 +12560,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         itemsOut = "var items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ");";
                     }
                     if (langToConvertTo == "ts") {
-                        itemsOut = "let items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ")";
+                        itemsOut = "let items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ");";
                     }
                     if (langToConvertTo == "groovy") {
                         itemsOut = "def items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ")";
@@ -12568,8 +12568,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 } else {
                     if (line2 == "" && line3 == "") {
                         // nothing so only each char
-                        if (langToConvertTo == "py" || langToConvertTo == "js") {
+                        if (langToConvertTo == "py") {
                             itemsOut = "items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ")";
+                        }
+                        if (langToConvertTo == "js") {
+                            itemsOut = "let items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ");";
                         }
                         if (langToConvertTo == "cpp") {
                             itemsOut = "std::vector<std::string> items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ");";
@@ -12615,7 +12618,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         if (InStr(line2, keyWordEscpaeChar)) {
                             line2 = Chr(34) + line2 + Chr(34);
                         }
-                        if (langToConvertTo == "py" || langToConvertTo == "js") {
+                        if (langToConvertTo == "js") {
+                            itemsOut = "let items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ");";
+                        }
+                        if (langToConvertTo == "py") {
                             itemsOut = "items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ")";
                         }
                         if (langToConvertTo == "cpp") {
@@ -12652,7 +12658,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             itemsOut = "var items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ");";
                         }
                         if (langToConvertTo == "ts") {
-                            itemsOut = "let items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ")";
+                            itemsOut = "let items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ");";
                         }
                         if (langToConvertTo == "groovy") {
                             itemsOut = "def items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ")";
@@ -12665,7 +12671,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         if (InStr(line3, keyWordEscpaeChar)) {
                             line3 = Chr(34) + line3 + Chr(34);
                         }
-                        if (langToConvertTo == "py" || langToConvertTo == "js") {
+                        if (langToConvertTo == "js") {
+                            itemsOut = "let items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ", " + line3 + ");";
+                        }
+                        if (langToConvertTo == "py") {
                             itemsOut = "items" + STR(AindexcharLength) + " = LoopParseFunc(" + line1 + ", " + line2 + ", " + line3 + ")";
                         }
                         if (langToConvertTo == "cpp") {
