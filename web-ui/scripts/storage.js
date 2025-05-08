@@ -19,7 +19,7 @@ const chanegVal = function (id, value){
     console.log(window.lang_ID_str)
     let storedArray = getConfigFromLocalStorage();
     console.log(`changing ${id}  ${storedArray[id]}  ->   ${value}`)
-    storedArray[id] = value;
+    storedArray[id] = value.trim();
     localStorage.setItem(window.lang_ID_str, JSON.stringify(storedArray));
     // notyf.success('succefuly saved (:');
 }
@@ -59,4 +59,11 @@ function changeConfig(lang, conf = {}) {
     localStorage.setItem("langSettings", JSON.stringify(langConfigs));
 }
 
-export {createDefault, chanegVal, getConfigFromLocalStorage, getLangIDList, getLangList, getConfig, changeConfig}
+function setLastOpenedTab(langID){
+    localStorage.setItem("HTVM_LastAccesedTab", langID);
+}
+function getLastOpenedTab(){
+    return localStorage.getItem("HTVM_LastAccesedTab");
+}
+
+export {createDefault, chanegVal, getConfigFromLocalStorage, getLangIDList, getLangList, getConfig, changeConfig, setLastOpenedTab, getLastOpenedTab}

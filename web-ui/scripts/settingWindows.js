@@ -25,7 +25,15 @@ function createSettingBox(title, config){
             option.querySelector("input").checked = localSettings[settingID] == 'on' ? true : false;
             option.querySelector("input").addEventListener("change", function (){
                 chanegVal(settingID, this.checked ? "on" : "off")
-                if (!this.checked) return
+                if (!this.checked) {
+                    console.log(`11`)
+                    s.onDisable.forEach(dep =>{
+                        const q = "#sw-"+ (dep.id) + " input"
+                        document.querySelector(q).checked = dep.action == 'on' ? true : false;
+                        document.querySelector(q).dispatchEvent(new Event("change", { bubbles: true }));
+                    })
+                    return
+                }
                 if(s.dependencies){
                     s.dependencies.forEach(dep =>{
                         const q = "#sw-"+ (dep.id) + " input"
@@ -66,6 +74,7 @@ function movingText(){
             el.style.setProperty('--text-width', textWidth + 'px');
             el.style.setProperty('--container-width', el.clientWidth + 'px');
             el.style.setProperty('--animation-speed', getSpeed(textWidth) + "s");
+            // el.animate()
             // el.innerHTML = "<marquee>" + el.innerText + "</marquee>"
         } 
     });

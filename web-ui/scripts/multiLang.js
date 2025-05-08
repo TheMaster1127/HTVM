@@ -1,18 +1,21 @@
-import { getLangList, getLangIDList, createDefault } from './storage.js';
-import { applyConfig } from './uiActions.js';
-import { drawSettings } from './settingWindows.js';
-import { isOutOfView } from './utils.js';
-
+import { getLangList, getLangIDList, createDefault, setLastOpenedTab } from './storage.js'
+import { applyConfig } from './uiActions.js'
+import { drawSettings } from './settingWindows.js'
+import { isOutOfView } from './utils.js'
+import { handle_keys } from './search.js'
 
 function switchLang(langID){
     if(!langID) langID = Math.max(...(getLangIDList().length ? getLangIDList() : [0])) + 1;    
     let localStorageKey = "htvm_lang_" + langID
+    window.lang_ID_str = localStorageKey
+    window.lang_ID = langID
     if (!localStorage.getItem(localStorageKey)) createDefault(localStorageKey)
     drawSettings()
     createLangTabs()
-    window.lang_ID_str = localStorageKey
-    window.lang_ID = langID
+    setLastOpenedTab(langID)
     document.querySelector("#" + localStorageKey + "_tab_bt .active-lang").style.visibility = "visible"
+    document.querySelectorAll(".setting-i input, .setting-i textarea").forEach(el => el.addEventListener("keydown", handle_keys))
+
 }
 
 function createLangTabs(){

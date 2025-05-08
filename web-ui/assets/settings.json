@@ -16,8 +16,8 @@
         {"id": 82, "name": "keyWordFinally", "default": "finally"},
         {"id": 3, "name": "keyWordAlliance", "default": "alliance"},
         {"id": 4, "name": "keyWordCrew", "default": "crew"},
-        {"id": 5, "name": "keyWordMethod", "default": "method"},
-        {"id": 6, "name": "keyWordDefObj", "default": "def obj"}
+        {"id": 5, "name": "keyWordProc", "default": "proc"},
+        {"id": 6, "name": "keyWordStruct", "default": "struct"}
        
 
       ]
@@ -52,7 +52,7 @@
         {"id": 109, "name": "keyWordDiv", "default": "/"},
         {"id": 110, "name": "keyWordMod", "default": "%"},
         {"id": 111, "name": "keyWordExp", "default": "**"},
-        {"id": 112, "name": "keyWordEqual", "default": "="},
+        {"id": 112, "name": "keyWordEqual", "default": "=="},
         {"id": 113, "name": "keyWordStrictEqual", "default": "==="},
         {"id": 114, "name": "keyWordNotEqual", "default": "!="},
         {"id": 115, "name": "keyWordGreater", "default": ">"},
@@ -76,7 +76,7 @@
     {
       "name": "Assignment Operators",
       "items": [
-        {"id": 129, "name": "keyWordAssign", "default": ":="},
+        {"id": 129, "name": "keyWordAssign", "default": "="},
         {"id": 130, "name": "keyWordAssignAdd", "default": "+="},
         {"id": 131, "name": "keyWordAssignConcat", "default": ".="},
         {"id": 132, "name": "keyWordAssignSub", "default": "-="},
@@ -99,7 +99,7 @@
         {"id": 92, "name": "keyWordArrayOfStringsDefinition", "default": "arr str"},
         {"id": 93, "name": "keyWordArrayOfFloatingPointNumbersDefinition", "default": "arr float"},
         {"id": 94, "name": "keyWordArrayOfBooleansDefinition", "default": "arr bool"},
-        {"id": 84, "name": "keyWordArrayAppend", "default": ".add"},
+        {"id": 84, "name": "keyWordArrayAppend", "default": ".push"},
         {"id": 85, "name": "keyWordArrayPop", "default": ".pop"},
         {"id": 86, "name": "keyWordArraySize", "default": ".size"},
         {"id": 87, "name": "keyWordArrayInsert", "default": ".insert"},
@@ -110,42 +110,42 @@
     {
       "name": "Programming Blocks",
       "items": [
-        {"id": 10, "name": "CodeInTheTranspiledLangStart", "default": "keyWordCodeInTheTranspiledLangStart"},
-        {"id": 11, "name": "CodeInTheTranspiledLangEnd", "default": "keyWordCodeInTheTranspiledLangEnd"},
-        {"id": 12, "name": "CodeInTheTranspiledLangStartCPP", "default": "keyWordCodeInTheTranspiledLangStartCPP"},
-        {"id": 13, "name": "CodeInTheTranspiledLangEndCPP", "default": "keyWordCodeInTheTranspiledLangEndCPP"},
-        {"id": 14, "name": "CodeInTheTranspiledLangStartPY", "default": "keyWordCodeInTheTranspiledLangStartPY"},
-        {"id": 15, "name": "CodeInTheTranspiledLangEndPY", "default": "keyWordCodeInTheTranspiledLangEndPY"},
+        {"id": 10, "name": "CodeInTheTranspiledLangStart", "default": "___start"},
+        {"id": 11, "name": "CodeInTheTranspiledLangEnd", "default": "___end"},
+        {"id": 12, "name": "CodeInTheTranspiledLangStartCPP", "default": "___cpp start"},
+        {"id": 13, "name": "CodeInTheTranspiledLangEndCPP", "default": "___cpp end"},
+        {"id": 14, "name": "CodeInTheTranspiledLangStartPY", "default": "___py start"},
+        {"id": 15, "name": "CodeInTheTranspiledLangEndPY", "default": "___py end"},
         {"id": 16, "name": "CodeInTheTranspiledLangStartJS", "default": "___js start"},
         {"id": 17, "name": "CodeInTheTranspiledLangEndJS", "default": "___js end"},
-        {"id": 18, "name": "CodeInTheTranspiledLangStartGO", "default": "keyWordCodeInTheTranspiledLangStartGO"},
-        {"id": 19, "name": "CodeInTheTranspiledLangEndGO", "default": "keyWordCodeInTheTranspiledLangEndGO"},
-        {"id": 20, "name": "CodeInTheTranspiledLangStartLUA", "default": "keyWordCodeInTheTranspiledLangStartLUA"},
-        {"id": 21, "name": "CodeInTheTranspiledLangEndLUA", "default": "keyWordCodeInTheTranspiledLangEndLUA"},
-        {"id": 22, "name": "CodeInTheTranspiledLangStartCS", "default": "keyWordCodeInTheTranspiledLangStartCS"},
-        {"id": 23, "name": "CodeInTheTranspiledLangEndCS", "default": "keyWordCodeInTheTranspiledLangEndCS"},
-        {"id": 24, "name": "CodeInTheTranspiledLangStartJAVA", "default": "keyWordCodeInTheTranspiledLangStartJAVA"},
-        {"id": 25, "name": "CodeInTheTranspiledLangEndJAVA", "default": "keyWordCodeInTheTranspiledLangEndJAVA"},
-        {"id": 26, "name": "CodeInTheTranspiledLangStartKT", "default": "keyWordCodeInTheTranspiledLangStartKT"},
-        {"id": 27, "name": "CodeInTheTranspiledLangEndKT", "default": "keyWordCodeInTheTranspiledLangEndKT"},
-        {"id": 28, "name": "CodeInTheTranspiledLangStartRB", "default": "keyWordCodeInTheTranspiledLangStartRB"},
-        {"id": 29, "name": "CodeInTheTranspiledLangEndRB", "default": "keyWordCodeInTheTranspiledLangEndRB"},
-        {"id": 30, "name": "CodeInTheTranspiledLangStartNIM", "default": "keyWordCodeInTheTranspiledLangStartNIM"},
-        {"id": 31, "name": "CodeInTheTranspiledLangEndNIM", "default": "keyWordCodeInTheTranspiledLangEndNIM"},
-        {"id": 32, "name": "CodeInTheTranspiledLangStartAHK", "default": "keyWordCodeInTheTranspiledLangStartAHK"},
-        {"id": 33, "name": "CodeInTheTranspiledLangEndAHK", "default": "keyWordCodeInTheTranspiledLangEndAHK"},
-        {"id": 34, "name": "CodeInTheTranspiledLangStartSWIFT", "default": "keyWordCodeInTheTranspiledLangStartSWIFT"},
-        {"id": 35, "name": "CodeInTheTranspiledLangEndSWIFT", "default": "keyWordCodeInTheTranspiledLangEndSWIFT"},
-        {"id": 36, "name": "CodeInTheTranspiledLangStartDART", "default": "keyWordCodeInTheTranspiledLangStartDART"},
-        {"id": 37, "name": "CodeInTheTranspiledLangEndDART", "default": "keyWordCodeInTheTranspiledLangEndDART"},
-        {"id": 38, "name": "CodeInTheTranspiledLangStartTS", "default": "keyWordCodeInTheTranspiledLangStartTS"},
-        {"id": 39, "name": "CodeInTheTranspiledLangEndTS", "default": "keyWordCodeInTheTranspiledLangEndTS"},
-        {"id": 40, "name": "CodeInTheTranspiledLangStartGROOVY", "default": "keyWordCodeInTheTranspiledLangStartGROOVY"},
-        {"id": 41, "name": "CodeInTheTranspiledLangEndGROOVY", "default": "keyWordCodeInTheTranspiledLangEndGROOVY"},
-        {"id": 42, "name": "CodeInTheTranspiledLangStartHTVM", "default": "keyWordCodeInTheTranspiledLangStartHTVM"},
-        {"id": 43, "name": "CodeInTheTranspiledLangEndHTVM", "default": "keyWordCodeInTheTranspiledLangEndHTVM"},
-        {"id": 44, "name": "CodeInHTVMstart", "default": "keyWordCodeInHTVMstart"},
-        {"id": 45, "name": "CodeInHTVMend", "default": "keyWordCodeInHTVMend"}
+        {"id": 18, "name": "CodeInTheTranspiledLangStartGO", "default": "___go start"},
+        {"id": 19, "name": "CodeInTheTranspiledLangEndGO", "default": "___go end"},
+        {"id": 20, "name": "CodeInTheTranspiledLangStartLUA", "default": "___lua start"},
+        {"id": 21, "name": "CodeInTheTranspiledLangEndLUA", "default": "___lua end"},
+        {"id": 22, "name": "CodeInTheTranspiledLangStartCS", "default": "___cs start"},
+        {"id": 23, "name": "CodeInTheTranspiledLangEndCS", "default": "___cs end"},
+        {"id": 24, "name": "CodeInTheTranspiledLangStartJAVA", "default": "___java start"},
+        {"id": 25, "name": "CodeInTheTranspiledLangEndJAVA", "default": "___java end"},
+        {"id": 26, "name": "CodeInTheTranspiledLangStartKT", "default": "___kt start"},
+        {"id": 27, "name": "CodeInTheTranspiledLangEndKT", "default": "___kt end"},
+        {"id": 28, "name": "CodeInTheTranspiledLangStartRB", "default": "___rb start"},
+        {"id": 29, "name": "CodeInTheTranspiledLangEndRB", "default": "___rb end"},
+        {"id": 30, "name": "CodeInTheTranspiledLangStartNIM", "default": "___nim start"},
+        {"id": 31, "name": "CodeInTheTranspiledLangEndNIM", "default": "___nim end"},
+        {"id": 32, "name": "CodeInTheTranspiledLangStartAHK", "default": "___ahk start"},
+        {"id": 33, "name": "CodeInTheTranspiledLangEndAHK", "default": "___ahk end"},
+        {"id": 34, "name": "CodeInTheTranspiledLangStartSWIFT", "default": "___swift start"},
+        {"id": 35, "name": "CodeInTheTranspiledLangEndSWIFT", "default": "___swift end"},
+        {"id": 36, "name": "CodeInTheTranspiledLangStartDART", "default": "___dart start"},
+        {"id": 37, "name": "CodeInTheTranspiledLangEndDART", "default": "___dart end"},
+        {"id": 38, "name": "CodeInTheTranspiledLangStartTS", "default": "___ts start"},
+        {"id": 39, "name": "CodeInTheTranspiledLangEndTS", "default": "___ts end"},
+        {"id": 40, "name": "CodeInTheTranspiledLangStartGROOVY", "default": "___groovy start"},
+        {"id": 41, "name": "CodeInTheTranspiledLangEndGROOVY", "default": "___groovy end"},
+        {"id": 42, "name": "CodeInTheTranspiledLangStartHTVM", "default": "___htvm start"},
+        {"id": 43, "name": "CodeInTheTranspiledLangEndHTVM", "default": "___htvm end"},
+        {"id": 44, "name": "CodeInHTVMstart", "default": "___inhtvm start"},
+        {"id": 45, "name": "CodeInHTVMend", "default": "___inhtvm end"}
       ]
     },
     {
@@ -166,9 +166,9 @@
         {"id": 97, "name": "keyWordConst", "default": "const"},
         {"id": 98, "name": "keyWordEnd", "default": "end"},
         {"id": 99, "name": "keyWordGlobal", "default": "global"},
-        {"id": 100, "name": "keyWordComment", "default": ";"},
-        {"id": 101, "name": "keyWordCommentOpenMultiLine", "default": "'''1"},
-        {"id": 102, "name": "keyWordCommentCloseMultiLine", "default": "'''2"},
+        {"id": 100, "name": "keyWordComment", "default": "//"},
+        {"id": 101, "name": "keyWordCommentOpenMultiLine", "default": "/*"},
+        {"id": 102, "name": "keyWordCommentCloseMultiLine", "default": "*/"},
         {"id": 9, "name": "keyWordInclude", "default": "import"},
         {"id": 144, "name": "keyWordInc", "default": "++"},
         {"id": 145, "name": "keyWordDec", "default": "--"}
@@ -181,7 +181,7 @@
         {"id": 146, "name": "AHKlikeLoopsIndexedAt", "default": "0"},
         {"id": 147, "name": "keyWordAIndex", "default": "A_Index"},
         {"id": 148, "name": "keyWordALoopField", "default": "A_LoopField"},
-        {"id": 103, "name": "keyWordEscpaeChar", "default": "`"},
+        {"id": 103, "name": "keyWordEscpaeChar", "default": "\\"},
         {"id": 46, "name": "keyWordCurlyBraceOpen", "default": "{"},
         {"id": 47, "name": "keyWordCurlyBraceClose", "default": "}"},
         {"id": 2, "name": "commands", "default": "StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1"},
@@ -205,9 +205,13 @@
         {"id": 152, "name": "useParentheses", "default": "on", "type": "toggle"},
         {"id": 153, "name": "usePrefixTypeForTypeDefinition", "default": "on", "type": "toggle", "dependencies": [
           {"id": 154, "action": "off"}
+        ], "onDisable": [
+          {"id": 154, "action": "on"}
         ]},
         {"id": 154, "name": "usePostfixTypeForTypeDefinition", "default": "off", "type": "toggle", "dependencies": [
           {"id": 153, "action": "off"}
+        ], "onDisable": [
+          {"id": 153, "action": "on"}
         ]},
         {"id": 155, "name": "usePythonicColonSyntax", "default": "off", "type": "toggle","dependencies": [
           {"id": 149, "action": "off"}
@@ -216,7 +220,7 @@
         {"id": 157, "name": "useInJavaScriptAlwaysUseVar", "default": "on", "type": "toggle"},
         {"id": 158, "name": "useJavaScriptInAfullHTMLfile", "default": "off", "type": "toggle"},
         {"id": 159, "name": "useJavaScriptAmainFuncDef", "default": "off", "type": "toggle"},
-        {"id": 160, "name": "useJavaScriptAllFuncsAreAsync", "default": "on", "type": "toggle"},
+        {"id": 160, "name": "useJavaScriptAllFuncsAreAsync", "default": "off", "type": "toggle"},
         {"id": 161, "name": "useJavaScriptAlwaysTripleEqual", "default": "off", "type": "toggle"}
       ]
     }
