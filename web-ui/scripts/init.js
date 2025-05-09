@@ -3,6 +3,7 @@ import { reorganizeBoxes, registerMenu } from './uiActions.js'
 import { createLangTabs, switchLang } from './multiLang.js'
 import { checkPortraitMode } from './utils.js'
 import { search } from './search.js'
+import { getLastOpenedTab } from './storage.js'
 
 let doc
 window.lang_ID_str = "htvm_lang_1"
@@ -73,6 +74,7 @@ function init(){
     reorganizeBoxes()
     createLangTabs()
     registerMenu()
+    if(getLastOpenedTab()) switchLang(getLastOpenedTab())
 }
 
 fetch('assets/settings.json') 
