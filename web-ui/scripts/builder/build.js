@@ -69,7 +69,6 @@ async function buildNDownload() {
         console.log("failed")
         throw new Error(checkErrors);
     }
-    alert(1)
 
     const instructionFileContent =
         getUserConfig(localStorage.getItem("HTVM_LastAccesedTab")) +
