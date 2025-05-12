@@ -13,7 +13,7 @@ async function getBuiltins() {
     return lines.join("\n");
 }
 
-function generateDocumentation() {
+function generateDocumentation(instructionFileContent) {
     instructionFileData = "";
     DOCS_params = "";
     DOCS_param1 = "";
@@ -53,7 +53,7 @@ function saveAs(content, filename) {
     URL.revokeObjectURL(url);
 }
 
-async function zipIt() {
+async function zipIt(instructionFileContent, documentationHTML, documentationMarkdown, readmeContent) {
     const zip = new JSZip();
     zip.file("HTVM-instructions.txt", instructionFileContent);
     zip.file("DOCUMENTATION.html", documentationHTML);
@@ -75,9 +75,9 @@ async function buildNDownload() {
         getUserConfig(localStorage.getItem("HTVM_LastAccesedTab")) +
         "\n" +
         await getBuiltins()
-    const [documentationHTML, documentationMarkdown] = generateDocumentation();
+    const [documentationHTML, documentationMarkdown] = generateDocumentation(instructionFileContent);
     const readmeContent = await generateReadme()
-    const zipContent = await zipIt();
+    const zipContent = await zipIt(instructionFileContent, documentationHTML, documentationMarkdown, readmeContent);
     const zipFileName = `${getCurrentLangName()}.zip`;
     saveAs(zipContent, zipFileName);
 }
