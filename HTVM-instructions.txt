@@ -2625,7 +2625,7 @@ def GetParams():
         if os.path.exists(arg):
             arg = os.path.abspath(arg)
         params.append(arg)
-    return "\\n".join(params)
+    return "\n".join(params)
 funcEND======================funcEND==============
 func======================func==============
 lang: py
@@ -5064,7 +5064,7 @@ def GetParams():
         if os.path.exists(arg):
             arg = os.path.abspath(arg)
         params.append(arg)
-    return "\\n".join(params)
+    return "\n".join(params)
 
 def HTVM_v2_HTVM():
     global noParams, allArgs
