@@ -4037,10 +4037,13 @@ HTVM includes a variety of built-in functions organized into categories for conv
 | ACos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 ACos is a function that returns the arc cosine (inverse cosine) of a number, which must be between -1 and 1.
+
 here is how the func looks like:
+
 ```htvm
 ACos(float)
 ```
+
 
 ---
 ### ASin
@@ -4054,10 +4057,13 @@ ACos(float)
 | ASin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 ASin is a function that calculates the arcsine (inverse sine) of a given value, throwing an error if the value is outside the range of -1 to 1.
+
 here is how the func looks like:
+
 ```htvm
 ASin(float value)
 ```
+
 
 ---
 ### ATan
@@ -4071,10 +4077,13 @@ ASin(float value)
 | ATan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 ATan is a function that calculates the arctangent of a number, returning the angle in radians.
+
 here is how the func looks like:
+
 ```htvm
 ATan(float)
 ```
+
 
 ---
 ### Abs
@@ -4088,10 +4097,13 @@ ATan(float)
 | Abs | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Abs is a function that returns the absolute value of the provided number.
+
 here is how the func looks like:
+
 ```htvm
 Abs(int value)
 ```
+
 
 ---
 ### Ceil
@@ -4105,10 +4117,13 @@ Abs(int value)
 | Ceil | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Ceil is a function that takes a numerical value and returns the smallest integer greater than or equal to that value.
+
 here is how the func looks like:
+
 ```htvm
 Ceil(num)
 ```
+
 
 ---
 ### Cos
@@ -4122,10 +4137,13 @@ Ceil(num)
 | Cos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Cos is a function that calculates the cosine of a given angle in radians.
+
 here is how the func looks like:
+
 ```htvm
 Cos(float angle)
 ```
+
 
 ---
 ### Exp
@@ -4139,10 +4157,13 @@ Cos(float angle)
 | Exp | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Exp is a function that takes a numeric value and returns the value of e raised to the power of the given value using the Math.exp() function.
+
 here is how the func looks like:
+
 ```htvm
 Exp(value)
 ```
+
 
 ---
 ### Floor
@@ -4156,10 +4177,13 @@ Exp(value)
 | Floor | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Floor is a function that returns the largest integer less than or equal to a given number, or NaN if the input is not a number.
+
 here is how the func looks like:
+
 ```htvm
 Floor(num)
 ```
+
 
 ---
 ### Ln
@@ -4173,10 +4197,13 @@ Floor(num)
 | Ln | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Ln is a function that calculates the natural logarithm (base e) of a given value.
+
 here is how the func looks like:
+
 ```htvm
 Ln(int value)
 ```
+
 
 ---
 ### Log
@@ -4190,10 +4217,13 @@ Ln(int value)
 | Log | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Log is a function that calculates the base 10 logarithm of a given value.
+
 here is how the func looks like:
+
 ```htvm
 Log(int value)
 ```
+
 
 ---
 ### Mod
@@ -4207,10 +4237,13 @@ Log(int value)
 | Mod | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Mod is a function that returns the remainder when the dividend is divided by the divisor.
+
 here is how the func looks like:
+
 ```htvm
 Mod(int dividend, int divisor)
 ```
+
 
 ---
 ### Random
@@ -4224,10 +4257,13 @@ Mod(int dividend, int divisor)
 | Random | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Random is a function that generates and returns a random integer between a specified minimum and maximum value, inclusive.
+
 here is how the func looks like:
+
 ```htvm
 Random(min, max)
 ```
+
 
 ---
 ### Round
@@ -4241,10 +4277,13 @@ Random(min, max)
 | Round | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Round is a function that rounds a given numeric value to the nearest integer.
+
 here is how the func looks like:
+
 ```htvm
 Round(num)
 ```
+
 
 ---
 ### Sin
@@ -4258,10 +4297,13 @@ Round(num)
 | Sin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Sin is a function that takes an angle (in radians) and returns the sine of that angle.
+
 here is how the func looks like:
+
 ```htvm
 Sin(float)
 ```
+
 
 ---
 ### Sqrt
@@ -4275,10 +4317,13 @@ Sin(float)
 | Sqrt | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Sqrt is a function that calculates the square root of a given numeric value.
+
 here is how the func looks like:
+
 ```htvm
 Sqrt(num)
 ```
+
 
 ---
 ### Tan
@@ -4292,10 +4337,13 @@ Sqrt(num)
 | Tan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Tan is a function that calculates the tangent of the given angle (in radians).
+
 here is how the func looks like:
+
 ```htvm
 Tan(float)
 ```
+
 
 ---
 ## String Functions
@@ -4369,10 +4417,13 @@ Tan(float)
 | Asc | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Asc is a function that takes a string and returns the ASCII value of its first character, or -1 if the string is empty.
+
 here is how the func looks like:
+
 ```htvm
 Asc(str s)
 ```
+
 
 ---
 ### Chr
@@ -4386,10 +4437,13 @@ Asc(str s)
 | Chr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Chr is a function that returns the character corresponding to the given Unicode code point or an empty string if the number is out of range.
+
 here is how the func looks like:
+
 ```htvm
 Chr(int number)
 ```
+
 
 ---
 ### FLOAT
@@ -4403,10 +4457,13 @@ Chr(int number)
 | FLOAT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 FLOAT is a function that converts a given value to a float and throws an error if the value cannot be converted.
+
 here is how the func looks like:
+
 ```htvm
 FLOAT(str value)
 ```
+
 
 ---
 ### INT
@@ -4420,10 +4477,13 @@ FLOAT(str value)
 | INT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 INT is a function that converts a value to an integer, throwing an error if the conversion fails.
+
 here is how the func looks like:
+
 ```htvm
 INT(str value)
 ```
+
 
 ---
 ### InStr
@@ -4437,10 +4497,13 @@ INT(str value)
 | InStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 InStr is a function that finds the position of the substring needle within the string haystack and returns its position (1-based index), or 0 if the substring is not found.
+
 here is how the func looks like:
+
 ```htvm
 InStr(str haystack, str needle)
 ```
+
 
 ---
 ### RegExMatch
@@ -4454,10 +4517,13 @@ InStr(str haystack, str needle)
 | RegExMatch | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 RegExMatch is a function that returns the 1-based index of the first regex match or 0 if no match is found.
+
 here is how the func looks like:
+
 ```htvm
 RegExMatch(str haystack, str needle)
 ```
+
 
 ---
 ### RegExReplace
@@ -4471,10 +4537,13 @@ RegExMatch(str haystack, str needle)
 | RegExReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 RegExReplace is a function that performs a regular expression-based replacement on a string using a given pattern and replacement string.
+
 here is how the func looks like:
+
 ```htvm
 RegExReplace(str inputStr, str regexPattern, str replacement)
 ```
+
 
 ---
 ### STR
@@ -4488,10 +4557,13 @@ RegExReplace(str inputStr, str regexPattern, str replacement)
 | STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.
+
 here is how the func looks like:
+
 ```htvm
 STR(value)
 ```
+
 
 ---
 ### Sort
@@ -4505,10 +4577,13 @@ STR(value)
 | Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Sort is a function that takes a string and optional options to sort its elements based on various criteria such as numeric, random, alphabetical, case sensitivity, and more, with support for delimiters and unique filtering.
+
 here is how the func looks like:
+
 ```htvm
 Sort(str varName, [str options = ""])
 ```
+
 
 ---
 ### StrLen
@@ -4522,10 +4597,13 @@ Sort(str varName, [str options = ""])
 | StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 StrLen is a function that takes a string as input and returns its length as a size_t value.
+
 here is how the func looks like:
+
 ```htvm
 StrLen(str)
 ```
+
 
 ---
 ### StrLower
@@ -4539,10 +4617,13 @@ StrLen(str)
 | StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 StrLower is a function that takes a string as input and converts all characters to lowercase.
+
 here is how the func looks like:
+
 ```htvm
 StrLower(string)
 ```
+
 
 ---
 ### StrReplace
@@ -4556,10 +4637,13 @@ StrLower(string)
 | StrReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 StrReplace is a function that takes an original string, a substring to find, and a substring to replace it with, returning the modified string.
+
 here is how the func looks like:
+
 ```htvm
 StrReplace(str originalString, str find, str replaceWith)
 ```
+
 
 ---
 ### StrSplit
@@ -4573,10 +4657,13 @@ StrReplace(str originalString, str find, str replaceWith)
 | StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 StrSplit is a function that splits an input string by a specified delimiter and returns the part at the specified index, or an empty string if the index is out of range.
+
 here is how the func looks like:
+
 ```htvm
 StrSplit(str inputStr, str delimiter, int num)
 ```
+
 
 ---
 ### StrTitleCase
@@ -4590,10 +4677,13 @@ StrSplit(str inputStr, str delimiter, int num)
 | StrTitleCase | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.
+
 here is how the func looks like:
+
 ```htvm
 StrTitleCase(str inputString)
 ```
+
 
 ---
 ### StringTrimLeft
@@ -4607,10 +4697,13 @@ StrTitleCase(str inputString)
 | StringTrimLeft | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 StringTrimLeft is a function that trims a specified number of characters from the left side of a given string.
+
 here is how the func looks like:
+
 ```htvm
 StringTrimLeft(str input, int numChars)
 ```
+
 
 ---
 ### StringTrimRight
@@ -4624,10 +4717,13 @@ StringTrimLeft(str input, int numChars)
 | StringTrimRight | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 StringTrimRight is a function that trims a specified number of characters from the right side of a given string.
+
 here is how the func looks like:
+
 ```htvm
 StringTrimRight(str input, int numChars)
 ```
+
 
 ---
 ### SubStr
@@ -4641,10 +4737,13 @@ StringTrimRight(str input, int numChars)
 | SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 SubStr is a function that extracts a substring from a given string, starting from a specified position and for a specified length, adjusting for edge cases like null inputs or missing parameters.
+
 here is how the func looks like:
+
 ```htvm
 SubStr(str, int startPos, int length [= str.length - startPos + 1])
 ```
+
 
 ---
 ### Trim
@@ -4658,10 +4757,13 @@ SubStr(str, int startPos, int length [= str.length - startPos + 1])
 | Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Trim is a function that removes leading and trailing whitespace from the input string.
+
 here is how the func looks like:
+
 ```htvm
 Trim(string)
 ```
+
 
 ---
 ### countChars
@@ -4675,10 +4777,13 @@ Trim(string)
 | countChars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.
+
 here is how the func looks like:
+
 ```htvm
 countChars(str string, str theChar)
 ```
+
 
 ---
 ### getUrlParams
@@ -4692,10 +4797,13 @@ countChars(str string, str theChar)
 | getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 getUrlParams is a function that extracts and decodes parameter values from the URL query string, returning a combined string of values separated by '&'.
+
 here is how the func looks like:
+
 ```htvm
 getUrlParams()
 ```
+
 
 ---
 ### sortArr
@@ -4709,10 +4817,13 @@ getUrlParams()
 | sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 sortArr is a function that takes an array, removes any duplicate values using a Set, and returns the array sorted in ascending order.
+
 here is how the func looks like:
+
 ```htvm
 sortArr(arr str stringArray)
 ```
+
 
 ---
 ### sortArrByLenOnly
@@ -4726,10 +4837,13 @@ sortArr(arr str stringArray)
 | sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 sortArrByLenOnly is a function that sorts an array of strings by length in descending order
+
 here is how the func looks like:
+
 ```htvm
 sortArrByLenOnly(arr str array)
 ```
+
 
 ---
 ## System Functions
@@ -4767,10 +4881,13 @@ sortArrByLenOnly(arr str array)
 | BuildInVars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 BuildInVars is a function that retrieves various system-related values or states, including screen dimensions, timestamps, key presses, and more, based on the specified variable name.
+
 here is how the func looks like:
+
 ```htvm
 BuildInVars(str varName)
 ```
+
 
 ---
 ### ExitApp
@@ -4784,10 +4901,13 @@ BuildInVars(str varName)
 | ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
 ExitApp is a function that terminates the application immediately.
+
 here is how the func looks like:
+
 ```htvm
 ExitApp()
 ```
+
 
 ---
 ### HTVM_getLang_HTVM
@@ -4801,10 +4921,13 @@ ExitApp()
 | HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 HTVM_getLang_HTVM is a func that returns the current language of HTVM as a string
+
 here is how the func looks like:
+
 ```htvm
 HTVM_getLang_HTVM()
 ```
+
 
 ---
 ### Sleep
@@ -4818,10 +4941,13 @@ HTVM_getLang_HTVM()
 | Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 Sleep is a function that pauses execution for a specified number of milliseconds.
+
 here is how the func looks like:
+
 ```htvm
 Sleep(int milliseconds)
 ```
+
 
 ---
 ## File Functions
@@ -4865,10 +4991,13 @@ Sleep(int milliseconds)
 | FileAppend | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
 FileAppend is a function that appends the given content to a file at the specified path and returns a boolean indicating success or failure.
+
 here is how the func looks like:
+
 ```htvm
 FileAppend(str content, str path)
 ```
+
 
 ---
 ### FileAppendJs
@@ -4882,10 +5011,13 @@ FileAppend(str content, str path)
 | FileAppendJs | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 FileAppendJs is a function that appends content to a file by creating a Blob, generating a download link, and triggering a download with the specified filename.
+
 here is how the func looks like:
+
 ```htvm
 FileAppendJs(str content, str filename)
 ```
+
 
 ---
 ### FileCreateDir
@@ -4899,10 +5031,13 @@ FileAppendJs(str content, str filename)
 | FileCreateDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
 FileCreateDir is a function that checks if a directory exists, and if not, it creates the directory.
+
 here is how the func looks like:
+
 ```htvm
 FileCreateDir(str directory)
 ```
+
 
 ---
 ### FileDelete
@@ -4916,10 +5051,13 @@ FileCreateDir(str directory)
 | FileDelete | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
 FileDelete is a function that checks if a file exists at the given path and deletes it if found, returning True if the file is deleted, otherwise False.
+
 here is how the func looks like:
+
 ```htvm
 FileDelete(str path)
 ```
+
 
 ---
 ### FileExist
@@ -4933,10 +5071,13 @@ FileDelete(str path)
 | FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
 FileExist is a function that checks if a file or directory exists at the specified path.
+
 here is how the func looks like:
+
 ```htvm
 FileExist(str path)
 ```
+
 
 ---
 ### FileRead
@@ -4950,10 +5091,13 @@ FileExist(str path)
 | FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
 FileRead is a function that reads the content of a file given a path, prepends the current working directory if the path is not absolute, and returns the file content as a string.
+
 here is how the func looks like:
+
 ```htvm
 FileRead(path: str)
 ```
+
 
 ---
 ### FileRemoveDir
@@ -4967,10 +5111,13 @@ FileRead(path: str)
 | FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
 FileRemoveDir is a function that removes a directory and its contents if the directory exists.
+
 here is how the func looks like:
+
 ```htvm
 FileRemoveDir(str directory)
 ```
+
 
 ---
 ## Io Functions
@@ -5010,10 +5157,13 @@ FileRemoveDir(str directory)
 | GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
 GetParams is a function that retrieves command line arguments, checks if they correspond to existing paths, and returns them as absolute paths in new lines, or as they are if they do not exist.
+
 here is how the func looks like:
+
 ```htvm
 GetParams()
 ```
+
 
 ---
 ### RunCMD
@@ -5027,10 +5177,13 @@ GetParams()
 | RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
 RunCMD is a function that executes a shell command and captures its output or errors.
+
 here is how the func looks like:
+
 ```htvm
 RunCMD(str command)
 ```
+
 
 ---
 ### getDataFromAPI
@@ -5044,10 +5197,13 @@ RunCMD(str command)
 | getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 getDataFromAPI is a function that asynchronously fetches JSON data from a given URL and returns it, handling errors and non-OK responses.
+
 here is how the func looks like:
+
 ```htvm
 getDataFromAPI(str url)
 ```
+
 
 ---
 ### input
@@ -5061,10 +5217,13 @@ getDataFromAPI(str url)
 | input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 input is a function that displays a prompt with the given text and returns the user's input.
+
 here is how the func looks like:
+
 ```htvm
 input(str promptText)
 ```
+
 
 ---
 ### print
@@ -5078,10 +5237,13 @@ input(str promptText)
 | print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 print is a function that outputs the specified data to the console or standard output.
+
 here is how the func looks like:
+
 ```htvm
 print(str)
 ```
+
 
 ---
 ## Other Functions
@@ -5118,6 +5280,7 @@ print(str)
 
 HTVM_v2_HTVM is a func that will help me make HTVM v2 DONT USE IT!!!
 
+
 ---
 ### MakeHotKey
 
@@ -5130,10 +5293,13 @@ HTVM_v2_HTVM is a func that will help me make HTVM v2 DONT USE IT!!!
 | MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 MakeHotKey is a function that listens for a specific key combination (hotkey) and triggers a callback when the hotkey is pressed. It handles modifiers like Ctrl, Shift, and Alt, as well as specific keys such as arrows and backspace. The callback function is invoked with the hotkey in either uppercase or lowercase, depending on the Shift modifier.
+
 here is how the func looks like:
+
 ```htvm
 MakeHotKey(str hotkey, function callback)
 ```
+
 
 ---
 ### isWindows
@@ -5147,10 +5313,13 @@ MakeHotKey(str hotkey, function callback)
 | isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
 isWindows is a function that checks if the current operating system is Windows by comparing the system name to "windows".
+
 here is how the func looks like:
+
 ```htvm
 isWindows()
 ```
+
 
 ---
 ## Gui Functions
@@ -5182,10 +5351,13 @@ isWindows()
 | MsgBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 MsgBox is a function that displays a message box with customizable text, title, buttons, and icons, handling various options based on the provided value and timeout.
+
 here is how the func looks like:
+
 ```htvm
 MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
 ```
+
 
 ---
 ## Backend Functions
@@ -5217,9 +5389,12 @@ MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
 | callBackend | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 callBackend is a function that fetches data from a specified endpoint using a provided HTTP method (default is POST), sends the textData as a string, and parses the response based on its content type.
+
 here is how the func looks like:
+
 ```htvm
 callBackend(endpoint, textData, [method = "POST"])
 ```
+
 
 ---
