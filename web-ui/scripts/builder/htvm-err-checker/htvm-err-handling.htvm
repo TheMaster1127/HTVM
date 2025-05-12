@@ -225,6 +225,7 @@ allNameARR.add(A_LoopField)
 
 
 
+
 str str1 := ""
 str str2 := ""
 str str3 := ""
@@ -240,6 +241,28 @@ str handleErrorHelper2OUT := ""
 
 arr int keywordIndices := [6,3,4,7,5,66,67,69,81,78,83,70,71,72,9,99,76,75,97,95,96,52,53,54,55,56,57,58,59,60,61,62,63,64,65,90,91,92,93,94]
 int foundKeywordIndices := 0
+
+
+
+
+Loop, Parse, htvmInstrText, `n, `r 
+{
+AIndex := A_Index
+ALoopField := A_LoopField
+
+if (A_Index <= 148) {
+    Loop, Parse, htvmInstrText, `n, `r  {
+    if (A_Index <= 148) {
+            if (ALoopField = A_LoopField) and (A_Index != AIndex) {
+                if (AIndex <= 148) {
+                    return STR(AIndex) . "|You can't use the same keyword more than once. The problem is whit " . allNameARR[AIndex] . " and " . allNameARR[A_Index] . "!!!"
+                }
+            }
+        }
+    }
+}
+}
+
 
 handleErrorHelper2OUT := handleErrorHelper2(htvmInstrText)
 
@@ -336,6 +359,9 @@ Loop, Parse, htvmInstrText, `n, `r
 {
 AIndex := A_Index
 ALoopField := A_LoopField
+
+
+
 Loop, % lineThatCANNOThaveSpacses.size()
 {
 if (AIndex = lineThatCANNOThaveSpacses[A_Index]) and (InStr(ALoopField, " "))
@@ -349,17 +375,7 @@ return STR(AIndex) . "|You can't use a space here!!!."
 ; retun format is 
 ; index|error msg
 
-if (A_Index <= 148) {
-    Loop, Parse, htvmInstrText, `n, `r  {
-    if (A_Index <= 148) {
-            if (ALoopField = A_LoopField) and (A_Index != AIndex) {
-                if (AIndex <= 148) {
-                    return STR(AIndex) . "|You can't use the same keyword more than once. The problem is whit " . allNameARR[AIndex] . " and " . allNameARR[A_Index] . "!!!"
-                }
-            }
-        }
-    }
-}
+
 
 if (A_Index = 0) or (A_Index = 1) {
 ; Code for condition 0 and 1
