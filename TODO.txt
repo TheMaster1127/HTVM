@@ -1,5 +1,5 @@
 TODO.txt
-1. Fix a small bug in HTVM arrays and the comment bug.
+1. Fix a small bug in HTVM arrays.
 2. Write all 162 descriptions for each customization for the HTVM Configurator website.
 3. Finish the HTVM Configurator website.
 4. Rewrite the HTVM IDE with the new engine for syntax highlighting, autocomplete, import keyword support, .funcname highlighting, and more improvements.

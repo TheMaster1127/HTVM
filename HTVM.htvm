@@ -13533,9 +13533,60 @@ str semiColonForOneLinerOut := ""
 str addNoCurlyFixWhenNextLineAfterConstructOut := ""
 arr str addNoCurlyFixWhenNextLineAfterConstructLookAhead
 
+;;;;;;;;;;;;;;;;;;;;
+
+arr str commentsBugFix
+str commentsBugFixHold := ""
+str commentsBugFixHold1 := ""
+str commentsBugFixHold2 := ""
+int commentsBugFixHelpInt := 0
+str commentsBugFixOut := ""
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 if (isNotHTVMfile = 0)
 {
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+Loop, Parse, code, `n, `r
+{
+if (SubStr(Trim(A_LoopField), 1, StrLen(keyWordComment)) = keyWordComment)
+{
+
+commentsBugFixHold := StringTrimLeft(Trim(A_LoopField), StrLen(keyWordComment))
+
+
+Loop, Parse, A_LoopField
+{
+if (InStr(A_LoopField, " ")) or (InStr(A_LoopField, Chr(9)))
+{
+commentsBugFixHold1 := A_LoopField
+}
+else
+{
+break
+}
+}
+
+commentsBugFix.add(commentsBugFixHold)
+commentsBugFixHold2 := "HTVM--cnavisdofbuvsesdivdidufg79wregwewaeosd8ges7dfdftuawdiHTVMv2yerheyziberlasduci6syiq--AA" . STR(commentsBugFixHelpInt) . "AA"
+commentsBugFixHelpInt++
+
+
+commentsBugFixOut .= commentsBugFixHold1 . keyWordComment . commentsBugFixHold2 . Chr(10)
+}
+else
+{
+commentsBugFixOut .= A_LoopField . Chr(10)
+}
+}
+StringTrimRight, code, commentsBugFixOut, 1
+
 
 ;print("============programmingBlock_CPP==================")
 ;print("============programmingBlock_CPP==================")
@@ -24544,6 +24595,14 @@ Loop, % theIdNumOfThe34 {
     }
 }
 
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+Loop, % commentsBugFix.size()
+{
+htCode := StrReplace(htCode, "HTVM--cnavisdofbuvsesdivdidufg79wregwewaeosd8ges7dfdftuawdiHTVMv2yerheyziberlasduci6syiq--AA" . STR(A_Index) . "AA", commentsBugFix[A_Index])
 }
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

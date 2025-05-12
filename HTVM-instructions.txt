@@ -880,10 +880,10 @@ std::string STR(bool value) {
 std::string STR(const char* value) {
     return std::string(value);
 }
+std::string STR(const std::string& value) {
+    return value;
+}
 funcEND======================funcEND==============
-
-
-
 
 
 func======================func==============
