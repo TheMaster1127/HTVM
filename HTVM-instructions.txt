@@ -7,7 +7,7 @@ proc
 struct
 prop
 this
-import
+include
 ___start
 ___end
 ___cpp start
@@ -158,7 +158,7 @@ off
 on
 off
 off
-on
+off
 off
 
 
