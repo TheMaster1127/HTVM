@@ -343,7 +343,7 @@
           "default": "**",
           "description": {
             "header": "Exponentiation Operator",
-            "body": "Operator for raising a number to a power.\n\nExample Customizations:\n- `**`\n- `^`\n- `pow`\n- `power`\n- `__EXP__`\n\nDefaults to: **`**`**."
+            "body": "Operator for raising a number to a power.\n\nExample Customizations:\n- `**`\n- `^`\n- `pow`\n- `power`\n- `__EXP__`\n\nDefaults to: **the \"**\" value**."
           }
         },
         {
