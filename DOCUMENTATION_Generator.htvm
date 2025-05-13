@@ -3120,6 +3120,7 @@ theCodeBuildInSnippedHelp4 .= theCodeBuildInSnipped[A_Index] . Chr(10) . Chr(10)
 
 if (HTVM_getLang_HTVM() = "cpp")
 {
+print("Converting all built-in function example snippets...")
 theCodeBuildInSnippedHelp5 := convertSnipetToAnotherSyntax(DOCS_param1, theCodeBuildInSnippedHelp4)
 }
 if (HTVM_getLang_HTVM() = "js")
