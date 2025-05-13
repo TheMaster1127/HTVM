@@ -3,8 +3,16 @@
     {
       "name": "Constructs",
       "items": [
-        {"id": 66, "name": "keyWordIF", "default": "if"},
-        {"id": 67, "name": "keyWordElseIf", "default": "else if"},
+        {"id": 66, "name": "keyWordIF", "default": "if", 
+        "description": {
+            "header": "If Statement Keyword",
+            "body": "The keyword used to start a conditional block.\n\nExecutes the following code block only if the specified condition evaluates to true. Can be followed by optional 'Else If' and 'Else' keywords.\n\nExample Customizations:\n- `if`\n- `condition`\n- `check`\n- `?`\n- `<CheckCondition>`\n\nDefaults to: **`if`**."
+          }},
+        {"id": 67, "name": "keyWordElseIf", "default": "else if", 
+        "description": {
+            "header": "Else If Statement Keyword",
+            "body": "The keyword for subsequent conditional checks if the preceding 'if' or 'else if' conditions were false.\n\nExample Customizations:\n- `else if`\n- `elseif`\n- `elif`\n- `otherwise if`\n- `?:if`\n\nDefaults to: **`else if`**."
+          }},
         {"id": 68, "name": "keyWordElse", "default": "else"},
         {"id": 69, "name": "keyWordWhileLoop", "default": "while"},
         {"id": 70, "name": "keyWordLoopInfinite", "default": "Loop"},
