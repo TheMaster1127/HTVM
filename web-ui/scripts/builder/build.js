@@ -55,13 +55,33 @@ function saveAs(content, filename) {
 
 async function zipIt(instructionFileContent, documentationHTML, documentationMarkdown, readmeContent) {
     const zip = new JSZip();
+
     zip.file("HTVM-instructions.txt", instructionFileContent);
     zip.file("DOCUMENTATION.html", documentationHTML);
     zip.file("DOCUMENTATION.md", documentationMarkdown);
     zip.file("README.md", readmeContent);
 
-    return await zip.generateAsync({ type: "blob" });
+    // Calculate pre-zip total size in bytes
+    const totalOriginalSize =
+        new TextEncoder().encode(instructionFileContent).length +
+        new TextEncoder().encode(documentationHTML).length +
+        new TextEncoder().encode(documentationMarkdown).length +
+        new TextEncoder().encode(readmeContent).length;
+
+    console.log(`Original total size: ${(totalOriginalSize / 1024).toFixed(2)} KB`);
+
+    // Generate the zip file
+    const zippedBlob = await zip.generateAsync({
+        type: "blob",
+        compression: "DEFLATE",
+        compressionOptions: { level: 9 }
+    });
+
+    console.log(`Zipped size: ${(zippedBlob.size / 1024).toFixed(2)} KB`);
+
+    return zippedBlob;
 }
+
 
 async function buildNDownload() {
     const checkErrors = handleError(getUserConfig(localStorage.getItem("HTVM_LastAccesedTab")))
