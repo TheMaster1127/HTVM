@@ -4,8 +4,8 @@ import { drawSettings } from './settingWindows.js'
 import { isOutOfView } from './utils.js'
 import { handle_keys } from './search.js'
 
-function switchLang(langID){
-    if(!langID) langID = Math.max(...(getLangIDList().length ? getLangIDList() : [0])) + 1;    
+function switchLang(langID) {
+    if (!langID) langID = Math.max(...(getLangIDList().length ? getLangIDList() : [0])) + 1;
     let localStorageKey = "htvm_lang_" + langID
     window.lang_ID_str = localStorageKey
     window.lang_ID = langID
@@ -18,19 +18,19 @@ function switchLang(langID){
 
 }
 
-function createLangTabs(){
-    document.querySelectorAll(".lang-item:not(.display-none)").forEach(elm=>{
+function createLangTabs() {
+    document.querySelectorAll(".lang-item:not(.display-none)").forEach(elm => {
         elm.remove()
     })
-    getLangList().forEach(lang=>{
+    getLangList().forEach(lang => {
         let langItem = document.querySelector(".lang-item.display-none").cloneNode(true)
         let langMenu = document.querySelector("#lang-menu")
         langItem.classList.remove("display-none")
-        
-        
-        
+
+
+
         const langID = parseInt(lang.match(/\d+$/)[0])
-        langItem.addEventListener("click", function(){
+        langItem.addEventListener("click", function () {
             switchLang(langID)
         })
 
@@ -45,13 +45,13 @@ function createLangTabs(){
             document.querySelector(".emoji-picker").style.display = "none"
             document.querySelector(".color-picker").style.display = "none"
             langMenu.style.display = "flex";
-            
+
             const rect = langItem.getBoundingClientRect();
             langMenu.style.left = `${rect.right}px`;
             langMenu.style.top = `${rect.bottom - 100}px`;
             langMenu.setAttribute("data-target-lang", lang);
             langMenu.querySelector(".buttons").style.alignSelf = "flex-start"
-            if(isOutOfView(langMenu)){
+            if (isOutOfView(langMenu)) {
                 langMenu.style.top = `${rect.bottom - langMenu.clientHeight}px`;
                 langMenu.querySelector(".buttons").style.alignSelf = "flex-end"
             }
@@ -61,4 +61,4 @@ function createLangTabs(){
     applyConfig()
 }
 
-export {switchLang, createLangTabs}
+export { switchLang, createLangTabs }
