@@ -6,7 +6,7 @@ function getUserConfig(id) {
 
 
 async function getBuiltins() {
-    const location = "/HTVM-instructions.txt";
+    const location = "../../../HTVM-instructions.txt";
     const response = await fetch(location);
     const data = await response.text();
     const lines = data.split("\n").slice(162);
