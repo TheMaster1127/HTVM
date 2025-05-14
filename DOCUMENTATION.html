@@ -3544,7 +3544,7 @@ Discover how to include external files and resources in your HTVM project for en
 
 ### Including Files in HTVM
 
-In HTVM, the `import` keyword allows you to include another HTVM file within your code. This works in a very simple way: just use the `import` keyword followed by a string containing the file path. It's important to remember that this string must be static; you cannot use any operators or dynamic strings.
+In HTVM, the `include` keyword allows you to include another HTVM file within your code. This works in a very simple way: just use the `include` keyword followed by a string containing the file path. It's important to remember that this string must be static; you cannot use any operators or dynamic strings.
 
 **Syntax**:
 
@@ -3846,11 +3846,11 @@ HTVM is flexible, but there are some important things to keep in mind when worki
 
 ### Final Considerations
 
-- After using the `import` keyword, always ensure that the `main` label is placed underneath any includes or programming blocks containing definitions. **Do not** define functions after the `main` label in your HTVM code. While some target languages (like JavaScript) might technically allow nested functions after the main execution point, this is strongly discouraged and disallowed by HTVM's structure for clarity and predictable behavior.
+- After using the `include` keyword, always ensure that the `main` label is placed underneath any includes or programming blocks containing definitions. **Do not** define functions after the `main` label in your HTVM code. While some target languages (like JavaScript) might technically allow nested functions after the main execution point, this is strongly discouraged and disallowed by HTVM's structure for clarity and predictable behavior.
 
 - When including code from other languages that HTVM has converted, remove their `main` function to avoid conflicts. This is crucial for the proper execution of the HTVM program.
 
-- If you frequently reuse the same set of functions across many projects (especially functions converted from HTVM or native language code), consider adding them as custom built-in functions by editing `HTVM-instructions.txt` (as described in the "Adding Built-In Functions" section) instead of repeatedly using `import` or inline caching via programming blocks. This can centralize your common utilities.
+- If you frequently reuse the same set of functions across many projects (especially functions converted from HTVM or native language code), consider adding them as custom built-in functions by editing `HTVM-instructions.txt` (as described in the "Adding Built-In Functions" section) instead of repeatedly using `include` or inline caching via programming blocks. This can centralize your common utilities.
 
 ---
 
@@ -4020,7 +4020,7 @@ HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct
 |  keyWordStruct  | struct        |
 |  keyWordProp  | prop        |
 |  keyWordThis  | this        |
-|  keyWordInclude  | import        |
+|  keyWordInclude  | include        |
 |  keyWordCodeInTheTranspiledLangStart  | ___start        |
 |  keyWordCodeInTheTranspiledLangEnd  | ___end        |
 |  keyWordCodeInTheTranspiledLangStartCPP  | ___cpp start        |
@@ -4171,7 +4171,7 @@ HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct
 |  useInJavaScriptAlwaysUseVar  | on        |
 |  useJavaScriptInAfullHTMLfile  | off        |
 |  useJavaScriptAmainFuncDef  | off        |
-|  useJavaScriptAllFuncsAreAsync  | on        |
+|  useJavaScriptAllFuncsAreAsync  | off        |
 |  useJavaScriptAlwaysTripleEqual  | off        |
 <pre>
 
@@ -4254,12 +4254,32 @@ HTVM includes a variety of built-in functions organized into categories for conv
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ACos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-ACos is a function that returns the arc cosine (inverse cosine) of a number, which must be between -1 and 1.
+Calculates the arc cosine (inverse cosine) of a number. The input must be between -1 and 1, inclusive. The result is in radians.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-ACos(float)
+float val1 := 0.5
+float result1 := ACos(val1)
+; Expected: approx 1.04719755
+print("ACos(0.5) = " . STR(result1))
+if (Abs(result1 - 1.04719755) > 0.00001) {
+    print("ACos test 1 FAILED!")
+}
+; ----------------------------------------------------
+float val2 := -1.0
+float result2 := ACos(val2)
+; Expected: approx 3.14159265 (pi)
+print("ACos(-1.0) = " . STR(result2))
+if (Abs(result2 - 3.14159265) > 0.00001) {
+    print("ACos test 2 FAILED!")
+}
+; ----------------------------------------------------
+; Example of an invalid input (behavior might vary by target language: error or NaN)
+float val3 := 2.0
+; This would typically result in NaN or an error
+float result3 := ACos(val3)
+print("ACos(2.0) = " . STR(result3))
 ```
 
 
@@ -4274,12 +4294,31 @@ ACos(float)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ASin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-ASin is a function that calculates the arcsine (inverse sine) of a given value, throwing an error if the value is outside the range of -1 to 1.
+Calculates the arc sine (inverse sine) of a number. The input must be between -1 and 1, inclusive. The result is in radians.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-ASin(float value)
+float val1 := 0.5
+float result1 := ASin(val1)
+; Expected: approx 0.52359877
+print("ASin(0.5) = " . STR(result1))
+if (Abs(result1 - 0.52359877) > 0.00001) {
+    print("ASin test 1 FAILED!")
+}
+; ----------------------------------------------------
+float val2 := -1.0
+float result2 := ASin(val2)
+; Expected: approx -1.57079632 ( -pi / 2)
+print("ASin(-1.0) = " . STR(result2))
+if (Abs(result2 - (-1.57079632)) > 0.00001) {
+    print("ASin test 2 FAILED!")
+}
+; ----------------------------------------------------
+; Example of an invalid input (behavior might vary: error or NaN)
+float val3 := 1.5
+float result3 := ASin(val3)
+print("ASin(1.5) = " . STR(result3))
 ```
 
 
@@ -4294,12 +4333,34 @@ ASin(float value)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ATan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-ATan is a function that calculates the arctangent of a number, returning the angle in radians.
+Calculates the arc tangent (inverse tangent) of a number. The result is in radians, ranging from -PI/2 to PI/2.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-ATan(float)
+float val1 := 1.0
+float result1 := ATan(val1)
+; Expected: approx 0.78539816 (pi / 4)
+print("ATan(1.0) = " . STR(result1))
+if (Abs(result1 - 0.78539816) > 0.00001) {
+    print("ATan test 1 FAILED!")
+}
+; ----------------------------------------------------
+float val2 := 0.0
+float result2 := ATan(val2)
+; Expected: 0.0
+print("ATan(0.0) = " . STR(result2))
+if (Abs(result2 - 0.0) > 0.00001) {
+    print("ATan test 2 FAILED!")
+}
+; ----------------------------------------------------
+float val3 := -1.0
+float result3 := ATan(val3)
+; Expected: approx -0.78539816 (-pi / 4)
+print("ATan(-1.0) = " . STR(result3))
+if (Abs(result3 - (-0.78539816)) > 0.00001) {
+    print("ATan test 3 FAILED!")
+}
 ```
 
 
@@ -4314,12 +4375,34 @@ ATan(float)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Abs | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Abs is a function that returns the absolute value of the provided number.
+Returns the absolute (non-negative) value of a number. For example, Abs(-5) is 5, and Abs(5) is 5.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Abs(int value)
+float num1 := -10.5
+float abs1 := Abs(num1)
+; Expected: 10.5
+print("Abs(-10.5) = " . STR(abs1))
+if (abs1 != 10.5) {
+    print("Abs test 1 FAILED!")
+}
+; ----------------------------------------------------
+int num2 := 7
+int abs2 := Abs(num2)
+; Expected: 7
+print("Abs(7) = " . STR(abs2))
+if (abs2 != 7) {
+    print("Abs test 2 FAILED!")
+}
+; ----------------------------------------------------
+float num3 := 0.0
+float abs3 := Abs(num3)
+; Expected: 0.0
+print("Abs(0.0) = " . STR(abs3))
+if (abs3 != 0.0) {
+    print("Abs test 3 FAILED!")
+}
 ```
 
 
@@ -4334,12 +4417,34 @@ Abs(int value)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Ceil | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Ceil is a function that takes a numerical value and returns the smallest integer greater than or equal to that value.
+Returns the smallest integer greater than or equal to the given number (rounds up to the nearest integer). For example, Ceil(4.2) is 5, and Ceil(-4.8) is -4.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Ceil(num)
+float num1 := 4.2
+float ceil1 := Ceil(num1)
+; Expected: 5.0 (or 5 depending on language float/int conversion)
+print("Ceil(4.2) = " . STR(ceil1))
+if (ceil1 != 5.0) {
+    print("Ceil test 1 FAILED!")
+}
+; ----------------------------------------------------
+float num2 := -4.8
+float ceil2 := Ceil(num2)
+; Expected: -4.0
+print("Ceil(-4.8) = " . STR(ceil2))
+if (ceil2 != -4.0) {
+    print("Ceil test 2 FAILED!")
+}
+; ----------------------------------------------------
+float num3 := 7.0
+float ceil3 := Ceil(num3)
+; Expected: 7.0
+print("Ceil(7.0) = " . STR(ceil3))
+if (ceil3 != 7.0) {
+    print("Ceil test 3 FAILED!")
+}
 ```
 
 
@@ -4354,12 +4459,37 @@ Ceil(num)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Cos | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Cos is a function that calculates the cosine of a given angle in radians.
+Calculates the cosine of an angle. The input angle must be in radians.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Cos(float angle)
+float pi := 3.1415926535
+float angle1 := 0.0
+float result1 := Cos(angle1)
+; Expected: 1.0
+print("Cos(0.0) = " . STR(result1))
+if (Abs(result1 - 1.0) > 0.00001) {
+    print("Cos test 1 FAILED!")
+}
+; ----------------------------------------------------
+float angle2 := pi / 2.0
+; 90 degrees
+float result2 := Cos(angle2)
+; Expected: approx 0.0
+print("Cos(pi/2) = " . STR(result2))
+if (Abs(result2 - 0.0) > 0.00001) {
+    print("Cos test 2 FAILED!")
+}
+; ----------------------------------------------------
+float angle3 := pi
+; 180 degrees
+float result3 := Cos(angle3)
+; Expected: -1.0
+print("Cos(pi) = " . STR(result3))
+if (Abs(result3 - (-1.0)) > 0.00001) {
+    print("Cos test 3 FAILED!")
+}
 ```
 
 
@@ -4374,12 +4504,34 @@ Cos(float angle)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Exp | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Exp is a function that takes a numeric value and returns the value of e raised to the power of the given value using the Math.exp() function.
+Calculates Euler's number 'e' (approx. 2.71828) raised to the power of the given number. Exp(1) is 'e', Exp(0) is 1.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Exp(value)
+float num1 := 1.0
+float result1 := Exp(num1)
+; Expected: approx 2.71828
+print("Exp(1.0) = " . STR(result1))
+if (Abs(result1 - 2.71828) > 0.00001) {
+    print("Exp test 1 FAILED!")
+}
+; ----------------------------------------------------
+float num2 := 0.0
+float result2 := Exp(num2)
+; Expected: 1.0
+print("Exp(0.0) = " . STR(result2))
+if (Abs(result2 - 1.0) > 0.00001) {
+    print("Exp test 2 FAILED!")
+}
+; ----------------------------------------------------
+float num3 := 2.0
+float result3 := Exp(num3)
+; Expected: approx 7.38905 (e*e)
+print("Exp(2.0) = " . STR(result3))
+if (Abs(result3 - 7.389056) > 0.00001) {
+    print("Exp test 3 FAILED!")
+}
 ```
 
 
@@ -4394,12 +4546,34 @@ Exp(value)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Floor | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Floor is a function that returns the largest integer less than or equal to a given number, or NaN if the input is not a number.
+Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Floor(num)
+float num1 := 4.8
+float floor1 := Floor(num1)
+; Expected: 4.0 (or 4)
+print("Floor(4.8) = " . STR(floor1))
+if (floor1 != 4.0) {
+    print("Floor test 1 FAILED!")
+}
+; ----------------------------------------------------
+float num2 := -4.2
+float floor2 := Floor(num2)
+; Expected: -5.0
+print("Floor(-4.2) = " . STR(floor2))
+if (floor2 != -5.0) {
+    print("Floor test 2 FAILED!")
+}
+; ----------------------------------------------------
+float num3 := 7.0
+float floor3 := Floor(num3)
+; Expected: 7.0
+print("Floor(7.0) = " . STR(floor3))
+if (floor3 != 7.0) {
+    print("Floor test 3 FAILED!")
+}
 ```
 
 
@@ -4414,12 +4588,39 @@ Floor(num)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Ln | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Ln is a function that calculates the natural logarithm (base e) of a given value.
+Calculates the natural logarithm (logarithm base 'e') of a number. The input must be a positive number.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Ln(int value)
+float e_approx := 2.718281828
+float val1 := e_approx
+float result1 := Ln(val1)
+; Expected: approx 1.0
+print("Ln(e) = " . STR(result1))
+if (Abs(result1 - 1.0) > 0.00001) {
+    print("Ln test 1 FAILED!")
+}
+; ----------------------------------------------------
+float val2 := 1.0
+float result2 := Ln(val2)
+; Expected: 0.0
+print("Ln(1.0) = " . STR(result2))
+if (Abs(result2 - 0.0) > 0.00001) {
+    print("Ln test 2 FAILED!")
+}
+; ----------------------------------------------------
+float val3 := 10.0
+float result3 := Ln(val3)
+; Expected: approx 2.302585
+print("Ln(10.0) = " . STR(result3))
+if (Abs(result3 - 2.302585) > 0.00001) {
+    print("Ln test 3 FAILED!")
+}
+; ----------------------------------------------------
+; Invalid input (0 or negative) would typically cause an error or return NaN/Infinity
+float val4 := 0.0
+print("Ln(0.0) = " . STR(Ln(val4)))
 ```
 
 
@@ -4434,12 +4635,38 @@ Ln(int value)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Log | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Log is a function that calculates the base 10 logarithm of a given value.
+Calculates the base-10 logarithm of a number. The input must be a positive number.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Log(int value)
+float val1 := 100.0
+float result1 := Log(val1)
+; Expected: 2.0
+print("Log(100.0) = " . STR(result1))
+if (Abs(result1 - 2.0) > 0.00001) {
+    print("Log test 1 FAILED!")
+}
+; ----------------------------------------------------
+float val2 := 1.0
+float result2 := Log(val2)
+; Expected: 0.0
+print("Log(1.0) = " . STR(result2))
+if (Abs(result2 - 0.0) > 0.00001) {
+    print("Log test 2 FAILED!")
+}
+; ----------------------------------------------------
+float val3 := 10000.0
+float result3 := Log(val3)
+; Expected: 4.0
+print("Log(10000.0) = " . STR(result3))
+if (Abs(result3 - 4.0) > 0.00001) {
+    print("Log test 3 FAILED!")
+}
+; ----------------------------------------------------
+; Invalid input (0 or negative) would typically cause an error or return NaN/Infinity
+float val4 := 0.0
+print("Log(0.0) = " . STR(Log(val4)))
 ```
 
 
@@ -4454,12 +4681,84 @@ Log(int value)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Mod | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Mod is a function that returns the remainder when the dividend is divided by the divisor.
+Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Mod(int dividend, int divisor)
+; Test 1: Modulus with positive numbers
+int dividend1 := 10
+int divisor1 := 3
+int result1 := Mod(dividend1, divisor1)
+; Expected: 1
+print("10 Mod 3 = " . STR(result1))
+if (result1 != 1) {
+    print("Mod test 1 FAILED!")
+}
+; ----------------------------------------------------
+; Test 2: Modulus with larger dividend
+int dividend2 := 17
+int divisor2 := 5
+int result2 := Mod(dividend2, divisor2)
+; Expected: 2
+print("17 Mod 5 = " . STR(result2))
+if (result2 != 2) {
+    print("Mod test 2 FAILED!")
+}
+; ----------------------------------------------------
+; Test 3: Modulus with a negative dividend
+int dividend3 := -10
+int divisor3 := 3
+int result3 := Mod(dividend3, divisor3)
+; Note: Result with negative numbers can vary by language. Common result: -1 or 2
+; For this test, let's assume a common behavior, but be aware it might differ.
+print("Mod test 3 result for -10 Mod 3: " . STR(result3))
+; ----------------------------------------------------
+; Test 4: Modulus with a negative divisor
+int dividend4 := 10
+int divisor4 := -3
+int result4 := Mod(dividend4, divisor4)
+; Common result: 1 or -2
+print("Mod test 4 result for 10 Mod -3: " . STR(result4))
+; ----------------------------------------------------
+; IMPORTANT: You can also use the modular operator like this:
+int result1_percent := dividend1 % divisor1
+; Expected: 1
+print("10 % 3 = " . STR(result1_percent))
+if (result1_percent != 1) {
+    print("Percent Mod test 1 FAILED!")
+}
+; ----------------------------------------------------
+int result2_percent := dividend2 % divisor2
+; Expected: 2
+print("17 % 5 = " . STR(result2_percent))
+if (result2_percent != 2) {
+    print("Percent Mod test 2 FAILED!")
+}
+; ----------------------------------------------------
+int result3_percent := dividend3 % divisor3
+; Common result: -1 or 2
+print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))
+; ----------------------------------------------------
+int result4_percent := dividend4 % divisor4
+; Common result: 1 or -2
+print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))
+; ----------------------------------------------------
+; ----------------------------------------------------
+; Even or Odd Number Check in a Loop (0 to 4)
+; This loop checks if the numbers from 0 to 4 are even or odd
+; This can be very useful in various scenarios
+; ----------------------------------------------------
+; Loop from 0 to 4
+Loop, 5 {
+    ; Check if the current index is even or odd
+    if (A_Index % 2 = 0) {
+        print(A_Index . " is even")
+    }
+    else {
+        print(A_Index . " is odd")
+    }
+}
 ```
 
 
@@ -4474,12 +4773,30 @@ Mod(int dividend, int divisor)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Random | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Random is a function that generates and returns a random integer between a specified minimum and maximum value, inclusive.
+Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Random(min, max)
+int minVal := 1
+int maxVal := 10
+Loop, 5 {
+    int randNum := Random(minVal, maxVal)
+    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))
+    if (randNum < minVal or randNum > maxVal) {
+        print("Random test FAILED! Number out of range: " . STR(randNum))
+    }
+}
+print("--------------------")
+; ----------------------------------------------------
+int specificMin := 5
+int specificMax := 5
+int specificRand := Random(specificMin, specificMax)
+print("Random number between 5 and 5: " . STR(specificRand))
+; Expected: 5
+if (specificRand != 5) {
+    print("Random specific range test FAILED!")
+}
 ```
 
 
@@ -4494,12 +4811,43 @@ Random(min, max)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Round | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Round is a function that rounds a given numeric value to the nearest integer.
+Rounds a number to the nearest integer. Numbers ending in .5 are typically rounded up (away from zero).
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Round(num)
+float num1 := 4.2
+float round1 := Round(num1)
+; Expected: 4.0 (or 4)
+print("Round(4.2) = " . STR(round1))
+if (round1 != 4.0) {
+    print("Round test 1 FAILED!")
+}
+; ----------------------------------------------------
+float num2 := 4.8
+float round2 := Round(num2)
+; Expected: 5.0
+print("Round(4.8) = " . STR(round2))
+if (round2 != 5.0) {
+    print("Round test 2 FAILED!")
+}
+; ----------------------------------------------------
+float num3 := 4.5
+float round3 := Round(num3)
+; Expected: 5.0 (common rounding rule)
+print("Round(4.5) = " . STR(round3))
+if (round3 != 5.0) {
+    print("Round test 3 FAILED!")
+}
+; ----------------------------------------------------
+float num4 := -4.5
+float round4 := Round(num4)
+; Expected: -5.0 (common rounding away from zero for .5) or -4.0 (round half to even)
+; This behavior can vary, so the test is lenient.
+print("Round(-4.5) result: " . STR(round4))
+if (round4 != -4.0 and round4 != -5.0) {
+    print("Round test 4 FAILED!")
+}
 ```
 
 
@@ -4514,12 +4862,37 @@ Round(num)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sin | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Sin is a function that takes an angle (in radians) and returns the sine of that angle.
+Calculates the sine of an angle. The input angle must be in radians.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Sin(float)
+float pi := 3.1415926535
+float angle1 := 0.0
+float result1 := Sin(angle1)
+print("Sin(0.0) = " . STR(result1))
+; Expected: 0.0
+if (Abs(result1 - 0.0) > 0.00001) {
+    print("Sin test 1 FAILED!")
+}
+; ----------------------------------------------------
+float angle2 := pi / 2.0
+; 90 degrees
+float result2 := Sin(angle2)
+print("Sin(pi/2) = " . STR(result2))
+; Expected: 1.0
+if (Abs(result2 - 1.0) > 0.00001) {
+    print("Sin test 2 FAILED!")
+}
+; ----------------------------------------------------
+float angle3 := pi
+; 180 degrees
+float result3 := Sin(angle3)
+print("Sin(pi) = " . STR(result3))
+; Expected: approx 0.0
+if (Abs(result3 - 0.0) > 0.00001) {
+    print("Sin test 3 FAILED!")
+}
 ```
 
 
@@ -4534,12 +4907,39 @@ Sin(float)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sqrt | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Sqrt is a function that calculates the square root of a given numeric value.
+Calculates the square root of a non-negative number. Inputting a negative number will typically result in NaN or an error.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Sqrt(num)
+float num1 := 9.0
+float sqrt1 := Sqrt(num1)
+print("Sqrt(9.0) = " . STR(sqrt1))
+; Expected: 3.0
+if (Abs(sqrt1 - 3.0) > 0.00001) {
+    print("Sqrt test 1 FAILED!")
+}
+; ----------------------------------------------------
+float num2 := 2.0
+float sqrt2 := Sqrt(num2)
+print("Sqrt(2.0) = " . STR(sqrt2))
+; Expected: approx 1.41421356
+if (Abs(sqrt2 - 1.41421356) > 0.00001) {
+    print("Sqrt test 2 FAILED!")
+}
+; ----------------------------------------------------
+float num3 := 0.0
+float sqrt3 := Sqrt(num3)
+print("Sqrt(0.0) = " . STR(sqrt3))
+; Expected: 0.0
+if (Abs(sqrt3 - 0.0) > 0.00001) {
+    print("Sqrt test 3 FAILED!")
+}
+; ----------------------------------------------------
+; Example of invalid input (behavior might vary: error or NaN)
+float num4 := -4.0
+float sqrt4 := Sqrt(num4)
+print("Sqrt(-4.0) = " . STR(sqrt4))
 ```
 
 
@@ -4554,12 +4954,33 @@ Sqrt(num)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Tan | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Tan is a function that calculates the tangent of the given angle (in radians).
+Calculates the tangent of an angle. The input angle must be in radians.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Tan(float)
+float pi := 3.1415926535
+float angle1 := 0.0
+float result1 := Tan(angle1)
+print("Tan(0.0) = " . STR(result1))
+; Expected: 0.0
+if (Abs(result1 - 0.0) > 0.00001) {
+    print("Tan test 1 FAILED!")
+}
+; ----------------------------------------------------
+; 45 degrees
+float angle2 := pi / 4.0
+float result2 := Tan(angle2)
+print("Tan(pi/4) = " . STR(result2))
+; Expected: approx 1.0
+if (Abs(result2 - 1.0) > 0.00001) {
+    print("Tan test 2 FAILED!")
+}
+; ----------------------------------------------------
+; Tan(pi/2) is undefined (approaches infinity). Behavior might vary.
+float angle3 := pi / 2.0
+float result3 := Tan(angle3)
+print("Tan(pi/2) = " . STR(result3))
 ```
 
 
@@ -4634,12 +5055,42 @@ Tan(float)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Asc | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Asc is a function that takes a string and returns the ASCII value of its first character, or -1 if the string is empty.
+Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Asc(str s)
+str char1 := "A"
+int ascii1 := Asc(char1)
+print("Asc('A') = " . STR(ascii1))
+; Expected: 65
+if (ascii1 != 65) {
+    print("Asc test 1 FAILED!")
+}
+; ----------------------------------------------------
+str char2 := "a"
+int ascii2 := Asc(char2)
+print("Asc('a') = " . STR(ascii2))
+; Expected: 97
+if (ascii2 != 97) {
+    print("Asc test 2 FAILED!")
+}
+; ----------------------------------------------------
+str char3 := " "
+int ascii3 := Asc(char3)
+print("Asc(' ') = " . STR(ascii3))
+; Expected: 32
+if (ascii3 != 32) {
+    print("Asc test 3 FAILED!")
+}
+; ----------------------------------------------------
+str emptyStr := ""
+int asciiEmpty := Asc(emptyStr)
+print("Asc('') = " . STR(asciiEmpty))
+; Expected: -1 (or error)
+if (asciiEmpty != -1) {
+    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))
+}
 ```
 
 
@@ -4654,12 +5105,41 @@ Asc(str s)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Chr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Chr is a function that returns the character corresponding to the given Unicode code point or an empty string if the number is out of range.
+Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Chr(int number)
+int code1 := 65
+str char1 := Chr(code1)
+print("Chr(65) = '" . char1 . "'")
+; Expected: 'A'
+if (char1 != "A") {
+    print("Chr test 1 FAILED!")
+}
+; ----------------------------------------------------
+int code2 := 97
+str char2 := Chr(code2)
+print("Chr(97) = '" . char2 . "'")
+; Expected: 'a'
+if (char2 != "a") {
+    print("Chr test 2 FAILED!")
+}
+; ----------------------------------------------------
+int code3 := 32
+str char3 := Chr(code3)
+print("Chr(32) = '" . char3 . "'")
+; Expected: ' ' (space)
+if (char3 != " ") {
+    print("Chr test 3 FAILED!")
+}
+; ----------------------------------------------------
+; Example with a less common character (e.g., Euro sign if supported)
+; Euro sign €
+int code4 := 8364
+str char4 := Chr(code4)
+print("Chr(8364) = '" . char4 . "'")
+; Expected: '€' (if supported by environment/font)
 ```
 
 
@@ -4674,12 +5154,40 @@ Chr(int number)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FLOAT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-FLOAT is a function that converts a given value to a float and throws an error if the value cannot be converted.
+Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-FLOAT(str value)
+str strNum1 := "123.45"
+float float1 := FLOAT(strNum1)
+print("FLOAT('123.45') = " . STR(float1))
+; Expected: 123.45
+if (Abs(float1 - 123.45) > 0.00001) {
+    print("FLOAT test 1 FAILED!")
+}
+; ----------------------------------------------------
+str strNum2 := "-0.5"
+float float2 := FLOAT(strNum2)
+print("FLOAT('-0.5') = " . STR(float2))
+; Expected: -0.5
+if (Abs(float2 - (-0.5)) > 0.00001) {
+    print("FLOAT test 2 FAILED!")
+}
+; ----------------------------------------------------
+str strNum3 := "789"
+float float3 := FLOAT(strNum3)
+; Integer string
+print("FLOAT('789') = " . STR(float3))
+; Expected: 789.0
+if (Abs(float3 - 789.0) > 0.00001) {
+    print("FLOAT test 3 FAILED!")
+}
+; ----------------------------------------------------
+; Example of an invalid string (behavior might vary: error or NaN)
+str invalidStr := "abc"
+float floatInvalid := FLOAT(invalidStr)
+print("FLOAT('abc') = " . STR(floatInvalid))
 ```
 
 
@@ -4694,12 +5202,40 @@ FLOAT(str value)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | INT | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-INT is a function that converts a value to an integer, throwing an error if the conversion fails.
+Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-INT(str value)
+str strNum1 := "123"
+int int1 := INT(strNum1)
+print("INT('123') = " . STR(int1))
+; Expected: 123
+if (int1 != 123) {
+    print("INT test 1 FAILED!")
+}
+; ----------------------------------------------------
+str strNum2 := "123.789"
+; String with a float
+int int2 := INT(strNum2)
+print("INT('123.789') = " . STR(int2))
+; Expected: 123 (truncation)
+if (int2 != 123) {
+    print("INT test 2 FAILED!")
+}
+; ----------------------------------------------------
+str strNum3 := "-456"
+int int3 := INT(strNum3)
+print("INT('-456') = " . STR(int3))
+; Expected: -456
+if (int3 != -456) {
+    print("INT test 3 FAILED!")
+}
+; ----------------------------------------------------
+; Example of an invalid string (behavior might vary: error or 0/NaN)
+str invalidStr := "xyz"
+int intInvalid := INT(invalidStr)
+print("INT('xyz') = " . STR(intInvalid))
 ```
 
 
@@ -4714,12 +5250,41 @@ INT(str value)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | InStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-InStr is a function that finds the position of the substring needle within the string haystack and returns its position (1-based index), or 0 if the substring is not found.
+Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-InStr(str haystack, str needle)
+str haystack := "Hello, HTVM World! HTVM is cool."
+str needle1 := "HTVM"
+int pos1 := InStr(haystack, needle1)
+print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))
+; Expected: 8 (1-indexed-based)
+if (pos1 != 8) {
+    print("InStr test 1 FAILED!")
+}
+; ----------------------------------------------------
+str needle2 := "World"
+int pos2 := haystack.InStr(needle2)
+print("Position of 'World' is: " . STR(pos2))
+; Expected: 13 (1-indexed-based)
+if (pos2 != 13) {
+    print("InStr test 2 FAILED!")
+}
+; ----------------------------------------------------
+str needle3 := "notfound"
+int pos3 := InStr(haystack, needle3)
+print("Position of 'notfound' is: " . STR(pos3))
+; Expected: 0
+if (pos3 != 0) {
+    print("InStr test 3 FAILED!")
+}
+; ----------------------------------------------------
+str needle4 := "hTvm"
+; Test case-sensitivity (may vary by language)
+int pos4 := InStr(haystack, needle4)
+print("Position of 'hTvm' (case test) is: " . STR(pos4))
+; Expected might be 0 if case-sensitive, or 8 if case-insensitive
 ```
 
 
@@ -4734,12 +5299,80 @@ InStr(str haystack, str needle)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | RegExMatch | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-RegExMatch is a function that returns the 1-based index of the first regex match or 0 if no match is found.
+Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-RegExMatch(str haystack, str needle)
+str text := "The year is 2024, and the price is $19.99."
+; Matches four digits (year)
+str pattern1 := "\d{4}"
+int matchPos1 := RegExMatch(text, pattern1)
+print("Position of year pattern: " . STR(matchPos1))
+; Expected: 13 (for "2024")
+if (matchPos1 != 13) {
+    print("RegExMatch test 1 FAILED!")
+}
+; ----------------------------------------------------
+; Matches a price like $xx.yy
+str pattern2 := "\$[0-9]+\.[0-9]{2}"
+int matchPos2 := text.RegExMatch(pattern2)
+print("Position of price pattern: " . STR(matchPos2))
+; Expected: 36 (for "$19.99")
+if (matchPos2 != 36) {
+    print("RegExMatch test 2 FAILED!")
+}
+; ----------------------------------------------------
+; Pattern not in text
+str pattern3 := "XYZ"
+int matchPos3 := RegExMatch(text, pattern3)
+print("Position of 'XYZ' pattern: " . STR(matchPos3))
+; Expected: 0
+if (matchPos3 != 0) {
+    print("RegExMatch test 3 FAILED!")
+}
+; ----------------------------------------------------
+; Check if a number exists in the text
+str numText := "There are 42 apples."
+; Matches any number
+str numPattern := "\d+"
+int numPos := RegExMatch(numText, numPattern)
+print("Position of number in text: " . STR(numPos))
+; Expected: 12 (for "42")
+if (numPos > 0) {
+    print("Number found in text.")
+}
+else {
+    print("No number found in text.")
+}
+; ----------------------------------------------------
+; Check if a string exists
+str stringText := "The quick brown fox jumps over the lazy dog."
+; Matches the word "fox"
+str stringPattern := "fox"
+int stringPos := RegExMatch(stringText, stringPattern)
+print("Position of 'fox' in text: " . STR(stringPos))
+; Expected: 17
+if (stringPos > 0) {
+    print("'fox' found in text.")
+}
+else {
+    print("'fox' not found in text.")
+}
+; ----------------------------------------------------
+; Check if a specific format (email) exists
+str emailText := "Please contact support@domain.com for help."
+; Matches an email format
+str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+int emailPos := RegExMatch(emailText, emailPattern)
+print("Position of email pattern: " . STR(emailPos))
+; Expected: 23 (for "support@domain.com")
+if (emailPos > 0) {
+    print("Email found in text.")
+}
+else {
+    print("No email found in text.")
+}
 ```
 
 
@@ -4754,12 +5387,35 @@ RegExMatch(str haystack, str needle)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | RegExReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-RegExReplace is a function that performs a regular expression-based replacement on a string using a given pattern and replacement string.
+Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-RegExReplace(str inputStr, str regexPattern, str replacement)
+str text := "Contact us at info@example.com or support@example.org for help."
+str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+str replacement := "[REDACTED_EMAIL]"
+str result1 := RegExReplace(text, emailPattern, replacement)
+print("Original: " . text)
+print("Redacted: " . result1)
+; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.
+str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."
+if (result1 != expected1) {
+    print("RegExReplace test 1 FAILED!")
+}
+; ----------------------------------------------------
+str text2 := "The numbers are 123 and 456."
+str digitPattern := "\d+"
+; Matches one or more digits
+str replacement2 := "###"
+str result2 := text2.RegExReplace(digitPattern, replacement2)
+print("Original: " . text2)
+print("Numbers replaced: " . result2)
+; Expected: The numbers are ### and ###.
+str expected2 := "The numbers are ### and ###."
+if (result2 != expected2) {
+    print("RegExReplace test 2 FAILED!")
+}
 ```
 
 
@@ -4774,12 +5430,50 @@ RegExReplace(str inputStr, str regexPattern, str replacement)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
-STR is a function that converts a value to its string representation, handling numbers, booleans, and strings, while throwing an error for unsupported types.
+Converts a given value (number, boolean, or existing string) into its string representation. For booleans, `true` becomes "1" and `false` becomes "0" (or language equivalent). Helpful for concatenation or when a string is explicitly needed.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-STR(value)
+int num := 123
+str strNum := STR(num)
+print("STR(123) = '" . strNum . "'")
+; Expected: '123'
+if (strNum != "123") {
+    print("STR int test FAILED!")
+}
+; ----------------------------------------------------
+float flt := -45.67
+str strFlt := STR(flt)
+print("STR(-45.67) = '" . strFlt . "'")
+; Expected: '-45.67' (or similar float string)
+if (strFlt != "-45.67") {
+    print("STR float test FAILED!")
+}
+; ----------------------------------------------------
+bool bTrue := true
+str strTrue := STR(bTrue)
+print("STR(true) = '" . strTrue . "'")
+; Expected: '1' (or 'true')
+if (strTrue != "1" and strTrue != "true") {
+    print("STR true test FAILED! Got: " . strTrue)
+}
+; ----------------------------------------------------
+bool bFalse := false
+str strFalse := STR(bFalse)
+print("STR(false) = '" . strFalse . "'")
+; Expected: '0' (or 'false')
+if (strFalse != "0" and strFalse != "false") {
+    print("STR false test FAILED! Got: " . strFalse)
+}
+; ----------------------------------------------------
+str existingStr := "already_string"
+str strExisting := STR(existingStr)
+print("STR('already_string') = '" . strExisting . "'")
+; Expected: 'already_string'
+if (strExisting != "already_string") {
+    print("STR existing string test FAILED!")
+}
 ```
 
 
@@ -4794,12 +5488,56 @@ STR(value)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Sort is a function that takes a string and optional options to sort its elements based on various criteria such as numeric, random, alphabetical, case sensitivity, and more, with support for delimiters and unique filtering.
+Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Sort(str varName, [str options = ""])
+str list1 := "Charlie`nAlpha`nBravo"
+str sorted1 := Sort(list1)
+print("Default sort (list1):`n" . sorted1)
+; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)
+str expected1 := "Alpha`nBravo`nCharlie"
+; Assuming case-insensitive default for test
+; Note: Actual default might vary if underlying language sorts case-sensitively.
+; ----------------------------------------------------
+print("---")
+str list2 := "10`n2`n100`n1"
+str sorted2_alpha := Sort(list2)
+str sorted2_numeric := Sort(list2, "N")
+print("Alpha sort (list2):`n" . sorted2_alpha)
+; Expected: 1`n10`n100`n2
+print("Numeric sort (list2):`n" . sorted2_numeric)
+; Expected: 1`n2`n10`n100
+if (sorted2_numeric != "1`n2`n10`n100") {
+    print("Sort numeric test FAILED!")
+}
+; ----------------------------------------------------
+print("---")
+str list3 := "apple,banana,apple,orange"
+str sorted3_unique_comma := Sort(list3, "UD,")
+; Unique, comma-delimited
+print("Unique comma sort (list3):`n" . sorted3_unique_comma)
+; Expected: apple,banana,orange (order may vary for first two)
+; A simple check for content rather than strict order for unique test:
+if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {
+    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)
+}
+; ----------------------------------------------------
+print("---")
+str list4 := "Zebra`napple`nCAT"
+str sorted4_case_reverse := Sort(list4, "CR")
+print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)
+; Expected: apple`nZebra`nCAT (Z > C, a > Z)
+; This expected order depends on specific sort implementation with mixed case.
+; For testing, let's target a more predictable case-insensitive reverse.
+str sorted4_insensitive_reverse := Sort(list4, "R")
+; Assuming default is case-insensitive for this test
+print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)
+; Expected: Zebra`nCAT`napple
+if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {
+    print("Sort insensitive reverse test FAILED!")
+}
 ```
 
 
@@ -4814,12 +5552,36 @@ Sort(str varName, [str options = ""])
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-StrLen is a function that takes a string as input and returns its length as a size_t value.
+Returns the length (number of characters) of a string.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-StrLen(str)
+str text1 := "Hello"
+int len1 := StrLen(text1)
+; Expected: 5
+print("Length of '" . text1 . "' is: " . STR(len1))
+if (len1 != 5) {
+    print("StrLen test 1 FAILED!")
+}
+; ----------------------------------------------------
+str text2 := ""
+; Empty string
+int len2 := text2.StrLen()
+; Expected: 0
+print("Length of '' is: " . STR(len2))
+if (len2 != 0) {
+    print("StrLen test 2 FAILED!")
+}
+; ----------------------------------------------------
+str text3 := "HTVM `nRocks!"
+; Contains a newline
+int len3 := StrLen(text3)
+; Expected: 12 (newline is one char)
+print("Length of 'HTVM `nRocks!' is: " . STR(len3))
+if (len3 != 12) {
+    print("StrLen test 3 FAILED!")
+}
 ```
 
 
@@ -4834,12 +5596,34 @@ StrLen(str)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-StrLower is a function that takes a string as input and converts all characters to lowercase.
+Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-StrLower(string)
+str text1 := "HeLlO, WoRlD!"
+str lower1 := StrLower(text1)
+; Expected: 'hello, world!'
+print("StrLower('" . text1 . "') = '" . lower1 . "'")
+if (lower1 != "hello, world!") {
+    print("StrLower test 1 FAILED!")
+}
+; ----------------------------------------------------
+str text2 := "HTVM ROCKS 123!"
+str lower2 := text2.StrLower
+; Expected: 'htvm rocks 123!'
+print("StrLower('" . text2 . "') = '" . lower2 . "'")
+if (lower2 != "htvm rocks 123!") {
+    print("StrLower test 2 FAILED!")
+}
+; ----------------------------------------------------
+str text3 := "already lowercase"
+str lower3 := StrLower(text3)
+; Expected: 'already lowercase'
+print("StrLower('" . text3 . "') = '" . lower3 . "'")
+if (lower3 != "already lowercase") {
+    print("StrLower test 3 FAILED!")
+}
 ```
 
 
@@ -4854,12 +5638,51 @@ StrLower(string)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-StrReplace is a function that takes an original string, a substring to find, and a substring to replace it with, returning the modified string.
+Replaces all occurrences of a `find` substring within an `originalString` with a `replaceWith` string. Returns the modified string.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-StrReplace(str originalString, str find, str replaceWith)
+str original1 := "Hello World, Hello HTVM!"
+str find1 := "Hello"
+str replace1 := "Greetings"
+str result1 := StrReplace(original1, find1, replace1)
+print("Replacing '" . find1 . "' in '" . original1 . "' with '" . replace1 . "': '" . result1 . "'")
+; Expected: 'Greetings World, Greetings HTVM!'
+if (result1 != "Greetings World, Greetings HTVM!") {
+    print("StrReplace test 1 FAILED!")
+}
+; ----------------------------------------------------
+str original2 := "one two three two one"
+str find2 := "two"
+str replace2 := "2"
+str result2 := original2.StrReplace(find2, replace2)
+print("Replacing '" . find2 . "' in '" . original2 . "' with '" . replace2 . "': '" . result2 . "'")
+; Expected: 'one 2 three 2 one'
+if (result2 != "one 2 three 2 one") {
+    print("StrReplace test 2 FAILED!")
+}
+; ----------------------------------------------------
+str original3 := "No change needed"
+str find3 := "XYZ"
+str replace3 := "ABC"
+str result3 := StrReplace(original3, find3, replace3)
+print("Replacing '" . find3 . "' in '" . original3 . "' (not found): '" . result3 . "'")
+; Expected: 'No change needed'
+if (result3 != "No change needed") {
+    print("StrReplace test 3 FAILED!")
+}
+; ----------------------------------------------------
+str original4 := "Remove this"
+str find4 := " this"
+str replace4 := ""
+; Replace with empty string to delete
+str result4 := StrReplace(original4, find4, replace4)
+print("Deleting '" . find4 . "' from '" . original4 . "': '" . result4 . "'")
+; Expected: 'Remove'
+if (result4 != "Remove") {
+    print("StrReplace test 4 (deletion) FAILED!")
+}
 ```
 
 
@@ -4874,12 +5697,55 @@ StrReplace(str originalString, str find, str replaceWith)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-StrSplit is a function that splits an input string by a specified delimiter and returns the part at the specified index, or an empty string if the index is out of range.
+Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-StrSplit(str inputStr, str delimiter, int num)
+str data1 := "apple,banana,cherry,date"
+str delimiter1 := ","
+int partNum1 := 2
+str fruit1 := StrSplit(data1, delimiter1, partNum1)
+; Expected: 'banana'
+print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")
+if (fruit1 != "banana") {
+    print("StrSplit test 1 FAILED!")
+}
+; ----------------------------------------------------
+int partNum2 := 4
+str fruit2 := data1.StrSplit(delimiter1, partNum2)
+; Expected: 'date'
+print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")
+if (fruit2 != "date") {
+    print("StrSplit test 2 FAILED!")
+}
+; ----------------------------------------------------
+int partNum3 := 1
+str fruit3 := StrSplit(data1, delimiter1, partNum3)
+; Expected: 'apple'
+print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")
+if (fruit3 != "apple") {
+    print("StrSplit test 3 FAILED!")
+}
+; ----------------------------------------------------
+; Out of bounds
+int partNum4 := 5
+str fruit4 := StrSplit(data1, delimiter1, partNum4)
+; Expected: '' (empty string)
+print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")
+if (fruit4 != "") {
+    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)
+}
+; ----------------------------------------------------
+str data2 := "one;-;two;-;three"
+str delimiter2 := ";-;"
+int partNum5 := 3
+str item5 := StrSplit(data2, delimiter2, partNum5)
+; Expected: 'three'
+print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")
+if (item5 != "three") {
+    print("StrSplit test 5 FAILED!")
+}
 ```
 
 
@@ -4894,12 +5760,42 @@ StrSplit(str inputStr, str delimiter, int num)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StrTitleCase | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-StrTitleCase is a function that takes an input string and converts each word to title case, capitalizing the first letter of each word while making the rest lowercase.
+Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-StrTitleCase(str inputString)
+str text1 := "hello world example"
+str title1 := StrTitleCase(text1)
+; Expected: 'Hello World Example'
+print("Title case of '" . text1 . "': '" . title1 . "'")
+if (title1 != "Hello World Example") {
+    print("StrTitleCase test 1 FAILED!")
+}
+; ----------------------------------------------------
+str text2 := "HTVM is AWESOME"
+str title2 := text2.StrTitleCase
+; Expected: 'Htvm Is Awesome'
+print("Title case of '" . text2 . "': '" . title2 . "'")
+if (title2 != "Htvm Is Awesome") {
+    print("StrTitleCase test 2 FAILED!")
+}
+; ----------------------------------------------------
+str text3 := "already Title Case"
+str title3 := StrTitleCase(text3)
+; Expected: 'Already Title Case'
+print("Title case of '" . text3 . "': '" . title3 . "'")
+if (title3 != "Already Title Case") {
+    print("StrTitleCase test 3 FAILED!")
+}
+; ----------------------------------------------------
+str text4 := " leading space"
+str title4 := StrTitleCase(text4)
+; Expected: ' Leading Space'
+print("Title case of '" . text4 . "': '" . title4 . "'")
+if (title4 != " Leading Space") {
+    print("StrTitleCase test 4 FAILED!")
+}
 ```
 
 
@@ -4914,12 +5810,44 @@ StrTitleCase(str inputString)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StringTrimLeft | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-StringTrimLeft is a function that trims a specified number of characters from the left side of a given string.
+Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-StringTrimLeft(str input, int numChars)
+str text1 := "HelloHTVM"
+int charsToTrim1 := 5
+str result1 := StringTrimLeft(text1, charsToTrim1)
+; Expected: 'HTVM'
+print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")
+if (result1 != "HTVM") {
+    print("StringTrimLeft test 1 FAILED!")
+}
+; ----------------------------------------------------
+str text2 := "Goodbye"
+int charsToTrim2 := 3
+str result2 := text2.StringTrimLeft(charsToTrim2)
+; Expected: 'dbye'
+print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")
+if (result2 != "dbye") {
+    print("StringTrimLeft test 2 FAILED!")
+}
+; ----------------------------------------------------
+str text3 := "Short"
+int charsToTrim3 := 10
+; More than length
+str result3 := StringTrimLeft(text3, charsToTrim3)
+; Expected: '' (or "Short", behavior might vary)
+; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.
+print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")
+; ----------------------------------------------------
+int charsToTrim4 := 0
+str result4 := StringTrimLeft(text1, charsToTrim4)
+; Expected: 'HelloHTVM'
+print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")
+if (result4 != "HelloHTVM") {
+    print("StringTrimLeft test 4 (zero trim) FAILED!")
+}
 ```
 
 
@@ -4934,12 +5862,43 @@ StringTrimLeft(str input, int numChars)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | StringTrimRight | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-StringTrimRight is a function that trims a specified number of characters from the right side of a given string.
+Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-StringTrimRight(str input, int numChars)
+str text1 := "HTVMHello"
+int charsToTrim1 := 5
+str result1 := StringTrimRight(text1, charsToTrim1)
+; Expected: 'HTVM'
+print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")
+if (result1 != "HTVM") {
+    print("StringTrimRight test 1 FAILED!")
+}
+; ----------------------------------------------------
+str text2 := "Welcome"
+int charsToTrim2 := 3
+str result2 := text2.StringTrimRight(charsToTrim2)
+; Expected: 'Welc'
+print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")
+if (result2 != "Welc") {
+    print("StringTrimRight test 2 FAILED!")
+}
+; ----------------------------------------------------
+str text3 := "Tiny"
+int charsToTrim3 := 10
+; More than length
+str result3 := StringTrimRight(text3, charsToTrim3)
+; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.
+print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")
+; ----------------------------------------------------
+int charsToTrim4 := 0
+str result4 := StringTrimRight(text1, charsToTrim4)
+; Expected: 'HTVMHello'
+print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")
+if (result4 != "HTVMHello") {
+    print("StringTrimRight test 4 (zero trim) FAILED!")
+}
 ```
 
 
@@ -4954,12 +5913,60 @@ StringTrimRight(str input, int numChars)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-SubStr is a function that extracts a substring from a given string, starting from a specified position and for a specified length, adjusting for edge cases like null inputs or missing parameters.
+Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-SubStr(str, int startPos, int length [= str.length - startPos + 1])
+str text := "Hello, HTVM World!"
+; ----------------------------------------------------
+; Example 1: Basic substring
+int start1 := 8
+int len1 := 4
+str sub1 := SubStr(text, start1, len1)
+print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")
+; Expected: 'HTVM'
+if (sub1 != "HTVM") {
+    print("SubStr test 1 FAILED!")
+}
+; ----------------------------------------------------
+; Example 2: Substring to end
+int start2 := 13
+str sub2 := text.SubStr(start2)
+print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")
+; Expected: 'World!'
+if (sub2 != "World!") {
+    print("SubStr test 2 FAILED!")
+}
+; ----------------------------------------------------
+; Example 3: Negative start position
+int start3 := -6
+str sub3 := SubStr(text, start3)
+print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")
+; Expected: 'World!'
+if (sub3 != "World!") {
+    print("SubStr test 3 FAILED!")
+}
+; ----------------------------------------------------
+; Example 4: Negative start and specific length
+int start4 := -6
+int len4 := 5
+str sub4 := SubStr(text, start4, len4)
+print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")
+; Expected: 'World'
+if (sub4 != "World") {
+    print("SubStr test 4 FAILED!")
+}
+; ----------------------------------------------------
+; Example 5: Start position 1
+int start5 := 1
+int len5 := 5
+str sub5 := SubStr(text, start5, len5)
+print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")
+; Expected: 'Hello'
+if (sub5 != "Hello") {
+    print("SubStr test 5 FAILED!")
+}
 ```
 
 
@@ -4974,12 +5981,46 @@ SubStr(str, int startPos, int length [= str.length - startPos + 1])
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Trim is a function that removes leading and trailing whitespace from the input string.
+Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Trim(string)
+str text1 := "   Hello, HTVM!   "
+str trimmed1 := Trim(text1)
+print("Original 1: '" . text1 . "'")
+print("Trimmed 1 : '" . trimmed1 . "'")
+; Expected: 'Hello, HTVM!'
+if (trimmed1 != "Hello, HTVM!") {
+    print("Trim test 1 FAILED! Oh noes!")
+}
+; ----------------------------------------------------
+str text2 := "`t`n  HTVM Rocks! `n`r"
+str trimmed2 := text2.Trim()
+print("Original 2: '" . text2 . "' (has tabs/newlines)")
+print("Trimmed 2 : '" . trimmed2 . "'")
+; Expected: 'HTVM Rocks!'
+if (trimmed2 != "HTVM Rocks!") {
+    print("Trim test 2 FAILED! Oh noes!")
+}
+; ----------------------------------------------------
+str text3 := "   "
+str trimmed3 := text3.Trim
+print("Original 3: '" . text3 . "' (only spaces)")
+print("Trimmed 3 : '" . trimmed3 . "'")
+; Expected: ''
+if (trimmed3 != "") {
+    print("Trim test 3 FAILED! Oh noes!")
+}
+; ----------------------------------------------------
+str text4 := "NoSpaces"
+str trimmed4 := Trim(text4)
+print("Original 4: '" . text4 . "'")
+print("Trimmed 4 : '" . trimmed4 . "'")
+; Expected: 'NoSpaces'
+if (trimmed4 != "NoSpaces") {
+    print("Trim test 4 FAILED! Oh noes!")
+}
 ```
 
 
@@ -4994,12 +6035,37 @@ Trim(string)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | countChars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-countChars is a function that counts the occurrences of a specific character (`theChar`) in a given string.
+Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-countChars(str string, str theChar)
+str text1 := "hello world, hello htvm"
+str charToCount1 := "h"
+int count1 := countChars(text1, charToCount1)
+print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))
+; Expected: 3
+if (count1 != 3) {
+    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))
+}
+; ----------------------------------------------------
+str text2 := "banana"
+str charToCount2 := "a"
+int count2 := text2.countChars(charToCount2)
+print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))
+; Expected: 3
+if (count2 != 3) {
+    print("countChars test 2 FAILED!")
+}
+; ----------------------------------------------------
+str text4 := "no_such_char_here"
+str charToCount4 := "z"
+int count4 := countChars(text4, charToCount4)
+print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))
+; Expected: 0
+if (count4 != 0) {
+    print("countChars test 4 FAILED!")
+}
 ```
 
 
@@ -5014,12 +6080,26 @@ countChars(str string, str theChar)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-getUrlParams is a function that extracts and decodes parameter values from the URL query string, returning a combined string of values separated by '&'.
+(JavaScript Only) Extracts parameter values from the current URL's query string. It typically decodes and concatenates them, often separated by '&'. Primarily used in web browser environments for frontend logic.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-getUrlParams()
+; This function is JavaScript-specific and relies on browser environment.
+; The example shows conceptual usage. To test, run in a browser with a URL like:
+; http://example.com?name=Alice&topic=HTVM&mode=test
+; This is not really possible to test
+; This how you might use it:
+str params := getUrlParams()
+; Expected (if URL was ?name=Alice&project=HTVM&version=2): "Alice&HTVM&2" or similar
+; Then you can do this:
+; Example
+params := "Alice&HTVM&2"
+; Loop over the params
+Loop, Parse, params, "&" {
+    ; print each value
+    print(A_LoopField)
+}
 ```
 
 
@@ -5034,12 +6114,42 @@ getUrlParams()
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-sortArr is a function that takes an array, removes any duplicate values using a Set, and returns the array sorted in ascending order.
+Sorts an array of strings in ascending order. It typically removes duplicate values before sorting, resulting in an array of unique, sorted strings. The sorting is usually case-insensitive by default, but this can vary by language.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-sortArr(arr str stringArray)
+arr str unsortedArr1 := ["Charlie", "Alpha", "Bravo", "alpha"]
+arr str sortedArr1 := sortArr(unsortedArr1)
+print("Original Array 1: ")
+Loop, % unsortedArr1.size() {
+    print("  " . unsortedArr1[A_Index])
+}
+print("Sorted Unique Array 1: ")
+Loop, % sortedArr1.size() {
+    print("  " . sortedArr1[A_Index])
+}
+; Expected (case-sensitive): ["Alpha", "Bravo", "Charlie", "alpha"]
+if (sortedArr1.size() != 4 or sortedArr1[0] != "Alpha" or sortedArr1[1] != "Bravo" or sortedArr1[2] != "Charlie" or sortedArr1[3] != "alpha") {
+    print("sortArr test 1 FAILED!")
+}
+; ----------------------------------------------------
+print("--------------------")
+arr str unsortedArr2 := ["10", "2", "100", "1", "2"]
+arr str sortedArr2 := unsortedArr2.sortArr()
+; Alternative call
+print("Original Array 2: ")
+Loop, % unsortedArr2.size() {
+    print("  " . unsortedArr2[A_Index])
+}
+print("Sorted Unique Array 2 (lexicographical): ")
+Loop, % sortedArr2.size() {
+    print("  " . sortedArr2[A_Index])
+}
+; Expected (lexicographical, unique): ["1", "10", "100", "2"]
+if (sortedArr2.size() != 4 or sortedArr2[0] != "1" or sortedArr2[1] != "10" or sortedArr2[2] != "100" or sortedArr2[3] != "2") {
+    print("sortArr test 2 FAILED!")
+}
 ```
 
 
@@ -5054,12 +6164,37 @@ sortArr(arr str stringArray)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-sortArrByLenOnly is a function that sorts an array of strings by length in descending order
+Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-sortArrByLenOnly(arr str array)
+arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]
+; Should already be sorted by length descending
+arr str sorted1 := sortArrByLenOnly(arr1)
+print("Original Array 1: eeeee, dddd, ccc, bb, a")
+print("Sorted by Length Desc 1: ")
+Loop, % sorted1.size() {
+    print("  " . sorted1[A_Index])
+}
+if (sorted1[0] != "eeeee" or sorted1[4] != "a") {
+    print("sortArrByLenOnly test 1 FAILED!")
+}
+; ----------------------------------------------------
+print("--------------------")
+arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]
+arr str sorted2 := arr2.sortArrByLenOnly()
+print("Original Array 2: short, longer_word, tiny, very_long_length")
+print("Sorted by Length Desc 2: ")
+Loop, % sorted2.size() {
+    print("  " . sorted2[A_Index])
+}
+; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)
+str expectedOrderStart := "very_long_length"
+str expectedOrderEnd := "tiny"
+if (sorted2[0] != expectedOrderStart or sorted2[sorted2.size() - 1] != expectedOrderEnd) {
+    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")
+}
 ```
 
 
@@ -5098,12 +6233,70 @@ sortArrByLenOnly(arr str array)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | BuildInVars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-BuildInVars is a function that retrieves various system-related values or states, including screen dimensions, timestamps, key presses, and more, based on the specified variable name.
+Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-BuildInVars(str varName)
+; ==== Built-in Variables for BuildInVars() ====
+; A_ScreenWidth  - Width of the window screen (browser only)
+; A_ScreenHeight - Height of the window screen (browser only)
+; A_LastKey      - Last key pressed by the user (browser only)
+; A_TimeIdle     - Time the user has been idle (in ms or seconds)
+; A_TickCount    - Current tick count (ms since the start)
+; A_Now          - Local datetime string (full, locale-based)
+; A_YYYY         - 4-digit current year
+; A_MM           - 2-digit current month (01–12)
+; A_DD           - 2-digit current day of month (01–31)
+; A_MMMM         - Full month name (e.g. January)
+; A_MMM          - Abbreviated month name (e.g. Jan)
+; A_DDDD         - Full day name (e.g. Monday)
+; A_DDD          - Abbreviated day name (e.g. Mon)
+; A_Hour         - Current hour (00–23)
+; A_Min          - Current minute (00–59)
+; A_Sec          - Current second (00–59)
+; A_Space        - Space character (" ")
+; A_Tab          - Tab character ("\t")
+; ==========================================================
+; Some behavior may vary depending on the target language!!!
+; Make sure to test your code thoroughly!!!
+; ==========================================================
+; Examples:
+str currentYear := BuildInVars("A_YYYY")
+print("Current Year (A_YYYY): " . currentYear)
+; ----------------------------------------------------
+str currentMonth := BuildInVars("A_MMMM")
+print("Current Month (A_MMMM): " . currentMonth)
+if (StrLen(currentMonth) < 3) {
+    print("BuildInVars A_MMMM test FAILED! Month name too short.")
+}
+; ----------------------------------------------------
+str tabChar := BuildInVars("A_Tab")
+print("Space char (A_Tab): '" . tabChar . "'")
+; ----------------------------------------------------
+; Browser-specific example (will return empty or error in non-browser environments)
+str screenWidth := BuildInVars("A_ScreenWidth")
+print("Screen Width (A_ScreenWidth): " . screenWidth)
+if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {
+    print("BuildInVars A_ScreenWidth test needs a browser!")
+}
+; ----------------------------------------------------
+str tickCount1 := BuildInVars("A_TickCount")
+print("TickCount 1: " . tickCount1)
+await Sleep(100)
+str tickCount2 := BuildInVars("A_TickCount")
+print("TickCount 2 (after 100ms sleep): " . tickCount2)
+; This will never be perfectly 100 because:
+; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.
+; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).
+; 3. Some overhead is added due to:
+;    - Executing BuildInVars("A_TickCount") before and after.
+;    - Interpreter/runtime processing.
+;    - Internal event loop mechanics if async is involved.
+; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).
+if (INT(tickCount2) <= INT(tickCount1)) {
+    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")
+}
 ```
 
 
@@ -5118,12 +6311,30 @@ BuildInVars(str varName)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-ExitApp is a function that terminates the application immediately.
+Terminates the current program immediately. Any code following `ExitApp()` will not be executed. This function is not available in all target environments (e.g., standard web JavaScript).
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-ExitApp()
+print("Program is starting...")
+; Set to true to test, false to continue
+bool shouldExit := true
+if (shouldExit = true) {
+    print("Preparing to exit...")
+    ; Note: The following line will only execute if ExitApp is NOT called or is unavailable.
+    ; In a successful ExitApp call, "This line should not print..." will not appear.
+    if (HTVM_getLang_HTVM() = "js") or (HTVM_getLang_HTVM() = "ts") {
+        ; ExitApp not typically available in a browser
+        print("ExitApp is not available in this JavaScript environment. Skipping exit.")
+    }
+    else {
+        print("Calling ExitApp()...")
+        ExitApp()
+        ; Test assertion
+        print("This line SHOULD NOT PRINT if ExitApp worked!")
+    }
+}
+print("Program continued (only if ExitApp was not called or not available).")
 ```
 
 
@@ -5138,12 +6349,32 @@ ExitApp()
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-HTVM_getLang_HTVM is a func that returns the current language of HTVM as a string
+Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-HTVM_getLang_HTVM()
+str currentLang := HTVM_getLang_HTVM()
+print("Current HTVM target language is: " . currentLang)
+if (currentLang = "js") {
+    print("This code is specific to JavaScript.")
+}
+else if (currentLang = "py") {
+    print("This part runs if the target is Python.")
+}
+else if (currentLang = "cpp") {
+    print("C++ specific logic here.")
+}
+else {
+    print("Running in or targeting another language: " . currentLang)
+}
+; Test: The function should return a non-empty string.
+if (StrLen(currentLang) = 0) {
+    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")
+}
+else {
+    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")
+}
 ```
 
 
@@ -5158,12 +6389,33 @@ HTVM_getLang_HTVM()
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-Sleep is a function that pauses execution for a specified number of milliseconds.
+Pauses the execution of the program for a specified number of `milliseconds` (integer).
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-Sleep(int milliseconds)
+print("Starting sleep test...")
+str startTime := BuildInVars("A_TickCount")
+print("Start TickCount: " . STR(startTime))
+; Sleep for 1 second (1000 milliseconds)
+int duration := 1000
+await Sleep(duration)
+str endTime := BuildInVars("A_TickCount")
+print("End TickCount: " . STR(endTime))
+int elapsed := INT(endTime) - INT(startTime)
+print("Elapsed time: " . STR(elapsed) . " ms")
+; Test if elapsed time is approximately the sleep duration
+; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)
+if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {
+    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")
+}
+else {
+    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")
+}
+; ----------------------------------------------------
+print("--- Another sleep for 500ms ---")
+await Sleep(500)
+print("Woke up after 500ms.")
 ```
 
 
@@ -5208,12 +6460,45 @@ Sleep(int milliseconds)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileAppend | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-FileAppend is a function that appends the given content to a file at the specified path and returns a boolean indicating success or failure.
+Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-FileAppend(str content, str path)
+; This example assumes a non-browser environment where file system access is permitted.
+str filePath := "test_append.txt"
+str content1 := "First line for test_append.txt`n"
+bool success1 := FileAppend(content1, filePath)
+print("Append 1 to '" . filePath . "' success: " . STR(success1))
+if (success1 = false and HTVM_getLang_HTVM() != "js") {
+    print("FileAppend test 1 FAILED!")
+}
+; ----------------------------------------------------
+str content2 := "Second line, appended.`n"
+bool success2 := FileAppend(content2, filePath)
+print("Append 2 to '" . filePath . "' success: " . STR(success2))
+if (success2 = false and HTVM_getLang_HTVM() != "js") {
+    print("FileAppend test 2 FAILED!")
+}
+; ----------------------------------------------------
+; Optionally, read back and verify (if FileRead is available and working)
+if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {
+    str fileContent := FileRead(filePath)
+    print("Content of '" . filePath . "':`n" . fileContent)
+    str expectedContent := content1 . content2
+    if (Trim(fileContent) != Trim(expectedContent)) {
+        print("FileAppend content verification FAILED!")
+    }
+    else {
+        print("FileAppend content verification PASSED.")
+    }
+    ; Clean up the test file
+    FileDelete(filePath)
+    print("Test file '" . filePath . "' deleted.")
+}
+else if (HTVM_getLang_HTVM() = "js") {
+    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")
+}
 ```
 
 
@@ -5228,12 +6513,24 @@ FileAppend(str content, str path)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileAppendJs | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-FileAppendJs is a function that appends content to a file by creating a Blob, generating a download link, and triggering a download with the specified filename.
+(JavaScript Only - Browser) Initiates a file download in the browser with the given `content` (string) and `filename` (string). This is how file "saving" or "appending" is typically handled in a browser environment due to security restrictions on direct file system access.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-FileAppendJs(str content, str filename)
+; This function is specific to JavaScript running in a web browser.
+if (HTVM_getLang_HTVM() = "js") {
+    print("Attempting to trigger download using FileAppendJs...")
+    str fileContent := "This is content for the downloaded file.`n"
+    str fileName := "downloaded_by_htvm.txt"
+    FileAppendJs(fileContent, fileName)
+    print("FileAppendJs called. If in a browser, a download for '" . fileName . "' should have started.")
+    print("Note: This is a 'save as' operation, not a true append to an existing local file.")
+    ; No direct way to "test" success other than observing browser behavior.
+}
+else {
+    print("FileAppendJs is only for JavaScript browser environments. Skipping test.")
+}
 ```
 
 
@@ -5248,12 +6545,49 @@ FileAppendJs(str content, str filename)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileCreateDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-FileCreateDir is a function that checks if a directory exists, and if not, it creates the directory.
+Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-FileCreateDir(str directory)
+; This example assumes a non-browser environment.
+str dirPath := "test_htvm_dir"
+print("Attempting to create directory: '" . dirPath . "'")
+if (HTVM_getLang_HTVM() = "js") {
+    print("FileCreateDir is not available in standard JS. Skipping test.")
+}
+else {
+    FileCreateDir(dirPath)
+    if (FileExist(dirPath) = true) {
+        print("Directory '" . dirPath . "' created or already existed. PASSED.")
+        ; Clean up
+        FileRemoveDir(dirPath)
+        if (FileExist(dirPath) = false) {
+            print("Test directory '" . dirPath . "' cleaned up successfully.")
+        }
+        else {
+            print("Cleanup of '" . dirPath . "' FAILED.")
+        }
+    }
+    else {
+        print("FileCreateDir test FAILED! Directory not found after creation attempt.")
+    }
+    ; ----------------------------------------------------
+    str nestedDirPath := "parent_dir/child_dir"
+    print("Attempting to create nested directory: '" . nestedDirPath . "'")
+    ; Behavior for non-existent 'parent_dir' varies.
+    FileCreateDir(nestedDirPath)
+    if (FileExist(nestedDirPath) = true) {
+        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")
+        ; Try to clean up child
+        FileRemoveDir(nestedDirPath)
+        ; Try to clean up parent
+        FileRemoveDir("parent_dir")
+    }
+    else {
+        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")
+    }
+}
 ```
 
 
@@ -5268,12 +6602,44 @@ FileCreateDir(str directory)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileDelete | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-FileDelete is a function that checks if a file exists at the given path and deletes it if found, returning True if the file is deleted, otherwise False.
+Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-FileDelete(str path)
+; This example assumes a non-browser environment.
+str filePath := "file_to_delete.txt"
+if (HTVM_getLang_HTVM() = "js") {
+    print("FileDelete is not available in standard JS. Skipping test.")
+}
+else {
+    ; Create a dummy file to delete
+    FileAppend("Temporary content.", filePath)
+    if (FileExist(filePath) = true) {
+        print("Dummy file '" . filePath . "' created for deletion test.")
+        bool deleteSuccess := FileDelete(filePath)
+        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))
+        if (deleteSuccess = true and FileExist(filePath) = false) {
+            print("FileDelete test PASSED.")
+        }
+        else {
+            print("FileDelete test FAILED! File still exists or deletion reported failure.")
+        }
+    }
+    else {
+        print("Could not create dummy file for FileDelete test.")
+    }
+    ; Test deleting a non-existent file
+    str nonExistentFile := "surely_this_does_not_exist.txt"
+    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)
+    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))
+    if (deleteNonExistentSuccess = false) {
+        print("FileDelete non-existent file test PASSED (reported failure as expected).")
+    }
+    else {
+        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")
+    }
+}
 ```
 
 
@@ -5288,12 +6654,56 @@ FileDelete(str path)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-FileExist is a function that checks if a file or directory exists at the specified path.
+Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-FileExist(str path)
+; This example assumes a non-browser environment.
+; Placeholder, will attempt to use the script's own file if GetParams works.
+str existingFilePath := ""
+str nonExistentPath := "this_path_should_not_exist_12345.xyz"
+if (HTVM_getLang_HTVM() = "js") {
+    print("FileExist is not available in standard JS. Skipping test.")
+}
+else {
+    ; Try to get path of the current script or a known file for a positive test
+    ; This part is a bit tricky without knowing the execution context.
+    ; For a simple test, we'll create and check a temporary file.
+    str tempFileForExistTest := "temp_exist_test.txt"
+    FileAppend("check", tempFileForExistTest)
+    bool check1 := FileExist(tempFileForExistTest)
+    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))
+    if (check1 = true) {
+        print("FileExist test 1 (existing file) PASSED.")
+    }
+    else {
+        print("FileExist test 1 (existing file) FAILED!")
+    }
+    ; Cleanup
+    FileDelete(tempFileForExistTest)
+    bool check2 := FileExist(nonExistentPath)
+    print("FileExist('" . nonExistentPath . "') = " . STR(check2))
+    if (check2 = false) {
+        print("FileExist test 2 (non-existent path) PASSED.")
+    }
+    else {
+        print("FileExist test 2 (non-existent path) FAILED!")
+    }
+    ; Test with a directory
+    str tempDirForExistTest := "temp_dir_exist_test"
+    FileCreateDir(tempDirForExistTest)
+    bool check3 := FileExist(tempDirForExistTest)
+    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))
+    if (check3 = true) {
+        print("FileExist test 3 (existing directory) PASSED.")
+    }
+    else {
+        print("FileExist test 3 (existing directory) FAILED!")
+    }
+    ; Cleanup
+    FileRemoveDir(tempDirForExistTest)
+}
 ```
 
 
@@ -5308,12 +6718,42 @@ FileExist(str path)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-FileRead is a function that reads the content of a file given a path, prepends the current working directory if the path is not absolute, and returns the file content as a string.
+Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-FileRead(path: str)
+; This example assumes a non-browser environment.
+str filePath := "test_read_file.txt"
+str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."
+if (HTVM_getLang_HTVM() = "js") {
+    print("FileRead is not available in standard JS. Skipping test.")
+}
+else {
+    ; Create a file with known content
+    FileAppend(fileContentToWrite, filePath)
+    if (FileExist(filePath) = true) {
+        print("Test file '" . filePath . "' created with content.")
+        str readContent := FileRead(filePath)
+        print("Content read from '" . filePath . "':`n" . readContent)
+        ; Normalize newlines for comparison as different OS might handle them differently.
+        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")
+        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")
+        if (normalizedRead = normalizedExpected) {
+            print("FileRead test PASSED.")
+        }
+        else {
+            print("FileRead test FAILED! Content mismatch.")
+            print("Expected: '" . normalizedExpected . "'")
+            print("Got     : '" . normalizedRead . "'")
+        }
+        ; Cleanup
+        FileDelete(filePath)
+    }
+    else {
+        print("Could not create test file for FileRead.")
+    }
+}
 ```
 
 
@@ -5328,12 +6768,56 @@ FileRead(path: str)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-FileRemoveDir is a function that removes a directory and its contents if the directory exists.
+Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-FileRemoveDir(str directory)
+; This example assumes a non-browser environment.
+str dirPath := "dir_to_remove"
+if (HTVM_getLang_HTVM() = "js") {
+    print("FileRemoveDir is not available in standard JS. Skipping test.")
+}
+else {
+    ; Test 1: Remove an empty directory
+    FileCreateDir(dirPath)
+    if (FileExist(dirPath) = true) {
+        print("Directory '" . dirPath . "' created for removal test.")
+        FileRemoveDir(dirPath)
+        if (FileExist(dirPath) = false) {
+            print("FileRemoveDir test 1 (empty dir) PASSED.")
+        }
+        else {
+            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")
+        }
+    }
+    else {
+        print("Could not create directory for FileRemoveDir test 1.")
+    }
+    print("--------------------")
+    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)
+    str nestedDirPath := "parent_for_remove/child_for_remove"
+    ; Creates parent/child potentially
+    FileCreateDir(nestedDirPath)
+    FileAppend("dummy", nestedDirPath . "/file.txt")
+    if (FileExist(nestedDirPath) = true) {
+        print("Nested directory with file created: '" . nestedDirPath . "'")
+        ; Attempt to remove parent
+        FileRemoveDir("parent_for_remove")
+        if (FileExist("parent_for_remove") = false) {
+            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")
+        }
+        else {
+            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")
+            ; Cleanup if needed and possible
+            FileRemoveDir(nestedDirPath)
+            FileRemoveDir("parent_for_remove")
+        }
+    }
+    else {
+        print("Could not create nested directory for FileRemoveDir test 2.")
+    }
+}
 ```
 
 
@@ -5374,12 +6858,43 @@ FileRemoveDir(str directory)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-GetParams is a function that retrieves command line arguments, checks if they correspond to existing paths, and returns them as absolute paths in new lines, or as they are if they do not exist.
+Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-GetParams()
+; This function's output depends on how the script is executed with command-line arguments.
+; For testing, you would run the compiled HTVM script like:
+; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt
+if (HTVM_getLang_HTVM() = "js") {
+    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")
+}
+else {
+    print("Retrieving command line parameters...")
+    str allParams := GetParams()
+    if (allParams = "") {
+        print("No command line parameters were provided to the script, or function not fully supported in this context.")
+    }
+    else {
+        print("Command Line Parameters Received:")
+        print(allParams)
+        print("--- End of Parameters ---")
+        ; A simple "test" is to check if it returned something if args were expected.
+        ; This requires manual verification by running with args.
+        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")
+    }
+}
+; Example of how you might parse it in HTVM if it returns newline-separated args:
+arr str paramsArray
+if (allParams != "") {
+    Loop, Parse, allParams, `n, `r {
+        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)
+        if (A_LoopField != "") {
+            paramsArray.add(A_LoopField)
+        }
+    }
+    print("Parsed first param (if any): " . paramsArray[0])
+}
 ```
 
 
@@ -5394,12 +6909,63 @@ GetParams()
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-RunCMD is a function that executes a shell command and captures its output or errors.
+Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-RunCMD(str command)
+; This function is highly dependent on the OS and environment.
+; Not available in browser JS.
+if (HTVM_getLang_HTVM() = "js") {
+    print("RunCMD is not available in standard JS browser environments. Skipping test.")
+}
+else {
+    str command := ""
+    ; Assuming isWindows() built-in exists and works
+    bool isWin := isWindows()
+    if (isWin = true) {
+        command := "echo Hello from HTVM on Windows"
+    }
+    else {
+        ; Single quotes for Unix echo
+        command := "echo 'Hello from HTVM on Unix-like'"
+    }
+    print("Executing command: " . command)
+    str output := RunCMD(command)
+    print("Output from command:")
+    ; Trim to remove trailing newline from echo
+    print(Trim(output))
+    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {
+        print("RunCMD test (Windows echo) PASSED.")
+    }
+    else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {
+        print("RunCMD test (Unix echo) PASSED.")
+    }
+    else if (command != "") {
+        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")
+    }
+    else {
+        print("RunCMD test skipped as command was empty.")
+    }
+    ; Example of a command that might list files (OS-dependent)
+    str listCommand := ""
+    if (isWin = true) {
+        listCommand := "dir /b"
+    }
+    else {
+        listCommand := "ls -a"
+    }
+    print("---")
+    print("Attempting to list files with: " . listCommand)
+    str fileListOutput := RunCMD(listCommand)
+    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")
+    if (StrLen(fileListOutput) > 0) {
+        print("RunCMD (list files) seems to have executed and produced output.")
+    }
+    else {
+        print("RunCMD (list files) produced no output or failed.")
+    }
+}
 ```
 
 
@@ -5414,12 +6980,37 @@ RunCMD(str command)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-getDataFromAPI is a function that asynchronously fetches JSON data from a given URL and returns it, handling errors and non-OK responses.
+Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-getDataFromAPI(str url)
+; This function is asynchronous.
+async func void performApiCall() {
+    ; Public test API
+    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"
+    print("Fetching data from: " . apiUrl)
+    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),
+    ; you might need an 'await' keyword if HTVM supports it directly for this function,
+    ; or handle it via callbacks/promises depending on the target language details.
+    ; For this example, we'll assume direct await is possible or handled by HTVM.
+    str responseData := await getDataFromAPI(apiUrl)
+    if (responseData != "" and responseData != null) {
+        print("API Response Data (raw):")
+        print(responseData)
+    }
+    print("--- Fetching from a non-existent or error-prone URL ---")
+    str errorUrl := "https://jsonplaceholder.typicode.com/nonexistentpath"
+    str errorResponse := await getDataFromAPI(errorUrl)
+    if (errorResponse = "" or errorResponse = null or InStr(errorResponse, "Error") > 0) {
+        print("getDataFromAPI error handling test PASSED (received empty, null, or error indicator). Response: " . errorResponse)
+    }
+    else {
+        print("getDataFromAPI error handling test FAILED. Expected error/empty, got: " . errorResponse)
+    }
+}
+main
+await performApiCall()
 ```
 
 
@@ -5434,12 +7025,48 @@ getDataFromAPI(str url)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-input is a function that displays a prompt with the given text and returns the user's input.
+Prompts the user with `promptText` (string) and waits for them to enter text, then returns the entered text as a string. In graphical environments, this might open a dialog box. In console environments, it reads from standard input.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-input(str promptText)
+print("Starting input test...")
+str namePrompt := "Please enter your name: "
+str userName := input(namePrompt)
+if (userName != "") {
+    print("Hello, " . userName . "! You entered: '" . userName . "'")
+    ; Simple check
+    if (userName = "TestUser") {
+        print("Input test with 'TestUser' PASSED.")
+    }
+    else {
+        print("Input received. For a full test, try entering 'TestUser'.")
+    }
+}
+else {
+    print("No input received or input was empty.")
+    ; Specifically empty
+    if (userName = "") {
+        print("Input test (empty input) PASSED observation.")
+    }
+    else {
+        print("Input test (empty input) FAILED observation, unexpected value for empty input.")
+    }
+}
+; ------------------------------------------------
+str agePrompt := "Enter your age: "
+str ageStr := input(agePrompt)
+if (ageStr != "") {
+    ; Assuming INT() can handle conversion
+    int ageNum := INT(ageStr)
+    print("You entered age: " . STR(ageNum))
+    if (ageNum > 0) {
+        print("Age input seems valid.")
+    }
+}
+else {
+    print("No age input received.")
+}
 ```
 
 
@@ -5454,12 +7081,52 @@ input(str promptText)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
-print is a function that outputs the specified data to the console or standard output.
+The `print` function is a versatile utility for outputting data to the standard console. It accepts various data types including strings, numbers (integers, floats), and booleans. When given a boolean, it will print "1" for true and "0" for false (or the language-equivalent boolean string representation). For other types, it attempts to convert them to a string representation before printing. Each call to `print` typically appends a newline character, ensuring subsequent outputs appear on a new line.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-print(str)
+; Example 1: Printing a string
+str message := "Hello, HTVM!"
+; Should print: Hello, HTVM!
+print(message)
+print("--------------------")
+; ----------------------------------------------------
+; Example 2: Printing an integer
+int count := 100
+; Should print: 100
+print(count)
+print("--------------------")
+; ----------------------------------------------------
+; Example 3: Printing a float
+float piApprox := 3.14159
+; Should print: 3.14159
+print(piApprox)
+print("--------------------")
+; ----------------------------------------------------
+; Example 4: Printing a boolean (true)
+bool isActive := true
+; Should print: 1 (or true, depending on language)
+print(isActive)
+print("--------------------")
+; ----------------------------------------------------
+; Example 5: Printing a boolean (false)
+bool isDone := false
+; Should print: 0 (or false, depending on language)
+print(isDone)
+print("--------------------")
+; ----------------------------------------------------
+; Example 6: Printing concatenated string and number
+str label := "Score: "
+int score := 42
+; Should print: Score: 42
+print(label . STR(score))
+print("--------------------")
+; ----------------------------------------------------
+; Test: Printing a null-like value (if HTVM has 'null' keyword and print handles it)
+str nullVar := null
+; Behavior for null depends on language (e.g. "null", "", error)
+print(nullVar)
 ```
 
 
@@ -5468,9 +7135,8 @@ print(str)
 
 [Go back](#built-in-functions)
 
-1. [HTVM_v2_HTVM](#htvm_v2_htvm)
-2. [MakeHotKey](#makehotkey)
-3. [isWindows](#iswindows)
+1. [MakeHotKey](#makehotkey)
+2. [isWindows](#iswindows)
 
 ---
 
@@ -5480,26 +7146,11 @@ print(str)
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
 ---
 
-### HTVM_v2_HTVM
-
-[Go back](#other-functions)
-
-**HTVM build-in functions availability.**
-
-| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
-|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| HTVM_v2_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-
-HTVM_v2_HTVM is a func that will help me make HTVM v2 DONT USE IT!!!
-
-
----
 ### MakeHotKey
 
 [Go back](#other-functions)
@@ -5510,12 +7161,58 @@ HTVM_v2_HTVM is a func that will help me make HTVM v2 DONT USE IT!!!
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-MakeHotKey is a function that listens for a specific key combination (hotkey) and triggers a callback when the hotkey is pressed. It handles modifiers like Ctrl, Shift, and Alt, as well as specific keys such as arrows and backspace. The callback function is invoked with the hotkey in either uppercase or lowercase, depending on the Shift modifier.
+(JavaScript Only - Browser) Registers a global hotkey (keyboard shortcut). When the specified `hotkey` combination (e.g., "ctrl+s", "alt+shift+h", "f5") is pressed, the provided `callback` function is executed. The callback usually receives information about the hotkey that was pressed.
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-MakeHotKey(str hotkey, function callback)
+; Initial player position
+int playerX := 10
+int playerY := 10
+; -------------------------------------
+; Function to handle arrow key presses and move the player
+func  onArrowKeyPress(key) {
+    print("You pressed: " . key)
+    if (key = "arrowup") {
+        playerY := playerY - 5
+    }
+    else if (key = "arrowdown") {
+        playerY := playerY + 5
+    }
+    else if (key = "arrowleft") {
+        playerX := playerX - 5
+    }
+    else if (key = "arrowright") {
+        playerX := playerX + 5
+    }
+    guiControl p"gui1" id:"player" xplayerX+"px" yplayerY+"px"
+}
+; -------------------------------------
+; Function to reset player position to default
+func  resetPos() {
+    playerX := 10
+    playerY := 10
+    guiControl p"gui1" id:"player" xplayerX+"px" yplayerY+"px"
+}
+; -------------------------------------
+; Button0 click action
+Button0:
+MsgBox, HI
+subout
+; -------------------------------------
+; GUI setup with player button
+main
+gui p"gui1" x50% y50% w500 h500
+gui p"gui1" id:"player" button xplayerX+"px" yplayerY+"px" w50 h50
+; -------------------------------------
+; Arrow key hotkeys to move player
+MakeHotKey("arrowup", onArrowKeyPress)
+MakeHotKey("arrowdown", onArrowKeyPress)
+MakeHotKey("arrowleft", onArrowKeyPress)
+MakeHotKey("arrowright", onArrowKeyPress)
+; -------------------------------------
+; Hotkey to reset position
+MakeHotKey("Alt+R", resetPos)
 ```
 
 
@@ -5530,12 +7227,25 @@ MakeHotKey(str hotkey, function callback)
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 
-isWindows is a function that checks if the current operating system is Windows by comparing the system name to "windows".
+Checks if the current operating system is Windows. Returns `true` if the OS is identified as Windows, `false` otherwise. Not reliably available or meaningful in browser JavaScript environments (where it would typically always be false or unavailable).
 
-here is how the func looks like:
+Here is how to use it:
 
 ```htvm
-isWindows()
+bool runningOnWindows := isWindows()
+if (runningOnWindows = true) {
+    print("This script is running on a Windows system.")
+}
+else {
+    print("This script is NOT running on a Windows system (or function not fully supported in this env).")
+}
+; Test: The function should return a boolean.
+if (runningOnWindows = true or runningOnWindows = false) {
+    print("isWindows test PASSED (returned a boolean). Current value: " . STR(runningOnWindows))
+}
+else {
+    print("isWindows test FAILED! Did not return a boolean.")
+}
 ```
 
 
@@ -5568,12 +7278,38 @@ isWindows()
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | MsgBox | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-MsgBox is a function that displays a message box with customizable text, title, buttons, and icons, handling various options based on the provided value and timeout.
+(JavaScript Only - Browser) Displays a message box (alert/dialog) to the user.
 
-here is how the func looks like:
+`text`: The main message.
+
+`title` (optional string): The title of the message box.
+
+`value` (optional int): A number that configures icons.
+
+Icons: +16=Error, +32=Question, +48=Warning, +64=Info.
+
+`timeout` (optional int): Auto-closes the box after `timeout` seconds.
+
+Here is how to use it:
 
 ```htvm
-MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
+; This function is JavaScript-specific and relies on a browser environment with SweetAlert2.
+async func  RunMsgBoxTests() {
+    await MsgBox("This is a simple OK message.", "Test 1")
+    ; 48 = Warning Icon
+    await MsgBox("Proceed with caution!", "Test 3: Warning Icon", 48)
+    ; Timeout 2s
+    await MsgBox("This will auto-close in 2 seconds.", "Test 5: Timeout", 0, 2)
+    print("MsgBox tests complete. Check browser for dialogs.")
+}
+main
+if (HTVM_getLang_HTVM() = "js") {
+    print("MsgBox tests will attempt to show dialogs if in a browser.")
+    await RunMsgBoxTests()
+}
+else {
+    print("MsgBox is only for JavaScript browser environments. Skipping test.")
+}
 ```
 
 
@@ -5606,12 +7342,64 @@ MsgBox(str text, str [title = " "], int [value = 0], int [timeout = null])
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | callBackend | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
-callBackend is a function that fetches data from a specified endpoint using a provided HTTP method (default is POST), sends the textData as a string, and parses the response based on its content type.
+(JavaScript Only) Asynchronously sends a request to a backend `endpoint` (string, e.g., "/api/data").
 
-here is how the func looks like:
+`textData` (string): The data to send in the request body (plain text).
+
+`method` (optional string, default "POST"): The HTTP method (e.g., "GET", "POST", "PUT").
+
+Returns a Promise that resolves with the plain text response from the backend. Used for frontend-backend communication.
+
+Here is how to use it:
 
 ```htvm
-callBackend(endpoint, textData, [method = "POST"])
+; This function is JavaScript-specific for frontend-backend communication.
+; It requires a running backend server that responds to the specified endpoints.
+; -----------------------
+; --- OSP Struct for state (Recommended) ---
+struct InputState {
+    prop str currentText := ""
+}
+; --- Callbacks ---
+; -----------------------
+; Default for edit
+Edit0:
+; No 'global' needed for JS target
+InputState.currentText := A_Value
+subout
+; -----------------------
+; Callback for first button
+ButtonHello:
+str respHello := await callBackend("/hello", InputState.currentText)
+; Use SPACE separation for guicontrol
+guicontrol id:"responseText" value:respHello
+subout
+; -----------------------
+; Callback for second button
+ButtonProcess:
+str respProcess := await callBackend("/processData", InputState.currentText)
+; Use SPACE separation for guicontrol
+guicontrol id:"responseText" value:respProcess
+subout
+; -----------------------
+; --- GUI Setup ---
+main
+; Prepare string vars only where needed, hardcode simple ones
+str placeholderText := "Enter data..."
+str btn1Text := "Call Hello"
+str btn2Text := "Call Process"
+str initialResponse := "Response..."
+str editId := "inputEdit"
+str helloBtnId := "helloBtn"
+str processBtnId := "processBtn"
+str responseTextId := "responseText"
+str whiteColor := "white"
+; Use SPACE separation for GUI options
+; Uses Edit0
+gui edit id:editId x10 y10 w200 h30 placeholder:placeholderText
+gui button id:helloBtnId x10 y50 w95 h30 value:btn1Text callback:ButtonHello
+gui button id:processBtnId x115 y50 w95 h30 value:btn2Text callback:ButtonProcess
+gui text id:responseTextId x10 y90 w200 h30 value:initialResponse color:whiteColor
 ```
 
 
@@ -6154,7 +7942,7 @@ proc
 struct
 prop
 this
-import
+include
 ___start
 ___end
 ___cpp start
@@ -6305,7 +8093,7 @@ off
 on
 off
 off
-on
+off
 off`;
 
 
