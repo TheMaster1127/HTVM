@@ -1,18 +1,17 @@
 TODO.txt
 1. Fix a small bug in HTVM arrays.
-2. Write all 162 descriptions for each customization for the HTVM Configurator website.
-3. Finish the HTVM Configurator website.
-4. Rewrite the HTVM IDE with the new engine for syntax highlighting, autocomplete, import keyword support, .funcname highlighting, and more improvements.
-5. Add all the built-in functions to HTVM for the remaining languages.
-6. Test HTVM functionality after adding the built-in functions.
-7. Build the HTVM-to-HTVM Transpilation website.
-8. Set up the Discord server and a subreddit for HTVM.
-9. Build the HTVM landing page.
-10. Polish everything to ensure it's working as expected.
-11. Prepare the YouTube video titled "HTVM: Alpha-Stable Release | The Future of Programming."
-12. Make an alpha-stable release on GitHub.
-13. Conduct user testing.
-14. Polish the IDE with more customizability, enhanced autocomplete, and potential integration with the Gemini free API.
-15. Add additional features like an instruction file manager and other customizability improvements.
-16. A few months after the alpha-stable release, improve and polish HTVM, then consider making HTVM version 2.0.0 the official release.
-17. Begin popularizing HTVM after the official release.
+2. Finish the HTVM Configurator website.
+3. Rewrite the HTVM IDE with the new engine for syntax highlighting, autocomplete, import keyword support, .funcname highlighting, and more improvements.
+4. Add all the built-in functions to HTVM for the remaining languages.
+5. Test HTVM functionality after adding the built-in functions.
+6. Build the HTVM-to-HTVM Transpilation website.
+7. Set up the Discord server and a subreddit for HTVM.
+8. Build the HTVM landing page.
+9. Polish everything to ensure it's working as expected.
+10. Prepare the YouTube video titled "HTVM: Alpha-Stable Release | The Future of Programming."
+11. Make an alpha-stable release on GitHub.
+12. Conduct user testing.
+13. Polish the IDE with more customizability, enhanced autocomplete, and potential integration with the Gemini free API.
+14. Add additional features like an instruction file manager and other customizability improvements.
+15. A few months after the alpha-stable release, improve and polish HTVM, then consider making HTVM version 2.0.0 the official release.
+16. Begin popularizing HTVM after the official release.
