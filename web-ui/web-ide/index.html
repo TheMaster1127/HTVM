@@ -876,10 +876,16 @@ Loop, 5 {
     langTools.setCompleters([]);
     langTools.addCompleter(Completer);
 
-const isPortrait = window.innerWidth < window.innerHeight;
+function isMobileOrSmallScreen() {
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const isSmallScreen = window.innerWidth < window.innerHeight;
+  return isMobile || isSmallScreen;
+}
+
+const fontSize = isMobileOrSmallScreen() ? "16px" : "18px";
 
 editor.setOptions({
-  fontSize: isPortrait ? "16px" : "18px"
+  fontSize: fontSize
 });
 
 
