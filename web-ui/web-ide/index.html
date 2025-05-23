@@ -876,10 +876,11 @@ Loop, 5 {
     langTools.setCompleters([]);
     langTools.addCompleter(Completer);
 
-    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-    editor.setOptions({
-        fontSize: isMobile ? "16px" : "18px"
-    });
+const isPortrait = window.innerWidth < window.innerHeight;
+
+editor.setOptions({
+  fontSize: isPortrait ? "16px" : "18px"
+});
 
 
     editor.on("changeSelection", function (delta) {
