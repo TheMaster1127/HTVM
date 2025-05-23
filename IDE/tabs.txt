@@ -127,3 +127,7 @@ C:\Users\The_M\OneDrive\Desktop\temp Projects\MY AI CHATBOT\gemini2.5-pro.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\EXTREME-HTVM-TESTING\EXTREME-HTVM-TESTING.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\EXTREME-HTVM-TESTING\EXTREME-HTVM-TESTING.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTVM\HTVM\EXTREME-HTVM-TESTING\EXTREME-HTVM-TESTING.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\SSCC\SSCC.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\SSCC\SSCC.cpp
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\SSCC\SSCC.js
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTclang\HTclang\HTclang.htvm
