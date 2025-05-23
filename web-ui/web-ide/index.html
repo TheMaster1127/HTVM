@@ -875,7 +875,12 @@ Loop, 5 {
 
     langTools.setCompleters([]);
     langTools.addCompleter(Completer);
-    editor.setOptions({ fontSize: "18px" });
+
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    editor.setOptions({
+        fontSize: isMobile ? "16px" : "18px"
+    });
+
 
     editor.on("changeSelection", function (delta) {
       if (openFile) {
