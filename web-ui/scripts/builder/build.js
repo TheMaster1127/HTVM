@@ -94,7 +94,7 @@ async function buildNDownload() {
         getUserConfig(localStorage.getItem("HTVM_LastAccesedTab")) +
         "\n" +
         await getBuiltins()
-    const [documentationHTML, documentationMarkdown] = awiat generateDocumentation(instructionFileContent);
+    const [documentationHTML, documentationMarkdown] = await generateDocumentation(instructionFileContent);
     const readmeContent = await generateReadme()
     const zipContent = await zipIt(instructionFileContent, documentationHTML, documentationMarkdown, readmeContent);
     const zipFileName = `${getCurrentLangName()}.zip`;
@@ -104,4 +104,6 @@ async function buildNDownload() {
 
 
 
-document.querySelector("#buildButton").addEventListener("click", () => { await buildNDownload() })
+document.querySelector("#buildButton").addEventListener("click", async () => {
+  await buildNDownload();
+});
