@@ -2018,7 +2018,7 @@ out .= Chr(10) . Chr(10) . Chr(96) . Chr(96) . Chr(96) . "htvm" . Chr(10) . make
 return out
 }
 
-func str genDocs(str mode)
+async func str genDocs(str mode)
 {
 str outDocs := ""
 
@@ -2675,7 +2675,7 @@ categories.add(theCurrentDescCategory . Chr(10) . theCurrentLine)
 
 
 
-htvmSnippetLoad()
+await htvmSnippetLoad()
 
 
 ___js start

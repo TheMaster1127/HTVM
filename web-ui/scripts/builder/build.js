@@ -13,7 +13,7 @@ async function getBuiltins() {
     return lines.join("\n");
 }
 
-function generateDocumentation(instructionFileContent) {
+async function generateDocumentation(instructionFileContent) {
     instructionFileData = "";
     DOCS_params = "";
     DOCS_param1 = "";
@@ -23,7 +23,7 @@ function generateDocumentation(instructionFileContent) {
     OUTdocs_MD = "";
 
     instructionFileData = instructionFileContent;
-    return [genDocs("html"), genDocs("md")];
+    return [await genDocs("html"), await genDocs("md")];
 }
 
 function getCurrentLangName() {
@@ -94,7 +94,7 @@ async function buildNDownload() {
         getUserConfig(localStorage.getItem("HTVM_LastAccesedTab")) +
         "\n" +
         await getBuiltins()
-    const [documentationHTML, documentationMarkdown] = generateDocumentation(instructionFileContent);
+    const [documentationHTML, documentationMarkdown] = awiat generateDocumentation(instructionFileContent);
     const readmeContent = await generateReadme()
     const zipContent = await zipIt(instructionFileContent, documentationHTML, documentationMarkdown, readmeContent);
     const zipFileName = `${getCurrentLangName()}.zip`;
@@ -104,4 +104,4 @@ async function buildNDownload() {
 
 
 
-document.querySelector("#buildButton").addEventListener("click", () => { buildNDownload() })
+document.querySelector("#buildButton").addEventListener("click", () => { await buildNDownload() })

@@ -2062,7 +2062,7 @@ function makeCommandsText(commands) {
     }
     return out;
 }
-function genDocs(mode) {
+async function genDocs(mode) {
     var outDocs = "";
     if (Trim(instructionFileData) == "") {
         throw new Error("instructionFileData is empty");
@@ -2498,7 +2498,7 @@ function genDocs(mode) {
             }
         }
     }
-    htvmSnippetLoad();
+    await htvmSnippetLoad();
     let features = [];
 // Indentation styles
 if (on_useCurlyBraces === "on" && on_useEnd === "off") {
