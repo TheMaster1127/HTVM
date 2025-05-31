@@ -131,3 +131,4 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\SSCC\SSCC.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\SSCC\SSCC.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\SSCC\SSCC.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTclang\HTclang\HTclang.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-IDE\HT-IDE.html

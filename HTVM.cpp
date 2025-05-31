@@ -84,6 +84,9 @@ std::string STR(bool value) {
 std::string STR(const char* value) {
     return std::string(value);
 }
+std::string STR(const std::string& value) {
+    return value;
+}
 
 // Convert std::string to float
 float FLOAT(const std::string& str) {
@@ -10793,7 +10796,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 // GUI
                 // GUI
                 // GUI
-                if (langToConvertTo == "js" && InStr(Trim(code), "gui")) {
+                if (langToConvertTo == "js" && InStr(Trim(StrLower(code)), "gui")) {
                     code = guiParser(code);
                 }
                 // GUI

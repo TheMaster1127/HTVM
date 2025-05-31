@@ -10598,7 +10598,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 // GUI
                 // GUI
                 // GUI
-                if (langToConvertTo == "js" && InStr(Trim(code), "gui")) {
+                if (langToConvertTo == "js" && InStr(Trim(StrLower(code)), "gui")) {
                     code = guiParser(code);
                 }
                 // GUI
