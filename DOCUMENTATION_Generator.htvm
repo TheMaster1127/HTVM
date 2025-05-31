@@ -127,40 +127,31 @@ ___cpp end
 
 ___js start
 
-function fetchFile(fileUrl) {
-  // Try to get the stored data from local storage
+async function fetchFile(fileUrl) {
   const storedSnippets = localStorage.getItem(fileUrl);
-
-  // If there's cached data, use it
   if (storedSnippets) {
     console.log('Using cached snippets from local storage for ' + fileUrl + ':');
     console.log(storedSnippets);
-    return storedSnippets; // Return cached data directly as a string
+    return storedSnippets;
   }
 
-  // If there's no cached data, fetch the file from the URL
   console.log('Fetching new snippets from ' + fileUrl + '...');
-  fetch(fileUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.text(); // Parse the file contents
-    })
-    .then(data => {
-      // Save the fetched file contents to local storage
-      localStorage.setItem(fileUrl, data);
-
-      console.log('New snippets saved for ' + fileUrl + '!');
-      console.log(data); // Handle the data (contents of the .txt file)
-    })
-    .catch(error => {
-      console.error('There was a problem with the fetch operation for ' + fileUrl + ':', error);
-    });
-
-  // Return an empty string or a default string while fetch is in progress (asynchronously)
-  return ''; // Return an empty string while the async fetch happens
+  try {
+    const response = await fetch(fileUrl);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.text();
+    localStorage.setItem(fileUrl, data);
+    console.log('New snippets saved for ' + fileUrl + '!');
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation for ' + fileUrl + ':', error);
+    return ''; // Return empty string on error
+  }
 }
+
 
 // Fetch the file from the GitHub repository fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet0.htvm');
 
@@ -901,7 +892,7 @@ return out
 
 
 
-func void htvmSnippetLoad()
+async func void htvmSnippetLoad()
 {
 
 int numTemp := 0
@@ -1732,94 +1723,94 @@ htvmSnippet91 := ""
 
 
 ___js start
-htvmSnippet0 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet0.htvm');
-htvmSnippet1 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet1.htvm');
-htvmSnippet2 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet2.htvm');
-htvmSnippet3 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet3.htvm');
-htvmSnippet4 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet4.htvm');
-htvmSnippet5 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet5.htvm');
-htvmSnippet6 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet6.htvm');
-htvmSnippet7 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet7.htvm');
-htvmSnippet8 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet8.htvm');
-htvmSnippet9 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet9.htvm');
-htvmSnippet10 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet10.htvm');
-htvmSnippet11 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet11.htvm');
-htvmSnippet12 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet12.htvm');
-htvmSnippet13 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet13.htvm');
-htvmSnippet14 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet14.htvm');
-htvmSnippet15 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet15.htvm');
-htvmSnippet16 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet16.htvm');
-htvmSnippet17 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet17.htvm');
-htvmSnippet18 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet18.htvm');
-htvmSnippet19 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet19.htvm');
+htvmSnippet0 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet0.htvm');
+htvmSnippet1 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet1.htvm');
+htvmSnippet2 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet2.htvm');
+htvmSnippet3 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet3.htvm');
+htvmSnippet4 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet4.htvm');
+htvmSnippet5 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet5.htvm');
+htvmSnippet6 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet6.htvm');
+htvmSnippet7 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet7.htvm');
+htvmSnippet8 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet8.htvm');
+htvmSnippet9 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet9.htvm');
+htvmSnippet10 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet10.htvm');
+htvmSnippet11 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet11.htvm');
+htvmSnippet12 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet12.htvm');
+htvmSnippet13 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet13.htvm');
+htvmSnippet14 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet14.htvm');
+htvmSnippet15 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet15.htvm');
+htvmSnippet16 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet16.htvm');
+htvmSnippet17 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet17.htvm');
+htvmSnippet18 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet18.htvm');
+htvmSnippet19 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet19.htvm');
 
-htvmSnippet20 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet20.htvm');
-htvmSnippet21 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet21.htvm');
-htvmSnippet22 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet22.htvm');
-htvmSnippet23 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet23.htvm');
-htvmSnippet24 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet24.htvm');
-htvmSnippet25 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet25.htvm');
-htvmSnippet26 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet26.htvm');
-htvmSnippet27 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet27.htvm');
-htvmSnippet28 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet28.htvm');
-htvmSnippet29 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet29.htvm');
-htvmSnippet30 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet30.htvm');
-htvmSnippet31 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet31.htvm');
+htvmSnippet20 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet20.htvm');
+htvmSnippet21 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet21.htvm');
+htvmSnippet22 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet22.htvm');
+htvmSnippet23 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet23.htvm');
+htvmSnippet24 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet24.htvm');
+htvmSnippet25 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet25.htvm');
+htvmSnippet26 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet26.htvm');
+htvmSnippet27 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet27.htvm');
+htvmSnippet28 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet28.htvm');
+htvmSnippet29 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet29.htvm');
+htvmSnippet30 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet30.htvm');
+htvmSnippet31 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet31.htvm');
 
-htvmSnippet32 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet32.htvm');
-htvmSnippet33 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet33.htvm');
-htvmSnippet34 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet34.htvm');
-htvmSnippet35 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet35.htvm');
-htvmSnippet36 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet36.htvm');
-htvmSnippet37 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet37.htvm');
+htvmSnippet32 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet32.htvm');
+htvmSnippet33 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet33.htvm');
+htvmSnippet34 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet34.htvm');
+htvmSnippet35 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet35.htvm');
+htvmSnippet36 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet36.htvm');
+htvmSnippet37 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet37.htvm');
 
-htvmSnippet38 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet38.htvm');
-htvmSnippet39 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet39.htvm');
-htvmSnippet40 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet40.htvm');
-htvmSnippet41 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet41.htvm');
-htvmSnippet42 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet42.htvm');
-htvmSnippet43 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet43.htvm');
-htvmSnippet44 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet44.htvm');
-htvmSnippet45 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet45.htvm');
-htvmSnippet46 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet46.htvm');
-htvmSnippet47 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet47.htvm');
-htvmSnippet48 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet48.htvm');
-htvmSnippet49 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet49.htvm');
+htvmSnippet38 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet38.htvm');
+htvmSnippet39 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet39.htvm');
+htvmSnippet40 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet40.htvm');
+htvmSnippet41 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet41.htvm');
+htvmSnippet42 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet42.htvm');
+htvmSnippet43 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet43.htvm');
+htvmSnippet44 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet44.htvm');
+htvmSnippet45 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet45.htvm');
+htvmSnippet46 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet46.htvm');
+htvmSnippet47 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet47.htvm');
+htvmSnippet48 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet48.htvm');
+htvmSnippet49 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet49.htvm');
 
-htvmSnippet50 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet50.htvm');
-htvmSnippet51 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet51.htvm');
-htvmSnippet52 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet52.htvm');
-htvmSnippet53 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet53.htvm');
-htvmSnippet54 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet54.htvm');
-htvmSnippet55 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet55.htvm');
-htvmSnippet56 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet56.htvm');
-htvmSnippet57 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet57.htvm');
-htvmSnippet58 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet58.htvm');
-htvmSnippet59 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet59.htvm');
-htvmSnippet60 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet60.htvm');
-htvmSnippet61 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet61.htvm');
-htvmSnippet62 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet62.htvm');
-htvmSnippet63 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet63.htvm');
-htvmSnippet64 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet64.htvm');
-htvmSnippet65 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet65.htvm');
-htvmSnippet66 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet66.htvm');
-htvmSnippet67 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet67.htvm');
-htvmSnippet68 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet68.htvm');
-htvmSnippet69 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet69.htvm');
-htvmSnippet70 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet70.htvm');
-htvmSnippet71 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet71.htvm');
-htvmSnippet72 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet72.htvm');
-htvmSnippet73 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet73.htvm');
-htvmSnippet74 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet74.htvm');
-htvmSnippet75 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet75.htvm');
-htvmSnippet76 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet76.htvm');
-htvmSnippet77 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet77.htvm');
-htvmSnippet78 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet78.htvm');
-htvmSnippet79 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet79.htvm');
-htvmSnippet80 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet80.htvm');
-htvmSnippet81 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet81.htvm');
-htvmSnippet82 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet82.htvm');
-htvmSnippet83 = fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet83.htvm');
+htvmSnippet50 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet50.htvm');
+htvmSnippet51 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet51.htvm');
+htvmSnippet52 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet52.htvm');
+htvmSnippet53 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet53.htvm');
+htvmSnippet54 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet54.htvm');
+htvmSnippet55 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet55.htvm');
+htvmSnippet56 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet56.htvm');
+htvmSnippet57 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet57.htvm');
+htvmSnippet58 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet58.htvm');
+htvmSnippet59 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet59.htvm');
+htvmSnippet60 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet60.htvm');
+htvmSnippet61 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet61.htvm');
+htvmSnippet62 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet62.htvm');
+htvmSnippet63 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet63.htvm');
+htvmSnippet64 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet64.htvm');
+htvmSnippet65 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet65.htvm');
+htvmSnippet66 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet66.htvm');
+htvmSnippet67 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet67.htvm');
+htvmSnippet68 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet68.htvm');
+htvmSnippet69 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet69.htvm');
+htvmSnippet70 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet70.htvm');
+htvmSnippet71 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet71.htvm');
+htvmSnippet72 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet72.htvm');
+htvmSnippet73 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet73.htvm');
+htvmSnippet74 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet74.htvm');
+htvmSnippet75 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet75.htvm');
+htvmSnippet76 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet76.htvm');
+htvmSnippet77 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet77.htvm');
+htvmSnippet78 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet78.htvm');
+htvmSnippet79 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet79.htvm');
+htvmSnippet80 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet80.htvm');
+htvmSnippet81 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet81.htvm');
+htvmSnippet82 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet82.htvm');
+htvmSnippet83 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet83.htvm');
 
 
 htvmSnippet0 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet0);

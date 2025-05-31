@@ -80,6 +80,9 @@ std::string STR(bool value) {
 std::string STR(const char* value) {
     return std::string(value);
 }
+std::string STR(const std::string& value) {
+    return value;
+}
 
 // Function to find the position of needle in haystack (std::string overload)
 int InStr(const std::string& haystack, const std::string& needle) {
@@ -2064,6 +2067,7 @@ sentence += ".";
         theCodeBuildInSnippedHelp4 += theCodeBuildInSnipped[A_Index27] + Chr(10) + Chr(10) + "AA--spettrrarateblatheCodeBuildInSnippeddxfjdzsiehdifx--sdhfkAA" + Chr(10) + Chr(10);
     }
     if (HTVM_getLang_HTVM() == "cpp") {
+        print("Converting all built-in function example snippets...");
         theCodeBuildInSnippedHelp5 = convertSnipetToAnotherSyntax(DOCS_param1, theCodeBuildInSnippedHelp4);
     }
     if (HTVM_getLang_HTVM() == "js") {
