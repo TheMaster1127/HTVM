@@ -184,15 +184,15 @@ cd HTVM
 
 #### Usage of the HTVM compiler
 ```bash
-HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> [optional LangToTranspileTo] [optional HTVM-instructions2.txt for HTVM to HTVM the targer HTVM lang]
+HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> <LangToTranspileTo> [optional HTVM-instructions2.txt for HTVM to HTVM the targer HTVM lang]
 ```  
 
 #### Options  
 - **Required Parameters**:  
   - `yourCodeFileName.yourExtension`: The source code file.  
   - `HTVM-instructions.txt`: Instructions file for transpilation.  
-- **Optional**:  
   - Specify the target language (`cpp`, `py`, `js`, `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, `htvm` or <yourExtension>) directly in the command.
+- **Optional**:  
   - Another HTVM instruction file so when you are converting to another HTVM lang you must alos tell HTVM what is the syntax of the targer HTVM lang.
 
 **Example**:  
@@ -229,7 +229,7 @@ HTVM main.htvm HTVM-instructions.txt htvm HTVM-instructions2.txt
    ./HTVM main.htvm HTVM-instructions.txt cpp
    ```  
 
-3. **Specify Target Language (Optional)**:  
+3. **Specify Target Language**:  
    Add `cpp`, `py`, `js`, `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, `htvm` or <yourExtension> at the end of the command to specify the target language.  
 
    **Examples**:  
