@@ -1509,7 +1509,7 @@
         {
           "id": 159,
           "name": "useJavaScriptAmainFuncDef",
-          "default": "off",
+          "default": "on",
           "type": "toggle",
           "description": {
             "header": "JS Target: Wrap Code in Main Function",
