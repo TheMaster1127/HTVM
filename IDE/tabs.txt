@@ -132,3 +132,10 @@ C:\Users\The_M\OneDrive\Desktop\GitHub Projects\SSCC\SSCC.cpp
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\SSCC\SSCC.js
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTclang\HTclang\HTclang.htvm
 C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HT-IDE\HT-IDE.html
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTFast\HTFast.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTFast\test.htf
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTFast\test.c
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTsmol\HTsmol.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTsmol\test_hts.hts
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTsmol\test_hts.htvm
+C:\Users\The_M\OneDrive\Desktop\GitHub Projects\HTsmol\HTsmol.cpp

@@ -10971,7 +10971,11 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             }
             else if (InStr(A_LoopField202, "guiInit(") || InStr(A_LoopField202, "guiAdd(") || InStr(A_LoopField202, "guiAddElement(") || InStr(A_LoopField202, "guiControl(") || InStr(A_LoopField202, "HTVM_init(") || InStr(A_LoopField202, "HTVM_register(") || InStr(A_LoopField202, "HTVM_custom_port(") && lineDone == 0) {
                 lineDone = 1;
-                htCode += Trim(expressionParserTranspiler(Trim(A_LoopField202))) + Chr(10);
+                if (InStr(A_LoopField202, "HTVM_init(")) {
+                    htCode += Trim(A_LoopField202) + Chr(10);
+                } else {
+                    htCode += Trim(expressionParserTranspiler(Trim(A_LoopField202))) + Chr(10);
+                }
             }
             else if (Trim(A_LoopField202) == keyWordCommentOpenMultiLine) {
                 lineDone = 1;
