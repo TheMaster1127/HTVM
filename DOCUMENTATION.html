@@ -3179,6 +3179,8 @@ Use these commands in your backend HTVM file (`.htvm` targeted for Python). They
 *   If `.js`, HTVM wraps it in basic HTML (with `sweetalert2`). If `.html`, served directly.
 *   **Must be used before `endpoint,` or `port,`.**
 
+*   **NOTE:** You don't have to use `fileinit, index.html` if you're just serving the default `index.html` file, since it will do that automatically.
+
 ---
 
 #### `endpoint, route_or_label_name, [label_name_if_different], [method]`
