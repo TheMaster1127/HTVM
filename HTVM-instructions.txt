@@ -2031,8 +2031,8 @@ def FileRead(path: str) -> str:
     # Check if the path is absolute, if not prepend the current working directory
     if not os.path.isabs(path):
         path = os.path.join(os.getcwd(), path)
-    # Open and read the file content
-    with open(path, 'r') as file:
+    # Open and read the file content with utf-8 encoding to avoid decode errors
+    with open(path, 'r', encoding='utf-8') as file:
         return file.read()
 funcEND======================funcEND==============
 func======================func==============

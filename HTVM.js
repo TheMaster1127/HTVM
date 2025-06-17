@@ -7907,25 +7907,25 @@ function guiParserStep3(guiCode) {
                     found_callback = 1;
                 }
             }
-            print("found_id:              " + STR(found_id));
-            print("found_parentId:        " + STR(found_parentId));
-            print("found_x:               " + STR(found_x));
-            print("found_y:               " + STR(found_y));
-            print("found_width:           " + STR(found_width));
-            print("found_height:          " + STR(found_height));
-            print("found_zIndex:          " + STR(found_zIndex));
-            print("found_value:           " + STR(found_value));
-            print("found_placeholder:     " + STR(found_placeholder));
-            print("found_callback:        " + STR(found_callback));
-            print("found_backgroundColor: " + STR(found_backgroundColor));
-            print("found_color:           " + STR(found_color));
-            print("found_rounding:        " + STR(found_rounding));
-            print("found_border:          " + STR(found_border));
-            print("found_rawCss:          " + STR(found_rawCss));
-            print("found_size:            " + STR(found_size));
-            print("found_isEnabled:       " + STR(found_isEnabled));
-            print("found_isVisible:       " + STR(found_isVisible));
-            print("found_isDeleting:      " + STR(found_isDeleting));
+            //print("found_id:              " + STR(found_id));
+            //print("found_parentId:        " + STR(found_parentId));
+            //print("found_x:               " + STR(found_x));
+            //print("found_y:               " + STR(found_y));
+            //print("found_width:           " + STR(found_width));
+            //print("found_height:          " + STR(found_height));
+            //print("found_zIndex:          " + STR(found_zIndex));
+            //print("found_value:           " + STR(found_value));
+            //print("found_placeholder:     " + STR(found_placeholder));
+            //print("found_callback:        " + STR(found_callback));
+            //print("found_backgroundColor: " + STR(found_backgroundColor));
+            //print("found_color:           " + STR(found_color));
+            //print("found_rounding:        " + STR(found_rounding));
+            //print("found_border:          " + STR(found_border));
+            //print("found_rawCss:          " + STR(found_rawCss));
+            //print("found_size:            " + STR(found_size));
+            //print("found_isEnabled:       " + STR(found_isEnabled));
+            //print("found_isVisible:       " + STR(found_isVisible));
+            //print("found_isDeleting:      " + STR(found_isDeleting));
             if (isElement == 1 && found_callback == 0) {
                 if (whatElement == "button") {
                     temp1 += "callback:" + Chr(34) + "Button" + STR(buttons) + Chr(34) + ", ";
