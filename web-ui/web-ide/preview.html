@@ -1507,8 +1507,10 @@ int64 varName8
 ; Alternatively, you can define them like this:
 int varName9 := 34
 
-; Here's how to define a function with static types when converting to C++, Go, C#, Java, or other statically typed languages.
-; However, it will still work even if you are not converting to C++; types will be stripped away.
+; Here's how to define a function with static types when converting to statically typed languages like:
+; TypeScript, C++, Go, C#, Java, Kotlin, Nim, Swift, and Dart.
+; However, even if you're not targeting a statically typed language (e.g. JavaScript or Python), 
+; the types will be stripped away automatically and the function will still work as expected.
 func void funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5) {
 	; This is how the global keyword works if we convert to Python and AutoHotKey.
 	; But even if we don't, it will just be removed, so you can add it if you want to convert to Python and AutoHotKey as well.
