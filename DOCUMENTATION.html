@@ -4172,7 +4172,7 @@ HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct
 |  useCurlyBracesSyntaxForArrayDef  | off        |
 |  useInJavaScriptAlwaysUseVar  | on        |
 |  useJavaScriptInAfullHTMLfile  | off        |
-|  useJavaScriptAmainFuncDef  | off        |
+|  useJavaScriptAmainFuncDef  | on        |
 |  useJavaScriptAllFuncsAreAsync  | off        |
 |  useJavaScriptAlwaysTripleEqual  | off        |
 <pre>
@@ -7423,6 +7423,21 @@ gui text id:responseTextId x10 y90 w200 h30 value:initialResponse color:whiteCol
             typographer: true
         });
         
+
+function gui_option_toCaseInsensitivePattern(str) {
+  // Escape special regex chars, then convert letters to [Aa] style
+  return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') // escape special chars
+            .split('')
+            .map(ch => {
+              if (/[a-zA-Z]/.test(ch)) {
+                return `[${ch.toUpperCase()}${ch.toLowerCase()}]`;
+              }
+              return ch;
+            })
+            .join('');
+}
+
+
         function changeFaviconAtTheBeginning(faviconUrl) {
         // Create a new favicon link element
         const newFavicon = document.createElement("link");
@@ -8094,7 +8109,7 @@ off
 off
 on
 off
-off
+on
 off
 off`;
 
@@ -8204,163 +8219,149 @@ const id = 1
 
 })();
 
-      // Define the custom "ht" language for Ace Editor with AHK rules
-      ace.define("ace/mode/htvm", ["require", "exports", "module", "ace/lib/oop", "ace/mode/text", "ace/mode/text_highlight_rules"], function (require, exports, module) {
+// FIND THIS:
+ace.define("ace/mode/htvm", ["require", "exports", "module", "ace/lib/oop", "ace/mode/text", "ace/mode/text_highlight_rules"], function (require, exports, module) {
     var oop = require("ace/lib/oop");
     var TextMode = require("ace/mode/text").Mode;
     var TextHighlightRules = require("ace/mode/text_highlight_rules").TextHighlightRules;
-    var HTVMHighlightRules = function() {
-        
-        //console.log(new URLSearchParams(window.location.search).get('id'));
-let allFunctionNamesString3 = "";
-let allKeyWordsOut3 = "";
+    
+    // REPLACE THE ENTIRE 'var HTVMHighlightRules = function() { ... };'
+    // WITH THIS NEW VERSION:
+       // REPLACE THE ENTIRE 'var HTVMHighlightRules = function() { ... };'
+    // WITH THIS NEW, COMPLETE VERSION:
+// REPLACE THE ENTIRE 'var HTVMHighlightRules = function() { ... };'
+// WITH THIS NEW, CORRECTED VERSION:
+var HTVMHighlightRules = function() {
+    const allFunctionNamesString3 = localStorage.getItem(`htvm_lang_1_allFunctionNamesString`) || "";
+    const allKeyWordsOut3 = fixSomeBugUGH() || "";
 
-const id = 1
-// Check if 'id' is present in the URL
+    var builtInCommands_temp = "", htvmKeywords_temp = "", staticTypes_temp = "", builtInVars_temp = "",
+        symbol_operators_temp = "", word_operators_temp = "", arrayMethods_temp = "", programmingBlocksAndImport_temp = "",
+        htvm_trueFalseGlobalNull_temp = "", htvm_comment_temp = "", htvm_commentOpen1_temp = "",
+        htvm_commentClose2_temp = "";
+    
+    const lines = allKeyWordsOut3.split(/[\n\r]+/);
 
-    // Create the key for localStorage
-    const storageKey = `htvm_lang_${id}_allFunctionNamesString`;
-    const storageKey2 = `htvm_lang_${id}_allKeyWordsOut`;
-    // Retrieve 'allFunctionNamesString' from localStorage
-    allFunctionNamesString3 = localStorage.getItem(storageKey);
-    if (localStorage.getItem("htvm_lang_" + id))
-    {
-        allKeyWordsOut3 = fixSomeBugUGH();
-    }
-    else
-    {
-        allKeyWordsOut3 = localStorage.getItem(storageKey2);    
-    }
-
-var builtInCommands_temp = "";
-var htvmKeywords_temp = "";
-var staticTypes_temp = "";
-var builtInVars_temp = "";
-var operators_temp = "";
-var arrayMethods_temp = "";
-var programmingBlocksAndImport_temp = "";
-var htvm_trueFalseGlobalNull_temp = "";
-var htvm_comment_temp = "";
-var htvm_commentOpen1_temp = "";
-var htvm_commentClose2_temp = "";
-items3 = LoopParseFunc(allKeyWordsOut3, "\n", "\r")
-for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
-    const A_LoopField3 = items3[A_Index3 - 0];
-    if (Trim(A_LoopField3) != "") {
-        if (A_Index3 == 0) {
-            items4 = LoopParseFunc(A_LoopField3, "|")
-            for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
-                const A_LoopField4 = items4[A_Index4 - 0];
-                items5 = LoopParseFunc(A_LoopField4, ",");
-                for (let A_Index5 = 0; A_Index5 < items5.length + 0; A_Index5++) {
-                    const A_LoopField5 = items5[A_Index5 - 0];
-                    builtInCommands_temp += Trim(A_LoopField5) + "|";
+    // **** THIS IS THE CORRECTED LOGIC ****
+    if (lines.length > 0) {
+        const commandDefinitions = lines[0].split('|'); // 1. Split by pipe only to get each definition
+        commandDefinitions.forEach(def => {
+            if (def) {
+                const commandName = def.split(',')[0].trim(); // 2. Get only the name before the first comma
+                if (commandName) {
+                    builtInCommands_temp += commandName + "|";
                 }
             }
-        }
-        if (A_Index3 == 1 || A_Index3 == 2 || A_Index3 == 3 || A_Index3 == 4 || A_Index3 == 5 || A_Index3 == 64 || A_Index3 == 65 || A_Index3 == 66 || A_Index3 == 67 || A_Index3 == 68 || A_Index3 == 69 || A_Index3 == 70 || A_Index3 == 71 || A_Index3 == 72 || A_Index3 == 73 || A_Index3 == 74 || A_Index3 == 75 || A_Index3 == 76 || A_Index3 == 78 || A_Index3 == 79 || A_Index3 == 80 || A_Index3 == 81 || A_Index3 == 93 || A_Index3 == 94 || A_Index3 == 95 || A_Index3 == 96) {
-            htvmKeywords_temp += A_LoopField3 + "|";
-        }
-        if (A_Index3 == 77) {
-            allFunctionNamesString3 += "|" + Trim(A_LoopField3);
-        }
-        if (A_Index3 >= 49 && A_Index3 <= 63) {
-            staticTypes_temp += A_LoopField3 + "|";
-        }
-        if (A_Index3 >= 88 && A_Index3 <= 92) {
-            staticTypes_temp += A_LoopField3 + "|";
-        }
-        if (A_Index3 == 145 || A_Index3 == 146 || A_Index3 == 6) {
-            builtInVars_temp += A_LoopField3 + "|";
-        }
-        if (A_Index3 >= 103 && A_Index3 <= 126) {
-            operators_temp += A_LoopField3 + "|";
-        }
-        if (A_Index3 >= 140 && A_Index3 <= 141) {
-            operators_temp += A_LoopField3 + "|";
-        }
-        if (A_Index3 >= 82 && A_Index3 <= 87) {
-            arrayMethods_temp += Trim(StrReplace(A_LoopField3, ".", "")) + "|";
-        }
-        if (A_Index3 >= 7 && A_Index3 <= 43) {
-            programmingBlocksAndImport_temp += A_LoopField3 + "|";
-        }
-        if (A_Index3 == 98) {
-            htvm_comment_temp = Trim(A_LoopField3);
-        }
-        if (A_Index3 == 99) {
-            htvm_commentOpen1_temp = Trim(A_LoopField3);
-        }
-        if (A_Index3 == 100) {
-            htvm_commentClose2_temp = Trim(A_LoopField3);
-        }
-        if (A_Index3 == 46 || A_Index3 == 47 || A_Index3 == 48 || A_Index3 == 97) {
-            htvm_trueFalseGlobalNull_temp += A_LoopField3 + "|";
-        }
+        });
     }
-}
-builtInCommands_temp = StringTrimRight(builtInCommands_temp, 1);
-htvmKeywords_temp = StringTrimRight(htvmKeywords_temp, 1);
-staticTypes_temp = StringTrimRight(staticTypes_temp, 1);
-builtInVars_temp = StringTrimRight(builtInVars_temp, 1);
-operators_temp = StringTrimRight(operators_temp, 1);
-arrayMethods_temp = StringTrimRight(arrayMethods_temp, 1);
-programmingBlocksAndImport_temp = StringTrimRight(programmingBlocksAndImport_temp, 1);
-htvm_trueFalseGlobalNull_temp = StringTrimRight(htvm_trueFalseGlobalNull_temp, 1);
-var htvmKeywords = htvmKeywords_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-var builtInCommands = builtInCommands_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-var builtInFunctions = allFunctionNamesString3.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-var staticTypes = staticTypes_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-var builtInVars = builtInVars_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-var arrayMethods = arrayMethods_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-var programmingBlocksAndImport = programmingBlocksAndImport_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-var htvm_trueFalseGlobalNull = htvm_trueFalseGlobalNull_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-var htvm_operators = operators_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-        
-        
-        var htvm_comment = htvm_comment_temp;
-        // Escape special characters in the comment symbol (just in case)
-        var escapedComment = htvm_comment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        var htvm_commentOpen1 = htvm_commentOpen1_temp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        var htvm_commentClose2 = htvm_commentClose2_temp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        this.$rules = {
-            start: [
-                { token: "comment", regex: escapedComment + ".*$" },
-                { token: "comment.block", regex: new RegExp(htvm_commentOpen1), next: "comment_block" },
-                { token: "keyword", regex: "\\b(?:" + htvmKeywords + ")\\b" },
-                { token: "command", regex: "\\b(?:" + builtInCommands + ")(?=\\,)" },
-                { token: "functions", regex: "\\b(?:" + builtInFunctions + ")(?=\\()" },
-                { token: "BuildInFunc", regex: "\\b(?:" + builtInVars + ")\\b" },
-                { token: "arrayMethods", regex: "\\.(?:" + arrayMethods + ")\\b" },
-                { token: "static_types", regex: "\\b(?:" + staticTypes + ")\\b" },
-                { token: "programmingBlocksAndImport", regex: "\\b(?:" + programmingBlocksAndImport + ")\\b" },
-                { token: "operators", regex: "\\b(?:" + htvm_operators + ")\\b" },
-                { token: "trueANDfalse", regex: "\\b(?:" + htvm_trueFalseGlobalNull + ")\\b" },
-                { token: "variables", regex: "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b" },
-                { token: "constant.numeric", regex: "\\b[0-9]+\\b" },
-                { token: "braces_Open", regex: "\\{" },
-                { token: "braces_Close", regex: "\\}" },
-              { token: "string", regex: '".*?"' },
-              // Multi-line comments
-              {
-                token: "comment.block", // Token for multi-line comments
-               regex: new RegExp(htvm_commentOpen1),
-                next: "comment_block",
-              },
-            ],
-            comment_block: [
-              {
-                token: "comment.block",
-                regex: new RegExp(htvm_commentClose2),
-                next: "start", // Go back to the start state
-              },
-              {
-                token: "comment.block",
-                regex: /.*/, // Any other content within the comment
-              },
-            ],
-          };
-        };
+
+    lines.forEach((A_LoopField3, A_Index3) => {
+        const trimmedLine = Trim(A_LoopField3);
+        if (trimmedLine) {
+            // This logic is fine, it populates the other keyword types
+            const originalLineNum = A_Index3 + 3 - 1;
+            if (originalLineNum >= 9 && originalLineNum <= 45) {
+                programmingBlocksAndImport_temp += trimmedLine + "|";
+            } else if ([48, 49, 50, 69, 99].includes(originalLineNum)) {
+                htvm_trueFalseGlobalNull_temp += trimmedLine + "|";
+            } else if (originalLineNum >= 51 && originalLineNum <= 65) {
+                staticTypes_temp += trimmedLine + "|";
+            } else if (originalLineNum >= 66 && originalLineNum <= 68) {
+                htvmKeywords_temp += trimmedLine + "|";
+            } else if (originalLineNum >= 70 && originalLineNum <= 83) {
+                htvmKeywords_temp += trimmedLine + "|";
+            } else if (originalLineNum >= 3 & originalLineNum <= 7) {
+                htvmKeywords_temp += trimmedLine + "|";
+            } else if (originalLineNum >= 84 && originalLineNum <= 89) {
+                arrayMethods_temp += Trim(StrReplace(trimmedLine, ".", "")) + "|";
+            } else if (originalLineNum >= 90 && originalLineNum <= 94) {
+                staticTypes_temp += trimmedLine + "|";
+            } else if (originalLineNum >= 95 && originalLineNum <= 98) {
+                htvmKeywords_temp += trimmedLine + "|";
+            } else if (originalLineNum === 100) {
+                htvm_comment_temp = trimmedLine;
+            } else if (originalLineNum === 101) {
+                htvm_commentOpen1_temp = trimmedLine;
+            } else if (originalLineNum === 102) {
+                htvm_commentClose2_temp = trimmedLine;
+            } else if ((originalLineNum >= 106 && originalLineNum <= 142) || [143, 144].includes(originalLineNum)) {
+                 if (/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(trimmedLine)) {
+                    word_operators_temp += trimmedLine + "|";
+                } else {
+                    symbol_operators_temp += trimmedLine + "|";
+                }
+            } else if ([8, 147, 148].includes(originalLineNum)) {
+                builtInVars_temp += trimmedLine + "|";
+            }
+        }
+    });
+
+    const cleanAndBuild = (str, boundary=true) => { const p = str.split('|').filter(Boolean).map(s => s.trim().replace(/[.*+?^${}()|[\]\\]/g,'\\$&')); return p.length ? (boundary ? `\\b(?:${p.join('|')})\\b` : `(?:${p.join('|')})`) : "(?!)"; };
+
+    const cleanAndBuildComma = (str) => {
+        const p = str.split('|').filter(Boolean).map(s => s.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+        return p.length ? `\\b(?:${p.join('|')})(?=,)` : "(?!)";
+    };
+
+    const final_word_operators = cleanAndBuild(word_operators_temp, true);
+    const final_symbol_operators = cleanAndBuild(symbol_operators_temp, false);
+    
+    const gui_option_tokens1 = [
+      "i", "v", "id", "elementId", "eid",
+      "p", "parentId", "pid", "divId",
+      "x", "xPos", "xCoord",
+      "y", "yPos", "yCoord",
+      "w", "width", "wight", "widh",
+      "h", "height", "hight", "heigth",
+      "z", "zIndex", "z-index",
+      "d", "value", "val", "displayValue",
+      "q", "placeholder", "plc", "ph", "grayText",
+      "g", "f", "callback", "func", "fn", "call",
+      "o", "backgroundColor", "bgColor", "bg", "bgc",
+      "c", "color", "clr",
+      "r", "rounding", "round", "rnd",
+      "b", "border", "boder", "outline",
+      "l", "rawCss", "css", "style", "luxury",
+      "s", "size", "sz",
+      "a", "isEnabled", "isEnb",
+      "u", "isVisible", "isVsb",
+      "n", "isDeleting", "del", "remove", "rm"
+    ];
+    const gui_option_tokens2 = [
+      "button", "text", "edit", "picture", "toggle",
+      "rectangle", "circle", "video", "dropdown", "iframe"
+    ];
+
+    const gui_option_pattern1 = gui_option_tokens1.map(gui_option_toCaseInsensitivePattern).join('|');
+    const gui_option_pattern2 = gui_option_tokens2.map(gui_option_toCaseInsensitivePattern).join('|');
+    const regexGuiOptions = new RegExp(`\\b(?:${gui_option_pattern1})(?=:)|\\b(?:${gui_option_pattern2})\\b`);
+
+    // The rule order from the previous fix is still good.
+    this.$rules = {
+        start: [
+            { token: "comment", regex: (htvm_comment_temp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') || ";") + ".*$" },
+            { token: "comment.block", regex: htvm_commentOpen1_temp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') || "/\\*", next: "comment_block" },
+            { token: "string", regex: '".*?"' },
+            { token: "string", regex: "'.*?'" },
+            { token: "constant.numeric", regex: "\\b-?[0-9]+(?:\\.[0-9]+)?\\b" },
+            { token: "command", regex: cleanAndBuildComma(builtInCommands_temp) + "|\\bendpoint(?=,)\\b|\\bfileinit(?=,)\\b|\\bport(?=,)\\b" },
+            { token: "functions", regex: cleanAndBuild(allFunctionNamesString3) + "(?=\\()" },
+            { token: "keyword", regex: cleanAndBuild(htvmKeywords_temp) + "|\\bsubout\\b" },
+            { token: "BuildInFunc", regex: cleanAndBuild(builtInVars_temp) },                    
+            { token: "arrayMethods", regex: "\\." + cleanAndBuild(arrayMethods_temp) },
+            { token: "static_types", regex: cleanAndBuild(staticTypes_temp) + "|" + "\\b(?:" + "[Gg][Uu][Ii]" + "|" + "[Gg][Uu][Ii][Cc][Oo][Nn][Tt][Rr][Oo][Ll]" + ")\\b" },
+            { token: "programmingBlocksAndImport", regex: cleanAndBuild(programmingBlocksAndImport_temp) },
+            { token: "trueANDfalse", regex: cleanAndBuild(htvm_trueFalseGlobalNull_temp) },
+            { token: "guiOptions", regex: regexGuiOptions },
+            { token: "operators", regex: final_word_operators },
+            { token: "operators", regex: final_symbol_operators }
+        ],
+        comment_block: [{ token: "comment.block", regex: (htvm_commentClose2_temp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') || "\\*/"), next: "start" }, { defaultToken: "comment.block" }]
+    };
+};
+    // ... (the rest of the ace.define block remains the same)
+
+// ... the rest of your script ...
  oop.inherits(HTVMHighlightRules, TextHighlightRules);
 
         var HTMode = function () {
@@ -8602,121 +8603,95 @@ function escapeHtml(unsafe) {
             }
         }
 
-
         // Apply CSS styles for the editor
 
         var css = `
+    /* Root variables for easy color management */
+    :root { 
+        --ace-color-command: #569cd6;
+        --ace-color-keyword: #8080e0;
+        --ace-color-functions: #80dfff;
+        --ace-color-buildin-func: #ff80df;
+        --ace-color-comment: #40d080;
+        --ace-color-blocks-import: #f51000;
+        --ace-color-static-types: #569cd6;
+        --ace-color-string: #ffa0a0;
+        --ace-color-operators: #40a0e0;
+        --ace-color-true-false-null-etc: #00ffff;
+        --ace-color-array-methods: #fab820;
+        --ace-color-gui-options: #a6e22e;
+        --ace-gutter-background: #204020;
+        --ace-gutter-text: #cbcdc3;
+        --ace-active-line: #103010;
+        --ace-background: #050505;
+
+        /* Font Weight Variables */
+        --ace-color-command-font-weight: bold;
+        --ace-color-keyword-font-weight: bold;
+        --ace-color-operators-font-weight: bold;
+        --ace-color-blocks-import-font-weight: bold;
+        --ace-color-static-types-font-weight: bold;
+    }
+
+    /* General Ace Editor Theme Styles */
     .ace-monokai .ace_marker-layer .ace_active-line {
-      background-color: #103010 !important;
+      background-color: var(--ace-active-line) !important;
     }
     
     .ace-monokai {
-      background-color: #050505 !important;
-      color: #f8f8f2;
+      background-color: var(--ace-background) !important;
     }
     
     .ace-monokai .ace_gutter {
-      background: #204020 !important;
-      color: #cbcdc3 !important;
-    }
-    
-    .ace-monokai .ace_gutter-active-line {
-      background-color: transparent !important;
-    }
-    
-    .ace-monokai .ace_entity.ace_name.ace_tag,
-    .ace-monokai .ace_keyword,
-    .ace-monokai .ace_meta.ace_tag,
-    .ace-monokai .ace_storage {
-      color: #40a0e0 !important;
-    }
-    
-    .ace-monokai .ace_entity.ace_name.ace_function,
-    .ace-monokai .ace_entity.ace_other,
-    .ace-monokai .ace_entity.ace_other.ace_attribute-name,
-    .ace-monokai .ace_variable {
-      color: #ff80df !important;
-    }
-    
-    .ace-monokai .ace_comment {
-      color: #40d080 !important;
-      font-weight: line-through !important;
-    }
-    
-    .ace-monokai .ace_commentOpen_Close {
-      color: #40d080 !important;
-      font-weight: line-through !important;
-    }
-    
-    .ace-monokai .ace_variables {
-      color: #ffffff !important;
-    }
-    
-    .ace-monokai .ace_functions {
-      color: #80dfff !important;
-    }
-    
-    .ace-monokai .ace_keyword {
-    color: #8080e0 !important; /* Customize color as needed */
-    font-weight: bold !important;
-    }
-    .ace-monokai .ace_braces_Open {
-      color: #FFFFff !important;
-    }
-    
-    .ace-monokai .ace_braces_Close {
-      color: #FFFFff !important;
-    }
-    
-    .ace-monokai .ace_arrayMethods {
-      color: #FAB820 !important;
-    }
-    
-    .ace-monokai .ace_BuildInFunc {
-      color: #ff80df !important;
-    }
-    
-    .ace-monokai .ace_command {
-      color: #40a0e0 !important;
-      font-weight: bold !important;
-    }
-    
-    .ace-monokai .ace_static_types {
-      color: #569cd6 !important;
-      font-weight: bold !important;
-    }
-    
-    .ace-monokai .ace_string {
-      color: #ffa0a0 !important;
-      font-weight: lighter !important;
-    }
-    
-    .ace-monokai .ace_operators {
-      color: #00ffff !important;
-      font-weight: lighter !important;
-    }
-    
-    
-    .ace-monokai .ace_trueANDfalse {
-      color: #00ffff !important;
-      font-weight: lighter !important;
-    }
-    
-    .ace-monokai .ace_escape-char {
-      color: #ff8000 !important;
-      font-weight: bold !important;
+      background: var(--ace-gutter-background) !important;
+      color: var(--ace-gutter-text) !important;
     }
 
+    /* Specific Token Styling using Variables */
+    .ace-monokai .ace_command {
+        color: var(--ace-color-command) !important;
+        font-weight: var(--ace-color-command-font-weight, bold);
+    }
+    .ace-monokai .ace_keyword {
+        color: var(--ace-color-keyword) !important;
+        font-weight: var(--ace-color-keyword-font-weight, bold);
+    }
+    .ace-monokai .ace_functions {
+        color: var(--ace-color-functions) !important;
+    }
+    .ace-monokai .ace_BuildInFunc {
+        color: var(--ace-color-buildin-func) !important;
+    }
+    .ace-monokai .ace_comment {
+        color: var(--ace-color-comment) !important;
+        font-style: italic;
+    }
     .ace-monokai .ace_programmingBlocksAndImport {
-      color: #F0401C !important;
-      font-weight: bold !important;
+        color: var(--ace-color-blocks-import) !important;
+        font-weight: var(--ace-color-blocks-import-font-weight, bold);
+    }
+    .ace-monokai .ace_static_types {
+        color: var(--ace-color-static-types) !important;
+        font-weight: var(--ace-color-static-types-font-weight, bold);
+    }
+    .ace-monokai .ace_string {
+        color: var(--ace-color-string) !important;
+    }
+    .ace-monokai .ace_trueANDfalse {
+        color: var(--ace-color-true-false-null-etc) !important;
+    }
+    .ace-monokai .ace_operators {
+        color: var(--ace-color-operators) !important;
+        font-weight: var(--ace-color-operators-font-weight, bold);
+    }
+    .ace-monokai .ace_arrayMethods {
+        color: var(--ace-color-array-methods) !important;
+    }
+    .ace-monokai .ace_guiOptions {
+        color: var(--ace-color-gui-options) !important;
     }
     
-    .ace-monokai .ace_punctuation,
-    .ace-monokai .ace_punctuation.ace _tag {
-      color: #ffa0a0 !important;
-    }
-    
+    /* Scrollbar Styling */
     *::-webkit-scrollbar {
       width: 1em;
     }
@@ -8730,7 +8705,6 @@ function escapeHtml(unsafe) {
       outline: 1px solid slategrey;
     }
 `;
-
         var style = document.createElement("style");
         style.type = "text/css";
         if (style.styleSheet) {

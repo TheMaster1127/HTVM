@@ -3955,7 +3955,7 @@ HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct
 |  useCurlyBracesSyntaxForArrayDef  | off        |
 |  useInJavaScriptAlwaysUseVar  | on        |
 |  useJavaScriptInAfullHTMLfile  | off        |
-|  useJavaScriptAmainFuncDef  | off        |
+|  useJavaScriptAmainFuncDef  | on        |
 |  useJavaScriptAllFuncsAreAsync  | off        |
 |  useJavaScriptAlwaysTripleEqual  | off        |
 

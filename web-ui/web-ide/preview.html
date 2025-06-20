@@ -595,155 +595,132 @@
       var oop = require("ace/lib/oop");
       var TextMode = require("ace/mode/text").Mode;
       var TextHighlightRules = require("ace/mode/text_highlight_rules").TextHighlightRules;
-      var HTVMHighlightRules = function () {
-
-        //console.log(new URLSearchParams(window.location.search).get('id'));
+var HTVMHighlightRules = function () {
         let allFunctionNamesString3 = "";
         let allKeyWordsOut3 = "";
-        // Get the URL parameter 'id'
+        
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
-        // Check if 'id' is present in the URL
+        
         if (id) {
-          // Create the key for localStorage
           const storageKey = `htvm_lang_${id}_allFunctionNamesString`;
           const storageKey2 = `htvm_lang_${id}_allKeyWordsOut`;
-          // Retrieve 'allFunctionNamesString' from localStorage
           allFunctionNamesString3 = localStorage.getItem(storageKey);
           if (localStorage.getItem("htvm_lang_" + id)) {
             allKeyWordsOut3 = fixSomeBugUGH();
-          }
-          else {
+          } else {
             allKeyWordsOut3 = localStorage.getItem(storageKey2);
           }
         } else {
-          console.error('URL parameter "id" is missing.');
+          // Fallback for when there's no ID, so the editor doesn't crash.
+          console.error('URL parameter "id" is missing. Using default empty rules.');
         }
-        var builtInCommands_temp = "";
+
         var htvmKeywords_temp = "";
         var staticTypes_temp = "";
         var builtInVars_temp = "";
-        var operators_temp = "";
+        var word_operators_temp = ""; // <-- Changed
+        var symbol_operators_temp = ""; // <-- New
         var arrayMethods_temp = "";
         var programmingBlocksAndImport_temp = "";
         var htvm_trueFalseGlobalNull_temp = "";
         var htvm_comment_temp = "";
         var htvm_commentOpen1_temp = "";
         var htvm_commentClose2_temp = "";
+        
         items3 = LoopParseFunc(allKeyWordsOut3, "\n", "\r")
         for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
           const A_LoopField3 = items3[A_Index3 - 0];
           if (Trim(A_LoopField3) != "") {
-            if (A_Index3 == 0) {
-              items4 = LoopParseFunc(A_LoopField3, "|")
-              for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
-                const A_LoopField4 = items4[A_Index4 - 0];
-                items5 = LoopParseFunc(A_LoopField4, ",");
-                for (let A_Index5 = 0; A_Index5 < items5.length + 0; A_Index5++) {
-                  const A_LoopField5 = items5[A_Index5 - 0];
-                  builtInCommands_temp += Trim(A_LoopField5) + "|";
-                }
-              }
-            }
-            if (A_Index3 == 1 || A_Index3 == 2 || A_Index3 == 3 || A_Index3 == 4 || A_Index3 == 5 || A_Index3 == 64 || A_Index3 == 65 || A_Index3 == 66 || A_Index3 == 67 || A_Index3 == 68 || A_Index3 == 69 || A_Index3 == 70 || A_Index3 == 71 || A_Index3 == 72 || A_Index3 == 73 || A_Index3 == 74 || A_Index3 == 75 || A_Index3 == 76 || A_Index3 == 78 || A_Index3 == 79 || A_Index3 == 80 || A_Index3 == 81 || A_Index3 == 93 || A_Index3 == 94 || A_Index3 == 95 || A_Index3 == 96) {
+            // This loop parses all the keywords from your instructions file
+            const originalLineNum = A_Index3 + 3; // Simplified line number calculation
+
+            if (A_Index3 == 1 || A_Index3 == 2 || A_Index3 == 3 || A_Index3 == 4 || A_Index3 == 5 || (originalLineNum >= 67 && originalLineNum <= 84) || (originalLineNum >= 96 && originalLineNum <= 99)) {
               htvmKeywords_temp += A_LoopField3 + "|";
-            }
-            if (A_Index3 == 77) {
+            } else if (A_Index3 == 77) {
               allFunctionNamesString3 += "|" + Trim(A_LoopField3);
-            }
-            if (A_Index3 >= 49 && A_Index3 <= 63) {
+            } else if ((originalLineNum >= 52 && originalLineNum <= 66) || (originalLineNum >= 91 && originalLineNum <= 95)) {
               staticTypes_temp += A_LoopField3 + "|";
-            }
-            if (A_Index3 >= 88 && A_Index3 <= 92) {
-              staticTypes_temp += A_LoopField3 + "|";
-            }
-            if (A_Index3 == 145 || A_Index3 == 146 || A_Index3 == 6) {
+            } else if (originalLineNum == 148 || originalLineNum == 149 || originalLineNum == 9) {
               builtInVars_temp += A_LoopField3 + "|";
-            }
-            if (A_Index3 >= 103 && A_Index3 <= 126) {
-              operators_temp += A_LoopField3 + "|";
-            }
-            if (A_Index3 >= 140 && A_Index3 <= 141) {
-              operators_temp += A_LoopField3 + "|";
-            }
-            if (A_Index3 >= 82 && A_Index3 <= 87) {
+            } else if ((originalLineNum >= 106 && originalLineNum <= 145)) { // Operator lines
+              // *** CORE FIX IS HERE: Separating word and symbol operators ***
+              const trimmedOperator = Trim(A_LoopField3);
+              if (/^[a-zA-Z]+$/.test(trimmedOperator)) {
+                  word_operators_temp += trimmedOperator + "|";
+              } else {
+                  symbol_operators_temp += trimmedOperator + "|";
+              }
+            } else if (originalLineNum >= 85 && originalLineNum <= 90) {
               arrayMethods_temp += Trim(StrReplace(A_LoopField3, ".", "")) + "|";
-            }
-            if (A_Index3 >= 7 && A_Index3 <= 43) {
+            } else if (originalLineNum >= 10 && originalLineNum <= 46) {
               programmingBlocksAndImport_temp += A_LoopField3 + "|";
-            }
-            if (A_Index3 == 98) {
+            } else if (originalLineNum == 101) {
               htvm_comment_temp = Trim(A_LoopField3);
-            }
-            if (A_Index3 == 99) {
+            } else if (originalLineNum == 102) {
               htvm_commentOpen1_temp = Trim(A_LoopField3);
-            }
-            if (A_Index3 == 100) {
+            } else if (originalLineNum == 103) {
               htvm_commentClose2_temp = Trim(A_LoopField3);
-            }
-            if (A_Index3 == 46 || A_Index3 == 47 || A_Index3 == 48 || A_Index3 == 97) {
+            } else if (originalLineNum == 49 || originalLineNum == 50 || originalLineNum == 51 || originalLineNum == 100) {
               htvm_trueFalseGlobalNull_temp += A_LoopField3 + "|";
             }
           }
         }
-        builtInCommands_temp = StringTrimRight(builtInCommands_temp, 1);
-        htvmKeywords_temp = StringTrimRight(htvmKeywords_temp, 1);
-        staticTypes_temp = StringTrimRight(staticTypes_temp, 1);
-        builtInVars_temp = StringTrimRight(builtInVars_temp, 1);
-        operators_temp = StringTrimRight(operators_temp, 1);
-        arrayMethods_temp = StringTrimRight(arrayMethods_temp, 1);
-        programmingBlocksAndImport_temp = StringTrimRight(programmingBlocksAndImport_temp, 1);
-        htvm_trueFalseGlobalNull_temp = StringTrimRight(htvm_trueFalseGlobalNull_temp, 1);
-        var htvmKeywords = htvmKeywords_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-        var builtInCommands = builtInCommands_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-        var builtInFunctions = allFunctionNamesString3.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-        var staticTypes = staticTypes_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-        var builtInVars = builtInVars_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-        var arrayMethods = arrayMethods_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-        var programmingBlocksAndImport = programmingBlocksAndImport_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-        var htvm_trueFalseGlobalNull = htvm_trueFalseGlobalNull_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
-        var htvm_operators = operators_temp.replace(/[^A-Za-z0-9_|\s]/g, '').replace(/^\d+/g, '').replace(/\|+/g, '|').replace(/^(\|)+|(\|)+$/g, '');
+        
+        // Helper function to build a safe regex from a | separated string
+        const cleanAndBuild = (str, useWordBoundaries = true) => {
+            const pattern = str.split('|')
+                .filter(Boolean)
+                .map(s => s.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) // Escape special characters
+                .join('|');
+            
+            if (!pattern) return '(?!)'; // Return a regex that never matches if the list is empty
+            
+            return useWordBoundaries ? `\\b(?:${pattern})\\b` : `(?:${pattern})`;
+        };
 
+        // Create final regex patterns for operators
+        const final_word_operators = cleanAndBuild(word_operators_temp, true);
+        const final_symbol_operators = cleanAndBuild(symbol_operators_temp, false); // No word boundaries for symbols
+        
+        var htvmKeywords = cleanAndBuild(htvmKeywords_temp);
+        var builtInFunctions = cleanAndBuild(allFunctionNamesString3 || "");
+        var staticTypes = cleanAndBuild(staticTypes_temp);
+        var builtInVars = cleanAndBuild(builtInVars_temp);
+        var arrayMethods = cleanAndBuild(arrayMethods_temp);
+        var programmingBlocksAndImport = cleanAndBuild(programmingBlocksAndImport_temp);
+        var htvm_trueFalseGlobalNull = cleanAndBuild(htvm_trueFalseGlobalNull_temp);
 
-        var htvm_comment = htvm_comment_temp;
-        // Escape special characters in the comment symbol (just in case)
-        var escapedComment = htvm_comment.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        var htvm_commentOpen1 = htvm_commentOpen1_temp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        var htvm_commentClose2 = htvm_commentClose2_temp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        var escapedComment = (htvm_comment_temp || ';').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        var htvm_commentOpen1 = (htvm_commentOpen1_temp || "'''1").replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        var htvm_commentClose2 = (htvm_commentClose2_temp || "'''2").replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
         this.$rules = {
           start: [
             { token: "comment", regex: escapedComment + ".*$" },
             { token: "comment.block", regex: new RegExp(htvm_commentOpen1), next: "comment_block" },
-            { token: "keyword", regex: "\\b(?:" + htvmKeywords + ")\\b" },
-            { token: "command", regex: "\\b(?:" + builtInCommands + ")(?=\\,)" },
-            { token: "functions", regex: "\\b(?:" + builtInFunctions + ")(?=\\()" },
-            { token: "BuildInFunc", regex: "\\b(?:" + builtInVars + ")\\b" },
+            { token: "keyword", regex: htvmKeywords },
+            { token: "functions", regex: builtInFunctions + "(?=\\()" },
+            { token: "BuildInFunc", regex: builtInVars },
             { token: "arrayMethods", regex: "\\.(?:" + arrayMethods + ")\\b" },
-            { token: "static_types", regex: "\\b(?:" + staticTypes + ")\\b" },
-            { token: "programmingBlocksAndImport", regex: "\\b(?:" + programmingBlocksAndImport + ")\\b" },
-            { token: "operators", regex: "\\b(?:" + htvm_operators + ")\\b" },
-            { token: "trueANDfalse", regex: "\\b(?:" + htvm_trueFalseGlobalNull + ")\\b" },
+            { token: "static_types", regex: staticTypes },
+            { token: "programmingBlocksAndImport", regex: programmingBlocksAndImport },
+            // *** ADDED THE TWO SEPARATE OPERATOR RULES HERE ***
+            { token: "operators", regex: final_word_operators },
+            { token: "operators", regex: final_symbol_operators },
+            { token: "trueANDfalse", regex: htvm_trueFalseGlobalNull },
             { token: "variables", regex: "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b" },
-            { token: "constant.numeric", regex: "\\b[0-9]+\\b" },
-            { token: "braces_Open", regex: "\\{" },
-            { token: "braces_Close", regex: "\\}" },
+            { token: "constant.numeric", regex: "\\b-?[0-9]+\\b" },
             { token: "string", regex: '".*?"' },
-            // Multi-line comments
-            {
-              token: "comment.block", // Token for multi-line comments
-              regex: new RegExp(htvm_commentOpen1),
-              next: "comment_block",
-            },
           ],
           comment_block: [
             {
               token: "comment.block",
               regex: new RegExp(htvm_commentClose2),
-              next: "start", // Go back to the start state
+              next: "start",
             },
             {
-              token: "comment.block",
-              regex: /.*/, // Any other content within the comment
+              defaultToken: "comment.block"
             },
           ],
         };
@@ -839,7 +816,6 @@
 
 
       // Apply CSS styles for the editor
-
       var css = `
     .ace-monokai .ace_marker-layer .ace_active-line {
       background-color: #103010 !important;
@@ -860,7 +836,6 @@
     }
     
     .ace-monokai .ace_entity.ace_name.ace_tag,
-    .ace-monokai .ace_keyword,
     .ace-monokai .ace_meta.ace_tag,
     .ace-monokai .ace_storage {
       color: #40a0e0 !important;
@@ -875,12 +850,12 @@
     
     .ace-monokai .ace_comment {
       color: #40d080 !important;
-      font-weight: line-through !important;
+      font-style: italic !important;
     }
     
     .ace-monokai .ace_commentOpen_Close {
       color: #40d080 !important;
-      font-weight: line-through !important;
+      font-style: italic !important;
     }
     
     .ace-monokai .ace_variables {
@@ -892,8 +867,8 @@
     }
     
     .ace-monokai .ace_keyword {
-    color: #8080e0 !important; /* Customize color as needed */
-    font-weight: bold !important;
+      color: #8080e0 !important;
+      font-weight: bold !important;
     }
     .ace-monokai .ace_braces_Open {
       color: #FFFFff !important;
@@ -923,18 +898,16 @@
     
     .ace-monokai .ace_string {
       color: #ffa0a0 !important;
-      font-weight: lighter !important;
     }
     
+    /* --- THIS IS THE CORRECTED LINE --- */
     .ace-monokai .ace_operators {
-      color: #00ffff !important;
-      font-weight: lighter !important;
+      color: #40a0e0 !important;
+      font-weight: bold !important; /* Changed from lighter to bold */
     }
-    
     
     .ace-monokai .ace_trueANDfalse {
       color: #00ffff !important;
-      font-weight: lighter !important;
     }
     
     .ace-monokai .ace_escape-char {
@@ -965,7 +938,6 @@
       outline: 1px solid slategrey;
     }
 `;
-
       var style = document.createElement("style");
       style.type = "text/css";
       if (style.styleSheet) {
