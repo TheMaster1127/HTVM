@@ -1494,8 +1494,6 @@ var HTVMHighlightRules = function () {
 
       variables.ideTEXT = `; This is a preview of your language and how it will look.
 
-; This is a preview of your language and how it will look.
-
 ; Here's how types will appear if you only define them:
 int varName1
 str varName2
@@ -1509,11 +1507,11 @@ int64 varName8
 ; Alternatively, you can define them like this:
 int varName9 := 34
 
-; Here is how to define a function with static types if you convert to C++.
+; Here's how to define a function with static types when converting to C++, Go, C#, Java, or other statically typed languages.
 ; However, it will still work even if you are not converting to C++; types will be stripped away.
 func void funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5) {
-	; This is how the global keyword works if we convert to Python.
-	; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
+	; This is how the global keyword works if we convert to Python and AutoHotKey.
+	; But even if we don't, it will just be removed, so you can add it if you want to convert to Python and AutoHotKey as well.
 	global varName5
 
 	; Here's how if, else if, and else statements will look:
