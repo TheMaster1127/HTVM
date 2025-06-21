@@ -1349,7 +1349,7 @@
           "default": "htvm",
           "description": {
             "header": "Default File Extension",
-            "body": "The preferred file extension for source files written in this custom HTVM language.\n\nExample Customizations:\n- `htvm`\n- `myht`\n- `htv`\n- `hsc`\n- `script`\n\nDefaults to: **`htvm`**."
+            "body": "WARNING!!! DO NOT CHANGE THIS, OTHERWISE THE IDE WILL NOT WORK. ONLY MODIFY THIS FOR FUN AND ONLY IF YOU ARE NOT PLANNING TO USE HT-IDE OR ANY OTHER IDE MADE BY US!\n\nThe preferred file extension for source files written in this custom HTVM language.\n\nExample Customizations:\n- `htvm`\n- `myht`\n- `htv`\n- `hsc`\n- `script`\n\nDefaults to: **`htvm`**."
           }
         },
         {
