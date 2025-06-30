@@ -2,9 +2,8 @@ TODO.txt
 1. Finish the HTVM Configurator website.
 2. Add all the built-in functions to HTVM for the remaining languages.
 3. Test HTVM functionality after adding the built-in functions.
-4. Build the HTVM landing page.
-5. Polish everything to ensure it's working as expected.
-6. Set up the Discord server and a subreddit for HTVM.
-7. Consider making HTVM version 2.0.0 the official release.
-8. Prepare the YouTube video titled "HTVM: The Future of Programming."
-9. Begin popularizing HTVM after the official release.
+4. Polish everything to ensure it's working as expected.
+5. Set up the Discord server and a subreddit for HTVM.
+6. Consider making HTVM version 2.0.0 the official release.
+7. Prepare the YouTube video titled "HTVM: The Future of Programming."
+8. Begin popularizing HTVM after the official release.
