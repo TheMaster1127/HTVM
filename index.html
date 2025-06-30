@@ -1,13 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=web-ui/">
-    <title>🚧 HTVM 🚧</title>
-    <link rel="icon" href="src-website/img/favicon.webp" type="image/png">
-    <link rel="stylesheet" href="src-website/style.css">
-</head>
+    <title>HTVM: The Revolution in Programming</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" href="web-ui/assets/icon.png" type="image/png">
 
+    <style>
+        :root {
+            --color-bg: #121212;
+            --color-surface: #1e1e1e;
+            --color-primary: #FE621B; 
+            --color-primary-hover: #e05210;
+            --color-text: #e0e0e0;
+            --color-text-secondary: #aaaaaa;
+            --color-border: #333333;
+            --animation-speed: 0.5s;
+        }
+
+        /* Base styles from previous version... */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { background-color: var(--color-bg); color: var(--color-text); font-family: 'Inter', sans-serif; line-height: 1.6; scroll-behavior: smooth; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        header { background: rgba(18, 18, 18, 0.8); backdrop-filter: blur(10px); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--color-border); }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-icon { height: 30px; width: auto; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--color-text); }
+        .logo span { color: var(--color-primary); }
+        nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        nav a { color: var(--color-text-secondary); text-decoration: none; font-weight: 700; transition: color 0.3s ease; }
+        nav a:hover { color: var(--color-primary); }
+        .btn { display: inline-block; background: var(--color-primary); color: #fff; padding: 0.8rem 1.5rem; border: none; border-radius: 5px; text-decoration: none; font-weight: 700; transition: background-color 0.3s ease; cursor: pointer; text-align: center; }
+        .btn:hover { background: var(--color-primary-hover); }
+        
+        #hero { text-align: center; padding: 80px 20px 60px; display: flex; flex-direction: column; align-items: center; }
+        #hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; line-height: 1.1; }
+        #hero .highlight { color: var(--color-primary); }
+        #hero p { font-size: 1.2rem; max-width: 700px; margin-bottom: 2rem; color: var(--color-text-secondary); }
+        #hero .cta-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        .btn-secondary { background: transparent; border: 2px solid var(--color-primary); color: var(--color-primary); }
+        .btn-secondary:hover { background: var(--color-primary); color: #fff; }
+        
+        /* Code Showcase Styles */
+        .code-showcase { font-family: 'JetBrains Mono', monospace; background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: 8px; padding: 1.5rem; margin-top: 4rem; text-align: left; max-width: 900px; width: 100%; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
+        .code-showcase h3 { font-family: 'Inter', sans-serif; margin-bottom: 1rem; color: var(--color-text-secondary); font-size: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem; }
+        .code-showcase pre { white-space: pre-wrap; word-wrap: break-word; }
+        .code-keyword { color: #c678dd; } .code-string { color: #98c379; } .code-number { color: #d19a66; } .code-comment { color: #616876; } .code-function { color: #61afef; } .code-type { color: #56b6c2; } .code-operator { color: var(--color-primary); }
+        .code-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+        .code-block { position: relative; overflow: hidden; }
+        .code-block h4 { text-align: center; margin-bottom: 0.5rem; color: var(--color-text-secondary); font-size: 0.9rem; }
+        
+        /* NEW: Animated Code Showcase */
+        .sliding-code-container { position: relative; height: 180px; /* Taller to prevent layout shift */ }
+        .sliding-code {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform var(--animation-speed) ease-in-out, opacity var(--animation-speed) ease-in-out;
+        }
+        .sliding-code.active {
+            transform: translateY(0);
+            opacity: 1;
+            z-index: 2; /* Bring active to front */
+        }
+        .sliding-code.exit {
+            transform: translateY(-100%);
+            opacity: 0;
+            z-index: 1;
+        }
+
+        /* All other sections are unchanged */
+        #features { padding: 80px 0; }
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; margin-bottom: 4rem; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .feature-card { background: var(--color-surface); padding: 2rem; border-radius: 8px; border: 1px solid var(--color-border); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(254, 98, 27, 0.1); }
+        .feature-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-primary); }
+        #how-it-works { padding: 80px 0; background-color: var(--color-surface); }
+        .steps-container { display: flex; justify-content: space-around; gap: 2rem; text-align: center; flex-wrap: wrap; }
+        .step { max-width: 300px; margin-bottom: 2rem; }
+        .step .step-number { font-size: 3rem; font-weight: 900; color: var(--color-primary); line-height: 1; }
+        .step h3 { font-size: 1.5rem; margin: 0.5rem 0; }
+        #final-cta { padding: 100px 20px; text-align: center; }
+        #final-cta h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem; }
+        #final-cta p { font-size: 1.2rem; margin-bottom: 2rem; color: var(--color-text-secondary); }
+        footer { text-align: center; padding: 2rem 0; border-top: 1px solid var(--color-border); color: var(--color-text-secondary); }
+        .footer-links a { color: var(--color-text-secondary); margin: 0 10px; text-decoration: none; transition: color 0.3s ease;}
+        .footer-links a:hover { color: var(--color-primary); }
+
+        /* NEW: Custom Message Box Styles */
+        #htvm-message-box-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s;
+        }
+        #htvm-message-box-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #htvm-message-box {
+            background: var(--color-surface);
+            color: var(--color-text);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        #htvm-message-box-overlay.visible #htvm-message-box {
+            transform: scale(1);
+        }
+        #htvm-message-box h2 {
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+        }
+        #htvm-message-box p {
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) { #hero h1 { font-size: 2.5rem; } .code-grid { grid-template-columns: 1fr; } nav ul { display: none; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" class="logo-container">
+                <img src="web-ui/assets/icon.png" alt="HTVM Logo" class="logo-icon">
+                <div class="logo">HT<span>VM</span></div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#" onclick="event.preventDefault(); showDocsWarning();">Docs</a></li>
+                    <li><a href="https://github.com/TheMaster1127/HTVM" target="_blank">GitHub</a></li>
+                    <li><a href="web-ui/" class="btn">Language Creation Website</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>The <span class="highlight">Revolution in Programming</span> is Here.</h1>
+            <p>Design your own language with fully customizable syntax. Write code once in your style, and let HTVM's powerful engine generate native code for 15+ target languages.</p>
+            <div class="cta-buttons">
+                <a href="web-ui/" class="btn">Start Creating Now</a>
+                <a href="#how-it-works" class="btn btn-secondary">Learn How</a>
+            </div>
+
+            <div class="code-showcase">
+                <h3>One Logic, Multiple Realities. You Choose the Target.</h3>
+                <div class="code-grid">
+                    <div class="code-block">
+                        <h4 id="native-lang-title">Standard C#</h4>
+                        <div class="sliding-code-container">
+<pre class="sliding-code active" data-lang="csharp"><code><span class="code-keyword">public class</span> <span class="code-type">Program</span> {
+  <span class="code-keyword">public static void</span> <span class="code-function">Main</span>() {
+    <span class="code-keyword">for</span> (<span class="code-type">int</span> i = <span class="code-number">0</span>; i < <span class="code-number">5</span>; i++) {
+      Console.<span class="code-function">WriteLine</span>(<span class="code-string">"Hello, HTVM!"</span>);
+    }
+  }
+}</span></code></pre>
+<pre class="sliding-code" data-lang="python"><code><span class="code-comment"># Same logic in Python</span>
+<span class="code-keyword">for</span> i <span class="code-keyword">in</span> <span class="code-function">range</span>(<span class="code-number">5</span>):
+    <span class="code-function">print</span>(<span class="code-string">"Hello, HTVM!"</span>)
+</code></pre>
+<pre class="sliding-code" data-lang="cpp"><code><span class="code-comment">// Same logic in C++</span>
+<span class="code-type">#include</span> <span class="code-string"><iostream></span>
+
+<span class="code-type">int</span> <span class="code-function">main</span>() {
+    <span class="code-keyword">for</span>(<span class="code-type">int</span> i = <span class="code-number">0</span>; i < <span class="code-number">5</span>; ++i) {
+        std::cout << <span class="code-string">"Hello, HTVM!"</span> << std::endl;
+    }
+    <span class="code-keyword">return</span> <span class="code-number">0</span>;
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="code-block">
+                        <h4>Your Custom HTVM Language</h4>
+<pre><code><span class="code-comment">// The only code you write.</span>
+<span class="code-keyword">Loop</span><span class="code-operator">,</span> <span class="code-number">5</span> {
+    <span class="code-function">print</span>(<span class="code-string">"Hello, HTVM!"</span>)
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The other sections remain unchanged -->
+        <section id="features"> <div class="container"> <h2 class="section-title">An Entirely New Way to Code</h2> <div class="features-grid"> <div class="feature-card"> <h3>Total Syntax Customization</h3> <p>Define your own keywords, operators, and block structures. Build a language that feels intuitive *to you*, not to someone else.</p> </div> <div class="feature-card"> <h3>Seamless Native Integration</h3> <p>Use any library from your target language (like C++ Boost or Python Pandas). Import it in a programming block, then use it directly in your HTVM code.</p> </div> <div class="feature-card"> <h3>Polyglot Power Tool</h3> <p>Write your core application in native Python, JS, or C++, and use HTVM's concise syntax to eliminate boilerplate and speed up development.</p> </div> <div class="feature-card"> <h3>Multi-Target Generation</h3> <p>Write your logic once and generate native code for C++, Python, JavaScript, Go, Swift, and 10 other languages simultaneously.</p> </div> <div class="feature-card"> <h3>Integrated Development</h3> <p>Develop efficiently in the dedicated HT-IDE, featuring syntax highlighting based on *your* rules, code completion, and direct execution.</p> </div> <div class="feature-card"> <h3>Accessible by Design</h3> <p>Simplify complex keywords to make programming more accessible. If `continue` is hard to spell, change it to `skip`. The language should adapt to you.</p> </div> </div> </div> </section>
+        <section id="how-it-works"> <div class="container"> <h2 class="section-title">Get Started in Three Steps</h2> <div class="steps-container"> <div class="step"> <div class="step-number">1</div> <h3>Design Your Language</h3> <p>Use the Language Creation Website to visually define every keyword, operator, and rule.</p> </div> <div class="step"> <div class="step-number">2</div> <h3>Code in Your Style</h3> <p>Write your application using your personalized syntax, mixing in native code blocks where needed.</p> </div> <div class="step"> <div class="step-number">3</div> <h3>Generate & Run</h3> <p>Transpile your code into one or more of the 15+ supported languages and run it anywhere.</p> </div> </div> </div> </section>
+        <section id="final-cta"> <div class="container"> <h2>Stop Adapting to Your Tools.</h2> <h2 class="highlight">Make Your Tools Adapt to You.</h2> <p>The future of programming is personal, efficient, and powerful. It's time to build your way.</p> <a href="web-ui/" class="btn" style="font-size: 1.2rem; padding: 1rem 2rem;">Go to the Language Creation Website</a> </div> </section>
+    </main>
+
+    <footer>
+        <div class="container footer-links">
+            <p>© 2025 HTVM. Licensed under the MIT License.</p>
+            <p>
+                <a href="https://github.com/TheMaster1127/HTVM" target="_blank">GitHub</a> | 
+                <a href="#" target="_blank">Discord</a> | 
+                <a href="#" target="_blank">Reddit</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function showDocsWarning() {
+            // Create custom modal elements
+            const overlay = document.createElement('div');
+            overlay.id = 'htvm-message-box-overlay';
+            
+            const box = document.createElement('div');
+            box.id = 'htvm-message-box';
+            
+            const title = document.createElement('h2');
+            title.textContent = 'Documentation Notice';
+            
+            const message = document.createElement('p');
+            message.innerHTML = 'You are about to view the documentation for the <strong>default</strong> HTVM language.<br><br>The documentation for <strong>YOUR</strong> custom language will be generated when you create it on the Language Creation Website.';
+            
+            const buttonContainer = document.createElement('div');
+            buttonContainer.style.display = 'flex';
+            buttonContainer.style.gap = '1rem';
+            buttonContainer.style.justifyContent = 'center';
+
+            const proceedBtn = document.createElement('button');
+            proceedBtn.textContent = 'Proceed to Docs';
+            proceedBtn.className = 'btn';
+
+            const cancelBtn = document.createElement('button');
+            cancelBtn.textContent = 'Cancel';
+            cancelBtn.className = 'btn btn-secondary';
+
+            buttonContainer.appendChild(cancelBtn);
+            buttonContainer.appendChild(proceedBtn);
+            box.appendChild(title);
+            box.appendChild(message);
+            box.appendChild(buttonContainer);
+            overlay.appendChild(box);
+            document.body.appendChild(overlay);
+
+            // Show modal
+            setTimeout(() => overlay.classList.add('visible'), 10);
+
+            // Event listeners
+            proceedBtn.onclick = () => {
+                window.open('https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md', '_blank');
+                closeModal();
+            };
+            cancelBtn.onclick = closeModal;
+            overlay.onclick = (e) => {
+                if (e.target === overlay) closeModal();
+            };
+
+            function closeModal() {
+                overlay.classList.remove('visible');
+                setTimeout(() => document.body.removeChild(overlay), 300);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('.sliding-code');
+            const langTitle = document.getElementById('native-lang-title');
+            let currentIndex = 0;
+
+            const languages = { csharp: 'Standard C#', python: 'Standard Python', cpp: 'Standard C++' };
+
+            function showNextCodeBlock() {
+                const currentBlock = codeBlocks[currentIndex];
+                
+                // Animate out the current block
+                currentBlock.classList.add('exit');
+                
+                // Wait for exit animation to almost finish before removing active class
+                setTimeout(() => {
+                    currentBlock.classList.remove('active');
+                    currentBlock.classList.remove('exit');
+                }, 500); // Should match CSS animation duration
+
+                // Move to next index
+                currentIndex = (currentIndex + 1) % codeBlocks.length;
+                
+                // Animate in the new block
+                const nextBlock = codeBlocks[currentIndex];
+                nextBlock.classList.add('active');
+                
+                // Update title
+                langTitle.textContent = languages[nextBlock.dataset.lang];
+            }
+            setInterval(showNextCodeBlock, 3141);
+        });
+    </script>
+</body>
 </html>
