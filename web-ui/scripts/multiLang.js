@@ -1,4 +1,4 @@
-import { getLangList, getLangIDList, createDefault, setLastOpenedTab } from './storage.js'
+import { getLangList, getLangIDList, createDefault, setLastOpenedTab, changeConfig } from './storage.js'
 import { applyConfig } from './uiActions.js'
 import { drawSettings } from './settingWindows.js'
 import { isOutOfView } from './utils.js'
@@ -23,6 +23,7 @@ function createLangTabs() {
         elm.remove()
     })
     getLangList().forEach(lang => {
+        changeConfig(lang) // Ensures config exists before applying it
         let langItem = document.querySelector(".lang-item.display-none").cloneNode(true)
         let langMenu = document.querySelector("#lang-menu")
         langItem.classList.remove("display-none")

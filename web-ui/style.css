@@ -722,5 +722,66 @@ input:focus+.slider {
 input:checked+.slider:before {
     transform: translateX(1.9em);
 }
-
+    
 /* END From Uiverse.io by TimTrayler  */
+
+/* --- Build Overlay Styles --- */
+#build-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 10000;
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.build-modal {
+    background-color: #1f1f1f;
+    color: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #555;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    max-width: 90%;
+    min-width: 300px;
+}
+
+.build-modal.error {
+    border-color: #a83232;
+}
+
+#build-status-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+#build-status-subtitle {
+    margin: 0;
+    color: #ccc;
+    font-size: 1em;
+    min-height: 1.2em; /* Prevents layout shift when text changes */
+    word-wrap: break-word;
+}
+
+/* --- Spinner Animation --- */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #444;
+    border-top: 5px solid #fe621b; /* Using your orange theme color */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
