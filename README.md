@@ -830,12 +830,18 @@ While developing HTVM, we anticipate potential questions and concerns. Here are 
         *   **Testing:** Extensive testing identifies and resolves edge cases.
         *   **Clear Rules:** The configuration process guides users towards defining unambiguous syntax. The system is designed to handle the defined customizations reliably.
 
-4.  **Concern: Debugging Experience**
-    *   *The Question:* Debugging usually happens in the generated code (C++, Python, etc.). Won't it be hard to trace errors from complex generated code back to the original custom HTVM source?
-    *   **The Creator's Perspective:** This is a valid concern, addressed in several ways:
-        *   **Readable Generated Code:** The output code is intentionally formatted (like K&R style) and structured to closely mirror the original HTVM logic, making manual tracing feasible. It's not obfuscated spaghetti code.
-        *   **Planned IDE Integration:** The future HTVM IDE aims to include AI-powered assistance (leveraging APIs like Gemini, free tier sufficient for many users) specifically designed to analyze errors in the generated code and pinpoint the corresponding line(s) in the *original HTVM source*, potentially even suggesting fixes.
-        *   **Standard Techniques:** Basic debugging (like adding print statements in your HTVM code) works as expected.
+14.  **Concern: "Debugging will be a nightmare. How can I trace an error in generated C++ code back to my custom HTVM source?"**
+    *   **The Question:** An error on line 850 of a generated C++ file is meaningless if my HTVM source is only 50 lines. This seems like an unsolvable problem that makes the tool unusable for serious projects.
+    *   **The Creator's Perspective: This is solved through a pragmatic workflow and a purpose-built architecture.**
+        First, the generated code is intentionally formatted to be readable and to mirror the structure of the original HTVM source, making manual tracing possible.
+
+        More importantly, HTVM has a **"reference target" for debugging: JavaScript.** Because you can transpile *any* HTVM code to JavaScript, you can use the excellent, mature debuggers available in modern browsers or the built-in HTVM IDE debugger. The workflow is simple:
+        1.  Write your logic in HTVM.
+        2.  Transpile to JavaScript and use the debugger to confirm your core logic is 100% correct.
+        3.  Once the logic is validated, you can transpile to C++, Python, or any other target with high confidence.
+
+        Furthermore, the HTVM engine is built with a **trace-back algorithm** designed specifically to map generated code lines back to their origin in the HTVM source file, bridging the debugging gap directly.
+
 
 5.  **Concern: Leaky Abstractions & Performance**
     *   *The Question:* Will generated code be performant? Does it leverage target language strengths, or is it generic? Does over-reliance on Programming Blocks defeat the purpose?
@@ -861,6 +867,55 @@ While developing HTVM, we anticipate potential questions and concerns. Here are 
 9.  **Concern: Hype vs. Reality**
     *   *The Question:* The enthusiastic tone ("revolution," "insane") sets very high expectations for an unfinished project.
     *   **The Creator's Perspective:** The enthusiasm is genuine, born from using HTVM and believing in its potential to solve real problems and offer unprecedented flexibility. While ambitious, the claims are based on the implemented design, the bootstrapped foundation, and the clear path forward. The "insanity" refers to the level of customization and multi-target power, which is truly unique.
+
+10.  **Concern: "Reliably transpiling to 15 different languages is impossible. How can HTVM handle the massive differences in concurrency, type systems, and standard libraries?"**
+    *   **The Question:** How can HTVM possibly generate idiomatic code for Go's `goroutines`, JavaScript's `async/await`, and C++'s threading from a single syntax? It seems like a classic "leaky abstraction" that will fail in the real world.
+    *   **The Creator's Perspective: This is a fundamental misunderstanding of HTVM's philosophy.**
+        HTVM is **not** designed to be a magical, universal abstraction layer for every feature in every language. That *would* be impossible. Instead, HTVM is designed as a **hybrid system** that provides a hyper-efficient core language for the 90% of code that is common (loops, variables, functions, control flow), while seamlessly delegating platform-specific tasks to the native language.
+
+        The solution is not abstraction; it's integration. If you need to use `goroutines`, you don't wait for HTVM to support it. You simply open a programming block and write native Go code.
+        ```htvm
+        ___go start
+        // Native, idiomatic Go code for channels and goroutines.
+        // HTVM doesn't abstract this; it gives you direct access.
+        go myConcurrentFunc(ch)
+        ___go end
+        ```
+        HTVM doesn't fail at abstracting complex features because **it never tries to**. Its strength lies in handling the universal basics with incredible efficiency and giving you direct, uninhibited access to the full power of the target ecosystem for everything else.
+
+11.  **Concern: "To use native libraries like Pandas, my code will just be huge programming blocks. Doesn't that defeat the purpose of HTVM?"**
+    *   **The Question:** If I have to put all my `pandas` or `numpy` calls inside `___py start`/`___py end` blocks, I'm not really using HTVM, am I? The friction seems too high.
+    *   **The Creator's Perspective: This is the most critical misunderstanding. HTVM is a true polyglot environment.**
+        You do **not** need to confine native library calls to programming blocks. The parser is intelligent enough to distinguish between HTVM syntax and native target-language syntax, even on the same line.
+
+        The intended workflow is as follows:
+        1.  Use a programming block **only for the initial import**.
+            ```htvm
+            ___py start
+            import pandas as pd
+            ___py end
+            ```
+        2.  Then, use the library's native syntax **directly within your HTVM code**.
+            ```htvm
+            main
+            // This is HTVM syntax
+            my_data_file = "data.csv"
+
+            // This is NATIVE Python syntax. HTVM's parser understands it
+            // and passes it through to the final Python file. No block needed.
+            df = pd.read_csv(my_data_file)
+
+            // Back to HTVM syntax for a powerful, custom print function.
+            df.print
+            ```
+        The friction is zero. You are not "leaving" HTVM to use a native library. You are using a native library *with* HTVM's enhanced syntax. This seamless integration means you get the full power of the target ecosystem without ever compromising the speed and convenience of HTVM.
+
+12.  **Concern: "Ordinal Struct Programming (OSP) seems verbose and its string-based `this` is brittle. Why not just use classes?"**
+    *   **The Question:** Making developers write `My.Full.Path.To.Property` and use string comparisons for context seems like a step backward from modern OOP.
+    *   **The Creator's Perspective: OSP is an optional tool for data organization, not a mandatory replacement for OOP.**
+        OSP provides a simple, globally-accessible, hierarchical way to structure data. It's perfect for certain tasks. However, if a developer needs the power of true Object-Oriented Programming—with inheritance, polymorphism, and encapsulation—the solution is, once again, to use the tool designed for the job: the native language.
+
+        If you need a complex class, you write it in a programming block for C++, Java, or Python. OSP is there for when you *don't* need that complexity. It's another tool in the HTVM workbench, not the only one.
 
 ---
 
