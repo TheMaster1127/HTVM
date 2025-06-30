@@ -246,22 +246,25 @@
                     <div class="code-block">
                         <h4>Your Custom HTVM Language</h4>
                         <div class="sliding-code-container">
-<pre class="sliding-code active" data-lang="htvm-dot"><code><span class="code-comment">// Dot-notation for function calls</span>
+
+<pre class="sliding-code active" data-lang="htvm-curly"><code><span class="code-comment">// C-Style: Default & familiar</span>
+<span class="code-keyword">Loop</span><span class="code-operator">,</span> <span class="code-number">5</span> {
+    <span class="code-function">print</span>(<span class="code-string">"Hello, HTVM!"</span>)
+}</code></pre>
+
+<pre class="sliding-code" data-lang="htvm-dot"><code><span class="code-comment">// Dot-notation for function calls</span>
 <span class="code-keyword">Spin</span><span class="code-operator">,</span> <span class="code-number">5</span> {
     <span class="code-string">"Hello, HTVM!"</span>.<span class="code-function">print</span>
 }
 <span class="code-comment">// 'Loop' becomes 'Spin', etc.</span>
 </code></pre>
-<pre class="sliding-code" data-lang="htvm-curly"><code><span class="code-comment">// C-Style: Default & familiar</span>
-<span class="code-keyword">Loop</span><span class="code-operator">,</span> <span class="code-number">5</span> {
-    <span class="code-function">print</span>(<span class="code-string">"Hello, HTVM!"</span>)
-}</code></pre>
+
 <pre class="sliding-code" data-lang="htvm-pythonic"><code><span class="code-comment">// Pythonic: Clean & readable</span>
 <span class="code-keyword">Loop</span><span class="code-operator">,</span> <span class="code-number">5</span>:
     <span class="code-function">print</span>(<span class="code-string">"Hello, HTVM!"</span>)
 </code></pre>
 <pre class="sliding-code" data-lang="htvm-lua"><code><span class="code-comment">-- Lua/Ruby Style</span>
-<span class="code-keyword">Loop</span><span class="code-operator">,</span> <span class="code-number">5</span>
+<span class="code-keyword">Loop </span><span <span class="code-number">5</span>
     <span class="code-function">print</span>(<span class="code-string">"Hello, HTVM!"</span>)
 <span class="code-keyword">end</span> <span class="code-comment">// 'end' is fully renamable</span>
 </code></pre>
