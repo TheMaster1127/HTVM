@@ -243,6 +243,7 @@ func str handleError(str htvmInstrText) {
             }
         }
     }
+    
     Loop, Parse, htvmInstrText, `n, `r {
         AIndex := A_Index
         ALoopField := A_LoopField
