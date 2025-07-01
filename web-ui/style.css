@@ -107,7 +107,15 @@ body {
     flex-direction: column;
     color: rgb(194, 181, 181);
     overflow: hidden;
+    transition: box-shadow 0.3s ease-in-out; /* Added for smooth highlight effect */
 }
+
+/* NEW: Error highlight class */
+.setting.error-highlight {
+    box-shadow: 0 0 0 2px #ff4d4d, 0 0 10px #ff4d4d;
+    border-radius: 4px;
+}
+
 
 .setting-i {
     display: flex;
@@ -725,7 +733,6 @@ input:checked+.slider:before {
     
 /* END From Uiverse.io by TimTrayler  */
 
-/* --- Build Overlay Styles --- */
 #build-overlay {
     position: fixed;
     top: 0;
@@ -770,7 +777,6 @@ input:checked+.slider:before {
     word-wrap: break-word;
 }
 
-/* --- Spinner Animation --- */
 .spinner {
     width: 50px;
     height: 50px;
@@ -784,4 +790,153 @@ input:checked+.slider:before {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+#ide-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+}
+
+.ide-modal-content {
+    background-color: #2d2d2d;
+    padding: 25px 35px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    text-align: center;
+    color: #e0e0e0;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+.ide-modal-content h2 {
+    color: #fe621b;
+    margin-bottom: 15px;
+}
+
+.ide-modal-content p {
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+#ide-modal-download-btn {
+    background-color: #fe621b;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+#ide-modal-download-btn:hover {
+    background-color: #e0520f;
+}
+
+#ide-modal-download-btn:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+#ide-modal-countdown {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #8ef31c;
+    min-height: 1.5em;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* --- NEW CREATE LANG MODAL STYLES --- */
+#create-lang-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+}
+
+.create-lang-modal-content {
+    background-color: #2d2d2d;
+    padding: 25px 35px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    text-align: center;
+    color: #e0e0e0;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.create-lang-modal-content h2 {
+    color: #fe621b;
+    margin-bottom: 15px;
+}
+
+.create-lang-modal-content p {
+    margin-bottom: 20px;
+}
+
+#create-lang-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #555;
+    background-color: #1b1b1b;
+    color: white;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.create-lang-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.create-lang-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#create-lang-cancel-btn {
+    background-color: #555;
+    color: white;
+}
+
+#create-lang-confirm-btn {
+    background-color: #fe621b;
+    color: white;
 }

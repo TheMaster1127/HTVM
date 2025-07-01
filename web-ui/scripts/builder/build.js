@@ -5,14 +5,15 @@ const buildStatusSubtitle = document.getElementById('build-status-subtitle');
 const buildModal = document.querySelector('.build-modal');
 // --- END: Added for build overlay ---
 
-function getUserConfig(id) {
+
+export function getUserConfig(id) {
     let config = localStorage.getItem("htvm_lang_" + id);
     config = JSON.parse(config).join("\n")
     return config;
 }
 
 
-async function getBuiltins() {
+export async function getBuiltins() {
     const location = "https://raw.githubusercontent.com/TheMaster1127/HTVM/refs/heads/main/HTVM-instructions.txt";
     const response = await fetch(location);
     const data = await response.text();
@@ -48,8 +49,8 @@ async function generateReadme() {
     return formattedData
 }
 
-function saveAs(content, filename) {
-    const blob = new Blob([content], { type: "application/zip" });
+export function saveAs(content, filename) {
+    const blob = new Blob([content], { type: 'text/plain' }); // Changed to text/plain for instruction file
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -91,61 +92,33 @@ async function zipIt(instructionFileContent, documentationHTML, documentationMar
 
 
 async function buildNDownload() {
-    // --- UI Update ---
-    buildStatusTitle.innerText = 'Checking for Errors...';
-    buildStatusSubtitle.innerText = 'Validating your configuration.';
-    // --- End UI Update ---
-
     const checkErrors = handleError(getUserConfig(localStorage.getItem("HTVM_LastAccesedTab")))
     if (checkErrors !== "noERROR") {
         console.log("failed")
         throw new Error(checkErrors);
     }
 
-    // --- UI Update ---
-    buildStatusTitle.innerText = 'Assembling Instructions...';
-    buildStatusSubtitle.innerText = 'Combining user settings and built-in functions.';
-    // --- End UI Update ---
-
     const instructionFileContent =
         getUserConfig(localStorage.getItem("HTVM_LastAccesedTab")) +
         "\n" +
         await getBuiltins()
-    
-    // --- UI Update ---
-    buildStatusTitle.innerText = 'Generating Documentation...';
-    buildStatusSubtitle.innerText = 'Fetching all required code snippets. This may take a moment.';
-    // --- End UI Update ---
-    
     const [documentationHTML, documentationMarkdown] = await generateDocumentation(instructionFileContent);
-    
-    // --- UI Update ---
-    buildStatusTitle.innerText = 'Creating Supporting Files...';
-    buildStatusSubtitle.innerText = 'Generating the README file.';
-    // --- End UI Update ---
-
     const readmeContent = await generateReadme()
-    
-    // --- UI Update ---
-    buildStatusTitle.innerText = 'Zipping Files...';
-    buildStatusSubtitle.innerText = 'Compressing your language pack.';
-    // --- End UI Update ---
-
     const zipContent = await zipIt(instructionFileContent, documentationHTML, documentationMarkdown, readmeContent);
     const zipFileName = `${getCurrentLangName()}.zip`;
     saveAs(zipContent, zipFileName);
 }
 
 
+
+
 document.querySelector("#buildButton").addEventListener("click", async () => {
-    // --- Show Overlay ---
     buildOverlay.style.display = 'flex';
     buildModal.classList.remove('error');
 
     try {
         await buildNDownload();
 
-        // --- Success State ---
         buildStatusTitle.innerText = 'Build Complete!';
         buildStatusSubtitle.innerText = 'Your download will start shortly.';
         setTimeout(() => {
@@ -153,7 +126,6 @@ document.querySelector("#buildButton").addEventListener("click", async () => {
         }, 2000);
 
     } catch (error) {
-        // --- Error State ---
         console.error("Build failed:", error);
         buildStatusTitle.innerText = 'Build Failed!';
         buildStatusSubtitle.innerText = error.message;

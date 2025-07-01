@@ -11,37 +11,63 @@ function createInfoBoxes(setting, config) {
     infoBox.innerHTML = infoBoxHTML.body.innerHTML;
     const infoButton = setting.querySelector('.info-button');
     wrapper.style.zIndex = 1000;
+    wrapper.style.position = 'fixed'; // Use fixed positioning for viewport-relative calcs
 
     infoBox.querySelector('.head').innerText = config?.description?.header ?? "To be defined"
     infoBox.querySelector('.body').innerHTML = marked.parse(config?.description?.body ?? "**To be defined**")
 
 
     infoButton.addEventListener('mouseenter', () => {
-        const rect = infoButton.getBoundingClientRect();
-        const windowWidth = window.innerWidth;
-        const wrapperWidth = wrapper.offsetWidth || 200;
-        const rightSpace = windowWidth - rect.right;
-        const hasEnoughRightSpace = rightSpace >= wrapperWidth;
-        wrapper.classList.add('info-box-temp')
-        wrapper.style.position = 'absolute';
-        wrapper.style.top = `${rect.top}px`;
-
+        // Remove any other temporary info boxes first
         document.querySelectorAll('.info-box-temp').forEach((el) => {
             el.remove();
-        })
+        });
 
-        if (hasEnoughRightSpace) {
-            wrapper.style.left = `${rect.left}px`;
-            wrapper.style.right = 'auto';
-        } else {
-            wrapper.style.left = 'auto';
-            wrapper.style.right = `${windowWidth - rect.right}px`;
+        wrapper.classList.add('info-box-temp');
+        document.body.appendChild(wrapper);
+
+        const rect = infoButton.getBoundingClientRect();
+        const boxRect = wrapper.getBoundingClientRect();
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        let top = rect.bottom + 5;
+        let left = rect.left;
+
+        // Check horizontal overflow
+        if (left + boxRect.width > windowWidth) {
+            left = rect.right - boxRect.width;
         }
 
-        document.body.appendChild(wrapper);
+        // Check vertical overflow
+        if (top + boxRect.height > windowHeight) {
+            top = rect.top - boxRect.height - 5;
+        }
+        
+        // Ensure it doesn't go off-screen top/left either
+        if (top < 0) top = 5;
+        if (left < 0) left = 5;
+
+        wrapper.style.top = `${top}px`;
+        wrapper.style.left = `${left}px`;
     });
+    
+    // Use mouseleave on both the button and the box itself for a smoother experience
+    infoButton.addEventListener('mouseleave', () => {
+        // Set a small delay to allow the mouse to move into the infobox
+        setTimeout(() => {
+            if (!wrapper.matches(':hover')) {
+                if (wrapper.parentElement) {
+                    document.body.removeChild(wrapper);
+                }
+            }
+        }, 100);
+    });
+
     wrapper.addEventListener('mouseleave', () => {
-        document.body.removeChild(wrapper);
+        if (wrapper.parentElement) {
+            document.body.removeChild(wrapper);
+        }
     });
 }
 

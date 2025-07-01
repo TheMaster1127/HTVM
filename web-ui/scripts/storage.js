@@ -16,10 +16,10 @@ const chanegVal = function (id, value){
     if (!localStorage.getItem(window.lang_ID_str)) {
         createDefault()
     }
-    console.log(window.lang_ID_str)
+    // console.log(window.lang_ID_str)
     let storedArray = getConfigFromLocalStorage();
-    console.log(`changing ${id}  ${storedArray[id]}  ->   ${value}`)
-    storedArray[id] = value.trim();
+    // console.log(`changing ${id}  ${storedArray[id]}  ->   ${value}`)
+    storedArray[id] = typeof value === 'string' ? value.trim() : value;
     localStorage.setItem(window.lang_ID_str, JSON.stringify(storedArray));
     // notyf.success('succefuly saved (:');
 }

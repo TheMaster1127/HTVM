@@ -8,6 +8,9 @@
             border-radius: 5px;
             padding: 5px 10px;
             max-width: 35vw;
+            max-height: 80vh; /* Added: prevent it from being too tall */
+            display: flex; /* Added: for flex-direction column */
+            flex-direction: column; /* Added: to control layout */
         }
 
         .infoBox .head {
@@ -16,6 +19,12 @@
             font-weight: bold;
             margin-bottom: 5px;
             text-align: center;
+            flex-shrink: 0; /* Added: Header should not shrink */
+        }
+
+        .infoBox .body {
+            overflow-y: auto; /* Added: Allow vertical scrolling for long content */
+            flex-grow: 1; /* Added: Body takes up remaining space */
         }
     </style>
     <h2 class="head">Example</h2>

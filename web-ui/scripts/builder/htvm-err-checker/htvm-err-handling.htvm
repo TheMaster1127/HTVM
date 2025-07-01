@@ -1,42 +1,32 @@
 ; htvm-err-handling.htvm
-
 ; Helper function to check for disallowed characters based on mode.
 ; Mode 0: Check if any disallowed char exists anywhere in the line.
 ; Mode 1: Check if any disallowed char exists ONLY at the beginning of the line.
 ; Mode 2: Check if any disallowed char exists ONLY at the end of the line.
 ; Returns true if a disallowed character is found according to the mode, false otherwise.
-func bool handleErrorHelper(arr str theArray, str line, int mode := 0)
-{
-    if (mode = 0)
-    {
+func bool handleErrorHelper(arr str theArray, str line, int mode := 0) {
+    if (mode = 0) {
         ; Mode 0: Check anywhere in the line
         bool found := false
-        Loop, % theArray.size()
-        {
+        Loop, % theArray.size() {
             ; If a disallowed character is found IN the line
-            if (InStr(line, theArray[A_Index])) 
-            {
+            if (InStr(line, theArray[A_Index])) {
                 found := true
                 break
             }
         }
         ; Return true if a disallowed character WAS found anywhere
-        return found 
+        return found
     }
-    else if (mode = 1)
-    {
+    else if (mode = 1) {
         ; Mode 1: Check ONLY the beginning of the line (first character)
-        if (StrLen(line) = 0) 
-        {
-            return false ; Empty line cannot start with a disallowed char
+        if (StrLen(line) = 0) {
+            return false
         }
-        
-        str firstChar := SubStr(line, 1, 1) ; Get the first character (assuming 1-based index for SubStr)
+        str firstChar := SubStr(line, 1, 1)
         bool foundAtStart := false
-        Loop, % theArray.size()
-        {
-            if (firstChar = theArray[A_Index])
-            {
+        Loop, % theArray.size() {
+            if (firstChar = theArray[A_Index]) {
                 foundAtStart := true
                 break
             }
@@ -44,21 +34,16 @@ func bool handleErrorHelper(arr str theArray, str line, int mode := 0)
         ; Return true if a disallowed character WAS found at the start
         return foundAtStart
     }
-    else if (mode = 2)
-    {
+    else if (mode = 2) {
         ; Mode 2: Check ONLY the end of the line (last character)
         int len := StrLen(line)
-        if (len = 0) 
-        {
-            return false ; Empty line cannot end with a disallowed char
+        if (len = 0) {
+            return false
         }
-        
-        str lastChar := SubStr(line, len, 1) ; Get the last character (assuming 1-based index for SubStr)
+        str lastChar := SubStr(line, len, 1)
         bool foundAtEnd := false
-        Loop, % theArray.size()
-        {
-            if (lastChar = theArray[A_Index])
-            {
+        Loop, % theArray.size() {
+            if (lastChar = theArray[A_Index]) {
                 foundAtEnd := true
                 break
             }
@@ -66,452 +51,314 @@ func bool handleErrorHelper(arr str theArray, str line, int mode := 0)
         ; Return true if a disallowed character WAS found at the end
         return foundAtEnd
     }
-
     ; Default case if mode is invalid (shouldn't happen with current structure)
-    return false 
+    return false
 }
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 ; Function to check for duplicate first words in a multi-line string
 ; Returns true if a duplicate first word is found, false otherwise.
 func str handleErrorHelper2(str multiLineText) {
-
-int currentLine0BasedIndex := 0
-int originalIndex := 0
-str trimmedCurrentLine := ""
-str originalLine := ""
-
-int found := 0
-
-str hold := ""
-Loop, Parse, multiLineText, `n, `r 
-{
-originalIndex := A_Index
-originalLine := A_LoopField
-if (A_Index <= 142)
-{
-Loop, Parse, multiLineText, `n, `r 
-{
-if (A_Index <= 142)
-{
-trimmedCurrentLine := A_LoopField
-currentLine0BasedIndex := A_Index
-if (InStr(Trim(originalLine), " ")) 
-{
-hold := Trim(StrSplit(Trim(originalLine), " ", 1))
-
-if (hold = Trim(trimmedCurrentLine))
-{
-found := 1
-break
-}
-}
-
-}
-
-}
-if (found = 1)
-{
-break
-}
-
-}
-}
-
-str result := ""
-
-if (found = 1)
-{
-result := STR(originalIndex) . ":" . originalLine . "-HTVM-SPLIT-HTVM~~|kngeuew8r7dygtosuwesdtesedfxo|~~HTVM-SPLIT-HTVM-" . STR(currentLine0BasedIndex) . ":" . trimmedCurrentLine
-return result
-}
-
-return "NONE"
+    int currentLine0BasedIndex := 0
+    int originalIndex := 0
+    str trimmedCurrentLine := ""
+    str originalLine := ""
+    int found := 0
+    str hold := ""
+    Loop, Parse, multiLineText, `n, `r {
+        originalIndex := A_Index
+        originalLine := A_LoopField
+        if (A_Index <= 142) {
+            Loop, Parse, multiLineText, `n, `r {
+                if (A_Index <= 142) {
+                    trimmedCurrentLine := A_LoopField
+                    currentLine0BasedIndex := A_Index
+                    if (InStr(Trim(originalLine), " ")) {
+                        hold := Trim(StrSplit(Trim(originalLine), " ", 1))
+                        if (hold = Trim(trimmedCurrentLine)) {
+                            found := 1
+                            break
+                        }
+                    }
+                }
+            }
+            if (found = 1) {
+                break
+            }
+        }
+    }
+    str result := ""
+    if (found = 1) {
+        result := STR(originalIndex) . ":" . originalLine . "-HTVM-SPLIT-HTVM~~|kngeuew8r7dygtosuwesdtesedfxo|~~HTVM-SPLIT-HTVM-" . STR(currentLine0BasedIndex) . ":" . trimmedCurrentLine
+        return result
+    }
+    return "NONE"
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-func str handleError(str htvmInstrText)  
-{
-
-str fixTrim := ""
-Loop, Parse, htvmInstrText, `n, `r 
-{
-fixTrim .= Trim(A_LoopField) . Chr(10)
-}
-StringTrimRight, htvmInstrText, fixTrim, 1
-
-
-; double quote newline carriage return
-arr str disallowedChars_Globaly := [Chr(34), Chr(10), Chr(13)]
-str disallowedChars_Globaly_EXPLAIN := "double quote, newline, carriage return"
-
-; "double quote newline carriage return ( ) [ ] { }"
-arr str disallowedChars_InExprTranspiler := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125)]
-str disallowedChars_InExprTranspiler_EXPLAIN := "double quote, newline, carriage return, (, ), [, ], {, }"
-
-; "double quote newline carriage return ( ) [ ] { }"
-arr str disallowedChars_BeginEndLine := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125)]
-str disallowedChars_BeginEndLine_EXPLAIN := "double quote, newline, carriage return, (, ), [, ], {, }"
-
-; "double quote newline carriage return ( ) [ ] { } :"
-arr str disallowedChars_AT_THE_END := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125), Chr(58)]
-str disallowedChars_AT_THE_END_EXPLAIN := "double quote, newline, carriage return, (, ), [, ], {, }, :"
-
-; "double quote newline carriage return ( ) { }"
-arr str disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125)]
-str disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN := "double quote, newline, carriage return, (, ), {, }"
-
-; "double quote newline carriage return ( ) { } :"
-arr str disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125), Chr(58)]
-str disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN := "double quote, newline, carriage return, (, ), {, }, :"
-
-; special/isolated
-
-; newline carriage return
-arr str disallowedChars_For_2 := [Chr(10), Chr(13)]
-str disallowedChars_For_2_EXPLAIN := "newline, carriage return"
-
-; double quote newline carriage return :
-arr str disallowedChars_For_46_47 := [Chr(34), Chr(10), Chr(13), Chr(58)]
-str disallowedChars_For_46_47_EXPLAIN := "double quote, newline, carriage return, :"
-
-; double quote newline carriage return
-arr str disallowedChars_For_103 := [Chr(34), Chr(10), Chr(13)]
-str disallowedChars_For_103_EXPLAIN := "double quote, newline, carriage return"
-
-
-; lines that cant have spacses
-arr int lineThatCANNOThaveSpacses := [0, 1, 46, 47, 84, 85, 86, 87, 88, 89, 103, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161]
-
-; special stuff
-; 0. we can only have those
-arr str onlyAllowed_0 := ["cpp", "py", "js", "go", "lua", "cs", "java", "kt", "rb", "nim", "ahk", "swift", "dart", "ts", "groovy"]
-; 1. for matching custom file extensions in HTVM we only allow them to start with a lowercase letter, followed by lowercase letters or numbers, and be at least 2 characters long.
-; This is the regex: "^[a-z][a-z0-9]{1,}$"
-
-; 2. this is complex so um i will just leave it and just use disallowedChars_For_2 array to check if any of those chars exists.
-; 3 - 9 - for OSP and include - so just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_AT_THE_END
-; 10 - 45 - programming blocks - so just use the following arrays disallowedChars_Globaly
-; 46 and 47 - this are keyWordCurlyBraceOpen and keyWordCurlyBraceClose so no spacses and use the arrays disallowedChars_For_46_47, disallowedChars_Globaly
-; 48 - 83 - types and constructs - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_AT_THE_END
-; 84 - 89 - array methods - for the array methods, they must have NO SPACE and must start with a dot (.) followed by at least one character from [A-Za-z0-9_]. Use the regex "^\.[A-Za-z0-9_]+$"
-; 90 - 102 - ArrayDefinition and some more - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD
-; 103 is the keyWordEscpaeChar so it must be any char BUT MUST BE 1 single char NOT MORE THEN 1 CHAR and use the array disallowedChars_Globaly, disallowedChars_For_103
-; 104 - 128 - some operators - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_AT_THE_END
-; 129 - 141 - for Assignment operators - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD AND NO SPACSES
-; 142 and 143 - the ternary operators - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD
-; 144 and 145 - (++ and --) - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_AT_THE_END
-; 146 - Use the regex "^-?\d+$" ONLY and disallowedChars_Globaly ig
-; 147 and 148 - A_Index and A_LoopField ARE CUSTOMIZABLE so NO SPACE and use the arrays disallowedChars_Globaly and Use the regex "^[a-zA-Z_][a-zA-Z0-9_]*$"
-; 149 - 161 - settings ONLY allow "on" and "off" THATS IT but the website will automatically handle it since it's a toggle switch and will put "on" or "off" 
-;;;;;;;;;;;;;;;;;;;;;;;; thats all HTVM options 162 of them
-
-
-str allName := "langToConvertTo" . Chr(10) . "langFileExtension" . Chr(10) . "commands" . Chr(10) . "keyWordAlliance" . Chr(10) . "keyWordCrew" . Chr(10) . "keyWordProc" . Chr(10) . "keyWordStruct" . Chr(10) . "keyWordProp" . Chr(10) . "keyWordThis" . Chr(10) . "keyWordInclude" . Chr(10) . "keyWordCodeInTheTranspiledLangStart" . Chr(10) . "keyWordCodeInTheTranspiledLangEnd" . Chr(10) . "keyWordCodeInTheTranspiledLangStartCPP" . Chr(10) . "keyWordCodeInTheTranspiledLangEndCPP" . Chr(10) . "keyWordCodeInTheTranspiledLangStartPY" . Chr(10) . "keyWordCodeInTheTranspiledLangEndPY" . Chr(10) . "keyWordCodeInTheTranspiledLangStartJS" . Chr(10) . "keyWordCodeInTheTranspiledLangEndJS" . Chr(10) . "keyWordCodeInTheTranspiledLangStartGO" . Chr(10) . "keyWordCodeInTheTranspiledLangEndGO" . Chr(10) . "keyWordCodeInTheTranspiledLangStartLUA" . Chr(10) . "keyWordCodeInTheTranspiledLangEndLUA" . Chr(10) . "keyWordCodeInTheTranspiledLangStartCS" . Chr(10) . "keyWordCodeInTheTranspiledLangEndCS" . Chr(10) . "keyWordCodeInTheTranspiledLangStartJAVA" . Chr(10) . "keyWordCodeInTheTranspiledLangEndJAVA" . Chr(10) . "keyWordCodeInTheTranspiledLangStartKT" . Chr(10) . "keyWordCodeInTheTranspiledLangEndKT" . Chr(10) . "keyWordCodeInTheTranspiledLangStartRB" . Chr(10) . "keyWordCodeInTheTranspiledLangEndRB" . Chr(10) . "keyWordCodeInTheTranspiledLangStartNIM" . Chr(10) . "keyWordCodeInTheTranspiledLangEndNIM" . Chr(10) . "keyWordCodeInTheTranspiledLangStartAHK" . Chr(10) . "keyWordCodeInTheTranspiledLangEndAHK" . Chr(10) . "keyWordCodeInTheTranspiledLangStartSWIFT" . Chr(10) . "keyWordCodeInTheTranspiledLangEndSWIFT" . Chr(10) . "keyWordCodeInTheTranspiledLangStartDART" . Chr(10) . "keyWordCodeInTheTranspiledLangEndDART" . Chr(10) . "keyWordCodeInTheTranspiledLangStartTS" . Chr(10) . "keyWordCodeInTheTranspiledLangEndTS" . Chr(10) . "keyWordCodeInTheTranspiledLangStartGROOVY" . Chr(10) . "keyWordCodeInTheTranspiledLangEndGROOVY" . Chr(10) . "keyWordCodeInTheTranspiledLangStartHTVM" . Chr(10) . "keyWordCodeInTheTranspiledLangEndHTVM" . Chr(10) . "keyWordCodeInHTVMstart" . Chr(10) . "keyWordCodeInHTVMend" . Chr(10) . "keyWordCurlyBraceOpen" . Chr(10) . "keyWordCurlyBraceClose" . Chr(10) . "keyWordNull" . Chr(10) . "keyWordTrue" . Chr(10) . "keyWordFalse" . Chr(10) . "keyWordVoid" . Chr(10) . "keyWordDouble" . Chr(10) . "keyWordChar" . Chr(10) . "keyWordUint8" . Chr(10) . "keyWordUint16" . Chr(10) . "keyWordUint32" . Chr(10) . "keyWordUint64" . Chr(10) . "keyWordINT" . Chr(10) . "keyWordSTR" . Chr(10) . "keyWordBOOL" . Chr(10) . "keyWordFLOAT" . Chr(10) . "keyWordINT8" . Chr(10) . "keyWordINT16" . Chr(10) . "keyWordINT32" . Chr(10) . "keyWordINT64" . Chr(10) . "keyWordIF" . Chr(10) . "keyWordElseIf" . Chr(10) . "keyWordElse" . Chr(10) . "keyWordWhileLoop" . Chr(10) . "keyWordLoopInfinite" . Chr(10) . "keyWordLoop" . Chr(10) . "keyWordLoopParse" . Chr(10) . "keyWordContinue" . Chr(10) . "keyWordBreak" . Chr(10) . "keyWordFunc" . Chr(10) . "keyWordAwait" . Chr(10) . "keyWordAsync" . Chr(10) . "keyWordThrow" . Chr(10) . "keyWordErrorMsg" . Chr(10) . "keyWordTry" . Chr(10) . "keyWordCatch" . Chr(10) . "keyWordFinally" . Chr(10) . "keyWordReturnStatement" . Chr(10) . "keyWordArrayAppend" . Chr(10) . "keyWordArrayPop" . Chr(10) . "keyWordArraySize" . Chr(10) . "keyWordArrayInsert" . Chr(10) . "keyWordArrayRemove" . Chr(10) . "keyWordArrayIndexOf" . Chr(10) . "keyWordArrayDefinition" . Chr(10) . "keyWordArrayOfIntegersDefinition" . Chr(10) . "keyWordArrayOfStringsDefinition" . Chr(10) . "keyWordArrayOfFloatingPointNumbersDefinition" . Chr(10) . "keyWordArrayOfBooleansDefinition" . Chr(10) . "keyWordVar" . Chr(10) . "keyWordLet" . Chr(10) . "keyWordConst" . Chr(10) . "keyWordEnd" . Chr(10) . "keyWordGlobal" . Chr(10) . "keyWordComment" . Chr(10) . "keyWordCommentOpenMultiLine" . Chr(10) . "keyWordCommentCloseMultiLine" . Chr(10) . "keyWordEscpaeChar" . Chr(10) . "keyWordMainLabel" . Chr(10) . "keyWordConcat" . Chr(10) . "keyWordAdd" . Chr(10) . "keyWordSub" . Chr(10) . "keyWordMul" . Chr(10) . "keyWordDiv" . Chr(10) . "keyWordMod" . Chr(10) . "keyWordExp" . Chr(10) . "keyWordEqual" . Chr(10) . "keyWordStrictEqual" . Chr(10) . "keyWordNotEqual" . Chr(10) . "keyWordGreater" . Chr(10) . "keyWordLess" . Chr(10) . "keyWordGreaterEqual" . Chr(10) . "keyWordLessEqual" . Chr(10) . "keyWordAnd" . Chr(10) . "keyWordOr" . Chr(10) . "keyWordNot" . Chr(10) . "keyWordBitAnd" . Chr(10) . "keyWordBitOr" . Chr(10) . "keyWordBitXor" . Chr(10) . "keyWordBitNot" . Chr(10) . "keyWordShiftLeft" . Chr(10) . "keyWordShiftRight" . Chr(10) . "keyWordShiftUnsignedRight" . Chr(10) . "keyWordAssign" . Chr(10) . "keyWordAssignAdd" . Chr(10) . "keyWordAssignConcat" . Chr(10) . "keyWordAssignSub" . Chr(10) . "keyWordAssignMul" . Chr(10) . "keyWordAssignDiv" . Chr(10) . "keyWordAssignMod" . Chr(10) . "keyWordAssignShiftLeft" . Chr(10) . "keyWordAssignShiftRight" . Chr(10) . "keyWordLogicalAssignShiftRight" . Chr(10) . "keyWordAssignBitAnd" . Chr(10) . "keyWordAssignBitOr" . Chr(10) . "keyWordAssignBitXor" . Chr(10) . "keyWordTernary1" . Chr(10) . "keyWordTernary2" . Chr(10) . "keyWordInc" . Chr(10) . "keyWordDec" . Chr(10) . "AHKlikeLoopsIndexedAt" . Chr(10) . "keyWordAIndex" . Chr(10) . "keyWordALoopField" . Chr(10) . "useCurlyBraces" . Chr(10) . "useEnd" . Chr(10) . "useSemicolon" . Chr(10) . "useParentheses" . Chr(10) . "usePrefixTypeForTypeDefinition" . Chr(10) . "usePostfixTypeForTypeDefinition" . Chr(10) . "usePythonicColonSyntax" . Chr(10) . "useCurlyBracesSyntaxForArrayDef" . Chr(10) . "useInJavaScriptAlwaysUseVar" . Chr(10) . "useJavaScriptInAfullHTMLfile" . Chr(10) . "useJavaScriptAmainFuncDef" . Chr(10) . "useJavaScriptAllFuncsAreAsync" . Chr(10) . "useJavaScriptAlwaysTripleEqual"
-
-arr str allNameARR
-
-Loop, Parse, allName, `n, `r
-{
-allNameARR.add(A_LoopField)
-}
-
-
-
-
-
-str str1 := ""
-str str2 := ""
-str str3 := ""
-str str4 := ""
-str str5 := ""
-str str6 := ""
-
-int for0 := 0
-int AIndex := 0
-str ALoopField := ""
-str handleErrorHelper2OUT := ""
-
-
-arr int keywordIndices := [6,3,4,7,5,66,67,69,81,78,83,70,71,72,9,99,76,75,97,95,96,52,53,54,55,56,57,58,59,60,61,62,63,64,65,90,91,92,93,94]
-int foundKeywordIndices := 0
-
-
-
-
-Loop, Parse, htvmInstrText, `n, `r 
-{
-AIndex := A_Index
-ALoopField := A_LoopField
-
-if (A_Index <= 148) {
-    Loop, Parse, htvmInstrText, `n, `r  {
-    if (A_Index <= 148) {
-            if (ALoopField = A_LoopField) and (A_Index != AIndex) {
-                if (AIndex <= 148) {
-                    return STR(AIndex) . "|You can't use the same keyword more than once. The problem is whit " . allNameARR[AIndex] . " and " . allNameARR[A_Index] . "!!!"
+func str handleError(str htvmInstrText) {
+    str fixTrim := ""
+    Loop, Parse, htvmInstrText, `n, `r {
+        fixTrim .= Trim(A_LoopField) . Chr(10)
+    }
+    StringTrimRight, htvmInstrText, fixTrim, 1
+    ; double quote newline carriage return
+    arr str disallowedChars_Globaly := [Chr(34), Chr(10), Chr(13)]
+    str disallowedChars_Globaly_EXPLAIN := "double quote, newline, carriage return"
+    ; "double quote newline carriage return ( ) [ ] { }"
+    arr str disallowedChars_InExprTranspiler := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125)]
+    str disallowedChars_InExprTranspiler_EXPLAIN := "double quote, newline, carriage return, (, ), [, ], {, }"
+    ; "double quote newline carriage return ( ) [ ] { }"
+    arr str disallowedChars_BeginEndLine := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125)]
+    str disallowedChars_BeginEndLine_EXPLAIN := "double quote, newline, carriage return, (, ), [, ], {, }"
+    ; "double quote newline carriage return ( ) [ ] { } :"
+    arr str disallowedChars_AT_THE_END := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125), Chr(58)]
+    str disallowedChars_AT_THE_END_EXPLAIN := "double quote, newline, carriage return, (, ), [, ], {, }, :"
+    ; "double quote newline carriage return ( ) { }"
+    arr str disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125)]
+    str disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN := "double quote, newline, carriage return, (, ), {, }"
+    ; "double quote newline carriage return ( ) { } :"
+    arr str disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125), Chr(58)]
+    str disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN := "double quote, newline, carriage return, (, ), {, }, :"
+    ; special/isolated
+    ; newline carriage return
+    arr str disallowedChars_For_2 := [Chr(10), Chr(13)]
+    str disallowedChars_For_2_EXPLAIN := "newline, carriage return"
+    ; double quote newline carriage return :
+    arr str disallowedChars_For_46_47 := [Chr(34), Chr(10), Chr(13), Chr(58)]
+    str disallowedChars_For_46_47_EXPLAIN := "double quote, newline, carriage return, :"
+    ; double quote newline carriage return
+    arr str disallowedChars_For_103 := [Chr(34), Chr(10), Chr(13)]
+    str disallowedChars_For_103_EXPLAIN := "double quote, newline, carriage return"
+    ; lines that cant have spacses
+    arr int lineThatCANNOThaveSpacses := [0, 1, 46, 47, 84, 85, 86, 87, 88, 89, 103, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161]
+    ; special stuff
+    ; 0. we can only have those
+    arr str onlyAllowed_0 := ["cpp", "py", "js", "go", "lua", "cs", "java", "kt", "rb", "nim", "ahk", "swift", "dart", "ts", "groovy"]
+    ; 1. for matching custom file extensions in HTVM we only allow them to start with a lowercase letter, followed by lowercase letters or numbers, and be at least 2 characters long.
+    ; This is the regex: "^[a-z][a-z0-9]{1,}$"
+    ; 2. this is complex so um i will just leave it and just use disallowedChars_For_2 array to check if any of those chars exists.
+    ; 3 - 9 - for OSP and include - so just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_AT_THE_END
+    ; 10 - 45 - programming blocks - so just use the following arrays disallowedChars_Globaly
+    ; 46 and 47 - this are keyWordCurlyBraceOpen and keyWordCurlyBraceClose so no spacses and use the arrays disallowedChars_For_46_47, disallowedChars_Globaly
+    ; 48 - 83 - types and constructs - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_AT_THE_END
+    ; 84 - 89 - array methods - for the array methods, they must have NO SPACE and must start with a dot (.) followed by at least one character from [A-Za-z0-9_]. Use the regex "^\.[A-Za-z0-9_]+$"
+    ; 90 - 102 - ArrayDefinition and some more - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD
+    ; 103 is the keyWordEscpaeChar so it must be any char BUT MUST BE 1 single char NOT MORE THEN 1 CHAR and use the array disallowedChars_Globaly, disallowedChars_For_103
+    ; 104 - 128 - some operators - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_AT_THE_END
+    ; 129 - 141 - for Assignment operators - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD AND NO SPACSES
+    ; 142 and 143 - the ternary operators - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD
+    ; 144 and 145 - (++ and --) - for those just use the following arrays disallowedChars_Globaly, disallowedChars_BeginEndLine, disallowedChars_AT_THE_END
+    ; 146 - Use the regex "^-?\d+$" ONLY and disallowedChars_Globaly ig
+    ; 147 and 148 - A_Index and A_LoopField ARE CUSTOMIZABLE so NO SPACE and use the arrays disallowedChars_Globaly and Use the regex "^[a-zA-Z_][a-zA-Z0-9_]*$"
+    ; 149 - 161 - settings ONLY allow "on" and "off" THATS IT but the website will automatically handle it since it's a toggle switch and will put "on" or "off"
+    ;;;;;;;;;;;;;;;;;;;;;;;; thats all HTVM options 162 of them
+    str allName := "langToConvertTo" . Chr(10) . "langFileExtension" . Chr(10) . "commands" . Chr(10) . "keyWordAlliance" . Chr(10) . "keyWordCrew" . Chr(10) . "keyWordProc" . Chr(10) . "keyWordStruct" . Chr(10) . "keyWordProp" . Chr(10) . "keyWordThis" . Chr(10) . "keyWordInclude" . Chr(10) . "keyWordCodeInTheTranspiledLangStart" . Chr(10) . "keyWordCodeInTheTranspiledLangEnd" . Chr(10) . "keyWordCodeInTheTranspiledLangStartCPP" . Chr(10) . "keyWordCodeInTheTranspiledLangEndCPP" . Chr(10) . "keyWordCodeInTheTranspiledLangStartPY" . Chr(10) . "keyWordCodeInTheTranspiledLangEndPY" . Chr(10) . "keyWordCodeInTheTranspiledLangStartJS" . Chr(10) . "keyWordCodeInTheTranspiledLangEndJS" . Chr(10) . "keyWordCodeInTheTranspiledLangStartGO" . Chr(10) . "keyWordCodeInTheTranspiledLangEndGO" . Chr(10) . "keyWordCodeInTheTranspiledLangStartLUA" . Chr(10) . "keyWordCodeInTheTranspiledLangEndLUA" . Chr(10) . "keyWordCodeInTheTranspiledLangStartCS" . Chr(10) . "keyWordCodeInTheTranspiledLangEndCS" . Chr(10) . "keyWordCodeInTheTranspiledLangStartJAVA" . Chr(10) . "keyWordCodeInTheTranspiledLangEndJAVA" . Chr(10) . "keyWordCodeInTheTranspiledLangStartKT" . Chr(10) . "keyWordCodeInTheTranspiledLangEndKT" . Chr(10) . "keyWordCodeInTheTranspiledLangStartRB" . Chr(10) . "keyWordCodeInTheTranspiledLangEndRB" . Chr(10) . "keyWordCodeInTheTranspiledLangStartNIM" . Chr(10) . "keyWordCodeInTheTranspiledLangEndNIM" . Chr(10) . "keyWordCodeInTheTranspiledLangStartAHK" . Chr(10) . "keyWordCodeInTheTranspiledLangEndAHK" . Chr(10) . "keyWordCodeInTheTranspiledLangStartSWIFT" . Chr(10) . "keyWordCodeInTheTranspiledLangEndSWIFT" . Chr(10) . "keyWordCodeInTheTranspiledLangStartDART" . Chr(10) . "keyWordCodeInTheTranspiledLangEndDART" . Chr(10) . "keyWordCodeInTheTranspiledLangStartTS" . Chr(10) . "keyWordCodeInTheTranspiledLangEndTS" . Chr(10) . "keyWordCodeInTheTranspiledLangStartGROOVY" . Chr(10) . "keyWordCodeInTheTranspiledLangEndGROOVY" . Chr(10) . "keyWordCodeInTheTranspiledLangStartHTVM" . Chr(10) . "keyWordCodeInTheTranspiledLangEndHTVM" . Chr(10) . "keyWordCodeInHTVMstart" . Chr(10) . "keyWordCodeInHTVMend" . Chr(10) . "keyWordCurlyBraceOpen" . Chr(10) . "keyWordCurlyBraceClose" . Chr(10) . "keyWordNull" . Chr(10) . "keyWordTrue" . Chr(10) . "keyWordFalse" . Chr(10) . "keyWordVoid" . Chr(10) . "keyWordDouble" . Chr(10) . "keyWordChar" . Chr(10) . "keyWordUint8" . Chr(10) . "keyWordUint16" . Chr(10) . "keyWordUint32" . Chr(10) . "keyWordUint64" . Chr(10) . "keyWordINT" . Chr(10) . "keyWordSTR" . Chr(10) . "keyWordBOOL" . Chr(10) . "keyWordFLOAT" . Chr(10) . "keyWordINT8" . Chr(10) . "keyWordINT16" . Chr(10) . "keyWordINT32" . Chr(10) . "keyWordINT64" . Chr(10) . "keyWordIF" . Chr(10) . "keyWordElseIf" . Chr(10) . "keyWordElse" . Chr(10) . "keyWordWhileLoop" . Chr(10) . "keyWordLoopInfinite" . Chr(10) . "keyWordLoop" . Chr(10) . "keyWordLoopParse" . Chr(10) . "keyWordContinue" . Chr(10) . "keyWordBreak" . Chr(10) . "keyWordFunc" . Chr(10) . "keyWordAwait" . Chr(10) . "keyWordAsync" . Chr(10) . "keyWordThrow" . Chr(10) . "keyWordErrorMsg" . Chr(10) . "keyWordTry" . Chr(10) . "keyWordCatch" . Chr(10) . "keyWordFinally" . Chr(10) . "keyWordReturnStatement" . Chr(10) . "keyWordArrayAppend" . Chr(10) . "keyWordArrayPop" . Chr(10) . "keyWordArraySize" . Chr(10) . "keyWordArrayInsert" . Chr(10) . "keyWordArrayRemove" . Chr(10) . "keyWordArrayIndexOf" . Chr(10) . "keyWordArrayDefinition" . Chr(10) . "keyWordArrayOfIntegersDefinition" . Chr(10) . "keyWordArrayOfStringsDefinition" . Chr(10) . "keyWordArrayOfFloatingPointNumbersDefinition" . Chr(10) . "keyWordArrayOfBooleansDefinition" . Chr(10) . "keyWordVar" . Chr(10) . "keyWordLet" . Chr(10) . "keyWordConst" . Chr(10) . "keyWordEnd" . Chr(10) . "keyWordGlobal" . Chr(10) . "keyWordComment" . Chr(10) . "keyWordCommentOpenMultiLine" . Chr(10) . "keyWordCommentCloseMultiLine" . Chr(10) . "keyWordEscpaeChar" . Chr(10) . "keyWordMainLabel" . Chr(10) . "keyWordConcat" . Chr(10) . "keyWordAdd" . Chr(10) . "keyWordSub" . Chr(10) . "keyWordMul" . Chr(10) . "keyWordDiv" . Chr(10) . "keyWordMod" . Chr(10) . "keyWordExp" . Chr(10) . "keyWordEqual" . Chr(10) . "keyWordStrictEqual" . Chr(10) . "keyWordNotEqual" . Chr(10) . "keyWordGreater" . Chr(10) . "keyWordLess" . Chr(10) . "keyWordGreaterEqual" . Chr(10) . "keyWordLessEqual" . Chr(10) . "keyWordAnd" . Chr(10) . "keyWordOr" . Chr(10) . "keyWordNot" . Chr(10) . "keyWordBitAnd" . Chr(10) . "keyWordBitOr" . Chr(10) . "keyWordBitXor" . Chr(10) . "keyWordBitNot" . Chr(10) . "keyWordShiftLeft" . Chr(10) . "keyWordShiftRight" . Chr(10) . "keyWordShiftUnsignedRight" . Chr(10) . "keyWordAssign" . Chr(10) . "keyWordAssignAdd" . Chr(10) . "keyWordAssignConcat" . Chr(10) . "keyWordAssignSub" . Chr(10) . "keyWordAssignMul" . Chr(10) . "keyWordAssignDiv" . Chr(10) . "keyWordAssignMod" . Chr(10) . "keyWordAssignShiftLeft" . Chr(10) . "keyWordAssignShiftRight" . Chr(10) . "keyWordLogicalAssignShiftRight" . Chr(10) . "keyWordAssignBitAnd" . Chr(10) . "keyWordAssignBitOr" . Chr(10) . "keyWordAssignBitXor" . Chr(10) . "keyWordTernary1" . Chr(10) . "keyWordTernary2" . Chr(10) . "keyWordInc" . Chr(10) . "keyWordDec" . Chr(10) . "AHKlikeLoopsIndexedAt" . Chr(10) . "keyWordAIndex" . Chr(10) . "keyWordALoopField" . Chr(10) . "useCurlyBraces" . Chr(10) . "useEnd" . Chr(10) . "useSemicolon" . Chr(10) . "useParentheses" . Chr(10) . "usePrefixTypeForTypeDefinition" . Chr(10) . "usePostfixTypeForTypeDefinition" . Chr(10) . "usePythonicColonSyntax" . Chr(10) . "useCurlyBracesSyntaxForArrayDef" . Chr(10) . "useInJavaScriptAlwaysUseVar" . Chr(10) . "useJavaScriptInAfullHTMLfile" . Chr(10) . "useJavaScriptAmainFuncDef" . Chr(10) . "useJavaScriptAllFuncsAreAsync" . Chr(10) . "useJavaScriptAlwaysTripleEqual"
+    arr str allNameARR
+    Loop, Parse, allName, `n, `r {
+        allNameARR.add(A_LoopField)
+    }
+    str str1 := ""
+    str str2 := ""
+    str str3 := ""
+    str str4 := ""
+    str str5 := ""
+    str str6 := ""
+    int for0 := 0
+    int AIndex := 0
+    str ALoopField := ""
+    str handleErrorHelper2OUT := ""
+    arr int keywordIndices := [6,3,4,7,5,66,67,69,81,78,83,70,71,72,9,99,76,75,97,95,96,52,53,54,55,56,57,58,59,60,61,62,63,64,65,90,91,92,93,94]
+    int foundKeywordIndices := 0
+    Loop, Parse, htvmInstrText, `n, `r {
+        AIndex := A_Index
+        ALoopField := A_LoopField
+        if (A_Index <= 148) {
+            Loop, Parse, htvmInstrText, `n, `r {
+                if (A_Index <= 148) {
+                    if (ALoopField = A_LoopField) and (A_Index != AIndex) {
+                        if (AIndex <= 148) {
+                            return STR(AIndex) . "|You can't use the same keyword more than once. The problem is whit " . allNameARR[AIndex] . " and " . allNameARR[A_Index] . "!!!"
+                        }
+                    }
                 }
             }
         }
     }
-}
-}
-
-
-handleErrorHelper2OUT := handleErrorHelper2(htvmInstrText)
-
-if (handleErrorHelper2OUT != "NONE")
-{
-
-str1 := StrSplit(handleErrorHelper2OUT, "-HTVM-SPLIT-HTVM~~|kngeuew8r7dygtosuwesdtesedfxo|~~HTVM-SPLIT-HTVM-", 1)
-str2 := StrSplit(handleErrorHelper2OUT, "-HTVM-SPLIT-HTVM~~|kngeuew8r7dygtosuwesdtesedfxo|~~HTVM-SPLIT-HTVM-", 2)
-
-str3 := ""
-str4 := ""
-
-Loop, Parse, str1
-{
-if (A_LoopField = ":")
-{
-break
-}
-else
-{
-str3 .= A_LoopField
-}
-}
-
-
-Loop, Parse, str2
-{
-if (A_LoopField = ":")
-{
-break
-}
-else
-{
-str4 .= A_LoopField
-}
-}
-
-str5 := StringTrimLeft(str1, (StrLen(str3) + 1))
-str6 := StringTrimLeft(str2, (StrLen(str4) + 1))
-
-
-; 51 66
-; 90 94
-if ((INT(str3) >= 51) and (INT(str3) <= 66)) or ((INT(str3) >= 90) and (INT(str3) <= 94)) or ((INT(str3) >= 10) and (INT(str3) <= 45))
-{
-str1 := ""
-str2 := ""
-str3 := ""
-str4 := ""
-str5 := ""
-str6 := ""
-}
-else
-{
-
-
-
-str1 := allNameARR[INT(str3)]
-str2 := allNameARR[INT(str4)]
-
-
-foundKeywordIndices := 0
-Loop, % keywordIndices.size()
-{
-if (keywordIndices[A_Index] = INT(str3))
-{
-foundKeywordIndices++
-}
-if (keywordIndices[A_Index] = INT(str4))
-{
-foundKeywordIndices++
-}
-
-
-}
-
-if (INT(str3) <= 142) and (INT(str4) <= 142)
-{
-
-if (foundKeywordIndices = 2)
-{
-return str3 . "|" . str2 . " and " . str1 . " have the same word at the beginning and we can't have the same first word for different keywords!!!"
-}
-
-}
-
-}
-
-
-}
-
-
-Loop, Parse, htvmInstrText, `n, `r 
-{
-AIndex := A_Index
-ALoopField := A_LoopField
-
-
-
-Loop, % lineThatCANNOThaveSpacses.size()
-{
-if (AIndex = lineThatCANNOThaveSpacses[A_Index]) and (InStr(ALoopField, " "))
-{
-return STR(AIndex) . "|You can't use a space here!!!."
-}
-}
-
-
-
-; retun format is 
-; index|error msg
-
-
-
-if (A_Index = 0) or (A_Index = 1) {
-; Code for condition 0 and 1
-
-if (RegExMatch(A_LoopField, "^[a-z][a-z0-9]{1,}$") = false)
-{
-return STR(A_Index) . "|The file name must start with a lowercase letter and can only contain lowercase letters or numbers afterward."
-}
-
-}
-else if (A_Index = 2) {
-; Code for condition 2
-
-if (InStr(A_LoopField, Chr(13))) or (InStr(A_LoopField, Chr(10)))
-{
-return STR(A_Index) . "|Dont use a newline or a carriage retrun"
-}
-
-}
-else if (A_Index >= 3 and A_Index <= 9) {
-; Code for conditions 3 - 9 (OSP and include)
-
-if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2))
-{
-return STR(A_Index) . "|You can't use the folowing characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
-}
-
-}
-else if (A_Index >= 10 and A_Index <= 45) {
-    ; Code for programming blocks
-
-    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
-        return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
+    handleErrorHelper2OUT := handleErrorHelper2(htvmInstrText)
+    if (handleErrorHelper2OUT != "NONE") {
+        str1 := StrSplit(handleErrorHelper2OUT, "-HTVM-SPLIT-HTVM~~|kngeuew8r7dygtosuwesdtesedfxo|~~HTVM-SPLIT-HTVM-", 1)
+        str2 := StrSplit(handleErrorHelper2OUT, "-HTVM-SPLIT-HTVM~~|kngeuew8r7dygtosuwesdtesedfxo|~~HTVM-SPLIT-HTVM-", 2)
+        str3 := ""
+        str4 := ""
+        Loop, Parse, str1 {
+            if (A_LoopField = ":") {
+                break
+            }
+            else {
+                str3 .= A_LoopField
+            }
+        }
+        Loop, Parse, str2 {
+            if (A_LoopField = ":") {
+                break
+            }
+            else {
+                str4 .= A_LoopField
+            }
+        }
+        str5 := StringTrimLeft(str1, (StrLen(str3) + 1))
+        str6 := StringTrimLeft(str2, (StrLen(str4) + 1))
+        ; 51 66
+        ; 90 94
+        if ((INT(str3) >= 51) and (INT(str3) <= 66)) or ((INT(str3) >= 90) and (INT(str3) <= 94)) or ((INT(str3) >= 10) and (INT(str3) <= 45)) {
+            str1 := ""
+            str2 := ""
+            str3 := ""
+            str4 := ""
+            str5 := ""
+            str6 := ""
+        }
+        else {
+            str1 := allNameARR[INT(str3)]
+            str2 := allNameARR[INT(str4)]
+            foundKeywordIndices := 0
+            Loop, % keywordIndices.size() {
+                if (keywordIndices[A_Index] = INT(str3)) {
+                    foundKeywordIndices++
+                }
+                if (keywordIndices[A_Index] = INT(str4)) {
+                    foundKeywordIndices++
+                }
+            }
+            if (INT(str3) <= 142) and (INT(str4) <= 142) {
+                if (foundKeywordIndices = 2) {
+                    if (str3 = 72) && (str2 = "keyWordLoop") && (str1 = "keyWordLoopParse") {
+                        ; 72|keyWordLoop and keyWordLoopParse have the same word at the beginning and we can't have the same first word for different keywords!!!
+                    } else {
+                        return str3 . "|" . str2 . " and " . str1 . " have the same word at the beginning and we can't have the same first word for different keywords!!!"
+                    }
+                }
+            }
+        }
     }
-}
-else if (A_Index >= 46 and A_Index <= 47) {
-    ; Code for keyWordCurlyBraceOpen and keyWordCurlyBraceClose
-
-    if (handleErrorHelper(disallowedChars_For_46_47, A_LoopField)) or (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) {
-        return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_For_46_47_EXPLAIN . ", " . disallowedChars_Globaly_EXPLAIN
+    Loop, Parse, htvmInstrText, `n, `r {
+        AIndex := A_Index
+        ALoopField := A_LoopField
+        Loop, % lineThatCANNOThaveSpacses.size() {
+            if (AIndex = lineThatCANNOThaveSpacses[A_Index]) and (InStr(ALoopField, " ")) {
+                return STR(AIndex) . "|You can't use a space here!!!."
+            }
+        }
+        ; retun format is
+        ; index|error msg
+        if (A_Index = 0) or (A_Index = 1) {
+            ; Code for condition 0 and 1
+            if (RegExMatch(A_LoopField, "^[a-z][a-z0-9]{1,}$") = false) {
+                return STR(A_Index) . "|The file name must start with a lowercase letter and can only contain lowercase letters or numbers afterward."
+            }
+        }
+        else if (A_Index = 2) {
+            ; Code for condition 2
+            if (InStr(A_LoopField, Chr(13))) or (InStr(A_LoopField, Chr(10))) {
+                return STR(A_Index) . "|Dont use a newline or a carriage return"
+            }
+        }
+        else if (A_Index >= 3 and A_Index <= 9) {
+            ; Code for conditions 3 - 9 (OSP and include)
+            if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
+                return STR(A_Index) . "|You can't use the folowing characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
+            }
+        }
+        else if (A_Index >= 10 and A_Index <= 45) {
+            ; Code for programming blocks
+            if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
+                return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
+            }
+        }
+        else if (A_Index >= 46 and A_Index <= 47) {
+            ; Code for keyWordCurlyBraceOpen and keyWordCurlyBraceClose
+            if (handleErrorHelper(disallowedChars_For_46_47, A_LoopField)) or (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) {
+                return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_For_46_47_EXPLAIN . ", " . disallowedChars_Globaly_EXPLAIN
+            }
+        }
+        else if (A_Index >= 48 and A_Index <= 83) {
+            ; Code for types and constructs
+            if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
+                return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
+            }
+        }
+        else if (A_Index >= 84 and A_Index <= 89) {
+            ; Code for array methods
+            ; No spaces allowed, must start with a dot (.) followed by at least one character from [A-Za-z0-9_]
+            if (RegExMatch(A_LoopField, "^\.[A-Za-z0-9_]+$") = false) {
+                return STR(A_Index) . "|Array methods must start with a dot and contain only alphanumeric characters or underscores."
+            }
+        }
+        else if (A_Index >= 90 and A_Index <= 102) {
+            ; Code for ArrayDefinition and some more
+            if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD, A_LoopField, 2)) {
+                return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN . ", " . disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN
+            }
+        }
+        else if (A_Index = 103) {
+            ; Code for keyWordEscapeChar
+            ; Must be a single character, and no disallowed characters
+            if (StrLen(A_LoopField) != 1 or handleErrorHelper(disallowedChars_Globaly, A_LoopField) or handleErrorHelper(disallowedChars_For_103, A_LoopField)) {
+                return STR(A_Index) . "|Escape character must be a single valid character."
+            }
+        }
+        else if (A_Index >= 104 and A_Index <= 128) {
+            ; Code for some operators
+            if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
+                return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
+            }
+        }
+        else if (A_Index >= 129 and A_Index <= 141) {
+            ; Code for Assignment operators
+            if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD, A_LoopField, 2) or InStr(A_LoopField, " ")) {
+                return STR(A_Index) . "|Assignment operators can't contain spaces and can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN . ", " . disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN
+            }
+        }
+        else if (A_Index >= 142 and A_Index <= 143) {
+            ; Code for ternary operators
+            if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, A_LoopField, 1)) {
+                return STR(A_Index) . "|Ternary operators can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN
+            }
+        }
+        else if (A_Index >= 144 and A_Index <= 145) {
+            ; Code for (++ and --)
+            if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
+                return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
+            }
+        }
+        else if (A_Index = 146) {
+            ; Code for regex "^-?\d+$"
+            if (RegExMatch(A_LoopField, "^-?\d+$") = false) {
+                return STR(A_Index) . "|Value must be a valid integer (optionally negative)."
+            }
+        }
+        else if (A_Index >= 147 and A_Index <= 148) {
+            ; Code for A_Index and A_LoopField (customizable variables)
+            if (RegExMatch(A_LoopField, "^[a-zA-Z_][a-zA-Z0-9_]*$") = false) {
+                return STR(A_Index) . "|Variable names must start with a letter or underscore, and contain only alphanumeric characters and underscores."
+            }
+        }
+        else if (A_Index >= 149 and A_Index <= 161) {
+            ; Code for settings (only "on" and "off")
+            if (A_LoopField != "on" and A_LoopField != "off") {
+                return STR(A_Index) . "|Settings can only be 'on' or 'off'."
+            }
+        }
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;
+        if (A_Index = 161) {
+            break
+        }
     }
+    return "noERROR"
 }
-
-else if (A_Index >= 48 and A_Index <= 83) {
-    ; Code for types and constructs
-
-    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
-        return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
-    }
-}
-else if (A_Index >= 84 and A_Index <= 89) {
-    ; Code for array methods
-    ; No spaces allowed, must start with a dot (.) followed by at least one character from [A-Za-z0-9_]
-    if (RegExMatch(A_LoopField, "^\.[A-Za-z0-9_]+$") = false) {
-        return STR(A_Index) . "|Array methods must start with a dot and contain only alphanumeric characters or underscores."
-    }
-}
-
-else if (A_Index >= 90 and A_Index <= 102) {
-    ; Code for ArrayDefinition and some more
-    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD, A_LoopField, 2)) {
-        return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN . ", " . disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN
-    }
-}
-
-else if (A_Index = 103) {
-    ; Code for keyWordEscapeChar
-    ; Must be a single character, and no disallowed characters
-    if (StrLen(A_LoopField) != 1 or handleErrorHelper(disallowedChars_Globaly, A_LoopField) or handleErrorHelper(disallowedChars_For_103, A_LoopField)) {
-        return STR(A_Index) . "|Escape character must be a single valid character."
-    }
-}
-
-else if (A_Index >= 104 and A_Index <= 128) {
-    ; Code for some operators
-    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
-        return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
-    }
-}
-
-else if (A_Index >= 129 and A_Index <= 141) {
-    ; Code for Assignment operators
-    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD, A_LoopField, 2) or InStr(A_LoopField, " ")) {
-        return STR(A_Index) . "|Assignment operators can't contain spaces and can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN . ", " . disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN
-    }
-}
-
-else if (A_Index >= 142 and A_Index <= 143) {
-    ; Code for ternary operators
-    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD, A_LoopField, 1)) {
-        return STR(A_Index) . "|Ternary operators can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN
-    }
-}
-
-else if (A_Index >= 144 and A_Index <= 145) {
-    ; Code for (++ and --)
-    if (handleErrorHelper(disallowedChars_Globaly, A_LoopField)) or (handleErrorHelper(disallowedChars_BeginEndLine, A_LoopField, 1)) or (handleErrorHelper(disallowedChars_AT_THE_END, A_LoopField, 2)) {
-        return STR(A_Index) . "|You can't use the following characters: " . disallowedChars_Globaly_EXPLAIN . ", " . disallowedChars_BeginEndLine_EXPLAIN . ", " . disallowedChars_AT_THE_END_EXPLAIN
-    }
-}
-
-else if (A_Index = 146) {
-    ; Code for regex "^-?\d+$"
-    if (RegExMatch(A_LoopField, "^-?\d+$") = false) {
-        return STR(A_Index) . "|Value must be a valid integer (optionally negative)."
-    }
-}
-
-else if (A_Index >= 147 and A_Index <= 148) {
-    ; Code for A_Index and A_LoopField (customizable variables)
-    if (RegExMatch(A_LoopField, "^[a-zA-Z_][a-zA-Z0-9_]*$") = false) {
-        return STR(A_Index) . "|Variable names must start with a letter or underscore, and contain only alphanumeric characters and underscores."
-    }
-}
-
-else if (A_Index >= 149 and A_Index <= 161) {
-    ; Code for settings (only "on" and "off")
-    if (A_LoopField != "on" and A_LoopField != "off") {
-        return STR(A_Index) . "|Settings can only be 'on' or 'off'."
-    }
-}
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-if (A_Index = 161)
-{
-break
-}
-}
-
-return "noERROR"
-}
-
 ; testing
 ;main
 ; testing
 ;print(handleError("cpp" . Chr(10) . "htvm" . Chr(10) . "StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1" . Chr(10) . "alliance" . Chr(10) . "crew" . Chr(10) . "proc" . Chr(10) . "struct" . Chr(10) . "prop" . Chr(10) . "this" . Chr(10) . "import" . Chr(10) . "___start" . Chr(10) . "___end" . Chr(10) . "___cpp start" . Chr(10) . "___cpp end" . Chr(10) . "___py start" . Chr(10) . "___py end" . Chr(10) . "___js start" . Chr(10) . "___js end" . Chr(10) . "___go start" . Chr(10) . "___go end" . Chr(10) . "___lua start" . Chr(10) . "___lua end" . Chr(10) . "___cs start" . Chr(10) . "___cs end" . Chr(10) . "___java start" . Chr(10) . "___java end" . Chr(10) . "___kt start" . Chr(10) . "___kt end" . Chr(10) . "___rb start" . Chr(10) . "___rb end" . Chr(10) . "___nim start" . Chr(10) . "___nim end" . Chr(10) . "___ahk start" . Chr(10) . "___ahk end" . Chr(10) . "___swift start" . Chr(10) . "___swift end" . Chr(10) . "___dart start" . Chr(10) . "___dart end" . Chr(10) . "___ts start" . Chr(10) . "___ts end" . Chr(10) . "___groovy start" . Chr(10) . "___groovy end" . Chr(10) . "___htvm start" . Chr(10) . "___htvm end" . Chr(10) . "___inhtvm start" . Chr(10) . "___inhtvm end" . Chr(10) . "{" . Chr(10) . "}" . Chr(10) . "null" . Chr(10) . "true" . Chr(10) . "false" . Chr(10) . "void" . Chr(10) . "double" . Chr(10) . "char" . Chr(10) . "uint8" . Chr(10) . "uint16" . Chr(10) . "uint32" . Chr(10) . "uint64" . Chr(10) . "int" . Chr(10) . "str" . Chr(10) . "bool" . Chr(10) . "float" . Chr(10) . "int8" . Chr(10) . "int16" . Chr(10) . "int32" . Chr(10) . "int64" . Chr(10) . "if" . Chr(10) . "else if" . Chr(10) . "else" . Chr(10) . "while" . Chr(10) . "Loop" . Chr(10) . "Loop," . Chr(10) . "Loop, Parse," . Chr(10) . "continue" . Chr(10) . "break" . Chr(10) . "func" . Chr(10) . "await" . Chr(10) . "async" . Chr(10) . "throw" . Chr(10) . "ErrorMsg" . Chr(10) . "try" . Chr(10) . "catch" . Chr(10) . "finally" . Chr(10) . "return" . Chr(10) . ".add" . Chr(10) . ".pop" . Chr(10) . ".size" . Chr(10) . ".insert" . Chr(10) . ".rm" . Chr(10) . ".indexOf" . Chr(10) . "arr" . Chr(10) . "arr int" . Chr(10) . "arr str" . Chr(10) . "arr float" . Chr(10) . "arr bool" . Chr(10) . "var" . Chr(10) . "let" . Chr(10) . "const" . Chr(10) . "end" . Chr(10) . "global" . Chr(10) . ";" . Chr(10) . "'''1" . Chr(10) . "'''2" . Chr(10) . "" . Chr(96) . "" . Chr(10) . "main" . Chr(10) . "." . Chr(10) . "+" . Chr(10) . "-" . Chr(10) . "*" . Chr(10) . "/" . Chr(10) . "%" . Chr(10) . "**" . Chr(10) . "=" . Chr(10) . "===" . Chr(10) . "!=" . Chr(10) . "" . Chr(62) . "" . Chr(10) . "" . Chr(60) . "" . Chr(10) . "" . Chr(62) . "=" . Chr(10) . "" . Chr(60) . "=" . Chr(10) . "and" . Chr(10) . "or" . Chr(10) . "!" . Chr(10) . "&" . Chr(10) . "|" . Chr(10) . "^" . Chr(10) . "~" . Chr(10) . "" . Chr(60) . "" . Chr(60) . "" . Chr(10) . "" . Chr(62) . "" . Chr(62) . "" . Chr(10) . "" . Chr(62) . "" . Chr(62) . "" . Chr(62) . "" . Chr(10) . ":=" . Chr(10) . "+=" . Chr(10) . ".=" . Chr(10) . "-=" . Chr(10) . "*=" . Chr(10) . "/=" . Chr(10) . "%=" . Chr(10) . "" . Chr(60) . "" . Chr(60) . "=" . Chr(10) . "" . Chr(62) . "" . Chr(62) . "=" . Chr(10) . "" . Chr(62) . "" . Chr(62) . "" . Chr(62) . "=" . Chr(10) . "&=" . Chr(10) . "|=" . Chr(10) . "^=" . Chr(10) . "?" . Chr(10) . ":" . Chr(10) . "++" . Chr(10) . "--" . Chr(10) . "0" . Chr(10) . "A_Index" . Chr(10) . "A_LoopField" . Chr(10) . "on" . Chr(10) . "off" . Chr(10) . "off" . Chr(10) . "on" . Chr(10) . "on" . Chr(10) . "off" . Chr(10) . "off" . Chr(10) . "off" . Chr(10) . "on" . Chr(10) . "off" . Chr(10) . "off" . Chr(10) . "on" . Chr(10) . "off" . Chr(10) . "" . Chr(10) . ""))
-

@@ -4,24 +4,32 @@ import { drawSettings } from './settingWindows.js'
 import { isOutOfView } from './utils.js'
 import { handle_keys } from './search.js'
 
-function switchLang(langID) {
+function switchLang(langID, newName) {
     if (!langID) langID = Math.max(...(getLangIDList().length ? getLangIDList() : [0])) + 1;
     let localStorageKey = "htvm_lang_" + langID
     window.lang_ID_str = localStorageKey
     window.lang_ID = langID
-    if (!localStorage.getItem(localStorageKey)) createDefault(localStorageKey)
+    if (!localStorage.getItem(localStorageKey)) {
+        createDefault(localStorageKey);
+        if (newName) {
+            changeConfig(localStorageKey, { name: newName });
+        }
+    }
     drawSettings()
-    createLangTabs()
+    createLangTabs() // This will now auto-scroll
     setLastOpenedTab(langID)
-    document.querySelector("#" + localStorageKey + "_tab_bt .active-lang").style.visibility = "visible"
+    const newTab = document.querySelector("#" + localStorageKey + "_tab_bt");
+    if (newTab) {
+        newTab.querySelector(".active-lang").style.visibility = "visible"
+    }
     document.querySelectorAll(".setting-i input, .setting-i textarea").forEach(el => el.addEventListener("keydown", handle_keys))
-
 }
 
 function createLangTabs() {
     document.querySelectorAll(".lang-item:not(.display-none)").forEach(elm => {
         elm.remove()
     })
+    const langContainer = document.querySelector(".lang-container");
     getLangList().forEach(lang => {
         changeConfig(lang) // Ensures config exists before applying it
         let langItem = document.querySelector(".lang-item.display-none").cloneNode(true)
@@ -57,9 +65,14 @@ function createLangTabs() {
                 langMenu.querySelector(".buttons").style.alignSelf = "flex-end"
             }
         });
-        document.querySelector(".lang-container").append(langItem)
+        langContainer.append(langItem)
     })
     applyConfig()
+
+    // --- AUTO-SCROLL LOGIC ---
+    if(langContainer.lastElementChild){
+        langContainer.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
 }
 
 export { switchLang, createLangTabs }

@@ -8,9 +8,7 @@ function reorganizeBoxes() {
     if (!container || !boxes.length) return;
     
     const containerWidth = container.clientWidth;
-    const boxWidth = boxes[0].clientWidth;
-    console.log(containerWidth)
-    console.log(boxWidth)
+    const boxWidth = boxes[0]?.clientWidth ?? 320; // Added fallback
     
     const columns = Math.max(1, Math.floor(containerWidth / (boxWidth +15)));
     container.innerHTML = '';
@@ -46,7 +44,7 @@ function registerMenu(){
         const targetElement = document.querySelector("#" + targetLang + "_tab_bt" + " .lang-icon")
         targetElement.innerText = event.detail.unicode
         changeConfig(targetLang, {icon: event.detail.unicode})
-
+        langMenu.style.display = "none"; // Close menu after selection
       });
 
     langMenu.querySelector("#rename-bt").addEventListener("click", ()=>{
@@ -77,7 +75,18 @@ function registerMenu(){
 
     langMenu.querySelector("#set-icon-bt").addEventListener("click", ()=>{
         const emojiPickerContainer = document.querySelector(".emoji-picker")
+        const menuRect = langMenu.getBoundingClientRect();
+        
         emojiPickerContainer.style.display = "flex"
+        emojiPickerContainer.style.top = `${menuRect.top}px`;
+        emojiPickerContainer.style.left = `${menuRect.right + 5}px`;
+
+        // Check for vertical overflow and reposition if needed
+        const pickerRect = emojiPickerContainer.getBoundingClientRect();
+        if (pickerRect.bottom > window.innerHeight) {
+            emojiPickerContainer.style.top = `${window.innerHeight - pickerRect.height - 5}px`
+        }
+
 
         document.querySelector(".color-picker").style.display = "none"
     })

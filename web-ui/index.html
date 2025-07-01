@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
+    <title>HTVM - Language Creation</title>
+    <link rel="icon" type="image/png" href="assets/icon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -130,12 +131,35 @@
 
     </div>
 
-    <!-- BUILD OVERLAY ADDED HERE -->
     <div id="build-overlay">
         <div class="build-modal">
             <div class="spinner"></div>
             <h2 id="build-status-title">Building...</h2>
             <p id="build-status-subtitle">Please wait.</p>
+        </div>
+    </div>
+
+    <div id="ide-modal-overlay">
+        <div class="ide-modal-content">
+            <button id="ide-modal-close-btn" class="modal-close-button">×</button>
+            <h2>Redirecting to Web IDE</h2>
+            <p>To use the Web IDE, you first need the instruction file for your current language configuration.</p>
+            <p>Click the button below to download <strong>HTVM-instructions.txt</strong>.</p>
+            <button id="ide-modal-download-btn">Download Instruction File</button>
+            <p id="ide-modal-countdown"></p>
+        </div>
+    </div>
+
+    <!-- NEW MODAL FOR CREATING A LANGUAGE -->
+    <div id="create-lang-modal-overlay">
+        <div class="create-lang-modal-content">
+            <h2>Create New Language</h2>
+            <p>Please enter a name for your new language.</p>
+            <input type="text" id="create-lang-input" placeholder="e.g., MyCoolScript">
+            <div class="create-lang-buttons">
+                <button id="create-lang-cancel-btn">Cancel</button>
+                <button id="create-lang-confirm-btn">Create</button>
+            </div>
         </div>
     </div>
 
