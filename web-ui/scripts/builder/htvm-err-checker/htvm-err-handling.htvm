@@ -177,7 +177,7 @@ func str handleError(str htvmInstrText) {
         if (A_Index <= 148) {
             Loop, Parse, htvmInstrText, `n, `r {
                 if (A_Index <= 148) {
-                    if (ALoopField = A_LoopField) and (A_Index != AIndex) {
+                    if (StrLower(ALoopField) = StrLower(A_LoopField)) and (A_Index != AIndex) {
                         if (AIndex <= 148) {
                             return STR(AIndex) . "|You can't use the same keyword more than once. The problem is whit " . allNameARR[AIndex] . " and " . allNameARR[A_Index] . "!!!"
                         }

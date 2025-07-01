@@ -20,290 +20,293 @@ function print(value) {
 
 // Convert value to string
 function STR(value) {
-if (value === null || value === undefined) {
-    return ""; // Return a string for null or undefined
-} else if (typeof value === 'number') {
-    return value.toString();
-} else if (typeof value === 'boolean') {
-    return value ? "1" : "0";
-} else if (typeof value === 'string') {
-    return value; // Return the string as is
-} else {
-    // Handle any unexpected types gracefully
-    return String(value); // Convert any other type to a string
-}
+    if (value === null || value === undefined) {
+        return ""; // Return a string for null or undefined
+    } else if (typeof value === 'number') {
+        return value.toString();
+    } else if (typeof value === 'boolean') {
+        return value ? "1" : "0";
+    } else if (typeof value === 'string') {
+        return value; // Return the string as is
+    } else {
+        // Handle any unexpected types gracefully
+        return String(value); // Convert any other type to a string
+    }
 }
 
 // Convert value to integer
 function INT(value) {
-const intValue = parseInt(value, 10);
-if (Number.isNaN(intValue)) {
-    console.warn(`Invalid input: ${value} cannot be converted to an integer.`);
-    return 0;  // Or any other default value
-}
-return intValue;
+    const intValue = parseInt(value, 10);
+    if (Number.isNaN(intValue)) {
+        console.warn(`Invalid input: ${value} cannot be converted to an integer.`);
+        return 0;  // Or any other default value
+    }
+    return intValue;
 }
 
 // Function to find the position of needle in haystack (string overload)
 function InStr(haystack, needle) {
-const pos = haystack.indexOf(needle);
-return (pos !== -1) ? pos + 1 : 0;
+    const pos = haystack.indexOf(needle);
+    return (pos !== -1) ? pos + 1 : 0;
 }
 
 // Function to generate a random integer between min and max (inclusive)
 function Random(min, max) {
-// Generate and return a random number within the specified range
-return Math.floor(Math.random() * (max - min + 1)) + min;
+    // Generate and return a random number within the specified range
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function Sleep(milliseconds) {
-// Sleep for the specified number of milliseconds
-return new Promise(resolve => setTimeout(resolve, milliseconds));
+    // Sleep for the specified number of milliseconds
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
 
 function StrLen(s) {
-// Return the length of the given string
-return s.length;
+    // Return the length of the given string
+    return s.length;
 }
 
 function Chr(number) {
-// Return the character corresponding to the Unicode code point, or an empty string if out of range
-return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
+    // Return the character corresponding to the Unicode code point, or an empty string if out of range
+    return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
 }
 
 function Exp(value) {
-return Math.exp(value);
+    return Math.exp(value);
 }
 
 function SubStr(str, startPos, length = -1) {
-let result = "";
-let strLen = str.length;
-// Handle negative starting positions (counting from the end)
-if (startPos < 0) {
-    startPos = strLen + startPos;
-    if (startPos < 0) startPos = 0;  // Ensure it doesn't go beyond the start of the string
-} else {
-    startPos -= 1; // Convert to 0-based index for internal operations
-}
-// Handle length
-if (length < 0) {
-    length = strLen - startPos; // Length to the end of the string
-} else if (startPos + length > strLen) {
-    length = strLen - startPos; // Adjust length to fit within the string
-}
-// Extract the substring
-result = str.substr(startPos, length);
-return result;
+    let result = "";
+    let strLen = str.length;
+    // Handle negative starting positions (counting from the end)
+    if (startPos < 0) {
+        startPos = strLen + startPos;
+        if (startPos < 0) startPos = 0;  // Ensure it doesn't go beyond the start of the string
+    } else {
+        startPos -= 1; // Convert to 0-based index for internal operations
+    }
+    // Handle length
+    if (length < 0) {
+        length = strLen - startPos; // Length to the end of the string
+    } else if (startPos + length > strLen) {
+        length = strLen - startPos; // Adjust length to fit within the string
+    }
+    // Extract the substring
+    result = str.substr(startPos, length);
+    return result;
 }
 
 function Trim(inputString) {
-return inputString ? inputString.trim() : "";
+    return inputString ? inputString.trim() : "";
 }
 
 function StringTrimLeft(input, numChars) {
-return (numChars <= input.length) ? input.substring(numChars) : input;
+    return (numChars <= input.length) ? input.substring(numChars) : input;
 }
 
 function StringTrimRight(input, numChars) {
-return (numChars <= input.length) ? input.substring(0, input.length - numChars) : input;
+    return (numChars <= input.length) ? input.substring(0, input.length - numChars) : input;
+}
+
+function StrLower(string) {
+    return string.toLowerCase();
 }
 
 function StrSplit(inputStr, delimiter, num) {
-const parts = inputStr.split(delimiter);
-return (num > 0 && num <= parts.length) ? parts[num - 1] : "";
+    const parts = inputStr.split(delimiter);
+    return (num > 0 && num <= parts.length) ? parts[num - 1] : "";
 }
 
 function Mod(dividend, divisor) {
-return dividend % divisor;
+    return dividend % divisor;
 }
 
 function Sort(varName, options = "") {
-let delimiter = '\n'; // Default delimiter
-let delimiterIndex = options.indexOf('D');
-if (delimiterIndex !== -1) {
-    let delimiterChar = options[delimiterIndex + 1];
-    delimiter = delimiterChar === '' ? ',' : delimiterChar;
-}
-let items = varName.split(new RegExp(delimiter === ',' ? ',' : '\\' + delimiter));
-// Remove empty items and trim whitespace
-items = items.filter(item => item.trim() !== '');
-// Apply sorting based on options
-if (options.includes('N')) {
-    // Numeric sort
-    items.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
-} else if (options.includes('Random')) {
-    // Random sort
-    for (let i = items.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [items[i], items[j]] = [items[j], items[i]];
+    let delimiter = '\n'; // Default delimiter
+    let delimiterIndex = options.indexOf('D');
+    if (delimiterIndex !== -1) {
+        let delimiterChar = options[delimiterIndex + 1];
+        delimiter = delimiterChar === '' ? ',' : delimiterChar;
     }
-} else {
-    // Default alphabetical sort
-    items.sort((a, b) => {
-        const keyA = options.includes('C') ? a : a.toLowerCase();
-        const keyB = options.includes('C') ? b : b.toLowerCase();
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
-        return 0;
-    });
-}
-// Reverse if 'R' option is present
-if (options.includes('R')) {
-    items.reverse();
-}
-// Remove duplicates if 'U' option is present
-if (options.includes('U')) {
-    const seen = new Map();
-    items = items.filter(item => {
-        const key = options.includes('C') ? item : item.toLowerCase();
-        if (!seen.has(key)) {
-            seen.set(key, item);
-            return true;
+    let items = varName.split(new RegExp(delimiter === ',' ? ',' : '\\' + delimiter));
+    // Remove empty items and trim whitespace
+    items = items.filter(item => item.trim() !== '');
+    // Apply sorting based on options
+    if (options.includes('N')) {
+        // Numeric sort
+        items.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
+    } else if (options.includes('Random')) {
+        // Random sort
+        for (let i = items.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [items[i], items[j]] = [items[j], items[i]];
         }
-        return false;
-    });
-}
-// Join the sorted items back into a string
-const sortedVar = items.join(delimiter === ',' ? ',' : '\n');
-return sortedVar;
+    } else {
+        // Default alphabetical sort
+        items.sort((a, b) => {
+            const keyA = options.includes('C') ? a : a.toLowerCase();
+            const keyB = options.includes('C') ? b : b.toLowerCase();
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+        });
+    }
+    // Reverse if 'R' option is present
+    if (options.includes('R')) {
+        items.reverse();
+    }
+    // Remove duplicates if 'U' option is present
+    if (options.includes('U')) {
+        const seen = new Map();
+        items = items.filter(item => {
+            const key = options.includes('C') ? item : item.toLowerCase();
+            if (!seen.has(key)) {
+                seen.set(key, item);
+                return true;
+            }
+            return false;
+        });
+    }
+    // Join the sorted items back into a string
+    const sortedVar = items.join(delimiter === ',' ? ',' : '\n');
+    return sortedVar;
 }
 
 // RegExMatch
 function RegExMatch(haystack, needle) {
-const regex = new RegExp(needle);
-const match = haystack.match(regex);
-return match ? match.index + 1 : 0; // 1-based index or 0 if no match
+    const regex = new RegExp(needle);
+    const match = haystack.match(regex);
+    return match ? match.index + 1 : 0; // 1-based index or 0 if no match
 }
 
 function MsgBox(text, title = " ", value = 0, timeout = null) {
-return new Promise((resolve) => {
-    // Define default options for the message box
-    let defaultOptions = {
-        title: title || " ", // Default title is empty
-        text: text || "Press OK to continue.", // Default text if not provided
-        showCancelButton: false, // Default is to not show Cancel button
-        showDenyButton: false, // Default is to not show Deny button
-        confirmButtonText: "OK", // Default text for OK button
-        focusConfirm: true, // Default focus on OK button
-    };
-    let numOriginal = value;
-    let num = numOriginal;
-    let done1 = 0;
-    let done2 = 0;
-    let done3 = 0;
-    let AIndex = 0;
-    for (AIndex = 1; AIndex <= 1; AIndex++) {
-        // Handle special case for value adjustments
-        if (num >= 262144) {
-            num = num - 262144;
-            numOriginal = numOriginal - 262144;
-        }
-        if (num >= 256 && num < 500) {
-            num = num - 256;
-            done3 = 256;
-        }
-        if (num >= 512) {
-            num = num - 512;
-            done3 = 512;
-        }
-        if (num == 0) {
-            done1 = 0;
-            break;
-        }
-        if (num <= 6) {
-            done1 = num;
-            break;
-        }
-        if (num >= 64 && num < 64 * 2) {
-            done2 = 64;
-            if (num == 64) {
+    return new Promise((resolve) => {
+        // Define default options for the message box
+        let defaultOptions = {
+            title: title || " ", // Default title is empty
+            text: text || "Press OK to continue.", // Default text if not provided
+            showCancelButton: false, // Default is to not show Cancel button
+            showDenyButton: false, // Default is to not show Deny button
+            confirmButtonText: "OK", // Default text for OK button
+            focusConfirm: true, // Default focus on OK button
+        };
+        let numOriginal = value;
+        let num = numOriginal;
+        let done1 = 0;
+        let done2 = 0;
+        let done3 = 0;
+        let AIndex = 0;
+        for (AIndex = 1; AIndex <= 1; AIndex++) {
+            // Handle special case for value adjustments
+            if (num >= 262144) {
+                num = num - 262144;
+                numOriginal = numOriginal - 262144;
+            }
+            if (num >= 256 && num < 500) {
+                num = num - 256;
+                done3 = 256;
+            }
+            if (num >= 512) {
+                num = num - 512;
+                done3 = 512;
+            }
+            if (num == 0) {
                 done1 = 0;
                 break;
-            } else {
-                done1 = num - 64;
+            }
+            if (num <= 6) {
+                done1 = num;
                 break;
             }
-        }
-        if (num >= 48 && num < 63) {
-            done2 = 48;
-            if (num == 48) {
-                done1 = 0;
-                break;
-            } else {
-                done1 = num - 48;
-                break;
+            if (num >= 64 && num < 64 * 2) {
+                done2 = 64;
+                if (num == 64) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 64;
+                    break;
+                }
+            }
+            if (num >= 48 && num < 63) {
+                done2 = 48;
+                if (num == 48) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 48;
+                    break;
+                }
+            }
+            if (num >= 32 && num < 47) {
+                done2 = 32;
+                if (num == 32) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 32;
+                    break;
+                }
+            }
+            if (num >= 16 && num < 30) {
+                done2 = 16;
+                if (num == 16) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 16;
+                    break;
+                }
             }
         }
-        if (num >= 32 && num < 47) {
-            done2 = 32;
-            if (num == 32) {
-                done1 = 0;
-                break;
-            } else {
-                done1 = num - 32;
-                break;
-            }
-        }
-        if (num >= 16 && num < 30) {
-            done2 = 16;
-            if (num == 16) {
-                done1 = 0;
-                break;
-            } else {
-                done1 = num - 16;
-                break;
-            }
-        }
-    }
-    let doneAdded = done1 + done2 + done3;
-    if (doneAdded !== numOriginal) {
-        // displayMessage("The calc was wrong!");
-    } else {
-        // displayMessage("num was: " + numOriginal + "\ndone1: " + done1 + "\ndone2: " + done2 + "\ndone3: " + done3);
-    }
-    // Parse the value to determine the options for the message box
-    if (done1 === 1) defaultOptions.showCancelButton = true;
-    if (done1 === 3) {
-        defaultOptions.showCancelButton = true;
-        defaultOptions.showDenyButton = true;
-    }
-    if (done1 === 4) {
-        defaultOptions.showDenyButton = true;
-    }
-    if (done1 === 5) {
-        defaultOptions.showCancelButton = true;
-    }
-    if (done2 === 16) defaultOptions.icon = "error";
-    if (done2 === 32) defaultOptions.icon = "question";
-    if (done2 === 48) defaultOptions.icon = "warning";
-    if (done2 === 64) defaultOptions.icon = "info";
-    if (done3 === 256) defaultOptions.focusDeny = true;
-    if (done3 === 512) defaultOptions.focusCancel = true;
-    // Set timeout if provided
-    if (timeout) {
-        defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds
-    }
-    // Display the message box with the constructed options
-    Swal.fire(defaultOptions).then((result) => {
-        if (result.isConfirmed) {
-            resolve("OK");
-        } else if (result.isDenied) {
-            resolve("No");
+        let doneAdded = done1 + done2 + done3;
+        if (doneAdded !== numOriginal) {
+            // displayMessage("The calc was wrong!");
         } else {
-            resolve("Cancel");
+            // displayMessage("num was: " + numOriginal + "\ndone1: " + done1 + "\ndone2: " + done2 + "\ndone3: " + done3);
         }
+        // Parse the value to determine the options for the message box
+        if (done1 === 1) defaultOptions.showCancelButton = true;
+        if (done1 === 3) {
+            defaultOptions.showCancelButton = true;
+            defaultOptions.showDenyButton = true;
+        }
+        if (done1 === 4) {
+            defaultOptions.showDenyButton = true;
+        }
+        if (done1 === 5) {
+            defaultOptions.showCancelButton = true;
+        }
+        if (done2 === 16) defaultOptions.icon = "error";
+        if (done2 === 32) defaultOptions.icon = "question";
+        if (done2 === 48) defaultOptions.icon = "warning";
+        if (done2 === 64) defaultOptions.icon = "info";
+        if (done3 === 256) defaultOptions.focusDeny = true;
+        if (done3 === 512) defaultOptions.focusCancel = true;
+        // Set timeout if provided
+        if (timeout) {
+            defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds
+        }
+        // Display the message box with the constructed options
+        Swal.fire(defaultOptions).then((result) => {
+            if (result.isConfirmed) {
+                resolve("OK");
+            } else if (result.isDenied) {
+                resolve("No");
+            } else {
+                resolve("Cancel");
+            }
+        });
     });
-});
 }
 
 function HTVM_Append(arr, value) {
-arr.push(value);
+    arr.push(value);
 }
 
 function HTVM_Size(arr) {
-return arr.length;
+    return arr.length;
 }
-
 
 
 // htvm-err-handling.htvm
@@ -497,7 +500,7 @@ function handleError(htvmInstrText) {
             for (let A_Index9 = 0; A_Index9 < items9.length + 0; A_Index9++) {
                 const A_LoopField9 = items9[A_Index9 - 0];
                 if (A_Index9 <= 148) {
-                    if (ALoopField == A_LoopField9 && A_Index9 != AIndex) {
+                    if (StrLower(ALoopField) == StrLower(A_LoopField9) && A_Index9 != AIndex) {
                         if (AIndex <= 148) {
                             return STR(AIndex) + "|You can't use the same keyword more than once. The problem is whit " + allNameARR[AIndex] + " and " + allNameARR[A_Index9] + "!!!";
                         }

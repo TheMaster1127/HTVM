@@ -9,7 +9,7 @@
           "default": "if",
           "description": {
             "header": "If Statement Keyword",
-            "body": "The keyword used to start a conditional block.\n\nExecutes the following code block only if the specified condition evaluates to true. Can be followed by optional 'Else If' and 'Else' keywords.\n\nExample Customizations:\n- `if`\n- `condition`\n- `check`\n- `?`\n- `<CheckCondition>`\n\nDefaults to: **`if`**."
+            "body": "The keyword used to start a conditional block.\n\nExecutes the following code block only if the specified condition evaluates to true. Can be followed by optional 'Else If' and 'Else' keywords.\n\nExample Customizations:\n- `if`\n- `condition`\n- `check`\n- `?`\n- `<CheckCondition>`\n\nDefaults to: **`if`**"
           }
         },
         {
@@ -18,7 +18,7 @@
           "default": "else if",
           "description": {
             "header": "Else If Statement Keyword",
-            "body": "The keyword for subsequent conditional checks if the preceding 'if' or 'else if' conditions were false.\n\nExample Customizations:\n- `else if`\n- `elseif`\n- `elif`\n- `otherwise if`\n- `?:if`\n\nDefaults to: **`else if`**."
+            "body": "The keyword for subsequent conditional checks if the preceding 'if' or 'else if' conditions were false.\n\nExample Customizations:\n- `else if`\n- `elseif`\n- `elif`\n- `otherwise if`\n- `?:if`\n\nDefaults to: **`else if`**"
           }
         },
         {
@@ -27,7 +27,7 @@
           "default": "else",
           "description": {
             "header": "Else Statement Keyword",
-            "body": "The keyword for the final block in an if-chain, executed if all preceding 'if' and 'else if' conditions were false.\n\nExample Customizations:\n- `else`\n- `otherwise`\n- `default`\n- `_`\n- `<?:`\n\nDefaults to: **`else`**."
+            "body": "The keyword for the final block in an if-chain, executed if all preceding 'if' and 'else if' conditions were false.\n\nExample Customizations:\n- `else`\n- `otherwise`\n- `default`\n- `_`\n- `<?:`\n\nDefaults to: **`else`**"
           }
         },
         {
@@ -36,7 +36,7 @@
           "default": "while",
           "description": {
             "header": "While Loop Keyword",
-            "body": "The keyword to start a loop that continues as long as the specified condition remains true.\n\nExample Customizations:\n- `while`\n- `loop while`\n- `repeat if`\n- `condition loop`\n- `WHILE_LOOP`\n\nDefaults to: **`while`**."
+            "body": "The keyword to start a loop that continues as long as the specified condition remains true.\n\nExample Customizations:\n- `while`\n- `loop while`\n- `repeat if`\n- `condition loop`\n- `WHILE_LOOP`\n\nDefaults to: **`while`**"
           }
         },
         {
@@ -45,7 +45,7 @@
           "default": "Loop",
           "description": {
             "header": "Infinite Loop Keyword",
-            "body": "The keyword to start an infinite loop (similar to AHK `Loop`). Requires a 'break' statement inside to exit.\n\nExample Customizations:\n- `Loop`\n- `loop forever`\n- `repeat`\n- `infinite`\n- `FOREVER`\n\nDefaults to: **`Loop`**."
+            "body": "The keyword to start an infinite loop (similar to AHK `Loop`). Requires a 'break' statement inside to exit.\n\nExample Customizations:\n- `Loop`\n- `loop forever`\n- `repeat`\n- `infinite`\n- `FOREVER`\n\nDefaults to: **`Loop`**"
           }
         },
         {
@@ -54,7 +54,7 @@
           "default": "Loop,",
           "description": {
             "header": "Counted Loop Keyword",
-            "body": "The keyword (often followed by a comma or specific syntax) to start a loop that iterates a specific number of times (similar to AHK `Loop, N`). Uses `A_Index`.\n\nExample Customizations:\n- `Loop,`\n- `loop N`\n- `repeat N`\n- `times`\n- `COUNT_LOOP:`\n\nDefaults to: **`Loop,`**."
+            "body": "The keyword (often followed by a comma or specific syntax) to start a loop that iterates a specific number of times (similar to AHK `Loop, N`). Uses `A_Index`.\n\nExample Customizations:\n- `Loop,`\n- `loop N`\n- `repeat N`\n- `times`\n- `COUNT_LOOP:`\n\nDefaults to: **`Loop,`**"
           }
         },
         {
@@ -63,7 +63,7 @@
           "default": "Loop, Parse,",
           "description": {
             "header": "Parsing Loop Keyword",
-            "body": "The keyword (often followed by specific syntax) to start a loop that iterates over substrings of a string, based on delimiters (similar to AHK `Loop, Parse`). Uses `A_LoopField`.\n\nExample Customizations:\n- `Loop, Parse,`\n- `loop parse`\n- `for each in`\n- `split loop`\n- `PARSE_STRING:`\n\nDefaults to: **`Loop, Parse,`**."
+            "body": "The keyword (often followed by specific syntax) to start a loop that iterates over substrings of a string, based on delimiters (similar to AHK `Loop, Parse`). Uses `A_LoopField`.\n\nExample Customizations:\n- `Loop, Parse,`\n- `loop parse`\n- `for each in`\n- `split loop`\n- `PARSE_STRING:`\n\nDefaults to: **`Loop, Parse,`**"
           }
         },
         {
@@ -72,7 +72,7 @@
           "default": "func",
           "description": {
             "header": "Function Definition Keyword",
-            "body": "Specifies the keyword used to define a new function, procedure, or subroutine.\n\nExample Customizations:\n- `func`\n- `function`\n- `def`\n- `proc`\n- `DEFINE_FUNC`\n\nDefaults to: **`func`**."
+            "body": "Specifies the keyword used to define a new function, procedure, or subroutine.\n\nExample Customizations:\n- `func`\n- `function`\n- `def`\n- `proc`\n- `DEFINE_FUNC`\n\nDefaults to: **`func`**"
           }
         },
         {
@@ -81,7 +81,7 @@
           "default": "try",
           "description": {
             "header": "Try Block Keyword",
-            "body": "The keyword to start a block of code where exceptions might occur.\n\nExample Customizations:\n- `try`\n- `attempt`\n- `guard`\n- `monitor`\n- `BEGIN_TRY`\n\nDefaults to: **`try`**."
+            "body": "The keyword to start a block of code where exceptions might occur.\n\nExample Customizations:\n- `try`\n- `attempt`\n- `guard`\n- `monitor`\n- `BEGIN_TRY`\n\nDefaults to: **`try`**"
           }
         },
         {
@@ -90,7 +90,7 @@
           "default": "catch",
           "description": {
             "header": "Catch Block Keyword",
-            "body": "The keyword to start a block that handles exceptions caught in the preceding 'try' block.\n\nExample Customizations:\n- `catch`\n- `except`\n- `on error`\n- `handle`\n- `ON_ERROR`\n\nDefaults to: **`catch`**."
+            "body": "The keyword to start a block that handles exceptions caught in the preceding 'try' block.\n\nExample Customizations:\n- `catch`\n- `except`\n- `on error`\n- `handle`\n- `ON_ERROR`\n\nDefaults to: **`catch`**"
           }
         },
         {
@@ -99,7 +99,7 @@
           "default": "finally",
           "description": {
             "header": "Finally Block Keyword",
-            "body": "The keyword to start a block that executes after the 'try' and any 'catch' blocks, regardless of whether an exception occurred.\n\nExample Customizations:\n- `finally`\n- `ensure`\n- `always`\n- `cleanup`\n- `AFTER_TRY`\n\nDefaults to: **`finally`**."
+            "body": "The keyword to start a block that executes after the 'try' and any 'catch' blocks, regardless of whether an exception occurred.\n\nExample Customizations:\n- `finally`\n- `ensure`\n- `always`\n- `cleanup`\n- `AFTER_TRY`\n\nDefaults to: **`finally`**"
           }
         },
         {
@@ -108,7 +108,7 @@
           "default": "alliance",
           "description": {
             "header": "OSP Alliance Keyword",
-            "body": "Top-level organizational container keyword in Ordinal Struct Programming (OSP).\n\nExample Customizations:\n- `alliance`\n- `namespace`\n- `group`\n- `domain`\n- `OSP_GROUP`\n\nDefaults to: **`alliance`**."
+            "body": "Top-level organizational container keyword in Ordinal Struct Programming (OSP).\n\nExample Customizations:\n- `alliance`\n- `namespace`\n- `group`\n- `domain`\n- `OSP_GROUP`\n\nDefaults to: **`alliance`**"
           }
         },
         {
@@ -117,7 +117,7 @@
           "default": "crew",
           "description": {
             "header": "OSP Crew Keyword",
-            "body": "Sub-level organizational container keyword within an 'alliance' in OSP.\n\nExample Customizations:\n- `crew`\n- `subgroup`\n- `section`\n- `unit`\n- `OSP_SUB`\n\nDefaults to: **`crew`**."
+            "body": "Sub-level organizational container keyword within an 'alliance' in OSP.\n\nExample Customizations:\n- `crew`\n- `subgroup`\n- `section`\n- `unit`\n- `OSP_SUB`\n\nDefaults to: **`crew`**"
           }
         },
         {
@@ -126,7 +126,7 @@
           "default": "proc",
           "description": {
             "header": "OSP Procedure Keyword",
-            "body": "Keyword used to define a procedure (function) within an OSP 'alliance' or 'crew'.\n\nExample Customizations:\n- `proc`\n- `procedure`\n- `action`\n- `method`\n- `DEFINE_P`\n\nDefaults to: **`proc`**."
+            "body": "Keyword used to define a procedure (function) within an OSP 'alliance' or 'crew'.\n\nExample Customizations:\n- `proc`\n- `procedure`\n- `action`\n- `method`\n- `DEFINE_P`\n\nDefaults to: **`proc`**"
           }
         },
         {
@@ -135,7 +135,7 @@
           "default": "struct",
           "description": {
             "header": "OSP Struct Keyword",
-            "body": "Keyword used to define a structure (data container) in OSP.\n\nExample Customizations:\n- `struct`\n- `structure`\n- `record`\n- `data`\n- `DEFINE_S`\n\nDefaults to: **`struct`**."
+            "body": "Keyword used to define a structure (data container) in OSP.\n\nExample Customizations:\n- `struct`\n- `structure`\n- `record`\n- `data`\n- `DEFINE_S`\n\nDefaults to: **`struct`**"
           }
         }
       ]
@@ -149,7 +149,7 @@
           "default": "void",
           "description": {
             "header": "Void Type Keyword",
-            "body": "Represents the absence of a return value for functions.\n\nExample Customizations:\n- `void`\n- `nothing`\n- `empty`\n- `nil_type`\n- `TYPE_VOID`\n\nDefaults to: **`void`**."
+            "body": "Represents the absence of a return value for functions.\n\nExample Customizations:\n- `void`\n- `nothing`\n- `empty`\n- `nil_type`\n- `TYPE_VOID`\n\nDefaults to: **`void`**"
           }
         },
         {
@@ -158,7 +158,7 @@
           "default": "double",
           "description": {
             "header": "Double Type Keyword",
-            "body": "Represents a double-precision floating-point number.\n\nExample Customizations:\n- `double`\n- `float64`\n- `real`\n- `precise`\n- `TYPE_DBL`\n\nDefaults to: **`double`**."
+            "body": "Represents a double-precision floating-point number.\n\nExample Customizations:\n- `double`\n- `float64`\n- `real`\n- `precise`\n- `TYPE_DBL`\n\nDefaults to: **`double`**"
           }
         },
         {
@@ -167,7 +167,7 @@
           "default": "char",
           "description": {
             "header": "Character Type Keyword",
-            "body": "Represents a single character.\n\nExample Customizations:\n- `char`\n- `character`\n- `letter`\n- `rune`\n- `TYPE_CHR`\n\nDefaults to: **`char`**."
+            "body": "Represents a single character.\n\nExample Customizations:\n- `char`\n- `character`\n- `letter`\n- `rune`\n- `TYPE_CHR`\n\nDefaults to: **`char`**"
           }
         },
         {
@@ -176,7 +176,7 @@
           "default": "uint8",
           "description": {
             "header": "Unsigned 8-bit Integer Keyword",
-            "body": "Represents an 8-bit unsigned integer (0 to 255).\n\nExample Customizations:\n- `uint8`\n- `byte`\n- `u8`\n- `octet`\n- `TYPE_U8`\n\nDefaults to: **`uint8`**."
+            "body": "Represents an 8-bit unsigned integer (0 to 255).\n\nExample Customizations:\n- `uint8`\n- `byte`\n- `u8`\n- `octet`\n- `TYPE_U8`\n\nDefaults to: **`uint8`**"
           }
         },
         {
@@ -185,7 +185,7 @@
           "default": "uint16",
           "description": {
             "header": "Unsigned 16-bit Integer Keyword",
-            "body": "Represents a 16-bit unsigned integer.\n\nExample Customizations:\n- `uint16`\n- `ushort`\n- `u16`\n- `word`\n- `TYPE_U16`\n\nDefaults to: **`uint16`**."
+            "body": "Represents a 16-bit unsigned integer.\n\nExample Customizations:\n- `uint16`\n- `ushort`\n- `u16`\n- `word`\n- `TYPE_U16`\n\nDefaults to: **`uint16`**"
           }
         },
         {
@@ -194,7 +194,7 @@
           "default": "uint32",
           "description": {
             "header": "Unsigned 32-bit Integer Keyword",
-            "body": "Represents a 32-bit unsigned integer.\n\nExample Customizations:\n- `uint32`\n- `uint`\n- `u32`\n- `dword`\n- `TYPE_U32`\n\nDefaults to: **`uint32`**."
+            "body": "Represents a 32-bit unsigned integer.\n\nExample Customizations:\n- `uint32`\n- `uint`\n- `u32`\n- `dword`\n- `TYPE_U32`\n\nDefaults to: **`uint32`**"
           }
         },
         {
@@ -203,7 +203,7 @@
           "default": "uint64",
           "description": {
             "header": "Unsigned 64-bit Integer Keyword",
-            "body": "Represents a 64-bit unsigned integer.\n\nExample Customizations:\n- `uint64`\n- `ulong`\n- `u64`\n- `qword`\n- `TYPE_U64`\n\nDefaults to: **`uint64`**."
+            "body": "Represents a 64-bit unsigned integer.\n\nExample Customizations:\n- `uint64`\n- `ulong`\n- `u64`\n- `qword`\n- `TYPE_U64`\n\nDefaults to: **`uint64`**"
           }
         },
         {
@@ -212,7 +212,7 @@
           "default": "int",
           "description": {
             "header": "Integer Type Keyword",
-            "body": "Represents a standard signed integer (size may vary by target language).\n\nExample Customizations:\n- `int`\n- `integer`\n- `num`\n- `i32`\n- `TYPE_INT`\n\nDefaults to: **`int`**."
+            "body": "Represents a standard signed integer (size may vary by target language).\n\nExample Customizations:\n- `int`\n- `integer`\n- `num`\n- `i32`\n- `TYPE_INT`\n\nDefaults to: **`int`**"
           }
         },
         {
@@ -221,7 +221,7 @@
           "default": "str",
           "description": {
             "header": "String Type Keyword",
-            "body": "Represents a sequence of characters (text).\n\nExample Customizations:\n- `str`\n- `string`\n- `text`\n- `char*`\n- `TYPE_STR`\n\nDefaults to: **`str`**."
+            "body": "Represents a sequence of characters (text).\n\nExample Customizations:\n- `str`\n- `string`\n- `text`\n- `char*`\n- `TYPE_STR`\n\nDefaults to: **`str`**"
           }
         },
         {
@@ -230,7 +230,7 @@
           "default": "bool",
           "description": {
             "header": "Boolean Type Keyword",
-            "body": "Represents a logical value, either true or false.\n\nExample Customizations:\n- `bool`\n- `boolean`\n- `flag`\n- `logic`\n- `TYPE_BOOL`\n\nDefaults to: **`bool`**."
+            "body": "Represents a logical value, either true or false.\n\nExample Customizations:\n- `bool`\n- `boolean`\n- `flag`\n- `logic`\n- `TYPE_BOOL`\n\nDefaults to: **`bool`**"
           }
         },
         {
@@ -239,7 +239,7 @@
           "default": "float",
           "description": {
             "header": "Float Type Keyword",
-            "body": "Represents a single-precision floating-point number.\n\nExample Customizations:\n- `float`\n- `float32`\n- `single`\n- `decimal`\n- `TYPE_FLT`\n\nDefaults to: **`float`**."
+            "body": "Represents a single-precision floating-point number.\n\nExample Customizations:\n- `float`\n- `float32`\n- `single`\n- `decimal`\n- `TYPE_FLT`\n\nDefaults to: **`float`**"
           }
         },
         {
@@ -248,7 +248,7 @@
           "default": "int8",
           "description": {
             "header": "Signed 8-bit Integer Keyword",
-            "body": "Represents an 8-bit signed integer (-128 to 127).\n\nExample Customizations:\n- `int8`\n- `sbyte`\n- `i8`\n- `tinyint`\n- `TYPE_I8`\n\nDefaults to: **`int8`**."
+            "body": "Represents an 8-bit signed integer (-128 to 127).\n\nExample Customizations:\n- `int8`\n- `sbyte`\n- `i8`\n- `tinyint`\n- `TYPE_I8`\n\nDefaults to: **`int8`**"
           }
         },
         {
@@ -257,7 +257,7 @@
           "default": "int16",
           "description": {
             "header": "Signed 16-bit Integer Keyword",
-            "body": "Represents a 16-bit signed integer.\n\nExample Customizations:\n- `int16`\n- `short`\n- `i16`\n- `smallint`\n- `TYPE_I16`\n\nDefaults to: **`int16`**."
+            "body": "Represents a 16-bit signed integer.\n\nExample Customizations:\n- `int16`\n- `short`\n- `i16`\n- `smallint`\n- `TYPE_I16`\n\nDefaults to: **`int16`**"
           }
         },
         {
@@ -266,7 +266,7 @@
           "default": "int32",
           "description": {
             "header": "Signed 32-bit Integer Keyword",
-            "body": "Represents a 32-bit signed integer.\n\nExample Customizations:\n- `int32`\n- `signed int`\n- `i32`\n- `integer`\n- `TYPE_I32`\n\nDefaults to: **`int32`**."
+            "body": "Represents a 32-bit signed integer.\n\nExample Customizations:\n- `int32`\n- `signed int`\n- `i32`\n- `integer`\n- `TYPE_I32`\n\nDefaults to: **`int32`**"
           }
         },
         {
@@ -275,7 +275,7 @@
           "default": "int64",
           "description": {
             "header": "Signed 64-bit Integer Keyword",
-            "body": "Represents a 64-bit signed integer.\n\nExample Customizations:\n- `int64`\n- `long`\n- `i64`\n- `bigint`\n- `TYPE_I64`\n\nDefaults to: **`int64`**."
+            "body": "Represents a 64-bit signed integer.\n\nExample Customizations:\n- `int64`\n- `long`\n- `i64`\n- `bigint`\n- `TYPE_I64`\n\nDefaults to: **`int64`**"
           }
         }
       ]
@@ -289,7 +289,7 @@
           "default": ".",
           "description": {
             "header": "String Concatenation Operator",
-            "body": "Operator used to join two strings together.\n\nExample Customizations:\n- `.`\n- `+`\n- `++`\n- `&`\n- `..`\n\nDefaults to: **`.`**."
+            "body": "Operator used to join two strings together.\n\nExample Customizations:\n- `.`\n- `+`\n- `++`\n- `&`\n- `..`\n\nDefaults to: **`.`**"
           }
         },
         {
@@ -298,7 +298,7 @@
           "default": "+",
           "description": {
             "header": "Addition Operator",
-            "body": "Operator for numerical addition.\n\nExample Customizations:\n- `+`\n- `add`\n- `plus`\n- `sum`\n- `__ADD__`\n\nDefaults to: **`+`**."
+            "body": "Operator for numerical addition.\n\nExample Customizations:\n- `+`\n- `add`\n- `plus`\n- `sum`\n- `__ADD__`\n\nDefaults to: **`+`**"
           }
         },
         {
@@ -307,7 +307,7 @@
           "default": "-",
           "description": {
             "header": "Subtraction Operator",
-            "body": "Operator for numerical subtraction.\n\nExample Customizations:\n- `-`\n- `sub`\n- `minus`\n- `diff`\n- `__SUB__`\n\nDefaults to: **`-`**."
+            "body": "Operator for numerical subtraction.\n\nExample Customizations:\n- `-`\n- `sub`\n- `minus`\n- `diff`\n- `__SUB__`\n\nDefaults to: **`-`**"
           }
         },
         {
@@ -316,7 +316,7 @@
           "default": "*",
           "description": {
             "header": "Multiplication Operator",
-            "body": "Operator for numerical multiplication.\n\nExample Customizations:\n- `*`\n- `mul`\n- `times`\n- `product`\n- `__MUL__`\n\nDefaults to: **`*`**."
+            "body": "Operator for numerical multiplication.\n\nExample Customizations:\n- `*`\n- `mul`\n- `times`\n- `product`\n- `__MUL__`\n\nDefaults to: **`*`**"
           }
         },
         {
@@ -325,7 +325,7 @@
           "default": "/",
           "description": {
             "header": "Division Operator",
-            "body": "Operator for numerical division.\n\nExample Customizations:\n- `/`\n- `div`\n- `divide`\n- `quotient`\n- `__DIV__`\n\nDefaults to: **`/`**."
+            "body": "Operator for numerical division.\n\nExample Customizations:\n- `/`\n- `div`\n- `divide`\n- `quotient`\n- `__DIV__`\n\nDefaults to: **`/`**"
           }
         },
         {
@@ -334,7 +334,7 @@
           "default": "%",
           "description": {
             "header": "Modulo Operator",
-            "body": "Operator to get the remainder of a division.\n\nExample Customizations:\n- `%`\n- `mod`\n- `rem`\n- `remainder`\n- `__MOD__`\n\nDefaults to: **`%`**."
+            "body": "Operator to get the remainder of a division.\n\nExample Customizations:\n- `%`\n- `mod`\n- `rem`\n- `remainder`\n- `__MOD__`\n\nDefaults to: **`%`**"
           }
         },
         {
@@ -352,7 +352,7 @@
           "default": "==",
           "description": {
             "header": "Equality Comparison Operator",
-            "body": "Operator to check if two values are equal (loose equality).\n\nExample Customizations:\n- `==`\n- `is`\n- `eq`\n- `equals`\n- `=`\n\nDefaults to: **`==`**."
+            "body": "Operator to check if two values are equal (loose equality).\n\nExample Customizations:\n- `==`\n- `is`\n- `eq`\n- `equals`\n- `=`\n\nDefaults to: **`==`**"
           }
         },
         {
@@ -361,7 +361,7 @@
           "default": "===",
           "description": {
             "header": "Strict Equality Comparison Operator",
-            "body": "Operator to check if two values are equal *and* of the same type (if applicable).\n\nExample Customizations:\n- `===`\n- `is exactly`\n- `strict eq`\n- `seq`\n- `IS_STRICT`\n\nDefaults to: **`===`**."
+            "body": "Operator to check if two values are equal *and* of the same type (if applicable).\n\nExample Customizations:\n- `===`\n- `is exactly`\n- `strict eq`\n- `seq`\n- `IS_STRICT`\n\nDefaults to: **`===`**"
           }
         },
         {
@@ -370,7 +370,7 @@
           "default": "!=",
           "description": {
             "header": "Inequality Comparison Operator",
-            "body": "Operator to check if two values are not equal.\n\nExample Customizations:\n- `!=`\n- `is not`\n- `ne`\n- `not eq`\n- `<>`\n\nDefaults to: **`!=`**."
+            "body": "Operator to check if two values are not equal.\n\nExample Customizations:\n- `!=`\n- `is not`\n- `ne`\n- `not eq`\n- `<>`\n\nDefaults to: **`!=`**"
           }
         },
         {
@@ -379,7 +379,7 @@
           "default": ">",
           "description": {
             "header": "Greater Than Operator",
-            "body": "Operator to check if the left value is greater than the right value.\n\nExample Customizations:\n- `>`\n- `gt`\n- `greater`\n- `more`\n- `GT`\n\nDefaults to: **`>`**."
+            "body": "Operator to check if the left value is greater than the right value.\n\nExample Customizations:\n- `>`\n- `gt`\n- `greater`\n- `more`\n- `GT`\n\nDefaults to: **`>`**"
           }
         },
         {
@@ -388,7 +388,7 @@
           "default": "<",
           "description": {
             "header": "Less Than Operator",
-            "body": "Operator to check if the left value is less than the right value.\n\nExample Customizations:\n- `<`\n- `lt`\n- `less`\n- `fewer`\n- `LT`\n\nDefaults to: **`<`**."
+            "body": "Operator to check if the left value is less than the right value.\n\nExample Customizations:\n- `<`\n- `lt`\n- `less`\n- `fewer`\n- `LT`\n\nDefaults to: **`<`**"
           }
         },
         {
@@ -397,7 +397,7 @@
           "default": ">=",
           "description": {
             "header": "Greater Than or Equal Operator",
-            "body": "Operator to check if the left value is greater than or equal to the right value.\n\nExample Customizations:\n- `>=`\n- `ge`\n- `gte`\n- `at least`\n- `GE`\n\nDefaults to: **`>=`**."
+            "body": "Operator to check if the left value is greater than or equal to the right value.\n\nExample Customizations:\n- `>=`\n- `ge`\n- `gte`\n- `at least`\n- `GE`\n\nDefaults to: **`>=`**"
           }
         },
         {
@@ -406,7 +406,7 @@
           "default": "<=",
           "description": {
             "header": "Less Than or Equal Operator",
-            "body": "Operator to check if the left value is less than or equal to the right value.\n\nExample Customizations:\n- `<=`\n- `le`\n- `lte`\n- `at most`\n- `LE`\n\nDefaults to: **`<=`**."
+            "body": "Operator to check if the left value is less than or equal to the right value.\n\nExample Customizations:\n- `<=`\n- `le`\n- `lte`\n- `at most`\n- `LE`\n\nDefaults to: **`<=`**"
           }
         },
         {
@@ -415,7 +415,7 @@
           "default": "and",
           "description": {
             "header": "Logical AND Operator",
-            "body": "Logical operator returns true if both operands are true.\n\nExample Customizations:\n- `and`\n- `&&`\n- `&`\n- `both`\n- `AND_LOGIC`\n\nDefaults to: **`and`**."
+            "body": "Logical operator returns true if both operands are true.\n\nExample Customizations:\n- `and`\n- `&&`\n- `&`\n- `both`\n- `AND_LOGIC`\n\nDefaults to: **`and`**"
           }
         },
         {
@@ -424,7 +424,7 @@
           "default": "or",
           "description": {
             "header": "Logical OR Operator",
-            "body": "Logical operator returns true if at least one operand is true.\n\nExample Customizations:\n- `or`\n- `||`\n- `|`\n- `either`\n- `OR_LOGIC`\n\nDefaults to: **`or`**."
+            "body": "Logical operator returns true if at least one operand is true.\n\nExample Customizations:\n- `or`\n- `||`\n- `|`\n- `either`\n- `OR_LOGIC`\n\nDefaults to: **`or`**"
           }
         },
         {
@@ -433,7 +433,7 @@
           "default": "!",
           "description": {
             "header": "Logical NOT Operator",
-            "body": "Logical operator that inverts the boolean value of its operand.\n\nExample Customizations:\n- `!`\n- `not`\n- `~`\n- `invert`\n- `NOT_LOGIC`\n\nDefaults to: **`!`**."
+            "body": "Logical operator that inverts the boolean value of its operand.\n\nExample Customizations:\n- `!`\n- `not`\n- `~`\n- `invert`\n- `NOT_LOGIC`\n\nDefaults to: **`!`**"
           }
         },
         {
@@ -442,7 +442,7 @@
           "default": "&",
           "description": {
             "header": "Bitwise AND Operator",
-            "body": "Performs a bitwise AND operation.\n\nExample Customizations:\n- `&`\n- `bitand`\n- `band`\n- `bitwise_and`\n- `BIT_A`\n\nDefaults to: **`&`**."
+            "body": "Performs a bitwise AND operation.\n\nExample Customizations:\n- `&`\n- `bitand`\n- `band`\n- `bitwise_and`\n- `BIT_A`\n\nDefaults to: **`&`**"
           }
         },
         {
@@ -451,7 +451,7 @@
           "default": "|",
           "description": {
             "header": "Bitwise OR Operator",
-            "body": "Performs a bitwise OR operation.\n\nExample Customizations:\n- `|`\n- `bitor`\n- `bor`\n- `bitwise_or`\n- `BIT_O`\n\nDefaults to: **`|`**."
+            "body": "Performs a bitwise OR operation.\n\nExample Customizations:\n- `|`\n- `bitor`\n- `bor`\n- `bitwise_or`\n- `BIT_O`\n\nDefaults to: **`|`**"
           }
         },
         {
@@ -460,7 +460,7 @@
           "default": "^",
           "description": {
             "header": "Bitwise XOR Operator",
-            "body": "Performs a bitwise XOR (exclusive OR) operation.\n\nExample Customizations:\n- `^`\n- `bitxor`\n- `bxor`\n- `exclusive_or`\n- `BIT_X`\n\nDefaults to: **`^`**."
+            "body": "Performs a bitwise XOR (exclusive OR) operation.\n\nExample Customizations:\n- `^`\n- `bitxor`\n- `bxor`\n- `exclusive_or`\n- `BIT_X`\n\nDefaults to: **`^`**"
           }
         },
         {
@@ -469,7 +469,7 @@
           "default": "~",
           "description": {
             "header": "Bitwise NOT Operator",
-            "body": "Performs a bitwise NOT (complement) operation.\n\nExample Customizations:\n- `~`\n- `bitnot`\n- `bnot`\n- `complement`\n- `BIT_N`\n\nDefaults to: **`~`**."
+            "body": "Performs a bitwise NOT (complement) operation.\n\nExample Customizations:\n- `~`\n- `bitnot`\n- `bnot`\n- `complement`\n- `BIT_N`\n\nDefaults to: **`~`**"
           }
         },
         {
@@ -478,7 +478,7 @@
           "default": "<<",
           "description": {
             "header": "Bitwise Left Shift Operator",
-            "body": "Shifts bits to the left.\n\nExample Customizations:\n- `<<`\n- `shl`\n- `shiftl`\n- `lshift`\n- `BIT_SL`\n\nDefaults to: **`<<`**."
+            "body": "Shifts bits to the left.\n\nExample Customizations:\n- `<<`\n- `shl`\n- `shiftl`\n- `lshift`\n- `BIT_SL`\n\nDefaults to: **`<<`**"
           }
         },
         {
@@ -487,7 +487,7 @@
           "default": ">>",
           "description": {
             "header": "Bitwise Right Shift Operator",
-            "body": "Shifts bits to the right (sign-propagating).\n\nExample Customizations:\n- `>>`\n- `shr`\n- `shiftr`\n- `rshift`\n- `BIT_SR`\n\nDefaults to: **`>>`**."
+            "body": "Shifts bits to the right (sign-propagating).\n\nExample Customizations:\n- `>>`\n- `shr`\n- `shiftr`\n- `rshift`\n- `BIT_SR`\n\nDefaults to: **`>>`**"
           }
         },
         {
@@ -496,7 +496,7 @@
           "default": ">>>",
           "description": {
             "header": "Unsigned Right Shift Operator",
-            "body": "Shifts bits to the right (zero-filling).\n\nExample Customizations:\n- `>>>`\n- `ushr`\n- `ushiftr`\n- `urshift`\n- `BIT_USR`\n\nDefaults to: **`>>>`**."
+            "body": "Shifts bits to the right (zero-filling).\n\nExample Customizations:\n- `>>>`\n- `ushr`\n- `ushiftr`\n- `urshift`\n- `BIT_USR`\n\nDefaults to: **`>>>`**"
           }
         },
         {
@@ -505,7 +505,7 @@
           "default": "?",
           "description": {
             "header": "Ternary Operator Symbol 1",
-            "body": "The first symbol in a ternary conditional expression (condition ? value_if_true : value_if_false).\n\nExample Customizations:\n- `?`\n- `then`\n- `??`\n- `iftrue`\n- `TERN1`\n\nDefaults to: **`?`**."
+            "body": "The first symbol in a ternary conditional expression (condition ? value_if_true : value_if_false).\n\nExample Customizations:\n- `?`\n- `then`\n- `??`\n- `iftrue`\n- `TERN1`\n\nDefaults to: **`?`**"
           }
         },
         {
@@ -514,7 +514,7 @@
           "default": ":",
           "description": {
             "header": "Ternary Operator Symbol 2",
-            "body": "The second symbol in a ternary conditional expression, separating the true and false values.\n\nExample Customizations:\n- `:`\n- `else`\n- `::`\n- `iffalse`\n- `TERN2`\n\nDefaults to: **`:`**."
+            "body": "The second symbol in a ternary conditional expression, separating the true and false values.\n\nExample Customizations:\n- `:`\n- `else`\n- `::`\n- `iffalse`\n- `TERN2`\n\nDefaults to: **`:`**"
           }
         }
       ]
@@ -528,7 +528,7 @@
           "default": "=",
           "description": {
             "header": "Assignment Operator",
-            "body": "The primary operator used to assign a value to a variable.\n\nExample Customizations:\n- `=`\n- `:=`\n- `<-`\n- `set`\n- `<-=`\n\nDefaults to: **`=`**."
+            "body": "The primary operator used to assign a value to a variable.\n\nExample Customizations:\n- `=`\n- `:=`\n- `<-`\n- `set`\n- `<-=`\n\nDefaults to: **`=`**"
           }
         },
         {
@@ -537,7 +537,7 @@
           "default": "+=",
           "description": {
             "header": "Add and Assign Operator",
-            "body": "Adds the right operand to the left operand and assigns the result to the left operand.\n\nExample Customizations:\n- `+=`\n- `add=`\n- `inc=`\n- `sum_set`\n- `+:=`\n\nDefaults to: **`+=`**."
+            "body": "Adds the right operand to the left operand and assigns the result to the left operand.\n\nExample Customizations:\n- `+=`\n- `add=`\n- `inc=`\n- `sum_set`\n- `+:=`\n\nDefaults to: **`+=`**"
           }
         },
         {
@@ -546,7 +546,7 @@
           "default": ".=",
           "description": {
             "header": "Concatenate and Assign Operator",
-            "body": "Concatenates the right string to the left string and assigns the result.\n\nExample Customizations:\n- `.=`\n- `concat=`\n- `append=`\n- `join_set`\n- `.:=`\n\nDefaults to: **`.=`**."
+            "body": "Concatenates the right string to the left string and assigns the result.\n\nExample Customizations:\n- `.=`\n- `concat=`\n- `append=`\n- `join_set`\n- `.:=`\n\nDefaults to: **`.=`**"
           }
         },
         {
@@ -555,7 +555,7 @@
           "default": "-=",
           "description": {
             "header": "Subtract and Assign Operator",
-            "body": "Subtracts the right operand from the left operand and assigns the result.\n\nExample Customizations:\n- `-=`\n- `sub=`\n- `dec=`\n- `diff_set`\n- `-:=`\n\nDefaults to: **`-=`**."
+            "body": "Subtracts the right operand from the left operand and assigns the result.\n\nExample Customizations:\n- `-=`\n- `sub=`\n- `dec=`\n- `diff_set`\n- `-:=`\n\nDefaults to: **`-=`**"
           }
         },
         {
@@ -564,7 +564,7 @@
           "default": "*=",
           "description": {
             "header": "Multiply and Assign Operator",
-            "body": "Multiplies the left operand by the right operand and assigns the result.\n\nExample Customizations:\n- `*=`\n- `mul=`\n- `times_set`\n- `prod_set`\n- `*:=`\n\nDefaults to: **`*=`**."
+            "body": "Multiplies the left operand by the right operand and assigns the result.\n\nExample Customizations:\n- `*=`\n- `mul=`\n- `times_set`\n- `prod_set`\n- `*:=`\n\nDefaults to: **`*=`**"
           }
         },
         {
@@ -573,7 +573,7 @@
           "default": "/=",
           "description": {
             "header": "Divide and Assign Operator",
-            "body": "Divides the left operand by the right operand and assigns the result.\n\nExample Customizations:\n- `/=`\n- `div=`\n- `divide_set`\n- `quot_set`\n- `/:=`\n\nDefaults to: **`/=`**."
+            "body": "Divides the left operand by the right operand and assigns the result.\n\nExample Customizations:\n- `/=`\n- `div=`\n- `divide_set`\n- `quot_set`\n- `/:=`\n\nDefaults to: **`/=`**"
           }
         },
         {
@@ -582,7 +582,7 @@
           "default": "%=",
           "description": {
             "header": "Modulo and Assign Operator",
-            "body": "Computes the modulo and assigns the result.\n\nExample Customizations:\n- `%=`\n- `mod=`\n- `rem_set`\n- `mod_set`\n- `%:=`\n\nDefaults to: **`%=`**."
+            "body": "Computes the modulo and assigns the result.\n\nExample Customizations:\n- `%=`\n- `mod=`\n- `rem_set`\n- `mod_set`\n- `%:=`\n\nDefaults to: **`%=`**"
           }
         },
         {
@@ -591,7 +591,7 @@
           "default": "<<=",
           "description": {
             "header": "Left Shift and Assign Operator",
-            "body": "Performs a bitwise left shift and assigns the result.\n\nExample Customizations:\n- `<<=`\n- `shl=`\n- `lshift_set`\n- `<<:=`\n- `lshAss`\n\nDefaults to: **`<<=`**."
+            "body": "Performs a bitwise left shift and assigns the result.\n\nExample Customizations:\n- `<<=`\n- `shl=`\n- `lshift_set`\n- `<<:=`\n- `lshAss`\n\nDefaults to: **`<<=`**"
           }
         },
         {
@@ -600,7 +600,7 @@
           "default": ">>=",
           "description": {
             "header": "Right Shift and Assign Operator",
-            "body": "Performs a bitwise right shift (signed) and assigns the result.\n\nExample Customizations:\n- `>>=`\n- `shr=`\n- `rshift_set`\n- `>>:=`\n- `rshAss`\n\nDefaults to: **`>>=`**."
+            "body": "Performs a bitwise right shift (signed) and assigns the result.\n\nExample Customizations:\n- `>>=`\n- `shr=`\n- `rshift_set`\n- `>>:=`\n- `rshAss`\n\nDefaults to: **`>>=`**"
           }
         },
         {
@@ -609,7 +609,7 @@
           "default": ">>>=",
           "description": {
             "header": "Unsigned Right Shift and Assign Operator",
-            "body": "Performs an unsigned bitwise right shift and assigns the result.\n\nExample Customizations:\n- `>>>=`\n- `ushr=`\n- `urshift_set`\n- `>>>:=`\n- `urshAss`\n\nDefaults to: **`>>>=`**."
+            "body": "Performs an unsigned bitwise right shift and assigns the result.\n\nExample Customizations:\n- `>>>=`\n- `ushr=`\n- `urshift_set`\n- `>>>:=`\n- `urshAss`\n\nDefaults to: **`>>>=`**"
           }
         },
         {
@@ -618,7 +618,7 @@
           "default": "&=",
           "description": {
             "header": "Bitwise AND and Assign Operator",
-            "body": "Performs a bitwise AND and assigns the result.\n\nExample Customizations:\n- `&=`\n- `band=`\n- `bitand_set`\n- `&:=`\n- `bAndAss`\n\nDefaults to: **`&=`**."
+            "body": "Performs a bitwise AND and assigns the result.\n\nExample Customizations:\n- `&=`\n- `band=`\n- `bitand_set`\n- `&:=`\n- `bAndAss`\n\nDefaults to: **`&=`**"
           }
         },
         {
@@ -627,7 +627,7 @@
           "default": "|=",
           "description": {
             "header": "Bitwise OR and Assign Operator",
-            "body": "Performs a bitwise OR and assigns the result.\n\nExample Customizations:\n- `|=`\n- `bor=`\n- `bitor_set`\n- `|:=`\n- `bOrAss`\n\nDefaults to: **`|=`**."
+            "body": "Performs a bitwise OR and assigns the result.\n\nExample Customizations:\n- `|=`\n- `bor=`\n- `bitor_set`\n- `|:=`\n- `bOrAss`\n\nDefaults to: **`|=`**"
           }
         },
         {
@@ -636,7 +636,7 @@
           "default": "^=",
           "description": {
             "header": "Bitwise XOR and Assign Operator",
-            "body": "Performs a bitwise XOR and assigns the result.\n\nExample Customizations:\n- `^=`\n- `bxor=`\n- `bitxor_set`\n- `^:=`\n- `bXorAss`\n\nDefaults to: **`^=`**."
+            "body": "Performs a bitwise XOR and assigns the result.\n\nExample Customizations:\n- `^=`\n- `bxor=`\n- `bitxor_set`\n- `^:=`\n- `bXorAss`\n\nDefaults to: **`^=`**"
           }
         }
       ]
@@ -650,7 +650,7 @@
           "default": "arr",
           "description": {
             "header": "Generic Array Type Keyword",
-            "body": "Keyword to define a generic array. In dynamic languages, type is inferred. In static languages, defaults typically to an array of strings.\n\nExample Customizations:\n- `arr`\n- `array`\n- `list`\n- `vec`\n- `[_]`\n\nDefaults to: **`arr`**."
+            "body": "Keyword to define a generic array. In dynamic languages, type is inferred. In static languages, defaults typically to an array of strings.\n\nExample Customizations:\n- `arr`\n- `array`\n- `list`\n- `vec`\n- `[_]`\n\nDefaults to: **`arr`**"
           }
         },
         {
@@ -659,7 +659,7 @@
           "default": "arr int",
           "description": {
             "header": "Integer Array Type Keyword",
-            "body": "Keyword combination to define an array specifically containing integers.\n\nExample Customizations:\n- `arr int`\n- `array<int>`\n- `list_int`\n- `vec[int]`\n- `[int]`\n\nDefaults to: **`arr int`**."
+            "body": "Keyword combination to define an array specifically containing integers.\n\nExample Customizations:\n- `arr int`\n- `array<int>`\n- `list_int`\n- `vec[int]`\n- `[int]`\n\nDefaults to: **`arr int`**"
           }
         },
         {
@@ -668,7 +668,7 @@
           "default": "arr str",
           "description": {
             "header": "String Array Type Keyword",
-            "body": "Keyword combination to define an array specifically containing strings.\n\nExample Customizations:\n- `arr str`\n- `array<str>`\n- `list_str`\n- `vec[str]`\n- `[str]`\n\nDefaults to: **`arr str`**."
+            "body": "Keyword combination to define an array specifically containing strings.\n\nExample Customizations:\n- `arr str`\n- `array<str>`\n- `list_str`\n- `vec[str]`\n- `[str]`\n\nDefaults to: **`arr str`**"
           }
         },
         {
@@ -677,7 +677,7 @@
           "default": "arr float",
           "description": {
             "header": "Float Array Type Keyword",
-            "body": "Keyword combination to define an array specifically containing floating-point numbers.\n\nExample Customizations:\n- `arr float`\n- `array<float>`\n- `list_float`\n- `vec[float]`\n- `[float]`\n\nDefaults to: **`arr float`**."
+            "body": "Keyword combination to define an array specifically containing floating-point numbers.\n\nExample Customizations:\n- `arr float`\n- `array<float>`\n- `list_float`\n- `vec[float]`\n- `[float]`\n\nDefaults to: **`arr float`**"
           }
         },
         {
@@ -686,7 +686,7 @@
           "default": "arr bool",
           "description": {
             "header": "Boolean Array Type Keyword",
-            "body": "Keyword combination to define an array specifically containing booleans.\n\nExample Customizations:\n- `arr bool`\n- `array<bool>`\n- `list_bool`\n- `vec[bool]`\n- `[bool]`\n\nDefaults to: **`arr bool`**."
+            "body": "Keyword combination to define an array specifically containing booleans.\n\nExample Customizations:\n- `arr bool`\n- `array<bool>`\n- `list_bool`\n- `vec[bool]`\n- `[bool]`\n\nDefaults to: **`arr bool`**"
           }
         },
         {
@@ -695,7 +695,7 @@
           "default": ".push",
           "description": {
             "header": "Array Append Method Syntax",
-            "body": "Syntax used to call the method that adds an element to the end of an array.\n\nExample Customizations:\n- `.push`\n- `.add`\n- `.append`\n- `.put`\n- `.ad`\n\nDefaults to: **`.push`**."
+            "body": "Syntax used to call the method that adds an element to the end of an array.\n\nExample Customizations:\n- `.push`\n- `.add`\n- `.append`\n- `.put`\n- `.ad`\n\nDefaults to: **`.push`**"
           }
         },
         {
@@ -704,7 +704,7 @@
           "default": ".pop",
           "description": {
             "header": "Array Pop Method Syntax",
-            "body": "Syntax used to call the method that removes and returns the last element of an array.\n\nExample Customizations:\n- `.pop`\n- `.removeLast`\n- `.pull`\n- `.pl`\n- `.rmlst`\n\nDefaults to: **`.pop`**."
+            "body": "Syntax used to call the method that removes and returns the last element of an array.\n\nExample Customizations:\n- `.pop`\n- `.removeLast`\n- `.pull`\n- `.pl`\n- `.rmlst`\n\nDefaults to: **`.pop`**"
           }
         },
         {
@@ -713,7 +713,7 @@
           "default": ".size",
           "description": {
             "header": "Array Size Method Syntax",
-            "body": "Syntax used to call the method that returns the number of elements in an array.\n\nExample Customizations:\n- `.size`\n- `.length`\n- `.count`\n- `.sz`\n- `.len`\n\nDefaults to: **`.size`**."
+            "body": "Syntax used to call the method that returns the number of elements in an array.\n\nExample Customizations:\n- `.size`\n- `.length`\n- `.count`\n- `.sz`\n- `.len`\n\nDefaults to: **`.size`**"
           }
         },
         {
@@ -722,7 +722,7 @@
           "default": ".insert",
           "description": {
             "header": "Array Insert Method Syntax",
-            "body": "Syntax used to call the method that inserts an element at a specific index in an array.\n\nExample Customizations:\n- `.insert`\n- `.addAt`\n- `.put`\n- `.istrAtIndex`\n- `.ins`\n\nDefaults to: **`.insert`**."
+            "body": "Syntax used to call the method that inserts an element at a specific index in an array.\n\nExample Customizations:\n- `.insert`\n- `.addAt`\n- `.put`\n- `.istrAtIndex`\n- `.ins`\n\nDefaults to: **`.insert`**"
           }
         },
         {
@@ -731,7 +731,7 @@
           "default": ".rm",
           "description": {
             "header": "Array Remove Method Syntax",
-            "body": "Syntax used to call the method that removes the element at a specified index from an array.\n\nExample Customizations:\n- `.rm`\n- `.removeAt`\n- `.delete`\n- `.del`\n- `.gone`\n\nDefaults to: **`.rm`**."
+            "body": "Syntax used to call the method that removes the element at a specified index from an array.\n\nExample Customizations:\n- `.rm`\n- `.removeAt`\n- `.delete`\n- `.del`\n- `.gone`\n\nDefaults to: **`.rm`**"
           }
         },
         {
@@ -740,7 +740,7 @@
           "default": ".indexOf",
           "description": {
             "header": "Array IndexOf Method Syntax",
-            "body": "Syntax used to call the method that returns the index of the first occurrence of a specified element in an array.\n\nExample Customizations:\n- `.indexOf`\n- `.find`\n- `.search`\n- `.A_IndexOf`\n- `.idx`\n\nDefaults to: **`.indexOf`**."
+            "body": "Syntax used to call the method that returns the index of the first occurrence of a specified element in an array.\n\nExample Customizations:\n- `.indexOf`\n- `.find`\n- `.search`\n- `.A_IndexOf`\n- `.idx`\n\nDefaults to: **`.indexOf`**"
           }
         }
       ]
@@ -754,7 +754,7 @@
           "default": "___start",
           "description": {
             "header": "Generic Programming Block Start",
-            "body": "Keyword to start a generic block of code intended for the target transpiled language.\n\nExample Customizations:\n- `___start`\n- `_BLOCK_START_`\n- `BEGIN_RAW`\n- `<<<`\n- `{%`\n\nDefaults to: **`___start`**."
+            "body": "Keyword to start a generic block of code intended for the target transpiled language.\n\nExample Customizations:\n- `___start`\n- `_BLOCK_START_`\n- `BEGIN_RAW`\n- `<<<`\n- `{%`\n\nDefaults to: **`___start`**"
           }
         },
         {
@@ -763,7 +763,7 @@
           "default": "___end",
           "description": {
             "header": "Generic Programming Block End",
-            "body": "Keyword to end a generic block of code intended for the target transpiled language.\n\nExample Customizations:\n- `___end`\n- `_BLOCK_END_`\n- `END_RAW`\n- `>>>`\n- `%}`\n\nDefaults to: **`___end`**."
+            "body": "Keyword to end a generic block of code intended for the target transpiled language.\n\nExample Customizations:\n- `___end`\n- `_BLOCK_END_`\n- `END_RAW`\n- `>>>`\n- `%}`\n\nDefaults to: **`___end`**"
           }
         },
         {
@@ -772,7 +772,7 @@
           "default": "___cpp start",
           "description": {
             "header": "C++ Programming Block Start",
-            "body": "Specific keyword to start a block of native C++ code.\n\nExample Customizations:\n- `___cpp start`\n- `_CPP_BEGIN_`\n- `RAW_CPP{`\n- `<<<cpp`\n- `cpp:`\n\nDefaults to: **`___cpp start`**."
+            "body": "Specific keyword to start a block of native C++ code.\n\nExample Customizations:\n- `___cpp start`\n- `_CPP_BEGIN_`\n- `RAW_CPP{`\n- `<<<cpp`\n- `cpp:`\n\nDefaults to: **`___cpp start`**"
           }
         },
         {
@@ -781,7 +781,7 @@
           "default": "___cpp end",
           "description": {
             "header": "C++ Programming Block End",
-            "body": "Specific keyword to end a block of native C++ code.\n\nExample Customizations:\n- `___cpp end`\n- `_CPP_END_`\n- `}RAW_CPP`\n- `cpp>>>`\n- `:cpp`\n\nDefaults to: **`___cpp end`**."
+            "body": "Specific keyword to end a block of native C++ code.\n\nExample Customizations:\n- `___cpp end`\n- `_CPP_END_`\n- `}RAW_CPP`\n- `cpp>>>`\n- `:cpp`\n\nDefaults to: **`___cpp end`**"
           }
         },
         {
@@ -790,7 +790,7 @@
           "default": "___py start",
           "description": {
             "header": "Python Programming Block Start",
-            "body": "Specific keyword to start a block of native Python code.\n\nExample Customizations:\n- `___py start`\n- `_PY_BEGIN_`\n- `RAW_PY{`\n- `<<<py`\n- `py:`\n\nDefaults to: **`___py start`**."
+            "body": "Specific keyword to start a block of native Python code.\n\nExample Customizations:\n- `___py start`\n- `_PY_BEGIN_`\n- `RAW_PY{`\n- `<<<py`\n- `py:`\n\nDefaults to: **`___py start`**"
           }
         },
         {
@@ -799,7 +799,7 @@
           "default": "___py end",
           "description": {
             "header": "Python Programming Block End",
-            "body": "Specific keyword to end a block of native Python code.\n\nExample Customizations:\n- `___py end`\n- `_PY_END_`\n- `}RAW_PY`\n- `py>>>`\n- `:py`\n\nDefaults to: **`___py end`**."
+            "body": "Specific keyword to end a block of native Python code.\n\nExample Customizations:\n- `___py end`\n- `_PY_END_`\n- `}RAW_PY`\n- `py>>>`\n- `:py`\n\nDefaults to: **`___py end`**"
           }
         },
         {
@@ -808,7 +808,7 @@
           "default": "___js start",
           "description": {
             "header": "JavaScript Programming Block Start",
-            "body": "Specific keyword to start a block of native JavaScript code.\n\nExample Customizations:\n- `___js start`\n- `_JS_BEGIN_`\n- `RAW_JS{`\n- `<<<js`\n- `js:`\n\nDefaults to: **`___js start`**."
+            "body": "Specific keyword to start a block of native JavaScript code.\n\nExample Customizations:\n- `___js start`\n- `_JS_BEGIN_`\n- `RAW_JS{`\n- `<<<js`\n- `js:`\n\nDefaults to: **`___js start`**"
           }
         },
         {
@@ -817,7 +817,7 @@
           "default": "___js end",
           "description": {
             "header": "JavaScript Programming Block End",
-            "body": "Specific keyword to end a block of native JavaScript code.\n\nExample Customizations:\n- `___js end`\n- `_JS_END_`\n- `}RAW_JS`\n- `js>>>`\n- `:js`\n\nDefaults to: **`___js end`**."
+            "body": "Specific keyword to end a block of native JavaScript code.\n\nExample Customizations:\n- `___js end`\n- `_JS_END_`\n- `}RAW_JS`\n- `js>>>`\n- `:js`\n\nDefaults to: **`___js end`**"
           }
         },
         {
@@ -826,7 +826,7 @@
           "default": "___go start",
           "description": {
             "header": "Go Programming Block Start",
-            "body": "Specific keyword to start a block of native Go code.\n\nExample Customizations:\n- `___go start`\n- `_GO_BEGIN_`\n- `RAW_GO{`\n- `<<<go`\n- `go:`\n\nDefaults to: **`___go start`**."
+            "body": "Specific keyword to start a block of native Go code.\n\nExample Customizations:\n- `___go start`\n- `_GO_BEGIN_`\n- `RAW_GO{`\n- `<<<go`\n- `go:`\n\nDefaults to: **`___go start`**"
           }
         },
         {
@@ -835,7 +835,7 @@
           "default": "___go end",
           "description": {
             "header": "Go Programming Block End",
-            "body": "Specific keyword to end a block of native Go code.\n\nExample Customizations:\n- `___go end`\n- `_GO_END_`\n- `}RAW_GO`\n- `go>>>`\n- `:go`\n\nDefaults to: **`___go end`**."
+            "body": "Specific keyword to end a block of native Go code.\n\nExample Customizations:\n- `___go end`\n- `_GO_END_`\n- `}RAW_GO`\n- `go>>>`\n- `:go`\n\nDefaults to: **`___go end`**"
           }
         },
         {
@@ -844,7 +844,7 @@
           "default": "___lua start",
           "description": {
             "header": "Lua Programming Block Start",
-            "body": "Specific keyword to start a block of native Lua code.\n\nExample Customizations:\n- `___lua start`\n- `_LUA_BEGIN_`\n- `RAW_LUA{`\n- `<<<lua`\n- `lua:`\n\nDefaults to: **`___lua start`**."
+            "body": "Specific keyword to start a block of native Lua code.\n\nExample Customizations:\n- `___lua start`\n- `_LUA_BEGIN_`\n- `RAW_LUA{`\n- `<<<lua`\n- `lua:`\n\nDefaults to: **`___lua start`**"
           }
         },
         {
@@ -853,7 +853,7 @@
           "default": "___lua end",
           "description": {
             "header": "Lua Programming Block End",
-            "body": "Specific keyword to end a block of native Lua code.\n\nExample Customizations:\n- `___lua end`\n- `_LUA_END_`\n- `}RAW_LUA`\n- `lua>>>`\n- `:lua`\n\nDefaults to: **`___lua end`**."
+            "body": "Specific keyword to end a block of native Lua code.\n\nExample Customizations:\n- `___lua end`\n- `_LUA_END_`\n- `}RAW_LUA`\n- `lua>>>`\n- `:lua`\n\nDefaults to: **`___lua end`**"
           }
         },
         {
@@ -862,7 +862,7 @@
           "default": "___cs start",
           "description": {
             "header": "C# Programming Block Start",
-            "body": "Specific keyword to start a block of native C# code.\n\nExample Customizations:\n- `___cs start`\n- `_CS_BEGIN_`\n- `RAW_CS{`\n- `<<<cs`\n- `cs:`\n\nDefaults to: **`___cs start`**."
+            "body": "Specific keyword to start a block of native C# code.\n\nExample Customizations:\n- `___cs start`\n- `_CS_BEGIN_`\n- `RAW_CS{`\n- `<<<cs`\n- `cs:`\n\nDefaults to: **`___cs start`**"
           }
         },
         {
@@ -871,7 +871,7 @@
           "default": "___cs end",
           "description": {
             "header": "C# Programming Block End",
-            "body": "Specific keyword to end a block of native C# code.\n\nExample Customizations:\n- `___cs end`\n- `_CS_END_`\n- `}RAW_CS`\n- `cs>>>`\n- `:cs`\n\nDefaults to: **`___cs end`**."
+            "body": "Specific keyword to end a block of native C# code.\n\nExample Customizations:\n- `___cs end`\n- `_CS_END_`\n- `}RAW_CS`\n- `cs>>>`\n- `:cs`\n\nDefaults to: **`___cs end`**"
           }
         },
         {
@@ -880,7 +880,7 @@
           "default": "___java start",
           "description": {
             "header": "Java Programming Block Start",
-            "body": "Specific keyword to start a block of native Java code.\n\nExample Customizations:\n- `___java start`\n- `_JAVA_BEGIN_`\n- `RAW_JAVA{`\n- `<<<java`\n- `java:`\n\nDefaults to: **`___java start`**."
+            "body": "Specific keyword to start a block of native Java code.\n\nExample Customizations:\n- `___java start`\n- `_JAVA_BEGIN_`\n- `RAW_JAVA{`\n- `<<<java`\n- `java:`\n\nDefaults to: **`___java start`**"
           }
         },
         {
@@ -889,7 +889,7 @@
           "default": "___java end",
           "description": {
             "header": "Java Programming Block End",
-            "body": "Specific keyword to end a block of native Java code.\n\nExample Customizations:\n- `___java end`\n- `_JAVA_END_`\n- `}RAW_JAVA`\n- `java>>>`\n- `:java`\n\nDefaults to: **`___java end`**."
+            "body": "Specific keyword to end a block of native Java code.\n\nExample Customizations:\n- `___java end`\n- `_JAVA_END_`\n- `}RAW_JAVA`\n- `java>>>`\n- `:java`\n\nDefaults to: **`___java end`**"
           }
         },
         {
@@ -898,7 +898,7 @@
           "default": "___kt start",
           "description": {
             "header": "Kotlin Programming Block Start",
-            "body": "Specific keyword to start a block of native Kotlin code.\n\nExample Customizations:\n- `___kt start`\n- `_KT_BEGIN_`\n- `RAW_KT{`\n- `<<<kt`\n- `kt:`\n\nDefaults to: **`___kt start`**."
+            "body": "Specific keyword to start a block of native Kotlin code.\n\nExample Customizations:\n- `___kt start`\n- `_KT_BEGIN_`\n- `RAW_KT{`\n- `<<<kt`\n- `kt:`\n\nDefaults to: **`___kt start`**"
           }
         },
         {
@@ -907,7 +907,7 @@
           "default": "___kt end",
           "description": {
             "header": "Kotlin Programming Block End",
-            "body": "Specific keyword to end a block of native Kotlin code.\n\nExample Customizations:\n- `___kt end`\n- `_KT_END_`\n- `}RAW_KT`\n- `kt>>>`\n- `:kt`\n\nDefaults to: **`___kt end`**."
+            "body": "Specific keyword to end a block of native Kotlin code.\n\nExample Customizations:\n- `___kt end`\n- `_KT_END_`\n- `}RAW_KT`\n- `kt>>>`\n- `:kt`\n\nDefaults to: **`___kt end`**"
           }
         },
         {
@@ -916,7 +916,7 @@
           "default": "___rb start",
           "description": {
             "header": "Ruby Programming Block Start",
-            "body": "Specific keyword to start a block of native Ruby code.\n\nExample Customizations:\n- `___rb start`\n- `_RB_BEGIN_`\n- `RAW_RB{`\n- `<<<rb`\n- `rb:`\n\nDefaults to: **`___rb start`**."
+            "body": "Specific keyword to start a block of native Ruby code.\n\nExample Customizations:\n- `___rb start`\n- `_RB_BEGIN_`\n- `RAW_RB{`\n- `<<<rb`\n- `rb:`\n\nDefaults to: **`___rb start`**"
           }
         },
         {
@@ -925,7 +925,7 @@
           "default": "___rb end",
           "description": {
             "header": "Ruby Programming Block End",
-            "body": "Specific keyword to end a block of native Ruby code.\n\nExample Customizations:\n- `___rb end`\n- `_RB_END_`\n- `}RAW_RB`\n- `rb>>>`\n- `:rb`\n\nDefaults to: **`___rb end`**."
+            "body": "Specific keyword to end a block of native Ruby code.\n\nExample Customizations:\n- `___rb end`\n- `_RB_END_`\n- `}RAW_RB`\n- `rb>>>`\n- `:rb`\n\nDefaults to: **`___rb end`**"
           }
         },
         {
@@ -934,7 +934,7 @@
           "default": "___nim start",
           "description": {
             "header": "Nim Programming Block Start",
-            "body": "Specific keyword to start a block of native Nim code.\n\nExample Customizations:\n- `___nim start`\n- `_NIM_BEGIN_`\n- `RAW_NIM{`\n- `<<<nim`\n- `nim:`\n\nDefaults to: **`___nim start`**."
+            "body": "Specific keyword to start a block of native Nim code.\n\nExample Customizations:\n- `___nim start`\n- `_NIM_BEGIN_`\n- `RAW_NIM{`\n- `<<<nim`\n- `nim:`\n\nDefaults to: **`___nim start`**"
           }
         },
         {
@@ -943,7 +943,7 @@
           "default": "___nim end",
           "description": {
             "header": "Nim Programming Block End",
-            "body": "Specific keyword to end a block of native Nim code.\n\nExample Customizations:\n- `___nim end`\n- `_NIM_END_`\n- `}RAW_NIM`\n- `nim>>>`\n- `:nim`\n\nDefaults to: **`___nim end`**."
+            "body": "Specific keyword to end a block of native Nim code.\n\nExample Customizations:\n- `___nim end`\n- `_NIM_END_`\n- `}RAW_NIM`\n- `nim>>>`\n- `:nim`\n\nDefaults to: **`___nim end`**"
           }
         },
         {
@@ -952,7 +952,7 @@
           "default": "___ahk start",
           "description": {
             "header": "AutoHotkey Programming Block Start",
-            "body": "Specific keyword to start a block of native AutoHotkey code.\n\nExample Customizations:\n- `___ahk start`\n- `_AHK_BEGIN_`\n- `RAW_AHK{`\n- `<<<ahk`\n- `ahk:`\n\nDefaults to: **`___ahk start`**."
+            "body": "Specific keyword to start a block of native AutoHotkey code.\n\nExample Customizations:\n- `___ahk start`\n- `_AHK_BEGIN_`\n- `RAW_AHK{`\n- `<<<ahk`\n- `ahk:`\n\nDefaults to: **`___ahk start`**"
           }
         },
         {
@@ -961,7 +961,7 @@
           "default": "___ahk end",
           "description": {
             "header": "AutoHotkey Programming Block End",
-            "body": "Specific keyword to end a block of native AutoHotkey code.\n\nExample Customizations:\n- `___ahk end`\n- `_AHK_END_`\n- `}RAW_AHK`\n- `ahk>>>`\n- `:ahk`\n\nDefaults to: **`___ahk end`**."
+            "body": "Specific keyword to end a block of native AutoHotkey code.\n\nExample Customizations:\n- `___ahk end`\n- `_AHK_END_`\n- `}RAW_AHK`\n- `ahk>>>`\n- `:ahk`\n\nDefaults to: **`___ahk end`**"
           }
         },
         {
@@ -970,7 +970,7 @@
           "default": "___swift start",
           "description": {
             "header": "Swift Programming Block Start",
-            "body": "Specific keyword to start a block of native Swift code.\n\nExample Customizations:\n- `___swift start`\n- `_SWIFT_BEGIN_`\n- `RAW_SWIFT{`\n- `<<<swift`\n- `swift:`\n\nDefaults to: **`___swift start`**."
+            "body": "Specific keyword to start a block of native Swift code.\n\nExample Customizations:\n- `___swift start`\n- `_SWIFT_BEGIN_`\n- `RAW_SWIFT{`\n- `<<<swift`\n- `swift:`\n\nDefaults to: **`___swift start`**"
           }
         },
         {
@@ -979,7 +979,7 @@
           "default": "___swift end",
           "description": {
             "header": "Swift Programming Block End",
-            "body": "Specific keyword to end a block of native Swift code.\n\nExample Customizations:\n- `___swift end`\n- `_SWIFT_END_`\n- `}RAW_SWIFT`\n- `swift>>>`\n- `:swift`\n\nDefaults to: **`___swift end`**."
+            "body": "Specific keyword to end a block of native Swift code.\n\nExample Customizations:\n- `___swift end`\n- `_SWIFT_END_`\n- `}RAW_SWIFT`\n- `swift>>>`\n- `:swift`\n\nDefaults to: **`___swift end`**"
           }
         },
         {
@@ -988,7 +988,7 @@
           "default": "___dart start",
           "description": {
             "header": "Dart Programming Block Start",
-            "body": "Specific keyword to start a block of native Dart code.\n\nExample Customizations:\n- `___dart start`\n- `_DART_BEGIN_`\n- `RAW_DART{`\n- `<<<dart`\n- `dart:`\n\nDefaults to: **`___dart start`**."
+            "body": "Specific keyword to start a block of native Dart code.\n\nExample Customizations:\n- `___dart start`\n- `_DART_BEGIN_`\n- `RAW_DART{`\n- `<<<dart`\n- `dart:`\n\nDefaults to: **`___dart start`**"
           }
         },
         {
@@ -997,7 +997,7 @@
           "default": "___dart end",
           "description": {
             "header": "Dart Programming Block End",
-            "body": "Specific keyword to end a block of native Dart code.\n\nExample Customizations:\n- `___dart end`\n- `_DART_END_`\n- `}RAW_DART`\n- `dart>>>`\n- `:dart`\n\nDefaults to: **`___dart end`**."
+            "body": "Specific keyword to end a block of native Dart code.\n\nExample Customizations:\n- `___dart end`\n- `_DART_END_`\n- `}RAW_DART`\n- `dart>>>`\n- `:dart`\n\nDefaults to: **`___dart end`**"
           }
         },
         {
@@ -1006,7 +1006,7 @@
           "default": "___ts start",
           "description": {
             "header": "TypeScript Programming Block Start",
-            "body": "Specific keyword to start a block of native TypeScript code.\n\nExample Customizations:\n- `___ts start`\n- `_TS_BEGIN_`\n- `RAW_TS{`\n- `<<<ts`\n- `ts:`\n\nDefaults to: **`___ts start`**."
+            "body": "Specific keyword to start a block of native TypeScript code.\n\nExample Customizations:\n- `___ts start`\n- `_TS_BEGIN_`\n- `RAW_TS{`\n- `<<<ts`\n- `ts:`\n\nDefaults to: **`___ts start`**"
           }
         },
         {
@@ -1015,7 +1015,7 @@
           "default": "___ts end",
           "description": {
             "header": "TypeScript Programming Block End",
-            "body": "Specific keyword to end a block of native TypeScript code.\n\nExample Customizations:\n- `___ts end`\n- `_TS_END_`\n- `}RAW_TS`\n- `ts>>>`\n- `:ts`\n\nDefaults to: **`___ts end`**."
+            "body": "Specific keyword to end a block of native TypeScript code.\n\nExample Customizations:\n- `___ts end`\n- `_TS_END_`\n- `}RAW_TS`\n- `ts>>>`\n- `:ts`\n\nDefaults to: **`___ts end`**"
           }
         },
         {
@@ -1024,7 +1024,7 @@
           "default": "___groovy start",
           "description": {
             "header": "Groovy Programming Block Start",
-            "body": "Specific keyword to start a block of native Groovy code.\n\nExample Customizations:\n- `___groovy start`\n- `_GROOVY_BEGIN_`\n- `RAW_GROOVY{`\n- `<<<groovy`\n- `groovy:`\n\nDefaults to: **`___groovy start`**."
+            "body": "Specific keyword to start a block of native Groovy code.\n\nExample Customizations:\n- `___groovy start`\n- `_GROOVY_BEGIN_`\n- `RAW_GROOVY{`\n- `<<<groovy`\n- `groovy:`\n\nDefaults to: **`___groovy start`**"
           }
         },
         {
@@ -1033,7 +1033,7 @@
           "default": "___groovy end",
           "description": {
             "header": "Groovy Programming Block End",
-            "body": "Specific keyword to end a block of native Groovy code.\n\nExample Customizations:\n- `___groovy end`\n- `_GROOVY_END_`\n- `}RAW_GROOVY`\n- `groovy>>>`\n- `:groovy`\n\nDefaults to: **`___groovy end`**."
+            "body": "Specific keyword to end a block of native Groovy code.\n\nExample Customizations:\n- `___groovy end`\n- `_GROOVY_END_`\n- `}RAW_GROOVY`\n- `groovy>>>`\n- `:groovy`\n\nDefaults to: **`___groovy end`**"
           }
         },
         {
@@ -1042,7 +1042,7 @@
           "default": "___htvm start",
           "description": {
             "header": "HTVM Programming Block Start (Target)",
-            "body": "Keyword to start a block of code that will *only* be included when the target language is another HTVM syntax (HTVM-to-HTVM conversion).\n\nExample Customizations:\n- `___htvm start`\n- `_HTVM_TGT_BEGIN_`\n- `RAW_HTVM{`\n- `<<<htvm_tgt`\n- `htvm_tgt:`\n\nDefaults to: **`___htvm start`**."
+            "body": "Keyword to start a block of code that will *only* be included when the target language is another HTVM syntax (HTVM-to-HTVM conversion).\n\nExample Customizations:\n- `___htvm start`\n- `_HTVM_TGT_BEGIN_`\n- `RAW_HTVM{`\n- `<<<htvm_tgt`\n- `htvm_tgt:`\n\nDefaults to: **`___htvm start`**"
           }
         },
         {
@@ -1051,7 +1051,7 @@
           "default": "___htvm end",
           "description": {
             "header": "HTVM Programming Block End (Target)",
-            "body": "Keyword to end a block of HTVM-targeted code.\n\nExample Customizations:\n- `___htvm end`\n- `_HTVM_TGT_END_`\n- `}RAW_HTVM`\n- `htvm_tgt>>>`\n- `:htvm_tgt`\n\nDefaults to: **`___htvm end`**."
+            "body": "Keyword to end a block of HTVM-targeted code.\n\nExample Customizations:\n- `___htvm end`\n- `_HTVM_TGT_END_`\n- `}RAW_HTVM`\n- `htvm_tgt>>>`\n- `:htvm_tgt`\n\nDefaults to: **`___htvm end`**"
           }
         },
         {
@@ -1060,7 +1060,7 @@
           "default": "___inhtvm start",
           "description": {
             "header": "HTVM Programming Block Start (Source - Reverse)",
-            "body": "Keyword used *inside* a native language file (like `.cpp`) to mark the beginning of a block that contains HTVM source code, intended for reverse processing.\n\nExample Customizations:\n- `___inhtvm start`\n- `_HTVM_SRC_BEGIN_`\n- `HTVM{`\n- `<<<htvm_src`\n- `htvm_src:`\n\nDefaults to: **`___inhtvm start`**."
+            "body": "Keyword used *inside* a native language file (like `.cpp`) to mark the beginning of a block that contains HTVM source code, intended for reverse processing.\n\nExample Customizations:\n- `___inhtvm start`\n- `_HTVM_SRC_BEGIN_`\n- `HTVM{`\n- `<<<htvm_src`\n- `htvm_src:`\n\nDefaults to: **`___inhtvm start`**"
           }
         },
         {
@@ -1069,7 +1069,7 @@
           "default": "___inhtvm end",
           "description": {
             "header": "HTVM Programming Block End (Source - Reverse)",
-            "body": "Keyword used *inside* a native language file to mark the end of an HTVM source code block.\n\nExample Customizations:\n- `___inhtvm end`\n- `_HTVM_SRC_END_`\n- `}HTVM`\n- `htvm_src>>>`\n- `:htvm_src`\n\nDefaults to: **`___inhtvm end`**."
+            "body": "Keyword used *inside* a native language file to mark the end of an HTVM source code block.\n\nExample Customizations:\n- `___inhtvm end`\n- `_HTVM_SRC_END_`\n- `}HTVM`\n- `htvm_src>>>`\n- `:htvm_src`\n\nDefaults to: **`___inhtvm end`**"
           }
         }
       ]
@@ -1083,7 +1083,7 @@
           "default": "null",
           "description": {
             "header": "Null Keyword",
-            "body": "Represents a null or non-existent value. Behavior may vary in target languages.\n\nExample Customizations:\n- `null`\n- `nil`\n- `None`\n- `undefined`\n- `NULLPTR`\n\nDefaults to: **`null`**."
+            "body": "Represents a null or non-existent value. Behavior may vary in target languages.\n\nExample Customizations:\n- `null`\n- `nil`\n- `None`\n- `undefined`\n- `NULLPTR`\n\nDefaults to: **`null`**"
           }
         },
         {
@@ -1092,7 +1092,7 @@
           "default": "true",
           "description": {
             "header": "True Keyword",
-            "body": "Represents the boolean true value.\n\nExample Customizations:\n- `true`\n- `True`\n- `yes`\n- `on`\n- `yeah`\n\nDefaults to: **`true`**."
+            "body": "Represents the boolean true value.\n\nExample Customizations:\n- `true`\n- `True`\n- `yes`\n- `on`\n- `yeah`\n\nDefaults to: **`true`**"
           }
         },
         {
@@ -1101,7 +1101,7 @@
           "default": "false",
           "description": {
             "header": "False Keyword",
-            "body": "Represents the boolean false value.\n\nExample Customizations:\n- `false`\n- `False`\n- `no`\n- `off`\n- `nah`\n\nDefaults to: **`false`**."
+            "body": "Represents the boolean false value.\n\nExample Customizations:\n- `false`\n- `False`\n- `no`\n- `off`\n- `nah`\n\nDefaults to: **`false`**"
           }
         },
         {
@@ -1110,7 +1110,7 @@
           "default": "continue",
           "description": {
             "header": "Continue Keyword",
-            "body": "Skips the rest of the current loop iteration and proceeds to the next one.\n\nExample Customizations:\n- `continue`\n- `skip`\n- `next`\n- `CONT`\n- `->`\n\nDefaults to: **`continue`**."
+            "body": "Skips the rest of the current loop iteration and proceeds to the next one.\n\nExample Customizations:\n- `continue`\n- `skip`\n- `next`\n- `CONT`\n- `->`\n\nDefaults to: **`continue`**"
           }
         },
         {
@@ -1119,7 +1119,7 @@
           "default": "break",
           "description": {
             "header": "Break Keyword",
-            "body": "Exits the current loop structure immediately.\n\nExample Customizations:\n- `break`\n- `exit loop`\n- `stop`\n- `BREAK`\n- `<-`\n\nDefaults to: **`break`**."
+            "body": "Exits the current loop structure immediately.\n\nExample Customizations:\n- `break`\n- `exit loop`\n- `stop`\n- `BREAK`\n- `<-`\n\nDefaults to: **`break`**"
           }
         },
         {
@@ -1128,7 +1128,7 @@
           "default": "await",
           "description": {
             "header": "Await Keyword",
-            "body": "Used within async functions to pause execution until a Promise (or equivalent asynchronous operation) settles.\n\nExample Customizations:\n- `await`\n- `wait`\n- `yield`\n- `sync`\n- `AWT`\n\nDefaults to: **`await`**."
+            "body": "Used within async functions to pause execution until a Promise (or equivalent asynchronous operation) settles.\n\nExample Customizations:\n- `await`\n- `wait`\n- `yield`\n- `sync`\n- `AWT`\n\nDefaults to: **`await`**"
           }
         },
         {
@@ -1137,7 +1137,7 @@
           "default": "async",
           "description": {
             "header": "Async Keyword",
-            "body": "Used to declare an asynchronous function.\n\nExample Customizations:\n- `async`\n- `waitable`\n- `ASYNC`\n- `future`\n- `@async`\n\nDefaults to: **`async`**."
+            "body": "Used to declare an asynchronous function.\n\nExample Customizations:\n- `async`\n- `waitable`\n- `ASYNC`\n- `future`\n- `@async`\n\nDefaults to: **`async`**"
           }
         },
         {
@@ -1146,7 +1146,7 @@
           "default": "throw",
           "description": {
             "header": "Throw Keyword",
-            "body": "Used to explicitly raise an exception or error.\n\nExample Customizations:\n- `throw`\n- `raise`\n- `error`\n- `exception`\n- `THROW!`\n\nDefaults to: **`throw`**."
+            "body": "Used to explicitly raise an exception or error.\n\nExample Customizations:\n- `throw`\n- `raise`\n- `error`\n- `exception`\n- `THROW!`\n\nDefaults to: **`throw`**"
           }
         },
         {
@@ -1155,7 +1155,7 @@
           "default": "ErrorMsg",
           "description": {
             "header": "Error Message Function Name",
-            "body": "The name of the function used in conjunction with 'throw' to create an error object or message.\n\nExample Customizations:\n- `ErrorMsg`\n- `MakeError`\n- `Exception`\n- `Err`\n- `panic`\n\nDefaults to: **`ErrorMsg`**."
+            "body": "The name of the function used in conjunction with 'throw' to create an error object or message.\n\nExample Customizations:\n- `ErrorMsg`\n- `MakeError`\n- `Exception`\n- `Err`\n- `panic`\n\nDefaults to: **`ErrorMsg`**"
           }
         },
         {
@@ -1164,7 +1164,7 @@
           "default": "return",
           "description": {
             "header": "Return Keyword",
-            "body": "Used to exit a function and optionally send a value back to the caller.\n\nExample Customizations:\n- `return`\n- `ret`\n- `yield back`\n- `yeet`\n- `<-func`\n\nDefaults to: **`return`**."
+            "body": "Used to exit a function and optionally send a value back to the caller.\n\nExample Customizations:\n- `return`\n- `ret`\n- `yield back`\n- `yeet`\n- `<-func`\n\nDefaults to: **`return`**"
           }
         },
         {
@@ -1173,7 +1173,7 @@
           "default": "var",
           "description": {
             "header": "Var Keyword",
-            "body": "Keyword for declaring variables (often function-scoped, primarily relevant for JavaScript/TypeScript targets).\n\nExample Customizations:\n- `var`\n- `variable`\n- `VAR`\n- `declare`\n- `%var%`\n\nDefaults to: **`var`**."
+            "body": "Keyword for declaring variables (often function-scoped, primarily relevant for JavaScript/TypeScript targets).\n\nExample Customizations:\n- `var`\n- `variable`\n- `VAR`\n- `declare`\n- `%var%`\n\nDefaults to: **`var`**"
           }
         },
         {
@@ -1182,7 +1182,7 @@
           "default": "let",
           "description": {
             "header": "Let Keyword",
-            "body": "Keyword for declaring block-scoped variables (primarily relevant for JavaScript/TypeScript targets).\n\nExample Customizations:\n- `let`\n- `local`\n- `LET`\n- `block var`\n- `::`\n\nDefaults to: **`let`**."
+            "body": "Keyword for declaring block-scoped variables (primarily relevant for JavaScript/TypeScript targets).\n\nExample Customizations:\n- `let`\n- `local`\n- `LET`\n- `block var`\n- `::`\n\nDefaults to: **`let`**"
           }
         },
         {
@@ -1191,7 +1191,7 @@
           "default": "const",
           "description": {
             "header": "Const Keyword",
-            "body": "Keyword for declaring block-scoped constants (variables whose value cannot be reassigned). Support varies by target language.\n\nExample Customizations:\n- `const`\n- `constant`\n- `final`\n- `CONST`\n- `readonly`\n\nDefaults to: **`const`**."
+            "body": "Keyword for declaring block-scoped constants (variables whose value cannot be reassigned). Support varies by target language.\n\nExample Customizations:\n- `const`\n- `constant`\n- `final`\n- `CONST`\n- `readonly`\n\nDefaults to: **`const`**"
           }
         },
         {
@@ -1200,7 +1200,7 @@
           "default": "end",
           "description": {
             "header": "End Keyword (for Blocks)",
-            "body": "Keyword used to explicitly close code blocks (e.g., functions, loops, conditionals) if the 'useEnd' setting is enabled.\n\nExample Customizations:\n- `end`\n- `end block`\n- `END`\n- `over`\n- `done`\n\nDefaults to: **`end`**."
+            "body": "Keyword used to explicitly close code blocks (e.g., functions, loops, conditionals) if the 'useEnd' setting is enabled.\n\nExample Customizations:\n- `end`\n- `end block`\n- `END`\n- `over`\n- `done`\n\nDefaults to: **`end`**"
           }
         },
         {
@@ -1209,7 +1209,7 @@
           "default": "global",
           "description": {
             "header": "Global Keyword",
-            "body": "Keyword used (primarily in Python/AHK targets) inside a function to indicate that an assignment should modify a global variable instead of creating a local one.\n\nExample Customizations:\n- `global`\n- `GLOBAL`\n- `use global`\n- `^`\n- `scope`\n\nDefaults to: **`global`**."
+            "body": "Keyword used (primarily in Python/AHK targets) inside a function to indicate that an assignment should modify a global variable instead of creating a local one.\n\nExample Customizations:\n- `global`\n- `GLOBAL`\n- `use global`\n- `^`\n- `scope`\n\nDefaults to: **`global`**"
           }
         },
         {
@@ -1218,7 +1218,7 @@
           "default": "//",
           "description": {
             "header": "Single-Line Comment Syntax",
-            "body": "The character(s) used to start a single-line comment.\n\nExample Customizations:\n- `//`\n- `;`\n- `#`\n- `--`\n- `REM`\n\nDefaults to: **`//`**."
+            "body": "The character(s) used to start a single-line comment.\n\nExample Customizations:\n- `//`\n- `;`\n- `#`\n- `--`\n- `REM`\n\nDefaults to: **`//`**"
           }
         },
         {
@@ -1227,7 +1227,7 @@
           "default": "/*",
           "description": {
             "header": "Multi-Line Comment Open Syntax",
-            "body": "The character(s) used to start a multi-line comment block.\n\nExample Customizations:\n- `/*`\n- `'''1`\n- `{-`\n- `<!--`\n- `BEGIN_COMMENT`\n\nDefaults to: **`/*`**."
+            "body": "The character(s) used to start a multi-line comment block.\n\nExample Customizations:\n- `/*`\n- `'''1`\n- `{-`\n- `<!--`\n- `BEGIN_COMMENT`\n\nDefaults to: **`/*`**"
           }
         },
         {
@@ -1236,7 +1236,7 @@
           "default": "*/",
           "description": {
             "header": "Multi-Line Comment Close Syntax",
-            "body": "The character(s) used to end a multi-line comment block.\n\nExample Customizations:\n- `*/`\n- `'''2`\n- `-}`\n- `-->`\n- `END_COMMENT`\n\nDefaults to: **`*/`**."
+            "body": "The character(s) used to end a multi-line comment block.\n\nExample Customizations:\n- `*/`\n- `'''2`\n- `-}`\n- `-->`\n- `END_COMMENT`\n\nDefaults to: **`*/`**"
           }
         },
         {
@@ -1245,7 +1245,7 @@
           "default": "include",
           "description": {
             "header": "Include Keyword",
-            "body": "Keyword used to include the content of another HTVM file at the current location.\n\nExample Customizations:\n- `include`\n- `import`\n- `require`\n- `#include`\n- `using`\n\nDefaults to: **`include`**."
+            "body": "Keyword used to include the content of another HTVM file at the current location.\n\nExample Customizations:\n- `include`\n- `import`\n- `require`\n- `#include`\n- `using`\n\nDefaults to: **`include`**"
           }
         },
         {
@@ -1254,7 +1254,7 @@
           "default": "++",
           "description": {
             "header": "Increment Operator",
-            "body": "Operator to increment a numeric variable (prefix or postfix behavior depends on target language).\n\nExample Customizations:\n- `++`\n- `inc`\n- `+1`\n- `increment`\n- `INC`\n\nDefaults to: **`++`**."
+            "body": "Operator to increment a numeric variable (prefix or postfix behavior depends on target language).\n\nExample Customizations:\n- `++`\n- `inc`\n- `+1`\n- `increment`\n- `INC`\n\nDefaults to: **`++`**"
           }
         },
         {
@@ -1263,7 +1263,7 @@
           "default": "--",
           "description": {
             "header": "Decrement Operator",
-            "body": "Operator to decrement a numeric variable (prefix or postfix behavior depends on target language).\n\nExample Customizations:\n- `--`\n- `dec`\n- `-1`\n- `decrement`\n- `DEC`\n\nDefaults to: **`--`**."
+            "body": "Operator to decrement a numeric variable (prefix or postfix behavior depends on target language).\n\nExample Customizations:\n- `--`\n- `dec`\n- `-1`\n- `decrement`\n- `DEC`\n\nDefaults to: **`--`**"
           }
         }
       ]
@@ -1277,7 +1277,7 @@
           "default": "main",
           "description": {
             "header": "Main Execution Label",
-            "body": "A label indicating the primary entry point for program execution, especially relevant if functions are defined.\n\nExample Customizations:\n- `main`\n- `start`\n- `entry`\n- `MAIN Func`\n- `__main__`\n\nDefaults to: **`main`**."
+            "body": "A label indicating the primary entry point for program execution, especially relevant if functions are defined.\n\nExample Customizations:\n- `main`\n- `start`\n- `entry`\n- `MAIN Func`\n- `__main__`\n\nDefaults to: **`main`**"
           }
         },
         {
@@ -1286,7 +1286,7 @@
           "default": "0",
           "description": {
             "header": "AHK-like Loop Start Index",
-            "body": "The starting value for `A_Index` in counted loops (`Loop, N`), (`Loop, Parse`) or even in the infinite loop. Set to `0` for zero-based indexing or `1` for one-based indexing. Non-numeric values might cause issues.\n\n(!!! NOT RECOMNED TO CHANGE UNLESS FOR SOME MEME LANG !!!)\n\n⚠️ Don't set to `1` just for AHK or Lua — HTVM auto-assumes based on the target lang.\n\nExample Customizations:\n- `0`\n- `1`\n- `69`\n- `-420`\n- `-1`\n\nDefaults to: **`0`**."
+            "body": "The starting value for `A_Index` in counted loops (`Loop, N`), (`Loop, Parse`) or even in the infinite loop. Set to `0` for zero-based indexing or `1` for one-based indexing. Non-numeric values might cause issues.\n\n(!!! NOT RECOMNED TO CHANGE UNLESS FOR SOME MEME LANG !!!)\n\n⚠️ Don't set to `1` just for AHK or Lua — HTVM auto-assumes based on the target lang.\n\nExample Customizations:\n- `0`\n- `1`\n- `69`\n- `-420`\n- `-1`\n\nDefaults to: **`0`**"
           }
         },
         {
@@ -1295,7 +1295,7 @@
           "default": "A_Index",
           "description": {
             "header": "Loop Index Variable Name",
-            "body": "The name of the built-in variable holding the current iteration number in counted and infinite loops.\n\nExample Customizations:\n- `A_Index`\n- `index`\n- `i`\n- `loop_counter`\n- `LOOP_IDX`\n\nDefaults to: **`A_Index`**."
+            "body": "The name of the built-in variable holding the current iteration number in counted and infinite loops.\n\nExample Customizations:\n- `A_Index`\n- `index`\n- `i`\n- `loop_counter`\n- `LOOP_IDX`\n\nDefaults to: **`A_Index`**"
           }
         },
         {
@@ -1304,7 +1304,7 @@
           "default": "A_LoopField",
           "description": {
             "header": "Loop Parse Variable Name",
-            "body": "The name of the built-in variable holding the current substring in parsing loops (`Loop, Parse,`).\n\nExample Customizations:\n- `A_LoopField`\n- `field`\n- `item`\n- `token`\n- `PARSE_VAR`\n\nDefaults to: **`A_LoopField`**."
+            "body": "The name of the built-in variable holding the current substring in parsing loops (`Loop, Parse,`).\n\nExample Customizations:\n- `A_LoopField`\n- `field`\n- `item`\n- `token`\n- `PARSE_VAR`\n\nDefaults to: **`A_LoopField`**"
           }
         },
         {
@@ -1313,7 +1313,7 @@
           "default": "\\",
           "description": {
             "header": "Escape Character",
-            "body": "The character used to escape special characters within strings (e.g., `\\n` for newline if `\\` is the escape char, or ```n` if ``` is).\n\nExample Customizations:\n- ```\n- `\\`\n- `$`\n- `%`\n- `ESC`\n\nDefaults to: **`\\`**."
+            "body": "The character used to escape special characters within strings (e.g., `\\n` for newline if `\\` is the escape char, or ```n` if ``` is).\n\nExample Customizations:\n- ```\n- `\\`\n- `$`\n- `%`\n- `ESC`\n\nDefaults to: **`\\`**"
           }
         },
         {
@@ -1322,7 +1322,7 @@
           "default": "{",
           "description": {
             "header": "Block Open Delimiter",
-            "body": "The character or keyword used to open a code block if the 'useCurlyBraces' setting is enabled.\n\nExample Customizations:\n- `{`\n- `begin`\n- `<`\n- `(`\n- `<block>`\n\nDefaults to: **`{`**."
+            "body": "The character or keyword used to open a code block if the 'useCurlyBraces' setting is enabled.\n\nExample Customizations:\n- `{`\n- `begin`\n- `<`\n- `(`\n- `<block>`\n\nDefaults to: **`{`**"
           }
         },
         {
@@ -1331,7 +1331,7 @@
           "default": "}",
           "description": {
             "header": "Block Close Delimiter",
-            "body": "The character or keyword used to close a code block if the 'useCurlyBraces' setting is enabled.\n\nExample Customizations:\n- `}`\n- `end`\n- `>`\n- `)`\n- `</block>`\n\nDefaults to: **`}`**."
+            "body": "The character or keyword used to close a code block if the 'useCurlyBraces' setting is enabled.\n\nExample Customizations:\n- `}`\n- `end`\n- `>`\n- `)`\n- `</block>`\n\nDefaults to: **`}`**"
           }
         },
         {
@@ -1340,7 +1340,7 @@
           "default": "StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1",
           "description": {
             "header": "Command Definitions",
-            "body": "Commands offer a simplified, often more concise, way to perform actions, automatically translating to function calls. This section details how to define these command syntaxes in your `HTVM-instructions.txt` file. For a general overview of using already defined commands in your HTVM code, see the main [Commands Documentation](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#commands).\n\n**Important Note on Scope:** HTVM commands (including `lineTranspile` ones) are processed by the HTVM transpiler *before* code is passed to a target language compiler/interpreter. Therefore, **HTVM commands do not work inside programming blocks** (e.g., `___js start ... ___js end`). Programming blocks are for writing native code directly in the target language, bypassing HTVM's command processing.\n\n## Command Definition Rules in `HTVM-instructions.txt`\n\nThe `commands` value in `HTVM-instructions.txt` is a pipe-separated (`|`) list of command definitions. Each definition follows the format: `HTVMCommandName,Rule1,Rule2,ParamName1,ParamName2,...`\n\nHere are the rules for how parameters are handled:\n\n### 1. `OUTVAR` Rule\nSpecifies that the first parameter in your HTVM command usage will be the variable that receives the result of the function call.\n- **Definition Syntax:** `CmdName,OUTVAR,arg1,arg2,...`\n- **HTVM Usage (Conceptual):** `CmdName, myOutputVar, val1, val2`\n- **Transpiles to (Conceptual):** `myOutputVar = CmdName(val1, val2)`\n\n#### Examples for `OUTVAR`\n\n1.  **Definition:** `CalculateSum,OUTVAR,num1,num2`\n    *   **HTVM Usage:**\n        ```htvm\n        CalculateSum, total, 5, 10\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        total = CalculateSum(5, 10)\n        ```\n\n2.  **Definition:** `FetchUserData,OUTVAR,userId`\n    *   **HTVM Usage:**\n        ```htvm\n        FetchUserData, userObj, 123\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        userObj = FetchUserData(123)\n        ```\n\n3.  **Definition:** `GetFileContent,OUTVAR,filePath`\n    *   **HTVM Usage:**\n        ```htvm\n        GetFileContent, fileData, \"data.txt\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        fileData = GetFileContent(\"data.txt\")\n        ```\n\n4.  **Definition:** `GenerateID,OUTVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        GenerateID, newId\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        newId = GenerateID()\n        ```\n\n5.  **Definition:** `ConvertToUpper,OUTVAR,textIn`\n    *   **HTVM Usage:**\n        ```htvm\n        ConvertToUpper, upperCaseText, \"hello world\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        upperCaseText = ConvertToUpper(\"hello world\")\n        ```\n\n6.  **Definition:** `ParseConfig,OUTVAR,fileName`\n    *   **HTVM Usage:**\n        ```htvm\n        ParseConfig, settings, \"app.cfg\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        settings = ParseConfig(\"app.cfg\")\n        ```\n\n7.  **Definition:** `FindMax,OUTVAR,val1,val2,val3`\n    *   **HTVM Usage:**\n        ```htvm\n        FindMax, maximum, 10, 50, 20\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        maximum = FindMax(10, 50, 20)\n        ```\n\n8.  **Definition:** `QueryDB,OUTVAR,sql`\n    *   **HTVM Usage:**\n        ```htvm\n        QueryDB, results, \"SELECT * FROM users\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        results = QueryDB(\"SELECT * FROM users\")\n        ```\n\n9.  **Definition:** `IsServiceRunning,OUTVAR,serviceName`\n    *   **HTVM Usage:**\n        ```htvm\n        IsServiceRunning, status, \"WebService\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        status = IsServiceRunning(\"WebService\")\n        ```\n\n10. **Definition:** `CreatePoint,OUTVAR,x,y`\n    *   **HTVM Usage:**\n        ```htvm\n        CreatePoint, p1, 0, 0\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        p1 = CreatePoint(0, 0)\n        ```\n\n### 2. `INVAR` Rule\nSpecifies that the first parameter in your HTVM command usage will be passed as the *first argument* to the function call. Subsequent parameters in the HTVM command follow as subsequent arguments.\n- **Definition Syntax:** `CmdName,INVAR,arg1,arg2,...`\n- **HTVM Usage (Conceptual):** `CmdName, myInputVar, val1, val2`\n- **Transpiles to (Conceptual):** `CmdName(myInputVar, val1, val2)`\n\n#### Examples for `INVAR`\n\n1.  **Definition:** `PrintValue,INVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        PrintValue, someVariable\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        PrintValue(someVariable)\n        ```\n\n2.  **Definition:** `LogMessage,INVAR,level`\n    *   **HTVM Usage:**\n        ```htvm\n        LogMessage, \"System Critical\", \"ERROR\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        LogMessage(\"System Critical\", \"ERROR\")\n        ```\n\n3.  **Definition:** `SetValue,INVAR,newValue`\n    *   **HTVM Usage:**\n        ```htvm\n        SetValue, targetVariable, 100\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SetValue(targetVariable, 100)\n        ```\n\n4.  **Definition:** `AppendToList,INVAR,item`\n    *   **HTVM Usage:**\n        ```htvm\n        AppendToList, existingList, \"new_item\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        AppendToList(existingList, \"new_item\")\n        ```\n\n5.  **Definition:** `UpdateRecord,INVAR,data`\n    *   **HTVM Usage:**\n        ```htvm\n        UpdateRecord, recordIdVar, updatedFieldsVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        UpdateRecord(recordIdVar, updatedFieldsVar)\n        ```\n\n6.  **Definition:** `SendCommandToDevice,INVAR,code`\n    *   **HTVM Usage:**\n        ```htvm\n        SendCommandToDevice, \"Device01\", 255\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SendCommandToDevice(\"Device01\", 255)\n        ```\n\n7.  **Definition:** `SetColor,INVAR,color`\n    *   **HTVM Usage:**\n        ```htvm\n        SetColor, uiElementVar, \"red\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SetColor(uiElementVar, \"red\")\n        ```\n\n8.  **Definition:** `ValidateInput,INVAR,rule`\n    *   **HTVM Usage:**\n        ```htvm\n        ValidateInput, userInputVar, \"EMAIL_REGEX\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        ValidateInput(userInputVar, \"EMAIL_REGEX\")\n        ```\n\n9.  **Definition:** `RegisterCallback,INVAR,funcName`\n    *   **HTVM Usage:**\n        ```htvm\n        RegisterCallback, \"on_click\", MyCallbackHandler\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        RegisterCallback(\"on_click\", MyCallbackHandler)\n        ```\n\n10. **Definition:** `RunProcess,INVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        RunProcess, \"cleanup_script.sh\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        RunProcess(\"cleanup_script.sh\")\n        ```\n\n### 3. `INOUTVAR` Rule\nSpecifies that the first parameter in your HTVM command usage is both an input to the function (as its first argument) and the variable that receives the function's result.\n- **Definition Syntax:** `CmdName,INOUTVAR,arg1,arg2,...`\n- **HTVM Usage (Conceptual):** `CmdName, myVar, val1, val2`\n- **Transpiles to (Conceptual):** `myVar = CmdName(myVar, val1, val2)`\n\n#### Examples for `INOUTVAR`\n\n1.  **Definition:** `Increment,INOUTVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        Increment, counterVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        counterVar = Increment(counterVar)\n        ```\n\n2.  **Definition:** `SortList,INOUTVAR,order`\n    *   **HTVM Usage:**\n        ```htvm\n        SortList, dataArrayVar, \"ASC\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        dataArrayVar = SortList(dataArrayVar, \"ASC\")\n        ```\n\n3.  **Definition:** `TrimString,INOUTVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        TrimString, textToTrimVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        textToTrimVar = TrimString(textToTrimVar)\n        ```\n\n4.  **Definition:** `NormalizeData,INOUTVAR,factor`\n    *   **HTVM Usage:**\n        ```htvm\n        NormalizeData, rawValuesVar, 0.5\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        rawValuesVar = NormalizeData(rawValuesVar, 0.5)\n        ```\n\n5.  **Definition:** `ApplyFilter,INOUTVAR,filter`\n    *   **HTVM Usage:**\n        ```htvm\n        ApplyFilter, imageVar, \"BLUR\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        imageVar = ApplyFilter(imageVar, \"BLUR\")\n        ```\n\n6.  **Definition:** `ShuffleArray,INOUTVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        ShuffleArray, cardDeckVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        cardDeckVar = ShuffleArray(cardDeckVar)\n        ```\n\n7.  **Definition:** `SanitizeHTML,INOUTVAR,level`\n    *   **HTVM Usage:**\n        ```htvm\n        SanitizeHTML, htmlContentVar, \"strict\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        htmlContentVar = SanitizeHTML(htmlContentVar, \"strict\")\n        ```\n\n8.  **Definition:** `ProcessQueueItem,INOUTVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        ProcessQueueItem, currentItemVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        currentItemVar = ProcessQueueItem(currentItemVar)\n        ```\n\n9.  **Definition:** `UpdateCounter,INOUTVAR,amount`\n    *   **HTVM Usage:**\n        ```htvm\n        UpdateCounter, visitCountVar, 1\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        visitCountVar = UpdateCounter(visitCountVar, 1)\n        ```\n\n10. **Definition:** `TransformCoordinates,INOUTVAR,matrix`\n    *   **HTVM Usage:**\n        ```htvm\n        TransformCoordinates, pointsVar, matrixVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        pointsVar = TransformCoordinates(pointsVar, matrixVar)\n        ```\n\n### 4. `'parameterName` (Literal String) Rule\nPrefixing a parameter name in the definition with a single quote (e.g., `'param1`) means that when the user provides a value for this parameter in their HTVM command, that value will be automatically wrapped in double quotes (`\\\"\\\"`) when passed to the transpiled function, treating it as a string literal. **The user does *not* type the single quote in their HTVM code; it's a marker for the definition.** If the HTVM usage provides a value with spaces, HTVM automatically handles quoting for that specific parameter. If the HTVM usage is a single word without spaces for such a parameter, it will also be wrapped in quotes in the transpiled output.\n- **Definition Syntax:** `CmdName,'stringArg1,regularArg1,...`\n- **HTVM Usage (Conceptual):** `CmdName, Some Text Here, val1` or `CmdName, SingleWord, val1`\n- **Transpiles to (Conceptual):** `CmdName(\\\"Some Text Here\\\", val1)` or `CmdName(\\\"SingleWord\\\", val1)`\n\n#### Examples for `'parameterName`\n\n1.  **Definition:** `ShowAlert,'message`\n    *   **HTVM Usage:**\n        ```htvm\n        ShowAlert, Operation Successful\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        ShowAlert(\\\"Operation Successful\\\")\n        ```\n\n2.  **Definition:** `SetLabel,'text,id`\n    *   **HTVM Usage:**\n        ```htvm\n        SetLabel, User Name, labelIdVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SetLabel(\\\"User Name\\\", labelIdVar)\n        ```\n\n3.  **Definition:** `LogToFile,'entry,'fileName`\n    *   **HTVM Usage:**\n        ```htvm\n        LogToFile, System started, app.log\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        LogToFile(\\\"System started\\\", \\\"app.log\\\")\n        ```\n\n4.  **Definition:** `MsgBox,'text` (As in your default example)\n    *   **HTVM Usage:**\n        ```htvm\n        MsgBox, Hello there friend\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        MsgBox(\\\"Hello there friend\\\")\n        ```\n\n5.  **Definition:** `SetWindowTitle,'title`\n    *   **HTVM Usage:**\n        ```htvm\n        SetWindowTitle, My Application v1.0\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SetWindowTitle(\\\"My Application v1.0\\\")\n        ```\n\n6.  **Definition:** `CreateFile,'content,name`\n    *   **HTVM Usage:**\n        ```htvm\n        CreateFile, # Empty config, fileNameVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        CreateFile(\\\"# Empty config\\\", fileNameVar)\n        ```\n\n7.  **Definition:** `RunScript,'path`\n    *   **HTVM Usage:**\n        ```htvm\n        RunScript, /opt/scripts/backup.sh\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        RunScript(\\\"/opt/scripts/backup.sh\\\")\n        ```\n\n8.  **Definition:** `DisplayHelp,'topic`\n    *   **HTVM Usage:**\n        ```htvm\n        DisplayHelp, Saving Files\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        DisplayHelp(\\\"Saving Files\\\")\n        ```\n\n9.  **Definition:** `SendEmail,'subject,recipient,'body`\n    *   **HTVM Usage:**\n        ```htvm\n        SendEmail, Meeting Reminder, toAddressVar, Dont forget our meeting\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SendEmail(\\\"Meeting Reminder\\\", toAddressVar, \\\"Dont forget our meeting\\\")\n        ```\n\n10. **Definition:** `FindFile,'pattern,'path`\n    *   **HTVM Usage:**\n        ```htvm\n        FindFile, *.txt, /home/user/docs\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        FindFile(\\\"*.txt\\\", \\\"/home/user/docs\\\")\n        ```\n\n### 5. `lineTranspile` Rule\nIf a command definition uses `lineTranspile`, it means that if the HTVM command name appears on a line by itself in the user's code, that entire line will be replaced by the text provided in the third part of the command definition. If this replacement text contains `~~~`, these will be converted into actual newlines in the transpiled code. **The replacement is raw text; no automatic semicolons or language-specific syntax modifications are added beyond what's in the definition.**\n- **Definition Syntax:** `CmdName,lineTranspile,Replacement text~~~More replacement text`\n- **HTVM Usage (Conceptual):** (CmdName on its own line)\n    ```htvm\n    CmdName\n    ```\n- **Transpiles to (Conceptual):** (Raw text replacement)\n    ```\n    Replacement text\n    More replacement text\n    ```\n\n#### Examples for `lineTranspile`\n\n1.  **Definition:** `InitApp,lineTranspile,LoadConfig()~~~ConnectDatabase()~~~SetupUI()`\n    *   **HTVM Usage:**\n        ```htvm\n        InitApp\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```\n        LoadConfig()\n        ConnectDatabase()\n        SetupUI()\n        ```\n\n2.  **Definition:** `StandardHeader,lineTranspile,// Copyright 2024 MyCompany~~~// All rights reserved.`\n    *   **HTVM Usage:**\n        ```htvm\n        StandardHeader\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```\n        // Copyright 2024 MyCompany\n        // All rights reserved.\n        ```\n\n3.  **Definition:** `PrintSeparator,lineTranspile,print(\\\"====================\\\")`\n    *   **HTVM Usage:**\n        ```htvm\n        PrintSeparator\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```\n        print(\\\"====================\\\")\n        ```\n\n4.  **Definition:** `BoilerplateHTML,lineTranspile,<html>~~~<head>~~~<title>Doc</title>~~~</head>~~~<body></body>~~~</html>`\n    *   **HTVM Usage:**\n        ```htvm\n        BoilerplateHTML\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```html\n        <html>\n        <head>\n        <title>Doc</title>\n        </head>\n        <body></body>\n        </html>\n        ```\n\n5.  **Definition:** `DebugBreak,lineTranspile,debugger`\n    *   **HTVM Usage:**\n        ```htvm\n        DebugBreak\n        ```\n    *   **Transpiles to (Raw Text, e.g. JS):**\n        ```javascript\n        debugger\n        ```\n\n6.  **Definition:** `ResetVars,lineTranspile,x = 0~~~y = 0~~~z = \\\"\\\"`\n    *   **HTVM Usage:**\n        ```htvm\n        ResetVars\n        ```\n    *   **Transpiles to (Raw Text, assuming target uses `=` for assignment):**\n        ```\n        x = 0\n        y = 0\n        z = \\\"\\\"\n        ```\n\n7.  **Definition:** `LogTimestamp,lineTranspile,LogMessage(GetCurrentTime(), \\\"INFO\\\")`\n    *   **HTVM Usage:**\n        ```htvm\n        LogTimestamp\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```\n        LogMessage(GetCurrentTime(), \\\"INFO\\\")\n        ```\n\n8.  **Definition:** `IncludeCommonLibs,lineTranspile,#include <iostream>~~~#include <vector>~~~#include <string>`\n    *   **HTVM Usage:**\n        ```htvm\n        IncludeCommonLibs\n        ```\n    *   **Transpiles to (Raw Text, e.g., C++):**\n        ```cpp\n        #include <iostream>\n        #include <vector>\n        #include <string>\n        ```\n\n9.  **Definition:** `ExitGracefully,lineTranspile,SaveState()~~~CloseConnections()~~~ExitApp(0)`\n    *   **HTVM Usage:**\n        ```htvm\n        ExitGracefully\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```\n        SaveState()\n        CloseConnections()\n        ExitApp(0)\n        ```\n\n10. **Definition:** `ShowVersion,lineTranspile,print(\\\"App Version 1.2.3\\\")`\n    *   **HTVM Usage:**\n        ```htvm\n        ShowVersion\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```\n        print(\\\"App Version 1.2.3\\\")\n        ```\n\n### 6. Regular Parameters (No Special Rule Keyword)\nIf a parameter name in the definition does not have `OUTVAR`, `INVAR`, `INOUTVAR` before it, and is not prefixed by a single quote (`'`), it's treated as a regular input parameter. Its value from the HTVM command usage is passed directly to the corresponding argument in the function call.\n- **Definition Syntax:** `CmdName,param1,param2,...`\n- **HTVM Usage (Conceptual):** `CmdName, val1, val2`\n- **Transpiles to (Conceptual):** `CmdName(val1, val2)` (This assumes no `OUTVAR`, `INVAR`, or `INOUTVAR` is also present to modify this default behavior. If `OUTVAR` is present, for example, these become regular arguments *after* the assignment.)\n\n#### Examples for Regular Parameters\n\n1.  **Definition:** `DrawRectangle,x,y,width,height,color`\n    *   **HTVM Usage:**\n        ```htvm\n        DrawRectangle, 10, 20, 100, 50, \"blue\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        DrawRectangle(10, 20, 100, 50, \"blue\")\n        ```\n\n2.  **Definition:** `MoveObject,objId,newX,newY`\n    *   **HTVM Usage:**\n        ```htvm\n        MoveObject, playerSpriteVar, 500, 300\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        MoveObject(playerSpriteVar, 500, 300)\n        ```\n\n3.  **Definition:** `SetVolume,level`\n    *   **HTVM Usage:**\n        ```htvm\n        SetVolume, 75\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SetVolume(75)\n        ```\n\n4.  **Definition:** `Sleep,duration` (From your default example)\n    *   **HTVM Usage:**\n        ```htvm\n        Sleep, 1000\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        Sleep(1000)\n        ```\n\n5.  **Definition:** `ConnectToServer,ip,port`\n    *   **HTVM Usage:**\n        ```htvm\n        ConnectToServer, \"192.168.1.100\", 8080\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        ConnectToServer(\"192.168.1.100\", 8080)\n        ```\n\n6.  **Definition:** `WritePixel,x,y,color`\n    *   **HTVM Usage:**\n        ```htvm\n        WritePixel, 5, 15, 0xFF0000\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        WritePixel(5, 15, 0xFF0000)\n        ```\n\n7.  **Definition:** `ResizeImage,width,height,method`\n    *   **HTVM Usage:**\n        ```htvm\n        ResizeImage, 800, 600, \"bicubic\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        ResizeImage(800, 600, \"bicubic\")\n        ```\n\n8.  **Definition:** `AddUserToGroup,user,group`\n    *   **HTVM Usage:**\n        ```htvm\n        AddUserToGroup, userVar, groupVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        AddUserToGroup(userVar, groupVar)\n        ```\n\n9.  **Definition:** `SetTimeout,callback,delay`\n    *   **HTVM Usage:**\n        ```htvm\n        SetTimeout, MyTimeoutHandlerFunc, 5000\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SetTimeout(MyTimeoutHandlerFunc, 5000)\n        ```\n\n10. **Definition:** `Random,OUTVAR,min,max` (Combines `OUTVAR` with regular params)\n    *   **HTVM Usage:**\n        ```htvm\n        Random, randomNumberVar, 1, 100\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        randomNumberVar = Random(1, 100)\n        ```\n\n\n**Important Note:** If `CmdName` corresponds to a special HTVM built-in operation that maps to a differently named function in the target language, HTVM handles that mapping. Otherwise, the `CmdName` itself is used as the function name in the transpiled code.\n\nExample Customizations of Command Definitions (how they might look in the `HTVM-instructions.txt` `commands` string):\n- `StringTrimLeft,OUTVAR,INVAR,param1|...`\n- `TrimL,OUTVAR,INVAR,num|...`\n- `LTrim,out,in,count|...`\n- `cmd_trim_left,OUTVAR,INVAR,count|...`\n- `REMOVE_LEADING,INOUTVAR,numChars|...`\n\nDefaults to the predefined list: **`StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1`**."
+            "body": "Commands offer a simplified, often more concise, way to perform actions, automatically translating to function calls. This section details how to define these command syntaxes in your `HTVM-instructions.txt` file. For a general overview of using already defined commands in your HTVM code, see the main [Commands Documentation](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#commands).\n\n**Important Note on Scope:** HTVM commands (including `lineTranspile` ones) are processed by the HTVM transpiler *before* code is passed to a target language compiler/interpreter. Therefore, **HTVM commands do not work inside programming blocks** (e.g., `___js start ... ___js end`). Programming blocks are for writing native code directly in the target language, bypassing HTVM's command processing.\n\n## Command Definition Rules in `HTVM-instructions.txt`\n\nThe `commands` value in `HTVM-instructions.txt` is a pipe-separated (`|`) list of command definitions. Each definition follows the format: `HTVMCommandName,Rule1,Rule2,ParamName1,ParamName2,...`\n\nHere are the rules for how parameters are handled:\n\n### 1. `OUTVAR` Rule\nSpecifies that the first parameter in your HTVM command usage will be the variable that receives the result of the function call.\n- **Definition Syntax:** `CmdName,OUTVAR,arg1,arg2,...`\n- **HTVM Usage (Conceptual):** `CmdName, myOutputVar, val1, val2`\n- **Transpiles to (Conceptual):** `myOutputVar = CmdName(val1, val2)`\n\n#### Examples for `OUTVAR`\n\n1.  **Definition:** `CalculateSum,OUTVAR,num1,num2`\n    *   **HTVM Usage:**\n        ```htvm\n        CalculateSum, total, 5, 10\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        total = CalculateSum(5, 10)\n        ```\n\n2.  **Definition:** `FetchUserData,OUTVAR,userId`\n    *   **HTVM Usage:**\n        ```htvm\n        FetchUserData, userObj, 123\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        userObj = FetchUserData(123)\n        ```\n\n3.  **Definition:** `GetFileContent,OUTVAR,filePath`\n    *   **HTVM Usage:**\n        ```htvm\n        GetFileContent, fileData, \"data.txt\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        fileData = GetFileContent(\"data.txt\")\n        ```\n\n4.  **Definition:** `GenerateID,OUTVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        GenerateID, newId\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        newId = GenerateID()\n        ```\n\n5.  **Definition:** `ConvertToUpper,OUTVAR,textIn`\n    *   **HTVM Usage:**\n        ```htvm\n        ConvertToUpper, upperCaseText, \"hello world\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        upperCaseText = ConvertToUpper(\"hello world\")\n        ```\n\n6.  **Definition:** `ParseConfig,OUTVAR,fileName`\n    *   **HTVM Usage:**\n        ```htvm\n        ParseConfig, settings, \"app.cfg\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        settings = ParseConfig(\"app.cfg\")\n        ```\n\n7.  **Definition:** `FindMax,OUTVAR,val1,val2,val3`\n    *   **HTVM Usage:**\n        ```htvm\n        FindMax, maximum, 10, 50, 20\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        maximum = FindMax(10, 50, 20)\n        ```\n\n8.  **Definition:** `QueryDB,OUTVAR,sql`\n    *   **HTVM Usage:**\n        ```htvm\n        QueryDB, results, \"SELECT * FROM users\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        results = QueryDB(\"SELECT * FROM users\")\n        ```\n\n9.  **Definition:** `IsServiceRunning,OUTVAR,serviceName`\n    *   **HTVM Usage:**\n        ```htvm\n        IsServiceRunning, status, \"WebService\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        status = IsServiceRunning(\"WebService\")\n        ```\n\n10. **Definition:** `CreatePoint,OUTVAR,x,y`\n    *   **HTVM Usage:**\n        ```htvm\n        CreatePoint, p1, 0, 0\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        p1 = CreatePoint(0, 0)\n        ```\n\n### 2. `INVAR` Rule\nSpecifies that the first parameter in your HTVM command usage will be passed as the *first argument* to the function call. Subsequent parameters in the HTVM command follow as subsequent arguments.\n- **Definition Syntax:** `CmdName,INVAR,arg1,arg2,...`\n- **HTVM Usage (Conceptual):** `CmdName, myInputVar, val1, val2`\n- **Transpiles to (Conceptual):** `CmdName(myInputVar, val1, val2)`\n\n#### Examples for `INVAR`\n\n1.  **Definition:** `PrintValue,INVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        PrintValue, someVariable\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        PrintValue(someVariable)\n        ```\n\n2.  **Definition:** `LogMessage,INVAR,level`\n    *   **HTVM Usage:**\n        ```htvm\n        LogMessage, \"System Critical\", \"ERROR\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        LogMessage(\"System Critical\", \"ERROR\")\n        ```\n\n3.  **Definition:** `SetValue,INVAR,newValue`\n    *   **HTVM Usage:**\n        ```htvm\n        SetValue, targetVariable, 100\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SetValue(targetVariable, 100)\n        ```\n\n4.  **Definition:** `AppendToList,INVAR,item`\n    *   **HTVM Usage:**\n        ```htvm\n        AppendToList, existingList, \"new_item\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        AppendToList(existingList, \"new_item\")\n        ```\n\n5.  **Definition:** `UpdateRecord,INVAR,data`\n    *   **HTVM Usage:**\n        ```htvm\n        UpdateRecord, recordIdVar, updatedFieldsVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        UpdateRecord(recordIdVar, updatedFieldsVar)\n        ```\n\n6.  **Definition:** `SendCommandToDevice,INVAR,code`\n    *   **HTVM Usage:**\n        ```htvm\n        SendCommandToDevice, \"Device01\", 255\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SendCommandToDevice(\"Device01\", 255)\n        ```\n\n7.  **Definition:** `SetColor,INVAR,color`\n    *   **HTVM Usage:**\n        ```htvm\n        SetColor, uiElementVar, \"red\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SetColor(uiElementVar, \"red\")\n        ```\n\n8.  **Definition:** `ValidateInput,INVAR,rule`\n    *   **HTVM Usage:**\n        ```htvm\n        ValidateInput, userInputVar, \"EMAIL_REGEX\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        ValidateInput(userInputVar, \"EMAIL_REGEX\")\n        ```\n\n9.  **Definition:** `RegisterCallback,INVAR,funcName`\n    *   **HTVM Usage:**\n        ```htvm\n        RegisterCallback, \"on_click\", MyCallbackHandler\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        RegisterCallback(\"on_click\", MyCallbackHandler)\n        ```\n\n10. **Definition:** `RunProcess,INVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        RunProcess, \"cleanup_script.sh\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        RunProcess(\"cleanup_script.sh\")\n        ```\n\n### 3. `INOUTVAR` Rule\nSpecifies that the first parameter in your HTVM command usage is both an input to the function (as its first argument) and the variable that receives the function's result.\n- **Definition Syntax:** `CmdName,INOUTVAR,arg1,arg2,...`\n- **HTVM Usage (Conceptual):** `CmdName, myVar, val1, val2`\n- **Transpiles to (Conceptual):** `myVar = CmdName(myVar, val1, val2)`\n\n#### Examples for `INOUTVAR`\n\n1.  **Definition:** `Increment,INOUTVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        Increment, counterVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        counterVar = Increment(counterVar)\n        ```\n\n2.  **Definition:** `SortList,INOUTVAR,order`\n    *   **HTVM Usage:**\n        ```htvm\n        SortList, dataArrayVar, \"ASC\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        dataArrayVar = SortList(dataArrayVar, \"ASC\")\n        ```\n\n3.  **Definition:** `TrimString,INOUTVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        TrimString, textToTrimVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        textToTrimVar = TrimString(textToTrimVar)\n        ```\n\n4.  **Definition:** `NormalizeData,INOUTVAR,factor`\n    *   **HTVM Usage:**\n        ```htvm\n        NormalizeData, rawValuesVar, 0.5\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        rawValuesVar = NormalizeData(rawValuesVar, 0.5)\n        ```\n\n5.  **Definition:** `ApplyFilter,INOUTVAR,filter`\n    *   **HTVM Usage:**\n        ```htvm\n        ApplyFilter, imageVar, \"BLUR\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        imageVar = ApplyFilter(imageVar, \"BLUR\")\n        ```\n\n6.  **Definition:** `ShuffleArray,INOUTVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        ShuffleArray, cardDeckVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        cardDeckVar = ShuffleArray(cardDeckVar)\n        ```\n\n7.  **Definition:** `SanitizeHTML,INOUTVAR,level`\n    *   **HTVM Usage:**\n        ```htvm\n        SanitizeHTML, htmlContentVar, \"strict\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        htmlContentVar = SanitizeHTML(htmlContentVar, \"strict\")\n        ```\n\n8.  **Definition:** `ProcessQueueItem,INOUTVAR`\n    *   **HTVM Usage:**\n        ```htvm\n        ProcessQueueItem, currentItemVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        currentItemVar = ProcessQueueItem(currentItemVar)\n        ```\n\n9.  **Definition:** `UpdateCounter,INOUTVAR,amount`\n    *   **HTVM Usage:**\n        ```htvm\n        UpdateCounter, visitCountVar, 1\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        visitCountVar = UpdateCounter(visitCountVar, 1)\n        ```\n\n10. **Definition:** `TransformCoordinates,INOUTVAR,matrix`\n    *   **HTVM Usage:**\n        ```htvm\n        TransformCoordinates, pointsVar, matrixVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        pointsVar = TransformCoordinates(pointsVar, matrixVar)\n        ```\n\n### 4. `'parameterName` (Literal String) Rule\nPrefixing a parameter name in the definition with a single quote (e.g., `'param1`) means that when the user provides a value for this parameter in their HTVM command, that value will be automatically wrapped in double quotes (`\\\"\\\"`) when passed to the transpiled function, treating it as a string literal. **The user does *not* type the single quote in their HTVM code; it's a marker for the definition.** If the HTVM usage provides a value with spaces, HTVM automatically handles quoting for that specific parameter. If the HTVM usage is a single word without spaces for such a parameter, it will also be wrapped in quotes in the transpiled output.\n- **Definition Syntax:** `CmdName,'stringArg1,regularArg1,...`\n- **HTVM Usage (Conceptual):** `CmdName, Some Text Here, val1` or `CmdName, SingleWord, val1`\n- **Transpiles to (Conceptual):** `CmdName(\\\"Some Text Here\\\", val1)` or `CmdName(\\\"SingleWord\\\", val1)`\n\n#### Examples for `'parameterName`\n\n1.  **Definition:** `ShowAlert,'message`\n    *   **HTVM Usage:**\n        ```htvm\n        ShowAlert, Operation Successful\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        ShowAlert(\\\"Operation Successful\\\")\n        ```\n\n2.  **Definition:** `SetLabel,'text,id`\n    *   **HTVM Usage:**\n        ```htvm\n        SetLabel, User Name, labelIdVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SetLabel(\\\"User Name\\\", labelIdVar)\n        ```\n\n3.  **Definition:** `LogToFile,'entry,'fileName`\n    *   **HTVM Usage:**\n        ```htvm\n        LogToFile, System started, app.log\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        LogToFile(\\\"System started\\\", \\\"app.log\\\")\n        ```\n\n4.  **Definition:** `MsgBox,'text` (As in your default example)\n    *   **HTVM Usage:**\n        ```htvm\n        MsgBox, Hello there friend\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        MsgBox(\\\"Hello there friend\\\")\n        ```\n\n5.  **Definition:** `SetWindowTitle,'title`\n    *   **HTVM Usage:**\n        ```htvm\n        SetWindowTitle, My Application v1.0\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SetWindowTitle(\\\"My Application v1.0\\\")\n        ```\n\n6.  **Definition:** `CreateFile,'content,name`\n    *   **HTVM Usage:**\n        ```htvm\n        CreateFile, # Empty config, fileNameVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        CreateFile(\\\"# Empty config\\\", fileNameVar)\n        ```\n\n7.  **Definition:** `RunScript,'path`\n    *   **HTVM Usage:**\n        ```htvm\n        RunScript, /opt/scripts/backup.sh\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        RunScript(\\\"/opt/scripts/backup.sh\\\")\n        ```\n\n8.  **Definition:** `DisplayHelp,'topic`\n    *   **HTVM Usage:**\n        ```htvm\n        DisplayHelp, Saving Files\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        DisplayHelp(\\\"Saving Files\\\")\n        ```\n\n9.  **Definition:** `SendEmail,'subject,recipient,'body`\n    *   **HTVM Usage:**\n        ```htvm\n        SendEmail, Meeting Reminder, toAddressVar, Dont forget our meeting\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SendEmail(\\\"Meeting Reminder\\\", toAddressVar, \\\"Dont forget our meeting\\\")\n        ```\n\n10. **Definition:** `FindFile,'pattern,'path`\n    *   **HTVM Usage:**\n        ```htvm\n        FindFile, *.txt, /home/user/docs\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        FindFile(\\\"*.txt\\\", \\\"/home/user/docs\\\")\n        ```\n\n### 5. `lineTranspile` Rule\nIf a command definition uses `lineTranspile`, it means that if the HTVM command name appears on a line by itself in the user's code, that entire line will be replaced by the text provided in the third part of the command definition. If this replacement text contains `~~~`, these will be converted into actual newlines in the transpiled code. **The replacement is raw text; no automatic semicolons or language-specific syntax modifications are added beyond what's in the definition.**\n- **Definition Syntax:** `CmdName,lineTranspile,Replacement text~~~More replacement text`\n- **HTVM Usage (Conceptual):** (CmdName on its own line)\n    ```htvm\n    CmdName\n    ```\n- **Transpiles to (Conceptual):** (Raw text replacement)\n    ```\n    Replacement text\n    More replacement text\n    ```\n\n#### Examples for `lineTranspile`\n\n1.  **Definition:** `InitApp,lineTranspile,LoadConfig()~~~ConnectDatabase()~~~SetupUI()`\n    *   **HTVM Usage:**\n        ```htvm\n        InitApp\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```\n        LoadConfig()\n        ConnectDatabase()\n        SetupUI()\n        ```\n\n2.  **Definition:** `StandardHeader,lineTranspile,// Copyright 2024 MyCompany~~~// All rights reserved.`\n    *   **HTVM Usage:**\n        ```htvm\n        StandardHeader\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```\n        // Copyright 2024 MyCompany\n        // All rights reserved.\n        ```\n\n3.  **Definition:** `PrintSeparator,lineTranspile,print(\\\"====================\\\")`\n    *   **HTVM Usage:**\n        ```htvm\n        PrintSeparator\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```\n        print(\\\"====================\\\")\n        ```\n\n4.  **Definition:** `BoilerplateHTML,lineTranspile,<html>~~~<head>~~~<title>Doc</title>~~~</head>~~~<body></body>~~~</html>`\n    *   **HTVM Usage:**\n        ```htvm\n        BoilerplateHTML\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```html\n        <html>\n        <head>\n        <title>Doc</title>\n        </head>\n        <body></body>\n        </html>\n        ```\n\n5.  **Definition:** `DebugBreak,lineTranspile,debugger`\n    *   **HTVM Usage:**\n        ```htvm\n        DebugBreak\n        ```\n    *   **Transpiles to (Raw Text, e.g. JS):**\n        ```javascript\n        debugger\n        ```\n\n6.  **Definition:** `ResetVars,lineTranspile,x = 0~~~y = 0~~~z = \\\"\\\"`\n    *   **HTVM Usage:**\n        ```htvm\n        ResetVars\n        ```\n    *   **Transpiles to (Raw Text, assuming target uses `=` for assignment):**\n        ```\n        x = 0\n        y = 0\n        z = \\\"\\\"\n        ```\n\n7.  **Definition:** `LogTimestamp,lineTranspile,LogMessage(GetCurrentTime(), \\\"INFO\\\")`\n    *   **HTVM Usage:**\n        ```htvm\n        LogTimestamp\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```\n        LogMessage(GetCurrentTime(), \\\"INFO\\\")\n        ```\n\n8.  **Definition:** `IncludeCommonLibs,lineTranspile,#include <iostream>~~~#include <vector>~~~#include <string>`\n    *   **HTVM Usage:**\n        ```htvm\n        IncludeCommonLibs\n        ```\n    *   **Transpiles to (Raw Text, e.g., C++):**\n        ```cpp\n        #include <iostream>\n        #include <vector>\n        #include <string>\n        ```\n\n9.  **Definition:** `ExitGracefully,lineTranspile,SaveState()~~~CloseConnections()~~~ExitApp(0)`\n    *   **HTVM Usage:**\n        ```htvm\n        ExitGracefully\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```\n        SaveState()\n        CloseConnections()\n        ExitApp(0)\n        ```\n\n10. **Definition:** `ShowVersion,lineTranspile,print(\\\"App Version 1.2.3\\\")`\n    *   **HTVM Usage:**\n        ```htvm\n        ShowVersion\n        ```\n    *   **Transpiles to (Raw Text):**\n        ```\n        print(\\\"App Version 1.2.3\\\")\n        ```\n\n### 6. Regular Parameters (No Special Rule Keyword)\nIf a parameter name in the definition does not have `OUTVAR`, `INVAR`, `INOUTVAR` before it, and is not prefixed by a single quote (`'`), it's treated as a regular input parameter. Its value from the HTVM command usage is passed directly to the corresponding argument in the function call.\n- **Definition Syntax:** `CmdName,param1,param2,...`\n- **HTVM Usage (Conceptual):** `CmdName, val1, val2`\n- **Transpiles to (Conceptual):** `CmdName(val1, val2)` (This assumes no `OUTVAR`, `INVAR`, or `INOUTVAR` is also present to modify this default behavior. If `OUTVAR` is present, for example, these become regular arguments *after* the assignment.)\n\n#### Examples for Regular Parameters\n\n1.  **Definition:** `DrawRectangle,x,y,width,height,color`\n    *   **HTVM Usage:**\n        ```htvm\n        DrawRectangle, 10, 20, 100, 50, \"blue\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        DrawRectangle(10, 20, 100, 50, \"blue\")\n        ```\n\n2.  **Definition:** `MoveObject,objId,newX,newY`\n    *   **HTVM Usage:**\n        ```htvm\n        MoveObject, playerSpriteVar, 500, 300\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        MoveObject(playerSpriteVar, 500, 300)\n        ```\n\n3.  **Definition:** `SetVolume,level`\n    *   **HTVM Usage:**\n        ```htvm\n        SetVolume, 75\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SetVolume(75)\n        ```\n\n4.  **Definition:** `Sleep,duration` (From your default example)\n    *   **HTVM Usage:**\n        ```htvm\n        Sleep, 1000\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        Sleep(1000)\n        ```\n\n5.  **Definition:** `ConnectToServer,ip,port`\n    *   **HTVM Usage:**\n        ```htvm\n        ConnectToServer, \"192.168.1.100\", 8080\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        ConnectToServer(\"192.168.1.100\", 8080)\n        ```\n\n6.  **Definition:** `WritePixel,x,y,color`\n    *   **HTVM Usage:**\n        ```htvm\n        WritePixel, 5, 15, 0xFF0000\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        WritePixel(5, 15, 0xFF0000)\n        ```\n\n7.  **Definition:** `ResizeImage,width,height,method`\n    *   **HTVM Usage:**\n        ```htvm\n        ResizeImage, 800, 600, \"bicubic\"\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        ResizeImage(800, 600, \"bicubic\")\n        ```\n\n8.  **Definition:** `AddUserToGroup,user,group`\n    *   **HTVM Usage:**\n        ```htvm\n        AddUserToGroup, userVar, groupVar\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        AddUserToGroup(userVar, groupVar)\n        ```\n\n9.  **Definition:** `SetTimeout,callback,delay`\n    *   **HTVM Usage:**\n        ```htvm\n        SetTimeout, MyTimeoutHandlerFunc, 5000\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        SetTimeout(MyTimeoutHandlerFunc, 5000)\n        ```\n\n10. **Definition:** `Random,OUTVAR,min,max` (Combines `OUTVAR` with regular params)\n    *   **HTVM Usage:**\n        ```htvm\n        Random, randomNumberVar, 1, 100\n        ```\n    *   **Transpiles to (e.g., Python-like):**\n        ```python\n        randomNumberVar = Random(1, 100)\n        ```\n\n\n**Important Note:** If `CmdName` corresponds to a special HTVM built-in operation that maps to a differently named function in the target language, HTVM handles that mapping. Otherwise, the `CmdName` itself is used as the function name in the transpiled code.\n\nExample Customizations of Command Definitions (how they might look in the `HTVM-instructions.txt` `commands` string):\n- `StringTrimLeft,OUTVAR,INVAR,param1|...`\n- `TrimL,OUTVAR,INVAR,num|...`\n- `LTrim,out,in,count|...`\n- `cmd_trim_left,OUTVAR,INVAR,count|...`\n- `REMOVE_LEADING,INOUTVAR,numChars|...`\n\nDefaults to the predefined list: **`StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1`**"
           }
         },
         {
@@ -1349,7 +1349,7 @@
           "default": "htvm",
           "description": {
             "header": "Default File Extension",
-            "body": "WARNING!!! DO NOT CHANGE THIS, OTHERWISE THE IDE WILL NOT WORK. ONLY MODIFY THIS FOR FUN AND ONLY IF YOU ARE NOT PLANNING TO USE HT-IDE OR ANY OTHER IDE MADE BY US!\n\nThe preferred file extension for source files written in this custom HTVM language.\n\nExample Customizations:\n- `htvm`\n- `myht`\n- `htv`\n- `hsc`\n- `script`\n\nDefaults to: **`htvm`**."
+            "body": "WARNING!!! DO NOT CHANGE THIS, OTHERWISE THE IDE WILL NOT WORK. ONLY MODIFY THIS FOR FUN AND ONLY IF YOU ARE NOT PLANNING TO USE HT-IDE OR ANY OTHER IDE MADE BY US!\n\nThe preferred file extension for source files written in this custom HTVM language.\n\nExample Customizations:\n- `htvm`\n- `myht`\n- `htv`\n- `hsc`\n- `script`\n\nDefaults to: **`htvm`**"
           }
         },
         {
@@ -1358,7 +1358,7 @@
           "default": "cpp",
           "description": {
             "header": "Default Target Language",
-            "body": "The default programming language HTVM will transpile the code into if not specified otherwise. Choose from the 15 supported languages (e.g., cpp, py, js, etc.).\n\nExample Customizations:\n- `cpp`\n- `py`\n- `js`\n- `go`\n- `lua`\n\nDefaults to: **`cpp`**."
+            "body": "The default programming language HTVM will transpile the code into if not specified otherwise. Choose from the 15 supported languages (e.g., cpp, py, js, etc.).\n\nExample Customizations:\n- `cpp`\n- `py`\n- `js`\n- `go`\n- `lua`\n\nDefaults to: **`cpp`**"
           }
         },
         {
@@ -1367,7 +1367,7 @@
           "default": "prop",
           "description": {
             "header": "OSP Property Keyword",
-            "body": "Keyword used within an OSP 'struct' to define a data field (property).\n\nExample Customizations:\n- `prop`\n- `property`\n- `field`\n- `member`\n- `data`\n\nDefaults to: **`prop`**."
+            "body": "Keyword used within an OSP 'struct' to define a data field (property).\n\nExample Customizations:\n- `prop`\n- `property`\n- `field`\n- `member`\n- `data`\n\nDefaults to: **`prop`**"
           }
         },
         {
@@ -1376,7 +1376,7 @@
           "default": "this",
           "description": {
             "header": "OSP 'this' Keyword",
-            "body": "Special parameter name within an OSP 'proc' that receives the calling struct's full path as a string for context.\n\nExample Customizations:\n- `this`\n- `self`\n- `context`\n- `current`\n- `CALLER_PATH`\n\nDefaults to: **`this`**."
+            "body": "Special parameter name within an OSP 'proc' that receives the calling struct's full path as a string for context.\n\nExample Customizations:\n- `this`\n- `self`\n- `context`\n- `current`\n- `CALLER_PATH`\n\nDefaults to: **`this`**"
           }
         }
       ]
@@ -1391,7 +1391,7 @@
           "type": "toggle",
           "description": {
             "header": "Use Curly Braces for Blocks",
-            "body": "Enable this to use `{` and `}` (or custom equivalents defined by `keyWordCurlyBraceOpen`/`Close`) to define code blocks. Mutually exclusive with 'Use End Keyword' and 'Use Pythonic Colon Syntax'.\n\nDefaults to: **`on`**."
+            "body": "Enable this to use `{` and `}` (or custom equivalents defined by `keyWordCurlyBraceOpen`/`Close`) to define code blocks. Mutually exclusive with 'Use End Keyword' and 'Use Pythonic Colon Syntax'.\n\nDefaults to: **`on`**"
           },
           "dependencies": [
             {"id": 150, "action": "off"},
@@ -1405,7 +1405,7 @@
           "type": "toggle",
           "description": {
             "header": "Use 'End' Keyword for Blocks",
-            "body": "Enable this to use the `keyWordEnd` keyword (e.g., 'end') to close code blocks (like Lua/Ruby). Mutually exclusive with 'Use Curly Braces'.\n\nDefaults to: **`off`**."
+            "body": "Enable this to use the `keyWordEnd` keyword (e.g., 'end') to close code blocks (like Lua/Ruby). Mutually exclusive with 'Use Curly Braces'.\n\nDefaults to: **`off`**"
           },
           "dependencies": [
             {"id": 149, "action": "off"}
@@ -1418,7 +1418,7 @@
           "type": "toggle",
           "description": {
             "header": "Require Semicolons",
-            "body": "Enable this to require semicolons `;` at the end of statements.\n\nDefaults to: **`off`**."
+            "body": "Enable this to require semicolons `;` at the end of statements.\n\nDefaults to: **`off`**"
           }
         },
         {
@@ -1428,7 +1428,7 @@
           "type": "toggle",
           "description": {
             "header": "Require Parentheses for Conditions",
-            "body": "Enable this to require parentheses `()` around conditions in `if`, `else if`, and `while` statements.\n\nDefaults to: **`on`**."
+            "body": "Enable this to require parentheses `()` around conditions in `if`, `else if`, and `while` statements.\n\nDefaults to: **`on`**"
           }
         },
         {
@@ -1438,7 +1438,7 @@
           "type": "toggle",
           "description": {
             "header": "Use Prefix Type Definition",
-            "body": "Enable this to use C-style prefix type definitions (e.g., `int x`). Mutually exclusive with 'Use Postfix Type Definition'.\n\nDefaults to: **`on`**."
+            "body": "Enable this to use C-style prefix type definitions (e.g., `int x`). Mutually exclusive with 'Use Postfix Type Definition'.\n\nDefaults to: **`on`**"
           },
           "dependencies": [
             {"id": 154, "action": "off"}
@@ -1454,7 +1454,7 @@
           "type": "toggle",
           "description": {
             "header": "Use Postfix Type Definition",
-            "body": "Enable this to use postfix type definitions (e.g., `x: int`). Mutually exclusive with 'Use Prefix Type Definition'.\n\nDefaults to: **`off`**."
+            "body": "Enable this to use postfix type definitions (e.g., `x: int`). Mutually exclusive with 'Use Prefix Type Definition'.\n\nDefaults to: **`off`**"
           },
           "dependencies": [
             {"id": 153, "action": "off"}
@@ -1470,7 +1470,7 @@
           "type": "toggle",
           "description": {
             "header": "Use Pythonic Colon for Blocks",
-            "body": "Enable this to use Python-style colons `:` at the end of lines starting blocks (like `if`, `while`, `func`) and rely on indentation. Mutually exclusive with 'Use Curly Braces'.\n\nDefaults to: **`off`**."
+            "body": "Enable this to use Python-style colons `:` at the end of lines starting blocks (like `if`, `while`, `func`) and rely on indentation. Mutually exclusive with 'Use Curly Braces'.\n\nDefaults to: **`off`**"
           },
           "dependencies": [
             {"id": 149, "action": "off"}
@@ -1483,7 +1483,7 @@
           "type": "toggle",
           "description": {
             "header": "Use Curly Braces for Array Literals",
-            "body": "Enable this to use curly braces `{}` instead of square brackets `[]` for defining array literals.\n\nDefaults to: **`off`**."
+            "body": "Enable this to use curly braces `{}` instead of square brackets `[]` for defining array literals.\n\nDefaults to: **`off`**"
           }
         },
         {
@@ -1493,7 +1493,7 @@
           "type": "toggle",
           "description": {
             "header": "JS Target: Always Use 'var'",
-            "body": "When enabled, all variable declarations in HTVM will be transpiled to `var` in JavaScript output.\n\nDefaults to: **`on`**."
+            "body": "When enabled, all variable declarations in HTVM will be transpiled to `var` in JavaScript output.\n\nDefaults to: **`on`**"
           }
         },
         {
@@ -1503,7 +1503,7 @@
           "type": "toggle",
           "description": {
             "header": "JS Target: Output Full HTML File",
-            "body": "When enabled, the JavaScript output will be wrapped in a basic HTML structure (`<html>`, `<head>`, `<body>`, `<script>`). Useful for direct browser execution or GUI apps. If disabled, outputs only the JS code.\n\nDefaults to: **`off`**."
+            "body": "When enabled, the JavaScript output will be wrapped in a basic HTML structure (`<html>`, `<head>`, `<body>`, `<script>`). Useful for direct browser execution or GUI apps. If disabled, outputs only the JS code.\n\nDefaults to: **`off`**"
           }
         },
         {
@@ -1513,7 +1513,7 @@
           "type": "toggle",
           "description": {
             "header": "JS Target: Wrap Code in Main Function",
-            "body": "When enabled, the main body of the transpiled JavaScript code will be wrapped inside a function (often `async function main() { ... } main();`), otherwise it runs in the global scope.\n\nDefaults to: **`off`**."
+            "body": "When enabled, the main body of the transpiled JavaScript code will be wrapped inside a function (often `async function main() { ... } main();`), otherwise it runs in the global scope.\n\nDefaults to: **`off`**"
           }
         },
         {
@@ -1523,7 +1523,7 @@
           "type": "toggle",
           "description": {
             "header": "JS Target: Make All Functions Async",
-            "body": "When enabled, all functions defined in HTVM will be transpiled with the `async` keyword in JavaScript output, unless explicitly overridden.\n\nDefaults to: **`off`**."
+            "body": "When enabled, all functions defined in HTVM will be transpiled with the `async` keyword in JavaScript output, unless explicitly overridden.\n\nDefaults to: **`off`**"
           }
         },
         {
@@ -1533,7 +1533,7 @@
           "type": "toggle",
           "description": {
             "header": "JS Target: Force Strict Equality",
-            "body": "When enabled, forces the use of `===` in JavaScript output even if the HTVM code used `==`. If disabled, `==` in HTVM map to `==` in JS.\n\nDefaults to: **`off`**."
+            "body": "When enabled, forces the use of `===` in JavaScript output even if the HTVM code used `==`. If disabled, `==` in HTVM map to `==` in JS.\n\nDefaults to: **`off`**"
           }
         }
       ]
