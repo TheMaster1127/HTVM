@@ -366,7 +366,7 @@ I SAID REPLY IN ONE LINE
 
 **Description**: Update your language’s documentation whenever new features or changes are made.
 
-Go to the [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/), make your changes to your language, build your language, and you will get the new DOCUMENTATION. Or:
+Go to the [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/web-ui), make your changes to your language, build your language, and you will get the new DOCUMENTATION. Or:
 
 Regenerate `DOCUMENTATION.md` or `DOCUMENTATION.html` using:  
 1. Compile the `DOCUMENTATION_Generator.cpp` file:  
@@ -391,37 +391,85 @@ Regenerate `DOCUMENTATION.md` or `DOCUMENTATION.html` using:
 
 [Go Back To The Table of Contents ](#table-of-contents)
 
-**Description**: Set up and use the HTVM IDE for coding, testing, and compiling your language.
+**Description**: Set up and use the HT-IDE for coding, testing, and compiling your language.
 
-1. [How to set up the HTVM IDE](#set-up-the-htvm-ide)
-2. [How to use the HTVM IDE and its Keyboard shortcuts](#How-to-use-the-htvm-ide-and-its-keyboard-shortcuts)
-3. [How to use the HTVM IDE Property Files](#htvm-ide-property-files)
+# HT-IDE Desktop Edition
+
+**A powerful, multi-language desktop IDE with a custom-built transpiler, integrated terminal, debugger, and extensive customization options, all powered by Electron and Node.js.**
+
+
 
 ---
 
-## **Set Up the HTVM IDE**
+## Table of Contents
 
-[Go Back](#%EF%B8%8F-htvm-ide)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation & Running](#installation--running)
+- [Core Features](#core-features)
+  - [1. File & Project Management](#1-file--project-management)
+    - [File Explorer](#file-explorer)
+    - [New Project Creation](#new-project-creation)
+    - [Session Management](#session-management)
+    - [Workspaces](#workspaces)
+    - [Export & Import](#export--import)
+  - [2. The Code Editor](#2-the-code-editor)
+    - [Multi-Tab Interface](#multi-tab-interface)
+    - [Syntax Highlighting](#syntax-highlighting)
+    - [File Status Indicators](#file-status-indicators)
+    - [Context Menus](#context-menus)
+  - [3. The Integrated Terminal](#3-the-integrated-terminal)
+    - [Multiple Terminal Tabs](#multiple-terminal-tabs)
+    - [Shell Functionality](#shell-functionality)
+  - [4. HTVM Transpiler Integration](#4-htvm-transpiler-integration)
+    - [On-the-fly Transpilation](#on-the-fly-transpilation)
+    - [Language Target Selector](#language-target-selector)
+    - [HTVM Code Formatter](#htvm-code-formatter)
+    - [Instruction Set Management](#instruction-set-management)
+  - [5. Code Execution & Debugging](#5-code-execution--debugging)
+    - [Running Files](#running-files)
+    - [Built-in JavaScript Debugger](#built-in-javascript-debugger)
+    - [HTML Output Panel](#html-output-panel)
+  - [6. Built-in Web Server](#6-built-in-web-server)
+  - [7. Extensive Customization](#7-extensive-customization)
+    - [General Settings](#general-settings)
+    - [UI Theme Editor](#ui-theme-editor)
+    - [Syntax Color Editor](#syntax-color-editor)
+    - [Hotkey Customization](#hotkey-customization)
+- [Discord Integration](#discord-integration)
+- [Default Hotkeys](#default-hotkeys)
+- [Project Structure](#project-structure)
+- [License](#license)
 
-After cloning the repository, go to the `IDE` directory where the files are located:
+---
 
-**Navigate to the HTVM folder**
+## Getting Started
+
+### Prerequisites
+
+To run the HT-IDE from the source code, you will need [Node.js](https://nodejs.org/) installed on your system, which includes the `npm` package manager.
+
+### Installation & Running
+
+Clone this repository [https://github.com/TheMaster1127/HT-IDE/](https://github.com/TheMaster1127/HT-IDE/), then go to the `Desktop` directory where the files are located:
+
+**Navigate to the HT-IDE folder**
 
 ```bash
-cd HTVM
+cd HT-IDE
 ```
 
-**Then navigate to the IDE folder**
+**Then navigate to the Desktop folder**
 
 ```bash
-cd IDE
+cd Desktop
 ```
 
 ---
 
 ### 1. **Ensure Node.js and npm are Installed**
 
-The HTVM IDE requires **Node.js** and **npm** to run.
+The HT-IDE requires **Node.js** and **npm** to run.
 
 If either **Node.js** or **npm** is not installed, follow the installation steps below.
 
@@ -492,7 +540,7 @@ This will install all the necessary packages listed in the `package.json` file.
 
 ---
 
-### 3. **Start the HTVM IDE**
+### 3. **Start the HT-IDE**
 
 Once the dependencies are installed, you can launch the HTVM IDE using:
 
@@ -500,7 +548,7 @@ Once the dependencies are installed, you can launch the HTVM IDE using:
 npm start
 ```
 
-This will open the Electron application, providing the HTVM IDE interface.
+This will open the Electron application, providing the HT-IDE interface.
 
 ---
 
@@ -511,108 +559,118 @@ This will open the Electron application, providing the HTVM IDE interface.
 
 ---
 
-### **How to Use the HTVM IDE and Its Keyboard Shortcuts**
+## Core Features
 
-[Go Back](#%EF%B8%8F-htvm-ide)
+### 1. File & Project Management
 
-### **Defined Global Hotkeys**
-1. **Run and Compile:**
-   - **`F5`**: Runs the current file and saves it.
-   - **`Ctrl+F7`**: Compiles the current file and saves it.
+#### File Explorer
+The IDE features a robust file explorer in the left-hand sidebar.
+-   **Open a Project:** Click the **Open New Folder** button to open a system dialog and select a project directory. The IDE's file system will root itself in that directory.
+-   **Navigation:** Click on folders to navigate into them. Click the `📁 ..` entry to go up one level. The current absolute path is always displayed at the top of the sidebar.
+-   **Create Files & Folders:** Use the **New File** and **New Folder** buttons to create items in the currently viewed directory.
+-   **Delete Items:** Hover over any file or folder to reveal a `🗑️` icon to permanently delete it.
+-   **Drag and Drop:** You can drag files and folders from your operating system directly into the file explorer to copy them into your project.
 
-2. **File Management:**
-   - **`Ctrl+S`**: Saves the current file.
-   - **`Ctrl+N`**: Creates a new file.
-   - **`Ctrl+O`**: Opens an existing file.
-   - **`Ctrl+W`**: Saves and closes the current tab, updates file tracking, and manages active tabs.
-   - **`Ctrl+Shift+T`**: Reopens the last closed tab and restores it to the active session.
+#### New Project Creation
+Create entire project structures from predefined templates.
 
-3. **Tab Navigation:**
-   - **`Ctrl+Tab`**: Switches between open tabs, with logic for cycling through tabs and tracking the most recent tab.
+1. Press the **`Ctrl + N`** hotkey.
+2. The "Create New Project" modal will appear.
+3. Choose from a list of project structures:
+   - You can create, edit, and manage these templates via **Settings** > **Projects** > **Manage Project Structures**.
+4. New projects are created in the directory defined under **Settings** > **Projects** > **Default Project Directory**.
+5. After creation, the IDE will ask if you want to close current tabs and open the new project immediately.
 
-4. **Advanced Features:**
-   - **`Ctrl+Shift+Alt+F`**: **Warning!** This command **permanently** formats the current code with no undo option. Use with extreme caution, as there is no way to recover the original formatting once this action is performed.
-   - **`Ctrl+Shift+Alt+V`**: Toggles Vim mode on and off.
+#### Session Management
+-   **Save Session:** Click **Save Session** to save the currently open set of tabs under a specific name. This is perfect for quickly restoring your work context.
+-   **Load Session:** Click **Load Session** to close all current tabs and open a previously saved session. The IDE will find the files by their absolute paths, regardless of your current working directory.
 
-5. **Drag-and-Drop Support:**
-   - Allows users to drag files into the IDE to open them as new tabs.
+#### Workspaces
+HT-IDE supports multiple workspaces, which are completely isolated environments. Each workspace has its own:
+-   Open files and sessions.
+-   UI and syntax theme settings.
+-   General settings and hotkeys.
+-   Instruction Sets.
+This allows you to maintain separate configurations for different projects or tasks. You can create, switch, and delete workspaces via the **Manage Workspaces** button in the Export/Import modal.
 
-6. **Others:**
-   - Press `Ctrl+Shift+R` to reload the IDE.
+#### Export & Import
+The **Export/Import** modal provides powerful tools for data management:
+-   **Export/Import Everything:** Create a full backup of all your workspaces and settings, or restore from one.
+-   **Export/Import Theme:** Share your custom UI and syntax color themes with others.
+-   **Export/Import Workspace:** Back up a single workspace or import one into a new or existing workspace ID.
 
----
+### 2. The Code Editor
 
-### **HTVM IDE Keyboard Shortcuts**
+The editor is powered by the mature and performant **Ace Editor**.
 
-The HTVM IDE is built around the [Ace Editor](https://ace.c9.io/), a powerful, web-based code editor that offers many keyboard shortcuts for efficient navigation and editing. Below is a categorized list of the most commonly used keyboard shortcuts within the HTVM IDE.
+#### Multi-Tab Interface
+-   Open multiple files simultaneously in a familiar tabbed interface.
+-   **Drag & Drop Reordering:** Click and drag tabs to reorder them.
+-   **Drag & Drop Opening:** Drag a file from your OS or the sidebar directly into the editor area to open it.
 
----
+#### Syntax Highlighting
+-   Provides rich syntax highlighting for dozens of common programming languages out of the box.
+-   **Dynamic HTVM Highlighting:** When editing `.htvm` files, the editor intelligently switches its syntax highlighting on-the-fly. If your cursor is inside a `js`, `py`, `cpp`, etc., block, it will use that language's highlighter, otherwise defaulting to the HTVM highlighter.
 
-#### **File Management**  
-- **Select All**: `Ctrl-A`  
-- **Go to Line**: `Ctrl-L`  
-- **Replace**: `Ctrl-H`  
-- **Find**: `Ctrl-F`  
-- **Find Next**: `Ctrl-K`  
-- **Find Previous**: `Ctrl-Shift-K`  
-- **Select or Find Next**: `Alt-K`  
-- **Select or Find Previous**: `Alt-Shift-K`  
-- **Find All**: `Ctrl-Alt-K`  
+#### File Status Indicators
+-   **Active File:** The active tab is visually distinct and the corresponding file in the sidebar is highlighted.
+-   **Dirty Indicator:** An asterisk (`*`) appears next to the filename in a tab if the file has unsaved changes. The IDE automatically saves files on close or before running a command.
 
-#### **Editing and Navigation**  
-- **Duplicate Selection**: `Ctrl-Shift-D`  
-- **Remove Line**: `Ctrl-D` 
-- **Undo**: `Ctrl-Z`  
-- **Redo**: `Ctrl-Shift-Z` or `Ctrl-Y`  
-- **Indent**: `Tab`  
-- **Outdent**: `Shift-Tab`  
-- **Block Indent**: `Ctrl-]`  
-- **Block Outdent**: `Ctrl-[`  
+#### Context Menus
+-   **Tab:** Right-click a tab to get options to **Close** it or **Open File Location** in your system's file explorer.
+-   **File Explorer:** Right-click a file or folder in the sidebar to **Open File Location**.
 
-#### **Cursor and Selection**  
-- **Expand to Matching**: `Ctrl-Shift-M`  
-- **Jump to Matching**: `Ctrl-\` or `Ctrl-P`  
-- **Select to Matching**: `Ctrl-Shift-\` or `Ctrl-Shift-P`  
-- **Add Cursor Above**: `Ctrl-Alt-Up`  
-- **Add Cursor Below**: `Ctrl-Alt-Down`  
-- **Align Cursors**: `Ctrl-Alt-A`  
+### 3. The Integrated Terminal
 
-#### **Line Movement and Manipulation**  
-- **Move Line Up**: `Alt-Up`  
-- **Move Line Down**: `Alt-Down`  
-- **Copy Line Up**: `Alt-Shift-Up`  
-- **Copy Line Down**: `Alt-Shift-Down`  
-- **Sort Lines**: `Ctrl-Alt-S`  
+#### Multiple Terminal Tabs
+-   Click the `+` button in the terminal panel to open a new, independent terminal instance.
+-   Each terminal maintains its own command history and current working directory.
 
-#### **Scrolling and View**  
-- **Scroll Up**: `Ctrl-Up`  
-- **Scroll Down**: `Ctrl-Down`  
-- **Page Up**: `PageUp`  
-- **Page Down**: `PageDown`  
-- **Select Page Up**: `Shift-PageUp`  
-- **Select Page Down**: `Shift-PageDown`  
+#### Shell Functionality
+-   **Real-time CWD Sync:** When you navigate through folders in the sidebar, the terminal's prompt automatically updates to reflect your new location.
+-   **Command History:** Use the `Up` and `Down` arrow keys to cycle through previous commands.
+-   **Path Autocompletion:** Press `Tab` to autocomplete file and directory paths, just like a native shell.
+-   **Copy & Paste:**
+    - `Ctrl+C`: Copies the selected text in the terminal. If no text is selected, it sends an interrupt signal to the running command.
+    - `Ctrl+V` or `Right-Click`: Pastes the content of your clipboard into the terminal.
+-   **Process Management:** Press `Ctrl+C` (with no text selected) to terminate a running command.
 
-#### **Macros**  
-- **Toggle Recording**: `Ctrl-Alt-E`  
-- **Replay Macro**: `Ctrl-Shift-E`  
+### 4. HTVM Transpiler Integration
 
-#### **Case Modification**  
-- **To Uppercase**: `Ctrl-U`  
-- **To Lowercase**: `Ctrl-Shift-U`
+HT-IDE is built around its unique **HTVM** engine.
 
----
+#### On-the-fly Transpilation
+-   When you run a `.htvm` file, the IDE uses the core `HTVM.js` engine to transpile it to your selected target language.
+-   The resulting file (e.g., `my_script.js`) is automatically saved in the same directory and opened in a new tab.
 
-### HTVM IDE Property Files
+#### Language Target Selector
+-   A dropdown in the top bar allows you to select the output language for HTVM transpilation.
+-   **Run JS/Full HTML:** Special options for JavaScript targets allow you to either run the generated JS code directly in the terminal or wrap it in a full HTML document for browser execution.
 
-[Go Back](#%EF%B8%8F-htvm-ide)
+#### HTVM Code Formatter
+-   Click the **Format** button (or use `Ctrl+Shift+F`) to automatically clean up and standardize the indentation and spacing of your `.htvm` file.
 
-HTVM IDE uses property files with the extensions `.htpc` and `.htpr` for compiling and running your code. These files provide the commands needed to execute or compile your code based on the file type (e.g., `.cpp`, `.py`, `.js` or more...). The files are located in the `/property files/` folder in the IDE, and you can create your own property files for different languages.
+#### Instruction Set Management
+-   The power of the HTVM transpiler comes from its instruction sets. Manage them via the **Manage Instructions** button.
+-   You can add new sets from files, edit existing ones in a dedicated editor, rename them, and switch the active set (requires a reload).
+-   The **HTVM to HTVM** converter allows you to translate `.htvm` files written for one instruction set to another.
+
+### 5. Code Execution & Debugging
+
+#### Running Files
+The behavior of the **▶ Run** button (`Ctrl+Enter` or `F5`) is context-aware:
+-   **.js:** Executes the file directly using Node.js, with output in the terminal.
+-   **.htvm:** Transpiles the file to the selected target language. If the target is JS, it will also execute it.
+-   **.html:** Renders the file in a dedicated HTML Output panel within the IDE.
+-   **Other Files:** The IDE will look for a corresponding `.htpr` (run) or `.htpc` (compile) "property file" in the `property files` directory. This allows you to define custom build and run commands for any language (e.g., C++, Python, Go).
+
+HT-IDE uses property files with the extensions `.htpc` and `.htpr` for compiling and running your code. These files provide the commands needed to execute or compile your code based on the file type (e.g., `.cpp`, `.py`, `.js` or more...). The files are located in the `/property files/` folder in the IDE, and you can create your own property files for different languages.
 
 ---
 
 ### File Extensions and Corresponding Property Files
 
-For each programming language you use in the **HTVM IDE**, the property files should have matching names with the extension `.htpc` for compile commands and `.htpr` for run commands. For example:
+For each programming language you use in the **HT-IDE**, the property files should have matching names with the extension `.htpc` for compile commands and `.htpr` for run commands. For example:
 
 | Language        | File Extension     | HTVM Property File Extensions |
 |-----------------|--------------------|-------------------------------|
@@ -650,62 +708,102 @@ Here's how the syntax works in these property files:
 
 - **Commands**:
   - `~~~`: A placeholder for space, used to replace any `~~~` occurrences in the commands
+ 
+- **Comments**:
+  - Use `;` to write comments.
 
-#### Example Property File (`htvm.htpr`)
+#### Example Property Files (`cpp.htpr` and `cpp.htpc`)
 
-The following example shows how to set up a property file to run code in C++, Python, and JavaScript. In this example, the lines for Python and JavaScript are commented out, but they can be enabled by removing the semicolon (`;`).
+The following example shows how to set up property files to run code in C++.
+
+
+#### **cpp.htpr**
 
 ```plaintext
-; for cpp
-
-"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-instructions.txt" "cpp"
+; This is the property file for compiling and running C++ files.
+; The first command compiles the code.
+;g++ "%ONLYFILENAME%.cpp" "-O3" "-o" "%ONLYFILENAME%"
 g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
-cd "%DIRFULLPATH%" && "%ONLYFILENAME%.exe"
 
-; for py
-
-;"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-instructions.txt" "py"
-;cd "%DIRFULLPATH%" && node "%ONLYFILENAME%.js"
-
-; for js
-
-;"C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM.exe" "%FILENAME%" "C:\Users\The_M\OneDrive\Desktop\GitHub~~~Projects\HTVM\HTVM\HTVM-instructions.txt" "js"
-;cd "%DIRFULLPATH%" && node "%ONLYFILENAME%.js"
+; The second command runs the compiled executable.
+"%ONLYFILENAME%.exe"
 ```
 
-#### Breakdown of the Code:
+#### **cpp.htpc**
 
-1. **For C++**:
-   - The `g++` command compiles the file into an executable.
-   - The output executable is then run from the directory using `%DIRFULLPATH%`.
-
-2. **For Python**:
-   - This section is commented out, but it would run the Python script using the `python` command.
-
-3. **For JavaScript**:
-   - This section is also commented out, but it would run a JavaScript file.
-
-#### How to Use the Property File:
-
-1. **To Compile** (Ctrl+F7):
-   - Press `Ctrl+F7` to compile your code based on the `.htpc` property file.
-   - Ensure the correct commands are in place for your desired language.
-
-2. **To Run** (F5):
-   - Press `F5` to run your code based on the `.htpr` property file.
-   - Make sure the relevant sections for your language are uncommented to run the commands properly.
-
-#### Example Workflow:
-
-1. **Compile C++**:
-   - In the property file, uncomment the C++ section by removing the `;`.
-   - Press `Ctrl+F7` to compile the C++ code.
-
-2. **Run Python**:
-   - Uncomment the Python section in the `.htpr` property file.
-   - Press `F5` to run the Python script.
+```plaintext
+; only compile c++ code
+g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
+```
 
 ---
+
+
+#### Built-in JavaScript Debugger
+-   **Set Breakpoints:** Simply click in the editor's "gutter" (the area with line numbers) to set or remove a breakpoint on that line.
+-   **Debugger Panel:** When a breakpoint is hit during JS execution, a movable debugger panel appears.
+-   **Inspect Scope:** The panel shows all variables currently in scope and their values.
+-   **Variable Hover:** While paused, you can hover over variable names in the editor to see their current value in a tooltip.
+-   **Controls:** You can **Resume** (`F8`) execution or **Stop** it entirely.
+
+#### HTML Output Panel
+-   When running an HTML file, it is rendered in a special side panel.
+-   This panel allows you to **Download** the generated HTML or close the panel.
+
+### 6. Built-in Web Server
+-   Instantly launch a local HTTP server by clicking the **▶ Start Server** button in the sidebar.
+-   The server uses the current project directory as its root.
+-   All requests (`GET`, `POST`, etc.) are automatically logged to the terminal that was active when the server was started, showing status codes and response times.
+-   Click the **⏹ Stop Server** button to terminate it.
+
+### 7. Extensive Customization
+
+Nearly every aspect of the IDE's appearance and behavior can be changed. Access these options via the **Settings** button.
+
+#### General Settings
+-   **Editor:** Change font size, keybinding mode (Vim, Emacs, VSCode, etc.), and other editor behaviors.
+-   **Web Server:** Configure the default port and the default file to serve (e.g., `index.html`).
+-   **Projects:** Set the default directory for new projects and manage project templates.
+-   **Terminal & Autocomplete:** Toggle various helper features.
+
+#### UI Theme Editor
+-   A powerful theme editor allows you to change the color, font weight, and size of virtually every UI element, from buttons and sidebars to scrollbars and modal dialogs. Changes are previewed live.
+
+#### Syntax Color Editor
+-   Independently customize the colors and font styles for every token in the syntax highlighter (keywords, strings, comments, etc.).
+
+#### Hotkey Customization
+-   Remap the default keyboard shortcuts for actions like "Run File", "Save File", "Close Tab", and more to fit your personal workflow.
+
+---
+
+## Discord Integration
+HT-IDE features Discord Rich Presence, which automatically shows your current status in your Discord profile. It displays:
+-   That you are using HT-IDE.
+-   The name of the file you are currently editing.
+-   The project folder you are in.
+-   The total number of lines in the current file.
+
+---
+
+## Default Hotkeys
+
+| Action | Default Hotkey | Notes |
+| :--- | :--- | :--- |
+| **New Project** | **`Ctrl + N`** | **Must be pressed while the Settings menu is open.** |
+| Run File | `Ctrl + Enter` / `F5` | `F5` is a secondary, non-customizable hotkey. |
+| Compile File | `Ctrl + F7` | Requires a `.htpc` property file. |
+| Save File | `Ctrl + S` | |
+| Format HTVM File | `Ctrl + Shift + F` | Only works on `.htvm` files. |
+| Close Tab | `Ctrl + W` | |
+| Re-open Last Closed Tab &nbsp; &nbsp; | `Ctrl + Shift + T` &nbsp; &nbsp; | |
+| Toggle Sidebar | `Ctrl + B` | |
+| Zoom In | `Ctrl + =` | |
+| Zoom Out | `Ctrl + -` | |
+
+---
+
+
 
 ### 💡 Why HTVM Was Created: Understanding Its Purpose, Problems Solved, Use Cases, and Who It Benefits
 
