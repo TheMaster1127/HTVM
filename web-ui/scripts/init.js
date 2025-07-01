@@ -11,7 +11,6 @@ let doc
 window.lang_ID_str = "htvm_lang_1"
 window.lang_ID = 1
 
-// --- START: ERROR HANDLING AND NOTIFICATION SETUP ---
 const notyf = new Notyf({
     duration: 5000,
     position: { x: 'right', y: 'top' },
@@ -28,7 +27,7 @@ function clearErrorHighlights() {
 
 function handleAndDisplayError(errorString) {
     if (errorString === "noERROR") {
-        clearErrorHighlights(); // Also clear if the check is successful
+        clearErrorHighlights(); 
         return true;
     }
 
@@ -45,7 +44,6 @@ function handleAndDisplayError(errorString) {
     notyf.error(`Error in setting ID ${id}: ${message}`);
     return false;
 }
-// --- END: ERROR HANDLING AND NOTIFICATION SETUP ---
 
 function init(){
     let src_settingBox = doc.querySelector(".settings-container")
@@ -53,50 +51,72 @@ function init(){
     window.settingBox = src_settingBox.cloneNode(true);
     window.settingBox.querySelector(".settings").innerHTML = ""
     
-    // --- START: DRAG AND DROP LOGIC ---
+    // --- START: DRAG AND DROP & MOBILE UPLOAD LOGIC ---
     const dropzone = document.getElementById('dropzone');
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-    dropzone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropzone.style.borderColor = '#fe621b';
-    });
-
-    dropzone.addEventListener('dragleave', () => {
-        dropzone.style.borderColor = 'rgb(151, 145, 145)';
-    });
-
-    dropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropzone.style.borderColor = 'rgb(151, 145, 145)';
-
-        if (e.dataTransfer.files.length) {
-            const file = e.dataTransfer.files[0];
-            if (file.name === 'HTVM-instructions.txt') {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const content = event.target.result;
-                    const lines = content.split('\n');
-                    lines.forEach((line, index) => {
-                        // Assuming line format is "value" and index is the ID
-                        if (index < 161) { // Only process valid setting lines
-                            chanegVal(index, line);
-                        }
-                    });
-                    // Refresh UI with loaded settings
-                    drawSettings();
-                    notyf.success('Instructions loaded successfully!');
-                };
-                reader.readAsText(file);
-            } else {
-                notyf.error('Invalid file. Please drop HTVM-instructions.txt');
-            }
+    function processFile(file) {
+        if (file && file.name === 'HTVM-instructions.txt') {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const content = event.target.result;
+                const lines = content.replace(/\r\n/g, '\n').split('\n');
+                
+                lines.forEach((line, index) => {
+                    if (index < 161) {
+                        chanegVal(index, line);
+                    }
+                });
+                
+                drawSettings();
+                notyf.success('Instructions loaded successfully!');
+            };
+            reader.readAsText(file);
+        } else {
+            notyf.error('Invalid file. Please drop or select HTVM-instructions.txt');
         }
-    });
-    // --- END: DRAG AND DROP LOGIC ---
-    
-    if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        $("#dropzone").text("Select HTVM instructions.txt")
     }
+
+    if (isMobile) {
+        // On mobile, change text and make it a click-to-select area.
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.id = 'mobile-file-input';
+        fileInput.accept = '.txt';
+        document.body.appendChild(fileInput);
+
+        dropzone.querySelector('p').textContent = "Click to Select File";
+        
+        dropzone.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                processFile(e.target.files[0]);
+            }
+        });
+
+    } else {
+        // On desktop, keep drag and drop functionality.
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.style.borderColor = '#fe621b';
+        });
+
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.style.borderColor = 'rgb(151, 145, 145)';
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.style.borderColor = 'rgb(151, 145, 145)';
+            if (e.dataTransfer.files.length) {
+                processFile(e.dataTransfer.files[0]);
+            }
+        });
+    }
+    // --- END: DRAG AND DROP & MOBILE UPLOAD LOGIC ---
     
     $(window).on('resize', checkPortraitMode);
 
@@ -104,7 +124,6 @@ function init(){
         $(this).parent().toggleClass("hidden");
     });
 
-    // --- START: "CREATE LANGUAGE" MODAL LOGIC ---
     const createLangModal = document.getElementById('create-lang-modal-overlay');
     const createLangInput = document.getElementById('create-lang-input');
     const createLangConfirmBtn = document.getElementById('create-lang-confirm-btn');
@@ -123,14 +142,13 @@ function init(){
     createLangConfirmBtn.addEventListener('click', () => {
         const newName = createLangInput.value.trim();
         if (newName) {
-            switchLang(null, newName); // Pass name to be set on creation
+            switchLang(null, newName);
             createLangModal.style.display = 'none';
             createLangInput.value = '';
         } else {
             notyf.error('Please enter a name for the language.');
         }
     });
-    // --- END: "CREATE LANGUAGE" MODAL LOGIC ---
 
 
     $(document).on('keydown', function(e) {
@@ -165,7 +183,6 @@ function init(){
     ideModalCloseBtn.addEventListener('click', hideIdeModal);
 
     $("#ide-bt").click(function() {
-        // THE FIX IS HERE: Clear highlights before checking for errors.
         clearErrorHighlights();
         if (!handleAndDisplayError(handleError(getUserConfig(lang_ID)))) return;
         
@@ -210,7 +227,6 @@ function init(){
     })
 
     $("#preview-bt").click(function(){
-        // THE FIX IS HERE: Clear highlights before checking for errors.
         clearErrorHighlights();
         if (!handleAndDisplayError(handleError(getUserConfig(lang_ID)))) return;
 
@@ -240,6 +256,7 @@ function init(){
     createLangTabs()
     registerMenu()
     if(getLastOpenedTab()) switchLang(getLastOpenedTab())
+    else switchLang()
 }
 
 fetch('assets/settings.json') 

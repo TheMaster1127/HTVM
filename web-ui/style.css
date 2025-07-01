@@ -107,15 +107,7 @@ body {
     flex-direction: column;
     color: rgb(194, 181, 181);
     overflow: hidden;
-    transition: box-shadow 0.3s ease-in-out; /* Added for smooth highlight effect */
 }
-
-/* NEW: Error highlight class */
-.setting.error-highlight {
-    box-shadow: 0 0 0 2px #ff4d4d, 0 0 10px #ff4d4d;
-    border-radius: 4px;
-}
-
 
 .setting-i {
     display: flex;
@@ -733,7 +725,11 @@ input:checked+.slider:before {
     
 /* END From Uiverse.io by TimTrayler  */
 
-#build-overlay {
+/* START: MODAL STYLES (SEPARATED FOR CLARITY) */
+#build-overlay,
+#ide-modal-overlay,
+#create-lang-modal-overlay,
+#delete-lang-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -741,92 +737,77 @@ input:checked+.slider:before {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.75);
     z-index: 10000;
-    display: none; /* Initially hidden */
+    display: none;
     justify-content: center;
     align-items: center;
     font-family: 'Courier New', Courier, monospace;
+    backdrop-filter: blur(5px);
 }
 
-.build-modal {
+.build-modal,
+.ide-modal-content,
+.create-lang-modal-content,
+.delete-lang-modal-content {
     background-color: #1f1f1f;
     color: white;
     padding: 30px 40px;
     border-radius: 10px;
     text-align: center;
     border: 2px solid #555;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
     max-width: 90%;
     min-width: 300px;
+    position: relative;
 }
 
 .build-modal.error {
     border-color: #a83232;
 }
 
-#build-status-title {
+#build-status-title,
+.ide-modal-content h2,
+.create-lang-modal-content h2,
+.delete-lang-modal-content h2 {
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-size: 1.5em;
+    color: #fe621b;
 }
 
-#build-status-subtitle {
+.delete-lang-modal-content h2 {
+    color: #ff6b6b;
+}
+
+#build-status-subtitle,
+.ide-modal-content p,
+.create-lang-modal-content p,
+.delete-lang-modal-content p {
     margin: 0;
+    margin-bottom: 20px;
     color: #ccc;
     font-size: 1em;
-    min-height: 1.2em; /* Prevents layout shift when text changes */
-    word-wrap: break-word;
+    min-height: 1.2em;
+    line-height: 1.5;
 }
 
 .spinner {
     width: 50px;
     height: 50px;
     border: 5px solid #444;
-    border-top: 5px solid #fe621b; /* Using your orange theme color */
+    border-top: 5px solid #fe621b;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
+    0% {
+        transform: rotate(0deg);
+    }
 
-#ide-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);
-    z-index: 9999;
-    display: none; /* Hidden by default */
-    justify-content: center;
-    align-items: center;
-}
-
-.ide-modal-content {
-    background-color: #2d2d2d;
-    padding: 25px 35px;
-    border-radius: 8px;
-    border: 1px solid #555;
-    text-align: center;
-    color: #e0e0e0;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    position: relative;
-}
-
-.ide-modal-content h2 {
-    color: #fe621b;
-    margin-bottom: 15px;
-}
-
-.ide-modal-content p {
-    margin-bottom: 20px;
-    line-height: 1.5;
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 #ide-modal-download-btn {
@@ -870,42 +851,6 @@ input:checked+.slider:before {
     cursor: pointer;
 }
 
-/* --- NEW CREATE LANG MODAL STYLES --- */
-#create-lang-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);
-    z-index: 9999;
-    display: none; /* Hidden by default */
-    justify-content: center;
-    align-items: center;
-}
-
-.create-lang-modal-content {
-    background-color: #2d2d2d;
-    padding: 25px 35px;
-    border-radius: 8px;
-    border: 1px solid #555;
-    text-align: center;
-    color: #e0e0e0;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.create-lang-modal-content h2 {
-    color: #fe621b;
-    margin-bottom: 15px;
-}
-
-.create-lang-modal-content p {
-    margin-bottom: 20px;
-}
-
 #create-lang-input {
     width: calc(100% - 20px);
     padding: 10px;
@@ -917,26 +862,50 @@ input:checked+.slider:before {
     font-size: 1em;
 }
 
-.create-lang-buttons {
+.create-lang-buttons,
+.delete-lang-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
 }
 
-.create-lang-buttons button {
+.create-lang-buttons button,
+.delete-lang-buttons button {
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.2s, color 0.2s;
 }
 
-#create-lang-cancel-btn {
+#create-lang-cancel-btn,
+#delete-lang-cancel-btn {
     background-color: #555;
     color: white;
+}
+
+#create-lang-cancel-btn:hover,
+#delete-lang-cancel-btn:hover {
+    background-color: #666;
 }
 
 #create-lang-confirm-btn {
     background-color: #fe621b;
     color: white;
 }
+
+#create-lang-confirm-btn:hover {
+    background-color: #e0520f;
+}
+
+#delete-lang-confirm-btn {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+#delete-lang-confirm-btn:hover {
+    background-color: #c0392b;
+}
+
+/* END: MODAL STYLES */

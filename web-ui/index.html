@@ -49,7 +49,7 @@
                 <button id="rename-bt">Rename</button>
                 <button id="set-icon-bt">Set icon</button>
                 <button id="set-color-bt">Set color</button>
-                <button>Delete</button>
+                <button id="delete-bt">Delete</button>
             </div>
             <div class="color-picker">
                 <input type="color" id="color-picker">
@@ -150,7 +150,6 @@
         </div>
     </div>
 
-    <!-- NEW MODAL FOR CREATING A LANGUAGE -->
     <div id="create-lang-modal-overlay">
         <div class="create-lang-modal-content">
             <h2>Create New Language</h2>
@@ -159,6 +158,18 @@
             <div class="create-lang-buttons">
                 <button id="create-lang-cancel-btn">Cancel</button>
                 <button id="create-lang-confirm-btn">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW MODAL FOR DELETING A LANGUAGE -->
+    <div id="delete-lang-modal-overlay">
+        <div class="delete-lang-modal-content">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to permanently delete this language? This action cannot be undone.</p>
+            <div class="delete-lang-buttons">
+                <button id="delete-lang-cancel-btn">Cancel</button>
+                <button id="delete-lang-confirm-btn">Delete</button>
             </div>
         </div>
     </div>

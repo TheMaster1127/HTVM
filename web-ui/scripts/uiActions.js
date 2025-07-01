@@ -1,5 +1,6 @@
-import { getConfig, changeConfig } from './storage.js'
+import { getConfig, changeConfig, deleteLang } from './storage.js'
 import { debounce } from './utils.js';
+import { switchLang } from './multiLang.js';
 
 
 function reorganizeBoxes() {
@@ -8,7 +9,7 @@ function reorganizeBoxes() {
     if (!container || !boxes.length) return;
     
     const containerWidth = container.clientWidth;
-    const boxWidth = boxes[0]?.clientWidth ?? 320; // Added fallback
+    const boxWidth = boxes[0]?.clientWidth ?? 320; 
     
     const columns = Math.max(1, Math.floor(containerWidth / (boxWidth +15)));
     container.innerHTML = '';
@@ -37,14 +38,13 @@ function registerMenu(){
     });
     document.hideMenuListener = true;
 
-
     const emojiPicker = document.querySelector("emoji-picker")
     emojiPicker.addEventListener('emoji-click', event => {
         const targetLang = langMenu.getAttribute("data-target-lang")
         const targetElement = document.querySelector("#" + targetLang + "_tab_bt" + " .lang-icon")
         targetElement.innerText = event.detail.unicode
         changeConfig(targetLang, {icon: event.detail.unicode})
-        langMenu.style.display = "none"; // Close menu after selection
+        langMenu.style.display = "none";
       });
 
     langMenu.querySelector("#rename-bt").addEventListener("click", ()=>{
@@ -81,7 +81,6 @@ function registerMenu(){
         emojiPickerContainer.style.top = `${menuRect.top}px`;
         emojiPickerContainer.style.left = `${menuRect.right + 5}px`;
 
-        // Check for vertical overflow and reposition if needed
         const pickerRect = emojiPickerContainer.getBoundingClientRect();
         if (pickerRect.bottom > window.innerHeight) {
             emojiPickerContainer.style.top = `${window.innerHeight - pickerRect.height - 5}px`
@@ -108,7 +107,38 @@ function registerMenu(){
         document.querySelector("#" + targetLang + "_tab_bt").style.backgroundColor = event.target.value
         setColor(targetLang, event.target.value)
 
-    })
+    });
+
+    // --- START: CORRECT DELETE CONFIRMATION LOGIC ---
+    const deleteModal = document.getElementById('delete-lang-modal-overlay');
+    const deleteConfirmBtn = document.getElementById('delete-lang-confirm-btn');
+    const deleteCancelBtn = document.getElementById('delete-lang-cancel-btn');
+
+    // This listener shows the modal
+    langMenu.querySelector("#delete-bt").addEventListener("click", () => {
+        const langToDelete = langMenu.getAttribute("data-target-lang");
+        deleteModal.setAttribute('data-lang-to-delete', langToDelete);
+        langMenu.style.display = "none";
+        deleteModal.style.display = 'flex';
+    });
+
+    // This listener handles the "Cancel" button inside the modal
+    deleteCancelBtn.addEventListener('click', () => {
+        deleteModal.style.display = 'none';
+        deleteModal.removeAttribute('data-lang-to-delete');
+    });
+
+    // This listener handles the final "Delete" action
+    deleteConfirmBtn.addEventListener('click', () => {
+        const langToDelete = deleteModal.getAttribute('data-lang-to-delete');
+        if (langToDelete) {
+            deleteLang(langToDelete); // Call the new delete function from storage
+            deleteModal.style.display = 'none';
+            switchLang(null); // Re-initialize the view, will switch to highest available ID or create new one
+            deleteModal.removeAttribute('data-lang-to-delete');
+        }
+    });
+    // --- END: CORRECT DELETE CONFIRMATION LOGIC ---
 }
 
 function applyConfig(){
@@ -117,7 +147,6 @@ function applyConfig(){
     langElms.forEach((elm)=>{
         const elmConfig = langConfigs[elm.getAttribute("data-lang-key")]
         elm.style.backgroundColor  = elmConfig.color
-        // console.log(elm)
         elm.querySelector(".lang-icon").innerText = elmConfig.icon
         elm.querySelector(".lang-title").innerText = elmConfig.name
 

@@ -59,6 +59,30 @@ function changeConfig(lang, conf = {}) {
     localStorage.setItem("langSettings", JSON.stringify(langConfigs));
 }
 
+// --- NEW FUNCTION TO DELETE A LANGUAGE ---
+function deleteLang(langKey) {
+    const langID = parseInt(langKey.match(/\d+$/)[0]);
+
+    // 1. Remove the main language settings
+    localStorage.removeItem(langKey);
+
+    // 2. Remove the config from langSettings
+    let langConfigs = getConfig();
+    if (langConfigs && langConfigs[langKey]) {
+        delete langConfigs[langKey];
+        localStorage.setItem("langSettings", JSON.stringify(langConfigs));
+    }
+
+    // 3. Remove the IDE downloaded flag
+    localStorage.removeItem(`htvm_ide_downloaded_${langID}`);
+
+    // 4. If this was the last accessed tab, clear that too
+    if (getLastOpenedTab() == langID) {
+        localStorage.removeItem("HTVM_LastAccesedTab");
+    }
+}
+// ---
+
 function setLastOpenedTab(langID){
     localStorage.setItem("HTVM_LastAccesedTab", langID);
 }
@@ -66,4 +90,4 @@ function getLastOpenedTab(){
     return localStorage.getItem("HTVM_LastAccesedTab");
 }
 
-export {createDefault, chanegVal, getConfigFromLocalStorage, getLangIDList, getLangList, getConfig, changeConfig, setLastOpenedTab, getLastOpenedTab}
+export {createDefault, chanegVal, getConfigFromLocalStorage, getLangIDList, getLangList, getConfig, changeConfig, deleteLang, setLastOpenedTab, getLastOpenedTab}

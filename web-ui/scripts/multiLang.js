@@ -1,37 +1,65 @@
-import { getLangList, getLangIDList, createDefault, setLastOpenedTab, changeConfig } from './storage.js'
+import { getLangList, getLangIDList, createDefault, setLastOpenedTab, changeConfig, getLastOpenedTab } from './storage.js'
 import { applyConfig } from './uiActions.js'
 import { drawSettings } from './settingWindows.js'
 import { isOutOfView } from './utils.js'
 import { handle_keys } from './search.js'
 
 function switchLang(langID, newName) {
-    if (!langID) langID = Math.max(...(getLangIDList().length ? getLangIDList() : [0])) + 1;
-    let localStorageKey = "htvm_lang_" + langID
+    const isCreatingNew = !langID && newName; // Flag for creating a new language
+    let targetLangID = langID;
+
+    // If no ID is provided, figure out what to do.
+    if (!targetLangID) {
+        const lastOpened = getLastOpenedTab();
+        const existingIDs = getLangIDList();
+        
+        if (lastOpened && existingIDs.includes(parseInt(lastOpened))) {
+            // If there's a valid last-opened tab, use it.
+            targetLangID = lastOpened;
+        } else if (existingIDs.length > 0) {
+            // Otherwise, use the highest existing ID.
+            targetLangID = Math.max(...existingIDs);
+        } else {
+            // If no languages exist at all, create a new one.
+            targetLangID = 1;
+        }
+    }
+    
+    // If we're explicitly creating a new one.
+    if (isCreatingNew) {
+        targetLangID = Math.max(...(getLangIDList().length ? getLangIDList() : [0])) + 1;
+    }
+
+    let localStorageKey = "htvm_lang_" + targetLangID
     window.lang_ID_str = localStorageKey
-    window.lang_ID = langID
+    window.lang_ID = targetLangID
+    
     if (!localStorage.getItem(localStorageKey)) {
         createDefault(localStorageKey);
         if (newName) {
             changeConfig(localStorageKey, { name: newName });
         }
     }
-    drawSettings()
-    createLangTabs() // This will now auto-scroll
-    setLastOpenedTab(langID)
-    const newTab = document.querySelector("#" + localStorageKey + "_tab_bt");
-    if (newTab) {
-        newTab.querySelector(".active-lang").style.visibility = "visible"
+
+    drawSettings();
+    createLangTabs(isCreatingNew, localStorageKey);
+    setLastOpenedTab(targetLangID);
+
+    const activeTab = document.querySelector("#" + localStorageKey + "_tab_bt");
+    if (activeTab) {
+        activeTab.querySelector(".active-lang").style.visibility = "visible";
     }
+
     document.querySelectorAll(".setting-i input, .setting-i textarea").forEach(el => el.addEventListener("keydown", handle_keys))
 }
 
-function createLangTabs() {
+function createLangTabs(isCreatingNew = false, keyToScrollTo = null) {
     document.querySelectorAll(".lang-item:not(.display-none)").forEach(elm => {
         elm.remove()
     })
     const langContainer = document.querySelector(".lang-container");
     getLangList().forEach(lang => {
-        changeConfig(lang) // Ensures config exists before applying it
+        changeConfig(lang) 
         let langItem = document.querySelector(".lang-item.display-none").cloneNode(true)
         let langMenu = document.querySelector("#lang-menu")
         langItem.classList.remove("display-none")
@@ -43,7 +71,6 @@ function createLangTabs() {
             switchLang(langID)
         })
 
-        // langItem.querySelector(".lang-title").innerText = lang
         langItem.setAttribute("data-lang-key", lang)
         langItem.setAttribute("id", lang + "_tab_bt")
 
@@ -69,9 +96,15 @@ function createLangTabs() {
     })
     applyConfig()
 
-    // --- AUTO-SCROLL LOGIC ---
-    if(langContainer.lastElementChild){
-        langContainer.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    let elementToScrollTo;
+    if (isCreatingNew && langContainer.lastElementChild) {
+        elementToScrollTo = langContainer.lastElementChild;
+    } else if (keyToScrollTo) {
+        elementToScrollTo = document.querySelector(`#${keyToScrollTo}_tab_bt`);
+    }
+
+    if (elementToScrollTo) {
+        elementToScrollTo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 }
 
