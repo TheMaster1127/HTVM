@@ -27,7 +27,10 @@ function clearErrorHighlights() {
 }
 
 function handleAndDisplayError(errorString) {
-    if (errorString === "noERROR") return true;
+    if (errorString === "noERROR") {
+        clearErrorHighlights(); // Also clear if the check is successful
+        return true;
+    }
 
     clearErrorHighlights();
 
@@ -137,14 +140,12 @@ function init(){
         }
     });
     
-    // --- START: UPDATED IDE MODAL LOGIC ---
     const ideModalOverlay = document.getElementById('ide-modal-overlay');
     const ideModalCloseBtn = document.getElementById('ide-modal-close-btn');
     const ideModalDownloadBtn = document.getElementById('ide-modal-download-btn');
     const ideModalCountdown = document.getElementById('ide-modal-countdown');
     let countdownInterval;
 
-    // --- Helper functions to manage the download flag ---
     function hasIdeFileBeenDownloaded(id) {
         return localStorage.getItem(`htvm_ide_downloaded_${id}`) === 'true';
     }
@@ -152,7 +153,6 @@ function init(){
     function markIdeFileAsDownloaded(id) {
         localStorage.setItem(`htvm_ide_downloaded_${id}`, 'true');
     }
-    // ---
 
     function hideIdeModal() {
         clearInterval(countdownInterval);
@@ -165,15 +165,13 @@ function init(){
     ideModalCloseBtn.addEventListener('click', hideIdeModal);
 
     $("#ide-bt").click(function() {
-        // First, always check for errors
+        // THE FIX IS HERE: Clear highlights before checking for errors.
+        clearErrorHighlights();
         if (!handleAndDisplayError(handleError(getUserConfig(lang_ID)))) return;
         
-        // NEW: Check if the file has been downloaded before
         if (hasIdeFileBeenDownloaded(lang_ID)) {
-            // If yes, redirect immediately
             window.open('web-ide/?id=' + lang_ID, '_blank');
         } else {
-            // If no, show the modal
             ideModalOverlay.style.display = 'flex';
         }
     });
@@ -184,8 +182,6 @@ function init(){
         const fullInstructions = userConfig + "\n" + builtins;
 
         saveAs(fullInstructions, 'HTVM-instructions.txt');
-
-        // NEW: Set the flag in localStorage after download
         markIdeFileAsDownloaded(lang_ID);
 
         this.disabled = true;
@@ -206,8 +202,6 @@ function init(){
             }
         }, 1000);
     });
-    // --- END: UPDATED IDE MODAL LOGIC ---
-
 
     $("#preview-modal, #modal-preview-close-bt").click(function(){
         document.querySelector('#preview-iframe').src = "about:blank"
@@ -216,6 +210,8 @@ function init(){
     })
 
     $("#preview-bt").click(function(){
+        // THE FIX IS HERE: Clear highlights before checking for errors.
+        clearErrorHighlights();
         if (!handleAndDisplayError(handleError(getUserConfig(lang_ID)))) return;
 
         document.querySelector('#preview-modal').showModal()
