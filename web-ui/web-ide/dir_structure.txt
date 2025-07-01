@@ -1,0 +1,46 @@
+╔═════════════════════════════════════════════════════════════════════════════╗
+║                            HT-IDE Project Structure                         ║
+╚═════════════════════════════════════════════════════════════════════════════╝
+[HT-IDE_ROOT]/
+├── 🌐 index.html               // The main application skeleton and structure.
+├── 🎨 style.css                 // All visual styling, colors, and layout.
+│
+├── 📜 HTVM.js                   // The core compiler engine. (HTVM)
+├── 📜 htvm-mode.js              // Ace Editor syntax highlighting rules for .htvm files.
+├── 📜 htvm_completions.js       // Autocomplete data for the editor.
+│
+├── 📝 README.md                 // Project description and instructions.
+├── 📝 LICENCE                   // The project's license file.
+├── 🖼️ icon.png                   // The favicon for the browser tab.
+│
+├── 📁 js/                       // All application logic, loaded in order.
+│   ├── 📜 0_database.js           // Initializes and manages the IndexedDB database.
+│   ├── 📜 1_state.js              // Global variables (the app's central memory).
+│   ├── 📜 2_autocomplete_keywords.js   // All autocomplete keywords for non HTVM langs.
+│   ├── 📜 2_config_and_utils.js   // Shared "toolbox" and configuration data.
+│   ├── 📜 2_config_and_utils_reset_htvm.js   // The function to reset the HTVM vars.
+│   ├── 📜 3_ui.js                 // Renders and updates the UI (file list, tabs).
+│   ├── 📜 4_filesystem.js         // Manages the virtual file system in IndexedDB.
+│   ├── 📜 5_editor.js             // Controls the Ace Editor and file sessions (the "Brain").
+│   ├── 📜 6_htvm.js               // Integrates your HTVM engine with the IDE.
+│   ├── 📜 7_modals_1.js           // Logic for Core modals (Session, Settings).
+│   ├── 📜 7_modals_2.js           // Logic for Instruction Set modals.
+│   ├── 📜 7_modals_3.js           // Logic for the Debugger modal.
+│   └── 📜 8_main.js               // App entry point, wires everything together (the "Conductor").
+│
+└── 📁 images/                   // Icons for the language selector dropdown.
+    ├── 🖼️ ahk.png
+    ├── 🖼️ cpp.png
+    ├── 🖼️ csharp.png
+    ├── 🖼️ dart.png
+    ├── 🖼️ go.png
+    ├── 🖼️ groovy.png
+    ├── 🖼️ java.png
+    ├── 🖼️ js.png
+    ├── 🖼️ kotlin.png
+    ├── 🖼️ lua.png
+    ├── 🖼️ nim.png
+    ├── 🖼️ python.png
+    ├── 🖼️ ruby.png
+    ├── 🖼️ swift.png
+    └── 🖼️ ts.png

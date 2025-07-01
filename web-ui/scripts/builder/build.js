@@ -7,7 +7,9 @@ const buildModal = document.querySelector('.build-modal');
 
 
 export function getUserConfig(id) {
-    let config = localStorage.getItem("htvm_lang_" + id);
+    // THE FIX IS HERE: If localStorage.getItem returns null (or any falsy value),
+    // it will use the default value '[]' instead. This prevents the crash.
+    let config = localStorage.getItem("htvm_lang_" + id) || '[]';
     config = JSON.parse(config).join("\n")
     return config;
 }
@@ -36,21 +38,14 @@ async function generateDocumentation(instructionFileContent) {
 
 function getCurrentLangName() {
     const currentLangID = localStorage.getItem("HTVM_LastAccesedTab");
-    return JSON.parse(localStorage.getItem("langSettings"))["htvm_lang_" + currentLangID].name;
-}
-
-async function generateReadme() {
-    const location = "scripts/builder/appending-readme.md";
-    const response = await fetch(location);
-    const data = await response.text();
-    const lang_name = getCurrentLangName()
-    const formattedData = data.replace(/<MyCustomLang>/g, lang_name);
-
-    return formattedData
+    // Added a check here as well for robustness
+    const langSettings = JSON.parse(localStorage.getItem("langSettings")) || {};
+    const langKey = "htvm_lang_" + currentLangID;
+    return langSettings[langKey]?.name || `Language ${currentLangID}`;
 }
 
 export function saveAs(content, filename) {
-    const blob = new Blob([content], { type: 'text/plain' }); // Changed to text/plain for instruction file
+    const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
