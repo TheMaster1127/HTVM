@@ -56,7 +56,7 @@ function init(){
     const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     function processFile(file) {
-        if (file && file.name === 'HTVM-instructions.txt') {
+        if (file && file.name.endsWith('.txt')) {
             const reader = new FileReader();
             reader.onload = function(event) {
                 const content = event.target.result;
@@ -73,7 +73,7 @@ function init(){
             };
             reader.readAsText(file);
         } else {
-            notyf.error('Invalid file. Please drop or select HTVM-instructions.txt');
+            notyf.error('Invalid file type. Please select a .txt instruction file.');
         }
     }
 
@@ -81,7 +81,7 @@ function init(){
         // On mobile, change text and make it a click-to-select area.
         const fileInput = document.createElement('input');
         fileInput.type = 'file';
-        fileInput.id = 'mobile-file-input';
+        fileInput.style.display = 'none';
         fileInput.accept = '.txt';
         document.body.appendChild(fileInput);
 
@@ -98,7 +98,23 @@ function init(){
         });
 
     } else {
-        // On desktop, keep drag and drop functionality.
+        // On desktop, add click-to-select to drag and drop functionality.
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.style.display = 'none';
+        fileInput.accept = '.txt';
+        document.body.appendChild(fileInput);
+
+        dropzone.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                processFile(e.target.files[0]);
+            }
+        });
+        
         dropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropzone.style.borderColor = '#fe621b';

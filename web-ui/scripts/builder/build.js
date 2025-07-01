@@ -7,8 +7,6 @@ const buildModal = document.querySelector('.build-modal');
 
 
 export function getUserConfig(id) {
-    // THE FIX IS HERE: If localStorage.getItem returns null (or any falsy value),
-    // it will use the default value '[]' instead. This prevents the crash.
     let config = localStorage.getItem("htvm_lang_" + id) || '[]';
     config = JSON.parse(config).join("\n")
     return config;
@@ -38,14 +36,23 @@ async function generateDocumentation(instructionFileContent) {
 
 function getCurrentLangName() {
     const currentLangID = localStorage.getItem("HTVM_LastAccesedTab");
-    // Added a check here as well for robustness
     const langSettings = JSON.parse(localStorage.getItem("langSettings")) || {};
     const langKey = "htvm_lang_" + currentLangID;
     return langSettings[langKey]?.name || `Language ${currentLangID}`;
 }
 
+async function generateReadme() {
+    const location = "scripts/builder/appending-readme.md";
+    const response = await fetch(location);
+    const data = await response.text();
+    const lang_name = getCurrentLangName()
+    const formattedData = data.replace(/<MyCustomLang>/g, lang_name);
+
+    return formattedData
+}
+
 export function saveAs(content, filename) {
-    const blob = new Blob([content], { type: 'text/plain' });
+    const blob = content instanceof Blob ? content : new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -64,23 +71,11 @@ async function zipIt(instructionFileContent, documentationHTML, documentationMar
     zip.file("DOCUMENTATION.md", documentationMarkdown);
     zip.file("README.md", readmeContent);
 
-    // Calculate pre-zip total size in bytes
-    const totalOriginalSize =
-        new TextEncoder().encode(instructionFileContent).length +
-        new TextEncoder().encode(documentationHTML).length +
-        new TextEncoder().encode(documentationMarkdown).length +
-        new TextEncoder().encode(readmeContent).length;
-
-    console.log(`Original total size: ${(totalOriginalSize / 1024).toFixed(2)} KB`);
-
-    // Generate the zip file
     const zippedBlob = await zip.generateAsync({
         type: "blob",
         compression: "DEFLATE",
         compressionOptions: { level: 9 }
     });
-
-    console.log(`Zipped size: ${(zippedBlob.size / 1024).toFixed(2)} KB`);
 
     return zippedBlob;
 }
@@ -89,44 +84,55 @@ async function zipIt(instructionFileContent, documentationHTML, documentationMar
 async function buildNDownload() {
     const checkErrors = handleError(getUserConfig(localStorage.getItem("HTVM_LastAccesedTab")))
     if (checkErrors !== "noERROR") {
-        console.log("failed")
         throw new Error(checkErrors);
     }
 
     const instructionFileContent =
         getUserConfig(localStorage.getItem("HTVM_LastAccesedTab")) +
         "\n" +
-        await getBuiltins()
+        await getBuiltins();
     const [documentationHTML, documentationMarkdown] = await generateDocumentation(instructionFileContent);
-    const readmeContent = await generateReadme()
+    const readmeContent = await generateReadme();
     const zipContent = await zipIt(instructionFileContent, documentationHTML, documentationMarkdown, readmeContent);
     const zipFileName = `${getCurrentLangName()}.zip`;
     saveAs(zipContent, zipFileName);
 }
 
-
-
-
 document.querySelector("#buildButton").addEventListener("click", async () => {
     buildOverlay.style.display = 'flex';
     buildModal.classList.remove('error');
+    buildStatusTitle.innerText = 'Building...';
 
-    try {
-        await buildNDownload();
-
-        buildStatusTitle.innerText = 'Build Complete!';
-        buildStatusSubtitle.innerText = 'Your download will start shortly.';
-        setTimeout(() => {
-            buildOverlay.style.display = 'none';
-        }, 2000);
-
-    } catch (error) {
-        console.error("Build failed:", error);
-        buildStatusTitle.innerText = 'Build Failed!';
-        buildStatusSubtitle.innerText = error.message;
-        buildModal.classList.add('error');
-        setTimeout(() => {
-            buildOverlay.style.display = 'none';
-        }, 5000);
+    const hasBuiltBefore = localStorage.getItem('htvm_has_built_before');
+    if (!hasBuiltBefore) {
+        buildStatusSubtitle.innerText = "This might take up to a minute since it's the first time building...";
+    } else {
+        buildStatusSubtitle.innerText = 'Please wait.';
     }
+
+    // Use a small timeout to allow the UI to update before the heavy work starts
+    setTimeout(async () => {
+        try {
+            await buildNDownload();
+
+            buildStatusTitle.innerText = 'Build Complete!';
+            buildStatusSubtitle.innerText = 'Your download will start shortly.';
+            
+            localStorage.setItem('htvm_has_built_before', 'true');
+            
+            setTimeout(() => {
+                buildOverlay.style.display = 'none';
+            }, 2000);
+
+        } catch (error) {
+            console.error("Build failed:", error);
+            buildStatusTitle.innerText = 'Build Failed!';
+            const errorMessage = error.message.includes('|') ? error.message.split('|')[1] : error.message;
+            buildStatusSubtitle.innerText = errorMessage.trim();
+            buildModal.classList.add('error');
+            setTimeout(() => {
+                buildOverlay.style.display = 'none';
+            }, 5000);
+        }
+    }, 100); 
 });

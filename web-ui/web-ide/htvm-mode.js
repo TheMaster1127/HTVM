@@ -151,13 +151,15 @@
                 };
 
                 // Use an async IIFE to fetch the setting and add the rule.
-                // This is a bit of a hack but necessary because the constructor is synchronous.
-                (async () => {
-                    const highlightOperators = await dbGet('highlightSymbolOperators');
-                    if (highlightOperators !== false) {
-                        this.$rules.start.push({ token: "operators", regex: final_symbol_operators });
-                    }
-                })();
+// Replace async IIFE with synchronous check:
+const highlightOperators = (typeof localStorage !== "undefined") 
+    ? localStorage.getItem('highlightSymbolOperators') !== "false"
+    : true;  // default true if no localStorage
+
+if (highlightOperators) {
+    this.$rules.start.push({ token: "operators", regex: final_symbol_operators });
+}
+
             };
             oop.inherits(HTVMHighlightRules, TextHighlightRules);
             var Mode = function() { this.HighlightRules = HTVMHighlightRules; this.$behaviour = this.$defaultBehaviour; };
