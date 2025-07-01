@@ -542,7 +542,7 @@ This will install all the necessary packages listed in the `package.json` file.
 
 ### 3. **Start the HT-IDE**
 
-Once the dependencies are installed, you can launch the HTVM IDE using:
+Once the dependencies are installed, you can launch the HT-IDE using:
 
 ```bash
 npm start
@@ -913,7 +913,7 @@ While developing HTVM, we anticipate potential questions and concerns. Here are 
     *   **The Creator's Perspective: This is solved through a pragmatic workflow and a purpose-built architecture.**
         First, the generated code is intentionally formatted to be readable and to mirror the structure of the original HTVM source, making manual tracing possible.
 
-        More importantly, HTVM has a **"reference target" for debugging: JavaScript.** Because you can transpile *any* HTVM code to JavaScript, you can use the excellent, mature debuggers available in modern browsers or the built-in HTVM IDE debugger. The workflow is simple:
+        More importantly, HTVM has a **"reference target" for debugging: JavaScript.** Because you can transpile *any* HTVM code to JavaScript, you can use the excellent, mature debuggers available in modern browsers or the built-in HT-IDE debugger. The workflow is simple:
         1.  Write your logic in HTVM.
         2.  Transpile to JavaScript and use the debugger to confirm your core logic is 100% correct.
         3.  Once the logic is validated, you can transpile to C++, Python, or any other target with high confidence.
@@ -1025,8 +1025,6 @@ There's increasing talk about AI writing code or even creating languages. Some m
 *   **Scalability and Reliability:** Imagine asking an AI to translate a million-line project written in your custom HTVM syntax into 15 different languages, ensuring perfect feature parity and correctness across all targets. The computational cost, potential for hallucinated errors, and lack of verifiable consistency make this **impractical, unreliable and straight-up impossible** with today's AI. HTVM, built on a deterministic engine, handles this conversion reliably, no matter the project size.
 *   **Deep User-Defined Syntax:** AI *might* generate *a* language, but it cannot intuit the deeply personalized, nuanced syntax *you* design with HTVM. HTVM allows you to meticulously craft every keyword, operator, and structure to fit *your specific cognitive model*. You build the language; HTVM just makes it work everywhere. AI generates based on patterns; HTVM generates based on *your explicit design*.
 *   **Beyond Simple Generation:** HTVM isn't just about generating code. It's an ecosystem with an IDE, syntax highlighting tailored *to your rules*, and built-in features like OSP and Programming Blocks. It provides a complete workbench for *your* language, something far beyond simple AI code generation prompts.
-
-While AI is a powerful tool for *assisting* developers (and future HTVM IDE versions plan to leverage it for tasks like error mapping and more...), it doesn't replace the fundamental value proposition of HTVM: giving the developer **unprecedented, deterministic control** over their language syntax and enabling **reliable, large-scale, multi-target code generation** based on that personalized design. HTVM empowers *your* creativity and ensures *your* logic translates faithfully; it doesn't rely on the probabilistic nature of current AI models for core functionality.
 
 
 #### **In essence, HTVM's philosophy is about reclaiming control, reducing friction, enhancing accessibility, and making programming a more personalized and efficient act of creation.** It’s about building *your* ideal programming experience.
