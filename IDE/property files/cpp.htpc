@@ -1,3 +1,0 @@
-g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
-
-
