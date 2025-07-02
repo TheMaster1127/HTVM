@@ -130,7 +130,7 @@ async function updateEditorModeForHtvm() {
     htvmControls.style.display = 'flex';
     
     // --- DEXIE MIGRATION: Load instructions from DB ---
-    const activeContent = await getActiveInstructionSetContent();
+    const activeContent = (await getActiveInstructionSetContent()).replace(/\r/g, '');
     if (!activeContent) return;
     const keywords = activeContent.split('\n');
     

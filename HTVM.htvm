@@ -13401,6 +13401,7 @@ StringTrimRight, code, programmingBlocksTemp, 1
 ; All variables are declared at the top for scope safety and clarity.
 ; The main logic is wrapped in an IF block to avoid running unnecessarily.
 ; =========================================================================================
+; Welcome!
 
 ; --- Variable Declarations ---
 ; All variables used in this script are declared upfront.
