@@ -145,15 +145,66 @@ async function runJsCode(code) {
     }
 }
 
+/**
+ * Pre-processes HTVM code to find all `include` statements and load their content
+ * into a cache recursively. This is necessary to bridge the gap between the
+ * synchronous compiler and the asynchronous file system.
+ * @param {string} source - The source code to scan.
+ * @param {string} basePath - The directory of the source file, for resolving relative paths.
+ * @param {Map<string, string|null>} cache - The cache to populate.
+ * @param {Set<string>} processedFiles - A set of processed paths to prevent infinite loops.
+ * @param {Function} asyncReader - The real async file reading function.
+ */
+async function preloadHtvmImports(source, basePath, cache, processedFiles, asyncReader) {
+    const canonicalPath = window.resolveHtvmPath(basePath, '/');
+    if (processedFiles.has(canonicalPath)) {
+        return; // Already processed, stop to prevent circular recursion
+    }
+    processedFiles.add(canonicalPath);
+
+    const includeRegex = /^include\s+(.+)/gmi;
+    const matches = [...source.matchAll(includeRegex)];
+
+    for (const match of matches) {
+        const importPath = match[1].trim();
+        const absoluteImportPath = window.resolveHtvmPath(importPath, basePath);
+        
+        if (!cache.has(absoluteImportPath)) {
+            const fileContent = await asyncReader(absoluteImportPath);
+            cache.set(absoluteImportPath, fileContent); // Cache success or failure (null)
+            if (fileContent !== null) {
+                // If file was found, scan it for more includes
+                const newBasePath = absoluteImportPath.substring(0, absoluteImportPath.lastIndexOf('/') + 1);
+                await preloadHtvmImports(fileContent, newBasePath, cache, processedFiles, asyncReader);
+            }
+        }
+    }
+}
+
 async function formatHtvmCode(code) {
     let instructionSetContent = await getActiveInstructionSetContent();
     let instructionSet = instructionSetContent.split('\n');
     
     term.writeln(`\x1b[32mFormatting HTVM file...\x1b[0m`);
     resetGlobalVarsOfHTVMjs();
+
+    // The formatter might also use includes, so we apply the same pre-loading logic.
+    const originalAsyncFileRead = window.FileRead;
+    const importCache = new Map();
+    const currentPath = currentOpenFile ? currentOpenFile.substring(0, currentOpenFile.lastIndexOf('/') + 1) : '/';
+    await preloadHtvmImports(code, currentPath, importCache, new Set(), originalAsyncFileRead);
+    
+    window.FileRead = (path) => {
+        const resolvedPath = window.resolveHtvmPath(path, currentPath);
+        return importCache.has(resolvedPath) ? importCache.get(resolvedPath) : null;
+    };
+
     argHTVMinstrMORE.push(instructionSet.join('\n'));
-    const formattedCode = compiler(code, instructionSet.join('\n'), "full", "htvm");
+    const formattedCode = await compiler(code, instructionSet.join('\n'), "full", "htvm");
     resetGlobalVarsOfHTVMjs();
+    
+    // Restore the original async reader
+    window.FileRead = originalAsyncFileRead;
     
     term.writeln(`\x1b[32mFormatting complete.\x1b[0m`);
     return formattedCode;
@@ -162,6 +213,15 @@ async function formatHtvmCode(code) {
 async function runHtvmCode(code) {
     resetGlobalVarsOfHTVMjs();
     const lang = await dbGet('selectedLangExtension') || 'js';
+
+    // Set the base directory for the main file being executed.
+    if (currentOpenFile) {
+        const lastSlash = currentOpenFile.lastIndexOf('/');
+        window.currentHtvmFileDirectory = lastSlash === -1 ? '/' : currentOpenFile.substring(0, lastSlash + 1);
+    } else {
+        window.currentHtvmFileDirectory = '/';
+    }
+    
     let instructionSetContent = await getActiveInstructionSetContent();
     let instructionSet = instructionSetContent.split('\n');
     const isFullHtml = lang === 'js' && document.getElementById('full-html-checkbox').checked;
@@ -171,7 +231,24 @@ async function runHtvmCode(code) {
     }
     
     term.writeln(`\x1b[32mTranspiling HTVM to ${isFullHtml ? 'HTML' : lang.toUpperCase()}...\x1b[0m`);
-    const compiled = compiler(code, instructionSet.join('\n'), "full", lang);
+    
+    // --- Pre-load all includes before compiling ---
+    const originalAsyncFileRead = window.FileRead;
+    const importCache = new Map();
+    // Start pre-loading from the main source code and its directory
+    await preloadHtvmImports(code, window.currentHtvmFileDirectory, importCache, new Set(), originalAsyncFileRead);
+
+    // --- Temporarily replace FileRead with a synchronous cache lookup ---
+    window.FileRead = (path) => {
+        const resolvedPath = window.resolveHtvmPath(path, window.currentHtvmFileDirectory);
+        return importCache.get(resolvedPath);
+    };
+
+    // --- Call the synchronous compiler ---
+    const compiled = await compiler(code, instructionSet.join('\n'), "full", lang);
+    
+    // --- Restore the original async FileRead function ---
+    window.FileRead = originalAsyncFileRead;
     resetGlobalVarsOfHTVMjs();
     
     const newFileExt = isFullHtml ? 'html' : lang;

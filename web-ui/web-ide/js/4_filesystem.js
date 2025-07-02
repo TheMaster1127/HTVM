@@ -86,7 +86,7 @@ async function deleteItem(path, isFile) {
 async function handleNewFile() {
     const name = prompt("File name:");
     if (name?.trim()) {
-        const path = currentDirectory === '/' ? name : `${currentDirectory}${name}`;
+        const path = currentDirectory + name;
         const allPaths = await getAllPaths();
         if (allPaths.includes(path)) {
             alert("File exists.");
@@ -109,7 +109,7 @@ async function handleNewFile() {
 async function handleNewFolder() {
     const name = prompt("Folder name:");
     if (name?.trim()) {
-        const path = (currentDirectory === '/' ? name : `${currentDirectory}${name}`) + '/';
+        const path = currentDirectory + name + '/';
         const allPaths = await getAllPaths();
         if (allPaths.some(p => p.startsWith(path))) {
             alert("Folder exists.");

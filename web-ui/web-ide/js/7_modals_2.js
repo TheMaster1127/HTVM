@@ -534,6 +534,21 @@ async function openHtvmToHtvmModal() {
                         const codeSnippet = r.target.result;
                         
                         resetGlobalVarsOfHTVMjs();
+                        
+                        // For uploaded files, the base path for includes is the root
+                        const basePath = '/';
+                        window.currentHtvmFileDirectory = basePath;
+
+                        // --- Pre-load includes ---
+                        const originalAsyncFileRead = window.FileRead;
+                        const importCache = new Map();
+                        await preloadHtvmImports(codeSnippet, basePath, importCache, new Set(), originalAsyncFileRead);
+                        
+                        // --- Override with sync reader ---
+                        window.FileRead = (path) => {
+                            const resolvedPath = window.resolveHtvmPath(path, basePath);
+                            return importCache.get(resolvedPath);
+                        };
 
                         let instrFile = targetInstructionSetContent;
                         const instr0 = sourceInstructionSetContent;
@@ -558,7 +573,10 @@ async function openHtvmToHtvmModal() {
                         argHTVMinstrMORE.length = 0; // Clear before using
                         argHTVMinstrMORE.push(instr4);
 
-                        const convertedCode = compiler(instr1, instr2, "full", instr3);
+                        const convertedCode = await compiler(instr1, instr2, "full", instr3);
+                        
+                        // --- Restore async reader ---
+                        window.FileRead = originalAsyncFileRead;
 
                         const originalFilename = file.name;
                         let baseNewFilename = originalFilename.replace(/(\.htvm)$/i, '.converted.htvm');

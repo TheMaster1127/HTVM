@@ -104,13 +104,16 @@
     <!-- DEXIE.JS - The IndexedDB wrapper -->
     <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
     
+    <!-- Scripts that HTVM.js DEPENDS ON -->
+    <script src="js/0_database.js"></script> <!-- Defines 'db' -->
+    <script src="js/0_htvm_io.js"></script> <!-- Defines 'FileRead' which uses 'db' -->
+
     <!-- HTVM Core Scripts -->
     <script src="HTVM.js"></script>
     <script src="htvm-mode.js"></script>
     <script src="htvm_completions.js"></script>
 
     <!-- Application Scripts (Order is important) -->
-    <script src="js/0_database.js"></script> <!-- NEW FILE -->
     <script src="js/1_state.js"></script>
     <script src="js/2_autocomplete_keywords.js"></script>
     <script src="js/2_config_and_utils.js"></script>
