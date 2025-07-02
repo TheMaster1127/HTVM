@@ -392,7 +392,7 @@ body {
 
 
 #portraitDiv {
-    background-image: url(img/rotate.webp);
+    background-image: url(assets/rotate.webp);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
