@@ -574,7 +574,7 @@ async function openHtvmToHtvmModal() {
                         argHTVMinstrMORE.push(instr4);
 
                         const convertedCode = await compiler(instr1, instr2, "full", instr3);
-                        
+                        resetGlobalVarsOfHTVMjs();
                         // --- Restore async reader ---
                         window.FileRead = originalAsyncFileRead;
 

@@ -199,6 +199,7 @@ async function formatHtvmCode(code) {
         return importCache.has(resolvedPath) ? importCache.get(resolvedPath) : null;
     };
 
+    resetGlobalVarsOfHTVMjs();    
     argHTVMinstrMORE.push(instructionSet.join('\n'));
     const formattedCode = await compiler(code, instructionSet.join('\n'), "full", "htvm");
     resetGlobalVarsOfHTVMjs();
