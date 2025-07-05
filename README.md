@@ -140,6 +140,11 @@ To use your language offline, click [📘 Usage](#-usage).
 8. [⚙️ What Customizations HTVM Offers](#%EF%B8%8F-what-customizations-htvm-offers)    
    **Description**: Explore the capabilities and features of HTVM that allow you to configure and customize your programming environment, making your coding experience more efficient and tailored to your needs.
 
+9.  [📜 License](#-license)  
+    **Description**: Understand the legal terms under which HTVM is distributed. This section clarifies your rights and obligations when using, modifying, or distributing the software.
+
+
+
 
 ---
 
@@ -1136,6 +1141,25 @@ If you are creating custom languages or experimenting with unconventional indexi
 
 ---
 
+### 📜 License
+
+[Go Back To The Table of Contents](#table-of-contents)
+
+HTVM and its associated source code are licensed under the **GNU General Public License v3.0 (GPL-3.0)**.
+
+The project is protected by this "copyleft" license to guarantee the freedom of all users to run, study, share, and modify the software. This choice aligns with the core philosophy of HTVM: to keep programming accessible and to prevent the work from being used to create proprietary, closed-source derivatives.
+
+**Under the GPLv3, you are free to:**
+*   Use HTVM for any purpose, including for commercial, private, and open-source projects.
+*   Modify the source code to suit your needs and create derivative works.
+*   Distribute copies of the original or your modified version.
+
+**This freedom comes with one key responsibility:**
+*   If you distribute a modified version of HTVM, you **must** also release your modifications under the same GPLv3 license, ensuring the software remains free for all future users.
+
+The full text of the license is available in the `LICENSE` file in the root of this repository.
+
+---
 
 ## Further Customization in HTVM
 

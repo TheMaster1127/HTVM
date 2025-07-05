@@ -167,12 +167,38 @@ size_t StrLen(const std::string& str) {
     return str.length();
 }
 
+// For float input
+float Exp(float value) {
+    return expf(value);
+}
+// For double input
 double Exp(double value) {
     return std::exp(value);
 }
+// For long double input
+long double Exp(long double value) {
+    return expl(value);
+}
+// For int input, convert to double
+double Exp(int value) {
+    return std::exp(static_cast<double>(value));
+}
 
+// For float input
+float Log(float value) {
+    return log10f(value);
+}
+// For double input
 double Log(double value) {
     return std::log10(value);
+}
+// For long double input
+long double Log(long double value) {
+    return log10l(value);
+}
+// For int input, convert to double
+double Log(int value) {
+    return std::log10(static_cast<double>(value));
 }
 
 std::string SubStr(const std::string& str, int startPos, int length = -1) {
@@ -566,6 +592,22 @@ int HTVM_IndexOf(const std::vector<bool>& arr, bool value) {
 }
 
 
+// HTVM: The Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine
+// Copyright (C) 2025 TheMaster1127
+// ------------------------------------------------------------------------
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// ------------------------------------------------------------------------
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+// ------------------------------------------------------------------------
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
+// ------------------------------------------------------------------------
 std::string str0 = "nothing";
 std::string str00 = "nothing";
 std::string str1 = "";
@@ -1026,7 +1068,7 @@ std::string fixCSandJAVAstaticBugForFunc(std::string line) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 std::string allVarsSoWeDontReDecVarsFixFunc(std::string line, std::string varName) {
     std::string out = "";
-    if (RegExMatch(line, "^\\d+(\\.\\d+)?$")) {
+    if (RegExMatch(line, "^-?\\d+(\\.\\d+)?$")) {
         for (int A_Index5 = 0; A_Index5 < HTVM_Size(allVarsSoWeDontReDecVars_FIX_uint8) + 0; A_Index5++) {
             if (Trim(allVarsSoWeDontReDecVars_FIX_uint8[A_Index5]) == Trim(varName)) {
                 if (langToConvertTo == "java") {
@@ -10485,6 +10527,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     // All variables are declared at the top for scope safety and clarity.
     // The main logic is wrapped in an IF block to avoid running unnecessarily.
     // =========================================================================================
+    // Welcome!
     // --- Variable Declarations ---
     // All variables used in this script are declared upfront.
     std::vector<std::string> includedFilePaths;
@@ -10500,8 +10543,8 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             // Optimization: Only run the complex processing logic IF the 'include' keyword exists in the code.
             // This avoids a 'return' and simply skips the block if it's not needed.
             if (doseHaveInclude(code)) {
-                // Loop up to 10 times to resolve nested includes. Each pass processes one level of includes.
-                for (int A_Index167 = 0; A_Index167 < 10 + 0; A_Index167++) {
+                // Loop up to 10000 times to resolve nested includes. Each pass processes one level of includes.
+                for (int A_Index167 = 0; A_Index167 < 10000 + 0; A_Index167++) {
                     // Reset the flag and the temporary code string for this pass.
                     includesWereFoundInPass = false;
                     reconstructedCode = "";
@@ -10524,9 +10567,9 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                 }
                             }
                             if (isAlreadyIncluded == false) {
-                                fileContent = FileRead(filePathToInclude);
+                                fileContent = Trim(FileRead(filePathToInclude));
                                 // The 'include' line is replaced by the file's content in the reconstructed code.
-                                reconstructedCode = reconstructedCode + fileContent + Chr(10);
+                                reconstructedCode = reconstructedCode + Chr(10) + keyWordComment + " start of " + filePathToInclude + Chr(10) + fileContent + Chr(10) + keyWordComment + " end of " + filePathToInclude + Chr(10) + Chr(10);
                                 HTVM_Append(includedFilePaths, filePathToInclude);
                             }
                         } else {
@@ -13713,7 +13756,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                             skipLeftCuleyForFuncPLS = 1;
                                         }
                                         if (langToConvertTo == "cs") {
-                                            if (RegExMatch(str9, "^\\d+(\\.\\d+)?$")) {
+                                            if (RegExMatch(str9, "^-?\\d+(\\.\\d+)?$")) {
                                                 str10 += str8 + " " + str7 + " = " + str9 + "f" + Chr(10);
                                             } else {
                                                 str10 += str8 + " " + str7 + " = " + str9 + Chr(10);
@@ -13724,7 +13767,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                             skipLeftCuleyForFuncPLS = 1;
                                         }
                                         if (langToConvertTo == "kt") {
-                                            if (RegExMatch(str9, "^\\d+(\\.\\d+)?$")) {
+                                            if (RegExMatch(str9, "^-?\\d+(\\.\\d+)?$")) {
                                                 str10 += str7 + ": " + str8 + " = " + str9 + "f" + Chr(10);
                                             } else {
                                                 str10 += str7 + ": " + str8 + " = " + str9 + Chr(10);
@@ -13795,7 +13838,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                             skipLeftCuleyForFuncPLS = 1;
                                         }
                                         if (langToConvertTo == "cs") {
-                                            if (RegExMatch(str9, "^\\d+(\\.\\d+)?$")) {
+                                            if (RegExMatch(str9, "^-?\\d+(\\.\\d+)?$")) {
                                                 str10 += str8 + " " + str7 + " = " + str9 + "f" + Chr(10);
                                             } else {
                                                 str10 += str8 + " " + str7 + " = " + str9 + Chr(10);
@@ -13806,7 +13849,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                             skipLeftCuleyForFuncPLS = 1;
                                         }
                                         if (langToConvertTo == "kt") {
-                                            if (RegExMatch(str9, "^\\d+(\\.\\d+)?$")) {
+                                            if (RegExMatch(str9, "^-?\\d+(\\.\\d+)?$")) {
                                                 str10 += str7 + ": " + str8 + " = " + str9 + "f" + Chr(10);
                                             } else {
                                                 str10 += str7 + ": " + str8 + " = " + str9 + Chr(10);
@@ -13960,7 +14003,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                 for (size_t A_Index211 = 0; A_Index211 < items211.size() + 0; A_Index211++) {
                                     std::string A_LoopField211 = items211[A_Index211 - 0];
                                     if (A_Index211 == 3) {
-                                        if (RegExMatch(A_LoopField211, "^\\d+(\\.\\d+)?$")) {
+                                        if (RegExMatch(A_LoopField211, "^-?\\d+(\\.\\d+)?$")) {
                                             str20 += A_LoopField211 + "f ";
                                         } else {
                                             str20 += A_LoopField211 + " ";
@@ -14051,7 +14094,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                                 for (size_t A_Index220 = 0; A_Index220 < items220.size() + 0; A_Index220++) {
                                     std::string A_LoopField220 = items220[A_Index220 - 0];
                                     if (A_Index220 == 3) {
-                                        if (RegExMatch(A_LoopField220, "^\\d+(\\.\\d+)?$")) {
+                                        if (RegExMatch(A_LoopField220, "^-?\\d+(\\.\\d+)?$")) {
                                             str20 += A_LoopField220 + "f ";
                                         } else {
                                             str20 += A_LoopField220 + " ";
@@ -14994,6 +15037,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             } else {
                                 str4 = "static " + str3 + " " + str2 + " " + str12 + " " + str6 + ";";
                             }
+                            // g p l | g p l | g p l | g p l |
                         }
                         if (langToConvertTo == "kt") {
                             str4 = "var " + str2 + ": " + str3 + " " + str12 + " " + str6;
@@ -18507,6 +18551,9 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
     }
     if (langToConvertTo == "java") {
         htCode = StrReplace(htCode, "= [);", "= new ArrayList<>();");
+    }
+    if (langToConvertTo == "cpp" || langToConvertTo == "cs" || langToConvertTo == "java" || langToConvertTo == "kt") {
+        htCode = RegExReplace(htCode, "(?<![A-Za-z0-9_])(-?\\d+\\.\\d+)(?![A-Za-z0-9_]|f)", "$1f");
     }
     for (int A_Index296 = 0; A_Index296 < theIdNumOfThe34 + 0; A_Index296++) {
         if (theIdNumOfThe34 == A_Index296 + 1) {

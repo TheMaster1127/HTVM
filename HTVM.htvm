@@ -1,5 +1,19 @@
-
-
+; HTVM: The Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine
+; Copyright (C) 2025 TheMaster1127
+; ------------------------------------------------------------------------
+; This program is free software: you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation, either version 3 of the License, or
+; (at your option) any later version.
+; ------------------------------------------------------------------------
+; This program is distributed in the hope that it will be useful,
+; but WITHOUT ANY WARRANTY; without even the implied warranty of
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+; GNU General Public License for more details.
+; ------------------------------------------------------------------------
+; You should have received a copy of the GNU General Public License
+; along with this program. If not, see <https://www.gnu.org/licenses/>.
+; ------------------------------------------------------------------------
 str str0 := "nothing"
 str str00 := "nothing"
 str str1 := ""
@@ -496,7 +510,7 @@ return out
 func str allVarsSoWeDontReDecVarsFixFunc(str line, str varName)
 {
 str out := ""
-if (RegExMatch(line, "^\d+(\.\d+)?$"))
+if (RegExMatch(line, "^-?\d+(\.\d+)?$"))
 {
 
 Loop, % allVarsSoWeDontReDecVars_FIX_uint8.size()
@@ -13422,8 +13436,8 @@ if (langToConvertTo != langFileExtension_2)
 ; This avoids a 'return' and simply skips the block if it's not needed.
 if (doseHaveInclude(code))
 {
-    ; Loop up to 10 times to resolve nested includes. Each pass processes one level of includes.
-    Loop, 10 {
+    ; Loop up to 10000 times to resolve nested includes. Each pass processes one level of includes.
+    Loop, 10000 {
         ; Reset the flag and the temporary code string for this pass.
         includesWereFoundInPass := false
         reconstructedCode := ""
@@ -13449,9 +13463,9 @@ if (doseHaveInclude(code))
                 }
 
                 if (isAlreadyIncluded = false) {
-                    fileContent := FileRead(filePathToInclude)
+                    fileContent := Trim(FileRead(filePathToInclude))
                     ; The 'include' line is replaced by the file's content in the reconstructed code.
-                    reconstructedCode := reconstructedCode . fileContent . Chr(10)
+                    reconstructedCode := reconstructedCode . Chr(10) . keyWordComment . " start of " . filePathToInclude + Chr(10) . fileContent . Chr(10) . keyWordComment . " end of " . filePathToInclude . Chr(10) . Chr(10)
                     includedFilePaths.add(filePathToInclude)
                 }
             }
@@ -17901,7 +17915,7 @@ str10 .= str7 . " = " . str9 . Chr(10)
 skipLeftCuleyForFuncPLS := 1
 }
 if (langToConvertTo = "cs") {
-if (RegExMatch(str9, "^\d+(\.\d+)?$"))
+if (RegExMatch(str9, "^-?\d+(\.\d+)?$"))
 {
 str10 .= str8 . " " . str7 . " = " . str9 . "f" . Chr(10)
 }
@@ -17916,7 +17930,7 @@ str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
 skipLeftCuleyForFuncPLS := 1
 }
 if (langToConvertTo = "kt") {
-if (RegExMatch(str9, "^\d+(\.\d+)?$"))
+if (RegExMatch(str9, "^-?\d+(\.\d+)?$"))
 {
 str10 .= str7 . ": " . str8 . " = " . str9 . "f" . Chr(10)
 }
@@ -18009,7 +18023,7 @@ str10 .= str7 . " = " . str9 . Chr(10)
 skipLeftCuleyForFuncPLS := 1
 }
 if (langToConvertTo = "cs") {
-if (RegExMatch(str9, "^\d+(\.\d+)?$"))
+if (RegExMatch(str9, "^-?\d+(\.\d+)?$"))
 {
 str10 .= str8 . " " . str7 . " = " . str9 . "f" . Chr(10)
 }
@@ -18024,7 +18038,7 @@ str10 .= str8 . " " . str7 . " = " . str9 . Chr(10)
 skipLeftCuleyForFuncPLS := 1
 }
 if (langToConvertTo = "kt") {
-if (RegExMatch(str9, "^\d+(\.\d+)?$"))
+if (RegExMatch(str9, "^-?\d+(\.\d+)?$"))
 {
 str10 .= str7 . ": " . str8 . " = " . str9 . "f" . Chr(10)
 }
@@ -18243,7 +18257,7 @@ Loop, Parse, str19, " "
 {
 if (A_Index = 3)
 {
-if (RegExMatch(A_LoopField, "^\d+(\.\d+)?$"))
+if (RegExMatch(A_LoopField, "^-?\d+(\.\d+)?$"))
 {
 str20 .= A_LoopField . "f "
 }
@@ -18381,7 +18395,7 @@ Loop, Parse, str19, " "
 {
 if (A_Index = 3)
 {
-if (RegExMatch(A_LoopField, "^\d+(\.\d+)?$"))
+if (RegExMatch(A_LoopField, "^-?\d+(\.\d+)?$"))
 {
 str20 .= A_LoopField . "f "
 }
@@ -19831,7 +19845,7 @@ else
 {
 str4 := "static " . str3 . " " . str2 . " " . str12 . " " . str6 . ";"
 }
-
+   ; g p l | g p l | g p l | g p l |   
 }
 if (langToConvertTo = "kt")
 {
@@ -24892,6 +24906,8 @@ if (COUNT_programmingBlock_HTVM != 0)
 if (langToConvertTo != langFileExtension_2)
 {
 
+
+
 htCode := StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI", "{")
 htCode := StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI", "}")
 
@@ -25296,6 +25312,9 @@ htCode := StrReplace(htCode, "= [);", "= new ArrayList<>();")
 
 }
 
+if (langToConvertTo = "cpp") or (langToConvertTo = "cs") or (langToConvertTo = "java") or (langToConvertTo = "kt") {
+htCode := RegExReplace(htCode, "(?<![A-Za-z0-9_])(-?\d+\.\d+)(?![A-Za-z0-9_]|f)", "$1f")
+}
 
 
 
