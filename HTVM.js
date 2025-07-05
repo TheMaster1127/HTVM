@@ -17789,262 +17789,286 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     if (langToConvertTo == "cs" || langToConvertTo == "java") {
         htCode = fixCSandJAVAstaticBugForFunc(htCode);
     }
+    //;;;;;;;;;;;;;;;;;;;;;;;;; fix here
+    //;;;;;;;;;;;;;;;;;;;;;;;;; fix here
+    //;;;;;;;;;;;;;;;;;;;;;;;;; fix here
+    if (langToConvertTo == "rb") {
+        htCode = FixRubyGlobalVars(htCode);
+    }
+    htCode = StrReplace(htCode, "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc ", "");
+    if (langToConvertTo == "rb") {
+        htCode = StrReplace(htCode, "$$", "$");
+        htCode = StrReplace(htCode, "$$", "$");
+        htCode = StrReplace(htCode, "$$", "$");
+    }
+    if (langToConvertTo == "java") {
+        htCode = StrReplace(htCode, "= [);", "= new ArrayList<>();");
+    }
+    if (langToConvertTo == "cpp" || langToConvertTo == "cs" || langToConvertTo == "java" || langToConvertTo == "kt") {
+        htCode = RegExReplace(htCode, "(?<![A-Za-z0-9_])(-?\\d+\\.\\d+)(?![A-Za-z0-9_]|f)", "$1f");
+    }
+    for (let A_Index254 = 0; A_Index254 < HTVM_Size(commentsBugFix) + 0; A_Index254++) {
+        htCode = StrReplace(htCode, "HTVM--cnavisdofbuvsesdivdidufg79wregwewaeosd8ges7dfdftuawdiHTVMv2yerheyziberlasduci6syiq--AA" + STR(A_Index254) + "AA", commentsBugFix[A_Index254]);
+    }
+    //;;;;;;;;;;;;;;;;;;;;;;;;; fix here
+    //;;;;;;;;;;;;;;;;;;;;;;;;; fix here
+    //;;;;;;;;;;;;;;;;;;;;;;;;; fix here
     if (COUNT_programmingBlock_InTheTranspiledLang != 0) {
-        for (let A_Index254 = 0; A_Index254 < COUNT_programmingBlock_InTheTranspiledLang + 0; A_Index254++) {
-            htCode = StrReplace(htCode, "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" + STR(A_Index254 + 1) + "AA", programmingBlock_InTheTranspiledLang[A_Index254]);
+        for (let A_Index255 = 0; A_Index255 < COUNT_programmingBlock_InTheTranspiledLang + 0; A_Index255++) {
+            htCode = StrReplace(htCode, "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" + STR(A_Index255 + 1) + "AA", programmingBlock_InTheTranspiledLang[A_Index255]);
         }
     }
     if (langToConvertTo == "cpp") {
         if (COUNT_programmingBlock_CPP != 0) {
-            for (let A_Index255 = 0; A_Index255 < COUNT_programmingBlock_CPP + 0; A_Index255++) {
-                htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index255 + 1) + "AA", programmingBlock_CPP[A_Index255]);
+            for (let A_Index256 = 0; A_Index256 < COUNT_programmingBlock_CPP + 0; A_Index256++) {
+                htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index256 + 1) + "AA", programmingBlock_CPP[A_Index256]);
             }
         }
     } else {
         if (COUNT_programmingBlock_CPP != 0) {
-            for (let A_Index256 = 0; A_Index256 < COUNT_programmingBlock_CPP + 0; A_Index256++) {
+            for (let A_Index257 = 0; A_Index257 < COUNT_programmingBlock_CPP + 0; A_Index257++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index256 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCPP_2 + Chr(10) + programmingBlock_CPP[A_Index256] + Chr(10) + keyWordCodeInTheTranspiledLangEndCPP_2);
+                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index257 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCPP_2 + Chr(10) + programmingBlock_CPP[A_Index257] + Chr(10) + keyWordCodeInTheTranspiledLangEndCPP_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index256 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(A_Index257 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "py") {
         if (COUNT_programmingBlock_PY != 0) {
-            for (let A_Index257 = 0; A_Index257 < COUNT_programmingBlock_PY + 0; A_Index257++) {
-                htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index257 + 1) + "AA", programmingBlock_PY[A_Index257]);
+            for (let A_Index258 = 0; A_Index258 < COUNT_programmingBlock_PY + 0; A_Index258++) {
+                htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index258 + 1) + "AA", programmingBlock_PY[A_Index258]);
             }
         }
     } else {
         if (COUNT_programmingBlock_PY != 0) {
-            for (let A_Index258 = 0; A_Index258 < COUNT_programmingBlock_PY + 0; A_Index258++) {
+            for (let A_Index259 = 0; A_Index259 < COUNT_programmingBlock_PY + 0; A_Index259++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index258 + 1) + "AA", keyWordCodeInTheTranspiledLangStartPY_2 + Chr(10) + programmingBlock_PY[A_Index258] + Chr(10) + keyWordCodeInTheTranspiledLangEndPY_2);
+                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index259 + 1) + "AA", keyWordCodeInTheTranspiledLangStartPY_2 + Chr(10) + programmingBlock_PY[A_Index259] + Chr(10) + keyWordCodeInTheTranspiledLangEndPY_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index258 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_PY-programmingBlock_PY-AA" + STR(A_Index259 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "js") {
         if (COUNT_programmingBlock_JS != 0) {
-            for (let A_Index259 = 0; A_Index259 < COUNT_programmingBlock_JS + 0; A_Index259++) {
-                htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index259 + 1) + "AA", programmingBlock_JS[A_Index259]);
+            for (let A_Index260 = 0; A_Index260 < COUNT_programmingBlock_JS + 0; A_Index260++) {
+                htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index260 + 1) + "AA", programmingBlock_JS[A_Index260]);
             }
         }
     } else {
         if (COUNT_programmingBlock_JS != 0) {
-            for (let A_Index260 = 0; A_Index260 < COUNT_programmingBlock_JS + 0; A_Index260++) {
+            for (let A_Index261 = 0; A_Index261 < COUNT_programmingBlock_JS + 0; A_Index261++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index260 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJS_2 + Chr(10) + programmingBlock_JS[A_Index260] + Chr(10) + keyWordCodeInTheTranspiledLangEndJS_2);
+                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index261 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJS_2 + Chr(10) + programmingBlock_JS[A_Index261] + Chr(10) + keyWordCodeInTheTranspiledLangEndJS_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index260 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_JS-programmingBlock_JS-AA" + STR(A_Index261 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "go") {
         if (COUNT_programmingBlock_GO != 0) {
-            for (let A_Index261 = 0; A_Index261 < COUNT_programmingBlock_GO + 0; A_Index261++) {
-                htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index261 + 1) + "AA", programmingBlock_GO[A_Index261]);
+            for (let A_Index262 = 0; A_Index262 < COUNT_programmingBlock_GO + 0; A_Index262++) {
+                htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index262 + 1) + "AA", programmingBlock_GO[A_Index262]);
             }
         }
     } else {
         if (COUNT_programmingBlock_GO != 0) {
-            for (let A_Index262 = 0; A_Index262 < COUNT_programmingBlock_GO + 0; A_Index262++) {
+            for (let A_Index263 = 0; A_Index263 < COUNT_programmingBlock_GO + 0; A_Index263++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index262 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGO_2 + Chr(10) + programmingBlock_GO[A_Index262] + Chr(10) + keyWordCodeInTheTranspiledLangEndGO_2);
+                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index263 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGO_2 + Chr(10) + programmingBlock_GO[A_Index263] + Chr(10) + keyWordCodeInTheTranspiledLangEndGO_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index262 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_GO-programmingBlock_GO-AA" + STR(A_Index263 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "lua") {
         if (COUNT_programmingBlock_LUA != 0) {
-            for (let A_Index263 = 0; A_Index263 < COUNT_programmingBlock_LUA + 0; A_Index263++) {
-                htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index263 + 1) + "AA", programmingBlock_LUA[A_Index263]);
+            for (let A_Index264 = 0; A_Index264 < COUNT_programmingBlock_LUA + 0; A_Index264++) {
+                htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index264 + 1) + "AA", programmingBlock_LUA[A_Index264]);
             }
         }
     } else {
         if (COUNT_programmingBlock_LUA != 0) {
-            for (let A_Index264 = 0; A_Index264 < COUNT_programmingBlock_LUA + 0; A_Index264++) {
+            for (let A_Index265 = 0; A_Index265 < COUNT_programmingBlock_LUA + 0; A_Index265++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index264 + 1) + "AA", keyWordCodeInTheTranspiledLangStartLUA_2 + Chr(10) + programmingBlock_LUA[A_Index264] + Chr(10) + keyWordCodeInTheTranspiledLangEndLUA_2);
+                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index265 + 1) + "AA", keyWordCodeInTheTranspiledLangStartLUA_2 + Chr(10) + programmingBlock_LUA[A_Index265] + Chr(10) + keyWordCodeInTheTranspiledLangEndLUA_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index264 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(A_Index265 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "cs") {
         if (COUNT_programmingBlock_CS != 0) {
-            for (let A_Index265 = 0; A_Index265 < COUNT_programmingBlock_CS + 0; A_Index265++) {
-                htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index265 + 1) + "AA", programmingBlock_CS[A_Index265]);
+            for (let A_Index266 = 0; A_Index266 < COUNT_programmingBlock_CS + 0; A_Index266++) {
+                htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index266 + 1) + "AA", programmingBlock_CS[A_Index266]);
             }
         }
     } else {
         if (COUNT_programmingBlock_CS != 0) {
-            for (let A_Index266 = 0; A_Index266 < COUNT_programmingBlock_CS + 0; A_Index266++) {
+            for (let A_Index267 = 0; A_Index267 < COUNT_programmingBlock_CS + 0; A_Index267++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index266 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCS_2 + Chr(10) + programmingBlock_CS[A_Index266] + Chr(10) + keyWordCodeInTheTranspiledLangEndCS_2);
+                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index267 + 1) + "AA", keyWordCodeInTheTranspiledLangStartCS_2 + Chr(10) + programmingBlock_CS[A_Index267] + Chr(10) + keyWordCodeInTheTranspiledLangEndCS_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index266 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_CS-programmingBlock_CS-AA" + STR(A_Index267 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "java") {
         if (COUNT_programmingBlock_JAVA != 0) {
-            for (let A_Index267 = 0; A_Index267 < COUNT_programmingBlock_JAVA + 0; A_Index267++) {
-                htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index267 + 1) + "AA", programmingBlock_JAVA[A_Index267]);
+            for (let A_Index268 = 0; A_Index268 < COUNT_programmingBlock_JAVA + 0; A_Index268++) {
+                htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index268 + 1) + "AA", programmingBlock_JAVA[A_Index268]);
             }
         }
     } else {
         if (COUNT_programmingBlock_JAVA != 0) {
-            for (let A_Index268 = 0; A_Index268 < COUNT_programmingBlock_JAVA + 0; A_Index268++) {
+            for (let A_Index269 = 0; A_Index269 < COUNT_programmingBlock_JAVA + 0; A_Index269++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index268 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJAVA_2 + Chr(10) + programmingBlock_JAVA[A_Index268] + Chr(10) + keyWordCodeInTheTranspiledLangEndJAVA_2);
+                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index269 + 1) + "AA", keyWordCodeInTheTranspiledLangStartJAVA_2 + Chr(10) + programmingBlock_JAVA[A_Index269] + Chr(10) + keyWordCodeInTheTranspiledLangEndJAVA_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index268 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(A_Index269 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "kt") {
         if (COUNT_programmingBlock_KT != 0) {
-            for (let A_Index269 = 0; A_Index269 < COUNT_programmingBlock_KT + 0; A_Index269++) {
-                htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index269 + 1) + "AA", programmingBlock_KT[A_Index269]);
+            for (let A_Index270 = 0; A_Index270 < COUNT_programmingBlock_KT + 0; A_Index270++) {
+                htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index270 + 1) + "AA", programmingBlock_KT[A_Index270]);
             }
         }
     } else {
         if (COUNT_programmingBlock_KT != 0) {
-            for (let A_Index270 = 0; A_Index270 < COUNT_programmingBlock_KT + 0; A_Index270++) {
+            for (let A_Index271 = 0; A_Index271 < COUNT_programmingBlock_KT + 0; A_Index271++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index270 + 1) + "AA", keyWordCodeInTheTranspiledLangStartKT_2 + Chr(10) + programmingBlock_KT[A_Index270] + Chr(10) + keyWordCodeInTheTranspiledLangEndKT_2);
+                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index271 + 1) + "AA", keyWordCodeInTheTranspiledLangStartKT_2 + Chr(10) + programmingBlock_KT[A_Index271] + Chr(10) + keyWordCodeInTheTranspiledLangEndKT_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index270 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_KT-programmingBlock_KT-AA" + STR(A_Index271 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "rb") {
         if (COUNT_programmingBlock_RB != 0) {
-            for (let A_Index271 = 0; A_Index271 < COUNT_programmingBlock_RB + 0; A_Index271++) {
-                htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index271 + 1) + "AA", programmingBlock_RB[A_Index271]);
+            for (let A_Index272 = 0; A_Index272 < COUNT_programmingBlock_RB + 0; A_Index272++) {
+                htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index272 + 1) + "AA", programmingBlock_RB[A_Index272]);
             }
         }
     } else {
         if (COUNT_programmingBlock_RB != 0) {
-            for (let A_Index272 = 0; A_Index272 < COUNT_programmingBlock_RB + 0; A_Index272++) {
+            for (let A_Index273 = 0; A_Index273 < COUNT_programmingBlock_RB + 0; A_Index273++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index272 + 1) + "AA", keyWordCodeInTheTranspiledLangStartRB_2 + Chr(10) + programmingBlock_RB[A_Index272] + Chr(10) + keyWordCodeInTheTranspiledLangEndRB_2);
+                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index273 + 1) + "AA", keyWordCodeInTheTranspiledLangStartRB_2 + Chr(10) + programmingBlock_RB[A_Index273] + Chr(10) + keyWordCodeInTheTranspiledLangEndRB_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index272 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_RB-programmingBlock_RB-AA" + STR(A_Index273 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "nim") {
         if (COUNT_programmingBlock_NIM != 0) {
-            for (let A_Index273 = 0; A_Index273 < COUNT_programmingBlock_NIM + 0; A_Index273++) {
-                htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index273 + 1) + "AA", programmingBlock_NIM[A_Index273]);
+            for (let A_Index274 = 0; A_Index274 < COUNT_programmingBlock_NIM + 0; A_Index274++) {
+                htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index274 + 1) + "AA", programmingBlock_NIM[A_Index274]);
             }
         }
     } else {
         if (COUNT_programmingBlock_NIM != 0) {
-            for (let A_Index274 = 0; A_Index274 < COUNT_programmingBlock_NIM + 0; A_Index274++) {
+            for (let A_Index275 = 0; A_Index275 < COUNT_programmingBlock_NIM + 0; A_Index275++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index274 + 1) + "AA", keyWordCodeInTheTranspiledLangStartNIM_2 + Chr(10) + programmingBlock_NIM[A_Index274] + Chr(10) + keyWordCodeInTheTranspiledLangEndNIM_2);
+                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index275 + 1) + "AA", keyWordCodeInTheTranspiledLangStartNIM_2 + Chr(10) + programmingBlock_NIM[A_Index275] + Chr(10) + keyWordCodeInTheTranspiledLangEndNIM_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index274 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(A_Index275 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "ahk") {
         if (COUNT_programmingBlock_AHK != 0) {
-            for (let A_Index275 = 0; A_Index275 < COUNT_programmingBlock_AHK + 0; A_Index275++) {
-                htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index275 + 1) + "AA", programmingBlock_AHK[A_Index275]);
+            for (let A_Index276 = 0; A_Index276 < COUNT_programmingBlock_AHK + 0; A_Index276++) {
+                htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index276 + 1) + "AA", programmingBlock_AHK[A_Index276]);
             }
         }
     } else {
         if (COUNT_programmingBlock_AHK != 0) {
-            for (let A_Index276 = 0; A_Index276 < COUNT_programmingBlock_AHK + 0; A_Index276++) {
+            for (let A_Index277 = 0; A_Index277 < COUNT_programmingBlock_AHK + 0; A_Index277++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index276 + 1) + "AA", keyWordCodeInTheTranspiledLangStartAHK_2 + Chr(10) + programmingBlock_AHK[A_Index276] + Chr(10) + keyWordCodeInTheTranspiledLangEndAHK_2);
+                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index277 + 1) + "AA", keyWordCodeInTheTranspiledLangStartAHK_2 + Chr(10) + programmingBlock_AHK[A_Index277] + Chr(10) + keyWordCodeInTheTranspiledLangEndAHK_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index276 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(A_Index277 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "swift") {
         if (COUNT_programmingBlock_SWIFT != 0) {
-            for (let A_Index277 = 0; A_Index277 < COUNT_programmingBlock_SWIFT + 0; A_Index277++) {
-                htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index277 + 1) + "AA", programmingBlock_SWIFT[A_Index277]);
+            for (let A_Index278 = 0; A_Index278 < COUNT_programmingBlock_SWIFT + 0; A_Index278++) {
+                htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index278 + 1) + "AA", programmingBlock_SWIFT[A_Index278]);
             }
         }
     } else {
         if (COUNT_programmingBlock_SWIFT != 0) {
-            for (let A_Index278 = 0; A_Index278 < COUNT_programmingBlock_SWIFT + 0; A_Index278++) {
+            for (let A_Index279 = 0; A_Index279 < COUNT_programmingBlock_SWIFT + 0; A_Index279++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index278 + 1) + "AA", keyWordCodeInTheTranspiledLangStartSWIFT_2 + Chr(10) + programmingBlock_SWIFT[A_Index278] + Chr(10) + keyWordCodeInTheTranspiledLangEndSWIFT_2);
+                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index279 + 1) + "AA", keyWordCodeInTheTranspiledLangStartSWIFT_2 + Chr(10) + programmingBlock_SWIFT[A_Index279] + Chr(10) + keyWordCodeInTheTranspiledLangEndSWIFT_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index278 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(A_Index279 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "dart") {
         if (COUNT_programmingBlock_DART != 0) {
-            for (let A_Index279 = 0; A_Index279 < COUNT_programmingBlock_DART + 0; A_Index279++) {
-                htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index279 + 1) + "AA", programmingBlock_DART[A_Index279]);
+            for (let A_Index280 = 0; A_Index280 < COUNT_programmingBlock_DART + 0; A_Index280++) {
+                htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index280 + 1) + "AA", programmingBlock_DART[A_Index280]);
             }
         }
     } else {
         if (COUNT_programmingBlock_DART != 0) {
-            for (let A_Index280 = 0; A_Index280 < COUNT_programmingBlock_DART + 0; A_Index280++) {
+            for (let A_Index281 = 0; A_Index281 < COUNT_programmingBlock_DART + 0; A_Index281++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index280 + 1) + "AA", keyWordCodeInTheTranspiledLangStartDART_2 + Chr(10) + programmingBlock_DART[A_Index280] + Chr(10) + keyWordCodeInTheTranspiledLangEndDART_2);
+                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index281 + 1) + "AA", keyWordCodeInTheTranspiledLangStartDART_2 + Chr(10) + programmingBlock_DART[A_Index281] + Chr(10) + keyWordCodeInTheTranspiledLangEndDART_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index280 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_DART-programmingBlock_DART-AA" + STR(A_Index281 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "ts") {
         if (COUNT_programmingBlock_TS != 0) {
-            for (let A_Index281 = 0; A_Index281 < COUNT_programmingBlock_TS + 0; A_Index281++) {
-                htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index281 + 1) + "AA", programmingBlock_TS[A_Index281]);
+            for (let A_Index282 = 0; A_Index282 < COUNT_programmingBlock_TS + 0; A_Index282++) {
+                htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index282 + 1) + "AA", programmingBlock_TS[A_Index282]);
             }
         }
     } else {
         if (COUNT_programmingBlock_TS != 0) {
-            for (let A_Index282 = 0; A_Index282 < COUNT_programmingBlock_TS + 0; A_Index282++) {
+            for (let A_Index283 = 0; A_Index283 < COUNT_programmingBlock_TS + 0; A_Index283++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index282 + 1) + "AA", keyWordCodeInTheTranspiledLangStartTS_2 + Chr(10) + programmingBlock_TS[A_Index282] + Chr(10) + keyWordCodeInTheTranspiledLangEndTS_2);
+                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index283 + 1) + "AA", keyWordCodeInTheTranspiledLangStartTS_2 + Chr(10) + programmingBlock_TS[A_Index283] + Chr(10) + keyWordCodeInTheTranspiledLangEndTS_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index282 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_TS-programmingBlock_TS-AA" + STR(A_Index283 + 1) + "AA", Chr(10));
                 }
             }
         }
     }
     if (langToConvertTo == "groovy") {
         if (COUNT_programmingBlock_GROOVY != 0) {
-            for (let A_Index283 = 0; A_Index283 < COUNT_programmingBlock_GROOVY + 0; A_Index283++) {
-                htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index283 + 1) + "AA", programmingBlock_GROOVY[A_Index283]);
+            for (let A_Index284 = 0; A_Index284 < COUNT_programmingBlock_GROOVY + 0; A_Index284++) {
+                htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index284 + 1) + "AA", programmingBlock_GROOVY[A_Index284]);
             }
         }
     } else {
         if (COUNT_programmingBlock_GROOVY != 0) {
-            for (let A_Index284 = 0; A_Index284 < COUNT_programmingBlock_GROOVY + 0; A_Index284++) {
+            for (let A_Index285 = 0; A_Index285 < COUNT_programmingBlock_GROOVY + 0; A_Index285++) {
                 if (langToConvertTo == langFileExtension_2) {
-                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index284 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGROOVY_2 + Chr(10) + programmingBlock_GROOVY[A_Index284] + Chr(10) + keyWordCodeInTheTranspiledLangEndGROOVY_2);
+                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index285 + 1) + "AA", keyWordCodeInTheTranspiledLangStartGROOVY_2 + Chr(10) + programmingBlock_GROOVY[A_Index285] + Chr(10) + keyWordCodeInTheTranspiledLangEndGROOVY_2);
                 } else {
-                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index284 + 1) + "AA", Chr(10));
+                    htCode = StrReplace(htCode, "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(A_Index285 + 1) + "AA", Chr(10));
                 }
             }
         }
@@ -18052,49 +18076,46 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     //;;;;;;;;;;
     if (langToConvertTo == langFileExtension_2) {
         if (COUNT_programmingBlock_HTVM != 0) {
-            for (let A_Index285 = 0; A_Index285 < COUNT_programmingBlock_HTVM + 0; A_Index285++) {
-                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index285 + 1) + "AA", programmingBlock_HTVM[A_Index285]);
+            for (let A_Index286 = 0; A_Index286 < COUNT_programmingBlock_HTVM + 0; A_Index286++) {
+                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index286 + 1) + "AA", programmingBlock_HTVM[A_Index286]);
             }
         }
     } else {
         if (COUNT_programmingBlock_HTVM != 0) {
-            for (let A_Index286 = 0; A_Index286 < COUNT_programmingBlock_HTVM + 0; A_Index286++) {
-                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index286 + 1) + "AA", Chr(10));
+            for (let A_Index287 = 0; A_Index287 < COUNT_programmingBlock_HTVM + 0; A_Index287++) {
+                htCode = StrReplace(htCode, "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(A_Index287 + 1) + "AA", Chr(10));
             }
         }
     }
     if (langToConvertTo != langFileExtension_2) {
         htCode = StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI", "{");
         htCode = StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI", "}");
-        for (let A_Index287 = 0; A_Index287 < theIdNumOfThe34 + 0; A_Index287++) {
-            if (theIdNumOfThe34 == A_Index287 + 1) {
+        for (let A_Index288 = 0; A_Index288 < theIdNumOfThe34 + 0; A_Index288++) {
+            if (theIdNumOfThe34 == A_Index288 + 1) {
                 if (langToConvertTo == langFileExtension_2) {
                     if (keyWordEscpaeChar_2 == "\\" && keyWordEscpaeChar != "\\") {
-                        htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index287 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(fString(theIdNumOfThe34theVar[A_Index287 + 1]), "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
+                        htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index288 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(fString(theIdNumOfThe34theVar[A_Index288 + 1]), "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
                     } else {
-                        htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index287 + 1) + Chr(65) + Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index287 + 1]), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
+                        htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index288 + 1) + Chr(65) + Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index288 + 1]), keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(34));
                     }
                 } else {
-                    htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index287 + 1) + Chr(65) + Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index287 + 1]), keyWordEscpaeChar, "\\") + Chr(34));
+                    htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index288 + 1) + Chr(65) + Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index288 + 1]), keyWordEscpaeChar, "\\") + Chr(34));
                 }
             } else {
                 if (langToConvertTo == langFileExtension_2) {
                     if (keyWordEscpaeChar_2 == "\\" && keyWordEscpaeChar != "\\") {
-                        htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index287 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(fString(theIdNumOfThe34theVar[A_Index287 + 1]), "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2));
+                        htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index288 + 1) + Chr(65) + Chr(65), StrReplace(StrReplace(fString(theIdNumOfThe34theVar[A_Index288 + 1]), "\\", "\\\\"), keyWordEscpaeChar, keyWordEscpaeChar_2));
                     } else {
-                        htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index287 + 1) + Chr(65) + Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index287 + 1]), keyWordEscpaeChar, keyWordEscpaeChar_2));
+                        htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index288 + 1) + Chr(65) + Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index288 + 1]), keyWordEscpaeChar, keyWordEscpaeChar_2));
                     }
                 } else {
-                    htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index287 + 1) + Chr(65) + Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index287 + 1]), keyWordEscpaeChar, "\\"));
+                    htCode = StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" + str21 + "as--" + str21 + "theuhturtyphoutr--" + Chr(65) + Chr(65) + STR(A_Index288 + 1) + Chr(65) + Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index288 + 1]), keyWordEscpaeChar, "\\"));
                 }
             }
         }
     }
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    for (let A_Index288 = 0; A_Index288 < HTVM_Size(commentsBugFix) + 0; A_Index288++) {
-        htCode = StrReplace(htCode, "HTVM--cnavisdofbuvsesdivdidufg79wregwewaeosd8ges7dfdftuawdiHTVMv2yerheyziberlasduci6syiq--AA" + STR(A_Index288) + "AA", commentsBugFix[A_Index288]);
-    }
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     areWeInAFuncFromInstructions = 0;
@@ -18316,21 +18337,6 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     }
     availableFuncsInHTVMInHTVM = "";
     saveAllArrayVarNamesSoWeCanDoAfix = "";
-    if (langToConvertTo == "rb") {
-        htCode = FixRubyGlobalVars(htCode);
-    }
-    htCode = StrReplace(htCode, "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc ", "");
-    if (langToConvertTo == "rb") {
-        htCode = StrReplace(htCode, "$$", "$");
-        htCode = StrReplace(htCode, "$$", "$");
-        htCode = StrReplace(htCode, "$$", "$");
-    }
-    if (langToConvertTo == "java") {
-        htCode = StrReplace(htCode, "= [);", "= new ArrayList<>();");
-    }
-    if (langToConvertTo == "cpp" || langToConvertTo == "cs" || langToConvertTo == "java" || langToConvertTo == "kt") {
-        htCode = RegExReplace(htCode, "(?<![A-Za-z0-9_])(-?\\d+\\.\\d+)(?![A-Za-z0-9_]|f)", "$1f");
-    }
     for (let A_Index296 = 0; A_Index296 < theIdNumOfThe34 + 0; A_Index296++) {
         if (theIdNumOfThe34 == A_Index296 + 1) {
             if (langToConvertTo == langFileExtension_2) {

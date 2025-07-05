@@ -24448,6 +24448,47 @@ if (langToConvertTo = "cs") or (langToConvertTo = "java")
 htCode := fixCSandJAVAstaticBugForFunc(htCode)
 }
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;; fix here
+;;;;;;;;;;;;;;;;;;;;;;;;;; fix here
+;;;;;;;;;;;;;;;;;;;;;;;;;; fix here
+
+if (langToConvertTo = "rb")
+{
+htCode := FixRubyGlobalVars(htCode)
+}
+
+htCode := StrReplace(htCode, "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc ", "")
+
+if (langToConvertTo = "rb")
+{
+htCode := StrReplace(htCode, "$$", "$")
+htCode := StrReplace(htCode, "$$", "$")
+htCode := StrReplace(htCode, "$$", "$")
+}
+
+
+if (langToConvertTo = "java")
+{
+htCode := StrReplace(htCode, "= [);", "= new ArrayList<>();")
+
+}
+
+if (langToConvertTo = "cpp") or (langToConvertTo = "cs") or (langToConvertTo = "java") or (langToConvertTo = "kt") {
+htCode := RegExReplace(htCode, "(?<![A-Za-z0-9_])(-?\d+\.\d+)(?![A-Za-z0-9_]|f)", "$1f")
+}
+
+
+
+Loop, % commentsBugFix.size()
+{
+htCode := StrReplace(htCode, "HTVM--cnavisdofbuvsesdivdidufg79wregwewaeosd8ges7dfdftuawdiHTVMv2yerheyziberlasduci6syiq--AA" . STR(A_Index) . "AA", commentsBugFix[A_Index])
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;; fix here
+;;;;;;;;;;;;;;;;;;;;;;;;;; fix here
+;;;;;;;;;;;;;;;;;;;;;;;;;; fix here
+
 if (COUNT_programmingBlock_InTheTranspiledLang != 0)
 {
     Loop, % COUNT_programmingBlock_InTheTranspiledLang
@@ -24940,11 +24981,6 @@ Loop, % theIdNumOfThe34 {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-Loop, % commentsBugFix.size()
-{
-htCode := StrReplace(htCode, "HTVM--cnavisdofbuvsesdivdidufg79wregwewaeosd8ges7dfdftuawdiHTVMv2yerheyziberlasduci6syiq--AA" . STR(A_Index) . "AA", commentsBugFix[A_Index])
-}
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -25290,32 +25326,6 @@ if (size_ospDic2 != 0) {
 
 availableFuncsInHTVMInHTVM := ""
 saveAllArrayVarNamesSoWeCanDoAfix := ""
-
-if (langToConvertTo = "rb")
-{
-htCode := FixRubyGlobalVars(htCode)
-}
-
-htCode := StrReplace(htCode, "optanal-HTVM-opt-parmsNOtWorking-theirewIs-a-bug-Iusfbudfbuoeshfuisbav=-fwaegs-awedsf-dd-sfgc ", "")
-
-if (langToConvertTo = "rb")
-{
-htCode := StrReplace(htCode, "$$", "$")
-htCode := StrReplace(htCode, "$$", "$")
-htCode := StrReplace(htCode, "$$", "$")
-}
-
-
-if (langToConvertTo = "java")
-{
-htCode := StrReplace(htCode, "= [);", "= new ArrayList<>();")
-
-}
-
-if (langToConvertTo = "cpp") or (langToConvertTo = "cs") or (langToConvertTo = "java") or (langToConvertTo = "kt") {
-htCode := RegExReplace(htCode, "(?<![A-Za-z0-9_])(-?\d+\.\d+)(?![A-Za-z0-9_]|f)", "$1f")
-}
-
 
 
 Loop, % theIdNumOfThe34 {
