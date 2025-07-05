@@ -11444,6 +11444,22 @@ return out
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str FixDoubleInThe4langs(str line) {
+
+str FixDoubleInThe4langsOUT := ""
+Loop, Parse, line, `n, `r {
+
+if (RegExMatch(A_LoopField, "\bdouble\b")) or (RegExMatch(A_LoopField, "\bDouble\b")) {
+FixDoubleInThe4langsOUT .= RegExReplace(A_LoopField, "(?<![A-Za-z0-9_])(-?\d+\.\d+)f(?![A-Za-z0-9_])", "$1") . Chr(10)
+}
+else {
+FixDoubleInThe4langsOUT .= A_LoopField . Chr(10)
+}
+}
+
+StringTrimRight, FixDoubleInThe4langsOUT, FixDoubleInThe4langsOUT, 1
+return FixDoubleInThe4langsOUT
+}
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 func str fString(str line)
@@ -24476,6 +24492,7 @@ htCode := StrReplace(htCode, "= [);", "= new ArrayList<>();")
 
 if (langToConvertTo = "cpp") or (langToConvertTo = "cs") or (langToConvertTo = "java") or (langToConvertTo = "kt") {
 htCode := RegExReplace(htCode, "(?<![A-Za-z0-9_])(-?\d+\.\d+)(?![A-Za-z0-9_]|f)", "$1f")
+htCode := FixDoubleInThe4langs(htCode)
 }
 
 
