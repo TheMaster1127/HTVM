@@ -431,6 +431,7 @@ Regenerate `DOCUMENTATION.md` or `DOCUMENTATION.html` using:
     - [Language Target Selector](#language-target-selector)
     - [HTVM Code Formatter](#htvm-code-formatter)
     - [Instruction Set Management](#instruction-set-management)
+    - [HTVM Line Mapper](#htvm-line-mapper)
   - [5. Code Execution & Debugging](#5-code-execution--debugging)
     - [Running Files](#running-files)
     - [Built-in JavaScript Debugger](#built-in-javascript-debugger)
@@ -659,6 +660,15 @@ HT-IDE is built around its unique **HTVM** engine.
 -   The power of the HTVM transpiler comes from its instruction sets. Manage them via the **Manage Instructions** button.
 -   You can add new sets from files, edit existing ones in a dedicated editor, rename them, and switch the active set (requires a reload).
 -   The **HTVM to HTVM** converter allows you to translate `.htvm` files written for one instruction set to another.
+
+#### HTVM Line Mapper
+-   A powerful utility to pinpoint the exact line in your `.htvm` source that corresponds to a line in the generated target code (and vice versa). It's invaluable for debugging large, complex transpiled files.
+-   **Advanced Fuzzy Matching:** Uses a sophisticated token-based algorithm to find matches even when lines aren't identical, accounting for small syntax variations.
+-   **Intelligent Workflow:**
+    -   Accessed via a hotkey (`Ctrl+Alt+M`) or a dedicated UI button.
+    -   The tool **intelligently pre-fills** one of the code boxes based on your currently active file.
+    -   It then interactively **prompts you** to provide the other file's code, and can even **paste it directly from your clipboard** for a super-fast workflow.
+-   **Helpful Results:** The output provides a high-confidence best guess (e.g., "99% sure its: on line X"), a likely range of lines to check, and a snippet of the original target code so you know what you're looking for.
 
 ### 5. Code Execution & Debugging
 
