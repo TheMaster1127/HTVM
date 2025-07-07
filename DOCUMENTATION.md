@@ -4016,11 +4016,11 @@ HTVM includes a variety of built-in functions organized into categories for conv
 | Ceil | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | Cos | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | Exp | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
-| Floor | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Floor | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | Ln | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | Log | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
-| Mod | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Random | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Mod | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
+| Random | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | Round | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | Sin | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | Sqrt | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
@@ -4328,7 +4328,7 @@ if (Abs(result3 - 7.389056) > 0.00001) {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Floor | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Floor | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.
 
@@ -4463,7 +4463,7 @@ print("Log(0.0) = " . STR(Log(val4)))
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Mod | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Mod | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.
 
@@ -4537,10 +4537,10 @@ print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))
 Loop, 5 {
     ; Check if the current index is even or odd
     if (A_Index % 2 = 0) {
-        print(A_Index . " is even")
+        print(STR(A_Index) . " is even")
     }
     else {
-        print(A_Index . " is odd")
+        print(STR(A_Index) . " is odd")
     }
 }
 ```
@@ -4555,7 +4555,7 @@ Loop, 5 {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Random | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Random | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.
 

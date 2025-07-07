@@ -1763,7 +1763,7 @@ func======================func==============
 lang: cpp
 name: Mod
 libs: #include <string>
-description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(A_Index . " is even")~~~    } else {~~~        print(A_Index . " is odd")~~~    }~~~}~~~```~~~
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
 int Mod(int dividend, int divisor) {
     return dividend % divisor;
 }
@@ -2653,7 +2653,7 @@ func======================func==============
 lang: py
 name: Mod
 libs: null
-description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(A_Index . " is even")~~~    } else {~~~        print(A_Index . " is odd")~~~    }~~~}~~~```~~~
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
 def Mod(dividend, divisor):
     return dividend % divisor
 funcEND======================funcEND==============
@@ -2724,7 +2724,7 @@ func======================func==============
 lang: js
 name: Mod
 libs: null
-description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(A_Index . " is even")~~~    } else {~~~        print(A_Index . " is odd")~~~    }~~~}~~~```~~~
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
 function Mod(dividend, divisor) {
     return dividend % divisor;
 }
@@ -8747,5 +8747,419 @@ libs: null
 description: math~~~Calculates the tangent of an angle. The input angle must be in radians.~~~Here is how to use it:~~~```htvm~~~float pi := 3.1415926535~~~float angle1 := 0.0~~~float result1 := Tan(angle1)~~~print("Tan(0.0) = " . STR(result1))~~~; Expected: 0.0~~~if (Abs(result1 - 0.0) > 0.00001) {~~~    print("Tan test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; 45 degrees~~~float angle2 := pi / 4.0~~~float result2 := Tan(angle2)~~~print("Tan(pi/4) = " . STR(result2))~~~; Expected: approx 1.0~~~if (Abs(result2 - 1.0) > 0.00001) {~~~    print("Tan test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Tan(pi/2) is undefined (approaches infinity). Behavior might vary.~~~float angle3 := pi / 2.0~~~float result3 := Tan(angle3)~~~print("Tan(pi/2) = " . STR(result3))~~~```~~~
 def Tan(value) {
     return Math.tan(value as double)
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: Floor
+libs: )|"math"
+description: math~~~Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.~~~Here is how to use it:~~~```htvm~~~float num1 := 4.8~~~float floor1 := Floor(num1)~~~; Expected: 4.0 (or 4)~~~print("Floor(4.8) = " . STR(floor1))~~~if (floor1 != 4.0) {~~~    print("Floor test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num2 := -4.2~~~float floor2 := Floor(num2)~~~; Expected: -5.0~~~print("Floor(-4.2) = " . STR(floor2))~~~if (floor2 != -5.0) {~~~    print("Floor test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num3 := 7.0~~~float floor3 := Floor(num3)~~~; Expected: 7.0~~~print("Floor(7.0) = " . STR(floor3))~~~if (floor3 != 7.0) {~~~    print("Floor test 3 FAILED!")~~~}~~~```~~~
+// Generic function to handle int, float32, and float64 by converting to float64
+func Floor[T int | float32 | float64](value T) float64 {
+    return math.Floor(float64(value))
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: Floor
+libs: null
+description: math~~~Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.~~~Here is how to use it:~~~```htvm~~~float num1 := 4.8~~~float floor1 := Floor(num1)~~~; Expected: 4.0 (or 4)~~~print("Floor(4.8) = " . STR(floor1))~~~if (floor1 != 4.0) {~~~    print("Floor test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num2 := -4.2~~~float floor2 := Floor(num2)~~~; Expected: -5.0~~~print("Floor(-4.2) = " . STR(floor2))~~~if (floor2 != -5.0) {~~~    print("Floor test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num3 := 7.0~~~float floor3 := Floor(num3)~~~; Expected: 7.0~~~print("Floor(7.0) = " . STR(floor3))~~~if (floor3 != 7.0) {~~~    print("Floor test 3 FAILED!")~~~}~~~```~~~
+function Floor(value)
+    return math.floor(value)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: Floor
+libs: using System;
+description: math~~~Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.~~~Here is how to use it:~~~```htvm~~~float num1 := 4.8~~~float floor1 := Floor(num1)~~~; Expected: 4.0 (or 4)~~~print("Floor(4.8) = " . STR(floor1))~~~if (floor1 != 4.0) {~~~    print("Floor test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num2 := -4.2~~~float floor2 := Floor(num2)~~~; Expected: -5.0~~~print("Floor(-4.2) = " . STR(floor2))~~~if (floor2 != -5.0) {~~~    print("Floor test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num3 := 7.0~~~float floor3 := Floor(num3)~~~; Expected: 7.0~~~print("Floor(7.0) = " . STR(floor3))~~~if (floor3 != 7.0) {~~~    print("Floor test 3 FAILED!")~~~}~~~```~~~
+public static double Floor(double value) {
+    return Math.Floor(value);
+}
+
+public static float Floor(float value) {
+    return (float)Math.Floor(value);
+}
+
+public static int Floor(int value) {
+    return value;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: Floor
+libs: null
+description: math~~~Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.~~~Here is how to use it:~~~```htvm~~~float num1 := 4.8~~~float floor1 := Floor(num1)~~~; Expected: 4.0 (or 4)~~~print("Floor(4.8) = " . STR(floor1))~~~if (floor1 != 4.0) {~~~    print("Floor test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num2 := -4.2~~~float floor2 := Floor(num2)~~~; Expected: -5.0~~~print("Floor(-4.2) = " . STR(floor2))~~~if (floor2 != -5.0) {~~~    print("Floor test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num3 := 7.0~~~float floor3 := Floor(num3)~~~; Expected: 7.0~~~print("Floor(7.0) = " . STR(floor3))~~~if (floor3 != 7.0) {~~~    print("Floor test 3 FAILED!")~~~}~~~```~~~
+public static double Floor(double value) {
+    return Math.floor(value);
+}
+
+public static float Floor(float value) {
+    return (float)Math.floor(value);
+}
+
+public static int Floor(int value) {
+    return value;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: Floor
+libs: import kotlin.math.floor
+description: math~~~Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.~~~Here is how to use it:~~~```htvm~~~float num1 := 4.8~~~float floor1 := Floor(num1)~~~; Expected: 4.0 (or 4)~~~print("Floor(4.8) = " . STR(floor1))~~~if (floor1 != 4.0) {~~~    print("Floor test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num2 := -4.2~~~float floor2 := Floor(num2)~~~; Expected: -5.0~~~print("Floor(-4.2) = " . STR(floor2))~~~if (floor2 != -5.0) {~~~    print("Floor test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num3 := 7.0~~~float floor3 := Floor(num3)~~~; Expected: 7.0~~~print("Floor(7.0) = " . STR(floor3))~~~if (floor3 != 7.0) {~~~    print("Floor test 3 FAILED!")~~~}~~~```~~~
+fun Floor(value: Double): Double = kotlin.math.floor(value)
+fun Floor(value: Float): Float = kotlin.math.floor(value)
+fun Floor(value: Int): Int = value
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: Floor
+libs: null
+description: math~~~Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.~~~Here is how to use it:~~~```htvm~~~float num1 := 4.8~~~float floor1 := Floor(num1)~~~; Expected: 4.0 (or 4)~~~print("Floor(4.8) = " . STR(floor1))~~~if (floor1 != 4.0) {~~~    print("Floor test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num2 := -4.2~~~float floor2 := Floor(num2)~~~; Expected: -5.0~~~print("Floor(-4.2) = " . STR(floor2))~~~if (floor2 != -5.0) {~~~    print("Floor test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num3 := 7.0~~~float floor3 := Floor(num3)~~~; Expected: 7.0~~~print("Floor(7.0) = " . STR(floor3))~~~if (floor3 != 7.0) {~~~    print("Floor test 3 FAILED!")~~~}~~~```~~~
+def Floor(value)
+  value.floor
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: Floor
+libs: import math
+description: math~~~Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.~~~Here is how to use it:~~~```htvm~~~float num1 := 4.8~~~float floor1 := Floor(num1)~~~; Expected: 4.0 (or 4)~~~print("Floor(4.8) = " . STR(floor1))~~~if (floor1 != 4.0) {~~~    print("Floor test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num2 := -4.2~~~float floor2 := Floor(num2)~~~; Expected: -5.0~~~print("Floor(-4.2) = " . STR(floor2))~~~if (floor2 != -5.0) {~~~    print("Floor test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num3 := 7.0~~~float floor3 := Floor(num3)~~~; Expected: 7.0~~~print("Floor(7.0) = " . STR(floor3))~~~if (floor3 != 7.0) {~~~    print("Floor test 3 FAILED!")~~~}~~~```~~~
+proc Floor(value: float): float =
+  result = math.floor(value)
+
+proc Floor(value: int): int =
+  result = value
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: Floor
+libs: null
+description: math~~~Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.~~~Here is how to use it:~~~```htvm~~~float num1 := 4.8~~~float floor1 := Floor(num1)~~~; Expected: 4.0 (or 4)~~~print("Floor(4.8) = " . STR(floor1))~~~if (floor1 != 4.0) {~~~    print("Floor test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num2 := -4.2~~~float floor2 := Floor(num2)~~~; Expected: -5.0~~~print("Floor(-4.2) = " . STR(floor2))~~~if (floor2 != -5.0) {~~~    print("Floor test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num3 := 7.0~~~float floor3 := Floor(num3)~~~; Expected: 7.0~~~print("Floor(7.0) = " . STR(floor3))~~~if (floor3 != 7.0) {~~~    print("Floor test 3 FAILED!")~~~}~~~```~~~
+; built-in Floor() is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: Floor
+libs: import Foundation
+description: math~~~Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.~~~Here is how to use it:~~~```htvm~~~float num1 := 4.8~~~float floor1 := Floor(num1)~~~; Expected: 4.0 (or 4)~~~print("Floor(4.8) = " . STR(floor1))~~~if (floor1 != 4.0) {~~~    print("Floor test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num2 := -4.2~~~float floor2 := Floor(num2)~~~; Expected: -5.0~~~print("Floor(-4.2) = " . STR(floor2))~~~if (floor2 != -5.0) {~~~    print("Floor test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num3 := 7.0~~~float floor3 := Floor(num3)~~~; Expected: 7.0~~~print("Floor(7.0) = " . STR(floor3))~~~if (floor3 != 7.0) {~~~    print("Floor test 3 FAILED!")~~~}~~~```~~~
+func Floor(_ value: Double) -> Double {
+    return floor(value)
+}
+
+func Floor(_ value: Float) -> Float {
+    return floor(value)
+}
+
+func Floor(_ value: Int) -> Int {
+    return value
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: Floor
+libs: null
+description: math~~~Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.~~~Here is how to use it:~~~```htvm~~~float num1 := 4.8~~~float floor1 := Floor(num1)~~~; Expected: 4.0 (or 4)~~~print("Floor(4.8) = " . STR(floor1))~~~if (floor1 != 4.0) {~~~    print("Floor test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num2 := -4.2~~~float floor2 := Floor(num2)~~~; Expected: -5.0~~~print("Floor(-4.2) = " . STR(floor2))~~~if (floor2 != -5.0) {~~~    print("Floor test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num3 := 7.0~~~float floor3 := Floor(num3)~~~; Expected: 7.0~~~print("Floor(7.0) = " . STR(floor3))~~~if (floor3 != 7.0) {~~~    print("Floor test 3 FAILED!")~~~}~~~```~~~
+double Floor(dynamic value) {
+  if (value is num) {
+    return value.floorToDouble();
+  } else {
+    throw ArgumentError('Unsupported type for Floor. Must be a number.');
+  }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: Floor
+libs: null
+description: math~~~Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.~~~Here is how to use it:~~~```htvm~~~float num1 := 4.8~~~float floor1 := Floor(num1)~~~; Expected: 4.0 (or 4)~~~print("Floor(4.8) = " . STR(floor1))~~~if (floor1 != 4.0) {~~~    print("Floor test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num2 := -4.2~~~float floor2 := Floor(num2)~~~; Expected: -5.0~~~print("Floor(-4.2) = " . STR(floor2))~~~if (floor2 != -5.0) {~~~    print("Floor test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num3 := 7.0~~~float floor3 := Floor(num3)~~~; Expected: 7.0~~~print("Floor(7.0) = " . STR(floor3))~~~if (floor3 != 7.0) {~~~    print("Floor test 3 FAILED!")~~~}~~~```~~~
+function Floor(value: number): number {
+    return Math.floor(value);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: Floor
+libs: null
+description: math~~~Returns the largest integer less than or equal to the given number (rounds down to the nearest integer). For example, Floor(4.8) is 4, and Floor(-4.2) is -5.~~~Here is how to use it:~~~```htvm~~~float num1 := 4.8~~~float floor1 := Floor(num1)~~~; Expected: 4.0 (or 4)~~~print("Floor(4.8) = " . STR(floor1))~~~if (floor1 != 4.0) {~~~    print("Floor test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num2 := -4.2~~~float floor2 := Floor(num2)~~~; Expected: -5.0~~~print("Floor(-4.2) = " . STR(floor2))~~~if (floor2 != -5.0) {~~~    print("Floor test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~float num3 := 7.0~~~float floor3 := Floor(num3)~~~; Expected: 7.0~~~print("Floor(7.0) = " . STR(floor3))~~~if (floor3 != 7.0) {~~~    print("Floor test 3 FAILED!")~~~}~~~```~~~
+def Floor(value) {
+    return Math.floor(value as double)
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: Mod
+libs: null
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
+func Mod(dividend, divisor int) int {
+    return dividend % divisor
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: Mod
+libs: null
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
+function Mod(dividend, divisor)
+    return dividend % divisor
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: Mod
+libs: null
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
+public static int Mod(int dividend, int divisor) {
+    return dividend % divisor;
+}
+public static float Mod(float dividend, float divisor) {
+    return dividend % divisor;
+}
+public static double Mod(double dividend, double divisor) {
+    return dividend % divisor;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: Mod
+libs: null
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
+public static int Mod(int dividend, int divisor) {
+    return dividend % divisor;
+}
+public static float Mod(float dividend, float divisor) {
+    return dividend % divisor;
+}
+public static double Mod(double dividend, double divisor) {
+    return dividend % divisor;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: Mod
+libs: null
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
+fun Mod(dividend: Int, divisor: Int): Int = dividend % divisor
+fun Mod(dividend: Float, divisor: Float): Float = dividend % divisor
+fun Mod(dividend: Double, divisor: Double): Double = dividend % divisor
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: Mod
+libs: null
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
+def Mod(dividend, divisor)
+  dividend % divisor
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: Mod
+libs: import math
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
+proc Mod(dividend: int, divisor: int): int =
+  result = dividend mod divisor
+
+proc Mod(dividend: float, divisor: float): float =
+  result = dividend mod divisor
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: Mod
+libs: null
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
+; built-in Mod() is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: Mod
+libs: null
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
+func Mod(_ dividend: Int, _ divisor: Int) -> Int {
+    return dividend % divisor
+}
+func Mod(_ dividend: Double, _ divisor: Double) -> Double {
+    return dividend.truncatingRemainder(dividingBy: divisor)
+}
+func Mod(_ dividend: Float, _ divisor: Float) -> Float {
+    return dividend.truncatingRemainder(dividingBy: divisor)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: Mod
+libs: null
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
+dynamic Mod(dynamic dividend, dynamic divisor) {
+  if (dividend is num && divisor is num) {
+    return dividend % divisor;
+  } else {
+    throw ArgumentError('Unsupported types for Mod. Both must be numbers.');
+  }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: Mod
+libs: null
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
+function Mod(dividend: number, divisor: number): number {
+    return dividend % divisor;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: Mod
+libs: null
+description: math~~~Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod `divisor`. For example, `10 Mod 3` is 1. The modulus operation gives the remainder after division. Also in HTVM, you can still use the **modular operator** to calculate the remainder of a division.~~~Here is how to use it:~~~```htvm~~~; Test 1: Modulus with positive numbers~~~int dividend1 := 10~~~int divisor1 := 3~~~int result1 := Mod(dividend1, divisor1)~~~; Expected: 1~~~print("10 Mod 3 = " . STR(result1))~~~if (result1 != 1) {~~~    print("Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 2: Modulus with larger dividend~~~int dividend2 := 17~~~int divisor2 := 5~~~int result2 := Mod(dividend2, divisor2)~~~; Expected: 2~~~print("17 Mod 5 = " . STR(result2))~~~if (result2 != 2) {~~~    print("Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Test 3: Modulus with a negative dividend~~~int dividend3 := -10~~~int divisor3 := 3~~~int result3 := Mod(dividend3, divisor3)~~~; Note: Result with negative numbers can vary by language. Common result: -1 or 2~~~; For this test, let's assume a common behavior, but be aware it might differ.~~~print("Mod test 3 result for -10 Mod 3: " . STR(result3))~~~; ----------------------------------------------------~~~; Test 4: Modulus with a negative divisor~~~int dividend4 := 10~~~int divisor4 := -3~~~int result4 := Mod(dividend4, divisor4)~~~; Common result: 1 or -2~~~print("Mod test 4 result for 10 Mod -3: " . STR(result4))~~~; ----------------------------------------------------~~~; IMPORTANT: You can also use the modular operator like this:~~~int result1_percent := dividend1 % divisor1~~~; Expected: 1~~~print("10 % 3 = " . STR(result1_percent))~~~if (result1_percent != 1) {~~~    print("Percent Mod test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result2_percent := dividend2 % divisor2~~~; Expected: 2~~~print("17 % 5 = " . STR(result2_percent))~~~if (result2_percent != 2) {~~~    print("Percent Mod test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int result3_percent := dividend3 % divisor3~~~; Common result: -1 or 2~~~print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))~~~; ----------------------------------------------------~~~int result4_percent := dividend4 % divisor4~~~; Common result: 1 or -2~~~print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))~~~; ----------------------------------------------------~~~; ----------------------------------------------------~~~; Even or Odd Number Check in a Loop (0 to 4)~~~; This loop checks if the numbers from 0 to 4 are even or odd~~~; This can be very useful in various scenarios~~~; ----------------------------------------------------~~~; Loop from 0 to 4~~~Loop, 5 {~~~    ; Check if the current index is even or odd~~~    if (A_Index % 2 = 0) {~~~        print(STR(A_Index) . " is even")~~~    } else {~~~        print(STR(A_Index) . " is odd")~~~    }~~~}~~~```~~~
+def Mod(dividend, divisor) {
+    return dividend % divisor
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: Random
+libs: )|"math/rand"|"time"
+description: math~~~Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.~~~Here is how to use it:~~~```htvm~~~int minVal := 1~~~int maxVal := 10~~~Loop, 5 {~~~    int randNum := Random(minVal, maxVal)~~~    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))~~~    if (randNum < minVal or randNum > maxVal) {~~~        print("Random test FAILED! Number out of range: " . STR(randNum))~~~    }~~~}~~~print("--------------------")~~~; ----------------------------------------------------~~~int specificMin := 5~~~int specificMax := 5~~~int specificRand := Random(specificMin, specificMax)~~~print("Random number between 5 and 5: " . STR(specificRand))~~~; Expected: 5~~~if (specificRand != 5) {~~~    print("Random specific range test FAILED!")~~~}~~~```~~~
+// Note: In production, the random generator should be seeded only once.
+// Seeding here for demonstration purposes.
+func Random(min, max int) int {
+    rand.Seed(time.Now().UnixNano())
+    return rand.Intn(max - min + 1) + min
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: Random
+libs: null
+description: math~~~Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.~~~Here is how to use it:~~~```htvm~~~int minVal := 1~~~int maxVal := 10~~~Loop, 5 {~~~    int randNum := Random(minVal, maxVal)~~~    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))~~~    if (randNum < minVal or randNum > maxVal) {~~~        print("Random test FAILED! Number out of range: " . STR(randNum))~~~    }~~~}~~~print("--------------------")~~~; ----------------------------------------------------~~~int specificMin := 5~~~int specificMax := 5~~~int specificRand := Random(specificMin, specificMax)~~~print("Random number between 5 and 5: " . STR(specificRand))~~~; Expected: 5~~~if (specificRand != 5) {~~~    print("Random specific range test FAILED!")~~~}~~~```~~~
+-- Seed the random number generator, ideally once at the start of the script.
+math.randomseed(os.time())
+function Random(min, max)
+    return math.random(min, max)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: Random
+libs: using System;
+description: math~~~Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.~~~Here is how to use it:~~~```htvm~~~int minVal := 1~~~int maxVal := 10~~~Loop, 5 {~~~    int randNum := Random(minVal, maxVal)~~~    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))~~~    if (randNum < minVal or randNum > maxVal) {~~~        print("Random test FAILED! Number out of range: " . STR(randNum))~~~    }~~~}~~~print("--------------------")~~~; ----------------------------------------------------~~~int specificMin := 5~~~int specificMax := 5~~~int specificRand := Random(specificMin, specificMax)~~~print("Random number between 5 and 5: " . STR(specificRand))~~~; Expected: 5~~~if (specificRand != 5) {~~~    print("Random specific range test FAILED!")~~~}~~~```~~~
+private static readonly Random _random = new Random();
+public static int Random(int min, int max) {
+    return _random.Next(min, max + 1);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: Random
+libs: import java.util.Random;
+description: math~~~Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.~~~Here is how to use it:~~~```htvm~~~int minVal := 1~~~int maxVal := 10~~~Loop, 5 {~~~    int randNum := Random(minVal, maxVal)~~~    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))~~~    if (randNum < minVal or randNum > maxVal) {~~~        print("Random test FAILED! Number out of range: " . STR(randNum))~~~    }~~~}~~~print("--------------------")~~~; ----------------------------------------------------~~~int specificMin := 5~~~int specificMax := 5~~~int specificRand := Random(specificMin, specificMax)~~~print("Random number between 5 and 5: " . STR(specificRand))~~~; Expected: 5~~~if (specificRand != 5) {~~~    print("Random specific range test FAILED!")~~~}~~~```~~~
+private static final Random random = new Random();
+public static int Random(int min, int max) {
+    return random.nextInt(max - min + 1) + min;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: Random
+libs: null
+description: math~~~Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.~~~Here is how to use it:~~~```htvm~~~int minVal := 1~~~int maxVal := 10~~~Loop, 5 {~~~    int randNum := Random(minVal, maxVal)~~~    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))~~~    if (randNum < minVal or randNum > maxVal) {~~~        print("Random test FAILED! Number out of range: " . STR(randNum))~~~    }~~~}~~~print("--------------------")~~~; ----------------------------------------------------~~~int specificMin := 5~~~int specificMax := 5~~~int specificRand := Random(specificMin, specificMax)~~~print("Random number between 5 and 5: " . STR(specificRand))~~~; Expected: 5~~~if (specificRand != 5) {~~~    print("Random specific range test FAILED!")~~~}~~~```~~~
+fun Random(min: Int, max: Int): Int {
+    return (min..max).random()
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: Random
+libs: null
+description: math~~~Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.~~~Here is how to use it:~~~```htvm~~~int minVal := 1~~~int maxVal := 10~~~Loop, 5 {~~~    int randNum := Random(minVal, maxVal)~~~    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))~~~    if (randNum < minVal or randNum > maxVal) {~~~        print("Random test FAILED! Number out of range: " . STR(randNum))~~~    }~~~}~~~print("--------------------")~~~; ----------------------------------------------------~~~int specificMin := 5~~~int specificMax := 5~~~int specificRand := Random(specificMin, specificMax)~~~print("Random number between 5 and 5: " . STR(specificRand))~~~; Expected: 5~~~if (specificRand != 5) {~~~    print("Random specific range test FAILED!")~~~}~~~```~~~
+def Random(min, max)
+  rand(min..max)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: Random
+libs: import random
+description: math~~~Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.~~~Here is how to use it:~~~```htvm~~~int minVal := 1~~~int maxVal := 10~~~Loop, 5 {~~~    int randNum := Random(minVal, maxVal)~~~    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))~~~    if (randNum < minVal or randNum > maxVal) {~~~        print("Random test FAILED! Number out of range: " . STR(randNum))~~~    }~~~}~~~print("--------------------")~~~; ----------------------------------------------------~~~int specificMin := 5~~~int specificMax := 5~~~int specificRand := Random(specificMin, specificMax)~~~print("Random number between 5 and 5: " . STR(specificRand))~~~; Expected: 5~~~if (specificRand != 5) {~~~    print("Random specific range test FAILED!")~~~}~~~```~~~
+proc Random(min, max: int): int =
+  randomize()
+  return rand(min..max)
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: Random
+libs: null
+description: math~~~Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.~~~Here is how to use it:~~~```htvm~~~int minVal := 1~~~int maxVal := 10~~~Loop, 5 {~~~    int randNum := Random(minVal, maxVal)~~~    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))~~~    if (randNum < minVal or randNum > maxVal) {~~~        print("Random test FAILED! Number out of range: " . STR(randNum))~~~    }~~~}~~~print("--------------------")~~~; ----------------------------------------------------~~~int specificMin := 5~~~int specificMax := 5~~~int specificRand := Random(specificMin, specificMax)~~~print("Random number between 5 and 5: " . STR(specificRand))~~~; Expected: 5~~~if (specificRand != 5) {~~~    print("Random specific range test FAILED!")~~~}~~~```~~~
+Random(min, max) {
+    Random, out, %min%, %max%
+    return out
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: Random
+libs: null
+description: math~~~Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.~~~Here is how to use it:~~~```htvm~~~int minVal := 1~~~int maxVal := 10~~~Loop, 5 {~~~    int randNum := Random(minVal, maxVal)~~~    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))~~~    if (randNum < minVal or randNum > maxVal) {~~~        print("Random test FAILED! Number out of range: " . STR(randNum))~~~    }~~~}~~~print("--------------------")~~~; ----------------------------------------------------~~~int specificMin := 5~~~int specificMax := 5~~~int specificRand := Random(specificMin, specificMax)~~~print("Random number between 5 and 5: " . STR(specificRand))~~~; Expected: 5~~~if (specificRand != 5) {~~~    print("Random specific range test FAILED!")~~~}~~~```~~~
+func Random(_ min: Int, _ max: Int) -> Int {
+    return Int.random(in: min...max)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: Random
+libs: import 'dart:math';|import 'dart:math' as math;
+description: math~~~Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.~~~Here is how to use it:~~~```htvm~~~int minVal := 1~~~int maxVal := 10~~~Loop, 5 {~~~    int randNum := Random(minVal, maxVal)~~~    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))~~~    if (randNum < minVal or randNum > maxVal) {~~~        print("Random test FAILED! Number out of range: " . STR(randNum))~~~    }~~~}~~~print("--------------------")~~~; ----------------------------------------------------~~~int specificMin := 5~~~int specificMax := 5~~~int specificRand := Random(specificMin, specificMax)~~~print("Random number between 5 and 5: " . STR(specificRand))~~~; Expected: 5~~~if (specificRand != 5) {~~~    print("Random specific range test FAILED!")~~~}~~~```~~~
+// A single Random instance should be reused
+final _random = math.Random();
+
+// You are allowed to name this Random() now because the class is math.Random
+int Random(int min, int max) {
+  return min + _random.nextInt(max - min + 1);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: Random
+libs: null
+description: math~~~Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.~~~Here is how to use it:~~~```htvm~~~int minVal := 1~~~int maxVal := 10~~~Loop, 5 {~~~    int randNum := Random(minVal, maxVal)~~~    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))~~~    if (randNum < minVal or randNum > maxVal) {~~~        print("Random test FAILED! Number out of range: " . STR(randNum))~~~    }~~~}~~~print("--------------------")~~~; ----------------------------------------------------~~~int specificMin := 5~~~int specificMax := 5~~~int specificRand := Random(specificMin, specificMax)~~~print("Random number between 5 and 5: " . STR(specificRand))~~~; Expected: 5~~~if (specificRand != 5) {~~~    print("Random specific range test FAILED!")~~~}~~~```~~~
+function Random(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: Random
+libs: import java.util.Random
+description: math~~~Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min` and `max` must be integers.~~~Here is how to use it:~~~```htvm~~~int minVal := 1~~~int maxVal := 10~~~Loop, 5 {~~~    int randNum := Random(minVal, maxVal)~~~    print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))~~~    if (randNum < minVal or randNum > maxVal) {~~~        print("Random test FAILED! Number out of range: " . STR(randNum))~~~    }~~~}~~~print("--------------------")~~~; ----------------------------------------------------~~~int specificMin := 5~~~int specificMax := 5~~~int specificRand := Random(specificMin, specificMax)~~~print("Random number between 5 and 5: " . STR(specificRand))~~~; Expected: 5~~~if (specificRand != 5) {~~~    print("Random specific range test FAILED!")~~~}~~~```~~~
+def random = new Random()
+// Random function as a closure capturing 'random'
+def Random = { int min, int max ->
+    random.nextInt(max - min + 1) + min
 }
 funcEND======================funcEND==============
