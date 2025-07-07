@@ -810,6 +810,7 @@ HT-IDE features Discord Rich Presence, which automatically shows your current st
 | Compile File | `Ctrl + F7` | Requires a `.htpc` property file. |
 | Save File | `Ctrl + S` | |
 | Format HTVM File | `Ctrl + Shift + F` | Only works on `.htvm` files. |
+| HTVM Line Mapper | `Ctrl + Alt + M` | |
 | Close Tab | `Ctrl + W` | |
 | Re-open Last Closed Tab &nbsp; &nbsp; | `Ctrl + Shift + T` &nbsp; &nbsp; | |
 | Toggle Sidebar | `Ctrl + B` | |
