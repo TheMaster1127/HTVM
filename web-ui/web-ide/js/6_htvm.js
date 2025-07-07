@@ -82,59 +82,76 @@ function stopDebugger() {
 }
 
 function getDeclaredVariables(code) {
-    const varRegex = /(?:let|const|var)\s+([a-zA-Z0-9_,\s]+)/g;
-    const funcRegex = /function\s+([a-zA-Z0-9_]+)/g;
     const declared = new Set();
     let match;
+
+    const varRegex = /(?:let|const|var)\s+([a-zA-Z0-9_$]+(?:\s*,\s*[a-zA-Z0-9_$]+)*)/g;
     while ((match = varRegex.exec(code)) !== null) {
         match[1].split(',').forEach(v => declared.add(v.trim()));
     }
+
+    const forLoopRegex = /for\s*\(\s*(?:let|const|var)\s+([a-zA-Z0-9_$]+)\s+(in|of)/g;
+    while ((match = forLoopRegex.exec(code)) !== null) {
+        declared.add(match[1].trim());
+    }
+
+    const funcRegex = /(?:async\s+)?function\s+([a-zA-Z0-9_$]+)/g;
     while ((match = funcRegex.exec(code)) !== null) {
         declared.add(match[1].trim());
     }
+
     return Array.from(declared);
 }
 
+function getAllFunctionNames(code) {
+    const names = new Set();
+    const funcRegex = /function\s+([a-zA-Z0-9_$]+)\s*\(/g;
+    let match;
+    while ((match = funcRegex.exec(code)) !== null) {
+        names.add(match[1]);
+    }
+    return Array.from(names);
+}
+
+function protectAndTransform(code, transformFn) {
+    const placeholders = new Map();
+    let placeholderId = 0;
+    // Add a random component to the placeholder to make it "super unique"
+    const runId = Math.random().toString(36).substring(2);
+    
+    const regex = /(["'`])(?:\\.|(?!\1).)*\1|\/\*[\s\S]*?\*\/|\/\/.*/g;
+
+    let protectedCode = code.replace(regex, (match) => {
+        const placeholder = `__DBG_PROTECT_${runId}_${placeholderId++}__`;
+        placeholders.set(placeholder, match);
+        return placeholder;
+    });
+
+    let transformedCode = transformFn(protectedCode);
+
+    placeholders.forEach((original, placeholder) => {
+        transformedCode = transformedCode.replace(new RegExp(placeholder, 'g'), original);
+    });
+
+    return transformedCode;
+}
 
 async function runJsCode(code) {
     term.writeln(`\x1b[1;33m--- JS Execution ---\x1b[0m`);
     const originalLog = window.console.log;
-    
+
     debuggerState.isActive = true;
     debuggerState.isPaused = false;
 
-    try {
-        let codeToRun = code;
-        const breakpoints = fileBreakpoints.get(currentOpenFile);
-        const declaredVars = getDeclaredVariables(code);
+    const script = document.createElement('script');
+    const scriptId = `dynamic-script-${Date.now()}`;
+    script.id = scriptId;
 
-        if (breakpoints && breakpoints.size > 0) {
-            term.writeln(`\x1b[36mDebugger attached. Running with breakpoints.\x1b[0m`);
-            const lines = code.split('\n');
-            const sortedBreakpoints = Array.from(breakpoints).sort((a, b) => b - a);
-            
-            const scopeCapture = `(() => { const scope = {}; ${declaredVars.map(v => `try { if(typeof ${v} !== 'undefined') scope['${v}'] = ${v}; } catch(e){}`).join(' ')} return scope; })`;
-            
-            sortedBreakpoints.forEach(row => {
-                lines.splice(row, 0, `await __debug_pause__(${row}, ${scopeCapture});`);
-            });
-            codeToRun = lines.join('\n');
-        }
-        
-        window.console.log = (...args) => term.writeln(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)).join(' '));
-        
-        const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-        const userFunc = new AsyncFunction('__debug_pause__', codeToRun);
-
-        await userFunc(__debug_pause__);
-
-    } catch (e) {
-        if (e.message !== "Execution stopped by user.") {
-             term.writeln(`\x1b[31mError: ${e.message}\x1b[0m`);
-        } else {
-             term.writeln(`\x1b[33mExecution stopped by user.\x1b[0m`);
-        }
-    } finally {
+    const cleanup = async () => {
+        const scriptToRemove = document.getElementById(scriptId);
+        if (scriptToRemove) document.body.removeChild(scriptToRemove);
+        delete window.__debug_pause__;
+        delete window.__execution_resolver__;
         window.console.log = originalLog;
         if (debuggerState.isActive) {
             await printExecutionEndMessage();
@@ -142,6 +159,68 @@ async function runJsCode(code) {
         debuggerState.isActive = false;
         debuggerState.isPaused = false;
         clearHighlight();
+    };
+
+    try {
+        await new Promise((resolve, reject) => {
+            window.__debug_pause__ = __debug_pause__;
+            window.__execution_resolver__ = { resolve, reject };
+
+            let codeToRun = code;
+            const breakpoints = fileBreakpoints.get(currentOpenFile);
+
+            if (breakpoints && breakpoints.size > 0) {
+                term.writeln(`\x1b[36mDebugger attached. Transforming code for breakpoints.\x1b[0m`);
+
+                const funcNames = getAllFunctionNames(codeToRun);
+                
+                codeToRun = protectAndTransform(codeToRun, (sanitizedCode) => {
+                    let transformed = sanitizedCode.replace(/(?<!async\s)function(\s+[a-zA-Z0-9_$]*\s*\()/g, "async function$1");
+                    transformed = transformed.replace(/(=|\:)\s*function(\s*\()/g, "$1 async function$2");
+
+                    if (funcNames.length > 0) {
+                        const callRegex = new RegExp(`(?<!function |async function |await )\\b(${funcNames.join('|')})\\b(?=\\s*\\()`, 'g');
+                        transformed = transformed.replace(callRegex, 'await $&');
+                    }
+                    return transformed;
+                });
+                
+                const lines = codeToRun.split('\n');
+                const sortedBreakpoints = Array.from(breakpoints).sort((a, b) => b - a);
+                const declaredVars = getDeclaredVariables(codeToRun);
+                const scopeCapture = `(() => { const scope = {}; ${declaredVars.map(v => `try { if(typeof ${v} !== 'undefined') scope['${v}'] = ${v}; } catch(e){}`).join(' ')} return scope; })`;
+                
+                sortedBreakpoints.forEach(row => {
+                    if(lines[row] !== undefined) {
+                       lines.splice(row, 0, `await window.__debug_pause__(${row}, ${scopeCapture});`);
+                    }
+                });
+                codeToRun = lines.join('\n');
+            } else {
+                 term.writeln(`\x1b[32mRunning code without debugger.\x1b[0m`);
+            }
+
+            window.console.log = (...args) => term.writeln(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)).join(' '));
+            
+            script.type = 'module';
+            script.textContent = 'try {\n' +
+                                 codeToRun + '\n' +
+                                 'window.__execution_resolver__.resolve();\n' +
+                                 '} catch (e) {\n' +
+                                 'window.__execution_resolver__.reject(e);\n' +
+                                 '}';
+            
+            script.onerror = (err) => reject(new Error('Script execution failed. Check DevTools console (Ctrl+Shift+I) for syntax errors.'));
+            document.body.appendChild(script);
+        });
+    } catch (e) {
+        if (e.message !== "Execution stopped by user.") {
+             term.writeln(`\x1b[31mError: ${e.message}\x1b[0m`);
+        } else {
+             term.writeln(`\x1b[33mExecution stopped by user.\x1b[0m`);
+        }
+    } finally {
+        await cleanup();
     }
 }
 

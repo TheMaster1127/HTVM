@@ -11440,40 +11440,6 @@ return out
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-func str FixDoubleInThe4langs(str line) {
-
-str FixDoubleInThe4langsOUT := ""
-Loop, Parse, line, `n, `r {
-
-if (RegExMatch(A_LoopField, "\bdouble\b")) or (RegExMatch(A_LoopField, "\bDouble\b")) {
-FixDoubleInThe4langsOUT .= RegExReplace(A_LoopField, "(?<![A-Za-z0-9_])(-?\d+\.\d+)f(?![A-Za-z0-9_])", "$1") . Chr(10)
-}
-else {
-FixDoubleInThe4langsOUT .= A_LoopField . Chr(10)
-}
-}
-
-StringTrimRight, FixDoubleInThe4langsOUT, FixDoubleInThe4langsOUT, 1
-return FixDoubleInThe4langsOUT
-}
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-func str fString(str line)
-{
-if (langToConvertTo != langFileExtension_2)
-{
-line := StrReplace(line, "{", Chr(34) . " + fstr(")
-line := StrReplace(line, "}", ") + " . Chr(34))
-}
-
-return line
-}
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; --------------------------------------------------
 ; TrimR Function Definition
@@ -11522,6 +11488,84 @@ func str TrimR(str inputString) {
     return SubStr(inputString, 1, lastNonWhitespaceIndex)
 }
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+func bool fixHTVMToHTVMMissingAfterAssignmentOperatorHELP(str line) { 
+str last := ""
+line := Trim(line)
+Loop, Parse, line, " " {
+last := Trim(A_LoopField)
+}
+
+if (last = keyWordAssign_2) or (last = keyWordAssignAdd_2) or (last = keyWordAssignConcat_2) or (last = keyWordAssignSub_2) or (last = keyWordAssignMul_2) or (last = keyWordAssignDiv_2) or (last = keyWordAssignMod_2) or (last = keyWordAssignShiftLeft_2) or (last = keyWordAssignShiftRight_2) or (last = keyWordLogicalAssignShiftRight_2) or (last = keyWordAssignBitAnd_2) or (last = keyWordAssignBitOr_2) or (last = keyWordAssignBitXor_2) {
+return true
+}
+return false
+}
+
+func str fixHTVMToHTVMMissingAfterAssignmentOperator(str line) {
+str out := ""
+
+Loop, Parse, line, `n, `r {
+
+if (fixHTVMToHTVMMissingAfterAssignmentOperatorHELP(A_LoopField)) {
+
+
+if (useCurlyBracesSyntaxForArrayDef_2 = "off") {
+out .= TrimR(A_LoopField) . " []" . Chr(10)
+}
+else {
+out .= TrimR(A_LoopField) . " {}" . Chr(10)
+}
+
+
+}
+else {
+out .= A_LoopField . Chr(10)
+}
+
+}
+
+StringTrimRight, out, out, 1
+return out
+}
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str FixDoubleInThe4langs(str line) {
+
+str FixDoubleInThe4langsOUT := ""
+Loop, Parse, line, `n, `r {
+
+if (RegExMatch(A_LoopField, "\bdouble\b")) or (RegExMatch(A_LoopField, "\bDouble\b")) {
+FixDoubleInThe4langsOUT .= RegExReplace(A_LoopField, "(?<![A-Za-z0-9_])(-?\d+\.\d+)f(?![A-Za-z0-9_])", "$1") . Chr(10)
+}
+else {
+FixDoubleInThe4langsOUT .= A_LoopField . Chr(10)
+}
+}
+
+StringTrimRight, FixDoubleInThe4langsOUT, FixDoubleInThe4langsOUT, 1
+return FixDoubleInThe4langsOUT
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str fString(str line)
+{
+if (langToConvertTo != langFileExtension_2)
+{
+line := StrReplace(line, "{", Chr(34) . " + fstr(")
+line := StrReplace(line, "}", ") + " . Chr(34))
+}
+
+return line
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 func str handleMultiLineStrings(str code)
@@ -24496,6 +24540,10 @@ htCode := FixDoubleInThe4langs(htCode)
 }
 
 
+
+if (langToConvertTo = langFileExtension_2) {
+htCode := fixHTVMToHTVMMissingAfterAssignmentOperator(htCode)
+}
 
 Loop, % commentsBugFix.size()
 {

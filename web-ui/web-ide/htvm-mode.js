@@ -83,13 +83,13 @@
                         const originalLineNum = A_Index3 + 3 - 1;
                         if (originalLineNum >= 9 && originalLineNum <= 45) {
                             programmingBlocksAndImport_temp += trimmedLine + "|";
-                        } else if ([48, 49, 50, 69, 99].includes(originalLineNum)) {
+                        } else if ([48, 49, 50, 99].includes(originalLineNum)) {
                             htvm_trueFalseGlobalNull_temp += trimmedLine + "|";
                         } else if (originalLineNum >= 51 && originalLineNum <= 65) {
                             staticTypes_temp += trimmedLine + "|";
                         } else if (originalLineNum >= 66 && originalLineNum <= 68) {
                             htvmKeywords_temp += trimmedLine + "|";
-                        } else if (originalLineNum >= 70 && originalLineNum <= 83) {
+                        } else if (originalLineNum >= 69 && originalLineNum <= 83) {
                             htvmKeywords_temp += trimmedLine + "|";
                         } else if (originalLineNum >= 3 & originalLineNum <= 7) {
                             htvmKeywords_temp += trimmedLine + "|";
