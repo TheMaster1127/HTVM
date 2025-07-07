@@ -44,8 +44,11 @@ async function applyAndSetHotkeys() {
                 return;
             }
             try {
-                const formatted = await formatHtvmCode(editor.getValue());
-                editor.session.setValue(formatted);
+                // MODIFICATION START: Use session.replace to make formatting undoable
+                const formattedCode = await formatHtvmCode(editor.getValue());
+                const fullRange = new ace.Range(0, 0, editor.session.getLength(), Infinity);
+                editor.session.replace(fullRange, formattedCode);
+                // MODIFICATION END
             } catch (err) {
                 term.writeln(`\x1b[31mAn error occurred during formatting: ${err.message}\x1b[0m`);
             }
@@ -181,8 +184,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
         try {
-            const formatted = await formatHtvmCode(editor.getValue());
-            editor.session.setValue(formatted);
+            // MODIFICATION START: Use session.replace to make formatting undoable
+            const formattedCode = await formatHtvmCode(editor.getValue());
+            const fullRange = new ace.Range(0, 0, editor.session.getLength(), Infinity);
+            editor.session.replace(fullRange, formattedCode);
+            // MODIFICATION END
         } catch (err) {
             term.writeln(`\x1b[31mAn error occurred during formatting: ${err.message}\x1b[0m`);
         }
