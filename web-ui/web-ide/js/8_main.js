@@ -52,6 +52,9 @@ async function applyAndSetHotkeys() {
             } catch (err) {
                 term.writeln(`\x1b[31mAn error occurred during formatting: ${err.message}\x1b[0m`);
             }
+        } else if (checkMatch(activeHotkeys.mapLines)) {
+            e.preventDefault();
+            await openLineMapperModal();
         } else if (checkMatch(activeHotkeys.closeTab)) {
             e.preventDefault(); await handleCloseTabRequest(currentOpenFile);
         } else if (checkMatch(activeHotkeys.reopenTab)) {
@@ -178,6 +181,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Run and Output Panel listeners
     document.getElementById('run-btn').onclick = handleRun;
+    document.getElementById('map-lines-btn').onclick = openLineMapperModal;
     document.getElementById('format-btn').onclick = async () => {
         if (!currentOpenFile || !currentOpenFile.endsWith('.htvm')) {
             alert("The formatter only works with .htvm files.");

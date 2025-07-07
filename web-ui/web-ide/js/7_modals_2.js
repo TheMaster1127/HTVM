@@ -634,3 +634,385 @@ async function openHtvmToHtvmModal() {
 
     overlay.style.display = 'flex';
 }
+
+// --- Instruction Set and Converter Modals ---
+
+async function openInstructionManagerModal() {
+    const overlay = document.getElementById('modal-overlay');
+    overlay.style.pointerEvents = 'auto';
+
+    overlay.innerHTML = `<div class="modal-box instr-editor-modal">
+        <h3>HTVM Instruction Set Manager</h3>
+        <div class="instr-editor-content">
+            <div class="instr-editor-sidebar">
+                <input type="text" id="instr-search-box" placeholder="Search functions..." style="margin-bottom: 10px;">
+                <ul id="instr-editor-func-list"></ul>
+            </div>
+            <div class="instr-editor-main">
+                <div><label>Set Name: <input type="text" id="instr-set-name"></label></div>
+                <div><label>Function Name: <input type="text" id="instr-func-name"></label></div>
+                <div><label>Function Type: <select id="instr-func-type"><option value="normal">Normal</option><option value="string">String</option><option value="array">Array</option><option value="flow">Flow Control</option></select></label></div>
+                <div><label>Function Body (JavaScript):</label><div id="instr-editor-body-ace"></div></div>
+            </div>
+        </div>
+        <div class="modal-buttons">
+            <button id="instr-delete-set-btn" class="modal-btn-reset">Delete This Set</button>
+            <button id="instr-cancel-btn" class="modal-btn-cancel">Cancel</button>
+            <button id="instr-save-btn" class="modal-btn-confirm">Save and Apply</button>
+        </div>
+    </div>`;
+
+    let instructionSets = await dbGet(instructionSetKeys.list) || [];
+    let activeSetId = await dbGet(instructionSetKeys.activeId);
+    let currentEditingSet = null;
+
+    const funcList = document.getElementById('instr-editor-func-list');
+    const setNameInput = document.getElementById('instr-set-name');
+    const funcNameInput = document.getElementById('instr-func-name');
+    const funcTypeSelect = document.getElementById('instr-func-type');
+    const searchBox = document.getElementById('instr-search-box');
+    const bodyEditor = ace.edit("instr-editor-body-ace");
+    bodyEditor.setTheme("ace/theme/monokai");
+    bodyEditor.session.setMode("ace/mode/javascript");
+    bodyEditor.setOptions({ fontSize: '14px', useWorker: false });
+
+    const loadSetIntoEditor = (set) => {
+        currentEditingSet = set;
+        setNameInput.value = set.name;
+        const instructions = set.content.split('\n');
+        const functionData = {};
+        for (let i = 42; i < 158; i += 2) {
+            if (instructions[i] && instructions[i+1]) {
+                functionData[instructions[i].trim()] = { body: instructions[i+1], type: 'normal' };
+            }
+        }
+        currentEditingSet.functions = functionData;
+        renderFunctionList();
+        if (Object.keys(functionData).length > 0) {
+            loadFunctionIntoEditor(Object.keys(functionData)[0]);
+        }
+    };
+    
+    const loadFunctionIntoEditor = (funcName) => {
+        if (!currentEditingSet || !currentEditingSet.functions[funcName]) return;
+        document.querySelectorAll('#instr-editor-func-list li').forEach(li => li.classList.remove('active'));
+        const activeLi = document.querySelector(`#instr-editor-func-list li[data-func-name="${funcName}"]`);
+        if (activeLi) activeLi.classList.add('active');
+        
+        funcNameInput.value = funcName;
+        funcTypeSelect.value = currentEditingSet.functions[funcName].type;
+        bodyEditor.setValue(currentEditingSet.functions[funcName].body, -1);
+    };
+
+    const saveCurrentFunction = () => {
+        const activeLi = document.querySelector('#instr-editor-func-list li.active');
+        if (!activeLi) return;
+        const oldFuncName = activeLi.dataset.funcName;
+        const newFuncName = funcNameInput.value.trim();
+        
+        if (oldFuncName !== newFuncName) {
+            delete currentEditingSet.functions[oldFuncName];
+        }
+        currentEditingSet.functions[newFuncName] = {
+            body: bodyEditor.getValue(),
+            type: funcTypeSelect.value
+        };
+        renderFunctionList();
+        loadFunctionIntoEditor(newFuncName);
+    };
+    
+    funcNameInput.onblur = saveCurrentFunction;
+    funcTypeSelect.onchange = saveCurrentFunction;
+    bodyEditor.on('blur', saveCurrentFunction);
+
+    const renderFunctionList = () => {
+        funcList.innerHTML = '';
+        if (!currentEditingSet) return;
+        
+        const filter = searchBox.value.toLowerCase();
+
+        const addListItem = (name, type) => {
+            if (filter && !name.toLowerCase().includes(filter)) return;
+            const li = document.createElement('li');
+            li.textContent = name;
+            li.dataset.funcName = name;
+            li.dataset.funcType = type;
+            li.onclick = () => loadFunctionIntoEditor(name);
+            funcList.appendChild(li);
+        };
+        
+        if(currentEditingSet.functions) {
+            Object.keys(currentEditingSet.functions).sort().forEach(name => addListItem(name, 'normal'));
+        }
+    };
+
+    searchBox.oninput = renderFunctionList;
+
+    if (activeSetId) {
+        const activeSet = await db.instructionSets.get(activeSetId);
+        if (activeSet) loadSetIntoEditor(activeSet);
+    }
+
+    document.getElementById('instr-cancel-btn').onclick = () => { overlay.style.display = 'none'; };
+    
+    document.getElementById('instr-delete-set-btn').onclick = async () => {
+        if (!currentEditingSet || !currentEditingSet.id) return alert("No set selected to delete.");
+        if (!confirm(`Are you sure you want to permanently delete the instruction set "${currentEditingSet.name}"?`)) return;
+        
+        instructionSets = instructionSets.filter(s => s.id !== currentEditingSet.id);
+        await dbSet(instructionSetKeys.list, instructionSets);
+        await db.instructionSets.delete(currentEditingSet.id);
+        
+        if (activeSetId === currentEditingSet.id) {
+            activeSetId = instructionSets.length > 0 ? instructionSets[0].id : null;
+            await dbSet(instructionSetKeys.activeId, activeSetId);
+        }
+        
+        await loadDefinitions();
+        overlay.style.display = 'none';
+        alert(`Set "${currentEditingSet.name}" deleted.`);
+    };
+
+    document.getElementById('instr-save-btn').onclick = async () => {
+        saveCurrentFunction();
+        
+        let newName = setNameInput.value.trim();
+        if (!newName) return alert("Set name cannot be empty.");
+        
+        if (currentEditingSet) {
+            let instructions = (await getActiveInstructionSetContent() || '').split('\n');
+            if (instructions.length < 158) {
+                instructions = new Array(158).fill('');
+            }
+            
+            let funcIndex = 42;
+            for(const funcName in currentEditingSet.functions) {
+                if (funcIndex < 158) {
+                    instructions[funcIndex] = funcName;
+                    instructions[funcIndex + 1] = currentEditingSet.functions[funcName].body;
+                    funcIndex += 2;
+                }
+            }
+            // Clear out any remaining old function slots
+            for (let i = funcIndex; i < 158; i++) {
+                instructions[i] = '';
+            }
+
+            currentEditingSet.name = newName;
+            currentEditingSet.content = instructions.join('\n');
+            
+            await db.instructionSets.put(currentEditingSet);
+            let setInList = instructionSets.find(s => s.id === currentEditingSet.id);
+            if (setInList) setInList.name = newName;
+            await dbSet(instructionSetKeys.list, instructionSets);
+            
+            await loadDefinitions();
+            overlay.style.display = 'none';
+            alert(`Set "${newName}" saved and applied.`);
+        }
+    };
+
+    overlay.style.display = 'flex';
+}
+
+async function openHtvmToHtvmModal() {
+    const overlay = document.getElementById('modal-overlay');
+    overlay.style.pointerEvents = 'auto';
+
+    let instructionSets = await dbGet(instructionSetKeys.list) || [];
+    let optionsHtml = instructionSets.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+
+    overlay.innerHTML = `<div class="modal-box" style="max-width: 90vw; width: 1200px;">
+        <h3>HTVM to HTVM Converter</h3>
+        <p>This tool converts an HTVM file from one instruction set to another.</p>
+        <div style="display: flex; gap: 15px; margin: 15px 0;">
+            <div style="flex: 1;">
+                <label>Source Instruction Set:</label>
+                <select id="source-instr-select" style="width:100%;">${optionsHtml}</select>
+            </div>
+            <div style="flex: 1;">
+                <label>Target Instruction Set:</label>
+                <select id="target-instr-select" style="width:100%;">${optionsHtml}</select>
+            </div>
+        </div>
+        <div style="display: flex; gap: 15px; height: 50vh;">
+            <div style="flex: 1;"><label>Input HTVM Code:</label><div id="htvm-input-ace"></div></div>
+            <div style="flex: 1;"><label>Output HTVM Code:</label><div id="htvm-output-ace"></div></div>
+        </div>
+        <div class="modal-buttons" style="margin-top:15px;">
+            <button id="htvm-convert-cancel">Cancel</button>
+            <button id="htvm-convert-run" class="modal-btn-confirm">Convert</button>
+        </div>
+    </div>`;
+
+    const inputEditor = ace.edit("htvm-input-ace");
+    const outputEditor = ace.edit("htvm-output-ace");
+    [inputEditor, outputEditor].forEach(ed => {
+        ed.setTheme("ace/theme/monokai");
+        ed.session.setMode("ace/mode/htvm");
+        ed.setOptions({ fontSize: '14px' });
+    });
+    outputEditor.setReadOnly(true);
+    
+    // Pre-fill with current file if it's an HTVM file
+    if (currentOpenFile && currentOpenFile.endsWith('.htvm')) {
+        inputEditor.setValue(editor.getValue(), -1);
+    }
+    
+    document.getElementById('htvm-convert-cancel').onclick = () => { overlay.style.display = 'none'; };
+    document.getElementById('htvm-convert-run').onclick = async () => {
+        const sourceId = document.getElementById('source-instr-select').value;
+        const targetId = document.getElementById('target-instr-select').value;
+        if (!sourceId || !targetId) return alert("Please select both source and target instruction sets.");
+        
+        const sourceSet = await db.instructionSets.get(sourceId);
+        const targetSet = await db.instructionSets.get(targetId);
+        
+        if (!sourceSet || !targetSet) return alert("Could not load instruction sets.");
+
+        const htvmCode = inputEditor.getValue();
+        argHTVMinstrMORE.push(sourceSet.content);
+        argHTVMinstrMORE.push(targetSet.content);
+        
+        const convertedCode = await compiler(htvmCode, '', 'htvmTOhtvm', '');
+        outputEditor.setValue(convertedCode, -1);
+        resetGlobalVarsOfHTVMjs();
+    };
+    
+    overlay.style.display = 'flex';
+}
+
+async function openLineMapperModal() {
+    const overlay = document.getElementById('modal-overlay');
+    overlay.style.pointerEvents = 'auto';
+
+    overlay.innerHTML = `
+        <div class="modal-box" style="max-width: 90vw; width: 1200px; display: flex; flex-direction: column; height: 90vh;">
+            <h3>HTVM Line Mapper</h3>
+            <div style="display: flex; gap: 15px; flex-grow: 1; margin-top: 10px; min-height: 0;">
+                <div style="flex: 1; display: flex; flex-direction: column;">
+                    <label for="mapper-htvm-code" style="margin-bottom: 5px;">HTVM Code</label>
+                    <textarea id="mapper-htvm-code" style="flex-grow: 1; width: 100%; resize: none; background: #1e1e1e; color: #f0f0f0; border: 1px solid #333; font-family: monospace;"></textarea>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column;">
+                    <label for="mapper-target-code" style="margin-bottom: 5px;">Target Language Code</label>
+                    <textarea id="mapper-target-code" style="flex-grow: 1; width: 100%; resize: none; background: #1e1e1e; color: #f0f0f0; border: 1px solid #333; font-family: monospace;"></textarea>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 15px; margin-top: 15px; flex-shrink: 0;">
+                <label for="mapper-target-line">Target Line Number:</label>
+                <input type="number" id="mapper-target-line" style="width: 80px; background: #252525; color: #e0e0e0; border: 1px solid #333;" min="1">
+                <button id="mapper-find-btn" class="modal-btn-confirm">Find Corresponding Line</button>
+            </div>
+            <div style="margin-top: 15px; flex-shrink: 0;">
+                <label>Result:</label>
+                <div id="mapper-result" style="background: #252525; padding: 10px; border-radius: 3px; min-height: 40px; white-space: pre-wrap; word-break: break-all; border: 1px solid #333;"></div>
+            </div>
+            <div class="modal-buttons" style="margin-top: 15px; flex-shrink: 0;">
+                <button id="mapper-close-btn" class="modal-btn-cancel">Close</button>
+            </div>
+        </div>
+    `;
+    
+    const htvmTextarea = document.getElementById('mapper-htvm-code');
+    const targetTextarea = document.getElementById('mapper-target-code');
+    const targetLineInput = document.getElementById('mapper-target-line');
+    const findBtn = document.getElementById('mapper-find-btn');
+    const resultDiv = document.getElementById('mapper-result');
+    const closeBtn = document.getElementById('mapper-close-btn');
+
+    closeBtn.onclick = () => overlay.style.display = 'none';
+    
+    findBtn.onclick = () => {
+        const htvmCode = htvmTextarea.value;
+        const targetCode = targetTextarea.value;
+        const targetLine = targetLineInput.value;
+        if (!htvmCode || !targetCode || !targetLine) {
+            resultDiv.textContent = "Error: All fields (HTVM Code, Target Code, and Target Line) must be filled.";
+            return;
+        }
+        try {
+            const result = tryToMapHTVMlineToTargetLine(htvmCode, targetCode, targetLine);
+            resultDiv.textContent = result;
+        } catch (e) {
+            resultDiv.textContent = `An error occurred: ${e.message}`;
+            console.error(e);
+        }
+    };
+
+    overlay.style.display = 'flex';
+
+    // Simple Promise-based confirm/alert to avoid blocking and allow interaction with the underlying modal
+    const showInteractivePrompt = (text, confirmText = "Yes", cancelText = "No") => {
+        return new Promise(resolve => {
+            const promptOverlay = document.createElement('div');
+            promptOverlay.style.cssText = `position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 1002; display: flex; justify-content: center; align-items: center;`;
+            
+            const modalBox = overlay.querySelector('.modal-box'); // Get the main modal box
+            
+            promptOverlay.innerHTML = `
+                <div class="modal-box" style="max-width: 450px; text-align: center;">
+                    <p style="line-height: 1.5;">${text}</p>
+                    <div class="modal-buttons" style="justify-content: center; display: flex;">
+                        <button id="prompt-yes" class="modal-btn-confirm">${confirmText}</button>
+                        ${cancelText ? `<button id="prompt-no" class="modal-btn-cancel">${cancelText}</button>` : ''}
+                    </div>
+                </div>`;
+            
+            modalBox.appendChild(promptOverlay);
+
+            document.getElementById('prompt-yes').onclick = () => {
+                modalBox.removeChild(promptOverlay);
+                resolve(true);
+            };
+            if (cancelText) {
+                document.getElementById('prompt-no').onclick = () => {
+                    modalBox.removeChild(promptOverlay);
+                    resolve(false);
+                };
+            }
+        });
+    };
+    
+    const showAlert = (text) => showInteractivePrompt(text, "OK", null);
+
+    const isHtvmFile = currentOpenFile && currentOpenFile.endsWith('.htvm');
+
+    if (isHtvmFile) {
+        htvmTextarea.value = editor.getValue();
+        const hasCopied = await showInteractivePrompt("The HTVM code has been pre-filled.<br><br>Have you copied the target language code to your clipboard?");
+        if (hasCopied) {
+            try {
+                const clipboardText = await navigator.clipboard.readText();
+                if (clipboardText) {
+                    targetTextarea.value = clipboardText;
+                    resultDiv.textContent = "Pasted target code from clipboard.";
+                } else {
+                    await showAlert("Your clipboard is empty. Please copy the target code and paste it manually.");
+                }
+            } catch (err) {
+                 await showAlert("Could not read from clipboard. Please paste the target code manually.");
+            }
+        } else {
+            await showAlert("Please copy the target language code, then return here and paste it into the right-hand box.");
+        }
+    } else { // Not an HTVM file
+        targetTextarea.value = editor.getValue();
+        const hasCopied = await showInteractivePrompt("The target language code has been pre-filled.<br><br>Have you copied the corresponding .htvm file's code to your clipboard?");
+        if (hasCopied) {
+            try {
+                const clipboardText = await navigator.clipboard.readText();
+                if (clipboardText) {
+                    htvmTextarea.value = clipboardText;
+                    resultDiv.textContent = "Pasted HTVM code from clipboard.";
+                } else {
+                    await showAlert("Your clipboard is empty. Please copy the HTVM code and paste it manually.");
+                }
+            } catch (err) {
+                 await showAlert("Could not read from clipboard. Please paste the HTVM code manually.");
+            }
+        } else {
+            await showAlert("Please copy the .htvm file's code, then return here and paste it into the left-hand box.");
+        }
+    }
+}

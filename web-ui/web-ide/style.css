@@ -65,6 +65,9 @@
     --run-btn-bg: #3d8b40;
     --run-btn-text: #ffffff;
     --run-btn-text-bold: bold;
+    --btn-map-lines-bg: #007acc;
+    --btn-map-lines-text: #ffffff;
+    --btn-map-lines-text-bold: bold;
     --btn-format-bg: #3d8b40;
     --btn-format-text: #ffffff;
     --btn-format-text-bold: bold;
@@ -208,6 +211,7 @@ body.preload * { transition: none !important; }
 .tab .close-tab { margin-left: 8px; font-weight: bold; cursor: pointer; color: var(--tab-close-icon); }
 .tab.dragging { opacity: 0.5; }
 .tab.drag-over { border-bottom: 2px solid var(--btn-new-folder-bg); }
+#map-lines-btn,
 #format-btn {
     display: none; /* Hidden on desktop by default */
     border: none;
@@ -215,7 +219,14 @@ body.preload * { transition: none !important; }
     border-radius: 3px;
     cursor: pointer;
     flex-shrink: 0;
-    margin-left: auto;
+    margin-left: 8px;
+}
+#map-lines-btn {
+    background-color: var(--btn-map-lines-bg);
+    color: var(--btn-map-lines-text);
+    font-weight: var(--btn-map-lines-text-bold);
+}
+#format-btn {
     background-color: var(--btn-format-bg);
     color: var(--btn-format-text);
     font-weight: var(--btn-format-text-bold);
@@ -347,7 +358,8 @@ body.syntax-highlighting-disabled .ace_line > span[class*="ace_"] { color: #f8f8
     .top-bar { flex-wrap: wrap; padding: 5px; justify-content: space-between; }
     #tabs-container { order: 3; width: 100%; flex-basis: 100%; margin-top: 5px; padding: 5px 0 0 0; border-bottom: none; }
     #main-toggle-sidebar-btn { order: 1; }
-    #format-btn { display: block; order: 2; margin-left: auto; }
+    #map-lines-btn { display: block; order: 2; margin-left: auto; }
+    #format-btn { display: block; order: 2; margin-left: 10px; }
     #run-btn { order: 2; margin-left: 10px; }
     #htvm-controls { order: 3; width: 100%; flex-basis: 100%; margin: 8px 0 0 0; justify-content: center; flex-wrap: wrap; gap: 8px; }
     .select-container { flex-grow: 1; min-width: 130px; }

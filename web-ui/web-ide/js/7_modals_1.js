@@ -853,6 +853,13 @@ async function updateHotkeyTitles() {
         formatBtn.title = `Format HTVM File (${formatHotkeyStr})`;
     }
 
+    // Update Map Lines Button Title
+    const mapLinesBtn = document.getElementById('map-lines-btn');
+    if (mapLinesBtn) {
+        const mapLinesHotkeyStr = formatHotkey(activeHotkeys.mapLines);
+        mapLinesBtn.title = `Map HTVM Line to Target Line (${mapLinesHotkeyStr})`;
+    }
+
     // Update Toggle Sidebar Button Title
     const toggleSidebarBtn = document.getElementById('main-toggle-sidebar-btn');
     if (toggleSidebarBtn) {
