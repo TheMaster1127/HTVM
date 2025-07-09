@@ -4028,24 +4028,6 @@ fullLangAllOperators_HELP.add(keyWordTernary2)
 return fullLangAllOperators_HELP
 }
 
-func str ospHELP2(str line) {
-    str outHelp := ""
-    int outHelpInt := 0
-    int outHelpInt2 := 1
-    Loop, Parse, line {
-        if (A_LoopField = ".") {
-            outHelpInt2++
-        }
-    }
-    outHelpInt := StrLen(StrSplit(line, ".", outHelpInt2))
-    outHelpInt++
-    StringTrimRight, outHelp, line, outHelpInt
-    return outHelp
-}
-
-
-
-
 
 
 func str extraFlexableFuncCallsHelp(str line)

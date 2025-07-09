@@ -143,13 +143,7 @@ async function runJsCode(code) {
     debuggerState.isActive = true;
     debuggerState.isPaused = false;
 
-    const script = document.createElement('script');
-    const scriptId = `dynamic-script-${Date.now()}`;
-    script.id = scriptId;
-
     const cleanup = async () => {
-        const scriptToRemove = document.getElementById(scriptId);
-        if (scriptToRemove) document.body.removeChild(scriptToRemove);
         delete window.__debug_pause__;
         delete window.__execution_resolver__;
         window.console.log = originalLog;
@@ -202,16 +196,21 @@ async function runJsCode(code) {
 
             window.console.log = (...args) => term.writeln(args.map(arg => typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)).join(' '));
             
-            script.type = 'module';
-            script.textContent = 'try {\n' +
-                                 codeToRun + '\n' +
-                                 'window.__execution_resolver__.resolve();\n' +
-                                 '} catch (e) {\n' +
-                                 'window.__execution_resolver__.reject(e);\n' +
-                                 '}';
-            
-            script.onerror = (err) => reject(new Error('Script execution failed. Check DevTools console (Ctrl+Shift+I) for syntax errors.'));
-            document.body.appendChild(script);
+            const executionWrapper = 'try {\n' +
+                                     codeToRun + '\n' +
+                                     'window.__execution_resolver__.resolve();\n' +
+                                     '} catch (e) {\n' +
+                                     'window.__execution_resolver__.reject(e);\n' +
+                                     '}';
+
+            const finalCodeToExecute = `(async () => { ${executionWrapper} })()`;
+
+            try {
+                const executable = new Function(finalCodeToExecute);
+                executable();
+            } catch (e) {
+                reject(e);
+            }
         });
     } catch (e) {
         if (e.message !== "Execution stopped by user.") {

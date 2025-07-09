@@ -9163,3 +9163,275 @@ def Random = { int min, int max ->
     random.nextInt(max - min + 1) + min
 }
 funcEND======================funcEND==============
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: Asc
+libs: null
+description: string~~~Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str char1 := "A"~~~int ascii1 := Asc(char1)~~~print("Asc('A') = " . STR(ascii1))~~~; Expected: 65~~~if (ascii1 != 65) {~~~    print("Asc test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char2 := "a"~~~int ascii2 := Asc(char2)~~~print("Asc('a') = " . STR(ascii2))~~~; Expected: 97~~~if (ascii2 != 97) {~~~    print("Asc test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char3 := " "~~~int ascii3 := Asc(char3)~~~print("Asc(' ') = " . STR(ascii3))~~~; Expected: 32~~~if (ascii3 != 32) {~~~    print("Asc test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str emptyStr := ""~~~int asciiEmpty := Asc(emptyStr)~~~print("Asc('') = " . STR(asciiEmpty))~~~; Expected: -1 (or error)~~~if (asciiEmpty != -1) {~~~    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))~~~}~~~```~~~
+func Asc(s string) int {
+    if len(s) == 0 {
+        return -1
+    }
+    return int(s[0])
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: Asc
+libs: null
+description: string~~~Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str char1 := "A"~~~int ascii1 := Asc(char1)~~~print("Asc('A') = " . STR(ascii1))~~~; Expected: 65~~~if (ascii1 != 65) {~~~    print("Asc test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char2 := "a"~~~int ascii2 := Asc(char2)~~~print("Asc('a') = " . STR(ascii2))~~~; Expected: 97~~~if (ascii2 != 97) {~~~    print("Asc test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char3 := " "~~~int ascii3 := Asc(char3)~~~print("Asc(' ') = " . STR(ascii3))~~~; Expected: 32~~~if (ascii3 != 32) {~~~    print("Asc test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str emptyStr := ""~~~int asciiEmpty := Asc(emptyStr)~~~print("Asc('') = " . STR(asciiEmpty))~~~; Expected: -1 (or error)~~~if (asciiEmpty != -1) {~~~    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))~~~}~~~```~~~
+function Asc(str)
+    if str and #str > 0 then
+        return string.byte(str)
+    else
+        return -1
+    end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: Asc
+libs: using System;
+description: string~~~Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str char1 := "A"~~~int ascii1 := Asc(char1)~~~print("Asc('A') = " . STR(ascii1))~~~; Expected: 65~~~if (ascii1 != 65) {~~~    print("Asc test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char2 := "a"~~~int ascii2 := Asc(char2)~~~print("Asc('a') = " . STR(ascii2))~~~; Expected: 97~~~if (ascii2 != 97) {~~~    print("Asc test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char3 := " "~~~int ascii3 := Asc(char3)~~~print("Asc(' ') = " . STR(ascii3))~~~; Expected: 32~~~if (ascii3 != 32) {~~~    print("Asc test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str emptyStr := ""~~~int asciiEmpty := Asc(emptyStr)~~~print("Asc('') = " . STR(asciiEmpty))~~~; Expected: -1 (or error)~~~if (asciiEmpty != -1) {~~~    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))~~~}~~~```~~~
+public static int Asc(string str) {
+    if (string.IsNullOrEmpty(str)) {
+        return -1;
+    }
+    return (int)str[0];
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: Asc
+libs: null
+description: string~~~Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str char1 := "A"~~~int ascii1 := Asc(char1)~~~print("Asc('A') = " . STR(ascii1))~~~; Expected: 65~~~if (ascii1 != 65) {~~~    print("Asc test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char2 := "a"~~~int ascii2 := Asc(char2)~~~print("Asc('a') = " . STR(ascii2))~~~; Expected: 97~~~if (ascii2 != 97) {~~~    print("Asc test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char3 := " "~~~int ascii3 := Asc(char3)~~~print("Asc(' ') = " . STR(ascii3))~~~; Expected: 32~~~if (ascii3 != 32) {~~~    print("Asc test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str emptyStr := ""~~~int asciiEmpty := Asc(emptyStr)~~~print("Asc('') = " . STR(asciiEmpty))~~~; Expected: -1 (or error)~~~if (asciiEmpty != -1) {~~~    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))~~~}~~~```~~~
+public static int Asc(String str) {
+    if (str == null || str.isEmpty()) {
+        return -1;
+    }
+    return (int)str.charAt(0);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: Asc
+libs: null
+description: string~~~Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str char1 := "A"~~~int ascii1 := Asc(char1)~~~print("Asc('A') = " . STR(ascii1))~~~; Expected: 65~~~if (ascii1 != 65) {~~~    print("Asc test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char2 := "a"~~~int ascii2 := Asc(char2)~~~print("Asc('a') = " . STR(ascii2))~~~; Expected: 97~~~if (ascii2 != 97) {~~~    print("Asc test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char3 := " "~~~int ascii3 := Asc(char3)~~~print("Asc(' ') = " . STR(ascii3))~~~; Expected: 32~~~if (ascii3 != 32) {~~~    print("Asc test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str emptyStr := ""~~~int asciiEmpty := Asc(emptyStr)~~~print("Asc('') = " . STR(asciiEmpty))~~~; Expected: -1 (or error)~~~if (asciiEmpty != -1) {~~~    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))~~~}~~~```~~~
+
+fun Asc(str: String): Int {
+    if (str.isEmpty()) {
+        return -1
+    }
+    return str.first().toInt()
+}
+
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: Asc
+libs: null
+description: string~~~Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str char1 := "A"~~~int ascii1 := Asc(char1)~~~print("Asc('A') = " . STR(ascii1))~~~; Expected: 65~~~if (ascii1 != 65) {~~~    print("Asc test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char2 := "a"~~~int ascii2 := Asc(char2)~~~print("Asc('a') = " . STR(ascii2))~~~; Expected: 97~~~if (ascii2 != 97) {~~~    print("Asc test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char3 := " "~~~int ascii3 := Asc(char3)~~~print("Asc(' ') = " . STR(ascii3))~~~; Expected: 32~~~if (ascii3 != 32) {~~~    print("Asc test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str emptyStr := ""~~~int asciiEmpty := Asc(emptyStr)~~~print("Asc('') = " . STR(asciiEmpty))~~~; Expected: -1 (or error)~~~if (asciiEmpty != -1) {~~~    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))~~~}~~~```~~~
+def Asc(str)
+  return -1 if str.nil? || str.empty?
+  str.ord
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: Asc
+libs: null
+description: string~~~Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str char1 := "A"~~~int ascii1 := Asc(char1)~~~print("Asc('A') = " . STR(ascii1))~~~; Expected: 65~~~if (ascii1 != 65) {~~~    print("Asc test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char2 := "a"~~~int ascii2 := Asc(char2)~~~print("Asc('a') = " . STR(ascii2))~~~; Expected: 97~~~if (ascii2 != 97) {~~~    print("Asc test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char3 := " "~~~int ascii3 := Asc(char3)~~~print("Asc(' ') = " . STR(ascii3))~~~; Expected: 32~~~if (ascii3 != 32) {~~~    print("Asc test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str emptyStr := ""~~~int asciiEmpty := Asc(emptyStr)~~~print("Asc('') = " . STR(asciiEmpty))~~~; Expected: -1 (or error)~~~if (asciiEmpty != -1) {~~~    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))~~~}~~~```~~~
+proc Asc(s: string): int =
+  if s.len == 0:
+    return -1
+  else:
+    return ord(s[0])
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: Asc
+libs: null
+description: string~~~Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str char1 := "A"~~~int ascii1 := Asc(char1)~~~print("Asc('A') = " . STR(ascii1))~~~; Expected: 65~~~if (ascii1 != 65) {~~~    print("Asc test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char2 := "a"~~~int ascii2 := Asc(char2)~~~print("Asc('a') = " . STR(ascii2))~~~; Expected: 97~~~if (ascii2 != 97) {~~~    print("Asc test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char3 := " "~~~int ascii3 := Asc(char3)~~~print("Asc(' ') = " . STR(ascii3))~~~; Expected: 32~~~if (ascii3 != 32) {~~~    print("Asc test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str emptyStr := ""~~~int asciiEmpty := Asc(emptyStr)~~~print("Asc('') = " . STR(asciiEmpty))~~~; Expected: -1 (or error)~~~if (asciiEmpty != -1) {~~~    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))~~~}~~~```~~~
+; built-in Asc() is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: Asc
+libs: null
+description: string~~~Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str char1 := "A"~~~int ascii1 := Asc(char1)~~~print("Asc('A') = " . STR(ascii1))~~~; Expected: 65~~~if (ascii1 != 65) {~~~    print("Asc test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char2 := "a"~~~int ascii2 := Asc(char2)~~~print("Asc('a') = " . STR(ascii2))~~~; Expected: 97~~~if (ascii2 != 97) {~~~    print("Asc test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char3 := " "~~~int ascii3 := Asc(char3)~~~print("Asc(' ') = " . STR(ascii3))~~~; Expected: 32~~~if (ascii3 != 32) {~~~    print("Asc test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str emptyStr := ""~~~int asciiEmpty := Asc(emptyStr)~~~print("Asc('') = " . STR(asciiEmpty))~~~; Expected: -1 (or error)~~~if (asciiEmpty != -1) {~~~    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))~~~}~~~```~~~
+func Asc(_ str: String) -> Int {
+    guard let char = str.first, let scalar = char.unicodeScalars.first else {
+        return -1
+    }
+    return Int(scalar.value)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: Asc
+libs: null
+description: string~~~Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str char1 := "A"~~~int ascii1 := Asc(char1)~~~print("Asc('A') = " . STR(ascii1))~~~; Expected: 65~~~if (ascii1 != 65) {~~~    print("Asc test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char2 := "a"~~~int ascii2 := Asc(char2)~~~print("Asc('a') = " . STR(ascii2))~~~; Expected: 97~~~if (ascii2 != 97) {~~~    print("Asc test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char3 := " "~~~int ascii3 := Asc(char3)~~~print("Asc(' ') = " . STR(ascii3))~~~; Expected: 32~~~if (ascii3 != 32) {~~~    print("Asc test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str emptyStr := ""~~~int asciiEmpty := Asc(emptyStr)~~~print("Asc('') = " . STR(asciiEmpty))~~~; Expected: -1 (or error)~~~if (asciiEmpty != -1) {~~~    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))~~~}~~~```~~~
+int Asc(String str) {
+  if (str.isEmpty) {
+    return -1;
+  }
+  return str.codeUnitAt(0);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: Asc
+libs: null
+description: string~~~Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str char1 := "A"~~~int ascii1 := Asc(char1)~~~print("Asc('A') = " . STR(ascii1))~~~; Expected: 65~~~if (ascii1 != 65) {~~~    print("Asc test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char2 := "a"~~~int ascii2 := Asc(char2)~~~print("Asc('a') = " . STR(ascii2))~~~; Expected: 97~~~if (ascii2 != 97) {~~~    print("Asc test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char3 := " "~~~int ascii3 := Asc(char3)~~~print("Asc(' ') = " . STR(ascii3))~~~; Expected: 32~~~if (ascii3 != 32) {~~~    print("Asc test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str emptyStr := ""~~~int asciiEmpty := Asc(emptyStr)~~~print("Asc('') = " . STR(asciiEmpty))~~~; Expected: -1 (or error)~~~if (asciiEmpty != -1) {~~~    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))~~~}~~~```~~~
+function Asc(str: string): number {
+    if (!str || str.length === 0) {
+        return -1;
+    }
+    return str.charCodeAt(0);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: Asc
+libs: null
+description: string~~~Returns the ASCII (or Unicode) value of the first character in a string. If the string is empty, it typically returns -1 or an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str char1 := "A"~~~int ascii1 := Asc(char1)~~~print("Asc('A') = " . STR(ascii1))~~~; Expected: 65~~~if (ascii1 != 65) {~~~    print("Asc test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char2 := "a"~~~int ascii2 := Asc(char2)~~~print("Asc('a') = " . STR(ascii2))~~~; Expected: 97~~~if (ascii2 != 97) {~~~    print("Asc test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str char3 := " "~~~int ascii3 := Asc(char3)~~~print("Asc(' ') = " . STR(ascii3))~~~; Expected: 32~~~if (ascii3 != 32) {~~~    print("Asc test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str emptyStr := ""~~~int asciiEmpty := Asc(emptyStr)~~~print("Asc('') = " . STR(asciiEmpty))~~~; Expected: -1 (or error)~~~if (asciiEmpty != -1) {~~~    print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))~~~}~~~```~~~
+int Asc(String str) {
+    if (str == null || str.isEmpty()) {
+        return -1
+    }
+    return (int) str.charAt(0)
+}
+funcEND======================funcEND==============
+
+
+
+
+
+func======================func==============
+lang: go
+name: Chr
+libs: null
+description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+func Chr(code int) string {
+	return string(rune(code))
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: Chr
+libs: null
+description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+function Chr(code)
+    return string.char(code)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: Chr
+libs: using System;
+description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+public static string Chr(int code) {
+    try {
+        return char.ConvertFromUtf32(code);
+    } catch (ArgumentOutOfRangeException) {
+        return "";
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: Chr
+libs: null
+description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+public static String Chr(int codePoint) {
+    if (Character.isValidCodePoint(codePoint)) {
+        return new String(Character.toChars(codePoint));
+    }
+    return "";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: Chr
+libs: null
+description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+fun Chr(code: Int): String {
+    if (code >= 0 && code <= 0x10FFFF) {
+        return code.toChar().toString()
+    }
+    return ""
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: Chr
+libs: null
+description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+def Chr(code)
+  begin
+    return code.chr(Encoding::UTF_8)
+  rescue RangeError
+    return ""
+  end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: Chr
+libs: import std/runes
+description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+proc Chr(code: int): string =
+  result = $Rune(code)
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: Chr
+libs: null
+description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+; built-in Chr() is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: Chr
+libs: null
+description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+func Chr(_ code: Int) -> String {
+    guard let scalar = Unicode.Scalar(code) else {
+        return ""
+    }
+    return String(scalar)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: Chr
+libs: null
+description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+String Chr(int code) {
+  return String.fromCharCode(code);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: Chr
+libs: null
+description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+function Chr(code: number): string {
+    return String.fromCodePoint(code);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: Chr
+libs: null
+description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+String Chr(int code) {
+    return new String(new int[] { code }, 0, 1)
+}
+funcEND======================funcEND==============
