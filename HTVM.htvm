@@ -11518,6 +11518,56 @@ return out
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func str fixJAVAstrCmp_FjavaUGH(str javaCode) {
+    arr str allJavaStringsIG
+    int next := 0
+    Loop, Parse, javaCode, " " {
+        if (next = 1) {
+            if (RegExMatch(Trim(A_LoopField), "^[A-Za-z_][A-Za-z0-9_]*$")) {
+                allJavaStringsIG.add(Trim(A_LoopField))
+            }
+            next := 0
+        }
+        if (A_LoopField = "String") {
+            next := 1
+        }
+    }
+    str pattern1 := ""
+    str pattern2 := ""
+    str pattern3 := ""
+    str pattern4 := ""
+    str replace1 := ""
+    str replace2 := ""
+    str replace3 := ""
+    str replace4 := ""
+    str varName := ""
+    Loop, % allJavaStringsIG.size() {
+        varName := allJavaStringsIG[A_Index]
+        pattern1 := "\b" . varName . "\s*==\s*([A-Za-z0-9_\-]+)\b"
+        replace1 := varName . ".equals($1)"
+        javaCode := RegExReplace(javaCode, pattern1, replace1)
+        pattern2 := "\b([A-Za-z0-9_\-]+)\s*==\s*" . varName . "\b"
+        replace2 := varName . ".equals($1)"
+        javaCode := RegExReplace(javaCode, pattern2, replace2)
+        pattern3 := "\b" . varName . "\s*!=\s*([A-Za-z0-9_\-]+)\b"
+        replace3 := "!" . varName . ".equals($1)"
+        javaCode := RegExReplace(javaCode, pattern3, replace3)
+        pattern4 := "\b([A-Za-z0-9_\-]+)\s*!=\s*" . varName . "\b"
+        replace4 := "!" . varName . ".equals($1)"
+        javaCode := RegExReplace(javaCode, pattern4, replace4)
+    }
+    return javaCode
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 func str FixDoubleInThe4langs(str line) {
 
 str FixDoubleInThe4langsOUT := ""
@@ -24513,7 +24563,7 @@ htCode := StrReplace(htCode, "$$", "$")
 if (langToConvertTo = "java")
 {
 htCode := StrReplace(htCode, "= [);", "= new ArrayList<>();")
-
+htCode := fixJAVAstrCmp_FjavaUGH(htCode)
 }
 
 if (langToConvertTo = "cpp") or (langToConvertTo = "cs") or (langToConvertTo = "java") or (langToConvertTo = "kt") {
@@ -24526,6 +24576,8 @@ htCode := FixDoubleInThe4langs(htCode)
 if (langToConvertTo = langFileExtension_2) {
 htCode := fixHTVMToHTVMMissingAfterAssignmentOperator(htCode)
 }
+
+
 
 Loop, % commentsBugFix.size()
 {
