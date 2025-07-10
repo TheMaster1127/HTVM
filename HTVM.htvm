@@ -13941,6 +13941,7 @@ int slidingWinFixCommentsRmI := 0
 str fixSomeOSPbigHTVMtoHTVM := ""
 
 arr str theIdNumOfThe34theVar
+arr str theIdNumOfThe34theVarFIX
 
 str ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes := ""
 arr str getAllCharForTheFurtureSoIcanAddEscapeChar
@@ -14197,6 +14198,11 @@ theIdNumOfThe34theVar[A_Index] := theIdNumOfThe34theVar[A_Index] . Chr(34)
 
 theIdNumOfThe34theVar.add(Chr(34))
 
+if (langToConvertTo = "dart") or (langToConvertTo = "groovy") {
+    Loop, % theIdNumOfThe34theVar.size() {
+        theIdNumOfThe34theVar[A_Index] := StrReplace(theIdNumOfThe34theVar[A_Index], "$", Chr(92) . "$")
+    }
+}
 
 
 code := StrReplace(code, Chr(13), "")
@@ -25496,8 +25502,9 @@ if (langToConvertTo = "swift")
 htCode := "import Foundation" . Chr(10) . htCode
 }
 
-
-
+if (langToConvertTo = "dart") or (langToConvertTo = "groovy") {
+    htCode := StrReplace(htCode, Chr(92) . Chr(92) . Chr(92) . "$", Chr(92) . "$")
+}
 
 if (langToConvertTo = langFileExtension_2)
 {

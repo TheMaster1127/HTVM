@@ -9384,10 +9384,11 @@ funcEND======================funcEND==============
 func======================func==============
 lang: nim
 name: Chr
-libs: import std/runes
+libs: null
 description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
+# Chr function using Nim's built-in 'chr'
 proc Chr(code: int): string =
-  result = $Rune(code)
+  result = $chr(code)
 funcEND======================funcEND==============
 func======================func==============
 lang: ahk
@@ -9433,5 +9434,827 @@ libs: null
 description: string~~~Returns the character represented by the given ASCII (or Unicode) value. Input must be an integer.~~~Here is how to use it:~~~```htvm~~~int code1 := 65~~~str char1 := Chr(code1)~~~print("Chr(65) = '" . char1 . "'")~~~; Expected: 'A'~~~if (char1 != "A") {~~~    print("Chr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code2 := 97~~~str char2 := Chr(code2)~~~print("Chr(97) = '" . char2 . "'")~~~; Expected: 'a'~~~if (char2 != "a") {~~~    print("Chr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int code3 := 32~~~str char3 := Chr(code3)~~~print("Chr(32) = '" . char3 . "'")~~~; Expected: ' ' (space)~~~if (char3 != " ") {~~~    print("Chr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example with a less common character (e.g., Euro sign if supported)~~~; Euro sign €~~~int code4 := 8364~~~str char4 := Chr(code4)~~~print("Chr(8364) = '" . char4 . "'")~~~; Expected: '€' (if supported by environment/font)~~~```~~~
 String Chr(int code) {
     return new String(new int[] { code }, 0, 1)
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: FLOAT
+libs: )|"strconv"
+description: string~~~Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123.45"~~~float float1 := FLOAT(strNum1)~~~print("FLOAT('123.45') = " . STR(float1))~~~; Expected: 123.45~~~if (Abs(float1 - 123.45) > 0.00001) {~~~    print("FLOAT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "-0.5"~~~float float2 := FLOAT(strNum2)~~~print("FLOAT('-0.5') = " . STR(float2))~~~; Expected: -0.5~~~if (Abs(float2 - (-0.5)) > 0.00001) {~~~    print("FLOAT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "789"~~~float float3 := FLOAT(strNum3)~~~; Integer string~~~print("FLOAT('789') = " . STR(float3))~~~; Expected: 789.0~~~if (Abs(float3 - 789.0) > 0.00001) {~~~    print("FLOAT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or NaN)~~~str invalidStr := "abc"~~~float floatInvalid := FLOAT(invalidStr)~~~print("FLOAT('abc') = " . STR(floatInvalid))~~~```~~~
+func FLOAT(str string) float64 {
+	val, err := strconv.ParseFloat(str, 64)
+	if err != nil {
+		return 0.0
+	}
+	return val
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: FLOAT
+libs: null
+description: string~~~Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123.45"~~~float float1 := FLOAT(strNum1)~~~print("FLOAT('123.45') = " . STR(float1))~~~; Expected: 123.45~~~if (Abs(float1 - 123.45) > 0.00001) {~~~    print("FLOAT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "-0.5"~~~float float2 := FLOAT(strNum2)~~~print("FLOAT('-0.5') = " . STR(float2))~~~; Expected: -0.5~~~if (Abs(float2 - (-0.5)) > 0.00001) {~~~    print("FLOAT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "789"~~~float float3 := FLOAT(strNum3)~~~; Integer string~~~print("FLOAT('789') = " . STR(float3))~~~; Expected: 789.0~~~if (Abs(float3 - 789.0) > 0.00001) {~~~    print("FLOAT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or NaN)~~~str invalidStr := "abc"~~~float floatInvalid := FLOAT(invalidStr)~~~print("FLOAT('abc') = " . STR(floatInvalid))~~~```~~~
+function FLOAT(str)
+    return tonumber(str) or 0.0
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: FLOAT
+libs: using System;
+description: string~~~Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123.45"~~~float float1 := FLOAT(strNum1)~~~print("FLOAT('123.45') = " . STR(float1))~~~; Expected: 123.45~~~if (Abs(float1 - 123.45) > 0.00001) {~~~    print("FLOAT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "-0.5"~~~float float2 := FLOAT(strNum2)~~~print("FLOAT('-0.5') = " . STR(float2))~~~; Expected: -0.5~~~if (Abs(float2 - (-0.5)) > 0.00001) {~~~    print("FLOAT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "789"~~~float float3 := FLOAT(strNum3)~~~; Integer string~~~print("FLOAT('789') = " . STR(float3))~~~; Expected: 789.0~~~if (Abs(float3 - 789.0) > 0.00001) {~~~    print("FLOAT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or NaN)~~~str invalidStr := "abc"~~~float floatInvalid := FLOAT(invalidStr)~~~print("FLOAT('abc') = " . STR(floatInvalid))~~~```~~~
+public static float FLOAT(string str) {
+    float.TryParse(str, out float result);
+    return result;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: FLOAT
+libs: null
+description: string~~~Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123.45"~~~float float1 := FLOAT(strNum1)~~~print("FLOAT('123.45') = " . STR(float1))~~~; Expected: 123.45~~~if (Abs(float1 - 123.45) > 0.00001) {~~~    print("FLOAT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "-0.5"~~~float float2 := FLOAT(strNum2)~~~print("FLOAT('-0.5') = " . STR(float2))~~~; Expected: -0.5~~~if (Abs(float2 - (-0.5)) > 0.00001) {~~~    print("FLOAT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "789"~~~float float3 := FLOAT(strNum3)~~~; Integer string~~~print("FLOAT('789') = " . STR(float3))~~~; Expected: 789.0~~~if (Abs(float3 - 789.0) > 0.00001) {~~~    print("FLOAT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or NaN)~~~str invalidStr := "abc"~~~float floatInvalid := FLOAT(invalidStr)~~~print("FLOAT('abc') = " . STR(floatInvalid))~~~```~~~
+public static float FLOAT(String str) {
+    try {
+        return Float.parseFloat(str);
+    } catch (NumberFormatException e) {
+        return 0.0f;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: FLOAT
+libs: null
+description: string~~~Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123.45"~~~float float1 := FLOAT(strNum1)~~~print("FLOAT('123.45') = " . STR(float1))~~~; Expected: 123.45~~~if (Abs(float1 - 123.45) > 0.00001) {~~~    print("FLOAT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "-0.5"~~~float float2 := FLOAT(strNum2)~~~print("FLOAT('-0.5') = " . STR(float2))~~~; Expected: -0.5~~~if (Abs(float2 - (-0.5)) > 0.00001) {~~~    print("FLOAT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "789"~~~float float3 := FLOAT(strNum3)~~~; Integer string~~~print("FLOAT('789') = " . STR(float3))~~~; Expected: 789.0~~~if (Abs(float3 - 789.0) > 0.00001) {~~~    print("FLOAT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or NaN)~~~str invalidStr := "abc"~~~float floatInvalid := FLOAT(invalidStr)~~~print("FLOAT('abc') = " . STR(floatInvalid))~~~```~~~
+fun FLOAT(str: String): Float {
+    return str.toFloatOrNull() ?: 0.0f
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: FLOAT
+libs: null
+description: string~~~Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123.45"~~~float float1 := FLOAT(strNum1)~~~print("FLOAT('123.45') = " . STR(float1))~~~; Expected: 123.45~~~if (Abs(float1 - 123.45) > 0.00001) {~~~    print("FLOAT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "-0.5"~~~float float2 := FLOAT(strNum2)~~~print("FLOAT('-0.5') = " . STR(float2))~~~; Expected: -0.5~~~if (Abs(float2 - (-0.5)) > 0.00001) {~~~    print("FLOAT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "789"~~~float float3 := FLOAT(strNum3)~~~; Integer string~~~print("FLOAT('789') = " . STR(float3))~~~; Expected: 789.0~~~if (Abs(float3 - 789.0) > 0.00001) {~~~    print("FLOAT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or NaN)~~~str invalidStr := "abc"~~~float floatInvalid := FLOAT(invalidStr)~~~print("FLOAT('abc') = " . STR(floatInvalid))~~~```~~~
+def FLOAT(str)
+  str.to_f
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: FLOAT
+libs: import strutils
+description: string~~~Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123.45"~~~float float1 := FLOAT(strNum1)~~~print("FLOAT('123.45') = " . STR(float1))~~~; Expected: 123.45~~~if (Abs(float1 - 123.45) > 0.00001) {~~~    print("FLOAT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "-0.5"~~~float float2 := FLOAT(strNum2)~~~print("FLOAT('-0.5') = " . STR(float2))~~~; Expected: -0.5~~~if (Abs(float2 - (-0.5)) > 0.00001) {~~~    print("FLOAT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "789"~~~float float3 := FLOAT(strNum3)~~~; Integer string~~~print("FLOAT('789') = " . STR(float3))~~~; Expected: 789.0~~~if (Abs(float3 - 789.0) > 0.00001) {~~~    print("FLOAT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or NaN)~~~str invalidStr := "abc"~~~float floatInvalid := FLOAT(invalidStr)~~~print("FLOAT('abc') = " . STR(floatInvalid))~~~```~~~
+proc FLOAT(s: string): float =
+  try:
+    result = parseFloat(s)
+  except ValueError:
+    result = 0.0
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: FLOAT
+libs: null
+description: string~~~Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123.45"~~~float float1 := FLOAT(strNum1)~~~print("FLOAT('123.45') = " . STR(float1))~~~; Expected: 123.45~~~if (Abs(float1 - 123.45) > 0.00001) {~~~    print("FLOAT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "-0.5"~~~float float2 := FLOAT(strNum2)~~~print("FLOAT('-0.5') = " . STR(float2))~~~; Expected: -0.5~~~if (Abs(float2 - (-0.5)) > 0.00001) {~~~    print("FLOAT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "789"~~~float float3 := FLOAT(strNum3)~~~; Integer string~~~print("FLOAT('789') = " . STR(float3))~~~; Expected: 789.0~~~if (Abs(float3 - 789.0) > 0.00001) {~~~    print("FLOAT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or NaN)~~~str invalidStr := "abc"~~~float floatInvalid := FLOAT(invalidStr)~~~print("FLOAT('abc') = " . STR(floatInvalid))~~~```~~~
+FLOAT(str) {
+    return str + 0.0
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: FLOAT
+libs: null
+description: string~~~Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123.45"~~~float float1 := FLOAT(strNum1)~~~print("FLOAT('123.45') = " . STR(float1))~~~; Expected: 123.45~~~if (Abs(float1 - 123.45) > 0.00001) {~~~    print("FLOAT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "-0.5"~~~float float2 := FLOAT(strNum2)~~~print("FLOAT('-0.5') = " . STR(float2))~~~; Expected: -0.5~~~if (Abs(float2 - (-0.5)) > 0.00001) {~~~    print("FLOAT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "789"~~~float float3 := FLOAT(strNum3)~~~; Integer string~~~print("FLOAT('789') = " . STR(float3))~~~; Expected: 789.0~~~if (Abs(float3 - 789.0) > 0.00001) {~~~    print("FLOAT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or NaN)~~~str invalidStr := "abc"~~~float floatInvalid := FLOAT(invalidStr)~~~print("FLOAT('abc') = " . STR(floatInvalid))~~~```~~~
+func FLOAT(_ str: String) -> Float {
+    return Float(str) ?? 0.0
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: FLOAT
+libs: null
+description: string~~~Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123.45"~~~float float1 := FLOAT(strNum1)~~~print("FLOAT('123.45') = " . STR(float1))~~~; Expected: 123.45~~~if (Abs(float1 - 123.45) > 0.00001) {~~~    print("FLOAT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "-0.5"~~~float float2 := FLOAT(strNum2)~~~print("FLOAT('-0.5') = " . STR(float2))~~~; Expected: -0.5~~~if (Abs(float2 - (-0.5)) > 0.00001) {~~~    print("FLOAT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "789"~~~float float3 := FLOAT(strNum3)~~~; Integer string~~~print("FLOAT('789') = " . STR(float3))~~~; Expected: 789.0~~~if (Abs(float3 - 789.0) > 0.00001) {~~~    print("FLOAT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or NaN)~~~str invalidStr := "abc"~~~float floatInvalid := FLOAT(invalidStr)~~~print("FLOAT('abc') = " . STR(floatInvalid))~~~```~~~
+double FLOAT(String str) {
+  return double.tryParse(str) ?? 0.0;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: FLOAT
+libs: null
+description: string~~~Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123.45"~~~float float1 := FLOAT(strNum1)~~~print("FLOAT('123.45') = " . STR(float1))~~~; Expected: 123.45~~~if (Abs(float1 - 123.45) > 0.00001) {~~~    print("FLOAT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "-0.5"~~~float float2 := FLOAT(strNum2)~~~print("FLOAT('-0.5') = " . STR(float2))~~~; Expected: -0.5~~~if (Abs(float2 - (-0.5)) > 0.00001) {~~~    print("FLOAT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "789"~~~float float3 := FLOAT(strNum3)~~~; Integer string~~~print("FLOAT('789') = " . STR(float3))~~~; Expected: 789.0~~~if (Abs(float3 - 789.0) > 0.00001) {~~~    print("FLOAT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or NaN)~~~str invalidStr := "abc"~~~float floatInvalid := FLOAT(invalidStr)~~~print("FLOAT('abc') = " . STR(floatInvalid))~~~```~~~
+function FLOAT(str: string): number {
+    const num = parseFloat(str);
+    return isNaN(num) ? 0 : num;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: FLOAT
+libs: null
+description: string~~~Converts a string representation of a number into a floating-point number. If the string cannot be converted, it may throw an error or return a special value like NaN, depending on the target language.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123.45"~~~float float1 := FLOAT(strNum1)~~~print("FLOAT('123.45') = " . STR(float1))~~~; Expected: 123.45~~~if (Abs(float1 - 123.45) > 0.00001) {~~~    print("FLOAT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "-0.5"~~~float float2 := FLOAT(strNum2)~~~print("FLOAT('-0.5') = " . STR(float2))~~~; Expected: -0.5~~~if (Abs(float2 - (-0.5)) > 0.00001) {~~~    print("FLOAT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "789"~~~float float3 := FLOAT(strNum3)~~~; Integer string~~~print("FLOAT('789') = " . STR(float3))~~~; Expected: 789.0~~~if (Abs(float3 - 789.0) > 0.00001) {~~~    print("FLOAT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or NaN)~~~str invalidStr := "abc"~~~float floatInvalid := FLOAT(invalidStr)~~~print("FLOAT('abc') = " . STR(floatInvalid))~~~```~~~
+float FLOAT(String str) {
+    try {
+        return str.toFloat()
+    } catch (NumberFormatException e) {
+        return 0.0f
+    }
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: INT
+libs: )|"strconv"
+description: string~~~Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123"~~~int int1 := INT(strNum1)~~~print("INT('123') = " . STR(int1))~~~; Expected: 123~~~if (int1 != 123) {~~~    print("INT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "123.789"~~~; String with a float~~~int int2 := INT(strNum2)~~~print("INT('123.789') = " . STR(int2))~~~; Expected: 123 (truncation)~~~if (int2 != 123) {~~~    print("INT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "-456"~~~int int3 := INT(strNum3)~~~print("INT('-456') = " . STR(int3))~~~; Expected: -456~~~if (int3 != -456) {~~~    print("INT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or 0/NaN)~~~str invalidStr := "xyz"~~~int intInvalid := INT(invalidStr)~~~print("INT('xyz') = " . STR(intInvalid))~~~```~~~
+func INT(str string) int {
+	f, err := strconv.ParseFloat(str, 64)
+	if err != nil {
+		return 0
+	}
+	return int(f)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: INT
+libs: null
+description: string~~~Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123"~~~int int1 := INT(strNum1)~~~print("INT('123') = " . STR(int1))~~~; Expected: 123~~~if (int1 != 123) {~~~    print("INT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "123.789"~~~; String with a float~~~int int2 := INT(strNum2)~~~print("INT('123.789') = " . STR(int2))~~~; Expected: 123 (truncation)~~~if (int2 != 123) {~~~    print("INT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "-456"~~~int int3 := INT(strNum3)~~~print("INT('-456') = " . STR(int3))~~~; Expected: -456~~~if (int3 != -456) {~~~    print("INT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or 0/NaN)~~~str invalidStr := "xyz"~~~int intInvalid := INT(invalidStr)~~~print("INT('xyz') = " . STR(intInvalid))~~~```~~~
+function INT(str)
+    local num = tonumber(str)
+    if num then
+        return math.modf(num)
+    else
+        return 0
+    end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: INT
+libs: using System;
+description: string~~~Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123"~~~int int1 := INT(strNum1)~~~print("INT('123') = " . STR(int1))~~~; Expected: 123~~~if (int1 != 123) {~~~    print("INT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "123.789"~~~; String with a float~~~int int2 := INT(strNum2)~~~print("INT('123.789') = " . STR(int2))~~~; Expected: 123 (truncation)~~~if (int2 != 123) {~~~    print("INT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "-456"~~~int int3 := INT(strNum3)~~~print("INT('-456') = " . STR(int3))~~~; Expected: -456~~~if (int3 != -456) {~~~    print("INT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or 0/NaN)~~~str invalidStr := "xyz"~~~int intInvalid := INT(invalidStr)~~~print("INT('xyz') = " . STR(intInvalid))~~~```~~~
+public static int INT(string str) {
+    double.TryParse(str, out double temp);
+    return (int)temp;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: INT
+libs: null
+description: string~~~Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123"~~~int int1 := INT(strNum1)~~~print("INT('123') = " . STR(int1))~~~; Expected: 123~~~if (int1 != 123) {~~~    print("INT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "123.789"~~~; String with a float~~~int int2 := INT(strNum2)~~~print("INT('123.789') = " . STR(int2))~~~; Expected: 123 (truncation)~~~if (int2 != 123) {~~~    print("INT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "-456"~~~int int3 := INT(strNum3)~~~print("INT('-456') = " . STR(int3))~~~; Expected: -456~~~if (int3 != -456) {~~~    print("INT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or 0/NaN)~~~str invalidStr := "xyz"~~~int intInvalid := INT(invalidStr)~~~print("INT('xyz') = " . STR(intInvalid))~~~```~~~
+public static int INT(String str) {
+    try {
+        return (int)Double.parseDouble(str);
+    } catch (NumberFormatException e) {
+        return 0;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: INT
+libs: null
+description: string~~~Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123"~~~int int1 := INT(strNum1)~~~print("INT('123') = " . STR(int1))~~~; Expected: 123~~~if (int1 != 123) {~~~    print("INT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "123.789"~~~; String with a float~~~int int2 := INT(strNum2)~~~print("INT('123.789') = " . STR(int2))~~~; Expected: 123 (truncation)~~~if (int2 != 123) {~~~    print("INT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "-456"~~~int int3 := INT(strNum3)~~~print("INT('-456') = " . STR(int3))~~~; Expected: -456~~~if (int3 != -456) {~~~    print("INT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or 0/NaN)~~~str invalidStr := "xyz"~~~int intInvalid := INT(invalidStr)~~~print("INT('xyz') = " . STR(intInvalid))~~~```~~~
+fun INT(str: String): Int {
+    return str.toDoubleOrNull()?.toInt() ?: 0
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: INT
+libs: null
+description: string~~~Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123"~~~int int1 := INT(strNum1)~~~print("INT('123') = " . STR(int1))~~~; Expected: 123~~~if (int1 != 123) {~~~    print("INT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "123.789"~~~; String with a float~~~int int2 := INT(strNum2)~~~print("INT('123.789') = " . STR(int2))~~~; Expected: 123 (truncation)~~~if (int2 != 123) {~~~    print("INT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "-456"~~~int int3 := INT(strNum3)~~~print("INT('-456') = " . STR(int3))~~~; Expected: -456~~~if (int3 != -456) {~~~    print("INT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or 0/NaN)~~~str invalidStr := "xyz"~~~int intInvalid := INT(invalidStr)~~~print("INT('xyz') = " . STR(intInvalid))~~~```~~~
+def INT(str)
+  str.to_i
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: INT
+libs: import strutils
+description: string~~~Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123"~~~int int1 := INT(strNum1)~~~print("INT('123') = " . STR(int1))~~~; Expected: 123~~~if (int1 != 123) {~~~    print("INT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "123.789"~~~; String with a float~~~int int2 := INT(strNum2)~~~print("INT('123.789') = " . STR(int2))~~~; Expected: 123 (truncation)~~~if (int2 != 123) {~~~    print("INT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "-456"~~~int int3 := INT(strNum3)~~~print("INT('-456') = " . STR(int3))~~~; Expected: -456~~~if (int3 != -456) {~~~    print("INT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or 0/NaN)~~~str invalidStr := "xyz"~~~int intInvalid := INT(invalidStr)~~~print("INT('xyz') = " . STR(intInvalid))~~~```~~~
+proc INT(s: string): int =
+  try:
+    result = int(parseFloat(s))
+  except ValueError:
+    result = 0
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: INT
+libs: null
+description: string~~~Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123"~~~int int1 := INT(strNum1)~~~print("INT('123') = " . STR(int1))~~~; Expected: 123~~~if (int1 != 123) {~~~    print("INT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "123.789"~~~; String with a float~~~int int2 := INT(strNum2)~~~print("INT('123.789') = " . STR(int2))~~~; Expected: 123 (truncation)~~~if (int2 != 123) {~~~    print("INT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "-456"~~~int int3 := INT(strNum3)~~~print("INT('-456') = " . STR(int3))~~~; Expected: -456~~~if (int3 != -456) {~~~    print("INT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or 0/NaN)~~~str invalidStr := "xyz"~~~int intInvalid := INT(invalidStr)~~~print("INT('xyz') = " . STR(intInvalid))~~~```~~~
+INT(str) {
+    return Floor(str)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: INT
+libs: null
+description: string~~~Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123"~~~int int1 := INT(strNum1)~~~print("INT('123') = " . STR(int1))~~~; Expected: 123~~~if (int1 != 123) {~~~    print("INT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "123.789"~~~; String with a float~~~int int2 := INT(strNum2)~~~print("INT('123.789') = " . STR(int2))~~~; Expected: 123 (truncation)~~~if (int2 != 123) {~~~    print("INT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "-456"~~~int int3 := INT(strNum3)~~~print("INT('-456') = " . STR(int3))~~~; Expected: -456~~~if (int3 != -456) {~~~    print("INT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or 0/NaN)~~~str invalidStr := "xyz"~~~int intInvalid := INT(invalidStr)~~~print("INT('xyz') = " . STR(intInvalid))~~~```~~~
+func INT(_ str: String) -> Int {
+    return Int(Double(str) ?? 0.0)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: INT
+libs: null
+description: string~~~Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123"~~~int int1 := INT(strNum1)~~~print("INT('123') = " . STR(int1))~~~; Expected: 123~~~if (int1 != 123) {~~~    print("INT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "123.789"~~~; String with a float~~~int int2 := INT(strNum2)~~~print("INT('123.789') = " . STR(int2))~~~; Expected: 123 (truncation)~~~if (int2 != 123) {~~~    print("INT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "-456"~~~int int3 := INT(strNum3)~~~print("INT('-456') = " . STR(int3))~~~; Expected: -456~~~if (int3 != -456) {~~~    print("INT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or 0/NaN)~~~str invalidStr := "xyz"~~~int intInvalid := INT(invalidStr)~~~print("INT('xyz') = " . STR(intInvalid))~~~```~~~
+int INT(String str) {
+  return double.tryParse(str)?.toInt() ?? 0;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: INT
+libs: null
+description: string~~~Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123"~~~int int1 := INT(strNum1)~~~print("INT('123') = " . STR(int1))~~~; Expected: 123~~~if (int1 != 123) {~~~    print("INT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "123.789"~~~; String with a float~~~int int2 := INT(strNum2)~~~print("INT('123.789') = " . STR(int2))~~~; Expected: 123 (truncation)~~~if (int2 != 123) {~~~    print("INT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "-456"~~~int int3 := INT(strNum3)~~~print("INT('-456') = " . STR(int3))~~~; Expected: -456~~~if (int3 != -456) {~~~    print("INT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or 0/NaN)~~~str invalidStr := "xyz"~~~int intInvalid := INT(invalidStr)~~~print("INT('xyz') = " . STR(intInvalid))~~~```~~~
+function INT(str: string): number {
+    const num = parseInt(str, 10);
+    return isNaN(num) ? 0 : num;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: INT
+libs: null
+description: string~~~Converts a string representation of a number into an integer. If the string represents a floating-point number, the fractional part is typically truncated. If the string cannot be converted, it may throw an error or return 0/NaN.~~~Here is how to use it:~~~```htvm~~~str strNum1 := "123"~~~int int1 := INT(strNum1)~~~print("INT('123') = " . STR(int1))~~~; Expected: 123~~~if (int1 != 123) {~~~    print("INT test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum2 := "123.789"~~~; String with a float~~~int int2 := INT(strNum2)~~~print("INT('123.789') = " . STR(int2))~~~; Expected: 123 (truncation)~~~if (int2 != 123) {~~~    print("INT test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str strNum3 := "-456"~~~int int3 := INT(strNum3)~~~print("INT('-456') = " . STR(int3))~~~; Expected: -456~~~if (int3 != -456) {~~~    print("INT test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example of an invalid string (behavior might vary: error or 0/NaN)~~~str invalidStr := "xyz"~~~int intInvalid := INT(invalidStr)~~~print("INT('xyz') = " . STR(intInvalid))~~~```~~~
+int INT(String str) {
+    try {
+        return str.toFloat().toInteger()
+    } catch (NumberFormatException e) {
+        return 0
+    }
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: InStr
+libs: )|"strings"
+description: string~~~Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.~~~Here is how to use it:~~~```htvm~~~str haystack := "Hello, HTVM World! HTVM is cool."~~~str needle1 := "HTVM"~~~int pos1 := InStr(haystack, needle1)~~~print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))~~~; Expected: 8 (1-indexed-based)~~~if (pos1 != 8) {~~~    print("InStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle2 := "World"~~~int pos2 := haystack.InStr(needle2)~~~print("Position of 'World' is: " . STR(pos2))~~~; Expected: 13 (1-indexed-based)~~~if (pos2 != 13) {~~~    print("InStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle3 := "notfound"~~~int pos3 := InStr(haystack, needle3)~~~print("Position of 'notfound' is: " . STR(pos3))~~~; Expected: 0~~~if (pos3 != 0) {~~~    print("InStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle4 := "hTvm"~~~; Test case-sensitivity (may vary by language)~~~int pos4 := InStr(haystack, needle4)~~~print("Position of 'hTvm' (case test) is: " . STR(pos4))~~~; Expected might be 0 if case-sensitive, or 8 if case-insensitive~~~```~~~
+func InStr(haystack, needle string) int {
+	pos := strings.Index(haystack, needle)
+	if pos == -1 {
+		return 0
+	}
+	return pos + 1
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: InStr
+libs: null
+description: string~~~Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.~~~Here is how to use it:~~~```htvm~~~str haystack := "Hello, HTVM World! HTVM is cool."~~~str needle1 := "HTVM"~~~int pos1 := InStr(haystack, needle1)~~~print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))~~~; Expected: 8 (1-indexed-based)~~~if (pos1 != 8) {~~~    print("InStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle2 := "World"~~~int pos2 := haystack.InStr(needle2)~~~print("Position of 'World' is: " . STR(pos2))~~~; Expected: 13 (1-indexed-based)~~~if (pos2 != 13) {~~~    print("InStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle3 := "notfound"~~~int pos3 := InStr(haystack, needle3)~~~print("Position of 'notfound' is: " . STR(pos3))~~~; Expected: 0~~~if (pos3 != 0) {~~~    print("InStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle4 := "hTvm"~~~; Test case-sensitivity (may vary by language)~~~int pos4 := InStr(haystack, needle4)~~~print("Position of 'hTvm' (case test) is: " . STR(pos4))~~~; Expected might be 0 if case-sensitive, or 8 if case-insensitive~~~```~~~
+function InStr(haystack, needle)
+    local pos = string.find(haystack, needle, 1, true)
+    return pos or 0
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: InStr
+libs: using System;
+description: string~~~Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.~~~Here is how to use it:~~~```htvm~~~str haystack := "Hello, HTVM World! HTVM is cool."~~~str needle1 := "HTVM"~~~int pos1 := InStr(haystack, needle1)~~~print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))~~~; Expected: 8 (1-indexed-based)~~~if (pos1 != 8) {~~~    print("InStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle2 := "World"~~~int pos2 := haystack.InStr(needle2)~~~print("Position of 'World' is: " . STR(pos2))~~~; Expected: 13 (1-indexed-based)~~~if (pos2 != 13) {~~~    print("InStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle3 := "notfound"~~~int pos3 := InStr(haystack, needle3)~~~print("Position of 'notfound' is: " . STR(pos3))~~~; Expected: 0~~~if (pos3 != 0) {~~~    print("InStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle4 := "hTvm"~~~; Test case-sensitivity (may vary by language)~~~int pos4 := InStr(haystack, needle4)~~~print("Position of 'hTvm' (case test) is: " . STR(pos4))~~~; Expected might be 0 if case-sensitive, or 8 if case-insensitive~~~```~~~
+public static int InStr(string haystack, string needle) {
+    int pos = haystack.IndexOf(needle);
+    return pos == -1 ? 0 : pos + 1;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: InStr
+libs: null
+description: string~~~Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.~~~Here is how to use it:~~~```htvm~~~str haystack := "Hello, HTVM World! HTVM is cool."~~~str needle1 := "HTVM"~~~int pos1 := InStr(haystack, needle1)~~~print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))~~~; Expected: 8 (1-indexed-based)~~~if (pos1 != 8) {~~~    print("InStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle2 := "World"~~~int pos2 := haystack.InStr(needle2)~~~print("Position of 'World' is: " . STR(pos2))~~~; Expected: 13 (1-indexed-based)~~~if (pos2 != 13) {~~~    print("InStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle3 := "notfound"~~~int pos3 := InStr(haystack, needle3)~~~print("Position of 'notfound' is: " . STR(pos3))~~~; Expected: 0~~~if (pos3 != 0) {~~~    print("InStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle4 := "hTvm"~~~; Test case-sensitivity (may vary by language)~~~int pos4 := InStr(haystack, needle4)~~~print("Position of 'hTvm' (case test) is: " . STR(pos4))~~~; Expected might be 0 if case-sensitive, or 8 if case-insensitive~~~```~~~
+public static int InStr(String haystack, String needle) {
+    int pos = haystack.indexOf(needle);
+    return pos == -1 ? 0 : pos + 1;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: InStr
+libs: null
+description: string~~~Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.~~~Here is how to use it:~~~```htvm~~~str haystack := "Hello, HTVM World! HTVM is cool."~~~str needle1 := "HTVM"~~~int pos1 := InStr(haystack, needle1)~~~print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))~~~; Expected: 8 (1-indexed-based)~~~if (pos1 != 8) {~~~    print("InStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle2 := "World"~~~int pos2 := haystack.InStr(needle2)~~~print("Position of 'World' is: " . STR(pos2))~~~; Expected: 13 (1-indexed-based)~~~if (pos2 != 13) {~~~    print("InStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle3 := "notfound"~~~int pos3 := InStr(haystack, needle3)~~~print("Position of 'notfound' is: " . STR(pos3))~~~; Expected: 0~~~if (pos3 != 0) {~~~    print("InStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle4 := "hTvm"~~~; Test case-sensitivity (may vary by language)~~~int pos4 := InStr(haystack, needle4)~~~print("Position of 'hTvm' (case test) is: " . STR(pos4))~~~; Expected might be 0 if case-sensitive, or 8 if case-insensitive~~~```~~~
+fun InStr(haystack: String, needle: String): Int {
+    val pos = haystack.indexOf(needle)
+    return if (pos == -1) 0 else pos + 1
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: InStr
+libs: null
+description: string~~~Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.~~~Here is how to use it:~~~```htvm~~~str haystack := "Hello, HTVM World! HTVM is cool."~~~str needle1 := "HTVM"~~~int pos1 := InStr(haystack, needle1)~~~print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))~~~; Expected: 8 (1-indexed-based)~~~if (pos1 != 8) {~~~    print("InStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle2 := "World"~~~int pos2 := haystack.InStr(needle2)~~~print("Position of 'World' is: " . STR(pos2))~~~; Expected: 13 (1-indexed-based)~~~if (pos2 != 13) {~~~    print("InStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle3 := "notfound"~~~int pos3 := InStr(haystack, needle3)~~~print("Position of 'notfound' is: " . STR(pos3))~~~; Expected: 0~~~if (pos3 != 0) {~~~    print("InStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle4 := "hTvm"~~~; Test case-sensitivity (may vary by language)~~~int pos4 := InStr(haystack, needle4)~~~print("Position of 'hTvm' (case test) is: " . STR(pos4))~~~; Expected might be 0 if case-sensitive, or 8 if case-insensitive~~~```~~~
+def InStr(haystack, needle)
+  pos = haystack.index(needle)
+  return pos ? pos + 1 : 0
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: InStr
+libs: null
+description: string~~~Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.~~~Here is how to use it:~~~```htvm~~~str haystack := "Hello, HTVM World! HTVM is cool."~~~str needle1 := "HTVM"~~~int pos1 := InStr(haystack, needle1)~~~print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))~~~; Expected: 8 (1-indexed-based)~~~if (pos1 != 8) {~~~    print("InStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle2 := "World"~~~int pos2 := haystack.InStr(needle2)~~~print("Position of 'World' is: " . STR(pos2))~~~; Expected: 13 (1-indexed-based)~~~if (pos2 != 13) {~~~    print("InStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle3 := "notfound"~~~int pos3 := InStr(haystack, needle3)~~~print("Position of 'notfound' is: " . STR(pos3))~~~; Expected: 0~~~if (pos3 != 0) {~~~    print("InStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle4 := "hTvm"~~~; Test case-sensitivity (may vary by language)~~~int pos4 := InStr(haystack, needle4)~~~print("Position of 'hTvm' (case test) is: " . STR(pos4))~~~; Expected might be 0 if case-sensitive, or 8 if case-insensitive~~~```~~~
+proc InStr(haystack, needle: string): int =
+  let pos = haystack.find(needle)
+  if pos == -1:
+    return 0
+  else:
+    return pos + 1
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: InStr
+libs: null
+description: string~~~Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.~~~Here is how to use it:~~~```htvm~~~str haystack := "Hello, HTVM World! HTVM is cool."~~~str needle1 := "HTVM"~~~int pos1 := InStr(haystack, needle1)~~~print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))~~~; Expected: 8 (1-indexed-based)~~~if (pos1 != 8) {~~~    print("InStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle2 := "World"~~~int pos2 := haystack.InStr(needle2)~~~print("Position of 'World' is: " . STR(pos2))~~~; Expected: 13 (1-indexed-based)~~~if (pos2 != 13) {~~~    print("InStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle3 := "notfound"~~~int pos3 := InStr(haystack, needle3)~~~print("Position of 'notfound' is: " . STR(pos3))~~~; Expected: 0~~~if (pos3 != 0) {~~~    print("InStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle4 := "hTvm"~~~; Test case-sensitivity (may vary by language)~~~int pos4 := InStr(haystack, needle4)~~~print("Position of 'hTvm' (case test) is: " . STR(pos4))~~~; Expected might be 0 if case-sensitive, or 8 if case-insensitive~~~```~~~
+; built-in InStr() is used (note: default is case-insensitive, but can be made sensitive)
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: InStr
+libs: null
+description: string~~~Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.~~~Here is how to use it:~~~```htvm~~~str haystack := "Hello, HTVM World! HTVM is cool."~~~str needle1 := "HTVM"~~~int pos1 := InStr(haystack, needle1)~~~print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))~~~; Expected: 8 (1-indexed-based)~~~if (pos1 != 8) {~~~    print("InStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle2 := "World"~~~int pos2 := haystack.InStr(needle2)~~~print("Position of 'World' is: " . STR(pos2))~~~; Expected: 13 (1-indexed-based)~~~if (pos2 != 13) {~~~    print("InStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle3 := "notfound"~~~int pos3 := InStr(haystack, needle3)~~~print("Position of 'notfound' is: " . STR(pos3))~~~; Expected: 0~~~if (pos3 != 0) {~~~    print("InStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle4 := "hTvm"~~~; Test case-sensitivity (may vary by language)~~~int pos4 := InStr(haystack, needle4)~~~print("Position of 'hTvm' (case test) is: " . STR(pos4))~~~; Expected might be 0 if case-sensitive, or 8 if case-insensitive~~~```~~~
+func InStr(_ haystack: String, _ needle: String) -> Int {
+    if let range = haystack.range(of: needle) {
+        return haystack.distance(from: haystack.startIndex, to: range.lowerBound) + 1
+    }
+    return 0
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: InStr
+libs: null
+description: string~~~Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.~~~Here is how to use it:~~~```htvm~~~str haystack := "Hello, HTVM World! HTVM is cool."~~~str needle1 := "HTVM"~~~int pos1 := InStr(haystack, needle1)~~~print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))~~~; Expected: 8 (1-indexed-based)~~~if (pos1 != 8) {~~~    print("InStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle2 := "World"~~~int pos2 := haystack.InStr(needle2)~~~print("Position of 'World' is: " . STR(pos2))~~~; Expected: 13 (1-indexed-based)~~~if (pos2 != 13) {~~~    print("InStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle3 := "notfound"~~~int pos3 := InStr(haystack, needle3)~~~print("Position of 'notfound' is: " . STR(pos3))~~~; Expected: 0~~~if (pos3 != 0) {~~~    print("InStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle4 := "hTvm"~~~; Test case-sensitivity (may vary by language)~~~int pos4 := InStr(haystack, needle4)~~~print("Position of 'hTvm' (case test) is: " . STR(pos4))~~~; Expected might be 0 if case-sensitive, or 8 if case-insensitive~~~```~~~
+int InStr(String haystack, String needle) {
+  int pos = haystack.indexOf(needle);
+  return pos == -1 ? 0 : pos + 1;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: InStr
+libs: null
+description: string~~~Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.~~~Here is how to use it:~~~```htvm~~~str haystack := "Hello, HTVM World! HTVM is cool."~~~str needle1 := "HTVM"~~~int pos1 := InStr(haystack, needle1)~~~print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))~~~; Expected: 8 (1-indexed-based)~~~if (pos1 != 8) {~~~    print("InStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle2 := "World"~~~int pos2 := haystack.InStr(needle2)~~~print("Position of 'World' is: " . STR(pos2))~~~; Expected: 13 (1-indexed-based)~~~if (pos2 != 13) {~~~    print("InStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle3 := "notfound"~~~int pos3 := InStr(haystack, needle3)~~~print("Position of 'notfound' is: " . STR(pos3))~~~; Expected: 0~~~if (pos3 != 0) {~~~    print("InStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle4 := "hTvm"~~~; Test case-sensitivity (may vary by language)~~~int pos4 := InStr(haystack, needle4)~~~print("Position of 'hTvm' (case test) is: " . STR(pos4))~~~; Expected might be 0 if case-sensitive, or 8 if case-insensitive~~~```~~~
+function InStr(haystack: string, needle: string): number {
+    const pos = haystack.indexOf(needle);
+    return pos === -1 ? 0 : pos + 1;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: InStr
+libs: null
+description: string~~~Searches for the first occurrence of a `needle` substring within a `haystack` string. Returns the 1-based starting position of `needle` if found, otherwise returns 0. Case-sensitivity depends on the target language's default string search behavior.~~~Here is how to use it:~~~```htvm~~~str haystack := "Hello, HTVM World! HTVM is cool."~~~str needle1 := "HTVM"~~~int pos1 := InStr(haystack, needle1)~~~print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))~~~; Expected: 8 (1-indexed-based)~~~if (pos1 != 8) {~~~    print("InStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle2 := "World"~~~int pos2 := haystack.InStr(needle2)~~~print("Position of 'World' is: " . STR(pos2))~~~; Expected: 13 (1-indexed-based)~~~if (pos2 != 13) {~~~    print("InStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle3 := "notfound"~~~int pos3 := InStr(haystack, needle3)~~~print("Position of 'notfound' is: " . STR(pos3))~~~; Expected: 0~~~if (pos3 != 0) {~~~    print("InStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str needle4 := "hTvm"~~~; Test case-sensitivity (may vary by language)~~~int pos4 := InStr(haystack, needle4)~~~print("Position of 'hTvm' (case test) is: " . STR(pos4))~~~; Expected might be 0 if case-sensitive, or 8 if case-insensitive~~~```~~~
+int InStr(String haystack, String needle) {
+    int pos = haystack.indexOf(needle)
+    return pos == -1 ? 0 : pos + 1
+}
+funcEND======================funcEND==============
+
+
+
+
+
+func======================func==============
+lang: go
+name: RegExMatch
+libs: )|"regexp"
+description: string~~~Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "The year is 2024, and the price is $19.99."~~~; Matches four digits (year)~~~str pattern1 := "\d{4}"~~~int matchPos1 := RegExMatch(text, pattern1)~~~print("Position of year pattern: " . STR(matchPos1))~~~; Expected: 13 (for "2024")~~~if (matchPos1 != 13) {~~~    print("RegExMatch test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Matches a price like $xx.yy~~~str pattern2 := "\$[0-9]+\.[0-9]{2}"~~~int matchPos2 := text.RegExMatch(pattern2)~~~print("Position of price pattern: " . STR(matchPos2))~~~; Expected: 36 (for "$19.99")~~~if (matchPos2 != 36) {~~~    print("RegExMatch test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Pattern not in text~~~str pattern3 := "XYZ"~~~int matchPos3 := RegExMatch(text, pattern3)~~~print("Position of 'XYZ' pattern: " . STR(matchPos3))~~~; Expected: 0~~~if (matchPos3 != 0) {~~~    print("RegExMatch test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Check if a number exists in the text~~~str numText := "There are 42 apples."~~~; Matches any number~~~str numPattern := "\d+"~~~int numPos := RegExMatch(numText, numPattern)~~~print("Position of number in text: " . STR(numPos))~~~; Expected: 12 (for "42")~~~if (numPos > 0) {~~~    print("Number found in text.")~~~} else {~~~    print("No number found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a string exists~~~str stringText := "The quick brown fox jumps over the lazy dog."~~~; Matches the word "fox"~~~str stringPattern := "fox"~~~int stringPos := RegExMatch(stringText, stringPattern)~~~print("Position of 'fox' in text: " . STR(stringPos))~~~; Expected: 17~~~if (stringPos > 0) {~~~    print("'fox' found in text.")~~~} else {~~~    print("'fox' not found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a specific format (email) exists~~~str emailText := "Please contact support@domain.com for help."~~~; Matches an email format~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~int emailPos := RegExMatch(emailText, emailPattern)~~~print("Position of email pattern: " . STR(emailPos))~~~; Expected: 23 (for "support@domain.com")~~~if (emailPos > 0) {~~~    print("Email found in text.")~~~} else {~~~    print("No email found in text.")~~~}~~~```~~~
+func RegExMatch(haystack, pattern string) int {
+	re, err := regexp.Compile(pattern)
+	if err != nil {
+		return 0
+	}
+	loc := re.FindStringIndex(haystack)
+	if loc == nil {
+		return 0
+	}
+	return loc[0] + 1
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: RegExMatch
+libs: null
+description: string~~~Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "The year is 2024, and the price is $19.99."~~~; Matches four digits (year)~~~str pattern1 := "\d{4}"~~~int matchPos1 := RegExMatch(text, pattern1)~~~print("Position of year pattern: " . STR(matchPos1))~~~; Expected: 13 (for "2024")~~~if (matchPos1 != 13) {~~~    print("RegExMatch test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Matches a price like $xx.yy~~~str pattern2 := "\$[0-9]+\.[0-9]{2}"~~~int matchPos2 := text.RegExMatch(pattern2)~~~print("Position of price pattern: " . STR(matchPos2))~~~; Expected: 36 (for "$19.99")~~~if (matchPos2 != 36) {~~~    print("RegExMatch test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Pattern not in text~~~str pattern3 := "XYZ"~~~int matchPos3 := RegExMatch(text, pattern3)~~~print("Position of 'XYZ' pattern: " . STR(matchPos3))~~~; Expected: 0~~~if (matchPos3 != 0) {~~~    print("RegExMatch test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Check if a number exists in the text~~~str numText := "There are 42 apples."~~~; Matches any number~~~str numPattern := "\d+"~~~int numPos := RegExMatch(numText, numPattern)~~~print("Position of number in text: " . STR(numPos))~~~; Expected: 12 (for "42")~~~if (numPos > 0) {~~~    print("Number found in text.")~~~} else {~~~    print("No number found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a string exists~~~str stringText := "The quick brown fox jumps over the lazy dog."~~~; Matches the word "fox"~~~str stringPattern := "fox"~~~int stringPos := RegExMatch(stringText, stringPattern)~~~print("Position of 'fox' in text: " . STR(stringPos))~~~; Expected: 17~~~if (stringPos > 0) {~~~    print("'fox' found in text.")~~~} else {~~~    print("'fox' not found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a specific format (email) exists~~~str emailText := "Please contact support@domain.com for help."~~~; Matches an email format~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~int emailPos := RegExMatch(emailText, emailPattern)~~~print("Position of email pattern: " . STR(emailPos))~~~; Expected: 23 (for "support@domain.com")~~~if (emailPos > 0) {~~~    print("Email found in text.")~~~} else {~~~    print("No email found in text.")~~~}~~~```~~~
+
+
+
+-- This single function now handles both the regex-to-Lua pattern conversion
+-- and the final matching.
+function RegExMatch(haystack, pattern)
+    -- Start of internal conversion logic
+    local luaPattern = pattern
+
+    -- Step 1: Translate specific, complex character sets first.
+    luaPattern = luaPattern:gsub("%[a%-zA%-Z0%-9._%%+%-%]", "[%%w._%%+-]")
+    luaPattern = luaPattern:gsub("%[a%-zA%-Z0%-9.%-%]", "[%%w.-]")
+
+    -- Step 2: Convert standard character ranges and classes.
+    luaPattern = luaPattern:gsub("%[0%-9%]", "%%d")
+    luaPattern = luaPattern:gsub("%[a%-zA%-Z%]", "%%a")
+    luaPattern = luaPattern:gsub("\\d", "%%d")
+    luaPattern = luaPattern:gsub("\\w", "%%w")
+    luaPattern = luaPattern:gsub("\\s", "%%s")
+
+    -- Step 3: Handle quantifiers.
+    luaPattern = luaPattern:gsub("(%%[adws])%{(%d+),%}", function(token, min)
+        min = tonumber(min)
+        if min == 0 then return token .. "*" end
+        if min == 1 then return token .. "+" end
+        return string.rep(token, min - 1) .. token .. "+"
+    end)
+    luaPattern = luaPattern:gsub("(%%[adws])%{(%d+)%}", function(token, count)
+        count = tonumber(count)
+        return string.rep(token, count)
+    end)
+    
+    -- Step 4: Escape literal characters.
+    luaPattern = luaPattern:gsub("\\%.", "%%.") -- Correctly finds a literal \.
+    luaPattern = luaPattern:gsub("\\%$", "%%$") -- Correctly finds a literal \$
+    -- End of internal conversion logic
+
+    -- Now, perform the match using the converted pattern
+    local startPos, endPos = string.find(haystack, luaPattern)
+    
+    return startPos or 0
+end
+
+
+
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: RegExMatch
+libs: using System.Text.RegularExpressions;
+description: string~~~Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "The year is 2024, and the price is $19.99."~~~; Matches four digits (year)~~~str pattern1 := "\d{4}"~~~int matchPos1 := RegExMatch(text, pattern1)~~~print("Position of year pattern: " . STR(matchPos1))~~~; Expected: 13 (for "2024")~~~if (matchPos1 != 13) {~~~    print("RegExMatch test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Matches a price like $xx.yy~~~str pattern2 := "\$[0-9]+\.[0-9]{2}"~~~int matchPos2 := text.RegExMatch(pattern2)~~~print("Position of price pattern: " . STR(matchPos2))~~~; Expected: 36 (for "$19.99")~~~if (matchPos2 != 36) {~~~    print("RegExMatch test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Pattern not in text~~~str pattern3 := "XYZ"~~~int matchPos3 := RegExMatch(text, pattern3)~~~print("Position of 'XYZ' pattern: " . STR(matchPos3))~~~; Expected: 0~~~if (matchPos3 != 0) {~~~    print("RegExMatch test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Check if a number exists in the text~~~str numText := "There are 42 apples."~~~; Matches any number~~~str numPattern := "\d+"~~~int numPos := RegExMatch(numText, numPattern)~~~print("Position of number in text: " . STR(numPos))~~~; Expected: 12 (for "42")~~~if (numPos > 0) {~~~    print("Number found in text.")~~~} else {~~~    print("No number found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a string exists~~~str stringText := "The quick brown fox jumps over the lazy dog."~~~; Matches the word "fox"~~~str stringPattern := "fox"~~~int stringPos := RegExMatch(stringText, stringPattern)~~~print("Position of 'fox' in text: " . STR(stringPos))~~~; Expected: 17~~~if (stringPos > 0) {~~~    print("'fox' found in text.")~~~} else {~~~    print("'fox' not found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a specific format (email) exists~~~str emailText := "Please contact support@domain.com for help."~~~; Matches an email format~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~int emailPos := RegExMatch(emailText, emailPattern)~~~print("Position of email pattern: " . STR(emailPos))~~~; Expected: 23 (for "support@domain.com")~~~if (emailPos > 0) {~~~    print("Email found in text.")~~~} else {~~~    print("No email found in text.")~~~}~~~```~~~
+public static int RegExMatch(string haystack, string pattern) {
+    try {
+        Match match = Regex.Match(haystack, pattern);
+        if (match.Success) {
+            return match.Index + 1;
+        }
+    } catch (ArgumentException) {
+        // Invalid regex pattern
+        return 0;
+    }
+    return 0;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: RegExMatch
+libs: import java.util.regex.Matcher;|import java.util.regex.Pattern;|import java.util.regex.PatternSyntaxException;
+description: string~~~Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "The year is 2024, and the price is $19.99."~~~; Matches four digits (year)~~~str pattern1 := "\d{4}"~~~int matchPos1 := RegExMatch(text, pattern1)~~~print("Position of year pattern: " . STR(matchPos1))~~~; Expected: 13 (for "2024")~~~if (matchPos1 != 13) {~~~    print("RegExMatch test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Matches a price like $xx.yy~~~str pattern2 := "\$[0-9]+\.[0-9]{2}"~~~int matchPos2 := text.RegExMatch(pattern2)~~~print("Position of price pattern: " . STR(matchPos2))~~~; Expected: 36 (for "$19.99")~~~if (matchPos2 != 36) {~~~    print("RegExMatch test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Pattern not in text~~~str pattern3 := "XYZ"~~~int matchPos3 := RegExMatch(text, pattern3)~~~print("Position of 'XYZ' pattern: " . STR(matchPos3))~~~; Expected: 0~~~if (matchPos3 != 0) {~~~    print("RegExMatch test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Check if a number exists in the text~~~str numText := "There are 42 apples."~~~; Matches any number~~~str numPattern := "\d+"~~~int numPos := RegExMatch(numText, numPattern)~~~print("Position of number in text: " . STR(numPos))~~~; Expected: 12 (for "42")~~~if (numPos > 0) {~~~    print("Number found in text.")~~~} else {~~~    print("No number found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a string exists~~~str stringText := "The quick brown fox jumps over the lazy dog."~~~; Matches the word "fox"~~~str stringPattern := "fox"~~~int stringPos := RegExMatch(stringText, stringPattern)~~~print("Position of 'fox' in text: " . STR(stringPos))~~~; Expected: 17~~~if (stringPos > 0) {~~~    print("'fox' found in text.")~~~} else {~~~    print("'fox' not found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a specific format (email) exists~~~str emailText := "Please contact support@domain.com for help."~~~; Matches an email format~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~int emailPos := RegExMatch(emailText, emailPattern)~~~print("Position of email pattern: " . STR(emailPos))~~~; Expected: 23 (for "support@domain.com")~~~if (emailPos > 0) {~~~    print("Email found in text.")~~~} else {~~~    print("No email found in text.")~~~}~~~```~~~
+public static int RegExMatch(String haystack, String pattern) {
+    try {
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(haystack);
+        if (m.find()) {
+            return m.start() + 1;
+        }
+    } catch (PatternSyntaxException e) {
+        return 0;
+    }
+    return 0;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: RegExMatch
+libs: null
+description: string~~~Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "The year is 2024, and the price is $19.99."~~~; Matches four digits (year)~~~str pattern1 := "\d{4}"~~~int matchPos1 := RegExMatch(text, pattern1)~~~print("Position of year pattern: " . STR(matchPos1))~~~; Expected: 13 (for "2024")~~~if (matchPos1 != 13) {~~~    print("RegExMatch test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Matches a price like $xx.yy~~~str pattern2 := "\$[0-9]+\.[0-9]{2}"~~~int matchPos2 := text.RegExMatch(pattern2)~~~print("Position of price pattern: " . STR(matchPos2))~~~; Expected: 36 (for "$19.99")~~~if (matchPos2 != 36) {~~~    print("RegExMatch test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Pattern not in text~~~str pattern3 := "XYZ"~~~int matchPos3 := RegExMatch(text, pattern3)~~~print("Position of 'XYZ' pattern: " . STR(matchPos3))~~~; Expected: 0~~~if (matchPos3 != 0) {~~~    print("RegExMatch test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Check if a number exists in the text~~~str numText := "There are 42 apples."~~~; Matches any number~~~str numPattern := "\d+"~~~int numPos := RegExMatch(numText, numPattern)~~~print("Position of number in text: " . STR(numPos))~~~; Expected: 12 (for "42")~~~if (numPos > 0) {~~~    print("Number found in text.")~~~} else {~~~    print("No number found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a string exists~~~str stringText := "The quick brown fox jumps over the lazy dog."~~~; Matches the word "fox"~~~str stringPattern := "fox"~~~int stringPos := RegExMatch(stringText, stringPattern)~~~print("Position of 'fox' in text: " . STR(stringPos))~~~; Expected: 17~~~if (stringPos > 0) {~~~    print("'fox' found in text.")~~~} else {~~~    print("'fox' not found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a specific format (email) exists~~~str emailText := "Please contact support@domain.com for help."~~~; Matches an email format~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~int emailPos := RegExMatch(emailText, emailPattern)~~~print("Position of email pattern: " . STR(emailPos))~~~; Expected: 23 (for "support@domain.com")~~~if (emailPos > 0) {~~~    print("Email found in text.")~~~} else {~~~    print("No email found in text.")~~~}~~~```~~~
+fun RegExMatch(haystack: String, pattern: String): Int {
+    return try {
+        val regex = Regex(pattern)
+        val match = regex.find(haystack)
+        match?.range?.first?.plus(1) ?: 0
+    } catch (e: Exception) {
+        0
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: RegExMatch
+libs: null
+description: string~~~Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "The year is 2024, and the price is $19.99."~~~; Matches four digits (year)~~~str pattern1 := "\d{4}"~~~int matchPos1 := RegExMatch(text, pattern1)~~~print("Position of year pattern: " . STR(matchPos1))~~~; Expected: 13 (for "2024")~~~if (matchPos1 != 13) {~~~    print("RegExMatch test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Matches a price like $xx.yy~~~str pattern2 := "\$[0-9]+\.[0-9]{2}"~~~int matchPos2 := text.RegExMatch(pattern2)~~~print("Position of price pattern: " . STR(matchPos2))~~~; Expected: 36 (for "$19.99")~~~if (matchPos2 != 36) {~~~    print("RegExMatch test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Pattern not in text~~~str pattern3 := "XYZ"~~~int matchPos3 := RegExMatch(text, pattern3)~~~print("Position of 'XYZ' pattern: " . STR(matchPos3))~~~; Expected: 0~~~if (matchPos3 != 0) {~~~    print("RegExMatch test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Check if a number exists in the text~~~str numText := "There are 42 apples."~~~; Matches any number~~~str numPattern := "\d+"~~~int numPos := RegExMatch(numText, numPattern)~~~print("Position of number in text: " . STR(numPos))~~~; Expected: 12 (for "42")~~~if (numPos > 0) {~~~    print("Number found in text.")~~~} else {~~~    print("No number found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a string exists~~~str stringText := "The quick brown fox jumps over the lazy dog."~~~; Matches the word "fox"~~~str stringPattern := "fox"~~~int stringPos := RegExMatch(stringText, stringPattern)~~~print("Position of 'fox' in text: " . STR(stringPos))~~~; Expected: 17~~~if (stringPos > 0) {~~~    print("'fox' found in text.")~~~} else {~~~    print("'fox' not found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a specific format (email) exists~~~str emailText := "Please contact support@domain.com for help."~~~; Matches an email format~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~int emailPos := RegExMatch(emailText, emailPattern)~~~print("Position of email pattern: " . STR(emailPos))~~~; Expected: 23 (for "support@domain.com")~~~if (emailPos > 0) {~~~    print("Email found in text.")~~~} else {~~~    print("No email found in text.")~~~}~~~```~~~
+def RegExMatch(haystack, pattern)
+  begin
+    match_data = haystack.match(Regexp.new(pattern))
+    return match_data ? match_data.begin(0) + 1 : 0
+  rescue RegexpError
+    return 0
+  end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: RegExMatch
+libs: import re
+description: string~~~Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "The year is 2024, and the price is $19.99."~~~; Matches four digits (year)~~~str pattern1 := "\d{4}"~~~int matchPos1 := RegExMatch(text, pattern1)~~~print("Position of year pattern: " . STR(matchPos1))~~~; Expected: 13 (for "2024")~~~if (matchPos1 != 13) {~~~    print("RegExMatch test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Matches a price like $xx.yy~~~str pattern2 := "\$[0-9]+\.[0-9]{2}"~~~int matchPos2 := text.RegExMatch(pattern2)~~~print("Position of price pattern: " . STR(matchPos2))~~~; Expected: 36 (for "$19.99")~~~if (matchPos2 != 36) {~~~    print("RegExMatch test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Pattern not in text~~~str pattern3 := "XYZ"~~~int matchPos3 := RegExMatch(text, pattern3)~~~print("Position of 'XYZ' pattern: " . STR(matchPos3))~~~; Expected: 0~~~if (matchPos3 != 0) {~~~    print("RegExMatch test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Check if a number exists in the text~~~str numText := "There are 42 apples."~~~; Matches any number~~~str numPattern := "\d+"~~~int numPos := RegExMatch(numText, numPattern)~~~print("Position of number in text: " . STR(numPos))~~~; Expected: 12 (for "42")~~~if (numPos > 0) {~~~    print("Number found in text.")~~~} else {~~~    print("No number found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a string exists~~~str stringText := "The quick brown fox jumps over the lazy dog."~~~; Matches the word "fox"~~~str stringPattern := "fox"~~~int stringPos := RegExMatch(stringText, stringPattern)~~~print("Position of 'fox' in text: " . STR(stringPos))~~~; Expected: 17~~~if (stringPos > 0) {~~~    print("'fox' found in text.")~~~} else {~~~    print("'fox' not found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a specific format (email) exists~~~str emailText := "Please contact support@domain.com for help."~~~; Matches an email format~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~int emailPos := RegExMatch(emailText, emailPattern)~~~print("Position of email pattern: " . STR(emailPos))~~~; Expected: 23 (for "support@domain.com")~~~if (emailPos > 0) {~~~    print("Email found in text.")~~~} else {~~~    print("No email found in text.")~~~}~~~```~~~
+proc RegExMatch(haystack, pattern: string): int =
+  try:
+    let pos = haystack.find(re(pattern))
+    if pos == -1:
+      return 0
+    else:
+      return pos + 1
+  except:
+    return 0
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: RegExMatch
+libs: null
+description: string~~~Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "The year is 2024, and the price is $19.99."~~~; Matches four digits (year)~~~str pattern1 := "\d{4}"~~~int matchPos1 := RegExMatch(text, pattern1)~~~print("Position of year pattern: " . STR(matchPos1))~~~; Expected: 13 (for "2024")~~~if (matchPos1 != 13) {~~~    print("RegExMatch test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Matches a price like $xx.yy~~~str pattern2 := "\$[0-9]+\.[0-9]{2}"~~~int matchPos2 := text.RegExMatch(pattern2)~~~print("Position of price pattern: " . STR(matchPos2))~~~; Expected: 36 (for "$19.99")~~~if (matchPos2 != 36) {~~~    print("RegExMatch test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Pattern not in text~~~str pattern3 := "XYZ"~~~int matchPos3 := RegExMatch(text, pattern3)~~~print("Position of 'XYZ' pattern: " . STR(matchPos3))~~~; Expected: 0~~~if (matchPos3 != 0) {~~~    print("RegExMatch test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Check if a number exists in the text~~~str numText := "There are 42 apples."~~~; Matches any number~~~str numPattern := "\d+"~~~int numPos := RegExMatch(numText, numPattern)~~~print("Position of number in text: " . STR(numPos))~~~; Expected: 12 (for "42")~~~if (numPos > 0) {~~~    print("Number found in text.")~~~} else {~~~    print("No number found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a string exists~~~str stringText := "The quick brown fox jumps over the lazy dog."~~~; Matches the word "fox"~~~str stringPattern := "fox"~~~int stringPos := RegExMatch(stringText, stringPattern)~~~print("Position of 'fox' in text: " . STR(stringPos))~~~; Expected: 17~~~if (stringPos > 0) {~~~    print("'fox' found in text.")~~~} else {~~~    print("'fox' not found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a specific format (email) exists~~~str emailText := "Please contact support@domain.com for help."~~~; Matches an email format~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~int emailPos := RegExMatch(emailText, emailPattern)~~~print("Position of email pattern: " . STR(emailPos))~~~; Expected: 23 (for "support@domain.com")~~~if (emailPos > 0) {~~~    print("Email found in text.")~~~} else {~~~    print("No email found in text.")~~~}~~~```~~~
+; built-in RegExMatch() is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: RegExMatch
+libs: import Foundation
+description: string~~~Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "The year is 2024, and the price is $19.99."~~~; Matches four digits (year)~~~str pattern1 := "\d{4}"~~~int matchPos1 := RegExMatch(text, pattern1)~~~print("Position of year pattern: " . STR(matchPos1))~~~; Expected: 13 (for "2024")~~~if (matchPos1 != 13) {~~~    print("RegExMatch test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Matches a price like $xx.yy~~~str pattern2 := "\$[0-9]+\.[0-9]{2}"~~~int matchPos2 := text.RegExMatch(pattern2)~~~print("Position of price pattern: " . STR(matchPos2))~~~; Expected: 36 (for "$19.99")~~~if (matchPos2 != 36) {~~~    print("RegExMatch test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Pattern not in text~~~str pattern3 := "XYZ"~~~int matchPos3 := RegExMatch(text, pattern3)~~~print("Position of 'XYZ' pattern: " . STR(matchPos3))~~~; Expected: 0~~~if (matchPos3 != 0) {~~~    print("RegExMatch test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Check if a number exists in the text~~~str numText := "There are 42 apples."~~~; Matches any number~~~str numPattern := "\d+"~~~int numPos := RegExMatch(numText, numPattern)~~~print("Position of number in text: " . STR(numPos))~~~; Expected: 12 (for "42")~~~if (numPos > 0) {~~~    print("Number found in text.")~~~} else {~~~    print("No number found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a string exists~~~str stringText := "The quick brown fox jumps over the lazy dog."~~~; Matches the word "fox"~~~str stringPattern := "fox"~~~int stringPos := RegExMatch(stringText, stringPattern)~~~print("Position of 'fox' in text: " . STR(stringPos))~~~; Expected: 17~~~if (stringPos > 0) {~~~    print("'fox' found in text.")~~~} else {~~~    print("'fox' not found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a specific format (email) exists~~~str emailText := "Please contact support@domain.com for help."~~~; Matches an email format~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~int emailPos := RegExMatch(emailText, emailPattern)~~~print("Position of email pattern: " . STR(emailPos))~~~; Expected: 23 (for "support@domain.com")~~~if (emailPos > 0) {~~~    print("Email found in text.")~~~} else {~~~    print("No email found in text.")~~~}~~~```~~~
+func RegExMatch(_ haystack: String, _ pattern: String) -> Int {
+    if let range = haystack.range(of: pattern, options: .regularExpression) {
+        return haystack.distance(from: haystack.startIndex, to: range.lowerBound) + 1
+    }
+    return 0
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: RegExMatch
+libs: null
+description: string~~~Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "The year is 2024, and the price is $19.99."~~~; Matches four digits (year)~~~str pattern1 := "\d{4}"~~~int matchPos1 := RegExMatch(text, pattern1)~~~print("Position of year pattern: " . STR(matchPos1))~~~; Expected: 13 (for "2024")~~~if (matchPos1 != 13) {~~~    print("RegExMatch test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Matches a price like $xx.yy~~~str pattern2 := "\$[0-9]+\.[0-9]{2}"~~~int matchPos2 := text.RegExMatch(pattern2)~~~print("Position of price pattern: " . STR(matchPos2))~~~; Expected: 36 (for "$19.99")~~~if (matchPos2 != 36) {~~~    print("RegExMatch test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Pattern not in text~~~str pattern3 := "XYZ"~~~int matchPos3 := RegExMatch(text, pattern3)~~~print("Position of 'XYZ' pattern: " . STR(matchPos3))~~~; Expected: 0~~~if (matchPos3 != 0) {~~~    print("RegExMatch test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Check if a number exists in the text~~~str numText := "There are 42 apples."~~~; Matches any number~~~str numPattern := "\d+"~~~int numPos := RegExMatch(numText, numPattern)~~~print("Position of number in text: " . STR(numPos))~~~; Expected: 12 (for "42")~~~if (numPos > 0) {~~~    print("Number found in text.")~~~} else {~~~    print("No number found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a string exists~~~str stringText := "The quick brown fox jumps over the lazy dog."~~~; Matches the word "fox"~~~str stringPattern := "fox"~~~int stringPos := RegExMatch(stringText, stringPattern)~~~print("Position of 'fox' in text: " . STR(stringPos))~~~; Expected: 17~~~if (stringPos > 0) {~~~    print("'fox' found in text.")~~~} else {~~~    print("'fox' not found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a specific format (email) exists~~~str emailText := "Please contact support@domain.com for help."~~~; Matches an email format~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~int emailPos := RegExMatch(emailText, emailPattern)~~~print("Position of email pattern: " . STR(emailPos))~~~; Expected: 23 (for "support@domain.com")~~~if (emailPos > 0) {~~~    print("Email found in text.")~~~} else {~~~    print("No email found in text.")~~~}~~~```~~~
+int RegExMatch(String haystack, String pattern) {
+  try {
+    final re = RegExp(pattern);
+    final match = re.firstMatch(haystack);
+    return match != null ? match.start + 1 : 0;
+  } catch (e) {
+    return 0;
+  }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: RegExMatch
+libs: null
+description: string~~~Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "The year is 2024, and the price is $19.99."~~~; Matches four digits (year)~~~str pattern1 := "\d{4}"~~~int matchPos1 := RegExMatch(text, pattern1)~~~print("Position of year pattern: " . STR(matchPos1))~~~; Expected: 13 (for "2024")~~~if (matchPos1 != 13) {~~~    print("RegExMatch test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Matches a price like $xx.yy~~~str pattern2 := "\$[0-9]+\.[0-9]{2}"~~~int matchPos2 := text.RegExMatch(pattern2)~~~print("Position of price pattern: " . STR(matchPos2))~~~; Expected: 36 (for "$19.99")~~~if (matchPos2 != 36) {~~~    print("RegExMatch test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Pattern not in text~~~str pattern3 := "XYZ"~~~int matchPos3 := RegExMatch(text, pattern3)~~~print("Position of 'XYZ' pattern: " . STR(matchPos3))~~~; Expected: 0~~~if (matchPos3 != 0) {~~~    print("RegExMatch test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Check if a number exists in the text~~~str numText := "There are 42 apples."~~~; Matches any number~~~str numPattern := "\d+"~~~int numPos := RegExMatch(numText, numPattern)~~~print("Position of number in text: " . STR(numPos))~~~; Expected: 12 (for "42")~~~if (numPos > 0) {~~~    print("Number found in text.")~~~} else {~~~    print("No number found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a string exists~~~str stringText := "The quick brown fox jumps over the lazy dog."~~~; Matches the word "fox"~~~str stringPattern := "fox"~~~int stringPos := RegExMatch(stringText, stringPattern)~~~print("Position of 'fox' in text: " . STR(stringPos))~~~; Expected: 17~~~if (stringPos > 0) {~~~    print("'fox' found in text.")~~~} else {~~~    print("'fox' not found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a specific format (email) exists~~~str emailText := "Please contact support@domain.com for help."~~~; Matches an email format~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~int emailPos := RegExMatch(emailText, emailPattern)~~~print("Position of email pattern: " . STR(emailPos))~~~; Expected: 23 (for "support@domain.com")~~~if (emailPos > 0) {~~~    print("Email found in text.")~~~} else {~~~    print("No email found in text.")~~~}~~~```~~~
+function RegExMatch(haystack: string, pattern: string): number {
+    try {
+        const regex = new RegExp(pattern);
+        const match = haystack.match(regex);
+        if (match) {
+            return (match.index ?? -1) + 1;
+        }
+    } catch (e) {
+        return 0;
+    }
+    return 0;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: RegExMatch
+libs: import java.util.regex.Matcher|import java.util.regex.Pattern
+description: string~~~Searches a `haystack` string for the first occurrence of a regular expression `pattern`. Returns the 1-based starting position of the match if found, otherwise returns 0. The regex syntax compatibility depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "The year is 2024, and the price is $19.99."~~~; Matches four digits (year)~~~str pattern1 := "\d{4}"~~~int matchPos1 := RegExMatch(text, pattern1)~~~print("Position of year pattern: " . STR(matchPos1))~~~; Expected: 13 (for "2024")~~~if (matchPos1 != 13) {~~~    print("RegExMatch test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Matches a price like $xx.yy~~~str pattern2 := "\$[0-9]+\.[0-9]{2}"~~~int matchPos2 := text.RegExMatch(pattern2)~~~print("Position of price pattern: " . STR(matchPos2))~~~; Expected: 36 (for "$19.99")~~~if (matchPos2 != 36) {~~~    print("RegExMatch test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Pattern not in text~~~str pattern3 := "XYZ"~~~int matchPos3 := RegExMatch(text, pattern3)~~~print("Position of 'XYZ' pattern: " . STR(matchPos3))~~~; Expected: 0~~~if (matchPos3 != 0) {~~~    print("RegExMatch test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Check if a number exists in the text~~~str numText := "There are 42 apples."~~~; Matches any number~~~str numPattern := "\d+"~~~int numPos := RegExMatch(numText, numPattern)~~~print("Position of number in text: " . STR(numPos))~~~; Expected: 12 (for "42")~~~if (numPos > 0) {~~~    print("Number found in text.")~~~} else {~~~    print("No number found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a string exists~~~str stringText := "The quick brown fox jumps over the lazy dog."~~~; Matches the word "fox"~~~str stringPattern := "fox"~~~int stringPos := RegExMatch(stringText, stringPattern)~~~print("Position of 'fox' in text: " . STR(stringPos))~~~; Expected: 17~~~if (stringPos > 0) {~~~    print("'fox' found in text.")~~~} else {~~~    print("'fox' not found in text.")~~~}~~~; ----------------------------------------------------~~~; Check if a specific format (email) exists~~~str emailText := "Please contact support@domain.com for help."~~~; Matches an email format~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~int emailPos := RegExMatch(emailText, emailPattern)~~~print("Position of email pattern: " . STR(emailPos))~~~; Expected: 23 (for "support@domain.com")~~~if (emailPos > 0) {~~~    print("Email found in text.")~~~} else {~~~    print("No email found in text.")~~~}~~~```~~~
+int RegExMatch(String haystack, String pattern) {
+    try {
+        // This function is now smarter. It will automatically "fix" the
+        // dollar sign issue for the regex engine.
+        // It replaces any '$' that is NOT followed by a '{' (for GString expressions)
+        // with a literally escaped dollar sign '\\$'.
+        String fixedPattern = pattern.replaceAll('\\$(?!\\{)', ((char)92).toString() + ((char)92).toString() + ((char)92).toString() + '$')
+
+        Pattern p = Pattern.compile(fixedPattern)
+        Matcher matcher = p.matcher(haystack)
+        if (matcher.find()) {
+            return matcher.start() + 1
+        }
+    } catch (Exception e) {
+        // println("Error matching pattern: $pattern. Reason: $e.message")
+        return 0
+    }
+    return 0
+}
+funcEND======================funcEND==============
+
+
+
+
+
+func======================func==============
+lang: go
+name: RegExReplace
+libs: )|"regexp"
+description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
+func RegExReplace(inputStr, regexPattern, replacement string) string {
+	re, err := regexp.Compile(regexPattern)
+	if err != nil {
+		return inputStr // Return original string if pattern is invalid
+	}
+	return re.ReplaceAllString(inputStr, replacement)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: RegExReplace
+libs: null
+description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
+
+
+function RegExReplace(inputStr, regexPattern, replacement)
+    -- --- Start of internal pattern conversion logic ---
+    local luaPattern = regexPattern
+    luaPattern = luaPattern:gsub("%[a%-zA%-Z0%-9._%%+%-%]", "[%%w._%%+-]")
+    luaPattern = luaPattern:gsub("%[a%-zA%-Z0%-9.%-%]", "[%%w.-]")
+    luaPattern = luaPattern:gsub("%[0%-9%]", "%%d")
+    luaPattern = luaPattern:gsub("%[a%-zA%-Z%]", "%%a")
+    luaPattern = luaPattern:gsub("\\d", "%%d")
+    luaPattern = luaPattern:gsub("\\w", "%%w")
+    luaPattern = luaPattern:gsub("\\s", "%%s")
+    luaPattern = luaPattern:gsub("(%%[adws])%{(%d+),%}", function(token, min)
+        min = tonumber(min)
+        if min == 0 then return token .. "*" end
+        if min == 1 then return token .. "+" end
+        return string.rep(token, min - 1) .. token .. "+"
+    end)
+    luaPattern = luaPattern:gsub("(%%[adws])%{(%d+)%}", function(token, count)
+        count = tonumber(count)
+        return string.rep(token, count)
+    end)
+    luaPattern = luaPattern:gsub("\\%.", "%%.")
+    luaPattern = luaPattern:gsub("\\%$", "%%$")
+    -- --- End of internal pattern conversion logic ---
+
+    -- --- Start of internal replacement string sanitization ---
+    -- In Lua's gsub, '%' is the escape character for captures.
+    -- To insert a literal '%', we must use '%%'.
+    local safeReplacement = replacement:gsub("%%", "%%%%")
+    -- --- End of internal replacement string sanitization ---
+
+    -- Perform the replacement with the safe pattern and replacement.
+    local resultStr, numReplacements = string.gsub(inputStr, luaPattern, safeReplacement)
+    return resultStr
+end
+
+
+
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: RegExReplace
+libs: using System.Text.RegularExpressions;
+description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
+public static string RegExReplace(string inputStr, string regexPattern, string replacement) {
+    try {
+        return Regex.Replace(inputStr, regexPattern, replacement);
+    } catch (ArgumentException) {
+        return inputStr; // Return original string if pattern is invalid
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: RegExReplace
+libs: import java.util.regex.PatternSyntaxException;
+description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
+public static String RegExReplace(String inputStr, String regexPattern, String replacement) {
+    try {
+        return inputStr.replaceAll(regexPattern, replacement);
+    } catch (PatternSyntaxException e) {
+        return inputStr; // Return original string if pattern is invalid
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: RegExReplace
+libs: null
+description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
+fun RegExReplace(inputStr: String, regexPattern: String, replacement: String): String {
+    return try {
+        inputStr.replace(Regex(regexPattern), replacement)
+    } catch (e: Exception) {
+        inputStr // Return original string if pattern is invalid
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: RegExReplace
+libs: null
+description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
+def RegExReplace(inputStr, regexPattern, replacement)
+  begin
+    inputStr.gsub(Regexp.new(regexPattern), replacement)
+  rescue RegexpError
+    inputStr
+  end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: RegExReplace
+libs: import re
+description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
+proc RegExReplace(inputStr, regexPattern, replacement: string): string =
+  try:
+    return inputStr.replace(re(regexPattern), replacement)
+  except:
+    return inputStr
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: RegExReplace
+libs: null
+description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
+; built-in RegExReplace() is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: RegExReplace
+libs: null
+description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
+func RegExReplace(_ inputStr: String, _ regexPattern: String, _ replacement: String) -> String {
+    return inputStr.replacingOccurrences(of: regexPattern, with: replacement, options: .regularExpression, range: nil)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: RegExReplace
+libs: null
+description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
+String RegExReplace(String inputStr, String regexPattern, String replacement) {
+  try {
+    return inputStr.replaceAll(RegExp(regexPattern), replacement);
+  } catch (e) {
+    return inputStr;
+  }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: RegExReplace
+libs: null
+description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
+function RegExReplace(inputStr: string, regexPattern: string, replacement: string): string {
+    try {
+        const regex = new RegExp(regexPattern, 'g');
+        return inputStr.replace(regex, replacement);
+    } catch (e) {
+        return inputStr;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: RegExReplace
+libs: null
+description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
+String RegExReplace(String inputStr, String regexPattern, String replacement) {
+    try {
+        // STEP 1: Fix the regex pattern for any literal '$' characters,
+        // exactly like we did in RegExMatch.
+        String fixedPattern = regexPattern.replaceAll('\\$(?!\\{)', ((char)92).toString() + ((char)92).toString() + ((char)92).toString() + '$')
+
+        // STEP 2: Fix the replacement string. In replaceAll, '$' is used for
+        // backreferences (e.g., $1). We must escape it to treat it as a literal.
+        String fixedReplacement = replacement.replace('$', '\\$')
+
+        // Now, call replaceAll with the fixed pattern and fixed replacement.
+        return inputStr.replaceAll(fixedPattern, fixedReplacement)
+    } catch (Exception e) {
+        // In case of an error, return the original string.
+        return inputStr
+    }
 }
 funcEND======================funcEND==============
