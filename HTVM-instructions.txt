@@ -6738,7 +6738,7 @@ name: fstr
 libs: null
 description: null
 
-string fstr(object val) {
+static string fstr(object val) {
     return val?.ToString() ?? "null";
 }
 
@@ -6762,8 +6762,8 @@ name: fstr
 libs: null
 description: null
 
-fun fstr(val: Any?): String {
-    return val.toString()
+fun fstr(value: Any?): String {
+    return value?.toString() ?: "null"
 }
 
 funcEND======================funcEND==============

@@ -447,6 +447,8 @@ arr str weAreInMLSarr
 arr str ospDic
 arr str ospDic1
 arr str ospDic2
+arr str htCodeFixRubyGlobalVars_EXPOSED
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -4665,11 +4667,13 @@ func str FixRubyGlobalVars(str line)
 {
 arr str htCodeFixRubyGlobalVars
 
+
 Loop, Parse, line, `n, `r
 {
     if (RegExMatch(A_LoopField, "^[a-zA-Z_][a-zA-Z0-9_]* = .*"))
     {
         htCodeFixRubyGlobalVars.add(Trim(StrSplit(A_LoopField, " = ", 1)))
+        htCodeFixRubyGlobalVars_EXPOSED.add(Trim(StrSplit(A_LoopField, " = ", 1)))
     }
 
 }
@@ -11590,8 +11594,30 @@ func str fString(str line)
 {
 if (langToConvertTo != langFileExtension_2)
 {
+
+if (langToConvertTo = "lua") {
+line := StrReplace(line, "{", Chr(34) . " .. fstr(")
+line := StrReplace(line, "}", ") .. " . Chr(34))
+}
+else if (langToConvertTo = "ahk") {
+line := StrReplace(line, "{", Chr(34) . " . fstr(")
+line := StrReplace(line, "}", ") . " . Chr(34))
+}
+else if (langToConvertTo = "nim") {
+line := StrReplace(line, "{", Chr(34) . " & fstr(")
+line := StrReplace(line, "}", ") & " . Chr(34))
+}
+else {
 line := StrReplace(line, "{", Chr(34) . " + fstr(")
 line := StrReplace(line, "}", ") + " . Chr(34))
+}
+
+}
+
+if (langToConvertTo = "rb") {
+    Loop, % htCodeFixRubyGlobalVars_EXPOSED.size() {
+        line := RegExReplace(line, "\b" . htCodeFixRubyGlobalVars_EXPOSED[A_Index] . "\b", "$" . htCodeFixRubyGlobalVars_EXPOSED[A_Index])
+    }
 }
 
 return line
@@ -25428,6 +25454,21 @@ if (size_ospDic2 != 0) {
         ospDic2.pop()
     }
 }
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+htCodeFixRubyGlobalVars_EXPOSED.add("end")
+int size_htCodeFixRubyGlobalVars_EXPOSED := htCodeFixRubyGlobalVars_EXPOSED.size()
+if (size_htCodeFixRubyGlobalVars_EXPOSED != 0) {
+    Loop, % size_htCodeFixRubyGlobalVars_EXPOSED {
+        htCodeFixRubyGlobalVars_EXPOSED.pop()
+    }
+}
+
+;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;
+
+
 
 availableFuncsInHTVMInHTVM := ""
 saveAllArrayVarNamesSoWeCanDoAfix := ""
