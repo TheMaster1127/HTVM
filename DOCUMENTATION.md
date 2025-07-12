@@ -4812,8 +4812,8 @@ print("Tan(pi/2) = " . STR(result3))
 | STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | Sort | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | StrLen | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
-| StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| StrReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StrLower | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
+| StrReplace | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | StrTitleCase | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | StringTrimLeft | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
@@ -5375,7 +5375,7 @@ if (len3 != 12) {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StrLower | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.
 
@@ -5417,7 +5417,7 @@ if (lower3 != "already lowercase") {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StrReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StrReplace | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Replaces all occurrences of a `find` substring within an `originalString` with a `replaceWith` string. Returns the modified string.
 
