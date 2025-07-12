@@ -1,5 +1,246 @@
 // --- DEXIE MIGRATION: Reworked instruction set modals to be async and use IndexedDB ---
 
+// --- LINE MAPPING LOGIC (Added from Desktop version to fix dependency) ---
+function tryToMapHTVMlineToTargetLine(param1, param2, param3) {
+    var globalEdit_text1 = param1;
+    var globalEdit_text2 = param2;
+    var globalEdit_text3 = param3;
+    var globalEdit_textMaybe = "";
+    function LoopParseFunc(varString, delimiter1="", delimiter2="") {
+        let items;
+        if (!delimiter1 && !delimiter2) {
+            items = [...varString];
+        } else {
+            let pattern = new RegExp('[' + delimiter1.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + delimiter2.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ']+');
+            items = varString.split(pattern);
+        }
+        return items;
+    }
+    function STR(value) {
+        if (value === null || value === undefined) return "";
+        return String(value);
+    }
+    function INT(value) {
+        const intValue = parseInt(value, 10);
+        return isNaN(intValue) ? 0 : intValue;
+    }
+    function InStr(haystack, needle) {
+        const pos = haystack.indexOf(needle);
+        return (pos !== -1) ? pos + 1 : 0;
+    }
+    function Ceil(value) { return Math.ceil(value); }
+    function Trim(inputString) { return inputString ? inputString.trim() : ""; }
+    function StrReplace(originalString, find, replaceWith) { return originalString.split(find).join(replaceWith); }
+    function StrSplit(inputStr, delimiter, num) {
+        const parts = inputStr.split(delimiter);
+        return (num > 0 && num <= parts.length) ? parts[num - 1] : "";
+    }
+    function RegExMatch(haystack, needle) {
+        const regex = new RegExp(needle);
+        const match = haystack.match(regex);
+        return match ? match.index + 1 : 0;
+    }
+    function HTVM_Append(arr, value) { arr.push(value); }
+    function HTVM_Size(arr) { return arr.length; }
+    function frequencyMap(arr) {
+      const freq = new Map();
+      for (const x of arr) freq.set(x, (freq.get(x) || 0) + 1);
+      return freq;
+    }
+    function frequencyDifference(a, b) {
+      const freqA = frequencyMap(a);
+      const freqB = frequencyMap(b);
+      let diff = 0;
+      for (const [key, countA] of freqA.entries()) {
+        const countB = freqB.get(key) || 0;
+        diff += Math.abs(countA - countB);
+      }
+      for (const [key, countB] of freqB.entries()) {
+        if (!freqA.has(key)) diff += countB;
+      }
+      return diff;
+    }
+    function getMatchedIndices(a, b) {
+      const used = new Array(b.length).fill(false);
+      const indices = [];
+      for (const val of a) {
+        let foundIndex = -1;
+        for (let i = 0; i < b.length; i++) {
+          if (!used[i] && b[i] === val) {
+            foundIndex = i;
+            used[i] = true;
+            break;
+          }
+        }
+        indices.push(foundIndex);
+      }
+      return indices;
+    }
+    function countAdjacentSwaps(arr) {
+      const filtered = arr.filter(x => x !== -1);
+      let swaps = 0;
+      const temp = filtered.slice();
+      for (let i = 0; i < temp.length; i++) {
+        for (let j = 0; j < temp.length - i -1; j++) {
+          if (temp[j] > temp[j+1]) {
+            [temp[j], temp[j+1]] = [temp[j+1], temp[j]];
+            swaps++;
+          }
+        }
+      }
+      return swaps;
+    }
+    function improvedFuzzyEqual(a, b, k) {
+      if (a.length === 0 || b.length === 0) return Math.abs(a.length - b.length) <= k;
+      if (Math.abs(a.length - b.length) > k) return false;
+      const freqDiff = frequencyDifference(a, b);
+      if (freqDiff > k) return false;
+      const matchedIndices = getMatchedIndices(a, b);
+      const adjSwaps = countAdjacentSwaps(matchedIndices);
+      if (k === 1 && adjSwaps > 0) return false;
+      if (freqDiff + adjSwaps > k) return false;
+      return true;
+    }
+    function tryToMapHTVMlineToTargetLineHELP(htvmCode, targetLangCode, line) {
+        var outLine = 0;
+        var ALoopField = "";
+        let outTokens = [];
+        let outTokens2 = [];
+        targetLangCode = StrReplace(targetLangCode, "\n", " \n");
+        htvmCode = StrReplace(htvmCode, "\n", " \n");
+        const arraysEqual = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
+        var beenHereImportant = 0;
+        let items1 = LoopParseFunc(targetLangCode, "\n", "\r");
+        for (let A_Index1 = 0; A_Index1 < items1.length; A_Index1++) {
+            const A_LoopField1 = items1[A_Index1];
+            ALoopField = Trim(A_LoopField1);
+            if (A_Index1 + 1 == line) {
+                let arrTokens = ALoopField.split(/\b/);
+                beenHereImportant = 0;
+                for (let A_Index2 = 0; A_Index2 < HTVM_Size(arrTokens); A_Index2++) {
+                    if (Trim(arrTokens[A_Index2]) != "" && InStr(arrTokens[A_Index2], "\n") == false && InStr(arrTokens[A_Index2], " ") == false && RegExMatch(arrTokens[A_Index2], "[A-Za-z0-9_]+")) {
+                        HTVM_Append(outTokens, arrTokens[A_Index2]);
+                        beenHereImportant = 1;
+                    }
+                }
+                if (beenHereImportant == 0) return "-1";
+                break;
+            }
+        }
+        var countHowMany = 0;
+        let items3 = LoopParseFunc(targetLangCode, "\n", "\r");
+        for (let A_Index3 = 0; A_Index3 < items3.length; A_Index3++) {
+            const A_LoopField3 = items3[A_Index3];
+            if (Trim(A_LoopField3) == ALoopField) {
+                countHowMany++;
+                if (A_Index3 + 1 == line) break;
+            }
+        }
+        var AIndex = 0;
+        var didFound = 0;
+        for (let A_Index4 = 0; A_Index4 < 100; A_Index4++) {
+            AIndex = A_Index4;
+            let items5 = LoopParseFunc(htvmCode, "\n", "\r");
+            for (let A_Index5 = 0; A_Index5 < items5.length; A_Index5++) {
+                const A_LoopField5 = items5[A_Index5];
+                ALoopField = Trim(A_LoopField5);
+                let arrTokens = ALoopField.split(/\b/);
+                outTokens2 = [];
+                for (let A_Index6 = 0; A_Index6 < HTVM_Size(arrTokens); A_Index6++) {
+                    if (Trim(arrTokens[A_Index6]) != "" && InStr(arrTokens[A_Index6], "\n") == false && InStr(arrTokens[A_Index6], " ") == false && RegExMatch(arrTokens[A_Index6], "[A-Za-z0-9_]+")) {
+                        HTVM_Append(outTokens2, arrTokens[A_Index6]);
+                    }
+                }
+                didFound = 0;
+                if (AIndex == 0) {
+                    if (arraysEqual(outTokens, outTokens2)) { outLine = A_Index5 + 1; didFound = 1; break; }
+                } else {
+                    if (improvedFuzzyEqual(outTokens, outTokens2, AIndex)) { outLine = A_Index5 + 1; didFound = 1; break; }
+                }
+            }
+            if (didFound == 1) break;
+        }
+        let items9 = LoopParseFunc(htvmCode, "\n", "\r");
+        for (let A_Index9 = 0; A_Index9 < items9.length; A_Index9++) {
+            const A_LoopField9 = items9[A_Index9];
+            ALoopField = Trim(A_LoopField9);
+            let arrTokens = ALoopField.split(/\b/);
+            outTokens2 = [];
+            for (let A_Index10 = 0; A_Index10 < HTVM_Size(arrTokens); A_Index10++) {
+                if (Trim(arrTokens[A_Index10]) != "" && InStr(arrTokens[A_Index10], "\n") == false && InStr(arrTokens[A_Index10], " ") == false && RegExMatch(arrTokens[A_Index10], "[A-Za-z0-9_]+")) {
+                    HTVM_Append(outTokens2, arrTokens[A_Index10]);
+                }
+            }
+            didFound = 0;
+            if (AIndex == 0) {
+                if (arraysEqual(outTokens, outTokens2)) { outLine = A_Index9 + 1; didFound++; }
+            } else {
+                if (improvedFuzzyEqual(outTokens, outTokens2, AIndex)) { outLine = A_Index9 + 1; didFound++; }
+            }
+            if (didFound == countHowMany) break;
+        }
+        return "on line " + STR(outLine);
+    }
+    function findLineRange(filteredNumbers) {
+      const STEP_MAX = 11;
+      filteredNumbers = filteredNumbers.filter(num => num !== -1);
+      if (filteredNumbers.length === 0) return -1;
+      const freq = {};
+      for (const num of filteredNumbers) freq[num] = (freq[num] || 0) + 1;
+      const clean = filteredNumbers.filter(num => !(num <= 2 && freq[num] > 3));
+      clean.sort((a, b) => a - b);
+      let bestStart = clean[0];
+      let bestLength = 1;
+      for (let i = 0; i < clean.length; i++) {
+        let count = 1; let last = clean[i];
+        for (let j = i + 1; j < clean.length; j++) {
+          let diff = clean[j] - last;
+          if (diff >= 2 && diff <= STEP_MAX) { count++; last = clean[j]; } 
+          else if (diff > STEP_MAX) break;
+        }
+        if (count > bestLength) { bestStart = clean[i]; bestLength = count; }
+      }
+      return bestStart;
+    }
+    function isWithin50(num1, num2) { return Math.abs(num1 - num2) <= 50; }
+    function getNUMBERONLY(line) {
+        if (InStr(line, "on line",)) return INT(Trim(StrSplit(line, " ", 3)));
+        return INT(line);
+    }
+    function runALL() {
+        let outARR = [];
+        var canBe = "";
+        canBe = tryToMapHTVMlineToTargetLineHELP(globalEdit_text1, globalEdit_text2, INT(Trim(globalEdit_text3)));
+        var lineCOunt = 0;
+        var thetextMaybe = "";
+        let items11 = LoopParseFunc(StrReplace(globalEdit_text1, "\n", " \n"), "\n", "\r");
+        lineCOunt = items11.length;
+        let items12 = LoopParseFunc(StrReplace(globalEdit_text2, "\n", " \n"), "\n", "\r");
+        for (let A_Index12 = 0; A_Index12 < items12.length; A_Index12++) {
+            if (A_Index12 + 1 == INT(Trim(globalEdit_text3))) thetextMaybe = Trim(items12[A_Index12]);
+        }
+        lineCOunt = lineCOunt / 30;
+        if (lineCOunt >= 100) lineCOunt = 100;
+        if (lineCOunt <= 20) lineCOunt = 20;
+        for (let A_Index13 = 0; A_Index13 < lineCOunt; A_Index13++) {
+            let temp = tryToMapHTVMlineToTargetLineHELP(globalEdit_text1, globalEdit_text2, INT(Trim(globalEdit_text3) - Ceil(lineCOunt / 2) + A_Index13));
+            HTVM_Append(outARR, getNUMBERONLY(temp));
+        }
+        var finalNum1 = findLineRange(outARR);
+        if (getNUMBERONLY(canBe) >= finalNum1 - 2 && getNUMBERONLY(canBe) != 1) {
+            return "99% sure its: " + STR(canBe) + " but can be later. So look for a line that KINDA looks like this: " + thetextMaybe;
+        } else {
+            if (isWithin50(finalNum1, getNUMBERONLY(canBe))) {
+                return "97% sure its " + STR(canBe) + " or maybe between: " + STR(getNUMBERONLY(canBe) - 1) + " and " + STR(Ceil(finalNum1 + (lineCOunt / 1.2))) + " or maybe slightly later. So look for a line that KINDA looks like this: " + thetextMaybe;
+            } else {
+                if (Trim(STR(finalNum1)) == "") finalNum1 = 1;
+                return "95% sure its " + STR(finalNum1) + " or maybe between: " + STR(finalNum1 - 1) + " and " + STR(Ceil(finalNum1 + lineCOunt)) + " or maybe slightly later. So look for a line that KINDA looks like this: " + thetextMaybe;
+            }
+        }
+    }
+    return runALL();
+}
+
 async function promptForInitialInstructionSet() {
     const overlay = document.getElementById('modal-overlay');
     overlay.style.pointerEvents = 'auto';
@@ -55,7 +296,6 @@ async function promptForInitialInstructionSet() {
 
     overlay.style.display = 'flex';
 }
-
 
 async function openInstructionManagerModal() {
     const overlay = document.getElementById('modal-overlay');
@@ -635,253 +875,6 @@ async function openHtvmToHtvmModal() {
     overlay.style.display = 'flex';
 }
 
-// --- Instruction Set and Converter Modals ---
-
-async function openInstructionManagerModal() {
-    const overlay = document.getElementById('modal-overlay');
-    overlay.style.pointerEvents = 'auto';
-
-    overlay.innerHTML = `<div class="modal-box instr-editor-modal">
-        <h3>HTVM Instruction Set Manager</h3>
-        <div class="instr-editor-content">
-            <div class="instr-editor-sidebar">
-                <input type="text" id="instr-search-box" placeholder="Search functions..." style="margin-bottom: 10px;">
-                <ul id="instr-editor-func-list"></ul>
-            </div>
-            <div class="instr-editor-main">
-                <div><label>Set Name: <input type="text" id="instr-set-name"></label></div>
-                <div><label>Function Name: <input type="text" id="instr-func-name"></label></div>
-                <div><label>Function Type: <select id="instr-func-type"><option value="normal">Normal</option><option value="string">String</option><option value="array">Array</option><option value="flow">Flow Control</option></select></label></div>
-                <div><label>Function Body (JavaScript):</label><div id="instr-editor-body-ace"></div></div>
-            </div>
-        </div>
-        <div class="modal-buttons">
-            <button id="instr-delete-set-btn" class="modal-btn-reset">Delete This Set</button>
-            <button id="instr-cancel-btn" class="modal-btn-cancel">Cancel</button>
-            <button id="instr-save-btn" class="modal-btn-confirm">Save and Apply</button>
-        </div>
-    </div>`;
-
-    let instructionSets = await dbGet(instructionSetKeys.list) || [];
-    let activeSetId = await dbGet(instructionSetKeys.activeId);
-    let currentEditingSet = null;
-
-    const funcList = document.getElementById('instr-editor-func-list');
-    const setNameInput = document.getElementById('instr-set-name');
-    const funcNameInput = document.getElementById('instr-func-name');
-    const funcTypeSelect = document.getElementById('instr-func-type');
-    const searchBox = document.getElementById('instr-search-box');
-    const bodyEditor = ace.edit("instr-editor-body-ace");
-    bodyEditor.setTheme("ace/theme/monokai");
-    bodyEditor.session.setMode("ace/mode/javascript");
-    bodyEditor.setOptions({ fontSize: '14px', useWorker: false });
-
-    const loadSetIntoEditor = (set) => {
-        currentEditingSet = set;
-        setNameInput.value = set.name;
-        const instructions = set.content.split('\n');
-        const functionData = {};
-        for (let i = 42; i < 158; i += 2) {
-            if (instructions[i] && instructions[i+1]) {
-                functionData[instructions[i].trim()] = { body: instructions[i+1], type: 'normal' };
-            }
-        }
-        currentEditingSet.functions = functionData;
-        renderFunctionList();
-        if (Object.keys(functionData).length > 0) {
-            loadFunctionIntoEditor(Object.keys(functionData)[0]);
-        }
-    };
-    
-    const loadFunctionIntoEditor = (funcName) => {
-        if (!currentEditingSet || !currentEditingSet.functions[funcName]) return;
-        document.querySelectorAll('#instr-editor-func-list li').forEach(li => li.classList.remove('active'));
-        const activeLi = document.querySelector(`#instr-editor-func-list li[data-func-name="${funcName}"]`);
-        if (activeLi) activeLi.classList.add('active');
-        
-        funcNameInput.value = funcName;
-        funcTypeSelect.value = currentEditingSet.functions[funcName].type;
-        bodyEditor.setValue(currentEditingSet.functions[funcName].body, -1);
-    };
-
-    const saveCurrentFunction = () => {
-        const activeLi = document.querySelector('#instr-editor-func-list li.active');
-        if (!activeLi) return;
-        const oldFuncName = activeLi.dataset.funcName;
-        const newFuncName = funcNameInput.value.trim();
-        
-        if (oldFuncName !== newFuncName) {
-            delete currentEditingSet.functions[oldFuncName];
-        }
-        currentEditingSet.functions[newFuncName] = {
-            body: bodyEditor.getValue(),
-            type: funcTypeSelect.value
-        };
-        renderFunctionList();
-        loadFunctionIntoEditor(newFuncName);
-    };
-    
-    funcNameInput.onblur = saveCurrentFunction;
-    funcTypeSelect.onchange = saveCurrentFunction;
-    bodyEditor.on('blur', saveCurrentFunction);
-
-    const renderFunctionList = () => {
-        funcList.innerHTML = '';
-        if (!currentEditingSet) return;
-        
-        const filter = searchBox.value.toLowerCase();
-
-        const addListItem = (name, type) => {
-            if (filter && !name.toLowerCase().includes(filter)) return;
-            const li = document.createElement('li');
-            li.textContent = name;
-            li.dataset.funcName = name;
-            li.dataset.funcType = type;
-            li.onclick = () => loadFunctionIntoEditor(name);
-            funcList.appendChild(li);
-        };
-        
-        if(currentEditingSet.functions) {
-            Object.keys(currentEditingSet.functions).sort().forEach(name => addListItem(name, 'normal'));
-        }
-    };
-
-    searchBox.oninput = renderFunctionList;
-
-    if (activeSetId) {
-        const activeSet = await db.instructionSets.get(activeSetId);
-        if (activeSet) loadSetIntoEditor(activeSet);
-    }
-
-    document.getElementById('instr-cancel-btn').onclick = () => { overlay.style.display = 'none'; };
-    
-    document.getElementById('instr-delete-set-btn').onclick = async () => {
-        if (!currentEditingSet || !currentEditingSet.id) return alert("No set selected to delete.");
-        if (!confirm(`Are you sure you want to permanently delete the instruction set "${currentEditingSet.name}"?`)) return;
-        
-        instructionSets = instructionSets.filter(s => s.id !== currentEditingSet.id);
-        await dbSet(instructionSetKeys.list, instructionSets);
-        await db.instructionSets.delete(currentEditingSet.id);
-        
-        if (activeSetId === currentEditingSet.id) {
-            activeSetId = instructionSets.length > 0 ? instructionSets[0].id : null;
-            await dbSet(instructionSetKeys.activeId, activeSetId);
-        }
-        
-        await loadDefinitions();
-        overlay.style.display = 'none';
-        alert(`Set "${currentEditingSet.name}" deleted.`);
-    };
-
-    document.getElementById('instr-save-btn').onclick = async () => {
-        saveCurrentFunction();
-        
-        let newName = setNameInput.value.trim();
-        if (!newName) return alert("Set name cannot be empty.");
-        
-        if (currentEditingSet) {
-            let instructions = (await getActiveInstructionSetContent() || '').split('\n');
-            if (instructions.length < 158) {
-                instructions = new Array(158).fill('');
-            }
-            
-            let funcIndex = 42;
-            for(const funcName in currentEditingSet.functions) {
-                if (funcIndex < 158) {
-                    instructions[funcIndex] = funcName;
-                    instructions[funcIndex + 1] = currentEditingSet.functions[funcName].body;
-                    funcIndex += 2;
-                }
-            }
-            // Clear out any remaining old function slots
-            for (let i = funcIndex; i < 158; i++) {
-                instructions[i] = '';
-            }
-
-            currentEditingSet.name = newName;
-            currentEditingSet.content = instructions.join('\n');
-            
-            await db.instructionSets.put(currentEditingSet);
-            let setInList = instructionSets.find(s => s.id === currentEditingSet.id);
-            if (setInList) setInList.name = newName;
-            await dbSet(instructionSetKeys.list, instructionSets);
-            
-            await loadDefinitions();
-            overlay.style.display = 'none';
-            alert(`Set "${newName}" saved and applied.`);
-        }
-    };
-
-    overlay.style.display = 'flex';
-}
-
-async function openHtvmToHtvmModal() {
-    const overlay = document.getElementById('modal-overlay');
-    overlay.style.pointerEvents = 'auto';
-
-    let instructionSets = await dbGet(instructionSetKeys.list) || [];
-    let optionsHtml = instructionSets.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-
-    overlay.innerHTML = `<div class="modal-box" style="max-width: 90vw; width: 1200px;">
-        <h3>HTVM to HTVM Converter</h3>
-        <p>This tool converts an HTVM file from one instruction set to another.</p>
-        <div style="display: flex; gap: 15px; margin: 15px 0;">
-            <div style="flex: 1;">
-                <label>Source Instruction Set:</label>
-                <select id="source-instr-select" style="width:100%;">${optionsHtml}</select>
-            </div>
-            <div style="flex: 1;">
-                <label>Target Instruction Set:</label>
-                <select id="target-instr-select" style="width:100%;">${optionsHtml}</select>
-            </div>
-        </div>
-        <div style="display: flex; gap: 15px; height: 50vh;">
-            <div style="flex: 1;"><label>Input HTVM Code:</label><div id="htvm-input-ace"></div></div>
-            <div style="flex: 1;"><label>Output HTVM Code:</label><div id="htvm-output-ace"></div></div>
-        </div>
-        <div class="modal-buttons" style="margin-top:15px;">
-            <button id="htvm-convert-cancel">Cancel</button>
-            <button id="htvm-convert-run" class="modal-btn-confirm">Convert</button>
-        </div>
-    </div>`;
-
-    const inputEditor = ace.edit("htvm-input-ace");
-    const outputEditor = ace.edit("htvm-output-ace");
-    [inputEditor, outputEditor].forEach(ed => {
-        ed.setTheme("ace/theme/monokai");
-        ed.session.setMode("ace/mode/htvm");
-        ed.setOptions({ fontSize: '14px' });
-    });
-    outputEditor.setReadOnly(true);
-    
-    // Pre-fill with current file if it's an HTVM file
-    if (currentOpenFile && currentOpenFile.endsWith('.htvm')) {
-        inputEditor.setValue(editor.getValue(), -1);
-    }
-    
-    document.getElementById('htvm-convert-cancel').onclick = () => { overlay.style.display = 'none'; };
-    document.getElementById('htvm-convert-run').onclick = async () => {
-        const sourceId = document.getElementById('source-instr-select').value;
-        const targetId = document.getElementById('target-instr-select').value;
-        if (!sourceId || !targetId) return alert("Please select both source and target instruction sets.");
-        
-        const sourceSet = await db.instructionSets.get(sourceId);
-        const targetSet = await db.instructionSets.get(targetId);
-        
-        if (!sourceSet || !targetSet) return alert("Could not load instruction sets.");
-
-        const htvmCode = inputEditor.getValue();
-        argHTVMinstrMORE.push(sourceSet.content);
-        argHTVMinstrMORE.push(targetSet.content);
-        
-        const convertedCode = await compiler(htvmCode, '', 'htvmTOhtvm', '');
-        outputEditor.setValue(convertedCode, -1);
-        resetGlobalVarsOfHTVMjs();
-    };
-    
-    overlay.style.display = 'flex';
-}
-
 async function openLineMapperModal() {
     const overlay = document.getElementById('modal-overlay');
     overlay.style.pointerEvents = 'auto';
@@ -997,7 +990,9 @@ async function openLineMapperModal() {
             await showAlert("Please copy the target language code, then return here and paste it into the right-hand box.");
         }
     } else { // Not an HTVM file
-        targetTextarea.value = editor.getValue();
+        if (currentOpenFile) {
+            targetTextarea.value = editor.getValue();
+        }
         const hasCopied = await showInteractivePrompt("The target language code has been pre-filled.<br><br>Have you copied the corresponding .htvm file's code to your clipboard?");
         if (hasCopied) {
             try {
