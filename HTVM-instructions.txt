@@ -1784,7 +1784,7 @@ func======================func==============
 lang: cpp
 name: Sort
 libs: #include <string>|#include <vector>|#include <algorithm>|#include <sstream>|#include <unordered_set>|#include <cctype>
-description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1)~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~str expected1 := "Alpha`nBravo`nCharlie"~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2)~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
 // Helper function to trim whitespace from both ends of a string
 std::string trim(const std::string& str) {
     const std::string whitespace = " \t\n\r\f\v";
@@ -2742,7 +2742,7 @@ func======================func==============
 lang: py
 name: Sort
 libs: import random
-description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1)~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~str expected1 := "Alpha`nBravo`nCharlie"~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2)~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
 def Sort(var_name, options):
     # Determine delimiter based on options
     delimiter = '\n'
@@ -2974,7 +2974,7 @@ func======================func==============
 lang: js
 name: Sort
 libs: null
-description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1)~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~str expected1 := "Alpha`nBravo`nCharlie"~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2)~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
 function Sort(varName, options = "") {
     let delimiter = '\n'; // Default delimiter
     let delimiterIndex = options.indexOf('D');
@@ -10256,5 +10256,773 @@ String RegExReplace(String inputStr, String regexPattern, String replacement) {
         // In case of an error, return the original string.
         return inputStr
     }
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: Sort
+libs: )|"sort"|"strings"|"strconv"
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+func Sort(input, options string) string {
+	caseSensitive := strings.Contains(options, "C")
+	unique := strings.Contains(options, "U")
+	reverse := strings.Contains(options, "R")
+	numeric := strings.Contains(options, "N")
+	delimiter := "\n"
+	if dIndex := strings.Index(options, "D"); dIndex != -1 && dIndex+1 < len(options) {
+		delimiter = string(options[dIndex+1])
+	}
+	
+	rawItems := strings.Split(input, delimiter)
+	var items []string
+	for _, item := range rawItems {
+		trimmed := strings.TrimSpace(item)
+		if trimmed != "" {
+			items = append(items, trimmed)
+		}
+	}
+
+	if unique {
+		seen := make(map[string]bool)
+		var uniqueItems []string
+		for _, item := range items {
+			key := item
+			if !caseSensitive {
+				key = strings.ToLower(key)
+			}
+			if _, exists := seen[key]; !exists {
+				seen[key] = true
+				uniqueItems = append(uniqueItems, item)
+			}
+		}
+		items = uniqueItems
+	}
+
+	if numeric {
+		sort.Slice(items, func(i, j int) bool {
+			numA, _ := strconv.Atoi(items[i])
+			numB, _ := strconv.Atoi(items[j])
+			return numA < numB
+		})
+	} else {
+		if caseSensitive {
+			sort.Strings(items)
+		} else {
+			sort.Slice(items, func(i, j int) bool {
+				return strings.ToLower(items[i]) < strings.ToLower(items[j])
+			})
+		}
+	}
+
+	if reverse {
+		for i, j := 0, len(items)-1; i < j; i, j = i+1, j-1 {
+			items[i], items[j] = items[j], items[i]
+		}
+	}
+
+	return strings.Join(items, delimiter)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: Sort
+libs: null
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+function Sort(input, options)
+    local caseSensitive = string.find(options, "C", 1, true)
+    local unique = string.find(options, "U", 1, true)
+    local reverse = string.find(options, "R", 1, true)
+    local numeric = string.find(options, "N", 1, true)
+    local delimiter = "\n"
+    local dPos = string.find(options, "D", 1, true)
+    if dPos then delimiter = string.sub(options, dPos + 1, dPos + 1) end
+
+    local items = {}
+    for item in string.gmatch(input, "([^" .. delimiter .. "]+)") do
+        -- A simple trim
+        local trimmed = item:match("^%s*(.-)%s*$")
+        if #trimmed > 0 then table.insert(items, trimmed) end
+    end
+
+    if unique then
+        local seen = {}
+        local uniqueItems = {}
+        for _, item in ipairs(items) do
+            local key = item
+            if not caseSensitive then key = string.lower(key) end
+            if not seen[key] then
+                table.insert(uniqueItems, item)
+                seen[key] = true
+            end
+        end
+        items = uniqueItems
+    end
+    
+    local sortFunc
+    if numeric then
+        sortFunc = function(a, b) return tonumber(a) < tonumber(b) end
+    else
+        if caseSensitive then
+            sortFunc = function(a, b) return a < b end
+        else
+            sortFunc = function(a, b) return string.lower(a) < string.lower(b) end
+        end
+    end
+    table.sort(items, sortFunc)
+    
+    if reverse then
+        local reversedItems = {}
+        for i = #items, 1, -1 do table.insert(reversedItems, items[i]) end
+        items = reversedItems
+    end
+
+    return table.concat(items, delimiter)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: Sort
+libs: using System;|using System.Collections.Generic;|using System.Linq;
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+public static string Sort(string input, string options) {
+    bool caseSensitive = options.Contains("C");
+    bool unique = options.Contains("U");
+    bool reverse = options.Contains("R");
+    bool numeric = options.Contains("N");
+    string delimiter = "\n";
+    int dIndex = options.IndexOf("D");
+    if (dIndex != -1 && dIndex + 1 < options.Length) {
+        delimiter = options[dIndex + 1].ToString();
+    }
+
+    IEnumerable<string> items = input.Split(new[] { delimiter }, StringSplitOptions.None)
+                                     .Select(s => s.Trim())
+                                     .Where(s => !string.IsNullOrEmpty(s));
+    
+    if (unique) {
+        var comparer = caseSensitive ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase;
+        items = items.Distinct(comparer);
+    }
+
+    if (numeric) {
+        items = items.OrderBy(s => double.Parse(s));
+    } else {
+        var comparer = caseSensitive ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase;
+        items = items.OrderBy(s => s, comparer);
+    }
+
+    if (reverse) {
+        items = items.Reverse();
+    }
+
+    return string.Join(delimiter, items);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: Sort
+libs: import java.util.*;|import java.util.stream.Collectors;
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+public static String Sort(String input, String options) {
+    boolean caseSensitive = options.contains("C");
+    boolean unique = options.contains("U");
+    boolean reverse = options.contains("R");
+    boolean numeric = options.contains("N");
+    String delimiter = "\n";
+    int dIndex = options.indexOf("D");
+    if (dIndex != -1 && dIndex + 1 < options.length()) {
+        delimiter = options.substring(dIndex + 1, dIndex + 2);
+    }
+    
+    List<String> items = Arrays.stream(input.split(java.util.regex.Pattern.quote(delimiter)))
+        .map(String::trim)
+        .filter(s -> !s.isEmpty())
+        .collect(Collectors.toList());
+
+    if (unique) {
+        Set<String> seen = new HashSet<>();
+        items = items.stream().filter(item -> {
+            String key = caseSensitive ? item : item.toLowerCase();
+            return seen.add(key);
+        }).collect(Collectors.toList());
+    }
+
+    Comparator<String> comparator;
+    if (numeric) {
+        comparator = Comparator.comparingDouble(Double::parseDouble);
+    } else {
+        comparator = caseSensitive ? Comparator.naturalOrder() : String.CASE_INSENSITIVE_ORDER;
+    }
+    items.sort(comparator);
+
+    if (reverse) {
+        Collections.reverse(items);
+    }
+
+    return String.join(delimiter, items);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: Sort
+libs: null
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+fun Sort(input: String, options: String): String {
+    val caseSensitive = options.contains("C")
+    val unique = options.contains("U")
+    val reverse = options.contains("R")
+    val numeric = options.contains("N")
+    val delimiter = options.indexOf("D").takeIf { it != -1 }?.let { options.getOrNull(it + 1)?.toString() } ?: "\n"
+
+    var items = input.split(delimiter)
+        .map { it.trim() }
+        .filter { it.isNotEmpty() }
+        .let { if (unique) it.distinctBy { if (caseSensitive) it else it.toLowerCase() } else it }
+    
+    val sortedItems = if (numeric) {
+        items.sortedBy { it.toDoubleOrNull() ?: 0.0 }
+    } else {
+        if (caseSensitive) items.sorted() else items.sortedWith(String.CASE_INSENSITIVE_ORDER)
+    }
+
+    val finalItems = if (reverse) sortedItems.reversed() else sortedItems
+    
+    return finalItems.joinToString(delimiter)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: Sort
+libs: null
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+def Sort(input, options)
+  case_sensitive = options.include?('C')
+  unique = options.include?('U')
+  reverse = options.include?('R')
+  numeric = options.include?('N')
+  d_index = options.index('D')
+  delimiter = d_index ? options[d_index + 1] : "\n"
+
+  items = input.split(delimiter).map(&:strip).reject(&:empty?)
+
+  if unique
+    items = case_sensitive ? items.uniq : items.uniq { |s| s.downcase }
+  end
+
+  if numeric
+    items.sort_by!(&:to_f)
+  else
+    if case_sensitive
+      items.sort!
+    else
+      items.sort_by!(&:downcase)
+    end
+  end
+
+  items.reverse! if reverse
+
+  items.join(delimiter)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: Sort
+libs: import strutils, sequtils, algorithm|import sets
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+
+
+proc Sort(input: string, options: string): string =
+  let caseSensitive = 'C' in options
+  let unique = 'U' in options
+  let reverseSort = 'R' in options
+  let numeric = 'N' in options
+
+  # Improved delimiter extraction (handles any char including ',')
+  var delimiter = "\n"
+  let dPos = options.find("D")
+  if dPos >= 0 and dPos + 1 < options.len:
+    delimiter = options[dPos + 1..dPos + 1]
+
+  var items = input.split(delimiter).mapIt(it.strip).filterIt(it.len > 0)
+
+  if unique:
+    if caseSensitive:
+      items = items.deduplicate()
+    else:
+      var seen: HashSet[string] = initHashSet[string]()
+      var uniqueItems: seq[string] = @[]
+      for s in items:
+        let key = s.toLower()
+        if key notin seen:
+          seen.incl(key)
+          uniqueItems.add(s)
+      items = uniqueItems
+
+  if numeric:
+    items.sort(proc(a, b: string): int = cmp(a.parseFloat, b.parseFloat))
+  else:
+    if caseSensitive:
+      items.sort(system.cmp[string])
+    else:
+      items.sort(proc(a, b: string): int = cmp(a.toLower(), b.toLower()))
+
+  if reverseSort:
+    items.reverse()
+
+  return items.join(delimiter)
+
+
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: Sort
+libs: null
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+Sort(ByRef input, options) {
+    Sort, input, %options%
+    return input
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: Sort
+libs: null
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+func Sort(_ input: String, _ options: String) -> String {
+    let caseSensitive = options.contains("C")
+    let unique = options.contains("U")
+    let reverse = options.contains("R")
+    let numeric = options.contains("N")
+    var delimiter: String = "\n"
+    if let dRange = options.range(of: "D") {
+        if let dChar = options[dRange.upperBound...].first {
+            delimiter = String(dChar)
+        }
+    }
+    
+    var items = input.components(separatedBy: delimiter)
+        .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        .filter { !$0.isEmpty }
+
+    if unique {
+        var seen = Set<String>()
+        items = items.filter { item in
+            let key = caseSensitive ? item : item.lowercased()
+            return seen.insert(key).inserted
+        }
+    }
+
+    if numeric {
+        items.sort { (a, b) -> Bool in
+            return (Double(a) ?? 0) < (Double(b) ?? 0)
+        }
+    } else {
+        items.sort { (a, b) -> Bool in
+            return caseSensitive ? a < b : a.localizedCaseInsensitiveCompare(b) == .orderedAscending
+        }
+    }
+    
+    if reverse {
+        items.reverse()
+    }
+    
+    return items.joined(separator: delimiter)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: Sort
+libs: null
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+String Sort(String input, String options) {
+  final caseSensitive = options.contains('C');
+  final unique = options.contains('U');
+  final reverse = options.contains('R');
+  final numeric = options.contains('N');
+  var delimiter = '\n';
+  final dIndex = options.indexOf('D');
+  if (dIndex != -1 && dIndex + 1 < options.length) {
+    delimiter = options[dIndex + 1];
+  }
+
+  var items = input.split(delimiter).map((s) => s.trim()).where((s) => s.isNotEmpty).toList();
+
+  if (unique) {
+    var seen = <String>{};
+    items.retainWhere((item) => seen.add(caseSensitive ? item : item.toLowerCase()));
+  }
+
+  if (numeric) {
+    items.sort((a, b) => (double.tryParse(a) ?? 0).compareTo(double.tryParse(b) ?? 0));
+  } else {
+    items.sort((a, b) => caseSensitive ? a.compareTo(b) : a.toLowerCase().compareTo(b.toLowerCase()));
+  }
+
+  if (reverse) {
+    items = items.reversed.toList();
+  }
+
+  return items.join(delimiter);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: Sort
+libs: null
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+function Sort(input: string, options: string): string {
+    const caseSensitive = options.includes('C');
+    const unique = options.includes('U');
+    const reverse = options.includes('R');
+    const numeric = options.includes('N');
+    let delimiter = '\n';
+    const dIndex = options.indexOf('D');
+    if (dIndex !== -1 && dIndex + 1 < options.length) {
+        delimiter = options[dIndex + 1];
+    }
+    
+    let items = input.split(delimiter)
+        .map(s => s.trim())
+        .filter(s => s.length > 0);
+
+    if (unique) {
+        const seen = new Set<string>();
+        items = items.filter(item => {
+            const key = caseSensitive ? item : item.toLowerCase();
+            if (seen.has(key)) {
+                return false;
+            } else {
+                seen.add(key);
+                return true;
+            }
+        });
+    }
+
+    if (numeric) {
+        items.sort((a, b) => parseFloat(a) - parseFloat(b));
+    } else {
+        items.sort((a, b) => {
+            const comparison = caseSensitive ? 0 : a.toLowerCase().localeCompare(b.toLowerCase());
+            return comparison === 0 ? a.localeCompare(b) : comparison;
+        });
+    }
+
+    if (reverse) {
+        items.reverse();
+    }
+
+    return items.join(delimiter);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: Sort
+libs: null
+description: string~~~Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.~~~Here is how to use it:~~~```htvm~~~str list1 := "Charlie`nAlpha`nBravo"~~~str sorted1 := Sort(list1, "U")~~~print("Default sort (list1):`n" . sorted1)~~~; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)~~~; Assuming case-insensitive default for test~~~; Note: Actual default might vary if underlying language sorts case-sensitively.~~~; ----------------------------------------------------~~~print("---")~~~str list2 := "10`n2`n100`n1"~~~str sorted2_alpha := Sort(list2, "U")~~~str sorted2_numeric := Sort(list2, "N")~~~print("Alpha sort (list2):`n" . sorted2_alpha)~~~; Expected: 1`n10`n100`n2~~~print("Numeric sort (list2):`n" . sorted2_numeric)~~~; Expected: 1`n2`n10`n100~~~if (sorted2_numeric != "1`n2`n10`n100") {~~~    print("Sort numeric test FAILED!")~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list3 := "apple,banana,apple,orange"~~~str sorted3_unique_comma := Sort(list3, "UD,")~~~; Unique, comma-delimited~~~print("Unique comma sort (list3):`n" . sorted3_unique_comma)~~~; Expected: apple,banana,orange (order may vary for first two)~~~; A simple check for content rather than strict order for unique test:~~~if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {~~~    print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)~~~}~~~; ----------------------------------------------------~~~print("---")~~~str list4 := "Zebra`napple`nCAT"~~~str sorted4_case_reverse := Sort(list4, "CR")~~~print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)~~~; Expected: apple`nZebra`nCAT (Z > C, a > Z)~~~; This expected order depends on specific sort implementation with mixed case.~~~; For testing, let's target a more predictable case-insensitive reverse.~~~str sorted4_insensitive_reverse := Sort(list4, "R")~~~; Assuming default is case-insensitive for this test~~~print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)~~~; Expected: Zebra`nCAT`napple~~~if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {~~~    print("Sort insensitive reverse test FAILED!")~~~}~~~```~~~
+String Sort(String input, String options) {
+    boolean caseSensitive = options.contains("C")
+    boolean unique = options.contains("U")
+    boolean reverse = options.contains("R")
+    boolean numeric = options.contains("N")
+    String delimiter = "\n"
+    int dIndex = options.indexOf("D")
+    if (dIndex != -1 && dIndex + 1 < options.length()) {
+        delimiter = options.charAt(dIndex + 1)
+    }
+    def items = input.split(delimiter).collect { it.trim() }.findAll { !it.isEmpty() }
+
+    if (unique) {
+        if (caseSensitive) {
+            items = items.unique()
+        } else {
+            items = items.unique { it.toLowerCase() }
+        }
+    }
+
+    if (numeric) {
+        items = items.sort { it.toDouble() }
+    } else {
+        if (caseSensitive) {
+            items = items.sort()
+        } else {
+            items = items.sort { it.toLowerCase() }
+        }
+    }
+
+    if (reverse) {
+        items = items.reverse()
+    }
+
+    return items.join(delimiter)
+}
+
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: countChars
+libs: )|"strings"
+description: string~~~Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world, hello htvm"~~~str charToCount1 := "h"~~~int count1 := countChars(text1, charToCount1)~~~print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))~~~; Expected: 3~~~if (count1 != 3) {~~~    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))~~~}~~~; ----------------------------------------------------~~~str text2 := "banana"~~~str charToCount2 := "a"~~~int count2 := text2.countChars(charToCount2)~~~print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))~~~; Expected: 3~~~if (count2 != 3) {~~~    print("countChars test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := "no_such_char_here"~~~str charToCount4 := "z"~~~int count4 := countChars(text4, charToCount4)~~~print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))~~~; Expected: 0~~~if (count4 != 0) {~~~    print("countChars test 4 FAILED!")~~~}~~~```~~~
+func countChars(s, substr string) int {
+	return strings.Count(s, substr)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: countChars
+libs: null
+description: string~~~Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world, hello htvm"~~~str charToCount1 := "h"~~~int count1 := countChars(text1, charToCount1)~~~print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))~~~; Expected: 3~~~if (count1 != 3) {~~~    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))~~~}~~~; ----------------------------------------------------~~~str text2 := "banana"~~~str charToCount2 := "a"~~~int count2 := text2.countChars(charToCount2)~~~print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))~~~; Expected: 3~~~if (count2 != 3) {~~~    print("countChars test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := "no_such_char_here"~~~str charToCount4 := "z"~~~int count4 := countChars(text4, charToCount4)~~~print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))~~~; Expected: 0~~~if (count4 != 0) {~~~    print("countChars test 4 FAILED!")~~~}~~~```~~~
+function countChars(str, substr)
+    if not substr or #substr == 0 then return 0 end
+    local _, count = string.gsub(str, substr, "")
+    return count
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: countChars
+libs: null
+description: string~~~Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world, hello htvm"~~~str charToCount1 := "h"~~~int count1 := countChars(text1, charToCount1)~~~print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))~~~; Expected: 3~~~if (count1 != 3) {~~~    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))~~~}~~~; ----------------------------------------------------~~~str text2 := "banana"~~~str charToCount2 := "a"~~~int count2 := text2.countChars(charToCount2)~~~print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))~~~; Expected: 3~~~if (count2 != 3) {~~~    print("countChars test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := "no_such_char_here"~~~str charToCount4 := "z"~~~int count4 := countChars(text4, charToCount4)~~~print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))~~~; Expected: 0~~~if (count4 != 0) {~~~    print("countChars test 4 FAILED!")~~~}~~~```~~~
+public static int countChars(string str, string substring)
+{
+    if (string.IsNullOrEmpty(substring)) return 0;
+    int count = (str.Length - str.Replace(substring, "").Length) / substring.Length;
+    return count;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: countChars
+libs: null
+description: string~~~Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world, hello htvm"~~~str charToCount1 := "h"~~~int count1 := countChars(text1, charToCount1)~~~print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))~~~; Expected: 3~~~if (count1 != 3) {~~~    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))~~~}~~~; ----------------------------------------------------~~~str text2 := "banana"~~~str charToCount2 := "a"~~~int count2 := text2.countChars(charToCount2)~~~print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))~~~; Expected: 3~~~if (count2 != 3) {~~~    print("countChars test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := "no_such_char_here"~~~str charToCount4 := "z"~~~int count4 := countChars(text4, charToCount4)~~~print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))~~~; Expected: 0~~~if (count4 != 0) {~~~    print("countChars test 4 FAILED!")~~~}~~~```~~~
+public static int countChars(String str, String substring) {
+    if (substring == null || substring.isEmpty()) {
+        return 0;
+    }
+    return str.split(java.util.regex.Pattern.quote(substring), -1).length - 1;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: countChars
+libs: null
+description: string~~~Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world, hello htvm"~~~str charToCount1 := "h"~~~int count1 := countChars(text1, charToCount1)~~~print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))~~~; Expected: 3~~~if (count1 != 3) {~~~    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))~~~}~~~; ----------------------------------------------------~~~str text2 := "banana"~~~str charToCount2 := "a"~~~int count2 := text2.countChars(charToCount2)~~~print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))~~~; Expected: 3~~~if (count2 != 3) {~~~    print("countChars test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := "no_such_char_here"~~~str charToCount4 := "z"~~~int count4 := countChars(text4, charToCount4)~~~print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))~~~; Expected: 0~~~if (count4 != 0) {~~~    print("countChars test 4 FAILED!")~~~}~~~```~~~
+fun countChars(str: String, substring: String): Int {
+    if (substring.isEmpty()) return 0
+    return str.windowed(substring.length).count { it == substring }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: countChars
+libs: null
+description: string~~~Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world, hello htvm"~~~str charToCount1 := "h"~~~int count1 := countChars(text1, charToCount1)~~~print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))~~~; Expected: 3~~~if (count1 != 3) {~~~    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))~~~}~~~; ----------------------------------------------------~~~str text2 := "banana"~~~str charToCount2 := "a"~~~int count2 := text2.countChars(charToCount2)~~~print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))~~~; Expected: 3~~~if (count2 != 3) {~~~    print("countChars test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := "no_such_char_here"~~~str charToCount4 := "z"~~~int count4 := countChars(text4, charToCount4)~~~print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))~~~; Expected: 0~~~if (count4 != 0) {~~~    print("countChars test 4 FAILED!")~~~}~~~```~~~
+def countChars(str, substr)
+  return 0 if substr.nil? || substr.empty?
+  str.scan(substr).count
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: countChars
+libs: import strutils
+description: string~~~Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world, hello htvm"~~~str charToCount1 := "h"~~~int count1 := countChars(text1, charToCount1)~~~print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))~~~; Expected: 3~~~if (count1 != 3) {~~~    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))~~~}~~~; ----------------------------------------------------~~~str text2 := "banana"~~~str charToCount2 := "a"~~~int count2 := text2.countChars(charToCount2)~~~print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))~~~; Expected: 3~~~if (count2 != 3) {~~~    print("countChars test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := "no_such_char_here"~~~str charToCount4 := "z"~~~int count4 := countChars(text4, charToCount4)~~~print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))~~~; Expected: 0~~~if (count4 != 0) {~~~    print("countChars test 4 FAILED!")~~~}~~~```~~~
+proc countChars(s, sub: string): int =
+  return s.count(sub)
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: countChars
+libs: null
+description: string~~~Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world, hello htvm"~~~str charToCount1 := "h"~~~int count1 := countChars(text1, charToCount1)~~~print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))~~~; Expected: 3~~~if (count1 != 3) {~~~    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))~~~}~~~; ----------------------------------------------------~~~str text2 := "banana"~~~str charToCount2 := "a"~~~int count2 := text2.countChars(charToCount2)~~~print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))~~~; Expected: 3~~~if (count2 != 3) {~~~    print("countChars test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := "no_such_char_here"~~~str charToCount4 := "z"~~~int count4 := countChars(text4, charToCount4)~~~print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))~~~; Expected: 0~~~if (count4 != 0) {~~~    print("countChars test 4 FAILED!")~~~}~~~```~~~
+countChars(str, substring) {
+    if (substring = "")
+        return 0
+    count := 0
+    StringReplace, str, str, %substring%, , UseErrorLevel
+    count += ErrorLevel
+    return count
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: countChars
+libs: null
+description: string~~~Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world, hello htvm"~~~str charToCount1 := "h"~~~int count1 := countChars(text1, charToCount1)~~~print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))~~~; Expected: 3~~~if (count1 != 3) {~~~    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))~~~}~~~; ----------------------------------------------------~~~str text2 := "banana"~~~str charToCount2 := "a"~~~int count2 := text2.countChars(charToCount2)~~~print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))~~~; Expected: 3~~~if (count2 != 3) {~~~    print("countChars test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := "no_such_char_here"~~~str charToCount4 := "z"~~~int count4 := countChars(text4, charToCount4)~~~print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))~~~; Expected: 0~~~if (count4 != 0) {~~~    print("countChars test 4 FAILED!")~~~}~~~```~~~
+func countChars(_ str: String, _ substring: String) -> Int {
+    guard !substring.isEmpty else { return 0 }
+    return str.components(separatedBy: substring).count - 1
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: countChars
+libs: null
+description: string~~~Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world, hello htvm"~~~str charToCount1 := "h"~~~int count1 := countChars(text1, charToCount1)~~~print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))~~~; Expected: 3~~~if (count1 != 3) {~~~    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))~~~}~~~; ----------------------------------------------------~~~str text2 := "banana"~~~str charToCount2 := "a"~~~int count2 := text2.countChars(charToCount2)~~~print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))~~~; Expected: 3~~~if (count2 != 3) {~~~    print("countChars test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := "no_such_char_here"~~~str charToCount4 := "z"~~~int count4 := countChars(text4, charToCount4)~~~print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))~~~; Expected: 0~~~if (count4 != 0) {~~~    print("countChars test 4 FAILED!")~~~}~~~```~~~
+int countChars(String str, String substring) {
+  if (substring.isEmpty) {
+    return 0;
+  }
+  return substring.allMatches(str).length;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: countChars
+libs: null
+description: string~~~Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world, hello htvm"~~~str charToCount1 := "h"~~~int count1 := countChars(text1, charToCount1)~~~print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))~~~; Expected: 3~~~if (count1 != 3) {~~~    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))~~~}~~~; ----------------------------------------------------~~~str text2 := "banana"~~~str charToCount2 := "a"~~~int count2 := text2.countChars(charToCount2)~~~print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))~~~; Expected: 3~~~if (count2 != 3) {~~~    print("countChars test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := "no_such_char_here"~~~str charToCount4 := "z"~~~int count4 := countChars(text4, charToCount4)~~~print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))~~~; Expected: 0~~~if (count4 != 0) {~~~    print("countChars test 4 FAILED!")~~~}~~~```~~~
+function countChars(str: string, substring: string): number {
+    if (!substring) return 0;
+    // Use a regular expression to count all occurrences
+    const escapedSubstring = substring.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(escapedSubstring, 'g');
+    return (str.match(regex) || []).length;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: countChars
+libs: null
+description: string~~~Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world, hello htvm"~~~str charToCount1 := "h"~~~int count1 := countChars(text1, charToCount1)~~~print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))~~~; Expected: 3~~~if (count1 != 3) {~~~    print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))~~~}~~~; ----------------------------------------------------~~~str text2 := "banana"~~~str charToCount2 := "a"~~~int count2 := text2.countChars(charToCount2)~~~print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))~~~; Expected: 3~~~if (count2 != 3) {~~~    print("countChars test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := "no_such_char_here"~~~str charToCount4 := "z"~~~int count4 := countChars(text4, charToCount4)~~~print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))~~~; Expected: 0~~~if (count4 != 0) {~~~    print("countChars test 4 FAILED!")~~~}~~~```~~~
+int countChars(String str, String substring) {
+    if (substring == null || substring.isEmpty()) {
+        return 0
+    }
+    return str.count(substring)
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: StrLen
+libs: )|"unicode/utf8"
+description: string~~~Returns the length (number of characters) of a string.~~~Here is how to use it:~~~```htvm~~~str text1 := "Hello"~~~int len1 := StrLen(text1)~~~; Expected: 5~~~print("Length of '" . text1 . "' is: " . STR(len1))~~~if (len1 != 5) {~~~    print("StrLen test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := ""~~~; Empty string~~~int len2 := text2.StrLen()~~~; Expected: 0~~~print("Length of '' is: " . STR(len2))~~~if (len2 != 0) {~~~    print("StrLen test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "HTVM `nRocks!"~~~; Contains a newline~~~int len3 := StrLen(text3)~~~; Expected: 12 (newline is one char)~~~print("Length of 'HTVM `nRocks!' is: " . STR(len3))~~~if (len3 != 12) {~~~    print("StrLen test 3 FAILED!")~~~}~~~```~~~
+func StrLen(s string) int {
+	return utf8.RuneCountInString(s)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: StrLen
+libs: null
+description: string~~~Returns the length (number of characters) of a string.~~~Here is how to use it:~~~```htvm~~~str text1 := "Hello"~~~int len1 := StrLen(text1)~~~; Expected: 5~~~print("Length of '" . text1 . "' is: " . STR(len1))~~~if (len1 != 5) {~~~    print("StrLen test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := ""~~~; Empty string~~~int len2 := text2.StrLen()~~~; Expected: 0~~~print("Length of '' is: " . STR(len2))~~~if (len2 != 0) {~~~    print("StrLen test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "HTVM `nRocks!"~~~; Contains a newline~~~int len3 := StrLen(text3)~~~; Expected: 12 (newline is one char)~~~print("Length of 'HTVM `nRocks!' is: " . STR(len3))~~~if (len3 != 12) {~~~    print("StrLen test 3 FAILED!")~~~}~~~```~~~
+-- Assumes a 'unicode' library is available for proper character counting.
+-- If not, #str would count bytes.
+function StrLen(str)
+    return utf8.len(str)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: StrLen
+libs: null
+description: string~~~Returns the length (number of characters) of a string.~~~Here is how to use it:~~~```htvm~~~str text1 := "Hello"~~~int len1 := StrLen(text1)~~~; Expected: 5~~~print("Length of '" . text1 . "' is: " . STR(len1))~~~if (len1 != 5) {~~~    print("StrLen test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := ""~~~; Empty string~~~int len2 := text2.StrLen()~~~; Expected: 0~~~print("Length of '' is: " . STR(len2))~~~if (len2 != 0) {~~~    print("StrLen test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "HTVM `nRocks!"~~~; Contains a newline~~~int len3 := StrLen(text3)~~~; Expected: 12 (newline is one char)~~~print("Length of 'HTVM `nRocks!' is: " . STR(len3))~~~if (len3 != 12) {~~~    print("StrLen test 3 FAILED!")~~~}~~~```~~~
+public static int StrLen(string str) {
+    return str.Length;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: StrLen
+libs: null
+description: string~~~Returns the length (number of characters) of a string.~~~Here is how to use it:~~~```htvm~~~str text1 := "Hello"~~~int len1 := StrLen(text1)~~~; Expected: 5~~~print("Length of '" . text1 . "' is: " . STR(len1))~~~if (len1 != 5) {~~~    print("StrLen test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := ""~~~; Empty string~~~int len2 := text2.StrLen()~~~; Expected: 0~~~print("Length of '' is: " . STR(len2))~~~if (len2 != 0) {~~~    print("StrLen test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "HTVM `nRocks!"~~~; Contains a newline~~~int len3 := StrLen(text3)~~~; Expected: 12 (newline is one char)~~~print("Length of 'HTVM `nRocks!' is: " . STR(len3))~~~if (len3 != 12) {~~~    print("StrLen test 3 FAILED!")~~~}~~~```~~~
+public static int StrLen(String str) {
+    return str.codePointCount(0, str.length());
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: StrLen
+libs: null
+description: string~~~Returns the length (number of characters) of a string.~~~Here is how to use it:~~~```htvm~~~str text1 := "Hello"~~~int len1 := StrLen(text1)~~~; Expected: 5~~~print("Length of '" . text1 . "' is: " . STR(len1))~~~if (len1 != 5) {~~~    print("StrLen test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := ""~~~; Empty string~~~int len2 := text2.StrLen()~~~; Expected: 0~~~print("Length of '' is: " . STR(len2))~~~if (len2 != 0) {~~~    print("StrLen test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "HTVM `nRocks!"~~~; Contains a newline~~~int len3 := StrLen(text3)~~~; Expected: 12 (newline is one char)~~~print("Length of 'HTVM `nRocks!' is: " . STR(len3))~~~if (len3 != 12) {~~~    print("StrLen test 3 FAILED!")~~~}~~~```~~~
+fun StrLen(str: String): Int {
+    return str.length
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: StrLen
+libs: null
+description: string~~~Returns the length (number of characters) of a string.~~~Here is how to use it:~~~```htvm~~~str text1 := "Hello"~~~int len1 := StrLen(text1)~~~; Expected: 5~~~print("Length of '" . text1 . "' is: " . STR(len1))~~~if (len1 != 5) {~~~    print("StrLen test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := ""~~~; Empty string~~~int len2 := text2.StrLen()~~~; Expected: 0~~~print("Length of '' is: " . STR(len2))~~~if (len2 != 0) {~~~    print("StrLen test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "HTVM `nRocks!"~~~; Contains a newline~~~int len3 := StrLen(text3)~~~; Expected: 12 (newline is one char)~~~print("Length of 'HTVM `nRocks!' is: " . STR(len3))~~~if (len3 != 12) {~~~    print("StrLen test 3 FAILED!")~~~}~~~```~~~
+def StrLen(str)
+  str.length
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: StrLen
+libs: import unicode
+description: string~~~Returns the length (number of characters) of a string.~~~Here is how to use it:~~~```htvm~~~str text1 := "Hello"~~~int len1 := StrLen(text1)~~~; Expected: 5~~~print("Length of '" . text1 . "' is: " . STR(len1))~~~if (len1 != 5) {~~~    print("StrLen test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := ""~~~; Empty string~~~int len2 := text2.StrLen()~~~; Expected: 0~~~print("Length of '' is: " . STR(len2))~~~if (len2 != 0) {~~~    print("StrLen test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "HTVM `nRocks!"~~~; Contains a newline~~~int len3 := StrLen(text3)~~~; Expected: 12 (newline is one char)~~~print("Length of 'HTVM `nRocks!' is: " . STR(len3))~~~if (len3 != 12) {~~~    print("StrLen test 3 FAILED!")~~~}~~~```~~~
+proc StrLen(s: string): int =
+  return s.runeLen
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: StrLen
+libs: null
+description: string~~~Returns the length (number of characters) of a string.~~~Here is how to use it:~~~```htvm~~~str text1 := "Hello"~~~int len1 := StrLen(text1)~~~; Expected: 5~~~print("Length of '" . text1 . "' is: " . STR(len1))~~~if (len1 != 5) {~~~    print("StrLen test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := ""~~~; Empty string~~~int len2 := text2.StrLen()~~~; Expected: 0~~~print("Length of '' is: " . STR(len2))~~~if (len2 != 0) {~~~    print("StrLen test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "HTVM `nRocks!"~~~; Contains a newline~~~int len3 := StrLen(text3)~~~; Expected: 12 (newline is one char)~~~print("Length of 'HTVM `nRocks!' is: " . STR(len3))~~~if (len3 != 12) {~~~    print("StrLen test 3 FAILED!")~~~}~~~```~~~
+; built-in StrLen() is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: StrLen
+libs: null
+description: string~~~Returns the length (number of characters) of a string.~~~Here is how to use it:~~~```htvm~~~str text1 := "Hello"~~~int len1 := StrLen(text1)~~~; Expected: 5~~~print("Length of '" . text1 . "' is: " . STR(len1))~~~if (len1 != 5) {~~~    print("StrLen test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := ""~~~; Empty string~~~int len2 := text2.StrLen()~~~; Expected: 0~~~print("Length of '' is: " . STR(len2))~~~if (len2 != 0) {~~~    print("StrLen test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "HTVM `nRocks!"~~~; Contains a newline~~~int len3 := StrLen(text3)~~~; Expected: 12 (newline is one char)~~~print("Length of 'HTVM `nRocks!' is: " . STR(len3))~~~if (len3 != 12) {~~~    print("StrLen test 3 FAILED!")~~~}~~~```~~~
+func StrLen(_ str: String) -> Int {
+    return str.count
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: StrLen
+libs: null
+description: string~~~Returns the length (number of characters) of a string.~~~Here is how to use it:~~~```htvm~~~str text1 := "Hello"~~~int len1 := StrLen(text1)~~~; Expected: 5~~~print("Length of '" . text1 . "' is: " . STR(len1))~~~if (len1 != 5) {~~~    print("StrLen test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := ""~~~; Empty string~~~int len2 := text2.StrLen()~~~; Expected: 0~~~print("Length of '' is: " . STR(len2))~~~if (len2 != 0) {~~~    print("StrLen test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "HTVM `nRocks!"~~~; Contains a newline~~~int len3 := StrLen(text3)~~~; Expected: 12 (newline is one char)~~~print("Length of 'HTVM `nRocks!' is: " . STR(len3))~~~if (len3 != 12) {~~~    print("StrLen test 3 FAILED!")~~~}~~~```~~~
+int StrLen(String str) {
+  return str.runes.length;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: StrLen
+libs: null
+description: string~~~Returns the length (number of characters) of a string.~~~Here is how to use it:~~~```htvm~~~str text1 := "Hello"~~~int len1 := StrLen(text1)~~~; Expected: 5~~~print("Length of '" . text1 . "' is: " . STR(len1))~~~if (len1 != 5) {~~~    print("StrLen test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := ""~~~; Empty string~~~int len2 := text2.StrLen()~~~; Expected: 0~~~print("Length of '' is: " . STR(len2))~~~if (len2 != 0) {~~~    print("StrLen test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "HTVM `nRocks!"~~~; Contains a newline~~~int len3 := StrLen(text3)~~~; Expected: 12 (newline is one char)~~~print("Length of 'HTVM `nRocks!' is: " . STR(len3))~~~if (len3 != 12) {~~~    print("StrLen test 3 FAILED!")~~~}~~~```~~~
+function StrLen(str: string): number {
+    return [...str].length;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: StrLen
+libs: null
+description: string~~~Returns the length (number of characters) of a string.~~~Here is how to use it:~~~```htvm~~~str text1 := "Hello"~~~int len1 := StrLen(text1)~~~; Expected: 5~~~print("Length of '" . text1 . "' is: " . STR(len1))~~~if (len1 != 5) {~~~    print("StrLen test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := ""~~~; Empty string~~~int len2 := text2.StrLen()~~~; Expected: 0~~~print("Length of '' is: " . STR(len2))~~~if (len2 != 0) {~~~    print("StrLen test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "HTVM `nRocks!"~~~; Contains a newline~~~int len3 := StrLen(text3)~~~; Expected: 12 (newline is one char)~~~print("Length of 'HTVM `nRocks!' is: " . STR(len3))~~~if (len3 != 12) {~~~    print("StrLen test 3 FAILED!")~~~}~~~```~~~
+int StrLen(String str) {
+    return str.length()
 }
 funcEND======================funcEND==============

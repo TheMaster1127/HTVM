@@ -888,7 +888,6 @@ HTVM supports powerful string definition methods, including formatted strings (f
 Here's how you can use them:
 
 ```htvm
-; === Regular F-String Example ===
 int calculation := 10 + 5
 str message := f"The result is: {calculation}. Double is: {calculation * 2}"
 print("Regular F-String:")
@@ -906,7 +905,7 @@ print("=========================")
 ; === Multiline F-String Example ===
 str userName := "Alice"
 int items := 3
-float price := 19.99
+int price := 25
 str order_summary := fmls
 Order Summary for: {userName}
 Items purchased: {items}
@@ -2310,7 +2309,6 @@ Add elements using `gui &lt;ElementType&gt; [Options...]`:
 #### Exmaple:
 
 ```htvm
-; Button0 is automatically assigned as a callback of the button
 Button0:
 ; and the ID of the button is automatically assigned to button0
 ; for each element, it has a separate counter.
@@ -4812,8 +4810,8 @@ print("Tan(pi/2) = " . STR(result3))
 | RegExMatch | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | RegExReplace | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | STR | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
-| Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Sort | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
+| StrLen | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | StrLower | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | StrReplace | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
@@ -4822,7 +4820,7 @@ print("Tan(pi/2) = " . STR(result3))
 | StringTrimRight | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| countChars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| countChars | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
@@ -5270,7 +5268,7 @@ if (strExisting != "already_string") {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Sort | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Sort | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Sorts lines or delimited items within a string. Options control sorting behavior: 'C' (case-sensitive), 'U' (unique items), 'R' (reverse order), 'N' (numeric sort), 'D`char`' (custom delimiter). Default delimiter is newline.
 
@@ -5278,16 +5276,15 @@ Here is how to use it:
 
 ```htvm
 str list1 := "Charlie`nAlpha`nBravo"
-str sorted1 := Sort(list1)
+str sorted1 := Sort(list1, "U")
 print("Default sort (list1):`n" . sorted1)
 ; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)
-str expected1 := "Alpha`nBravo`nCharlie"
 ; Assuming case-insensitive default for test
 ; Note: Actual default might vary if underlying language sorts case-sensitively.
 ; ----------------------------------------------------
 print("---")
 str list2 := "10`n2`n100`n1"
-str sorted2_alpha := Sort(list2)
+str sorted2_alpha := Sort(list2, "U")
 str sorted2_numeric := Sort(list2, "N")
 print("Alpha sort (list2):`n" . sorted2_alpha)
 ; Expected: 1`n10`n100`n2
@@ -5334,7 +5331,7 @@ if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StrLen | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StrLen | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Returns the length (number of characters) of a string.
 
@@ -5817,7 +5814,7 @@ if (trimmed4 != "NoSpaces") {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| countChars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| countChars | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Counts the occurrences of a specific character (`theChar`) or a substring within a given `string`. Case-sensitivity depends on the target language.
 

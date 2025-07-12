@@ -447,6 +447,22 @@ var htvmSnippet88 = "";
 var htvmSnippet89 = "";
 var htvmSnippet90 = "";
 var htvmSnippet91 = "";
+var htvmSnippet92 = "";
+var htvmSnippet93 = "";
+var htvmSnippet94 = "";
+var htvmSnippet95 = "";
+var htvmSnippet96 = "";
+var htvmSnippet97 = "";
+var htvmSnippet98 = "";
+var htvmSnippet99 = "";
+var htvmSnippet100 = "";
+var htvmSnippet101 = "";
+var htvmSnippet102 = "";
+var htvmSnippet103 = "";
+var htvmSnippet104 = "";
+var htvmSnippet105 = "";
+var htvmSnippet106 = "";
+
 
 
 async function fetchFile(fileUrl) {
@@ -496,7 +512,7 @@ function convertSnipetToAnotherSyntax(instrFile, codeSnippet) {
     if (HTVM_getLang_HTVM() == "cpp") {
         str0 = "";
         str0 = FileRead(Trim(instrFile));
-        items1 = LoopParseFunc(str0, "\n", "\r")
+        let items1 = LoopParseFunc(str0, "\n", "\r");
         for (let A_Index1 = 0; A_Index1 < items1.length + 0; A_Index1++) {
             const A_LoopField1 = items1[A_Index1 - 0];
             if (A_Index1 == 1) {
@@ -525,7 +541,8 @@ function convertSnipetToAnotherSyntax(instrFile, codeSnippet) {
     var fixInstrFile = "";
     if (HTVM_getLang_HTVM() == "js") {
         str0 = "";
-        instr0 = `cpp
+        
+instr0 = `cpp
 htvm
 StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1
 alliance
@@ -688,7 +705,7 @@ off
 on
 off`
         fixInstrFile = "";
-        items2 = LoopParseFunc(instrFile, "\n", "\r")
+        let items2 = LoopParseFunc(instrFile, "\n", "\r");
         for (let A_Index2 = 0; A_Index2 < items2.length + 0; A_Index2++) {
             const A_LoopField2 = items2[A_Index2 - 0];
             if (A_Index2 == 1) {
@@ -702,7 +719,8 @@ off`
         instr4 = Trim(instrFile);
         instr3 = "htvm";
         instr2 = Trim(instr0);
-        str0 = "nothing";
+        
+str0 = "nothing";
 str00 = "nothing";
 str1 = "";
 str2 = "";
@@ -1215,6 +1233,17 @@ async function htvmSnippetLoad() {
             htvmSnippet89 = "";
             htvmSnippet90 = "";
             htvmSnippet91 = "";
+            htvmSnippet92 = "";
+            htvmSnippet93 = "";
+            htvmSnippet94 = "";
+            htvmSnippet95 = "";
+            htvmSnippet96 = "";
+            htvmSnippet97 = "";
+            htvmSnippet98 = "";
+            htvmSnippet99 = "";
+            htvmSnippet100 = "";
+            htvmSnippet101 = "";
+            htvmSnippet102 = "";
             htvmSnippet00 = FileRead("DOCUMENTATION Examples\\htvmSnippet0.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
             htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet1.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
             htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet2.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
@@ -1302,10 +1331,25 @@ async function htvmSnippetLoad() {
             htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet84.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
             htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet85.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
             htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet86.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet87.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet88.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet89.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet90.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet91.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet92.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet93.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet94.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet95.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet96.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet97.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet98.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet99.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet100.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet101.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
             htvmSnippet00 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet00);
             numTemp = 0;
             htvmSnippet000 = "";
-            items3 = LoopParseFunc(htvmSnippet00, "\n", "\r")
+            let items3 = LoopParseFunc(htvmSnippet00, "\n", "\r");
             for (let A_Index3 = 0; A_Index3 < items3.length + 0; A_Index3++) {
                 const A_LoopField3 = items3[A_Index3 - 0];
                 if (numTemp == 1 && Trim(htvmSnippet0) == "") {
@@ -1729,6 +1773,91 @@ async function htvmSnippetLoad() {
                     htvmSnippet83 += Chr(10);
                     htvmSnippet000 = "";
                 }
+                else if (numTemp == 85 && Trim(htvmSnippet84) == "") {
+                    htvmSnippet84 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet84 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 86 && Trim(htvmSnippet85) == "") {
+                    htvmSnippet85 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet85 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 87 && Trim(htvmSnippet86) == "") {
+                    htvmSnippet86 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet86 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 88 && Trim(htvmSnippet87) == "") {
+                    htvmSnippet87 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet87 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 89 && Trim(htvmSnippet88) == "") {
+                    htvmSnippet88 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet88 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 90 && Trim(htvmSnippet89) == "") {
+                    htvmSnippet89 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet89 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 91 && Trim(htvmSnippet90) == "") {
+                    htvmSnippet90 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet90 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 92 && Trim(htvmSnippet91) == "") {
+                    htvmSnippet91 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet91 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 93 && Trim(htvmSnippet92) == "") {
+                    htvmSnippet92 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet92 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 94 && Trim(htvmSnippet93) == "") {
+                    htvmSnippet93 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet93 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 95 && Trim(htvmSnippet94) == "") {
+                    htvmSnippet94 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet94 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 96 && Trim(htvmSnippet95) == "") {
+                    htvmSnippet95 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet95 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 97 && Trim(htvmSnippet96) == "") {
+                    htvmSnippet96 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet96 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 98 && Trim(htvmSnippet97) == "") {
+                    htvmSnippet97 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet97 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 99 && Trim(htvmSnippet98) == "") {
+                    htvmSnippet98 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet98 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 100 && Trim(htvmSnippet99) == "") {
+                    htvmSnippet99 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet99 += Chr(10);
+                    htvmSnippet000 = "";
+                }
+                else if (numTemp == 101 && Trim(htvmSnippet100) == "") {
+                    htvmSnippet100 = StringTrimRight(htvmSnippet000, 1);
+                    htvmSnippet100 += Chr(10);
+                    htvmSnippet000 = "";
+                }
                 if (Trim(A_LoopField3) != "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2") {
                     htvmSnippet000 += A_LoopField3 + Chr(10);
                 } else {
@@ -1830,7 +1959,19 @@ async function htvmSnippetLoad() {
             htvmSnippet89 = "";
             htvmSnippet90 = "";
             htvmSnippet91 = "";
-            htvmSnippet0 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet0.htvm');
+            htvmSnippet92 = "";
+            htvmSnippet93 = "";
+            htvmSnippet94 = "";
+            htvmSnippet95 = "";
+            htvmSnippet96 = "";
+            htvmSnippet97 = "";
+            htvmSnippet98 = "";
+            htvmSnippet99 = "";
+            htvmSnippet100 = "";
+            htvmSnippet101 = "";
+            htvmSnippet102 = "";
+            
+htvmSnippet0 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet0.htvm');
 htvmSnippet1 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet1.htvm');
 htvmSnippet2 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet2.htvm');
 htvmSnippet3 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet3.htvm');
@@ -1914,6 +2055,24 @@ htvmSnippet80 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127
 htvmSnippet81 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet81.htvm');
 htvmSnippet82 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet82.htvm');
 htvmSnippet83 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet83.htvm');
+htvmSnippet84 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet84.htvm');
+htvmSnippet85 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet85.htvm');
+htvmSnippet86 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet86.htvm');
+htvmSnippet87 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet87.htvm');
+htvmSnippet88 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet88.htvm');
+htvmSnippet89 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet89.htvm');
+htvmSnippet90 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet90.htvm');
+htvmSnippet91 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet91.htvm');
+htvmSnippet92 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet92.htvm');
+htvmSnippet93 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet93.htvm');
+htvmSnippet94 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet94.htvm');
+htvmSnippet95 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet95.htvm');
+htvmSnippet96 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet96.htvm');
+htvmSnippet97 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet97.htvm');
+htvmSnippet98 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet98.htvm');
+htvmSnippet99 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet99.htvm');
+htvmSnippet100 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet100.htvm');
+htvmSnippet101 = await fetchFile('https://raw.githubusercontent.com/TheMaster1127/HTVM/main/DOCUMENTATION%20Examples/htvmSnippet101.htvm');
 htvmSnippet0 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet0);
 htvmSnippet1 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet1);
 htvmSnippet2 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet2);
@@ -1998,9 +2157,28 @@ htvmSnippet80 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet80)
 htvmSnippet81 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet81);
 htvmSnippet82 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet82);
 htvmSnippet83 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet83);
+htvmSnippet84 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet84);
+htvmSnippet85 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet85);
+htvmSnippet86 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet86);
+htvmSnippet87 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet87);
+htvmSnippet88 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet88);
+htvmSnippet89 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet89);
+htvmSnippet90 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet90);
+htvmSnippet91 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet91);
+htvmSnippet92 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet92);
+htvmSnippet93 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet93);
+htvmSnippet94 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet94);
+htvmSnippet95 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet95);
+htvmSnippet96 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet96);
+htvmSnippet97 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet97);
+htvmSnippet98 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet98);
+htvmSnippet99 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet99);
+htvmSnippet100 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet100);
+htvmSnippet101 = convertSnipetToAnotherSyntax(instructionFileData, htvmSnippet101);
         }
     }
 }
+
 function escapeForMarkdownTable(str) {
   return str
     .replace(/&/g, "&amp;")
@@ -2016,7 +2194,7 @@ function escapeForMarkdownTable(str) {
 function escapeForMarkdownTable2(line) {
     var lineOut = "";
     if (InStr(line, Chr(39))) {
-        items4 = LoopParseFunc(line)
+        let items4 = LoopParseFunc(line);
         for (let A_Index4 = 0; A_Index4 < items4.length + 0; A_Index4++) {
             const A_LoopField4 = items4[A_Index4 - 0];
             lineOut += Chr(96) + A_LoopField4;
@@ -2033,7 +2211,7 @@ function escapeForMarkdownTable2(line) {
 function makeCommandsTextHELP(line) {
     var out = "";
     line = Trim(line);
-    items5 = LoopParseFunc(line, ",");
+    let items5 = LoopParseFunc(line, ",");
     for (let A_Index5 = 0; A_Index5 < items5.length + 0; A_Index5++) {
         const A_LoopField5 = items5[A_Index5 - 0];
         out += A_LoopField5 + ", ";
@@ -2053,7 +2231,7 @@ function makeCommandsText(commands) {
     // and lineTranspile
     commands = Trim(StrReplace(commands, ", ", ","));
     var num = 0;
-    items6 = LoopParseFunc(commands, "|")
+    let items6 = LoopParseFunc(commands, "|");
     for (let A_Index6 = 0; A_Index6 < items6.length + 0; A_Index6++) {
         const A_LoopField6 = items6[A_Index6 - 0];
         if (Trim(A_LoopField6) != "") {
@@ -2070,7 +2248,7 @@ async function genDocs(mode) {
     }
     var allInstrDocName = "langToConvertTo" + Chr(10) + "langFileExtension" + Chr(10) + "commands" + Chr(10) + "keyWordAlliance" + Chr(10) + "keyWordCrew" + Chr(10) + "keyWordProc" + Chr(10) + "keyWordStruct" + Chr(10) + "keyWordProp" + Chr(10) + "keyWordThis" + Chr(10) + "keyWordInclude" + Chr(10) + "keyWordCodeInTheTranspiledLangStart" + Chr(10) + "keyWordCodeInTheTranspiledLangEnd" + Chr(10) + "keyWordCodeInTheTranspiledLangStartCPP" + Chr(10) + "keyWordCodeInTheTranspiledLangEndCPP" + Chr(10) + "keyWordCodeInTheTranspiledLangStartPY" + Chr(10) + "keyWordCodeInTheTranspiledLangEndPY" + Chr(10) + "keyWordCodeInTheTranspiledLangStartJS" + Chr(10) + "keyWordCodeInTheTranspiledLangEndJS" + Chr(10) + "keyWordCodeInTheTranspiledLangStartGO" + Chr(10) + "keyWordCodeInTheTranspiledLangEndGO" + Chr(10) + "keyWordCodeInTheTranspiledLangStartLUA" + Chr(10) + "keyWordCodeInTheTranspiledLangEndLUA" + Chr(10) + "keyWordCodeInTheTranspiledLangStartCS" + Chr(10) + "keyWordCodeInTheTranspiledLangEndCS" + Chr(10) + "keyWordCodeInTheTranspiledLangStartJAVA" + Chr(10) + "keyWordCodeInTheTranspiledLangEndJAVA" + Chr(10) + "keyWordCodeInTheTranspiledLangStartKT" + Chr(10) + "keyWordCodeInTheTranspiledLangEndKT" + Chr(10) + "keyWordCodeInTheTranspiledLangStartRB" + Chr(10) + "keyWordCodeInTheTranspiledLangEndRB" + Chr(10) + "keyWordCodeInTheTranspiledLangStartNIM" + Chr(10) + "keyWordCodeInTheTranspiledLangEndNIM" + Chr(10) + "keyWordCodeInTheTranspiledLangStartAHK" + Chr(10) + "keyWordCodeInTheTranspiledLangEndAHK" + Chr(10) + "keyWordCodeInTheTranspiledLangStartSWIFT" + Chr(10) + "keyWordCodeInTheTranspiledLangEndSWIFT" + Chr(10) + "keyWordCodeInTheTranspiledLangStartDART" + Chr(10) + "keyWordCodeInTheTranspiledLangEndDART" + Chr(10) + "keyWordCodeInTheTranspiledLangStartTS" + Chr(10) + "keyWordCodeInTheTranspiledLangEndTS" + Chr(10) + "keyWordCodeInTheTranspiledLangStartGROOVY" + Chr(10) + "keyWordCodeInTheTranspiledLangEndGROOVY" + Chr(10) + "keyWordCodeInTheTranspiledLangStartHTVM" + Chr(10) + "keyWordCodeInTheTranspiledLangEndHTVM" + Chr(10) + "keyWordCodeInHTVMstart" + Chr(10) + "keyWordCodeInHTVMend" + Chr(10) + "keyWordCurlyBraceOpen" + Chr(10) + "keyWordCurlyBraceClose" + Chr(10) + "keyWordNull" + Chr(10) + "keyWordTrue" + Chr(10) + "keyWordFalse" + Chr(10) + "keyWordVoid" + Chr(10) + "keyWordDouble" + Chr(10) + "keyWordChar" + Chr(10) + "keyWordUint8" + Chr(10) + "keyWordUint16" + Chr(10) + "keyWordUint32" + Chr(10) + "keyWordUint64" + Chr(10) + "keyWordINT" + Chr(10) + "keyWordSTR" + Chr(10) + "keyWordBOOL" + Chr(10) + "keyWordFLOAT" + Chr(10) + "keyWordINT8" + Chr(10) + "keyWordINT16" + Chr(10) + "keyWordINT32" + Chr(10) + "keyWordINT64" + Chr(10) + "keyWordIF" + Chr(10) + "keyWordElseIf" + Chr(10) + "keyWordElse" + Chr(10) + "keyWordWhileLoop" + Chr(10) + "keyWordLoopInfinite" + Chr(10) + "keyWordLoop" + Chr(10) + "keyWordLoopParse" + Chr(10) + "keyWordContinue" + Chr(10) + "keyWordBreak" + Chr(10) + "keyWordFunc" + Chr(10) + "keyWordAwait" + Chr(10) + "keyWordAsync" + Chr(10) + "keyWordThrow" + Chr(10) + "keyWordErrorMsg" + Chr(10) + "keyWordTry" + Chr(10) + "keyWordCatch" + Chr(10) + "keyWordFinally" + Chr(10) + "keyWordReturnStatement" + Chr(10) + "keyWordArrayAppend" + Chr(10) + "keyWordArrayPop" + Chr(10) + "keyWordArraySize" + Chr(10) + "keyWordArrayInsert" + Chr(10) + "keyWordArrayRemove" + Chr(10) + "keyWordArrayIndexOf" + Chr(10) + "keyWordArrayDefinition" + Chr(10) + "keyWordArrayOfIntegersDefinition" + Chr(10) + "keyWordArrayOfStringsDefinition" + Chr(10) + "keyWordArrayOfFloatingPointNumbersDefinition" + Chr(10) + "keyWordArrayOfBooleansDefinition" + Chr(10) + "keyWordVar" + Chr(10) + "keyWordLet" + Chr(10) + "keyWordConst" + Chr(10) + "keyWordEnd" + Chr(10) + "keyWordGlobal" + Chr(10) + "keyWordComment" + Chr(10) + "keyWordCommentOpenMultiLine" + Chr(10) + "keyWordCommentCloseMultiLine" + Chr(10) + "keyWordEscpaeChar" + Chr(10) + "keyWordMainLabel" + Chr(10) + "keyWordConcat" + Chr(10) + "keyWordAdd" + Chr(10) + "keyWordSub" + Chr(10) + "keyWordMul" + Chr(10) + "keyWordDiv" + Chr(10) + "keyWordMod" + Chr(10) + "keyWordExp" + Chr(10) + "keyWordEqual" + Chr(10) + "keyWordStrictEqual" + Chr(10) + "keyWordNotEqual" + Chr(10) + "keyWordGreater" + Chr(10) + "keyWordLess" + Chr(10) + "keyWordGreaterEqual" + Chr(10) + "keyWordLessEqual" + Chr(10) + "keyWordAnd" + Chr(10) + "keyWordOr" + Chr(10) + "keyWordNot" + Chr(10) + "keyWordBitAnd" + Chr(10) + "keyWordBitOr" + Chr(10) + "keyWordBitXor" + Chr(10) + "keyWordBitNot" + Chr(10) + "keyWordShiftLeft" + Chr(10) + "keyWordShiftRight" + Chr(10) + "keyWordShiftUnsignedRight" + Chr(10) + "keyWordAssign" + Chr(10) + "keyWordAssignAdd" + Chr(10) + "keyWordAssignConcat" + Chr(10) + "keyWordAssignSub" + Chr(10) + "keyWordAssignMul" + Chr(10) + "keyWordAssignDiv" + Chr(10) + "keyWordAssignMod" + Chr(10) + "keyWordAssignShiftLeft" + Chr(10) + "keyWordAssignShiftRight" + Chr(10) + "keyWordLogicalAssignShiftRight" + Chr(10) + "keyWordAssignBitAnd" + Chr(10) + "keyWordAssignBitOr" + Chr(10) + "keyWordAssignBitXor" + Chr(10) + "keyWordTernary1" + Chr(10) + "keyWordTernary2" + Chr(10) + "keyWordInc" + Chr(10) + "keyWordDec" + Chr(10) + "AHKlikeLoopsIndexedAt" + Chr(10) + "keyWordAIndex" + Chr(10) + "keyWordALoopField" + Chr(10) + "useCurlyBraces" + Chr(10) + "useEnd" + Chr(10) + "useSemicolon" + Chr(10) + "useParentheses" + Chr(10) + "usePrefixTypeForTypeDefinition" + Chr(10) + "usePostfixTypeForTypeDefinition" + Chr(10) + "usePythonicColonSyntax" + Chr(10) + "useCurlyBracesSyntaxForArrayDef" + Chr(10) + "useInJavaScriptAlwaysUseVar" + Chr(10) + "useJavaScriptInAfullHTMLfile" + Chr(10) + "useJavaScriptAmainFuncDef" + Chr(10) + "useJavaScriptAllFuncsAreAsync" + Chr(10) + "useJavaScriptAlwaysTripleEqual";
     let allInstrDocNameArray = [];
-    items7 = LoopParseFunc(allInstrDocName, "\n", "\r")
+    let items7 = LoopParseFunc(allInstrDocName, "\n", "\r");
     for (let A_Index7 = 0; A_Index7 < items7.length + 0; A_Index7++) {
         const A_LoopField7 = items7[A_Index7 - 0];
         HTVM_Append(allInstrDocNameArray, A_LoopField7);
@@ -2084,7 +2262,7 @@ async function genDocs(mode) {
         //;;;;;;;;;;;;;;;;;;;;;;;;; html
         //;;;;;;;;;;;;;;;;;;;;;;;;; html
         allSyntax = "<pre>" + Chr(10) + "| kewWordName                                   | Syntax                               |" + Chr(10) + "|-----------------------------------------------|-----------------------------------|" + Chr(10) + "| ";
-        items8 = LoopParseFunc(instructionFileData, "\n", "\r")
+        let items8 = LoopParseFunc(instructionFileData, "\n", "\r");
         for (let A_Index8 = 0; A_Index8 < items8.length + 0; A_Index8++) {
             const A_LoopField8 = items8[A_Index8 - 0];
             if (A_Index8 == 162) {
@@ -2107,7 +2285,7 @@ async function genDocs(mode) {
         //;;;;;;;;;;;;;;;;;;;;;;;;; md
         //;;;;;;;;;;;;;;;;;;;;;;;;; md
         allSyntax = "| kewWordName                                   | Syntax                               |" + Chr(10) + "|-----------------------------------------------|-----------------------------------|" + Chr(10) + "| ";
-        items9 = LoopParseFunc(instructionFileData, "\n", "\r")
+        let items9 = LoopParseFunc(instructionFileData, "\n", "\r");
         for (let A_Index9 = 0; A_Index9 < items9.length + 0; A_Index9++) {
             const A_LoopField9 = items9[A_Index9 - 0];
             if (A_Index9 == 162) {
@@ -2170,7 +2348,7 @@ async function genDocs(mode) {
     var doc_keyWordFinally = "";
     var doc_keyWordInclude = "";
     var allCommandsDoc = "";
-    items10 = LoopParseFunc(instructionFileData, "\n", "\r")
+    let items10 = LoopParseFunc(instructionFileData, "\n", "\r");
     for (let A_Index10 = 0; A_Index10 < items10.length + 0; A_Index10++) {
         const A_LoopField10 = items10[A_Index10 - 0];
         if (A_Index10 == 2) {
@@ -2351,7 +2529,7 @@ async function genDocs(mode) {
     var tempDesc = "";
     var tempLang = "";
     for (let A_Index12 = 0; A_Index12 < HTVM_Size(funcData_name) + 0; A_Index12++) {
-        //print(funcData_name[A_Index12])
+        //print(funcData_name[A_Index])
         allFuncNamesTemp = funcData_name[A_Index12];
         tempLang = funcData_lang[A_Index12];
         tempDesc = funcData_desc[A_Index12];
@@ -2385,7 +2563,7 @@ async function genDocs(mode) {
     var allFuncsTempAdd = "";
     var isDescNull = 0;
     for (let A_Index14 = 0; A_Index14 < HTVM_Size(allFuncNames) + 0; A_Index14++) {
-        //print(allFuncNames[A_Index14])
+        //print(allFuncNames[A_Index])
         tempstr = Trim(allFuncNames[A_Index14]);
         isDescNull = 0;
         allFuncsTempAdd = "";
@@ -2404,7 +2582,7 @@ async function genDocs(mode) {
         isLangDart = "No";
         isLangTs = "No";
         isLangGroovy = "No";
-        items15 = LoopParseFunc(tempstr, "|")
+        let items15 = LoopParseFunc(tempstr, "|");
         for (let A_Index15 = 0; A_Index15 < items15.length + 0; A_Index15++) {
             const A_LoopField15 = items15[A_Index15 - 0];
             if (SubStr(Trim(A_LoopField15), 1, 8) == "lang: js") {
@@ -2476,7 +2654,7 @@ async function genDocs(mode) {
     var once = 0;
     var didWeFindSameCategory = 0;
     for (let A_Index17 = 0; A_Index17 < HTVM_Size(allFuncs) + 0; A_Index17++) {
-        //print(allFuncs[A_Index17])
+        //print(allFuncs[A_Index])
         once++;
         theCurrentLine = Trim(allFuncs[A_Index17]);
         theCurrentDescCategory = Trim(StrSplit(theCurrentLine, "|", 2));
@@ -2499,7 +2677,8 @@ async function genDocs(mode) {
         }
     }
     await htvmSnippetLoad();
-    let features = [];
+    
+let features = [];
 // Indentation styles
 if (on_useCurlyBraces === "on" && on_useEnd === "off") {
     features.push("curly braces for indentation");
@@ -2561,7 +2740,7 @@ let sentence = "Your language uses " + features.join(", ") + ".";
         hlepComments3 = "print(" + Chr(34) + "some text" + Chr(34) + ") " + doc_keyWordComment + " ❌ is comment will disappear when converting to another HTVM language or any target language.";
     }
     var outMDsec0 = Chr(10) + "1. [Introduction](#introduction-to-htvm)  " + Chr(10) + "Understand why HTVM is the future of programming." + Chr(10) + Chr(10) + "2. [OSP (Ordinal Struct Programming)](#osp-ordinal-struct-programming)  " + Chr(10) + "Learn about OSP (Ordinal Struct Programming) a new way to use Structs." + Chr(10) + Chr(10) + "3. [How Your Language Looks Like](#how-your-language-looks-like)  " + Chr(10) + "Get to know how HTVM code is structured and its syntax style." + Chr(10) + Chr(10) + "4. [Programming Blocks](#programming-blocks)  " + Chr(10) + "HTVM introduces **programming blocks** that allow you to code in the target language seamlessly in your code. This feature is designed to handle cases where HTVM itself can't achieve something directly or when you'd prefer to rely on another language for specific tasks." + Chr(10) + Chr(10) + "5. [Variables](#variables)  " + Chr(10) + "Learn how to declare and use variables in HTVM for storing and manipulating data." + Chr(10) + Chr(10) + "6. [Functions](#functions)  " + Chr(10) + "Explore how to define and use functions for modular and reusable code." + Chr(10) + Chr(10) + "7. [Arrays](#arrays)  " + Chr(10) + "Dive into working with arrays, one of the most essential data structures in HTVM." + Chr(10) + Chr(10) + "8. [Loops](#loops)  " + Chr(10) + "Master the looping structures available in HTVM, such as the standard loop and infinite loops." + Chr(10) + Chr(10) + "9. [Comments](#comments)  " + Chr(10) + "Add clarity to your code by using comments to document and explain your code." + Chr(10) + Chr(10) + "10. [GUI (Graphical User Interface with HTVM)](#gui-graphical-user-interface-with-htvm)  " + Chr(10) + "Learn how to the GUI feature in HTVM that allows for the creation of graphical user interfaces specifically for **web browsers (JavaScript)**." + Chr(10) + Chr(10) + "11. [Backend in HTVM](#backend-in-htvm)  " + Chr(10) + "Learn how to use HTVM's Backend functionality that generates **Python** code using **Flask**." + Chr(10) + Chr(10) + "12. [Error Handling](#error-handling)  " + Chr(10) + "Understand how to manage errors and handle exceptions in HTVM to make your programs more robust." + Chr(10) + Chr(10) + "13. [Include](#include)  " + Chr(10) + "Discover how to include external files and resources in your HTVM project for enhanced functionality." + Chr(10) + Chr(10) + "14. [Commands](#commands)  " + Chr(10) + "Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency." + Chr(10) + Chr(10) + "15. [All Syntax](#all-syntax)  " + Chr(10) + "This is all of your syntax." + Chr(10) + Chr(10) + "16. [Built-in Functions](#built-in-functions)  " + Chr(10) + "Explore the wide range of built-in functions categorized for ease of use." + Chr(10);
-    var outMDsec1 = "### How Your Language Looks Like" + Chr(10) + Chr(10) + "[Go back](#htvm-documentation)" + Chr(10) + Chr(10) + "Get to know how HTVM code is structured and its syntax style. HTVM uses a clean, human-readable syntax that focuses on simplicity and ease of use. You can define your own syntax, making HTVM incredibly flexible and tailored to your needs." + Chr(10) + Chr(10) + sentence + Chr(10) + Chr(10) + "Here is how it looks like:" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet12 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### Advanced String Features" + Chr(10) + Chr(10) + "HTVM supports powerful string definition methods, including formatted strings (f-strings) and multiline strings for easier text handling." + Chr(10) + Chr(10) + "*   **F-Strings (" + Chr(96) + "f" + Chr(34) + "..." + Chr(34) + Chr(96) + ")**: Allow embedding variables and expressions directly within strings." + Chr(10) + "*   **Multiline Strings (" + Chr(96) + "mls" + Chr(96) + "..." + Chr(96) + "mle" + Chr(96) + ")**: Define strings that span multiple lines, preserving formatting (like newlines and indentation) exactly as written. Ideal for raw text, templates, or ASCII art." + Chr(10) + "*   **Multiline F-Strings (" + Chr(96) + "fmls" + Chr(96) + "..." + Chr(96) + "mle" + Chr(96) + ")**: Combine the benefits of multiline strings and f-strings, allowing embedded variables and expressions within a multiline block." + Chr(10) + Chr(10) + "Here's how you can use them:" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet49 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "#### Summary: The Power of Advanced Strings" + Chr(10) + Chr(10) + "These advanced string features (" + Chr(96) + "f" + Chr(96) + ", " + Chr(96) + "mls" + Chr(96) + ", " + Chr(96) + "fmls" + Chr(96) + ") significantly enhance HTVM's usability and power. They eliminate the need for cumbersome string concatenation and complex formatting logic." + Chr(10) + Chr(10) + "*   **Readability**: Code becomes much cleaner and easier to read, especially when dealing with templates, long text blocks, or dynamic content generation." + Chr(10) + "*   **Simplicity**: Constructing complex strings with embedded variables or preserving exact formatting is now straightforward and intuitive." + Chr(10) + "*   **Expressiveness**: HTVM becomes even more expressive, allowing you to focus on the logic rather than wrestling with string manipulation quirks." + Chr(10) + Chr(10) + "This level of string handling flexibility is a testament to HTVM's design philosophy: providing powerful, convenient tools that adapt to the programmer's needs, ultimately making development faster and more enjoyable. It's another step towards making HTVM the future of simplified, yet powerful, programming." + Chr(10) + Chr(10) + "---" + Chr(10) + "";
+    var outMDsec1 = "### How Your Language Looks Like" + Chr(10) + Chr(10) + "[Go back](#htvm-documentation)" + Chr(10) + Chr(10) + "Get to know how HTVM code is structured and its syntax style. HTVM uses a clean, human-readable syntax that focuses on simplicity and ease of use. You can define your own syntax, making HTVM incredibly flexible and tailored to your needs." + Chr(10) + Chr(10) + sentence + Chr(10) + Chr(10) + "Here is how it looks like:" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet12 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### Advanced String Features" + Chr(10) + Chr(10) + "HTVM supports powerful string definition methods, including formatted strings (f-strings) and multiline strings for easier text handling." + Chr(10) + Chr(10) + "*   **F-Strings (" + Chr(96) + "f" + Chr(34) + "..." + Chr(34) + Chr(96) + ")**: Allow embedding variables and expressions directly within strings." + Chr(10) + "*   **Multiline Strings (" + Chr(96) + "mls" + Chr(96) + "..." + Chr(96) + "mle" + Chr(96) + ")**: Define strings that span multiple lines, preserving formatting (like newlines and indentation) exactly as written. Ideal for raw text, templates, or ASCII art." + Chr(10) + "*   **Multiline F-Strings (" + Chr(96) + "fmls" + Chr(96) + "..." + Chr(96) + "mle" + Chr(96) + ")**: Combine the benefits of multiline strings and f-strings, allowing embedded variables and expressions within a multiline block." + Chr(10) + Chr(10) + "Here's how you can use them:" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet100 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "#### Summary: The Power of Advanced Strings" + Chr(10) + Chr(10) + "These advanced string features (" + Chr(96) + "f" + Chr(96) + ", " + Chr(96) + "mls" + Chr(96) + ", " + Chr(96) + "fmls" + Chr(96) + ") significantly enhance HTVM's usability and power. They eliminate the need for cumbersome string concatenation and complex formatting logic." + Chr(10) + Chr(10) + "*   **Readability**: Code becomes much cleaner and easier to read, especially when dealing with templates, long text blocks, or dynamic content generation." + Chr(10) + "*   **Simplicity**: Constructing complex strings with embedded variables or preserving exact formatting is now straightforward and intuitive." + Chr(10) + "*   **Expressiveness**: HTVM becomes even more expressive, allowing you to focus on the logic rather than wrestling with string manipulation quirks." + Chr(10) + Chr(10) + "This level of string handling flexibility is a testament to HTVM's design philosophy: providing powerful, convenient tools that adapt to the programmer's needs, ultimately making development faster and more enjoyable. It's another step towards making HTVM the future of simplified, yet powerful, programming." + Chr(10) + Chr(10) + "---" + Chr(10) + "";
     var outMDsec2 = "### Programming Blocks" + Chr(10) + Chr(10) + "[Go back](#htvm-documentation)" + Chr(10) + Chr(10) + "Programming blocks in HTVM allow you to write code directly in the target language when HTVM itself cannot handle certain tasks. These blocks give you the flexibility to insert language-specific code into your HTVM project without disrupting the overall flow. There are two main use cases for programming blocks: single-language programming blocks and multi-language programming blocks." + Chr(10) + Chr(10) + "#### **Single-Language Programming Block**" + Chr(10) + Chr(10) + "A single-language programming block allows you to write code directly in the target language. If you're converting HTVM code to, say, C++, you can open a programming block and write C++ code inside. This block will only be valid in the context of converting to C++ and will disappear when converting to another language." + Chr(10) + Chr(10) + "**Example:**" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet13 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "#### **Multiple-Language Programming Block**" + Chr(10) + Chr(10) + "HTVM also supports multiple-language programming blocks, where you can write code in different languages for the same functionality. For instance, if you're converting to both C++ and JavaScript, you can write separate blocks for each language but ensure the code behaves similarly in both." + Chr(10) + Chr(10) + "**Example:**" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet14 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "When using multi-language blocks, the syntax and implementation might differ, but the core functionality should remain the same. This is a great way to ensure consistency across multiple target languages." + Chr(10) + Chr(10) + "#### **Warning About AI-Generated Code**" + Chr(10) + Chr(10) + "**WARNING:** Be cautious when using AI-generated code. While AI can help speed up development, relying too heavily on it can be dangerous. You must understand the code you're incorporating into your project. **MAKE SURE YOU KNOW WHAT YOU'RE DOING BEFORE USING AI**. " + Chr(10) + Chr(10) + "If you don't have a solid understanding of the concepts you're asking the AI to handle, it can harm your learning process. **It could also negatively affect your development as a programmer.** Are you truly understanding the code you’re working with, or just relying on AI to do the heavy lifting for you?" + Chr(10) + Chr(10) + "Use AI to *assist*, not replace your learning process. **Be careful and make sure you understand every line of code** before integrating it into your project. This is essential for becoming a proficient programmer." + Chr(10) + Chr(10) + "#### **Reverse Programming Blocks**" + Chr(10) + Chr(10) + "Reverse programming blocks in HTVM allow you to write HTVM code in another file, which the HTVM compiler can recognize. These reverse blocks are helpful when you need to convert code written in HTVM into a target language while automatically including the necessary libraries and built-in functions." + Chr(10) + Chr(10) + "The syntax for reverse programming blocks is the same as for regular programming blocks, but you'll write HTVM code inside files of supported languages (e.g., " + Chr(96) + ".cpp" + Chr(96) + ", " + Chr(96) + ".js" + Chr(96) + ", etc.). Once you pass both the source file (e.g., " + Chr(96) + "main.cpp" + Chr(96) + ") and the HTVM instruction file to HTVM, the compiler will automatically replace the HTVM code with the appropriate target language code." + Chr(10) + Chr(10) + "HTVM will also ensure that all necessary libraries and built-in functions are included. It will automatically show you which libraries need to be included at the top of the file and which built-in functions you must import if they're not already part of the language's standard library." + Chr(10) + Chr(10) + "**Example of reverse programming block:**" + Chr(10) + Chr(10) + "1. Create a " + Chr(96) + ".cpp" + Chr(96) + " file (or any supported language file)." + Chr(10) + "2. Open the HTVM programming block using the syntax below:" + Chr(10) + "- To open - " + Chr(96) + htvmOpenPrgBlock + Chr(96) + Chr(10) + "- To close - " + Chr(96) + htvmClosePrgBlock + Chr(96) + Chr(10) + Chr(10) + "3. Pass both the " + Chr(96) + ".cpp" + Chr(96) + " file and the HTVM instruction file to HTVM." + Chr(10) + Chr(10) + "HTVM will:" + Chr(10) + Chr(10) + "- Replace the HTVM code with C++ (or the corresponding language)." + Chr(10) + "- Display the libraries and built-in functions that need to be included." + Chr(10) + Chr(10) + "---" + Chr(10) + "";
     var outMDsec3 = "### Variables" + Chr(10) + Chr(10) + "[Go back](#htvm-documentation)" + Chr(10) + Chr(10) + "Learn how to declare and use variables in HTVM for storing and manipulating data. HTVM makes working with variables straightforward by providing flexible types and easy handling of data." + Chr(10) + Chr(10) + Chr(10) + "### **Variables in HTVM**  " + Chr(10) + Chr(10) + "A variable is a way to store and reference data in your code. In HTVM, you can use different variable types depending on your needs. Here are all the variable types supported by HTVM:  " + Chr(10) + Chr(10) + "| Type         | Description |" + Chr(10) + "|-------------|------------|" + Chr(10) + "| " + Chr(96) + "int" + Chr(96) + "       | Regular integer (size depends on the target language) |" + Chr(10) + "| " + Chr(96) + "int8" + Chr(96) + "      | 8-bit signed integer |" + Chr(10) + "| " + Chr(96) + "int16" + Chr(96) + "     | 16-bit signed integer |" + Chr(10) + "| " + Chr(96) + "int32" + Chr(96) + "     | 32-bit signed integer |" + Chr(10) + "| " + Chr(96) + "int64" + Chr(96) + "     | 64-bit signed integer |" + Chr(10) + "| " + Chr(96) + "uint8" + Chr(96) + "     | 8-bit unsigned integer |" + Chr(10) + "| " + Chr(96) + "uint16" + Chr(96) + "    | 16-bit unsigned integer |" + Chr(10) + "| " + Chr(96) + "uint32" + Chr(96) + "    | 32-bit unsigned integer |" + Chr(10) + "| " + Chr(96) + "uint64" + Chr(96) + "    | 64-bit unsigned integer |" + Chr(10) + "| " + Chr(96) + "float" + Chr(96) + "     | Floating-point number (usually 32-bit) |" + Chr(10) + "| " + Chr(96) + "double" + Chr(96) + "    | Double-precision floating-point number |" + Chr(10) + "| " + Chr(96) + "char" + Chr(96) + "      | Single character |" + Chr(10) + "| " + Chr(96) + "string" + Chr(96) + "    | Text string |" + Chr(10) + "| " + Chr(96) + "bool" + Chr(96) + "      | Boolean (" + Chr(96) + "true" + Chr(96) + " or " + Chr(96) + "false" + Chr(96) + ") |" + Chr(10) + Chr(10) + Chr(62) + " **Note:** We won't mention arrays here because they have a separate section under." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### **HTVM Variable Example**  " + Chr(10) + Chr(10) + "Here’s a simple example of declaring and printing variables in HTVM:  " + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet15 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "This will correctly convert to the target language with the appropriate syntax." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### **Static vs. Dynamic Typing in HTVM**  " + Chr(10) + Chr(10) + "HTVM itself is **neither statically typed nor dynamically typed**. It simply converts code to the target language, which may be either.  " + Chr(10) + Chr(10) + "| **Language**  | **Typing** |" + Chr(10) + "|--------------|------------|" + Chr(10) + "| JavaScript   | Dynamic    |" + Chr(10) + "| Python       | Dynamic    |" + Chr(10) + "| Lua          | Dynamic    |" + Chr(10) + "| Ruby         | Dynamic    |" + Chr(10) + "| Groovy       | Dynamic    |" + Chr(10) + "| TypeScript   | Static     |" + Chr(10) + "| C++          | Static     |" + Chr(10) + "| Go (Golang)  | Static     |" + Chr(10) + "| C#           | Static     |" + Chr(10) + "| Java         | Static     |" + Chr(10) + "| Kotlin       | Static     |" + Chr(10) + "| Nim          | Static     |" + Chr(10) + "| Swift        | Static     |" + Chr(10) + "| Dart         | Static     |" + Chr(10) + "| AutoHotKey   | Dynamic    |" + Chr(10) + Chr(10) + "- **For static languages**, you **must** use types; otherwise, the conversion will result in invalid code." + Chr(10) + "- **For dynamic languages**, you **can** use types, but HTVM will **strip them away** automatically." + Chr(10) + "- **HTVM does not provide type safety** – it will not warn you about type mismatches. You'll find out only when running the target language." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "#### **" + Chr(96) + "let" + Chr(96) + " and " + Chr(96) + "var" + Chr(96) + " Keywords**" + Chr(10) + Chr(10) + "The " + Chr(96) + "let" + Chr(96) + " and " + Chr(96) + "var" + Chr(96) + " keywords in HTVM are mainly useful when converting to languages that support these keywords, like **JavaScript** and **TypeScript**. These keywords are used to define mutable variables, but outside of those specific languages, you can ignore them, as HTVM will convert them appropriately based on the target language." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### **The " + Chr(96) + "const" + Chr(96) + " Keyword**  " + Chr(10) + Chr(10) + "HTVM supports the " + Chr(96) + "const" + Chr(96) + " keyword, but it **does not enforce it** in any way. It simply converts it to the target language if the language supports " + Chr(96) + "const" + Chr(96) + ".  " + Chr(10) + Chr(10) + "| **Language**  | **Supports " + Chr(96) + "const" + Chr(96) + "?** |" + Chr(10) + "|--------------|--------------------|" + Chr(10) + "| JavaScript   | ✅ Yes |" + Chr(10) + "| TypeScript   | ✅ Yes |" + Chr(10) + "| C++          | ✅ Yes |" + Chr(10) + "| Go (Golang)  | ✅ Yes |" + Chr(10) + "| C#           | ✅ Yes |" + Chr(10) + "| Java         | ✅ Yes |" + Chr(10) + "| Kotlin       | ✅ Yes |" + Chr(10) + "| Swift        | ✅ Yes |" + Chr(10) + "| Dart         | ✅ Yes |" + Chr(10) + "| Python       | ❌ No (ignored) |" + Chr(10) + "| Lua          | ❌ No (ignored) |" + Chr(10) + "| Ruby         | ❌ No (ignored) |" + Chr(10) + "| Groovy       | ❌ No (ignored) |" + Chr(10) + "| Nim          | ✅ Yes |" + Chr(10) + "| AutoHotKey   | ❌ No (ignored) |" + Chr(10) + Chr(10) + "HTVM **does not check** whether you're violating " + Chr(96) + "const" + Chr(96) + ". If a language doesn’t support " + Chr(96) + "const" + Chr(96) + ", HTVM **removes it** without warning." + Chr(10) + Chr(10) + "Example:  " + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet16 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "- If converting to **C++**, this becomes " + Chr(96) + "const int x = 10;" + Chr(96) + Chr(10) + "- If converting to **Python**, this becomes " + Chr(96) + "x = 10" + Chr(96) + " (no " + Chr(96) + "const" + Chr(96) + ")." + Chr(10) + "- If converting to **Java**, this becomes " + Chr(96) + "final int x = 10;" + Chr(96) + Chr(10) + "- ... etc." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### **Programming Blocks & Variable Scope**  " + Chr(10) + Chr(10) + "HTVM allows **programming blocks**, where you write code directly in a target language. These blocks **do not convert** – they remain as-is." + Chr(10) + Chr(10) + "#### **Variable Accessibility in Programming Blocks**" + Chr(10) + "- **HTVM variables can be accessed inside programming blocks.**" + Chr(10) + "- **Modifications inside a block persist after the block.**" + Chr(10) + "- **Programming blocks are not scoped – they are part of the converted language.**" + Chr(10) + "- **However, different programming languages do not share scope.**  " + Chr(10) + Chr(10) + "Example (Converting to Python):  " + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet17 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "This converts to:  " + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "python" + Chr(10) + "myNumber = 5" + Chr(10) + "myNumber += 10  # Python block stays intact" + Chr(10) + "print(myNumber)  # 15" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### **Multiple Programming Blocks & Limitations**  " + Chr(10) + Chr(10) + "#### **Single Language Conversion**" + Chr(10) + "If you are converting to just **one language**, everything works as expected. Variables declared in HTVM can be used inside the programming block and modified." + Chr(10) + Chr(10) + "#### **Multiple Language Conversion**" + Chr(10) + "If you are converting to **multiple languages**, each programming block is isolated per language.  " + Chr(10) + "- **You cannot access variables across different language blocks.**  " + Chr(10) + "- You must **manually maintain the same logic** in each block.  " + Chr(10) + Chr(10) + "Example (Invalid cross-language access):  " + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet18 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "To fix this, you need to **manually synchronize values** in each programming block." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### **Unsigned Integers & Java**  " + Chr(10) + Chr(10) + "- **Java does not support unsigned integers** (" + Chr(96) + "uint8" + Chr(96) + ", " + Chr(96) + "uint16" + Chr(96) + ", etc.)." + Chr(10) + "- If you try to use them, **HTVM will not warn you**, but Java might throw errors." + Chr(10) + "- **Avoid using unsigned integers when converting to Java.**  " + Chr(10) + Chr(10) + "Example of bad practice:  " + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet19 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "- **Works in C++** (" + Chr(96) + "uint32_t myUnsigned = 500;" + Chr(96) + ")" + Chr(10) + "- **Might fail in Java since unsigned ints are converted to signed ones**" + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### **Summary**" + Chr(10) + Chr(10) + "- HTVM has multiple **variable types**, including integers, floats, chars, strings, and booleans." + Chr(10) + "- HTVM **converts to both static and dynamic languages** but does not enforce type safety." + Chr(10) + "- The " + Chr(96) + "const" + Chr(96) + " keyword is supported but **ignored** in languages that don’t use it." + Chr(10) + "- **Programming blocks do not convert** – they stay in the target language." + Chr(10) + "- **Variables persist inside programming blocks** but do not transfer between different language blocks." + Chr(10) + "- **Java does not support unsigned integers**, so try to avoid them when converting to Java." + Chr(10) + Chr(10) + "---" + Chr(10) + "";
     var outMDsec4 = "### Functions" + Chr(10) + Chr(10) + "[Go back](#htvm-documentation)" + Chr(10) + Chr(10) + "Explore how to define and use functions for modular and reusable code. Functions in HTVM can be written easily, and the language supports efficient handling of function calls, parameters, and returns." + Chr(10) + Chr(10) + "### **HTVM Functions**  " + Chr(10) + Chr(10) + "Functions " + funcSentence + "." + Chr(10) + Chr(10) + "#### **Defining a Function**" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet32 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet33 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet34 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + " " + Chr(10) + Chr(10) + "Optional parameters example:" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet35 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "If you are converting to a dynamically typed language, the types will be stripped away automatically. However, for statically typed languages, you must include them.  " + Chr(10) + Chr(10) + "#### The " + Chr(96) + "main" + Chr(96) + " Function" + Chr(10) + Chr(10) + "In HTVM, the " + Chr(96) + "main" + Chr(96) + " function is required if you are using functions. It is defined as a simple label at the beginning of the program. If you do not include the " + Chr(96) + "main" + Chr(96) + " function, HTVM will insert it automatically at the top of the code. However, if you define any functions and do not include the " + Chr(96) + "main" + Chr(96) + " label, the program will not work as expected." + Chr(10) + Chr(10) + "The " + Chr(96) + "main" + Chr(96) + " label is where the execution starts in languages that use a main function (like C++). In languages that do not require a " + Chr(96) + "main" + Chr(96) + " function (like Python), HTVM handles it automatically." + Chr(10) + Chr(10) + "Here’s how it looks:" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet36 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "- The " + Chr(96) + "greet" + Chr(96) + " function is defined before " + Chr(96) + "main" + Chr(96) + "." + Chr(10) + "- The " + Chr(96) + "main" + Chr(96) + " function calls " + Chr(96) + "greet()" + Chr(96) + " to execute the code." + Chr(10) + Chr(10) + "If you do not define the " + Chr(96) + "main" + Chr(96) + " label, HTVM will automatically add it at the top of the code, but **you must include it if you are using functions** to ensure everything works correctly." + Chr(10) + Chr(10) + "### **HTVM: Flexible Function Call Syntax**" + Chr(10) + Chr(10) + "#### **Overview**  " + Chr(10) + "HTVM introduces a unique and flexible function call syntax that allows developers to call functions in multiple ways while maintaining simplicity and readability. This enhancement does not change the fundamental nature of functions in HTVM—they remain regular functions rather than methods. However, HTVM allows them to be called using dot notation for convenience. No programming language supports this level of freedom—this is a new invention: a flexible and freeing way to call HTVM functions." + Chr(10) + Chr(10) + "#### **Features**" + Chr(10) + Chr(10) + "- **Traditional Function Calls**  " + Chr(10) + "  Functions can be called using the standard syntax:  " + Chr(10) + "  " + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "  StrLower(var1)" + Chr(10) + "  Trim(var1)" + Chr(10) + "  " + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "- **Dot Notation for Function Calls**  " + Chr(10) + "  HTVM allows functions to be called using dot notation for enhanced readability and convenience:  " + Chr(10) + "  " + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "  var1.StrLower()" + Chr(10) + "  var1.Trim()" + Chr(10) + "  " + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "- **Optional Parentheses**  " + Chr(10) + "  When a function does not require additional parameters, parentheses can be omitted:  " + Chr(10) + "  " + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "  var1.StrLower" + Chr(10) + "  var1.Trim" + Chr(10) + "  " + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "- **Chained Function Calls**  " + Chr(10) + "  Functions can be chained together using dot notation:  " + Chr(10) + "  " + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "  var1.StrLower().Trim()" + Chr(10) + "  " + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "  Since parentheses are optional, the same operation can be written as:  " + Chr(10) + "  " + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "  var1.StrLower.Trim" + Chr(10) + "  " + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "  It is also possible to mix both styles:  " + Chr(10) + "  " + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "  var1.StrLower().Trim" + Chr(10) + "  " + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "- **Seamless Transpilation**  " + Chr(10) + "  HTVM automatically converts these function calls into standard function calls during conversion. This ensures that the underlying implementation remains consistent while providing developers with flexibility in how they write their code." + Chr(10) + Chr(10) + "#### **Examples**" + Chr(10) + Chr(10) + "### **Standard Function Calls**  " + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "StrLower(var1)" + Chr(10) + "Trim(var1)" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### **Dot Notation Function Calls**  " + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "var1.StrLower()" + Chr(10) + "var1.Trim()" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### **Dot Notation Without Parentheses**  " + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "var1.StrLower" + Chr(10) + "var1.Trim" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### **Chained Function Calls**  " + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "var1.StrLower().Trim()" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### **Mixed Parentheses Usage**  " + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "var1.StrLower().Trim" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### **Full Example with OSP**" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet37 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "#### This only works with HTVM built-in functions and user-defined functions.  " + Chr(10) + "When using the " + Chr(96) + "varName.funcName" + Chr(96) + " format, HTVM will only convert it to a regular function call (" + Chr(96) + "funcName(varName)" + Chr(96) + ") **if** the function is either a built-in function in HTVM or explicitly defined by the user." + Chr(10) + Chr(10) + "HTVM **does not care** whether the function is built-in in the target language (e.g. Python). If the function is not recognized by HTVM, it will not be converted — even if it's valid in the output language." + Chr(10) + Chr(10) + "For example:" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "py" + Chr(10) + "strVar.upper()" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + "- If " + Chr(96) + "upper" + Chr(96) + " is not a built-in HTVM function or user-defined in your code, HTVM will **not** convert this into " + Chr(96) + "upper(strVar)" + Chr(96) + " for Python.  " + Chr(10) + "- It will stay as " + Chr(96) + "strVar.upper()" + Chr(96) + " or may cause unexpected output depending on the target." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "#### **Conclusion**  " + Chr(10) + "This feature enhances HTVM's usability by providing developers with multiple ways to call functions. While function calls remain standard behind the scenes, the optional dot notation and support for omitting parentheses make the syntax more intuitive, readable, and faster to write — especially in casual or repetitive scenarios." + Chr(10) + Chr(10) + "---" + Chr(10) + "";
@@ -2605,7 +2784,7 @@ let sentence = "Your language uses " + features.join(", ") + ".";
     var str25 = "";
     var str26 = "";
     var str27 = "";
-    let theCodeBuildInSnipped = [""];
+    let theCodeBuildInSnipped = [];
     var theCodeBuildInSnippedHelp = "";
     var theCodeBuildInSnippedHelp1 = "";
     var theCodeBuildInSnippedHelp2 = "";
@@ -2613,7 +2792,7 @@ let sentence = "Your language uses " + features.join(", ") + ".";
     var theCodeBuildInSnippedHelpInt1 = 0;
     var theCodeBuildInSnippedHelpInt2 = 0;
     for (let A_Index19 = 0; A_Index19 < HTVM_Size(categories) + 0; A_Index19++) {
-        //print(categories[A_Index19])
+        //print(categories[A_Index])
         str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index19], Chr(10), 1)))) + " Functions";
         // 1. [String Functions](#string-functions)
         str2 = STR(A_Index19 + 1) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
@@ -2623,7 +2802,7 @@ let sentence = "Your language uses " + features.join(", ") + ".";
     outMD += Chr(10) + "---" + Chr(10) + Chr(10);
     var categoriesElement = "";
     for (let A_Index20 = 0; A_Index20 < HTVM_Size(categories) + 0; A_Index20++) {
-        //print(categories[A_Index20])
+        //print(categories[A_Index])
         str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index20], Chr(10), 1)))) + " Functions";
         // ## String Functions
         str2 = "## " + Trim(str1) + Chr(10) + Chr(10) + "[Go back](#built-in-functions)" + Chr(10) + Chr(10);
@@ -2633,7 +2812,7 @@ let sentence = "Your language uses " + features.join(", ") + ".";
         // 2. [str2](#str2)
         // 3. [str3](#str3)
         categoriesElement = categories[A_Index20];
-        items21 = LoopParseFunc(categoriesElement, "\n", "\r")
+        let items21 = LoopParseFunc(categoriesElement, "\n", "\r");
         for (let A_Index21 = 0; A_Index21 < items21.length + 0; A_Index21++) {
             const A_LoopField21 = items21[A_Index21 - 0];
             if (A_Index21 != 0) {
@@ -2645,7 +2824,7 @@ let sentence = "Your language uses " + features.join(", ") + ".";
             }
         }
         outMD += Chr(10) + "---" + Chr(10) + Chr(10) + "**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**" + Chr(10) + Chr(10) + "**HTVM build-in functions availability.**" + Chr(10) + Chr(10) + "| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |" + Chr(10) + "|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|" + Chr(10);
-        items22 = LoopParseFunc(categoriesElement, "\n", "\r")
+        let items22 = LoopParseFunc(categoriesElement, "\n", "\r");
         for (let A_Index22 = 0; A_Index22 < items22.length + 0; A_Index22++) {
             const A_LoopField22 = items22[A_Index22 - 0];
             if (A_Index22 != 0) {
@@ -2675,7 +2854,7 @@ let sentence = "Your language uses " + features.join(", ") + ".";
             }
         }
         outMD += Chr(10) + "---" + Chr(10) + Chr(10);
-        items23 = LoopParseFunc(categoriesElement, "\n", "\r")
+        let items23 = LoopParseFunc(categoriesElement, "\n", "\r");
         for (let A_Index23 = 0; A_Index23 < items23.length + 0; A_Index23++) {
             const A_LoopField23 = items23[A_Index23 - 0];
             if (A_Index23 != 0) {
@@ -2703,7 +2882,7 @@ let sentence = "Your language uses " + features.join(", ") + ".";
                     str3 = "| " + str1 + " | " + str4 + " | " + str5 + " | " + str6 + " | " + str7 + " |" + str11 + " |" + str12 + " |" + str13 + " |" + str14 + " |" + str15 + " |" + str16 + " |" + str17 + " |" + str18 + " |" + str19 + " |" + str20 + " |" + str21 + " |";
                     str8 = "";
                     str9 = Trim(StrSplit(StrSplit(A_LoopField23, "|", 2), "description:", 2));
-                    items24 = LoopParseFunc(str9, "~~~")
+                    let items24 = LoopParseFunc(str9, "~~~");
                     for (let A_Index24 = 0; A_Index24 < items24.length + 0; A_Index24++) {
                         const A_LoopField24 = items24[A_Index24 - 0];
                         if (A_Index24 != 0) {
@@ -2717,26 +2896,31 @@ let sentence = "Your language uses " + features.join(", ") + ".";
                     theCodeBuildInSnippedHelp2 = "";
                     theCodeBuildInSnippedHelpInt = 0;
                     theCodeBuildInSnippedHelpInt1 = 0;
-                    items25 = LoopParseFunc(str8, "\n", "\r")
+                    let items25 = LoopParseFunc(str8, "\n", "\r");
                     for (let A_Index25 = 0; A_Index25 < items25.length + 0; A_Index25++) {
                         const A_LoopField25 = items25[A_Index25 - 0];
+                        // Start of HTVM block
                         if (Trim(A_LoopField25) == Chr(96) + Chr(96) + Chr(96) + "htvm") {
                             theCodeBuildInSnippedHelpInt = 1;
                             theCodeBuildInSnippedHelp1 += A_LoopField25 + Chr(10);
                             continue;
                         }
+                        // End of any code block
                         if (Trim(A_LoopField25) == Chr(96) + Chr(96) + Chr(96)) {
                             HTVM_Append(theCodeBuildInSnipped, theCodeBuildInSnippedHelp);
                             theCodeBuildInSnippedHelp1 += "AAbdsud--sblad0gblattheCodeBuildInSnippedHelpInt2reisurgfiugfusifsdygfuisdgfa--uksdusdfgusAA" + STR(theCodeBuildInSnippedHelpInt2) + "AA" + Chr(10);
                             theCodeBuildInSnippedHelpInt2++;
                             theCodeBuildInSnippedHelp1 += A_LoopField25 + Chr(10) + Chr(10);
+                            // Reset
                             theCodeBuildInSnippedHelp = "";
                             theCodeBuildInSnippedHelpInt = 0;
                             continue;
                         }
+                        // Collect HTVM code block lines for conversion
                         if (theCodeBuildInSnippedHelpInt == 1) {
                             theCodeBuildInSnippedHelp += A_LoopField25 + Chr(10);
                         } else {
+                            // Regular text outside HTVM blocks
                             theCodeBuildInSnippedHelp1 += A_LoopField25 + Chr(10) + Chr(10);
                         }
                     }
@@ -2747,7 +2931,7 @@ let sentence = "Your language uses " + features.join(", ") + ".";
         }
     }
     var THEINSTESCEPAED = "";
-    items26 = LoopParseFunc(instructionFileData, "\n", "\r")
+    let items26 = LoopParseFunc(instructionFileData, "\n", "\r");
     for (let A_Index26 = 0; A_Index26 < items26.length + 0; A_Index26++) {
         const A_LoopField26 = items26[A_Index26 - 0];
         if (A_Index26 <= 161) {
@@ -2772,7 +2956,7 @@ let sentence = "Your language uses " + features.join(", ") + ".";
         theCodeBuildInSnippedHelp5 = convertSnipetToAnotherSyntax(instructionFileData, theCodeBuildInSnippedHelp4);
     }
     theCodeBuildInSnippedHelp6TEMP = "";
-    items28 = LoopParseFunc(theCodeBuildInSnippedHelp5, "\n", "\r")
+    let items28 = LoopParseFunc(theCodeBuildInSnippedHelp5, "\n", "\r");
     for (let A_Index28 = 0; A_Index28 < items28.length + 0; A_Index28++) {
         const A_LoopField28 = items28[A_Index28 - 0];
         if (Trim(A_LoopField28) == "AA--spettrrarateblatheCodeBuildInSnippeddxfjdzsiehdifx--sdhfkAA") {
@@ -2817,7 +3001,7 @@ async function main() {
             print("no params Exiting...");
             ExitApp();
         }
-        items30 = LoopParseFunc(DOCS_params, "\n", "\r")
+        let items30 = LoopParseFunc(DOCS_params, "\n", "\r");
         for (let A_Index30 = 0; A_Index30 < items30.length + 0; A_Index30++) {
             const A_LoopField30 = items30[A_Index30 - 0];
             if (A_Index30 == 0) {
@@ -2863,5 +3047,6 @@ async function main() {
     // MAKE SURE to put the instruction file in instructionFileData variable!!!
     // run genDocs("html") and the output will be text that needs to be saved in DOCUMENTATION.html
     // run genDocs("md") and the output will be text that needs to be saved in DOCUMENTATION.md
+
 }
 main();
