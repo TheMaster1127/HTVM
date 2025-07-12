@@ -37,6 +37,8 @@ str str18 := ""
 str str19 := ""
 str str20 := ""
 str str21 := ""
+str str22 := ""
+str str23 := ""
 
 int int0 := 0
 int int1 := 0
@@ -4388,10 +4390,11 @@ return out
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e    
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e        
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e            
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e        
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e ; e
 
 func str expressionParserTranspiler(str expression)
@@ -11590,37 +11593,118 @@ return FixDoubleInThe4langsOUT
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+func str fStringHELP(str line) {
+    line := RegExReplace(line, "\b" . keyWordAIndex . "\d*\b", "" . keyWordAIndex . "" . str2)
+    line := RegExReplace(line, "\b" . keyWordALoopField . "\d*\b", "" . keyWordALoopField . "" . str2)
+    return line
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 func str fString(str line)
 {
+str outHelp := ""
+str out := ""
+int areWeIn := 0
+str concatStringInOtherLangs := "+"
 if (langToConvertTo != langFileExtension_2)
 {
 
 if (langToConvertTo = "lua") {
-line := StrReplace(line, "{", Chr(34) . " .. fstr(")
-line := StrReplace(line, "}", ") .. " . Chr(34))
+concatStringInOtherLangs := ".."
 }
 else if (langToConvertTo = "ahk") {
-line := StrReplace(line, "{", Chr(34) . " . fstr(")
-line := StrReplace(line, "}", ") . " . Chr(34))
+concatStringInOtherLangs := "."
 }
 else if (langToConvertTo = "nim") {
-line := StrReplace(line, "{", Chr(34) . " & fstr(")
-line := StrReplace(line, "}", ") & " . Chr(34))
+concatStringInOtherLangs := "&"
+}
+
+Loop, Parse, line {
+
+
+if (areWeIn = 1) and (A_LoopField != "{") and (A_LoopField != "}")
+{
+outHelp .= A_LoopField
 }
 else {
-line := StrReplace(line, "{", Chr(34) . " + fstr(")
-line := StrReplace(line, "}", ") + " . Chr(34))
+
+if (A_LoopField = "{") {
+out .= Chr(34) . " " . concatStringInOtherLangs . " fstr("
 }
+else if (A_LoopField = "}") and (areWeIn != 0) {
+out .= expressionParserTranspiler(fStringHELP(outHelp)) . ") " . concatStringInOtherLangs . " " . Chr(34) 
+outHelp := ""
+}
+else {
+out .= A_LoopField
+}
+
+}
+
+
+if (A_LoopField = "{") {
+areWeIn := 1
+}
+if (A_LoopField = "}") {
+areWeIn := 0
+}
+
+
+}
+
+
+
+} else {
+
+
+Loop, Parse, line {
+
+
+if (areWeIn = 1) and (A_LoopField != "{") and (A_LoopField != "}")
+{
+outHelp .= A_LoopField
+}
+else {
+
+if (A_LoopField = "{") {
+out .= "{"
+}
+else if (A_LoopField = "}") and (areWeIn != 0) {
+out .= expressionParserTranspiler(outHelp) . "}" 
+outHelp := ""
+}
+else {
+out .= A_LoopField
+}
+
+}
+
+
+if (A_LoopField = "{") {
+areWeIn := 1
+}
+if (A_LoopField = "}") {
+areWeIn := 0
+}
+
+
+}
+
 
 }
 
 if (langToConvertTo = "rb") {
     Loop, % htCodeFixRubyGlobalVars_EXPOSED.size() {
-        line := RegExReplace(line, "\b" . htCodeFixRubyGlobalVars_EXPOSED[A_Index] . "\b", "$" . htCodeFixRubyGlobalVars_EXPOSED[A_Index])
+        out := RegExReplace(out, "\b" . htCodeFixRubyGlobalVars_EXPOSED[A_Index] . "\b", "$" . htCodeFixRubyGlobalVars_EXPOSED[A_Index])
     }
 }
 
-return line
+return out
 }
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -23821,6 +23905,7 @@ ALoopField := A_LoopField
 
 ; Replace "A_Index" with or without a following digit with "A_Index" + out1z
 ALoopField := RegExReplace(ALoopField, "\b" . keyWordAIndex . "\d*\b", "" . keyWordAIndex . "" . out1z)
+ALoopField := StrReplace(ALoopField, "fihuiuuhuuhtheidFor--asds", "HTVM" . str22 . "-A-A-A-A-A-A-A-A-A--A-A-A-A1" . out1z . "HTVM" . "-A-A-A-A-A-A-A-A-A--A-A-A-A2fihuiuuhuuhtheidFor--asds")
 
 
 
@@ -23989,6 +24074,7 @@ ALoopField := A_LoopField
 ALoopField := RegExReplace(ALoopField, "\b" . keyWordAIndex . "\d*\b", "" . keyWordAIndex . "" . out1z)
 ; Replace "A_Index" with or without a following digit with "A_Index" + out1z
 ALoopField := RegExReplace(ALoopField, "\b" . keyWordALoopField . "\d*\b", "" . keyWordALoopField . "" . out1z)
+ALoopField := StrReplace(ALoopField, "fihuiuuhuuhtheidFor--asds", "HTVM" . str22 . "-A-A-A-A-A-A-A-A-A--A-A-A-A1" . out1z . "HTVM" . "-A-A-A-A-A-A-A-A-A--A-A-A-A2fihuiuuhuuhtheidFor--asds")
 
 
 
@@ -25082,31 +25168,48 @@ if (langToConvertTo != langFileExtension_2)
 
 htCode := StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_OPEN-HTVM--GUI", "{")
 htCode := StrReplace(htCode, "wklajebawszopsne--tshecurlyybarxccsesgFORguiTHTVM0987HTVM---HTVMAAAadhksudahsdGUI_-_HTVM_CLOSE-HTVM--GUI", "}")
+ALoopField := ""
+str23 := ""
+Loop, Parse, htCode, `n, `r {
+ALoopField := A_LoopField
 
-Loop, % theIdNumOfThe34 {
-    if (theIdNumOfThe34 = A_Index + 1) {
-        if (langToConvertTo = langFileExtension_2) {
-            if (keyWordEscpaeChar_2 = "\") and (keyWordEscpaeChar != "\") {
-                htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), "\", "\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) . Chr(34))
+if (InStr(A_LoopField, "fihuiuuhuuhtheidFor--asds")) {
+    
+    str2 := Trim(StrSplit(ALoopField, "HTVM" . str22 . "-A-A-A-A-A-A-A-A-A--A-A-A-A1", 2))
+    str2 := Trim(StrSplit(Trim(str2), "HTVM" . str22 . "-A-A-A-A-A-A-A-A-A--A-A-A-A2", 1))
+    
+    Loop, % theIdNumOfThe34 {
+        if (theIdNumOfThe34 = A_Index + 1) {
+            if (langToConvertTo = langFileExtension_2) {
+                if (keyWordEscpaeChar_2 = "\") and (keyWordEscpaeChar != "\") {
+                    ALoopField := StrReplace(ALoopField, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), "\", "\\"), keyWordEscpaeChar, keyWordEscpaeChar_2) . Chr(34))
+                } else {
+                    ALoopField := StrReplace(ALoopField, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, keyWordEscpaeChar_2) . Chr(34))
+                }
             } else {
-                htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, keyWordEscpaeChar_2) . Chr(34))
+                ALoopField := StrReplace(ALoopField, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, "\") . Chr(34))
             }
         } else {
-            htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, "\") . Chr(34))
-        }
-    } else {
-        if (langToConvertTo = langFileExtension_2) {
-            if (keyWordEscpaeChar_2 = "\") and (keyWordEscpaeChar != "\") {
-                htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), "\", "\\"), keyWordEscpaeChar, keyWordEscpaeChar_2))
+            if (langToConvertTo = langFileExtension_2) {
+                if (keyWordEscpaeChar_2 = "\") and (keyWordEscpaeChar != "\") {
+                    ALoopField := StrReplace(ALoopField, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), "\", "\\"), keyWordEscpaeChar, keyWordEscpaeChar_2))
+                } else {
+                    ALoopField := StrReplace(ALoopField, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, keyWordEscpaeChar_2))
+                }
             } else {
-                htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, keyWordEscpaeChar_2))
+                ALoopField := StrReplace(ALoopField, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, "\"))
             }
-        } else {
-            htCode := StrReplace(htCode, "fihuiuuhuuhtheidFor--asds" . str21 . "as--" . str21 . "theuhturtyphoutr--" . Chr(65) . Chr(65) . STR(A_Index + 1) . Chr(65) . Chr(65), StrReplace(fString(theIdNumOfThe34theVar[A_Index + 1]), keyWordEscpaeChar, "\"))
         }
     }
 }
 
+
+str23 .= ALoopField . Chr(10) 
+}
+StringTrimRight, htCode, str23, 1
+str23 := ""
+htCode := RegExReplace(htCode, "HTVM" . str22 . "-A-A-A-A-A-A-A-A-A--A-A-A-A1.*?HTVM" . str22 . "-A-A-A-A-A-A-A-A-A--A-A-A-A2", "")
+;;;;
 }
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

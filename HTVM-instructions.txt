@@ -11026,3 +11026,118 @@ int StrLen(String str) {
     return str.length()
 }
 funcEND======================funcEND==============
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: StrLower
+libs: )|"strings"
+description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
+func StrLower(s string) string {
+    return strings.ToLower(s)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: StrLower
+libs: null
+description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
+function StrLower(str)
+    return string.lower(str)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: StrLower
+libs: using System;
+description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
+public static string StrLower(string str) {
+    return str.ToLower();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: StrLower
+libs: null
+description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
+public static String StrLower(String str) {
+    return str.toLowerCase();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: StrLower
+libs: null
+description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
+fun StrLower(str: String): String {
+    return str.toLowerCase()
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: StrLower
+libs: null
+description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
+def StrLower(str)
+  str.downcase
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: StrLower
+libs: import strutils
+description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
+proc StrLower(s: string): string =
+  return s.toLower()
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: StrLower
+libs: null
+description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
+StrLower(str) {
+    StringLower, output, str
+    return output
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: StrLower
+libs: null
+description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
+func StrLower(_ str: String) -> String {
+    return str.lowercased()
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: StrLower
+libs: null
+description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
+String StrLower(String str) {
+  return str.toLowerCase();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: StrLower
+libs: null
+description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
+function StrLower(str: string): string {
+    return str.toLowerCase();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: StrLower
+libs: null
+description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
+String StrLower(String str) {
+    return str.toLowerCase()
+}
+funcEND======================funcEND==============
