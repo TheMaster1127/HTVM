@@ -18383,6 +18383,9 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
     //~ msgbox, % allFuncs
     //~ MsgBox, ===========================================================================
     if (isNotHTVMfile2 == 0) {
+        if (langToConvertTo == "ahk") {
+            htCode = RegExReplace(htCode, "\\bStrSplit\\b", "AHK_StrSplit_AHK");
+        }
         if (langToConvertTo == "cpp") {
             htCode = htCode + Chr(10) + "    return 0;" + Chr(10) + "}";
             htCode = StrReplace(htCode, "int main(int argc, char* argv[]);", "int main(int argc, char* argv[])");

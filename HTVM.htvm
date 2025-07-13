@@ -25332,6 +25332,11 @@ correctLang := 0
 
 if (isNotHTVMfile2 = 0)
 {
+if (langToConvertTo = "ahk")
+{
+htCode := RegExReplace(htCode, "\bStrSplit\b", "AHK_StrSplit_AHK")
+}
+
 
 if (langToConvertTo = "cpp")
 {

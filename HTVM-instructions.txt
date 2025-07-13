@@ -738,9 +738,11 @@ lang: groovy
 name: print
 libs: null
 description: io~~~The `print` function is a versatile utility for outputting data to the standard console. It accepts various data types including strings, numbers (integers, floats), and booleans. When given a boolean, it will print "1" for true and "0" for false (or the language-equivalent boolean string representation). For other types, it attempts to convert them to a string representation before printing. Each call to `print` typically appends a newline character, ensuring subsequent outputs appear on a new line.~~~Here is how to use it:~~~```htvm~~~; Example 1: Printing a string~~~str message := "Hello, HTVM!"~~~; Should print: Hello, HTVM!~~~print(message)~~~print("--------------------")~~~; ----------------------------------------------------~~~; Example 2: Printing an integer~~~int count := 100~~~; Should print: 100~~~print(count)~~~print("--------------------")~~~; ----------------------------------------------------~~~; Example 3: Printing a float~~~float piApprox := 3.14159~~~; Should print: 3.14159~~~print(piApprox)~~~print("--------------------")~~~; ----------------------------------------------------~~~; Example 4: Printing a boolean (true)~~~bool isActive := true~~~; Should print: 1 (or true, depending on language)~~~print(isActive)~~~print("--------------------")~~~; ----------------------------------------------------~~~; Example 5: Printing a boolean (false)~~~bool isDone := false~~~; Should print: 0 (or false, depending on language)~~~print(isDone)~~~print("--------------------")~~~; ----------------------------------------------------~~~; Example 6: Printing concatenated string and number~~~str label := "Score: "~~~int score := 42~~~; Should print: Score: 42~~~print(label . STR(score))~~~print("--------------------")~~~; ----------------------------------------------------~~~; Test: Printing a null-like value (if HTVM has 'null' keyword and print handles it)~~~str nullVar := null~~~; Behavior for null depends on language (e.g. "null", "", error)~~~print(nullVar)~~~```~~~
+
+
 // Print function
 def print = { message ->
-    System.out.print("$message\n\r")
+    System.out.println(message)
 }
 
 funcEND======================funcEND==============
@@ -4892,7 +4894,7 @@ func======================func==============
 lang: cpp
 name: StrTitleCase
 libs: #include <iostream>|#include <sstream>|#include <cctype>|#include <string>
-description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
 std::string StrTitleCase(const std::string& input) {
     std::string result;
     bool newWord = true;
@@ -4914,7 +4916,7 @@ func======================func==============
 lang: js
 name: StrTitleCase
 libs: null
-description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
 function StrTitleCase(inputString) {
     return inputString.split(' ')  // Split the string into words
         .map(word => {
@@ -4930,7 +4932,7 @@ func======================func==============
 lang: py
 name: StrTitleCase
 libs: null
-description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
 def StrTitleCase(input_string):
     words = input_string.split(' ')  # Split the input string into words
     result = []
@@ -11252,5 +11254,595 @@ libs: null
 description: string~~~Replaces all occurrences of a `find` substring within an `originalString` with a `replaceWith` string. Returns the modified string.~~~Here is how to use it:~~~```htvm~~~str original1 := "Hello World, Hello HTVM!"~~~str find1 := "Hello"~~~str replace1 := "Greetings"~~~str result1 := StrReplace(original1, find1, replace1)~~~print("Replacing '" . find1 . "' in '" . original1 . "' with '" . replace1 . "': '" . result1 . "'")~~~; Expected: 'Greetings World, Greetings HTVM!'~~~if (result1 != "Greetings World, Greetings HTVM!") {~~~    print("StrReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str original2 := "one two three two one"~~~str find2 := "two"~~~str replace2 := "2"~~~str result2 := original2.StrReplace(find2, replace2)~~~print("Replacing '" . find2 . "' in '" . original2 . "' with '" . replace2 . "': '" . result2 . "'")~~~; Expected: 'one 2 three 2 one'~~~if (result2 != "one 2 three 2 one") {~~~    print("StrReplace test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str original3 := "No change needed"~~~str find3 := "XYZ"~~~str replace3 := "ABC"~~~str result3 := StrReplace(original3, find3, replace3)~~~print("Replacing '" . find3 . "' in '" . original3 . "' (not found): '" . result3 . "'")~~~; Expected: 'No change needed'~~~if (result3 != "No change needed") {~~~    print("StrReplace test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str original4 := "Remove this"~~~str find4 := " this"~~~str replace4 := ""~~~; Replace with empty string to delete~~~str result4 := StrReplace(original4, find4, replace4)~~~print("Deleting '" . find4 . "' from '" . original4 . "': '" . result4 . "'")~~~; Expected: 'Remove'~~~if (result4 != "Remove") {~~~    print("StrReplace test 4 (deletion) FAILED!")~~~}~~~```~~~
 String StrReplace(String originalString, String find, String replaceWith) {
     return originalString.replace(find, replaceWith)
+}
+funcEND======================funcEND==============
+
+
+
+
+
+func======================func==============
+lang: go
+name: StrSplit
+libs: )|"strings"
+description: string~~~Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str data1 := "apple,banana,cherry,date"~~~str delimiter1 := ","~~~int partNum1 := 2~~~str fruit1 := StrSplit(data1, delimiter1, partNum1)~~~; Expected: 'banana'~~~print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")~~~if (fruit1 != "banana") {~~~    print("StrSplit test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum2 := 4~~~str fruit2 := data1.StrSplit(delimiter1, partNum2)~~~; Expected: 'date'~~~print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")~~~if (fruit2 != "date") {~~~    print("StrSplit test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum3 := 1~~~str fruit3 := StrSplit(data1, delimiter1, partNum3)~~~; Expected: 'apple'~~~print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")~~~if (fruit3 != "apple") {~~~    print("StrSplit test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Out of bounds~~~int partNum4 := 5~~~str fruit4 := StrSplit(data1, delimiter1, partNum4)~~~; Expected: '' (empty string)~~~print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")~~~if (fruit4 != "") {~~~    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)~~~}~~~; ----------------------------------------------------~~~str data2 := "one;-;two;-;three"~~~str delimiter2 := ";-;"~~~int partNum5 := 3~~~str item5 := StrSplit(data2, delimiter2, partNum5)~~~; Expected: 'three'~~~print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")~~~if (item5 != "three") {~~~    print("StrSplit test 5 FAILED!")~~~}~~~```~~~
+func StrSplit(inputStr, delimiter string, num int) string {
+    if num <= 0 {
+        return ""
+    }
+    parts := strings.Split(inputStr, delimiter)
+    if num > len(parts) {
+        return ""
+    }
+    return parts[num-1]
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: StrSplit
+libs: null
+description: string~~~Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str data1 := "apple,banana,cherry,date"~~~str delimiter1 := ","~~~int partNum1 := 2~~~str fruit1 := StrSplit(data1, delimiter1, partNum1)~~~; Expected: 'banana'~~~print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")~~~if (fruit1 != "banana") {~~~    print("StrSplit test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum2 := 4~~~str fruit2 := data1.StrSplit(delimiter1, partNum2)~~~; Expected: 'date'~~~print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")~~~if (fruit2 != "date") {~~~    print("StrSplit test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum3 := 1~~~str fruit3 := StrSplit(data1, delimiter1, partNum3)~~~; Expected: 'apple'~~~print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")~~~if (fruit3 != "apple") {~~~    print("StrSplit test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Out of bounds~~~int partNum4 := 5~~~str fruit4 := StrSplit(data1, delimiter1, partNum4)~~~; Expected: '' (empty string)~~~print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")~~~if (fruit4 != "") {~~~    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)~~~}~~~; ----------------------------------------------------~~~str data2 := "one;-;two;-;three"~~~str delimiter2 := ";-;"~~~int partNum5 := 3~~~str item5 := StrSplit(data2, delimiter2, partNum5)~~~; Expected: 'three'~~~print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")~~~if (item5 != "three") {~~~    print("StrSplit test 5 FAILED!")~~~}~~~```~~~
+function StrSplit(inputStr, delimiter, num)
+    if num <= 0 then return "" end
+    local parts = {}
+    local start = 1
+    local delim_len = #delimiter
+    local split_start, split_end = string.find(inputStr, delimiter, start, true)
+    while split_start do
+        table.insert(parts, inputStr:sub(start, split_start - 1))
+        start = split_end + 1
+        split_start, split_end = string.find(inputStr, delimiter, start, true)
+    end
+    table.insert(parts, inputStr:sub(start))
+    return parts[num] or ""
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: StrSplit
+libs: using System;
+description: string~~~Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str data1 := "apple,banana,cherry,date"~~~str delimiter1 := ","~~~int partNum1 := 2~~~str fruit1 := StrSplit(data1, delimiter1, partNum1)~~~; Expected: 'banana'~~~print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")~~~if (fruit1 != "banana") {~~~    print("StrSplit test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum2 := 4~~~str fruit2 := data1.StrSplit(delimiter1, partNum2)~~~; Expected: 'date'~~~print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")~~~if (fruit2 != "date") {~~~    print("StrSplit test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum3 := 1~~~str fruit3 := StrSplit(data1, delimiter1, partNum3)~~~; Expected: 'apple'~~~print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")~~~if (fruit3 != "apple") {~~~    print("StrSplit test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Out of bounds~~~int partNum4 := 5~~~str fruit4 := StrSplit(data1, delimiter1, partNum4)~~~; Expected: '' (empty string)~~~print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")~~~if (fruit4 != "") {~~~    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)~~~}~~~; ----------------------------------------------------~~~str data2 := "one;-;two;-;three"~~~str delimiter2 := ";-;"~~~int partNum5 := 3~~~str item5 := StrSplit(data2, delimiter2, partNum5)~~~; Expected: 'three'~~~print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")~~~if (item5 != "three") {~~~    print("StrSplit test 5 FAILED!")~~~}~~~```~~~
+public static string StrSplit(string inputStr, string delimiter, int num) {
+    if (num <= 0) return "";
+    string[] parts = inputStr.Split(new[] { delimiter }, StringSplitOptions.None);
+    if (num > parts.Length) return "";
+    return parts[num - 1];
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: StrSplit
+libs: import java.util.regex.Pattern;
+description: string~~~Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str data1 := "apple,banana,cherry,date"~~~str delimiter1 := ","~~~int partNum1 := 2~~~str fruit1 := StrSplit(data1, delimiter1, partNum1)~~~; Expected: 'banana'~~~print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")~~~if (fruit1 != "banana") {~~~    print("StrSplit test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum2 := 4~~~str fruit2 := data1.StrSplit(delimiter1, partNum2)~~~; Expected: 'date'~~~print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")~~~if (fruit2 != "date") {~~~    print("StrSplit test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum3 := 1~~~str fruit3 := StrSplit(data1, delimiter1, partNum3)~~~; Expected: 'apple'~~~print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")~~~if (fruit3 != "apple") {~~~    print("StrSplit test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Out of bounds~~~int partNum4 := 5~~~str fruit4 := StrSplit(data1, delimiter1, partNum4)~~~; Expected: '' (empty string)~~~print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")~~~if (fruit4 != "") {~~~    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)~~~}~~~; ----------------------------------------------------~~~str data2 := "one;-;two;-;three"~~~str delimiter2 := ";-;"~~~int partNum5 := 3~~~str item5 := StrSplit(data2, delimiter2, partNum5)~~~; Expected: 'three'~~~print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")~~~if (item5 != "three") {~~~    print("StrSplit test 5 FAILED!")~~~}~~~```~~~
+public static String StrSplit(String inputStr, String delimiter, int num) {
+    if (num <= 0) return "";
+    String[] parts = inputStr.split(Pattern.quote(delimiter));
+    if (num > parts.length) return "";
+    return parts[num - 1];
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: StrSplit
+libs: null
+description: string~~~Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str data1 := "apple,banana,cherry,date"~~~str delimiter1 := ","~~~int partNum1 := 2~~~str fruit1 := StrSplit(data1, delimiter1, partNum1)~~~; Expected: 'banana'~~~print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")~~~if (fruit1 != "banana") {~~~    print("StrSplit test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum2 := 4~~~str fruit2 := data1.StrSplit(delimiter1, partNum2)~~~; Expected: 'date'~~~print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")~~~if (fruit2 != "date") {~~~    print("StrSplit test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum3 := 1~~~str fruit3 := StrSplit(data1, delimiter1, partNum3)~~~; Expected: 'apple'~~~print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")~~~if (fruit3 != "apple") {~~~    print("StrSplit test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Out of bounds~~~int partNum4 := 5~~~str fruit4 := StrSplit(data1, delimiter1, partNum4)~~~; Expected: '' (empty string)~~~print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")~~~if (fruit4 != "") {~~~    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)~~~}~~~; ----------------------------------------------------~~~str data2 := "one;-;two;-;three"~~~str delimiter2 := ";-;"~~~int partNum5 := 3~~~str item5 := StrSplit(data2, delimiter2, partNum5)~~~; Expected: 'three'~~~print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")~~~if (item5 != "three") {~~~    print("StrSplit test 5 FAILED!")~~~}~~~```~~~
+fun StrSplit(inputStr: String, delimiter: String, num: Int): String {
+    if (num <= 0) return ""
+    val parts = inputStr.split(delimiter)
+    return parts.getOrNull(num - 1) ?: ""
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: StrSplit
+libs: null
+description: string~~~Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str data1 := "apple,banana,cherry,date"~~~str delimiter1 := ","~~~int partNum1 := 2~~~str fruit1 := StrSplit(data1, delimiter1, partNum1)~~~; Expected: 'banana'~~~print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")~~~if (fruit1 != "banana") {~~~    print("StrSplit test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum2 := 4~~~str fruit2 := data1.StrSplit(delimiter1, partNum2)~~~; Expected: 'date'~~~print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")~~~if (fruit2 != "date") {~~~    print("StrSplit test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum3 := 1~~~str fruit3 := StrSplit(data1, delimiter1, partNum3)~~~; Expected: 'apple'~~~print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")~~~if (fruit3 != "apple") {~~~    print("StrSplit test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Out of bounds~~~int partNum4 := 5~~~str fruit4 := StrSplit(data1, delimiter1, partNum4)~~~; Expected: '' (empty string)~~~print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")~~~if (fruit4 != "") {~~~    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)~~~}~~~; ----------------------------------------------------~~~str data2 := "one;-;two;-;three"~~~str delimiter2 := ";-;"~~~int partNum5 := 3~~~str item5 := StrSplit(data2, delimiter2, partNum5)~~~; Expected: 'three'~~~print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")~~~if (item5 != "three") {~~~    print("StrSplit test 5 FAILED!")~~~}~~~```~~~
+def StrSplit(inputStr, delimiter, num)
+  return "" if num <= 0
+  parts = inputStr.split(delimiter)
+  return parts[num - 1] || ""
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: StrSplit
+libs: import strutils
+description: string~~~Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str data1 := "apple,banana,cherry,date"~~~str delimiter1 := ","~~~int partNum1 := 2~~~str fruit1 := StrSplit(data1, delimiter1, partNum1)~~~; Expected: 'banana'~~~print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")~~~if (fruit1 != "banana") {~~~    print("StrSplit test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum2 := 4~~~str fruit2 := data1.StrSplit(delimiter1, partNum2)~~~; Expected: 'date'~~~print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")~~~if (fruit2 != "date") {~~~    print("StrSplit test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum3 := 1~~~str fruit3 := StrSplit(data1, delimiter1, partNum3)~~~; Expected: 'apple'~~~print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")~~~if (fruit3 != "apple") {~~~    print("StrSplit test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Out of bounds~~~int partNum4 := 5~~~str fruit4 := StrSplit(data1, delimiter1, partNum4)~~~; Expected: '' (empty string)~~~print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")~~~if (fruit4 != "") {~~~    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)~~~}~~~; ----------------------------------------------------~~~str data2 := "one;-;two;-;three"~~~str delimiter2 := ";-;"~~~int partNum5 := 3~~~str item5 := StrSplit(data2, delimiter2, partNum5)~~~; Expected: 'three'~~~print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")~~~if (item5 != "three") {~~~    print("StrSplit test 5 FAILED!")~~~}~~~```~~~
+proc StrSplit(inputStr, delimiter: string, num: int): string =
+  if num <= 0:
+    return ""
+  let parts = inputStr.split(delimiter)
+  if num > parts.len:
+    return ""
+  return parts[num - 1]
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: StrSplit
+libs: null
+description: string~~~Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str data1 := "apple,banana,cherry,date"~~~str delimiter1 := ","~~~int partNum1 := 2~~~str fruit1 := StrSplit(data1, delimiter1, partNum1)~~~; Expected: 'banana'~~~print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")~~~if (fruit1 != "banana") {~~~    print("StrSplit test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum2 := 4~~~str fruit2 := data1.StrSplit(delimiter1, partNum2)~~~; Expected: 'date'~~~print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")~~~if (fruit2 != "date") {~~~    print("StrSplit test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum3 := 1~~~str fruit3 := StrSplit(data1, delimiter1, partNum3)~~~; Expected: 'apple'~~~print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")~~~if (fruit3 != "apple") {~~~    print("StrSplit test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Out of bounds~~~int partNum4 := 5~~~str fruit4 := StrSplit(data1, delimiter1, partNum4)~~~; Expected: '' (empty string)~~~print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")~~~if (fruit4 != "") {~~~    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)~~~}~~~; ----------------------------------------------------~~~str data2 := "one;-;two;-;three"~~~str delimiter2 := ";-;"~~~int partNum5 := 3~~~str item5 := StrSplit(data2, delimiter2, partNum5)~~~; Expected: 'three'~~~print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")~~~if (item5 != "three") {~~~    print("StrSplit test 5 FAILED!")~~~}~~~```~~~
+AHK_StrSplit_AHK(str, delim, index) {
+    arr := StrSplit(str, delim)
+    return arr.HasKey(index) ? arr[index] : ""
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: StrSplit
+libs: null
+description: string~~~Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str data1 := "apple,banana,cherry,date"~~~str delimiter1 := ","~~~int partNum1 := 2~~~str fruit1 := StrSplit(data1, delimiter1, partNum1)~~~; Expected: 'banana'~~~print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")~~~if (fruit1 != "banana") {~~~    print("StrSplit test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum2 := 4~~~str fruit2 := data1.StrSplit(delimiter1, partNum2)~~~; Expected: 'date'~~~print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")~~~if (fruit2 != "date") {~~~    print("StrSplit test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum3 := 1~~~str fruit3 := StrSplit(data1, delimiter1, partNum3)~~~; Expected: 'apple'~~~print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")~~~if (fruit3 != "apple") {~~~    print("StrSplit test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Out of bounds~~~int partNum4 := 5~~~str fruit4 := StrSplit(data1, delimiter1, partNum4)~~~; Expected: '' (empty string)~~~print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")~~~if (fruit4 != "") {~~~    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)~~~}~~~; ----------------------------------------------------~~~str data2 := "one;-;two;-;three"~~~str delimiter2 := ";-;"~~~int partNum5 := 3~~~str item5 := StrSplit(data2, delimiter2, partNum5)~~~; Expected: 'three'~~~print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")~~~if (item5 != "three") {~~~    print("StrSplit test 5 FAILED!")~~~}~~~```~~~
+func StrSplit(_ inputStr: String, _ delimiter: String, _ num: Int) -> String {
+    guard num > 0 else { return "" }
+    let parts = inputStr.components(separatedBy: delimiter)
+    guard num <= parts.count else { return "" }
+    return parts[num - 1]
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: StrSplit
+libs: null
+description: string~~~Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str data1 := "apple,banana,cherry,date"~~~str delimiter1 := ","~~~int partNum1 := 2~~~str fruit1 := StrSplit(data1, delimiter1, partNum1)~~~; Expected: 'banana'~~~print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")~~~if (fruit1 != "banana") {~~~    print("StrSplit test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum2 := 4~~~str fruit2 := data1.StrSplit(delimiter1, partNum2)~~~; Expected: 'date'~~~print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")~~~if (fruit2 != "date") {~~~    print("StrSplit test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum3 := 1~~~str fruit3 := StrSplit(data1, delimiter1, partNum3)~~~; Expected: 'apple'~~~print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")~~~if (fruit3 != "apple") {~~~    print("StrSplit test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Out of bounds~~~int partNum4 := 5~~~str fruit4 := StrSplit(data1, delimiter1, partNum4)~~~; Expected: '' (empty string)~~~print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")~~~if (fruit4 != "") {~~~    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)~~~}~~~; ----------------------------------------------------~~~str data2 := "one;-;two;-;three"~~~str delimiter2 := ";-;"~~~int partNum5 := 3~~~str item5 := StrSplit(data2, delimiter2, partNum5)~~~; Expected: 'three'~~~print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")~~~if (item5 != "three") {~~~    print("StrSplit test 5 FAILED!")~~~}~~~```~~~
+String StrSplit(String inputStr, String delimiter, int num) {
+  if (num <= 0) return "";
+  var parts = inputStr.split(delimiter);
+  if (num > parts.length) return "";
+  return parts[num - 1];
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: StrSplit
+libs: null
+description: string~~~Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str data1 := "apple,banana,cherry,date"~~~str delimiter1 := ","~~~int partNum1 := 2~~~str fruit1 := StrSplit(data1, delimiter1, partNum1)~~~; Expected: 'banana'~~~print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")~~~if (fruit1 != "banana") {~~~    print("StrSplit test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum2 := 4~~~str fruit2 := data1.StrSplit(delimiter1, partNum2)~~~; Expected: 'date'~~~print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")~~~if (fruit2 != "date") {~~~    print("StrSplit test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum3 := 1~~~str fruit3 := StrSplit(data1, delimiter1, partNum3)~~~; Expected: 'apple'~~~print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")~~~if (fruit3 != "apple") {~~~    print("StrSplit test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Out of bounds~~~int partNum4 := 5~~~str fruit4 := StrSplit(data1, delimiter1, partNum4)~~~; Expected: '' (empty string)~~~print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")~~~if (fruit4 != "") {~~~    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)~~~}~~~; ----------------------------------------------------~~~str data2 := "one;-;two;-;three"~~~str delimiter2 := ";-;"~~~int partNum5 := 3~~~str item5 := StrSplit(data2, delimiter2, partNum5)~~~; Expected: 'three'~~~print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")~~~if (item5 != "three") {~~~    print("StrSplit test 5 FAILED!")~~~}~~~```~~~
+function StrSplit(inputStr: string, delimiter: string, num: number): string {
+    if (num <= 0) return "";
+    const parts = inputStr.split(delimiter);
+    if (num > parts.length) return "";
+    return parts[num - 1];
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: StrSplit
+libs: null
+description: string~~~Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.~~~Here is how to use it:~~~```htvm~~~str data1 := "apple,banana,cherry,date"~~~str delimiter1 := ","~~~int partNum1 := 2~~~str fruit1 := StrSplit(data1, delimiter1, partNum1)~~~; Expected: 'banana'~~~print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")~~~if (fruit1 != "banana") {~~~    print("StrSplit test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum2 := 4~~~str fruit2 := data1.StrSplit(delimiter1, partNum2)~~~; Expected: 'date'~~~print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")~~~if (fruit2 != "date") {~~~    print("StrSplit test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~int partNum3 := 1~~~str fruit3 := StrSplit(data1, delimiter1, partNum3)~~~; Expected: 'apple'~~~print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")~~~if (fruit3 != "apple") {~~~    print("StrSplit test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Out of bounds~~~int partNum4 := 5~~~str fruit4 := StrSplit(data1, delimiter1, partNum4)~~~; Expected: '' (empty string)~~~print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")~~~if (fruit4 != "") {~~~    print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)~~~}~~~; ----------------------------------------------------~~~str data2 := "one;-;two;-;three"~~~str delimiter2 := ";-;"~~~int partNum5 := 3~~~str item5 := StrSplit(data2, delimiter2, partNum5)~~~; Expected: 'three'~~~print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")~~~if (item5 != "three") {~~~    print("StrSplit test 5 FAILED!")~~~}~~~```~~~
+String StrSplit(String inputStr, String delimiter, int num) {
+    if (num <= 0) return ""
+    String[] parts = inputStr.split(java.util.regex.Pattern.quote(delimiter))
+    if (num > parts.length) return ""
+    return parts[num - 1]
+}
+funcEND======================funcEND==============
+
+
+
+func======================func==============
+lang: go
+name: StrTitleCase
+libs: )|"strings"
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+func StrTitleCase(s string) string {
+	return strings.Title(strings.ToLower(s))
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: StrTitleCase
+libs: null
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+function StrTitleCase(str)
+    local s = string.lower(str)
+    s = string.gsub(s, "(%w)(%w*)", function(first, rest)
+        return string.upper(first) .. rest
+    end)
+    return s
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: StrTitleCase
+libs: using System.Globalization;
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+private static readonly TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+public static string StrTitleCase(string str) {
+    return textInfo.ToTitleCase(str.ToLower());
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: StrTitleCase
+libs: null
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+public static String StrTitleCase(String input) {
+    if (input == null || input.isEmpty()) {
+        return "";
+    }
+    StringBuilder titleCase = new StringBuilder(input.length());
+    boolean nextTitleCase = true;
+    for (char c : input.toLowerCase().toCharArray()) {
+        if (Character.isSpaceChar(c)) {
+            nextTitleCase = true;
+        } else if (nextTitleCase) {
+            c = Character.toTitleCase(c);
+            nextTitleCase = false;
+        }
+        titleCase.append(c);
+    }
+    return titleCase.toString();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: StrTitleCase
+libs: null
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+
+fun StrTitleCase(str: String): String {
+    return str.split(' ').joinToString(" ") { word ->
+        if (word.isEmpty()) return@joinToString word
+        val firstChar = word[0].toUpperCase()
+        val rest = if (word.length > 1) word.substring(1).toLowerCase() else ""
+        firstChar + rest
+    }
+}
+
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: StrTitleCase
+libs: null
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+def StrTitleCase(str)
+  str.split.map(&:capitalize).join(' ')
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: StrTitleCase
+libs: import strutils, sequtils
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+
+proc StrTitleCase(s: string): string =
+  result = s.split(' ').map(proc(word: string): string =
+    if word.len > 0:
+      word[0].toUpperAscii() & word[1..^1].toLowerAscii()
+    else:
+      word
+  ).join(" ")
+
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: StrTitleCase
+libs: null
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+StrTitleCase(str) {
+    StringLower, str, str, T
+    return str
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: StrTitleCase
+libs: null
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+func StrTitleCase(_ str: String) -> String {
+    return str.capitalized
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: StrTitleCase
+libs: null
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+String StrTitleCase(String str) {
+  if (str.isEmpty) return "";
+  return str.split(' ').map((word) {
+    if (word.isEmpty) return "";
+    return word[0].toUpperCase() + word.substring(1).toLowerCase();
+  }).join(' ');
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: StrTitleCase
+libs: null
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+function StrTitleCase(str: string): string {
+    return str.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: StrTitleCase
+libs: null
+description: string~~~Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.~~~Here is how to use it:~~~```htvm~~~str text1 := "hello world example"~~~str title1 := StrTitleCase(text1)~~~; Expected: 'Hello World Example'~~~print("Title case of '" . text1 . "': '" . title1 . "'")~~~if (title1 != "Hello World Example") {~~~    print("StrTitleCase test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM is AWESOME"~~~str title2 := text2.StrTitleCase~~~; Expected: 'Htvm Is Awesome'~~~print("Title case of '" . text2 . "': '" . title2 . "'")~~~if (title2 != "Htvm Is Awesome") {~~~    print("StrTitleCase test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Already Title Case"~~~str title3 := StrTitleCase(text3)~~~; Expected: 'Already Title Case'~~~print("Title case of '" . text3 . "': '" . title3 . "'")~~~if (title3 != "Already Title Case") {~~~    print("StrTitleCase test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text4 := " leading space"~~~str title4 := StrTitleCase(text4)~~~; Expected: ' Leading Space'~~~print("Title case of '" . text4 . "': '" . title4 . "'")~~~if (title4 != " Leading Space") {~~~    print("StrTitleCase test 4 FAILED!")~~~}~~~```~~~
+
+String StrTitleCase(String str) {
+    return (String)(str.split(' ').collect {
+        if (it.length() > 0)
+            it[0].toUpperCase() + it.substring(1).toLowerCase()
+        else
+            it
+    }.join(' '))
+}
+
+funcEND======================funcEND==============
+
+
+
+
+func======================func==============
+lang: go
+name: StringTrimLeft
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.~~~Here is how to use it:~~~```htvm~~~str text1 := "HelloHTVM"~~~int charsToTrim1 := 5~~~str result1 := StringTrimLeft(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimLeft test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Goodbye"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimLeft(charsToTrim2)~~~; Expected: 'dbye'~~~print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "dbye") {~~~    print("StringTrimLeft test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Short"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimLeft(text3, charsToTrim3)~~~; Expected: '' (or "Short", behavior might vary)~~~; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.~~~print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimLeft(text1, charsToTrim4)~~~; Expected: 'HelloHTVM'~~~print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HelloHTVM") {~~~    print("StringTrimLeft test 4 (zero trim) FAILED!")~~~}~~~```~~~
+func StringTrimLeft(input string, numChars int) string {
+    if numChars <= 0 {
+        return input
+    }
+    runes := []rune(input)
+    if numChars >= len(runes) {
+        return ""
+    }
+    return string(runes[numChars:])
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: StringTrimLeft
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.~~~Here is how to use it:~~~```htvm~~~str text1 := "HelloHTVM"~~~int charsToTrim1 := 5~~~str result1 := StringTrimLeft(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimLeft test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Goodbye"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimLeft(charsToTrim2)~~~; Expected: 'dbye'~~~print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "dbye") {~~~    print("StringTrimLeft test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Short"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimLeft(text3, charsToTrim3)~~~; Expected: '' (or "Short", behavior might vary)~~~; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.~~~print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimLeft(text1, charsToTrim4)~~~; Expected: 'HelloHTVM'~~~print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HelloHTVM") {~~~    print("StringTrimLeft test 4 (zero trim) FAILED!")~~~}~~~```~~~
+function StringTrimLeft(input, numChars)
+    if numChars <= 0 then return input end
+    return string.sub(input, numChars + 1)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: StringTrimLeft
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.~~~Here is how to use it:~~~```htvm~~~str text1 := "HelloHTVM"~~~int charsToTrim1 := 5~~~str result1 := StringTrimLeft(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimLeft test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Goodbye"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimLeft(charsToTrim2)~~~; Expected: 'dbye'~~~print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "dbye") {~~~    print("StringTrimLeft test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Short"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimLeft(text3, charsToTrim3)~~~; Expected: '' (or "Short", behavior might vary)~~~; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.~~~print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimLeft(text1, charsToTrim4)~~~; Expected: 'HelloHTVM'~~~print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HelloHTVM") {~~~    print("StringTrimLeft test 4 (zero trim) FAILED!")~~~}~~~```~~~
+public static string StringTrimLeft(string input, int numChars) {
+    if (input == null || numChars <= 0) return input;
+    if (numChars >= input.Length) return "";
+    return input.Substring(numChars);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: StringTrimLeft
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.~~~Here is how to use it:~~~```htvm~~~str text1 := "HelloHTVM"~~~int charsToTrim1 := 5~~~str result1 := StringTrimLeft(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimLeft test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Goodbye"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimLeft(charsToTrim2)~~~; Expected: 'dbye'~~~print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "dbye") {~~~    print("StringTrimLeft test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Short"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimLeft(text3, charsToTrim3)~~~; Expected: '' (or "Short", behavior might vary)~~~; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.~~~print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimLeft(text1, charsToTrim4)~~~; Expected: 'HelloHTVM'~~~print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HelloHTVM") {~~~    print("StringTrimLeft test 4 (zero trim) FAILED!")~~~}~~~```~~~
+public static String StringTrimLeft(String input, int numChars) {
+    if (input == null || numChars <= 0) return input;
+    if (numChars >= input.length()) return "";
+    return input.substring(numChars);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: StringTrimLeft
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.~~~Here is how to use it:~~~```htvm~~~str text1 := "HelloHTVM"~~~int charsToTrim1 := 5~~~str result1 := StringTrimLeft(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimLeft test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Goodbye"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimLeft(charsToTrim2)~~~; Expected: 'dbye'~~~print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "dbye") {~~~    print("StringTrimLeft test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Short"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimLeft(text3, charsToTrim3)~~~; Expected: '' (or "Short", behavior might vary)~~~; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.~~~print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimLeft(text1, charsToTrim4)~~~; Expected: 'HelloHTVM'~~~print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HelloHTVM") {~~~    print("StringTrimLeft test 4 (zero trim) FAILED!")~~~}~~~```~~~
+fun StringTrimLeft(input: String, numChars: Int): String {
+    if (numChars <= 0) return input
+    return input.drop(numChars)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: StringTrimLeft
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.~~~Here is how to use it:~~~```htvm~~~str text1 := "HelloHTVM"~~~int charsToTrim1 := 5~~~str result1 := StringTrimLeft(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimLeft test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Goodbye"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimLeft(charsToTrim2)~~~; Expected: 'dbye'~~~print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "dbye") {~~~    print("StringTrimLeft test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Short"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimLeft(text3, charsToTrim3)~~~; Expected: '' (or "Short", behavior might vary)~~~; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.~~~print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimLeft(text1, charsToTrim4)~~~; Expected: 'HelloHTVM'~~~print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HelloHTVM") {~~~    print("StringTrimLeft test 4 (zero trim) FAILED!")~~~}~~~```~~~
+def StringTrimLeft(input, numChars)
+    return input if numChars <= 0
+    return input[numChars..-1] || ""
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: StringTrimLeft
+libs: import strutils
+description: string~~~Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.~~~Here is how to use it:~~~```htvm~~~str text1 := "HelloHTVM"~~~int charsToTrim1 := 5~~~str result1 := StringTrimLeft(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimLeft test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Goodbye"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimLeft(charsToTrim2)~~~; Expected: 'dbye'~~~print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "dbye") {~~~    print("StringTrimLeft test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Short"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimLeft(text3, charsToTrim3)~~~; Expected: '' (or "Short", behavior might vary)~~~; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.~~~print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimLeft(text1, charsToTrim4)~~~; Expected: 'HelloHTVM'~~~print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HelloHTVM") {~~~    print("StringTrimLeft test 4 (zero trim) FAILED!")~~~}~~~```~~~
+proc StringTrimLeft(s: string, numChars: int): string =
+  if numChars <= 0:
+    return s
+  if numChars >= s.len:
+    return ""
+  return s.substr(numChars)
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: StringTrimLeft
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.~~~Here is how to use it:~~~```htvm~~~str text1 := "HelloHTVM"~~~int charsToTrim1 := 5~~~str result1 := StringTrimLeft(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimLeft test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Goodbye"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimLeft(charsToTrim2)~~~; Expected: 'dbye'~~~print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "dbye") {~~~    print("StringTrimLeft test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Short"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimLeft(text3, charsToTrim3)~~~; Expected: '' (or "Short", behavior might vary)~~~; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.~~~print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimLeft(text1, charsToTrim4)~~~; Expected: 'HelloHTVM'~~~print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HelloHTVM") {~~~    print("StringTrimLeft test 4 (zero trim) FAILED!")~~~}~~~```~~~
+StringTrimLeft(str, count) {
+    if (count > StrLen(str))
+        return ""  ; Or decide how you want to handle too large count
+    return SubStr(str, count + 1)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: StringTrimLeft
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.~~~Here is how to use it:~~~```htvm~~~str text1 := "HelloHTVM"~~~int charsToTrim1 := 5~~~str result1 := StringTrimLeft(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimLeft test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Goodbye"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimLeft(charsToTrim2)~~~; Expected: 'dbye'~~~print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "dbye") {~~~    print("StringTrimLeft test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Short"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimLeft(text3, charsToTrim3)~~~; Expected: '' (or "Short", behavior might vary)~~~; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.~~~print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimLeft(text1, charsToTrim4)~~~; Expected: 'HelloHTVM'~~~print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HelloHTVM") {~~~    print("StringTrimLeft test 4 (zero trim) FAILED!")~~~}~~~```~~~
+func StringTrimLeft(_ input: String, _ numChars: Int) -> String {
+    guard numChars > 0 else { return input }
+    return String(input.dropFirst(numChars))
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: StringTrimLeft
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.~~~Here is how to use it:~~~```htvm~~~str text1 := "HelloHTVM"~~~int charsToTrim1 := 5~~~str result1 := StringTrimLeft(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimLeft test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Goodbye"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimLeft(charsToTrim2)~~~; Expected: 'dbye'~~~print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "dbye") {~~~    print("StringTrimLeft test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Short"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimLeft(text3, charsToTrim3)~~~; Expected: '' (or "Short", behavior might vary)~~~; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.~~~print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimLeft(text1, charsToTrim4)~~~; Expected: 'HelloHTVM'~~~print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HelloHTVM") {~~~    print("StringTrimLeft test 4 (zero trim) FAILED!")~~~}~~~```~~~
+String StringTrimLeft(String input, int numChars) {
+  if (numChars <= 0) return input;
+  if (numChars >= input.length) return "";
+  return input.substring(numChars);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: StringTrimLeft
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.~~~Here is how to use it:~~~```htvm~~~str text1 := "HelloHTVM"~~~int charsToTrim1 := 5~~~str result1 := StringTrimLeft(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimLeft test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Goodbye"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimLeft(charsToTrim2)~~~; Expected: 'dbye'~~~print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "dbye") {~~~    print("StringTrimLeft test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Short"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimLeft(text3, charsToTrim3)~~~; Expected: '' (or "Short", behavior might vary)~~~; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.~~~print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimLeft(text1, charsToTrim4)~~~; Expected: 'HelloHTVM'~~~print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HelloHTVM") {~~~    print("StringTrimLeft test 4 (zero trim) FAILED!")~~~}~~~```~~~
+function StringTrimLeft(input: string, numChars: number): string {
+    if (numChars <= 0) return input;
+    return input.substring(numChars);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: StringTrimLeft
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.~~~Here is how to use it:~~~```htvm~~~str text1 := "HelloHTVM"~~~int charsToTrim1 := 5~~~str result1 := StringTrimLeft(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimLeft test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Goodbye"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimLeft(charsToTrim2)~~~; Expected: 'dbye'~~~print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "dbye") {~~~    print("StringTrimLeft test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Short"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimLeft(text3, charsToTrim3)~~~; Expected: '' (or "Short", behavior might vary)~~~; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.~~~print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimLeft(text1, charsToTrim4)~~~; Expected: 'HelloHTVM'~~~print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HelloHTVM") {~~~    print("StringTrimLeft test 4 (zero trim) FAILED!")~~~}~~~```~~~
+String StringTrimLeft(String input, int numChars) {
+    if (input == null || numChars <= 0) return input
+    if (numChars >= input.length()) return ""
+    return input.substring(numChars)
+}
+funcEND======================funcEND==============
+
+
+
+func======================func==============
+lang: go
+name: StringTrimRight
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.~~~Here is how to use it:~~~```htvm~~~str text1 := "HTVMHello"~~~int charsToTrim1 := 5~~~str result1 := StringTrimRight(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimRight test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Welcome"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimRight(charsToTrim2)~~~; Expected: 'Welc'~~~print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "Welc") {~~~    print("StringTrimRight test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Tiny"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimRight(text3, charsToTrim3)~~~; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.~~~print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimRight(text1, charsToTrim4)~~~; Expected: 'HTVMHello'~~~print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HTVMHello") {~~~    print("StringTrimRight test 4 (zero trim) FAILED!")~~~}~~~```~~~
+func StringTrimRight(input string, numChars int) string {
+    if numChars <= 0 {
+        return input
+    }
+    runes := []rune(input)
+    if numChars >= len(runes) {
+        return ""
+    }
+    return string(runes[:len(runes)-numChars])
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: StringTrimRight
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.~~~Here is how to use it:~~~```htvm~~~str text1 := "HTVMHello"~~~int charsToTrim1 := 5~~~str result1 := StringTrimRight(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimRight test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Welcome"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimRight(charsToTrim2)~~~; Expected: 'Welc'~~~print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "Welc") {~~~    print("StringTrimRight test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Tiny"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimRight(text3, charsToTrim3)~~~; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.~~~print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimRight(text1, charsToTrim4)~~~; Expected: 'HTVMHello'~~~print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HTVMHello") {~~~    print("StringTrimRight test 4 (zero trim) FAILED!")~~~}~~~```~~~
+function StringTrimRight(input, numChars)
+    if numChars <= 0 then return input end
+    if numChars >= #input then return "" end
+    return string.sub(input, 1, #input - numChars)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: StringTrimRight
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.~~~Here is how to use it:~~~```htvm~~~str text1 := "HTVMHello"~~~int charsToTrim1 := 5~~~str result1 := StringTrimRight(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimRight test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Welcome"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimRight(charsToTrim2)~~~; Expected: 'Welc'~~~print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "Welc") {~~~    print("StringTrimRight test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Tiny"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimRight(text3, charsToTrim3)~~~; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.~~~print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimRight(text1, charsToTrim4)~~~; Expected: 'HTVMHello'~~~print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HTVMHello") {~~~    print("StringTrimRight test 4 (zero trim) FAILED!")~~~}~~~```~~~
+public static string StringTrimRight(string input, int numChars) {
+    if (input == null || numChars <= 0) return input;
+    if (numChars >= input.Length) return "";
+    return input.Substring(0, input.Length - numChars);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: StringTrimRight
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.~~~Here is how to use it:~~~```htvm~~~str text1 := "HTVMHello"~~~int charsToTrim1 := 5~~~str result1 := StringTrimRight(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimRight test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Welcome"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimRight(charsToTrim2)~~~; Expected: 'Welc'~~~print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "Welc") {~~~    print("StringTrimRight test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Tiny"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimRight(text3, charsToTrim3)~~~; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.~~~print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimRight(text1, charsToTrim4)~~~; Expected: 'HTVMHello'~~~print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HTVMHello") {~~~    print("StringTrimRight test 4 (zero trim) FAILED!")~~~}~~~```~~~
+public static String StringTrimRight(String input, int numChars) {
+    if (input == null || numChars <= 0) return input;
+    if (numChars >= input.length()) return "";
+    return input.substring(0, input.length() - numChars);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: StringTrimRight
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.~~~Here is how to use it:~~~```htvm~~~str text1 := "HTVMHello"~~~int charsToTrim1 := 5~~~str result1 := StringTrimRight(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimRight test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Welcome"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimRight(charsToTrim2)~~~; Expected: 'Welc'~~~print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "Welc") {~~~    print("StringTrimRight test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Tiny"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimRight(text3, charsToTrim3)~~~; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.~~~print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimRight(text1, charsToTrim4)~~~; Expected: 'HTVMHello'~~~print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HTVMHello") {~~~    print("StringTrimRight test 4 (zero trim) FAILED!")~~~}~~~```~~~
+fun StringTrimRight(input: String, numChars: Int): String {
+    if (numChars <= 0) return input
+    return input.dropLast(numChars)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: StringTrimRight
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.~~~Here is how to use it:~~~```htvm~~~str text1 := "HTVMHello"~~~int charsToTrim1 := 5~~~str result1 := StringTrimRight(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimRight test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Welcome"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimRight(charsToTrim2)~~~; Expected: 'Welc'~~~print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "Welc") {~~~    print("StringTrimRight test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Tiny"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimRight(text3, charsToTrim3)~~~; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.~~~print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimRight(text1, charsToTrim4)~~~; Expected: 'HTVMHello'~~~print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HTVMHello") {~~~    print("StringTrimRight test 4 (zero trim) FAILED!")~~~}~~~```~~~
+def StringTrimRight(input, numChars)
+    return input if numChars <= 0
+    return "" if numChars >= input.length
+    return input[0, input.length - numChars]
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: StringTrimRight
+libs: import strutils
+description: string~~~Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.~~~Here is how to use it:~~~```htvm~~~str text1 := "HTVMHello"~~~int charsToTrim1 := 5~~~str result1 := StringTrimRight(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimRight test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Welcome"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimRight(charsToTrim2)~~~; Expected: 'Welc'~~~print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "Welc") {~~~    print("StringTrimRight test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Tiny"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimRight(text3, charsToTrim3)~~~; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.~~~print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimRight(text1, charsToTrim4)~~~; Expected: 'HTVMHello'~~~print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HTVMHello") {~~~    print("StringTrimRight test 4 (zero trim) FAILED!")~~~}~~~```~~~
+proc StringTrimRight(s: string, numChars: int): string =
+  if numChars <= 0:
+    return s
+  if numChars >= s.len:
+    return ""
+  return s.substr(0, s.len - numChars - 1)
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: StringTrimRight
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.~~~Here is how to use it:~~~```htvm~~~str text1 := "HTVMHello"~~~int charsToTrim1 := 5~~~str result1 := StringTrimRight(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimRight test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Welcome"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimRight(charsToTrim2)~~~; Expected: 'Welc'~~~print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "Welc") {~~~    print("StringTrimRight test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Tiny"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimRight(text3, charsToTrim3)~~~; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.~~~print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimRight(text1, charsToTrim4)~~~; Expected: 'HTVMHello'~~~print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HTVMHello") {~~~    print("StringTrimRight test 4 (zero trim) FAILED!")~~~}~~~```~~~
+StringTrimRight(str, count) {
+    len := StrLen(str)
+    if (count > len)
+        return str  ; or return "" if you prefer trimming all
+    return SubStr(str, 1, len - count)
+}
+
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: StringTrimRight
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.~~~Here is how to use it:~~~```htvm~~~str text1 := "HTVMHello"~~~int charsToTrim1 := 5~~~str result1 := StringTrimRight(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimRight test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Welcome"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimRight(charsToTrim2)~~~; Expected: 'Welc'~~~print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "Welc") {~~~    print("StringTrimRight test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Tiny"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimRight(text3, charsToTrim3)~~~; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.~~~print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimRight(text1, charsToTrim4)~~~; Expected: 'HTVMHello'~~~print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HTVMHello") {~~~    print("StringTrimRight test 4 (zero trim) FAILED!")~~~}~~~```~~~
+func StringTrimRight(_ input: String, _ numChars: Int) -> String {
+    guard numChars > 0 else { return input }
+    return String(input.dropLast(numChars))
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: StringTrimRight
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.~~~Here is how to use it:~~~```htvm~~~str text1 := "HTVMHello"~~~int charsToTrim1 := 5~~~str result1 := StringTrimRight(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimRight test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Welcome"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimRight(charsToTrim2)~~~; Expected: 'Welc'~~~print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "Welc") {~~~    print("StringTrimRight test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Tiny"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimRight(text3, charsToTrim3)~~~; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.~~~print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimRight(text1, charsToTrim4)~~~; Expected: 'HTVMHello'~~~print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HTVMHello") {~~~    print("StringTrimRight test 4 (zero trim) FAILED!")~~~}~~~```~~~
+String StringTrimRight(String input, int numChars) {
+  if (numChars <= 0) return input;
+  if (numChars >= input.length) return "";
+  return input.substring(0, input.length - numChars);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: StringTrimRight
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.~~~Here is how to use it:~~~```htvm~~~str text1 := "HTVMHello"~~~int charsToTrim1 := 5~~~str result1 := StringTrimRight(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimRight test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Welcome"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimRight(charsToTrim2)~~~; Expected: 'Welc'~~~print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "Welc") {~~~    print("StringTrimRight test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Tiny"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimRight(text3, charsToTrim3)~~~; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.~~~print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimRight(text1, charsToTrim4)~~~; Expected: 'HTVMHello'~~~print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HTVMHello") {~~~    print("StringTrimRight test 4 (zero trim) FAILED!")~~~}~~~```~~~
+function StringTrimRight(input: string, numChars: number): string {
+    if (numChars <= 0) return input;
+    return input.slice(0, -numChars);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: StringTrimRight
+libs: null
+description: string~~~Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.~~~Here is how to use it:~~~```htvm~~~str text1 := "HTVMHello"~~~int charsToTrim1 := 5~~~str result1 := StringTrimRight(text1, charsToTrim1)~~~; Expected: 'HTVM'~~~print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")~~~if (result1 != "HTVM") {~~~    print("StringTrimRight test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "Welcome"~~~int charsToTrim2 := 3~~~str result2 := text2.StringTrimRight(charsToTrim2)~~~; Expected: 'Welc'~~~print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")~~~if (result2 != "Welc") {~~~    print("StringTrimRight test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "Tiny"~~~int charsToTrim3 := 10~~~; More than length~~~str result3 := StringTrimRight(text3, charsToTrim3)~~~; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.~~~print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")~~~; ----------------------------------------------------~~~int charsToTrim4 := 0~~~str result4 := StringTrimRight(text1, charsToTrim4)~~~; Expected: 'HTVMHello'~~~print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")~~~if (result4 != "HTVMHello") {~~~    print("StringTrimRight test 4 (zero trim) FAILED!")~~~}~~~```~~~
+String StringTrimRight(String input, int numChars) {
+    if (input == null || numChars <= 0) return input
+    if (numChars >= input.length()) return ""
+    return input.substring(0, input.length() - numChars)
 }
 funcEND======================funcEND==============

@@ -4814,10 +4814,10 @@ print("Tan(pi/2) = " . STR(result3))
 | StrLen | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | StrLower | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | StrReplace | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
-| StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| StrTitleCase | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| StringTrimLeft | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| StringTrimRight | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StrSplit | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
+| StrTitleCase | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
+| StringTrimLeft | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
+| StringTrimRight | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | countChars | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
@@ -5476,7 +5476,7 @@ if (result4 != "Remove") {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StrSplit | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StrSplit | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `num`). If `num` is out of range, or the delimiter is not found appropriately, it may return an empty string or cause an error depending on the language.
 
@@ -5539,7 +5539,7 @@ if (item5 != "three") {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StrTitleCase | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StrTitleCase | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Converts a string to title case, where the first letter of each word is capitalized and all other letters are lowercase. Words are generally delimited by spaces.
 
@@ -5562,7 +5562,7 @@ if (title2 != "Htvm Is Awesome") {
     print("StrTitleCase test 2 FAILED!")
 }
 ; ----------------------------------------------------
-str text3 := "already Title Case"
+str text3 := "Already Title Case"
 str title3 := StrTitleCase(text3)
 ; Expected: 'Already Title Case'
 print("Title case of '" . text3 . "': '" . title3 . "'")
@@ -5589,7 +5589,7 @@ if (title4 != " Leading Space") {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StringTrimLeft | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StringTrimLeft | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Removes a specified number of characters (`numChars`) from the beginning (left side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string depending on implementation.
 
@@ -5641,7 +5641,7 @@ if (result4 != "HelloHTVM") {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| StringTrimRight | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| StringTrimRight | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Removes a specified number of characters (`numChars`) from the end (right side) of a string. If `numChars` is greater than the string length, the result might be an empty string or the original string.
 
