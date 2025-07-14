@@ -4823,7 +4823,7 @@ print("Tan(pi/2) = " . STR(result3))
 | countChars | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | sortArr | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
-| sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| sortArrByLenOnly | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 ---
 
@@ -5945,7 +5945,7 @@ if (sortedArr2.size() != 4 or sortedArr2[0] != "1" or sortedArr2[1] != "10" or s
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| sortArrByLenOnly | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.
 
@@ -5977,7 +5977,7 @@ Loop, % sorted2.size() {
 ; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)
 str expectedOrderStart := "very_long_length"
 str expectedOrderEnd := "tiny"
-if (sorted2[0] != expectedOrderStart or sorted2[sorted2.size() - 1] != expectedOrderEnd) {
+if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {
     print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")
 }
 ```

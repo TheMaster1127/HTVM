@@ -4810,19 +4810,22 @@ func======================func==============
 lang: cpp
 name: sortArrByLenOnly
 libs: #include <iostream>|#include <vector>|#include <string>|#include <algorithm>
-description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[sorted2.size() - 1] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
 // Function to sort an array of strings by length in descending order
-void sortArrByLenOnly(std::vector<std::string>& array) {
-    std::sort(array.begin(), array.end(), [](const std::string& a, const std::string& b) {
+std::vector<std::string> sortArrByLenOnly(const std::vector<std::string>& array) {
+    std::vector<std::string> sorted = array;
+    std::sort(sorted.begin(), sorted.end(), [](const std::string& a, const std::string& b) {
         return a.length() > b.length();
     });
+    return sorted;
 }
+
 funcEND======================funcEND==============
 func======================func==============
 lang: js
 name: sortArrByLenOnly
 libs: null
-description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[sorted2.size() - 1] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
 // Function to sort an array of strings by length in descending order
 function sortArrByLenOnly(array) {
     return array.sort((a, b) => b.length - a.length);
@@ -4833,10 +4836,11 @@ func======================func==============
 lang: py
 name: sortArrByLenOnly
 libs: null
-description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[sorted2.size() - 1] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
 # Function to sort an array of strings by length in descending order
 def sortArrByLenOnly(array):
     array.sort(key=len, reverse=True)
+    return array
 funcEND======================funcEND==============
 
 func======================func==============
@@ -12425,5 +12429,157 @@ libs: null
 description: string~~~Sorts an array of strings in ascending order. It typically removes duplicate values before sorting, resulting in an array of unique, sorted strings. The sorting is usually case-insensitive by default, but this can vary by language.~~~Here is how to use it:~~~```htvm~~~arr str unsortedArr1 := ["Charlie", "Alpha", "Bravo", "alpha"]~~~arr str sortedArr1~~~sortedArr1 := sortArr(unsortedArr1)~~~print("Original Array 1: ")~~~Loop, % unsortedArr1.size() {~~~    print("  " . unsortedArr1[A_Index])~~~}~~~print("Sorted Unique Array 1: ")~~~Loop, % sortedArr1.size() {~~~    print("  " . sortedArr1[A_Index])~~~}~~~; Expected (case-sensitive): ["Alpha", "Bravo", "Charlie", "alpha"]~~~if (sortedArr1.size() != 4 or sortedArr1[0] != "Alpha" or sortedArr1[1] != "Bravo" or sortedArr1[2] != "Charlie" or sortedArr1[3] != "alpha") {~~~    print("sortArr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str unsortedArr2 := ["10", "2", "100", "1", "2"]~~~arr str sortedArr2~~~sortedArr2 := unsortedArr2.sortArr()~~~; Alternative call~~~print("Original Array 2: ")~~~Loop, % unsortedArr2.size() {~~~    print("  " . unsortedArr2[A_Index])~~~}~~~print("Sorted Unique Array 2 (lexicographical): ")~~~Loop, % sortedArr2.size() {~~~    print("  " . sortedArr2[A_Index])~~~}~~~; Expected (lexicographical, unique): ["1", "10", "100", "2"]~~~if (sortedArr2.size() != 4 or sortedArr2[0] != "1" or sortedArr2[1] != "10" or sortedArr2[2] != "100" or sortedArr2[3] != "2") {~~~    print("sortArr test 2 FAILED!")~~~}~~~```~~~
 List<String> sortArr(List<String> input) {
     return input.unique(false).sort(false)
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: sortArrByLenOnly
+libs: )|"sort"
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+func sortArrByLenOnly(input []string) []string {
+	sorted := make([]string, len(input))
+	copy(sorted, input)
+	sort.SliceStable(sorted, func(i, j int) bool {
+		return len(sorted[i]) > len(sorted[j])
+	})
+	return sorted
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: sortArrByLenOnly
+libs: null
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+function sortArrByLenOnly(input)
+    local sorted = {}
+    for i, v in ipairs(input) do sorted[i] = v end
+    table.sort(sorted, function(a, b)
+        return #a > #b
+    end)
+    return sorted
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: sortArrByLenOnly
+libs: using System.Collections.Generic;|using System.Linq;
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+public static List<string> sortArrByLenOnly(List<string> input) {
+    return input.OrderByDescending(s => s.Length).ToList();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: sortArrByLenOnly
+libs: import java.util.*;
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+
+public static ArrayList<String> sortArrByLenOnly(ArrayList<String> input) {
+    ArrayList<String> sorted = new ArrayList<>(input);
+    sorted.sort((a, b) -> Integer.compare(b.length(), a.length()));
+    return sorted;
+}
+
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: sortArrByLenOnly
+libs: null
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+fun sortArrByLenOnly(input: ArrayList<String>): ArrayList<String> {
+    val sorted = ArrayList(input)
+    sorted.sortWith(compareByDescending { it.length })
+    return sorted
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: sortArrByLenOnly
+libs: null
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+def sortArrByLenOnly(input)
+  input.sort_by { |s| -s.length }
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: sortArrByLenOnly
+libs: import algorithm
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+proc sortArrByLenOnly(input: seq[string]): seq[string] =
+  var sorted = input
+  sorted.sort(proc(a, b: string): int = cmp(b.len, a.len))
+  return sorted
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: sortArrByLenOnly
+libs: null
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+; Compare strings by length descending
+sortArrByLenOnly_HELP_CompareLenDesc(a, b) {
+    return StrLen(b) - StrLen(a)
+}
+
+sortArrByLenOnly(input) {
+    sorted := input.Clone()
+    size := sorted.Length()
+    Loop, % size - 1 {
+        outerLoop := A_Index
+        Loop, % size - outerLoop {
+            i := A_Index
+            if (sortArrByLenOnly_HELP_CompareLenDesc(sorted[i], sorted[i+1]) > 0) {
+                temp := sorted[i]
+                sorted[i] := sorted[i+1]
+                sorted[i+1] := temp
+            }
+        }
+    }
+    return sorted
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: sortArrByLenOnly
+libs: null
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+func sortArrByLenOnly(_ input: [String]) -> [String] {
+    return input.sorted { $0.count > $1.count }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: sortArrByLenOnly
+libs: null
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+List<String> sortArrByLenOnly(List<String> input) {
+  var sorted = List<String>.from(input);
+  sorted.sort((a, b) => b.length.compareTo(a.length));
+  return sorted;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: sortArrByLenOnly
+libs: null
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+function sortArrByLenOnly(input: string[]): string[] {
+    return [...input].sort((a, b) => b.length - a.length);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: sortArrByLenOnly
+libs: null
+description: string~~~Sorts an array of strings primarily by their length in descending order (longest strings first). If strings have the same length, their relative order might be preserved or sorted alphabetically, depending on the underlying sort stability and implementation.~~~Here is how to use it:~~~```htvm~~~arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]~~~; Should already be sorted by length descending~~~arr str sorted1~~~sorted1 := sortArrByLenOnly(arr1)~~~print("Original Array 1: eeeee, dddd, ccc, bb, a")~~~print("Sorted by Length Desc 1: ")~~~Loop, % sorted1.size() {~~~    print("  " . sorted1[A_Index])~~~}~~~if (sorted1[0] != "eeeee" or sorted1[4] != "a") {~~~    print("sortArrByLenOnly test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]~~~arr str sorted2~~~sorted2 := arr2.sortArrByLenOnly()~~~print("Original Array 2: short, longer_word, tiny, very_long_length")~~~print("Sorted by Length Desc 2: ")~~~Loop, % sorted2.size() {~~~    print("  " . sorted2[A_Index])~~~}~~~; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)~~~str expectedOrderStart := "very_long_length"~~~str expectedOrderEnd := "tiny"~~~if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {~~~    print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")~~~}~~~```~~~
+List<String> sortArrByLenOnly(List<String> input) {
+    return input.sort(false) { a, b -> b.length() <=> a.length() }
 }
 funcEND======================funcEND==============
