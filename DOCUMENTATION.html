@@ -5040,7 +5040,7 @@ print("Tan(pi/2) = " . STR(result3))
 | Trim | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | countChars | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| sortArr | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | sortArrByLenOnly | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 
 ---
@@ -6111,7 +6111,7 @@ Loop, Parse, params, "&" {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| sortArr | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Sorts an array of strings in ascending order. It typically removes duplicate values before sorting, resulting in an array of unique, sorted strings. The sorting is usually case-insensitive by default, but this can vary by language.
 
@@ -6119,7 +6119,8 @@ Here is how to use it:
 
 ```htvm
 arr str unsortedArr1 := ["Charlie", "Alpha", "Bravo", "alpha"]
-arr str sortedArr1 := sortArr(unsortedArr1)
+arr str sortedArr1
+sortedArr1 := sortArr(unsortedArr1)
 print("Original Array 1: ")
 Loop, % unsortedArr1.size() {
     print("  " . unsortedArr1[A_Index])
@@ -6135,7 +6136,8 @@ if (sortedArr1.size() != 4 or sortedArr1[0] != "Alpha" or sortedArr1[1] != "Brav
 ; ----------------------------------------------------
 print("--------------------")
 arr str unsortedArr2 := ["10", "2", "100", "1", "2"]
-arr str sortedArr2 := unsortedArr2.sortArr()
+arr str sortedArr2
+sortedArr2 := unsortedArr2.sortArr()
 ; Alternative call
 print("Original Array 2: ")
 Loop, % unsortedArr2.size() {
@@ -6170,7 +6172,8 @@ Here is how to use it:
 ```htvm
 arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]
 ; Should already be sorted by length descending
-arr str sorted1 := sortArrByLenOnly(arr1)
+arr str sorted1
+sorted1 := sortArrByLenOnly(arr1)
 print("Original Array 1: eeeee, dddd, ccc, bb, a")
 print("Sorted by Length Desc 1: ")
 Loop, % sorted1.size() {
@@ -6182,7 +6185,8 @@ if (sorted1[0] != "eeeee" or sorted1[4] != "a") {
 ; ----------------------------------------------------
 print("--------------------")
 arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]
-arr str sorted2 := arr2.sortArrByLenOnly()
+arr str sorted2
+sorted2 := arr2.sortArrByLenOnly()
 print("Original Array 2: short, longer_word, tiny, very_long_length")
 print("Sorted by Length Desc 2: ")
 Loop, % sorted2.size() {
