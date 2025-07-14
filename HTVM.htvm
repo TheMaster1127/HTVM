@@ -24757,10 +24757,7 @@ htCode := fixHTVMToHTVMMissingAfterAssignmentOperator(htCode)
 
 
 
-Loop, % commentsBugFix.size()
-{
-htCode := StrReplace(htCode, "HTVM--cnavisdofbuvsesdivdidufg79wregwewaeosd8ges7dfdftuawdiHTVMv2yerheyziberlasduci6syiq--AA" . STR(A_Index) . "AA", commentsBugFix[A_Index])
-}
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; fix here
 ;;;;;;;;;;;;;;;;;;;;;;;;;; fix here
@@ -25395,7 +25392,9 @@ if (isNotHTVMfile2 = 0)
 if (langToConvertTo = "ahk")
 {
 htCode := RegExReplace(htCode, "\bStrSplit\b", "AHK_StrSplit_AHK")
+htCode := RegExReplace(htCode, "\bSleep\b", "AHK_Sleep_AHK")
 }
+
 
 
 if (langToConvertTo = "cpp")
@@ -25455,7 +25454,10 @@ if (langToConvertTo = "dart")
     htCode := StrReplace(htCode, "void main(List<String> arguments);", "void main(List<String> arguments)")
 }
 
-
+Loop, % commentsBugFix.size()
+{
+htCode := StrReplace(htCode, "HTVM--cnavisdofbuvsesdivdidufg79wregwewaeosd8ges7dfdftuawdiHTVMv2yerheyziberlasduci6syiq--AA" . STR(A_Index) . "AA", commentsBugFix[A_Index])
+}
 
 
 }

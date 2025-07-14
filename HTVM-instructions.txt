@@ -12583,3 +12583,697 @@ List<String> sortArrByLenOnly(List<String> input) {
     return input.sort(false) { a, b -> b.length() <=> a.length() }
 }
 funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: BuildInVars
+libs: )|"time"|"fmt"
+description: system~~~Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).~~~Here is how to use it:~~~```htvm~~~; ==== Built-in Variables for BuildInVars() ====~~~; A_ScreenWidth  - Width of the window screen (browser only)~~~; A_ScreenHeight - Height of the window screen (browser only)~~~; A_LastKey      - Last key pressed by the user (browser only)~~~; A_TimeIdle     - Time the user has been idle (in ms or seconds)~~~; A_TickCount    - Current tick count (ms since the start)~~~; A_Now          - Local datetime string (full, locale-based)~~~; A_YYYY         - 4-digit current year~~~; A_MM           - 2-digit current month (01–12)~~~; A_DD           - 2-digit current day of month (01–31)~~~; A_MMMM         - Full month name (e.g. January)~~~; A_MMM          - Abbreviated month name (e.g. Jan)~~~; A_DDDD         - Full day name (e.g. Monday)~~~; A_DDD          - Abbreviated day name (e.g. Mon)~~~; A_Hour         - Current hour (00–23)~~~; A_Min          - Current minute (00–59)~~~; A_Sec          - Current second (00–59)~~~; A_Space        - Space character (" ")~~~; A_Tab          - Tab character ("\t")~~~; ==========================================================~~~; Some behavior may vary depending on the target language!!!~~~; Make sure to test your code thoroughly!!!~~~; ==========================================================~~~; Examples:~~~str currentYear := BuildInVars("A_YYYY")~~~print("Current Year (A_YYYY): " . currentYear)~~~; ----------------------------------------------------~~~str currentMonth := BuildInVars("A_MMMM")~~~print("Current Month (A_MMMM): " . currentMonth)~~~if (StrLen(currentMonth) < 3) {~~~    print("BuildInVars A_MMMM test FAILED! Month name too short.")~~~}~~~; ----------------------------------------------------~~~str tabChar := BuildInVars("A_Tab")~~~print("Space char (A_Tab): '" . tabChar . "'")~~~; ----------------------------------------------------~~~; Browser-specific example (will return empty or error in non-browser environments)~~~str screenWidth := BuildInVars("A_ScreenWidth")~~~print("Screen Width (A_ScreenWidth): " . screenWidth)~~~if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {~~~    print("BuildInVars A_ScreenWidth test needs a browser!")~~~}~~~; ----------------------------------------------------~~~str tickCount1 := BuildInVars("A_TickCount")~~~print("TickCount 1: " . tickCount1)~~~await Sleep(100)~~~str tickCount2 := BuildInVars("A_TickCount")~~~print("TickCount 2 (after 100ms sleep): " . tickCount2)~~~; This will never be perfectly 100 because:~~~; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.~~~; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).~~~; 3. Some overhead is added due to:~~~;    - Executing BuildInVars("A_TickCount") before and after.~~~;    - Interpreter/runtime processing.~~~;    - Internal event loop mechanics if async is involved.~~~; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).~~~if (INT(tickCount2) <= INT(tickCount1)) {~~~    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")~~~}~~~```~~~
+var programStartTime = time.Now()
+func BuildInVars(varName string) string {
+    now := time.Now()
+    switch varName {
+    case "A_TickCount":
+        return fmt.Sprintf("%d", now.Sub(programStartTime).Milliseconds())
+    case "A_Now":
+        return now.Format("2006-01-02 15:04:05")
+    case "A_YYYY":
+        return now.Format("2006")
+    case "A_MM":
+        return now.Format("01")
+    case "A_DD":
+        return now.Format("02")
+    case "A_MMMM":
+        return now.Format("January")
+    case "A_MMM":
+        return now.Format("Jan")
+    case "A_DDDD":
+        return now.Format("Monday")
+    case "A_DDD":
+        return now.Format("Mon")
+    case "A_Hour":
+        return now.Format("15")
+    case "A_Min":
+        return now.Format("04")
+    case "A_Sec":
+        return now.Format("05")
+    case "A_Space":
+        return " "
+    case "A_Tab":
+        return "\t"
+    default:
+        return ""
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: BuildInVars
+libs: null
+description: system~~~Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).~~~Here is how to use it:~~~```htvm~~~; ==== Built-in Variables for BuildInVars() ====~~~; A_ScreenWidth  - Width of the window screen (browser only)~~~; A_ScreenHeight - Height of the window screen (browser only)~~~; A_LastKey      - Last key pressed by the user (browser only)~~~; A_TimeIdle     - Time the user has been idle (in ms or seconds)~~~; A_TickCount    - Current tick count (ms since the start)~~~; A_Now          - Local datetime string (full, locale-based)~~~; A_YYYY         - 4-digit current year~~~; A_MM           - 2-digit current month (01–12)~~~; A_DD           - 2-digit current day of month (01–31)~~~; A_MMMM         - Full month name (e.g. January)~~~; A_MMM          - Abbreviated month name (e.g. Jan)~~~; A_DDDD         - Full day name (e.g. Monday)~~~; A_DDD          - Abbreviated day name (e.g. Mon)~~~; A_Hour         - Current hour (00–23)~~~; A_Min          - Current minute (00–59)~~~; A_Sec          - Current second (00–59)~~~; A_Space        - Space character (" ")~~~; A_Tab          - Tab character ("\t")~~~; ==========================================================~~~; Some behavior may vary depending on the target language!!!~~~; Make sure to test your code thoroughly!!!~~~; ==========================================================~~~; Examples:~~~str currentYear := BuildInVars("A_YYYY")~~~print("Current Year (A_YYYY): " . currentYear)~~~; ----------------------------------------------------~~~str currentMonth := BuildInVars("A_MMMM")~~~print("Current Month (A_MMMM): " . currentMonth)~~~if (StrLen(currentMonth) < 3) {~~~    print("BuildInVars A_MMMM test FAILED! Month name too short.")~~~}~~~; ----------------------------------------------------~~~str tabChar := BuildInVars("A_Tab")~~~print("Space char (A_Tab): '" . tabChar . "'")~~~; ----------------------------------------------------~~~; Browser-specific example (will return empty or error in non-browser environments)~~~str screenWidth := BuildInVars("A_ScreenWidth")~~~print("Screen Width (A_ScreenWidth): " . screenWidth)~~~if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {~~~    print("BuildInVars A_ScreenWidth test needs a browser!")~~~}~~~; ----------------------------------------------------~~~str tickCount1 := BuildInVars("A_TickCount")~~~print("TickCount 1: " . tickCount1)~~~await Sleep(100)~~~str tickCount2 := BuildInVars("A_TickCount")~~~print("TickCount 2 (after 100ms sleep): " . tickCount2)~~~; This will never be perfectly 100 because:~~~; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.~~~; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).~~~; 3. Some overhead is added due to:~~~;    - Executing BuildInVars("A_TickCount") before and after.~~~;    - Interpreter/runtime processing.~~~;    - Internal event loop mechanics if async is involved.~~~; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).~~~if (INT(tickCount2) <= INT(tickCount1)) {~~~    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")~~~}~~~```~~~
+local programStartTime = os.clock()
+function BuildInVars(varName)
+    if varName == "A_TickCount" then
+        return tostring(math.floor((os.clock() - programStartTime) * 1000))
+    elseif varName == "A_Now" then
+        return os.date("%Y-%m-%d %H:%M:%S")
+    elseif varName == "A_YYYY" then
+        return os.date("%Y")
+    elseif varName == "A_MM" then
+        return os.date("%m")
+    elseif varName == "A_DD" then
+        return os.date("%d")
+    elseif varName == "A_MMMM" then
+        return os.date("%B")
+    elseif varName == "A_MMM" then
+        return os.date("%b")
+    elseif varName == "A_DDDD" then
+        return os.date("%A")
+    elseif varName == "A_DDD" then
+        return os.date("%a")
+    elseif varName == "A_Hour" then
+        return os.date("%H")
+    elseif varName == "A_Min" then
+        return os.date("%M")
+    elseif varName == "A_Sec" then
+        return os.date("%S")
+    elseif varName == "A_Space" then
+        return " "
+    elseif varName == "A_Tab" then
+        return "\t"
+    else
+        return ""
+    end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: BuildInVars
+libs: using System;|using System.Diagnostics;
+description: system~~~Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).~~~Here is how to use it:~~~```htvm~~~; ==== Built-in Variables for BuildInVars() ====~~~; A_ScreenWidth  - Width of the window screen (browser only)~~~; A_ScreenHeight - Height of the window screen (browser only)~~~; A_LastKey      - Last key pressed by the user (browser only)~~~; A_TimeIdle     - Time the user has been idle (in ms or seconds)~~~; A_TickCount    - Current tick count (ms since the start)~~~; A_Now          - Local datetime string (full, locale-based)~~~; A_YYYY         - 4-digit current year~~~; A_MM           - 2-digit current month (01–12)~~~; A_DD           - 2-digit current day of month (01–31)~~~; A_MMMM         - Full month name (e.g. January)~~~; A_MMM          - Abbreviated month name (e.g. Jan)~~~; A_DDDD         - Full day name (e.g. Monday)~~~; A_DDD          - Abbreviated day name (e.g. Mon)~~~; A_Hour         - Current hour (00–23)~~~; A_Min          - Current minute (00–59)~~~; A_Sec          - Current second (00–59)~~~; A_Space        - Space character (" ")~~~; A_Tab          - Tab character ("\t")~~~; ==========================================================~~~; Some behavior may vary depending on the target language!!!~~~; Make sure to test your code thoroughly!!!~~~; ==========================================================~~~; Examples:~~~str currentYear := BuildInVars("A_YYYY")~~~print("Current Year (A_YYYY): " . currentYear)~~~; ----------------------------------------------------~~~str currentMonth := BuildInVars("A_MMMM")~~~print("Current Month (A_MMMM): " . currentMonth)~~~if (StrLen(currentMonth) < 3) {~~~    print("BuildInVars A_MMMM test FAILED! Month name too short.")~~~}~~~; ----------------------------------------------------~~~str tabChar := BuildInVars("A_Tab")~~~print("Space char (A_Tab): '" . tabChar . "'")~~~; ----------------------------------------------------~~~; Browser-specific example (will return empty or error in non-browser environments)~~~str screenWidth := BuildInVars("A_ScreenWidth")~~~print("Screen Width (A_ScreenWidth): " . screenWidth)~~~if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {~~~    print("BuildInVars A_ScreenWidth test needs a browser!")~~~}~~~; ----------------------------------------------------~~~str tickCount1 := BuildInVars("A_TickCount")~~~print("TickCount 1: " . tickCount1)~~~await Sleep(100)~~~str tickCount2 := BuildInVars("A_TickCount")~~~print("TickCount 2 (after 100ms sleep): " . tickCount2)~~~; This will never be perfectly 100 because:~~~; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.~~~; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).~~~; 3. Some overhead is added due to:~~~;    - Executing BuildInVars("A_TickCount") before and after.~~~;    - Interpreter/runtime processing.~~~;    - Internal event loop mechanics if async is involved.~~~; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).~~~if (INT(tickCount2) <= INT(tickCount1)) {~~~    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")~~~}~~~```~~~
+private static readonly Stopwatch stopWatch = Stopwatch.StartNew();
+public static string BuildInVars(string varName)
+{
+    DateTime now = DateTime.Now;
+    switch (varName)
+    {
+        case "A_TickCount": return stopWatch.ElapsedMilliseconds.ToString();
+        case "A_Now": return now.ToString("yyyy-MM-dd HH:mm:ss");
+        case "A_YYYY": return now.ToString("yyyy");
+        case "A_MM": return now.ToString("MM");
+        case "A_DD": return now.ToString("dd");
+        case "A_MMMM": return now.ToString("MMMM");
+        case "A_MMM": return now.ToString("MMM");
+        case "A_DDDD": return now.ToString("dddd");
+        case "A_DDD": return now.ToString("ddd");
+        case "A_Hour": return now.ToString("HH");
+        case "A_Min": return now.ToString("mm");
+        case "A_Sec": return now.ToString("ss");
+        case "A_Space": return " ";
+        case "A_Tab": return "\t";
+        default: return "";
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: BuildInVars
+libs: import java.time.LocalDateTime;|import java.time.format.DateTimeFormatter;|import java.time.temporal.ChronoUnit;
+description: system~~~Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).~~~Here is how to use it:~~~```htvm~~~; ==== Built-in Variables for BuildInVars() ====~~~; A_ScreenWidth  - Width of the window screen (browser only)~~~; A_ScreenHeight - Height of the window screen (browser only)~~~; A_LastKey      - Last key pressed by the user (browser only)~~~; A_TimeIdle     - Time the user has been idle (in ms or seconds)~~~; A_TickCount    - Current tick count (ms since the start)~~~; A_Now          - Local datetime string (full, locale-based)~~~; A_YYYY         - 4-digit current year~~~; A_MM           - 2-digit current month (01–12)~~~; A_DD           - 2-digit current day of month (01–31)~~~; A_MMMM         - Full month name (e.g. January)~~~; A_MMM          - Abbreviated month name (e.g. Jan)~~~; A_DDDD         - Full day name (e.g. Monday)~~~; A_DDD          - Abbreviated day name (e.g. Mon)~~~; A_Hour         - Current hour (00–23)~~~; A_Min          - Current minute (00–59)~~~; A_Sec          - Current second (00–59)~~~; A_Space        - Space character (" ")~~~; A_Tab          - Tab character ("\t")~~~; ==========================================================~~~; Some behavior may vary depending on the target language!!!~~~; Make sure to test your code thoroughly!!!~~~; ==========================================================~~~; Examples:~~~str currentYear := BuildInVars("A_YYYY")~~~print("Current Year (A_YYYY): " . currentYear)~~~; ----------------------------------------------------~~~str currentMonth := BuildInVars("A_MMMM")~~~print("Current Month (A_MMMM): " . currentMonth)~~~if (StrLen(currentMonth) < 3) {~~~    print("BuildInVars A_MMMM test FAILED! Month name too short.")~~~}~~~; ----------------------------------------------------~~~str tabChar := BuildInVars("A_Tab")~~~print("Space char (A_Tab): '" . tabChar . "'")~~~; ----------------------------------------------------~~~; Browser-specific example (will return empty or error in non-browser environments)~~~str screenWidth := BuildInVars("A_ScreenWidth")~~~print("Screen Width (A_ScreenWidth): " . screenWidth)~~~if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {~~~    print("BuildInVars A_ScreenWidth test needs a browser!")~~~}~~~; ----------------------------------------------------~~~str tickCount1 := BuildInVars("A_TickCount")~~~print("TickCount 1: " . tickCount1)~~~await Sleep(100)~~~str tickCount2 := BuildInVars("A_TickCount")~~~print("TickCount 2 (after 100ms sleep): " . tickCount2)~~~; This will never be perfectly 100 because:~~~; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.~~~; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).~~~; 3. Some overhead is added due to:~~~;    - Executing BuildInVars("A_TickCount") before and after.~~~;    - Interpreter/runtime processing.~~~;    - Internal event loop mechanics if async is involved.~~~; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).~~~if (INT(tickCount2) <= INT(tickCount1)) {~~~    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")~~~}~~~```~~~
+private static final LocalDateTime programStartTime = LocalDateTime.now();
+public static String BuildInVars(String varName) {
+    LocalDateTime now = LocalDateTime.now();
+    switch (varName) {
+        case "A_TickCount": return Long.toString(ChronoUnit.MILLIS.between(programStartTime, now));
+        case "A_Now": return now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        case "A_YYYY": return now.format(DateTimeFormatter.ofPattern("yyyy"));
+        case "A_MM": return now.format(DateTimeFormatter.ofPattern("MM"));
+        case "A_DD": return now.format(DateTimeFormatter.ofPattern("dd"));
+        case "A_MMMM": return now.format(DateTimeFormatter.ofPattern("MMMM"));
+        case "A_MMM": return now.format(DateTimeFormatter.ofPattern("MMM"));
+        case "A_DDDD": return now.format(DateTimeFormatter.ofPattern("EEEE"));
+        case "A_DDD": return now.format(DateTimeFormatter.ofPattern("EEE"));
+        case "A_Hour": return now.format(DateTimeFormatter.ofPattern("HH"));
+        case "A_Min": return now.format(DateTimeFormatter.ofPattern("mm"));
+        case "A_Sec": return now.format(DateTimeFormatter.ofPattern("ss"));
+        case "A_Space": return " ";
+        case "A_Tab": return "\t";
+        default: return "";
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: BuildInVars
+libs: import java.time.LocalDateTime|import java.time.format.DateTimeFormatter|import java.time.temporal.ChronoUnit
+description: system~~~Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).~~~Here is how to use it:~~~```htvm~~~; ==== Built-in Variables for BuildInVars() ====~~~; A_ScreenWidth  - Width of the window screen (browser only)~~~; A_ScreenHeight - Height of the window screen (browser only)~~~; A_LastKey      - Last key pressed by the user (browser only)~~~; A_TimeIdle     - Time the user has been idle (in ms or seconds)~~~; A_TickCount    - Current tick count (ms since the start)~~~; A_Now          - Local datetime string (full, locale-based)~~~; A_YYYY         - 4-digit current year~~~; A_MM           - 2-digit current month (01–12)~~~; A_DD           - 2-digit current day of month (01–31)~~~; A_MMMM         - Full month name (e.g. January)~~~; A_MMM          - Abbreviated month name (e.g. Jan)~~~; A_DDDD         - Full day name (e.g. Monday)~~~; A_DDD          - Abbreviated day name (e.g. Mon)~~~; A_Hour         - Current hour (00–23)~~~; A_Min          - Current minute (00–59)~~~; A_Sec          - Current second (00–59)~~~; A_Space        - Space character (" ")~~~; A_Tab          - Tab character ("\t")~~~; ==========================================================~~~; Some behavior may vary depending on the target language!!!~~~; Make sure to test your code thoroughly!!!~~~; ==========================================================~~~; Examples:~~~str currentYear := BuildInVars("A_YYYY")~~~print("Current Year (A_YYYY): " . currentYear)~~~; ----------------------------------------------------~~~str currentMonth := BuildInVars("A_MMMM")~~~print("Current Month (A_MMMM): " . currentMonth)~~~if (StrLen(currentMonth) < 3) {~~~    print("BuildInVars A_MMMM test FAILED! Month name too short.")~~~}~~~; ----------------------------------------------------~~~str tabChar := BuildInVars("A_Tab")~~~print("Space char (A_Tab): '" . tabChar . "'")~~~; ----------------------------------------------------~~~; Browser-specific example (will return empty or error in non-browser environments)~~~str screenWidth := BuildInVars("A_ScreenWidth")~~~print("Screen Width (A_ScreenWidth): " . screenWidth)~~~if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {~~~    print("BuildInVars A_ScreenWidth test needs a browser!")~~~}~~~; ----------------------------------------------------~~~str tickCount1 := BuildInVars("A_TickCount")~~~print("TickCount 1: " . tickCount1)~~~await Sleep(100)~~~str tickCount2 := BuildInVars("A_TickCount")~~~print("TickCount 2 (after 100ms sleep): " . tickCount2)~~~; This will never be perfectly 100 because:~~~; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.~~~; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).~~~; 3. Some overhead is added due to:~~~;    - Executing BuildInVars("A_TickCount") before and after.~~~;    - Interpreter/runtime processing.~~~;    - Internal event loop mechanics if async is involved.~~~; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).~~~if (INT(tickCount2) <= INT(tickCount1)) {~~~    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")~~~}~~~```~~~
+private val programStartTime = LocalDateTime.now()
+fun BuildInVars(varName: String): String {
+    val now = LocalDateTime.now()
+    return when (varName) {
+        "A_TickCount" -> ChronoUnit.MILLIS.between(programStartTime, now).toString()
+        "A_Now" -> now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+        "A_YYYY" -> now.format(DateTimeFormatter.ofPattern("yyyy"))
+        "A_MM" -> now.format(DateTimeFormatter.ofPattern("MM"))
+        "A_DD" -> now.format(DateTimeFormatter.ofPattern("dd"))
+        "A_MMMM" -> now.format(DateTimeFormatter.ofPattern("MMMM"))
+        "A_MMM" -> now.format(DateTimeFormatter.ofPattern("MMM"))
+        "A_DDDD" -> now.format(DateTimeFormatter.ofPattern("EEEE"))
+        "A_DDD" -> now.format(DateTimeFormatter.ofPattern("EEE"))
+        "A_Hour" -> now.format(DateTimeFormatter.ofPattern("HH"))
+        "A_Min" -> now.format(DateTimeFormatter.ofPattern("mm"))
+        "A_Sec" -> now.format(DateTimeFormatter.ofPattern("ss"))
+        "A_Space" -> " "
+        "A_Tab" -> "\t"
+        else -> ""
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: BuildInVars
+libs: null
+description: system~~~Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).~~~Here is how to use it:~~~```htvm~~~; ==== Built-in Variables for BuildInVars() ====~~~; A_ScreenWidth  - Width of the window screen (browser only)~~~; A_ScreenHeight - Height of the window screen (browser only)~~~; A_LastKey      - Last key pressed by the user (browser only)~~~; A_TimeIdle     - Time the user has been idle (in ms or seconds)~~~; A_TickCount    - Current tick count (ms since the start)~~~; A_Now          - Local datetime string (full, locale-based)~~~; A_YYYY         - 4-digit current year~~~; A_MM           - 2-digit current month (01–12)~~~; A_DD           - 2-digit current day of month (01–31)~~~; A_MMMM         - Full month name (e.g. January)~~~; A_MMM          - Abbreviated month name (e.g. Jan)~~~; A_DDDD         - Full day name (e.g. Monday)~~~; A_DDD          - Abbreviated day name (e.g. Mon)~~~; A_Hour         - Current hour (00–23)~~~; A_Min          - Current minute (00–59)~~~; A_Sec          - Current second (00–59)~~~; A_Space        - Space character (" ")~~~; A_Tab          - Tab character ("\t")~~~; ==========================================================~~~; Some behavior may vary depending on the target language!!!~~~; Make sure to test your code thoroughly!!!~~~; ==========================================================~~~; Examples:~~~str currentYear := BuildInVars("A_YYYY")~~~print("Current Year (A_YYYY): " . currentYear)~~~; ----------------------------------------------------~~~str currentMonth := BuildInVars("A_MMMM")~~~print("Current Month (A_MMMM): " . currentMonth)~~~if (StrLen(currentMonth) < 3) {~~~    print("BuildInVars A_MMMM test FAILED! Month name too short.")~~~}~~~; ----------------------------------------------------~~~str tabChar := BuildInVars("A_Tab")~~~print("Space char (A_Tab): '" . tabChar . "'")~~~; ----------------------------------------------------~~~; Browser-specific example (will return empty or error in non-browser environments)~~~str screenWidth := BuildInVars("A_ScreenWidth")~~~print("Screen Width (A_ScreenWidth): " . screenWidth)~~~if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {~~~    print("BuildInVars A_ScreenWidth test needs a browser!")~~~}~~~; ----------------------------------------------------~~~str tickCount1 := BuildInVars("A_TickCount")~~~print("TickCount 1: " . tickCount1)~~~await Sleep(100)~~~str tickCount2 := BuildInVars("A_TickCount")~~~print("TickCount 2 (after 100ms sleep): " . tickCount2)~~~; This will never be perfectly 100 because:~~~; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.~~~; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).~~~; 3. Some overhead is added due to:~~~;    - Executing BuildInVars("A_TickCount") before and after.~~~;    - Interpreter/runtime processing.~~~;    - Internal event loop mechanics if async is involved.~~~; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).~~~if (INT(tickCount2) <= INT(tickCount1)) {~~~    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")~~~}~~~```~~~
+$programStartTime_rb = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+def BuildInVars(varName)
+    now = Time.now
+    case varName
+    when "A_TickCount"
+        ((Process.clock_gettime(Process::CLOCK_MONOTONIC) - $programStartTime_rb) * 1000).to_i.to_s
+    when "A_Now"
+        now.strftime("%Y-%m-%d %H:%M:%S")
+    when "A_YYYY"
+        now.strftime("%Y")
+    when "A_MM"
+        now.strftime("%m")
+    when "A_DD"
+        now.strftime("%d")
+    when "A_MMMM"
+        now.strftime("%B")
+    when "A_MMM"
+        now.strftime("%b")
+    when "A_DDDD"
+        now.strftime("%A")
+    when "A_DDD"
+        now.strftime("%a")
+    when "A_Hour"
+        now.strftime("%H")
+    when "A_Min"
+        now.strftime("%M")
+    when "A_Sec"
+        now.strftime("%S")
+    when "A_Space"
+        " "
+    when "A_Tab"
+        "\t"
+    else
+        ""
+    end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: BuildInVars
+libs: import times, strutils
+description: system~~~Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).~~~Here is how to use it:~~~```htvm~~~; ==== Built-in Variables for BuildInVars() ====~~~; A_ScreenWidth  - Width of the window screen (browser only)~~~; A_ScreenHeight - Height of the window screen (browser only)~~~; A_LastKey      - Last key pressed by the user (browser only)~~~; A_TimeIdle     - Time the user has been idle (in ms or seconds)~~~; A_TickCount    - Current tick count (ms since the start)~~~; A_Now          - Local datetime string (full, locale-based)~~~; A_YYYY         - 4-digit current year~~~; A_MM           - 2-digit current month (01–12)~~~; A_DD           - 2-digit current day of month (01–31)~~~; A_MMMM         - Full month name (e.g. January)~~~; A_MMM          - Abbreviated month name (e.g. Jan)~~~; A_DDDD         - Full day name (e.g. Monday)~~~; A_DDD          - Abbreviated day name (e.g. Mon)~~~; A_Hour         - Current hour (00–23)~~~; A_Min          - Current minute (00–59)~~~; A_Sec          - Current second (00–59)~~~; A_Space        - Space character (" ")~~~; A_Tab          - Tab character ("\t")~~~; ==========================================================~~~; Some behavior may vary depending on the target language!!!~~~; Make sure to test your code thoroughly!!!~~~; ==========================================================~~~; Examples:~~~str currentYear := BuildInVars("A_YYYY")~~~print("Current Year (A_YYYY): " . currentYear)~~~; ----------------------------------------------------~~~str currentMonth := BuildInVars("A_MMMM")~~~print("Current Month (A_MMMM): " . currentMonth)~~~if (StrLen(currentMonth) < 3) {~~~    print("BuildInVars A_MMMM test FAILED! Month name too short.")~~~}~~~; ----------------------------------------------------~~~str tabChar := BuildInVars("A_Tab")~~~print("Space char (A_Tab): '" . tabChar . "'")~~~; ----------------------------------------------------~~~; Browser-specific example (will return empty or error in non-browser environments)~~~str screenWidth := BuildInVars("A_ScreenWidth")~~~print("Screen Width (A_ScreenWidth): " . screenWidth)~~~if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {~~~    print("BuildInVars A_ScreenWidth test needs a browser!")~~~}~~~; ----------------------------------------------------~~~str tickCount1 := BuildInVars("A_TickCount")~~~print("TickCount 1: " . tickCount1)~~~await Sleep(100)~~~str tickCount2 := BuildInVars("A_TickCount")~~~print("TickCount 2 (after 100ms sleep): " . tickCount2)~~~; This will never be perfectly 100 because:~~~; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.~~~; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).~~~; 3. Some overhead is added due to:~~~;    - Executing BuildInVars("A_TickCount") before and after.~~~;    - Interpreter/runtime processing.~~~;    - Internal event loop mechanics if async is involved.~~~; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).~~~if (INT(tickCount2) <= INT(tickCount1)) {~~~    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")~~~}~~~```~~~
+let programStartTime_nim = epochTime()
+proc BuildInVars(varName: string): string =
+  let now = now()
+  case varName
+  of "A_TickCount":
+    return $int((epochTime() - programStartTime_nim) * 1000)
+  of "A_Now":
+    return now.format("yyyy-MM-dd HH:mm:ss")
+  of "A_YYYY":
+    return now.format("yyyy")
+  of "A_MM":
+    return now.format("MM")
+  of "A_DD":
+    return now.format("dd")
+  of "A_MMMM":
+    return now.format("MMMM")
+  of "A_MMM":
+    return now.format("MMM")
+  of "A_DDDD":
+    return now.format("dddd")
+  of "A_DDD":
+    return now.format("ddd")
+  of "A_Hour":
+    return now.format("HH")
+  of "A_Min":
+    return now.format("mm")
+  of "A_Sec":
+    return now.format("ss")
+  of "A_Space":
+    return " "
+  of "A_Tab":
+    return "\t"
+  else:
+    return ""
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: BuildInVars
+libs: null
+description: system~~~Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).~~~Here is how to use it:~~~```htvm~~~; ==== Built-in Variables for BuildInVars() ====~~~; A_ScreenWidth  - Width of the window screen (browser only)~~~; A_ScreenHeight - Height of the window screen (browser only)~~~; A_LastKey      - Last key pressed by the user (browser only)~~~; A_TimeIdle     - Time the user has been idle (in ms or seconds)~~~; A_TickCount    - Current tick count (ms since the start)~~~; A_Now          - Local datetime string (full, locale-based)~~~; A_YYYY         - 4-digit current year~~~; A_MM           - 2-digit current month (01–12)~~~; A_DD           - 2-digit current day of month (01–31)~~~; A_MMMM         - Full month name (e.g. January)~~~; A_MMM          - Abbreviated month name (e.g. Jan)~~~; A_DDDD         - Full day name (e.g. Monday)~~~; A_DDD          - Abbreviated day name (e.g. Mon)~~~; A_Hour         - Current hour (00–23)~~~; A_Min          - Current minute (00–59)~~~; A_Sec          - Current second (00–59)~~~; A_Space        - Space character (" ")~~~; A_Tab          - Tab character ("\t")~~~; ==========================================================~~~; Some behavior may vary depending on the target language!!!~~~; Make sure to test your code thoroughly!!!~~~; ==========================================================~~~; Examples:~~~str currentYear := BuildInVars("A_YYYY")~~~print("Current Year (A_YYYY): " . currentYear)~~~; ----------------------------------------------------~~~str currentMonth := BuildInVars("A_MMMM")~~~print("Current Month (A_MMMM): " . currentMonth)~~~if (StrLen(currentMonth) < 3) {~~~    print("BuildInVars A_MMMM test FAILED! Month name too short.")~~~}~~~; ----------------------------------------------------~~~str tabChar := BuildInVars("A_Tab")~~~print("Space char (A_Tab): '" . tabChar . "'")~~~; ----------------------------------------------------~~~; Browser-specific example (will return empty or error in non-browser environments)~~~str screenWidth := BuildInVars("A_ScreenWidth")~~~print("Screen Width (A_ScreenWidth): " . screenWidth)~~~if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {~~~    print("BuildInVars A_ScreenWidth test needs a browser!")~~~}~~~; ----------------------------------------------------~~~str tickCount1 := BuildInVars("A_TickCount")~~~print("TickCount 1: " . tickCount1)~~~await Sleep(100)~~~str tickCount2 := BuildInVars("A_TickCount")~~~print("TickCount 2 (after 100ms sleep): " . tickCount2)~~~; This will never be perfectly 100 because:~~~; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.~~~; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).~~~; 3. Some overhead is added due to:~~~;    - Executing BuildInVars("A_TickCount") before and after.~~~;    - Interpreter/runtime processing.~~~;    - Internal event loop mechanics if async is involved.~~~; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).~~~if (INT(tickCount2) <= INT(tickCount1)) {~~~    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")~~~}~~~```~~~
+
+BuildInVars(varName) {
+    if (varName = "A_Now") {
+        FormatTime, TimeString, , yyyy-MM-dd HH:mm:ss
+        return TimeString
+    } else if (varName = "A_TickCount") {
+        return A_TickCount
+    } else if (varName = "A_ScreenWidth") {
+        return A_ScreenWidth
+    } else if (varName = "A_ScreenHeight") {
+        return A_ScreenHeight
+    } else if (varName = "A_LastKey") {
+        return A_LastKey
+    } else if (varName = "A_TimeIdle") {
+        return A_TimeIdle
+    } else if (varName = "A_YYYY") {
+        return A_YYYY
+    } else if (varName = "A_MM") {
+        return A_MM
+    } else if (varName = "A_DD") {
+        return A_DD
+    } else if (varName = "A_MMMM") {
+        return A_MMMM
+    } else if (varName = "A_MMM") {
+        return A_MMM
+    } else if (varName = "A_DDDD") {
+        return A_DDDD
+    } else if (varName = "A_DDD") {
+        return A_DDD
+    } else if (varName = "A_Hour") {
+        return A_Hour
+    } else if (varName = "A_Min") {
+        return A_Min
+    } else if (varName = "A_Sec") {
+        return A_Sec
+    } else if (varName = "A_Space") {
+        return " "
+    } else if (varName = "A_Tab") {
+        return "\t"  ; Backtick-t is tab in AHK
+    } else {
+        return ""
+    }
+}
+
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: BuildInVars
+libs: import Foundation
+description: system~~~Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).~~~Here is how to use it:~~~```htvm~~~; ==== Built-in Variables for BuildInVars() ====~~~; A_ScreenWidth  - Width of the window screen (browser only)~~~; A_ScreenHeight - Height of the window screen (browser only)~~~; A_LastKey      - Last key pressed by the user (browser only)~~~; A_TimeIdle     - Time the user has been idle (in ms or seconds)~~~; A_TickCount    - Current tick count (ms since the start)~~~; A_Now          - Local datetime string (full, locale-based)~~~; A_YYYY         - 4-digit current year~~~; A_MM           - 2-digit current month (01–12)~~~; A_DD           - 2-digit current day of month (01–31)~~~; A_MMMM         - Full month name (e.g. January)~~~; A_MMM          - Abbreviated month name (e.g. Jan)~~~; A_DDDD         - Full day name (e.g. Monday)~~~; A_DDD          - Abbreviated day name (e.g. Mon)~~~; A_Hour         - Current hour (00–23)~~~; A_Min          - Current minute (00–59)~~~; A_Sec          - Current second (00–59)~~~; A_Space        - Space character (" ")~~~; A_Tab          - Tab character ("\t")~~~; ==========================================================~~~; Some behavior may vary depending on the target language!!!~~~; Make sure to test your code thoroughly!!!~~~; ==========================================================~~~; Examples:~~~str currentYear := BuildInVars("A_YYYY")~~~print("Current Year (A_YYYY): " . currentYear)~~~; ----------------------------------------------------~~~str currentMonth := BuildInVars("A_MMMM")~~~print("Current Month (A_MMMM): " . currentMonth)~~~if (StrLen(currentMonth) < 3) {~~~    print("BuildInVars A_MMMM test FAILED! Month name too short.")~~~}~~~; ----------------------------------------------------~~~str tabChar := BuildInVars("A_Tab")~~~print("Space char (A_Tab): '" . tabChar . "'")~~~; ----------------------------------------------------~~~; Browser-specific example (will return empty or error in non-browser environments)~~~str screenWidth := BuildInVars("A_ScreenWidth")~~~print("Screen Width (A_ScreenWidth): " . screenWidth)~~~if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {~~~    print("BuildInVars A_ScreenWidth test needs a browser!")~~~}~~~; ----------------------------------------------------~~~str tickCount1 := BuildInVars("A_TickCount")~~~print("TickCount 1: " . tickCount1)~~~await Sleep(100)~~~str tickCount2 := BuildInVars("A_TickCount")~~~print("TickCount 2 (after 100ms sleep): " . tickCount2)~~~; This will never be perfectly 100 because:~~~; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.~~~; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).~~~; 3. Some overhead is added due to:~~~;    - Executing BuildInVars("A_TickCount") before and after.~~~;    - Interpreter/runtime processing.~~~;    - Internal event loop mechanics if async is involved.~~~; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).~~~if (INT(tickCount2) <= INT(tickCount1)) {~~~    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")~~~}~~~```~~~
+private let programStartTime_swift = Date()
+func BuildInVars(_ varName: String) -> String {
+    let now = Date()
+    let formatter = DateFormatter()
+    switch varName {
+    case "A_TickCount":
+        return String(Int(now.timeIntervalSince(programStartTime_swift) * 1000))
+    case "A_Now":
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter.string(from: now)
+    case "A_YYYY":
+        formatter.dateFormat = "yyyy"
+        return formatter.string(from: now)
+    case "A_MM":
+        formatter.dateFormat = "MM"
+        return formatter.string(from: now)
+    case "A_DD":
+        formatter.dateFormat = "dd"
+        return formatter.string(from: now)
+    case "A_MMMM":
+        formatter.dateFormat = "MMMM"
+        return formatter.string(from: now)
+    case "A_MMM":
+        formatter.dateFormat = "MMM"
+        return formatter.string(from: now)
+    case "A_DDDD":
+        formatter.dateFormat = "EEEE"
+        return formatter.string(from: now)
+    case "A_DDD":
+        formatter.dateFormat = "E"
+        return formatter.string(from: now)
+    case "A_Hour":
+        formatter.dateFormat = "HH"
+        return formatter.string(from: now)
+    case "A_Min":
+        formatter.dateFormat = "mm"
+        return formatter.string(from: now)
+    case "A_Sec":
+        formatter.dateFormat = "ss"
+        return formatter.string(from: now)
+    case "A_Space":
+        return " "
+    case "A_Tab":
+        return "\t"
+    default:
+        return ""
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: BuildInVars
+libs: null
+description: system~~~Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).~~~Here is how to use it:~~~```htvm~~~; ==== Built-in Variables for BuildInVars() ====~~~; A_ScreenWidth  - Width of the window screen (browser only)~~~; A_ScreenHeight - Height of the window screen (browser only)~~~; A_LastKey      - Last key pressed by the user (browser only)~~~; A_TimeIdle     - Time the user has been idle (in ms or seconds)~~~; A_TickCount    - Current tick count (ms since the start)~~~; A_Now          - Local datetime string (full, locale-based)~~~; A_YYYY         - 4-digit current year~~~; A_MM           - 2-digit current month (01–12)~~~; A_DD           - 2-digit current day of month (01–31)~~~; A_MMMM         - Full month name (e.g. January)~~~; A_MMM          - Abbreviated month name (e.g. Jan)~~~; A_DDDD         - Full day name (e.g. Monday)~~~; A_DDD          - Abbreviated day name (e.g. Mon)~~~; A_Hour         - Current hour (00–23)~~~; A_Min          - Current minute (00–59)~~~; A_Sec          - Current second (00–59)~~~; A_Space        - Space character (" ")~~~; A_Tab          - Tab character ("\t")~~~; ==========================================================~~~; Some behavior may vary depending on the target language!!!~~~; Make sure to test your code thoroughly!!!~~~; ==========================================================~~~; Examples:~~~str currentYear := BuildInVars("A_YYYY")~~~print("Current Year (A_YYYY): " . currentYear)~~~; ----------------------------------------------------~~~str currentMonth := BuildInVars("A_MMMM")~~~print("Current Month (A_MMMM): " . currentMonth)~~~if (StrLen(currentMonth) < 3) {~~~    print("BuildInVars A_MMMM test FAILED! Month name too short.")~~~}~~~; ----------------------------------------------------~~~str tabChar := BuildInVars("A_Tab")~~~print("Space char (A_Tab): '" . tabChar . "'")~~~; ----------------------------------------------------~~~; Browser-specific example (will return empty or error in non-browser environments)~~~str screenWidth := BuildInVars("A_ScreenWidth")~~~print("Screen Width (A_ScreenWidth): " . screenWidth)~~~if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {~~~    print("BuildInVars A_ScreenWidth test needs a browser!")~~~}~~~; ----------------------------------------------------~~~str tickCount1 := BuildInVars("A_TickCount")~~~print("TickCount 1: " . tickCount1)~~~await Sleep(100)~~~str tickCount2 := BuildInVars("A_TickCount")~~~print("TickCount 2 (after 100ms sleep): " . tickCount2)~~~; This will never be perfectly 100 because:~~~; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.~~~; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).~~~; 3. Some overhead is added due to:~~~;    - Executing BuildInVars("A_TickCount") before and after.~~~;    - Interpreter/runtime processing.~~~;    - Internal event loop mechanics if async is involved.~~~; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).~~~if (INT(tickCount2) <= INT(tickCount1)) {~~~    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")~~~}~~~```~~~
+final _stopwatch = Stopwatch()..start();
+String _formatTwoDigits(int n) => n.toString().padLeft(2, '0');
+String BuildInVars(String varName) {
+  final now = DateTime.now();
+  final fullMonthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  final shortMonthNames = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  final fullDayNames = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  final shortDayNames = ["", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  switch (varName) {
+    case 'A_TickCount': return _stopwatch.elapsedMilliseconds.toString();
+    case 'A_Now': return '${now.year}-${_formatTwoDigits(now.month)}-${_formatTwoDigits(now.day)} ${_formatTwoDigits(now.hour)}:${_formatTwoDigits(now.minute)}:${_formatTwoDigits(now.second)}';
+    case 'A_YYYY': return now.year.toString();
+    case 'A_MM': return _formatTwoDigits(now.month);
+    case 'A_DD': return _formatTwoDigits(now.day);
+    case 'A_MMMM': return fullMonthNames[now.month];
+    case 'A_MMM': return shortMonthNames[now.month];
+    case 'A_DDDD': return fullDayNames[now.weekday];
+    case 'A_DDD': return shortDayNames[now.weekday];
+    case 'A_Hour': return _formatTwoDigits(now.hour);
+    case 'A_Min': return _formatTwoDigits(now.minute);
+    case 'A_Sec': return _formatTwoDigits(now.second);
+    case 'A_Space': return ' ';
+    case 'A_Tab': return '\t';
+    default: return '';
+  }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: BuildInVars
+libs: null
+description: system~~~Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).~~~Here is how to use it:~~~```htvm~~~; ==== Built-in Variables for BuildInVars() ====~~~; A_ScreenWidth  - Width of the window screen (browser only)~~~; A_ScreenHeight - Height of the window screen (browser only)~~~; A_LastKey      - Last key pressed by the user (browser only)~~~; A_TimeIdle     - Time the user has been idle (in ms or seconds)~~~; A_TickCount    - Current tick count (ms since the start)~~~; A_Now          - Local datetime string (full, locale-based)~~~; A_YYYY         - 4-digit current year~~~; A_MM           - 2-digit current month (01–12)~~~; A_DD           - 2-digit current day of month (01–31)~~~; A_MMMM         - Full month name (e.g. January)~~~; A_MMM          - Abbreviated month name (e.g. Jan)~~~; A_DDDD         - Full day name (e.g. Monday)~~~; A_DDD          - Abbreviated day name (e.g. Mon)~~~; A_Hour         - Current hour (00–23)~~~; A_Min          - Current minute (00–59)~~~; A_Sec          - Current second (00–59)~~~; A_Space        - Space character (" ")~~~; A_Tab          - Tab character ("\t")~~~; ==========================================================~~~; Some behavior may vary depending on the target language!!!~~~; Make sure to test your code thoroughly!!!~~~; ==========================================================~~~; Examples:~~~str currentYear := BuildInVars("A_YYYY")~~~print("Current Year (A_YYYY): " . currentYear)~~~; ----------------------------------------------------~~~str currentMonth := BuildInVars("A_MMMM")~~~print("Current Month (A_MMMM): " . currentMonth)~~~if (StrLen(currentMonth) < 3) {~~~    print("BuildInVars A_MMMM test FAILED! Month name too short.")~~~}~~~; ----------------------------------------------------~~~str tabChar := BuildInVars("A_Tab")~~~print("Space char (A_Tab): '" . tabChar . "'")~~~; ----------------------------------------------------~~~; Browser-specific example (will return empty or error in non-browser environments)~~~str screenWidth := BuildInVars("A_ScreenWidth")~~~print("Screen Width (A_ScreenWidth): " . screenWidth)~~~if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {~~~    print("BuildInVars A_ScreenWidth test needs a browser!")~~~}~~~; ----------------------------------------------------~~~str tickCount1 := BuildInVars("A_TickCount")~~~print("TickCount 1: " . tickCount1)~~~await Sleep(100)~~~str tickCount2 := BuildInVars("A_TickCount")~~~print("TickCount 2 (after 100ms sleep): " . tickCount2)~~~; This will never be perfectly 100 because:~~~; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.~~~; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).~~~; 3. Some overhead is added due to:~~~;    - Executing BuildInVars("A_TickCount") before and after.~~~;    - Interpreter/runtime processing.~~~;    - Internal event loop mechanics if async is involved.~~~; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).~~~if (INT(tickCount2) <= INT(tickCount1)) {~~~    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")~~~}~~~```~~~
+const programStartTime_ts = performance.now();
+function BuildInVars(varName: string): string {
+    const now = new Date();
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    switch (varName) {
+        case "A_TickCount": return Math.floor(performance.now() - programStartTime_ts).toString();
+        case "A_Now": return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+        case "A_YYYY": return now.getFullYear().toString();
+        case "A_MM": return pad(now.getMonth() + 1);
+        case "A_DD": return pad(now.getDate());
+        case "A_MMMM": return now.toLocaleString('en-US', { month: 'long' });
+        case "A_MMM": return now.toLocaleString('en-US', { month: 'short' });
+        case "A_DDDD": return now.toLocaleString('en-US', { weekday: 'long' });
+        case "A_DDD": return now.toLocaleString('en-US', { weekday: 'short' });
+        case "A_Hour": return pad(now.getHours());
+        case "A_Min": return pad(now.getMinutes());
+        case "A_Sec": return pad(now.getSeconds());
+        case "A_ScreenWidth": return typeof window !== 'undefined' ? window.screen.width.toString() : "";
+        case "A_ScreenHeight": return typeof window !== 'undefined' ? window.screen.height.toString() : "";
+        case "A_Space": return " ";
+        case "A_Tab": return "\t";
+        default: return "";
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: BuildInVars
+libs: import java.time.LocalDateTime|import java.time.format.DateTimeFormatter|import java.time.temporal.ChronoUnit
+description: system~~~Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).~~~Here is how to use it:~~~```htvm~~~; ==== Built-in Variables for BuildInVars() ====~~~; A_ScreenWidth  - Width of the window screen (browser only)~~~; A_ScreenHeight - Height of the window screen (browser only)~~~; A_LastKey      - Last key pressed by the user (browser only)~~~; A_TimeIdle     - Time the user has been idle (in ms or seconds)~~~; A_TickCount    - Current tick count (ms since the start)~~~; A_Now          - Local datetime string (full, locale-based)~~~; A_YYYY         - 4-digit current year~~~; A_MM           - 2-digit current month (01–12)~~~; A_DD           - 2-digit current day of month (01–31)~~~; A_MMMM         - Full month name (e.g. January)~~~; A_MMM          - Abbreviated month name (e.g. Jan)~~~; A_DDDD         - Full day name (e.g. Monday)~~~; A_DDD          - Abbreviated day name (e.g. Mon)~~~; A_Hour         - Current hour (00–23)~~~; A_Min          - Current minute (00–59)~~~; A_Sec          - Current second (00–59)~~~; A_Space        - Space character (" ")~~~; A_Tab          - Tab character ("\t")~~~; ==========================================================~~~; Some behavior may vary depending on the target language!!!~~~; Make sure to test your code thoroughly!!!~~~; ==========================================================~~~; Examples:~~~str currentYear := BuildInVars("A_YYYY")~~~print("Current Year (A_YYYY): " . currentYear)~~~; ----------------------------------------------------~~~str currentMonth := BuildInVars("A_MMMM")~~~print("Current Month (A_MMMM): " . currentMonth)~~~if (StrLen(currentMonth) < 3) {~~~    print("BuildInVars A_MMMM test FAILED! Month name too short.")~~~}~~~; ----------------------------------------------------~~~str tabChar := BuildInVars("A_Tab")~~~print("Space char (A_Tab): '" . tabChar . "'")~~~; ----------------------------------------------------~~~; Browser-specific example (will return empty or error in non-browser environments)~~~str screenWidth := BuildInVars("A_ScreenWidth")~~~print("Screen Width (A_ScreenWidth): " . screenWidth)~~~if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {~~~    print("BuildInVars A_ScreenWidth test needs a browser!")~~~}~~~; ----------------------------------------------------~~~str tickCount1 := BuildInVars("A_TickCount")~~~print("TickCount 1: " . tickCount1)~~~await Sleep(100)~~~str tickCount2 := BuildInVars("A_TickCount")~~~print("TickCount 2 (after 100ms sleep): " . tickCount2)~~~; This will never be perfectly 100 because:~~~; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.~~~; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).~~~; 3. Some overhead is added due to:~~~;    - Executing BuildInVars("A_TickCount") before and after.~~~;    - Interpreter/runtime processing.~~~;    - Internal event loop mechanics if async is involved.~~~; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).~~~if (INT(tickCount2) <= INT(tickCount1)) {~~~    print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")~~~}~~~```~~~
+// Groovy is on the JVM, so we can use a similar static approach as Java.
+class GroovyBuiltIns {
+    static final LocalDateTime programStartTime = LocalDateTime.now()
+}
+String BuildInVars(String varName) {
+    def now = LocalDateTime.now()
+    switch (varName) {
+        case "A_TickCount": return ChronoUnit.MILLIS.between(GroovyBuiltIns.programStartTime, now).toString()
+        case "A_Now": return now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+        case "A_YYYY": return now.format(DateTimeFormatter.ofPattern("yyyy"))
+        case "A_MM": return now.format(DateTimeFormatter.ofPattern("MM"))
+        case "A_DD": return now.format(DateTimeFormatter.ofPattern("dd"))
+        case "A_MMMM": return now.format(DateTimeFormatter.ofPattern("MMMM"))
+        case "A_MMM": return now.format(DateTimeFormatter.ofPattern("MMM"))
+        case "A_DDDD": return now.format(DateTimeFormatter.ofPattern("EEEE"))
+        case "A_DDD": return now.format(DateTimeFormatter.ofPattern("EEE"))
+        case "A_Hour": return now.format(DateTimeFormatter.ofPattern("HH"))
+        case "A_Min": return now.format(DateTimeFormatter.ofPattern("mm"))
+        case "A_Sec": return now.format(DateTimeFormatter.ofPattern("ss"))
+        case "A_Space": return " "
+        case "A_Tab": return "\t"
+        default: return ""
+    }
+}
+funcEND======================funcEND==============
+
+
+
+
+
+func======================func==============
+lang: go
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.~~~Here is how to use it:~~~```htvm~~~str currentLang := HTVM_getLang_HTVM()~~~print("Current HTVM target language is: " . currentLang)~~~if (currentLang = "js") {~~~    print("This code is specific to JavaScript.")~~~} else if (currentLang = "py") {~~~    print("This part runs if the target is Python.")~~~} else if (currentLang = "cpp") {~~~    print("C++ specific logic here.")~~~} else {~~~    print("Running in or targeting another language: " . currentLang)~~~}~~~; Test: The function should return a non-empty string.~~~if (StrLen(currentLang) = 0) {~~~    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")~~~} else {~~~    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")~~~}~~~```~~~
+func HTVM_getLang_HTVM() string {
+    return "go"
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.~~~Here is how to use it:~~~```htvm~~~str currentLang := HTVM_getLang_HTVM()~~~print("Current HTVM target language is: " . currentLang)~~~if (currentLang = "js") {~~~    print("This code is specific to JavaScript.")~~~} else if (currentLang = "py") {~~~    print("This part runs if the target is Python.")~~~} else if (currentLang = "cpp") {~~~    print("C++ specific logic here.")~~~} else {~~~    print("Running in or targeting another language: " . currentLang)~~~}~~~; Test: The function should return a non-empty string.~~~if (StrLen(currentLang) = 0) {~~~    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")~~~} else {~~~    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")~~~}~~~```~~~
+function HTVM_getLang_HTVM()
+    return "lua"
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.~~~Here is how to use it:~~~```htvm~~~str currentLang := HTVM_getLang_HTVM()~~~print("Current HTVM target language is: " . currentLang)~~~if (currentLang = "js") {~~~    print("This code is specific to JavaScript.")~~~} else if (currentLang = "py") {~~~    print("This part runs if the target is Python.")~~~} else if (currentLang = "cpp") {~~~    print("C++ specific logic here.")~~~} else {~~~    print("Running in or targeting another language: " . currentLang)~~~}~~~; Test: The function should return a non-empty string.~~~if (StrLen(currentLang) = 0) {~~~    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")~~~} else {~~~    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")~~~}~~~```~~~
+public static string HTVM_getLang_HTVM() {
+    return "cs";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.~~~Here is how to use it:~~~```htvm~~~str currentLang := HTVM_getLang_HTVM()~~~print("Current HTVM target language is: " . currentLang)~~~if (currentLang = "js") {~~~    print("This code is specific to JavaScript.")~~~} else if (currentLang = "py") {~~~    print("This part runs if the target is Python.")~~~} else if (currentLang = "cpp") {~~~    print("C++ specific logic here.")~~~} else {~~~    print("Running in or targeting another language: " . currentLang)~~~}~~~; Test: The function should return a non-empty string.~~~if (StrLen(currentLang) = 0) {~~~    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")~~~} else {~~~    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")~~~}~~~```~~~
+public static String HTVM_getLang_HTVM() {
+    return "java";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.~~~Here is how to use it:~~~```htvm~~~str currentLang := HTVM_getLang_HTVM()~~~print("Current HTVM target language is: " . currentLang)~~~if (currentLang = "js") {~~~    print("This code is specific to JavaScript.")~~~} else if (currentLang = "py") {~~~    print("This part runs if the target is Python.")~~~} else if (currentLang = "cpp") {~~~    print("C++ specific logic here.")~~~} else {~~~    print("Running in or targeting another language: . currentLang)~~~}~~~; Test: The function should return a non-empty string.~~~if (StrLen(currentLang) = 0) {~~~    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")~~~} else {~~~    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")~~~}~~~```~~~
+fun HTVM_getLang_HTVM(): String {
+    return "kt"
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.~~~Here is how to use it:~~~```htvm~~~str currentLang := HTVM_getLang_HTVM()~~~print("Current HTVM target language is: " . currentLang)~~~if (currentLang = "js") {~~~    print("This code is specific to JavaScript.")~~~} else if (currentLang = "py") {~~~    print("This part runs if the target is Python.")~~~} else if (currentLang = "cpp") {~~~    print("C++ specific logic here.")~~~} else {~~~    print("Running in or targeting another language: " . currentLang)~~~}~~~; Test: The function should return a non-empty string.~~~if (StrLen(currentLang) = 0) {~~~    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")~~~} else {~~~    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")~~~}~~~```~~~
+def HTVM_getLang_HTVM()
+  "rb"
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.~~~Here is how to use it:~~~```htvm~~~str currentLang := HTVM_getLang_HTVM()~~~print("Current HTVM target language is: " . currentLang)~~~if (currentLang = "js") {~~~    print("This code is specific to JavaScript.")~~~} else if (currentLang = "py") {~~~    print("This part runs if the target is Python.")~~~} else if (currentLang = "cpp") {~~~    print("C++ specific logic here.")~~~} else {~~~    print("Running in or targeting another language: " . currentLang)~~~}~~~; Test: The function should return a non-empty string.~~~if (StrLen(currentLang) = 0) {~~~    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")~~~} else {~~~    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")~~~}~~~```~~~
+proc HTVM_getLang_HTVM(): string =
+  return "nim"
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.~~~Here is how to use it:~~~```htvm~~~str currentLang := HTVM_getLang_HTVM()~~~print("Current HTVM target language is: " . currentLang)~~~if (currentLang = "js") {~~~    print("This code is specific to JavaScript.")~~~} else if (currentLang = "py") {~~~    print("This part runs if the target is Python.")~~~} else if (currentLang = "cpp") {~~~    print("C++ specific logic here.")~~~} else {~~~    print("Running in or targeting another language: " . currentLang)~~~}~~~; Test: The function should return a non-empty string.~~~if (StrLen(currentLang) = 0) {~~~    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")~~~} else {~~~    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")~~~}~~~```~~~
+HTVM_getLang_HTVM() {
+    return "ahk"
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.~~~Here is how to use it:~~~```htvm~~~str currentLang := HTVM_getLang_HTVM()~~~print("Current HTVM target language is: " . currentLang)~~~if (currentLang = "js") {~~~    print("This code is specific to JavaScript.")~~~} else if (currentLang = "py") {~~~    print("This part runs if the target is Python.")~~~} else if (currentLang = "cpp") {~~~    print("C++ specific logic here.")~~~} else {~~~    print("Running in or targeting another language: " . currentLang)~~~}~~~; Test: The function should return a non-empty string.~~~if (StrLen(currentLang) = 0) {~~~    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")~~~} else {~~~    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")~~~}~~~```~~~
+func HTVM_getLang_HTVM() -> String {
+    return "swift"
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.~~~Here is how to use it:~~~```htvm~~~str currentLang := HTVM_getLang_HTVM()~~~print("Current HTVM target language is: " . currentLang)~~~if (currentLang = "js") {~~~    print("This code is specific to JavaScript.")~~~} else if (currentLang = "py") {~~~    print("This part runs if the target is Python.")~~~} else if (currentLang = "cpp") {~~~    print("C++ specific logic here.")~~~} else {~~~    print("Running in or targeting another language: " . currentLang)~~~}~~~; Test: The function should return a non-empty string.~~~if (StrLen(currentLang) = 0) {~~~    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")~~~} else {~~~    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")~~~}~~~```~~~
+String HTVM_getLang_HTVM() {
+  return "dart";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.~~~Here is how to use it:~~~```htvm~~~str currentLang := HTVM_getLang_HTVM()~~~print("Current HTVM target language is: " . currentLang)~~~if (currentLang = "js") {~~~    print("This code is specific to JavaScript.")~~~} else if (currentLang = "py") {~~~    print("This part runs if the target is Python.")~~~} else if (currentLang = "cpp") {~~~    print("C++ specific logic here.")~~~} else {~~~    print("Running in or targeting another language: " . currentLang)~~~}~~~; Test: The function should return a non-empty string.~~~if (StrLen(currentLang) = 0) {~~~    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")~~~} else {~~~    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")~~~}~~~```~~~
+function HTVM_getLang_HTVM(): string {
+    return "ts";
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: HTVM_getLang_HTVM
+libs: null
+description: system~~~Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.~~~Here is how to use it:~~~```htvm~~~str currentLang := HTVM_getLang_HTVM()~~~print("Current HTVM target language is: " . currentLang)~~~if (currentLang = "js") {~~~    print("This code is specific to JavaScript.")~~~} else if (currentLang = "py") {~~~    print("This part runs if the target is Python.")~~~} else if (currentLang = "cpp") {~~~    print("C++ specific logic here.")~~~} else {~~~    print("Running in or targeting another language: " . currentLang)~~~}~~~; Test: The function should return a non-empty string.~~~if (StrLen(currentLang) = 0) {~~~    print("HTVM_getLang_HTVM test FAILED! Returned empty string.")~~~} else {~~~    print("HTVM_getLang_HTVM test PASSED (returned a non-empty string).")~~~}~~~```~~~
+String HTVM_getLang_HTVM() {
+    return "groovy"
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: Sleep
+libs: )|"time"
+description: system~~~Pauses the execution of the program for a specified number of `milliseconds` (integer).~~~Here is how to use it:~~~```htvm~~~print("Starting sleep test...")~~~str startTime := BuildInVars("A_TickCount")~~~print("Start TickCount: " . STR(startTime))~~~; Sleep for 1 second (1000 milliseconds)~~~int duration := 1000~~~await Sleep(duration)~~~str endTime := BuildInVars("A_TickCount")~~~print("End TickCount: " . STR(endTime))~~~int elapsed := INT(endTime) - INT(startTime)~~~print("Elapsed time: " . STR(elapsed) . " ms")~~~; Test if elapsed time is approximately the sleep duration~~~; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)~~~if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {~~~    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")~~~} else {~~~    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")~~~}~~~; ----------------------------------------------------~~~print("--- Another sleep for 500ms ---")~~~await Sleep(500)~~~print("Woke up after 500ms.")~~~```~~~
+func Sleep(milliseconds int) {
+	time.Sleep(time.Duration(milliseconds) * time.Millisecond)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: Sleep
+libs: null
+description: system~~~Pauses the execution of the program for a specified number of `milliseconds` (integer).~~~Here is how to use it:~~~```htvm~~~print("Starting sleep test...")~~~str startTime := BuildInVars("A_TickCount")~~~print("Start TickCount: " . STR(startTime))~~~; Sleep for 1 second (1000 milliseconds)~~~int duration := 1000~~~await Sleep(duration)~~~str endTime := BuildInVars("A_TickCount")~~~print("End TickCount: " . STR(endTime))~~~int elapsed := INT(endTime) - INT(startTime)~~~print("Elapsed time: " . STR(elapsed) . " ms")~~~; Test if elapsed time is approximately the sleep duration~~~; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)~~~if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {~~~    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")~~~} else {~~~    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")~~~}~~~; ----------------------------------------------------~~~print("--- Another sleep for 500ms ---")~~~await Sleep(500)~~~print("Woke up after 500ms.")~~~```~~~
+-- Pure Lua busy-wait Sleep (no external libs)
+function Sleep(milliseconds)
+    local start = os.clock()
+    local seconds = milliseconds / 1000
+    while (os.clock() - start) < seconds do end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: Sleep
+libs: using System.Threading;
+description: system~~~Pauses the execution of the program for a specified number of `milliseconds` (integer).~~~Here is how to use it:~~~```htvm~~~print("Starting sleep test...")~~~str startTime := BuildInVars("A_TickCount")~~~print("Start TickCount: " . STR(startTime))~~~; Sleep for 1 second (1000 milliseconds)~~~int duration := 1000~~~await Sleep(duration)~~~str endTime := BuildInVars("A_TickCount")~~~print("End TickCount: " . STR(endTime))~~~int elapsed := INT(endTime) - INT(startTime)~~~print("Elapsed time: " . STR(elapsed) . " ms")~~~; Test if elapsed time is approximately the sleep duration~~~; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)~~~if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {~~~    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")~~~} else {~~~    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")~~~}~~~; ----------------------------------------------------~~~print("--- Another sleep for 500ms ---")~~~await Sleep(500)~~~print("Woke up after 500ms.")~~~```~~~
+public static void Sleep(int milliseconds) {
+    Thread.Sleep(milliseconds);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: Sleep
+libs: null
+description: system~~~Pauses the execution of the program for a specified number of `milliseconds` (integer).~~~Here is how to use it:~~~```htvm~~~print("Starting sleep test...")~~~str startTime := BuildInVars("A_TickCount")~~~print("Start TickCount: " . STR(startTime))~~~; Sleep for 1 second (1000 milliseconds)~~~int duration := 1000~~~await Sleep(duration)~~~str endTime := BuildInVars("A_TickCount")~~~print("End TickCount: " . STR(endTime))~~~int elapsed := INT(endTime) - INT(startTime)~~~print("Elapsed time: " . STR(elapsed) . " ms")~~~; Test if elapsed time is approximately the sleep duration~~~; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)~~~if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {~~~    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")~~~} else {~~~    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")~~~}~~~; ----------------------------------------------------~~~print("--- Another sleep for 500ms ---")~~~await Sleep(500)~~~print("Woke up after 500ms.")~~~```~~~
+public static void Sleep(int milliseconds) {
+    try {
+        Thread.sleep(milliseconds);
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: Sleep
+libs: null
+description: system~~~Pauses the execution of the program for a specified number of `milliseconds` (integer).~~~Here is how to use it:~~~```htvm~~~print("Starting sleep test...")~~~str startTime := BuildInVars("A_TickCount")~~~print("Start TickCount: " . STR(startTime))~~~; Sleep for 1 second (1000 milliseconds)~~~int duration := 1000~~~await Sleep(duration)~~~str endTime := BuildInVars("A_TickCount")~~~print("End TickCount: " . STR(endTime))~~~int elapsed := INT(endTime) - INT(startTime)~~~print("Elapsed time: " . STR(elapsed) . " ms")~~~; Test if elapsed time is approximately the sleep duration~~~; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)~~~if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {~~~    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")~~~} else {~~~    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")~~~}~~~; ----------------------------------------------------~~~print("--- Another sleep for 500ms ---")~~~await Sleep(500)~~~print("Woke up after 500ms.")~~~```~~~
+fun Sleep(milliseconds: Int) {
+    try {
+        Thread.sleep(milliseconds.toLong())
+    } catch (e: InterruptedException) {
+        Thread.currentThread().interrupt()
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: Sleep
+libs: null
+description: system~~~Pauses the execution of the program for a specified number of `milliseconds` (integer).~~~Here is how to use it:~~~```htvm~~~print("Starting sleep test...")~~~str startTime := BuildInVars("A_TickCount")~~~print("Start TickCount: " . STR(startTime))~~~; Sleep for 1 second (1000 milliseconds)~~~int duration := 1000~~~await Sleep(duration)~~~str endTime := BuildInVars("A_TickCount")~~~print("End TickCount: " . STR(endTime))~~~int elapsed := INT(endTime) - INT(startTime)~~~print("Elapsed time: " . STR(elapsed) . " ms")~~~; Test if elapsed time is approximately the sleep duration~~~; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)~~~if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {~~~    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")~~~} else {~~~    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")~~~}~~~; ----------------------------------------------------~~~print("--- Another sleep for 500ms ---")~~~await Sleep(500)~~~print("Woke up after 500ms.")~~~```~~~
+def Sleep(milliseconds)
+  sleep(milliseconds / 1000.0)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: Sleep
+libs: import os
+description: system~~~Pauses the execution of the program for a specified number of `milliseconds` (integer).~~~Here is how to use it:~~~```htvm~~~print("Starting sleep test...")~~~str startTime := BuildInVars("A_TickCount")~~~print("Start TickCount: " . STR(startTime))~~~; Sleep for 1 second (1000 milliseconds)~~~int duration := 1000~~~await Sleep(duration)~~~str endTime := BuildInVars("A_TickCount")~~~print("End TickCount: " . STR(endTime))~~~int elapsed := INT(endTime) - INT(startTime)~~~print("Elapsed time: " . STR(elapsed) . " ms")~~~; Test if elapsed time is approximately the sleep duration~~~; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)~~~if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {~~~    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")~~~} else {~~~    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")~~~}~~~; ----------------------------------------------------~~~print("--- Another sleep for 500ms ---")~~~await Sleep(500)~~~print("Woke up after 500ms.")~~~```~~~
+proc Sleep(milliseconds: int) =
+  sleep(milliseconds)
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: Sleep
+libs: null
+description: system~~~Pauses the execution of the program for a specified number of `milliseconds` (integer).~~~Here is how to use it:~~~```htvm~~~print("Starting sleep test...")~~~str startTime := BuildInVars("A_TickCount")~~~print("Start TickCount: " . STR(startTime))~~~; Sleep for 1 second (1000 milliseconds)~~~int duration := 1000~~~await Sleep(duration)~~~str endTime := BuildInVars("A_TickCount")~~~print("End TickCount: " . STR(endTime))~~~int elapsed := INT(endTime) - INT(startTime)~~~print("Elapsed time: " . STR(elapsed) . " ms")~~~; Test if elapsed time is approximately the sleep duration~~~; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)~~~if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {~~~    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")~~~} else {~~~    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")~~~}~~~; ----------------------------------------------------~~~print("--- Another sleep for 500ms ---")~~~await Sleep(500)~~~print("Woke up after 500ms.")~~~```~~~
+AHK_Sleep_AHK(sleepNumInMs) {
+    Sleep, % sleepNumInMs
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: Sleep
+libs: import Foundation
+description: system~~~Pauses the execution of the program for a specified number of `milliseconds` (integer).~~~Here is how to use it:~~~```htvm~~~print("Starting sleep test...")~~~str startTime := BuildInVars("A_TickCount")~~~print("Start TickCount: " . STR(startTime))~~~; Sleep for 1 second (1000 milliseconds)~~~int duration := 1000~~~await Sleep(duration)~~~str endTime := BuildInVars("A_TickCount")~~~print("End TickCount: " . STR(endTime))~~~int elapsed := INT(endTime) - INT(startTime)~~~print("Elapsed time: " . STR(elapsed) . " ms")~~~; Test if elapsed time is approximately the sleep duration~~~; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)~~~if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {~~~    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")~~~} else {~~~    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")~~~}~~~; ----------------------------------------------------~~~print("--- Another sleep for 500ms ---")~~~await Sleep(500)~~~print("Woke up after 500ms.")~~~```~~~
+func Sleep(_ milliseconds: Int) {
+    Thread.sleep(forTimeInterval: Double(milliseconds) / 1000.0)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: Sleep
+libs: import 'dart:io';
+description: system~~~Pauses the execution of the program for a specified number of `milliseconds` (integer).~~~Here is how to use it:~~~```htvm~~~print("Starting sleep test...")~~~str startTime := BuildInVars("A_TickCount")~~~print("Start TickCount: " . STR(startTime))~~~; Sleep for 1 second (1000 milliseconds)~~~int duration := 1000~~~await Sleep(duration)~~~str endTime := BuildInVars("A_TickCount")~~~print("End TickCount: " . STR(endTime))~~~int elapsed := INT(endTime) - INT(startTime)~~~print("Elapsed time: " . STR(elapsed) . " ms")~~~; Test if elapsed time is approximately the sleep duration~~~; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)~~~if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {~~~    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")~~~} else {~~~    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")~~~}~~~; ----------------------------------------------------~~~print("--- Another sleep for 500ms ---")~~~await Sleep(500)~~~print("Woke up after 500ms.")~~~```~~~
+void Sleep(int milliseconds) {
+  sleep(Duration(milliseconds: milliseconds));
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: Sleep
+libs: null
+description: system~~~Pauses the execution of the program for a specified number of `milliseconds` (integer).~~~Here is how to use it:~~~```htvm~~~print("Starting sleep test...")~~~str startTime := BuildInVars("A_TickCount")~~~print("Start TickCount: " . STR(startTime))~~~; Sleep for 1 second (1000 milliseconds)~~~int duration := 1000~~~await Sleep(duration)~~~str endTime := BuildInVars("A_TickCount")~~~print("End TickCount: " . STR(endTime))~~~int elapsed := INT(endTime) - INT(startTime)~~~print("Elapsed time: " . STR(elapsed) . " ms")~~~; Test if elapsed time is approximately the sleep duration~~~; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)~~~if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {~~~    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")~~~} else {~~~    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")~~~}~~~; ----------------------------------------------------~~~print("--- Another sleep for 500ms ---")~~~await Sleep(500)~~~print("Woke up after 500ms.")~~~```~~~
+function Sleep(milliseconds: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: Sleep
+libs: null
+description: system~~~Pauses the execution of the program for a specified number of `milliseconds` (integer).~~~Here is how to use it:~~~```htvm~~~print("Starting sleep test...")~~~str startTime := BuildInVars("A_TickCount")~~~print("Start TickCount: " . STR(startTime))~~~; Sleep for 1 second (1000 milliseconds)~~~int duration := 1000~~~await Sleep(duration)~~~str endTime := BuildInVars("A_TickCount")~~~print("End TickCount: " . STR(endTime))~~~int elapsed := INT(endTime) - INT(startTime)~~~print("Elapsed time: " . STR(elapsed) . " ms")~~~; Test if elapsed time is approximately the sleep duration~~~; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)~~~if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {~~~    print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")~~~} else {~~~    print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")~~~}~~~; ----------------------------------------------------~~~print("--- Another sleep for 500ms ---")~~~await Sleep(500)~~~print("Woke up after 500ms.")~~~```~~~
+void Sleep(int milliseconds) {
+    try {
+        Thread.sleep(milliseconds)
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt()
+    }
+}
+funcEND======================funcEND==============

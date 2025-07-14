@@ -6219,10 +6219,10 @@ if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| BuildInVars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| BuildInVars | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-| HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| HTVM_getLang_HTVM | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
+| Sleep | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 ---
 
@@ -6234,7 +6234,7 @@ if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| BuildInVars | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| BuildInVars | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Retrieves various system-related, time-related, or environment-specific built-in variable values. The `varName` argument specifies which variable to get (e.g., "A_YYYY" for year, "A_ScreenWidth" for screen width, "A_TickCount" for milliseconds since program start). Availability of specific variables can depend on the target language and environment (e.g., screen dimensions are browser-specific).
 
@@ -6350,7 +6350,7 @@ print("Program continued (only if ExitApp was not called or not available).")
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| HTVM_getLang_HTVM | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| HTVM_getLang_HTVM | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Returns a string indicating the current target language HTVM is configured to transpile to or is running in. For example, it might return "cpp", "py", "js", etc. Useful for writing conditional HTVM code based on the target environment.
 
@@ -6390,7 +6390,7 @@ else {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Sleep | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Sleep | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Pauses the execution of the program for a specified number of `milliseconds` (integer).
 
