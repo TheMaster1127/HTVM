@@ -4818,8 +4818,8 @@ print("Tan(pi/2) = " . STR(result3))
 | StrTitleCase | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | StringTrimLeft | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | StringTrimRight | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
-| SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| SubStr | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
+| Trim | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | countChars | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | getUrlParams | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
 | sortArr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
@@ -5692,7 +5692,7 @@ if (result4 != "HTVMHello") {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| SubStr | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| SubStr | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.
 
@@ -5760,7 +5760,7 @@ if (sub5 != "Hello") {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| Trim | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| Trim | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.
 

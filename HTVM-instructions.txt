@@ -11846,3 +11846,382 @@ String StringTrimRight(String input, int numChars) {
     return input.substring(0, input.length() - numChars)
 }
 funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: SubStr
+libs: null
+description: string~~~Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.~~~Here is how to use it:~~~```htvm~~~str text := "Hello, HTVM World!"~~~; ----------------------------------------------------~~~; Example 1: Basic substring~~~int start1 := 8~~~int len1 := 4~~~str sub1 := SubStr(text, start1, len1)~~~print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")~~~; Expected: 'HTVM'~~~if (sub1 != "HTVM") {~~~    print("SubStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 2: Substring to end~~~int start2 := 13~~~str sub2 := text.SubStr(start2)~~~print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")~~~; Expected: 'World!'~~~if (sub2 != "World!") {~~~    print("SubStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 3: Negative start position~~~int start3 := -6~~~str sub3 := SubStr(text, start3)~~~print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")~~~; Expected: 'World!'~~~if (sub3 != "World!") {~~~    print("SubStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 4: Negative start and specific length~~~int start4 := -6~~~int len4 := 5~~~str sub4 := SubStr(text, start4, len4)~~~print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")~~~; Expected: 'World'~~~if (sub4 != "World") {~~~    print("SubStr test 4 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 5: Start position 1~~~int start5 := 1~~~int len5 := 5~~~str sub5 := SubStr(text, start5, len5)~~~print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")~~~; Expected: 'Hello'~~~if (sub5 != "Hello") {~~~    print("SubStr test 5 FAILED!")~~~}~~~```~~~
+func SubStr(s string, startPos int, length ...int) string {
+	runes := []rune(s)
+	strLen := len(runes)
+
+	var startIndex int
+	if startPos > 0 {
+		startIndex = startPos - 1
+	} else {
+		startIndex = strLen + startPos
+	}
+
+	if startIndex < 0 || startIndex >= strLen {
+		return ""
+	}
+
+	if len(length) == 0 {
+		return string(runes[startIndex:])
+	}
+
+	lenVal := length[0]
+	if lenVal < 0 {
+		return ""
+	}
+
+	endIndex := startIndex + lenVal
+	if endIndex > strLen {
+		endIndex = strLen
+	}
+
+	return string(runes[startIndex:endIndex])
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: SubStr
+libs: null
+description: string~~~Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.~~~Here is how to use it:~~~```htvm~~~str text := "Hello, HTVM World!"~~~; ----------------------------------------------------~~~; Example 1: Basic substring~~~int start1 := 8~~~int len1 := 4~~~str sub1 := SubStr(text, start1, len1)~~~print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")~~~; Expected: 'HTVM'~~~if (sub1 != "HTVM") {~~~    print("SubStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 2: Substring to end~~~int start2 := 13~~~str sub2 := text.SubStr(start2)~~~print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")~~~; Expected: 'World!'~~~if (sub2 != "World!") {~~~    print("SubStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 3: Negative start position~~~int start3 := -6~~~str sub3 := SubStr(text, start3)~~~print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")~~~; Expected: 'World!'~~~if (sub3 != "World!") {~~~    print("SubStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 4: Negative start and specific length~~~int start4 := -6~~~int len4 := 5~~~str sub4 := SubStr(text, start4, len4)~~~print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")~~~; Expected: 'World'~~~if (sub4 != "World") {~~~    print("SubStr test 4 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 5: Start position 1~~~int start5 := 1~~~int len5 := 5~~~str sub5 := SubStr(text, start5, len5)~~~print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")~~~; Expected: 'Hello'~~~if (sub5 != "Hello") {~~~    print("SubStr test 5 FAILED!")~~~}~~~```~~~
+function SubStr(str, startPos, length)
+    if length == nil then
+        return string.sub(str, startPos)
+    end
+    if startPos < 0 then
+        startPos = #str + startPos + 1
+    end
+    return string.sub(str, startPos, startPos + length - 1)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: SubStr
+libs: using System;
+description: string~~~Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.~~~Here is how to use it:~~~```htvm~~~str text := "Hello, HTVM World!"~~~; ----------------------------------------------------~~~; Example 1: Basic substring~~~int start1 := 8~~~int len1 := 4~~~str sub1 := SubStr(text, start1, len1)~~~print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")~~~; Expected: 'HTVM'~~~if (sub1 != "HTVM") {~~~    print("SubStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 2: Substring to end~~~int start2 := 13~~~str sub2 := text.SubStr(start2)~~~print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")~~~; Expected: 'World!'~~~if (sub2 != "World!") {~~~    print("SubStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 3: Negative start position~~~int start3 := -6~~~str sub3 := SubStr(text, start3)~~~print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")~~~; Expected: 'World!'~~~if (sub3 != "World!") {~~~    print("SubStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 4: Negative start and specific length~~~int start4 := -6~~~int len4 := 5~~~str sub4 := SubStr(text, start4, len4)~~~print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")~~~; Expected: 'World'~~~if (sub4 != "World") {~~~    print("SubStr test 4 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 5: Start position 1~~~int start5 := 1~~~int len5 := 5~~~str sub5 := SubStr(text, start5, len5)~~~print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")~~~; Expected: 'Hello'~~~if (sub5 != "Hello") {~~~    print("SubStr test 5 FAILED!")~~~}~~~```~~~
+public static string SubStr(string str, int startPos, int length = -1) {
+    if (string.IsNullOrEmpty(str)) return "";
+    
+    int strLen = str.Length;
+    int startIndex = (startPos > 0) ? startPos - 1 : strLen + startPos;
+
+    if (startIndex < 0 || startIndex >= strLen) return "";
+
+    if (length < 0) {
+        return str.Substring(startIndex);
+    }
+    
+    if (startIndex + length > strLen) {
+        length = strLen - startIndex;
+    }
+    
+    return str.Substring(startIndex, length);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: SubStr
+libs: null
+description: string~~~Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.~~~Here is how to use it:~~~```htvm~~~str text := "Hello, HTVM World!"~~~; ----------------------------------------------------~~~; Example 1: Basic substring~~~int start1 := 8~~~int len1 := 4~~~str sub1 := SubStr(text, start1, len1)~~~print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")~~~; Expected: 'HTVM'~~~if (sub1 != "HTVM") {~~~    print("SubStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 2: Substring to end~~~int start2 := 13~~~str sub2 := text.SubStr(start2)~~~print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")~~~; Expected: 'World!'~~~if (sub2 != "World!") {~~~    print("SubStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 3: Negative start position~~~int start3 := -6~~~str sub3 := SubStr(text, start3)~~~print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")~~~; Expected: 'World!'~~~if (sub3 != "World!") {~~~    print("SubStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 4: Negative start and specific length~~~int start4 := -6~~~int len4 := 5~~~str sub4 := SubStr(text, start4, len4)~~~print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")~~~; Expected: 'World'~~~if (sub4 != "World") {~~~    print("SubStr test 4 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 5: Start position 1~~~int start5 := 1~~~int len5 := 5~~~str sub5 := SubStr(text, start5, len5)~~~print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")~~~; Expected: 'Hello'~~~if (sub5 != "Hello") {~~~    print("SubStr test 5 FAILED!")~~~}~~~```~~~
+public static String SubStr(String str, int startPos, int length) {
+    if (str == null || str.isEmpty()) return "";
+    int strLen = str.length();
+    int startIndex = (startPos > 0) ? startPos - 1 : strLen + startPos;
+
+    if (startIndex < 0 || startIndex >= strLen) return "";
+
+    if (length < 0) {
+        return str.substring(startIndex);
+    }
+
+    int endIndex = startIndex + length;
+    if (endIndex > strLen) {
+        endIndex = strLen;
+    }
+    return str.substring(startIndex, endIndex);
+}
+public static String SubStr(String str, int startPos) {
+    return SubStr(str, startPos, -1);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: SubStr
+libs: null
+description: string~~~Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.~~~Here is how to use it:~~~```htvm~~~str text := "Hello, HTVM World!"~~~; ----------------------------------------------------~~~; Example 1: Basic substring~~~int start1 := 8~~~int len1 := 4~~~str sub1 := SubStr(text, start1, len1)~~~print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")~~~; Expected: 'HTVM'~~~if (sub1 != "HTVM") {~~~    print("SubStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 2: Substring to end~~~int start2 := 13~~~str sub2 := text.SubStr(start2)~~~print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")~~~; Expected: 'World!'~~~if (sub2 != "World!") {~~~    print("SubStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 3: Negative start position~~~int start3 := -6~~~str sub3 := SubStr(text, start3)~~~print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")~~~; Expected: 'World!'~~~if (sub3 != "World!") {~~~    print("SubStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 4: Negative start and specific length~~~int start4 := -6~~~int len4 := 5~~~str sub4 := SubStr(text, start4, len4)~~~print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")~~~; Expected: 'World'~~~if (sub4 != "World") {~~~    print("SubStr test 4 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 5: Start position 1~~~int start5 := 1~~~int len5 := 5~~~str sub5 := SubStr(text, start5, len5)~~~print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")~~~; Expected: 'Hello'~~~if (sub5 != "Hello") {~~~    print("SubStr test 5 FAILED!")~~~}~~~```~~~
+fun SubStr(str: String, startPos: Int, length: Int = -1): String {
+    if (str.isEmpty()) return ""
+    val strLen = str.length
+    var startIndex = if (startPos > 0) startPos - 1 else strLen + startPos
+    
+    if (startIndex !in 0 until strLen) return ""
+
+    if (length < 0) {
+        return str.substring(startIndex)
+    }
+
+    var endIndex = startIndex + length
+    if (endIndex > strLen) {
+        endIndex = strLen
+    }
+    
+    return str.substring(startIndex, endIndex)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: SubStr
+libs: null
+description: string~~~Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.~~~Here is how to use it:~~~```htvm~~~str text := "Hello, HTVM World!"~~~; ----------------------------------------------------~~~; Example 1: Basic substring~~~int start1 := 8~~~int len1 := 4~~~str sub1 := SubStr(text, start1, len1)~~~print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")~~~; Expected: 'HTVM'~~~if (sub1 != "HTVM") {~~~    print("SubStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 2: Substring to end~~~int start2 := 13~~~str sub2 := text.SubStr(start2)~~~print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")~~~; Expected: 'World!'~~~if (sub2 != "World!") {~~~    print("SubStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 3: Negative start position~~~int start3 := -6~~~str sub3 := SubStr(text, start3)~~~print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")~~~; Expected: 'World!'~~~if (sub3 != "World!") {~~~    print("SubStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 4: Negative start and specific length~~~int start4 := -6~~~int len4 := 5~~~str sub4 := SubStr(text, start4, len4)~~~print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")~~~; Expected: 'World'~~~if (sub4 != "World") {~~~    print("SubStr test 4 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 5: Start position 1~~~int start5 := 1~~~int len5 := 5~~~str sub5 := SubStr(text, start5, len5)~~~print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")~~~; Expected: 'Hello'~~~if (sub5 != "Hello") {~~~    print("SubStr test 5 FAILED!")~~~}~~~```~~~
+def SubStr(str, startPos, length = nil)
+  startIndex = startPos > 0 ? startPos - 1 : startPos
+  if length.nil?
+    str[startIndex..-1] || ""
+  else
+    str[startIndex, length] || ""
+  end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: SubStr
+libs: null
+description: string~~~Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.~~~Here is how to use it:~~~```htvm~~~str text := "Hello, HTVM World!"~~~; ----------------------------------------------------~~~; Example 1: Basic substring~~~int start1 := 8~~~int len1 := 4~~~str sub1 := SubStr(text, start1, len1)~~~print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")~~~; Expected: 'HTVM'~~~if (sub1 != "HTVM") {~~~    print("SubStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 2: Substring to end~~~int start2 := 13~~~str sub2 := text.SubStr(start2)~~~print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")~~~; Expected: 'World!'~~~if (sub2 != "World!") {~~~    print("SubStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 3: Negative start position~~~int start3 := -6~~~str sub3 := SubStr(text, start3)~~~print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")~~~; Expected: 'World!'~~~if (sub3 != "World!") {~~~    print("SubStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 4: Negative start and specific length~~~int start4 := -6~~~int len4 := 5~~~str sub4 := SubStr(text, start4, len4)~~~print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")~~~; Expected: 'World'~~~if (sub4 != "World") {~~~    print("SubStr test 4 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 5: Start position 1~~~int start5 := 1~~~int len5 := 5~~~str sub5 := SubStr(text, start5, len5)~~~print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")~~~; Expected: 'Hello'~~~if (sub5 != "Hello") {~~~    print("SubStr test 5 FAILED!")~~~}~~~```~~~
+proc SubStr(s: string, startPos: int, length: int = -1): string =
+  let sLen = s.len
+  var startIndex = if startPos > 0: startPos - 1 else: sLen + startPos
+  if startIndex < 0 or startIndex >= sLen: return ""
+  
+  if length < 0:
+    return s.substr(startIndex)
+  else:
+    var endIndex = startIndex + length - 1
+    if endIndex >= sLen: endIndex = sLen - 1
+    return s[startIndex..endIndex]
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: SubStr
+libs: null
+description: string~~~Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.~~~Here is how to use it:~~~```htvm~~~str text := "Hello, HTVM World!"~~~; ----------------------------------------------------~~~; Example 1: Basic substring~~~int start1 := 8~~~int len1 := 4~~~str sub1 := SubStr(text, start1, len1)~~~print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")~~~; Expected: 'HTVM'~~~if (sub1 != "HTVM") {~~~    print("SubStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 2: Substring to end~~~int start2 := 13~~~str sub2 := text.SubStr(start2)~~~print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")~~~; Expected: 'World!'~~~if (sub2 != "World!") {~~~    print("SubStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 3: Negative start position~~~int start3 := -6~~~str sub3 := SubStr(text, start3)~~~print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")~~~; Expected: 'World!'~~~if (sub3 != "World!") {~~~    print("SubStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 4: Negative start and specific length~~~int start4 := -6~~~int len4 := 5~~~str sub4 := SubStr(text, start4, len4)~~~print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")~~~; Expected: 'World'~~~if (sub4 != "World") {~~~    print("SubStr test 4 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 5: Start position 1~~~int start5 := 1~~~int len5 := 5~~~str sub5 := SubStr(text, start5, len5)~~~print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")~~~; Expected: 'Hello'~~~if (sub5 != "Hello") {~~~    print("SubStr test 5 FAILED!")~~~}~~~```~~~
+; built-in SubStr() is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: SubStr
+libs: null
+description: string~~~Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.~~~Here is how to use it:~~~```htvm~~~str text := "Hello, HTVM World!"~~~; ----------------------------------------------------~~~; Example 1: Basic substring~~~int start1 := 8~~~int len1 := 4~~~str sub1 := SubStr(text, start1, len1)~~~print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")~~~; Expected: 'HTVM'~~~if (sub1 != "HTVM") {~~~    print("SubStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 2: Substring to end~~~int start2 := 13~~~str sub2 := text.SubStr(start2)~~~print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")~~~; Expected: 'World!'~~~if (sub2 != "World!") {~~~    print("SubStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 3: Negative start position~~~int start3 := -6~~~str sub3 := SubStr(text, start3)~~~print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")~~~; Expected: 'World!'~~~if (sub3 != "World!") {~~~    print("SubStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 4: Negative start and specific length~~~int start4 := -6~~~int len4 := 5~~~str sub4 := SubStr(text, start4, len4)~~~print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")~~~; Expected: 'World'~~~if (sub4 != "World") {~~~    print("SubStr test 4 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 5: Start position 1~~~int start5 := 1~~~int len5 := 5~~~str sub5 := SubStr(text, start5, len5)~~~print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")~~~; Expected: 'Hello'~~~if (sub5 != "Hello") {~~~    print("SubStr test 5 FAILED!")~~~}~~~```~~~
+func SubStr(_ str: String, _ startPos: Int, _ length: Int = -1) -> String {
+    let strCount = str.count
+    var startIndexOffset = (startPos > 0) ? startPos - 1 : strCount + startPos
+    
+    guard startIndexOffset >= 0, startIndexOffset < strCount else { return "" }
+
+    let startIndex = str.index(str.startIndex, offsetBy: startIndexOffset)
+
+    if length < 0 {
+        return String(str[startIndex...])
+    }
+
+    let endIndexOffset = min(startIndexOffset + length, strCount)
+    let endIndex = str.index(str.startIndex, offsetBy: endIndexOffset)
+    
+    return String(str[startIndex..<endIndex])
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: SubStr
+libs: null
+description: string~~~Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.~~~Here is how to use it:~~~```htvm~~~str text := "Hello, HTVM World!"~~~; ----------------------------------------------------~~~; Example 1: Basic substring~~~int start1 := 8~~~int len1 := 4~~~str sub1 := SubStr(text, start1, len1)~~~print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")~~~; Expected: 'HTVM'~~~if (sub1 != "HTVM") {~~~    print("SubStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 2: Substring to end~~~int start2 := 13~~~str sub2 := text.SubStr(start2)~~~print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")~~~; Expected: 'World!'~~~if (sub2 != "World!") {~~~    print("SubStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 3: Negative start position~~~int start3 := -6~~~str sub3 := SubStr(text, start3)~~~print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")~~~; Expected: 'World!'~~~if (sub3 != "World!") {~~~    print("SubStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 4: Negative start and specific length~~~int start4 := -6~~~int len4 := 5~~~str sub4 := SubStr(text, start4, len4)~~~print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")~~~; Expected: 'World'~~~if (sub4 != "World") {~~~    print("SubStr test 4 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 5: Start position 1~~~int start5 := 1~~~int len5 := 5~~~str sub5 := SubStr(text, start5, len5)~~~print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")~~~; Expected: 'Hello'~~~if (sub5 != "Hello") {~~~    print("SubStr test 5 FAILED!")~~~}~~~```~~~
+String SubStr(String str, int startPos, [int length = -1]) {
+  if (str.isEmpty) return "";
+  var runes = str.runes.toList();
+  int strLen = runes.length;
+  
+  int startIndex = (startPos > 0) ? startPos - 1 : strLen + startPos;
+  
+  if (startIndex < 0 || startIndex >= strLen) return "";
+
+  if (length < 0) {
+    return String.fromCharCodes(runes.sublist(startIndex));
+  }
+
+  int endIndex = startIndex + length;
+  if (endIndex > strLen) {
+    endIndex = strLen;
+  }
+  
+  return String.fromCharCodes(runes.sublist(startIndex, endIndex));
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: SubStr
+libs: null
+description: string~~~Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.~~~Here is how to use it:~~~```htvm~~~str text := "Hello, HTVM World!"~~~; ----------------------------------------------------~~~; Example 1: Basic substring~~~int start1 := 8~~~int len1 := 4~~~str sub1 := SubStr(text, start1, len1)~~~print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")~~~; Expected: 'HTVM'~~~if (sub1 != "HTVM") {~~~    print("SubStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 2: Substring to end~~~int start2 := 13~~~str sub2 := text.SubStr(start2)~~~print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")~~~; Expected: 'World!'~~~if (sub2 != "World!") {~~~    print("SubStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 3: Negative start position~~~int start3 := -6~~~str sub3 := SubStr(text, start3)~~~print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")~~~; Expected: 'World!'~~~if (sub3 != "World!") {~~~    print("SubStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 4: Negative start and specific length~~~int start4 := -6~~~int len4 := 5~~~str sub4 := SubStr(text, start4, len4)~~~print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")~~~; Expected: 'World'~~~if (sub4 != "World") {~~~    print("SubStr test 4 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 5: Start position 1~~~int start5 := 1~~~int len5 := 5~~~str sub5 := SubStr(text, start5, len5)~~~print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")~~~; Expected: 'Hello'~~~if (sub5 != "Hello") {~~~    print("SubStr test 5 FAILED!")~~~}~~~```~~~
+function SubStr(str: string, startPos: number, length: number = -1): string {
+    // Handle true characters (runes) instead of just code units
+    const runes = [...str];
+    const strLen = runes.length;
+    let startIndex = (startPos > 0) ? startPos - 1 : strLen + startPos;
+
+    if (startIndex < 0 || startIndex >= strLen) {
+        return "";
+    }
+    
+    if (length < 0) {
+        return runes.slice(startIndex).join('');
+    }
+
+    return runes.slice(startIndex, startIndex + length).join('');
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: SubStr
+libs: null
+description: string~~~Extracts a substring from a string. `startPos` is the 1-based starting position. `length` is optional; if omitted, it extracts to the end of the string. Negative `startPos` counts from the end of the string.~~~Here is how to use it:~~~```htvm~~~str text := "Hello, HTVM World!"~~~; ----------------------------------------------------~~~; Example 1: Basic substring~~~int start1 := 8~~~int len1 := 4~~~str sub1 := SubStr(text, start1, len1)~~~print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")~~~; Expected: 'HTVM'~~~if (sub1 != "HTVM") {~~~    print("SubStr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 2: Substring to end~~~int start2 := 13~~~str sub2 := text.SubStr(start2)~~~print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")~~~; Expected: 'World!'~~~if (sub2 != "World!") {~~~    print("SubStr test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 3: Negative start position~~~int start3 := -6~~~str sub3 := SubStr(text, start3)~~~print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")~~~; Expected: 'World!'~~~if (sub3 != "World!") {~~~    print("SubStr test 3 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 4: Negative start and specific length~~~int start4 := -6~~~int len4 := 5~~~str sub4 := SubStr(text, start4, len4)~~~print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")~~~; Expected: 'World'~~~if (sub4 != "World") {~~~    print("SubStr test 4 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Example 5: Start position 1~~~int start5 := 1~~~int len5 := 5~~~str sub5 := SubStr(text, start5, len5)~~~print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")~~~; Expected: 'Hello'~~~if (sub5 != "Hello") {~~~    print("SubStr test 5 FAILED!")~~~}~~~```~~~
+String SubStr(String str, int startPos, int length = -1) {
+    if (str == null || str.isEmpty()) return ""
+    int strLen = str.length()
+    int startIndex = (startPos > 0) ? startPos - 1 : strLen + startPos
+
+    if (startIndex < 0 || startIndex >= strLen) return ""
+
+    if (length < 0) {
+        return str.substring(startIndex)
+    }
+    
+    int endIndex = startIndex + length
+    if (endIndex > strLen) {
+        endIndex = strLen
+    }
+    
+    return str.substring(startIndex, endIndex)
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: Trim
+libs: )|"strings"
+description: string~~~Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.~~~Here is how to use it:~~~```htvm~~~str text1 := "   Hello, HTVM!   "~~~str trimmed1 := Trim(text1)~~~print("Original 1: '" . text1 . "'")~~~print("Trimmed 1 : '" . trimmed1 . "'")~~~; Expected: 'Hello, HTVM!'~~~if (trimmed1 != "Hello, HTVM!") {~~~    print("Trim test 1 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text2 := "`t`n  HTVM Rocks! `n`r"~~~str trimmed2 := text2.Trim()~~~print("Original 2: '" . text2 . "' (has tabs/newlines)")~~~print("Trimmed 2 : '" . trimmed2 . "'")~~~; Expected: 'HTVM Rocks!'~~~if (trimmed2 != "HTVM Rocks!") {~~~    print("Trim test 2 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text3 := "   "~~~str trimmed3 := text3.Trim~~~print("Original 3: '" . text3 . "' (only spaces)")~~~print("Trimmed 3 : '" . trimmed3 . "'")~~~; Expected: ''~~~if (trimmed3 != "") {~~~    print("Trim test 3 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text4 := "NoSpaces"~~~str trimmed4 := Trim(text4)~~~print("Original 4: '" . text4 . "'")~~~print("Trimmed 4 : '" . trimmed4 . "'")~~~; Expected: 'NoSpaces'~~~if (trimmed4 != "NoSpaces") {~~~    print("Trim test 4 FAILED! Oh noes!")~~~}~~~```~~~
+func Trim(inputString string) string {
+    return strings.TrimSpace(inputString)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: Trim
+libs: null
+description: string~~~Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.~~~Here is how to use it:~~~```htvm~~~str text1 := "   Hello, HTVM!   "~~~str trimmed1 := Trim(text1)~~~print("Original 1: '" . text1 . "'")~~~print("Trimmed 1 : '" . trimmed1 . "'")~~~; Expected: 'Hello, HTVM!'~~~if (trimmed1 != "Hello, HTVM!") {~~~    print("Trim test 1 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text2 := "`t`n  HTVM Rocks! `n`r"~~~str trimmed2 := text2.Trim()~~~print("Original 2: '" . text2 . "' (has tabs/newlines)")~~~print("Trimmed 2 : '" . trimmed2 . "'")~~~; Expected: 'HTVM Rocks!'~~~if (trimmed2 != "HTVM Rocks!") {~~~    print("Trim test 2 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text3 := "   "~~~str trimmed3 := text3.Trim~~~print("Original 3: '" . text3 . "' (only spaces)")~~~print("Trimmed 3 : '" . trimmed3 . "'")~~~; Expected: ''~~~if (trimmed3 != "") {~~~    print("Trim test 3 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text4 := "NoSpaces"~~~str trimmed4 := Trim(text4)~~~print("Original 4: '" . text4 . "'")~~~print("Trimmed 4 : '" . trimmed4 . "'")~~~; Expected: 'NoSpaces'~~~if (trimmed4 != "NoSpaces") {~~~    print("Trim test 4 FAILED! Oh noes!")~~~}~~~```~~~
+function Trim(inputString)
+    return string.match(inputString, "^%s*(.-)%s*$")
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: Trim
+libs: null
+description: string~~~Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.~~~Here is how to use it:~~~```htvm~~~str text1 := "   Hello, HTVM!   "~~~str trimmed1 := Trim(text1)~~~print("Original 1: '" . text1 . "'")~~~print("Trimmed 1 : '" . trimmed1 . "'")~~~; Expected: 'Hello, HTVM!'~~~if (trimmed1 != "Hello, HTVM!") {~~~    print("Trim test 1 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text2 := "`t`n  HTVM Rocks! `n`r"~~~str trimmed2 := text2.Trim()~~~print("Original 2: '" . text2 . "' (has tabs/newlines)")~~~print("Trimmed 2 : '" . trimmed2 . "'")~~~; Expected: 'HTVM Rocks!'~~~if (trimmed2 != "HTVM Rocks!") {~~~    print("Trim test 2 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text3 := "   "~~~str trimmed3 := text3.Trim~~~print("Original 3: '" . text3 . "' (only spaces)")~~~print("Trimmed 3 : '" . trimmed3 . "'")~~~; Expected: ''~~~if (trimmed3 != "") {~~~    print("Trim test 3 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text4 := "NoSpaces"~~~str trimmed4 := Trim(text4)~~~print("Original 4: '" . text4 . "'")~~~print("Trimmed 4 : '" . trimmed4 . "'")~~~; Expected: 'NoSpaces'~~~if (trimmed4 != "NoSpaces") {~~~    print("Trim test 4 FAILED! Oh noes!")~~~}~~~```~~~
+public static string Trim(string inputString) {
+    return inputString.Trim();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: Trim
+libs: null
+description: string~~~Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.~~~Here is how to use it:~~~```htvm~~~str text1 := "   Hello, HTVM!   "~~~str trimmed1 := Trim(text1)~~~print("Original 1: '" . text1 . "'")~~~print("Trimmed 1 : '" . trimmed1 . "'")~~~; Expected: 'Hello, HTVM!'~~~if (trimmed1 != "Hello, HTVM!") {~~~    print("Trim test 1 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text2 := "`t`n  HTVM Rocks! `n`r"~~~str trimmed2 := text2.Trim()~~~print("Original 2: '" . text2 . "' (has tabs/newlines)")~~~print("Trimmed 2 : '" . trimmed2 . "'")~~~; Expected: 'HTVM Rocks!'~~~if (trimmed2 != "HTVM Rocks!") {~~~    print("Trim test 2 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text3 := "   "~~~str trimmed3 := text3.Trim~~~print("Original 3: '" . text3 . "' (only spaces)")~~~print("Trimmed 3 : '" . trimmed3 . "'")~~~; Expected: ''~~~if (trimmed3 != "") {~~~    print("Trim test 3 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text4 := "NoSpaces"~~~str trimmed4 := Trim(text4)~~~print("Original 4: '" . text4 . "'")~~~print("Trimmed 4 : '" . trimmed4 . "'")~~~; Expected: 'NoSpaces'~~~if (trimmed4 != "NoSpaces") {~~~    print("Trim test 4 FAILED! Oh noes!")~~~}~~~```~~~
+public static String Trim(String inputString) {
+    return inputString.trim();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: Trim
+libs: null
+description: string~~~Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.~~~Here is how to use it:~~~```htvm~~~str text1 := "   Hello, HTVM!   "~~~str trimmed1 := Trim(text1)~~~print("Original 1: '" . text1 . "'")~~~print("Trimmed 1 : '" . trimmed1 . "'")~~~; Expected: 'Hello, HTVM!'~~~if (trimmed1 != "Hello, HTVM!") {~~~    print("Trim test 1 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text2 := "`t`n  HTVM Rocks! `n`r"~~~str trimmed2 := text2.Trim()~~~print("Original 2: '" . text2 . "' (has tabs/newlines)")~~~print("Trimmed 2 : '" . trimmed2 . "'")~~~; Expected: 'HTVM Rocks!'~~~if (trimmed2 != "HTVM Rocks!") {~~~    print("Trim test 2 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text3 := "   "~~~str trimmed3 := text3.Trim~~~print("Original 3: '" . text3 . "' (only spaces)")~~~print("Trimmed 3 : '" . trimmed3 . "'")~~~; Expected: ''~~~if (trimmed3 != "") {~~~    print("Trim test 3 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text4 := "NoSpaces"~~~str trimmed4 := Trim(text4)~~~print("Original 4: '" . text4 . "'")~~~print("Trimmed 4 : '" . trimmed4 . "'")~~~; Expected: 'NoSpaces'~~~if (trimmed4 != "NoSpaces") {~~~    print("Trim test 4 FAILED! Oh noes!")~~~}~~~```~~~
+fun Trim(inputString: String): String {
+    return inputString.trim()
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: Trim
+libs: null
+description: string~~~Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.~~~Here is how to use it:~~~```htvm~~~str text1 := "   Hello, HTVM!   "~~~str trimmed1 := Trim(text1)~~~print("Original 1: '" . text1 . "'")~~~print("Trimmed 1 : '" . trimmed1 . "'")~~~; Expected: 'Hello, HTVM!'~~~if (trimmed1 != "Hello, HTVM!") {~~~    print("Trim test 1 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text2 := "`t`n  HTVM Rocks! `n`r"~~~str trimmed2 := text2.Trim()~~~print("Original 2: '" . text2 . "' (has tabs/newlines)")~~~print("Trimmed 2 : '" . trimmed2 . "'")~~~; Expected: 'HTVM Rocks!'~~~if (trimmed2 != "HTVM Rocks!") {~~~    print("Trim test 2 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text3 := "   "~~~str trimmed3 := text3.Trim~~~print("Original 3: '" . text3 . "' (only spaces)")~~~print("Trimmed 3 : '" . trimmed3 . "'")~~~; Expected: ''~~~if (trimmed3 != "") {~~~    print("Trim test 3 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text4 := "NoSpaces"~~~str trimmed4 := Trim(text4)~~~print("Original 4: '" . text4 . "'")~~~print("Trimmed 4 : '" . trimmed4 . "'")~~~; Expected: 'NoSpaces'~~~if (trimmed4 != "NoSpaces") {~~~    print("Trim test 4 FAILED! Oh noes!")~~~}~~~```~~~
+def Trim(inputString)
+  inputString.strip
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: Trim
+libs: import strutils
+description: string~~~Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.~~~Here is how to use it:~~~```htvm~~~str text1 := "   Hello, HTVM!   "~~~str trimmed1 := Trim(text1)~~~print("Original 1: '" . text1 . "'")~~~print("Trimmed 1 : '" . trimmed1 . "'")~~~; Expected: 'Hello, HTVM!'~~~if (trimmed1 != "Hello, HTVM!") {~~~    print("Trim test 1 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text2 := "`t`n  HTVM Rocks! `n`r"~~~str trimmed2 := text2.Trim()~~~print("Original 2: '" . text2 . "' (has tabs/newlines)")~~~print("Trimmed 2 : '" . trimmed2 . "'")~~~; Expected: 'HTVM Rocks!'~~~if (trimmed2 != "HTVM Rocks!") {~~~    print("Trim test 2 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text3 := "   "~~~str trimmed3 := text3.Trim~~~print("Original 3: '" . text3 . "' (only spaces)")~~~print("Trimmed 3 : '" . trimmed3 . "'")~~~; Expected: ''~~~if (trimmed3 != "") {~~~    print("Trim test 3 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text4 := "NoSpaces"~~~str trimmed4 := Trim(text4)~~~print("Original 4: '" . text4 . "'")~~~print("Trimmed 4 : '" . trimmed4 . "'")~~~; Expected: 'NoSpaces'~~~if (trimmed4 != "NoSpaces") {~~~    print("Trim test 4 FAILED! Oh noes!")~~~}~~~```~~~
+proc Trim(inputString: string): string =
+  return inputString.strip()
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: Trim
+libs: null
+description: string~~~Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.~~~Here is how to use it:~~~```htvm~~~str text1 := "   Hello, HTVM!   "~~~str trimmed1 := Trim(text1)~~~print("Original 1: '" . text1 . "'")~~~print("Trimmed 1 : '" . trimmed1 . "'")~~~; Expected: 'Hello, HTVM!'~~~if (trimmed1 != "Hello, HTVM!") {~~~    print("Trim test 1 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text2 := "`t`n  HTVM Rocks! `n`r"~~~str trimmed2 := text2.Trim()~~~print("Original 2: '" . text2 . "' (has tabs/newlines)")~~~print("Trimmed 2 : '" . trimmed2 . "'")~~~; Expected: 'HTVM Rocks!'~~~if (trimmed2 != "HTVM Rocks!") {~~~    print("Trim test 2 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text3 := "   "~~~str trimmed3 := text3.Trim~~~print("Original 3: '" . text3 . "' (only spaces)")~~~print("Trimmed 3 : '" . trimmed3 . "'")~~~; Expected: ''~~~if (trimmed3 != "") {~~~    print("Trim test 3 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text4 := "NoSpaces"~~~str trimmed4 := Trim(text4)~~~print("Original 4: '" . text4 . "'")~~~print("Trimmed 4 : '" . trimmed4 . "'")~~~; Expected: 'NoSpaces'~~~if (trimmed4 != "NoSpaces") {~~~    print("Trim test 4 FAILED! Oh noes!")~~~}~~~```~~~
+; built-in Trim() is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: Trim
+libs: null
+description: string~~~Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.~~~Here is how to use it:~~~```htvm~~~str text1 := "   Hello, HTVM!   "~~~str trimmed1 := Trim(text1)~~~print("Original 1: '" . text1 . "'")~~~print("Trimmed 1 : '" . trimmed1 . "'")~~~; Expected: 'Hello, HTVM!'~~~if (trimmed1 != "Hello, HTVM!") {~~~    print("Trim test 1 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text2 := "`t`n  HTVM Rocks! `n`r"~~~str trimmed2 := text2.Trim()~~~print("Original 2: '" . text2 . "' (has tabs/newlines)")~~~print("Trimmed 2 : '" . trimmed2 . "'")~~~; Expected: 'HTVM Rocks!'~~~if (trimmed2 != "HTVM Rocks!") {~~~    print("Trim test 2 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text3 := "   "~~~str trimmed3 := text3.Trim~~~print("Original 3: '" . text3 . "' (only spaces)")~~~print("Trimmed 3 : '" . trimmed3 . "'")~~~; Expected: ''~~~if (trimmed3 != "") {~~~    print("Trim test 3 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text4 := "NoSpaces"~~~str trimmed4 := Trim(text4)~~~print("Original 4: '" . text4 . "'")~~~print("Trimmed 4 : '" . trimmed4 . "'")~~~; Expected: 'NoSpaces'~~~if (trimmed4 != "NoSpaces") {~~~    print("Trim test 4 FAILED! Oh noes!")~~~}~~~```~~~
+func Trim(_ inputString: String) -> String {
+    return inputString.trimmingCharacters(in: .whitespacesAndNewlines)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: Trim
+libs: null
+description: string~~~Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.~~~Here is how to use it:~~~```htvm~~~str text1 := "   Hello, HTVM!   "~~~str trimmed1 := Trim(text1)~~~print("Original 1: '" . text1 . "'")~~~print("Trimmed 1 : '" . trimmed1 . "'")~~~; Expected: 'Hello, HTVM!'~~~if (trimmed1 != "Hello, HTVM!") {~~~    print("Trim test 1 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text2 := "`t`n  HTVM Rocks! `n`r"~~~str trimmed2 := text2.Trim()~~~print("Original 2: '" . text2 . "' (has tabs/newlines)")~~~print("Trimmed 2 : '" . trimmed2 . "'")~~~; Expected: 'HTVM Rocks!'~~~if (trimmed2 != "HTVM Rocks!") {~~~    print("Trim test 2 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text3 := "   "~~~str trimmed3 := text3.Trim~~~print("Original 3: '" . text3 . "' (only spaces)")~~~print("Trimmed 3 : '" . trimmed3 . "'")~~~; Expected: ''~~~if (trimmed3 != "") {~~~    print("Trim test 3 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text4 := "NoSpaces"~~~str trimmed4 := Trim(text4)~~~print("Original 4: '" . text4 . "'")~~~print("Trimmed 4 : '" . trimmed4 . "'")~~~; Expected: 'NoSpaces'~~~if (trimmed4 != "NoSpaces") {~~~    print("Trim test 4 FAILED! Oh noes!")~~~}~~~```~~~
+String Trim(String inputString) {
+  return inputString.trim();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: Trim
+libs: null
+description: string~~~Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.~~~Here is how to use it:~~~```htvm~~~str text1 := "   Hello, HTVM!   "~~~str trimmed1 := Trim(text1)~~~print("Original 1: '" . text1 . "'")~~~print("Trimmed 1 : '" . trimmed1 . "'")~~~; Expected: 'Hello, HTVM!'~~~if (trimmed1 != "Hello, HTVM!") {~~~    print("Trim test 1 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text2 := "`t`n  HTVM Rocks! `n`r"~~~str trimmed2 := text2.Trim()~~~print("Original 2: '" . text2 . "' (has tabs/newlines)")~~~print("Trimmed 2 : '" . trimmed2 . "'")~~~; Expected: 'HTVM Rocks!'~~~if (trimmed2 != "HTVM Rocks!") {~~~    print("Trim test 2 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text3 := "   "~~~str trimmed3 := text3.Trim~~~print("Original 3: '" . text3 . "' (only spaces)")~~~print("Trimmed 3 : '" . trimmed3 . "'")~~~; Expected: ''~~~if (trimmed3 != "") {~~~    print("Trim test 3 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text4 := "NoSpaces"~~~str trimmed4 := Trim(text4)~~~print("Original 4: '" . text4 . "'")~~~print("Trimmed 4 : '" . trimmed4 . "'")~~~; Expected: 'NoSpaces'~~~if (trimmed4 != "NoSpaces") {~~~    print("Trim test 4 FAILED! Oh noes!")~~~}~~~```~~~
+function Trim(inputString: string): string {
+    return inputString.trim();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: Trim
+libs: null
+description: string~~~Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from the input string. If the input string is empty or contains only whitespace, it returns an empty string. It's useful for cleaning up user input or data read from files before processing.~~~Here is how to use it:~~~```htvm~~~str text1 := "   Hello, HTVM!   "~~~str trimmed1 := Trim(text1)~~~print("Original 1: '" . text1 . "'")~~~print("Trimmed 1 : '" . trimmed1 . "'")~~~; Expected: 'Hello, HTVM!'~~~if (trimmed1 != "Hello, HTVM!") {~~~    print("Trim test 1 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text2 := "`t`n  HTVM Rocks! `n`r"~~~str trimmed2 := text2.Trim()~~~print("Original 2: '" . text2 . "' (has tabs/newlines)")~~~print("Trimmed 2 : '" . trimmed2 . "'")~~~; Expected: 'HTVM Rocks!'~~~if (trimmed2 != "HTVM Rocks!") {~~~    print("Trim test 2 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text3 := "   "~~~str trimmed3 := text3.Trim~~~print("Original 3: '" . text3 . "' (only spaces)")~~~print("Trimmed 3 : '" . trimmed3 . "'")~~~; Expected: ''~~~if (trimmed3 != "") {~~~    print("Trim test 3 FAILED! Oh noes!")~~~}~~~; ----------------------------------------------------~~~str text4 := "NoSpaces"~~~str trimmed4 := Trim(text4)~~~print("Original 4: '" . text4 . "'")~~~print("Trimmed 4 : '" . trimmed4 . "'")~~~; Expected: 'NoSpaces'~~~if (trimmed4 != "NoSpaces") {~~~    print("Trim test 4 FAILED! Oh noes!")~~~}~~~```~~~
+String Trim(String inputString) {
+    return inputString.trim();
+}
+funcEND======================funcEND==============

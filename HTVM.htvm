@@ -11530,14 +11530,66 @@ return out
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str fixLastParentesis(str lines) {
+    int open := 0
+    int close := 0
+    str out := ""
+    Loop, Parse, lines, `n, `r {
+        open := 0
+        close := 0
+        Loop, Parse, A_LoopField {
+            if (A_LoopField = "(") {
+                open++
+            }
+            if (A_LoopField = ")") {
+                close++
+            }
+        }
+        if (open != close) {
+            if (InStr(A_LoopField, " {")) {
+                out .= StrReplace(A_LoopField, " {", ") {") . Chr(10)
+            }
+            else {
+                out .= A_LoopField . ")" . Chr(10)
+            }
+        }
+        else {
+            out .= A_LoopField . Chr(10)
+        }
+    }
+    StringTrimRight, out, out, 1
+    return out
+}
+
+func str FIXregexEspaceThem(str line) {
+line := StrReplace(line, "\", "\\")
+line := StrReplace(line, ".", "\.")
+line := StrReplace(line, "*", "\*")
+line := StrReplace(line, "+", "\+")
+line := StrReplace(line, "?", "\?")
+line := StrReplace(line, "^", "\^")
+line := StrReplace(line, "$", "\$")
+line := StrReplace(line, "{", "\{")
+line := StrReplace(line, "}", "\}")
+line := StrReplace(line, "(", "\(")
+line := StrReplace(line, ")", "\)")
+line := StrReplace(line, "|", "\|")
+line := StrReplace(line, "[", "\[")
+line := StrReplace(line, "]", "\]")
+line := StrReplace(line, "-", "\-")
+return line
+}
 
 func str fixJAVAstrCmp_FjavaUGH(str javaCode) {
     arr str allJavaStringsIG
     int next := 0
     Loop, Parse, javaCode, " " {
+        if (InStr(A_LoopField, "ihuiuuhuuhtheidFor--asds")) {
+            allJavaStringsIG.add(Trim(FIXregexEspaceThem(A_LoopField)))
+        }
         if (next = 1) {
             if (RegExMatch(Trim(A_LoopField), "^[A-Za-z_][A-Za-z0-9_]*$")) {
-                allJavaStringsIG.add(Trim(A_LoopField))
+                allJavaStringsIG.add(Trim(FIXregexEspaceThem(A_LoopField)))
             }
             next := 0
         }
@@ -11556,21 +11608,29 @@ func str fixJAVAstrCmp_FjavaUGH(str javaCode) {
     str varName := ""
     Loop, % allJavaStringsIG.size() {
         varName := allJavaStringsIG[A_Index]
-        pattern1 := "\b" . varName . "\s*==\s*([A-Za-z0-9_\-]+)\b"
+        
+        pattern1 := "\b" . varName . "\s*==\s*([\w\.\(\)\[\],]+)"
         replace1 := varName . ".equals($1)"
         javaCode := RegExReplace(javaCode, pattern1, replace1)
-        pattern2 := "\b([A-Za-z0-9_\-]+)\s*==\s*" . varName . "\b"
+        
+        pattern2 := "\b([\w\.\(\)\[\],]+)\s*==\s*" . varName
         replace2 := varName . ".equals($1)"
         javaCode := RegExReplace(javaCode, pattern2, replace2)
-        pattern3 := "\b" . varName . "\s*!=\s*([A-Za-z0-9_\-]+)\b"
-        replace3 := "!" . varName . ".equals($1)"
+        
+        pattern3 := "\b" . varName . "\s*!=\s*([\w\.\(\)\[\],]+)"
+        replace3 := "!(" . varName . ".equals($1))"
         javaCode := RegExReplace(javaCode, pattern3, replace3)
-        pattern4 := "\b([A-Za-z0-9_\-]+)\s*!=\s*" . varName . "\b"
-        replace4 := "!" . varName . ".equals($1)"
+        
+        pattern4 := "\b([\w\.\(\)\[\],]+)\s*!=\s*" . varName
+        replace4 := "!(" . varName . ".equals($1))"
         javaCode := RegExReplace(javaCode, pattern4, replace4)
     }
+    javaCode := StrReplace(javaCode, "huiuuhuuhtheidFor\-\-asdsas\-\-theuhturtyphoutr\-\-AA", "huiuuhuuhtheidFor--asdsas--theuhturtyphoutr--AA")
+    javaCode := StrReplace(javaCode, "AA\).equals(", "AA.equals(")
+    javaCode := fixLastParentesis(javaCode)
     return javaCode
 }
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
