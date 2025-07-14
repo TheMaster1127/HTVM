@@ -12324,20 +12324,61 @@ lang: ahk
 name: sortArr
 libs: null
 description: string~~~Sorts an array of strings in ascending order. It typically removes duplicate values before sorting, resulting in an array of unique, sorted strings. The sorting is usually case-insensitive by default, but this can vary by language.~~~Here is how to use it:~~~```htvm~~~arr str unsortedArr1 := ["Charlie", "Alpha", "Bravo", "alpha"]~~~arr str sortedArr1~~~sortedArr1 := sortArr(unsortedArr1)~~~print("Original Array 1: ")~~~Loop, % unsortedArr1.size() {~~~    print("  " . unsortedArr1[A_Index])~~~}~~~print("Sorted Unique Array 1: ")~~~Loop, % sortedArr1.size() {~~~    print("  " . sortedArr1[A_Index])~~~}~~~; Expected (case-sensitive): ["Alpha", "Bravo", "Charlie", "alpha"]~~~if (sortedArr1.size() != 4 or sortedArr1[0] != "Alpha" or sortedArr1[1] != "Bravo" or sortedArr1[2] != "Charlie" or sortedArr1[3] != "alpha") {~~~    print("sortArr test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~print("--------------------")~~~arr str unsortedArr2 := ["10", "2", "100", "1", "2"]~~~arr str sortedArr2~~~sortedArr2 := unsortedArr2.sortArr()~~~; Alternative call~~~print("Original Array 2: ")~~~Loop, % unsortedArr2.size() {~~~    print("  " . unsortedArr2[A_Index])~~~}~~~print("Sorted Unique Array 2 (lexicographical): ")~~~Loop, % sortedArr2.size() {~~~    print("  " . sortedArr2[A_Index])~~~}~~~; Expected (lexicographical, unique): ["1", "10", "100", "2"]~~~if (sortedArr2.size() != 4 or sortedArr2[0] != "1" or sortedArr2[1] != "10" or sortedArr2[2] != "100" or sortedArr2[3] != "2") {~~~    print("sortArr test 2 FAILED!")~~~}~~~```~~~
+; Custom string comparison function for lexicographical ordering
+sortArr_HELP_StringCompare(str1, str2) {
+    ; Compare strings character by character
+    len1 := StrLen(str1)
+    len2 := StrLen(str2)
+    minLen := len1 < len2 ? len1 : len2
+    
+    Loop, %minLen% {
+        char1 := Asc(SubStr(str1, A_Index, 1))
+        char2 := Asc(SubStr(str2, A_Index, 1))
+        if (char1 < char2)
+            return -1
+        if (char1 > char2)
+            return 1
+    }
+    
+    ; If all compared characters are equal, shorter string comes first
+    if (len1 < len2)
+        return -1
+    if (len1 > len2)
+        return 1
+    return 0
+}
+
 sortArr(input) {
-    seen := {}
-    tempList := ""
-    for index, value in input
-    {
-        if !seen.HasKey(value)
-        {
-            tempList .= value . "`n"
-            seen[value] := true
+    unique := []
+    for index, value in input {
+        ; Case-sensitive duplicate checking by comparing with existing elements
+        isDuplicate := false
+        for i, existing in unique {
+            if (value == existing) {
+                isDuplicate := true
+                break
+            }
+        }
+        if (!isDuplicate) {
+            unique.Push(value)
         }
     }
-    tempList := RTrim(tempList, "`n")
-    Sort, tempList
-    return StrSplit(tempList, "`n")
+    size := unique.Length()
+    
+    ; Bubble sort implementation (lexicographical/string comparison)
+    Loop, % size - 1 {
+        outerLoop := A_Index
+        Loop, % size - outerLoop {
+            currentIndex := A_Index
+            ; Use custom string comparison for proper lexicographical comparison
+            if (sortArr_HELP_StringCompare(unique[currentIndex], unique[currentIndex + 1]) > 0) {
+                temp := unique[currentIndex]
+                unique[currentIndex] := unique[currentIndex + 1]
+                unique[currentIndex + 1] := temp
+            }
+        }
+    }
+    return unique
 }
 funcEND======================funcEND==============
 func======================func==============
