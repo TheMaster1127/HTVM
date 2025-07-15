@@ -2087,7 +2087,7 @@ func======================func==============
 lang: cpp
 name: RunCMD
 libs: #include <iostream>|#include <stdexcept>|#include <string>|#include <array>|#include <memory>|#include <cstdio>
-description: io~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo 'Hello from HTVM on Unix-like'" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+description: io~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
 std::string RunCMD(const std::string& command) {
     std::array<char, 128> buffer;
     std::string result;
@@ -2942,7 +2942,7 @@ func======================func==============
 lang: py
 name: RunCMD
 libs: import subprocess
-description: io~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo 'Hello from HTVM on Unix-like'" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+description: io~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
 def RunCMD(command):
     try:
         result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
@@ -13786,6 +13786,237 @@ String getDataFromAPI(String url) {
     try {
         return new URL(url).getText("UTF-8")
     } catch (Exception e) {
+        return ""
+    }
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: RunCMD
+libs: )|"os/exec"
+description: system~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+func RunCMD(command string) string {
+	var cmd *exec.Cmd
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command("cmd", "/C", command)
+	} else {
+		cmd = exec.Command("sh", "-c", command)
+	}
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		return string(out) // Return output even on error
+	}
+	return string(out)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: RunCMD
+libs: null
+description: system~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+function RunCMD(command)
+    local handle = io.popen(command)
+    if not handle then return "" end
+    local result = handle:read("*a")
+    handle:close()
+    return result
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: RunCMD
+libs: using System.Diagnostics;
+description: system~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+public static string RunCMD(string command)
+{
+    try
+    {
+        var process = new Process();
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.RedirectStandardOutput = true;
+        process.StartInfo.RedirectStandardError = true;
+        
+        if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+        {
+            process.StartInfo.FileName = "cmd.exe";
+            process.StartInfo.Arguments = "/C " + command;
+        }
+        else
+        {
+            process.StartInfo.FileName = "/bin/sh";
+            process.StartInfo.Arguments = "-c \"" + command.Replace("\"", "\\\"") + "\"";
+        }
+
+        process.Start();
+        string output = process.StandardOutput.ReadToEnd();
+        string err = process.StandardError.ReadToEnd();
+        process.WaitForExit();
+        return output + err;
+    }
+    catch { return ""; }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: RunCMD
+libs: import java.io.BufferedReader;|import java.io.InputStreamReader;
+description: system~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+public static String RunCMD(String command) {
+    StringBuilder output = new StringBuilder();
+    Process p;
+    try {
+        String[] cmd;
+        if (System.getProperty("os.name").toLowerCase().startsWith("windows")) {
+            cmd = new String[]{"cmd.exe", "/c", command};
+        } else {
+            cmd = new String[]{"/bin/sh", "-c", command};
+        }
+        p = Runtime.getRuntime().exec(cmd);
+        p.waitFor();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            output.append(line).append("\n");
+        }
+    } catch (Exception e) {
+        return e.toString();
+    }
+    return output.toString();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: RunCMD
+libs: import java.io.BufferedReader|import java.util.concurrent.TimeUnit
+description: system~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+fun RunCMD(command: String): String {
+    return try {
+        val osName = System.getProperty("os.name").lowercase()
+        val process = if (osName.startsWith("windows")) {
+            ProcessBuilder("cmd.exe", "/c", command)
+        } else {
+            ProcessBuilder("/bin/sh", "-c", command)
+        }
+        .redirectErrorStream(true)
+        .start()
+
+        process.waitFor(10, TimeUnit.SECONDS)
+        process.inputStream.bufferedReader().readText()
+    } catch (e: Exception) {
+        e.toString()
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: RunCMD
+libs: null
+description: system~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+def RunCMD(command)
+  begin
+    `#{command}`
+  rescue
+    ""
+  end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: RunCMD
+libs: import osproc
+description: system~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+proc RunCMD(command: string): string =
+  let (output, exitCode) = execCmdEx(command)
+  return output
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: RunCMD
+libs: null
+description: system~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+RunCMD(command) {
+    Shell := ComObjCreate("WScript.Shell")
+    Exec := Shell.Exec("cmd.exe /c " . command)
+    return Exec.StdOut.ReadAll()
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: RunCMD
+libs: import Foundation
+description: system~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+func RunCMD(_ command: String) -> String {
+    let task = Process()
+    let pipe = Pipe()
+    
+    task.standardOutput = pipe
+    task.standardError = pipe
+    task.arguments = ["-c", command]
+    task.executableURL = URL(fileURLWithPath: "/bin/sh")
+    
+    do {
+        try task.run()
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        return String(data: data, encoding: .utf8) ?? ""
+    } catch {
+        return ""
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: RunCMD
+libs: import 'dart:io';
+description: system~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+String RunCMD(String command) {
+  try {
+    ProcessResult result;
+    if (Platform.isWindows) {
+      result = Process.runSync('cmd', ['/c', command]);
+    } else {
+      result = Process.runSync('sh', ['-c', command]);
+    }
+    return result.stdout + result.stderr;
+  } catch (e) {
+    return e.toString();
+  }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: RunCMD
+libs: import { execSync } from 'child_process';
+description: system~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+function RunCMD(command: string): string {
+    if (typeof execSync === 'undefined') {
+        return ""; // Not in a Node.js environment
+    }
+    try {
+        return execSync(command, { encoding: 'utf8' });
+    } catch (error) {
+        return error.toString();
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: RunCMD
+libs: null
+description: system~~~Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.~~~Here is how to use it:~~~```htvm~~~; This function is highly dependent on the OS and environment.~~~; Not available in browser JS.~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("RunCMD is not available in standard JS browser environments. Skipping test.")~~~} else {~~~    str command := ""~~~    ; Assuming isWindows() built-in exists and works~~~    bool isWin := isWindows() ~~~~~~    if (isWin = true) {~~~        command := "echo Hello from HTVM on Windows"~~~    } else {~~~        ; Single quotes for Unix echo~~~        command := "echo Hello from HTVM on Unix-like" ~~~    }~~~    print("Executing command: " . command)~~~    str output := RunCMD(command)~~~    print("Output from command:")~~~    ; Trim to remove trailing newline from echo~~~    print(Trim(output))~~~~~~    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {~~~        print("RunCMD test (Windows echo) PASSED.")~~~    } else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {~~~        print("RunCMD test (Unix echo) PASSED.")~~~    } else if (command != "") {~~~        print("RunCMD test FAILED or OS detection mismatch. Output was: '" . Trim(output) . "'")~~~    } else {~~~        print("RunCMD test skipped as command was empty.")~~~    }~~~~~~    ; Example of a command that might list files (OS-dependent)~~~    str listCommand := ""~~~    if (isWin = true) { listCommand := "dir /b" ~~~    } else {~~~        listCommand := "ls -a" ~~~    }~~~    print("---")~~~    print("Attempting to list files with: " . listCommand)~~~    str fileListOutput := RunCMD(listCommand)~~~    print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")~~~    if (StrLen(fileListOutput) > 0) {~~~        print("RunCMD (list files) seems to have executed and produced output.")~~~    } else {~~~        print("RunCMD (list files) produced no output or failed.")~~~    }~~~}~~~```~~~
+String RunCMD(String command) {
+    try {
+        def proc = command.execute()
+        proc.waitFor()
+        return proc.in.text
+    } catch (IOException e) {
         return ""
     }
 }
