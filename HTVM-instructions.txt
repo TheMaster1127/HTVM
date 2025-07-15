@@ -2930,13 +2930,11 @@ name: RegExReplace
 libs: import re
 description: string~~~Replaces occurrences of a regular expression `pattern` within an `inputStr` with a `replacement` string. Returns the modified string. The regex syntax and replacement capabilities depend on the target language.~~~Here is how to use it:~~~```htvm~~~str text := "Contact us at info@example.com or support@example.org for help."~~~str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"~~~str replacement := "[REDACTED_EMAIL]"~~~str result1 := RegExReplace(text, emailPattern, replacement)~~~print("Original: " . text)~~~print("Redacted: " . result1)~~~; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.~~~str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."~~~if (result1 != expected1) {~~~    print("RegExReplace test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "The numbers are 123 and 456."~~~str digitPattern := "\d+" ~~~; Matches one or more digits~~~str replacement2 := "###"~~~str result2 := text2.RegExReplace(digitPattern, replacement2)~~~print("Original: " . text2)~~~print("Numbers replaced: " . result2)~~~; Expected: The numbers are ### and ###.~~~str expected2 := "The numbers are ### and ###."~~~if (result2 != expected2) {~~~    print("RegExReplace test 2 FAILED!")~~~}~~~```~~~
 def RegExReplace(inputStr, regexPattern, replacement):
-    # Create a regular expression object using the provided pattern
+    # Convert `$1`, `$2`, etc. to `\1`, `\2` so Python understands
+    replacement = re.sub(r'\$(\d+)', r'\\\1', replacement)
 
-    regex = re.compile(regexPattern, re.MULTILINE)  # re.MULTILINE for multi-line matching
-    # Use the sub() method to perform the regex replacement
-    resultStr = regex.sub(replacement, inputStr)
-    # Return the modified string
-    return resultStr
+    regex = re.compile(regexPattern, re.MULTILINE)
+    return regex.sub(replacement, inputStr)
 funcEND======================funcEND==============
 func======================func==============
 lang: py
@@ -10251,10 +10249,17 @@ String RegExReplace(String inputStr, String regexPattern, String replacement) {
         // STEP 1: Fix the regex pattern for any literal '$' characters,
         // exactly like we did in RegExMatch.
         String fixedPattern = regexPattern.replaceAll('\\$(?!\\{)', ((char)92).toString() + ((char)92).toString() + ((char)92).toString() + '$')
-
+        
         // STEP 2: Fix the replacement string. In replaceAll, '$' is used for
         // backreferences (e.g., $1). We must escape it to treat it as a literal.
         String fixedReplacement = replacement.replace('$', '\\$')
+
+        // Groovy's replaceAll expects backreferences using $1, $2 syntax
+        // but if fixedReplacement has escaped $ (like \$), those are treated literally
+        // so we need to unescape backreference patterns to $N:
+        
+        // Restore backreferences of the form \$1, \$2 ... back to $1, $2
+        fixedReplacement = fixedReplacement.replaceAll(/\\\$([0-9]+)/, '\\$$1')
 
         // Now, call replaceAll with the fixed pattern and fixed replacement.
         return inputStr.replaceAll(fixedPattern, fixedReplacement)
@@ -10263,8 +10268,8 @@ String RegExReplace(String inputStr, String regexPattern, String replacement) {
         return inputStr
     }
 }
-funcEND======================funcEND==============
 
+funcEND======================funcEND==============
 
 
 
