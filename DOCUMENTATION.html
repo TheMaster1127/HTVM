@@ -6220,7 +6220,7 @@ if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | BuildInVars | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
-| ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| ExitApp | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | HTVM_getLang_HTVM | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | Sleep | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
@@ -6285,10 +6285,10 @@ if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {
 }
 ; ----------------------------------------------------
 str tickCount1 := BuildInVars("A_TickCount")
-print("TickCount 1: " . tickCount1)
+print("TickCount 1: " . STR(tickCount1))
 await Sleep(100)
 str tickCount2 := BuildInVars("A_TickCount")
-print("TickCount 2 (after 100ms sleep): " . tickCount2)
+print("TickCount 2 (after 100ms sleep): " . STR(tickCount2))
 ; This will never be perfectly 100 because:
 ; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.
 ; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).
@@ -6312,7 +6312,7 @@ if (INT(tickCount2) <= INT(tickCount1)) {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| ExitApp | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| ExitApp | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Terminates the current program immediately. Any code following `ExitApp()` will not be executed. This function is not available in all target environments (e.g., standard web JavaScript).
 
@@ -6326,7 +6326,7 @@ if (shouldExit = true) {
     print("Preparing to exit...")
     ; Note: The following line will only execute if ExitApp is NOT called or is unavailable.
     ; In a successful ExitApp call, "This line should not print..." will not appear.
-    if (HTVM_getLang_HTVM() = "js") or (HTVM_getLang_HTVM() = "ts") {
+    if (HTVM_getLang_HTVM() = "js") {
         ; ExitApp not typically available in a browser
         print("ExitApp is not available in this JavaScript environment. Skipping exit.")
     }
@@ -6846,7 +6846,7 @@ else {
 | GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 | RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 | getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| input | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 ---
@@ -7026,7 +7026,7 @@ await performApiCall()
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| input | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| input | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Prompts the user with `promptText` (string) and waits for them to enter text, then returns the entered text as a string. In graphical environments, this might open a dialog box. In console environments, it reads from standard input.
 
@@ -7150,7 +7150,7 @@ print(nullVar)
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | MakeHotKey | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| isWindows | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 ---
 
@@ -7228,7 +7228,7 @@ MakeHotKey("Alt+R", resetPos)
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| isWindows | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| isWindows | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Checks if the current operating system is Windows. Returns `true` if the OS is identified as Windows, `false` otherwise. Not reliably available or meaningful in browser JavaScript environments (where it would typically always be false or unavailable).
 
