@@ -6627,7 +6627,7 @@ else {
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
 | RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-| getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| getDataFromAPI | Yes | Yes | Yes | Yes |Yes |No |Yes |Yes |Yes |Yes |Yes |No |No |No |Yes |
 | input | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
@@ -6763,7 +6763,7 @@ else {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| getDataFromAPI | Yes | Yes | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
+| getDataFromAPI | Yes | Yes | Yes | Yes |Yes |No |Yes |Yes |Yes |Yes |Yes |No |No |No |Yes |
 
 Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.
 
@@ -6780,18 +6780,9 @@ async func void performApiCall() {
     ; or handle it via callbacks/promises depending on the target language details.
     ; For this example, we'll assume direct await is possible or handled by HTVM.
     str responseData := await getDataFromAPI(apiUrl)
-    if (responseData != "" and responseData != null) {
+    if (responseData != "") {
         print("API Response Data (raw):")
         print(responseData)
-    }
-    print("--- Fetching from a non-existent or error-prone URL ---")
-    str errorUrl := "https://jsonplaceholder.typicode.com/nonexistentpath"
-    str errorResponse := await getDataFromAPI(errorUrl)
-    if (errorResponse = "" or errorResponse = null or InStr(errorResponse, "Error") > 0) {
-        print("getDataFromAPI error handling test PASSED (received empty, null, or error indicator). Response: " . errorResponse)
-    }
-    else {
-        print("getDataFromAPI error handling test FAILED. Expected error/empty, got: " . errorResponse)
     }
 }
 main

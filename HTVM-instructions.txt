@@ -1903,7 +1903,7 @@ func======================func==============
 lang: cpp
 name: getDataFromAPI
 libs: #include <string>|#include <array>|#include <memory>|#include <stdexcept>| #include <cstdio>
-description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "" and responseData != null) {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~    print("--- Fetching from a non-existent or error-prone URL ---")~~~    str errorUrl := "https://jsonplaceholder.typicode.com/nonexistentpath"~~~    str errorResponse := await getDataFromAPI(errorUrl)~~~    if (errorResponse = "" or errorResponse = null or InStr(errorResponse, "Error") > 0) {~~~        print("getDataFromAPI error handling test PASSED (received empty, null, or error indicator). Response: " . errorResponse)~~~    } else {~~~        print("getDataFromAPI error handling test FAILED. Expected error/empty, got: " . errorResponse)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
+description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "") {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
 // Function to run a system command
 std::string getDataFromAPIRunCMD(const std::string& command) {
     std::array<char, 128> buffer;
@@ -2792,7 +2792,7 @@ func======================func==============
 lang: py
 name: getDataFromAPI
 libs: import json|import urllib.request|import urllib.error
-description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "" and responseData != null) {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~    print("--- Fetching from a non-existent or error-prone URL ---")~~~    str errorUrl := "https://jsonplaceholder.typicode.com/nonexistentpath"~~~    str errorResponse := await getDataFromAPI(errorUrl)~~~    if (errorResponse = "" or errorResponse = null or InStr(errorResponse, "Error") > 0) {~~~        print("getDataFromAPI error handling test PASSED (received empty, null, or error indicator). Response: " . errorResponse)~~~    } else {~~~        print("getDataFromAPI error handling test FAILED. Expected error/empty, got: " . errorResponse)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
+description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "") {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
 def getDataFromAPI(url):
     try:
         with urllib.request.urlopen(url) as response:
@@ -3032,7 +3032,7 @@ func======================func==============
 lang: js
 name: getDataFromAPI
 libs: null
-description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "" and responseData != null) {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~    print("--- Fetching from a non-existent or error-prone URL ---")~~~    str errorUrl := "https://jsonplaceholder.typicode.com/nonexistentpath"~~~    str errorResponse := await getDataFromAPI(errorUrl)~~~    if (errorResponse = "" or errorResponse = null or InStr(errorResponse, "Error") > 0) {~~~        print("getDataFromAPI error handling test PASSED (received empty, null, or error indicator). Response: " . errorResponse)~~~    } else {~~~        print("getDataFromAPI error handling test FAILED. Expected error/empty, got: " . errorResponse)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
+description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "") {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
 async function getDataFromAPI(url) {
 	try {
 	    const response = await fetch(url);
@@ -13647,5 +13647,146 @@ description: io~~~Prompts the user with `promptText` (string) and waits for them
 String input(String prompt) {
     print prompt
     return System.in.newReader().readLine()
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: getDataFromAPI
+libs: )|"net/http"|"io"
+description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "") {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
+func getDataFromAPI(url string) string {
+	resp, err := http.Get(url)
+	if err != nil {
+		return ""
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		return ""
+	}
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return ""
+	}
+	return string(body)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: getDataFromAPI
+libs: null
+description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "") {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
+-- Assumes 'curl' is installed on the system.
+function getDataFromAPI(url)
+    local command = "curl -s -L \"" .. url .. "\""
+    local handle = io.popen(command)
+    if not handle then return "" end
+    local result = handle:read("*a")
+    handle:close()
+    return result
+end
+funcEND======================funcEND==============
+
+func======================func==============
+lang: java
+name: getDataFromAPI
+libs: import java.net.HttpURLConnection;|import java.net.URL;|import java.util.Scanner;|import java.net.URI;|import java.net.URL;
+description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "") {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
+public static String getDataFromAPI(String urlString) {
+    try {
+        URI uri = new URI(urlString);
+        URL url = uri.toURL();
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.connect();
+        if (conn.getResponseCode() != 200) {
+            return "";
+        }
+        Scanner scanner = new Scanner(url.openStream());
+        String response = scanner.useDelimiter("\\A").next();
+        scanner.close();
+        return response;
+    } catch (Exception e) {
+        return "";
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: getDataFromAPI
+libs: import java.net.URL
+description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "") {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
+fun getDataFromAPI(url: String): String {
+    return try {
+        URL(url).readText()
+    } catch (e: Exception) {
+        ""
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: getDataFromAPI
+libs: null
+description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "") {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
+def getDataFromAPI(url)
+  begin
+    uri = URI.parse(url)
+    response = Net::HTTP.get_response(uri)
+    return response.is_a?(Net::HTTPSuccess) ? response.body : ""
+  rescue
+    return ""
+  end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: getDataFromAPI
+libs: import httpclient
+description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "") {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
+proc getDataFromAPI(url: string): string =
+  try:
+    let client = newHttpClient()
+    let response = client.get(url)
+    if response.status == "200 OK":
+      return response.body
+    else:
+      return ""
+  except:
+    return ""
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: getDataFromAPI
+libs: null
+description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "") {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
+getDataFromAPI(url) {
+    whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+    whr.Open("GET", url, false)
+    whr.Send()
+    if (whr.Status = 200)
+        return whr.ResponseText
+    return ""
+}
+funcEND======================funcEND==============
+
+func======================func==============
+lang: groovy
+name: getDataFromAPI
+libs: null
+description: io~~~Asynchronously fetches data from a given `url` (string). It's typically used for making HTTP GET requests to APIs that return JSON data. The function returns the fetched data (often parsed JSON, or raw text if JSON parsing fails/is not applicable). Handles basic errors and non-OK HTTP responses.~~~Here is how to use it:~~~```htvm~~~; This function is asynchronous.~~~async func void performApiCall() {~~~    ; Public test API~~~    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"~~~    print("Fetching data from: " . apiUrl)~~~    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),~~~    ; you might need an 'await' keyword if HTVM supports it directly for this function,~~~    ; or handle it via callbacks/promises depending on the target language details.~~~    ; For this example, we'll assume direct await is possible or handled by HTVM.~~~    str responseData := await getDataFromAPI(apiUrl)~~~    if (responseData != "") {~~~        print("API Response Data (raw):")~~~        print(responseData)~~~    }~~~}~~~main~~~await performApiCall()~~~```~~~
+String getDataFromAPI(String url) {
+    try {
+        return new URL(url).getText("UTF-8")
+    } catch (Exception e) {
+        return ""
+    }
 }
 funcEND======================funcEND==============
