@@ -8890,7 +8890,7 @@ std::string fixJAVAcmpANDandORtheFixForTheFix(std::string javaCodeUgh) {
     std::vector<std::string> items157 = LoopParseFunc(out, "\n", "\r");
     for (size_t A_Index157 = 0; A_Index157 < items157.size() + 0; A_Index157++) {
         std::string A_LoopField157 = items157[A_Index157 - 0];
-        if (SubStr(Trim(A_LoopField157), 1, 3) == "if ") {
+        if (SubStr(Trim(A_LoopField157), 1, 3) == "if " && InStr(A_LoopField157, "__HTVM_V2_TO_JAVA_optionalParams__") == false) {
             out1 += RegExReplace(A_LoopField157, "\\bif\\b", "if (") + Chr(10);
         } else {
             out1 += A_LoopField157 + Chr(10);

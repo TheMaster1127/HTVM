@@ -11587,7 +11587,7 @@ str out1 := ""
 
 Loop, Parse, out, `n, `r {
 
-if (SubStr(Trim(A_LoopField), 1, 3) = "if ") {
+if (SubStr(Trim(A_LoopField), 1, 3) = "if ") and (InStr(A_LoopField, "__HTVM_V2_TO_JAVA_optionalParams__") = false) {
 out1 .= RegExReplace(A_LoopField, "\bif\b", "if (") . Chr(10)
 }
 else {
