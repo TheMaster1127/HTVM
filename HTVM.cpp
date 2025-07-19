@@ -1540,11 +1540,11 @@ std::string AddCurlyBraces(std::string pythonCode) {
                 break;
             }
             indentLevel -= 4;
-            result += spaces(indentLevel) + "}\n";
+            result += spaces(indentLevel) + "}" + Chr(10);
         }
         // Add opening brace for new blocks
         if (getLastChar(stripped) == ":" && SubStr(StrLower(Trim(A_LoopField29)), 1, StrLen(StrLower(keyWordComment))) != StrLower(keyWordComment)) {
-            result += SubStr(line, 1, -1) + " {\n";
+            result += SubStr(line, 1, -1) + " {" + Chr(10);
             indentLevel += 4;
         } else {
             result += line + Chr(10);
@@ -1556,7 +1556,7 @@ std::string AddCurlyBraces(std::string pythonCode) {
             break;
         }
         indentLevel -= 4;
-        result += spaces(indentLevel) + "}\n";
+        result += spaces(indentLevel) + "}" + Chr(10);
     }
     return result;
 }
@@ -2790,7 +2790,7 @@ std::string OSP(std::string line) {
                 countParentheses = 1;
             }
             if (alredy == 0) {
-                outOSP += A_LoopField57 + "\n";
+                outOSP += A_LoopField57 + "" + Chr(10);
             }
             alredy = 0;
         }
@@ -2830,7 +2830,7 @@ std::string OSP(std::string line) {
                 countParentheses = 1;
             }
             if (alredy == 0) {
-                outOSP += A_LoopField58 + "\n";
+                outOSP += A_LoopField58 + "" + Chr(10);
             }
             alredy = 0;
         }
@@ -2870,7 +2870,7 @@ std::string OSP(std::string line) {
                 countParentheses = 1;
             }
             if (alredy == 0) {
-                outOSP += A_LoopField59 + "\n";
+                outOSP += A_LoopField59 + "" + Chr(10);
             }
             alredy = 0;
         }
@@ -2945,7 +2945,7 @@ std::string OSP(std::string line) {
             HTVM_Pop(ospDic);
         }
         if (alredy <= 0) {
-            outOSP += A_LoopField60 + "\n";
+            outOSP += A_LoopField60 + "" + Chr(10);
         }
         alredy--;
     }
@@ -10491,7 +10491,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEnd)) {
             COUNT_programmingBlock_InTheTranspiledLang++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" + STR(COUNT_programmingBlock_InTheTranspiledLang) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" + STR(COUNT_programmingBlock_InTheTranspiledLang) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_InTheTranspiledLang, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10499,7 +10499,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndCPP)) {
             COUNT_programmingBlock_CPP++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(COUNT_programmingBlock_CPP) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(COUNT_programmingBlock_CPP) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_CPP, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10507,7 +10507,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndPY)) {
             COUNT_programmingBlock_PY++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_PY-programmingBlock_PY-AA" + STR(COUNT_programmingBlock_PY) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_PY-programmingBlock_PY-AA" + STR(COUNT_programmingBlock_PY) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_PY, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10515,7 +10515,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndJS)) {
             COUNT_programmingBlock_JS++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_JS-programmingBlock_JS-AA" + STR(COUNT_programmingBlock_JS) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_JS-programmingBlock_JS-AA" + STR(COUNT_programmingBlock_JS) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_JS, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10523,7 +10523,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndGO)) {
             COUNT_programmingBlock_GO++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_GO-programmingBlock_GO-AA" + STR(COUNT_programmingBlock_GO) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_GO-programmingBlock_GO-AA" + STR(COUNT_programmingBlock_GO) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_GO, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10531,7 +10531,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndLUA)) {
             COUNT_programmingBlock_LUA++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(COUNT_programmingBlock_LUA) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(COUNT_programmingBlock_LUA) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_LUA, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10539,7 +10539,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndCS)) {
             COUNT_programmingBlock_CS++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_CS-programmingBlock_CS-AA" + STR(COUNT_programmingBlock_CS) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_CS-programmingBlock_CS-AA" + STR(COUNT_programmingBlock_CS) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_CS, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10547,7 +10547,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndJAVA)) {
             COUNT_programmingBlock_JAVA++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(COUNT_programmingBlock_JAVA) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(COUNT_programmingBlock_JAVA) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_JAVA, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10555,7 +10555,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndKT)) {
             COUNT_programmingBlock_KT++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_KT-programmingBlock_KT-AA" + STR(COUNT_programmingBlock_KT) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_KT-programmingBlock_KT-AA" + STR(COUNT_programmingBlock_KT) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_KT, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10563,7 +10563,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndRB)) {
             COUNT_programmingBlock_RB++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_RB-programmingBlock_RB-AA" + STR(COUNT_programmingBlock_RB) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_RB-programmingBlock_RB-AA" + STR(COUNT_programmingBlock_RB) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_RB, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10571,7 +10571,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndNIM)) {
             COUNT_programmingBlock_NIM++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(COUNT_programmingBlock_NIM) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(COUNT_programmingBlock_NIM) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_NIM, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10579,7 +10579,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndAHK)) {
             COUNT_programmingBlock_AHK++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(COUNT_programmingBlock_AHK) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(COUNT_programmingBlock_AHK) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_AHK, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10587,7 +10587,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndSWIFT)) {
             COUNT_programmingBlock_SWIFT++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(COUNT_programmingBlock_SWIFT) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(COUNT_programmingBlock_SWIFT) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_SWIFT, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10595,7 +10595,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndDART)) {
             COUNT_programmingBlock_DART++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_DART-programmingBlock_DART-AA" + STR(COUNT_programmingBlock_DART) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_DART-programmingBlock_DART-AA" + STR(COUNT_programmingBlock_DART) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_DART, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10603,7 +10603,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndTS)) {
             COUNT_programmingBlock_TS++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_TS-programmingBlock_TS-AA" + STR(COUNT_programmingBlock_TS) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_TS-programmingBlock_TS-AA" + STR(COUNT_programmingBlock_TS) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_TS, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10611,7 +10611,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndGROOVY)) {
             COUNT_programmingBlock_GROOVY++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(COUNT_programmingBlock_GROOVY) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(COUNT_programmingBlock_GROOVY) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_GROOVY, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10619,7 +10619,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         else if (Trim(StrLower(A_LoopField177)) == StrLower(keyWordCodeInTheTranspiledLangEndHTVM)) {
             COUNT_programmingBlock_HTVM++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(COUNT_programmingBlock_HTVM) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(COUNT_programmingBlock_HTVM) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_HTVM, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10629,7 +10629,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             COUNT_programmingBlock_HTVMsyntax++;
             holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-            programmingBlocksTemp += "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" + STR(COUNT_programmingBlock_HTVMsyntax) + "AA\n";
+            programmingBlocksTemp += "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" + STR(COUNT_programmingBlock_HTVMsyntax) + "AA" + Chr(10);
             HTVM_Append(programmingBlock_HTVMsyntax, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
             holdTempDataProgrammingBlockThenPutInArr = "";
             inProgarmmingBlock = 0;
@@ -10826,7 +10826,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEnd)) {
                 COUNT_programmingBlock_InTheTranspiledLang++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" + STR(COUNT_programmingBlock_InTheTranspiledLang) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_InTheTranspiledLang-programmingBlock_InTheTranspiledLang-AA" + STR(COUNT_programmingBlock_InTheTranspiledLang) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_InTheTranspiledLang, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10834,7 +10834,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndCPP)) {
                 COUNT_programmingBlock_CPP++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(COUNT_programmingBlock_CPP) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_CPP-programmingBlock_CPP-AA" + STR(COUNT_programmingBlock_CPP) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_CPP, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10842,7 +10842,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndPY)) {
                 COUNT_programmingBlock_PY++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_PY-programmingBlock_PY-AA" + STR(COUNT_programmingBlock_PY) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_PY-programmingBlock_PY-AA" + STR(COUNT_programmingBlock_PY) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_PY, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10850,7 +10850,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndJS)) {
                 COUNT_programmingBlock_JS++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_JS-programmingBlock_JS-AA" + STR(COUNT_programmingBlock_JS) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_JS-programmingBlock_JS-AA" + STR(COUNT_programmingBlock_JS) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_JS, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10858,7 +10858,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndGO)) {
                 COUNT_programmingBlock_GO++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_GO-programmingBlock_GO-AA" + STR(COUNT_programmingBlock_GO) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_GO-programmingBlock_GO-AA" + STR(COUNT_programmingBlock_GO) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_GO, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10866,7 +10866,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndLUA)) {
                 COUNT_programmingBlock_LUA++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(COUNT_programmingBlock_LUA) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_LUA-programmingBlock_LUA-AA" + STR(COUNT_programmingBlock_LUA) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_LUA, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10874,7 +10874,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndCS)) {
                 COUNT_programmingBlock_CS++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_CS-programmingBlock_CS-AA" + STR(COUNT_programmingBlock_CS) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_CS-programmingBlock_CS-AA" + STR(COUNT_programmingBlock_CS) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_CS, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10882,7 +10882,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndJAVA)) {
                 COUNT_programmingBlock_JAVA++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(COUNT_programmingBlock_JAVA) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_JAVA-programmingBlock_JAVA-AA" + STR(COUNT_programmingBlock_JAVA) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_JAVA, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10890,7 +10890,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndKT)) {
                 COUNT_programmingBlock_KT++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_KT-programmingBlock_KT-AA" + STR(COUNT_programmingBlock_KT) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_KT-programmingBlock_KT-AA" + STR(COUNT_programmingBlock_KT) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_KT, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10898,7 +10898,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndRB)) {
                 COUNT_programmingBlock_RB++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_RB-programmingBlock_RB-AA" + STR(COUNT_programmingBlock_RB) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_RB-programmingBlock_RB-AA" + STR(COUNT_programmingBlock_RB) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_RB, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10906,7 +10906,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndNIM)) {
                 COUNT_programmingBlock_NIM++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(COUNT_programmingBlock_NIM) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_NIM-programmingBlock_NIM-AA" + STR(COUNT_programmingBlock_NIM) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_NIM, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10914,7 +10914,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndAHK)) {
                 COUNT_programmingBlock_AHK++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(COUNT_programmingBlock_AHK) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_AHK-programmingBlock_AHK-AA" + STR(COUNT_programmingBlock_AHK) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_AHK, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10922,7 +10922,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndSWIFT)) {
                 COUNT_programmingBlock_SWIFT++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(COUNT_programmingBlock_SWIFT) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_SWIFT-programmingBlock_SWIFT-AA" + STR(COUNT_programmingBlock_SWIFT) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_SWIFT, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10930,7 +10930,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndDART)) {
                 COUNT_programmingBlock_DART++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_DART-programmingBlock_DART-AA" + STR(COUNT_programmingBlock_DART) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_DART-programmingBlock_DART-AA" + STR(COUNT_programmingBlock_DART) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_DART, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10938,7 +10938,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndTS)) {
                 COUNT_programmingBlock_TS++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_TS-programmingBlock_TS-AA" + STR(COUNT_programmingBlock_TS) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_TS-programmingBlock_TS-AA" + STR(COUNT_programmingBlock_TS) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_TS, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10946,7 +10946,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndGROOVY)) {
                 COUNT_programmingBlock_GROOVY++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(COUNT_programmingBlock_GROOVY) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_GROOVY-programmingBlock_GROOVY-AA" + STR(COUNT_programmingBlock_GROOVY) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_GROOVY, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10954,7 +10954,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             else if (Trim(StrLower(A_LoopField181)) == StrLower(keyWordCodeInTheTranspiledLangEndHTVM)) {
                 COUNT_programmingBlock_HTVM++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(COUNT_programmingBlock_HTVM) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_HTVM-programmingBlock_HTVM-AA" + STR(COUNT_programmingBlock_HTVM) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_HTVM, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -10964,7 +10964,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                 COUNT_programmingBlock_HTVMsyntax++;
                 holdTempDataProgrammingBlockThenPutInArr = StringTrimRight(holdTempDataProgrammingBlockThenPutInArr, 1);
-                programmingBlocksTemp += "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" + STR(COUNT_programmingBlock_HTVMsyntax) + "AA\n";
+                programmingBlocksTemp += "programmingBlock_HTVMsyntax-programmingBlock_HTVMsyntax-AA" + STR(COUNT_programmingBlock_HTVMsyntax) + "AA" + Chr(10);
                 HTVM_Append(programmingBlock_HTVMsyntax, Chr(10) + holdTempDataProgrammingBlockThenPutInArr);
                 holdTempDataProgrammingBlockThenPutInArr = "";
                 inProgarmmingBlock = 0;
@@ -11476,28 +11476,28 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             for (size_t A_Index204 = 0; A_Index204 < items204.size() + 0; A_Index204++) {
                 std::string A_LoopField204 = items204[A_Index204 - 0];
                 if (StrLower(Trim(A_LoopField204)) == StrLower(keyWordEnd)) {
-                    htCodeOutFixEnd += "}\n";
+                    htCodeOutFixEnd += "}" + Chr(10);
                 }
                 else if (SubStr(StrLower(Trim(A_LoopField204)), 1, StrLen(StrLower(keyWordIF))) == StrLower(keyWordIF) && isLineAconstruct(Trim(A_LoopField204)) == true) {
-                    htCodeOutFixEnd += A_LoopField204 + "\n{\n";
+                    htCodeOutFixEnd += A_LoopField204 + Chr(10) + "{" + Chr(10);
                 }
                 else if (SubStr(StrLower(Trim(A_LoopField204)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop) && isLineAconstruct(Trim(A_LoopField204)) == true) {
-                    htCodeOutFixEnd += A_LoopField204 + "\n{\n";
+                    htCodeOutFixEnd += A_LoopField204 + Chr(10) + "{" + Chr(10);
                 }
                 else if (SubStr(StrLower(Trim(A_LoopField204)), 1, StrLen(StrLower(keyWordElseIf))) == StrLower(keyWordElseIf) && isLineAconstruct(Trim(A_LoopField204)) == true) {
-                    htCodeOutFixEnd += "\n}\n" + A_LoopField204 + "\n{\n";
+                    htCodeOutFixEnd += Chr(10) + "}" + Chr(10) + A_LoopField204 + Chr(10) + "{" + Chr(10);
                 }
                 else if (SubStr(StrLower(Trim(A_LoopField204)), 1, StrLen(StrLower(keyWordElse))) == StrLower(keyWordElse) && isLineAconstruct(Trim(A_LoopField204)) == true) {
-                    htCodeOutFixEnd += "\n}\n" + A_LoopField204 + "\n{\n";
+                    htCodeOutFixEnd += Chr(10) + "}" + Chr(10) + A_LoopField204 + Chr(10) + "{" + Chr(10);
                 }
                 else if (SubStr(StrLower(Trim(A_LoopField204)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch) && isLineAconstruct(Trim(A_LoopField204)) == true) {
-                    htCodeOutFixEnd += "\n}\n" + A_LoopField204 + "\n{\n";
+                    htCodeOutFixEnd += Chr(10) + "}" + Chr(10) + A_LoopField204 + Chr(10) + "{" + Chr(10);
                 }
                 else if (SubStr(StrLower(Trim(A_LoopField204)), 1, StrLen(StrLower(keyWordFinally))) == StrLower(keyWordFinally) && isLineAconstruct(Trim(A_LoopField204)) == true) {
-                    htCodeOutFixEnd += "\n}\n" + A_LoopField204 + "\n{\n";
+                    htCodeOutFixEnd += Chr(10) + "}" + Chr(10) + A_LoopField204 + Chr(10) + "{" + Chr(10);
                 }
                 else if (isLineAconstruct(Trim(A_LoopField204)) == true) {
-                    htCodeOutFixEnd += A_LoopField204 + "\n{\n";
+                    htCodeOutFixEnd += A_LoopField204 + Chr(10) + "{" + Chr(10);
                 } else {
                     htCodeOutFixEnd += A_LoopField204 + Chr(10);
                 }
@@ -11511,7 +11511,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 for (size_t A_Index205 = 0; A_Index205 < items205.size() + 0; A_Index205++) {
                     std::string A_LoopField205 = items205[A_Index205 - 0];
                     if (isLineAconstruct(Trim(A_LoopField205)) == true) {
-                        htCodeOutFixEnd += A_LoopField205 + ":\n";
+                        htCodeOutFixEnd += A_LoopField205 + ":" + Chr(10);
                     } else {
                         htCodeOutFixEnd += A_LoopField205 + Chr(10);
                     }
@@ -11540,10 +11540,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 if (InStr(A_LoopField208, Trim(keyWordArrayDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField208, Trim(keyWordArrayOfIntegersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField208, Trim(keyWordArrayOfStringsDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField208, Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField208, Trim(keyWordArrayOfBooleansDefinition) + " " + keyWordAssign + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
                     if (SubStr(StrLower(A_LoopField208), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc) || SubStr(StrLower(A_LoopField208), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc)) {
                         if (InStr(Trim(A_LoopField208), "{") && Trim(A_LoopField208) != "{" && SubStr(Trim(A_LoopField208), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) {
-                            outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField208), "{", "")) + "\n{\n";
+                            outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField208), "{", "")) + Chr(10) + "{" + Chr(10);
                         }
                         else if (InStr(Trim(A_LoopField208), "}") && Trim(A_LoopField208) != "}" && SubStr(Trim(A_LoopField208), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) {
-                            outCodeFixBraces += "}\n" + Trim(StrReplace(Trim(A_LoopField208), "}", "")) + Chr(10);
+                            outCodeFixBraces += "}" + Chr(10) + Trim(StrReplace(Trim(A_LoopField208), "}", "")) + Chr(10);
                         } else {
                             outCodeFixBraces += Trim(A_LoopField208) + Chr(10);
                         }
@@ -11552,10 +11552,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     }
                 } else {
                     if (InStr(Trim(A_LoopField208), "{") && Trim(A_LoopField208) != "{" && SubStr(Trim(A_LoopField208), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) {
-                        outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField208), "{", "")) + "\n{\n";
+                        outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField208), "{", "")) + Chr(10) + "{" + Chr(10);
                     }
                     else if (InStr(Trim(A_LoopField208), "}") && Trim(A_LoopField208) != "}" && SubStr(Trim(A_LoopField208), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) {
-                        outCodeFixBraces += "}\n" + Trim(StrReplace(Trim(A_LoopField208), "}", "")) + Chr(10);
+                        outCodeFixBraces += "}" + Chr(10) + Trim(StrReplace(Trim(A_LoopField208), "}", "")) + Chr(10);
                     } else {
                         outCodeFixBraces += Trim(A_LoopField208) + Chr(10);
                     }
@@ -11613,7 +11613,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         codeOutFixAndAddMainFunc += "fun main(args: Array<String>)" + Chr(10) + "{" + Chr(10);
                     }
                     if (langToConvertTo == "swift") {
-                        codeOutFixAndAddMainFunc += "func main()\n{\n";
+                        codeOutFixAndAddMainFunc += "func main()" + Chr(10) + "{" + Chr(10);
                     }
                     if (langToConvertTo == "dart") {
                         codeOutFixAndAddMainFunc += "void main(List<String> arguments)" + Chr(10) + "{" + Chr(10);
@@ -12148,15 +12148,15 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     if (usePythonicColonSyntax_2 == "on") {
                         if (useParentheses == "on") {
                             if (useParentheses_2 == "on") {
-                                htCode += keyWordElseIf_2 + str1 + ":\n";
+                                htCode += keyWordElseIf_2 + str1 + ":" + Chr(10);
                             } else {
-                                htCode += keyWordElseIf_2 + StringTrimRight(StringTrimLeft(Trim(str1), 1), 1) + ":\n";
+                                htCode += keyWordElseIf_2 + StringTrimRight(StringTrimLeft(Trim(str1), 1), 1) + ":" + Chr(10);
                             }
                         } else {
                             if (useParentheses_2 == "on") {
-                                htCode += keyWordElseIf_2 + "(" + str1 + "):\n";
+                                htCode += keyWordElseIf_2 + "(" + str1 + "):" + Chr(10);
                             } else {
-                                htCode += keyWordElseIf_2 + str1 + ":\n";
+                                htCode += keyWordElseIf_2 + str1 + ":" + Chr(10);
                             }
                         }
                     } else {
@@ -12168,7 +12168,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                             }
                         } else {
                             if (useParentheses_2 == "on") {
-                                htCode += keyWordElseIf_2 + "(" + str1 + ")\n";
+                                htCode += keyWordElseIf_2 + "(" + str1 + ")" + Chr(10);
                             } else {
                                 htCode += keyWordElseIf_2 + str1 + Chr(10);
                             }
@@ -12179,57 +12179,57 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     if (useParentheses == "on") {
                         htCode += "else if " + str1 + Chr(10);
                     } else {
-                        htCode += "else if (" + str1 + ")\n";
+                        htCode += "else if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "py") {
-                    htCode += "elif " + str1 + ":\n";
+                    htCode += "elif " + str1 + ":" + Chr(10);
                 }
                 if (langToConvertTo == "js") {
                     if (useParentheses == "on") {
                         htCode += "else if " + str1 + Chr(10);
                     } else {
-                        htCode += "else if (" + str1 + ")\n";
+                        htCode += "else if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "go") {
                     htCode += "else if " + str1 + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
-                    htCode += "elseif " + str1 + " then\n";
+                    htCode += "elseif " + str1 + " then" + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
                     if (useParentheses == "on") {
                         htCode += "else if " + str1 + Chr(10);
                     } else {
-                        htCode += "else if (" + str1 + ")\n";
+                        htCode += "else if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "java") {
                     if (useParentheses == "on") {
                         htCode += "else if " + str1 + Chr(10);
                     } else {
-                        htCode += "else if (" + str1 + ")\n";
+                        htCode += "else if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "kt") {
                     if (useParentheses == "on") {
                         htCode += "else if " + str1 + Chr(10);
                     } else {
-                        htCode += "else if (" + str1 + ")\n";
+                        htCode += "else if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "rb") {
                     htCode += "elsif " + str1 + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += "elif " + str1 + ":\n";
+                    htCode += "elif " + str1 + ":" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
                     if (useParentheses == "on") {
                         htCode += "else if " + str1 + Chr(10);
                     } else {
-                        htCode += "else if (" + str1 + ")\n";
+                        htCode += "else if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "swift") {
@@ -12239,14 +12239,14 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     if (useParentheses == "on") {
                         htCode += "else if " + str1 + Chr(10);
                     } else {
-                        htCode += "else if (" + str1 + ")\n";
+                        htCode += "else if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "ts") {
                     if (useParentheses == "on") {
                         htCode += "else if " + str1 + Chr(10);
                     } else {
-                        htCode += "else if (" + str1 + ")\n";
+                        htCode += "else if (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "groovy") {
@@ -12257,55 +12257,55 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (usePythonicColonSyntax_2 == "on") {
-                        htCode += keyWordElse_2 + ":\n";
+                        htCode += keyWordElse_2 + ":" + Chr(10);
                     } else {
                         htCode += keyWordElse_2 + Chr(10);
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
                 if (langToConvertTo == "py") {
-                    htCode += "else:\n";
+                    htCode += "else:" + Chr(10);
                 }
                 if (langToConvertTo == "js") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
                 if (langToConvertTo == "go") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
                 if (langToConvertTo == "java") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
                 if (langToConvertTo == "kt") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
                 if (langToConvertTo == "rb") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += "else:\n";
+                    htCode += "else:" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
                 if (langToConvertTo == "swift") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
                 if (langToConvertTo == "groovy") {
-                    htCode += "else\n";
+                    htCode += "else" + Chr(10);
                 }
             }
             else if (SubStr(StrLower(Trim(A_LoopField212)), 1, StrLen(StrLower(keyWordWhileLoop))) == StrLower(keyWordWhileLoop)) {
@@ -12386,20 +12386,20 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     if (useParentheses == "on") {
                         htCode += "while " + str1 + Chr(10);
                     } else {
-                        htCode += "while (" + str1 + ")\n";
+                        htCode += "while (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "rb") {
                     htCode += "while " + str1 + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += "while " + str1 + ":\n";
+                    htCode += "while " + str1 + ":" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
                     if (useParentheses == "on") {
                         htCode += "while " + str1 + Chr(10);
                     } else {
-                        htCode += "while (" + str1 + ")\n";
+                        htCode += "while (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "swift") {
@@ -12409,14 +12409,14 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     if (useParentheses == "on") {
                         htCode += "while " + str1 + Chr(10);
                     } else {
-                        htCode += "while (" + str1 + ")\n";
+                        htCode += "while (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "ts") {
                     if (useParentheses == "on") {
                         htCode += "while " + str1 + Chr(10);
                     } else {
-                        htCode += "while (" + str1 + ")\n";
+                        htCode += "while (" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "groovy") {
@@ -12427,55 +12427,55 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (usePythonicColonSyntax_2 == "on") {
-                        htCode += keyWordTry_2 + ":\n";
+                        htCode += keyWordTry_2 + ":" + Chr(10);
                     } else {
                         htCode += keyWordTry_2 + Chr(10);
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += "tryn";
+                    htCode += "try" + Chr(10);
                 }
                 if (langToConvertTo == "py") {
-                    htCode += "try:\n";
+                    htCode += "try:" + Chr(10);
                 }
                 if (langToConvertTo == "js") {
-                    htCode += "try\n";
+                    htCode += "try" + Chr(10);
                 }
                 if (langToConvertTo == "go") {
-                    htCode += "GO DOSENT HAVE A TRY USE PROGRAMMING BLOCKS MAYBE IDK\n";
+                    htCode += "GO DOSENT HAVE A TRY USE PROGRAMMING BLOCKS MAYBE IDK" + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
-                    htCode += "LUA DOSENT HAVE A TRY USE PROGRAMMING BLOCKS MAYBE IDK\n";
+                    htCode += "LUA DOSENT HAVE A TRY USE PROGRAMMING BLOCKS MAYBE IDK" + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += "try\n";
+                    htCode += "try" + Chr(10);
                 }
                 if (langToConvertTo == "java") {
-                    htCode += "try\n";
+                    htCode += "try" + Chr(10);
                 }
                 if (langToConvertTo == "kt") {
-                    htCode += "try\n";
+                    htCode += "try" + Chr(10);
                 }
                 if (langToConvertTo == "rb") {
-                    htCode += "begin\n";
+                    htCode += "begin" + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += "try:\n";
+                    htCode += "try:" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
-                    htCode += "try\n";
+                    htCode += "try" + Chr(10);
                 }
                 if (langToConvertTo == "swift") {
-                    htCode += "do\n";
+                    htCode += "do" + Chr(10);
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += "try\n";
+                    htCode += "try" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += "try\n";
+                    htCode += "try" + Chr(10);
                 }
                 if (langToConvertTo == "groovy") {
-                    htCode += "try\n";
+                    htCode += "try" + Chr(10);
                 }
             }
             else if (SubStr(StrLower(Trim(A_LoopField212)), 1, StrLen(StrLower(keyWordCatch))) == StrLower(keyWordCatch)) {
@@ -12498,104 +12498,104 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += "catch (const std::exception& " + str1 + ")\n";
+                    htCode += "catch (const std::exception& " + str1 + ")" + Chr(10);
                 }
                 if (langToConvertTo == "py") {
-                    htCode += "except Exception as " + str1 + ":\n";
+                    htCode += "except Exception as " + str1 + ":" + Chr(10);
                 }
                 if (langToConvertTo == "js") {
-                    htCode += "catch (" + str1 + ")\n";
+                    htCode += "catch (" + str1 + ")" + Chr(10);
                 }
                 if (langToConvertTo == "go") {
-                    htCode += "GO DOSENT HAVE A CATCH USE PROGRAMMING BLOCKS MAYBE IDK\n";
+                    htCode += "GO DOSENT HAVE A CATCH USE PROGRAMMING BLOCKS MAYBE IDK" + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
-                    htCode += "LUA DOSENT HAVE A CATCH USE PROGRAMMING BLOCKS MAYBE IDK\n";
+                    htCode += "LUA DOSENT HAVE A CATCH USE PROGRAMMING BLOCKS MAYBE IDK" + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += "catch (Exception " + str1 + ")\n";
+                    htCode += "catch (Exception " + str1 + ")" + Chr(10);
                 }
                 if (langToConvertTo == "java") {
-                    htCode += "catch (Exception " + str1 + ")\n";
+                    htCode += "catch (Exception " + str1 + ")" + Chr(10);
                 }
                 if (langToConvertTo == "kt") {
-                    htCode += "catch (" + str1 + ": Exception)\n";
+                    htCode += "catch (" + str1 + ": Exception)" + Chr(10);
                 }
                 if (langToConvertTo == "rb") {
                     htCode += "rescue => " + str1 + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += "except ValueError as " + str1 + ":\n";
+                    htCode += "except ValueError as " + str1 + ":" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
                     htCode += "catch " + str1 + Chr(10);
                 }
                 if (langToConvertTo == "swift") {
-                    htCode += "catch let " + str1 + " as NSError\n";
+                    htCode += "catch let " + str1 + " as NSError" + Chr(10);
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += "catch (" + str1 + ")\n";
+                    htCode += "catch (" + str1 + ")" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += "catch (" + str1 + ")\n";
+                    htCode += "catch (" + str1 + ")" + Chr(10);
                 }
                 if (langToConvertTo == "groovy") {
-                    htCode += "catch (Exception " + str1 + ")\n";
+                    htCode += "catch (Exception " + str1 + ")" + Chr(10);
                 }
             }
             else if (StrLower(Trim(A_LoopField212)) == StrLower(keyWordFinally) || StrLower(Trim(A_LoopField212)) == StrLower(keyWordFinally + ":")) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (usePythonicColonSyntax_2 == "on") {
-                        htCode += keyWordFinally_2 + ":\n";
+                        htCode += keyWordFinally_2 + ":" + Chr(10);
                     } else {
                         htCode += keyWordFinally_2 + Chr(10);
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += "if (" + Chr(34) + "finally dosent exist in c++" + Chr(34) + " == " + Chr(34) + "finally dosent exist in c++" + Chr(34) + ")\n";
+                    htCode += "if (" + Chr(34) + "finally dosent exist in c++" + Chr(34) + " == " + Chr(34) + "finally dosent exist in c++" + Chr(34) + ")" + Chr(10);
                 }
                 if (langToConvertTo == "py") {
-                    htCode += "finally:\n";
+                    htCode += "finally:" + Chr(10);
                 }
                 if (langToConvertTo == "js") {
-                    htCode += "finally\n";
+                    htCode += "finally" + Chr(10);
                 }
                 if (langToConvertTo == "go") {
-                    htCode += "GO DOSENT HAVE A FINALLY USE PROGRAMMING BLOCKS MAYBE IDK\n";
+                    htCode += "GO DOSENT HAVE A FINALLY USE PROGRAMMING BLOCKS MAYBE IDK" + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
-                    htCode += "LUA DOSENT HAVE A FINALLY USE PROGRAMMING BLOCKS MAYBE IDK\n";
+                    htCode += "LUA DOSENT HAVE A FINALLY USE PROGRAMMING BLOCKS MAYBE IDK" + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += "finally\n";
+                    htCode += "finally" + Chr(10);
                 }
                 if (langToConvertTo == "java") {
-                    htCode += "finally\n";
+                    htCode += "finally" + Chr(10);
                 }
                 if (langToConvertTo == "kt") {
-                    htCode += "finally\n";
+                    htCode += "finally" + Chr(10);
                 }
                 if (langToConvertTo == "rb") {
-                    htCode += "ensure\n";
+                    htCode += "ensure" + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += "finally:\n";
+                    htCode += "finally:" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
-                    htCode += "finally\n";
+                    htCode += "finally" + Chr(10);
                 }
                 if (langToConvertTo == "swift") {
-                    htCode += "if (" + Chr(34) + "finally dosent exist in swift" + Chr(34) + " == " + Chr(34) + "finally dosent exist in swift" + Chr(34) + ")\n";
+                    htCode += "if (" + Chr(34) + "finally dosent exist in swift" + Chr(34) + " == " + Chr(34) + "finally dosent exist in swift" + Chr(34) + ")" + Chr(10);
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += "finally\n";
+                    htCode += "finally" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += "finally\n";
+                    htCode += "finally" + Chr(10);
                 }
                 if (langToConvertTo == "groovy") {
-                    htCode += "finally\n";
+                    htCode += "finally" + Chr(10);
                 }
             }
             else if (SubStr(StrLower(Trim(A_LoopField212)), 1, StrLen(StrLower(keyWordThrow))) == StrLower(keyWordThrow)) {
@@ -12607,31 +12607,31 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 str1 = expressionParserTranspiler(fixArray1234(Trim(StringTrimLeft(str1, StrLen(keyWordThrow)))));
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
-                        htCode += keyWordThrow_2 + keyWordErrorMsg_2 + "(" + str1 + ");\n";
+                        htCode += keyWordThrow_2 + keyWordErrorMsg_2 + "(" + str1 + ");" + Chr(10);
                     } else {
-                        htCode += keyWordThrow_2 + keyWordErrorMsg_2 + "(" + str1 + ")\n";
+                        htCode += keyWordThrow_2 + keyWordErrorMsg_2 + "(" + str1 + ")" + Chr(10);
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += "throw std::runtime_error(" + str1 + ");\n";
+                    htCode += "throw std::runtime_error(" + str1 + ");" + Chr(10);
                 }
                 if (langToConvertTo == "py") {
-                    htCode += "raise Exception(" + str1 + ")\n";
+                    htCode += "raise Exception(" + str1 + ")" + Chr(10);
                 }
                 if (langToConvertTo == "js") {
-                    htCode += "throw new Error(" + str1 + ");\n";
+                    htCode += "throw new Error(" + str1 + ");" + Chr(10);
                 }
                 if (langToConvertTo == "go") {
-                    htCode += "GO DOSENT HAVE A THROW USE PROGRAMMING BLOCKS MAYBE IDK\n";
+                    htCode += "GO DOSENT HAVE A THROW USE PROGRAMMING BLOCKS MAYBE IDK" + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
-                    htCode += "LUA DOSENT HAVE A THROW USE PROGRAMMING BLOCKS MAYBE IDK\n";
+                    htCode += "LUA DOSENT HAVE A THROW USE PROGRAMMING BLOCKS MAYBE IDK" + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += "throw new Exception(" + str1 + ");\n";
+                    htCode += "throw new Exception(" + str1 + ");" + Chr(10);
                 }
                 if (langToConvertTo == "java") {
-                    htCode += "throw new Exception(" + str1 + ");\n";
+                    htCode += "throw new Exception(" + str1 + ");" + Chr(10);
                 }
                 if (langToConvertTo == "kt") {
                     htCode += "throw Exception(" + str1 + ")" + Chr(10);
@@ -12640,132 +12640,132 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "raise " + str1 + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += "raise newException(ValueError, " + str1 + ")\n";
+                    htCode += "raise newException(ValueError, " + str1 + ")" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
                     htCode += "throw " + str1 + Chr(10);
                 }
                 if (langToConvertTo == "swift") {
-                    htCode += "try ErrorMsg(" + str1 + ")\n";
+                    htCode += "try ErrorMsg(" + str1 + ")" + Chr(10);
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += "throw Exception(" + str1 + ");\n";
+                    htCode += "throw Exception(" + str1 + ");" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += " throw new Error(" + str1 + ");\n";
+                    htCode += " throw new Error(" + str1 + ");" + Chr(10);
                 }
                 if (langToConvertTo == "groovy") {
-                    htCode += "throw new Exception(" + str1 + ")\n";
+                    htCode += "throw new Exception(" + str1 + ")" + Chr(10);
                 }
             }
             else if (StrLower(A_LoopField212) == StrLower(keyWordBreak) || StrLower(A_LoopField212) == StrLower(keyWordBreak + ";")) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
-                        htCode += keyWordBreak_2 + ";\n";
+                        htCode += keyWordBreak_2 + ";" + Chr(10);
                     } else {
                         htCode += keyWordBreak_2 + Chr(10);
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += "break;\n";
+                    htCode += "break;" + Chr(10);
                 }
                 if (langToConvertTo == "py") {
-                    htCode += "break\n";
+                    htCode += "break" + Chr(10);
                 }
                 if (langToConvertTo == "js") {
-                    htCode += "break;\n";
+                    htCode += "break;" + Chr(10);
                 }
                 if (langToConvertTo == "go") {
-                    htCode += "break\n";
+                    htCode += "break" + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
-                    htCode += "break\n";
+                    htCode += "break" + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += "break;\n";
+                    htCode += "break;" + Chr(10);
                 }
                 if (langToConvertTo == "java") {
-                    htCode += "break;\n";
+                    htCode += "break;" + Chr(10);
                 }
                 if (langToConvertTo == "kt") {
-                    htCode += "break\n";
+                    htCode += "break" + Chr(10);
                 }
                 if (langToConvertTo == "rb") {
-                    htCode += "break\n";
+                    htCode += "break" + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += "break\n";
+                    htCode += "break" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
-                    htCode += "break\n";
+                    htCode += "break" + Chr(10);
                 }
                 if (langToConvertTo == "swift") {
-                    htCode += "break\n";
+                    htCode += "break" + Chr(10);
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += "break;\n";
+                    htCode += "break;" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += "break;\n";
+                    htCode += "break;" + Chr(10);
                 }
                 if (langToConvertTo == "groovy") {
-                    htCode += "break;\n";
+                    htCode += "break;" + Chr(10);
                 }
             }
             else if (StrLower(A_LoopField212) == StrLower(Trim(keyWordReturnStatement)) || StrLower(A_LoopField212) == StrLower(Trim(keyWordReturnStatement) + ";")) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
-                        htCode += keyWordReturnStatement_2 + ";\n";
+                        htCode += keyWordReturnStatement_2 + ";" + Chr(10);
                     } else {
                         htCode += keyWordReturnStatement_2 + Chr(10);
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += "return;\n";
+                    htCode += "return;" + Chr(10);
                 }
                 if (langToConvertTo == "py") {
-                    htCode += "return\n";
+                    htCode += "return" + Chr(10);
                 }
                 if (langToConvertTo == "js") {
-                    htCode += "return;\n";
+                    htCode += "return;" + Chr(10);
                 }
                 if (langToConvertTo == "go") {
-                    htCode += "return\n";
+                    htCode += "return" + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
-                    htCode += "return\n";
+                    htCode += "return" + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += "return;\n";
+                    htCode += "return;" + Chr(10);
                 }
                 if (langToConvertTo == "java") {
-                    htCode += "return;\n";
+                    htCode += "return;" + Chr(10);
                 }
                 if (langToConvertTo == "kt") {
-                    htCode += "return\n";
+                    htCode += "return" + Chr(10);
                 }
                 if (langToConvertTo == "rb") {
-                    htCode += "return\n";
+                    htCode += "return" + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += "return\n";
+                    htCode += "return" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
-                    htCode += "return\n";
+                    htCode += "return" + Chr(10);
                 }
                 if (langToConvertTo == "swift") {
-                    htCode += "return\n";
+                    htCode += "return" + Chr(10);
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += "return;\n";
+                    htCode += "return;" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += "return;\n";
+                    htCode += "return;" + Chr(10);
                 }
                 if (langToConvertTo == "groovy") {
-                    htCode += "return;\n";
+                    htCode += "return;" + Chr(10);
                 }
             }
             else if (SubStr(Trim(StrLower(A_LoopField212)), 1, StrLen(StrLower(keyWordReturnStatement))) == StrLower(keyWordReturnStatement)) {
@@ -12782,13 +12782,13 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += "return " + str1 + ";\n";
+                    htCode += "return " + str1 + ";" + Chr(10);
                 }
                 if (langToConvertTo == "py") {
                     htCode += "return " + str1 + Chr(10);
                 }
                 if (langToConvertTo == "js") {
-                    htCode += "return " + str1 + ";\n";
+                    htCode += "return " + str1 + ";" + Chr(10);
                 }
                 if (langToConvertTo == "go") {
                     htCode += "return " + str1 + Chr(10);
@@ -12797,10 +12797,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "return " + str1 + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += "return " + str1 + ";\n";
+                    htCode += "return " + str1 + ";" + Chr(10);
                 }
                 if (langToConvertTo == "java") {
-                    htCode += "return " + str1 + ";\n";
+                    htCode += "return " + str1 + ";" + Chr(10);
                 }
                 if (langToConvertTo == "kt") {
                     htCode += "return " + str1 + Chr(10);
@@ -12818,68 +12818,68 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += "return " + str1 + Chr(10);
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += "return " + str1 + ";\n";
+                    htCode += "return " + str1 + ";" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += "return " + str1 + ";\n";
+                    htCode += "return " + str1 + ";" + Chr(10);
                 }
                 if (langToConvertTo == "groovy") {
-                    htCode += "return " + str1 + ";\n";
+                    htCode += "return " + str1 + ";" + Chr(10);
                 }
             }
             else if (StrLower(A_LoopField212) == StrLower(keyWordContinue) || StrLower(A_LoopField212) == StrLower(keyWordContinue + ";")) {
                 lineDone = 1;
                 if (langToConvertTo == langFileExtension_2) {
                     if (useSemicolon_2 == "on") {
-                        htCode += keyWordContinue_2 + ";\n";
+                        htCode += keyWordContinue_2 + ";" + Chr(10);
                     } else {
                         htCode += keyWordContinue_2 + Chr(10);
                     }
                 }
                 if (langToConvertTo == "cpp") {
-                    htCode += "continue;\n";
+                    htCode += "continue;" + Chr(10);
                 }
                 if (langToConvertTo == "py") {
-                    htCode += "continue\n";
+                    htCode += "continue" + Chr(10);
                 }
                 if (langToConvertTo == "js") {
-                    htCode += "continue;\n";
+                    htCode += "continue;" + Chr(10);
                 }
                 if (langToConvertTo == "go") {
-                    htCode += "continue\n";
+                    htCode += "continue" + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
                     htCode += "goto continue" + STR(luaContinueFix_Num) + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
-                    htCode += "continue;\n";
+                    htCode += "continue;" + Chr(10);
                 }
                 if (langToConvertTo == "java") {
-                    htCode += "continue;\n";
+                    htCode += "continue;" + Chr(10);
                 }
                 if (langToConvertTo == "kt") {
-                    htCode += "continue\n";
+                    htCode += "continue" + Chr(10);
                 }
                 if (langToConvertTo == "rb") {
-                    htCode += "next\n";
+                    htCode += "next" + Chr(10);
                 }
                 if (langToConvertTo == "nim") {
-                    htCode += "continue\n";
+                    htCode += "continue" + Chr(10);
                 }
                 if (langToConvertTo == "ahk") {
-                    htCode += "continue\n";
+                    htCode += "continue" + Chr(10);
                 }
                 if (langToConvertTo == "swift") {
-                    htCode += "continue\n";
+                    htCode += "continue" + Chr(10);
                 }
                 if (langToConvertTo == "dart") {
-                    htCode += "continue;\n";
+                    htCode += "continue;" + Chr(10);
                 }
                 if (langToConvertTo == "ts") {
-                    htCode += "continue;\n";
+                    htCode += "continue;" + Chr(10);
                 }
                 if (langToConvertTo == "groovy") {
-                    htCode += "continue;\n";
+                    htCode += "continue;" + Chr(10);
                 }
             }
             else if (StrLower(A_LoopField212) == "::" + keyWordContinue || StrLower(A_LoopField212) == "::" + keyWordContinue + ";") {
@@ -13432,7 +13432,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 AindexcharLength++;
                 if (langToConvertTo == langFileExtension_2) {
                     if (usePythonicColonSyntax_2 == "on") {
-                        htCode += Trim(keyWordLoopParse_2) + " " + StrReplace(var1, keyWordEscpaeChar, keyWordEscpaeChar_2) + ":\n";
+                        htCode += Trim(keyWordLoopParse_2) + " " + StrReplace(var1, keyWordEscpaeChar, keyWordEscpaeChar_2) + ":" + Chr(10);
                     } else {
                         htCode += Trim(keyWordLoopParse_2) + " " + StrReplace(var1, keyWordEscpaeChar, keyWordEscpaeChar_2) + Chr(10);
                     }
@@ -13527,7 +13527,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                     htCode += str1 + "--;" + Chr(10);
                 }
                 if (langToConvertTo == "lua") {
-                    htCode += str1 + " = " + str1 + " - 1\n";
+                    htCode += str1 + " = " + str1 + " - 1" + Chr(10);
                 }
                 if (langToConvertTo == "cs") {
                     htCode += str1 + "--;" + Chr(10);
@@ -13565,7 +13565,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             }
             else if (StrLower(A_LoopField212) == StrLower(keyWordGlobal) || StrLower(A_LoopField212) == StrLower(keyWordGlobal + ";")) {
                 if (langToConvertTo == "ahk") {
-                    htCode += "global\n";
+                    htCode += "global" + Chr(10);
                 }
             }
             else if (SubStr(StrLower(A_LoopField212), 1, StrLen(StrLower(keyWordAwait))) == StrLower(keyWordAwait)) {
@@ -17742,8 +17742,6 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                         std::vector<std::string> items242 = LoopParseFunc(htCode, "\n", "\r");
                         for (size_t A_Index242 = 0; A_Index242 < items242.size() + 0; A_Index242++) {
                             std::string A_LoopField242 = items242[A_Index242 - 0];
-                            //MsgBox, dsfgsdefgesrdg1
-                            //MsgBox, |%A_LoopField%|`n|%fixLoopLokingFor%|
                             if (InStr(A_LoopField242, fixLoopLokingFor) && insdeAnestedLoopBAD != 1) {
                                 fixLoopLokingForNum = 1;
                                 //MsgBox, do we came here 1
@@ -18017,10 +18015,12 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed");
         print(Chr(10) + isNotHTVMfileEXTRA_FUNCS_INFO + Chr(10));
         print(Chr(10));
-        print("\nYou must include all the libs from under the section and MAKE SURE your code doesn't already use them!!!");
+        print(Chr(10));
+        print("You must include all the libs from under the section and MAKE SURE your code doesn't already use them!!!");
         print("LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS LIBS");
-        print("\nYou must copy-paste all the funcs from under the section and MAKE SURE your code doesn't already use them!!!");
-        print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed\n");
+        print(Chr(10));
+        print("You must copy-paste all the funcs from under the section and MAKE SURE your code doesn't already use them!!!");
+        print("Funcs needed Funcs needed Funcs needed Funcs needed Funcs needed");
         print("SCROLL UP!!!!!");
         print("SCROLL UP!!!!!");
         print("SCROLL UP!!!!!");
@@ -18682,17 +18682,17 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             htCode = StrReplace(htCode, "int main(int argc, char* argv[]);", "int main(int argc, char* argv[])");
         }
         if (langToConvertTo == "js" && useJavaScriptAmainFuncDef == "on") {
-            htCode = htCode + "\n}\nmain();";
+            htCode = htCode + Chr(10) + "}" + Chr(10) + "main();";
             htCode = StrReplace(htCode, "async function main();", "async function main()");
             htCode = StrReplace(htCode, "function async function main()", "async function main()");
         }
         if (langToConvertTo == "ts" && useJavaScriptAmainFuncDef == "on") {
-            htCode = htCode + "\n}\nmain();";
+            htCode = htCode + Chr(10) + "}" + Chr(10) + "main();";
             htCode = StrReplace(htCode, "async function main(): Promise<void>;", "async function main(): Promise<void>");
             htCode = StrReplace(htCode, "function async function main(): Promise<void>", "async function main(): Promise<void>");
         }
         if (langToConvertTo == "go") {
-            htCode = htCode + "\n}";
+            htCode = htCode + Chr(10) + "}";
             htCode = StrReplace(htCode, "func main();", "func main()");
         }
         if (langToConvertTo == "cs") {
@@ -18704,16 +18704,16 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
             htCode = StrReplace(htCode, "public static void main(String[] args);", "public static void main(String[] args)");
         }
         if (langToConvertTo == "kt") {
-            htCode = htCode + "\n}";
+            htCode = htCode + Chr(10) + "}";
             htCode = StrReplace(htCode, "fun main(args: Array<String>);", "fun main(args: Array<String>)");
         }
         if (langToConvertTo == "swift") {
-            htCode = htCode + "\n}\nmain()";
+            htCode = htCode + Chr(10) + "}" + Chr(10) + "main()";
             htCode = StrReplace(htCode, "func main();", "func main()");
             htCode = StrReplace(htCode, "func main() ->", "func main()");
         }
         if (langToConvertTo == "dart") {
-            htCode = htCode + "\n}";
+            htCode = htCode + Chr(10) + "}";
             htCode = StrReplace(htCode, "void main(List<String> arguments);", "void main(List<String> arguments)");
         }
         for (int A_Index302 = 0; A_Index302 < HTVM_Size(commentsBugFix) + 0; A_Index302++) {
@@ -18867,7 +18867,7 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         htCode = StrReplace(htCode, ReplaceFixWhitOutFixDoubleQuotesInsideDoubleQuotes, Chr(92) + Chr(34));
     }
     htCode = StrReplace(htCode, "std::string(" + Chr(34) + Chr(34) + ";),", "std::string(" + Chr(34) + Chr(34) + "),");
-    std::string jsHTMLupCode = "<!doctype html>" + Chr(10) + "<html lang=" + Chr(34) + "en" + Chr(34) + ">" + Chr(10) + "    <head>\n        <meta charset=" + Chr(34) + "UTF-8" + Chr(34) + " />" + Chr(10) + "        <meta name=" + Chr(34) + "viewport" + Chr(34) + " content=" + Chr(34) + "width=device-width, initial-scale=1.0" + Chr(34) + " />" + Chr(10) + "        <title>HTVM</title>" + Chr(10) + "        <style>" + Chr(10) + "            body {" + Chr(10) + "                background-color: #202020;" + Chr(10) + "                font-family:" + Chr(10) + "                    " + Chr(34) + "Open Sans" + Chr(34) + "," + Chr(10) + "                    -apple-system," + Chr(10) + "                    BlinkMacSystemFont," + Chr(10) + "                    " + Chr(34) + "Segoe UI" + Chr(34) + "," + Chr(10) + "                    Roboto," + Chr(10) + "                    Oxygen-Sans," + Chr(10) + "                    Ubuntu," + Chr(10) + "                    Cantarell," + Chr(10) + "                    " + Chr(34) + "Helvetica Neue" + Chr(34) + "," + Chr(10) + "                    Helvetica," + Chr(10) + "                    Arial," + Chr(10) + "                    sans-serif;" + Chr(10) + "            }" + Chr(10) + "        </style>" + Chr(10) + allLibsToPutAtTop + Chr(10) + "</head>" + Chr(10) + "    <body>" + Chr(10) + "<script>";
+    std::string jsHTMLupCode = "<!doctype html>" + Chr(10) + "<html lang=" + Chr(34) + "en" + Chr(34) + ">" + Chr(10) + "    <head>" + Chr(10) + "        <meta charset=" + Chr(34) + "UTF-8" + Chr(34) + " />" + Chr(10) + "        <meta name=" + Chr(34) + "viewport" + Chr(34) + " content=" + Chr(34) + "width=device-width, initial-scale=1.0" + Chr(34) + " />" + Chr(10) + "        <title>HTVM</title>" + Chr(10) + "        <style>" + Chr(10) + "            body {" + Chr(10) + "                background-color: #202020;" + Chr(10) + "                font-family:" + Chr(10) + "                    " + Chr(34) + "Open Sans" + Chr(34) + "," + Chr(10) + "                    -apple-system," + Chr(10) + "                    BlinkMacSystemFont," + Chr(10) + "                    " + Chr(34) + "Segoe UI" + Chr(34) + "," + Chr(10) + "                    Roboto," + Chr(10) + "                    Oxygen-Sans," + Chr(10) + "                    Ubuntu," + Chr(10) + "                    Cantarell," + Chr(10) + "                    " + Chr(34) + "Helvetica Neue" + Chr(34) + "," + Chr(10) + "                    Helvetica," + Chr(10) + "                    Arial," + Chr(10) + "                    sans-serif;" + Chr(10) + "            }" + Chr(10) + "        </style>" + Chr(10) + allLibsToPutAtTop + Chr(10) + "</head>" + Chr(10) + "    <body>" + Chr(10) + "<script>";
     if (isNotHTVMfile2 == 0) {
         if (useJavaScriptInAfullHTMLfile == "on" && langToConvertTo == "js") {
             htCode = jsHTMLupCode + Chr(10) + htCode + Chr(10) + jsHTMLdownCode;
