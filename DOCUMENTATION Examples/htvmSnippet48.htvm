@@ -28,6 +28,7 @@ Loop, Parse, var1, " " {
         continue
     }
     ; 3 will never print
+    ; 4 will never print in Lua since Lua is 1-indexed
     print(A_Index)
     ::continue
 }

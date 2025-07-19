@@ -2209,6 +2209,7 @@ Loop, Parse, var1, " " {
         continue
     }
     ; 3 will never print
+    ; 4 will never print in Lua since Lua is 1-indexed
     print(A_Index)
     ::continue
 }
@@ -6844,7 +6845,7 @@ else {
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
 | GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-| RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| RunCMD | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | getDataFromAPI | Yes | Yes | Yes | Yes |Yes |No |Yes |Yes |Yes |Yes |Yes |No |No |No |Yes |
 | input | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | print | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
@@ -6910,7 +6911,7 @@ if (allParams != "") {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| RunCMD | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| RunCMD | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Executes a system command (shell command) and returns its standard output as a string. Error output might also be captured or cause an error depending on the implementation. Highly environment-dependent and not available in browsers.
 
@@ -6931,7 +6932,7 @@ else {
     }
     else {
         ; Single quotes for Unix echo
-        command := "echo 'Hello from HTVM on Unix-like'"
+        command := "echo Hello from HTVM on Unix-like"
     }
     print("Executing command: " . command)
     str output := RunCMD(command)
