@@ -564,15 +564,29 @@ lang: cpp
 name: print
 libs: #include <iostream>|#include <string>|#include <type_traits>
 description: io~~~The `print` function is a versatile utility for outputting data to the standard console. It accepts various data types including strings, numbers (integers, floats), and booleans. When given a boolean, it will print "1" for true and "0" for false (or the language-equivalent boolean string representation). For other types, it attempts to convert them to a string representation before printing. Each call to `print` typically appends a newline character, ensuring subsequent outputs appear on a new line.~~~Here is how to use it:~~~```htvm~~~; Example 1: Printing a string~~~str message := "Hello, HTVM!"~~~; Should print: Hello, HTVM!~~~print(message)~~~print("--------------------")~~~; ----------------------------------------------------~~~; Example 2: Printing an integer~~~int count := 100~~~; Should print: 100~~~print(count)~~~print("--------------------")~~~; ----------------------------------------------------~~~; Example 3: Printing a float~~~float piApprox := 3.14159~~~; Should print: 3.14159~~~print(piApprox)~~~print("--------------------")~~~; ----------------------------------------------------~~~; Example 4: Printing a boolean (true)~~~bool isActive := true~~~; Should print: 1 (or true, depending on language)~~~print(isActive)~~~print("--------------------")~~~; ----------------------------------------------------~~~; Example 5: Printing a boolean (false)~~~bool isDone := false~~~; Should print: 0 (or false, depending on language)~~~print(isDone)~~~print("--------------------")~~~; ----------------------------------------------------~~~; Example 6: Printing concatenated string and number~~~str label := "Score: "~~~int score := 42~~~; Should print: Score: 42~~~print(label . STR(score))~~~print("--------------------")~~~; ----------------------------------------------------~~~; Test: Printing a null-like value (if HTVM has 'null' keyword and print handles it)~~~str nullVar := null~~~; Behavior for null depends on language (e.g. "null", "", error)~~~print(nullVar)~~~```~~~
-// Print function for const char* specifically
+
+
+// Print function for const char*
 void print(const char* value) {
-    std::cout << std::string(value) << std::endl;  // Convert const char* to std::string
+    std::cout << std::string(value) << std::endl;
 }
-// Print function that converts all types to string if needed
+
+// Handle signed 8-bit integers
+void print(int8_t value) {
+    std::cout << static_cast<int>(value) << std::endl;
+}
+
+// Handle unsigned 8-bit integers
+void print(uint8_t value) {
+    std::cout << static_cast<unsigned int>(value) << std::endl;
+}
+
+// Generic print function fallback
 template <typename T>
 void print(const T& value) {
     std::cout << value << std::endl;
 }
+
 funcEND======================funcEND==============
 func======================func==============
 lang: js
