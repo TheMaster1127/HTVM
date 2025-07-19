@@ -8542,7 +8542,7 @@ function fixJAVAcmpANDandORtheFixForTheFix(javaCodeUgh) {
     let items156 = LoopParseFunc(javaCodeUgh, "\n", "\r");
     for (let A_Index156 = 0; A_Index156 < items156.length + 0; A_Index156++) {
         const A_LoopField156 = items156[A_Index156 - 0];
-        if (SubStr(Trim(A_LoopField156), 1, 3) == "if ") {
+        if (SubStr(Trim(A_LoopField156), 1, 3) == "if " && InStr(A_LoopField156, "__HTVM_V2_TO_JAVA_optionalParams__") == false) {
             if (InStr(A_LoopField156, " && ") || InStr(A_LoopField156, " || ")) {
                 out += StrReplace(StrReplace(A_LoopField156, " || ", ") || ("), " && ", ") && (") + Chr(10);
             } else {

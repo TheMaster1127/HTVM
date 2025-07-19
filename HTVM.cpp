@@ -53,11 +53,19 @@ std::vector<std::string> LoopParseFunc(const std::string& var, const std::string
     return items;
 }
 
-// Print function for const char* specifically
+// Print function for const char*
 void print(const char* value) {
-    std::cout << std::string(value) << std::endl;  // Convert const char* to std::string
+    std::cout << std::string(value) << std::endl;
 }
-// Print function that converts all types to string if needed
+// Handle signed 8-bit integers
+void print(int8_t value) {
+    std::cout << static_cast<int>(value) << std::endl;
+}
+// Handle unsigned 8-bit integers
+void print(uint8_t value) {
+    std::cout << static_cast<unsigned int>(value) << std::endl;
+}
+// Generic print function fallback
 template <typename T>
 void print(const T& value) {
     std::cout << value << std::endl;
@@ -8874,7 +8882,7 @@ std::string fixJAVAcmpANDandORtheFixForTheFix(std::string javaCodeUgh) {
     std::vector<std::string> items156 = LoopParseFunc(javaCodeUgh, "\n", "\r");
     for (size_t A_Index156 = 0; A_Index156 < items156.size() + 0; A_Index156++) {
         std::string A_LoopField156 = items156[A_Index156 - 0];
-        if (SubStr(Trim(A_LoopField156), 1, 3) == "if ") {
+        if (SubStr(Trim(A_LoopField156), 1, 3) == "if " && InStr(A_LoopField156, "__HTVM_V2_TO_JAVA_optionalParams__") == false) {
             if (InStr(A_LoopField156, " && ") || InStr(A_LoopField156, " || ")) {
                 out += StrReplace(StrReplace(A_LoopField156, " || ", ") || ("), " && ", ") && (") + Chr(10);
             } else {
