@@ -11561,6 +11561,46 @@ func str fixLastParentesis(str lines) {
     return out
 }
 
+
+
+
+func str fixJAVAcmpANDandORtheFixForTheFix(str javaCodeUgh) {
+str out := ""
+Loop, Parse, javaCodeUgh, `n, `r {
+
+if (SubStr(Trim(A_LoopField), 1, 3) = "if ") {
+if (InStr(A_LoopField, " && ")) or (InStr(A_LoopField, " || ")) {
+out .= StrReplace(StrReplace(A_LoopField, " || ", ") || ("), " && ", ") && (") . Chr(10)
+}
+else {
+out .= A_LoopField . Chr(10)
+}
+}
+else {
+out .= A_LoopField . Chr(10)
+}
+
+}
+StringTrimRight, out, out, 1
+out := fixLastParentesis(out)
+str out1 := ""
+
+Loop, Parse, out, `n, `r {
+
+if (SubStr(Trim(A_LoopField), 1, 3) = "if ") {
+out1 .= RegExReplace(A_LoopField, "\bif\b", "if (") . Chr(10)
+}
+else {
+out1 .= A_LoopField . Chr(10)
+}
+
+}
+StringTrimRight, out1, out1, 1
+out1 := fixLastParentesis(out1)
+
+return out1
+}
+
 func str FIXregexEspaceThem(str line) {
 line := StrReplace(line, "\", "\\")
 line := StrReplace(line, ".", "\.")
@@ -11608,6 +11648,13 @@ func str fixJAVAstrCmp_FjavaUGH(str javaCode) {
     str varName := ""
     Loop, % allJavaStringsIG.size() {
         varName := allJavaStringsIG[A_Index]
+
+        pattern3 := "\b" . varName . "\s*!=\s*([\w\.\(\)\[\],]+)"
+        replace3 := "!(" . varName . ".equals($1))"
+        javaCode := RegExReplace(javaCode, pattern3, replace3)
+        
+        pattern4 := "\b([\w\.\(\)\[\],]+)\s*!=\s*" . varName
+        replace4 := "!(" . varName . ".equals($1))"
         
         pattern1 := "\b" . varName . "\s*==\s*([\w\.\(\)\[\],]+)"
         replace1 := varName . ".equals($1)"
@@ -11616,19 +11663,18 @@ func str fixJAVAstrCmp_FjavaUGH(str javaCode) {
         pattern2 := "\b([\w\.\(\)\[\],]+)\s*==\s*" . varName
         replace2 := varName . ".equals($1)"
         javaCode := RegExReplace(javaCode, pattern2, replace2)
-        
-        pattern3 := "\b" . varName . "\s*!=\s*([\w\.\(\)\[\],]+)"
-        replace3 := "!(" . varName . ".equals($1))"
-        javaCode := RegExReplace(javaCode, pattern3, replace3)
-        
-        pattern4 := "\b([\w\.\(\)\[\],]+)\s*!=\s*" . varName
-        replace4 := "!(" . varName . ".equals($1))"
+
         javaCode := RegExReplace(javaCode, pattern4, replace4)
     }
     javaCode := StrReplace(javaCode, "huiuuhuuhtheidFor\-\-asdsas\-\-theuhturtyphoutr\-\-AA", "huiuuhuuhtheidFor--asdsas--theuhturtyphoutr--AA")
     javaCode := StrReplace(javaCode, "AA\).equals(", "AA.equals(")
     javaCode := StrReplace(javaCode, ".equals(ihuiuuhuuhtheidFor)--asdsas--theuhturtyphoutr--AA", ".equals(ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--AA")
     javaCode := StrReplace(javaCode, ".equals(ihuiuuhuuhtheidFor))--asdsas--theuhturtyphoutr--AA", ".equals(ihuiuuhuuhtheidFor--asdsas--theuhturtyphoutr--AA")
+    
+    if (InStr(javaCode, " && ")) or (InStr(javaCode, " || ")) {
+        javaCode := fixJAVAcmpANDandORtheFixForTheFix(javaCode)
+    }
+    
     javaCode := fixLastParentesis(javaCode)
     javaCode := fixLastParentesis(javaCode)
     javaCode := fixLastParentesis(javaCode)
