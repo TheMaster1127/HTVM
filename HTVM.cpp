@@ -1,3 +1,13 @@
+#if __has_include("srell.hpp")
+    #include "srell.hpp"
+    #define USE_POWERFUL_REGEX 1
+    #pragma message("SUCCESS: Compiling with powerful SRELL regex engine. Lookbehinds will work.")
+#else
+    #include <regex>
+    #define USE_POWERFUL_REGEX 0
+    #pragma message("WARNING: srell.hpp not found. Falling back to limited std::regex. Lookbehinds will NOT work.")
+#endif
+
 #include <algorithm>
 #include <any>
 #include <cctype>
@@ -387,18 +397,53 @@ std::string Sort(const std::string& input, const std::string& options) {
     return result;
 }
 
-std::string RegExReplace(const std::string& inputStr, const std::string& regexPattern, const std::string& replacement) {
-    std::regex re(regexPattern, std::regex_constants::ECMAScript | std::regex_constants::multiline);
-    return std::regex_replace(inputStr, re, replacement);
+std::string RegExReplace(std::string_view inputStr, std::string_view regexPattern, std::string_view replacement) {
+#if USE_POWERFUL_REGEX
+    // --- SRELL PATH ---
+    try {
+        const srell::regex re = srell::regex(regexPattern.data(), regexPattern.size());
+        return srell::regex_replace(std::string(inputStr), re, std::string(replacement));
+    } catch (const srell::regex_error& e) {
+        // ERROR IS CAUGHT, BUT WE DO NOTHING. NO MORE MESSAGE.
+        return std::string(inputStr); // Return original string on failure
+    }
+#else
+    // --- FALLBACK PATH ---
+    try {
+        const std::regex re{std::string(regexPattern)};
+        return std::regex_replace(std::string(inputStr), re, std::string(replacement));
+    } catch (const std::regex_error& e) {
+        // ERROR IS CAUGHT, BUT WE DO NOTHING. NO MORE MESSAGE.
+        return std::string(inputStr); // Return original string on failure
+    }
+#endif
 }
 
-int RegExMatch(const std::string& haystack, const std::string& needle) {
-    std::regex re(needle);
-    std::smatch match;
-    if (std::regex_search(haystack, match, re)) {
-        return match.position(0) + 1; // 1-based index
+int RegExMatch(std::string_view haystack, std::string_view needle) {
+#if USE_POWERFUL_REGEX
+    // --- SRELL PATH ---
+    try {
+        const srell::regex re = srell::regex(needle.data(), needle.size());
+        srell::cmatch match;
+        if (srell::regex_search(haystack.data(), haystack.data() + haystack.size(), match, re)) {
+            return match.position(0) + 1;
+        }
+    } catch (const srell::regex_error& e) {
+        // ERROR IS CAUGHT, BUT WE DO NOTHING. NO MORE MESSAGE.
     }
-    return 0; // No match
+#else
+    // --- FALLBACK PATH ---
+    try {
+        const std::regex re{std::string(needle)};
+        std::match_results<std::string_view::const_iterator> match;
+        if (std::regex_search(haystack.begin(), haystack.end(), match, re)) {
+            return match.position(0) + 1;
+        }
+    } catch (const std::regex_error& e) {
+        // ERROR IS CAUGHT, BUT WE DO NOTHING. NO MORE MESSAGE.
+    }
+#endif
+    return 0; // Return 0 on failure
 }
 
 // Overload for counting a single character
@@ -18672,6 +18717,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         }
         allLibsToPutAtTop = Sort(allLibsToPutAtTop, "U");
         allLibsToPutAtTop = StrReplace(allLibsToPutAtTop, "~~~", Chr(10));
+        // cpp is a failed language
+        if (langToConvertTo == "cpp") {
+            allLibsToPutAtTop = "#if __has_include(" + Chr(34) + "srell.hpp" + Chr(34) + ")" + Chr(10) + "    #include " + Chr(34) + "srell.hpp" + Chr(34) + "" + Chr(10) + "    #define USE_POWERFUL_REGEX 1" + Chr(10) + "    #pragma message(" + Chr(34) + "SUCCESS: Compiling with powerful SRELL regex engine. Lookbehinds will work." + Chr(34) + ")" + Chr(10) + "#else" + Chr(10) + "    #include " + Chr(60) + "regex" + Chr(62) + "" + Chr(10) + "    #define USE_POWERFUL_REGEX 0" + Chr(10) + "    #pragma message(" + Chr(34) + "WARNING: srell.hpp not found. Falling back to limited std::regex. Lookbehinds will NOT work." + Chr(34) + ")" + Chr(10) + "#endif" + Chr(10) + "" + Chr(10) + allLibsToPutAtTop;
+        }
         if (isNotHTVMfileEXTRA_INT == 1) {
             isNotHTVMfileEXTRA_LIB_INFO = allLibsToPutAtTop;
             isNotHTVMfileEXTRA_FUNCS_INFO = allFuncsToPutAtTop;
@@ -18710,6 +18759,11 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
                 }
             }
         }
+    }
+    if (langToConvertTo == "rb") {
+        htCode = StrReplace(htCode, "$$", "$");
+        htCode = StrReplace(htCode, "$$", "$");
+        htCode = StrReplace(htCode, "$$", "$");
     }
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

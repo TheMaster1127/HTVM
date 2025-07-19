@@ -18385,6 +18385,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         }
         allLibsToPutAtTop = Sort(allLibsToPutAtTop, "U");
         allLibsToPutAtTop = StrReplace(allLibsToPutAtTop, "~~~", Chr(10));
+        // cpp is a failed language
+        if (langToConvertTo == "cpp") {
+            allLibsToPutAtTop = "#if __has_include(" + Chr(34) + "srell.hpp" + Chr(34) + ")" + Chr(10) + "    #include " + Chr(34) + "srell.hpp" + Chr(34) + "" + Chr(10) + "    #define USE_POWERFUL_REGEX 1" + Chr(10) + "    #pragma message(" + Chr(34) + "SUCCESS: Compiling with powerful SRELL regex engine. Lookbehinds will work." + Chr(34) + ")" + Chr(10) + "#else" + Chr(10) + "    #include " + Chr(60) + "regex" + Chr(62) + "" + Chr(10) + "    #define USE_POWERFUL_REGEX 0" + Chr(10) + "    #pragma message(" + Chr(34) + "WARNING: srell.hpp not found. Falling back to limited std::regex. Lookbehinds will NOT work." + Chr(34) + ")" + Chr(10) + "#endif" + Chr(10) + "" + Chr(10) + allLibsToPutAtTop;
+        }
         if (isNotHTVMfileEXTRA_INT == 1) {
             isNotHTVMfileEXTRA_LIB_INFO = allLibsToPutAtTop;
             isNotHTVMfileEXTRA_FUNCS_INFO = allFuncsToPutAtTop;
@@ -18423,6 +18427,11 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                 }
             }
         }
+    }
+    if (langToConvertTo == "rb") {
+        htCode = StrReplace(htCode, "$$", "$");
+        htCode = StrReplace(htCode, "$$", "$");
+        htCode = StrReplace(htCode, "$$", "$");
     }
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -18723,4 +18732,8 @@ function HTVMv2() {
         //print("JS")
     }
 }
-HTVMv2();
+async function main() {
+    HTVMv2();
+
+}
+main();
