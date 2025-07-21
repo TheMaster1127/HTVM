@@ -12001,228 +12001,20 @@ return pading
 
 func str when_patternMatching_HELP_HTVMtoHTVM(str theCode) {
 str out := ""
-
-
 int inWhen := 0
-int isWhenWhitVal := 0
-int firstUseIF := 0
-int firstUseIF_HELP := 0
-str preFixIfORelseIf := ""
-str whenStackSTR := ""
-arr str whenStack
-
 str temp := ""
-str temp1 := ""
-str temp2 := ""
-str temp3 := ""
-str temp4 := ""
-str temp5 := ""
-str temp6 := ""
-str temp7 := ""
-str temp8 := ""
-str temp9 := ""
-str pading := ""
 Loop, Parse, theCode, `n, `r {
+
+if (Trim(A_LoopField) = "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2") {
+inWhen := 0
+}
 
 if (inWhen > 0) and (SubStr(Trim(A_LoopField), 1, 5) != "when ") and (SubStr(Trim(A_LoopField), 1, 5) != "wehn ") and (Trim(A_LoopField) != "when") and (Trim(A_LoopField) != "wehn") {
 if (Trim(A_LoopField) = Trim(keyWordElse)) {
 out .= StrReplace(A_LoopField, Trim(keyWordElse), "HTVM-------else---HTVM--parartenet--manstccing--hdksfbsdWYOUWHOUDNEVERBEABALETOTYPEYHIS--FFfix") . Chr(10)
 }
-else if (InStr(A_LoopField, "->")) {
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-temp := A_LoopField
-pading := when_patternMatchingHELP1(temp)
-temp := Trim(temp)
-whenStackSTR := whenStack[whenStack.size() - 1]
-
-if (whenStackSTR = "-=-NON-=-") {
-isWhenWhitVal := 0
-}
-else {
-isWhenWhitVal := 1
-}
-
-if (firstUseIF = 1) {
-firstUseIF := 0
-firstUseIF_HELP := 1
-preFixIfORelseIf := Trim(keyWordIF)
-}
-else {
-firstUseIF_HELP := 0
-preFixIfORelseIf := Trim(keyWordElseIf)
-}
-
-; keyWordIF
-; keyWordElseIf
-; keyWordElse
-
-; keyWordEqual — =
-; keyWordGreaterEqual — >=
-; keyWordLessEqual — <=
-; keyWordAnd — and
-; keyWordOr — or
-
-if (RegExMatch(temp, "\b" . Trim(keyWordElse) . "\b")) { 
-temp := RegExReplace(temp, "\b" . Trim(keyWordElse) . "\b", "} " . Trim(keyWordElse) . " {" . Chr(10))
-}
-else if (InStr(temp, " ->")) {
-;;;;;;;;;;;;;
-if (RegExMatch(Trim(StrSplit(temp, "->", 1)), "(?<!\s)\.\.(?!\s)")) and (InStr(Trim(StrSplit(temp, "->", 1)), " in ")) {
-;print("DUBUGG1: " . A_LoopField)
-temp1 := Trim(StrSplit(temp, "->", 1))
-temp2 := Trim(StrSplit(temp, "->", 2))
-; isWhenWhitVal
-; preFixIfORelseIf
-; whenStackSTR
-
-whenStackSTR := Trim(StrSplit(temp1, " in ", 1))
-temp1 := Trim(StrSplit(temp1, " in ", 2))
-
-temp3 := Trim(StrSplit(temp1, "..", 1))
-temp4 := Trim(StrSplit(temp1, "..", 2))
-
-temp5 := whenStackSTR . " " . Trim(keyWordGreaterEqual) . " " . temp3 . " " . Trim(keyWordAnd) . " " . whenStackSTR . " " . Trim(keyWordLessEqual) . " " . temp4
-
-if (isWhenWhitVal = 0) {
-temp1 := Trim(preFixIfORelseIf) . " (" . temp5 . ")"
-}
-else {
-temp1 := Trim(preFixIfORelseIf) . " (" . temp5 . ")"
-}
-temp := temp1 . " -> " . temp2
-temp := Trim(temp)
-}
-else if (RegExMatch(Trim(StrSplit(temp, "->", 1)), "(?<!\s)\.\.(?!\s)")) {
-;print("DUBUGG2: " . A_LoopField)
-temp1 := Trim(StrSplit(temp, "->", 1))
-temp2 := Trim(StrSplit(temp, "->", 2))
-; isWhenWhitVal
-; preFixIfORelseIf
-; whenStackSTR
-
-temp3 := Trim(StrSplit(temp1, "..", 1))
-temp4 := Trim(StrSplit(temp1, "..", 2))
-
-temp5 := whenStackSTR . " " . Trim(keyWordGreaterEqual) . " " . temp3 . " " . Trim(keyWordAnd) . " " . whenStackSTR . " " . Trim(keyWordLessEqual) . " " . temp4
-if (isWhenWhitVal = 0) {
-temp1 := Trim(preFixIfORelseIf) . " (ERROR YOU CANT DO .. IF NO when whit a val THEN YOU NEED TO use varName in num..num!!!)"
-}
-else {
-temp1 := Trim(preFixIfORelseIf) . " (" . temp5 . ")"
-}
-temp := temp1 . " -> " . temp2
-temp := Trim(temp)
-}
-else if (InStr(Trim(StrSplit(temp, "->", 1)), ",")) and (InStr(Trim(StrSplit(temp, "->", 1)), "(") = false) and (InStr(Trim(StrSplit(temp, "->", 1)), " in ")) {
-;print("DUBUGG3: " . A_LoopField)
-temp1 := Trim(StrSplit(temp, "->", 1))
-temp2 := Trim(StrSplit(temp, "->", 2))
-; isWhenWhitVal
-; preFixIfORelseIf
-; whenStackSTR
-
-whenStackSTR := Trim(StrSplit(temp1, " in ", 1))
-temp1 := Trim(StrSplit(temp1, " in ", 2))
-
-; keyWordEqual
-; keyWordOr
-temp3 := ""
-Loop, Parse, temp1, `, {
-temp3 .= whenStackSTR . " " . Trim(keyWordEqual) . " " . Trim(A_LoopField) . " " . Trim(keyWordOr) . " "
-}
-temp3 := Trim(temp3)
-temp3 := Trim(StringTrimRight(temp3, StrLen(Trim(keyWordOr))))
-
-
-if (isWhenWhitVal = 0) {
-temp1 := Trim(preFixIfORelseIf) . " (" . temp3 . ")"
-}
-else {
-temp1 := Trim(preFixIfORelseIf) . " (" . temp3 . ")"
-}
-temp := temp1 . " -> " . temp2
-temp := Trim(temp)
-}
-else if (InStr(Trim(StrSplit(temp, "->", 1)), ",")) and (InStr(Trim(StrSplit(temp, "->", 1)), "(") = false) {
-;print("DUBUGG4: " . A_LoopField)
-temp1 := Trim(StrSplit(temp, "->", 1))
-temp2 := Trim(StrSplit(temp, "->", 2))
-; isWhenWhitVal
-; preFixIfORelseIf
-; whenStackSTR
-
-; keyWordEqual
-; keyWordOr
-temp3 := ""
-Loop, Parse, temp1, `, {
-temp3 .= whenStackSTR . " " . Trim(keyWordEqual) . " " . Trim(A_LoopField) . " " . Trim(keyWordOr) . " "
-}
-temp3 := Trim(temp3)
-temp3 := Trim(StringTrimRight(temp3, StrLen(Trim(keyWordOr))))
-if (isWhenWhitVal = 0) {
-temp1 := Trim(preFixIfORelseIf) . " (ERROR YOU CANT DO THAT IF NO when whit a val THEN YOU NEED TO use varName in string, string, string, ... !!!)"
-}
-else {
-temp1 := Trim(preFixIfORelseIf) . " (" . temp3 . ")"
-}
-temp := temp1 . " -> " . temp2
-temp := Trim(temp)
-}
-else {
-;print("DUBUGG5: " . A_LoopField)
-temp1 := Trim(StrSplit(temp, "->", 1))
-temp2 := Trim(StrSplit(temp, "->", 2))
-; isWhenWhitVal
-; preFixIfORelseIf
-; whenStackSTR
-if (isWhenWhitVal = 0) {
-temp1 := Trim(preFixIfORelseIf) . " (" . temp1 . ")"
-}
-else {
-temp1 := Trim(preFixIfORelseIf) . " (" . whenStackSTR . " " . Trim(keyWordEqual) . " " . temp1 . ")"
-}
-temp := temp1 . " -> " . temp2
-temp := Trim(temp)
-}
-;;;;;;;;;;;;;
-}
-if (firstUseIF_HELP = 0) {
-if (Trim(temp) != "subout") {
-if (InStr(temp, "->")) {
-out .= A_LoopField . Chr(10)
-}
 else {
 out .= A_LoopField . Chr(10)
-}
-
-
-}
-else {
-out .= A_LoopField . Chr(10)
-}
-}
-else {
-
-if (InStr(temp, "->")) {
-out .= A_LoopField . Chr(10)
-}
-else {
-out .= A_LoopField . Chr(10)
-}
-
-
-
-}
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-}
-else {
-if (RegExMatch(A_LoopField, "\b" . Trim(keyWordElse) . "\b")) {
-out .= A_LoopField . Chr(10)
-}
-else {
-out .= A_LoopField . Chr(10)
-}
-
 }
 }
 else {
@@ -12231,7 +12023,6 @@ out .= A_LoopField . Chr(10)
 
 if (SubStr(Trim(A_LoopField), 1, 5) = "when ") or (SubStr(Trim(A_LoopField), 1, 5) = "wehn ") or (Trim(A_LoopField) = "when") or (Trim(A_LoopField) = "wehn")
 {
-if (SubStr(Trim(A_LoopField), 1, 5) = "when ") or (SubStr(Trim(A_LoopField), 1, 5) = "wehn ") {
 inWhen++
 }
 if (Trim(A_LoopField) = "subout")
@@ -12239,8 +12030,6 @@ if (Trim(A_LoopField) = "subout")
 inWhen--
 }
 
-
-}
 }
 
 
