@@ -726,13 +726,13 @@ Most of the time, for simpler data organization, you might just need standalone 
 ```htvm
 alliance Game {
     crew Audio {
-        ; This is Game.Audio.Settings
+	; This is Game.Audio.Settings
         struct Settings {
             prop int volume := 80
         }
     }
     crew Video {
-        ; This is Game.Video.Settings - no collision!
+	; This is Game.Video.Settings - no collision!
         struct Settings {
             prop str resolution := "1920x1080"
         }
@@ -772,16 +772,14 @@ alliance Movable {
         }
         ; Proc using 'this' to know which struct called it
         ; 'this' will hold "Movable.Vehicles.Car" or "Movable.Vehicles.Bike"
-        proc void checkStatus(this) {
+        proc void checkStatus(this) { 
             if (this = "Movable.Vehicles.Car") {
                 ; Still use full path for access
                 print("Checking Car fuel: " . Movable.Vehicles.Car.fuel)
-            }
-            else if (this = "Movable.Vehicles.Bike") {
+            } else if (this = "Movable.Vehicles.Bike") {
                 ; Still use full path
-                print("Checking Bike energy: " . Movable.Vehicles.Bike.energy)
-            }
-            else {
+                print("Checking Bike energy: " . Movable.Vehicles.Bike.energy) 
+            } else {
                 print("Unknown vehicle type passed to checkStatus: " . this)
             }
         }
@@ -854,8 +852,7 @@ alliance Movable {
                 if (Movable.Vehicles.Car.fuel > 0) {
                     print("The car is driving.")
                     Movable.Vehicles.Car.fuel := Movable.Vehicles.Car.fuel - 10
-                }
-                else {
+                } else {
                     print("The car is out of fuel.")
                     Movable.Vehicles.Car.hasFUEL := false
                 }
@@ -864,14 +861,14 @@ alliance Movable {
                 if (Movable.Vehicles.Bike.energy > 0) {
                     print("The bike is pedaling.")
                     Movable.Vehicles.Bike.energy := Movable.Vehicles.Bike.energy - 5
-                }
-                else {
+                } else {
                     print("The bike is out of energy.")
                     Movable.Vehicles.Bike.hasENERGY := false
                 }
             }
         }
     }
+    
     crew settings {
         struct GeneralSettings {
             prop str difficulty := "normal"
@@ -888,40 +885,41 @@ alliance Movable {
             prop str aspectRatio := "16:9"
         }
     }
+    
     crew actions {
         ; General Settings Procs
-        proc void resetGeneralSettings(this) {
+        proc void resetGeneralSettings() {
             Movable.settings.GeneralSettings.difficulty := STR("normal")
             Movable.settings.GeneralSettings.volume := 50
             Movable.settings.GeneralSettings.resolution := STR("1920x1080")
             print("General settings reset to default.")
         }
-        proc void printGeneralSettings(this) {
+        proc void printGeneralSettings() {
             print("General Settings:")
             print("Difficulty: " . Movable.settings.GeneralSettings.difficulty)
             print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
             print("Resolution: " . Movable.settings.GeneralSettings.resolution)
         }
         ; Audio Settings Procs
-        proc void resetAudioSettings(this) {
+        proc void resetAudioSettings() {
             Movable.settings.AudioSettings.masterVolume := 70
             Movable.settings.AudioSettings.musicVolume := 50
             Movable.settings.AudioSettings.sfxVolume := 40
             print("Audio settings reset to default.")
         }
-        proc void printAudioSettings(this) {
+        proc void printAudioSettings() {
             print("Audio Settings:")
             print("Master Volume: " . STR(Movable.settings.AudioSettings.masterVolume))
             print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
             print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
         }
         ; Display Settings Procs
-        proc void resetDisplaySettings(this) {
+        proc void resetDisplaySettings() {
             Movable.settings.DisplaySettings.fullscreen := true
             Movable.settings.DisplaySettings.aspectRatio := STR("16:9")
             print("Display settings reset to default.")
         }
-        proc void printDisplaySettings(this) {
+        proc void printDisplaySettings() {
             print("Display Settings:")
             print("Fullscreen: " . STR(Movable.settings.DisplaySettings.fullscreen))
             print("Aspect Ratio: " . Movable.settings.DisplaySettings.aspectRatio)
@@ -935,6 +933,7 @@ alliance Movable {
             prop arr str prop4
         }
     }
+    
 }
 main
 ; Test vehicle movement
@@ -975,8 +974,9 @@ Movable.array.name.prop4.add("4text1")
 Movable.array.name.prop4.add("4text2")
 Movable.array.name.prop4.add("4text3")
 ; Loop over and print
-Loop, % Movable.array.name.prop1.size() {
-    print(Movable.array.name.prop1[A_Index])
+Loop, % Movable.array.name.prop1.size() 
+{
+print(Movable.array.name.prop1[A_Index])
 }
 Loop, % Movable.array.name.prop2.size() {
     print(Movable.array.name.prop2[A_Index])
@@ -1375,7 +1375,7 @@ ___py start
 myNumber += 10
 ___py end
 ; Will print 15 in Python
-print(myNumber)
+print(myNumber)  
 
 ```
 
@@ -1688,11 +1688,11 @@ At a glance, the `when` block lets you handle different cases with unparalleled 
 ```htvm
 int x := 15
 when x
-    5 -> print("The value is five.")
-    "start" -> print("Starting process...")
-    10..20 -> print("The value is between 10 and 20.")
-    "png", "jpeg", "gif" -> print("It's an image.")
-    else print("Unknown value.")
+  5 -> print("The value is five.")
+  "start" -> print("Starting process...")
+  10..20 -> print("The value is between 10 and 20.")
+  "png", "jpeg", "gif" -> print("It's an image.")
+  else print("Unknown value.")
 subout
 
 ```
@@ -1708,15 +1708,15 @@ Every pattern, from a single number to a complex expression, is followed by `->`
 ```htvm
 int x := 15
 when x
-    ; A single value pattern
-    5 -> print("Five")
-    ; A range pattern
-    20..30 -> print("Between 20 and 30")
-    ; A multi-value pattern
-    "jpg", "png" -> handle_image()
-    ; An expression-based pattern
-    x > 100 -> print("x is a large number.")
-    else print("Some other number.")
+  ; A single value pattern
+  5 -> print("Five")
+  ; A range pattern
+  20..30 -> print("Between 20 and 30")
+  ; A multi-value pattern
+  "jpg", "png" -> handle_image()
+  ; An expression-based pattern
+  x > 100 -> print("x is a large number.")
+  else print("Some other number.")
 subout
 
 ```
@@ -1730,18 +1730,18 @@ The `subout` keyword is essential as it marks the end of the *entire* `when` or 
 ```htvm
 str user_role := "editor"
 wehn user_role
-    ; The -> introduces the action block
-    "admin" ->
+  ; The -> introduces the action block
+  "admin" ->
     print("Welcome, Admin.")
     enable_admin_panel()
-    "content", "editor" ->
+  "content", "editor" ->
     print("User has publishing rights.")
     log_access_level()
-    ; The 'else' case never uses ->
-    else {
-        print("Standard user.")
-    }
-    ; Marks the end of this 'wehn' block
+  ; The 'else' case never uses ->
+  else 
+    print("Standard user.")
+    
+  ; Marks the end of this 'wehn' block
 subout
 
 ```
@@ -1755,10 +1755,10 @@ Here is a comprehensive set of examples, starting with the basics and moving to 
 ```htvm
 str lang := "htvm"
 when lang
-    "htvm" -> print("HTVM is the future.")
-    "cpp" -> print("C++ is fast.")
-    "js" -> print("JavaScript is flexible.")
-    else print("Some other language.")
+  "htvm" -> print("HTVM is the future.")
+  "cpp" -> print("C++ is fast.")
+  "js" -> print("JavaScript is flexible.")
+  else print("Some other language.")
 subout
 
 ```
@@ -1768,10 +1768,10 @@ subout
 ```htvm
 int temperature := 25
 when temperature
-    -273..0 -> print("Freezing")
-    1..20 -> print("Cool")
-    21..35 -> print("Warm")
-    else print("Extreme temperature!")
+  -273..0 -> print("Freezing")
+  1..20 -> print("Cool")
+  21..35 -> print("Warm")
+  else print("Extreme temperature!")
 subout
 
 ```
@@ -1786,12 +1786,12 @@ For example, identifying a starting sound in a word might depend on the first tw
 str firstLetter := "c"
 str secondLetter := "h"
 when
-    ; Check for specific two-letter combinations
-    firstLetter = "s" and secondLetter = "h" -> print("Starts with the 'sh' sound.")
-    firstLetter = "c" and secondLetter = "h" -> print("Starts with the 'ch' sound.")
-    ; Check if the first letter is a vowel
-    firstLetter in "a", "e", "i", "o", "u" -> print("Starts with a vowel.")
-    else print("Starts with a consonant.")
+  ; Check for specific two-letter combinations
+  firstLetter = "s" and secondLetter = "h" -> print("Starts with the 'sh' sound.")
+  firstLetter = "c" and secondLetter = "h" -> print("Starts with the 'ch' sound.")
+  ; Check if the first letter is a vowel
+  firstLetter in "a", "e", "i", "o", "u" -> print("Starts with a vowel.")
+  else print("Starts with a consonant.")
 subout
 
 ```
@@ -1799,19 +1799,19 @@ subout
 #### 4. Matching with Function Calls or Expressions
 
 ```htvm
-func int get_status_code() {
-    return 404
+func int get_status_code() { 
+    return 404 
 }
 main
 when get_status_code()
-    200 -> print("OK")
-    404 -> print("Not Found")
-    500 -> print("Server Error")
+  200 -> print("OK")
+  404 -> print("Not Found")
+  500 -> print("Server Error")
 subout
 int x := 5
 int y := 5
 when x + y
-    10 -> print("The sum is 10.")
+  10 -> print("The sum is 10.")
 subout
 
 ```
@@ -1824,19 +1824,18 @@ HTVM fully supports nesting `when` and `wehn` blocks for deep conditional logic.
 str user_status := "active"
 str user_role := "editor"
 wehn user_status
-    "active" ->
+  "active" ->
     print("User is Active.")
     wehn user_role
-        "admin" -> print("Role: Administrator.")
-        "editor" ->
+      "admin" -> print("Role: Administrator.")
+      "editor" ->
         print("Role: Editor.")
         print("Publishing rights enabled.")
-        else print("Role: Viewer.")
+      else print("Role: Viewer.")
     subout
-    "inactive" -> print("User account is inactive.")
-    else {
-        print("User status is unknown.")
-    }
+  "inactive" -> print("User account is inactive.")
+  else
+    print("User status is unknown.")
 subout
 
 ```
@@ -1847,13 +1846,12 @@ subout
 int number := 0
 str userInput := "123"
 when
-    userInput = "" -> print("Error: Input cannot be empty.")
-    RegExMatch(userInput, "^\d+$") ->
+  userInput = "" -> print("Error: Input cannot be empty.")
+  RegExMatch(userInput, "^\d+$") ->
     number := INT(userInput)
     print("Input is a valid number: " . number)
-    else {
-        print("Error: Input is not a valid number.")
-    }
+  else
+    print("Error: Input is not a valid number.")
 subout
 
 ```
@@ -1864,19 +1862,18 @@ subout
 str player_state := "attacking"
 bool has_special_attack := false
 when player_state
-    "idle" ->
+  "idle" ->
     print("Player is waiting.")
-    "walking" ->
+  "walking" ->
     print("Player is moving.")
-    "attacking" ->
+  "attacking" ->
     print("Player is attacking!")
     wehn
-        has_special_attack = true -> print("Unleashing a special move!")
-        else print("Using a standard attack.")
+      has_special_attack = true -> print("Unleashing a special move!")
+      else print("Using a standard attack.")
     subout
-    else {
-        print("Unknown player state.")
-    }
+  else
+    print("Unknown player state.")
 subout
 
 ```
@@ -2001,7 +1998,7 @@ Inserts an element at a specific index. The index is the first argument, and the
 Example:
 ```htvm
 arr int myArray := [1, 2, 3]
-myArray.insert(1, 4)
+myArray.insert(1, 4)  
 ; myArray is now [1, 4, 2, 3]
 print(myArray)
 
@@ -2013,7 +2010,7 @@ Removes the element at the specified index.
 Example:
 ```htvm
 arr int myArray := [1, 2, 3, 4]
-myArray.rm(2)
+myArray.rm(2)  
 ; myArray is now [1, 2, 4]
 print(myArray)
 
@@ -2125,8 +2122,8 @@ ___cpp start
 myArray.push_back(4);  // In C++, this works, but HTVM does not enforce immutability
 ___cpp end
 ; If we print this in HTVM, we will get:
-;
-; When converting to C++, we can't just print the array directly. However, in some other languages,
+; 
+; When converting to C++, we can't just print the array directly. However, in some other languages, 
 ; we don't need to loop over the array to print it.
 Loop, % myArray.size() {
     print(myArray[A_Index])
@@ -2410,17 +2407,17 @@ For the **Loop,**, **Loop, Parse,**, and **Loop** types, the Lua conversion look
 ; Regular loop example
 Loop, 10 {
     if (A_Index % 2 = 0) {
-        continue
+        continue 
     }
     ; Output only odd numbers from 1 to 9
-    print(A_Index)
+    print(A_Index)  
     ::continue
 }
 print("=====================")
 ; Infinite loop example
 Loop {
     if (A_Index % 2 = 0) {
-        continue
+        continue 
     }
     ; Output only odd numbers from 1 to 9
     print(A_Index)
@@ -2755,9 +2752,9 @@ Add elements using `gui &lt;ElementType&gt; [Options...]`:
 
 ```htvm
 Button0:
-    ; and the ID of the button is automatically assigned to button0
-    ; for each element, it has a separate counter.
-    await MsgBox("You pressed the " . A_Id)
+; and the ID of the button is automatically assigned to button0
+; for each element, it has a separate counter.
+await MsgBox("You pressed the " . A_Id)
 subout
 ; main func
 main
@@ -2810,11 +2807,11 @@ Configure elements using **SPACE or COMMA-SEPARATED** options.
 str saveEdit := ""
 ; Edit0 callback
 Edit0:
-    saveEdit := A_Value
+saveEdit := A_Value
 subout
 ; Button0 callback
 Button0:
-    guiControl p"Gui1" i"text0" dsaveEdit
+guiControl p"Gui1" i"text0" dsaveEdit
 subout
 ; main func
 main
@@ -2841,35 +2838,35 @@ To retrieve data entered by the user (e.g., in an `edit` field), store the data 
 ```htvm
 ; Define an OSP struct to hold GUI state
 struct UserInput {
-    prop str name := ""
+  prop str name := ""
 }
 ; Callback for the edit field (default name Edit0)
 Edit0:
-    ; Store current value from A_Value into the struct property
-    ; NOTE: 'global' keyword is NOT needed here because the target is JavaScript
-    UserInput.name := A_Value
+  ; Store current value from A_Value into the struct property
+  ; NOTE: 'global' keyword is NOT needed here because the target is JavaScript
+  UserInput.name := A_Value
 subout
 ; Callback for the button
 ShowNameButton:
-    ; Read the value from the struct property
-    await MsgBox("Hello, " . UserInput.name . "!")
+  ; Read the value from the struct property
+  await MsgBox("Hello, " . UserInput.name . "!")
 subout
 main
-; Prepare string variables for dimensions and text
-str editX_px := 10 . "px"
-str editY_px := 10 . "px"
-str editW_px := 200 . "px"
-str editH_px := 30 . "px"
-str btnX_px := 10 . "px"
-str btnY_px := 50 . "px"
-str btnW_px := 100 . "px"
-str btnH_px := 30 . "px"
-str placeholderText := "Enter your name"
-str btnText := "Greet"
-; Edit field uses default callback Edit0. Use SPACE separation.
-gui edit x:editX_px y:editY_px w:editW_px h:editH_px placeholder:placeholderText id:"nameInput"
-; Button uses explicit callback ShowNameButton. Use SPACE separation.
-gui button x:btnX_px y:btnY_px w:btnW_px h:btnH_px value:btnText callback:ShowNameButton id:"greetButton"
+  ; Prepare string variables for dimensions and text
+  str editX_px := 10 . "px"
+  str editY_px := 10 . "px"
+  str editW_px := 200 . "px"
+  str editH_px := 30 . "px"
+  str btnX_px := 10 . "px"
+  str btnY_px := 50 . "px"
+  str btnW_px := 100 . "px"
+  str btnH_px := 30 . "px"
+  str placeholderText := "Enter your name"
+  str btnText := "Greet"
+  ; Edit field uses default callback Edit0. Use SPACE separation.
+  gui edit x:editX_px y:editY_px w:editW_px h:editH_px placeholder:placeholderText id:"nameInput"
+  ; Button uses explicit callback ShowNameButton. Use SPACE separation.
+  gui button x:btnX_px y:btnY_px w:btnW_px h:btnH_px value:btnText callback:ShowNameButton id:"greetButton"
 
 ```
 
@@ -2884,35 +2881,35 @@ gui button x:btnX_px y:btnY_px w:btnW_px h:btnH_px value:btnText callback:ShowNa
 ```htvm
 ; OSP Struct for state
 struct FormData {
-    prop str firstName := ""
-    prop str lastName := ""
+  prop str firstName := ""
+  prop str lastName := ""
 }
 ; Callbacks
-Edit0:
-    FormData.firstName := A_Value
+Edit0: ; Default for first edit
+  FormData.firstName := A_Value
 subout
-Edit1:
-    FormData.lastName := A_Value
+Edit1: ; Default for second edit
+  FormData.lastName := A_Value
 subout
 ButtonOK:
-    ; Use the struct properties
-    str greeting := "You entered " . FormData.firstName . " " . FormData.lastName . "."
-    await MsgBox(greeting)
+  ; Use the struct properties
+  str greeting := "You entered " . FormData.firstName . " " . FormData.lastName . "."
+  await MsgBox(greeting)
 subout
 main
-; Prepare string variables only where needed (e.g., for text with spaces)
-str fNameLabel := "First name:"
-str lNameLabel := "Last name:"
-str fNamePlaceholder := "First Name..."
-str lNamePlaceholder := "Last Name..."
-str btnText := "Send"
-str whiteColor := "white"
-; Use hardcoded pre-formatted strings for simple values, variables for complex ones.
-gui text x:"10px" y:"10px" w:"150px" h:"30px" value:fNameLabel color:whiteColor
-gui edit x:"10px" y:"40px" w:"150px" h:"30px" placeholder:fNamePlaceholder id:"firstNameEdit"
-gui text x:"10px" y:"100px" w:"150px" h:"30px" value:lNameLabel color:whiteColor
-gui edit x:"10px" y:"130px" w:"150px" h:"30px" placeholder:lNamePlaceholder id:"lastNameEdit"
-gui button x:"10px" y:"200px" w:"155px" h:"45px" value:btnText callback:ButtonOK id:"sendButton"
+  ; Prepare string variables only where needed (e.g., for text with spaces)
+  str fNameLabel := "First name:"
+  str lNameLabel := "Last name:"
+  str fNamePlaceholder := "First Name..."
+  str lNamePlaceholder := "Last Name..."
+  str btnText := "Send"
+  str whiteColor := "white"
+  ; Use hardcoded pre-formatted strings for simple values, variables for complex ones.
+  gui text x:"10px" y:"10px" w:"150px" h:"30px" value:fNameLabel color:whiteColor
+  gui edit x:"10px" y:"40px" w:"150px" h:"30px" placeholder:fNamePlaceholder id:"firstNameEdit" ; Uses Edit0
+  gui text x:"10px" y:"100px" w:"150px" h:"30px" value:lNameLabel color:whiteColor
+  gui edit x:"10px" y:"130px" w:"150px" h:"30px" placeholder:lNamePlaceholder id:"lastNameEdit" ; Uses Edit1
+  gui button x:"10px" y:"200px" w:"155px" h:"45px" value:btnText callback:ButtonOK id:"sendButton"
 
 ```
 
@@ -2920,13 +2917,13 @@ gui button x:"10px" y:"200px" w:"155px" h:"45px" value:btnText callback:ButtonOK
 
 ```htvm
 main
-; Define text content in variable as it might contain spaces
-str containerId := "mainContainer"
-; Hardcode dimensions and colors directly
-gui id:containerId width:"500px" height:"700px" backgroundColor:"#121212"
-; Add elements inside, hardcoding simple positions/sizes
-gui text parentId:containerId x:"10px" y:"10px" value:"This text is inside" color:"white"
-gui button parentId:containerId x:"10px" y:"60px" width:"80%" height:"50px" value:"Wide Button"
+  ; Define text content in variable as it might contain spaces
+  str containerId := "mainContainer"
+  ; Hardcode dimensions and colors directly
+  gui id:containerId width:"500px" height:"700px" backgroundColor:"#121212"
+  ; Add elements inside, hardcoding simple positions/sizes
+  gui text parentId:containerId x:"10px" y:"10px" value:"This text is inside" color:"white"
+  gui button parentId:containerId x:"10px" y:"60px" width:"80%" height:"50px" value:"Wide Button"
 
 ```
 
@@ -2935,8 +2932,8 @@ gui button parentId:containerId x:"10px" y:"60px" width:"80%" height:"50px" valu
 ```htvm
 ; --- Callbacks ---
 ButtonClicked:
-    ; Use A_Id to identify which button was clicked
-    await MsgBox("You clicked on button with ID: " . A_Id)
+; Use A_Id to identify which button was clicked
+await MsgBox("You clicked on button with ID: " . A_Id)
 subout
 ; --- Main Setup ---
 main
@@ -2995,39 +2992,37 @@ struct AppState {
 }
 ; --- Callbacks ---
 ToggleCallback:
-    AppState.toggleState := A_Value ? "On" : "Off"
-    await MsgBox("Toggle is now " . AppState.toggleState)
+  AppState.toggleState := A_Value ? "On" : "Off"
+  await MsgBox("Toggle is now " . AppState.toggleState)
 subout
 ; ------------------
 ; Default Picture callback — not needed, but when you click on it, it will call this:
 ; (optional)
 Picture0:
-    ; If you use one MsgBox like this, there's no need to use 'await' — unless you're using two MsgBoxes.
-    MsgBox, you clicked on the image
+; If you use one MsgBox like this, there's no need to use 'await' — unless you're using two MsgBoxes.
+MsgBox, you clicked on the image
 subout
 ; ------------------
 DropdownCallback:
-    if (A_Value = "Select a object") {
-        await MsgBox("Cannot select placeholder!")
-        AppState.errorInDropdown := true
-    }
-    else {
-        AppState.errorInDropdown := false
-        AppState.selectedObject := A_Value
-        await MsgBox("You selected: " . AppState.selectedObject)
-    }
+  if (A_Value = "Select a object") {
+    await MsgBox("Cannot select placeholder!")
+    AppState.errorInDropdown := true
+  } else {
+    AppState.errorInDropdown := false
+    AppState.selectedObject := A_Value
+    await MsgBox("You selected: " . AppState.selectedObject)
+  }
 subout
 ; ------------------
-SaveButtonCallback:
-    if (AppState.errorInDropdown = true) {
-        await MsgBox("Select valid object first.")
-    }
-    else {
-        await MsgBox("Saving... Toggle:" . AppState.toggleState . ", Selection:" . AppState.selectedObject)
-        str newImageUrl := "https://picsum.photos/200"
-        ; Use SPACE separation for guicontrol options
-        guicontrol id:"Image1" value:newImageUrl
-    }
+SaveButtonCallback: 
+  if (AppState.errorInDropdown = true) {
+    await MsgBox("Select valid object first.")
+  } else {
+    await MsgBox("Saving... Toggle:" . AppState.toggleState . ", Selection:" . AppState.selectedObject)
+    str newImageUrl := "https://picsum.photos/200"
+    ; Use SPACE separation for guicontrol options
+    guicontrol id:"Image1" value:newImageUrl
+  }
 subout
 ; --- Main GUI ---
 main
@@ -3053,7 +3048,7 @@ gui picture x10 y150 id:imageId value:initialImageUrl
 
 ```htvm
 Button0:
-    MsgBox("You clicked on " . A_Id)
+MsgBox("You clicked on " . A_Id)
 subout
 main
 ; Define CSS styles in variables
@@ -3068,10 +3063,10 @@ gui {
 }
 ; Add a button inside the panel with additional rawCss styles using the other style []
 gui [
-button
-parentId:panelId
-x20 y20 w150 h40
-id:buttonId value:buttonText rawCss:buttonStyles
+	button 
+    parentId:panelId
+    x20 y20 w150 h40
+    id:buttonId value:buttonText rawCss:buttonStyles
 ]
 
 ```
@@ -3097,28 +3092,28 @@ func  DecrementSlider() {
     Button0()
 }
 Button0:
-    if (editText != "") {
-        guiControl pid:"Gui1" i:"text0" d:editText
-        sliderValue := INT(editText)
-        editText := ""
-    }
-    else {
-        guiControl pid:"Gui1" i:"text0" d:sliderValue
-    }
+if (editText != "") {
+    guiControl pid:"Gui1" i:"text0" d:editText
+    sliderValue := INT(editText)
+    editText := ""
+}
+else {
+    guiControl pid:"Gui1" i:"text0" d:sliderValue
+}
 subout
 editText := INT(sliderValue)
 Edit0:
-    oldText := editText
-    if (Trim(A_Value) = "") {
-        guiControl pid:"Gui1" i:"sliderValueText" d:""
-    }
-    else if (A_Value >= 0) and (A_Value <= 100) {
-        editText := A_Value
-    }
-    else {
-        MsgBox, ONLY USE NUMBRERS BETTWEN 0-100
-        guiControl pid:"Gui1" i:"sliderValueText" d:oldText
-    }
+oldText := editText
+if (Trim(A_Value) = "") {
+    guiControl pid:"Gui1" i:"sliderValueText" d:""
+}
+else if (A_Value >= 0) and (A_Value <= 100) {
+    editText := A_Value
+}
+else {
+    MsgBox, ONLY USE NUMBRERS BETTWEN 0-100
+    guiControl pid:"Gui1" i:"sliderValueText" d:oldText
+}
 subout
 ; main func
 main
@@ -3219,43 +3214,43 @@ func void ResetBoard() {
 ; ==================================
 ; --- Handles clicks on any of the 9 grid buttons ---
 GridButtonClicked:
-    if (gameIsOver = true) {
-        return
-    }
-    clickedId := A_Id
-    str indexStr := SubStr(clickedId, 4)
-    index := INT(indexStr)
-    if (boardState[index] != " ") {
-        print("Cell already taken!")
-        return
-    }
-    boardState[index] := currentPlayer
-    ; We can also use a one-liner, no problem—but during a one-liner, we can't use {}, (), or [] since it's a single line.
-    guicontrol parentId:"mainContainer" id:clickedId value:currentPlayer isEnabled:false
-    if (CheckWin() = true) {
-        gameIsOver := true
-        gameStatus := "Player " . currentPlayer . " Wins!"
-        UpdateStatusDisplay()
-        return
-    }
-    if (CheckDraw() = true) {
-        gameIsOver := true
-        gameStatus := "It's a Draw!"
-        UpdateStatusDisplay()
-        return
-    }
-    if (currentPlayer = "X") {
-        currentPlayer := "O"
-    }
-    else {
-        currentPlayer := "X"
-    }
-    gameStatus := "Player " . currentPlayer . "'s Turn"
+if (gameIsOver = true) {
+    return
+}
+clickedId := A_Id
+str indexStr := SubStr(clickedId, 4)
+index := INT(indexStr)
+if (boardState[index] != " ") {
+    print("Cell already taken!")
+    return
+}
+boardState[index] := currentPlayer
+; We can also use a one-liner, no problem—but during a one-liner, we can't use {}, (), or [] since it's a single line.
+guicontrol parentId:"mainContainer" id:clickedId value:currentPlayer isEnabled:false
+if (CheckWin() = true) {
+    gameIsOver := true
+    gameStatus := "Player " . currentPlayer . " Wins!"
     UpdateStatusDisplay()
+    return
+}
+if (CheckDraw() = true) {
+    gameIsOver := true
+    gameStatus := "It's a Draw!"
+    UpdateStatusDisplay()
+    return
+}
+if (currentPlayer = "X") {
+    currentPlayer := "O"
+}
+else {
+    currentPlayer := "X"
+}
+gameStatus := "Player " . currentPlayer . "'s Turn"
+UpdateStatusDisplay()
 subout
 ; --- Handles clicks on the Restart button ---
 RestartGame:
-    ResetBoard()
+ResetBoard()
 subout
 ; ==================================
 ; Main GUI Setup
@@ -3453,13 +3448,13 @@ Write endpoint logic within labeled blocks ending with `subout`. Logic **must st
 ```htvm
 ; Example backend logic block
 processData:
-    ; Log to server console (optional)
-    print("Backend received: " . A_Input)
-    ; Leverage Python's string methods directly if needed
-    ; HTVM won't interfere with '.upper()' as it's not HTVM syntax
-    str processed := A_Input.upper()
-    str resultString := "Backend processed (uppercase): " . processed
-    return resultString
+; Log to server console (optional)
+print("Backend received: " . A_Input)
+; Leverage Python's string methods directly if needed
+; HTVM won't interfere with '.upper()' as it's not HTVM syntax
+str processed := A_Input.upper()
+str resultString := "Backend processed (uppercase): " . processed
+return resultString
 subout
 
 ```
@@ -3479,10 +3474,10 @@ In your **frontend** HTVM code (JavaScript GUI), use the `callBackend` function.
 ```htvm
 ; Example frontend callback (correct multi-line format)
 SubmitButton:
-    str dataToSend := "Info from GUI"
-    ; Send data to the '/processData' endpoint via POST
-    str responseFromServer := await callBackend("/processData", dataToSend)
-    await MsgBox("Backend replied: " . responseFromServer)
+str dataToSend := "Info from GUI"
+; Send data to the '/processData' endpoint via POST
+str responseFromServer := await callBackend("/processData", dataToSend)
+await MsgBox("Backend replied: " . responseFromServer)
 subout
 
 ```
@@ -3494,23 +3489,23 @@ subout
 ```htvm
 ; --- Backend Logic ---
 hello:
-    return "Backend received: [" . A_Input . "] - Response: Hello World!"
+  return "Backend received: [" . A_Input . "] - Response: Hello World!"
 subout
 process:
-    ; Using Python's .upper() method directly on the input string
-    return "Data processed by backend: " . A_Input.upper()
+  ; Using Python's .upper() method directly on the input string
+  return "Data processed by backend: " . A_Input.upper()
 subout
 ; --- Backend Setup (using commands with commas) ---
 ; Optional main label
 main
-; Route /hello -> label hello (POST default)
-endpoint, hello
-; Route /processData -> label process, explicitly POST
-endpoint, processData, process, POST
-; Serve frontend.js at /
-fileinit, frontend.js
-; Run on port 5678
-port, 5678
+  ; Route /hello -> label hello (POST default)
+  endpoint, hello
+  ; Route /processData -> label process, explicitly POST
+  endpoint, processData, process, POST
+  ; Serve frontend.js at /
+  fileinit, frontend.js
+  ; Run on port 5678
+  port, 5678
 
 ```
 
@@ -3525,22 +3520,22 @@ struct InputState {
 ; -----------------------
 ; Default for edit
 Edit0:
-    ; No 'global' needed for JS target
-    InputState.currentText := A_Value
+; No 'global' needed for JS target
+InputState.currentText := A_Value
 subout
 ; -----------------------
 ; Callback for first button
 ButtonHello:
-    str respHello := await callBackend("/hello", InputState.currentText)
-    ; Use SPACE separation for guicontrol
-    guicontrol id:"responseText" value:respHello
+str respHello := await callBackend("/hello", InputState.currentText)
+; Use SPACE separation for guicontrol
+guicontrol id:"responseText" value:respHello
 subout
 ; -----------------------
 ; Callback for second button
 ButtonProcess:
-    str respProcess := await callBackend("/processData", InputState.currentText)
-    ; Use SPACE separation for guicontrol
-    guicontrol id:"responseText" value:respProcess
+str respProcess := await callBackend("/processData", InputState.currentText)
+; Use SPACE separation for guicontrol
+guicontrol id:"responseText" value:respProcess
 subout
 ; -----------------------
 ; --- GUI Setup ---
@@ -3748,7 +3743,7 @@ That means you can't use them when converting to `Go` and `Lua`.
 The `catch` block syntax in HTVM is simple and flexible. You can write:
 
 ```htvm
-catch (e) {
+catch e {
     ; Handle the error
 }
 
@@ -3862,7 +3857,7 @@ Here’s how you can achieve this with Python:
 
 ```htvm
 func int add(int a, int b) {
-    return a + b
+    return a + b;
 }
 
 ```
