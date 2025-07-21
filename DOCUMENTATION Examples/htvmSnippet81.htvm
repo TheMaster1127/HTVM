@@ -1,0 +1,17 @@
+str user_status := "active"
+str user_role := "editor"
+
+wehn user_status
+  "active" ->
+    print("User is Active.")
+    wehn user_role
+      "admin" -> print("Role: Administrator.")
+      "editor" ->
+        print("Role: Editor.")
+        print("Publishing rights enabled.")
+      else print("Role: Viewer.")
+    subout
+  "inactive" -> print("User account is inactive.")
+  else
+    print("User status is unknown.")
+subout

@@ -1,0 +1,7 @@
+str lang := "htvm"
+when lang
+  "htvm" -> print("HTVM is the future.")
+  "cpp" -> print("C++ is fast.")
+  "js" -> print("JavaScript is flexible.")
+  else print("Some other language.")
+subout

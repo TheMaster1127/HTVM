@@ -1,0 +1,15 @@
+func int get_status_code() { 
+    return 404 
+}
+main
+when get_status_code()
+  200 -> print("OK")
+  404 -> print("Not Found")
+  500 -> print("Server Error")
+subout
+
+int x := 5
+int y := 5
+when x + y
+  10 -> print("The sum is 10.")
+subout

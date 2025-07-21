@@ -1,0 +1,17 @@
+str player_state := "attacking"
+bool has_special_attack := false
+
+when player_state
+  "idle" ->
+    print("Player is waiting.")
+  "walking" ->
+    print("Player is moving.")
+  "attacking" ->
+    print("Player is attacking!")
+    wehn
+      has_special_attack = true -> print("Unleashing a special move!")
+      else print("Using a standard attack.")
+    subout
+  else
+    print("Unknown player state.")
+subout

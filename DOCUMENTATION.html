@@ -235,34 +235,37 @@ Learn how to declare and use variables in HTVM for storing and manipulating data
 6. [Functions](#functions)  
 Explore how to define and use functions for modular and reusable code.
 
-7. [Arrays](#arrays)  
+7. [Pattern Matching](#pattern-matching)  
+HTVM provides a flexible and minimalist `when` block for pattern matching. It is designed to be highly intuitive, allowing you to write complex conditional logic with the least possible syntax and elegantly eliminating the verbosity of traditional `if-else` chains.
+
+8. [Arrays](#arrays)  
 Dive into working with arrays, one of the most essential data structures in HTVM.
 
-8. [Loops](#loops)  
+9. [Loops](#loops)  
 Master the looping structures available in HTVM, such as the standard loop and infinite loops.
 
-9. [Comments](#comments)  
+10. [Comments](#comments)  
 Add clarity to your code by using comments to document and explain your code.
 
-10. [GUI (Graphical User Interface with HTVM)](#gui-graphical-user-interface-with-htvm)  
+11. [GUI (Graphical User Interface with HTVM)](#gui-graphical-user-interface-with-htvm)  
 Learn how to the GUI feature in HTVM that allows for the creation of graphical user interfaces specifically for **web browsers (JavaScript)**.
 
-11. [Backend in HTVM](#backend-in-htvm)  
+12. [Backend in HTVM](#backend-in-htvm)  
 Learn how to use HTVM's Backend functionality that generates **Python** code using **Flask**.
 
-12. [Error Handling](#error-handling)  
+13. [Error Handling](#error-handling)  
 Understand how to manage errors and handle exceptions in HTVM to make your programs more robust.
 
-13. [Include](#include)  
+14. [Include](#include)  
 Discover how to include external files and resources in your HTVM project for enhanced functionality.
 
-14. [Commands](#commands)  
+15. [Commands](#commands)  
 Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency.
 
-15. [All Syntax](#all-syntax)  
+16. [All Syntax](#all-syntax)  
 This is all of your syntax.
 
-16. [Built-in Functions](#built-in-functions)  
+17. [Built-in Functions](#built-in-functions)  
 Explore the wide range of built-in functions categorized for ease of use.
 
 ---
@@ -1670,6 +1673,231 @@ This feature enhances HTVM's usability by providing developers with multiple way
 ---
 
 
+### Pattern Matching
+
+[Go back](#htvm-documentation)
+
+HTVM provides a flexible and minimalist **`when`** block for pattern matching. It is designed to be highly intuitive, allowing you to write complex conditional logic with the least possible syntax and elegantly eliminating the verbosity of traditional `if-else` chains.
+
+As a nod to developer convenience, HTVM includes a built-in alias: you can use **`wehn`** interchangeably with **`when`**, so a simple typo won't break your flow.
+
+### A First Look at `when`
+
+At a glance, the `when` block lets you handle different cases with unparalleled clarity. You can match against values, types, ranges, and lists all in one cohesive structure.
+
+```htvm
+int x := 15
+when x
+    5 -> print("The value is five.")
+    "start" -> print("Starting process...")
+    10..20 -> print("The value is between 10 and 20.")
+    "png", "jpeg", "gif" -> print("It's an image.")
+    else print("Unknown value.")
+subout
+
+```
+
+### The `->` Operator
+
+The `->` operator is a core part of the `when` syntax. It serves a simple and clear purpose: to separate a pattern from its action.
+
+Every pattern, from a single number to a complex expression, is followed by `->` to introduce the code that should run when the pattern matches. This creates a highly readable and consistent structure.
+
+**Example:**
+
+```htvm
+int x := 15
+when x
+    ; A single value pattern
+    5 -> print("Five")
+    ; A range pattern
+    20..30 -> print("Between 20 and 30")
+    ; A multi-value pattern
+    "jpg", "png" -> handle_image()
+    ; An expression-based pattern
+    x > 100 -> print("x is a large number.")
+    else print("Some other number.")
+subout
+
+```
+
+### Block Structures and `subout`
+
+For actions that require multiple lines of code, you can start a new code block on the line immediately following the `->`.
+
+The `subout` keyword is essential as it marks the end of the *entire* `when` or `wehn` structure, allowing for clear and predictable parsing, especially in nested scenarios.
+
+```htvm
+str user_role := "editor"
+wehn user_role
+    ; The -> introduces the action block
+    "admin" ->
+    print("Welcome, Admin.")
+    enable_admin_panel()
+    "content", "editor" ->
+    print("User has publishing rights.")
+    log_access_level()
+    ; The 'else' case never uses ->
+    else {
+        print("Standard user.")
+    }
+    ; Marks the end of this 'wehn' block
+subout
+
+```
+
+### A Showcase of Pattern Types and Examples
+
+Here is a comprehensive set of examples, starting with the basics and moving to more advanced use cases.
+
+#### 1. Basic Value Matching
+
+```htvm
+str lang := "htvm"
+when lang
+    "htvm" -> print("HTVM is the future.")
+    "cpp" -> print("C++ is fast.")
+    "js" -> print("JavaScript is flexible.")
+    else print("Some other language.")
+subout
+
+```
+
+#### 2. Range Matching
+
+```htvm
+int temperature := 25
+when temperature
+    -273..0 -> print("Freezing")
+    1..20 -> print("Cool")
+    21..35 -> print("Warm")
+    else print("Extreme temperature!")
+subout
+
+```
+
+#### 3. Expression-Based Matching (No Subject)
+
+A `when` block can be used without a subject variable. This makes it a clean alternative to `if-else if` chains. This form is most powerful when you need to evaluate conditions that involve **several different variables**.
+
+For example, identifying a starting sound in a word might depend on the first two letters. You cannot check both `firstLetter` and `secondLetter` on the same line using `when firstLetter`, so a subject-less `when` is ideal.
+
+```htvm
+str firstLetter := "c"
+str secondLetter := "h"
+when
+    ; Check for specific two-letter combinations
+    firstLetter = "s" and secondLetter = "h" -> print("Starts with the 'sh' sound.")
+    firstLetter = "c" and secondLetter = "h" -> print("Starts with the 'ch' sound.")
+    ; Check if the first letter is a vowel
+    firstLetter in "a", "e", "i", "o", "u" -> print("Starts with a vowel.")
+    else print("Starts with a consonant.")
+subout
+
+```
+
+#### 4. Matching with Function Calls or Expressions
+
+```htvm
+func int get_status_code() {
+    return 404
+}
+main
+when get_status_code()
+    200 -> print("OK")
+    404 -> print("Not Found")
+    500 -> print("Server Error")
+subout
+int x := 5
+int y := 5
+when x + y
+    10 -> print("The sum is 10.")
+subout
+
+```
+
+#### 5. Nested `when` Blocks
+
+HTVM fully supports nesting `when` and `wehn` blocks for deep conditional logic.
+
+```htvm
+str user_status := "active"
+str user_role := "editor"
+wehn user_status
+    "active" ->
+    print("User is Active.")
+    wehn user_role
+        "admin" -> print("Role: Administrator.")
+        "editor" ->
+        print("Role: Editor.")
+        print("Publishing rights enabled.")
+        else print("Role: Viewer.")
+    subout
+    "inactive" -> print("User account is inactive.")
+    else {
+        print("User status is unknown.")
+    }
+subout
+
+```
+
+#### 6. Input Validation Example
+
+```htvm
+int number := 0
+str userInput := "123"
+when
+    userInput = "" -> print("Error: Input cannot be empty.")
+    RegExMatch(userInput, "^\d+$") ->
+    number := INT(userInput)
+    print("Input is a valid number: " . number)
+    else {
+        print("Error: Input is not a valid number.")
+    }
+subout
+
+```
+
+#### 7. Game State Logic Example
+
+```htvm
+str player_state := "attacking"
+bool has_special_attack := false
+when player_state
+    "idle" ->
+    print("Player is waiting.")
+    "walking" ->
+    print("Player is moving.")
+    "attacking" ->
+    print("Player is attacking!")
+    wehn
+        has_special_attack = true -> print("Unleashing a special move!")
+        else print("Using a standard attack.")
+    subout
+    else {
+        print("Unknown player state.")
+    }
+subout
+
+```
+
+### Summary
+
+*   **Keywords:** Use `when` or its alias `wehn` to start a pattern-matching block.
+*   **The `->` Operator:** Separates a pattern from its action (e.g., `5 -> print("Five")`).
+*   **Blocks:** Use `subout` which is required to explicitly end the entire `when` structure. For multi-line actions, begin a code block on the line after `->`.
+*   **The `else` Branch:** This is an optional catch-all case that never uses the `->` operator. If omitted, and no other patterns match, execution simply continues after the `subout`.
+*   **Rich Patterns:** HTVM supports a wide variety of patterns, including single values, ranges (`..`), multi-value lists (`,`), expressions, and the results of function calls.
+
+### Notes and Best Practices
+
+*   **Readability is Key:** The consistent use of `->` gives `when` blocks a predictable structure, making code easier to read and maintain across projects.
+*   **Leverage the Optional `else`:** The fact that the `else` branch is not required is a powerful feature for writing concise code. Use it when you only need to act on a few specific cases and want to ignore all others.
+*   **Embrace Nesting:** Don't be afraid to nest `when` blocks. It is often much cleaner and more readable than deeply nested `if` statements or complex boolean logic.
+
+---
+
+
 ### Arrays
 
 [Go back](#htvm-documentation)
@@ -2527,9 +2755,9 @@ Add elements using `gui &lt;ElementType&gt; [Options...]`:
 
 ```htvm
 Button0:
-; and the ID of the button is automatically assigned to button0
-; for each element, it has a separate counter.
-await MsgBox("You pressed the " . A_Id)
+    ; and the ID of the button is automatically assigned to button0
+    ; for each element, it has a separate counter.
+    await MsgBox("You pressed the " . A_Id)
 subout
 ; main func
 main
@@ -2582,11 +2810,11 @@ Configure elements using **SPACE or COMMA-SEPARATED** options.
 str saveEdit := ""
 ; Edit0 callback
 Edit0:
-saveEdit := A_Value
+    saveEdit := A_Value
 subout
 ; Button0 callback
 Button0:
-guiControl p"Gui1" i"text0" dsaveEdit
+    guiControl p"Gui1" i"text0" dsaveEdit
 subout
 ; main func
 main
@@ -2617,14 +2845,14 @@ struct UserInput {
 }
 ; Callback for the edit field (default name Edit0)
 Edit0:
-; Store current value from A_Value into the struct property
-; NOTE: 'global' keyword is NOT needed here because the target is JavaScript
-UserInput.name := A_Value
+    ; Store current value from A_Value into the struct property
+    ; NOTE: 'global' keyword is NOT needed here because the target is JavaScript
+    UserInput.name := A_Value
 subout
 ; Callback for the button
 ShowNameButton:
-; Read the value from the struct property
-await MsgBox("Hello, " . UserInput.name . "!")
+    ; Read the value from the struct property
+    await MsgBox("Hello, " . UserInput.name . "!")
 subout
 main
 ; Prepare string variables for dimensions and text
@@ -2661,15 +2889,15 @@ struct FormData {
 }
 ; Callbacks
 Edit0:
-FormData.firstName := A_Value
+    FormData.firstName := A_Value
 subout
 Edit1:
-FormData.lastName := A_Value
+    FormData.lastName := A_Value
 subout
 ButtonOK:
-; Use the struct properties
-str greeting := "You entered " . FormData.firstName . " " . FormData.lastName . "."
-await MsgBox(greeting)
+    ; Use the struct properties
+    str greeting := "You entered " . FormData.firstName . " " . FormData.lastName . "."
+    await MsgBox(greeting)
 subout
 main
 ; Prepare string variables only where needed (e.g., for text with spaces)
@@ -2707,8 +2935,8 @@ gui button parentId:containerId x:"10px" y:"60px" width:"80%" height:"50px" valu
 ```htvm
 ; --- Callbacks ---
 ButtonClicked:
-; Use A_Id to identify which button was clicked
-await MsgBox("You clicked on button with ID: " . A_Id)
+    ; Use A_Id to identify which button was clicked
+    await MsgBox("You clicked on button with ID: " . A_Id)
 subout
 ; --- Main Setup ---
 main
@@ -2767,39 +2995,39 @@ struct AppState {
 }
 ; --- Callbacks ---
 ToggleCallback:
-AppState.toggleState := A_Value ? "On" : "Off"
-await MsgBox("Toggle is now " . AppState.toggleState)
+    AppState.toggleState := A_Value ? "On" : "Off"
+    await MsgBox("Toggle is now " . AppState.toggleState)
 subout
 ; ------------------
 ; Default Picture callback — not needed, but when you click on it, it will call this:
 ; (optional)
 Picture0:
-; If you use one MsgBox like this, there's no need to use 'await' — unless you're using two MsgBoxes.
-MsgBox, you clicked on the image
+    ; If you use one MsgBox like this, there's no need to use 'await' — unless you're using two MsgBoxes.
+    MsgBox, you clicked on the image
 subout
 ; ------------------
 DropdownCallback:
-if (A_Value = "Select a object") {
-    await MsgBox("Cannot select placeholder!")
-    AppState.errorInDropdown := true
-}
-else {
-    AppState.errorInDropdown := false
-    AppState.selectedObject := A_Value
-    await MsgBox("You selected: " . AppState.selectedObject)
-}
+    if (A_Value = "Select a object") {
+        await MsgBox("Cannot select placeholder!")
+        AppState.errorInDropdown := true
+    }
+    else {
+        AppState.errorInDropdown := false
+        AppState.selectedObject := A_Value
+        await MsgBox("You selected: " . AppState.selectedObject)
+    }
 subout
 ; ------------------
 SaveButtonCallback:
-if (AppState.errorInDropdown = true) {
-    await MsgBox("Select valid object first.")
-}
-else {
-    await MsgBox("Saving... Toggle:" . AppState.toggleState . ", Selection:" . AppState.selectedObject)
-    str newImageUrl := "https://picsum.photos/200"
-    ; Use SPACE separation for guicontrol options
-    guicontrol id:"Image1" value:newImageUrl
-}
+    if (AppState.errorInDropdown = true) {
+        await MsgBox("Select valid object first.")
+    }
+    else {
+        await MsgBox("Saving... Toggle:" . AppState.toggleState . ", Selection:" . AppState.selectedObject)
+        str newImageUrl := "https://picsum.photos/200"
+        ; Use SPACE separation for guicontrol options
+        guicontrol id:"Image1" value:newImageUrl
+    }
 subout
 ; --- Main GUI ---
 main
@@ -2825,7 +3053,7 @@ gui picture x10 y150 id:imageId value:initialImageUrl
 
 ```htvm
 Button0:
-MsgBox("You clicked on " . A_Id)
+    MsgBox("You clicked on " . A_Id)
 subout
 main
 ; Define CSS styles in variables
@@ -2869,28 +3097,28 @@ func  DecrementSlider() {
     Button0()
 }
 Button0:
-if (editText != "") {
-    guiControl pid:"Gui1" i:"text0" d:editText
-    sliderValue := INT(editText)
-    editText := ""
-}
-else {
-    guiControl pid:"Gui1" i:"text0" d:sliderValue
-}
+    if (editText != "") {
+        guiControl pid:"Gui1" i:"text0" d:editText
+        sliderValue := INT(editText)
+        editText := ""
+    }
+    else {
+        guiControl pid:"Gui1" i:"text0" d:sliderValue
+    }
 subout
 editText := INT(sliderValue)
 Edit0:
-oldText := editText
-if (Trim(A_Value) = "") {
-    guiControl pid:"Gui1" i:"sliderValueText" d:""
-}
-else if (A_Value >= 0) and (A_Value <= 100) {
-    editText := A_Value
-}
-else {
-    MsgBox, ONLY USE NUMBRERS BETTWEN 0-100
-    guiControl pid:"Gui1" i:"sliderValueText" d:oldText
-}
+    oldText := editText
+    if (Trim(A_Value) = "") {
+        guiControl pid:"Gui1" i:"sliderValueText" d:""
+    }
+    else if (A_Value >= 0) and (A_Value <= 100) {
+        editText := A_Value
+    }
+    else {
+        MsgBox, ONLY USE NUMBRERS BETTWEN 0-100
+        guiControl pid:"Gui1" i:"sliderValueText" d:oldText
+    }
 subout
 ; main func
 main
@@ -2991,43 +3219,43 @@ func void ResetBoard() {
 ; ==================================
 ; --- Handles clicks on any of the 9 grid buttons ---
 GridButtonClicked:
-if (gameIsOver = true) {
-    return
-}
-clickedId := A_Id
-str indexStr := SubStr(clickedId, 4)
-index := INT(indexStr)
-if (boardState[index] != " ") {
-    print("Cell already taken!")
-    return
-}
-boardState[index] := currentPlayer
-; We can also use a one-liner, no problem—but during a one-liner, we can't use {}, (), or [] since it's a single line.
-guicontrol parentId:"mainContainer" id:clickedId value:currentPlayer isEnabled:false
-if (CheckWin() = true) {
-    gameIsOver := true
-    gameStatus := "Player " . currentPlayer . " Wins!"
+    if (gameIsOver = true) {
+        return
+    }
+    clickedId := A_Id
+    str indexStr := SubStr(clickedId, 4)
+    index := INT(indexStr)
+    if (boardState[index] != " ") {
+        print("Cell already taken!")
+        return
+    }
+    boardState[index] := currentPlayer
+    ; We can also use a one-liner, no problem—but during a one-liner, we can't use {}, (), or [] since it's a single line.
+    guicontrol parentId:"mainContainer" id:clickedId value:currentPlayer isEnabled:false
+    if (CheckWin() = true) {
+        gameIsOver := true
+        gameStatus := "Player " . currentPlayer . " Wins!"
+        UpdateStatusDisplay()
+        return
+    }
+    if (CheckDraw() = true) {
+        gameIsOver := true
+        gameStatus := "It's a Draw!"
+        UpdateStatusDisplay()
+        return
+    }
+    if (currentPlayer = "X") {
+        currentPlayer := "O"
+    }
+    else {
+        currentPlayer := "X"
+    }
+    gameStatus := "Player " . currentPlayer . "'s Turn"
     UpdateStatusDisplay()
-    return
-}
-if (CheckDraw() = true) {
-    gameIsOver := true
-    gameStatus := "It's a Draw!"
-    UpdateStatusDisplay()
-    return
-}
-if (currentPlayer = "X") {
-    currentPlayer := "O"
-}
-else {
-    currentPlayer := "X"
-}
-gameStatus := "Player " . currentPlayer . "'s Turn"
-UpdateStatusDisplay()
 subout
 ; --- Handles clicks on the Restart button ---
 RestartGame:
-ResetBoard()
+    ResetBoard()
 subout
 ; ==================================
 ; Main GUI Setup
@@ -3225,13 +3453,13 @@ Write endpoint logic within labeled blocks ending with `subout`. Logic **must st
 ```htvm
 ; Example backend logic block
 processData:
-; Log to server console (optional)
-print("Backend received: " . A_Input)
-; Leverage Python's string methods directly if needed
-; HTVM won't interfere with '.upper()' as it's not HTVM syntax
-str processed := A_Input.upper()
-str resultString := "Backend processed (uppercase): " . processed
-return resultString
+    ; Log to server console (optional)
+    print("Backend received: " . A_Input)
+    ; Leverage Python's string methods directly if needed
+    ; HTVM won't interfere with '.upper()' as it's not HTVM syntax
+    str processed := A_Input.upper()
+    str resultString := "Backend processed (uppercase): " . processed
+    return resultString
 subout
 
 ```
@@ -3251,10 +3479,10 @@ In your **frontend** HTVM code (JavaScript GUI), use the `callBackend` function.
 ```htvm
 ; Example frontend callback (correct multi-line format)
 SubmitButton:
-str dataToSend := "Info from GUI"
-; Send data to the '/processData' endpoint via POST
-str responseFromServer := await callBackend("/processData", dataToSend)
-await MsgBox("Backend replied: " . responseFromServer)
+    str dataToSend := "Info from GUI"
+    ; Send data to the '/processData' endpoint via POST
+    str responseFromServer := await callBackend("/processData", dataToSend)
+    await MsgBox("Backend replied: " . responseFromServer)
 subout
 
 ```
@@ -3266,11 +3494,11 @@ subout
 ```htvm
 ; --- Backend Logic ---
 hello:
-return "Backend received: [" . A_Input . "] - Response: Hello World!"
+    return "Backend received: [" . A_Input . "] - Response: Hello World!"
 subout
 process:
-; Using Python's .upper() method directly on the input string
-return "Data processed by backend: " . A_Input.upper()
+    ; Using Python's .upper() method directly on the input string
+    return "Data processed by backend: " . A_Input.upper()
 subout
 ; --- Backend Setup (using commands with commas) ---
 ; Optional main label
@@ -3297,22 +3525,22 @@ struct InputState {
 ; -----------------------
 ; Default for edit
 Edit0:
-; No 'global' needed for JS target
-InputState.currentText := A_Value
+    ; No 'global' needed for JS target
+    InputState.currentText := A_Value
 subout
 ; -----------------------
 ; Callback for first button
 ButtonHello:
-str respHello := await callBackend("/hello", InputState.currentText)
-; Use SPACE separation for guicontrol
-guicontrol id:"responseText" value:respHello
+    str respHello := await callBackend("/hello", InputState.currentText)
+    ; Use SPACE separation for guicontrol
+    guicontrol id:"responseText" value:respHello
 subout
 ; -----------------------
 ; Callback for second button
 ButtonProcess:
-str respProcess := await callBackend("/processData", InputState.currentText)
-; Use SPACE separation for guicontrol
-guicontrol id:"responseText" value:respProcess
+    str respProcess := await callBackend("/processData", InputState.currentText)
+    ; Use SPACE separation for guicontrol
+    guicontrol id:"responseText" value:respProcess
 subout
 ; -----------------------
 ; --- GUI Setup ---
@@ -7192,7 +7420,7 @@ func  resetPos() {
 ; -------------------------------------
 ; Button0 click action
 Button0:
-MsgBox, HI
+    MsgBox, HI
 subout
 ; -------------------------------------
 ; GUI setup with player button
@@ -7359,22 +7587,22 @@ struct InputState {
 ; -----------------------
 ; Default for edit
 Edit0:
-; No 'global' needed for JS target
-InputState.currentText := A_Value
+    ; No 'global' needed for JS target
+    InputState.currentText := A_Value
 subout
 ; -----------------------
 ; Callback for first button
 ButtonHello:
-str respHello := await callBackend("/hello", InputState.currentText)
-; Use SPACE separation for guicontrol
-guicontrol id:"responseText" value:respHello
+    str respHello := await callBackend("/hello", InputState.currentText)
+    ; Use SPACE separation for guicontrol
+    guicontrol id:"responseText" value:respHello
 subout
 ; -----------------------
 ; Callback for second button
 ButtonProcess:
-str respProcess := await callBackend("/processData", InputState.currentText)
-; Use SPACE separation for guicontrol
-guicontrol id:"responseText" value:respProcess
+    str respProcess := await callBackend("/processData", InputState.currentText)
+    ; Use SPACE separation for guicontrol
+    guicontrol id:"responseText" value:respProcess
 subout
 ; -----------------------
 ; --- GUI Setup ---
@@ -8339,7 +8567,7 @@ var HTVMHighlightRules = function() {
             { token: "constant.numeric", regex: "\\b-?[0-9]+(?:\\.[0-9]+)?\\b" },
             { token: "command", regex: cleanAndBuildComma(builtInCommands_temp) + "|\\bendpoint(?=,)\\b|\\bfileinit(?=,)\\b|\\bport(?=,)\\b" },
             { token: "functions", regex: cleanAndBuild(allFunctionNamesString3) + "(?=\\()" },
-            { token: "keyword", regex: cleanAndBuild(htvmKeywords_temp) + "|\\bsubout\\b" },
+            { token: "keyword", regex: cleanAndBuild(htvmKeywords_temp) + "|\\bsubout\\b|\\bwhen\\b|\\bwehn\\b" },
             { token: "BuildInFunc", regex: cleanAndBuild(builtInVars_temp) },                    
             { token: "arrayMethods", regex: "\\." + cleanAndBuild(arrayMethods_temp) },
             { token: "static_types", regex: cleanAndBuild(staticTypes_temp) + "|" + "\\b(?:" + "[Gg][Uu][Ii]" + "|" + "[Gg][Uu][Ii][Cc][Oo][Nn][Tt][Rr][Oo][Ll]" + ")\\b" },

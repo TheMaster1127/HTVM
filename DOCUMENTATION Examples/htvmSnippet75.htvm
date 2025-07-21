@@ -1,0 +1,16 @@
+int x := 15
+when x
+  ; A single value pattern
+  5 -> print("Five")
+
+  ; A range pattern
+  20..30 -> print("Between 20 and 30")
+
+  ; A multi-value pattern
+  "jpg", "png" -> handle_image()
+
+  ; An expression-based pattern
+  x > 100 -> print("x is a large number.")
+
+  else print("Some other number.")
+subout

@@ -1,0 +1,17 @@
+str user_role := "editor"
+wehn user_role
+  ; The -> introduces the action block
+  "admin" ->
+    print("Welcome, Admin.")
+    enable_admin_panel()
+
+  "content", "editor" ->
+    print("User has publishing rights.")
+    log_access_level()
+
+  ; The 'else' case never uses ->
+  else 
+    print("Standard user.")
+    
+  ; Marks the end of this 'wehn' block
+subout

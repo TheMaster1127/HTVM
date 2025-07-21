@@ -1,0 +1,7 @@
+int temperature := 25
+when temperature
+  -273..0 -> print("Freezing")
+  1..20 -> print("Cool")
+  21..35 -> print("Warm")
+  else print("Extreme temperature!")
+subout

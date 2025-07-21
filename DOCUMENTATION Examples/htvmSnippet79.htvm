@@ -1,0 +1,10 @@
+str firstLetter := "c"
+str secondLetter := "h"
+when
+  ; Check for specific two-letter combinations
+  firstLetter = "s" and secondLetter = "h" -> print("Starts with the 'sh' sound.")
+  firstLetter = "c" and secondLetter = "h" -> print("Starts with the 'ch' sound.")
+  ; Check if the first letter is a vowel
+  firstLetter in "a", "e", "i", "o", "u" -> print("Starts with a vowel.")
+  else print("Starts with a consonant.")
+subout

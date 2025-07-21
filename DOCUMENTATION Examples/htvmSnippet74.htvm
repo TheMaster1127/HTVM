@@ -1,0 +1,8 @@
+int x := 15
+when x
+  5 -> print("The value is five.")
+  "start" -> print("Starting process...")
+  10..20 -> print("The value is between 10 and 20.")
+  "png", "jpeg", "gif" -> print("It's an image.")
+  else print("Unknown value.")
+subout
