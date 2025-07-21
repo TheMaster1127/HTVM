@@ -52,7 +52,7 @@
         
         htvmKeywordCompletions = parseHtvmInstructions(htvmInstructions);
 
-        const hardcodedHtvmWords = ["endpoint", "fileinit", "subout", "port", "gui", "A_Input", "A_Id", "A_Event", "A_Value", "elementId", "parentId", "divId", "xPos", "xCoord", "yPos", "yCoord", "width", "wight", "widh", "height", "hight", "heigth", "zIndex", "z-index", "value", "displayValue", "placeholder", "grayText", "callback", "func", "call", "backgroundColor", "bgColor", "color", "clr", "rounding", "round", "rnd", "border", "boder", "outline", "rawCss", "style", "luxury", "size", "isEnabled", "isEnb", "isVisible", "isVsb", "isDeleting", "remove", "button", "text", "edit", "picture", "toggle", "rectangle", "circle", "video", "dropdown", "iframe"];
+        const hardcodedHtvmWords = ["endpoint", "fileinit", "subout", "when", "port", "gui", "A_Input", "A_Id", "A_Event", "A_Value", "elementId", "parentId", "divId", "xPos", "xCoord", "yPos", "yCoord", "width", "wight", "widh", "height", "hight", "heigth", "zIndex", "z-index", "value", "displayValue", "placeholder", "grayText", "callback", "func", "call", "backgroundColor", "bgColor", "color", "clr", "rounding", "round", "rnd", "border", "boder", "outline", "rawCss", "style", "luxury", "size", "isEnabled", "isEnb", "isVisible", "isVsb", "isDeleting", "remove", "button", "text", "edit", "picture", "toggle", "rectangle", "circle", "video", "dropdown", "iframe"];
 
         hardcodedHtvmWords.forEach(word => {
             htvmKeywordCompletions.push({ caption: word, value: word, meta: "htvm" });

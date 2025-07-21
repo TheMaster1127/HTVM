@@ -12266,7 +12266,62 @@ return out
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+func str formatHTVMtoHTVMsubout_HELP(str theCode, int padding) {
+str out := ""
+Loop, % padding * 4 {
+out .= " "
+}
+
+return out . theCode
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+func str formatHTVMtoHTVMsubout(str theCode) {
+str out := ""
+int inside := 0
+Loop, Parse, theCode, `n, `r {
+
+
+
+if (Trim(A_LoopField) = "subout") {
+inside--
+}
+
+if (inside > 0) {
+out .= formatHTVMtoHTVMsubout_HELP(A_LoopField, inside) . Chr(10)
+}
+else {
+out .= A_LoopField . Chr(10)
+}
+if (RegExMatch(A_LoopField, "\bwhen\b")) or (RegExMatch(A_LoopField, "\bwehn\b")) or (RegExMatch(Trim(A_LoopField), "^\s*[a-zA-Z_][a-zA-Z0-9_]*:\s*$")) {
+inside++
+}
+
+
+}
+StringTrimRight, out, out, 1
+
+return out
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -25123,6 +25178,7 @@ htCode := FixDoubleInThe4langs(htCode)
 
 if (langToConvertTo = langFileExtension_2) {
 htCode := fixHTVMToHTVMMissingAfterAssignmentOperator(htCode)
+htCode := formatHTVMtoHTVMsubout(htCode)
 }
 
 

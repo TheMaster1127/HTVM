@@ -137,7 +137,7 @@
                         { token: "string", regex: "'.*?'" },
                         { token: "constant.numeric", regex: "\\b-?[0-9]+(?:\\.[0-9]+)?\\b" },
                         { token: "functions", regex: cleanAndBuild(allFunctionNamesString3) + "(?=\\()" },
-                        { token: "keyword", regex: cleanAndBuild(htvmKeywords_temp) + "|\\bsubout\\b" },
+                        { token: "keyword", regex: cleanAndBuild(htvmKeywords_temp) + "|\\bsubout\\b|\\bwhen\\b|\\bwehn\\b" },
                         { token: "BuildInFunc", regex: cleanAndBuild(builtInVars_temp) },
                         { token: "command", regex: cleanAndBuildComma(builtInCommands_temp) + "|\\bendpoint(?=,)\\b|\\bfileinit(?=,)\\b|\\bport(?=,)\\b" },
                         { token: "arrayMethods", regex: "\\." + cleanAndBuild(arrayMethods_temp) },
@@ -151,15 +151,13 @@
                 };
 
                 // Use an async IIFE to fetch the setting and add the rule.
-// Replace async IIFE with synchronous check:
-const highlightOperators = (typeof localStorage !== "undefined") 
-    ? localStorage.getItem('highlightSymbolOperators') !== "false"
-    : true;  // default true if no localStorage
-
-if (highlightOperators) {
-    this.$rules.start.push({ token: "operators", regex: final_symbol_operators });
-}
-
+                // This is a bit of a hack but necessary because the constructor is synchronous.
+                (async () => {
+                    const highlightOperators = await dbGet('highlightSymbolOperators');
+                    if (highlightOperators !== false) {
+                        this.$rules.start.push({ token: "operators", regex: final_symbol_operators });
+                    }
+                })();
             };
             oop.inherits(HTVMHighlightRules, TextHighlightRules);
             var Mode = function() { this.HighlightRules = HTVMHighlightRules; this.$behaviour = this.$defaultBehaviour; };
