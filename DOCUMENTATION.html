@@ -1845,10 +1845,10 @@ subout
 int number := 0
 str userInput := "123"
 when
-    userInput = "" -> print("Error: Input cannot be empty.")
+    Trim(userInput) = "" -> print("Error: Input cannot be empty.")
     RegExMatch(userInput, "^\d+$") ->
     number := INT(userInput)
-    print("Input is a valid number: " . number)
+    print("Input is a valid number: " . STR(number))
     else
     print("Error: Input is not a valid number.")
 subout
