@@ -12025,7 +12025,7 @@ if (SubStr(Trim(A_LoopField), 1, 5) = "when ") or (SubStr(Trim(A_LoopField), 1, 
 {
 inWhen++
 }
-if (Trim(A_LoopField) = "subout")
+if (Trim(A_LoopField) = "subout") and (inWhen != 0)
 {
 inWhen--
 }
@@ -12287,7 +12287,7 @@ whenStack.add("-=-NON-=-")
 firstUseIF := 1
 inWhen++
 }
-if (Trim(A_LoopField) = "subout")
+if (Trim(A_LoopField) = "subout") and (inWhen != 0)
 {
 inWhen--
 whenStack.pop()

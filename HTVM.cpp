@@ -9227,7 +9227,7 @@ std::string when_patternMatching_HELP_HTVMtoHTVM(std::string theCode) {
         if (SubStr(Trim(A_LoopField170), 1, 5) == "when " || SubStr(Trim(A_LoopField170), 1, 5) == "wehn " || Trim(A_LoopField170) == "when" || Trim(A_LoopField170) == "wehn") {
             inWhen++;
         }
-        if (Trim(A_LoopField170) == "subout") {
+        if (Trim(A_LoopField170) == "subout" && inWhen != 0) {
             inWhen--;
         }
     }
@@ -9440,7 +9440,7 @@ std::string when_patternMatching(std::string theCode) {
             firstUseIF = 1;
             inWhen++;
         }
-        if (Trim(A_LoopField171) == "subout") {
+        if (Trim(A_LoopField171) == "subout" && inWhen != 0) {
             inWhen--;
             HTVM_Pop(whenStack);
         }

@@ -8872,6 +8872,9 @@ function when_patternMatching_HELP_HTVMtoHTVM(theCode) {
     let items170 = LoopParseFunc(theCode, "\n", "\r");
     for (let A_Index170 = 0; A_Index170 < items170.length + 0; A_Index170++) {
         const A_LoopField170 = items170[A_Index170 - 0];
+        if (Trim(A_LoopField170) == "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2") {
+            inWhen = 0;
+        }
         if (inWhen > 0 && SubStr(Trim(A_LoopField170), 1, 5) != "when " && SubStr(Trim(A_LoopField170), 1, 5) != "wehn " && Trim(A_LoopField170) != "when" && Trim(A_LoopField170) != "wehn") {
             if (Trim(A_LoopField170) == Trim(keyWordElse)) {
                 out += StrReplace(A_LoopField170, Trim(keyWordElse), "HTVM-------else---HTVM--parartenet--manstccing--hdksfbsdWYOUWHOUDNEVERBEABALETOTYPEYHIS--FFfix") + Chr(10);
@@ -8884,7 +8887,7 @@ function when_patternMatching_HELP_HTVMtoHTVM(theCode) {
         if (SubStr(Trim(A_LoopField170), 1, 5) == "when " || SubStr(Trim(A_LoopField170), 1, 5) == "wehn " || Trim(A_LoopField170) == "when" || Trim(A_LoopField170) == "wehn") {
             inWhen++;
         }
-        if (Trim(A_LoopField170) == "subout") {
+        if (Trim(A_LoopField170) == "subout" && inWhen != 0) {
             inWhen--;
         }
     }
@@ -9097,7 +9100,7 @@ function when_patternMatching(theCode) {
             firstUseIF = 1;
             inWhen++;
         }
-        if (Trim(A_LoopField171) == "subout") {
+        if (Trim(A_LoopField171) == "subout" && inWhen != 0) {
             inWhen--;
             HTVM_Pop(whenStack);
         }
