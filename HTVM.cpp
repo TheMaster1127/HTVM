@@ -18611,6 +18611,9 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         htCode = StrReplace(htCode, "= [);", "= new ArrayList<>();");
         htCode = fixJAVAstrCmp_FjavaUGH(htCode);
     }
+    if (langToConvertTo == "dart") {
+        htCode = RegExReplace(htCode, "\\bGetParams()\\b", "GetParams(arguments)");
+    }
     if (langToConvertTo == "cpp" || langToConvertTo == "cs" || langToConvertTo == "java" || langToConvertTo == "kt") {
         htCode = RegExReplace(htCode, "(?<![A-Za-z0-9_])(-?\\d+\\.\\d+)(?![A-Za-z0-9_]|f)", "$1f");
         htCode = FixDoubleInThe4langs(htCode);

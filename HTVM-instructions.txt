@@ -2004,7 +2004,7 @@ func======================func==============
 lang: cpp
 name: GetParams
 libs: #include <iostream>|#include <vector>|#include <string>|#include <filesystem>
-description: io~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    str allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+description: io~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
 #ifdef _WIN32
     #define ARGC __argc
     #define ARGV __argv
@@ -2900,7 +2900,7 @@ func======================func==============
 lang: py
 name: GetParams
 libs: import os|import sys
-description: io~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    str allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+description: io~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
 def GetParams():
     # Check if any command line arguments are provided
     if len(sys.argv) < 2:
@@ -14083,4 +14083,260 @@ String RunCMD(String command) {
         return ""
     }
 }
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: GetParams
+libs: )|"os"|"path/filepath"|"strings"
+description: system~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+func GetParams() string {
+	var params []string
+	for _, arg := range os.Args[1:] {
+		if _, err := os.Stat(arg); err == nil {
+			absPath, _ := filepath.Abs(arg)
+			params = append(params, absPath)
+		} else {
+			params = append(params, arg)
+		}
+	}
+	return strings.Join(params, "\n")
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: GetParams
+libs: null
+description: system~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+function GetParams()
+    local params = {}
+    if arg then
+        for i = 1, #arg do
+            table.insert(params, arg[i])
+        end
+    end
+    return table.concat(params, "\n")
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: GetParams
+libs: using System;|using System.IO;|using System.Linq;
+description: system~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+public static string GetParams() {
+    return string.Join("\n", Environment.GetCommandLineArgs().Skip(1).Select(arg => {
+        if (File.Exists(arg) || Directory.Exists(arg)) {
+            return Path.GetFullPath(arg);
+        }
+        return arg;
+    }));
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: GetParams
+libs: import java.io.File;|import java.util.ArrayList;|import java.util.List;|import java.lang.ProcessHandle;|import java.util.Arrays;|import java.util.Collections;|import java.util.stream.Collectors;
+description: system~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+public static String GetParams() {
+    // Get the raw list of arguments from the OS.
+    List<String> rawArgs = ProcessHandle.current()
+        .info()
+        .arguments()
+        .map(Arrays::asList)
+        .orElse(Collections.emptyList());
+
+    // If there are no arguments at all, we are done.
+    if (rawArgs.isEmpty()) {
+        return "";
+    }
+
+    List<String> userArgs;
+    String firstArg = rawArgs.get(0);
+
+    // This is the universal adapter logic.
+    // Check if we are in the "Normal World" or your "Special World".
+    if (firstArg.endsWith("java") || firstArg.endsWith("java.exe")) {
+        // NORMAL WORLD: The first arg is the java executable. Skip it and the class name.
+        userArgs = rawArgs.stream().skip(2).collect(Collectors.toList());
+    } else {
+        // YOUR WORLD: The first arg is the class name. Just skip it.
+        userArgs = rawArgs.stream().skip(1).collect(Collectors.toList());
+    }
+
+    // The rest of your logic now works on the correctly parsed arguments.
+    List<String> resolvedParams = new ArrayList<>();
+    for (String arg : userArgs) {
+        File file = new File(arg);
+        if (file.exists()) {
+            resolvedParams.add(file.getAbsolutePath());
+        } else {
+            resolvedParams.add(arg);
+        }
+    }
+    return String.join("\n", resolvedParams);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: GetParams
+libs: import java.io.File|import java.lang.ProcessHandle|import java.util.Collections
+description: system~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+private var htvmArgs: Array<String> = emptyArray()
+fun setHtvmArgs(args: Array<String>) {
+    htvmArgs = args
+}
+
+fun GetParams(): String {
+    val rawArgs = ProcessHandle.current()
+        .info()
+        .arguments()
+        .map { it.toList() }
+        .orElse(Collections.emptyList())
+
+    // THE FINAL, BRUTALLY SIMPLE LOGIC
+    val userArgs = rawArgs.drop(1)
+
+    return userArgs.map { arg ->
+        val file = File(arg)
+        if (file.exists()) file.absolutePath else arg
+    }.joinToString("\n")
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: GetParams
+libs: null
+description: system~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+def GetParams
+  ARGV.map do |arg|
+    File.exist?(arg) || Dir.exist?(arg) ? File.absolute_path(arg) : arg
+  end.join("\n")
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: GetParams
+libs: import os, strutils
+description: system~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+proc GetParams(): string =
+  var params: seq[string]
+  for arg in commandLineParams():
+    if fileExists(arg) or dirExists(arg):
+      params.add(absolutePath(arg))
+    else:
+      params.add(arg)
+  return params.join("\n")
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: GetParams
+libs: null
+description: system~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+; --- Auto-Execute Section: This runs first! ---
+; We capture the command line arguments into a proper array, just like in C++/Java.
+global ARGS := []
+Loop, %0%
+{
+    param := %A_Index%
+    ARGS.Push(param)
+}
+; --- End of Initialization ---
+
+GetParams() {
+    result := ""
+    for index, arg in ARGS
+    {
+        IfExist, %arg%
+        {
+            Loop, %arg%, 1
+                result .= A_LoopFileFullPath . "`n"
+        }
+        else
+            result .= arg . "`n"
+    }
+    return RTrim(result, "`n")
+}
+
+
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: GetParams
+libs: import Foundation
+description: system~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+func GetParams() -> String {
+    let arguments = CommandLine.arguments.dropFirst().map { arg -> String in
+        if FileManager.default.fileExists(atPath: arg) {
+            return URL(fileURLWithPath: arg).path
+        }
+        return arg
+    }
+    return arguments.joined(separator: "\n")
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: GetParams
+libs: import 'dart:io';
+description: system~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+// This function now accepts the arguments list as a parameter.
+String GetParams(List<String> args) {
+  return args.map((arg) {
+    // Check for both files and directories robustly.
+    if (FileSystemEntity.isDirectorySync(arg) || FileSystemEntity.isFileSync(arg)) {
+      return File(arg).absolute.path;
+    }
+    return arg;
+  }).join('\n');
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: GetParams
+libs: import { existsSync } from 'fs';|import { resolve } from 'path';
+description: system~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+function GetParams(): string {
+    if (typeof process === 'undefined' || !process.argv) {
+        return ""; // Not in a Node.js environment
+    }
+    const args = process.argv.slice(2);
+    const processedArgs = args.map(arg => {
+        if (existsSync(arg)) {
+            return resolve(arg);
+        }
+        return arg;
+    });
+    return processedArgs.join('\n');
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: GetParams
+libs: import java.io.File|import groovy.transform.Field
+description: system~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
+// This annotation makes the variable visible to all functions in the script.
+@Field
+def htvmArgs = args
+
+// This function now reads from the script-level variable we set at the top.
+def GetParams() {
+    return htvmArgs.collect { arg ->
+        def file = new File(arg)
+        if (file.exists()) {
+            return file.getAbsolutePath()
+        }
+        return arg
+    }.join('\n')
+}
+
 funcEND======================funcEND==============

@@ -7094,12 +7094,13 @@ Here is how to use it:
 ; This function's output depends on how the script is executed with command-line arguments.
 ; For testing, you would run the compiled HTVM script like:
 ; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt
+str allParams := ""
 if (HTVM_getLang_HTVM() = "js") {
     print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")
 }
 else {
     print("Retrieving command line parameters...")
-    str allParams := GetParams()
+    allParams := GetParams()
     if (allParams = "") {
         print("No command line parameters were provided to the script, or function not fully supported in this context.")
     }
