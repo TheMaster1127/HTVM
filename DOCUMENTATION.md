@@ -6850,7 +6850,7 @@ else {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| GetParams | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | RunCMD | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | getDataFromAPI | Yes | Yes | Yes | Yes |Yes |No |Yes |Yes |Yes |Yes |Yes |No |No |No |Yes |
 | input | Yes | Yes | Yes | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
@@ -6866,7 +6866,7 @@ else {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| GetParams | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| GetParams | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).
 
