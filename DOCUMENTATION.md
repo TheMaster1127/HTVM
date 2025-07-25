@@ -6450,13 +6450,13 @@ print("Woke up after 500ms.")
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileAppend | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileAppend | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 | FileAppendJs | No | No | Yes | No |No |No |No |No |No |No |No |No |No |No |No |
-| FileCreateDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-| FileDelete | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-| FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-| FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
-| FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileCreateDir | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
+| FileDelete | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
+| FileExist | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
+| FileRead | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
+| FileRemoveDir | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 ---
 
@@ -6468,7 +6468,7 @@ print("Woke up after 500ms.")
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileAppend | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileAppend | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.
 
@@ -6553,7 +6553,7 @@ else {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileCreateDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileCreateDir | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.
 
@@ -6610,7 +6610,7 @@ else {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileDelete | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileDelete | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.
 
@@ -6662,7 +6662,7 @@ else {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileExist | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileExist | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.
 
@@ -6726,7 +6726,7 @@ else {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileRead | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileRead | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.
 
@@ -6776,7 +6776,7 @@ else {
 
 | Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |
 |-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|
-| FileRemoveDir | Yes | Yes | No | No |No |No |No |No |No |No |No |No |No |No |No |
+| FileRemoveDir | Yes | Yes | No | Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |Yes |
 
 Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.
 

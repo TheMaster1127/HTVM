@@ -14340,3 +14340,926 @@ def GetParams() {
 }
 
 funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: FileRead
+libs: )|"os"
+description: io~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
+func FileRead(path string) string {
+	content, err := os.ReadFile(path)
+	if err != nil {
+		return ""
+	}
+	return string(content)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: FileRead
+libs: null
+description: io~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
+function FileRead(path)
+    local file, err = io.open(path, "r")
+    if not file then
+        return ""
+    end
+    local content = file:read("*a")
+    file:close()
+    return content or ""
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: FileRead
+libs: using System.IO;
+description: io~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
+public static string FileRead(string path) {
+    try {
+        return File.ReadAllText(path);
+    } catch {
+        return "";
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: FileRead
+libs: import java.nio.file.Files;|import java.nio.file.Paths;
+description: io~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
+public static String FileRead(String path) {
+    try {
+        return Files.readString(Paths.get(path));
+    } catch (Exception e) {
+        return "";
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: FileRead
+libs: import java.io.File
+description: io~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
+fun FileRead(path: String): String {
+    return try {
+        File(path).readText()
+    } catch (e: Exception) {
+        ""
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: FileRead
+libs: null
+description: io~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
+def FileRead(path)
+  begin
+    File.read(path)
+  rescue
+    ""
+  end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: FileRead
+libs: null
+description: io~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
+proc FileRead(path: string): string =
+  try:
+    result = readFile(path)
+  except:
+    result = ""
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: FileRead
+libs: null
+description: io~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
+; built-in FileRead is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: FileRead
+libs: import Foundation
+description: io~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
+func FileRead(_ path: String) -> String {
+    do {
+        return try String(contentsOfFile: path, encoding: .utf8)
+    } catch {
+        return ""
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: FileRead
+libs: import 'dart:io';
+description: io~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
+String FileRead(String path) {
+  try {
+    return File(path).readAsStringSync();
+  } catch (e) {
+    return "";
+  }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: FileRead
+libs: import { readFileSync } from 'fs';
+description: io~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
+// This function is for Node.js environment only.
+function FileRead(path: string): string {
+    try {
+        return readFileSync(path, 'utf8');
+    } catch (error) {
+        return "";
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: FileRead
+libs: null
+description: io~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
+String FileRead(String path) {
+    try {
+        return new File(path).text
+    } catch (IOException e) {
+        return ""
+    }
+}
+funcEND======================funcEND==============
+
+
+
+
+func======================func==============
+lang: go
+name: FileExist
+libs: )|"os"
+description: io~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str existingFilePath := ""~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
+func FileExist(path string) bool {
+	_, err := os.Stat(path)
+	return !os.IsNotExist(err)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: FileExist
+libs: null
+description: io~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str existingFilePath := ""~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
+function FileExist(path)
+    local file = io.open(path, "r")
+    if file then
+        file:close()
+        return true
+    end
+    return false
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: FileExist
+libs: using System.IO;
+description: io~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str existingFilePath := ""~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
+public static bool FileExist(string path) {
+    return File.Exists(path) || Directory.Exists(path);
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: FileExist
+libs: import java.io.File;
+description: io~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str existingFilePath := ""~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
+public static boolean FileExist(String path) {
+    return new File(path).exists();
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: FileExist
+libs: import java.io.File
+description: io~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str existingFilePath := ""~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
+fun FileExist(path: String): Boolean {
+    return File(path).exists()
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: FileExist
+libs: null
+description: io~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str existingFilePath := ""~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
+def FileExist(path)
+  File.exist?(path) || Dir.exist?(path)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: FileExist
+libs: import os
+description: io~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str existingFilePath := ""~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
+proc FileExist(path: string): bool =
+  return fileExists(path) or dirExists(path)
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: FileExist
+libs: null
+description: io~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str existingFilePath := ""~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
+FileExist(path) {
+    return FileExist(path)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: FileExist
+libs: import Foundation
+description: io~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str existingFilePath := ""~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
+func FileExist(_ path: String) -> Bool {
+    return FileManager.default.fileExists(atPath: path)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: FileExist
+libs: import 'dart:io';
+description: io~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str existingFilePath := ""~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
+bool FileExist(String path) {
+  return FileSystemEntity.typeSync(path) != FileSystemEntityType.notFound;
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: FileExist
+libs: import { existsSync } from 'fs';
+description: io~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str existingFilePath := ""~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
+// This function is for Node.js environment only.
+function FileExist(path: string): boolean {
+    try {
+        return existsSync(path);
+    } catch (error) {
+        return false;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: FileExist
+libs: null
+description: io~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str existingFilePath := ""~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
+boolean FileExist(String path) {
+    return new File(path).exists()
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: FileDelete
+libs: )|"os"
+description: io~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
+func FileDelete(path string) bool {
+	err := os.Remove(path)
+	return err == nil
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: FileDelete
+libs: null
+description: io~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
+function FileDelete(path)
+    local success, err = os.remove(path)
+    return success or false
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: FileDelete
+libs: using System.IO;
+description: io~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
+public static bool FileDelete(string path) {
+    try {
+        if (!File.Exists(path)) return false;
+        File.Delete(path);
+        return true;
+    } catch {
+        return false;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: FileDelete
+libs: import java.io.File;
+description: io~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
+public static boolean FileDelete(String path) {
+    try {
+        return new File(path).delete();
+    } catch (Exception e) {
+        return false;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: FileDelete
+libs: import java.io.File
+description: io~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
+fun FileDelete(path: String): Boolean {
+    return try {
+        File(path).delete()
+    } catch (e: Exception) {
+        false
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: FileDelete
+libs: null
+description: io~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
+def FileDelete(path)
+  begin
+    File.delete(path) > 0
+  rescue
+    false
+  end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: FileDelete
+libs: import os
+description: io~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
+proc FileDelete(path: string): bool =
+  try:
+    removeFile(path)
+    return true
+  except:
+    return false
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: FileDelete
+libs: null
+description: io~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
+; built-in FileDelete is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: FileDelete
+libs: import Foundation
+description: io~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
+func FileDelete(_ path: String) -> Bool {
+    do {
+        try FileManager.default.removeItem(atPath: path)
+        return true
+    } catch {
+        return false
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: FileDelete
+libs: import 'dart:io';
+description: io~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
+bool FileDelete(String path) {
+  try {
+    final file = File(path);
+    if (file.existsSync()) {
+      file.deleteSync();
+      return true;
+    }
+    return false;
+  } catch (e) {
+    return false;
+  }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: FileDelete
+libs: import { unlinkSync, existsSync } from 'fs';
+description: io~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
+function FileDelete(path: string): boolean {
+    try {
+        if (existsSync(path)) {
+            unlinkSync(path);
+            return true;
+        }
+        return false;
+    } catch (error) {
+        return false;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: FileDelete
+libs: null
+description: io~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
+boolean FileDelete(String path) {
+    try {
+        def file = new File(path)
+        if (file.exists() && file.isFile()) {
+            return file.delete()
+        }
+        return false
+    } catch (Exception e) {
+        return false
+    }
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: FileCreateDir
+libs: )|"os"
+description: io~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
+func FileCreateDir(path string) {
+	os.MkdirAll(path, os.ModePerm)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: FileCreateDir
+libs: null
+description: io~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
+-- Requires a library like lfs
+function FileCreateDir(path)
+    lfs.mkdir(path)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: FileCreateDir
+libs: using System.IO;
+description: io~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
+public static void FileCreateDir(string path) {
+    try {
+        Directory.CreateDirectory(path);
+    } catch {}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: FileCreateDir
+libs: import java.io.File;
+description: io~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
+public static void FileCreateDir(String path) {
+    try {
+        new File(path).mkdirs();
+    } catch (Exception e) {}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: FileCreateDir
+libs: import java.io.File
+description: io~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
+fun FileCreateDir(path: String) {
+    try {
+        File(path).mkdirs()
+    } catch (e: Exception) {}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: FileCreateDir
+libs: require 'fileutils'
+description: io~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
+def FileCreateDir(path)
+  FileUtils.mkdir_p(path)
+rescue
+  # Silently fail
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: FileCreateDir
+libs: import os
+description: io~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
+proc FileCreateDir(path: string) =
+  createDir(path)
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: FileCreateDir
+libs: null
+description: io~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
+; built-in FileCreateDir is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: FileCreateDir
+libs: import Foundation
+description: io~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
+func FileCreateDir(_ path: String) {
+    do {
+        try FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+    } catch {}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: FileCreateDir
+libs: import 'dart:io';
+description: io~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
+void FileCreateDir(String path) {
+  try {
+    Directory(path).createSync(recursive: true);
+  } catch (e) {}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: FileCreateDir
+libs: import { mkdirSync } from 'fs';
+description: io~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
+function FileCreateDir(path: string): void {
+    try {
+        mkdirSync(path, { recursive: true });
+    } catch (error) {}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: FileCreateDir
+libs: null
+description: io~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
+void FileCreateDir(String path) {
+    try {
+        new File(path).mkdirs()
+    } catch (Exception e) {}
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: FileRemoveDir
+libs: )|"os"
+description: io~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
+func FileRemoveDir(path string) {
+	os.RemoveAll(path)
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: FileRemoveDir
+libs: null
+description: io~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
+-- Requires a library like lfs. This is not recursive.
+function FileRemoveDir(path)
+    lfs.rmdir(path)
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: FileRemoveDir
+libs: using System.IO;
+description: io~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
+public static void FileRemoveDir(string path) {
+    try {
+        if (Directory.Exists(path)) {
+            Directory.Delete(path, true);
+        }
+    } catch {}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: FileRemoveDir
+libs: import java.io.File;|import java.nio.file.Files;|import java.nio.file.Path;|import java.nio.file.Paths;|import java.util.Comparator;
+description: io~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
+public static void FileRemoveDir(String path) {
+    try {
+        Path rootPath = Paths.get(path);
+        if (Files.exists(rootPath)) {
+            Files.walk(rootPath)
+                .sorted(Comparator.reverseOrder())
+                .map(Path::toFile)
+                .forEach(File::delete);
+        }
+    } catch (Exception e) {}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: FileRemoveDir
+libs: import java.io.File
+description: io~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
+fun FileRemoveDir(path: String) {
+    try {
+        File(path).deleteRecursively()
+    } catch (e: Exception) {}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: FileRemoveDir
+libs: require 'fileutils'
+description: io~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
+def FileRemoveDir(path)
+  FileUtils.rm_rf(path) if Dir.exist?(path)
+rescue
+  # Silently fail
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: FileRemoveDir
+libs: import os
+description: io~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
+proc FileRemoveDir(path: string) =
+  try:
+    if dirExists(path):
+      for kind, subpath in walkDir(path):
+        let fullPath = path / subpath
+        if dirExists(fullPath):
+          FileRemoveDir(fullPath) # Recursive call
+        else:
+          removeFile(fullPath)
+      removeDir(path)
+  except:
+    discard
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: FileRemoveDir
+libs: null
+description: io~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
+FileRemoveDir(path) {
+    FileRemoveDir, %path%, 1 ; 1 = recurse
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: FileRemoveDir
+libs: import Foundation
+description: io~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
+func FileRemoveDir(_ path: String) {
+    do {
+        try FileManager.default.removeItem(atPath: path)
+    } catch {}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: FileRemoveDir
+libs: import 'dart:io';
+description: io~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
+void FileRemoveDir(String path) {
+  try {
+    final dir = Directory(path);
+    if (dir.existsSync()) {
+      dir.deleteSync(recursive: true);
+    }
+  } catch (e) {}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: FileRemoveDir
+libs: import { rmSync } from 'fs';
+description: io~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
+function FileRemoveDir(path: string): void {
+    try {
+        rmSync(path, { recursive: true, force: true });
+    } catch (error) {}
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: FileRemoveDir
+libs: null
+description: io~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
+void FileRemoveDir(String path) {
+    try {
+        def dir = new File(path)
+        if (dir.exists() && dir.isDirectory()) {
+            dir.deleteDir()
+        }
+    } catch (Exception e) {}
+}
+funcEND======================funcEND==============
+
+
+
+
+
+
+
+
+
+
+func======================func==============
+lang: go
+name: FileAppend
+libs: )|"os"
+description: io~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
+func FileAppend(content, path string) bool {
+	f, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		return false
+	}
+	defer f.Close()
+	if _, err := f.WriteString(content); err != nil {
+		return false
+	}
+	return true
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: lua
+name: FileAppend
+libs: null
+description: io~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
+function FileAppend(content, path)
+    local file, err = io.open(path, "a")
+    if not file then
+        return false
+    end
+    file:write(content)
+    file:close()
+    return true
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: cs
+name: FileAppend
+libs: using System.IO;
+description: io~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
+public static bool FileAppend(string content, string path) {
+    try {
+        File.AppendAllText(path, content);
+        return true;
+    } catch {
+        return false;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: java
+name: FileAppend
+libs: import java.nio.file.Files;|import java.nio.file.Paths;|import java.nio.file.StandardOpenOption;
+description: io~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
+public static boolean FileAppend(String content, String path) {
+    try {
+        Files.write(Paths.get(path), content.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        return true;
+    } catch (Exception e) {
+        return false;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: kt
+name: FileAppend
+libs: import java.io.File
+description: io~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
+fun FileAppend(content: String, path: String): Boolean {
+    return try {
+        File(path).appendText(content)
+        true
+    } catch (e: Exception) {
+        false
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: rb
+name: FileAppend
+libs: null
+description: io~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
+def FileAppend(content, path)
+  begin
+    File.open(path, 'a') { |file| file.write(content) }
+    return true
+  rescue
+    return false
+  end
+end
+funcEND======================funcEND==============
+func======================func==============
+lang: nim
+name: FileAppend
+libs: null
+description: io~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
+proc FileAppend(content: string, path: string): bool =
+  var f: File
+  if open(f, path, fmAppend):
+    try:
+      f.write(content)
+      return true
+    finally:
+      f.close()
+  return false
+funcEND======================funcEND==============
+func======================func==============
+lang: ahk
+name: FileAppend
+libs: null
+description: io~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
+; built-in FileAppend is used
+funcEND======================funcEND==============
+func======================func==============
+lang: swift
+name: FileAppend
+libs: import Foundation
+description: io~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
+func FileAppend(_ content: String, to path: String) -> Bool {
+    guard let data = content.data(using: .utf8) else { return false }
+    if let fileHandle = try? FileHandle(forWritingTo: URL(fileURLWithPath: path)) {
+        defer { fileHandle.closeFile() }
+        fileHandle.seekToEndOfFile()
+        fileHandle.write(data)
+        return true
+    } else {
+        return (try? data.write(to: URL(fileURLWithPath: path))) != nil
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: dart
+name: FileAppend
+libs: import 'dart:io';
+description: io~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
+bool FileAppend(String content, String path) {
+  try {
+    final file = File(path);
+    file.writeAsStringSync(content, mode: FileMode.append);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: ts
+name: FileAppend
+libs: import { appendFileSync } from 'fs';
+description: io~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
+// This function is for Node.js environment only.
+function FileAppend(content: string, path: string): boolean {
+    try {
+        appendFileSync(path, content, 'utf8');
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+funcEND======================funcEND==============
+func======================func==============
+lang: groovy
+name: FileAppend
+libs: null
+description: io~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
+boolean FileAppend(String content, String path) {
+    try {
+        new File(path).append(content)
+        return true
+    } catch (IOException e) {
+        return false
+    }
+}
+funcEND======================funcEND==============
