@@ -18612,7 +18612,12 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         htCode = fixJAVAstrCmp_FjavaUGH(htCode);
     }
     if (langToConvertTo == "dart") {
-        htCode = RegExReplace(htCode, "\\bGetParams()\\b", "GetParams(arguments)");
+        htCode = RegExReplace(htCode, "\\bGetParams()", "GetParams(arguments)");
+        htCode = StrReplace(htCode, "GetParams(arguments)()", "GetParams(arguments)");
+    }
+    if (langToConvertTo == "kt") {
+        htCode = RegExReplace(htCode, "\\bGetParams()", "GetParams(args)");
+        htCode = StrReplace(htCode, "GetParams(args)()", "GetParams(args)");
     }
     if (langToConvertTo == "cpp" || langToConvertTo == "cs" || langToConvertTo == "java" || langToConvertTo == "kt") {
         htCode = RegExReplace(htCode, "(?<![A-Za-z0-9_])(-?\\d+\\.\\d+)(?![A-Za-z0-9_]|f)", "$1f");
@@ -19031,6 +19036,10 @@ std::string compiler(std::string htCode, std::string allInstructionFile, std::st
         if (langToConvertTo == "ahk") {
             htCode = RegExReplace(htCode, "\\bStrSplit\\b", "AHK_StrSplit_AHK");
             htCode = RegExReplace(htCode, "\\bSleep\\b", "AHK_Sleep_AHK");
+            htCode = RegExReplace(htCode, "\\bFileRead\\b", "AHK_FileRead_AHK");
+            htCode = RegExReplace(htCode, "\\bFileExist\\b", "AHK_FileExist_AHK");
+            htCode = RegExReplace(htCode, "\\bFileDelete\\b", "AHK_FileDelete_AHK");
+            htCode = RegExReplace(htCode, "\\bFileAppend\\b", "AHK_FileAppend_AHK");
         }
         if (langToConvertTo == "cpp") {
             htCode = htCode + Chr(10) + "    return 0;" + Chr(10) + "}";

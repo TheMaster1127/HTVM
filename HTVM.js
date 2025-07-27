@@ -18272,7 +18272,12 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         htCode = fixJAVAstrCmp_FjavaUGH(htCode);
     }
     if (langToConvertTo == "dart") {
-        htCode = RegExReplace(htCode, "\\bGetParams()\\b", "GetParams(arguments)");
+        htCode = RegExReplace(htCode, "\\bGetParams()", "GetParams(arguments)");
+        htCode = StrReplace(htCode, "GetParams(arguments)()", "GetParams(arguments)");
+    }
+    if (langToConvertTo == "kt") {
+        htCode = RegExReplace(htCode, "\\bGetParams()", "GetParams(args)");
+        htCode = StrReplace(htCode, "GetParams(args)()", "GetParams(args)");
     }
     if (langToConvertTo == "cpp" || langToConvertTo == "cs" || langToConvertTo == "java" || langToConvertTo == "kt") {
         htCode = RegExReplace(htCode, "(?<![A-Za-z0-9_])(-?\\d+\\.\\d+)(?![A-Za-z0-9_]|f)", "$1f");

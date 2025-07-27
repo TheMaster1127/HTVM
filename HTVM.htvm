@@ -25233,7 +25233,14 @@ htCode := fixJAVAstrCmp_FjavaUGH(htCode)
 
 if (langToConvertTo = "dart")
 {
-htCode := RegExReplace(htCode, "\bGetParams()\b", "GetParams(arguments)")
+htCode := RegExReplace(htCode, "\bGetParams()", "GetParams(arguments)")
+htCode := StrReplace(htCode, "GetParams(arguments)()", "GetParams(arguments)")
+}
+
+if (langToConvertTo = "kt")
+{
+htCode := RegExReplace(htCode, "\bGetParams()", "GetParams(args)")
+htCode := StrReplace(htCode, "GetParams(args)()", "GetParams(args)")
 }
 
 if (langToConvertTo = "cpp") or (langToConvertTo = "cs") or (langToConvertTo = "java") or (langToConvertTo = "kt") {
