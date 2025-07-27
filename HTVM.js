@@ -18691,6 +18691,10 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         if (langToConvertTo == "ahk") {
             htCode = RegExReplace(htCode, "\\bStrSplit\\b", "AHK_StrSplit_AHK");
             htCode = RegExReplace(htCode, "\\bSleep\\b", "AHK_Sleep_AHK");
+            htCode = RegExReplace(htCode, "\\bFileRead\\b", "AHK_FileRead_AHK");
+            htCode = RegExReplace(htCode, "\\bFileExist\\b", "AHK_FileExist_AHK");
+            htCode = RegExReplace(htCode, "\\bFileDelete\\b", "AHK_FileDelete_AHK");
+            htCode = RegExReplace(htCode, "\\bFileAppend\\b", "AHK_FileAppend_AHK");
         }
         if (langToConvertTo == "cpp") {
             htCode = htCode + Chr(10) + "    return 0;" + Chr(10) + "}";
