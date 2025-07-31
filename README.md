@@ -1026,7 +1026,7 @@ Some might argue, "But IDEs have autocomplete!" HTVM has autocomplete too, via i
 **2. Absolute Customization: Programming Your Way:**
 Standard languages force you into their predefined structure. HTVM believes **the language should adapt to the programmer, not the other way around**. This is the "Linux vs Windows" principle applied to coding:
 *   *Standard Languages (like Windows):* Offer a fixed experience. You learn *their* rules, *their* keywords, *their* structure.
-*   *HTVM (like Linux):* Gives you the keys to the kingdom. You define the rules, keywords, operators, and structure that best fit **your mental model and workflow**. Don't like curly braces? Use Pythonic indentation or Lua/Ruby style with the `end` keyword **which is also customizable**. Find `true`/`false` too long? Use `T`/`F` or `on`/`off`. It's about building an environment where you feel most productive and comfortable.
+*   *HTVM (like Linux):* Gives you the keys to the kingdom. You define the rules, keywords, operators, and structure that best fit **your mental model and workflow**. Don't like curly braces? Use Lua/Ruby style with the `end` keyword **which is also customizable**. Find `true`/`false` too long? Use `T`/`F` or `on`/`off`. It's about building an environment where you feel most productive and comfortable.
 
 **3. Accessibility First:**
 The rigidity of standard syntax can be a significant barrier. Long, complex, or easily misspelled keywords (`finally` or `continue`) can be particularly challenging for individuals with dyslexia, ADHD, or even just everyday typos. HTVM's customization is a powerful accessibility tool. By allowing **any keyword to be changed to something shorter, simpler, or personally memorable**, HTVM dramatically lowers the barrier, making coding more attainable and less frustrating for everyone. (Even the creator sometimes misspells `continue`!).
@@ -1068,10 +1068,9 @@ You can **customize the block delimiters**, which define the start and end of co
 
 You have the ability to choose between multiple **indentation styles**:
 
-- **Pythonic indentation style**: This removes the need for block delimiters like curly braces, relying on indentation to define code blocks.
 - **Lua indentation style**: Uses the customizable `end` keyword to close code blocks.
 
-Both styles are fully customizable, and you can define your own keyword for closing blocks (such as `end`, or any other word).
+The `end` keyword is fully customizable. You can use `end` or any other word.
 
 ### Toggleable Semicolons
 
