@@ -34,35 +34,10 @@ function STR(value) {
     }
 }
 
-// Convert value to integer
-function INT(value) {
-    const intValue = parseInt(value, 10);
-    if (Number.isNaN(intValue)) {
-        console.warn(`Invalid input: ${value} cannot be converted to an integer.`);
-        return 0;  // Or any other default value
-    }
-    return intValue;
-}
-
-// Convert value to float
-function FLOAT(value) {
-    const floatValue = parseFloat(value);
-    if (isNaN(floatValue)) {
-        throw new TypeError("Cannot convert to float");
-    }
-    return floatValue;
-}
-
 // Function to find the position of needle in haystack (string overload)
 function InStr(haystack, needle) {
     const pos = haystack.indexOf(needle);
     return (pos !== -1) ? pos + 1 : 0;
-}
-
-// Function to simulate input() in JavaScript
-function input(promptText) {
-    // Display the prompt and get user input
-    return prompt(promptText);
 }
 
 function StrLen(s) {
@@ -73,14 +48,6 @@ function StrLen(s) {
 function Chr(number) {
     // Return the character corresponding to the Unicode code point, or an empty string if out of range
     return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
-}
-
-function Exp(value) {
-    return Math.exp(value);
-}
-
-function Log(value) {
-    return Math.log10(value);
 }
 
 function SubStr(str, startPos, length = -1) {
@@ -11428,7 +11395,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     if (SubStr(Trim(A_LoopField206), 1, StrLen(Trim(keyWordComment))) == Trim(keyWordComment) && isLineAconstruct(Trim(A_LoopField206)) == false) {
                         fixSomeCurlyBraceForExratFlexability += A_LoopField206 + Chr(10);
                     } else {
-                        if (InStr(A_LoopField206, Trim(keyWordArrayDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField206, Trim(keyWordArrayOfIntegersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField206, Trim(keyWordArrayOfStringsDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField206, Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField206, Trim(keyWordArrayOfBooleansDefinition) + " " + keyWordAssign + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
+                        if (InStr(A_LoopField206, Trim(keyWordArrayDefinition) + " ") || InStr(A_LoopField206, Trim(keyWordArrayOfIntegersDefinition) + " ") || InStr(A_LoopField206, Trim(keyWordArrayOfStringsDefinition) + " ") || InStr(A_LoopField206, Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " ") || InStr(A_LoopField206, Trim(keyWordArrayOfBooleansDefinition) + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
                             fixSomeCurlyBraceForExratFlexability += A_LoopField206 + Chr(10);
                         } else {
                             str1 = StrReplace(A_LoopField206, keyWordCurlyBraceOpen, "{");
@@ -11638,7 +11605,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             let items219 = LoopParseFunc(code, "\n", "\r");
             for (let A_Index219 = 0; A_Index219 < items219.length + 0; A_Index219++) {
                 const A_LoopField219 = items219[A_Index219 - 0];
-                if (InStr(A_LoopField219, Trim(keyWordArrayDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField219, Trim(keyWordArrayOfIntegersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField219, Trim(keyWordArrayOfStringsDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField219, Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " " + keyWordAssign + " ") || InStr(A_LoopField219, Trim(keyWordArrayOfBooleansDefinition) + " " + keyWordAssign + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
+                if (InStr(A_LoopField219, Trim(keyWordArrayDefinition) + " ") || InStr(A_LoopField219, Trim(keyWordArrayOfIntegersDefinition) + " ") || InStr(A_LoopField219, Trim(keyWordArrayOfStringsDefinition) + " ") || InStr(A_LoopField219, Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " ") || InStr(A_LoopField219, Trim(keyWordArrayOfBooleansDefinition) + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
                     if (SubStr(StrLower(A_LoopField219), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc) || SubStr(StrLower(A_LoopField219), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc)) {
                         if (InStr(Trim(A_LoopField219), "{") && Trim(A_LoopField219) != "{" && SubStr(Trim(A_LoopField219), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) {
                             outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField219), "{", "")) + Chr(10) + "{" + Chr(10);
@@ -19213,8 +19180,4 @@ function HTVMv2() {
         //print("JS")
     }
 }
-async function main() {
-    HTVMv2();
-
-}
-main();
+HTVMv2();

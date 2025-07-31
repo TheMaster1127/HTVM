@@ -15123,7 +15123,7 @@ else
 {
 
 
-if (InStr(A_LoopField, Trim(keyWordArrayDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfIntegersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfStringsDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfBooleansDefinition) . " " . keyWordAssign . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
+if (InStr(A_LoopField, Trim(keyWordArrayDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfIntegersDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfStringsDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfBooleansDefinition) . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
 {
 fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
 }
@@ -15410,7 +15410,7 @@ outCodeFixBraces := ""
 Loop, Parse, code, `n, `r
 {
 
-if (InStr(A_LoopField, Trim(keyWordArrayDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfIntegersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfStringsDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " " . keyWordAssign . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfBooleansDefinition) . " " . keyWordAssign . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
+if (InStr(A_LoopField, Trim(keyWordArrayDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfIntegersDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfStringsDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfBooleansDefinition) . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
 {
 
 if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc)) or (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAsync) . StrLower(keyWordFunc))) = StrLower(keyWordAsync) . StrLower(keyWordFunc))
