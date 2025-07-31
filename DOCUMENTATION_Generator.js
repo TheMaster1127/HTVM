@@ -34,53 +34,15 @@ function STR(value) {
     }
 }
 
-// Convert value to integer
-function INT(value) {
-    const intValue = parseInt(value, 10);
-    if (Number.isNaN(intValue)) {
-        console.warn(`Invalid input: ${value} cannot be converted to an integer.`);
-        return 0;  // Or any other default value
-    }
-    return intValue;
-}
-
-// Convert value to float
-function FLOAT(value) {
-    const floatValue = parseFloat(value);
-    if (isNaN(floatValue)) {
-        throw new TypeError("Cannot convert to float");
-    }
-    return floatValue;
-}
-
 // Function to find the position of needle in haystack (string overload)
 function InStr(haystack, needle) {
     const pos = haystack.indexOf(needle);
     return (pos !== -1) ? pos + 1 : 0;
 }
 
-// Function to generate a random integer between min and max (inclusive)
-function Random(min, max) {
-    // Generate and return a random number within the specified range
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function Sleep(milliseconds) {
-    // Sleep for the specified number of milliseconds
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
-
 function Chr(number) {
     // Return the character corresponding to the Unicode code point, or an empty string if out of range
     return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
-}
-
-function Exp(value) {
-    return Math.exp(value);
-}
-
-function Log(value) {
-    return Math.log10(value);
 }
 
 function SubStr(str, startPos, length = -1) {
@@ -112,10 +74,6 @@ function StrReplace(originalString, find, replaceWith) {
     return originalString.split(find).join(replaceWith);
 }
 
-function StringTrimLeft(input, numChars) {
-    return (numChars <= input.length) ? input.substring(numChars) : input;
-}
-
 function StringTrimRight(input, numChars) {
     return (numChars <= input.length) ? input.substring(0, input.length - numChars) : input;
 }
@@ -127,182 +85,6 @@ function StrLower(string) {
 function StrSplit(inputStr, delimiter, num) {
     const parts = inputStr.split(delimiter);
     return (num > 0 && num <= parts.length) ? parts[num - 1] : "";
-}
-
-function Mod(dividend, divisor) {
-    return dividend % divisor;
-}
-
-function Sort(varName, options = "") {
-    let delimiter = '\n'; // Default delimiter
-    let delimiterIndex = options.indexOf('D');
-    if (delimiterIndex !== -1) {
-        let delimiterChar = options[delimiterIndex + 1];
-        delimiter = delimiterChar === '' ? ',' : delimiterChar;
-    }
-    let items = varName.split(new RegExp(delimiter === ',' ? ',' : '\\' + delimiter));
-    // Remove empty items and trim whitespace
-    items = items.filter(item => item.trim() !== '');
-    // Apply sorting based on options
-    if (options.includes('N')) {
-        // Numeric sort
-        items.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
-    } else if (options.includes('Random')) {
-        // Random sort
-        for (let i = items.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [items[i], items[j]] = [items[j], items[i]];
-        }
-    } else {
-        // Default alphabetical sort
-        items.sort((a, b) => {
-            const keyA = options.includes('C') ? a : a.toLowerCase();
-            const keyB = options.includes('C') ? b : b.toLowerCase();
-            if (keyA < keyB) return -1;
-            if (keyA > keyB) return 1;
-            return 0;
-        });
-    }
-    // Reverse if 'R' option is present
-    if (options.includes('R')) {
-        items.reverse();
-    }
-    // Remove duplicates if 'U' option is present
-    if (options.includes('U')) {
-        const seen = new Map();
-        items = items.filter(item => {
-            const key = options.includes('C') ? item : item.toLowerCase();
-            if (!seen.has(key)) {
-                seen.set(key, item);
-                return true;
-            }
-            return false;
-        });
-    }
-    // Join the sorted items back into a string
-    const sortedVar = items.join(delimiter === ',' ? ',' : '\n');
-    return sortedVar;
-}
-
-function MsgBox(text, title = " ", value = 0, timeout = null) {
-    return new Promise((resolve) => {
-        // Define default options for the message box
-        let defaultOptions = {
-            title: title || " ", // Default title is empty
-            text: text || "Press OK to continue.", // Default text if not provided
-            showCancelButton: false, // Default is to not show Cancel button
-            showDenyButton: false, // Default is to not show Deny button
-            confirmButtonText: "OK", // Default text for OK button
-            focusConfirm: true, // Default focus on OK button
-        };
-        let numOriginal = value;
-        let num = numOriginal;
-        let done1 = 0;
-        let done2 = 0;
-        let done3 = 0;
-        let AIndex = 0;
-        for (AIndex = 1; AIndex <= 1; AIndex++) {
-            // Handle special case for value adjustments
-            if (num >= 262144) {
-                num = num - 262144;
-                numOriginal = numOriginal - 262144;
-            }
-            if (num >= 256 && num < 500) {
-                num = num - 256;
-                done3 = 256;
-            }
-            if (num >= 512) {
-                num = num - 512;
-                done3 = 512;
-            }
-            if (num == 0) {
-                done1 = 0;
-                break;
-            }
-            if (num <= 6) {
-                done1 = num;
-                break;
-            }
-            if (num >= 64 && num < 64 * 2) {
-                done2 = 64;
-                if (num == 64) {
-                    done1 = 0;
-                    break;
-                } else {
-                    done1 = num - 64;
-                    break;
-                }
-            }
-            if (num >= 48 && num < 63) {
-                done2 = 48;
-                if (num == 48) {
-                    done1 = 0;
-                    break;
-                } else {
-                    done1 = num - 48;
-                    break;
-                }
-            }
-            if (num >= 32 && num < 47) {
-                done2 = 32;
-                if (num == 32) {
-                    done1 = 0;
-                    break;
-                } else {
-                    done1 = num - 32;
-                    break;
-                }
-            }
-            if (num >= 16 && num < 30) {
-                done2 = 16;
-                if (num == 16) {
-                    done1 = 0;
-                    break;
-                } else {
-                    done1 = num - 16;
-                    break;
-                }
-            }
-        }
-        let doneAdded = done1 + done2 + done3;
-        if (doneAdded !== numOriginal) {
-            // displayMessage("The calc was wrong!");
-        } else {
-            // displayMessage("num was: " + numOriginal + "\ndone1: " + done1 + "\ndone2: " + done2 + "\ndone3: " + done3);
-        }
-        // Parse the value to determine the options for the message box
-        if (done1 === 1) defaultOptions.showCancelButton = true;
-        if (done1 === 3) {
-            defaultOptions.showCancelButton = true;
-            defaultOptions.showDenyButton = true;
-        }
-        if (done1 === 4) {
-            defaultOptions.showDenyButton = true;
-        }
-        if (done1 === 5) {
-            defaultOptions.showCancelButton = true;
-        }
-        if (done2 === 16) defaultOptions.icon = "error";
-        if (done2 === 32) defaultOptions.icon = "question";
-        if (done2 === 48) defaultOptions.icon = "warning";
-        if (done2 === 64) defaultOptions.icon = "info";
-        if (done3 === 256) defaultOptions.focusDeny = true;
-        if (done3 === 512) defaultOptions.focusCancel = true;
-        // Set timeout if provided
-        if (timeout) {
-            defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds
-        }
-        // Display the message box with the constructed options
-        Swal.fire(defaultOptions).then((result) => {
-            if (result.isConfirmed) {
-                resolve("OK");
-            } else if (result.isDenied) {
-                resolve("No");
-            } else {
-                resolve("Cancel");
-            }
-        });
-    });
 }
 
 // Function to sort and remove duplicates
@@ -2339,158 +2121,220 @@ async function genDocs(mode) {
     var doc_keyWordFinally = "";
     var doc_keyWordInclude = "";
     var allCommandsDoc = "";
-    let items10 = LoopParseFunc(instructionFileData, "\n", "\r");
+    var FIXFIX_allInstructionFile = "";
+    let FIXFIX_allInstructionFile_ARR = [];
+    var FIXFIX_allInstructionFile_HELP_INT = 0;
+    var FIXFIX_allInstructionFile_HELP_done = 0;
+    let items10 = LoopParseFunc(instructionFileData);
     for (let A_Index10 = 0; A_Index10 < items10.length + 0; A_Index10++) {
         const A_LoopField10 = items10[A_Index10 - 0];
-        if (A_Index10 == 2) {
-            allCommandsDoc = makeCommandsText(Trim(A_LoopField10));
+        HTVM_Append(FIXFIX_allInstructionFile_ARR, A_LoopField10);
+    }
+    let items11 = LoopParseFunc(instructionFileData);
+    for (let A_Index11 = 0; A_Index11 < items11.length + 0; A_Index11++) {
+        const A_LoopField11 = items11[A_Index11 - 0];
+        if (A_LoopField11 == Chr(10)) {
+            FIXFIX_allInstructionFile_HELP_INT++;
         }
-        if (A_Index10 == 9) {
-            doc_keyWordInclude = Trim(A_LoopField10);
+        if (FIXFIX_allInstructionFile_HELP_INT >= 161) {
+            FIXFIX_allInstructionFile_HELP_done = 1;
         }
-        if (A_Index10 == 44) {
-            htvmOpenPrgBlock = Trim(A_LoopField10);
+        if (FIXFIX_allInstructionFile_HELP_done == 1) {
+            FIXFIX_allInstructionFile += A_LoopField11;
+        } else {
+            if (FIXFIX_allInstructionFile_ARR[A_Index11 + 1] == Chr(10) && A_LoopField11 == Chr(10)) {
+                FIXFIX_allInstructionFile += Chr(10) + "off";
+            } else {
+                FIXFIX_allInstructionFile += A_LoopField11;
+            }
         }
-        if (A_Index10 == 45) {
-            htvmClosePrgBlock = Trim(A_LoopField10);
+    }
+    instructionFileData = FIXFIX_allInstructionFile;
+    var panic_FIXFIX_allInstructionFile = 0;
+    let items12 = LoopParseFunc(instructionFileData, "\n", "\r");
+    for (let A_Index12 = 0; A_Index12 < items12.length + 0; A_Index12++) {
+        const A_LoopField12 = items12[A_Index12 - 0];
+        if (A_Index12 == 161 && Trim(A_LoopField12) != "on" && Trim(A_LoopField12) != "off") {
+            panic_FIXFIX_allInstructionFile = 1;
         }
-        if (A_Index10 == 79) {
-            doc_keyWordErrorMsg = Trim(A_LoopField10);
+    }
+    let items13 = LoopParseFunc(instructionFileData, "\n", "\r");
+    for (let A_Index13 = 0; A_Index13 < items13.length + 0; A_Index13++) {
+        const A_LoopField13 = items13[A_Index13 - 0];
+        if (A_Index13 == 2) {
+            allCommandsDoc = makeCommandsText(Trim(A_LoopField13));
         }
-        if (A_Index10 == 80) {
-            doc_keyWordTry = Trim(A_LoopField10);
+        if (A_Index13 == 9) {
+            doc_keyWordInclude = Trim(A_LoopField13);
         }
-        if (A_Index10 == 81) {
-            doc_keyWordCatch = Trim(A_LoopField10);
+        if (A_Index13 == 44) {
+            htvmOpenPrgBlock = Trim(A_LoopField13);
         }
-        if (A_Index10 == 82) {
-            doc_keyWordFinally = Trim(A_LoopField10);
+        if (A_Index13 == 45) {
+            htvmClosePrgBlock = Trim(A_LoopField13);
         }
-        if (A_Index10 == 75) {
-            doc_funcKeyWord = Trim(A_LoopField10);
+        if (A_Index13 == 79) {
+            doc_keyWordErrorMsg = Trim(A_LoopField13);
         }
-        if (A_Index10 == 100) {
-            doc_keyWordComment = Trim(A_LoopField10);
+        if (A_Index13 == 80) {
+            doc_keyWordTry = Trim(A_LoopField13);
         }
-        if (A_Index10 == 101) {
-            doc_keyWordCommentOpenMultiLine = Trim(A_LoopField10);
+        if (A_Index13 == 81) {
+            doc_keyWordCatch = Trim(A_LoopField13);
         }
-        if (A_Index10 == 102) {
-            doc_keyWordCommentCloseMultiLine = Trim(A_LoopField10);
+        if (A_Index13 == 82) {
+            doc_keyWordFinally = Trim(A_LoopField13);
         }
-        if (A_Index10 == 69) {
-            doc_keyWordWhileLoop = Trim(A_LoopField10);
+        if (A_Index13 == 75) {
+            doc_funcKeyWord = Trim(A_LoopField13);
         }
-        if (A_Index10 == 70) {
-            doc_keyWordLoopInfinite = Trim(A_LoopField10);
+        if (A_Index13 == 100) {
+            doc_keyWordComment = Trim(A_LoopField13);
         }
-        if (A_Index10 == 71) {
-            doc_keyWordLoop = Trim(A_LoopField10);
+        if (A_Index13 == 101) {
+            doc_keyWordCommentOpenMultiLine = Trim(A_LoopField13);
         }
-        if (A_Index10 == 72) {
-            doc_keyWordLoopParse = Trim(A_LoopField10);
+        if (A_Index13 == 102) {
+            doc_keyWordCommentCloseMultiLine = Trim(A_LoopField13);
         }
-        if (A_Index10 == 73) {
-            doc_keyWordContinue = Trim(A_LoopField10);
+        if (A_Index13 == 69) {
+            doc_keyWordWhileLoop = Trim(A_LoopField13);
         }
-        if (A_Index10 == 74) {
-            doc_keyWordBreak = Trim(A_LoopField10);
+        if (A_Index13 == 70) {
+            doc_keyWordLoopInfinite = Trim(A_LoopField13);
         }
-        if (A_Index10 == 147) {
-            doc_keyWordAIndex = Trim(A_LoopField10);
+        if (A_Index13 == 71) {
+            doc_keyWordLoop = Trim(A_LoopField13);
         }
-        if (A_Index10 == 148) {
-            doc_keyWordALoopField = Trim(A_LoopField10);
+        if (A_Index13 == 72) {
+            doc_keyWordLoopParse = Trim(A_LoopField13);
+        }
+        if (A_Index13 == 73) {
+            doc_keyWordContinue = Trim(A_LoopField13);
+        }
+        if (A_Index13 == 74) {
+            doc_keyWordBreak = Trim(A_LoopField13);
+        }
+        if (A_Index13 == 147) {
+            doc_keyWordAIndex = Trim(A_LoopField13);
+        }
+        if (A_Index13 == 148) {
+            doc_keyWordALoopField = Trim(A_LoopField13);
         }
         //;;;;;;;;;;;;;;;;;;;;;;;;;
-        if (A_Index10 == 84) {
-            doc_keyWordArrayAppend = Trim(A_LoopField10);
+        if (A_Index13 == 84) {
+            doc_keyWordArrayAppend = Trim(A_LoopField13);
         }
-        if (A_Index10 == 85) {
-            doc_keyWordArrayPop = Trim(A_LoopField10);
+        if (A_Index13 == 85) {
+            doc_keyWordArrayPop = Trim(A_LoopField13);
         }
-        if (A_Index10 == 86) {
-            doc_keyWordArraySize = Trim(A_LoopField10);
+        if (A_Index13 == 86) {
+            doc_keyWordArraySize = Trim(A_LoopField13);
         }
-        if (A_Index10 == 87) {
-            doc_keyWordArrayInsert = Trim(A_LoopField10);
+        if (A_Index13 == 87) {
+            doc_keyWordArrayInsert = Trim(A_LoopField13);
         }
-        if (A_Index10 == 88) {
-            doc_keyWordArrayRemove = Trim(A_LoopField10);
+        if (A_Index13 == 88) {
+            doc_keyWordArrayRemove = Trim(A_LoopField13);
         }
-        if (A_Index10 == 89) {
-            doc_keyWordArrayIndexOf = Trim(A_LoopField10);
+        if (A_Index13 == 89) {
+            doc_keyWordArrayIndexOf = Trim(A_LoopField13);
         }
-        if (A_Index10 == 90) {
-            doc_keyWordArrayDefinition = Trim(A_LoopField10);
+        if (A_Index13 == 90) {
+            doc_keyWordArrayDefinition = Trim(A_LoopField13);
         }
-        if (A_Index10 == 91) {
-            doc_keyWordArrayOfIntegersDefinition = Trim(A_LoopField10);
+        if (A_Index13 == 91) {
+            doc_keyWordArrayOfIntegersDefinition = Trim(A_LoopField13);
         }
-        if (A_Index10 == 92) {
-            doc_keyWordArrayOfStringsDefinition = Trim(A_LoopField10);
+        if (A_Index13 == 92) {
+            doc_keyWordArrayOfStringsDefinition = Trim(A_LoopField13);
         }
-        if (A_Index10 == 93) {
-            doc_keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField10);
+        if (A_Index13 == 93) {
+            doc_keyWordArrayOfFloatingPointNumbersDefinition = Trim(A_LoopField13);
         }
-        if (A_Index10 == 94) {
-            doc_keyWordArrayOfBooleansDefinition = Trim(A_LoopField10);
+        if (A_Index13 == 94) {
+            doc_keyWordArrayOfBooleansDefinition = Trim(A_LoopField13);
         }
         //;;;;;;;;;;;;;;;;;;;;;;;;
-        if (A_Index10 == 149) {
-            on_useCurlyBraces = Trim(A_LoopField10);
+        if (A_Index13 == 149) {
+            on_useCurlyBraces = Trim(A_LoopField13);
         }
-        if (A_Index10 == 150) {
-            on_useEnd = Trim(A_LoopField10);
+        if (A_Index13 == 150) {
+            on_useEnd = Trim(A_LoopField13);
         }
-        if (A_Index10 == 151) {
-            on_useSemicolon = Trim(A_LoopField10);
+        if (A_Index13 == 151) {
+            on_useSemicolon = Trim(A_LoopField13);
         }
-        if (A_Index10 == 152) {
-            on_useParentheses = Trim(A_LoopField10);
+        if (A_Index13 == 152) {
+            on_useParentheses = Trim(A_LoopField13);
         }
-        if (A_Index10 == 153) {
-            on_usePrefixTypeForTypeDefinition = Trim(A_LoopField10);
+        if (A_Index13 == 153) {
+            on_usePrefixTypeForTypeDefinition = Trim(A_LoopField13);
         }
-        if (A_Index10 == 154) {
-            on_usePostfixTypeForTypeDefinition = Trim(A_LoopField10);
+        if (A_Index13 == 154) {
+            on_usePostfixTypeForTypeDefinition = Trim(A_LoopField13);
         }
-        if (A_Index10 == 155) {
-            on_usePythonicColonSyntax = Trim(A_LoopField10);
+        if (panic_FIXFIX_allInstructionFile == 1) {
+            if (A_Index13 == 155) {
+                on_usePythonicColonSyntax = Trim(A_LoopField13);
+            }
+            if (A_Index13 == 155) {
+                on_useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField13);
+            }
+            if (A_Index13 == 156) {
+                on_useInJavaScriptAlwaysUseVar = Trim(A_LoopField13);
+            }
+            if (A_Index13 == 157) {
+                on_useJavaScriptInAfullHTMLfile = Trim(A_LoopField13);
+            }
+            if (A_Index13 == 158) {
+                on_useJavaScriptAmainFuncDef = Trim(A_LoopField13);
+            }
+            if (A_Index13 == 159) {
+                on_useJavaScriptAllFuncsAreAsync = Trim(A_LoopField13);
+            }
+            if (A_Index13 == 161) {
+                on_useJavaScriptAlwaysTripleEqual = Trim(A_LoopField13);
+            }
+        } else {
+            if (A_Index13 == 155) {
+                on_usePythonicColonSyntax = Trim(A_LoopField13);
+            }
+            if (A_Index13 == 156) {
+                on_useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField13);
+            }
+            if (A_Index13 == 157) {
+                on_useInJavaScriptAlwaysUseVar = Trim(A_LoopField13);
+            }
+            if (A_Index13 == 158) {
+                on_useJavaScriptInAfullHTMLfile = Trim(A_LoopField13);
+            }
+            if (A_Index13 == 159) {
+                on_useJavaScriptAmainFuncDef = Trim(A_LoopField13);
+            }
+            if (A_Index13 == 160) {
+                on_useJavaScriptAllFuncsAreAsync = Trim(A_LoopField13);
+            }
+            if (A_Index13 == 161) {
+                on_useJavaScriptAlwaysTripleEqual = Trim(A_LoopField13);
+            }
         }
-        if (A_Index10 == 156) {
-            on_useCurlyBracesSyntaxForArrayDef = Trim(A_LoopField10);
-        }
-        if (A_Index10 == 157) {
-            on_useInJavaScriptAlwaysUseVar = Trim(A_LoopField10);
-        }
-        if (A_Index10 == 158) {
-            on_useJavaScriptInAfullHTMLfile = Trim(A_LoopField10);
-        }
-        if (A_Index10 == 159) {
-            on_useJavaScriptAmainFuncDef = Trim(A_LoopField10);
-        }
-        if (A_Index10 == 160) {
-            on_useJavaScriptAllFuncsAreAsync = Trim(A_LoopField10);
-        }
-        if (A_Index10 == 161) {
-            on_useJavaScriptAlwaysTripleEqual = Trim(A_LoopField10);
-        }
-        if (Trim(A_LoopField10) == "funcEND======================funcEND==============") {
+        on_usePythonicColonSyntax = "off";
+        if (Trim(A_LoopField13) == "funcEND======================funcEND==============") {
             inFunc = 0;
         }
         if (inFunc == 1) {
-            if (SubStr(Trim(A_LoopField10), 1, 6) == "lang: ") {
-                HTVM_Append(funcData_lang, Trim(A_LoopField10));
+            if (SubStr(Trim(A_LoopField13), 1, 6) == "lang: ") {
+                HTVM_Append(funcData_lang, Trim(A_LoopField13));
             }
-            else if (SubStr(Trim(A_LoopField10), 1, 6) == "name: ") {
-                HTVM_Append(funcData_name, Trim(A_LoopField10));
+            else if (SubStr(Trim(A_LoopField13), 1, 6) == "name: ") {
+                HTVM_Append(funcData_name, Trim(A_LoopField13));
             }
-            else if (SubStr(Trim(A_LoopField10), 1, 13) == "description: ") {
-                HTVM_Append(funcData_desc, Trim(A_LoopField10));
+            else if (SubStr(Trim(A_LoopField13), 1, 13) == "description: ") {
+                HTVM_Append(funcData_desc, Trim(A_LoopField13));
             }
         }
-        if (Trim(A_LoopField10) == "func======================func==============") {
+        if (Trim(A_LoopField13) == "func======================func==============") {
             inFunc = 1;
         }
     }
@@ -2499,10 +2343,10 @@ async function genDocs(mode) {
     var theFuncThatExistsIsCalled = "";
     if (DOCS_checkIfFuncNameExists == 1) {
         var exitedLoopCheckIfFuncNameExists = 0;
-        for (let A_Index11 = 0; A_Index11 < HTVM_Size(allFuncNames) + 0; A_Index11++) {
-            print(allFuncNames[A_Index11]);
-            if (StrLower(DOCS_param2) == StrLower(Trim(StrSplit(allFuncNames[A_Index11], ":", 2)))) {
-                theFuncThatExistsIsCalled = Trim(StrSplit(allFuncNames[A_Index11], ":", 2));
+        for (let A_Index14 = 0; A_Index14 < HTVM_Size(allFuncNames) + 0; A_Index14++) {
+            print(allFuncNames[A_Index14]);
+            if (StrLower(DOCS_param2) == StrLower(Trim(StrSplit(allFuncNames[A_Index14], ":", 2)))) {
+                theFuncThatExistsIsCalled = Trim(StrSplit(allFuncNames[A_Index14], ":", 2));
                 exitedLoopCheckIfFuncNameExists = 1;
                 break;
             }
@@ -2519,17 +2363,17 @@ async function genDocs(mode) {
     var allFuncNamesTemp = "";
     var tempDesc = "";
     var tempLang = "";
-    for (let A_Index12 = 0; A_Index12 < HTVM_Size(funcData_name) + 0; A_Index12++) {
+    for (let A_Index15 = 0; A_Index15 < HTVM_Size(funcData_name) + 0; A_Index15++) {
         //print(funcData_name[A_Index])
-        allFuncNamesTemp = funcData_name[A_Index12];
-        tempLang = funcData_lang[A_Index12];
-        tempDesc = funcData_desc[A_Index12];
-        for (let A_Index13 = 0; A_Index13 < HTVM_Size(allFuncNames) + 0; A_Index13++) {
-            if (Trim(allFuncNamesTemp) == Trim(StrSplit(allFuncNames[A_Index13], "|", 1))) {
-                if (countChars(allFuncNames[A_Index13], "|") == 0) {
-                    allFuncNames[A_Index13] = allFuncNames[A_Index13] + "|" + Trim(tempDesc) + "|" + Trim(tempLang);
+        allFuncNamesTemp = funcData_name[A_Index15];
+        tempLang = funcData_lang[A_Index15];
+        tempDesc = funcData_desc[A_Index15];
+        for (let A_Index16 = 0; A_Index16 < HTVM_Size(allFuncNames) + 0; A_Index16++) {
+            if (Trim(allFuncNamesTemp) == Trim(StrSplit(allFuncNames[A_Index16], "|", 1))) {
+                if (countChars(allFuncNames[A_Index16], "|") == 0) {
+                    allFuncNames[A_Index16] = allFuncNames[A_Index16] + "|" + Trim(tempDesc) + "|" + Trim(tempLang);
                 } else {
-                    allFuncNames[A_Index13] = allFuncNames[A_Index13] + "|" + Trim(tempLang);
+                    allFuncNames[A_Index16] = allFuncNames[A_Index16] + "|" + Trim(tempLang);
                 }
             }
         }
@@ -2553,9 +2397,9 @@ async function genDocs(mode) {
     var isLangGroovy = "";
     var allFuncsTempAdd = "";
     var isDescNull = 0;
-    for (let A_Index14 = 0; A_Index14 < HTVM_Size(allFuncNames) + 0; A_Index14++) {
+    for (let A_Index17 = 0; A_Index17 < HTVM_Size(allFuncNames) + 0; A_Index17++) {
         //print(allFuncNames[A_Index])
-        tempstr = Trim(allFuncNames[A_Index14]);
+        tempstr = Trim(allFuncNames[A_Index17]);
         isDescNull = 0;
         allFuncsTempAdd = "";
         isLangCpp = "No";
@@ -2573,61 +2417,61 @@ async function genDocs(mode) {
         isLangDart = "No";
         isLangTs = "No";
         isLangGroovy = "No";
-        let items15 = LoopParseFunc(tempstr, "|");
-        for (let A_Index15 = 0; A_Index15 < items15.length + 0; A_Index15++) {
-            const A_LoopField15 = items15[A_Index15 - 0];
-            if (SubStr(Trim(A_LoopField15), 1, 8) == "lang: js") {
+        let items18 = LoopParseFunc(tempstr, "|");
+        for (let A_Index18 = 0; A_Index18 < items18.length + 0; A_Index18++) {
+            const A_LoopField18 = items18[A_Index18 - 0];
+            if (SubStr(Trim(A_LoopField18), 1, 8) == "lang: js") {
                 isLangJs = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 8) == "lang: py") {
+            else if (SubStr(Trim(A_LoopField18), 1, 8) == "lang: py") {
                 isLangPy = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 9) == "lang: cpp") {
+            else if (SubStr(Trim(A_LoopField18), 1, 9) == "lang: cpp") {
                 isLangCpp = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 8) == "lang: go") {
+            else if (SubStr(Trim(A_LoopField18), 1, 8) == "lang: go") {
                 isLangGo = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 9) == "lang: lua") {
+            else if (SubStr(Trim(A_LoopField18), 1, 9) == "lang: lua") {
                 isLangLua = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 8) == "lang: cs") {
+            else if (SubStr(Trim(A_LoopField18), 1, 8) == "lang: cs") {
                 isLangCs = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 10) == "lang: java") {
+            else if (SubStr(Trim(A_LoopField18), 1, 10) == "lang: java") {
                 isLangJava = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 12) == "lang: kt") {
+            else if (SubStr(Trim(A_LoopField18), 1, 12) == "lang: kt") {
                 isLangKotlin = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 10) == "lang: rb") {
+            else if (SubStr(Trim(A_LoopField18), 1, 10) == "lang: rb") {
                 isLangRuby = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 9) == "lang: nim") {
+            else if (SubStr(Trim(A_LoopField18), 1, 9) == "lang: nim") {
                 isLangNim = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 9) == "lang: ahk") {
+            else if (SubStr(Trim(A_LoopField18), 1, 9) == "lang: ahk") {
                 isLangAhk = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 11) == "lang: swift") {
+            else if (SubStr(Trim(A_LoopField18), 1, 11) == "lang: swift") {
                 isLangSwift = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 10) == "lang: dart") {
+            else if (SubStr(Trim(A_LoopField18), 1, 10) == "lang: dart") {
                 isLangDart = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 8) == "lang: ts") {
+            else if (SubStr(Trim(A_LoopField18), 1, 8) == "lang: ts") {
                 isLangTs = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 12) == "lang: groovy") {
+            else if (SubStr(Trim(A_LoopField18), 1, 12) == "lang: groovy") {
                 isLangGroovy = "Yes";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 6) == "name: ") {
-                allFuncsTempAdd += Trim(A_LoopField15) + "|";
+            else if (SubStr(Trim(A_LoopField18), 1, 6) == "name: ") {
+                allFuncsTempAdd += Trim(A_LoopField18) + "|";
             }
-            else if (SubStr(Trim(A_LoopField15), 1, 13) == "description: ") {
-                allFuncsTempAdd += Trim(A_LoopField15) + "|";
+            else if (SubStr(Trim(A_LoopField18), 1, 13) == "description: ") {
+                allFuncsTempAdd += Trim(A_LoopField18) + "|";
             }
-            if (Trim(StrLower(A_LoopField15)) == "description: null") {
+            if (Trim(StrLower(A_LoopField18)) == "description: null") {
                 isDescNull = 1;
             }
         }
@@ -2636,7 +2480,7 @@ async function genDocs(mode) {
             HTVM_Append(allFuncs, allFuncsTempAdd);
         }
     }
-    for (let A_Index16 = 0; A_Index16 < 20 + 0; A_Index16++) {
+    for (let A_Index19 = 0; A_Index19 < 20 + 0; A_Index19++) {
         //print("===========================================")
     }
     let categories = [];
@@ -2644,10 +2488,10 @@ async function genDocs(mode) {
     var theCurrentDescCategory = "";
     var once = 0;
     var didWeFindSameCategory = 0;
-    for (let A_Index17 = 0; A_Index17 < HTVM_Size(allFuncs) + 0; A_Index17++) {
+    for (let A_Index20 = 0; A_Index20 < HTVM_Size(allFuncs) + 0; A_Index20++) {
         //print(allFuncs[A_Index])
         once++;
-        theCurrentLine = Trim(allFuncs[A_Index17]);
+        theCurrentLine = Trim(allFuncs[A_Index20]);
         theCurrentDescCategory = Trim(StrSplit(theCurrentLine, "|", 2));
         theCurrentDescCategory = Trim(StrSplit(theCurrentDescCategory, ":", 2));
         theCurrentDescCategory = Trim(StrLower(Trim(StrSplit(theCurrentDescCategory, "~~~", 1))));
@@ -2655,10 +2499,10 @@ async function genDocs(mode) {
         if (once == 1) {
             HTVM_Append(categories, theCurrentDescCategory + Chr(10) + theCurrentLine);
         } else {
-            for (let A_Index18 = 0; A_Index18 < HTVM_Size(categories) + 0; A_Index18++) {
-                if (Trim(StrLower(StrSplit(categories[A_Index18], Chr(10), 1))) == Trim(theCurrentDescCategory)) {
+            for (let A_Index21 = 0; A_Index21 < HTVM_Size(categories) + 0; A_Index21++) {
+                if (Trim(StrLower(StrSplit(categories[A_Index21], Chr(10), 1))) == Trim(theCurrentDescCategory)) {
                     didWeFindSameCategory = 1;
-                    categories[A_Index18] = categories[A_Index18] + Chr(10) + theCurrentLine;
+                    categories[A_Index21] = categories[A_Index21] + Chr(10) + theCurrentLine;
                     break;
                 }
             }
@@ -2746,7 +2590,7 @@ let sentence = "Your language uses " + features.join(", ") + ".";
     var outMDsec13 = "" + Chr(10) + "### Commands" + Chr(10) + Chr(10) + "[Go back](#htvm-documentation)" + Chr(10) + Chr(10) + "Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency. Commands help streamline your code and reduce unnecessary complexity." + Chr(10) + Chr(10) + "### Commands in HTVM" + Chr(10) + Chr(10) + "**What is a Command?**  " + Chr(10) + "In HTVM, commands are simple, intuitive building blocks that you use to perform actions in your code. They are inspired by AutoHotKey commands, but in HTVM, they automatically convert into function calls, making the process seamless. These commands are designed to be straightforward and concise, so you don’t need to worry about the underlying complexity of function definitions. When you write a command, HTVM handles converting it into an appropriate function call behind the scenes, allowing you to focus on logic rather than syntax." + Chr(10) + Chr(10) + "Each command can accept one or more parameters, depending on its functionality, and follows a consistent format for easy readability and use." + Chr(10) + Chr(10) + "### Structure of a Command  " + Chr(10) + "A basic command looks like this:" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "command, parameter1, parameter2, ..." + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "Commands support multiple parameters and follow a simple, comma-separated format. Behind the scenes, these commands are transformed into corresponding function calls, which execute the desired actions with minimal keystrokes." + Chr(10) + Chr(10) + "**⚠️ Disclaimer:**  " + Chr(10) + "This command syntax is structured and follows a defined format: a command name followed by a comma, then a space, then the next value, and so on — like " + Chr(96) + "text, text, text" + Chr(96) + ". It is different from how GUI definitions work in HTVM. GUI syntax is far more flexible and allows you to do insane stuff, while commands follow this more controlled, predictable pattern." + Chr(10) + Chr(10) + "#### Rules" + Chr(10) + Chr(10) + "We can have " + Chr(96) + "OUTVAR" + Chr(96) + " which means it will be " + Chr(96) + "OUTVAR = funcName(...)" + Chr(96) + Chr(10) + "So if we have " + Chr(96) + "commandName, OUTVAR, someParam" + Chr(96) + " that will equal " + Chr(96) + "OUTVAR = commandName(someParam)" + Chr(96) + " " + Chr(10) + Chr(10) + "If we have " + Chr(96) + "INVAR" + Chr(96) + " which means it will be " + Chr(96) + "funcName(INVAR ...)" + Chr(96) + Chr(10) + "So if we have " + Chr(96) + "commandName, INVAR, someParam" + Chr(96) + " that will equal " + Chr(96) + "commandName(INVAR, someParam)" + Chr(96) + " " + Chr(10) + Chr(10) + "If we have " + Chr(96) + "INOUTVAR" + Chr(96) + " which means it will be " + Chr(96) + "INOUTVAR = funcName(INOUTVAR ...)" + Chr(96) + Chr(10) + "So if we have " + Chr(96) + "commandName, INOUTVAR, someParam" + Chr(96) + " that will equal " + Chr(96) + "INOUTVAR = commandName(INOUTVAR, someParam)" + Chr(96) + " " + Chr(10) + Chr(10) + "If we have " + Chr(96) + "'" + Chr(96) + " which means it will be " + Chr(96) + "funcName(someParam ...)" + Chr(96) + Chr(10) + "So if we have " + Chr(96) + "commandName, someParam" + Chr(96) + " that will equal " + Chr(96) + "commandName(" + Chr(34) + "someParam" + Chr(34) + ")" + Chr(96) + " " + Chr(10) + "Basically, it means it will wrap it in double quotes (" + Chr(34) + Chr(34) + ")." + Chr(10) + Chr(10) + "If we have " + Chr(96) + "lineTranspile" + Chr(96) + " it means it will do a replace.  " + Chr(10) + "So if we have " + Chr(96) + "someText, lineTranspile, replacementText" + Chr(96) + ",  " + Chr(10) + "that means if you put on a single line alone: " + Chr(96) + "someText" + Chr(96) + ",  " + Chr(10) + "that will simply be replaced with " + Chr(96) + "replacementText" + Chr(96) + ".  " + Chr(10) + "And if we have ~~~ in the replacement, it will be replaced with actual new lines." + Chr(10) + Chr(10) + "Example:" + Chr(10) + "If we define " + Chr(96) + "greetUser, lineTranspile, print(" + Chr(34) + "Hello!" + Chr(34) + ")~~~print(" + Chr(34) + "Welcome to HTVM." + Chr(34) + ")" + Chr(96) + "  " + Chr(10) + "Then this:" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "greetUser" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "Will become:" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "print(" + Chr(34) + "Hello!" + Chr(34) + ")" + Chr(10) + "print(" + Chr(34) + "Welcome to HTVM." + Chr(34) + ")" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + Chr(62) + " ⚠️ **Important**: You **cannot** use the following characters inside commands: " + Chr(96) + "," + Chr(96) + " " + Chr(96) + "|" + Chr(96) + " " + Chr(96) + "%" + Chr(96) + " — these are reserved and will break the parsing." + Chr(10) + Chr(10) + Chr(62) + " If we have " + Chr(96) + "'" + Chr(96) + ", it means the param will be wrapped in double quotes. You **don’t actually type " + Chr(96) + "'" + Chr(96) + " in your code** — it’s just used here in the command definition to mark that param." + Chr(10) + Chr(10) + "### Available Commands  " + Chr(10) + "Here are all the available commands in this HTVM language:" + Chr(10) + Chr(10) + allCommandsDoc + Chr(10) + Chr(10) + "This was all of them." + Chr(10) + Chr(10) + "### Customizing Commands in HTVM  " + Chr(10) + "You can configure and customize the syntax of commands—along with the rest of your HTVM language—on the [HTVM Syntax Configurator website](#https://themaster1127.github.io/HTVM/web-ui/). That’s where you define how your custom HTVM language behaves, including how commands are recognized and structured." + Chr(10) + Chr(10) + "### Summary  " + Chr(10) + "This is a comprehensive guide to the commands in HTVM. With the goal of reducing keystrokes and inspired by AutoHotKey, HTVM provides an intuitive way to program with less effort.  " + Chr(10) + "To configure and customize your HTVM language, visit the [HTVM Syntax Configurator website](#https://themaster1127.github.io/HTVM/web-ui/). There you can adjust the commands, see how to define them, and other elements to create your own language and fit your coding needs." + Chr(10) + Chr(10) + "### HTVM Philosophy  " + Chr(10) + "HTVM is built on the idea of simplifying the coding experience through **minimal keystrokes**. It’s not about being lazy—it’s about being efficient. Traditional programming languages often burden the developer with excessive syntax, repetitive structures, and unnecessary complexity." + Chr(10) + Chr(10) + "HTVM flips that by giving you clean, readable code that does more with less. While some may argue that AI can write code for you, HTVM emphasizes control and creativity—two things that get lost when you offload everything to an AI. Besides, coding is fun. You should be able to enjoy it without the clutter.  " + Chr(10) + Chr(10) + "HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct reflection of this philosophy—they let you express complex logic in just a few words, automatically converting into efficient function calls with minimal effort." + Chr(10) + Chr(10) + "---" + Chr(10) + "";
     var outMDsec14 = "";
     var outMDsec15 = "" + Chr(10) + "### All Syntax" + Chr(10) + Chr(10) + "[Go back](#htvm-documentation)" + Chr(10) + Chr(10) + "#### Here is all of the syntax in this language:" + Chr(10) + Chr(10) + allSyntax + Chr(10) + Chr(10) + "---" + Chr(10) + "";
-    var outMDup = "# HTVM Documentation" + Chr(10) + Chr(10) + outMDsec0 + Chr(10) + "---" + Chr(10) + Chr(10) + "## Introduction to HTVM" + Chr(10) + Chr(10) + "[Go back](#htvm-documentation) " + Chr(10) + Chr(10) + "HTVM is a revolutionary tool designed to replace traditional programming. With HTVM, you can create your own programming language directly [here](https://themaster1127.github.io/HTVM/)." + Chr(10) + Chr(10) + Chr(10) + "HTVM offers **extensive syntax customization**, giving you the freedom to tailor the language structure to your own preferences. Almost all of these customizations can be converted into 15 languages, providing flexibility while keeping things simple." + Chr(10) + Chr(10) + "## Customization Features" + Chr(10) + Chr(10) + "### Code Block Delimiters" + Chr(10) + Chr(10) + "You can **customize the block delimiters**, which define the start and end of code blocks. You can use:" + Chr(10) + Chr(10) + "- Curly braces " + Chr(96) + "{}" + Chr(96) + " (default)." + Chr(10) + "- **Other characters**, words, or even single letters, as long as the opening and closing delimiters are different from each other." + Chr(10) + Chr(10) + "### Indentation Styles" + Chr(10) + Chr(10) + "You have the ability to choose between multiple **indentation styles**:" + Chr(10) + Chr(10) + "- **Pythonic indentation style**: This removes the need for block delimiters like curly braces, relying on indentation to define code blocks." + Chr(10) + "- **Lua indentation style**: Uses the customizable " + Chr(96) + "end" + Chr(96) + " keyword to close code blocks." + Chr(10) + Chr(10) + "Both styles are fully customizable, and you can define your own keyword for closing blocks (such as " + Chr(96) + "end" + Chr(96) + ", or any other word)." + Chr(10) + Chr(10) + "### Toggleable Semicolons" + Chr(10) + Chr(10) + "Semicolons are **toggleable** in HTVM. By default, semicolons are not required to terminate statements, but you can enable the use of semicolons if you prefer them in your syntax. It's completely up to you whether or not to use them in your code." + Chr(10) + Chr(10) + "### Parentheses Customization" + Chr(10) + Chr(10) + "For **conditional statements** like " + Chr(96) + "if" + Chr(96) + ", " + Chr(96) + "else if" + Chr(96) + ", and " + Chr(96) + "while" + Chr(96) + " loops, you can choose to **use or omit parentheses** around conditions. This customization allows you to streamline your code and make it more intuitive according to your preferences." + Chr(10) + Chr(10) + "### Customizable Operators" + Chr(10) + Chr(10) + "HTVM allows you to **customize operators** to make your code more readable or suit your style. For example, instead of using " + Chr(96) + "==" + Chr(96) + " for equality, you can change it to a keyword like " + Chr(96) + "is" + Chr(96) + ". This means you can write more natural, human-readable code, such as:" + Chr(10) + Chr(10) + "- " + Chr(96) + "if var1 is 5" + Chr(96) + " (instead of " + Chr(96) + "if var1 == 5" + Chr(96) + ")." + Chr(10) + Chr(10) + "This flexibility extends across various operators, giving you full control over how your conditions and operations are structured." + Chr(10) + Chr(10) + Chr(10) + "## More Customization Options in HTVM" + Chr(10) + Chr(10) + "HTVM offers even **more customization** for your syntax and style. Here's a breakdown of additional features:" + Chr(10) + Chr(10) + "### Type Definition Styles" + Chr(10) + Chr(10) + "You can choose between **PostFix** or **Prefix** style for type definitions, similar to TypeScript:" + Chr(10) + Chr(10) + "- **PostFix**: Define the variable first, then the type after the colon (" + Chr(96) + "var1: int" + Chr(96) + ")." + Chr(10) + "- **Prefix**: Define the type first, then the variable (" + Chr(96) + "int var1" + Chr(96) + ")." + Chr(10) + Chr(10) + "You can toggle between these styles depending on which one fits your preferred syntax better." + Chr(10) + Chr(10) + "### Array Syntax Customization" + Chr(10) + Chr(10) + "HTVM lets you customize the array syntax by choosing between two options:" + Chr(10) + Chr(10) + "- **Regular braces** (" + Chr(96) + "[]" + Chr(96) + "): The default style for arrays." + Chr(10) + "- **Curly braces** (" + Chr(96) + "{}" + Chr(96) + "): If you prefer this style, you can toggle it on." + Chr(10) + Chr(10) + "It's fully flexible, so you can use whichever syntax feels right for your code." + Chr(10) + Chr(10) + "### Customizable Operators" + Chr(10) + Chr(10) + "HTVM extends **operator customizability** even further, allowing you to adjust a wide range of operators:" + Chr(10) + Chr(10) + "- **All operators**: You can customize **all operators**, including logical, comparison, and even **bitwise operators**." + Chr(10) + "- **Assignment operators**: You can customize assignment operators, such as " + Chr(96) + "=" + Chr(96) + ", to whatever you prefer (e.g., " + Chr(96) + "is" + Chr(96) + ", " + Chr(96) + "set" + Chr(96) + ", or any other single word)." + Chr(10) + Chr(10) + "However, remember that you are only allowed to use **one word** for customization—no spaces in operator names." + Chr(10) + Chr(10) + "### Customizable Comments" + Chr(10) + Chr(10) + "Comments are also fully customizable:" + Chr(10) + Chr(10) + "- **Single-line comments**: Change the single-line comment syntax to whatever you like (e.g., " + Chr(96) + "//" + Chr(96) + ", " + Chr(96) + "#" + Chr(96) + ", or any word)." + Chr(10) + "- **Multi-line comments**: Customize the syntax for multi-line comments, allowing for multiple words or characters if necessary." + Chr(10) + Chr(10) + "### Custom Escape Characters" + Chr(10) + Chr(10) + "Escape characters can now be **customized**:" + Chr(10) + Chr(10) + "- **Escape character**: You are no longer limited to using just the backslash (" + Chr(96) + Chr(92) + Chr(96) + "). You can choose any single character you want as your escape character—such as the backtick (" + Chr(96) + Chr(96) + " " + Chr(96) + " " + Chr(96) + Chr(96) + ") or something entirely different." + Chr(10) + Chr(10) + "### Loop Index Customization" + Chr(10) + Chr(10) + "You can **change the index for regular loops**. By default, HTVM uses **zero-based indexing** for loops. However, you can change this for certain languages:" + Chr(10) + Chr(10) + "- **AutoHotKey and Lua**: By default, both of these languages use **one-based indexing** for arrays and loops." + Chr(10) + "- **Other languages**: It's important to note that **changing loop indices may cause issues** with some languages, as not all languages support customizable loop indexes. **Use caution** when making changes to this setting, especially when working with languages like Python, JavaScript, or C++." + Chr(10) + Chr(10) + "HTVM allows for this change, but it’s recommended to keep the default zero-based indexing unless you’re specifically creating **meme languages** where the index may be something unconventional (like " + Chr(96) + "-69" + Chr(96) + " or " + Chr(96) + "420" + Chr(96) + ")." + Chr(10) + Chr(10) + "### Key Considerations for Indexing" + Chr(10) + Chr(10) + "- For **AutoHotKey** and **Lua**, the index starts at **one** by default." + Chr(10) + "- For **other languages**, **zero-based indexing** is the norm, so be mindful of this when converting to other languages." + Chr(10) + "  " + Chr(10) + "If you are creating custom languages or experimenting with unconventional indexing, keep these limitations in mind to avoid potential issues when converting to other languages." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + Chr(10) + "## Further Customization in HTVM" + Chr(10) + Chr(10) + "HTVM offers **even more customization options**, allowing you to tailor the language to your preferences, especially when it comes to types and arrays." + Chr(10) + Chr(10) + "### Custom Type Names" + Chr(10) + Chr(10) + "HTVM allows you to **customize type names** to anything you like. For example:" + Chr(10) + Chr(10) + "- **Basic Types**: Instead of using the traditional " + Chr(96) + "int" + Chr(96) + ", you can use " + Chr(96) + "number" + Chr(96) + ", " + Chr(96) + "i" + Chr(96) + ", or any other word you prefer. The same goes for types like " + Chr(96) + "double" + Chr(96) + ", " + Chr(96) + "char" + Chr(96) + ", " + Chr(96) + "boolean" + Chr(96) + ", " + Chr(96) + "float" + Chr(96) + ", and more." + Chr(10) + "- **Integer Sizes**: You can change types like " + Chr(96) + "int16" + Chr(96) + " to " + Chr(96) + "i16" + Chr(96) + " or any naming convention you prefer." + Chr(10) + "  " + Chr(10) + "**Important:** While you can use **multiple words** for type names, be cautious about potential conflicts in the parser. For instance, using common words that might be parsed as something else could lead to issues. Always ensure that the type names are unique and won't interfere with other syntax elements." + Chr(10) + Chr(10) + "The available types you can customize include:" + Chr(10) + Chr(10) + "- **Void**: You can rename " + Chr(96) + "void" + Chr(96) + " to whatever you want." + Chr(10) + "- **Integers**: " + Chr(96) + "int" + Chr(96) + ", " + Chr(96) + "int8" + Chr(96) + ", " + Chr(96) + "int16" + Chr(96) + ", " + Chr(96) + "int32" + Chr(96) + ", " + Chr(96) + "int64" + Chr(96) + ", etc." + Chr(10) + "- **Unsigned Integers**: " + Chr(96) + "uint8" + Chr(96) + ", " + Chr(96) + "uint16" + Chr(96) + ", " + Chr(96) + "uint32" + Chr(96) + ", " + Chr(96) + "uint64" + Chr(96) + " (Note: be cautious when converting unsigned integers to Java, as Java doesn’t support them)." + Chr(10) + "- **Floating Point**: " + Chr(96) + "double" + Chr(96) + ", " + Chr(96) + "float" + Chr(96) + "." + Chr(10) + "- **Character**: " + Chr(96) + "char" + Chr(96) + "." + Chr(10) + "- **String**: " + Chr(96) + "string" + Chr(96) + "." + Chr(10) + "- **Boolean**: " + Chr(96) + "boolean" + Chr(96) + "." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Array Types Customization" + Chr(10) + Chr(10) + "In HTVM, you can customize the **array types** as well:" + Chr(10) + Chr(10) + "- **Four main array types**:" + Chr(10) + "  - " + Chr(96) + "arr str" + Chr(96) + ": For arrays of strings." + Chr(10) + "  - " + Chr(96) + "arr int" + Chr(96) + ": For arrays of integers." + Chr(10) + "  - " + Chr(96) + "arr float" + Chr(96) + ": For arrays of floating-point numbers." + Chr(10) + "  - " + Chr(96) + "arr bool" + Chr(96) + ": For arrays of booleans." + Chr(10) + "  " + Chr(10) + "- **Dynamic Arrays**: For dynamic-type languages, you can use the generic " + Chr(96) + "array" + Chr(96) + " keyword, but it defaults to a string array when converted to static type languages. This provides a flexible way to define arrays in your code." + Chr(10) + "  " + Chr(10) + "**Note on Static vs. Dynamic Types**: In **static-type languages**, arrays are strictly defined, so if you use the " + Chr(96) + "array" + Chr(96) + " keyword, it will default to a **string array**. For **dynamic languages**, the array type is more flexible." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Array Methods Customization" + Chr(10) + Chr(10) + "HTVM allows you to customize array methods with ease. These methods work by appending a dot (" + Chr(96) + "." + Chr(96) + ") after the array, followed by the method name:" + Chr(10) + Chr(10) + "- **append**: Adds an element to the end of the array." + Chr(10) + "- **pop**: Removes the last element from the array." + Chr(10) + "- **size**: Retrieves the size (length) of the array." + Chr(10) + "- **insert**: Inserts an element at a specific index (not by value)." + Chr(10) + "- **remove**: Removes an element at a specific index (not by value)." + Chr(10) + "- **indexOf**: Finds the index of a value in the array." + Chr(10) + Chr(10) + "These methods can be customized with different names or functionality if needed, making it easier to manipulate arrays according to your needs." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Important Considerations" + Chr(10) + Chr(10) + "- **Java and Unsigned Integers**: Be careful when converting unsigned integers (" + Chr(96) + "uint8" + Chr(96) + ", " + Chr(96) + "uint16" + Chr(96) + ", etc.) to **Java**, as Java does not support unsigned integers. HTVM will **NOT** warn you when attempting this conversion." + Chr(10) + "- **Array Methods**: Ensure that you define methods like " + Chr(96) + "insert" + Chr(96) + " and " + Chr(96) + "remove" + Chr(96) + " clearly to avoid confusion with other types of array manipulations. Using the dot (" + Chr(96) + "." + Chr(96) + ") ensures consistency and clarity in how methods are applied to arrays." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "## Extensive Customization in HTVM" + Chr(10) + Chr(10) + "HTVM offers **wide-ranging customization options** to ensure the language suits your preferences, especially when it comes to keywords and functionality. You can customize several aspects of the language, ranging from basic variable declarations to control structures and even language-specific keywords." + Chr(10) + Chr(10) + "### Customizing Keywords" + Chr(10) + Chr(10) + "HTVM allows you to customize many fundamental keywords that are used across different programming languages:" + Chr(10) + Chr(10) + "- **Variable Declarations**: Customize " + Chr(96) + "var" + Chr(96) + ", " + Chr(96) + "let" + Chr(96) + ", and " + Chr(96) + "const" + Chr(96) + " keywords. These are primarily used in **JavaScript** and **TypeScript**. " + Chr(10) + "  - The " + Chr(96) + "const" + Chr(96) + " keyword is supported in most languages, but in languages that don't have constants (e.g., **Python**, **AutoHotKey**, **Lua** and some more), it will be ignored, and the variable will be created as usual." + Chr(10) + "  " + Chr(10) + "- **Boolean Keywords**: Change the " + Chr(96) + "true" + Chr(96) + " and " + Chr(96) + "false" + Chr(96) + " keywords to something else like " + Chr(96) + "yeah" + Chr(96) + " and " + Chr(96) + "nah" + Chr(96) + ". This customization provides flexibility in how logical values are represented." + Chr(10) + "  " + Chr(10) + "- **Null Keyword**: You can also customize the " + Chr(96) + "null" + Chr(96) + " keyword, though be cautious—some languages do not support " + Chr(96) + "null" + Chr(96) + " in the same way (e.g., **Python**, **C++**, **AutoHotKey** and some more). For languages that don't support " + Chr(96) + "null" + Chr(96) + ", the value will simply be ignored or treated as an empty value." + Chr(10) + "  " + Chr(10) + "- **End Keyword**: You can change the " + Chr(96) + "end" + Chr(96) + " keyword to something else. This is typically used for denoting the end of code blocks in various languages and is customizable in HTVM." + Chr(10) + Chr(10) + "- **Global Keyword**: " + Chr(10) + "  - The " + Chr(96) + "global" + Chr(96) + " keyword works only in **Python** and **AutoHotKey**. It allows passing a global variable into a function and modifying it. In other languages, the " + Chr(96) + "global" + Chr(96) + " keyword will be ignored, but the variable will still be created." + Chr(10) + "  - You can also customize the " + Chr(96) + "global" + Chr(96) + " keyword to something else, keeping the functionality intact within supported languages." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Main Label and Main Function Customization" + Chr(10) + Chr(10) + "HTVM allows you to **customize the main function label**. The main label refers to the starting point of your program, especially for languages like **C++** and many more but in **JavaScript** and **TypeScript** it's a bit different:" + Chr(10) + Chr(10) + "- **Main Label**: " + Chr(10) + "  - This is a customizable label where your main function is typically located. You can define a single word or even multiple words as the main label. The parser will ensure that the code below the label is treated as the main function's content. " + Chr(10) + "  - The main label is optional, and it’s simply a label—there’s no need to wrap the code in a block unless the language requires it (e.g., **Python** doesn’t need a " + Chr(96) + "main" + Chr(96) + " function, so the code will be placed directly beneath it)." + Chr(10) + "  " + Chr(10) + "- **Main Function**:" + Chr(10) + "  - In **JavaScript** and **TypeScript**, you can toggle between an **async main function** and a regular one." + Chr(10) + "  - The language will default to creating asynchronous functions for all function definitions, but you can customize this behavior with the **async** keyword (which is also customizable to other terms if you prefer). Also, if you don’t use the main label keyword, the HTVM parser will assume that you haven't created any functions, and all the code will be placed in the main function if the target language has a main function." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Function Customization" + Chr(10) + Chr(10) + "HTVM allows you to **customize various function-related keywords** to suit your needs:" + Chr(10) + Chr(10) + "- **Async Functions**: " + Chr(10) + "  - By default, all functions in HTVM are asynchronous. You can toggle this behavior or use the **asynchronous** keyword, which is customizable." + Chr(10) + "  - The **await** keyword can also be modified to something else (e.g., " + Chr(96) + "wait" + Chr(96) + ") to fit your naming preferences." + Chr(10) + "  " + Chr(10) + "- **Loop Customization**: " + Chr(10) + "  - The loop syntax can be customized with terms like " + Chr(96) + "A_Index" + Chr(96) + " and " + Chr(96) + "A_LoopField" + Chr(96) + " to resemble **AutoHotKey**-style loops. These keywords provide a cleaner, more intuitive loop structure for those familiar with AutoHotKey." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Important Considerations" + Chr(10) + Chr(10) + "- **Customizing Keywords**: When you customize keywords (e.g., " + Chr(96) + "const" + Chr(96) + ", " + Chr(96) + "true" + Chr(96) + ", " + Chr(96) + "false" + Chr(96) + ", " + Chr(96) + "null" + Chr(96) + "), ensure that they don’t conflict with existing language constructs. The parser will handle many of these customizations, but be aware of limitations in certain languages." + Chr(10) + "  " + Chr(10) + "- **Global Variables**: The " + Chr(96) + "global" + Chr(96) + " keyword is supported in **Python** and **AutoHotKey**, but it will be ignored in other languages like **JavaScript** or **C++**. Ensure you understand how this will behave across different languages." + Chr(10) + Chr(10) + "- **Async Functions in JavaScript/TypeScript**: This is especially useful for **JavaScript** and **TypeScript** but can be customized to suit your project’s needs." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "HTVM provides a **high level of flexibility** for customizing how the language operates, allowing you to adapt it to the specific needs of your project. Whether you're working with variable declarations, loop structures, or customizing language-specific keywords, HTVM makes it easier to code in a way that feels natural to you." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "## Advanced Customizations in HTVM" + Chr(10) + Chr(10) + "HTVM offers **advanced customizations** that allow you to control everything from ternary operators to error handling and even modularity with " + Chr(96) + "include" + Chr(96) + ". This flexibility makes it possible to tailor the language to your coding style and needs." + Chr(10) + Chr(10) + "### Ternary Operator Customization" + Chr(10) + Chr(10) + "HTVM lets you customize the **ternary operator**:" + Chr(10) + Chr(10) + "- By default, HTVM uses the regular **C-style ternary operator** (" + Chr(96) + "condition ? true : false" + Chr(96) + "). This works in most languages, but certain languages (like **Go**) do not support this syntax." + Chr(10) + "- For languages that use a different syntax for ternary operators, HTVM will handle the conversion automatically, converting it to the appropriate format." + Chr(10) + "  - For example, **Python** uses the " + Chr(96) + "condition if true else false" + Chr(96) + " syntax." + Chr(10) + "  - HTVM will ensure that the ternary operator is properly converted, but if the target language does not support ternary operators, HTVM will generate a message and prevent execution in languages like **Go** where it won’t run. This ensures that you avoid runtime errors from unsupported syntax." + Chr(10) + Chr(10) + "### Error Handling Customization" + Chr(10) + Chr(10) + "HTVM allows you to **customize error handling** as well:" + Chr(10) + Chr(10) + "- The " + Chr(96) + "try" + Chr(96) + ", " + Chr(96) + "catch" + Chr(96) + ", " + Chr(96) + "finally" + Chr(96) + ", and " + Chr(96) + "throw" + Chr(96) + " keywords are customizable, enabling you to tailor them to your preference." + Chr(10) + "- When using **throw**, you can customize the function name for the error message. This is how it works:" + Chr(10) + "  - Type " + Chr(96) + "throw" + Chr(96) + ", followed by the function name (which is customizable), open parentheses, and inside the parentheses, you can pass a string that represents the error message." + Chr(10) + "  - Example:" + Chr(10) + "    " + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "    " + htvmSnippet11 + Chr(10) + "    " + Chr(96) + Chr(96) + Chr(96) + Chr(10) + "- **Conversion to Other Languages**:" + Chr(10) + "  - HTVM converts error handling to most languages, but **Lua** and **Go** are exceptions. In those languages, the error handling structure is not supported, and HTVM will generate a string that alerts you about the lack of support." + Chr(10) + "  - HTVM does not provide error handling within itself. Instead, it relies on the target language to handle errors since HTVM assumes your code is flawless, and any issues should be identified by the language you're transpiling to." + Chr(10) + Chr(10) + "### Include Keyword Customization" + Chr(10) + Chr(10) + "HTVM also supports **modularity** through the " + Chr(96) + "include" + Chr(96) + " keyword:" + Chr(10) + Chr(10) + "- The " + Chr(96) + "include" + Chr(96) + " keyword allows you to include other HTVM files at the top of your code." + Chr(10) + "- This is useful for organizing your code across multiple files or for reusing common functionality across different projects." + Chr(10) + "  - Example:" + Chr(10) + "    " + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "    " + htvmSnippet10 + Chr(10) + "    " + Chr(96) + Chr(96) + Chr(96) + Chr(10) + "- The " + Chr(96) + "include" + Chr(96) + " keyword is fully customizable, so you can change it to something else if preferred." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Key Takeaways:" + Chr(10) + Chr(10) + "- **Ternary Operator**: Customizable to fit different syntaxes across languages, with automatic conversion. However, unsupported in **Go** and it will hardcode a message instead of running." + Chr(10) + "  " + Chr(10) + "- **Error Handling**: Customizable for the " + Chr(96) + "try" + Chr(96) + ", " + Chr(96) + "catch" + Chr(96) + ", " + Chr(96) + "finally" + Chr(96) + ", and " + Chr(96) + "throw" + Chr(96) + " keywords, and the function name for error messages can also be customized. HTVM does not handle errors itself but relies on the target language’s error handling. However, unsupported languages like **Go** and **Lua** will hardcode a message instead of running." + Chr(10) + Chr(10) + "- **Include**: Supports modularity by including external HTVM files, and the keyword itself is customizable." + Chr(10) + Chr(10) + "These advanced customizations further enhance HTVM's flexibility, allowing you to adjust error handling, ternary operators, and file management to fit your needs. With these tools, HTVM can be tailored to suit your specific coding style and make your development process more efficient." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "## Programming Blocks in HTVM" + Chr(10) + Chr(10) + "HTVM introduces **programming blocks** that allow you to **mix languages** seamlessly in your code. This feature is designed to handle cases where HTVM itself can't achieve something directly or when you'd prefer to rely on another language for specific tasks." + Chr(10) + Chr(10) + "### How Programming Blocks Work" + Chr(10) + Chr(10) + "1. **Opening a Programming Block**: You can open a programming block for a specific target language with the following syntax:" + Chr(10) + "    - One line to open the programming block." + Chr(10) + "    - Inside the block, you can write in the target language." + Chr(10) + "    - You close the block on a new line after your code." + Chr(10) + Chr(10) + "Example:" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet9 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "2. **Incorporating Blocks into HTVM Code**:" + Chr(10) + "    - When you write in HTVM, you can seamlessly insert target-language code using programming blocks." + Chr(10) + "    - For example, if you're converting to **JavaScript**, you can open a **JavaScript programming block**, and the code inside will be converted directly to JavaScript and placed in the converted code without alteration." + Chr(10) + "    - If the HTVM code contains loops or other structures, the programming block code stays intact in the appropriate place during conversion." + Chr(10) + Chr(10) + "3. **Multiple Programming Blocks**: You can use **multiple programming blocks** for different target languages, but they will be context-sensitive:" + Chr(10) + "    - **For JavaScript**: The **Python programming block** will be ignored during conversion." + Chr(10) + "    - **For Python**: The **JavaScript programming block** will be ignored." + Chr(10) + "    - In other words, only the relevant programming block for the target language will be included in the final code." + Chr(10) + Chr(10) + "Example:" + Chr(10) + "- **JavaScript block** in HTVM:" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet8 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + "- **Python block** in HTVM:" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet7 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + "When converting to **JavaScript**, the Python block will disappear, and only the JavaScript block will be included." + Chr(10) + Chr(10) + "4. **Reverse Programming Blocks**:" + Chr(10) + "    - You can also open an **HTVM programming block** within other target language code (e.g., C++). The block will then be converted into HTVM-compatible code." + Chr(10) + "    - For example, if you're writing in C++ and need to use HTVM-specific functionality, you can insert an HTVM block, and it will be transpiled into C++ when you convert the code." + Chr(10) + "    - The process works by specifying the **target file** (e.g., " + Chr(96) + "main.cpp" + Chr(96) + "), and the HTVM block inside it will be converted based on the file's extension." + Chr(10) + Chr(10) + "5. **Universal Programming Block**:" + Chr(10) + "    - If two languages share the same syntax for a particular construct, HTVM allows you to use a **universal programming block**. This block can handle situations where HTVM cannot achieve the desired behavior but the syntax matches in multiple languages." + Chr(10) + "    - This is useful when the target languages have compatible syntax for specific code constructs but HTVM doesn't support them directly." + Chr(10) + Chr(10) + "6. **Conversion and Functionality**:" + Chr(10) + "    - During conversion, HTVM ensures that only the relevant programming block is preserved based on the target language. Unused blocks are omitted." + Chr(10) + "    - When converting code, HTVM will automatically include any necessary built-in functions or libraries for the target language, displaying them in the console." + Chr(10) + Chr(10) + Chr(10) + "### Key Advantages of Programming Blocks:" + Chr(10) + Chr(10) + "- **Flexibility**: Allows mixing HTVM with other languages for complex or specialized tasks." + Chr(10) + "- **Modularity**: Enables using language-specific libraries or features when HTVM cannot do the job." + Chr(10) + "- **Customizability**: Supports a wide range of languages, with options to adjust and adapt as needed." + Chr(10) + "- **Seamless Conversion**: Code stays in place, and HTVM ensures proper language-specific syntax is followed." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Key Takeaways:" + Chr(10) + "- **Programming blocks** allow writing code in another language directly within HTVM, which will be preserved during conversion to that language." + Chr(10) + "- Multiple programming blocks can be used, but only the relevant block will be included based on the target language." + Chr(10) + "- **Reverse programming blocks** allow you to insert HTVM code into other target language code." + Chr(10) + "- The **universal programming block** enables handling languages with similar syntax for specific constructs." + Chr(10) + Chr(10) + Chr(10) + "#### **And More...**  " + Chr(10) + "- Go to [HTVM's website](https://themaster1127.github.io/HTVM) to explore all the syntax customizability and create your own language." + Chr(10) + Chr(10) + "### **The Power of HTVM – Beyond Anything Else**  " + Chr(10) + "This isn’t just some hobby project. **HTVM Version 2 took many months just for the parser.** And that was with prior experience from HTVM Version 1 and all the work put into previous languages like HT++, HTH, and HTpy. Every single language had to be carefully mapped out—loops, if-statements, try/catch blocks, functions, variables, types—**every detail had to be considered, tested, and tweaked.**  " + Chr(10) + Chr(10) + "And here’s the thing: **HTVM doesn’t just output to one language at a time—it can compile to multiple languages simultaneously.** That means you can write a single HTVM file and have it generate both JavaScript and Python code at the same time. That alone is something **almost no other tool in the world can do.**  " + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### **Programming Blocks – Total Control Over Your Code**  " + Chr(10) + "And then we have **Programming Blocks.** These allow you to **write native code for the target language directly inside HTVM files**. So if you’re converting to JavaScript and need something that HTVM doesn’t handle natively, you can just open a **JavaScript Programming Block**, write JavaScript inside it, and it will only be included when compiling to JavaScript.  " + Chr(10) + Chr(10) + "But it gets even crazier—**you can have multiple programming blocks for different languages in the same file.** That means you can mix HTVM, JavaScript, Python, and C++ **all in one place** and still have everything work correctly.  " + Chr(10) + Chr(10) + "And if that wasn’t enough, there are **Reverse Programming Blocks**—which allow for even more insane levels of customization. Even if nobody uses them, **HTVM is so complete that the feature is still there.**  " + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### **The Future of Programming**  " + Chr(10) + "HTVM **isn’t just a transpiler—it’s the future of programming.**  " + Chr(10) + Chr(10) + "This is a system that allows **anyone** to create their own syntax, define how they want their language to behave, and then generate fully functional code in fifteen different programming languages. No more being stuck with a single syntax or workflow—**HTVM lets you build programming your way.**  " + Chr(10) + Chr(10) + "Think about it. If you had to manually convert HTVM to fifteen different languages, it would take months just for a single feature. But **HTVM automates that entire process**—**once your syntax is defined, your language works across all targets instantly.**  " + Chr(10) + Chr(10) + "### **HTVM – The Future of Programming**  " + Chr(10) + "This level of customization **doesn’t exist anywhere else.** No other system gives you this much control over how your language looks and feels. You’re not just writing code—you’re **designing your own programming experience.**  " + Chr(10) + Chr(10) + "HTVM isn’t just powerful—it’s **insane.** This is how programming should be." + Chr(10) + Chr(10) + "**HTVM doesn’t force you into a fixed way of coding—it lets you create your own language and then outputs it into real programming languages.**  " + Chr(10) + Chr(10) + "HTVM **isn’t just another programming tool. It’s a revolution.**" + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "## OSP (Ordinal Struct Programming)" + Chr(10) + Chr(10) + "[Go back](#htvm-documentation)" + Chr(10) + Chr(10) + "OSP (Ordinal Struct Programming) is HTVM's built-in approach for organizing data and related procedures using hierarchical namespaces and explicit path-based access. It focuses on **ordinal** positioning – meaning the unique location of structures within the defined hierarchy (" + Chr(96) + "alliance" + Chr(96) + ", " + Chr(96) + "crew" + Chr(96) + "). This feature offers an alternative for structuring code, particularly for those who prefer direct data manipulation and clear, absolute referencing over features like inheritance or encapsulation found in traditional OOP." + Chr(10) + Chr(10) + "### What is a " + Chr(96) + "struct" + Chr(96) + " in HTVM OSP?" + Chr(10) + Chr(10) + "At its core, a " + Chr(96) + "struct" + Chr(96) + " in HTVM OSP is similar to structs in languages like C: it's a way to **group related data fields together under a single name**." + Chr(10) + Chr(10) + "-   **Definition:** You define a struct using the " + Chr(96) + "struct" + Chr(96) + " keyword." + Chr(10) + "-   **Properties:** Inside a struct, you define its data fields using the " + Chr(96) + "prop" + Chr(96) + " keyword. Each " + Chr(96) + "prop" + Chr(96) + " holds a piece of data (like an integer, string, boolean, or even an array)." + Chr(10) + "-   **Access:** Crucially, you *always* access struct properties using their **full, absolute path** starting from the top level (or the struct name if defined standalone). For example: " + Chr(96) + "MyAlliance.MyCrew.MyStruct.myProp" + Chr(96) + "." + Chr(10) + "-   **Global Nature:** Structs defined in OSP are globally accessible from any point in the code below their definition, using their full path." + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet4 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### Optional Hierarchy: " + Chr(96) + "alliance" + Chr(96) + " and " + Chr(96) + "crew" + Chr(96) + Chr(10) + Chr(10) + "While you can define simple " + Chr(96) + "struct" + Chr(96) + "s directly, OSP provides optional hierarchical keywords (" + Chr(96) + "alliance" + Chr(96) + " and " + Chr(96) + "crew" + Chr(96) + ") for better organization, especially in larger projects:" + Chr(10) + Chr(10) + "-   **" + Chr(96) + "alliance" + Chr(96) + "**: The top-level organizational container." + Chr(10) + "-   **" + Chr(96) + "crew" + Chr(96) + "**: A sub-level container within an " + Chr(96) + "alliance" + Chr(96) + " (or potentially nested within other crews, though nesting isn't shown in examples)." + Chr(10) + Chr(10) + "**Why use hierarchy?**" + Chr(10) + Chr(10) + "-   **Organization:** Group related structs and procedures together logically (e.g., all UI elements in a " + Chr(96) + "GUI" + Chr(96) + " crew, all vehicle data in a " + Chr(96) + "Vehicles" + Chr(96) + " crew)." + Chr(10) + "-   **Avoiding Name Collisions:** If you had two different concepts both needing a " + Chr(96) + "struct" + Chr(96) + " named " + Chr(96) + "Settings" + Chr(96) + ", you could place them in different crews (e.g., " + Chr(96) + "Audio.Settings" + Chr(96) + " and " + Chr(96) + "Video.Settings" + Chr(96) + ") allowing them to coexist without conflict. Using " + Chr(96) + "alliance" + Chr(96) + " and " + Chr(96) + "crew" + Chr(96) + " acts like creating namespaces." + Chr(10) + Chr(10) + "Most of the time, for simpler data organization, you might just need standalone " + Chr(96) + "struct" + Chr(96) + "s. Use " + Chr(96) + "alliance" + Chr(96) + " and " + Chr(96) + "crew" + Chr(96) + " when you need the extra structure to avoid naming hurdles and keep related components neatly grouped." + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet5 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### Procedures (" + Chr(96) + "proc" + Chr(96) + ")" + Chr(10) + Chr(10) + "Procedures are functions defined within the OSP hierarchy (" + Chr(96) + "alliance" + Chr(96) + " or " + Chr(96) + "crew" + Chr(96) + ") using the " + Chr(96) + "proc" + Chr(96) + " keyword. They are intended to perform actions related to the structs within their hierarchy." + Chr(10) + Chr(10) + "-   **Association:** Defining a " + Chr(96) + "proc" + Chr(96) + " inside an " + Chr(96) + "alliance" + Chr(96) + " or " + Chr(96) + "crew" + Chr(96) + " links it semantically to that part of the hierarchy." + Chr(10) + "-   **Global Access:** Like structs, " + Chr(96) + "proc" + Chr(96) + "s are globally accessible via their full path (e.g., " + Chr(96) + "MyAlliance.MyCrew.myProc" + Chr(96) + ")." + Chr(10) + "-   **Context (" + Chr(96) + "this" + Chr(96) + " Keyword):** Procedures can optionally accept a special parameter named " + Chr(96) + "this" + Chr(96) + " to understand *which* struct (identified by its path string) initiated the call." + Chr(10) + Chr(10) + "### The " + Chr(96) + "this" + Chr(96) + " Keyword (Procedure Context)" + Chr(10) + Chr(10) + "The " + Chr(96) + "this" + Chr(96) + " keyword in OSP (Ordinal) is **different** from " + Chr(96) + "this" + Chr(96) + " in traditional OOP." + Chr(10) + Chr(10) + "-   **Purpose:** It serves as an **optional input parameter for " + Chr(96) + "proc" + Chr(96) + "s**. When a " + Chr(96) + "proc" + Chr(96) + " is called with a struct's path string, " + Chr(96) + "this" + Chr(96) + " holds that **literal string value** inside the " + Chr(96) + "proc" + Chr(96) + "." + Chr(10) + "-   **Usage:** It allows a " + Chr(96) + "proc" + Chr(96) + " to perform different actions based on *which* struct path was passed to it. This is typically checked using simple string comparison (" + Chr(96) + "if (this == " + Chr(34) + "MyAlliance.MyCrew.MyStruct" + Chr(34) + ")" + Chr(96) + ")." + Chr(10) + "-   **Mechanism:** You must explicitly pass the **full path of the struct as a string** when calling the " + Chr(96) + "proc" + Chr(96) + " if you intend for that " + Chr(96) + "proc" + Chr(96) + " to use the " + Chr(96) + "this" + Chr(96) + " context." + Chr(10) + "-   **Limitation:** This string-based approach is explicit but requires careful maintenance. If you rename a " + Chr(96) + "struct" + Chr(96) + " or change the hierarchy, you **must** update all the corresponding string literals used in " + Chr(96) + "proc" + Chr(96) + " calls and within the " + Chr(96) + "proc" + Chr(96) + "'s " + Chr(96) + "if/else if" + Chr(96) + " checks. It doesn't automatically track the struct itself." + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet6 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### Key Rules Recap" + Chr(10) + Chr(10) + "1.  **Full Path Access:** Always use the full, absolute path to access " + Chr(96) + "struct" + Chr(96) + " properties (e.g., " + Chr(96) + "Alliance.Crew.Struct.prop" + Chr(96) + ")." + Chr(10) + "2.  **" + Chr(96) + "this" + Chr(96) + " is Context String:** The " + Chr(96) + "this" + Chr(96) + " keyword, when used in a " + Chr(96) + "proc" + Chr(96) + ", holds the *path string* passed during the call. It's only valid inside " + Chr(96) + "proc" + Chr(96) + "s and requires explicit string comparison for conditional logic." + Chr(10) + Chr(10) + "### Arrays in Structs" + Chr(10) + Chr(10) + "Arrays can be defined as properties within structs just like any other data type:" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet1 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### Summary of OSP (Ordinal Struct Programming)" + Chr(10) + Chr(10) + "-   **Organizes** code using optional " + Chr(96) + "alliance" + Chr(96) + "/" + Chr(96) + "crew" + Chr(96) + " hierarchies and " + Chr(96) + "struct" + Chr(96) + " data containers." + Chr(10) + "-   **Emphasizes** explicit, **ordinal** (position-based) access via mandatory **full paths**." + Chr(10) + "-   Uses " + Chr(96) + "struct" + Chr(96) + " for data aggregation and " + Chr(96) + "proc" + Chr(96) + " for associated procedures within the hierarchy." + Chr(10) + "-   Offers an optional " + Chr(96) + "this" + Chr(96) + " keyword for " + Chr(96) + "proc" + Chr(96) + "s to receive the **calling struct's path as a string**, enabling context-specific actions via string comparison." + Chr(10) + "-   Provides **global accessibility** for all defined structs and procs via their full paths." + Chr(10) + "-   Serves as an **alternative structure** within HTVM, focusing on explicitness and hierarchy, potentially avoiding certain OOP complexities but introducing verbosity and reliance on string paths for context." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "## Note:" + Chr(10) + Chr(10) + "### Never use underscores when naming things in OSP. Otherwise, you can use them, but be cautious because underscores can be unstable." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "#### Example of OSP (Ordinal Struct Programming)" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet0 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "OSP (Ordinal Struct Programming) provides a structured, path-based approach to organizing data and procedures within HTVM, emphasizing explicit referencing." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + outMDsec1 + Chr(10) + Chr(10) + outMDsec2 + Chr(10) + Chr(10) + outMDsec3 + Chr(10) + Chr(10) + outMDsec4 + Chr(10) + Chr(10) + outMDsec16 + Chr(10) + Chr(10) + outMDsec5 + Chr(10) + Chr(10) + outMDsec6 + Chr(10) + Chr(10) + outMDsec7 + Chr(10) + Chr(10) + outMDsec8 + Chr(10) + Chr(10) + outMDsec9 + Chr(10) + Chr(10) + outMDsec10 + Chr(10) + Chr(10) + outMDsec11 + Chr(10) + Chr(10) + outMDsec12 + Chr(10) + Chr(10) + outMDsec13 + Chr(10) + Chr(10) + outMDsec14 + Chr(10) + Chr(10) + outMDsec15 + Chr(10) + Chr(10) + "## Built-in Functions  " + Chr(10) + Chr(10) + "[Go back](#htvm-documentation) " + Chr(10) + Chr(10) + "HTVM includes a variety of built-in functions organized into categories for convenience." + Chr(10) + Chr(10);
+    var outMDup = "# HTVM Documentation" + Chr(10) + Chr(10) + outMDsec0 + Chr(10) + "---" + Chr(10) + Chr(10) + "## Introduction to HTVM" + Chr(10) + Chr(10) + "[Go back](#htvm-documentation) " + Chr(10) + Chr(10) + "HTVM is a revolutionary tool designed to replace traditional programming. With HTVM, you can create your own programming language directly [here](https://themaster1127.github.io/HTVM/)." + Chr(10) + Chr(10) + Chr(10) + "HTVM offers **extensive syntax customization**, giving you the freedom to tailor the language structure to your own preferences. Almost all of these customizations can be converted into 15 languages, providing flexibility while keeping things simple." + Chr(10) + Chr(10) + "## Customization Features" + Chr(10) + Chr(10) + "### Code Block Delimiters" + Chr(10) + Chr(10) + "You can **customize the block delimiters**, which define the start and end of code blocks. You can use:" + Chr(10) + Chr(10) + "- Curly braces " + Chr(96) + "{}" + Chr(96) + " (default)." + Chr(10) + "- **Other characters**, words, or even single letters, as long as the opening and closing delimiters are different from each other." + Chr(10) + Chr(10) + "### Indentation Styles" + Chr(10) + Chr(10) + "You have the ability to choose between multiple **indentation styles**:" + Chr(10) + Chr(10) + "- **Lua indentation style**: Uses the customizable " + Chr(96) + "end" + Chr(96) + " keyword to close code blocks." + Chr(10) + Chr(10) + "The " + Chr(96) + "end" + Chr(96) + " keyword is fully customizable. You can use " + Chr(96) + "end" + Chr(96) + " or any other word." + Chr(96) + ", or any other word)." + Chr(10) + Chr(10) + "### Toggleable Semicolons" + Chr(10) + Chr(10) + "Semicolons are **toggleable** in HTVM. By default, semicolons are not required to terminate statements, but you can enable the use of semicolons if you prefer them in your syntax. It's completely up to you whether or not to use them in your code." + Chr(10) + Chr(10) + "### Parentheses Customization" + Chr(10) + Chr(10) + "For **conditional statements** like " + Chr(96) + "if" + Chr(96) + ", " + Chr(96) + "else if" + Chr(96) + ", and " + Chr(96) + "while" + Chr(96) + " loops, you can choose to **use or omit parentheses** around conditions. This customization allows you to streamline your code and make it more intuitive according to your preferences." + Chr(10) + Chr(10) + "### Customizable Operators" + Chr(10) + Chr(10) + "HTVM allows you to **customize operators** to make your code more readable or suit your style. For example, instead of using " + Chr(96) + "==" + Chr(96) + " for equality, you can change it to a keyword like " + Chr(96) + "is" + Chr(96) + ". This means you can write more natural, human-readable code, such as:" + Chr(10) + Chr(10) + "- " + Chr(96) + "if var1 is 5" + Chr(96) + " (instead of " + Chr(96) + "if var1 == 5" + Chr(96) + ")." + Chr(10) + Chr(10) + "This flexibility extends across various operators, giving you full control over how your conditions and operations are structured." + Chr(10) + Chr(10) + Chr(10) + "## More Customization Options in HTVM" + Chr(10) + Chr(10) + "HTVM offers even **more customization** for your syntax and style. Here's a breakdown of additional features:" + Chr(10) + Chr(10) + "### Type Definition Styles" + Chr(10) + Chr(10) + "You can choose between **PostFix** or **Prefix** style for type definitions, similar to TypeScript:" + Chr(10) + Chr(10) + "- **PostFix**: Define the variable first, then the type after the colon (" + Chr(96) + "var1: int" + Chr(96) + ")." + Chr(10) + "- **Prefix**: Define the type first, then the variable (" + Chr(96) + "int var1" + Chr(96) + ")." + Chr(10) + Chr(10) + "You can toggle between these styles depending on which one fits your preferred syntax better." + Chr(10) + Chr(10) + "### Array Syntax Customization" + Chr(10) + Chr(10) + "HTVM lets you customize the array syntax by choosing between two options:" + Chr(10) + Chr(10) + "- **Regular braces** (" + Chr(96) + "[]" + Chr(96) + "): The default style for arrays." + Chr(10) + "- **Curly braces** (" + Chr(96) + "{}" + Chr(96) + "): If you prefer this style, you can toggle it on." + Chr(10) + Chr(10) + "It's fully flexible, so you can use whichever syntax feels right for your code." + Chr(10) + Chr(10) + "### Customizable Operators" + Chr(10) + Chr(10) + "HTVM extends **operator customizability** even further, allowing you to adjust a wide range of operators:" + Chr(10) + Chr(10) + "- **All operators**: You can customize **all operators**, including logical, comparison, and even **bitwise operators**." + Chr(10) + "- **Assignment operators**: You can customize assignment operators, such as " + Chr(96) + "=" + Chr(96) + ", to whatever you prefer (e.g., " + Chr(96) + "is" + Chr(96) + ", " + Chr(96) + "set" + Chr(96) + ", or any other single word)." + Chr(10) + Chr(10) + "However, remember that you are only allowed to use **one word** for customization—no spaces in operator names." + Chr(10) + Chr(10) + "### Customizable Comments" + Chr(10) + Chr(10) + "Comments are also fully customizable:" + Chr(10) + Chr(10) + "- **Single-line comments**: Change the single-line comment syntax to whatever you like (e.g., " + Chr(96) + "//" + Chr(96) + ", " + Chr(96) + "#" + Chr(96) + ", or any word)." + Chr(10) + "- **Multi-line comments**: Customize the syntax for multi-line comments, allowing for multiple words or characters if necessary." + Chr(10) + Chr(10) + "### Custom Escape Characters" + Chr(10) + Chr(10) + "Escape characters can now be **customized**:" + Chr(10) + Chr(10) + "- **Escape character**: You are no longer limited to using just the backslash (" + Chr(96) + Chr(92) + Chr(96) + "). You can choose any single character you want as your escape character—such as the backtick (" + Chr(96) + Chr(96) + " " + Chr(96) + " " + Chr(96) + Chr(96) + ") or something entirely different." + Chr(10) + Chr(10) + "### Loop Index Customization" + Chr(10) + Chr(10) + "You can **change the index for regular loops**. By default, HTVM uses **zero-based indexing** for loops. However, you can change this for certain languages:" + Chr(10) + Chr(10) + "- **AutoHotKey and Lua**: By default, both of these languages use **one-based indexing** for arrays and loops." + Chr(10) + "- **Other languages**: It's important to note that **changing loop indices may cause issues** with some languages, as not all languages support customizable loop indexes. **Use caution** when making changes to this setting, especially when working with languages like Python, JavaScript, or C++." + Chr(10) + Chr(10) + "HTVM allows for this change, but it’s recommended to keep the default zero-based indexing unless you’re specifically creating **meme languages** where the index may be something unconventional (like " + Chr(96) + "-69" + Chr(96) + " or " + Chr(96) + "420" + Chr(96) + ")." + Chr(10) + Chr(10) + "### Key Considerations for Indexing" + Chr(10) + Chr(10) + "- For **AutoHotKey** and **Lua**, the index starts at **one** by default." + Chr(10) + "- For **other languages**, **zero-based indexing** is the norm, so be mindful of this when converting to other languages." + Chr(10) + "  " + Chr(10) + "If you are creating custom languages or experimenting with unconventional indexing, keep these limitations in mind to avoid potential issues when converting to other languages." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + Chr(10) + "## Further Customization in HTVM" + Chr(10) + Chr(10) + "HTVM offers **even more customization options**, allowing you to tailor the language to your preferences, especially when it comes to types and arrays." + Chr(10) + Chr(10) + "### Custom Type Names" + Chr(10) + Chr(10) + "HTVM allows you to **customize type names** to anything you like. For example:" + Chr(10) + Chr(10) + "- **Basic Types**: Instead of using the traditional " + Chr(96) + "int" + Chr(96) + ", you can use " + Chr(96) + "number" + Chr(96) + ", " + Chr(96) + "i" + Chr(96) + ", or any other word you prefer. The same goes for types like " + Chr(96) + "double" + Chr(96) + ", " + Chr(96) + "char" + Chr(96) + ", " + Chr(96) + "boolean" + Chr(96) + ", " + Chr(96) + "float" + Chr(96) + ", and more." + Chr(10) + "- **Integer Sizes**: You can change types like " + Chr(96) + "int16" + Chr(96) + " to " + Chr(96) + "i16" + Chr(96) + " or any naming convention you prefer." + Chr(10) + "  " + Chr(10) + "**Important:** While you can use **multiple words** for type names, be cautious about potential conflicts in the parser. For instance, using common words that might be parsed as something else could lead to issues. Always ensure that the type names are unique and won't interfere with other syntax elements." + Chr(10) + Chr(10) + "The available types you can customize include:" + Chr(10) + Chr(10) + "- **Void**: You can rename " + Chr(96) + "void" + Chr(96) + " to whatever you want." + Chr(10) + "- **Integers**: " + Chr(96) + "int" + Chr(96) + ", " + Chr(96) + "int8" + Chr(96) + ", " + Chr(96) + "int16" + Chr(96) + ", " + Chr(96) + "int32" + Chr(96) + ", " + Chr(96) + "int64" + Chr(96) + ", etc." + Chr(10) + "- **Unsigned Integers**: " + Chr(96) + "uint8" + Chr(96) + ", " + Chr(96) + "uint16" + Chr(96) + ", " + Chr(96) + "uint32" + Chr(96) + ", " + Chr(96) + "uint64" + Chr(96) + " (Note: be cautious when converting unsigned integers to Java, as Java doesn’t support them)." + Chr(10) + "- **Floating Point**: " + Chr(96) + "double" + Chr(96) + ", " + Chr(96) + "float" + Chr(96) + "." + Chr(10) + "- **Character**: " + Chr(96) + "char" + Chr(96) + "." + Chr(10) + "- **String**: " + Chr(96) + "string" + Chr(96) + "." + Chr(10) + "- **Boolean**: " + Chr(96) + "boolean" + Chr(96) + "." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Array Types Customization" + Chr(10) + Chr(10) + "In HTVM, you can customize the **array types** as well:" + Chr(10) + Chr(10) + "- **Four main array types**:" + Chr(10) + "  - " + Chr(96) + "arr str" + Chr(96) + ": For arrays of strings." + Chr(10) + "  - " + Chr(96) + "arr int" + Chr(96) + ": For arrays of integers." + Chr(10) + "  - " + Chr(96) + "arr float" + Chr(96) + ": For arrays of floating-point numbers." + Chr(10) + "  - " + Chr(96) + "arr bool" + Chr(96) + ": For arrays of booleans." + Chr(10) + "  " + Chr(10) + "- **Dynamic Arrays**: For dynamic-type languages, you can use the generic " + Chr(96) + "array" + Chr(96) + " keyword, but it defaults to a string array when converted to static type languages. This provides a flexible way to define arrays in your code." + Chr(10) + "  " + Chr(10) + "**Note on Static vs. Dynamic Types**: In **static-type languages**, arrays are strictly defined, so if you use the " + Chr(96) + "array" + Chr(96) + " keyword, it will default to a **string array**. For **dynamic languages**, the array type is more flexible." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Array Methods Customization" + Chr(10) + Chr(10) + "HTVM allows you to customize array methods with ease. These methods work by appending a dot (" + Chr(96) + "." + Chr(96) + ") after the array, followed by the method name:" + Chr(10) + Chr(10) + "- **append**: Adds an element to the end of the array." + Chr(10) + "- **pop**: Removes the last element from the array." + Chr(10) + "- **size**: Retrieves the size (length) of the array." + Chr(10) + "- **insert**: Inserts an element at a specific index (not by value)." + Chr(10) + "- **remove**: Removes an element at a specific index (not by value)." + Chr(10) + "- **indexOf**: Finds the index of a value in the array." + Chr(10) + Chr(10) + "These methods can be customized with different names or functionality if needed, making it easier to manipulate arrays according to your needs." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Important Considerations" + Chr(10) + Chr(10) + "- **Java and Unsigned Integers**: Be careful when converting unsigned integers (" + Chr(96) + "uint8" + Chr(96) + ", " + Chr(96) + "uint16" + Chr(96) + ", etc.) to **Java**, as Java does not support unsigned integers. HTVM will **NOT** warn you when attempting this conversion." + Chr(10) + "- **Array Methods**: Ensure that you define methods like " + Chr(96) + "insert" + Chr(96) + " and " + Chr(96) + "remove" + Chr(96) + " clearly to avoid confusion with other types of array manipulations. Using the dot (" + Chr(96) + "." + Chr(96) + ") ensures consistency and clarity in how methods are applied to arrays." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "## Extensive Customization in HTVM" + Chr(10) + Chr(10) + "HTVM offers **wide-ranging customization options** to ensure the language suits your preferences, especially when it comes to keywords and functionality. You can customize several aspects of the language, ranging from basic variable declarations to control structures and even language-specific keywords." + Chr(10) + Chr(10) + "### Customizing Keywords" + Chr(10) + Chr(10) + "HTVM allows you to customize many fundamental keywords that are used across different programming languages:" + Chr(10) + Chr(10) + "- **Variable Declarations**: Customize " + Chr(96) + "var" + Chr(96) + ", " + Chr(96) + "let" + Chr(96) + ", and " + Chr(96) + "const" + Chr(96) + " keywords. These are primarily used in **JavaScript** and **TypeScript**. " + Chr(10) + "  - The " + Chr(96) + "const" + Chr(96) + " keyword is supported in most languages, but in languages that don't have constants (e.g., **Python**, **AutoHotKey**, **Lua** and some more), it will be ignored, and the variable will be created as usual." + Chr(10) + "  " + Chr(10) + "- **Boolean Keywords**: Change the " + Chr(96) + "true" + Chr(96) + " and " + Chr(96) + "false" + Chr(96) + " keywords to something else like " + Chr(96) + "yeah" + Chr(96) + " and " + Chr(96) + "nah" + Chr(96) + ". This customization provides flexibility in how logical values are represented." + Chr(10) + "  " + Chr(10) + "- **Null Keyword**: You can also customize the " + Chr(96) + "null" + Chr(96) + " keyword, though be cautious—some languages do not support " + Chr(96) + "null" + Chr(96) + " in the same way (e.g., **Python**, **C++**, **AutoHotKey** and some more). For languages that don't support " + Chr(96) + "null" + Chr(96) + ", the value will simply be ignored or treated as an empty value." + Chr(10) + "  " + Chr(10) + "- **End Keyword**: You can change the " + Chr(96) + "end" + Chr(96) + " keyword to something else. This is typically used for denoting the end of code blocks in various languages and is customizable in HTVM." + Chr(10) + Chr(10) + "- **Global Keyword**: " + Chr(10) + "  - The " + Chr(96) + "global" + Chr(96) + " keyword works only in **Python** and **AutoHotKey**. It allows passing a global variable into a function and modifying it. In other languages, the " + Chr(96) + "global" + Chr(96) + " keyword will be ignored, but the variable will still be created." + Chr(10) + "  - You can also customize the " + Chr(96) + "global" + Chr(96) + " keyword to something else, keeping the functionality intact within supported languages." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Main Label and Main Function Customization" + Chr(10) + Chr(10) + "HTVM allows you to **customize the main function label**. The main label refers to the starting point of your program, especially for languages like **C++** and many more but in **JavaScript** and **TypeScript** it's a bit different:" + Chr(10) + Chr(10) + "- **Main Label**: " + Chr(10) + "  - This is a customizable label where your main function is typically located. You can define a single word or even multiple words as the main label. The parser will ensure that the code below the label is treated as the main function's content. " + Chr(10) + "  - The main label is optional, and it’s simply a label—there’s no need to wrap the code in a block unless the language requires it (e.g., **Python** doesn’t need a " + Chr(96) + "main" + Chr(96) + " function, so the code will be placed directly beneath it)." + Chr(10) + "  " + Chr(10) + "- **Main Function**:" + Chr(10) + "  - In **JavaScript** and **TypeScript**, you can toggle between an **async main function** and a regular one." + Chr(10) + "  - The language will default to creating asynchronous functions for all function definitions, but you can customize this behavior with the **async** keyword (which is also customizable to other terms if you prefer). Also, if you don’t use the main label keyword, the HTVM parser will assume that you haven't created any functions, and all the code will be placed in the main function if the target language has a main function." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Function Customization" + Chr(10) + Chr(10) + "HTVM allows you to **customize various function-related keywords** to suit your needs:" + Chr(10) + Chr(10) + "- **Async Functions**: " + Chr(10) + "  - By default, all functions in HTVM are asynchronous. You can toggle this behavior or use the **asynchronous** keyword, which is customizable." + Chr(10) + "  - The **await** keyword can also be modified to something else (e.g., " + Chr(96) + "wait" + Chr(96) + ") to fit your naming preferences." + Chr(10) + "  " + Chr(10) + "- **Loop Customization**: " + Chr(10) + "  - The loop syntax can be customized with terms like " + Chr(96) + "A_Index" + Chr(96) + " and " + Chr(96) + "A_LoopField" + Chr(96) + " to resemble **AutoHotKey**-style loops. These keywords provide a cleaner, more intuitive loop structure for those familiar with AutoHotKey." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Important Considerations" + Chr(10) + Chr(10) + "- **Customizing Keywords**: When you customize keywords (e.g., " + Chr(96) + "const" + Chr(96) + ", " + Chr(96) + "true" + Chr(96) + ", " + Chr(96) + "false" + Chr(96) + ", " + Chr(96) + "null" + Chr(96) + "), ensure that they don’t conflict with existing language constructs. The parser will handle many of these customizations, but be aware of limitations in certain languages." + Chr(10) + "  " + Chr(10) + "- **Global Variables**: The " + Chr(96) + "global" + Chr(96) + " keyword is supported in **Python** and **AutoHotKey**, but it will be ignored in other languages like **JavaScript** or **C++**. Ensure you understand how this will behave across different languages." + Chr(10) + Chr(10) + "- **Async Functions in JavaScript/TypeScript**: This is especially useful for **JavaScript** and **TypeScript** but can be customized to suit your project’s needs." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "HTVM provides a **high level of flexibility** for customizing how the language operates, allowing you to adapt it to the specific needs of your project. Whether you're working with variable declarations, loop structures, or customizing language-specific keywords, HTVM makes it easier to code in a way that feels natural to you." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "## Advanced Customizations in HTVM" + Chr(10) + Chr(10) + "HTVM offers **advanced customizations** that allow you to control everything from ternary operators to error handling and even modularity with " + Chr(96) + "include" + Chr(96) + ". This flexibility makes it possible to tailor the language to your coding style and needs." + Chr(10) + Chr(10) + "### Ternary Operator Customization" + Chr(10) + Chr(10) + "HTVM lets you customize the **ternary operator**:" + Chr(10) + Chr(10) + "- By default, HTVM uses the regular **C-style ternary operator** (" + Chr(96) + "condition ? true : false" + Chr(96) + "). This works in most languages, but certain languages (like **Go**) do not support this syntax." + Chr(10) + "- For languages that use a different syntax for ternary operators, HTVM will handle the conversion automatically, converting it to the appropriate format." + Chr(10) + "  - For example, **Python** uses the " + Chr(96) + "condition if true else false" + Chr(96) + " syntax." + Chr(10) + "  - HTVM will ensure that the ternary operator is properly converted, but if the target language does not support ternary operators, HTVM will generate a message and prevent execution in languages like **Go** where it won’t run. This ensures that you avoid runtime errors from unsupported syntax." + Chr(10) + Chr(10) + "### Error Handling Customization" + Chr(10) + Chr(10) + "HTVM allows you to **customize error handling** as well:" + Chr(10) + Chr(10) + "- The " + Chr(96) + "try" + Chr(96) + ", " + Chr(96) + "catch" + Chr(96) + ", " + Chr(96) + "finally" + Chr(96) + ", and " + Chr(96) + "throw" + Chr(96) + " keywords are customizable, enabling you to tailor them to your preference." + Chr(10) + "- When using **throw**, you can customize the function name for the error message. This is how it works:" + Chr(10) + "  - Type " + Chr(96) + "throw" + Chr(96) + ", followed by the function name (which is customizable), open parentheses, and inside the parentheses, you can pass a string that represents the error message." + Chr(10) + "  - Example:" + Chr(10) + "    " + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "    " + htvmSnippet11 + Chr(10) + "    " + Chr(96) + Chr(96) + Chr(96) + Chr(10) + "- **Conversion to Other Languages**:" + Chr(10) + "  - HTVM converts error handling to most languages, but **Lua** and **Go** are exceptions. In those languages, the error handling structure is not supported, and HTVM will generate a string that alerts you about the lack of support." + Chr(10) + "  - HTVM does not provide error handling within itself. Instead, it relies on the target language to handle errors since HTVM assumes your code is flawless, and any issues should be identified by the language you're transpiling to." + Chr(10) + Chr(10) + "### Include Keyword Customization" + Chr(10) + Chr(10) + "HTVM also supports **modularity** through the " + Chr(96) + "include" + Chr(96) + " keyword:" + Chr(10) + Chr(10) + "- The " + Chr(96) + "include" + Chr(96) + " keyword allows you to include other HTVM files at the top of your code." + Chr(10) + "- This is useful for organizing your code across multiple files or for reusing common functionality across different projects." + Chr(10) + "  - Example:" + Chr(10) + "    " + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + "    " + htvmSnippet10 + Chr(10) + "    " + Chr(96) + Chr(96) + Chr(96) + Chr(10) + "- The " + Chr(96) + "include" + Chr(96) + " keyword is fully customizable, so you can change it to something else if preferred." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Key Takeaways:" + Chr(10) + Chr(10) + "- **Ternary Operator**: Customizable to fit different syntaxes across languages, with automatic conversion. However, unsupported in **Go** and it will hardcode a message instead of running." + Chr(10) + "  " + Chr(10) + "- **Error Handling**: Customizable for the " + Chr(96) + "try" + Chr(96) + ", " + Chr(96) + "catch" + Chr(96) + ", " + Chr(96) + "finally" + Chr(96) + ", and " + Chr(96) + "throw" + Chr(96) + " keywords, and the function name for error messages can also be customized. HTVM does not handle errors itself but relies on the target language’s error handling. However, unsupported languages like **Go** and **Lua** will hardcode a message instead of running." + Chr(10) + Chr(10) + "- **Include**: Supports modularity by including external HTVM files, and the keyword itself is customizable." + Chr(10) + Chr(10) + "These advanced customizations further enhance HTVM's flexibility, allowing you to adjust error handling, ternary operators, and file management to fit your needs. With these tools, HTVM can be tailored to suit your specific coding style and make your development process more efficient." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "## Programming Blocks in HTVM" + Chr(10) + Chr(10) + "HTVM introduces **programming blocks** that allow you to **mix languages** seamlessly in your code. This feature is designed to handle cases where HTVM itself can't achieve something directly or when you'd prefer to rely on another language for specific tasks." + Chr(10) + Chr(10) + "### How Programming Blocks Work" + Chr(10) + Chr(10) + "1. **Opening a Programming Block**: You can open a programming block for a specific target language with the following syntax:" + Chr(10) + "    - One line to open the programming block." + Chr(10) + "    - Inside the block, you can write in the target language." + Chr(10) + "    - You close the block on a new line after your code." + Chr(10) + Chr(10) + "Example:" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet9 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "2. **Incorporating Blocks into HTVM Code**:" + Chr(10) + "    - When you write in HTVM, you can seamlessly insert target-language code using programming blocks." + Chr(10) + "    - For example, if you're converting to **JavaScript**, you can open a **JavaScript programming block**, and the code inside will be converted directly to JavaScript and placed in the converted code without alteration." + Chr(10) + "    - If the HTVM code contains loops or other structures, the programming block code stays intact in the appropriate place during conversion." + Chr(10) + Chr(10) + "3. **Multiple Programming Blocks**: You can use **multiple programming blocks** for different target languages, but they will be context-sensitive:" + Chr(10) + "    - **For JavaScript**: The **Python programming block** will be ignored during conversion." + Chr(10) + "    - **For Python**: The **JavaScript programming block** will be ignored." + Chr(10) + "    - In other words, only the relevant programming block for the target language will be included in the final code." + Chr(10) + Chr(10) + "Example:" + Chr(10) + "- **JavaScript block** in HTVM:" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet8 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + "- **Python block** in HTVM:" + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet7 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + "When converting to **JavaScript**, the Python block will disappear, and only the JavaScript block will be included." + Chr(10) + Chr(10) + "4. **Reverse Programming Blocks**:" + Chr(10) + "    - You can also open an **HTVM programming block** within other target language code (e.g., C++). The block will then be converted into HTVM-compatible code." + Chr(10) + "    - For example, if you're writing in C++ and need to use HTVM-specific functionality, you can insert an HTVM block, and it will be transpiled into C++ when you convert the code." + Chr(10) + "    - The process works by specifying the **target file** (e.g., " + Chr(96) + "main.cpp" + Chr(96) + "), and the HTVM block inside it will be converted based on the file's extension." + Chr(10) + Chr(10) + "5. **Universal Programming Block**:" + Chr(10) + "    - If two languages share the same syntax for a particular construct, HTVM allows you to use a **universal programming block**. This block can handle situations where HTVM cannot achieve the desired behavior but the syntax matches in multiple languages." + Chr(10) + "    - This is useful when the target languages have compatible syntax for specific code constructs but HTVM doesn't support them directly." + Chr(10) + Chr(10) + "6. **Conversion and Functionality**:" + Chr(10) + "    - During conversion, HTVM ensures that only the relevant programming block is preserved based on the target language. Unused blocks are omitted." + Chr(10) + "    - When converting code, HTVM will automatically include any necessary built-in functions or libraries for the target language, displaying them in the console." + Chr(10) + Chr(10) + Chr(10) + "### Key Advantages of Programming Blocks:" + Chr(10) + Chr(10) + "- **Flexibility**: Allows mixing HTVM with other languages for complex or specialized tasks." + Chr(10) + "- **Modularity**: Enables using language-specific libraries or features when HTVM cannot do the job." + Chr(10) + "- **Customizability**: Supports a wide range of languages, with options to adjust and adapt as needed." + Chr(10) + "- **Seamless Conversion**: Code stays in place, and HTVM ensures proper language-specific syntax is followed." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### Key Takeaways:" + Chr(10) + "- **Programming blocks** allow writing code in another language directly within HTVM, which will be preserved during conversion to that language." + Chr(10) + "- Multiple programming blocks can be used, but only the relevant block will be included based on the target language." + Chr(10) + "- **Reverse programming blocks** allow you to insert HTVM code into other target language code." + Chr(10) + "- The **universal programming block** enables handling languages with similar syntax for specific constructs." + Chr(10) + Chr(10) + Chr(10) + "#### **And More...**  " + Chr(10) + "- Go to [HTVM's website](https://themaster1127.github.io/HTVM) to explore all the syntax customizability and create your own language." + Chr(10) + Chr(10) + "### **The Power of HTVM – Beyond Anything Else**  " + Chr(10) + "This isn’t just some hobby project. **HTVM Version 2 took many months just for the parser.** And that was with prior experience from HTVM Version 1 and all the work put into previous languages like HT++, HTH, and HTpy. Every single language had to be carefully mapped out—loops, if-statements, try/catch blocks, functions, variables, types—**every detail had to be considered, tested, and tweaked.**  " + Chr(10) + Chr(10) + "And here’s the thing: **HTVM doesn’t just output to one language at a time—it can compile to multiple languages simultaneously.** That means you can write a single HTVM file and have it generate both JavaScript and Python code at the same time. That alone is something **almost no other tool in the world can do.**  " + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### **Programming Blocks – Total Control Over Your Code**  " + Chr(10) + "And then we have **Programming Blocks.** These allow you to **write native code for the target language directly inside HTVM files**. So if you’re converting to JavaScript and need something that HTVM doesn’t handle natively, you can just open a **JavaScript Programming Block**, write JavaScript inside it, and it will only be included when compiling to JavaScript.  " + Chr(10) + Chr(10) + "But it gets even crazier—**you can have multiple programming blocks for different languages in the same file.** That means you can mix HTVM, JavaScript, Python, and C++ **all in one place** and still have everything work correctly.  " + Chr(10) + Chr(10) + "And if that wasn’t enough, there are **Reverse Programming Blocks**—which allow for even more insane levels of customization. Even if nobody uses them, **HTVM is so complete that the feature is still there.**  " + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "### **The Future of Programming**  " + Chr(10) + "HTVM **isn’t just a transpiler—it’s the future of programming.**  " + Chr(10) + Chr(10) + "This is a system that allows **anyone** to create their own syntax, define how they want their language to behave, and then generate fully functional code in fifteen different programming languages. No more being stuck with a single syntax or workflow—**HTVM lets you build programming your way.**  " + Chr(10) + Chr(10) + "Think about it. If you had to manually convert HTVM to fifteen different languages, it would take months just for a single feature. But **HTVM automates that entire process**—**once your syntax is defined, your language works across all targets instantly.**  " + Chr(10) + Chr(10) + "### **HTVM – The Future of Programming**  " + Chr(10) + "This level of customization **doesn’t exist anywhere else.** No other system gives you this much control over how your language looks and feels. You’re not just writing code—you’re **designing your own programming experience.**  " + Chr(10) + Chr(10) + "HTVM isn’t just powerful—it’s **insane.** This is how programming should be." + Chr(10) + Chr(10) + "**HTVM doesn’t force you into a fixed way of coding—it lets you create your own language and then outputs it into real programming languages.**  " + Chr(10) + Chr(10) + "HTVM **isn’t just another programming tool. It’s a revolution.**" + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "## OSP (Ordinal Struct Programming)" + Chr(10) + Chr(10) + "[Go back](#htvm-documentation)" + Chr(10) + Chr(10) + "OSP (Ordinal Struct Programming) is HTVM's built-in approach for organizing data and related procedures using hierarchical namespaces and explicit path-based access. It focuses on **ordinal** positioning – meaning the unique location of structures within the defined hierarchy (" + Chr(96) + "alliance" + Chr(96) + ", " + Chr(96) + "crew" + Chr(96) + "). This feature offers an alternative for structuring code, particularly for those who prefer direct data manipulation and clear, absolute referencing over features like inheritance or encapsulation found in traditional OOP." + Chr(10) + Chr(10) + "### What is a " + Chr(96) + "struct" + Chr(96) + " in HTVM OSP?" + Chr(10) + Chr(10) + "At its core, a " + Chr(96) + "struct" + Chr(96) + " in HTVM OSP is similar to structs in languages like C: it's a way to **group related data fields together under a single name**." + Chr(10) + Chr(10) + "-   **Definition:** You define a struct using the " + Chr(96) + "struct" + Chr(96) + " keyword." + Chr(10) + "-   **Properties:** Inside a struct, you define its data fields using the " + Chr(96) + "prop" + Chr(96) + " keyword. Each " + Chr(96) + "prop" + Chr(96) + " holds a piece of data (like an integer, string, boolean, or even an array)." + Chr(10) + "-   **Access:** Crucially, you *always* access struct properties using their **full, absolute path** starting from the top level (or the struct name if defined standalone). For example: " + Chr(96) + "MyAlliance.MyCrew.MyStruct.myProp" + Chr(96) + "." + Chr(10) + "-   **Global Nature:** Structs defined in OSP are globally accessible from any point in the code below their definition, using their full path." + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet4 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### Optional Hierarchy: " + Chr(96) + "alliance" + Chr(96) + " and " + Chr(96) + "crew" + Chr(96) + Chr(10) + Chr(10) + "While you can define simple " + Chr(96) + "struct" + Chr(96) + "s directly, OSP provides optional hierarchical keywords (" + Chr(96) + "alliance" + Chr(96) + " and " + Chr(96) + "crew" + Chr(96) + ") for better organization, especially in larger projects:" + Chr(10) + Chr(10) + "-   **" + Chr(96) + "alliance" + Chr(96) + "**: The top-level organizational container." + Chr(10) + "-   **" + Chr(96) + "crew" + Chr(96) + "**: A sub-level container within an " + Chr(96) + "alliance" + Chr(96) + " (or potentially nested within other crews, though nesting isn't shown in examples)." + Chr(10) + Chr(10) + "**Why use hierarchy?**" + Chr(10) + Chr(10) + "-   **Organization:** Group related structs and procedures together logically (e.g., all UI elements in a " + Chr(96) + "GUI" + Chr(96) + " crew, all vehicle data in a " + Chr(96) + "Vehicles" + Chr(96) + " crew)." + Chr(10) + "-   **Avoiding Name Collisions:** If you had two different concepts both needing a " + Chr(96) + "struct" + Chr(96) + " named " + Chr(96) + "Settings" + Chr(96) + ", you could place them in different crews (e.g., " + Chr(96) + "Audio.Settings" + Chr(96) + " and " + Chr(96) + "Video.Settings" + Chr(96) + ") allowing them to coexist without conflict. Using " + Chr(96) + "alliance" + Chr(96) + " and " + Chr(96) + "crew" + Chr(96) + " acts like creating namespaces." + Chr(10) + Chr(10) + "Most of the time, for simpler data organization, you might just need standalone " + Chr(96) + "struct" + Chr(96) + "s. Use " + Chr(96) + "alliance" + Chr(96) + " and " + Chr(96) + "crew" + Chr(96) + " when you need the extra structure to avoid naming hurdles and keep related components neatly grouped." + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet5 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### Procedures (" + Chr(96) + "proc" + Chr(96) + ")" + Chr(10) + Chr(10) + "Procedures are functions defined within the OSP hierarchy (" + Chr(96) + "alliance" + Chr(96) + " or " + Chr(96) + "crew" + Chr(96) + ") using the " + Chr(96) + "proc" + Chr(96) + " keyword. They are intended to perform actions related to the structs within their hierarchy." + Chr(10) + Chr(10) + "-   **Association:** Defining a " + Chr(96) + "proc" + Chr(96) + " inside an " + Chr(96) + "alliance" + Chr(96) + " or " + Chr(96) + "crew" + Chr(96) + " links it semantically to that part of the hierarchy." + Chr(10) + "-   **Global Access:** Like structs, " + Chr(96) + "proc" + Chr(96) + "s are globally accessible via their full path (e.g., " + Chr(96) + "MyAlliance.MyCrew.myProc" + Chr(96) + ")." + Chr(10) + "-   **Context (" + Chr(96) + "this" + Chr(96) + " Keyword):** Procedures can optionally accept a special parameter named " + Chr(96) + "this" + Chr(96) + " to understand *which* struct (identified by its path string) initiated the call." + Chr(10) + Chr(10) + "### The " + Chr(96) + "this" + Chr(96) + " Keyword (Procedure Context)" + Chr(10) + Chr(10) + "The " + Chr(96) + "this" + Chr(96) + " keyword in OSP (Ordinal) is **different** from " + Chr(96) + "this" + Chr(96) + " in traditional OOP." + Chr(10) + Chr(10) + "-   **Purpose:** It serves as an **optional input parameter for " + Chr(96) + "proc" + Chr(96) + "s**. When a " + Chr(96) + "proc" + Chr(96) + " is called with a struct's path string, " + Chr(96) + "this" + Chr(96) + " holds that **literal string value** inside the " + Chr(96) + "proc" + Chr(96) + "." + Chr(10) + "-   **Usage:** It allows a " + Chr(96) + "proc" + Chr(96) + " to perform different actions based on *which* struct path was passed to it. This is typically checked using simple string comparison (" + Chr(96) + "if (this == " + Chr(34) + "MyAlliance.MyCrew.MyStruct" + Chr(34) + ")" + Chr(96) + ")." + Chr(10) + "-   **Mechanism:** You must explicitly pass the **full path of the struct as a string** when calling the " + Chr(96) + "proc" + Chr(96) + " if you intend for that " + Chr(96) + "proc" + Chr(96) + " to use the " + Chr(96) + "this" + Chr(96) + " context." + Chr(10) + "-   **Limitation:** This string-based approach is explicit but requires careful maintenance. If you rename a " + Chr(96) + "struct" + Chr(96) + " or change the hierarchy, you **must** update all the corresponding string literals used in " + Chr(96) + "proc" + Chr(96) + " calls and within the " + Chr(96) + "proc" + Chr(96) + "'s " + Chr(96) + "if/else if" + Chr(96) + " checks. It doesn't automatically track the struct itself." + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet6 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### Key Rules Recap" + Chr(10) + Chr(10) + "1.  **Full Path Access:** Always use the full, absolute path to access " + Chr(96) + "struct" + Chr(96) + " properties (e.g., " + Chr(96) + "Alliance.Crew.Struct.prop" + Chr(96) + ")." + Chr(10) + "2.  **" + Chr(96) + "this" + Chr(96) + " is Context String:** The " + Chr(96) + "this" + Chr(96) + " keyword, when used in a " + Chr(96) + "proc" + Chr(96) + ", holds the *path string* passed during the call. It's only valid inside " + Chr(96) + "proc" + Chr(96) + "s and requires explicit string comparison for conditional logic." + Chr(10) + Chr(10) + "### Arrays in Structs" + Chr(10) + Chr(10) + "Arrays can be defined as properties within structs just like any other data type:" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet1 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "### Summary of OSP (Ordinal Struct Programming)" + Chr(10) + Chr(10) + "-   **Organizes** code using optional " + Chr(96) + "alliance" + Chr(96) + "/" + Chr(96) + "crew" + Chr(96) + " hierarchies and " + Chr(96) + "struct" + Chr(96) + " data containers." + Chr(10) + "-   **Emphasizes** explicit, **ordinal** (position-based) access via mandatory **full paths**." + Chr(10) + "-   Uses " + Chr(96) + "struct" + Chr(96) + " for data aggregation and " + Chr(96) + "proc" + Chr(96) + " for associated procedures within the hierarchy." + Chr(10) + "-   Offers an optional " + Chr(96) + "this" + Chr(96) + " keyword for " + Chr(96) + "proc" + Chr(96) + "s to receive the **calling struct's path as a string**, enabling context-specific actions via string comparison." + Chr(10) + "-   Provides **global accessibility** for all defined structs and procs via their full paths." + Chr(10) + "-   Serves as an **alternative structure** within HTVM, focusing on explicitness and hierarchy, potentially avoiding certain OOP complexities but introducing verbosity and reliance on string paths for context." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "## Note:" + Chr(10) + Chr(10) + "### Never use underscores when naming things in OSP. Otherwise, you can use them, but be cautious because underscores can be unstable." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + "#### Example of OSP (Ordinal Struct Programming)" + Chr(10) + Chr(10) + Chr(96) + Chr(96) + Chr(96) + "htvm" + Chr(10) + htvmSnippet0 + Chr(10) + Chr(96) + Chr(96) + Chr(96) + Chr(10) + Chr(10) + "OSP (Ordinal Struct Programming) provides a structured, path-based approach to organizing data and procedures within HTVM, emphasizing explicit referencing." + Chr(10) + Chr(10) + "---" + Chr(10) + Chr(10) + outMDsec1 + Chr(10) + Chr(10) + outMDsec2 + Chr(10) + Chr(10) + outMDsec3 + Chr(10) + Chr(10) + outMDsec4 + Chr(10) + Chr(10) + outMDsec16 + Chr(10) + Chr(10) + outMDsec5 + Chr(10) + Chr(10) + outMDsec6 + Chr(10) + Chr(10) + outMDsec7 + Chr(10) + Chr(10) + outMDsec8 + Chr(10) + Chr(10) + outMDsec9 + Chr(10) + Chr(10) + outMDsec10 + Chr(10) + Chr(10) + outMDsec11 + Chr(10) + Chr(10) + outMDsec12 + Chr(10) + Chr(10) + outMDsec13 + Chr(10) + Chr(10) + outMDsec14 + Chr(10) + Chr(10) + outMDsec15 + Chr(10) + Chr(10) + "## Built-in Functions  " + Chr(10) + Chr(10) + "[Go back](#htvm-documentation) " + Chr(10) + Chr(10) + "HTVM includes a variety of built-in functions organized into categories for convenience." + Chr(10) + Chr(10);
     var outMD = "";
     var str1 = "";
     var str2 = "";
@@ -2782,19 +2626,19 @@ let sentence = "Your language uses " + features.join(", ") + ".";
     var theCodeBuildInSnippedHelpInt = 0;
     var theCodeBuildInSnippedHelpInt1 = 0;
     var theCodeBuildInSnippedHelpInt2 = 0;
-    for (let A_Index19 = 0; A_Index19 < HTVM_Size(categories) + 0; A_Index19++) {
+    for (let A_Index22 = 0; A_Index22 < HTVM_Size(categories) + 0; A_Index22++) {
         //print(categories[A_Index])
-        str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index19], Chr(10), 1)))) + " Functions";
+        str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index22], Chr(10), 1)))) + " Functions";
         // 1. [String Functions](#string-functions)
-        str2 = STR(A_Index19 + 1) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
+        str2 = STR(A_Index22 + 1) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
         outMD += str2 + Chr(10);
         // [Go back](#built-in-functions)
     }
     outMD += Chr(10) + "---" + Chr(10) + Chr(10);
     var categoriesElement = "";
-    for (let A_Index20 = 0; A_Index20 < HTVM_Size(categories) + 0; A_Index20++) {
+    for (let A_Index23 = 0; A_Index23 < HTVM_Size(categories) + 0; A_Index23++) {
         //print(categories[A_Index])
-        str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index20], Chr(10), 1)))) + " Functions";
+        str1 = Trim(StrTitleCase(Trim(StrSplit(categories[A_Index23], Chr(10), 1)))) + " Functions";
         // ## String Functions
         str2 = "## " + Trim(str1) + Chr(10) + Chr(10) + "[Go back](#built-in-functions)" + Chr(10) + Chr(10);
         str10 = "[Go back](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
@@ -2802,42 +2646,42 @@ let sentence = "Your language uses " + features.join(", ") + ".";
         // 1. [str1](#str1)
         // 2. [str2](#str2)
         // 3. [str3](#str3)
-        categoriesElement = categories[A_Index20];
-        let items21 = LoopParseFunc(categoriesElement, "\n", "\r");
-        for (let A_Index21 = 0; A_Index21 < items21.length + 0; A_Index21++) {
-            const A_LoopField21 = items21[A_Index21 - 0];
-            if (A_Index21 != 0) {
-                if (Trim(A_LoopField21) != "") {
-                    str1 = Trim(StrSplit(StrSplit(A_LoopField21, "|", 1), ":", 2));
-                    str3 = STR(A_Index21) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
+        categoriesElement = categories[A_Index23];
+        let items24 = LoopParseFunc(categoriesElement, "\n", "\r");
+        for (let A_Index24 = 0; A_Index24 < items24.length + 0; A_Index24++) {
+            const A_LoopField24 = items24[A_Index24 - 0];
+            if (A_Index24 != 0) {
+                if (Trim(A_LoopField24) != "") {
+                    str1 = Trim(StrSplit(StrSplit(A_LoopField24, "|", 1), ":", 2));
+                    str3 = STR(A_Index24) + ". [" + str1 + "](#" + Trim(StrReplace(StrLower(str1), " ", "-")) + ")";
                     outMD += str3 + Chr(10);
                 }
             }
         }
         outMD += Chr(10) + "---" + Chr(10) + Chr(10) + "**HTVM built-in functions are designed to work mostly across C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript and Groovy with availability varying depending on language-specific capabilities, libraries, and syntax. Some functions are supported in JavaScript but not in Python or C++ and others and many other combinations, while others are available in all or some languages.**" + Chr(10) + Chr(10) + "**HTVM build-in functions availability.**" + Chr(10) + Chr(10) + "| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |" + Chr(10) + "|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|" + Chr(10);
-        let items22 = LoopParseFunc(categoriesElement, "\n", "\r");
-        for (let A_Index22 = 0; A_Index22 < items22.length + 0; A_Index22++) {
-            const A_LoopField22 = items22[A_Index22 - 0];
-            if (A_Index22 != 0) {
-                if (Trim(A_LoopField22) != "") {
-                    str1 = Trim(StrSplit(StrSplit(A_LoopField22, "|", 1), ":", 2));
+        let items25 = LoopParseFunc(categoriesElement, "\n", "\r");
+        for (let A_Index25 = 0; A_Index25 < items25.length + 0; A_Index25++) {
+            const A_LoopField25 = items25[A_Index25 - 0];
+            if (A_Index25 != 0) {
+                if (Trim(A_LoopField25) != "") {
+                    str1 = Trim(StrSplit(StrSplit(A_LoopField25, "|", 1), ":", 2));
                     // cpp py js and more
-                    str4 = Trim(StrSplit(A_LoopField22, "|", 3));
-                    str5 = Trim(StrSplit(A_LoopField22, "|", 4));
-                    str6 = Trim(StrSplit(A_LoopField22, "|", 5));
-                    str7 = Trim(StrSplit(A_LoopField22, "|", 6));
+                    str4 = Trim(StrSplit(A_LoopField25, "|", 3));
+                    str5 = Trim(StrSplit(A_LoopField25, "|", 4));
+                    str6 = Trim(StrSplit(A_LoopField25, "|", 5));
+                    str7 = Trim(StrSplit(A_LoopField25, "|", 6));
                     //
-                    str11 = Trim(StrSplit(A_LoopField22, "|", 7));
-                    str12 = Trim(StrSplit(A_LoopField22, "|", 8));
-                    str13 = Trim(StrSplit(A_LoopField22, "|", 9));
-                    str14 = Trim(StrSplit(A_LoopField22, "|", 10));
-                    str15 = Trim(StrSplit(A_LoopField22, "|", 11));
-                    str16 = Trim(StrSplit(A_LoopField22, "|", 12));
-                    str17 = Trim(StrSplit(A_LoopField22, "|", 13));
-                    str18 = Trim(StrSplit(A_LoopField22, "|", 14));
-                    str19 = Trim(StrSplit(A_LoopField22, "|", 15));
-                    str20 = Trim(StrSplit(A_LoopField22, "|", 16));
-                    str21 = Trim(StrSplit(A_LoopField22, "|", 17));
+                    str11 = Trim(StrSplit(A_LoopField25, "|", 7));
+                    str12 = Trim(StrSplit(A_LoopField25, "|", 8));
+                    str13 = Trim(StrSplit(A_LoopField25, "|", 9));
+                    str14 = Trim(StrSplit(A_LoopField25, "|", 10));
+                    str15 = Trim(StrSplit(A_LoopField25, "|", 11));
+                    str16 = Trim(StrSplit(A_LoopField25, "|", 12));
+                    str17 = Trim(StrSplit(A_LoopField25, "|", 13));
+                    str18 = Trim(StrSplit(A_LoopField25, "|", 14));
+                    str19 = Trim(StrSplit(A_LoopField25, "|", 15));
+                    str20 = Trim(StrSplit(A_LoopField25, "|", 16));
+                    str21 = Trim(StrSplit(A_LoopField25, "|", 17));
                     // | str1 | Yes | No | Yes | and more
                     str3 = "| " + str1 + " | " + str4 + " | " + str5 + " | " + str6 + " | " + str7 + " |" + str11 + " |" + str12 + " |" + str13 + " |" + str14 + " |" + str15 + " |" + str16 + " |" + str17 + " |" + str18 + " |" + str19 + " |" + str20 + " |" + str21 + " |";
                     outMD += str3 + Chr(10);
@@ -2845,40 +2689,40 @@ let sentence = "Your language uses " + features.join(", ") + ".";
             }
         }
         outMD += Chr(10) + "---" + Chr(10) + Chr(10);
-        let items23 = LoopParseFunc(categoriesElement, "\n", "\r");
-        for (let A_Index23 = 0; A_Index23 < items23.length + 0; A_Index23++) {
-            const A_LoopField23 = items23[A_Index23 - 0];
-            if (A_Index23 != 0) {
-                if (Trim(A_LoopField23) != "") {
-                    str1 = Trim(StrSplit(StrSplit(A_LoopField23, "|", 1), ":", 2));
+        let items26 = LoopParseFunc(categoriesElement, "\n", "\r");
+        for (let A_Index26 = 0; A_Index26 < items26.length + 0; A_Index26++) {
+            const A_LoopField26 = items26[A_Index26 - 0];
+            if (A_Index26 != 0) {
+                if (Trim(A_LoopField26) != "") {
+                    str1 = Trim(StrSplit(StrSplit(A_LoopField26, "|", 1), ":", 2));
                     str2 = "### " + str1 + Chr(10) + Chr(10) + Trim(str10) + Chr(10) + Chr(10) + "**HTVM build-in functions availability.**" + Chr(10) + Chr(10) + "| Functions | C++   | Python | JavaScript | Go   | Lua   | C#   | Java   | Kotlin | Ruby  | Nim   | AutoHotKey | Swift | Dart  | TypeScript | Groovy |" + Chr(10) + "|-----------|-------|--------|------------|------|-------|------|--------|--------|-------|-------|------------|-------|-------|------------|--------|" + Chr(10);
                     // cpp py js
-                    str4 = Trim(StrSplit(A_LoopField23, "|", 3));
-                    str5 = Trim(StrSplit(A_LoopField23, "|", 4));
-                    str6 = Trim(StrSplit(A_LoopField23, "|", 5));
-                    str7 = Trim(StrSplit(A_LoopField23, "|", 6));
+                    str4 = Trim(StrSplit(A_LoopField26, "|", 3));
+                    str5 = Trim(StrSplit(A_LoopField26, "|", 4));
+                    str6 = Trim(StrSplit(A_LoopField26, "|", 5));
+                    str7 = Trim(StrSplit(A_LoopField26, "|", 6));
                     //
-                    str11 = Trim(StrSplit(A_LoopField23, "|", 7));
-                    str12 = Trim(StrSplit(A_LoopField23, "|", 8));
-                    str13 = Trim(StrSplit(A_LoopField23, "|", 9));
-                    str14 = Trim(StrSplit(A_LoopField23, "|", 10));
-                    str15 = Trim(StrSplit(A_LoopField23, "|", 11));
-                    str16 = Trim(StrSplit(A_LoopField23, "|", 12));
-                    str17 = Trim(StrSplit(A_LoopField23, "|", 13));
-                    str18 = Trim(StrSplit(A_LoopField23, "|", 14));
-                    str19 = Trim(StrSplit(A_LoopField23, "|", 15));
-                    str20 = Trim(StrSplit(A_LoopField23, "|", 16));
-                    str21 = Trim(StrSplit(A_LoopField23, "|", 17));
+                    str11 = Trim(StrSplit(A_LoopField26, "|", 7));
+                    str12 = Trim(StrSplit(A_LoopField26, "|", 8));
+                    str13 = Trim(StrSplit(A_LoopField26, "|", 9));
+                    str14 = Trim(StrSplit(A_LoopField26, "|", 10));
+                    str15 = Trim(StrSplit(A_LoopField26, "|", 11));
+                    str16 = Trim(StrSplit(A_LoopField26, "|", 12));
+                    str17 = Trim(StrSplit(A_LoopField26, "|", 13));
+                    str18 = Trim(StrSplit(A_LoopField26, "|", 14));
+                    str19 = Trim(StrSplit(A_LoopField26, "|", 15));
+                    str20 = Trim(StrSplit(A_LoopField26, "|", 16));
+                    str21 = Trim(StrSplit(A_LoopField26, "|", 17));
                     // | str1 | Yes | No | Yes | and more
                     str3 = "| " + str1 + " | " + str4 + " | " + str5 + " | " + str6 + " | " + str7 + " |" + str11 + " |" + str12 + " |" + str13 + " |" + str14 + " |" + str15 + " |" + str16 + " |" + str17 + " |" + str18 + " |" + str19 + " |" + str20 + " |" + str21 + " |";
                     str8 = "";
-                    str9 = Trim(StrSplit(StrSplit(A_LoopField23, "|", 2), "description:", 2));
-                    let items24 = LoopParseFunc(str9, "~~~");
-                    for (let A_Index24 = 0; A_Index24 < items24.length + 0; A_Index24++) {
-                        const A_LoopField24 = items24[A_Index24 - 0];
-                        if (A_Index24 != 0) {
-                            if (A_LoopField24 != "") {
-                                str8 += A_LoopField24 + Chr(10);
+                    str9 = Trim(StrSplit(StrSplit(A_LoopField26, "|", 2), "description:", 2));
+                    let items27 = LoopParseFunc(str9, "~~~");
+                    for (let A_Index27 = 0; A_Index27 < items27.length + 0; A_Index27++) {
+                        const A_LoopField27 = items27[A_Index27 - 0];
+                        if (A_Index27 != 0) {
+                            if (A_LoopField27 != "") {
+                                str8 += A_LoopField27 + Chr(10);
                             }
                         }
                     }
@@ -2887,21 +2731,21 @@ let sentence = "Your language uses " + features.join(", ") + ".";
                     theCodeBuildInSnippedHelp2 = "";
                     theCodeBuildInSnippedHelpInt = 0;
                     theCodeBuildInSnippedHelpInt1 = 0;
-                    let items25 = LoopParseFunc(str8, "\n", "\r");
-                    for (let A_Index25 = 0; A_Index25 < items25.length + 0; A_Index25++) {
-                        const A_LoopField25 = items25[A_Index25 - 0];
+                    let items28 = LoopParseFunc(str8, "\n", "\r");
+                    for (let A_Index28 = 0; A_Index28 < items28.length + 0; A_Index28++) {
+                        const A_LoopField28 = items28[A_Index28 - 0];
                         // Start of HTVM block
-                        if (Trim(A_LoopField25) == Chr(96) + Chr(96) + Chr(96) + "htvm") {
+                        if (Trim(A_LoopField28) == Chr(96) + Chr(96) + Chr(96) + "htvm") {
                             theCodeBuildInSnippedHelpInt = 1;
-                            theCodeBuildInSnippedHelp1 += A_LoopField25 + Chr(10);
+                            theCodeBuildInSnippedHelp1 += A_LoopField28 + Chr(10);
                             continue;
                         }
                         // End of any code block
-                        if (Trim(A_LoopField25) == Chr(96) + Chr(96) + Chr(96)) {
+                        if (Trim(A_LoopField28) == Chr(96) + Chr(96) + Chr(96)) {
                             HTVM_Append(theCodeBuildInSnipped, theCodeBuildInSnippedHelp);
                             theCodeBuildInSnippedHelp1 += "AAbdsud--sblad0gblattheCodeBuildInSnippedHelpInt2reisurgfiugfusifsdygfuisdgfa--uksdusdfgusAA" + STR(theCodeBuildInSnippedHelpInt2) + "AA" + Chr(10);
                             theCodeBuildInSnippedHelpInt2++;
-                            theCodeBuildInSnippedHelp1 += A_LoopField25 + Chr(10) + Chr(10);
+                            theCodeBuildInSnippedHelp1 += A_LoopField28 + Chr(10) + Chr(10);
                             // Reset
                             theCodeBuildInSnippedHelp = "";
                             theCodeBuildInSnippedHelpInt = 0;
@@ -2909,10 +2753,10 @@ let sentence = "Your language uses " + features.join(", ") + ".";
                         }
                         // Collect HTVM code block lines for conversion
                         if (theCodeBuildInSnippedHelpInt == 1) {
-                            theCodeBuildInSnippedHelp += A_LoopField25 + Chr(10);
+                            theCodeBuildInSnippedHelp += A_LoopField28 + Chr(10);
                         } else {
                             // Regular text outside HTVM blocks
-                            theCodeBuildInSnippedHelp1 += A_LoopField25 + Chr(10) + Chr(10);
+                            theCodeBuildInSnippedHelp1 += A_LoopField28 + Chr(10) + Chr(10);
                         }
                     }
                     str8 = theCodeBuildInSnippedHelp1;
@@ -2922,11 +2766,11 @@ let sentence = "Your language uses " + features.join(", ") + ".";
         }
     }
     var THEINSTESCEPAED = "";
-    let items26 = LoopParseFunc(instructionFileData, "\n", "\r");
-    for (let A_Index26 = 0; A_Index26 < items26.length + 0; A_Index26++) {
-        const A_LoopField26 = items26[A_Index26 - 0];
-        if (A_Index26 <= 161) {
-            THEINSTESCEPAED += escapeStr(Trim(A_LoopField26)) + Chr(10);
+    let items29 = LoopParseFunc(instructionFileData, "\n", "\r");
+    for (let A_Index29 = 0; A_Index29 < items29.length + 0; A_Index29++) {
+        const A_LoopField29 = items29[A_Index29 - 0];
+        if (A_Index29 <= 161) {
+            THEINSTESCEPAED += escapeStr(Trim(A_LoopField29)) + Chr(10);
         }
     }
     THEINSTESCEPAED = StringTrimRight(THEINSTESCEPAED, 1);
@@ -2936,8 +2780,8 @@ let sentence = "Your language uses " + features.join(", ") + ".";
     var theCodeBuildInSnippedHelp5 = "";
     let theCodeBuildInSnippedHelp6 = [];
     var theCodeBuildInSnippedHelp6TEMP = "";
-    for (let A_Index27 = 0; A_Index27 < HTVM_Size(theCodeBuildInSnipped) + 0; A_Index27++) {
-        theCodeBuildInSnippedHelp4 += theCodeBuildInSnipped[A_Index27] + Chr(10) + Chr(10) + "AA--spettrrarateblatheCodeBuildInSnippeddxfjdzsiehdifx--sdhfkAA" + Chr(10) + Chr(10);
+    for (let A_Index30 = 0; A_Index30 < HTVM_Size(theCodeBuildInSnipped) + 0; A_Index30++) {
+        theCodeBuildInSnippedHelp4 += theCodeBuildInSnipped[A_Index30] + Chr(10) + Chr(10) + "AA--spettrrarateblatheCodeBuildInSnippeddxfjdzsiehdifx--sdhfkAA" + Chr(10) + Chr(10);
     }
     if (HTVM_getLang_HTVM() == "cpp") {
         print("Converting all built-in function example snippets...");
@@ -2947,24 +2791,24 @@ let sentence = "Your language uses " + features.join(", ") + ".";
         theCodeBuildInSnippedHelp5 = convertSnipetToAnotherSyntax(instructionFileData, theCodeBuildInSnippedHelp4);
     }
     theCodeBuildInSnippedHelp6TEMP = "";
-    let items28 = LoopParseFunc(theCodeBuildInSnippedHelp5, "\n", "\r");
-    for (let A_Index28 = 0; A_Index28 < items28.length + 0; A_Index28++) {
-        const A_LoopField28 = items28[A_Index28 - 0];
-        if (Trim(A_LoopField28) == "AA--spettrrarateblatheCodeBuildInSnippeddxfjdzsiehdifx--sdhfkAA") {
+    let items31 = LoopParseFunc(theCodeBuildInSnippedHelp5, "\n", "\r");
+    for (let A_Index31 = 0; A_Index31 < items31.length + 0; A_Index31++) {
+        const A_LoopField31 = items31[A_Index31 - 0];
+        if (Trim(A_LoopField31) == "AA--spettrrarateblatheCodeBuildInSnippeddxfjdzsiehdifx--sdhfkAA") {
             if (Trim(theCodeBuildInSnippedHelp6TEMP) != "") {
                 HTVM_Append(theCodeBuildInSnippedHelp6, theCodeBuildInSnippedHelp6TEMP);
                 theCodeBuildInSnippedHelp6TEMP = "";
             }
         } else {
-            theCodeBuildInSnippedHelp6TEMP += A_LoopField28 + Chr(10);
+            theCodeBuildInSnippedHelp6TEMP += A_LoopField31 + Chr(10);
         }
     }
     // Flush last one just in case there's no trailing separator
     if (Trim(theCodeBuildInSnippedHelp6TEMP) != "") {
         HTVM_Append(theCodeBuildInSnippedHelp6, theCodeBuildInSnippedHelp6TEMP);
     }
-    for (let A_Index29 = 0; A_Index29 < HTVM_Size(theCodeBuildInSnippedHelp6) + 0; A_Index29++) {
-        outMD = StrReplace(outMD, Trim("AAbdsud--sblad0gblattheCodeBuildInSnippedHelpInt2reisurgfiugfusifsdygfuisdgfa--uksdusdfgusAA" + STR(A_Index29) + "AA"), Trim(theCodeBuildInSnippedHelp6[A_Index29]));
+    for (let A_Index32 = 0; A_Index32 < HTVM_Size(theCodeBuildInSnippedHelp6) + 0; A_Index32++) {
+        outMD = StrReplace(outMD, Trim("AAbdsud--sblad0gblattheCodeBuildInSnippedHelpInt2reisurgfiugfusifsdygfuisdgfa--uksdusdfgusAA" + STR(A_Index32) + "AA"), Trim(theCodeBuildInSnippedHelp6[A_Index32]));
     }
     //outMD
     //outMD
@@ -2992,16 +2836,16 @@ async function main() {
             print("no params Exiting...");
             ExitApp();
         }
-        let items30 = LoopParseFunc(DOCS_params, "\n", "\r");
-        for (let A_Index30 = 0; A_Index30 < items30.length + 0; A_Index30++) {
-            const A_LoopField30 = items30[A_Index30 - 0];
-            if (A_Index30 == 0) {
-                print(A_LoopField30);
-                DOCS_param1 = Trim(A_LoopField30);
+        let items33 = LoopParseFunc(DOCS_params, "\n", "\r");
+        for (let A_Index33 = 0; A_Index33 < items33.length + 0; A_Index33++) {
+            const A_LoopField33 = items33[A_Index33 - 0];
+            if (A_Index33 == 0) {
+                print(A_LoopField33);
+                DOCS_param1 = Trim(A_LoopField33);
             }
-            if (A_Index30 == 1) {
-                print(A_LoopField30);
-                DOCS_param2 = Trim(A_LoopField30);
+            if (A_Index33 == 1) {
+                print(A_LoopField33);
+                DOCS_param2 = Trim(A_LoopField33);
             }
         }
         if (!FileExist(DOCS_param1)) {

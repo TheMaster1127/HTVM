@@ -1394,8 +1394,10 @@
             "body": "Enable this to use `{` and `}` (or custom equivalents defined by `keyWordCurlyBraceOpen`/`Close`) to define code blocks. Mutually exclusive with 'Use End Keyword' and 'Use Pythonic Colon Syntax'.\n\nDefaults to: **`on`**"
           },
           "dependencies": [
-            {"id": 150, "action": "off"},
-            {"id": 155, "action": "off"}
+            {"id": 150, "action": "off"}
+          ],
+          "onDisable": [
+            {"id": 150, "action": "on"}
           ]
         },
         {
@@ -1409,6 +1411,9 @@
           },
           "dependencies": [
             {"id": 149, "action": "off"}
+          ],
+          "onDisable": [
+            {"id": 149, "action": "on"}
           ]
         },
         {
@@ -1461,19 +1466,6 @@
           ],
           "onDisable": [
             {"id": 153, "action": "on"}
-          ]
-        },
-        {
-          "id": 155,
-          "name": "usePythonicColonSyntax",
-          "default": "off",
-          "type": "toggle",
-          "description": {
-            "header": "Use Pythonic Colon for Blocks",
-            "body": "Enable this to use Python-style colons `:` at the end of lines starting blocks (like `if`, `while`, `func`) and rely on indentation. Mutually exclusive with 'Use Curly Braces'.\n\nDefaults to: **`off`**"
-          },
-          "dependencies": [
-            {"id": 149, "action": "off"}
           ]
         },
         {

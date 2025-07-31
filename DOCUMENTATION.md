@@ -76,10 +76,9 @@ You can **customize the block delimiters**, which define the start and end of co
 
 You have the ability to choose between multiple **indentation styles**:
 
-- **Pythonic indentation style**: This removes the need for block delimiters like curly braces, relying on indentation to define code blocks.
 - **Lua indentation style**: Uses the customizable `end` keyword to close code blocks.
 
-Both styles are fully customizable, and you can define your own keyword for closing blocks (such as `end`, or any other word).
+The `end` keyword is fully customizable. You can use `end` or any other word.`, or any other word).
 
 ### Toggleable Semicolons
 

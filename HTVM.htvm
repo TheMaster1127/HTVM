@@ -1208,6 +1208,7 @@ str line := ""
 str stripped := ""
 Loop, Parse, pythonCode, `n, `r
 {
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordComment))) != StrLower(keyWordComment)) {
 line := A_LoopField
 stripped := Trim(line)
 if (stripped = "")
@@ -1241,6 +1242,10 @@ indentLevel += 4
 else
 {
 result .= line . Chr(10)
+}
+}
+else {
+result .= A_LoopField . Chr(10)
 }
 }
 
@@ -12569,10 +12574,52 @@ func str compiler(str htCode, str allInstructionFile, str mode, str langToConver
 {
 
 
-
 str instructions := allInstructionFile
 
+str FIXFIX_allInstructionFile := ""
+arr str FIXFIX_allInstructionFile_ARR
+int FIXFIX_allInstructionFile_HELP_INT := 0
+int FIXFIX_allInstructionFile_HELP_done := 0
 
+Loop, Parse, instructions
+{
+FIXFIX_allInstructionFile_ARR.add(A_LoopField)
+}
+
+Loop, Parse, instructions
+{
+if (A_LoopField = Chr(10)) {
+FIXFIX_allInstructionFile_HELP_INT++
+}
+if (FIXFIX_allInstructionFile_HELP_INT >= 161) {
+FIXFIX_allInstructionFile_HELP_done := 1
+}
+
+if (FIXFIX_allInstructionFile_HELP_done = 1) {
+FIXFIX_allInstructionFile .= A_LoopField
+}
+else {
+if (FIXFIX_allInstructionFile_ARR[A_Index + 1] = Chr(10) and A_LoopField = Chr(10)) {
+FIXFIX_allInstructionFile .= Chr(10) . "off"
+}
+else {
+FIXFIX_allInstructionFile .= A_LoopField
+}
+
+}
+
+
+}
+
+allInstructionFile := FIXFIX_allInstructionFile
+
+int panic_FIXFIX_allInstructionFile := 0
+Loop, Parse, allInstructionFile, `n, `r
+{
+	if (A_Index = 161) and (Trim(A_LoopField) != "on") and (Trim(A_LoopField) != "off") {
+        panic_FIXFIX_allInstructionFile := 1
+	}
+}
 
 Loop, Parse, allInstructionFile, `n, `r
 {
@@ -13041,6 +13088,35 @@ Loop, Parse, allInstructionFile, `n, `r
 	if (A_Index = 154) {
 		usePostfixTypeForTypeDefinition := Trim(A_LoopField)
 	}
+if (panic_FIXFIX_allInstructionFile = 1) {
+
+
+if (A_Index = 155) {
+		usePythonicColonSyntax := Trim(A_LoopField)
+	}
+	if (A_Index = 155) {
+		useCurlyBracesSyntaxForArrayDef := Trim(A_LoopField)
+	}
+	if (A_Index = 156) {
+		useInJavaScriptAlwaysUseVar := Trim(A_LoopField)
+	}
+	if (A_Index = 157) {
+		useJavaScriptInAfullHTMLfile := Trim(A_LoopField)
+	}
+	if (A_Index = 158) {
+		useJavaScriptAmainFuncDef := Trim(A_LoopField)
+	}
+	if (A_Index = 159) {
+		useJavaScriptAllFuncsAreAsync := Trim(A_LoopField)
+	}
+	if (A_Index = 160) {
+		useJavaScriptAlwaysTripleEqual := Trim(A_LoopField)
+	}
+
+}
+else {
+
+
 	if (A_Index = 155) {
 		usePythonicColonSyntax := Trim(A_LoopField)
 	}
@@ -13062,7 +13138,11 @@ Loop, Parse, allInstructionFile, `n, `r
 	if (A_Index = 161) {
 		useJavaScriptAlwaysTripleEqual := Trim(A_LoopField)
 	}
+	}
 }
+
+usePythonicColonSyntax := "off"
+
 
 if (argHTVMinstrMORE.size() > 0)
 {
@@ -13543,6 +13623,35 @@ Loop, Parse, allInstructionFile_2, `n, `r
 	if (A_Index = 154) {
 		usePostfixTypeForTypeDefinition_2 := Trim(A_LoopField)
 	}
+if (panic_FIXFIX_allInstructionFile = 1) {
+
+
+if (A_Index = 155) {
+		usePythonicColonSyntax_2 := Trim(A_LoopField)
+	}
+	if (A_Index = 155) {
+		useCurlyBracesSyntaxForArrayDef_2 := Trim(A_LoopField)
+	}
+	if (A_Index = 156) {
+		useInJavaScriptAlwaysUseVar_2 := Trim(A_LoopField)
+	}
+	if (A_Index = 157) {
+		useJavaScriptInAfullHTMLfile_2 := Trim(A_LoopField)
+	}
+	if (A_Index = 158) {
+		useJavaScriptAmainFuncDef_2 := Trim(A_LoopField)
+	}
+	if (A_Index = 159) {
+		useJavaScriptAllFuncsAreAsync_2 := Trim(A_LoopField)
+	}
+	if (A_Index = 160) {
+		useJavaScriptAlwaysTripleEqual_2 := Trim(A_LoopField)
+	}
+
+}
+else {
+
+
 	if (A_Index = 155) {
 		usePythonicColonSyntax_2 := Trim(A_LoopField)
 	}
@@ -13564,8 +13673,9 @@ Loop, Parse, allInstructionFile_2, `n, `r
 	if (A_Index = 161) {
 		useJavaScriptAlwaysTripleEqual_2 := Trim(A_LoopField)
 	}
-
+	}
 }
+usePythonicColonSyntax_2 := "off"
 
 }
 
@@ -25802,7 +25912,7 @@ if (Trim(A_LoopField) = "funcEND======================funcEND==============")
 {
 areWeInAFuncFromInstructions := 0
 areWeInAFuncFromInstructionsLineNum := 0
-if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder)))
+if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder) . "("))
 {
 ;MsgBox, % funcFuncHolder
 allFuncs.add(funcFuncHolder)
@@ -25816,7 +25926,7 @@ if (areWeInAFuncFromInstructions = 1)
 
 if (areWeInAFuncFromInstructionsLineNum = 1)
 {
-; name of the func
+; lang of the func
 StringTrimLeft, funcLangHolder, A_LoopField, 5
 if (Trim(funcLangHolder) = langToConvertTo)
 {
@@ -25828,7 +25938,7 @@ if (areWeInAFuncFromInstructionsLineNum = 2)
 {
 ; name of the func
 StringTrimLeft, funcNameHolder, A_LoopField, 5
-if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder)))
+if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder) . "("))
 {
 allFuncNames.add(Trim(funcNameHolder))
 }
@@ -25837,7 +25947,7 @@ if (areWeInAFuncFromInstructionsLineNum = 3)
 {
 ; all libs
 StringTrimLeft, funcLibsHolder, A_LoopField, 5
-if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder)))
+if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder) . "("))
 {
 allFuncLibs.add(Trim(funcLibsHolder))
 }
@@ -25846,7 +25956,7 @@ if (areWeInAFuncFromInstructionsLineNum = 4)
 {
 ; func description
 StringTrimLeft, funcDescriptionHolder, A_LoopField, 12
-if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder)))
+if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder) . "("))
 {
 allfuncDescription.add(Trim(funcDescriptionHolder))
 }
@@ -25854,7 +25964,7 @@ allfuncDescription.add(Trim(funcDescriptionHolder))
 if (areWeInAFuncFromInstructionsLineNum >= 5)
 {
 ; the full func
-if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder)))
+if (correctLang = 1) and (InStr(htCode, Trim(funcNameHolder) . "("))
 {
 funcFuncHolder .= A_LoopField . Chr(10)
 }
