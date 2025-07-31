@@ -1474,8 +1474,8 @@
           "default": "off",
           "type": "toggle",
           "description": {
-            "header": "Use Pythonic Colon for Blocks",
-            "body": "Enable this to use Python-style colons `:` at the end of lines starting blocks (like `if`, `while`, `func`) and rely on indentation. Mutually exclusive with 'Use Curly Braces'.\n\nDefaults to: **`off`**"
+            "header": "DEPRECATED",
+            "body": "DEPRECATED"
           },
           "dependencies": [
             {"id": 149, "action": "off"}
