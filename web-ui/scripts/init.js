@@ -289,3 +289,4 @@ fetch('assets/settings.json')
             });
   })
   .catch(error => console.error('Error fetching JSON:', error));
+  document.getElementById("sw-155")?.remove();

@@ -26,6 +26,7 @@ function reorganizeBoxes() {
     });
     
     columnElements.forEach(column => container.appendChild(column));
+    document.getElementById("sw-155")?.remove();
 };
 
 function registerMenu(){
