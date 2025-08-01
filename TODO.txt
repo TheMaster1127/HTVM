@@ -1,7 +1,6 @@
 TODO.txt
-1. Fix some IDE bugs and polish everything to ensure it's working as expected.
-2. Ask people to try HTVM, find bugs, and provide feedback to ensure its quality before the official 2.0.0 release.
-3. Set up the Discord server and a subreddit for HTVM.
-4. Consider making HTVM version 2.0.0 the official release.
-5. Prepare the YouTube video titled "HTVM: The Future of Programming"
-6. Begin popularizing HTVM after the official release.
+1. Ask people to try HTVM, find bugs, and provide feedback to ensure its quality before the official 2.0.0 release.
+2. Set up the Discord server and a subreddit for HTVM.
+3. Make the HTVM version 2.0.0 the official release on github.
+4. Prepare the YouTube video titled "HTVM: The Future of Programming"
+5. Begin popularizing HTVM after the official release.
