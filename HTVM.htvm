@@ -15399,7 +15399,6 @@ outTrimCode .= Trim(A_LoopField) . Chr(10)
 }
 StringTrimRight, code, outTrimCode, 1
 
-
 ; for converting c++ to js and py
 ;code := StrReplace(code, "{}", "[]")
 
