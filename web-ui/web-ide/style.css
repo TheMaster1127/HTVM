@@ -182,12 +182,14 @@ body.preload * { transition: none !important; }
 #new-file-btn { background-color: var(--btn-new-file-bg); color: var(--btn-new-file-text); font-weight: var(--btn-new-file-text-bold); }
 #new-folder-btn { background-color: var(--btn-new-folder-bg); color: var(--btn-new-folder-text); font-weight: var(--btn-new-folder-text-bold); }
 #file-list { list-style: none; padding: 0; margin: 0; flex-grow: 1; overflow-y: auto; min-height: 0; }
-#file-list li { padding: 6px 10px; cursor: pointer; border-radius: 3px; font-size: 0.9em; display: flex; align-items: center; justify-content: space-between; overflow: hidden; color: var(--sidebar-file-text); font-weight: var(--sidebar-file-text-bold); }
+#file-list li { padding: 6px 10px; cursor: pointer; border-radius: 3px; font-size: 0.9em; display: flex; align-items: center; justify-content: space-between; overflow: hidden; color: var(--sidebar-file-text); font-weight: var(--sidebar-file-text-bold); gap: 8px; }
 #file-list li:hover { background-color: var(--sidebar-file-hover-bg); }
 #file-list li button { margin-left: auto; visibility: hidden; }
 #file-list li:hover button { visibility: visible; }
 #file-list li.active-file-list-item { background-color: var(--sidebar-file-active-bg); color: var(--sidebar-file-active-text); font-weight: var(--sidebar-file-active-text-bold); }
-.file-item-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-item-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1; }
+.file-list-icon-wrapper { flex-shrink: 0; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; }
+.file-list-icon { width: 100%; height: 100%; object-fit: contain; }
 .sidebar-footer { padding: 10px; border-top: 1px solid var(--resizer-bg); display: grid; gap: 5px; grid-template-columns: 1fr 1fr; flex-shrink: 0; }
 .sidebar-footer button { border: none; padding: 8px; cursor: pointer; border-radius: 3px; font-size: 0.85em; width: 100%; }
 #save-session-btn { background-color: var(--btn-save-session-bg); color: var(--btn-save-session-text); font-weight: var(--btn-save-session-text-bold); }

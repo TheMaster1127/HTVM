@@ -43,9 +43,44 @@ async function renderFileList() {
     Object.keys(node || {}).sort((a, b) => (node[a]._isFile === node[b]._isFile) ? a.localeCompare(b) : node[a]._isFile ? 1 : -1).forEach(key => {
         const item = node[key];
         const li = document.createElement('li');
-        const span = document.createElement('span');
-        span.className = 'file-item-name';
-        span.textContent = `${item._isFile ? '📄' : '📁'} ${key}`;
+        li.dataset.path = item._path; // Add data-path for robust selection
+
+        const iconWrapper = document.createElement('span');
+        iconWrapper.className = 'file-list-icon-wrapper';
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'file-item-name';
+        nameSpan.textContent = key;
+
+        const iconImg = document.createElement('img');
+        iconImg.className = 'file-list-icon';
+        iconImg.alt = ''; // Decorative image
+
+        if (item._isFile) {
+            const parts = key.split('.');
+            const ext = parts.length > 1 ? parts.pop().toLowerCase() : 'file'; // Default to 'file' for generic icon
+            iconImg.src = `assets/${ext}.png`;
+            iconImg.onerror = function() {
+                // If specific icon fails, try the generic 'file.png'
+                this.onerror = null;
+                this.src = 'assets/file.png';
+                // If the generic icon ALSO fails, fall back to the emoji.
+                this.onerror = function() {
+                    iconWrapper.textContent = '📄';
+                };
+            };
+        } else { // It's a folder
+            iconImg.src = 'assets/folder.png';
+            iconImg.onerror = function() {
+                // If folder icon is missing, fall back to emoji.
+                iconWrapper.textContent = '📁';
+            };
+        }
+        iconWrapper.appendChild(iconImg);
+
+        li.appendChild(iconWrapper);
+        li.appendChild(nameSpan);
+        
         li.onclick = () => (item._isFile ? openFileInEditor(item._path) : setCurrentDirectory(item._path));
 
         const delBtn = document.createElement('button');
@@ -58,7 +93,6 @@ async function renderFileList() {
             deleteItem(item._path, item._isFile);
         };
 
-        li.appendChild(span);
         li.appendChild(delBtn);
         el.appendChild(li);
     });
@@ -105,7 +139,10 @@ async function renderTabs() {
 
 function updateActiveFileVisuals(filename) {
     document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.filename === filename));
-    document.querySelectorAll('#file-list li').forEach(li => li.classList.toggle('active-file-list-item', li.textContent.includes(filename?.split('/').pop() || '')));
+    // Use the robust data-path attribute for matching the active file
+    document.querySelectorAll('#file-list li[data-path]').forEach(li => {
+        li.classList.toggle('active-file-list-item', li.dataset.path === filename);
+    });
 }
 
 function checkDirtyState(filename) {

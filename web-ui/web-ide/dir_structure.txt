@@ -2,7 +2,7 @@
 ║                            HT-IDE Project Structure                         ║
 ╚═════════════════════════════════════════════════════════════════════════════╝
 [HT-IDE_ROOT]/
-├── 🌐 index.html               // The main application skeleton and structure.
+├── 🌐 HT-IDE.html               // The main application skeleton and structure.
 ├── 🎨 style.css                 // All visual styling, colors, and layout.
 │
 ├── 📜 HTVM.js                   // The core compiler engine. (HTVM)
@@ -10,7 +10,6 @@
 ├── 📜 htvm_completions.js       // Autocomplete data for the editor.
 │
 ├── 📝 README.md                 // Project description and instructions.
-├── 📝 LICENCE                   // The project's license file.
 ├── 🖼️ icon.png                   // The favicon for the browser tab.
 │
 ├── 📁 js/                       // All application logic, loaded in order.
@@ -28,6 +27,8 @@
 │   ├── 📜 7_modals_3.js           // Logic for the Debugger modal.
 │   └── 📜 8_main.js               // App entry point, wires everything together (the "Conductor").
 │
+├── 📁 assets/                   // Icons for the file explorer.
+│ ... icons
 └── 📁 images/                   // Icons for the language selector dropdown.
     ├── 🖼️ ahk.png
     ├── 🖼️ cpp.png
