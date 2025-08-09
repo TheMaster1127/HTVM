@@ -25364,6 +25364,8 @@ if (langToConvertTo = langFileExtension_2) {
 htCode := fixHTVMToHTVMMissingAfterAssignmentOperator(htCode)
 htCode := formatHTVMtoHTVMsubout(htCode)
 htCode := StrReplace(htCode, "HTVM-------else---HTVM--parartenet--manstccing--hdksfbsdWYOUWHOUDNEVERBEABALETOTYPEYHIS--FFfix", Trim(keyWordElse_2))
+htCode := StrReplace(htCode, " mls;", " mls")
+htCode := StrReplace(htCode, " fmls;", " fmls")
 }
 
 
