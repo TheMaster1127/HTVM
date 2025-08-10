@@ -8420,7 +8420,7 @@ function TrimR(inputString) {
         // Get the character at the current index (using 1-based SubStr)
         charr = SubStr(inputString, i, 1);
         // Check if the character is NOT whitespace
-        if (charr != " " && charr != Chr(9) && charr != Chr(13) && charr != Chr(10)) { {
+        if (charr != " " && charr != Chr(9) && charr != Chr(13) && charr != Chr(10)) {
             // This is the last non-whitespace character found
         }
         lastNonWhitespaceIndex = i;
@@ -18348,6 +18348,8 @@ if (langToConvertTo == langFileExtension_2) {
     htCode = StrReplace(htCode, "HTVM-------else---HTVM--parartenet--manstccing--hdksfbsdWYOUWHOUDNEVERBEABALETOTYPEYHIS--FFfix", Trim(keyWordElse_2));
     htCode = StrReplace(htCode, " mls;", " mls");
     htCode = StrReplace(htCode, " fmls;", " fmls");
+} else {
+    htCode = StrReplace(htCode, " { {", " {");
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;; fix here
 //;;;;;;;;;;;;;;;;;;;;;;;;; fix here
@@ -18983,7 +18985,7 @@ if (isNotHTVMfile2 == 0) {
 }
 HTVM_Append(weAreInMLSarr, "end");
 var size_weAreInMLSarr = HTVM_Size(weAreInMLSarr);
-if (size_weAreInMLSarr != 0) { {
+if (size_weAreInMLSarr != 0) {
     for (let A_Index323 = 0; A_Index323 < size_weAreInMLSarr { + 0; A_Index323++) {
         HTVM_Pop(weAreInMLSarr);
     }
