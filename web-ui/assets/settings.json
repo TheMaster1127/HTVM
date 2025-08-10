@@ -361,7 +361,7 @@
           "default": "===",
           "description": {
             "header": "Strict Equality Comparison Operator",
-            "body": "Operator to check if two values are equal *and* of the same type (if applicable).\n\nExample Customizations:\n- `===`\n- `is exactly`\n- `strict eq`\n- `seq`\n- `IS_STRICT`\n\nDefaults to: **`===`**"
+            "body": "Operator to check if two values are equal *and* of the same type (if applicable).\n\nExample Customizations:\n- `===`\n- `is-exactly`\n- `strict_eq`\n- `seq`\n- `IS_STRICT`\n\nDefaults to: **`===`**"
           }
         },
         {
@@ -370,7 +370,7 @@
           "default": "!=",
           "description": {
             "header": "Inequality Comparison Operator",
-            "body": "Operator to check if two values are not equal.\n\nExample Customizations:\n- `!=`\n- `is not`\n- `ne`\n- `not eq`\n- `<>`\n\nDefaults to: **`!=`**"
+            "body": "Operator to check if two values are not equal.\n\nExample Customizations:\n- `!=`\n- `is_not`\n- `ne`\n- `not-eq`\n- `<>`\n\nDefaults to: **`!=`**"
           }
         },
         {
@@ -406,7 +406,7 @@
           "default": "<=",
           "description": {
             "header": "Less Than or Equal Operator",
-            "body": "Operator to check if the left value is less than or equal to the right value.\n\nExample Customizations:\n- `<=`\n- `le`\n- `lte`\n- `at most`\n- `LE`\n\nDefaults to: **`<=`**"
+            "body": "Operator to check if the left value is less than or equal to the right value.\n\nExample Customizations:\n- `<=`\n- `le`\n- `lte`\n- `at-most`\n- `LE`\n\nDefaults to: **`<=`**"
           }
         },
         {
