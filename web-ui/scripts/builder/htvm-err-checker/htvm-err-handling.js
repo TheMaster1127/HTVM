@@ -242,7 +242,7 @@ function handleError(htvmInstrText) {
     let disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD = [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125), Chr(91), Chr(93)];
     var disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN = "double quote, newline, carriage return, (, ), {, }, [, ]";
     // "double quote newline carriage return ( ) { } :"
-    let disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD = [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125), Chr(58), Chr(91), Chr(93];
+    let disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD = [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125), Chr(58), Chr(91), Chr(93)];
     var disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN = "double quote, newline, carriage return, (, ), {, }, [, ], :";
     // special/isolated
     // newline carriage return
