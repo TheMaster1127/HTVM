@@ -132,7 +132,7 @@ func str handleError(str htvmInstrText) {
     arr str disallowedChars_For_103 := [Chr(34), Chr(10), Chr(13)]
     str disallowedChars_For_103_EXPLAIN := "double quote, newline, carriage return"
     ; lines that cant have spacses
-    arr int lineThatCANNOThaveSpacses := [0, 1, 46, 47, 84, 85, 86, 87, 88, 89, 103, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161]
+    arr int lineThatCANNOThaveSpacses := [0, 1, 46, 47, 84, 85, 86, 87, 88, 89, 103, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161]
     ; special stuff
     ; 0. we can only have those
     arr str onlyAllowed_0 := ["cpp", "py", "js", "go", "lua", "cs", "java", "kt", "rb", "nim", "ahk", "swift", "dart", "ts", "groovy"]
