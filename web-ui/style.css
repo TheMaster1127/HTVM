@@ -351,6 +351,7 @@ body {
     /* padding: 2rem; */
     font-size: 1.3rem;
     text-align: center;
+    cursor: pointer;
 }
 
 
@@ -907,5 +908,105 @@ input:checked+.slider:before {
 #delete-lang-confirm-btn:hover {
     background-color: #c0392b;
 }
+
+
+/* START: NEW MODAL STYLES FOR LOAD/BUILD */
+
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 10000;
+    display: none; /* Changed by JS */
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    backdrop-filter: blur(5px);
+}
+
+.custom-modal-content {
+    background-color: #1f1f1f;
+    color: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #555;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+}
+
+.custom-modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: #fe621b;
+}
+
+.custom-modal-content p {
+    margin: 0;
+    margin-bottom: 20px;
+    color: #ccc;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+#paste-instructions-area {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 150px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #555;
+    background-color: #1b1b1b;
+    color: white;
+    border-radius: 4px;
+    font-size: 0.9em;
+    resize: vertical;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.modal-options-horizontal,
+.modal-options-vertical {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.modal-options-vertical {
+    flex-direction: column;
+}
+
+.modal-action-button {
+    background-color: #fe621b;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    flex-grow: 1; /* For horizontal layout */
+}
+
+.modal-action-button:hover {
+    background-color: #e0520f;
+}
+
+.modal-action-button.secondary {
+    background-color: #555;
+}
+
+.modal-action-button.secondary:hover {
+    background-color: #666;
+}
+
+/* END: NEW MODAL STYLES */
+
 
 /* END: MODAL STYLES */

@@ -142,7 +142,7 @@ function tryToMapHTVMlineToTargetLine(param1, param2, param3) {
             AIndex = A_Index4;
             let items5 = LoopParseFunc(htvmCode, "\n", "\r");
             for (let A_Index5 = 0; A_Index5 < items5.length; A_Index5++) {
-                const A_LoopField5 = items5[A_Index5];
+                const A_LoopField5 = items5[A_Index5 - 0];
                 ALoopField = Trim(A_LoopField5);
                 let arrTokens = ALoopField.split(/\b/);
                 outTokens2 = [];
@@ -162,7 +162,7 @@ function tryToMapHTVMlineToTargetLine(param1, param2, param3) {
         }
         let items9 = LoopParseFunc(htvmCode, "\n", "\r");
         for (let A_Index9 = 0; A_Index9 < items9.length; A_Index9++) {
-            const A_LoopField9 = items9[A_Index9];
+            const A_LoopField9 = items9[A_Index9 - 0];
             ALoopField = Trim(A_LoopField9);
             let arrTokens = ALoopField.split(/\b/);
             outTokens2 = [];
@@ -408,40 +408,55 @@ async function openInstructionManagerModal() {
 
     document.getElementById('instr-add-new-btn').onclick = () => {
         const fileInput = document.getElementById('instruction-file-input');
-        fileInput.onchange = async e => {
-            const file = e.target.files[0];
-            if (!file) return;
-            let sets = await dbGet(instructionSetKeys.list) || [];
-            let newName = prompt("Enter a name for this new instruction set:", file.name.replace(/\.[^/.]+$/, ""));
-            if (!newName || !newName.trim()) return;
-            newName = newName.trim();
-            if (sets.some(s => s.name === newName)) return alert("An instruction set with that name already exists.");
 
-            const reader = new FileReader();
-            reader.onload = async r => {
-                const content = r.target.result;
-                const newId = 'custom_' + Date.now();
-                const newSetData = { name: newName, id: newId };
-                sets.push(newSetData);
+        fileInput.onchange = async (e) => {
+            try {
+                const file = e.target.files[0];
+                if (!file) return;
 
-                await db.instructionSets.put({ ...newSetData, content: content });
-                await dbSet(instructionSetKeys.list, sets);
+                let sets = await dbGet(instructionSetKeys.list) || [];
+                let newName = prompt("Enter a name for this new instruction set:", file.name.replace(/\.[^/.]+$/, ""));
 
-                if (sets.length === 1) {
-                    await dbSet(instructionSetKeys.activeId, newId);
-                    if (confirm("First instruction set has been added and activated. The IDE needs to reload to apply the changes. Reload now?")) {
-                        await window.onbeforeunload();
-                        window.location.reload();
+                if (!newName || !newName.trim()) return;
+
+                newName = newName.trim();
+                if (sets.some(s => s.name === newName)) {
+                    alert("An instruction set with that name already exists.");
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = async (r) => {
+                    const content = r.target.result;
+                    const newId = 'custom_' + Date.now();
+                    const newSetData = { name: newName, id: newId };
+                    sets.push(newSetData);
+
+                    await db.instructionSets.put({ ...newSetData, content: content });
+                    await dbSet(instructionSetKeys.list, sets);
+
+                    if (sets.length === 1) {
+                        await dbSet(instructionSetKeys.activeId, newId);
+                        if (confirm("First instruction set has been added and activated. The IDE needs to reload to apply the changes. Reload now?")) {
+                            await window.onbeforeunload();
+                            window.location.reload();
+                        } else {
+                            await populateList();
+                        }
                     } else {
                         await populateList();
                     }
-                } else {
-                    await populateList();
-                }
-            };
-            reader.readAsText(file);
-            fileInput.value = '';
+                };
+                reader.readAsText(file);
+
+            } finally {
+                // This ensures the input is always reset, allowing the same file to be selected again.
+                fileInput.value = '';
+                // Detaching the listener is also good practice to prevent lingering handlers.
+                fileInput.onchange = null;
+            }
         };
+
         fileInput.click();
     };
 

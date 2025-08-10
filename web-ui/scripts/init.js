@@ -4,7 +4,7 @@ import { createLangTabs, switchLang } from './multiLang.js'
 import { checkPortraitMode } from './utils.js'
 import { search } from './search.js'
 import { getLastOpenedTab, chanegVal, changeConfig } from './storage.js'
-import { getUserConfig, getBuiltins, saveAs } from './builder/build.js';
+import { getUserConfig, getBuiltins, saveAs, buildNDownload, downloadInstructionsOnly } from './builder/build.js';
 import { drawSettings } from './settingWindows.js';
 
 let doc
@@ -51,25 +51,45 @@ function init(){
     window.settingBox = src_settingBox.cloneNode(true);
     window.settingBox.querySelector(".settings").innerHTML = ""
     
-    // --- START: DRAG AND DROP & MOBILE UPLOAD LOGIC ---
+    // --- START: NEW/MODIFIED DROPZONE LOGIC ---
     const dropzone = document.getElementById('dropzone');
+    const loadInstructionsModal = document.getElementById('load-instructions-modal-overlay');
+    const loadInstructionsCloseBtn = document.getElementById('load-instructions-close-btn');
+    const pasteArea = document.getElementById('paste-instructions-area');
+    const loadFromTextBtn = document.getElementById('load-from-text-btn');
+    const uploadFromFileBtn = document.getElementById('upload-from-file-btn');
     const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.style.display = 'none';
+    fileInput.accept = '.txt';
+    document.body.appendChild(fileInput);
+
+    function processText(content) {
+        if (content) {
+            const lines = content.replace(/\r\n/g, '\n').split('\n');
+            
+            lines.forEach((line, index) => {
+                if (index < 161) {
+                    chanegVal(index, line);
+                }
+            });
+            
+            drawSettings();
+            notyf.success('Instructions loaded successfully!');
+            loadInstructionsModal.style.display = 'none';
+            pasteArea.value = '';
+        } else {
+            notyf.error('Text area is empty.');
+        }
+    }
 
     function processFile(file) {
         if (file && file.name.endsWith('.txt')) {
             const reader = new FileReader();
             reader.onload = function(event) {
-                const content = event.target.result;
-                const lines = content.replace(/\r\n/g, '\n').split('\n');
-                
-                lines.forEach((line, index) => {
-                    if (index < 161) {
-                        chanegVal(index, line);
-                    }
-                });
-                
-                drawSettings();
-                notyf.success('Instructions loaded successfully!');
+                processText(event.target.result);
             };
             reader.readAsText(file);
         } else {
@@ -77,44 +97,24 @@ function init(){
         }
     }
 
-    if (isMobile) {
-        // On mobile, change text and make it a click-to-select area.
-        const fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.style.display = 'none';
-        fileInput.accept = '.txt';
-        document.body.appendChild(fileInput);
+    dropzone.addEventListener('click', () => {
+        loadInstructionsModal.style.display = 'flex';
+    });
 
-        dropzone.querySelector('p').textContent = "Click to Select File";
-        
-        dropzone.addEventListener('click', () => {
-            fileInput.click();
-        });
+    loadInstructionsCloseBtn.addEventListener('click', () => {
+        loadInstructionsModal.style.display = 'none';
+        pasteArea.value = '';
+    });
+    uploadFromFileBtn.addEventListener('click', () => fileInput.click());
+    loadFromTextBtn.addEventListener('click', () => processText(pasteArea.value));
+    
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+            processFile(e.target.files[0]);
+        }
+    });
 
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length) {
-                processFile(e.target.files[0]);
-            }
-        });
-
-    } else {
-        // On desktop, add click-to-select to drag and drop functionality.
-        const fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.style.display = 'none';
-        fileInput.accept = '.txt';
-        document.body.appendChild(fileInput);
-
-        dropzone.addEventListener('click', () => {
-            fileInput.click();
-        });
-
-        fileInput.addEventListener('change', (e) => {
-            if (e.target.files.length) {
-                processFile(e.target.files[0]);
-            }
-        });
-        
+    if (!isMobile) {
         dropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropzone.style.borderColor = '#fe621b';
@@ -132,7 +132,7 @@ function init(){
             }
         });
     }
-    // --- END: DRAG AND DROP & MOBILE UPLOAD LOGIC ---
+    // --- END: NEW/MODIFIED DROPZONE LOGIC ---
     
     $(window).on('resize', checkPortraitMode);
 
@@ -264,6 +264,83 @@ function init(){
             });
         }
     });
+
+    // --- START: NEW BUILD BUTTON LOGIC ---
+    const buildButton = document.getElementById('buildButton');
+    const buildOptionsModal = document.getElementById('build-options-modal-overlay');
+    const buildOptionsCloseBtn = document.getElementById('build-options-close-btn');
+    const fullBuildBtn = document.getElementById('full-build-btn');
+    const instructionsOnlyBtn = document.getElementById('instructions-only-btn');
+    
+    const buildOverlay = document.getElementById('build-overlay');
+    const buildModal = document.querySelector('.build-modal');
+    const buildStatusTitle = document.getElementById('build-status-title');
+    const buildStatusSubtitle = document.getElementById('build-status-subtitle');
+
+    buildButton.addEventListener('click', () => {
+        buildOptionsModal.style.display = 'flex';
+    });
+
+    buildOptionsCloseBtn.addEventListener('click', () => {
+        buildOptionsModal.style.display = 'none';
+    });
+
+    instructionsOnlyBtn.addEventListener('click', async () => {
+        buildOptionsModal.style.display = 'none';
+        try {
+            await downloadInstructionsOnly();
+            notyf.success('Instructions file download started.');
+        } catch(error) {
+            console.error("Instructions download failed:", error);
+            const errorMessage = error.message.includes('|') ? error.message.split('|')[1] : error.message;
+            notyf.error(errorMessage.trim());
+            handleAndDisplayError(error.message);
+        }
+    });
+
+    fullBuildBtn.addEventListener('click', () => {
+        buildOptionsModal.style.display = 'none';
+        
+        buildOverlay.style.display = 'flex';
+        buildModal.classList.remove('error');
+        buildStatusTitle.innerText = 'Building...';
+
+        const hasBuiltBefore = localStorage.getItem('htvm_has_built_before');
+        if (!hasBuiltBefore) {
+            buildStatusSubtitle.innerText = "This might take up to a minute since it's the first time building...";
+        } else {
+            buildStatusSubtitle.innerText = 'Please wait.';
+        }
+
+        setTimeout(async () => {
+            try {
+                await buildNDownload();
+
+                buildStatusTitle.innerText = 'Build Complete!';
+                buildStatusSubtitle.innerText = 'Your download will start shortly.';
+                
+                localStorage.setItem('htvm_has_built_before', 'true');
+                
+                setTimeout(() => {
+                    buildOverlay.style.display = 'none';
+                }, 2000);
+
+            } catch (error) {
+                console.error("Build failed:", error);
+                buildStatusTitle.innerText = 'Build Failed!';
+                const errorMessage = error.message.includes('|') ? error.message.split('|')[1] : error.message;
+                buildStatusSubtitle.innerText = errorMessage.trim();
+                buildModal.classList.add('error');
+                
+                handleAndDisplayError(error.message);
+
+                setTimeout(() => {
+                    buildOverlay.style.display = 'none';
+                }, 5000);
+            }
+        }, 100); 
+    });
+    // --- END: NEW BUILD BUTTON LOGIC ---
 
 
     checkPortraitMode()

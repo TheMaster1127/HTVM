@@ -162,7 +162,6 @@
         </div>
     </div>
 
-    <!-- NEW MODAL FOR DELETING A LANGUAGE -->
     <div id="delete-lang-modal-overlay">
         <div class="delete-lang-modal-content">
             <h2>Confirm Deletion</h2>
@@ -170,6 +169,33 @@
             <div class="delete-lang-buttons">
                 <button id="delete-lang-cancel-btn">Cancel</button>
                 <button id="delete-lang-confirm-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOR LOADING INSTRUCTIONS -->
+    <div id="load-instructions-modal-overlay" class="custom-modal-overlay">
+        <div class="custom-modal-content">
+            <button id="load-instructions-close-btn" class="modal-close-button">&times;</button>
+            <h2>Load Instructions</h2>
+            <p>Paste instructions directly or upload a .txt file.</p>
+            <textarea id="paste-instructions-area" placeholder="Paste your HTVM instructions here..."></textarea>
+            <div class="modal-options-horizontal">
+                <button id="load-from-text-btn" class="modal-action-button">Load from Text</button>
+                <button id="upload-from-file-btn" class="modal-action-button secondary">Upload File</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOR BUILD OPTIONS -->
+    <div id="build-options-modal-overlay" class="custom-modal-overlay">
+        <div class="custom-modal-content">
+            <button id="build-options-close-btn" class="modal-close-button">&times;</button>
+            <h2>Build Options</h2>
+            <p>Choose your desired build output.</p>
+            <div class="modal-options-vertical">
+                <button id="full-build-btn" class="modal-action-button">Full Build (.zip)</button>
+                <button id="instructions-only-btn" class="modal-action-button secondary">Instructions Only (.txt)</button>
             </div>
         </div>
     </div>

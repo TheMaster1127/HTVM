@@ -81,7 +81,7 @@ async function zipIt(instructionFileContent, documentationHTML, documentationMar
 }
 
 
-async function buildNDownload() {
+export async function buildNDownload() {
     const checkErrors = handleError(getUserConfig(localStorage.getItem("HTVM_LastAccesedTab")))
     if (checkErrors !== "noERROR") {
         throw new Error(checkErrors);
@@ -98,41 +98,16 @@ async function buildNDownload() {
     saveAs(zipContent, zipFileName);
 }
 
-document.querySelector("#buildButton").addEventListener("click", async () => {
-    buildOverlay.style.display = 'flex';
-    buildModal.classList.remove('error');
-    buildStatusTitle.innerText = 'Building...';
-
-    const hasBuiltBefore = localStorage.getItem('htvm_has_built_before');
-    if (!hasBuiltBefore) {
-        buildStatusSubtitle.innerText = "This might take up to a minute since it's the first time building...";
-    } else {
-        buildStatusSubtitle.innerText = 'Please wait.';
+export async function downloadInstructionsOnly() {
+    const checkErrors = handleError(getUserConfig(localStorage.getItem("HTVM_LastAccesedTab")));
+    if (checkErrors !== "noERROR") {
+        throw new Error(checkErrors);
     }
 
-    // Use a small timeout to allow the UI to update before the heavy work starts
-    setTimeout(async () => {
-        try {
-            await buildNDownload();
-
-            buildStatusTitle.innerText = 'Build Complete!';
-            buildStatusSubtitle.innerText = 'Your download will start shortly.';
-            
-            localStorage.setItem('htvm_has_built_before', 'true');
-            
-            setTimeout(() => {
-                buildOverlay.style.display = 'none';
-            }, 2000);
-
-        } catch (error) {
-            console.error("Build failed:", error);
-            buildStatusTitle.innerText = 'Build Failed!';
-            const errorMessage = error.message.includes('|') ? error.message.split('|')[1] : error.message;
-            buildStatusSubtitle.innerText = errorMessage.trim();
-            buildModal.classList.add('error');
-            setTimeout(() => {
-                buildOverlay.style.display = 'none';
-            }, 5000);
-        }
-    }, 100); 
-});
+    const instructionFileContent =
+        getUserConfig(localStorage.getItem("HTVM_LastAccesedTab")) +
+        "\n" +
+        await getBuiltins();
+    
+    saveAs(instructionFileContent, `HTVM-instructions.txt`);
+}
