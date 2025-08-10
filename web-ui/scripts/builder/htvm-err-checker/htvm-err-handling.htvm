@@ -116,11 +116,11 @@ func str handleError(str htvmInstrText) {
     arr str disallowedChars_AT_THE_END := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125), Chr(58)]
     str disallowedChars_AT_THE_END_EXPLAIN := "double quote, newline, carriage return, (, ), [, ], {, }, :"
     ; "double quote newline carriage return ( ) { }"
-    arr str disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125)]
-    str disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN := "double quote, newline, carriage return, (, ), {, }"
+    arr str disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125), Chr(91), Chr(93)]
+    str disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN := "double quote, newline, carriage return, (, ), {, }, [, ]"
     ; "double quote newline carriage return ( ) { } :"
-    arr str disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125), Chr(58)]
-    str disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN := "double quote, newline, carriage return, (, ), {, }, :"
+    arr str disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD := [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125), Chr(58), Chr(91), Chr(93]
+    str disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN := "double quote, newline, carriage return, (, ), {, }, [, ], :"
     ; special/isolated
     ; newline carriage return
     arr str disallowedChars_For_2 := [Chr(10), Chr(13)]

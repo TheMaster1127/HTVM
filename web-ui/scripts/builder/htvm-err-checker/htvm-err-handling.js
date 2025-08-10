@@ -14,10 +14,6 @@ function LoopParseFunc(varString, delimiter1="", delimiter2="") {
     return items;
 }
 
-function print(value) {
-    console.log(value)
-}
-
 // Convert value to string
 function STR(value) {
     if (value === null || value === undefined) {
@@ -50,17 +46,6 @@ function InStr(haystack, needle) {
     return (pos !== -1) ? pos + 1 : 0;
 }
 
-// Function to generate a random integer between min and max (inclusive)
-function Random(min, max) {
-    // Generate and return a random number within the specified range
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function Sleep(milliseconds) {
-    // Sleep for the specified number of milliseconds
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
-
 function StrLen(s) {
     // Return the length of the given string
     return s.length;
@@ -69,10 +54,6 @@ function StrLen(s) {
 function Chr(number) {
     // Return the character corresponding to the Unicode code point, or an empty string if out of range
     return (number >= 0 && number <= 0x10FFFF) ? String.fromCharCode(number) : "";
-}
-
-function Exp(value) {
-    return Math.exp(value);
 }
 
 function SubStr(str, startPos, length = -1) {
@@ -117,187 +98,11 @@ function StrSplit(inputStr, delimiter, num) {
     return (num > 0 && num <= parts.length) ? parts[num - 1] : "";
 }
 
-function Mod(dividend, divisor) {
-    return dividend % divisor;
-}
-
-function Sort(varName, options = "") {
-    let delimiter = '\n'; // Default delimiter
-    let delimiterIndex = options.indexOf('D');
-    if (delimiterIndex !== -1) {
-        let delimiterChar = options[delimiterIndex + 1];
-        delimiter = delimiterChar === '' ? ',' : delimiterChar;
-    }
-    let items = varName.split(new RegExp(delimiter === ',' ? ',' : '\\' + delimiter));
-    // Remove empty items and trim whitespace
-    items = items.filter(item => item.trim() !== '');
-    // Apply sorting based on options
-    if (options.includes('N')) {
-        // Numeric sort
-        items.sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
-    } else if (options.includes('Random')) {
-        // Random sort
-        for (let i = items.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [items[i], items[j]] = [items[j], items[i]];
-        }
-    } else {
-        // Default alphabetical sort
-        items.sort((a, b) => {
-            const keyA = options.includes('C') ? a : a.toLowerCase();
-            const keyB = options.includes('C') ? b : b.toLowerCase();
-            if (keyA < keyB) return -1;
-            if (keyA > keyB) return 1;
-            return 0;
-        });
-    }
-    // Reverse if 'R' option is present
-    if (options.includes('R')) {
-        items.reverse();
-    }
-    // Remove duplicates if 'U' option is present
-    if (options.includes('U')) {
-        const seen = new Map();
-        items = items.filter(item => {
-            const key = options.includes('C') ? item : item.toLowerCase();
-            if (!seen.has(key)) {
-                seen.set(key, item);
-                return true;
-            }
-            return false;
-        });
-    }
-    // Join the sorted items back into a string
-    const sortedVar = items.join(delimiter === ',' ? ',' : '\n');
-    return sortedVar;
-}
-
 // RegExMatch
 function RegExMatch(haystack, needle) {
     const regex = new RegExp(needle);
     const match = haystack.match(regex);
     return match ? match.index + 1 : 0; // 1-based index or 0 if no match
-}
-
-function MsgBox(text, title = " ", value = 0, timeout = null) {
-    return new Promise((resolve) => {
-        // Define default options for the message box
-        let defaultOptions = {
-            title: title || " ", // Default title is empty
-            text: text || "Press OK to continue.", // Default text if not provided
-            showCancelButton: false, // Default is to not show Cancel button
-            showDenyButton: false, // Default is to not show Deny button
-            confirmButtonText: "OK", // Default text for OK button
-            focusConfirm: true, // Default focus on OK button
-        };
-        let numOriginal = value;
-        let num = numOriginal;
-        let done1 = 0;
-        let done2 = 0;
-        let done3 = 0;
-        let AIndex = 0;
-        for (AIndex = 1; AIndex <= 1; AIndex++) {
-            // Handle special case for value adjustments
-            if (num >= 262144) {
-                num = num - 262144;
-                numOriginal = numOriginal - 262144;
-            }
-            if (num >= 256 && num < 500) {
-                num = num - 256;
-                done3 = 256;
-            }
-            if (num >= 512) {
-                num = num - 512;
-                done3 = 512;
-            }
-            if (num == 0) {
-                done1 = 0;
-                break;
-            }
-            if (num <= 6) {
-                done1 = num;
-                break;
-            }
-            if (num >= 64 && num < 64 * 2) {
-                done2 = 64;
-                if (num == 64) {
-                    done1 = 0;
-                    break;
-                } else {
-                    done1 = num - 64;
-                    break;
-                }
-            }
-            if (num >= 48 && num < 63) {
-                done2 = 48;
-                if (num == 48) {
-                    done1 = 0;
-                    break;
-                } else {
-                    done1 = num - 48;
-                    break;
-                }
-            }
-            if (num >= 32 && num < 47) {
-                done2 = 32;
-                if (num == 32) {
-                    done1 = 0;
-                    break;
-                } else {
-                    done1 = num - 32;
-                    break;
-                }
-            }
-            if (num >= 16 && num < 30) {
-                done2 = 16;
-                if (num == 16) {
-                    done1 = 0;
-                    break;
-                } else {
-                    done1 = num - 16;
-                    break;
-                }
-            }
-        }
-        let doneAdded = done1 + done2 + done3;
-        if (doneAdded !== numOriginal) {
-            // displayMessage("The calc was wrong!");
-        } else {
-            // displayMessage("num was: " + numOriginal + "\ndone1: " + done1 + "\ndone2: " + done2 + "\ndone3: " + done3);
-        }
-        // Parse the value to determine the options for the message box
-        if (done1 === 1) defaultOptions.showCancelButton = true;
-        if (done1 === 3) {
-            defaultOptions.showCancelButton = true;
-            defaultOptions.showDenyButton = true;
-        }
-        if (done1 === 4) {
-            defaultOptions.showDenyButton = true;
-        }
-        if (done1 === 5) {
-            defaultOptions.showCancelButton = true;
-        }
-        if (done2 === 16) defaultOptions.icon = "error";
-        if (done2 === 32) defaultOptions.icon = "question";
-        if (done2 === 48) defaultOptions.icon = "warning";
-        if (done2 === 64) defaultOptions.icon = "info";
-        if (done3 === 256) defaultOptions.focusDeny = true;
-        if (done3 === 512) defaultOptions.focusCancel = true;
-        // Set timeout if provided
-        if (timeout) {
-            defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds
-        }
-        // Display the message box with the constructed options
-        Swal.fire(defaultOptions).then((result) => {
-            if (result.isConfirmed) {
-                resolve("OK");
-            } else if (result.isDenied) {
-                resolve("No");
-            } else {
-                resolve("Cancel");
-            }
-        });
-    });
 }
 
 function HTVM_Append(arr, value) {
@@ -307,6 +112,7 @@ function HTVM_Append(arr, value) {
 function HTVM_Size(arr) {
     return arr.length;
 }
+
 
 
 // htvm-err-handling.htvm
@@ -433,11 +239,11 @@ function handleError(htvmInstrText) {
     let disallowedChars_AT_THE_END = [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(91), Chr(93), Chr(123), Chr(125), Chr(58)];
     var disallowedChars_AT_THE_END_EXPLAIN = "double quote, newline, carriage return, (, ), [, ], {, }, :";
     // "double quote newline carriage return ( ) { }"
-    let disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD = [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125)];
-    var disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN = "double quote, newline, carriage return, (, ), {, }";
+    let disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD = [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125), Chr(91), Chr(93)];
+    var disallowedChars_BeginEndLine_FOR_ARRAY_KEYWORD_EXPLAIN = "double quote, newline, carriage return, (, ), {, }, [, ]";
     // "double quote newline carriage return ( ) { } :"
-    let disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD = [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125), Chr(58)];
-    var disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN = "double quote, newline, carriage return, (, ), {, }, :";
+    let disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD = [Chr(34), Chr(10), Chr(13), Chr(40), Chr(41), Chr(123), Chr(125), Chr(58), Chr(91), Chr(93];
+    var disallowedChars_AT_THE_END_FOR_ARRAY_KEYWORD_EXPLAIN = "double quote, newline, carriage return, (, ), {, }, [, ], :";
     // special/isolated
     // newline carriage return
     let disallowedChars_For_2 = [Chr(10), Chr(13)];
@@ -688,3 +494,5 @@ function handleError(htvmInstrText) {
 //main
 // testing
 //print(handleError("cpp" . Chr(10) . "htvm" . Chr(10) . "StringTrimLeft,OUTVAR,INVAR,param1|StringTrimRight,OUTVAR,INVAR,param1|Random,OUTVAR,param1,param2|Sleep,INVAR|FileRead,OUTVAR,'param1|FileAppend,INVAR,'param1|FileDelete,'INVAR|Sort,INOUTVAR,'param1|MsgBox,'param1" . Chr(10) . "alliance" . Chr(10) . "crew" . Chr(10) . "proc" . Chr(10) . "struct" . Chr(10) . "prop" . Chr(10) . "this" . Chr(10) . "import" . Chr(10) . "___start" . Chr(10) . "___end" . Chr(10) . "___cpp start" . Chr(10) . "___cpp end" . Chr(10) . "___py start" . Chr(10) . "___py end" . Chr(10) . "___js start" . Chr(10) . "___js end" . Chr(10) . "___go start" . Chr(10) . "___go end" . Chr(10) . "___lua start" . Chr(10) . "___lua end" . Chr(10) . "___cs start" . Chr(10) . "___cs end" . Chr(10) . "___java start" . Chr(10) . "___java end" . Chr(10) . "___kt start" . Chr(10) . "___kt end" . Chr(10) . "___rb start" . Chr(10) . "___rb end" . Chr(10) . "___nim start" . Chr(10) . "___nim end" . Chr(10) . "___ahk start" . Chr(10) . "___ahk end" . Chr(10) . "___swift start" . Chr(10) . "___swift end" . Chr(10) . "___dart start" . Chr(10) . "___dart end" . Chr(10) . "___ts start" . Chr(10) . "___ts end" . Chr(10) . "___groovy start" . Chr(10) . "___groovy end" . Chr(10) . "___htvm start" . Chr(10) . "___htvm end" . Chr(10) . "___inhtvm start" . Chr(10) . "___inhtvm end" . Chr(10) . "{" . Chr(10) . "}" . Chr(10) . "null" . Chr(10) . "true" . Chr(10) . "false" . Chr(10) . "void" . Chr(10) . "double" . Chr(10) . "char" . Chr(10) . "uint8" . Chr(10) . "uint16" . Chr(10) . "uint32" . Chr(10) . "uint64" . Chr(10) . "int" . Chr(10) . "str" . Chr(10) . "bool" . Chr(10) . "float" . Chr(10) . "int8" . Chr(10) . "int16" . Chr(10) . "int32" . Chr(10) . "int64" . Chr(10) . "if" . Chr(10) . "else if" . Chr(10) . "else" . Chr(10) . "while" . Chr(10) . "Loop" . Chr(10) . "Loop," . Chr(10) . "Loop, Parse," . Chr(10) . "continue" . Chr(10) . "break" . Chr(10) . "func" . Chr(10) . "await" . Chr(10) . "async" . Chr(10) . "throw" . Chr(10) . "ErrorMsg" . Chr(10) . "try" . Chr(10) . "catch" . Chr(10) . "finally" . Chr(10) . "return" . Chr(10) . ".add" . Chr(10) . ".pop" . Chr(10) . ".size" . Chr(10) . ".insert" . Chr(10) . ".rm" . Chr(10) . ".indexOf" . Chr(10) . "arr" . Chr(10) . "arr int" . Chr(10) . "arr str" . Chr(10) . "arr float" . Chr(10) . "arr bool" . Chr(10) . "var" . Chr(10) . "let" . Chr(10) . "const" . Chr(10) . "end" . Chr(10) . "global" . Chr(10) . ";" . Chr(10) . "'''1" . Chr(10) . "'''2" . Chr(10) . "" . Chr(96) . "" . Chr(10) . "main" . Chr(10) . "." . Chr(10) . "+" . Chr(10) . "-" . Chr(10) . "*" . Chr(10) . "/" . Chr(10) . "%" . Chr(10) . "**" . Chr(10) . "=" . Chr(10) . "===" . Chr(10) . "!=" . Chr(10) . "" . Chr(62) . "" . Chr(10) . "" . Chr(60) . "" . Chr(10) . "" . Chr(62) . "=" . Chr(10) . "" . Chr(60) . "=" . Chr(10) . "and" . Chr(10) . "or" . Chr(10) . "!" . Chr(10) . "&" . Chr(10) . "|" . Chr(10) . "^" . Chr(10) . "~" . Chr(10) . "" . Chr(60) . "" . Chr(60) . "" . Chr(10) . "" . Chr(62) . "" . Chr(62) . "" . Chr(10) . "" . Chr(62) . "" . Chr(62) . "" . Chr(62) . "" . Chr(10) . ":=" . Chr(10) . "+=" . Chr(10) . ".=" . Chr(10) . "-=" . Chr(10) . "*=" . Chr(10) . "/=" . Chr(10) . "%=" . Chr(10) . "" . Chr(60) . "" . Chr(60) . "=" . Chr(10) . "" . Chr(62) . "" . Chr(62) . "=" . Chr(10) . "" . Chr(62) . "" . Chr(62) . "" . Chr(62) . "=" . Chr(10) . "&=" . Chr(10) . "|=" . Chr(10) . "^=" . Chr(10) . "?" . Chr(10) . ":" . Chr(10) . "++" . Chr(10) . "--" . Chr(10) . "0" . Chr(10) . "A_Index" . Chr(10) . "A_LoopField" . Chr(10) . "on" . Chr(10) . "off" . Chr(10) . "off" . Chr(10) . "on" . Chr(10) . "on" . Chr(10) . "off" . Chr(10) . "off" . Chr(10) . "off" . Chr(10) . "on" . Chr(10) . "off" . Chr(10) . "off" . Chr(10) . "on" . Chr(10) . "off" . Chr(10) . "" . Chr(10) . ""))
+
+
