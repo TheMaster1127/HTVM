@@ -15123,7 +15123,7 @@ else
 {
 
 
-if (InStr(A_LoopField, Trim(keyWordArrayDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfIntegersDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfStringsDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfBooleansDefinition) . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
+if (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordArrayDefinition) . " ")) = Trim(keyWordArrayDefinition) . " ") or (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordArrayOfIntegersDefinition) . " ")) = Trim(keyWordArrayOfIntegersDefinition) . " ") or (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordArrayOfStringsDefinition) . " ")) = Trim(keyWordArrayOfStringsDefinition) . " ") or (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " ")) = Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " ") or (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordArrayOfBooleansDefinition) . " ")) = Trim(keyWordArrayOfBooleansDefinition) . " ") and (useCurlyBracesSyntaxForArrayDef = "on")
 {
 fixSomeCurlyBraceForExratFlexability .= A_LoopField . Chr(10)
 }
@@ -15409,7 +15409,7 @@ outCodeFixBraces := ""
 Loop, Parse, code, `n, `r
 {
 
-if (InStr(A_LoopField, Trim(keyWordArrayDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfIntegersDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfStringsDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " ")) or (InStr(A_LoopField, Trim(keyWordArrayOfBooleansDefinition) . " ")) and (useCurlyBracesSyntaxForArrayDef = "on")
+if (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordArrayDefinition) . " ")) = Trim(keyWordArrayDefinition) . " ") or (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordArrayOfIntegersDefinition) . " ")) = Trim(keyWordArrayOfIntegersDefinition) . " ") or (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordArrayOfStringsDefinition) . " ")) = Trim(keyWordArrayOfStringsDefinition) . " ") or (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " ")) = Trim(keyWordArrayOfFloatingPointNumbersDefinition) . " ") or (SubStr(Trim(A_LoopField), 1, StrLen(Trim(keyWordArrayOfBooleansDefinition) . " ")) = Trim(keyWordArrayOfBooleansDefinition) . " ") and (useCurlyBracesSyntaxForArrayDef = "on")
 {
 
 if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc)) or (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordAsync) . StrLower(keyWordFunc))) = StrLower(keyWordAsync) . StrLower(keyWordFunc))
@@ -25367,10 +25367,7 @@ htCode := StrReplace(htCode, "HTVM-------else---HTVM--parartenet--manstccing--hd
 htCode := StrReplace(htCode, " mls;", " mls")
 htCode := StrReplace(htCode, " fmls;", " fmls")
 }
-else 
-{
-htCode := StrReplace(htCode, " { {", " {")
-}
+
 
 
 

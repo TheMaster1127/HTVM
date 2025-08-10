@@ -11395,7 +11395,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
                     if (SubStr(Trim(A_LoopField206), 1, StrLen(Trim(keyWordComment))) == Trim(keyWordComment) && isLineAconstruct(Trim(A_LoopField206)) == false) {
                         fixSomeCurlyBraceForExratFlexability += A_LoopField206 + Chr(10);
                     } else {
-                        if (InStr(A_LoopField206, Trim(keyWordArrayDefinition) + " ") || InStr(A_LoopField206, Trim(keyWordArrayOfIntegersDefinition) + " ") || InStr(A_LoopField206, Trim(keyWordArrayOfStringsDefinition) + " ") || InStr(A_LoopField206, Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " ") || InStr(A_LoopField206, Trim(keyWordArrayOfBooleansDefinition) + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
+                        if (SubStr(Trim(A_LoopField206), 1, StrLen(Trim(keyWordArrayDefinition) + " ")) == Trim(keyWordArrayDefinition) + " " || SubStr(Trim(A_LoopField206), 1, StrLen(Trim(keyWordArrayOfIntegersDefinition) + " ")) == Trim(keyWordArrayOfIntegersDefinition) + " " || SubStr(Trim(A_LoopField206), 1, StrLen(Trim(keyWordArrayOfStringsDefinition) + " ")) == Trim(keyWordArrayOfStringsDefinition) + " " || SubStr(Trim(A_LoopField206), 1, StrLen(Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " ")) == Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " " || SubStr(Trim(A_LoopField206), 1, StrLen(Trim(keyWordArrayOfBooleansDefinition) + " ")) == Trim(keyWordArrayOfBooleansDefinition) + " " && useCurlyBracesSyntaxForArrayDef == "on") {
                             fixSomeCurlyBraceForExratFlexability += A_LoopField206 + Chr(10);
                         } else {
                             str1 = StrReplace(A_LoopField206, keyWordCurlyBraceOpen, "{");
@@ -11605,7 +11605,7 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
             let items219 = LoopParseFunc(code, "\n", "\r");
             for (let A_Index219 = 0; A_Index219 < items219.length + 0; A_Index219++) {
                 const A_LoopField219 = items219[A_Index219 - 0];
-                if (InStr(A_LoopField219, Trim(keyWordArrayDefinition) + " ") || InStr(A_LoopField219, Trim(keyWordArrayOfIntegersDefinition) + " ") || InStr(A_LoopField219, Trim(keyWordArrayOfStringsDefinition) + " ") || InStr(A_LoopField219, Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " ") || InStr(A_LoopField219, Trim(keyWordArrayOfBooleansDefinition) + " ") && useCurlyBracesSyntaxForArrayDef == "on") {
+                if (SubStr(Trim(A_LoopField219), 1, StrLen(Trim(keyWordArrayDefinition) + " ")) == Trim(keyWordArrayDefinition) + " " || SubStr(Trim(A_LoopField219), 1, StrLen(Trim(keyWordArrayOfIntegersDefinition) + " ")) == Trim(keyWordArrayOfIntegersDefinition) + " " || SubStr(Trim(A_LoopField219), 1, StrLen(Trim(keyWordArrayOfStringsDefinition) + " ")) == Trim(keyWordArrayOfStringsDefinition) + " " || SubStr(Trim(A_LoopField219), 1, StrLen(Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " ")) == Trim(keyWordArrayOfFloatingPointNumbersDefinition) + " " || SubStr(Trim(A_LoopField219), 1, StrLen(Trim(keyWordArrayOfBooleansDefinition) + " ")) == Trim(keyWordArrayOfBooleansDefinition) + " " && useCurlyBracesSyntaxForArrayDef == "on") {
                     if (SubStr(StrLower(A_LoopField219), 1, StrLen(StrLower(keyWordFunc))) == StrLower(keyWordFunc) || SubStr(StrLower(A_LoopField219), 1, StrLen(StrLower(keyWordAsync) + StrLower(keyWordFunc))) == StrLower(keyWordAsync) + StrLower(keyWordFunc)) {
                         if (InStr(Trim(A_LoopField219), "{") && Trim(A_LoopField219) != "{" && SubStr(Trim(A_LoopField219), 1, StrLen(Trim(keyWordComment))) != Trim(keyWordComment)) {
                             outCodeFixBraces += Trim(StrReplace(Trim(A_LoopField219), "{", "")) + Chr(10) + "{" + Chr(10);
@@ -18345,6 +18345,8 @@ function compiler(htCode, allInstructionFile, mode, langToConvertToParam = "") {
         htCode = fixHTVMToHTVMMissingAfterAssignmentOperator(htCode);
         htCode = formatHTVMtoHTVMsubout(htCode);
         htCode = StrReplace(htCode, "HTVM-------else---HTVM--parartenet--manstccing--hdksfbsdWYOUWHOUDNEVERBEABALETOTYPEYHIS--FFfix", Trim(keyWordElse_2));
+        htCode = StrReplace(htCode, " mls;", " mls");
+        htCode = StrReplace(htCode, " fmls;", " fmls");
     }
     //;;;;;;;;;;;;;;;;;;;;;;;;; fix here
     //;;;;;;;;;;;;;;;;;;;;;;;;; fix here
