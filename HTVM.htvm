@@ -5803,7 +5803,6 @@ str3 := Trim(StrSplit(str1, ":", 2))
 
 
 
-
 if (str3 = keyWordArrayDefinition) or (str3 = keyWordArrayOfIntegersDefinition) or (str3 = keyWordArrayOfStringsDefinition) or (str3 = keyWordArrayOfFloatingPointNumbersDefinition) or (str3 = keyWordArrayOfBooleansDefinition)
 {
 saveAllArrayVarNamesSoWeCanDoAfix .= "|" . Trim(str2) . "|"
