@@ -2,7 +2,7 @@
 
 ### HTVM: The Revolution in Programming
 
-<p align="center">
+<p>
   <a href="https://discord.gg/FHdZXnFdkM">
     <img src="https://img.shields.io/badge/Discord-Join%20Server-5865F2?logo=discord&style=for-the-badge" alt="Join our Discord Server">
   </a>
@@ -1474,6 +1474,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
