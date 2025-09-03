@@ -427,7 +427,7 @@ Regenerate `DOCUMENTATION.md` or `DOCUMENTATION.html` using:
    DOCUMENTATION_Generator.exe HTVM-instructions.txt
    ```  
 
-   or in linux
+   or in Linux
 
    ```bash
    ./DOCUMENTATION_Generator HTVM-instructions.txt
@@ -1503,6 +1503,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
