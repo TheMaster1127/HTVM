@@ -11,7 +11,7 @@
     <img src="https://img.shields.io/reddit/subreddit-subscribers/HTVM?style=for-the-badge&logo=reddit" alt="Join our Subreddit">
   </a>
   &nbsp;
-  <a href="https://youtu.be/dQw4w9WgXcQ">
+  <a href="#">
     <img src="https://img.shields.io/badge/Launch%20Video-%28Coming%20Soon%29-red?logo=youtube&style=for-the-badge" alt="Watch the Launch Video (Coming Soon)">
   </a>
 </p>
@@ -1474,6 +1474,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
