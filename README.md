@@ -2,8 +2,6 @@
 
 <img width="128" height="128" alt="305182938-1a0efe63-726e-49ca-a13c-d0ed627f2ea7" src="https://github.com/user-attachments/assets/d2e9a199-c6f2-4ff0-8d5b-320a703da544" />
 
-
-
 ### HTVM: The Revolution in Programming
 
 <p>
@@ -1498,6 +1496,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
