@@ -36,6 +36,41 @@ HTVM fundamentally changes the programming experience with groundbreaking featur
 HTVM aims to make programming faster, more accessible, more personalized, and ultimately, more powerful by putting you in control of the language itself.
 
 ---
+
+
+### Table of Contents
+
+1. [📘 Usage](#-usage)  
+   **Description**: Learn how to compile and execute your language code using HTVM and the HTVM IDE.
+
+2. [📂 Adding Built-In Functions](#-adding-built-in-functions)  
+   **Description**: Add custom built-in functions to your language by following simple syntax rules.
+
+3. [📜 Documentation Regeneration](#-documentation-regeneration)  
+   **Description**: Update your language’s documentation whenever new features or changes are made.
+
+4. [🛠️ HTVM IDE](#%EF%B8%8F-htvm-ide)  
+   **Description**: Set up and use the HTVM IDE for coding, testing, and compiling your language.
+     
+5. [💡 Why HTVM Was Created: Understanding Its Purpose, Problems Solved, Use Cases, and Who It Benefits](#-why-htvm-was-created-understanding-its-purpose-problems-solved-use-cases-and-who-it-benefits)  
+   **Description**: Delve into the core motivations behind HTVM, what it aims to achieve, the specific problems it tackles, practical applications, and identify who stands to gain the most (and who might not).
+ 
+6.  [🤔 Concerns, Questions, and Misunderstandings of HTVM](#-concerns-questions-and-misunderstandings-of-htvm)  
+    **Description**: Addresses common questions and potential concerns about HTVM's feasibility, features, and development, providing the creator's perspective.
+
+7.  [🏛️ The Philosophy Of HTVM](#️-the-philosophy-of-htvm)  
+    **Description**: Understand the core principles driving HTVM: minimizing keystrokes, maximizing customization, enhancing accessibility, and empowering the developer.
+
+8. [⚙️ What Customizations HTVM Offers](#%EF%B8%8F-what-customizations-htvm-offers)    
+   **Description**: Explore the capabilities and features of HTVM that allow you to configure and customize your programming environment, making your coding experience more efficient and tailored to your needs.
+
+9.  [📜 License](#-license)  
+    **Description**: Understand the legal terms under which HTVM is distributed. This section clarifies your rights and obligations when using, modifying, or distributing the software.
+
+
+
+---
+
 **What is HTVM?**  
 HTVM is an Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine. It allows users to create their own programming languages. It’s not just about programming in a new language, but about designing your own syntax. This means that whether you're a professional programmer or even someone with basic computer skills, you can tailor the way you write code to fit your preferences. It’s like giving everyone the power to define the grammar rules for their code without having to be stuck with traditional programming language limitations.
 
@@ -125,40 +160,6 @@ When you're done, come back to the configuration site and click **Build** to gen
 ### Local Usage
 
 To use your language offline, click [📘 Usage](#-usage).
-
----
-
-### Table of Contents
-
-1. [📘 Usage](#-usage)  
-   **Description**: Learn how to compile and execute your language code using HTVM and the HTVM IDE.
-
-2. [📂 Adding Built-In Functions](#-adding-built-in-functions)  
-   **Description**: Add custom built-in functions to your language by following simple syntax rules.
-
-3. [📜 Documentation Regeneration](#-documentation-regeneration)  
-   **Description**: Update your language’s documentation whenever new features or changes are made.
-
-4. [🛠️ HTVM IDE](#%EF%B8%8F-htvm-ide)  
-   **Description**: Set up and use the HTVM IDE for coding, testing, and compiling your language.
-     
-5. [💡 Why HTVM Was Created: Understanding Its Purpose, Problems Solved, Use Cases, and Who It Benefits](#-why-htvm-was-created-understanding-its-purpose-problems-solved-use-cases-and-who-it-benefits)  
-   **Description**: Delve into the core motivations behind HTVM, what it aims to achieve, the specific problems it tackles, practical applications, and identify who stands to gain the most (and who might not).
- 
-6.  [🤔 Concerns, Questions, and Misunderstandings of HTVM](#-concerns-questions-and-misunderstandings-of-htvm)  
-    **Description**: Addresses common questions and potential concerns about HTVM's feasibility, features, and development, providing the creator's perspective.
-
-7.  [🏛️ The Philosophy Of HTVM](#️-the-philosophy-of-htvm)  
-    **Description**: Understand the core principles driving HTVM: minimizing keystrokes, maximizing customization, enhancing accessibility, and empowering the developer.
-
-8. [⚙️ What Customizations HTVM Offers](#%EF%B8%8F-what-customizations-htvm-offers)    
-   **Description**: Explore the capabilities and features of HTVM that allow you to configure and customize your programming environment, making your coding experience more efficient and tailored to your needs.
-
-9.  [📜 License](#-license)  
-    **Description**: Understand the legal terms under which HTVM is distributed. This section clarifies your rights and obligations when using, modifying, or distributing the software.
-
-
-
 
 ---
 
@@ -1474,6 +1475,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
