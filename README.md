@@ -24,15 +24,6 @@ Write code using your personalized keywords, operators, and structure, and HTVM'
 
 **C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript, and Groovy.**
 
-HTVM fundamentally changes the programming experience with groundbreaking features:
-
-- **Total Syntax Customization**: Define your own keywords, operators, block structures, comments, and more, without the limitations of traditional languages. Build a language that feels intuitive *to you*.
-- **Multi-Target Code Generation**: Write your logic once in your custom HTVM language and generate native code for multiple platforms or environments simultaneously.
-- **Simplified Dependency Management**: Leverage a rich set of built-in functions. HTVM automatically handles adding necessary library includes/imports in the *generated* code, reducing boilerplate in your HTVM source.
-- **OSP (Ordinal Struct Programming)**: Utilize HTVM's built-in methodology for organizing code with hierarchical namespaces and explicit `struct` data containers. [See OSP Docs](#https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#osp-ordinal-struct-programming)
-- **Programming Blocks**: Seamlessly embed native code for any target language directly within your HTVM files for tasks requiring specific platform features or libraries. [See Programming Blocks Docs](#https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#programming-blocks)
-- **HTVM IDE**: Develop efficiently with a dedicated IDE featuring custom syntax highlighting (based on *your* rules), code completion, file management, and execution capabilities (JS execution directly, others via generated code).
-
 HTVM aims to make programming faster, more accessible, more personalized, and ultimately, more powerful by putting you in control of the language itself.
 
 ---
@@ -1503,6 +1494,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
