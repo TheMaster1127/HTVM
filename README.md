@@ -87,6 +87,9 @@ HTVM aims to make programming faster, more accessible, more personalized, and ul
 ---
 
 ### **What is HTVM?**  
+
+[Go Back To The Table of Contents ](#table-of-contents)
+
 HTVM is an Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine. It allows users to create their own programming languages. It’s not just about programming in a new language, but about designing your own syntax. This means that whether you're a professional programmer or even someone with basic computer skills, you can tailor the way you write code to fit your preferences. It’s like giving everyone the power to define the grammar rules for their code without having to be stuck with traditional programming language limitations.
 
 BTW, HTVM is bootstrapped to `C++` so it can run locally and to `JavaScript` so it can work in the browser.
@@ -94,6 +97,9 @@ BTW, HTVM is bootstrapped to `C++` so it can run locally and to `JavaScript` so 
 Alright, let's make this crystal clear.  
 
 ### **What HTVM Is NOT**  
+
+[Go Back To The Table of Contents ](#table-of-contents)
+
 HTVM is **not** a general-purpose transpiler that lets you convert between existing languages. You **cannot** use HTVM to convert Python to JavaScript, JavaScript to C++, or any other combination like that. If you have a Python script and want to turn it into JavaScript, **HTVM is not what you're looking for.**  
 
 Similarly, you **cannot** take existing code from languages like Python, Java, or C# and convert it to HTVM. That’s simply not how HTVM works. **HTVM is its own thing**—it’s a language that has its own syntax, which can be customized to your liking, and that syntax is what gets converted into other languages.  
@@ -103,6 +109,9 @@ However, what **is** possible is converting **HTVM to HTVM**—meaning, you can 
 ---
 
 ### **What HTVM Actually Is**  
+
+[Go Back To The Table of Contents ](#table-of-contents)
+
 HTVM is **a revolutionary, next-level programming system** that lets you define your own syntax and then convert that syntax into **fifteen different programming languages**:  
 
 **C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript, and Groovy.**  
@@ -135,12 +144,17 @@ To enhance your development experience, HTVM comes with a dedicated **HTVM IDE**
 ---
 
 ### 📚 Documentation
+
+[Go Back To The Table of Contents ](#table-of-contents)
+
 The documentation for your HTVM language will be generated once you create it here on the [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/).
 
 ---
 
 
 ## Using HTVM Online
+
+[Go Back To The Table of Contents ](#table-of-contents)
 
 When you visit the [HTVM Configuration Website](https://themaster1127.github.io/HTVM/web-ui/), part of the main [HTVM website](https://themaster1127.github.io/HTVM/), you'll be welcomed by a powerful and customizable interface for creating your own programming language.
 
@@ -1490,6 +1504,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
