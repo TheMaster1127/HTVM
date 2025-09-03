@@ -2,6 +2,10 @@
 
 ### HTVM: The Revolution in Programming
 
+[![Discord](https://img.shields.io/discord/YOUR_SERVER_ID?logo=discord&label=Discord&color=5865F2)](https://discord.gg/FHdZXnFdkM)
+[![Reddit](https://img.shields.io/reddit/subreddit-subscribers/HTVM?style=social)](https://www.reddit.com/r/HTVM/)
+[![YouTube](https://img.shields.io/badge/YouTube-Channel-red?logo=youtube)](https://placehold.co/1280x720/121212/e0e0e0/png?text=YouTube+Channel\n(Coming+Soon))
+
 ## **HTVM: The Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine**
 
 HTVM is a revolutionary system that empowers **you to design your own programming language** with **fully customizable syntax**, tailored precisely to your needs and approach.
@@ -1460,4 +1464,5 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
