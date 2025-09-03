@@ -71,7 +71,7 @@ HTVM aims to make programming faster, more accessible, more personalized, and ul
 
 ---
 
-**What is HTVM?**  
+### **What is HTVM?**  
 HTVM is an Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine. It allows users to create their own programming languages. It’s not just about programming in a new language, but about designing your own syntax. This means that whether you're a professional programmer or even someone with basic computer skills, you can tailor the way you write code to fit your preferences. It’s like giving everyone the power to define the grammar rules for their code without having to be stuck with traditional programming language limitations.
 
 BTW, HTVM is bootstrapped to `C++` so it can run locally and to `JavaScript` so it can work in the browser.
@@ -1475,6 +1475,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
