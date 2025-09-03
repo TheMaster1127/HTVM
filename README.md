@@ -40,8 +40,23 @@ HTVM aims to make programming faster, more accessible, more personalized, and ul
 
 ### Table of Contents
 
-1. [📘 Usage](#-usage)  
-   **Description**: Learn how to compile and execute your language code using HTVM and the HTVM IDE.
+1. [What is HTVM?](#what-is-htvm)
+   **Description**: bla bla
+
+1. [What HTVM is not](#what-htvm-is-not)
+   **Description**: bla bla
+
+1. [What HTVM actually is](#what-htvm-actually-is)
+   **Description**: bla bla
+
+1. [Documentation](#-documentation)
+   **Description**: bla bla
+
+1. [📘 Using HTVM online](#using-htvm-online)
+   **Description**: bla bla
+
+1. [📘 Usage Offline](#-usage)  
+   **Description**: Learn how to compile and execute your language code using HTVM and the HTVM IDE offline.
 
 2. [📂 Adding Built-In Functions](#-adding-built-in-functions)  
    **Description**: Add custom built-in functions to your language by following simple syntax rules.
@@ -1475,6 +1490,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
