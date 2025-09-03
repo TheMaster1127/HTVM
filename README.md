@@ -2,9 +2,19 @@
 
 ### HTVM: The Revolution in Programming
 
-[![Discord](https://img.shields.io/discord/YOUR_SERVER_ID_GOES_HERE?logo=discord&label=Discord&color=5865F2)](https://discord.gg/FHdZXnFdkM)
-[![Reddit](https://img.shields.io/reddit/subreddit-subscribers/HTVM?style=social)](https://www.reddit.com/r/HTVM/)
-[![YouTube](https://img.shields.io/badge/Launch%20Video-%28Coming%20Soon%29-red?logo=youtube)](https://youtu.be/dQw4w9WgXcQ)
+<p align="center">
+  <a href="https://discord.gg/FHdZXnFdkM">
+    <img src="https://img.shields.io/badge/Discord-Join%20Server-5865F2?logo=discord&style=for-the-badge" alt="Join our Discord Server">
+  </a>
+  &nbsp;
+  <a href="https://www.reddit.com/r/HTVM/">
+    <img src="https://img.shields.io/reddit/subreddit-subscribers/HTVM?style=for-the-badge&logo=reddit" alt="Join our Subreddit">
+  </a>
+  &nbsp;
+  <a href="https://youtu.be/dQw4w9WgXcQ">
+    <img src="https://img.shields.io/badge/Launch%20Video-%28Coming%20Soon%29-red?logo=youtube&style=for-the-badge" alt="Watch the Launch Video (Coming Soon)">
+  </a>
+</p>
 
 ## **HTVM: The Adaptive, Multi-Language, Customizable Syntax and Code Generation Engine**
 
@@ -1464,6 +1474,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
