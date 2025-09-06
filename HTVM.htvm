@@ -17231,7 +17231,6 @@ if (langToConvertTo = "cpp")
 {
 var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; ; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
 }
-
 if (langToConvertTo = "go")
 {
     var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " := " . AHKlikeLoopsIndexedAt . "; ; " . keyWordAIndex . "" . STR(AindexcharLength) . "++"
