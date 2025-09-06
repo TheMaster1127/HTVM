@@ -17325,19 +17325,48 @@ haveWeEverUsedAloop := 1
 
 if (langToConvertTo = "py")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(" . AHKlikeLoopsIndexedAt . ", " . line . "):"
+}
+else {
 var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(" . AHKlikeLoopsIndexedAt . ", " . line . " + " . AHKlikeLoopsIndexedAt . "):"
+}
+
+
 }
 if (langToConvertTo = "js")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
 var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 if (langToConvertTo = "cpp")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
 var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
 }
 if (langToConvertTo = "go")
 {
-    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " := " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++"
+
+if (AHKlikeLoopsIndexedAt = "0") {
+var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " := " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++"
+}
+else {
+var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " := " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++"
+}
+
+
+
 }
 if (langToConvertTo = "lua")
 {
@@ -17345,23 +17374,60 @@ if (langToConvertTo = "lua")
 }
 if (langToConvertTo = "cs")
 {
+
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
     var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
+
 }
 if (langToConvertTo = "java")
 {
+
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
     var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
 }
 if (langToConvertTo = "kt")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . " until " . line . ")"
+}
+else {
     var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . " until " . line . " + " . AHKlikeLoopsIndexedAt . ")"
+}
+
 }
 if (langToConvertTo = "rb")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..." . line . " do"
+}
+else {
     var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..." . line . " + " . AHKlikeLoopsIndexedAt . " do"
+}
+
+
 }
 if (langToConvertTo = "nim")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..<" . line . ":"
+}
+else {
     var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..<" . line . " + " . AHKlikeLoopsIndexedAt . ":"
+}
+
+
+
 }
 if (langToConvertTo = "ahk")
 {
@@ -17369,19 +17435,50 @@ if (langToConvertTo = "ahk")
 }
 if (langToConvertTo = "swift")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . " ..< " . line
+}
+else {
     var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . " ..< " . line . " + " . AHKlikeLoopsIndexedAt
+}
+
+
 }
 if (langToConvertTo = "dart")
 {
+
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
     var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 if (langToConvertTo = "ts")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
     var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 if (langToConvertTo = "groovy")
 {
+
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..<" . line . ")"
+}
+else {
     var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..<" . line . " + " . AHKlikeLoopsIndexedAt . ")"
+}
+
+
+
 }
 if (langToConvertTo = langFileExtension_2)
 {
@@ -17430,20 +17527,53 @@ haveWeEverUsedAloop := 1
 
 if (langToConvertTo = "py")
 {
+
+if (AHKlikeLoopsIndexedAt = "0") {
+var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(" . AHKlikeLoopsIndexedAt . ", " . line . "):"
+}
+else {
 var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in range(" . AHKlikeLoopsIndexedAt . ", " . line . " + " . AHKlikeLoopsIndexedAt . "):"
+}
+
+
+
 }
 if (langToConvertTo = "js")
 {
+
+if (AHKlikeLoopsIndexedAt = "0") {
+var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
 var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 if (langToConvertTo = "cpp")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
 var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
+
 }
 
 if (langToConvertTo = "go")
 {
+
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " := " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++"
+}
+else {
     var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " := " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++"
+}
+
+
 }
 if (langToConvertTo = "lua")
 {
@@ -17451,23 +17581,60 @@ if (langToConvertTo = "lua")
 }
 if (langToConvertTo = "cs")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
     var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 if (langToConvertTo = "java")
 {
+
+
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
     var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 if (langToConvertTo = "kt")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . " until " . line . ")"
+}
+else {
     var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . " until " . line . " + " . AHKlikeLoopsIndexedAt . ")"
+}
+
+
 }
 if (langToConvertTo = "rb")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..." . line . " do"
+}
+else {
     var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..." . line . " + " . AHKlikeLoopsIndexedAt . " do"
+}
+
+
 }
 if (langToConvertTo = "nim")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..<" . line . ":"
+}
+else {
     var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..<" . line . " + " . AHKlikeLoopsIndexedAt . ":"
+}
+
+
 }
 if (langToConvertTo = "ahk")
 {
@@ -17475,19 +17642,48 @@ if (langToConvertTo = "ahk")
 }
 if (langToConvertTo = "swift")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . " ..< " . line
+}
+else {
     var1 := "for " . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . " ..< " . line . " + " . AHKlikeLoopsIndexedAt
+}
+
+
 }
 if (langToConvertTo = "dart")
 {
+
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
     var1 := "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 if (langToConvertTo = "ts")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
     var1 := "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < " . line . " + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 if (langToConvertTo = "groovy")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..<" . line . ")"
+}
+else {
     var1 := "for (" . keyWordAIndex . "" . STR(AindexcharLength) . " in " . AHKlikeLoopsIndexedAt . "..<" . line . " + " . AHKlikeLoopsIndexedAt . ")"
+}
+
+
 }
 if (langToConvertTo = langFileExtension_2)
 {
@@ -17840,11 +18036,25 @@ var1out := itemsOut . Chr(10) . "for " . keyWordAIndex . "" . STR(AindexcharLeng
 }
 if (langToConvertTo = "js")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+var1out := itemsOut . Chr(10) . "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".length; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
 var1out := itemsOut . Chr(10) . "for (let " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".length + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 if (langToConvertTo = "cpp")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+var1out := itemsOut . Chr(10) . "for (size_t " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".size(); " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
 var1out := itemsOut . Chr(10) . "for (size_t " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".size() + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 
 if (langToConvertTo = "go")
@@ -17857,14 +18067,29 @@ if (langToConvertTo = "lua")
 }
 if (langToConvertTo = "cs")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1out := itemsOut . Chr(10) . "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".Count; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
     var1out := itemsOut . Chr(10) . "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".Count + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 if (langToConvertTo = "java")
 {
+if (AHKlikeLoopsIndexedAt = "0") {
+    var1out := itemsOut . Chr(10) . "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".length; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+else {
     var1out := itemsOut . Chr(10) . "for (int " . keyWordAIndex . "" . STR(AindexcharLength) . " = " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . " < items" . STR(AindexcharLength) . ".length + " . AHKlikeLoopsIndexedAt . "; " . keyWordAIndex . "" . STR(AindexcharLength) . "++)"
+}
+
+
 }
 if (langToConvertTo = "kt")
 {
+
     var1out := itemsOut . Chr(10) . "for ((" . keyWordAIndex . "" . STR(AindexcharLength) . " , " . keyWordALoopField . "" . STR(AindexcharLength) . ") in items" . STR(AindexcharLength) . ".withIndex())"
 }
 if (langToConvertTo = "rb")
