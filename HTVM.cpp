@@ -12,7 +12,7 @@
 #include <any>
 #include <cctype>
 #include <cstdint>
-#include <filesystem>
+#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <optional>
@@ -104,21 +104,11 @@ int InStr(const std::string& haystack, const std::string& needle) {
 }
 
 std::string FileRead(const std::string& path) {
-    std::ifstream file;
-    std::filesystem::path full_path;
-    // Check if the file path is an absolute path
-    if (std::filesystem::path(path).is_absolute()) {
-        full_path = path;
-    } else {
-        // If it's not a full path, prepend the current working directory
-        full_path = std::filesystem::current_path() / path;
-    }
-    // Open the file
-    file.open(full_path);
+    // This function relies on <fstream>, which is already in your global includes.
+    std::ifstream file(path);
     if (!file.is_open()) {
-        throw std::runtime_error("Error: Could not open the file.");
+        throw std::runtime_error("Error: Could not open the file: " + path);
     }
-    // Read the file content into a string
     std::string content;
     std::string line;
     while (std::getline(file, line)) {
@@ -144,16 +134,7 @@ bool FileAppend(const std::string& content, const std::string& path) {
 }
 
 bool FileDelete(const std::string& path) {
-    std::filesystem::path file_path(path);
-    // Check if the file exists
-    if (!std::filesystem::exists(file_path)) {
-        return false;
-    }
-    // Attempt to remove the file
-    if (!std::filesystem::remove(file_path)) {
-        return false;
-    }
-    return true;
+    return std::remove(path.c_str()) == 0;
 }
 
 size_t StrLen(const std::string& str) {
@@ -444,13 +425,10 @@ std::string allArgs = "";
     }
 #endif
 std::string GetParams() {
+    // [FIX] This function is now safe as it does not use std::filesystem.
     std::vector<std::string> params;
     for (int i = 1; i < ARGC; ++i) {
-        std::string arg = ARGV[i];
-        if (std::filesystem::exists(arg)) {
-            arg = std::filesystem::absolute(arg).string();
-        }
-        params.push_back(arg);
+        params.push_back(ARGV[i]);
     }
     std::string result;
     for (const auto& param : params) {

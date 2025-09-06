@@ -82,7 +82,7 @@ try
 catch
 finally
 return
-.add
+.push
 .pop
 .size
 .insert
@@ -98,10 +98,10 @@ let
 const
 end
 global
-;
-'''1
-'''2
-`
+//
+/*
+*/
+\
 main
 .
 +
@@ -110,7 +110,7 @@ main
 /
 %
 **
-=
+==
 ===
 !=
 >
@@ -127,7 +127,7 @@ or
 <<
 >>
 >>>
-:=
+=
 +=
 .=
 -=
@@ -1224,14 +1224,24 @@ funcEND======================funcEND==============
 func======================func==============
 lang: cpp
 name: FileRead
-libs: #include <fstream>|#include <string>|#include <stdexcept>|#include <stdexcept>
+libs: #include <fstream>|#include <string>|#include <filesystem>|#include <stdexcept>
 description: file~~~Reads the entire content of a file specified by `path` (string) and returns it as a string. If the file doesn't exist or cannot be read, it may throw an error or return an empty/special value depending on the language. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "test_read_file.txt"~~~str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRead is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a file with known content~~~    FileAppend(fileContentToWrite, filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Test file '" . filePath . "' created with content.")~~~        str readContent := FileRead(filePath)~~~        print("Content read from '" . filePath . "':`n" . readContent)~~~~~~        ; Normalize newlines for comparison as different OS might handle them differently.~~~        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")~~~        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")~~~~~~        if (normalizedRead = normalizedExpected) {~~~            print("FileRead test PASSED.")~~~        } else {~~~            print("FileRead test FAILED! Content mismatch.")~~~            print("Expected: '" . normalizedExpected . "'")~~~            print("Got     : '" . normalizedRead . "'")~~~        }~~~        ; Cleanup~~~        FileDelete(filePath)~~~    } else {~~~        print("Could not create test file for FileRead.")~~~    }~~~}~~~```~~~
 std::string FileRead(const std::string& path) {
-    // This function relies on <fstream>, which is already in your global includes.
-    std::ifstream file(path);
-    if (!file.is_open()) {
-        throw std::runtime_error("Error: Could not open the file: " + path);
+    std::ifstream file;
+    std::filesystem::path full_path;
+    // Check if the file path is an absolute path
+    if (std::filesystem::path(path).is_absolute()) {
+        full_path = path;
+    } else {
+        // If it's not a full path, prepend the current working directory
+        full_path = std::filesystem::current_path() / path;
     }
+    // Open the file
+    file.open(full_path);
+    if (!file.is_open()) {
+        throw std::runtime_error("Error: Could not open the file.");
+    }
+    // Read the file content into a string
     std::string content;
     std::string line;
     while (std::getline(file, line)) {
@@ -1244,7 +1254,7 @@ funcEND======================funcEND==============
 func======================func==============
 lang: cpp
 name: FileAppend
-libs: #include <fstream>|#include <iostream>|#include <string>
+libs: #include <fstream>|#include <iostream>|#include <string>|#include <filesystem>
 description: file~~~Appends `content` (string) to a file specified by `path` (string). Creates the file if it doesn't exist. Returns a boolean indicating success (true) or failure (false). Not available in standard browser JavaScript due to security restrictions; use `FileAppendJs` for browser downloads.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment where file system access is permitted.~~~str filePath := "test_append.txt"~~~str content1 := "First line for test_append.txt`n"~~~bool success1 := FileAppend(content1, filePath)~~~print("Append 1 to '" . filePath . "' success: " . STR(success1))~~~if (success1 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str content2 := "Second line, appended.`n"~~~bool success2 := FileAppend(content2, filePath)~~~print("Append 2 to '" . filePath . "' success: " . STR(success2))~~~if (success2 = false and HTVM_getLang_HTVM() != "js") {~~~    print("FileAppend test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~; Optionally, read back and verify (if FileRead is available and working)~~~if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {~~~    str fileContent := FileRead(filePath)~~~    print("Content of '" . filePath . "':`n" . fileContent)~~~    str expectedContent := content1 . content2~~~    if (Trim(fileContent) != Trim(expectedContent)) {~~~        print("FileAppend content verification FAILED!")~~~    } else {~~~        print("FileAppend content verification PASSED.")~~~    }~~~    ; Clean up the test file~~~    FileDelete(filePath)~~~    print("Test file '" . filePath . "' deleted.")~~~} else if (HTVM_getLang_HTVM() = "js") {~~~    print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")~~~}~~~```~~~
 bool FileAppend(const std::string& content, const std::string& path) {
     std::ofstream file;
@@ -1264,10 +1274,19 @@ funcEND======================funcEND==============
 func======================func==============
 lang: cpp
 name: FileDelete
-libs: #include <fstream>|#include <iostream>|#include <string>|#include <cstdio>
+libs: #include <fstream>|#include <iostream>|#include <string>|#include <filesystem>
 description: file~~~Deletes a file specified by `path` (string). Returns a boolean indicating success (true) or failure (false, e.g., if the file doesn't exist or due to permissions). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str filePath := "file_to_delete.txt"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileDelete is not available in standard JS. Skipping test.")~~~} else {~~~    ; Create a dummy file to delete~~~    FileAppend("Temporary content.", filePath)~~~    if (FileExist(filePath) = true) {~~~        print("Dummy file '" . filePath . "' created for deletion test.")~~~        bool deleteSuccess := FileDelete(filePath)~~~        print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))~~~        if (deleteSuccess = true and FileExist(filePath) = false) {~~~            print("FileDelete test PASSED.")~~~        } else {~~~            print("FileDelete test FAILED! File still exists or deletion reported failure.")~~~        }~~~    } else {~~~        print("Could not create dummy file for FileDelete test.")~~~    }~~~    ; Test deleting a non-existent file~~~    str nonExistentFile := "surely_this_does_not_exist.txt"~~~    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)~~~    print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))~~~    if (deleteNonExistentSuccess = false) {~~~        print("FileDelete non-existent file test PASSED (reported failure as expected).")~~~    } else {~~~        print("FileDelete non-existent file test FAILED! (Reported success for non-existent file).")~~~    }~~~}~~~```~~~
 bool FileDelete(const std::string& path) {
-    return std::remove(path.c_str()) == 0;
+    std::filesystem::path file_path(path);
+    // Check if the file exists
+    if (!std::filesystem::exists(file_path)) {
+        return false;
+    }
+    // Attempt to remove the file
+    if (!std::filesystem::remove(file_path)) {
+        return false;
+    }
+    return true;
 }
 funcEND======================funcEND==============
 func======================func==============
@@ -1925,61 +1944,46 @@ funcEND======================funcEND==============
 func======================func==============
 lang: cpp
 name: FileCreateDir
-libs: #include <system_error>|#include <sstream>
+libs: #include <filesystem>|#include <system_error>
 description: file~~~Creates a new directory specified by `path` (string). If the directory already exists, it usually does nothing. If intermediate directories in the path do not exist, their creation might depend on the target language's implementation (some create them, some require them to exist). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "test_htvm_dir"~~~print("Attempting to create directory: '" . dirPath . "'")~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileCreateDir is not available in standard JS. Skipping test.")~~~} else {~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created or already existed. PASSED.")~~~        ; Clean up~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("Test directory '" . dirPath . "' cleaned up successfully.")~~~        } else {~~~            print("Cleanup of '" . dirPath . "' FAILED.")~~~        }~~~    } else {~~~        print("FileCreateDir test FAILED! Directory not found after creation attempt.")~~~    }~~~    ; ----------------------------------------------------~~~    str nestedDirPath := "parent_dir/child_dir"~~~    print("Attempting to create nested directory: '" . nestedDirPath . "'")~~~    ; Behavior for non-existent 'parent_dir' varies.~~~    FileCreateDir(nestedDirPath)~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")~~~        ; Try to clean up child~~~        FileRemoveDir(nestedDirPath)~~~        ; Try to clean up parent~~~        FileRemoveDir("parent_dir")~~~    } else {~~~        print("Nested directory '" . nestedDirPath . "' not found. This might be expected if parent was not auto-created.")~~~    }~~~}~~~```~~~
 // Creates a directory if it does not exist
 void FileCreateDir(const std::string& path) {
-    // [FIX] All necessary headers and macros are defined inside this function.
-    #ifdef _WIN32
-        #include <direct.h>
-        #define MKDIR(path) _mkdir(path)
-    #else
-        #include <sys/stat.h>
-        #define MKDIR(path) mkdir(path, 0755)
-    #endif
-
-    std::string currentPath = "";
-    std::string dir;
-    char separator = '/';
-#ifdef _WIN32
-    separator = '\\';
-#endif
-
-    std::stringstream ss(path);
-    while (std::getline(ss, dir, separator)) {
-        if (!dir.empty()) {
-            currentPath += dir + separator;
-            MKDIR(currentPath.c_str());
-        }
+    try {
+        std::filesystem::create_directories(path); // this creates all parent dirs too
+    } catch (const std::filesystem::filesystem_error&) {
+        // Handle errors silently
     }
 }
 funcEND======================funcEND==============
 func======================func==============
 lang: cpp
 name: FileRemoveDir
-libs: #include <system_error>|#include <cstdlib>
+libs: #include <filesystem>|#include <system_error>
 description: file~~~Removes a directory specified by `path` (string). If the directory contains files or subdirectories, their removal depends on the target language's implementation (some remove recursively, some fail if not empty). Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~str dirPath := "dir_to_remove"~~~~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileRemoveDir is not available in standard JS. Skipping test.")~~~} else {~~~    ; Test 1: Remove an empty directory~~~    FileCreateDir(dirPath)~~~    if (FileExist(dirPath) = true) {~~~        print("Directory '" . dirPath . "' created for removal test.")~~~        FileRemoveDir(dirPath)~~~        if (FileExist(dirPath) = false) {~~~            print("FileRemoveDir test 1 (empty dir) PASSED.")~~~        } else {~~~            print("FileRemoveDir test 1 (empty dir) FAILED! Directory still exists.")~~~        }~~~    } else {~~~        print("Could not create directory for FileRemoveDir test 1.")~~~    }~~~~~~    print("--------------------")~~~~~~    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)~~~    str nestedDirPath := "parent_for_remove/child_for_remove"~~~    ; Creates parent/child potentially~~~    FileCreateDir(nestedDirPath) ~~~    FileAppend("dummy", nestedDirPath . "/file.txt")~~~    if (FileExist(nestedDirPath) = true) {~~~        print("Nested directory with file created: '" . nestedDirPath . "'")~~~        ; Attempt to remove parent~~~        FileRemoveDir("parent_for_remove") ~~~        if (FileExist("parent_for_remove") = false) {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")~~~        } else {~~~            print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")~~~            ; Cleanup if needed and possible~~~            FileRemoveDir(nestedDirPath)~~~            FileRemoveDir("parent_for_remove")~~~        }~~~    } else {~~~        print("Could not create nested directory for FileRemoveDir test 2.")~~~    }~~~}~~~```~~~
 // Removes a directory if it exists
 void FileRemoveDir(const std::string& path) {
-    // [FIX] This uses std::system, which requires <cstdlib>, already in your global includes.
-#ifdef _WIN32
-    std::string command = "rd /s /q \"" + path + "\"";
-#else
-    std::string command = "rm -rf \"" + path + "\"";
-#endif
-    std::system(command.c_str());
+    try {
+        if (std::filesystem::exists(path) && std::filesystem::is_directory(path)) {
+            std::filesystem::remove_all(path);
+        }
+    } catch (const std::filesystem::filesystem_error&) {
+        // Handle errors silently
+    }
 }
 funcEND======================funcEND==============
 func======================func==============
 lang: cpp
 name: FileExist
-libs: #include <system_error>|#include <fstream>
+libs: #include <filesystem>|#include <system_error>
 description: file~~~Checks if a file or directory exists at the specified `path` (string). Returns `true` if it exists, `false` otherwise. Not available in standard browser JavaScript.~~~Here is how to use it:~~~```htvm~~~; This example assumes a non-browser environment.~~~; Placeholder, will attempt to use the script's own file if GetParams works.~~~str nonExistentPath := "this_path_should_not_exist_12345.xyz"~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("FileExist is not available in standard JS. Skipping test.")~~~} else {~~~    ; Try to get path of the current script or a known file for a positive test~~~    ; This part is a bit tricky without knowing the execution context.~~~    ; For a simple test, we'll create and check a temporary file.~~~    str tempFileForExistTest := "temp_exist_test.txt"~~~    FileAppend("check", tempFileForExistTest)~~~    bool check1 := FileExist(tempFileForExistTest)~~~    print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))~~~    if (check1 = true) {~~~        print("FileExist test 1 (existing file) PASSED.")~~~    } else {~~~        print("FileExist test 1 (existing file) FAILED!")~~~    }~~~    ; Cleanup~~~    FileDelete(tempFileForExistTest)~~~    bool check2 := FileExist(nonExistentPath)~~~    print("FileExist('" . nonExistentPath . "') = " . STR(check2))~~~    if (check2 = false) {~~~        print("FileExist test 2 (non-existent path) PASSED.")~~~    } else {~~~        print("FileExist test 2 (non-existent path) FAILED!")~~~    }~~~    ; Test with a directory~~~    str tempDirForExistTest := "temp_dir_exist_test"~~~    FileCreateDir(tempDirForExistTest)~~~    bool check3 := FileExist(tempDirForExistTest)~~~    print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))~~~    if (check3 = true) {~~~        print("FileExist test 3 (existing directory) PASSED.")~~~    } else {~~~        print("FileExist test 3 (existing directory) FAILED!")~~~    }~~~    ; Cleanup~~~    FileRemoveDir(tempDirForExistTest)~~~}~~~```~~~
 // Checks if a file or directory exists
 bool FileExist(const std::string& path) {
-    // [FIX] This relies on <fstream>, which is already in your global includes.
-    std::ifstream file(path);
-    return file.good();
+    try {
+        return std::filesystem::exists(path);
+    } catch (const std::filesystem::filesystem_error&) {
+        // Handle errors silently; return false if an error occurs
+        return false;
+    }
 }
 funcEND======================funcEND==============
 func======================func==============
@@ -1999,7 +2003,7 @@ funcEND======================funcEND==============
 func======================func==============
 lang: cpp
 name: GetParams
-libs: #include <iostream>|#include <vector>|#include <string>
+libs: #include <iostream>|#include <vector>|#include <string>|#include <filesystem>
 description: io~~~Retrieves command-line arguments passed to the script. Returns them as a single string, with each argument typically on a new line, or formatted as absolute paths if they correspond to existing files/directories. Behavior and availability vary significantly by environment (e.g., not applicable in browsers).~~~Here is how to use it:~~~```htvm~~~; This function's output depends on how the script is executed with command-line arguments.~~~; For testing, you would run the compiled HTVM script like:~~~; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt~~~str allParams := ""~~~if (HTVM_getLang_HTVM() = "js") {~~~    print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")~~~} else {~~~    print("Retrieving command line parameters...")~~~    allParams := GetParams()~~~    if (allParams = "") {~~~        print("No command line parameters were provided to the script, or function not fully supported in this context.")~~~    } else {~~~        print("Command Line Parameters Received:")~~~        print(allParams)~~~        print("--- End of Parameters ---")~~~        ; A simple "test" is to check if it returned something if args were expected.~~~        ; This requires manual verification by running with args.~~~        print("GetParams test: Review the output above. If you passed arguments, they should appear here.")~~~    }~~~}~~~; Example of how you might parse it in HTVM if it returns newline-separated args:~~~arr str paramsArray~~~if (allParams != "") {~~~    Loop, Parse, allParams, `n, `r {~~~        print("Param " . STR(A_Index + 1) . ": " . A_LoopField)~~~        if (A_LoopField != "") {~~~            paramsArray.add(A_LoopField) ~~~        }~~~    }~~~    print("Parsed first param (if any): " . paramsArray[0])~~~}~~~```~~~
 #ifdef _WIN32
     #define ARGC __argc
@@ -2014,10 +2018,13 @@ description: io~~~Retrieves command-line arguments passed to the script. Returns
     }
 #endif
 std::string GetParams() {
-    // [FIX] This function is now safe as it does not use std::filesystem.
     std::vector<std::string> params;
     for (int i = 1; i < ARGC; ++i) {
-        params.push_back(ARGV[i]);
+        std::string arg = ARGV[i];
+        if (std::filesystem::exists(arg)) {
+            arg = std::filesystem::absolute(arg).string();
+        }
+        params.push_back(arg);
     }
     std::string result;
     for (const auto& param : params) {
@@ -5263,7 +5270,7 @@ funcEND======================funcEND==============
 func======================func==============
 lang: cpp
 name: HTclang_HTclang_HTclang
-libs: #include <algorithm>|#include <any>|#include <cstdint>|#include <iostream>|#include <optional>|#include <regex>|#include <sstream>|#include <string>|#include <type_traits>|#include <vector>
+libs: #include <algorithm>|#include <any>|#include <cstdint>|#include <filesystem>|#include <iostream>|#include <optional>|#include <regex>|#include <sstream>|#include <string>|#include <type_traits>|#include <vector>
 description: null
 bool noParams = false;
 std::string allArgs = "";
@@ -5288,10 +5295,13 @@ std::string allArgs = "";
     }
 #endif
 std::string GetParams() {
-    // [FIX] This function is now safe as it does not use std::filesystem.
     std::vector<std::string> params;
     for (int i = 1; i < ARGC; ++i) {
-        params.push_back(ARGV[i]);
+        std::string arg = ARGV[i];
+        if (std::filesystem::exists(arg)) {
+            arg = std::filesystem::absolute(arg).string();
+        }
+        params.push_back(arg);
     }
     std::string result;
     for (const auto& param : params) {
@@ -5321,7 +5331,7 @@ funcEND======================funcEND==============
 func======================func==============
 lang: cpp
 name: HTVM_v2_HTVM
-libs: #include <algorithm>|#include <any>|#include <cstdint>|#include <iostream>|#include <optional>|#include <regex>|#include <sstream>|#include <string>|#include <type_traits>|#include <vector>
+libs: #include <algorithm>|#include <any>|#include <cstdint>|#include <filesystem>|#include <iostream>|#include <optional>|#include <regex>|#include <sstream>|#include <string>|#include <type_traits>|#include <vector>
 description: null
 bool noParams = false;
 std::string allArgs = "";
@@ -5346,10 +5356,13 @@ std::string allArgs = "";
     }
 #endif
 std::string GetParams() {
-    // [FIX] This function is now safe as it does not use std::filesystem.
     std::vector<std::string> params;
     for (int i = 1; i < ARGC; ++i) {
-        params.push_back(ARGV[i]);
+        std::string arg = ARGV[i];
+        if (std::filesystem::exists(arg)) {
+            arg = std::filesystem::absolute(arg).string();
+        }
+        params.push_back(arg);
     }
     std::string result;
     for (const auto& param : params) {

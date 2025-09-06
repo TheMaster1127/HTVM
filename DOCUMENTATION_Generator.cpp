@@ -15,7 +15,6 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
-#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <memory>
@@ -109,21 +108,11 @@ int InStr(const std::string& haystack, const std::string& needle) {
 }
 
 std::string FileRead(const std::string& path) {
-    std::ifstream file;
-    std::filesystem::path full_path;
-    // Check if the file path is an absolute path
-    if (std::filesystem::path(path).is_absolute()) {
-        full_path = path;
-    } else {
-        // If it's not a full path, prepend the current working directory
-        full_path = std::filesystem::current_path() / path;
-    }
-    // Open the file
-    file.open(full_path);
+    // This function relies on <fstream>, which is already in your global includes.
+    std::ifstream file(path);
     if (!file.is_open()) {
-        throw std::runtime_error("Error: Could not open the file.");
+        throw std::runtime_error("Error: Could not open the file: " + path);
     }
-    // Read the file content into a string
     std::string content;
     std::string line;
     while (std::getline(file, line)) {
@@ -149,16 +138,7 @@ bool FileAppend(const std::string& content, const std::string& path) {
 }
 
 bool FileDelete(const std::string& path) {
-    std::filesystem::path file_path(path);
-    // Check if the file exists
-    if (!std::filesystem::exists(file_path)) {
-        return false;
-    }
-    // Attempt to remove the file
-    if (!std::filesystem::remove(file_path)) {
-        return false;
-    }
-    return true;
+    return std::remove(path.c_str()) == 0;
 }
 
 std::string SubStr(const std::string& str, int startPos, int length = -1) {
@@ -230,12 +210,18 @@ std::string Chr(int number) {
 
 // Checks if a file or directory exists
 bool FileExist(const std::string& path) {
-    try {
-        return std::filesystem::exists(path);
-    } catch (const std::filesystem::filesystem_error&) {
-        // Handle errors silently; return false if an error occurs
+    // [FIX] This relies on <fstream>, which is already in your global includes.
+    std::ifstream file(path);
+    return file.good();
+}
+
+// Function to check if the operating system is Windows
+bool isWindows() {
+    #ifdef _WIN32
+        return true;
+    #else
         return false;
-    }
+    #endif
 }
 
 #ifdef _WIN32
@@ -251,13 +237,10 @@ bool FileExist(const std::string& path) {
     }
 #endif
 std::string GetParams() {
+    // [FIX] This function is now safe as it does not use std::filesystem.
     std::vector<std::string> params;
     for (int i = 1; i < ARGC; ++i) {
-        std::string arg = ARGV[i];
-        if (std::filesystem::exists(arg)) {
-            arg = std::filesystem::absolute(arg).string();
-        }
-        params.push_back(arg);
+        params.push_back(ARGV[i]);
     }
     std::string result;
     for (const auto& param : params) {
@@ -509,8 +492,13 @@ std::string escapeStr(const std::string& str) {
 #include <filesystem>
 // Function to extract directory path from a full file path
 std::string GetDirectoryPath(const std::string& fullPath) {
-    std::filesystem::path path(fullPath);
-    return path.parent_path().string();  // Returns directory path
+    size_t pos = fullPath.find_last_of("/\\");
+    if (std::string::npos != pos) {
+        // If a separator is found, return the path up to that point.
+        return fullPath.substr(0, pos);
+    }
+    // If no separator is found, it's a file in the current directory. Return ".".
+    return ".";
 }
 #include <memory>
 #ifdef _WIN32
@@ -703,108 +691,213 @@ void htvmSnippetLoad() {
             htvmSnippet100 = "";
             htvmSnippet101 = "";
             htvmSnippet102 = "";
-            htvmSnippet00 = FileRead("DOCUMENTATION Examples\\htvmSnippet0.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet1.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet2.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet3.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet4.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet5.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet6.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet7.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet8.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet9.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet10.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet11.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet12.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet13.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet14.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet15.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet16.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet17.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet18.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet19.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet20.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet21.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet22.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet23.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet24.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet25.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet26.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet27.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet28.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet29.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet30.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet31.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet32.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet33.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet34.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet35.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet36.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet37.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet38.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet39.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet40.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet41.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet42.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet43.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet44.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet45.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet46.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet47.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet48.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet49.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet50.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet51.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet52.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet53.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet54.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet55.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet56.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet57.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet58.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet59.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet60.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet61.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet62.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet63.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet64.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet65.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet66.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet67.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet68.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet69.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet70.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet71.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet72.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet73.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet74.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet75.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet76.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet77.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet78.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet79.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet80.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet81.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet82.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet83.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet84.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet85.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet86.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet87.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet88.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet89.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet90.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet91.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet92.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet93.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet94.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet95.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet96.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet97.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet98.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet99.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet100.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
-            htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet101.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            if (isWindows()) {
+                htvmSnippet00 = FileRead("DOCUMENTATION Examples\\htvmSnippet0.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet1.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet2.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet3.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet4.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet5.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet6.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet7.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet8.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet9.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet10.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet11.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet12.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet13.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet14.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet15.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet16.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet17.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet18.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet19.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet20.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet21.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet22.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet23.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet24.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet25.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet26.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet27.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet28.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet29.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet30.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet31.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet32.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet33.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet34.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet35.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet36.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet37.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet38.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet39.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet40.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet41.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet42.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet43.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet44.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet45.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet46.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet47.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet48.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet49.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet50.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet51.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet52.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet53.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet54.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet55.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet56.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet57.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet58.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet59.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet60.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet61.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet62.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet63.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet64.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet65.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet66.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet67.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet68.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet69.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet70.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet71.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet72.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet73.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet74.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet75.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet76.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet77.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet78.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet79.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet80.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet81.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet82.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet83.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet84.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet85.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet86.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet87.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet88.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet89.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet90.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet91.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet92.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet93.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet94.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet95.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet96.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet97.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet98.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet99.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet100.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples\\htvmSnippet101.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            } else {
+                htvmSnippet00 = FileRead("DOCUMENTATION Examples/htvmSnippet0.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet1.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet2.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet3.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet4.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet5.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet6.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet7.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet8.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet9.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet10.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet11.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet12.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet13.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet14.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet15.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet16.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet17.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet18.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet19.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet20.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet21.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet22.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet23.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet24.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet25.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet26.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet27.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet28.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet29.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet30.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet31.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet32.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet33.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet34.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet35.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet36.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet37.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet38.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet39.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet40.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet41.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet42.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet43.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet44.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet45.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet46.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet47.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet48.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet49.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet50.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet51.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet52.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet53.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet54.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet55.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet56.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet57.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet58.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet59.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet60.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet61.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet62.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet63.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet64.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet65.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet66.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet67.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet68.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet69.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet70.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet71.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet72.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet73.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet74.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet75.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet76.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet77.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet78.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet79.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet80.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet81.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet82.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet83.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet84.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet85.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet86.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet87.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet88.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet89.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet90.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet91.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet92.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet93.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet94.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet95.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet96.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet97.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet98.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet99.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet100.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+                htvmSnippet00 += FileRead("DOCUMENTATION Examples/htvmSnippet101.htvm") + Chr(10) + "HTVMv2-help-DOC-get-ThisOnly-For-DOC-GEN-HTVMv2" + Chr(10);
+            }
             htvmSnippet00 = convertSnipetToAnotherSyntax(DOCS_param1, htvmSnippet00);
             numTemp = 0;
             htvmSnippet000 = "";

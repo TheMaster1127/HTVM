@@ -2,3 +2,5 @@ testing/*.exe
 *.exe
 HTVM-v1-DEPRECATED/*.exe
 .vscode/*
+HTVM
+DOCUMENTATION_Generator

@@ -356,7 +356,7 @@ HTVM introduces **programming blocks** that allow you to **mix languages** seaml
 
 Example:
 ```htvm
-; This is a JavaScript programming block. It will stay intact and included in the JS output.
+// This is a JavaScript programming block. It will stay intact and included in the JS output.
 ___js start
 // this is now JavaScript code
 console.log("==========================")
@@ -377,20 +377,20 @@ ___js end
 Example:
 - **JavaScript block** in HTVM:
 ```htvm
-; Open JavaScript block
+// Open JavaScript block
 ___js start
 console.log("Hello, world!");
 ___js end
-; End JavaScript block
+// End JavaScript block
 
 ```
 - **Python block** in HTVM:
 ```htvm
-; Open Python block
+// Open Python block
 ___py start
 print("Hello, world!")
 ___py end
-; End Python block
+// End Python block
 
 ```
 When converting to **JavaScript**, the Python block will disappear, and only the JavaScript block will be included.
@@ -478,17 +478,17 @@ At its core, a `struct` in HTVM OSP is similar to structs in languages like C: i
 -   **Global Nature:** Structs defined in OSP are globally accessible from any point in the code below their definition, using their full path.
 
 ```htvm
-; Example of a simple, standalone struct
+// Example of a simple, standalone struct
 struct Configuration {
-    prop str theme := "dark"
-    prop int fontSize := 12
-    prop bool spellCheck := true
+    prop str theme = "dark"
+    prop int fontSize = 12
+    prop bool spellCheck = true
 }
-; Accessing its properties later
-; Access using the struct name as the path
+// Accessing its properties later
+// Access using the struct name as the path
 print(Configuration.theme)
-; Modifying a property
-Configuration.fontSize := 14
+// Modifying a property
+Configuration.fontSize = 14
 
 ```
 
@@ -509,19 +509,19 @@ Most of the time, for simpler data organization, you might just need standalone 
 ```htvm
 alliance Game {
     crew Audio {
-        ; This is Game.Audio.Settings
+        // This is Game.Audio.Settings
         struct Settings {
-            prop int volume := 80
+            prop int volume = 80
         }
     }
     crew Video {
-        ; This is Game.Video.Settings - no collision!
+        // This is Game.Video.Settings - no collision!
         struct Settings {
-            prop str resolution := "1920x1080"
+            prop str resolution = "1920x1080"
         }
     }
 }
-; Access using the full path
+// Access using the full path
 print(Game.Audio.Settings.volume)
 print(Game.Video.Settings.resolution)
 
@@ -548,20 +548,20 @@ The `this` keyword in OSP (Ordinal) is **different** from `this` in traditional 
 alliance Movable {
     crew Vehicles {
         struct Car {
-            prop int fuel := 100
+            prop int fuel = 100
         }
         struct Bike {
-            prop int energy := 100
+            prop int energy = 100
         }
-        ; Proc using 'this' to know which struct called it
-        ; 'this' will hold "Movable.Vehicles.Car" or "Movable.Vehicles.Bike"
+        // Proc using 'this' to know which struct called it
+        // 'this' will hold "Movable.Vehicles.Car" or "Movable.Vehicles.Bike"
         proc void checkStatus(this) {
-            if (this = "Movable.Vehicles.Car") {
-                ; Still use full path for access
+            if (this == "Movable.Vehicles.Car") {
+                // Still use full path for access
                 print("Checking Car fuel: " . Movable.Vehicles.Car.fuel)
             }
-            else if (this = "Movable.Vehicles.Bike") {
-                ; Still use full path
+            else if (this == "Movable.Vehicles.Bike") {
+                // Still use full path
                 print("Checking Bike energy: " . Movable.Vehicles.Bike.energy)
             }
             else {
@@ -571,7 +571,7 @@ alliance Movable {
     }
 }
 main
-; Calling the proc with the context string
+// Calling the proc with the context string
 Movable.Vehicles.checkStatus("Movable.Vehicles.Car")
 Movable.Vehicles.checkStatus("Movable.Vehicles.Bike")
 
@@ -619,64 +619,64 @@ struct name {
 alliance Movable {
     crew Vehicles {
         struct Car {
-            prop int door := 4
-            prop int fuel := 100
-            prop bool hasFUEL := true
+            prop int door = 4
+            prop int fuel = 100
+            prop bool hasFUEL = true
         }
         struct Bike {
-            prop bool hasGears := true
-            prop int energy := 100
-            prop bool hasENERGY := true
+            prop bool hasGears = true
+            prop int energy = 100
+            prop bool hasENERGY = true
         }
         proc void move(this) {
             global Movable.Vehicles.Car.fuel
             global Movable.Vehicles.Car.hasFUEL
             global Movable.Vehicles.Bike.energy
             global Movable.Vehicles.Bike.hasENERGY
-            if (this = "Movable.Vehicles.Car") {
+            if (this == "Movable.Vehicles.Car") {
                 if (Movable.Vehicles.Car.fuel > 0) {
                     print("The car is driving.")
-                    Movable.Vehicles.Car.fuel := Movable.Vehicles.Car.fuel - 10
+                    Movable.Vehicles.Car.fuel = Movable.Vehicles.Car.fuel - 10
                 }
                 else {
                     print("The car is out of fuel.")
-                    Movable.Vehicles.Car.hasFUEL := false
+                    Movable.Vehicles.Car.hasFUEL = false
                 }
             }
-            else if (this = "Movable.Vehicles.Bike") {
+            else if (this == "Movable.Vehicles.Bike") {
                 if (Movable.Vehicles.Bike.energy > 0) {
                     print("The bike is pedaling.")
-                    Movable.Vehicles.Bike.energy := Movable.Vehicles.Bike.energy - 5
+                    Movable.Vehicles.Bike.energy = Movable.Vehicles.Bike.energy - 5
                 }
                 else {
                     print("The bike is out of energy.")
-                    Movable.Vehicles.Bike.hasENERGY := false
+                    Movable.Vehicles.Bike.hasENERGY = false
                 }
             }
         }
     }
     crew settings {
         struct GeneralSettings {
-            prop str difficulty := "normal"
-            prop int volume := 50
-            prop str resolution := "1920x1080"
+            prop str difficulty = "normal"
+            prop int volume = 50
+            prop str resolution = "1920x1080"
         }
         struct AudioSettings {
-            prop int masterVolume := 70
-            prop int musicVolume := 50
-            prop int sfxVolume := 40
+            prop int masterVolume = 70
+            prop int musicVolume = 50
+            prop int sfxVolume = 40
         }
         struct DisplaySettings {
-            prop bool fullscreen := true
-            prop str aspectRatio := "16:9"
+            prop bool fullscreen = true
+            prop str aspectRatio = "16:9"
         }
     }
     crew actions {
-        ; General Settings Procs
+        // General Settings Procs
         proc void resetGeneralSettings(this) {
-            Movable.settings.GeneralSettings.difficulty := STR("normal")
-            Movable.settings.GeneralSettings.volume := 50
-            Movable.settings.GeneralSettings.resolution := STR("1920x1080")
+            Movable.settings.GeneralSettings.difficulty = STR("normal")
+            Movable.settings.GeneralSettings.volume = 50
+            Movable.settings.GeneralSettings.resolution = STR("1920x1080")
             print("General settings reset to default.")
         }
         proc void printGeneralSettings(this) {
@@ -685,11 +685,11 @@ alliance Movable {
             print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
             print("Resolution: " . Movable.settings.GeneralSettings.resolution)
         }
-        ; Audio Settings Procs
+        // Audio Settings Procs
         proc void resetAudioSettings(this) {
-            Movable.settings.AudioSettings.masterVolume := 70
-            Movable.settings.AudioSettings.musicVolume := 50
-            Movable.settings.AudioSettings.sfxVolume := 40
+            Movable.settings.AudioSettings.masterVolume = 70
+            Movable.settings.AudioSettings.musicVolume = 50
+            Movable.settings.AudioSettings.sfxVolume = 40
             print("Audio settings reset to default.")
         }
         proc void printAudioSettings(this) {
@@ -698,10 +698,10 @@ alliance Movable {
             print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
             print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
         }
-        ; Display Settings Procs
+        // Display Settings Procs
         proc void resetDisplaySettings(this) {
-            Movable.settings.DisplaySettings.fullscreen := true
-            Movable.settings.DisplaySettings.aspectRatio := STR("16:9")
+            Movable.settings.DisplaySettings.fullscreen = true
+            Movable.settings.DisplaySettings.aspectRatio = STR("16:9")
             print("Display settings reset to default.")
         }
         proc void printDisplaySettings(this) {
@@ -720,21 +720,21 @@ alliance Movable {
     }
 }
 main
-; Test vehicle movement
-while (Movable.Vehicles.Car.hasFUEL = true) and (Movable.Vehicles.Bike.hasENERGY = true) {
+// Test vehicle movement
+while (Movable.Vehicles.Car.hasFUEL == true) and (Movable.Vehicles.Bike.hasENERGY == true) {
     Movable.Vehicles.move("Movable.Vehicles.Car")
     Movable.Vehicles.move("Movable.Vehicles.Bike")
     print("=====================================")
 }
-; Test settings manipulation
-Movable.settings.GeneralSettings.difficulty := STR("hard")
-Movable.settings.GeneralSettings.volume := 80
-Movable.settings.GeneralSettings.resolution := STR("2560x1440")
-Movable.settings.AudioSettings.masterVolume := 90
-Movable.settings.AudioSettings.musicVolume := 60
-Movable.settings.AudioSettings.sfxVolume := 50
-Movable.settings.DisplaySettings.fullscreen := false
-Movable.settings.DisplaySettings.aspectRatio := STR("21:9")
+// Test settings manipulation
+Movable.settings.GeneralSettings.difficulty = STR("hard")
+Movable.settings.GeneralSettings.volume = 80
+Movable.settings.GeneralSettings.resolution = STR("2560x1440")
+Movable.settings.AudioSettings.masterVolume = 90
+Movable.settings.AudioSettings.musicVolume = 60
+Movable.settings.AudioSettings.sfxVolume = 50
+Movable.settings.DisplaySettings.fullscreen = false
+Movable.settings.DisplaySettings.aspectRatio = STR("21:9")
 Movable.actions.printGeneralSettings()
 Movable.actions.printAudioSettings()
 Movable.actions.printDisplaySettings()
@@ -744,20 +744,20 @@ Movable.actions.resetDisplaySettings()
 Movable.actions.printGeneralSettings()
 Movable.actions.printAudioSettings()
 Movable.actions.printDisplaySettings()
-; Test array manipulation
-Movable.array.name.prop1.add("1text1")
-Movable.array.name.prop1.add("1text2")
-Movable.array.name.prop1.add("1text3")
-Movable.array.name.prop2.add("2text1")
-Movable.array.name.prop2.add("2text2")
-Movable.array.name.prop2.add("2text3")
-Movable.array.name.prop3.add("3text1")
-Movable.array.name.prop3.add("3text2")
-Movable.array.name.prop3.add("3text3")
-Movable.array.name.prop4.add("4text1")
-Movable.array.name.prop4.add("4text2")
-Movable.array.name.prop4.add("4text3")
-; Loop over and print
+// Test array manipulation
+Movable.array.name.prop1.push("1text1")
+Movable.array.name.prop1.push("1text2")
+Movable.array.name.prop1.push("1text3")
+Movable.array.name.prop2.push("2text1")
+Movable.array.name.prop2.push("2text2")
+Movable.array.name.prop2.push("2text3")
+Movable.array.name.prop3.push("3text1")
+Movable.array.name.prop3.push("3text2")
+Movable.array.name.prop3.push("3text3")
+Movable.array.name.prop4.push("4text1")
+Movable.array.name.prop4.push("4text2")
+Movable.array.name.prop4.push("4text3")
+// Loop over and print
 Loop, % Movable.array.name.prop1.size() {
     print(Movable.array.name.prop1[A_Index])
 }
@@ -788,8 +788,8 @@ Your language uses curly braces for indentation, square brackets for array defin
 Here is how it looks like:
 
 ```htvm
-; This is how your language looks like.
-; Here's how types will appear if you only define them:
+// This is how your language looks like.
+// Here's how types will appear if you only define them:
 int varName1
 str varName2
 bool varName3
@@ -798,16 +798,16 @@ int8 varName5
 int16 varName6
 int32 varName7
 int64 varName8
-; Alternatively, you can define them like this:
-int varName9 := 34
-; Here is how to define a function with static types if you convert to C++.
-; However, it will still work even if you are not converting to C++; types will be stripped away.
-func void funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5) {
-    ; This is how the global keyword works if we convert to Python.
-    ; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
+// Alternatively, you can define them like this:
+int varName9 = 34
+// Here is how to define a function with static types if you convert to C++.
+// However, it will still work even if you are not converting to C++; types will be stripped away.
+func void funcName1(int paramVar1, str paramVar2 = "", bool paramVar3 = false, float paramVar4 = 1.5) {
+    // This is how the global keyword works if we convert to Python.
+    // But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
     global varName5
-    ; Here's how if, else if, and else statements will look:
-    if (varName1 = paramVar1) {
+    // Here's how if, else if, and else statements will look:
+    if (varName1 == paramVar1) {
         print("varName1 is equal to paramVar1")
     }
     else if (varName1 != paramVar1 or varName1 <= paramVar1) {
@@ -816,57 +816,57 @@ func void funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false,
     else {
         print("varName1 is NOT less than or equal to paramVar1 or something else")
     }
-    ; this is how the return keyword will look like in your lang
+    // this is how the return keyword will look like in your lang
     return
 }
-; This is where the main function will start. It's just a label, so don't worry.
+// This is where the main function will start. It's just a label, so don't worry.
 main
 funcName1(varName9)
-; this is how a while loop works in your lang
-bool var1 := false
-while (var1 = false) {
+// this is how a while loop works in your lang
+bool var1 = false
+while (var1 == false) {
     print("we are inside the while loop")
-    var1 := true
+    var1 = true
 }
 print("we are outside the while loop")
-; this is how to use a loop whit arrays
-arr str array123 := ["hey"]
-array123.add("hello")
-array123.add("how")
-array123.add("are")
-array123.add("you")
-array123.add("doing")
+// this is how to use a loop whit arrays
+arr str array123 = ["hey"]
+array123.push("hello")
+array123.push("how")
+array123.push("are")
+array123.push("you")
+array123.push("doing")
 Loop, % array123.size() {
     print("iteration: " . STR(A_Index))
     print("Item: " . array123[A_Index])
 }
-print("this is how the escape char looks like `nthis is a new line")
-'''1
+print("this is how the escape char looks like \nthis is a new line")
+/*
 this is a comment block
 this is a comment block
-'''2
-; this is how to use an AutoHotKey like Loop
+*/
+// this is how to use an AutoHotKey like Loop
 Loop, 10 {
-    if (A_Index % 2 = 0) {
+    if (A_Index % 2 == 0) {
         continue
     }
     print(A_Index)
 }
-; this is how to use an AutoHotKey like infinite Loop
+// this is how to use an AutoHotKey like infinite Loop
 Loop {
-    if (A_Index = 5) {
+    if (A_Index == 5) {
         break
     }
     else {
         print(A_Index)
     }
 }
-; this is how to use an AutoHotKey like Loop, parse
-str someText := "hello how are you doing`ntoday we are good."
-Loop, Parse, someText, " ", `n {
+// this is how to use an AutoHotKey like Loop, parse
+str someText = "hello how are you doing\ntoday we are good."
+Loop, Parse, someText, " ", \n {
     print(A_LoopField)
 }
-; Error Handling
+// Error Handling
 try {
     throw ErrorMsg("Something went wrong!")
 }
@@ -890,13 +890,13 @@ HTVM supports powerful string definition methods, including formatted strings (f
 Here's how you can use them:
 
 ```htvm
-int calculation := 10 + 5
-str message := f"The result is: {calculation}. Double is: {calculation * 2}"
+int calculation = 10 + 5
+str message = f"The result is: {calculation}. Double is: {calculation * 2}"
 print("Regular F-String:")
 print(message)
 print("=========================")
-; === Multiline String (Raw) Example ===
-str ascii_cat := mls
+// === Multiline String (Raw) Example ===
+str ascii_cat = mls
  /\_/\
 ( o.o )
  > ^ <
@@ -904,11 +904,11 @@ mle
 print("Multiline String (Raw):")
 print(ascii_cat)
 print("=========================")
-; === Multiline F-String Example ===
-str userName := "Alice"
-int items := 3
-int price := 25
-str order_summary := fmls
+// === Multiline F-String Example ===
+str userName = "Alice"
+int items = 3
+int price = 25
+str order_summary = fmls
 Order Summary for: {userName}
 Items purchased: {items}
 Total cost: ${items * price}
@@ -947,7 +947,7 @@ A single-language programming block allows you to write code directly in the tar
 **Example:**
 
 ```htvm
-; Open a programming block for C++
+// Open a programming block for C++
 ___cpp start
 // Write C++ code here
 ___cpp end
@@ -961,11 +961,11 @@ HTVM also supports multiple-language programming blocks, where you can write cod
 **Example:**
 
 ```htvm
-; Open a programming block for C++
+// Open a programming block for C++
 ___cpp start
 // Write C++ code here
 ___cpp end
-; Open a programming block for JavaScript
+// Open a programming block for JavaScript
 ___js start
 // Write JavaScript code here
 ___js end
@@ -1044,15 +1044,15 @@ A variable is a way to store and reference data in your code. In HTVM, you can u
 Here’s a simple example of declaring and printing variables in HTVM:  
 
 ```htvm
-int myInt := 42
-int8 mySmallInt := -5
-uint16 myPositiveInt := 500
-float myFloat := 3.14
-double myDouble := 2.718
-char myChar := 'A'
-str myText := "Hello, HTVM!"
-bool myBool := true
-; print all variables
+int myInt = 42
+int8 mySmallInt = -5
+uint16 myPositiveInt = 500
+float myFloat = 3.14
+double myDouble = 2.718
+char myChar = 'A'
+str myText = "Hello, HTVM!"
+bool myBool = true
+// print all variables
 print(myInt)
 print(mySmallInt)
 print(myPositiveInt)
@@ -1129,7 +1129,7 @@ HTVM **does not check** whether you're violating `const`. If a language doesn’
 Example:  
 
 ```htvm
-const int x := 10
+const int x = 10
 
 ```
 
@@ -1153,11 +1153,11 @@ HTVM allows **programming blocks**, where you write code directly in a target la
 Example (Converting to Python):  
 
 ```htvm
-int myNumber := 5
+int myNumber = 5
 ___py start
 myNumber += 10
 ___py end
-; Will print 15 in Python
+// Will print 15 in Python
 print(myNumber)
 
 ```
@@ -1185,7 +1185,7 @@ If you are converting to **multiple languages**, each programming block is isola
 Example (Invalid cross-language access):  
 
 ```htvm
-int sharedNumber := 20
+int sharedNumber = 20
 ___cpp start
 sharedNumber += 5;
 ___cpp end
@@ -1208,7 +1208,7 @@ To fix this, you need to **manually synchronize values** in each programming blo
 Example of bad practice:  
 
 ```htvm
-uint32 myUnsigned := 500
+uint32 myUnsigned = 500
 
 ```
 
@@ -1265,15 +1265,15 @@ func void greet() {
 Optional parameters example:
 
 ```htvm
-str varName5 := "hi"
-func str funcName1(int paramVar1, str paramVar2 := "", bool paramVar3 := false, float paramVar4 := 1.5) {
-    ; This is how the global keyword works if we convert to Python.
-    ; But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
+str varName5 = "hi"
+func str funcName1(int paramVar1, str paramVar2 = "", bool paramVar3 = false, float paramVar4 = 1.5) {
+    // This is how the global keyword works if we convert to Python.
+    // But even if we don't, it will just be removed, so you can add it if you want to convert to Python as well.
     global varName5
-    ; this is how the return keyword will look like in your lang
+    // this is how the return keyword will look like in your lang
     return STR(paramVar1)
 }
-; This is where the main function will start. It's just a label, so don't worry.
+// This is where the main function will start. It's just a label, so don't worry.
 main
 print(funcName1(5))
 
@@ -1293,7 +1293,7 @@ Here’s how it looks:
 func void greet() {
     print("Hello, world!")
 }
-; You can just use this label, and it's all handled for you
+// You can just use this label, and it's all handled for you
 main
 greet()
 
@@ -1386,7 +1386,7 @@ var1.StrLower().Trim
 ```htvm
 crew someCrew {
     struct someStruct {
-        prop str someText := ""
+        prop str someText = ""
     }
     proc str someProc(this) {
         print(this)
@@ -1398,39 +1398,39 @@ main
 "hqwesr".print(
 "hqwesr".print()
 print("hawesd")
-str var1 := " helLO "
-var1 := Trim(StrLower(var1))
-var1 := var1.StrLower.Trim
-var1 := var1.StrLower(.Trim(
-var1 := var1.StrLower(.Trim
-var1 := var1.StrLower.Trim(
-var1 := var1.StrLower().Trim()
-var1 := var1.StrLower().Trim
-var1 := var1.StrLower.Trim()
-someCrew.someStruct.someText := var1
-; for OSP you need to use () they are not optional unless it's not at the beginning of the line like this:
-if (someCrew.someStruct.someText.someCrew.someProc = "hello") {
+str var1 = " helLO "
+var1 = Trim(StrLower(var1))
+var1 = var1.StrLower.Trim
+var1 = var1.StrLower(.Trim(
+var1 = var1.StrLower(.Trim
+var1 = var1.StrLower.Trim(
+var1 = var1.StrLower().Trim()
+var1 = var1.StrLower().Trim
+var1 = var1.StrLower.Trim()
+someCrew.someStruct.someText = var1
+// for OSP you need to use () they are not optional unless it's not at the beginning of the line like this:
+if (someCrew.someStruct.someText.someCrew.someProc == "hello") {
     print("hi")
 }
-; or
-; We can't use someCrew.someStruct.someText.someCrew.someProc(
-; We need to use () since it's not at the beginning of the line.
-if (someCrew.someStruct.someText.someCrew.someProc() = "hello") {
+// or
+// We can't use someCrew.someStruct.someText.someCrew.someProc(
+// We need to use () since it's not at the beginning of the line.
+if (someCrew.someStruct.someText.someCrew.someProc() == "hello") {
     print("hi")
 }
-; or
-if (someCrew.someProc(someCrew.someStruct.someText) = "hello") {
+// or
+if (someCrew.someProc(someCrew.someStruct.someText) == "hello") {
     print("hi")
 }
-; otherwise, if it's at the beginning of the line we need to use () for OSP
+// otherwise, if it's at the beginning of the line we need to use () for OSP
 someCrew.someStruct.someText.someCrew.someProc()
-; or you can use only 1 ( for extra fast typing
+// or you can use only 1 ( for extra fast typing
 someCrew.someStruct.someText.someCrew.someProc(
-; or
+// or
 someCrew.someProc(someCrew.someStruct.someText)
-; WARNING: If you are not calling it at the beginning of the line
-; and you are inside an if statement or other places,
-; don't use only 1 ( use both ().
+// WARNING: If you are not calling it at the beginning of the line
+// and you are inside an if statement or other places,
+// don't use only 1 ( use both ().
 
 ```
 
@@ -1469,7 +1469,7 @@ As a nod to developer convenience, HTVM includes a built-in alias: you can use *
 At a glance, the `when` block lets you handle different cases with unparalleled clarity. You can match against values, types, ranges, and lists all in one cohesive structure.
 
 ```htvm
-int x := 15
+int x = 15
 when x
     5 -> print("The value is five.")
     "start" -> print("Starting process...")
@@ -1489,15 +1489,15 @@ Every pattern, from a single number to a complex expression, is followed by `->`
 **Example:**
 
 ```htvm
-int x := 15
+int x = 15
 when x
-    ; A single value pattern
+    // A single value pattern
     5 -> print("Five")
-    ; A range pattern
+    // A range pattern
     20..30 -> print("Between 20 and 30")
-    ; A multi-value pattern
+    // A multi-value pattern
     "jpg", "png" -> handle_image()
-    ; An expression-based pattern
+    // An expression-based pattern
     x > 100 -> print("x is a large number.")
     else print("Some other number.")
 subout
@@ -1511,19 +1511,19 @@ For actions that require multiple lines of code, you can start a new code block 
 The `subout` keyword is essential as it marks the end of the *entire* `when` or `wehn` structure, allowing for clear and predictable parsing, especially in nested scenarios.
 
 ```htvm
-str user_role := "editor"
+str user_role = "editor"
 wehn user_role
-    ; The -> introduces the action block
+    // The -> introduces the action block
     "admin" ->
     print("Welcome, Admin.")
     enable_admin_panel()
     "content", "editor" ->
     print("User has publishing rights.")
     log_access_level()
-    ; The 'else' case never uses ->
+    // The 'else' case never uses ->
     else
     print("Standard user.")
-    ; Marks the end of this 'wehn' block
+    // Marks the end of this 'wehn' block
 subout
 
 ```
@@ -1535,7 +1535,7 @@ Here is a comprehensive set of examples, starting with the basics and moving to 
 #### 1. Basic Value Matching
 
 ```htvm
-str lang := "htvm"
+str lang = "htvm"
 when lang
     "htvm" -> print("HTVM is the future.")
     "cpp" -> print("C++ is fast.")
@@ -1548,7 +1548,7 @@ subout
 #### 2. Range Matching
 
 ```htvm
-int temperature := 25
+int temperature = 25
 when temperature
     -273..0 -> print("Freezing")
     1..20 -> print("Cool")
@@ -1565,13 +1565,13 @@ A `when` block can be used without a subject variable. This makes it a clean alt
 For example, identifying a starting sound in a word might depend on the first two letters. You cannot check both `firstLetter` and `secondLetter` on the same line using `when firstLetter`, so a subject-less `when` is ideal.
 
 ```htvm
-str firstLetter := "c"
-str secondLetter := "h"
+str firstLetter = "c"
+str secondLetter = "h"
 when
-    ; Check for specific two-letter combinations
+    // Check for specific two-letter combinations
     firstLetter = "s" and secondLetter = "h" -> print("Starts with the 'sh' sound.")
     firstLetter = "c" and secondLetter = "h" -> print("Starts with the 'ch' sound.")
-    ; Check if the first letter is a vowel
+    // Check if the first letter is a vowel
     firstLetter in "a", "e", "i", "o", "u" -> print("Starts with a vowel.")
     else print("Starts with a consonant.")
 subout
@@ -1590,8 +1590,8 @@ when get_status_code()
     404 -> print("Not Found")
     500 -> print("Server Error")
 subout
-int x := 5
-int y := 5
+int x = 5
+int y = 5
 when x + y
     10 -> print("The sum is 10.")
 subout
@@ -1603,8 +1603,8 @@ subout
 HTVM fully supports nesting `when` and `wehn` blocks for deep conditional logic.
 
 ```htvm
-str user_status := "active"
-str user_role := "editor"
+str user_status = "active"
+str user_role = "editor"
 wehn user_status
     "active" ->
     print("User is Active.")
@@ -1625,12 +1625,12 @@ subout
 #### 6. Input Validation Example
 
 ```htvm
-int number := 0
-str userInput := "123"
+int number = 0
+str userInput = "123"
 when
-    Trim(userInput) = "" -> print("Error: Input cannot be empty.")
-    RegExMatch(userInput, "^\d+$") ->
-    number := INT(userInput)
+    Trim(userInput) == "" -> print("Error: Input cannot be empty.")
+    RegExMatch(userInput, "^\\d+$") ->
+    number = INT(userInput)
     print("Input is a valid number: " . STR(number))
     else
     print("Error: Input is not a valid number.")
@@ -1641,8 +1641,8 @@ subout
 #### 7. Game State Logic Example
 
 ```htvm
-str player_state := "attacking"
-bool has_special_attack := false
+str player_state = "attacking"
+bool has_special_attack = false
 when player_state
     "idle" ->
     print("Player is waiting.")
@@ -1715,8 +1715,8 @@ This provides flexibility, but also means you lose type checking, and you’ll n
 
 Example (Dynamic Language):
 ```htvm
-; In (e.g., JavaScript, Python), this will be inferred as an array of integers
-arr myArray := [1, 2, 3, 4]
+// In (e.g., JavaScript, Python), this will be inferred as an array of integers
+arr myArray = [1, 2, 3, 4]
 
 ```
 
@@ -1726,7 +1726,7 @@ arr myArray := [1, 2, 3, 4]
 
 | **Method**                          | **Description**                                                                                |
 |-------------------------------------|------------------------------------------------------------------------------------------------|
-| `.add()`    | Adds an element to the end of the array.                                                       |
+| `.push()`    | Adds an element to the end of the array.                                                       |
 | `.pop()`       | Removes and returns the last element of the array.                                             |
 | `.size()`      | Returns the number of elements in the array.                                                   |
 | `.insert()`    | Inserts an element at a specific index.                                                        |
@@ -1739,14 +1739,14 @@ arr myArray := [1, 2, 3, 4]
 
 HTVM provides a set of useful methods to manipulate arrays in your programs. These methods follow a consistent `.method()` syntax, making it easy to interact with arrays. Below are the array methods supported in HTVM:
 
-1. **`.add()`**  
+1. **`.push()`**  
 
 Adds an element to the end of the array.  
 Example:
 ```htvm
-arr int myArray := [1, 2, 3]
-myArray.add(4)
-; myArray is now [1, 2, 3, 4]
+arr int myArray = [1, 2, 3]
+myArray.push(4)
+// myArray is now [1, 2, 3, 4]
 print(myArray)
 
 ```
@@ -1756,9 +1756,9 @@ print(myArray)
 Removes and returns the last element of the array.  
 Example:
 ```htvm
-arr int myArray := [1, 2, 3, 4]
+arr int myArray = [1, 2, 3, 4]
 myArray.pop()
-; myArray is now [1, 2, 3]
+// myArray is now [1, 2, 3]
 print(myArray)
 
 ```
@@ -1768,8 +1768,8 @@ print(myArray)
 Returns the number of elements in the array.  
 Example:
 ```htvm
-arr int myArray := [1, 2, 3]
-; returns 3
+arr int myArray = [1, 2, 3]
+// returns 3
 print(myArray.size())
 
 ```
@@ -1779,9 +1779,9 @@ print(myArray.size())
 Inserts an element at a specific index. The index is the first argument, and the element to insert is the second argument.  
 Example:
 ```htvm
-arr int myArray := [1, 2, 3]
+arr int myArray = [1, 2, 3]
 myArray.insert(1, 4)
-; myArray is now [1, 4, 2, 3]
+// myArray is now [1, 4, 2, 3]
 print(myArray)
 
 ```
@@ -1791,9 +1791,9 @@ print(myArray)
 Removes the element at the specified index.  
 Example:
 ```htvm
-arr int myArray := [1, 2, 3, 4]
+arr int myArray = [1, 2, 3, 4]
 myArray.rm(2)
-; myArray is now [1, 2, 4]
+// myArray is now [1, 2, 4]
 print(myArray)
 
 ```
@@ -1803,9 +1803,9 @@ print(myArray)
 Returns the index of the first occurrence of the specified element. If the element is not found, it returns `-1`.  
 Example:
 ```htvm
-arr int myArray := [1, 2, 3, 2]
+arr int myArray = [1, 2, 3, 2]
 print(myArray.indexOf(2))
-; returns 1
+// returns 1
 
 ```
 
@@ -1814,24 +1814,24 @@ print(myArray.indexOf(2))
 ### **Example of Using Array Methods in HTVM**
 
 ```htvm
-arr int myArray := [1, 2, 3]
-myArray.add(4)
-; Removes the element at index 1
+arr int myArray = [1, 2, 3]
+myArray.push(4)
+// Removes the element at index 1
 myArray.rm(1)
-; Inserts 5 at index 1
+// Inserts 5 at index 1
 myArray.insert(1, 5)
-; Output: [1, 5, 3, 4]
+// Output: [1, 5, 3, 4]
 print(myArray)
 
 ```
 
-In the example above, you can see how various methods like `.add()`, `.rm()`, and `.insert()` are used in sequence to manipulate the array.
+In the example above, you can see how various methods like `.push()`, `.rm()`, and `.insert()` are used in sequence to manipulate the array.
 
 ---
 
 ### **Summary of Array Methods**
 
-- **`.add()`**: Adds an element to the end of the array.
+- **`.push()`**: Adds an element to the end of the array.
 - **`.pop()`**: Removes and returns the last element of the array.
 - **`.size()`**: Returns the size of the array.
 - **`.insert(index, element)`**: Inserts an element at the specified index.
@@ -1851,11 +1851,11 @@ Just like variables, arrays can be accessed and modified inside **programming bl
 Example (Converting to Python):
 
 ```htvm
-arr int myArray := [1, 2, 3]
+arr int myArray = [1, 2, 3]
 ___py start
 myArray.append(4)  # Modifying the array inside the Python block
 ___py end
-; Will print: [1, 2, 3, 4] if converted to python otherwise it will print [1, 2, 3]
+// Will print: [1, 2, 3, 4] if converted to python otherwise it will print [1, 2, 3]
 print(myArray)
 
 ```
@@ -1877,8 +1877,8 @@ HTVM **does not perform type checking** for arrays. It will **not warn you** if 
 Example:
 
 ```htvm
-; In JavaScript, this will be an array with mixed types, but HTVM won't warn you
-arr int myArray := [1, "two", 3]
+// In JavaScript, this will be an array with mixed types, but HTVM won't warn you
+arr int myArray = [1, "two", 3]
 
 ```
 
@@ -1899,21 +1899,21 @@ HTVM does not support **constant arrays** or array immutability like some langua
 Example:
 
 ```htvm
-arr int myArray := [1, 2, 3]
+arr int myArray = [1, 2, 3]
 ___cpp start
 myArray.push_back(4);  // In C++, this works, but HTVM does not enforce immutability
 ___cpp end
-; If we print this in HTVM, we will get:
-;
-; When converting to C++, we can't just print the array directly. However, in some other languages,
-; we don't need to loop over the array to print it.
+// If we print this in HTVM, we will get:
+//
+// When converting to C++, we can't just print the array directly. However, in some other languages,
+// we don't need to loop over the array to print it.
 Loop, % myArray.size() {
     print(myArray[A_Index])
 }
-; If you convert this to any language other than C++ (cpp), it will print:
-; 1
-; 2
-; 3
+// If you convert this to any language other than C++ (cpp), it will print:
+// 1
+// 2
+// 3
 
 ```
 
@@ -1928,7 +1928,7 @@ When converting to **multiple languages**, arrays function similarly to variable
 Example (Invalid cross-language access):
 
 ```htvm
-arr int myArray := [1, 2, 3]
+arr int myArray = [1, 2, 3]
 ___cpp start
 myArray.push_back(4);  // Modifies the array in C++
 ___cpp end
@@ -1937,9 +1937,9 @@ ___py start
 print(myArray)  # ❌ This will not work because Python can't access the C++ array. 
 # Since the C++ block is gone, it will only print [1, 2, 3].
 ___py end
-; If converted to Python, it will print: [1, 2, 3]
-; If converted to C++, it will print: [1, 2, 3, 4]
-; If converted to another language, it will print: [1, 2, 3]
+// If converted to Python, it will print: [1, 2, 3]
+// If converted to C++, it will print: [1, 2, 3, 4]
+// If converted to another language, it will print: [1, 2, 3]
 print(myArray)
 
 ```
@@ -2000,13 +2000,13 @@ The `Loop,` keyword in HTVM is the simplest and most common type of loop. It run
 #### Example:
 
 ```htvm
-; Regular loop example
+// Regular loop example
 Loop, 10 {
-    if (A_Index % 2 = 0) {
-        ; Skip even numbers
+    if (A_Index % 2 == 0) {
+        // Skip even numbers
         continue
     }
-    ; Output only odd numbers from 1 to 9
+    // Output only odd numbers from 1 to 9
     print(A_Index)
 }
 
@@ -2023,10 +2023,10 @@ The `Loop, Parse,` is similar to AutoHotKey’s loop parsing method, where you c
 #### **Example 1: Delimited by Space (" ")**
 
 ```htvm
-; Loop Parse with space delimiter
-str someText := "hello how are you doing today"
+// Loop Parse with space delimiter
+str someText = "hello how are you doing today"
 Loop, Parse, someText, " " {
-    ; Output each word in the string separated by spaces
+    // Output each word in the string separated by spaces
     print(A_LoopField)
 }
 
@@ -2037,10 +2037,10 @@ In this example, the loop iterates over each word in the string `someText`, whic
 #### **Example 2: Delimited by New Line**
 
 ```htvm
-; Loop Parse with new line delimiter
-str multiLineText := "line 1`nline 2`nline 3"
-Loop, Parse, multiLineText, `n {
-    ; Output each line of text
+// Loop Parse with new line delimiter
+str multiLineText = "line 1\nline 2\nline 3"
+Loop, Parse, multiLineText, \n {
+    // Output each line of text
     print(A_LoopField)
 }
 
@@ -2051,10 +2051,10 @@ Here, the loop splits the text by new lines, and `A_LoopField` holds each line i
 #### **Example 3: Delimited by Carriage Return**
 
 ```htvm
-; Loop Parse with carriage return delimiter
-str textWithCarriageReturn := "line 1`rline 2`rline 3"
-Loop, Parse, textWithCarriageReturn, `r {
-    ; Output each line separated by carriage returns
+// Loop Parse with carriage return delimiter
+str textWithCarriageReturn = "line 1\rline 2\rline 3"
+Loop, Parse, textWithCarriageReturn, \r {
+    // Output each line separated by carriage returns
     print(A_LoopField)
 }
 
@@ -2065,10 +2065,10 @@ In this case, the text is delimited by carriage returns, and each line is printe
 #### **Example 4: Delimited by Both Space and New Line**
 
 ```htvm
-; Loop Parse with space and new line delimiters
-str mixedText := "hello world`nhow are you doing today"
-Loop, Parse, mixedText, " ", `n {
-    ; Output each word or line separated by spaces or new lines
+// Loop Parse with space and new line delimiters
+str mixedText = "hello world\nhow are you doing today"
+Loop, Parse, mixedText, " ", \n {
+    // Output each word or line separated by spaces or new lines
     print(A_LoopField)
 }
 
@@ -2079,10 +2079,10 @@ This example uses both a space and a new line as delimiters to split the string 
 #### **Example 5: No delimited**
 
 ```htvm
-; Loop Parse each character when using no delimiters
-str word := "master"
+// Loop Parse each character when using no delimiters
+str word = "master"
 Loop, Parse, word {
-    ; Output each character
+    // Output each character
     print(A_LoopField)
 }
 
@@ -2099,14 +2099,14 @@ HTVM also supports infinite loops using the `Loop` keyword without a defined num
 #### Example (Infinite Loop):
 
 ```htvm
-; Infinite Loop example
+// Infinite Loop example
 Loop {
-    if (A_Index = 5) {
-        ; Exit the loop when A_Index is 5
+    if (A_Index == 5) {
+        // Exit the loop when A_Index is 5
         break
     }
     else {
-        ; Print the current value of A_Index
+        // Print the current value of A_Index
         print(A_Index)
     }
 }
@@ -2124,11 +2124,11 @@ The `while` loop in HTVM works like a typical while loop in other languages. It 
 #### Example (While Loop):
 
 ```htvm
-; While loop example
-bool var1 := false
-while (var1 = false) {
+// While loop example
+bool var1 = false
+while (var1 == false) {
     print("we are inside the while loop")
-    var1 := true
+    var1 = true
 }
 print("we are outside the while loop")
 
@@ -2143,10 +2143,10 @@ In this example, the `while` loop runs once because the condition is initially t
 HTVM also allows arrays, which can be used in loops for more complex tasks. Here’s an example that iterates over an array:
 
 ```htvm
-; Array example in loop
-arr123 := ["apple", "banana", "cherry"]
+// Array example in loop
+arr123 = ["apple", "banana", "cherry"]
 Loop, % arr123.size() {
-    ; Output each element in the array
+    // Output each element in the array
     print(arr123[A_Index])
 }
 
@@ -2161,10 +2161,10 @@ In this case, the loop iterates through each element of the array `arr123` using
 With HTVM, you can also use variables to control loops. Here's an example:
 
 ```htvm
-; Loop example with variable range
-var1 := 5
+// Loop example with variable range
+var1 = 5
 Loop, % var1 {
-    ; Output the current iteration
+    // Output the current iteration
     print(A_Index)
 }
 
@@ -2186,37 +2186,37 @@ This example shows how HTVM allows you to use variables like `var1` to control t
 For the **Loop,**, **Loop, Parse,**, and **Loop** types, the Lua conversion looks like this:
 
 ```htvm
-; Regular loop example
+// Regular loop example
 Loop, 10 {
-    if (A_Index % 2 = 0) {
+    if (A_Index % 2 == 0) {
         continue
     }
-    ; Output only odd numbers from 1 to 9
+    // Output only odd numbers from 1 to 9
     print(A_Index)
     ::continue
 }
 print("=====================")
-; Infinite loop example
+// Infinite loop example
 Loop {
-    if (A_Index % 2 = 0) {
+    if (A_Index % 2 == 0) {
         continue
     }
-    ; Output only odd numbers from 1 to 9
+    // Output only odd numbers from 1 to 9
     print(A_Index)
-    if (A_Index = 9) {
+    if (A_Index == 9) {
         break
     }
     ::continue
 }
 print("=====================")
-; Loop, Parse loop example
-str var1 := "hello whats up bro how are you doing"
+// Loop, Parse loop example
+str var1 = "hello whats up bro how are you doing"
 Loop, Parse, var1, " " {
-    if (A_LoopField = "bro") {
+    if (A_LoopField == "bro") {
         continue
     }
-    ; 3 will never print
-    ; 4 will never print in Lua since Lua is 1-indexed
+    // 3 will never print
+    // 4 will never print in Lua since Lua is 1-indexed
     print(A_Index)
     ::continue
 }
@@ -2332,7 +2332,7 @@ Comments are essential for writing clear and maintainable code. They allow you t
 **Standalone comments** are written on their own line and **will convert** properly when transforming to **other HTVM languages** or any target programming languages. These comments are perfect for leaving explanations or notes that need to be preserved across conversions.
 
 ```htvm
-; ✅ This comment will convert to any HTVM language or target language conversion.
+// ✅ This comment will convert to any HTVM language or target language conversion.
 ```
 
 **💡 Tip:** Standalone comments are **ideal** when you need your notes to **convert** correctly across different languages and maintain clarity for others who may work with your code.
@@ -2344,10 +2344,10 @@ Comments are essential for writing clear and maintainable code. They allow you t
 **Multi-line comments** are used for writing longer explanations or comments that span multiple lines. They must **always start and end on their own lines**—you cannot place extra text before or after the opening and closing markers. Inside multi-line comments, you can write as much text as you want.
 
 ```htvm
-'''1
+/*
 This is a multi-line comment.
 It will be preserved in all conversions.
-'''2
+*/
 ```
 
 #### **⚠️ Important Rules:**
@@ -2368,7 +2368,7 @@ It will be preserved in all conversions.
 **Inline comments** are written on the same line as your code. They’re useful for short explanations but **will disappear** when converting to **another HTVM language** or to other programming languages (e.g., **Python**, **JavaScript**, **C++**, **etc.**). This makes them **not recommended**, especially if you're working with code that will be converted, as they might carry important context that others won’t be able to see.
 
 ```htvm
-print("some text") ; ❌ is comment will disappear when converting to another HTVM language or any target language.
+print("some text") // ❌ is comment will disappear when converting to another HTVM language or any target language.
 ```
 
 **⚠️ Important:** **Avoid** using inline comments whenever possible. Inline comments **will disappear** even when converting to another HTVM language. This is because they won’t be included in the converted code. If you rely on these comments for important context, it’s better to avoid using them. **Not recommended**, unless you know exactly what you’re doing, as it can lead to the loss of important information when others view or convert your code.
@@ -2418,11 +2418,11 @@ This command is used to **add new elements** (like buttons, text) or **create co
 **Syntax:**
 
 ```htvm
-; Create a container (div) - Options separated by spaces OR commas
+// Create a container (div) - Options separated by spaces OR commas
 gui [Option1:Value1] [Option2:Value2] ...
 gui [Option1:Value1],[Option2:Value2],...
 
-; Add a specific control element - ElementType followed by space/comma separated options
+// Add a specific control element - ElementType followed by space/comma separated options
 gui &lt;ElementType&gt; [Option1:Value1] [Option2:Value2] ...
 gui &lt;ElementType&gt;,[Option1:Value1],[Option2:Value2],...
 ```
@@ -2435,9 +2435,9 @@ gui &lt;ElementType&gt;,[Option1:Value1],[Option2:Value2],...
 1.  **Separators**: Options can be separated by **SPACES** or **COMMAS**. You can mix them.
 
 ```htvm
-; Space separated is often cleaner also different style of defining values
+// Space separated is often cleaner also different style of defining values
 gui button x:50 y100 w"200px" h:"30px"
-; Comma separated also works
+// Comma separated also works
 gui button,x:"50px",y:"100px",w:"200px",h:"30px"
 ```
 
@@ -2447,10 +2447,10 @@ gui button,x:"50px",y:"100px",w:"200px",h:"30px"
 5.  **Grouping**: Options can span multiple lines using `{...}`, `[...]`, or `(...)` for readability. Separator rules (spaces or commas) still apply inside the group.
 
 ```htvm
-; Single line with spaces
+// Single line with spaces
 gui button x:"10px" y:"10px" w:"100px" h:"30px" id:"myBtn" callback:MyAction value:"Click"
 
-; Multi-line grouping (using spaces within the lines)
+// Multi-line grouping (using spaces within the lines)
 gui button {
     x:"10px" y:"10px"
     width:"100px" height:"30px"
@@ -2473,11 +2473,11 @@ Modifies properties of an **existing** GUI element.
 **Syntax:**
 
 ```htvm
-; Single line modification
+// Single line modification
 guicontrol [Option1:Value1] [Option2:Value2] ...
 guicontrol [Option1:Value1],[Option2:Value2],...
 
-; Multi-line modification using flexible grouping (), [], or {}
+// Multi-line modification using flexible grouping (), [], or {}
 guicontrol (
     Option1:Value1
     Option2:Value2
@@ -2534,11 +2534,11 @@ Add elements using `gui &lt;ElementType&gt; [Options...]`:
 
 ```htvm
 Button0:
-    ; and the ID of the button is automatically assigned to button0
-    ; for each element, it has a separate counter.
+    // and the ID of the button is automatically assigned to button0
+    // for each element, it has a separate counter.
     await MsgBox("You pressed the " . A_Id)
 subout
-; main func
+// main func
 main
 gui button x50% y50%
 
@@ -2586,21 +2586,21 @@ Configure elements using **SPACE or COMMA-SEPARATED** options.
 #### Exmaple:
 
 ```htvm
-str saveEdit := ""
-; Edit0 callback
+str saveEdit = ""
+// Edit0 callback
 Edit0:
-    saveEdit := A_Value
+    saveEdit = A_Value
 subout
-; Button0 callback
+// Button0 callback
 Button0:
     guiControl p"Gui1" i"text0" dsaveEdit
 subout
-; main func
+// main func
 main
-w := "300px"
-; define the gui window
+w = "300px"
+// define the gui window
 gui pid:"Gui1" x50% y50% ww h200
-; add elements
+// add elements
 gui pid:"Gui1" text ww y27.5% d"Edit box text will be updated here..." css:"text-align: center;"
 gui pid:"Gui1" edit x50% y45% ph:"Type something..."
 gui pid:"Gui1" button x50% y65%
@@ -2618,36 +2618,36 @@ To retrieve data entered by the user (e.g., in an `edit` field), store the data 
 **Getting Input Example (using OSP Struct - Recommended):**
 
 ```htvm
-; Define an OSP struct to hold GUI state
+// Define an OSP struct to hold GUI state
 struct UserInput {
-    prop str name := ""
+    prop str name = ""
 }
-; Callback for the edit field (default name Edit0)
+// Callback for the edit field (default name Edit0)
 Edit0:
-    ; Store current value from A_Value into the struct property
-    ; NOTE: 'global' keyword is NOT needed here because the target is JavaScript
-    UserInput.name := A_Value
+    // Store current value from A_Value into the struct property
+    // NOTE: 'global' keyword is NOT needed here because the target is JavaScript
+    UserInput.name = A_Value
 subout
-; Callback for the button
+// Callback for the button
 ShowNameButton:
-    ; Read the value from the struct property
+    // Read the value from the struct property
     await MsgBox("Hello, " . UserInput.name . "!")
 subout
 main
-; Prepare string variables for dimensions and text
-str editX_px := 10 . "px"
-str editY_px := 10 . "px"
-str editW_px := 200 . "px"
-str editH_px := 30 . "px"
-str btnX_px := 10 . "px"
-str btnY_px := 50 . "px"
-str btnW_px := 100 . "px"
-str btnH_px := 30 . "px"
-str placeholderText := "Enter your name"
-str btnText := "Greet"
-; Edit field uses default callback Edit0. Use SPACE separation.
+// Prepare string variables for dimensions and text
+str editX_px = 10 . "px"
+str editY_px = 10 . "px"
+str editW_px = 200 . "px"
+str editH_px = 30 . "px"
+str btnX_px = 10 . "px"
+str btnY_px = 50 . "px"
+str btnW_px = 100 . "px"
+str btnH_px = 30 . "px"
+str placeholderText = "Enter your name"
+str btnText = "Greet"
+// Edit field uses default callback Edit0. Use SPACE separation.
 gui edit x:editX_px y:editY_px w:editW_px h:editH_px placeholder:placeholderText id:"nameInput"
-; Button uses explicit callback ShowNameButton. Use SPACE separation.
+// Button uses explicit callback ShowNameButton. Use SPACE separation.
 gui button x:btnX_px y:btnY_px w:btnW_px h:btnH_px value:btnText callback:ShowNameButton id:"greetButton"
 
 ```
@@ -2661,32 +2661,32 @@ gui button x:btnX_px y:btnY_px w:btnW_px h:btnH_px value:btnText callback:ShowNa
 **Example 1: Simple Input and Button (using OSP Struct)**
 
 ```htvm
-; OSP Struct for state
+// OSP Struct for state
 struct FormData {
-    prop str firstName := ""
-    prop str lastName := ""
+    prop str firstName = ""
+    prop str lastName = ""
 }
-; Callbacks
+// Callbacks
 Edit0:
-    FormData.firstName := A_Value
+    FormData.firstName = A_Value
 subout
 Edit1:
-    FormData.lastName := A_Value
+    FormData.lastName = A_Value
 subout
 ButtonOK:
-    ; Use the struct properties
-    str greeting := "You entered " . FormData.firstName . " " . FormData.lastName . "."
+    // Use the struct properties
+    str greeting = "You entered " . FormData.firstName . " " . FormData.lastName . "."
     await MsgBox(greeting)
 subout
 main
-; Prepare string variables only where needed (e.g., for text with spaces)
-str fNameLabel := "First name:"
-str lNameLabel := "Last name:"
-str fNamePlaceholder := "First Name..."
-str lNamePlaceholder := "Last Name..."
-str btnText := "Send"
-str whiteColor := "white"
-; Use hardcoded pre-formatted strings for simple values, variables for complex ones.
+// Prepare string variables only where needed (e.g., for text with spaces)
+str fNameLabel = "First name:"
+str lNameLabel = "Last name:"
+str fNamePlaceholder = "First Name..."
+str lNamePlaceholder = "Last Name..."
+str btnText = "Send"
+str whiteColor = "white"
+// Use hardcoded pre-formatted strings for simple values, variables for complex ones.
 gui text x:"10px" y:"10px" w:"150px" h:"30px" value:fNameLabel color:whiteColor
 gui edit x:"10px" y:"40px" w:"150px" h:"30px" placeholder:fNamePlaceholder id:"firstNameEdit"
 gui text x:"10px" y:"100px" w:"150px" h:"30px" value:lNameLabel color:whiteColor
@@ -2699,11 +2699,11 @@ gui button x:"10px" y:"200px" w:"155px" h:"45px" value:btnText callback:ButtonOK
 
 ```htvm
 main
-; Define text content in variable as it might contain spaces
-str containerId := "mainContainer"
-; Hardcode dimensions and colors directly
+// Define text content in variable as it might contain spaces
+str containerId = "mainContainer"
+// Hardcode dimensions and colors directly
 gui id:containerId width:"500px" height:"700px" backgroundColor:"#121212"
-; Add elements inside, hardcoding simple positions/sizes
+// Add elements inside, hardcoding simple positions/sizes
 gui text parentId:containerId x:"10px" y:"10px" value:"This text is inside" color:"white"
 gui button parentId:containerId x:"10px" y:"60px" width:"80%" height:"50px" value:"Wide Button"
 
@@ -2712,42 +2712,42 @@ gui button parentId:containerId x:"10px" y:"60px" width:"80%" height:"50px" valu
 **Example 3: Button Grid using Loops (Using A_Id)**
 
 ```htvm
-; --- Callbacks ---
+// --- Callbacks ---
 ButtonClicked:
-    ; Use A_Id to identify which button was clicked
+    // Use A_Id to identify which button was clicked
     await MsgBox("You clicked on button with ID: " . A_Id)
 subout
-; --- Main Setup ---
+// --- Main Setup ---
 main
-columns := 3
-rows := 3
-btnWidth := 140
-btnHeight := 40
-gap := 10
-startX := 10
-startY := 10
-str gridContainerId := "gridContainer"
-containerW := startX + (columns * btnWidth) + ((columns - 1) * gap) + startX
-containerH := startY + (rows * btnHeight) + ((rows - 1) * gap) + startY
-str containerW_px := containerW . "px"
-str containerH_px := containerH . "px"
-str btnWidth_px := btnWidth . "px"
-str btnHeight_px := btnHeight . "px"
-str bgColor := "#333"
-; define the grid container
+columns = 3
+rows = 3
+btnWidth = 140
+btnHeight = 40
+gap = 10
+startX = 10
+startY = 10
+str gridContainerId = "gridContainer"
+containerW = startX + (columns * btnWidth) + ((columns - 1) * gap) + startX
+containerH = startY + (rows * btnHeight) + ((rows - 1) * gap) + startY
+str containerW_px = containerW . "px"
+str containerH_px = containerH . "px"
+str btnWidth_px = btnWidth . "px"
+str btnHeight_px = btnHeight . "px"
+str bgColor = "#333"
+// define the grid container
 gui id:gridContainerId x50% y50% width:containerW_px height:containerH_px backgroundColor:bgColor
-currentX := startX
-currentY := startY
-btnCounter := 0
+currentX = startX
+currentY = startY
+btnCounter = 0
 Loop, % columns {
-    colIndex := A_Index
+    colIndex = A_Index
     Loop, % rows {
         btnCounter++
-        str btnId := "gridBtn" . btnCounter
-        str btnText := "Button" . btnCounter
-        str currentX_px := currentX . "px"
-        str currentY_px := currentY . "px"
-        ; Use {} for better readability for the button options
+        str btnId = "gridBtn" . btnCounter
+        str btnText = "Button" . btnCounter
+        str currentX_px = currentX . "px"
+        str currentY_px = currentY . "px"
+        // Use {} for better readability for the button options
         gui {
             button
             parentId:gridContainerId, id:btnId
@@ -2755,10 +2755,10 @@ Loop, % columns {
             value:btnText
             callback:ButtonClicked
         }
-        currentY := currentY + btnHeight + gap
+        currentY = currentY + btnHeight + gap
     }
-    currentX := currentX + btnWidth + gap
-    currentY := startY
+    currentX = currentX + btnWidth + gap
+    currentY = startY
 }
 
 ```
@@ -2766,61 +2766,61 @@ Loop, % columns {
 **Example 4: Toggle, Dropdown, Picture Update (using OSP Struct)**
 
 ```htvm
-; --- OSP Struct for state ---
+// --- OSP Struct for state ---
 struct AppState {
-    prop str toggleState := "On"
-    prop str selectedObject := ""
-    prop bool errorInDropdown := false
+    prop str toggleState = "On"
+    prop str selectedObject = ""
+    prop bool errorInDropdown = false
 }
-; --- Callbacks ---
+// --- Callbacks ---
 ToggleCallback:
-    AppState.toggleState := A_Value ? "On" : "Off"
+    AppState.toggleState = A_Value ? "On" : "Off"
     await MsgBox("Toggle is now " . AppState.toggleState)
 subout
-; ------------------
-; Default Picture callback — not needed, but when you click on it, it will call this:
-; (optional)
+// ------------------
+// Default Picture callback — not needed, but when you click on it, it will call this:
+// (optional)
 Picture0:
-    ; If you use one MsgBox like this, there's no need to use 'await' — unless you're using two MsgBoxes.
+    // If you use one MsgBox like this, there's no need to use 'await' — unless you're using two MsgBoxes.
     MsgBox, you clicked on the image
 subout
-; ------------------
+// ------------------
 DropdownCallback:
-    if (A_Value = "Select a object") {
+    if (A_Value == "Select a object") {
         await MsgBox("Cannot select placeholder!")
-        AppState.errorInDropdown := true
+        AppState.errorInDropdown = true
     }
     else {
-        AppState.errorInDropdown := false
-        AppState.selectedObject := A_Value
+        AppState.errorInDropdown = false
+        AppState.selectedObject = A_Value
         await MsgBox("You selected: " . AppState.selectedObject)
     }
 subout
-; ------------------
+// ------------------
 SaveButtonCallback:
-    if (AppState.errorInDropdown = true) {
+    if (AppState.errorInDropdown == true) {
         await MsgBox("Select valid object first.")
     }
     else {
         await MsgBox("Saving... Toggle:" . AppState.toggleState . ", Selection:" . AppState.selectedObject)
-        str newImageUrl := "https://picsum.photos/200"
-        ; Use SPACE separation for guicontrol options
+        str newImageUrl = "https://picsum.photos/200"
+        // Use SPACE separation for guicontrol options
         guicontrol id:"Image1" value:newImageUrl
     }
 subout
-; --- Main GUI ---
+// --- Main GUI ---
 main
-; Variables for complex/reused values
-str initialImageUrl := "https://i.ibb.co/Jpty1B8/305182938-1a0efe63-726e-49ca-a13c-d0ed627f2ea7.png"
-str OptionBtest := "Option B"
-str dropdownOptions := "Select a object|" . OptionBtest . "|Option C"
-str saveBtnText := "Save changes"
-; IDs
-str toggleId := "myToggle"
-str dropdownId := "myDropdown"
-str saveBtnId := "saveButton"
-str imageId := "Image1"
-; Use hardcoded pre-formatted strings for simple dimensions/positions, space separated
+// Variables for complex/reused values
+str initialImageUrl = "https://i.ibb.co/Jpty1B8/305182938-1a0efe63-726e-49ca-a13c-d0ed627f2ea7.png"
+str OptionBtest = "Option B"
+str dropdownOptions = "Select a object|" . OptionBtest . "|Option C"
+str saveBtnText = "Save changes"
+// IDs
+str toggleId = "myToggle"
+str dropdownId = "myDropdown"
+str saveBtnId = "saveButton"
+str imageId = "Image1"
+// Use hardcoded pre-formatted strings for simple dimensions/positions, space separated
 gui toggle x10 y10 value:true id:toggleId callback:ToggleCallback
 gui dropdown x210 y10 h30 value:dropdownOptions id:dropdownId callback:DropdownCallback
 gui button x10 y50 w140 h40 value:saveBtnText id:saveBtnId callback:SaveButtonCallback
@@ -2835,17 +2835,17 @@ Button0:
     MsgBox("You clicked on " . A_Id)
 subout
 main
-; Define CSS styles in variables
-str buttonStyles := "font-weight:bold;text-transform:uppercase;animation:spin 2s infinite linear;filter:hue-rotate(360deg);text-shadow:0 0 5px red,0 0 10px yellow,0 0 15px lime;"
-str panelId := "styledPanel"
-str buttonId := "styledButton"
-str buttonText := "Styled Button"
-; Create a container styled like a window using rawCss or css alias
+// Define CSS styles in variables
+str buttonStyles = "font-weight:bold;text-transform:uppercase;animation:spin 2s infinite linear;filter:hue-rotate(360deg);text-shadow:0 0 5px red,0 0 10px yellow,0 0 15px lime;"
+str panelId = "styledPanel"
+str buttonId = "styledButton"
+str buttonText = "Styled Button"
+// Create a container styled like a window using rawCss or css alias
 gui {
     id:panelId x:"50px" y:"50px" w:"400px" h:"200px" backgroundColor:"#EEE"
     css:"border: 2px solid blue; padding: 15px; box-shadow: 5px 5px 10px #888888;"
 }
-; Add a button inside the panel with additional rawCss styles using the other style []
+// Add a button inside the panel with additional rawCss styles using the other style []
 gui [
 button
 parentId:panelId
@@ -2858,11 +2858,11 @@ id:buttonId value:buttonText rawCss:buttonStyles
 **Example 6: HTVM Simulated Numeric Adjuster Using Buttons and Input Field (0–100 Range)**
 
 ```htvm
-sliderValue := 50
+sliderValue = 50
 func  IncrementSlider() {
     sliderValue += 1
     if (sliderValue > 100) {
-        sliderValue := 100
+        sliderValue = 100
     }
     guiControl pid:"Gui1" i:"sliderValueText" d:sliderValue
     Button0()
@@ -2870,7 +2870,7 @@ func  IncrementSlider() {
 func  DecrementSlider() {
     sliderValue -= 1
     if (sliderValue < 0) {
-        sliderValue := 0
+        sliderValue = 0
     }
     guiControl pid:"Gui1" i:"sliderValueText" d:sliderValue
     Button0()
@@ -2878,30 +2878,30 @@ func  DecrementSlider() {
 Button0:
     if (editText != "") {
         guiControl pid:"Gui1" i:"text0" d:editText
-        sliderValue := INT(editText)
-        editText := ""
+        sliderValue = INT(editText)
+        editText = ""
     }
     else {
         guiControl pid:"Gui1" i:"text0" d:sliderValue
     }
 subout
-editText := INT(sliderValue)
+editText = INT(sliderValue)
 Edit0:
-    oldText := editText
-    if (Trim(A_Value) = "") {
+    oldText = editText
+    if (Trim(A_Value) == "") {
         guiControl pid:"Gui1" i:"sliderValueText" d:""
     }
     else if (A_Value >= 0) and (A_Value <= 100) {
-        editText := A_Value
+        editText = A_Value
     }
     else {
         MsgBox, ONLY USE NUMBRERS BETTWEN 0-100
         guiControl pid:"Gui1" i:"sliderValueText" d:oldText
     }
 subout
-; main func
+// main func
 main
-w := "300px"
+w = "300px"
 gui {
     pid:"Gui1"
     x50%  ,,,,,,,,,,,,,,,,,,,,,
@@ -2909,7 +2909,7 @@ gui {
     ww ,
     h500
 }
-; add all elements
+// add all elements
 gui pid:"Gui1" text ww y25 d"Simulated Slider Value..." size:25 css:"text-align: center;"
 gui pid:"Gui1" eedit, i"sliderValueText" x50% y125 d:sliderValue
 gui pid:"Gui1" button x50% y225 d"Update Text"
@@ -2921,66 +2921,66 @@ gui pid:"Gui1" button x50% y425 d"Decrease" callback:DecrementSlider
 **Example 7: `Tic-tac-toe`**
 
 ```htvm
-; ==================================
-; Tic-Tac-Toe Game State Variables
-; ==================================
-arr str boardState := [" ", " ", " ", " ", " ", " ", " ", " ", " "]
-str currentPlayer := "X"
-bool gameIsOver := false
-str gameStatus := "Player X's Turn"
-; ==================================
-; Helper Functions
-; ==================================
-; --- Checks if the current player has won ---
+// ==================================
+// Tic-Tac-Toe Game State Variables
+// ==================================
+arr str boardState = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+str currentPlayer = "X"
+bool gameIsOver = false
+str gameStatus = "Player X's Turn"
+// ==================================
+// Helper Functions
+// ==================================
+// --- Checks if the current player has won ---
 func bool CheckWin() {
-    arr str winCombos := ["0,1,2", "3,4,5", "6,7,8", "0,3,6", "1,4,7", "2,5,8", "0,4,8", "2,4,6"]
+    arr str winCombos = ["0,1,2", "3,4,5", "6,7,8", "0,3,6", "1,4,7", "2,5,8", "0,4,8", "2,4,6"]
     Loop, % winCombos.size() {
-        combo := winCombos[A_Index]
-        idx1_str := StrSplit(combo, ",", 1)
-        idx2_str := StrSplit(combo, ",", 2)
-        idx3_str := StrSplit(combo, ",", 3)
-        idx1 := INT(idx1_str)
-        idx2 := INT(idx2_str)
-        idx3 := INT(idx3_str)
-        if (boardState[idx1] = currentPlayer and boardState[idx2] = currentPlayer and boardState[idx3] = currentPlayer) {
+        combo = winCombos[A_Index]
+        idx1_str = StrSplit(combo, ",", 1)
+        idx2_str = StrSplit(combo, ",", 2)
+        idx3_str = StrSplit(combo, ",", 3)
+        idx1 = INT(idx1_str)
+        idx2 = INT(idx2_str)
+        idx3 = INT(idx3_str)
+        if (boardState[idx1] == currentPlayer and boardState[idx2] == currentPlayer and boardState[idx3] == currentPlayer) {
             return true
         }
     }
     return false
 }
-; --- Checks if the game is a draw ---
+// --- Checks if the game is a draw ---
 func bool CheckDraw() {
     Loop, % boardState.size() {
-        if (boardState[A_Index] = " ") {
+        if (boardState[A_Index] == " ") {
             return false
         }
     }
-    if (gameIsOver = false) {
+    if (gameIsOver == false) {
         return true
     }
     return false
 }
-; --- Updates the status text display ---
+// --- Updates the status text display ---
 func void UpdateStatusDisplay() {
-    ; We can use () or [] or even mix them like [) or (] — yeah, HTVM is so flexible.
+    // We can use () or [] or even mix them like [) or (] — yeah, HTVM is so flexible.
     guicontrol (
     parentId:"mainContainer"
     id:"statusText"
     value:gameStatus
     )
 }
-; --- Resets the game board and state ---
+// --- Resets the game board and state ---
 func void ResetBoard() {
-    i := 0
+    i = 0
     while (i < 9) {
-        boardState[i] := " "
-        i := i + 1
+        boardState[i] = " "
+        i = i + 1
     }
     Loop, 9 {
-        btnIndex := A_Index
-        str btnIdToReset := "btn" . STR(btnIndex)
-        str emptyVal := " "
-        ; We can use [] or () or even mix them like [) or (] — yeah, HTVM is so flexible.
+        btnIndex = A_Index
+        str btnIdToReset = "btn" . STR(btnIndex)
+        str emptyVal = " "
+        // We can use [] or () or even mix them like [) or (] — yeah, HTVM is so flexible.
         guicontrol [
         parentId:"mainContainer"
         id:btnIdToReset
@@ -2988,91 +2988,91 @@ func void ResetBoard() {
         isEnabled:true
         ]
     }
-    currentPlayer := "X"
-    gameIsOver := false
-    gameStatus := "Player X's Turn"
+    currentPlayer = "X"
+    gameIsOver = false
+    gameStatus = "Player X's Turn"
     UpdateStatusDisplay()
 }
-; ==================================
-; GUI Callbacks
-; ==================================
-; --- Handles clicks on any of the 9 grid buttons ---
+// ==================================
+// GUI Callbacks
+// ==================================
+// --- Handles clicks on any of the 9 grid buttons ---
 GridButtonClicked:
-    if (gameIsOver = true) {
+    if (gameIsOver == true) {
         return
     }
-    clickedId := A_Id
-    str indexStr := SubStr(clickedId, 4)
-    index := INT(indexStr)
+    clickedId = A_Id
+    str indexStr = SubStr(clickedId, 4)
+    index = INT(indexStr)
     if (boardState[index] != " ") {
         print("Cell already taken!")
         return
     }
-    boardState[index] := currentPlayer
-    ; We can also use a one-liner, no problem—but during a one-liner, we can't use {}, (), or [] since it's a single line.
+    boardState[index] = currentPlayer
+    // We can also use a one-liner, no problem—but during a one-liner, we can't use {}, (), or [] since it's a single line.
     guicontrol parentId:"mainContainer" id:clickedId value:currentPlayer isEnabled:false
-    if (CheckWin() = true) {
-        gameIsOver := true
-        gameStatus := "Player " . currentPlayer . " Wins!"
+    if (CheckWin() == true) {
+        gameIsOver = true
+        gameStatus = "Player " . currentPlayer . " Wins!"
         UpdateStatusDisplay()
         return
     }
-    if (CheckDraw() = true) {
-        gameIsOver := true
-        gameStatus := "It's a Draw!"
+    if (CheckDraw() == true) {
+        gameIsOver = true
+        gameStatus = "It's a Draw!"
         UpdateStatusDisplay()
         return
     }
-    if (currentPlayer = "X") {
-        currentPlayer := "O"
+    if (currentPlayer == "X") {
+        currentPlayer = "O"
     }
     else {
-        currentPlayer := "X"
+        currentPlayer = "X"
     }
-    gameStatus := "Player " . currentPlayer . "'s Turn"
+    gameStatus = "Player " . currentPlayer . "'s Turn"
     UpdateStatusDisplay()
 subout
-; --- Handles clicks on the Restart button ---
+// --- Handles clicks on the Restart button ---
 RestartGame:
     ResetBoard()
 subout
-; ==================================
-; Main GUI Setup
-; ==================================
+// ==================================
+// Main GUI Setup
+// ==================================
 main
-; --- Define GUI constants/variables ---
-btnSize := 80
-gap := 10
-boardSize := (btnSize * 3) + (gap * 2)
-containerPadding := 20
-containerWidth := boardSize + (containerPadding * 2)
-containerHeight := boardSize + 100 + (containerPadding * 2)
-; Prepare strings with "px" units
-str btnSize_px := btnSize . "px"
-str containerWidth_px := containerWidth . "px"
-str containerHeight_px := containerHeight . "px"
-statusY_num := boardSize + containerPadding + 10
-restartY_num := statusY_num + 40
-str statusY_px := statusY_num . "px"
-str restartY_px := restartY_num . "px"
-str restartWidth_px := 150 . "px"
-str restartHeight_px := 40 . "px"
-str statusWidth_px := boardSize . "px"
-str statusHeight_px := 30 . "px"
-str containerPadding_px := containerPadding . "px"
-; Colors and styles
-str bgColor := "#282c34"
-str textColor := "white"
-str btnBgColor := "#61dafb"
-str btnFontColor := "#282c34"
-str btnFontSize_px := "40px"
-str statusFontSize_px := "20px"
-str restartBtnBgColor := "#f0ad4e"
-str restartBtnFontColor := "white"
-str restartBtnFontSize_px := "16px"
-; Text variables
-str restartText := "Restart Game"
-; --- Create the main container ---
+// --- Define GUI constants/variables ---
+btnSize = 80
+gap = 10
+boardSize = (btnSize * 3) + (gap * 2)
+containerPadding = 20
+containerWidth = boardSize + (containerPadding * 2)
+containerHeight = boardSize + 100 + (containerPadding * 2)
+// Prepare strings with "px" units
+str btnSize_px = btnSize . "px"
+str containerWidth_px = containerWidth . "px"
+str containerHeight_px = containerHeight . "px"
+statusY_num = boardSize + containerPadding + 10
+restartY_num = statusY_num + 40
+str statusY_px = statusY_num . "px"
+str restartY_px = restartY_num . "px"
+str restartWidth_px = 150 . "px"
+str restartHeight_px = 40 . "px"
+str statusWidth_px = boardSize . "px"
+str statusHeight_px = 30 . "px"
+str containerPadding_px = containerPadding . "px"
+// Colors and styles
+str bgColor = "#282c34"
+str textColor = "white"
+str btnBgColor = "#61dafb"
+str btnFontColor = "#282c34"
+str btnFontSize_px = "40px"
+str statusFontSize_px = "20px"
+str restartBtnBgColor = "#f0ad4e"
+str restartBtnFontColor = "white"
+str restartBtnFontSize_px = "16px"
+// Text variables
+str restartText = "Restart Game"
+// --- Create the main container ---
 gui {
     id:"mainContainer"
     x50% y50%
@@ -3080,36 +3080,36 @@ gui {
     backgroundColor:bgColor
     rounding:10
 }
-; --- Create the Status Display Text ---
-; *** UPDATED: Using multi-line grouping {} ***
-; You can use comma or not doesn't matter use ,,,,,,,,,,,, doesn't matter use 5 spaces no problem use comments no problem either
+// --- Create the Status Display Text ---
+// *** UPDATED: Using multi-line grouping {} ***
+// You can use comma or not doesn't matter use ,,,,,,,,,,,, doesn't matter use 5 spaces no problem use comments no problem either
 gui {
-    ; this means text
+    // this means text
     text
     parentId:"mainContainer" id:"statusText"
     x:containerPadding_px, y:statusY_px, w:statusWidth_px, h:statusHeight_px
     value:gameStatus color:textColor
-    ; Here we see there are no spaces for the option size—that's because spaces aren't allowed during an option.
-    ; Use a variable or a workaround, but NO spaces.
+    // Here we see there are no spaces for the option size—that's because spaces aren't allowed during an option.
+    // Use a variable or a workaround, but NO spaces.
     size:INT(statusFontSize_px)
-    ; this is a css style for the text
+    // this is a css style for the text
     rawCss:"text-align:center;font-weight:bold;"
 }
-; --- Create the 3x3 Grid Buttons using nested Loops ---
-currentX := containerPadding
-currentY := containerPadding
-btnCounter := 0
-; Rows
+// --- Create the 3x3 Grid Buttons using nested Loops ---
+currentX = containerPadding
+currentY = containerPadding
+btnCounter = 0
+// Rows
 Loop, 3 {
-    row := A_Index
-    ; Columns
+    row = A_Index
+    // Columns
     Loop, 3 {
-        col := A_Index
-        str btnId := "btn" . STR(btnCounter)
-        str currentX_px := currentX . "px"
-        str currentY_px := currentY . "px"
-        str btnStyle := "font-size:" . btnFontSize_px . ";font-weight:bold;color:" . btnFontColor . ";"
-        ; Adding the buttons
+        col = A_Index
+        str btnId = "btn" . STR(btnCounter)
+        str currentX_px = currentX . "px"
+        str currentY_px = currentY . "px"
+        str btnStyle = "font-size:" . btnFontSize_px . ";font-weight:bold;color:" . btnFontColor . ";"
+        // Adding the buttons
         gui {
             button
             parentId:"mainContainer"
@@ -3120,19 +3120,19 @@ Loop, 3 {
             backgroundColor:btnBgColor
             rounding:5, rawCss:btnStyle
         }
-        currentX := currentX + btnSize + gap
-        btnCounter := btnCounter + 1
+        currentX = currentX + btnSize + gap
+        btnCounter = btnCounter + 1
     }
-    ; Reset X for next row
-    currentX := containerPadding
-    ; Move Y down for next row
-    currentY := currentY + btnSize + gap
+    // Reset X for next row
+    currentX = containerPadding
+    // Move Y down for next row
+    currentY = currentY + btnSize + gap
 }
-; --- Create the Restart Button ---
-; Center the restart button
-str restartX_px := ((containerWidth - 150) / 2) . "px"
-str restartBtnStyle := "font-size:" . restartBtnFontSize_px . ";font-weight:bold;"
-; *** UPDATED: Using multi-line grouping {} ***
+// --- Create the Restart Button ---
+// Center the restart button
+str restartX_px = ((containerWidth - 150) / 2) . "px"
+str restartBtnStyle = "font-size:" . restartBtnFontSize_px . ";font-weight:bold;"
+// *** UPDATED: Using multi-line grouping {} ***
 gui {
     button
     parentId:"mainContainer" id:"restartBtn"
@@ -3142,9 +3142,9 @@ gui {
     backgroundColor:restartBtnBgColor color:restartBtnFontColor
     rounding:5 rawCss:restartBtnStyle
 }
-; --- Initial status update after GUI is built ---
+// --- Initial status update after GUI is built ---
 UpdateStatusDisplay()
-; --- End of Main ---
+// --- End of Main ---
 
 ```
 
@@ -3230,14 +3230,14 @@ Write endpoint logic within labeled blocks ending with `subout`. Logic **must st
 *   **`subout`**: Marks the end of the block.
 
 ```htvm
-; Example backend logic block
+// Example backend logic block
 processData:
-    ; Log to server console (optional)
+    // Log to server console (optional)
     print("Backend received: " . A_Input)
-    ; Leverage Python's string methods directly if needed
-    ; HTVM won't interfere with '.upper()' as it's not HTVM syntax
-    str processed := A_Input.upper()
-    str resultString := "Backend processed (uppercase): " . processed
+    // Leverage Python's string methods directly if needed
+    // HTVM won't interfere with '.upper()' as it's not HTVM syntax
+    str processed = A_Input.upper()
+    str resultString = "Backend processed (uppercase): " . processed
     return resultString
 subout
 
@@ -3256,11 +3256,11 @@ In your **frontend** HTVM code (JavaScript GUI), use the `callBackend` function.
     *   **Throws**: Error on network/server failure.
 
 ```htvm
-; Example frontend callback (correct multi-line format)
+// Example frontend callback (correct multi-line format)
 SubmitButton:
-    str dataToSend := "Info from GUI"
-    ; Send data to the '/processData' endpoint via POST
-    str responseFromServer := await callBackend("/processData", dataToSend)
+    str dataToSend = "Info from GUI"
+    // Send data to the '/processData' endpoint via POST
+    str responseFromServer = await callBackend("/processData", dataToSend)
     await MsgBox("Backend replied: " . responseFromServer)
 subout
 
@@ -3271,24 +3271,24 @@ subout
 **1. Backend Code (`backend.htvm`)**
 
 ```htvm
-; --- Backend Logic ---
+// --- Backend Logic ---
 hello:
     return "Backend received: [" . A_Input . "] - Response: Hello World!"
 subout
 process:
-    ; Using Python's .upper() method directly on the input string
+    // Using Python's .upper() method directly on the input string
     return "Data processed by backend: " . A_Input.upper()
 subout
-; --- Backend Setup (using commands with commas) ---
-; Optional main label
+// --- Backend Setup (using commands with commas) ---
+// Optional main label
 main
-; Route /hello -> label hello (POST default)
+// Route /hello -> label hello (POST default)
 endpoint, hello
-; Route /processData -> label process, explicitly POST
+// Route /processData -> label process, explicitly POST
 endpoint, processData, process, POST
-; Serve frontend.js at /
+// Serve frontend.js at /
 fileinit, frontend.js
-; Run on port 5678
+// Run on port 5678
 port, 5678
 
 ```
@@ -3296,46 +3296,46 @@ port, 5678
 **2. Frontend Code (`frontend.htvm` -> generates `frontend.js`)**
 
 ```htvm
-; --- OSP Struct for state (Recommended) ---
+// --- OSP Struct for state (Recommended) ---
 struct InputState {
-    prop str currentText := ""
+    prop str currentText = ""
 }
-; --- Callbacks ---
-; -----------------------
-; Default for edit
+// --- Callbacks ---
+// -----------------------
+// Default for edit
 Edit0:
-    ; No 'global' needed for JS target
-    InputState.currentText := A_Value
+    // No 'global' needed for JS target
+    InputState.currentText = A_Value
 subout
-; -----------------------
-; Callback for first button
+// -----------------------
+// Callback for first button
 ButtonHello:
-    str respHello := await callBackend("/hello", InputState.currentText)
-    ; Use SPACE separation for guicontrol
+    str respHello = await callBackend("/hello", InputState.currentText)
+    // Use SPACE separation for guicontrol
     guicontrol id:"responseText" value:respHello
 subout
-; -----------------------
-; Callback for second button
+// -----------------------
+// Callback for second button
 ButtonProcess:
-    str respProcess := await callBackend("/processData", InputState.currentText)
-    ; Use SPACE separation for guicontrol
+    str respProcess = await callBackend("/processData", InputState.currentText)
+    // Use SPACE separation for guicontrol
     guicontrol id:"responseText" value:respProcess
 subout
-; -----------------------
-; --- GUI Setup ---
+// -----------------------
+// --- GUI Setup ---
 main
-; Prepare string vars only where needed, hardcode simple ones
-str placeholderText := "Enter data..."
-str btn1Text := "Call Hello"
-str btn2Text := "Call Process"
-str initialResponse := "Response..."
-str editId := "inputEdit"
-str helloBtnId := "helloBtn"
-str processBtnId := "processBtn"
-str responseTextId := "responseText"
-str whiteColor := "white"
-; Use SPACE separation for GUI options
-; Uses Edit0
+// Prepare string vars only where needed, hardcode simple ones
+str placeholderText = "Enter data..."
+str btn1Text = "Call Hello"
+str btn2Text = "Call Process"
+str initialResponse = "Response..."
+str editId = "inputEdit"
+str helloBtnId = "helloBtn"
+str processBtnId = "processBtn"
+str responseTextId = "responseText"
+str whiteColor = "white"
+// Use SPACE separation for GUI options
+// Uses Edit0
 gui edit id:editId x10 y10 w200 h30 placeholder:placeholderText
 gui button id:helloBtnId x10 y50 w95 h30 value:btn1Text callback:ButtonHello
 gui button id:processBtnId x115 y50 w95 h30 value:btn2Text callback:ButtonProcess
@@ -3387,15 +3387,15 @@ HTVM's error handling syntax is simple and intuitive. You can use `try` and `cat
 
 ```htvm
 try {
-    ; Your code that might throw an error
+    // Your code that might throw an error
     throw ErrorMsg("Something went wrong!")
 }
 catch (e) {
-    ; Handle the error, e contains the error message
+    // Handle the error, e contains the error message
     print("Caught error: " . e)
 }
 finally {
-    ; Code that will always execute, regardless of an error
+    // Code that will always execute, regardless of an error
     print("Finally block executed")
 }
 
@@ -3405,16 +3405,16 @@ or
 
 ```htvm
 try {
-    ; Your code that might throw an error
+    // Your code that might throw an error
     throw ErrorMsg("Something went wrong!")
 }
 catch (e) {
-    ; Handle the error, e contains the error message
-    ; Calling the STR() function will convert e to a string since in some languages like C++ it's not a string.
+    // Handle the error, e contains the error message
+    // Calling the STR() function will convert e to a string since in some languages like C++ it's not a string.
     print("Caught error: " . STR(e))
 }
 finally {
-    ; Code that will always execute, regardless of an error
+    // Code that will always execute, regardless of an error
     print("Finally block executed")
 }
 
@@ -3528,7 +3528,7 @@ The `catch` block syntax in HTVM is simple and flexible. You can write:
 
 ```htvm
 catch (e) {
-    ; Handle the error
+    // Handle the error
 }
 
 ```
@@ -3672,13 +3672,13 @@ from functions import add
 # from functions import *
 ___py end
 main
-; Example call
+// Example call
 print(add(2, 3))
-; or
+// or
 add(2, 3).print
-; or
+// or
 add(2, 3).print()
-; Showcasing the power of functions called in different ways
+// Showcasing the power of functions called in different ways
 
 ```
 
@@ -3704,15 +3704,15 @@ def add(a, b):
 # You can paste multiple functions here
 ___py end
 main
-; Now 'add' is defined directly in the Python scope
-; No import needed
-; Example call
+// Now 'add' is defined directly in the Python scope
+// No import needed
+// Example call
 print(add(2, 3))
-; or
+// or
 add(2, 3).print
-; or
+// or
 add(2, 3).print()
-; Showcasing the power of functions called in different ways
+// Showcasing the power of functions called in different ways
 
 ```
 
@@ -4102,7 +4102,7 @@ HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct
 |  keyWordCatch  | catch        |
 |  keyWordFinally  | finally        |
 |  keyWordReturnStatement  | return        |
-|  keyWordArrayAppend  | .add        |
+|  keyWordArrayAppend  | .push        |
 |  keyWordArrayPop  | .pop        |
 |  keyWordArraySize  | .size        |
 |  keyWordArrayInsert  | .insert        |
@@ -4118,10 +4118,10 @@ HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct
 |  keyWordConst  | const        |
 |  keyWordEnd  | end        |
 |  keyWordGlobal  | global        |
-|  keyWordComment  | ;        |
-|  keyWordCommentOpenMultiLine  | &#39;&#39;&#39;1        |
-|  keyWordCommentCloseMultiLine  | &#39;&#39;&#39;2        |
-|  keyWordEscpaeChar  | `        |
+|  keyWordComment  | //        |
+|  keyWordCommentOpenMultiLine  | /*        |
+|  keyWordCommentCloseMultiLine  | */        |
+|  keyWordEscpaeChar  | \\        |
 |  keyWordMainLabel  | main        |
 |  keyWordConcat  | .        |
 |  keyWordAdd  | +        |
@@ -4130,7 +4130,7 @@ HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct
 |  keyWordDiv  | /        |
 |  keyWordMod  | %        |
 |  keyWordExp  | **        |
-|  keyWordEqual  | =        |
+|  keyWordEqual  | ==        |
 |  keyWordStrictEqual  | ===        |
 |  keyWordNotEqual  | !=        |
 |  keyWordGreater  | &gt;        |
@@ -4147,7 +4147,7 @@ HTVM is trying to make you code with **fewer keystrokes**. Commands are a direct
 |  keyWordShiftLeft  | &lt;&lt;        |
 |  keyWordShiftRight  | &gt;&gt;        |
 |  keyWordShiftUnsignedRight  | &gt;&gt;&gt;        |
-|  keyWordAssign  | :=        |
+|  keyWordAssign  | =        |
 |  keyWordAssignAdd  | +=        |
 |  keyWordAssignConcat  | .=        |
 |  keyWordAssignSub  | -=        |
@@ -4265,26 +4265,26 @@ Calculates the arc cosine (inverse cosine) of a number. The input must be betwee
 Here is how to use it:
 
 ```htvm
-float val1 := 0.5
-float result1 := ACos(val1)
-; Expected: approx 1.04719755
+float val1 = 0.5
+float result1 = ACos(val1)
+// Expected: approx 1.04719755
 print("ACos(0.5) = " . STR(result1))
 if (Abs(result1 - 1.04719755) > 0.00001) {
     print("ACos test 1 FAILED!")
 }
-; ----------------------------------------------------
-float val2 := -1.0
-float result2 := ACos(val2)
-; Expected: approx 3.14159265 (pi)
+// ----------------------------------------------------
+float val2 = -1.0
+float result2 = ACos(val2)
+// Expected: approx 3.14159265 (pi)
 print("ACos(-1.0) = " . STR(result2))
 if (Abs(result2 - 3.14159265) > 0.00001) {
     print("ACos test 2 FAILED!")
 }
-; ----------------------------------------------------
-; Example of an invalid input (behavior might vary by target language: error or NaN)
-float val3 := 2.0
-; This would typically result in NaN or an error
-float result3 := ACos(val3)
+// ----------------------------------------------------
+// Example of an invalid input (behavior might vary by target language: error or NaN)
+float val3 = 2.0
+// This would typically result in NaN or an error
+float result3 = ACos(val3)
 print("ACos(2.0) = " . STR(result3))
 ```
 
@@ -4305,25 +4305,25 @@ Calculates the arc sine (inverse sine) of a number. The input must be between -1
 Here is how to use it:
 
 ```htvm
-float val1 := 0.5
-float result1 := ASin(val1)
-; Expected: approx 0.52359877
+float val1 = 0.5
+float result1 = ASin(val1)
+// Expected: approx 0.52359877
 print("ASin(0.5) = " . STR(result1))
 if (Abs(result1 - 0.52359877) > 0.00001) {
     print("ASin test 1 FAILED!")
 }
-; ----------------------------------------------------
-float val2 := -1.0
-float result2 := ASin(val2)
-; Expected: approx -1.57079632 ( -pi / 2)
+// ----------------------------------------------------
+float val2 = -1.0
+float result2 = ASin(val2)
+// Expected: approx -1.57079632 ( -pi / 2)
 print("ASin(-1.0) = " . STR(result2))
 if (Abs(result2 - (-1.57079632)) > 0.00001) {
     print("ASin test 2 FAILED!")
 }
-; ----------------------------------------------------
-; Example of an invalid input (behavior might vary: error or NaN)
-float val3 := 1.5
-float result3 := ASin(val3)
+// ----------------------------------------------------
+// Example of an invalid input (behavior might vary: error or NaN)
+float val3 = 1.5
+float result3 = ASin(val3)
 print("ASin(1.5) = " . STR(result3))
 ```
 
@@ -4344,25 +4344,25 @@ Calculates the arc tangent (inverse tangent) of a number. The result is in radia
 Here is how to use it:
 
 ```htvm
-float val1 := 1.0
-float result1 := ATan(val1)
-; Expected: approx 0.78539816 (pi / 4)
+float val1 = 1.0
+float result1 = ATan(val1)
+// Expected: approx 0.78539816 (pi / 4)
 print("ATan(1.0) = " . STR(result1))
 if (Abs(result1 - 0.78539816) > 0.00001) {
     print("ATan test 1 FAILED!")
 }
-; ----------------------------------------------------
-float val2 := 0.0
-float result2 := ATan(val2)
-; Expected: 0.0
+// ----------------------------------------------------
+float val2 = 0.0
+float result2 = ATan(val2)
+// Expected: 0.0
 print("ATan(0.0) = " . STR(result2))
 if (Abs(result2 - 0.0) > 0.00001) {
     print("ATan test 2 FAILED!")
 }
-; ----------------------------------------------------
-float val3 := -1.0
-float result3 := ATan(val3)
-; Expected: approx -0.78539816 (-pi / 4)
+// ----------------------------------------------------
+float val3 = -1.0
+float result3 = ATan(val3)
+// Expected: approx -0.78539816 (-pi / 4)
 print("ATan(-1.0) = " . STR(result3))
 if (Abs(result3 - (-0.78539816)) > 0.00001) {
     print("ATan test 3 FAILED!")
@@ -4386,25 +4386,25 @@ Returns the absolute (non-negative) value of a number. For example, Abs(-5) is 5
 Here is how to use it:
 
 ```htvm
-float num1 := -10.5
-float abs1 := Abs(num1)
-; Expected: 10.5
+float num1 = -10.5
+float abs1 = Abs(num1)
+// Expected: 10.5
 print("Abs(-10.5) = " . STR(abs1))
 if (abs1 != 10.5) {
     print("Abs test 1 FAILED!")
 }
-; ----------------------------------------------------
-int num2 := 7
-int abs2 := Abs(num2)
-; Expected: 7
+// ----------------------------------------------------
+int num2 = 7
+int abs2 = Abs(num2)
+// Expected: 7
 print("Abs(7) = " . STR(abs2))
 if (abs2 != 7) {
     print("Abs test 2 FAILED!")
 }
-; ----------------------------------------------------
-float num3 := 0.0
-float abs3 := Abs(num3)
-; Expected: 0.0
+// ----------------------------------------------------
+float num3 = 0.0
+float abs3 = Abs(num3)
+// Expected: 0.0
 print("Abs(0.0) = " . STR(abs3))
 if (abs3 != 0.0) {
     print("Abs test 3 FAILED!")
@@ -4428,25 +4428,25 @@ Returns the smallest integer greater than or equal to the given number (rounds u
 Here is how to use it:
 
 ```htvm
-float num1 := 4.2
-float ceil1 := Ceil(num1)
-; Expected: 5.0 (or 5 depending on language float/int conversion)
+float num1 = 4.2
+float ceil1 = Ceil(num1)
+// Expected: 5.0 (or 5 depending on language float/int conversion)
 print("Ceil(4.2) = " . STR(ceil1))
 if (ceil1 != 5.0) {
     print("Ceil test 1 FAILED!")
 }
-; ----------------------------------------------------
-float num2 := -4.8
-float ceil2 := Ceil(num2)
-; Expected: -4.0
+// ----------------------------------------------------
+float num2 = -4.8
+float ceil2 = Ceil(num2)
+// Expected: -4.0
 print("Ceil(-4.8) = " . STR(ceil2))
 if (ceil2 != -4.0) {
     print("Ceil test 2 FAILED!")
 }
-; ----------------------------------------------------
-float num3 := 7.0
-float ceil3 := Ceil(num3)
-; Expected: 7.0
+// ----------------------------------------------------
+float num3 = 7.0
+float ceil3 = Ceil(num3)
+// Expected: 7.0
 print("Ceil(7.0) = " . STR(ceil3))
 if (ceil3 != 7.0) {
     print("Ceil test 3 FAILED!")
@@ -4470,28 +4470,28 @@ Calculates the cosine of an angle. The input angle must be in radians.
 Here is how to use it:
 
 ```htvm
-float pi := 3.1415926535
-float angle1 := 0.0
-float result1 := Cos(angle1)
-; Expected: 1.0
+float pi = 3.1415926535
+float angle1 = 0.0
+float result1 = Cos(angle1)
+// Expected: 1.0
 print("Cos(0.0) = " . STR(result1))
 if (Abs(result1 - 1.0) > 0.00001) {
     print("Cos test 1 FAILED!")
 }
-; ----------------------------------------------------
-float angle2 := pi / 2.0
-; 90 degrees
-float result2 := Cos(angle2)
-; Expected: approx 0.0
+// ----------------------------------------------------
+float angle2 = pi / 2.0
+// 90 degrees
+float result2 = Cos(angle2)
+// Expected: approx 0.0
 print("Cos(pi/2) = " . STR(result2))
 if (Abs(result2 - 0.0) > 0.00001) {
     print("Cos test 2 FAILED!")
 }
-; ----------------------------------------------------
-float angle3 := pi
-; 180 degrees
-float result3 := Cos(angle3)
-; Expected: -1.0
+// ----------------------------------------------------
+float angle3 = pi
+// 180 degrees
+float result3 = Cos(angle3)
+// Expected: -1.0
 print("Cos(pi) = " . STR(result3))
 if (Abs(result3 - (-1.0)) > 0.00001) {
     print("Cos test 3 FAILED!")
@@ -4515,25 +4515,25 @@ Calculates Euler's number 'e' (approx. 2.71828) raised to the power of the given
 Here is how to use it:
 
 ```htvm
-float num1 := 1.0
-float result1 := Exp(num1)
-; Expected: approx 2.71828
+float num1 = 1.0
+float result1 = Exp(num1)
+// Expected: approx 2.71828
 print("Exp(1.0) = " . STR(result1))
 if (Abs(result1 - 2.71828) > 0.00001) {
     print("Exp test 1 FAILED!")
 }
-; ----------------------------------------------------
-float num2 := 0.0
-float result2 := Exp(num2)
-; Expected: 1.0
+// ----------------------------------------------------
+float num2 = 0.0
+float result2 = Exp(num2)
+// Expected: 1.0
 print("Exp(0.0) = " . STR(result2))
 if (Abs(result2 - 1.0) > 0.00001) {
     print("Exp test 2 FAILED!")
 }
-; ----------------------------------------------------
-float num3 := 2.0
-float result3 := Exp(num3)
-; Expected: approx 7.38905 (e*e)
+// ----------------------------------------------------
+float num3 = 2.0
+float result3 = Exp(num3)
+// Expected: approx 7.38905 (e*e)
 print("Exp(2.0) = " . STR(result3))
 if (Abs(result3 - 7.389056) > 0.00001) {
     print("Exp test 3 FAILED!")
@@ -4557,25 +4557,25 @@ Returns the largest integer less than or equal to the given number (rounds down 
 Here is how to use it:
 
 ```htvm
-float num1 := 4.8
-float floor1 := Floor(num1)
-; Expected: 4.0 (or 4)
+float num1 = 4.8
+float floor1 = Floor(num1)
+// Expected: 4.0 (or 4)
 print("Floor(4.8) = " . STR(floor1))
 if (floor1 != 4.0) {
     print("Floor test 1 FAILED!")
 }
-; ----------------------------------------------------
-float num2 := -4.2
-float floor2 := Floor(num2)
-; Expected: -5.0
+// ----------------------------------------------------
+float num2 = -4.2
+float floor2 = Floor(num2)
+// Expected: -5.0
 print("Floor(-4.2) = " . STR(floor2))
 if (floor2 != -5.0) {
     print("Floor test 2 FAILED!")
 }
-; ----------------------------------------------------
-float num3 := 7.0
-float floor3 := Floor(num3)
-; Expected: 7.0
+// ----------------------------------------------------
+float num3 = 7.0
+float floor3 = Floor(num3)
+// Expected: 7.0
 print("Floor(7.0) = " . STR(floor3))
 if (floor3 != 7.0) {
     print("Floor test 3 FAILED!")
@@ -4599,33 +4599,33 @@ Calculates the natural logarithm (logarithm base 'e') of a number. The input mus
 Here is how to use it:
 
 ```htvm
-float e_approx := 2.718281828
-float val1 := e_approx
-float result1 := Ln(val1)
-; Expected: approx 1.0
+float e_approx = 2.718281828
+float val1 = e_approx
+float result1 = Ln(val1)
+// Expected: approx 1.0
 print("Ln(e) = " . STR(result1))
 if (Abs(result1 - 1.0) > 0.00001) {
     print("Ln test 1 FAILED!")
 }
-; ----------------------------------------------------
-float val2 := 1.0
-float result2 := Ln(val2)
-; Expected: 0.0
+// ----------------------------------------------------
+float val2 = 1.0
+float result2 = Ln(val2)
+// Expected: 0.0
 print("Ln(1.0) = " . STR(result2))
 if (Abs(result2 - 0.0) > 0.00001) {
     print("Ln test 2 FAILED!")
 }
-; ----------------------------------------------------
-float val3 := 10.0
-float result3 := Ln(val3)
-; Expected: approx 2.302585
+// ----------------------------------------------------
+float val3 = 10.0
+float result3 = Ln(val3)
+// Expected: approx 2.302585
 print("Ln(10.0) = " . STR(result3))
 if (Abs(result3 - 2.302585) > 0.00001) {
     print("Ln test 3 FAILED!")
 }
-; ----------------------------------------------------
-; Invalid input (0 or negative) would typically cause an error or return NaN/Infinity
-float val4 := 0.0
+// ----------------------------------------------------
+// Invalid input (0 or negative) would typically cause an error or return NaN/Infinity
+float val4 = 0.0
 print("Ln(0.0) = " . STR(Ln(val4)))
 ```
 
@@ -4646,32 +4646,32 @@ Calculates the base-10 logarithm of a number. The input must be a positive numbe
 Here is how to use it:
 
 ```htvm
-float val1 := 100.0
-float result1 := Log(val1)
-; Expected: 2.0
+float val1 = 100.0
+float result1 = Log(val1)
+// Expected: 2.0
 print("Log(100.0) = " . STR(result1))
 if (Abs(result1 - 2.0) > 0.00001) {
     print("Log test 1 FAILED!")
 }
-; ----------------------------------------------------
-float val2 := 1.0
-float result2 := Log(val2)
-; Expected: 0.0
+// ----------------------------------------------------
+float val2 = 1.0
+float result2 = Log(val2)
+// Expected: 0.0
 print("Log(1.0) = " . STR(result2))
 if (Abs(result2 - 0.0) > 0.00001) {
     print("Log test 2 FAILED!")
 }
-; ----------------------------------------------------
-float val3 := 10000.0
-float result3 := Log(val3)
-; Expected: 4.0
+// ----------------------------------------------------
+float val3 = 10000.0
+float result3 = Log(val3)
+// Expected: 4.0
 print("Log(10000.0) = " . STR(result3))
 if (Abs(result3 - 4.0) > 0.00001) {
     print("Log test 3 FAILED!")
 }
-; ----------------------------------------------------
-; Invalid input (0 or negative) would typically cause an error or return NaN/Infinity
-float val4 := 0.0
+// ----------------------------------------------------
+// Invalid input (0 or negative) would typically cause an error or return NaN/Infinity
+float val4 = 0.0
 print("Log(0.0) = " . STR(Log(val4)))
 ```
 
@@ -4692,73 +4692,73 @@ Calculates the modulus (remainder of a division) of two numbers: `dividend` Mod 
 Here is how to use it:
 
 ```htvm
-; Test 1: Modulus with positive numbers
-int dividend1 := 10
-int divisor1 := 3
-int result1 := Mod(dividend1, divisor1)
-; Expected: 1
+// Test 1: Modulus with positive numbers
+int dividend1 = 10
+int divisor1 = 3
+int result1 = Mod(dividend1, divisor1)
+// Expected: 1
 print("10 Mod 3 = " . STR(result1))
 if (result1 != 1) {
     print("Mod test 1 FAILED!")
 }
-; ----------------------------------------------------
-; Test 2: Modulus with larger dividend
-int dividend2 := 17
-int divisor2 := 5
-int result2 := Mod(dividend2, divisor2)
-; Expected: 2
+// ----------------------------------------------------
+// Test 2: Modulus with larger dividend
+int dividend2 = 17
+int divisor2 = 5
+int result2 = Mod(dividend2, divisor2)
+// Expected: 2
 print("17 Mod 5 = " . STR(result2))
 if (result2 != 2) {
     print("Mod test 2 FAILED!")
 }
-; ----------------------------------------------------
-; Test 3: Modulus with a negative dividend
-int dividend3 := -10
-int divisor3 := 3
-int result3 := Mod(dividend3, divisor3)
-; Note: Result with negative numbers can vary by language. Common result: -1 or 2
-; For this test, let's assume a common behavior, but be aware it might differ.
+// ----------------------------------------------------
+// Test 3: Modulus with a negative dividend
+int dividend3 = -10
+int divisor3 = 3
+int result3 = Mod(dividend3, divisor3)
+// Note: Result with negative numbers can vary by language. Common result: -1 or 2
+// For this test, let's assume a common behavior, but be aware it might differ.
 print("Mod test 3 result for -10 Mod 3: " . STR(result3))
-; ----------------------------------------------------
-; Test 4: Modulus with a negative divisor
-int dividend4 := 10
-int divisor4 := -3
-int result4 := Mod(dividend4, divisor4)
-; Common result: 1 or -2
+// ----------------------------------------------------
+// Test 4: Modulus with a negative divisor
+int dividend4 = 10
+int divisor4 = -3
+int result4 = Mod(dividend4, divisor4)
+// Common result: 1 or -2
 print("Mod test 4 result for 10 Mod -3: " . STR(result4))
-; ----------------------------------------------------
-; IMPORTANT: You can also use the modular operator like this:
-int result1_percent := dividend1 % divisor1
-; Expected: 1
+// ----------------------------------------------------
+// IMPORTANT: You can also use the modular operator like this:
+int result1_percent = dividend1 % divisor1
+// Expected: 1
 print("10 % 3 = " . STR(result1_percent))
 if (result1_percent != 1) {
     print("Percent Mod test 1 FAILED!")
 }
-; ----------------------------------------------------
-int result2_percent := dividend2 % divisor2
-; Expected: 2
+// ----------------------------------------------------
+int result2_percent = dividend2 % divisor2
+// Expected: 2
 print("17 % 5 = " . STR(result2_percent))
 if (result2_percent != 2) {
     print("Percent Mod test 2 FAILED!")
 }
-; ----------------------------------------------------
-int result3_percent := dividend3 % divisor3
-; Common result: -1 or 2
+// ----------------------------------------------------
+int result3_percent = dividend3 % divisor3
+// Common result: -1 or 2
 print("Percent Mod test 3 result for -10 % 3: " . STR(result3_percent))
-; ----------------------------------------------------
-int result4_percent := dividend4 % divisor4
-; Common result: 1 or -2
+// ----------------------------------------------------
+int result4_percent = dividend4 % divisor4
+// Common result: 1 or -2
 print("Percent Mod test 4 result for 10 % -3: " . STR(result4_percent))
-; ----------------------------------------------------
-; ----------------------------------------------------
-; Even or Odd Number Check in a Loop (0 to 4)
-; This loop checks if the numbers from 0 to 4 are even or odd
-; This can be very useful in various scenarios
-; ----------------------------------------------------
-; Loop from 0 to 4
+// ----------------------------------------------------
+// ----------------------------------------------------
+// Even or Odd Number Check in a Loop (0 to 4)
+// This loop checks if the numbers from 0 to 4 are even or odd
+// This can be very useful in various scenarios
+// ----------------------------------------------------
+// Loop from 0 to 4
 Loop, 5 {
-    ; Check if the current index is even or odd
-    if (A_Index % 2 = 0) {
+    // Check if the current index is even or odd
+    if (A_Index % 2 == 0) {
         print(STR(A_Index) . " is even")
     }
     else {
@@ -4784,22 +4784,22 @@ Generates a pseudo-random integer between `min` and `max` (inclusive). Both `min
 Here is how to use it:
 
 ```htvm
-int minVal := 1
-int maxVal := 10
+int minVal = 1
+int maxVal = 10
 Loop, 5 {
-    int randNum := Random(minVal, maxVal)
+    int randNum = Random(minVal, maxVal)
     print("Random number between " . STR(minVal) . " and " . STR(maxVal) . ": " . STR(randNum))
     if (randNum < minVal or randNum > maxVal) {
         print("Random test FAILED! Number out of range: " . STR(randNum))
     }
 }
 print("--------------------")
-; ----------------------------------------------------
-int specificMin := 5
-int specificMax := 5
-int specificRand := Random(specificMin, specificMax)
+// ----------------------------------------------------
+int specificMin = 5
+int specificMax = 5
+int specificRand = Random(specificMin, specificMax)
 print("Random number between 5 and 5: " . STR(specificRand))
-; Expected: 5
+// Expected: 5
 if (specificRand != 5) {
     print("Random specific range test FAILED!")
 }
@@ -4822,34 +4822,34 @@ Rounds a number to the nearest integer. Numbers ending in .5 are typically round
 Here is how to use it:
 
 ```htvm
-float num1 := 4.2
-float round1 := Round(num1)
-; Expected: 4.0 (or 4)
+float num1 = 4.2
+float round1 = Round(num1)
+// Expected: 4.0 (or 4)
 print("Round(4.2) = " . STR(round1))
 if (round1 != 4.0) {
     print("Round test 1 FAILED!")
 }
-; ----------------------------------------------------
-float num2 := 4.8
-float round2 := Round(num2)
-; Expected: 5.0
+// ----------------------------------------------------
+float num2 = 4.8
+float round2 = Round(num2)
+// Expected: 5.0
 print("Round(4.8) = " . STR(round2))
 if (round2 != 5.0) {
     print("Round test 2 FAILED!")
 }
-; ----------------------------------------------------
-float num3 := 4.5
-float round3 := Round(num3)
-; Expected: 5.0 (common rounding rule)
+// ----------------------------------------------------
+float num3 = 4.5
+float round3 = Round(num3)
+// Expected: 5.0 (common rounding rule)
 print("Round(4.5) = " . STR(round3))
 if (round3 != 5.0) {
     print("Round test 3 FAILED!")
 }
-; ----------------------------------------------------
-float num4 := -4.5
-float round4 := Round(num4)
-; Expected: -5.0 (common rounding away from zero for .5) or -4.0 (round half to even)
-; This behavior can vary, so the test is lenient.
+// ----------------------------------------------------
+float num4 = -4.5
+float round4 = Round(num4)
+// Expected: -5.0 (common rounding away from zero for .5) or -4.0 (round half to even)
+// This behavior can vary, so the test is lenient.
 print("Round(-4.5) result: " . STR(round4))
 if (round4 != -4.0 and round4 != -5.0) {
     print("Round test 4 FAILED!")
@@ -4873,29 +4873,29 @@ Calculates the sine of an angle. The input angle must be in radians.
 Here is how to use it:
 
 ```htvm
-float pi := 3.1415926535
-float angle1 := 0.0
-float result1 := Sin(angle1)
+float pi = 3.1415926535
+float angle1 = 0.0
+float result1 = Sin(angle1)
 print("Sin(0.0) = " . STR(result1))
-; Expected: 0.0
+// Expected: 0.0
 if (Abs(result1 - 0.0) > 0.00001) {
     print("Sin test 1 FAILED!")
 }
-; ----------------------------------------------------
-float angle2 := pi / 2.0
-; 90 degrees
-float result2 := Sin(angle2)
+// ----------------------------------------------------
+float angle2 = pi / 2.0
+// 90 degrees
+float result2 = Sin(angle2)
 print("Sin(pi/2) = " . STR(result2))
-; Expected: 1.0
+// Expected: 1.0
 if (Abs(result2 - 1.0) > 0.00001) {
     print("Sin test 2 FAILED!")
 }
-; ----------------------------------------------------
-float angle3 := pi
-; 180 degrees
-float result3 := Sin(angle3)
+// ----------------------------------------------------
+float angle3 = pi
+// 180 degrees
+float result3 = Sin(angle3)
 print("Sin(pi) = " . STR(result3))
-; Expected: approx 0.0
+// Expected: approx 0.0
 if (Abs(result3 - 0.0) > 0.00001) {
     print("Sin test 3 FAILED!")
 }
@@ -4918,33 +4918,33 @@ Calculates the square root of a non-negative number. Inputting a negative number
 Here is how to use it:
 
 ```htvm
-float num1 := 9.0
-float sqrt1 := Sqrt(num1)
+float num1 = 9.0
+float sqrt1 = Sqrt(num1)
 print("Sqrt(9.0) = " . STR(sqrt1))
-; Expected: 3.0
+// Expected: 3.0
 if (Abs(sqrt1 - 3.0) > 0.00001) {
     print("Sqrt test 1 FAILED!")
 }
-; ----------------------------------------------------
-float num2 := 2.0
-float sqrt2 := Sqrt(num2)
+// ----------------------------------------------------
+float num2 = 2.0
+float sqrt2 = Sqrt(num2)
 print("Sqrt(2.0) = " . STR(sqrt2))
-; Expected: approx 1.41421356
+// Expected: approx 1.41421356
 if (Abs(sqrt2 - 1.41421356) > 0.00001) {
     print("Sqrt test 2 FAILED!")
 }
-; ----------------------------------------------------
-float num3 := 0.0
-float sqrt3 := Sqrt(num3)
+// ----------------------------------------------------
+float num3 = 0.0
+float sqrt3 = Sqrt(num3)
 print("Sqrt(0.0) = " . STR(sqrt3))
-; Expected: 0.0
+// Expected: 0.0
 if (Abs(sqrt3 - 0.0) > 0.00001) {
     print("Sqrt test 3 FAILED!")
 }
-; ----------------------------------------------------
-; Example of invalid input (behavior might vary: error or NaN)
-float num4 := -4.0
-float sqrt4 := Sqrt(num4)
+// ----------------------------------------------------
+// Example of invalid input (behavior might vary: error or NaN)
+float num4 = -4.0
+float sqrt4 = Sqrt(num4)
 print("Sqrt(-4.0) = " . STR(sqrt4))
 ```
 
@@ -4965,27 +4965,27 @@ Calculates the tangent of an angle. The input angle must be in radians.
 Here is how to use it:
 
 ```htvm
-float pi := 3.1415926535
-float angle1 := 0.0
-float result1 := Tan(angle1)
+float pi = 3.1415926535
+float angle1 = 0.0
+float result1 = Tan(angle1)
 print("Tan(0.0) = " . STR(result1))
-; Expected: 0.0
+// Expected: 0.0
 if (Abs(result1 - 0.0) > 0.00001) {
     print("Tan test 1 FAILED!")
 }
-; ----------------------------------------------------
-; 45 degrees
-float angle2 := pi / 4.0
-float result2 := Tan(angle2)
+// ----------------------------------------------------
+// 45 degrees
+float angle2 = pi / 4.0
+float result2 = Tan(angle2)
 print("Tan(pi/4) = " . STR(result2))
-; Expected: approx 1.0
+// Expected: approx 1.0
 if (Abs(result2 - 1.0) > 0.00001) {
     print("Tan test 2 FAILED!")
 }
-; ----------------------------------------------------
-; Tan(pi/2) is undefined (approaches infinity). Behavior might vary.
-float angle3 := pi / 2.0
-float result3 := Tan(angle3)
+// ----------------------------------------------------
+// Tan(pi/2) is undefined (approaches infinity). Behavior might vary.
+float angle3 = pi / 2.0
+float result3 = Tan(angle3)
 print("Tan(pi/2) = " . STR(result3))
 ```
 
@@ -5066,34 +5066,34 @@ Returns the ASCII (or Unicode) value of the first character in a string. If the 
 Here is how to use it:
 
 ```htvm
-str char1 := "A"
-int ascii1 := Asc(char1)
+str char1 = "A"
+int ascii1 = Asc(char1)
 print("Asc('A') = " . STR(ascii1))
-; Expected: 65
+// Expected: 65
 if (ascii1 != 65) {
     print("Asc test 1 FAILED!")
 }
-; ----------------------------------------------------
-str char2 := "a"
-int ascii2 := Asc(char2)
+// ----------------------------------------------------
+str char2 = "a"
+int ascii2 = Asc(char2)
 print("Asc('a') = " . STR(ascii2))
-; Expected: 97
+// Expected: 97
 if (ascii2 != 97) {
     print("Asc test 2 FAILED!")
 }
-; ----------------------------------------------------
-str char3 := " "
-int ascii3 := Asc(char3)
+// ----------------------------------------------------
+str char3 = " "
+int ascii3 = Asc(char3)
 print("Asc(' ') = " . STR(ascii3))
-; Expected: 32
+// Expected: 32
 if (ascii3 != 32) {
     print("Asc test 3 FAILED!")
 }
-; ----------------------------------------------------
-str emptyStr := ""
-int asciiEmpty := Asc(emptyStr)
+// ----------------------------------------------------
+str emptyStr = ""
+int asciiEmpty = Asc(emptyStr)
 print("Asc('') = " . STR(asciiEmpty))
-; Expected: -1 (or error)
+// Expected: -1 (or error)
 if (asciiEmpty != -1) {
     print("Asc empty string test might need review for specific language behavior, got: " . STR(asciiEmpty))
 }
@@ -5116,36 +5116,36 @@ Returns the character represented by the given ASCII (or Unicode) value. Input m
 Here is how to use it:
 
 ```htvm
-int code1 := 65
-str char1 := Chr(code1)
+int code1 = 65
+str char1 = Chr(code1)
 print("Chr(65) = '" . char1 . "'")
-; Expected: 'A'
+// Expected: 'A'
 if (char1 != "A") {
     print("Chr test 1 FAILED!")
 }
-; ----------------------------------------------------
-int code2 := 97
-str char2 := Chr(code2)
+// ----------------------------------------------------
+int code2 = 97
+str char2 = Chr(code2)
 print("Chr(97) = '" . char2 . "'")
-; Expected: 'a'
+// Expected: 'a'
 if (char2 != "a") {
     print("Chr test 2 FAILED!")
 }
-; ----------------------------------------------------
-int code3 := 32
-str char3 := Chr(code3)
+// ----------------------------------------------------
+int code3 = 32
+str char3 = Chr(code3)
 print("Chr(32) = '" . char3 . "'")
-; Expected: ' ' (space)
+// Expected: ' ' (space)
 if (char3 != " ") {
     print("Chr test 3 FAILED!")
 }
-; ----------------------------------------------------
-; Example with a less common character (e.g., Euro sign if supported)
-; Euro sign €
-int code4 := 8364
-str char4 := Chr(code4)
+// ----------------------------------------------------
+// Example with a less common character (e.g., Euro sign if supported)
+// Euro sign €
+int code4 = 8364
+str char4 = Chr(code4)
 print("Chr(8364) = '" . char4 . "'")
-; Expected: '€' (if supported by environment/font)
+// Expected: '€' (if supported by environment/font)
 ```
 
 
@@ -5165,34 +5165,34 @@ Converts a string representation of a number into a floating-point number. If th
 Here is how to use it:
 
 ```htvm
-str strNum1 := "123.45"
-float float1 := FLOAT(strNum1)
+str strNum1 = "123.45"
+float float1 = FLOAT(strNum1)
 print("FLOAT('123.45') = " . STR(float1))
-; Expected: 123.45
+// Expected: 123.45
 if (Abs(float1 - 123.45) > 0.00001) {
     print("FLOAT test 1 FAILED!")
 }
-; ----------------------------------------------------
-str strNum2 := "-0.5"
-float float2 := FLOAT(strNum2)
+// ----------------------------------------------------
+str strNum2 = "-0.5"
+float float2 = FLOAT(strNum2)
 print("FLOAT('-0.5') = " . STR(float2))
-; Expected: -0.5
+// Expected: -0.5
 if (Abs(float2 - (-0.5)) > 0.00001) {
     print("FLOAT test 2 FAILED!")
 }
-; ----------------------------------------------------
-str strNum3 := "789"
-float float3 := FLOAT(strNum3)
-; Integer string
+// ----------------------------------------------------
+str strNum3 = "789"
+float float3 = FLOAT(strNum3)
+// Integer string
 print("FLOAT('789') = " . STR(float3))
-; Expected: 789.0
+// Expected: 789.0
 if (Abs(float3 - 789.0) > 0.00001) {
     print("FLOAT test 3 FAILED!")
 }
-; ----------------------------------------------------
-; Example of an invalid string (behavior might vary: error or NaN)
-str invalidStr := "abc"
-float floatInvalid := FLOAT(invalidStr)
+// ----------------------------------------------------
+// Example of an invalid string (behavior might vary: error or NaN)
+str invalidStr = "abc"
+float floatInvalid = FLOAT(invalidStr)
 print("FLOAT('abc') = " . STR(floatInvalid))
 ```
 
@@ -5213,34 +5213,34 @@ Converts a string representation of a number into an integer. If the string repr
 Here is how to use it:
 
 ```htvm
-str strNum1 := "123"
-int int1 := INT(strNum1)
+str strNum1 = "123"
+int int1 = INT(strNum1)
 print("INT('123') = " . STR(int1))
-; Expected: 123
+// Expected: 123
 if (int1 != 123) {
     print("INT test 1 FAILED!")
 }
-; ----------------------------------------------------
-str strNum2 := "123.789"
-; String with a float
-int int2 := INT(strNum2)
+// ----------------------------------------------------
+str strNum2 = "123.789"
+// String with a float
+int int2 = INT(strNum2)
 print("INT('123.789') = " . STR(int2))
-; Expected: 123 (truncation)
+// Expected: 123 (truncation)
 if (int2 != 123) {
     print("INT test 2 FAILED!")
 }
-; ----------------------------------------------------
-str strNum3 := "-456"
-int int3 := INT(strNum3)
+// ----------------------------------------------------
+str strNum3 = "-456"
+int int3 = INT(strNum3)
 print("INT('-456') = " . STR(int3))
-; Expected: -456
+// Expected: -456
 if (int3 != -456) {
     print("INT test 3 FAILED!")
 }
-; ----------------------------------------------------
-; Example of an invalid string (behavior might vary: error or 0/NaN)
-str invalidStr := "xyz"
-int intInvalid := INT(invalidStr)
+// ----------------------------------------------------
+// Example of an invalid string (behavior might vary: error or 0/NaN)
+str invalidStr = "xyz"
+int intInvalid = INT(invalidStr)
 print("INT('xyz') = " . STR(intInvalid))
 ```
 
@@ -5261,36 +5261,36 @@ Searches for the first occurrence of a `needle` substring within a `haystack` st
 Here is how to use it:
 
 ```htvm
-str haystack := "Hello, HTVM World! HTVM is cool."
-str needle1 := "HTVM"
-int pos1 := InStr(haystack, needle1)
+str haystack = "Hello, HTVM World! HTVM is cool."
+str needle1 = "HTVM"
+int pos1 = InStr(haystack, needle1)
 print("Position of 'HTVM' in '" . haystack . "' is: " . STR(pos1))
-; Expected: 8 (1-indexed-based)
+// Expected: 8 (1-indexed-based)
 if (pos1 != 8) {
     print("InStr test 1 FAILED!")
 }
-; ----------------------------------------------------
-str needle2 := "World"
-int pos2 := haystack.InStr(needle2)
+// ----------------------------------------------------
+str needle2 = "World"
+int pos2 = haystack.InStr(needle2)
 print("Position of 'World' is: " . STR(pos2))
-; Expected: 13 (1-indexed-based)
+// Expected: 13 (1-indexed-based)
 if (pos2 != 13) {
     print("InStr test 2 FAILED!")
 }
-; ----------------------------------------------------
-str needle3 := "notfound"
-int pos3 := InStr(haystack, needle3)
+// ----------------------------------------------------
+str needle3 = "notfound"
+int pos3 = InStr(haystack, needle3)
 print("Position of 'notfound' is: " . STR(pos3))
-; Expected: 0
+// Expected: 0
 if (pos3 != 0) {
     print("InStr test 3 FAILED!")
 }
-; ----------------------------------------------------
-str needle4 := "hTvm"
-; Test case-sensitivity (may vary by language)
-int pos4 := InStr(haystack, needle4)
+// ----------------------------------------------------
+str needle4 = "hTvm"
+// Test case-sensitivity (may vary by language)
+int pos4 = InStr(haystack, needle4)
 print("Position of 'hTvm' (case test) is: " . STR(pos4))
-; Expected might be 0 if case-sensitive, or 8 if case-insensitive
+// Expected might be 0 if case-sensitive, or 8 if case-insensitive
 ```
 
 
@@ -5310,69 +5310,69 @@ Searches a `haystack` string for the first occurrence of a regular expression `p
 Here is how to use it:
 
 ```htvm
-str text := "The year is 2024, and the price is $19.99."
-; Matches four digits (year)
-str pattern1 := "\d{4}"
-int matchPos1 := RegExMatch(text, pattern1)
+str text = "The year is 2024, and the price is $19.99."
+// Matches four digits (year)
+str pattern1 = "\\d{4}"
+int matchPos1 = RegExMatch(text, pattern1)
 print("Position of year pattern: " . STR(matchPos1))
-; Expected: 13 (for "2024")
+// Expected: 13 (for "2024")
 if (matchPos1 != 13) {
     print("RegExMatch test 1 FAILED!")
 }
-; ----------------------------------------------------
-; Matches a price like $xx.yy
-str pattern2 := "\$[0-9]+\.[0-9]{2}"
-int matchPos2 := text.RegExMatch(pattern2)
+// ----------------------------------------------------
+// Matches a price like $xx.yy
+str pattern2 = "\\$[0-9]+\\.[0-9]{2}"
+int matchPos2 = text.RegExMatch(pattern2)
 print("Position of price pattern: " . STR(matchPos2))
-; Expected: 36 (for "$19.99")
+// Expected: 36 (for "$19.99")
 if (matchPos2 != 36) {
     print("RegExMatch test 2 FAILED!")
 }
-; ----------------------------------------------------
-; Pattern not in text
-str pattern3 := "XYZ"
-int matchPos3 := RegExMatch(text, pattern3)
+// ----------------------------------------------------
+// Pattern not in text
+str pattern3 = "XYZ"
+int matchPos3 = RegExMatch(text, pattern3)
 print("Position of 'XYZ' pattern: " . STR(matchPos3))
-; Expected: 0
+// Expected: 0
 if (matchPos3 != 0) {
     print("RegExMatch test 3 FAILED!")
 }
-; ----------------------------------------------------
-; Check if a number exists in the text
-str numText := "There are 42 apples."
-; Matches any number
-str numPattern := "\d+"
-int numPos := RegExMatch(numText, numPattern)
+// ----------------------------------------------------
+// Check if a number exists in the text
+str numText = "There are 42 apples."
+// Matches any number
+str numPattern = "\\d+"
+int numPos = RegExMatch(numText, numPattern)
 print("Position of number in text: " . STR(numPos))
-; Expected: 12 (for "42")
+// Expected: 12 (for "42")
 if (numPos > 0) {
     print("Number found in text.")
 }
 else {
     print("No number found in text.")
 }
-; ----------------------------------------------------
-; Check if a string exists
-str stringText := "The quick brown fox jumps over the lazy dog."
-; Matches the word "fox"
-str stringPattern := "fox"
-int stringPos := RegExMatch(stringText, stringPattern)
+// ----------------------------------------------------
+// Check if a string exists
+str stringText = "The quick brown fox jumps over the lazy dog."
+// Matches the word "fox"
+str stringPattern = "fox"
+int stringPos = RegExMatch(stringText, stringPattern)
 print("Position of 'fox' in text: " . STR(stringPos))
-; Expected: 17
+// Expected: 17
 if (stringPos > 0) {
     print("'fox' found in text.")
 }
 else {
     print("'fox' not found in text.")
 }
-; ----------------------------------------------------
-; Check if a specific format (email) exists
-str emailText := "Please contact support@domain.com for help."
-; Matches an email format
-str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-int emailPos := RegExMatch(emailText, emailPattern)
+// ----------------------------------------------------
+// Check if a specific format (email) exists
+str emailText = "Please contact support@domain.com for help."
+// Matches an email format
+str emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+int emailPos = RegExMatch(emailText, emailPattern)
 print("Position of email pattern: " . STR(emailPos))
-; Expected: 23 (for "support@domain.com")
+// Expected: 23 (for "support@domain.com")
 if (emailPos > 0) {
     print("Email found in text.")
 }
@@ -5398,27 +5398,27 @@ Replaces occurrences of a regular expression `pattern` within an `inputStr` with
 Here is how to use it:
 
 ```htvm
-str text := "Contact us at info@example.com or support@example.org for help."
-str emailPattern := "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-str replacement := "[REDACTED_EMAIL]"
-str result1 := RegExReplace(text, emailPattern, replacement)
+str text = "Contact us at info@example.com or support@example.org for help."
+str emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+str replacement = "[REDACTED_EMAIL]"
+str result1 = RegExReplace(text, emailPattern, replacement)
 print("Original: " . text)
 print("Redacted: " . result1)
-; Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.
-str expected1 := "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."
+// Expected: Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help.
+str expected1 = "Contact us at [REDACTED_EMAIL] or [REDACTED_EMAIL] for help."
 if (result1 != expected1) {
     print("RegExReplace test 1 FAILED!")
 }
-; ----------------------------------------------------
-str text2 := "The numbers are 123 and 456."
-str digitPattern := "\d+"
-; Matches one or more digits
-str replacement2 := "###"
-str result2 := text2.RegExReplace(digitPattern, replacement2)
+// ----------------------------------------------------
+str text2 = "The numbers are 123 and 456."
+str digitPattern = "\\d+"
+// Matches one or more digits
+str replacement2 = "###"
+str result2 = text2.RegExReplace(digitPattern, replacement2)
 print("Original: " . text2)
 print("Numbers replaced: " . result2)
-; Expected: The numbers are ### and ###.
-str expected2 := "The numbers are ### and ###."
+// Expected: The numbers are ### and ###.
+str expected2 = "The numbers are ### and ###."
 if (result2 != expected2) {
     print("RegExReplace test 2 FAILED!")
 }
@@ -5441,42 +5441,42 @@ Converts a given value (number, boolean, or existing string) into its string rep
 Here is how to use it:
 
 ```htvm
-int num := 123
-str strNum := STR(num)
+int num = 123
+str strNum = STR(num)
 print("STR(123) = '" . strNum . "'")
-; Expected: '123'
+// Expected: '123'
 if (strNum != "123") {
     print("STR int test FAILED!")
 }
-; ----------------------------------------------------
-float flt := -45.67
-str strFlt := STR(flt)
+// ----------------------------------------------------
+float flt = -45.67
+str strFlt = STR(flt)
 print("STR(-45.67) = '" . strFlt . "'")
-; Expected: '-45.67' (or similar float string)
+// Expected: '-45.67' (or similar float string)
 if (strFlt != "-45.67") {
     print("STR float test FAILED!")
 }
-; ----------------------------------------------------
-bool bTrue := true
-str strTrue := STR(bTrue)
+// ----------------------------------------------------
+bool bTrue = true
+str strTrue = STR(bTrue)
 print("STR(true) = '" . strTrue . "'")
-; Expected: '1' (or 'true')
+// Expected: '1' (or 'true')
 if (strTrue != "1" and strTrue != "true") {
     print("STR true test FAILED! Got: " . strTrue)
 }
-; ----------------------------------------------------
-bool bFalse := false
-str strFalse := STR(bFalse)
+// ----------------------------------------------------
+bool bFalse = false
+str strFalse = STR(bFalse)
 print("STR(false) = '" . strFalse . "'")
-; Expected: '0' (or 'false')
+// Expected: '0' (or 'false')
 if (strFalse != "0" and strFalse != "false") {
     print("STR false test FAILED! Got: " . strFalse)
 }
-; ----------------------------------------------------
-str existingStr := "already_string"
-str strExisting := STR(existingStr)
+// ----------------------------------------------------
+str existingStr = "already_string"
+str strExisting = STR(existingStr)
 print("STR('already_string') = '" . strExisting . "'")
-; Expected: 'already_string'
+// Expected: 'already_string'
 if (strExisting != "already_string") {
     print("STR existing string test FAILED!")
 }
@@ -5499,48 +5499,48 @@ Sorts lines or delimited items within a string. Options control sorting behavior
 Here is how to use it:
 
 ```htvm
-str list1 := "Charlie`nAlpha`nBravo"
-str sorted1 := Sort(list1, "U")
-print("Default sort (list1):`n" . sorted1)
-; Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)
-; Assuming case-insensitive default for test
-; Note: Actual default might vary if underlying language sorts case-sensitively.
-; ----------------------------------------------------
+str list1 = "Charlie\nAlpha\nBravo"
+str sorted1 = Sort(list1, "U")
+print("Default sort (list1):\n" . sorted1)
+// Expected: Alpha`nBravo`nCharlie (case-insensitive by default unless C option)
+// Assuming case-insensitive default for test
+// Note: Actual default might vary if underlying language sorts case-sensitively.
+// ----------------------------------------------------
 print("---")
-str list2 := "10`n2`n100`n1"
-str sorted2_alpha := Sort(list2, "U")
-str sorted2_numeric := Sort(list2, "N")
-print("Alpha sort (list2):`n" . sorted2_alpha)
-; Expected: 1`n10`n100`n2
-print("Numeric sort (list2):`n" . sorted2_numeric)
-; Expected: 1`n2`n10`n100
-if (sorted2_numeric != "1`n2`n10`n100") {
+str list2 = "10\n2\n100\n1"
+str sorted2_alpha = Sort(list2, "U")
+str sorted2_numeric = Sort(list2, "N")
+print("Alpha sort (list2):\n" . sorted2_alpha)
+// Expected: 1`n10`n100`n2
+print("Numeric sort (list2):\n" . sorted2_numeric)
+// Expected: 1`n2`n10`n100
+if (sorted2_numeric != "1\n2\n10\n100") {
     print("Sort numeric test FAILED!")
 }
-; ----------------------------------------------------
+// ----------------------------------------------------
 print("---")
-str list3 := "apple,banana,apple,orange"
-str sorted3_unique_comma := Sort(list3, "UD,")
-; Unique, comma-delimited
-print("Unique comma sort (list3):`n" . sorted3_unique_comma)
-; Expected: apple,banana,orange (order may vary for first two)
-; A simple check for content rather than strict order for unique test:
-if (InStr(sorted3_unique_comma, "apple") = 0 or InStr(sorted3_unique_comma, "banana") = 0 or InStr(sorted3_unique_comma, "orange") = 0 or countChars(sorted3_unique_comma, ",") != 2) {
+str list3 = "apple,banana,apple,orange"
+str sorted3_unique_comma = Sort(list3, "UD,")
+// Unique, comma-delimited
+print("Unique comma sort (list3):\n" . sorted3_unique_comma)
+// Expected: apple,banana,orange (order may vary for first two)
+// A simple check for content rather than strict order for unique test:
+if (InStr(sorted3_unique_comma, "apple") == 0 or InStr(sorted3_unique_comma, "banana") == 0 or InStr(sorted3_unique_comma, "orange") == 0 or countChars(sorted3_unique_comma, ",") != 2) {
     print("Sort unique comma test FAILED! Got: " . sorted3_unique_comma)
 }
-; ----------------------------------------------------
+// ----------------------------------------------------
 print("---")
-str list4 := "Zebra`napple`nCAT"
-str sorted4_case_reverse := Sort(list4, "CR")
-print("Case-sensitive Reverse (list4):`n" . sorted4_case_reverse)
-; Expected: apple`nZebra`nCAT (Z > C, a > Z)
-; This expected order depends on specific sort implementation with mixed case.
-; For testing, let's target a more predictable case-insensitive reverse.
-str sorted4_insensitive_reverse := Sort(list4, "R")
-; Assuming default is case-insensitive for this test
-print("Case-insensitive Reverse (list4):`n" . sorted4_insensitive_reverse)
-; Expected: Zebra`nCAT`napple
-if (sorted4_insensitive_reverse != "Zebra`nCAT`napple") {
+str list4 = "Zebra\napple\nCAT"
+str sorted4_case_reverse = Sort(list4, "CR")
+print("Case-sensitive Reverse (list4):\n" . sorted4_case_reverse)
+// Expected: apple`nZebra`nCAT (Z > C, a > Z)
+// This expected order depends on specific sort implementation with mixed case.
+// For testing, let's target a more predictable case-insensitive reverse.
+str sorted4_insensitive_reverse = Sort(list4, "R")
+// Assuming default is case-insensitive for this test
+print("Case-insensitive Reverse (list4):\n" . sorted4_insensitive_reverse)
+// Expected: Zebra`nCAT`napple
+if (sorted4_insensitive_reverse != "Zebra\nCAT\napple") {
     print("Sort insensitive reverse test FAILED!")
 }
 ```
@@ -5562,28 +5562,28 @@ Returns the length (number of characters) of a string.
 Here is how to use it:
 
 ```htvm
-str text1 := "Hello"
-int len1 := StrLen(text1)
-; Expected: 5
+str text1 = "Hello"
+int len1 = StrLen(text1)
+// Expected: 5
 print("Length of '" . text1 . "' is: " . STR(len1))
 if (len1 != 5) {
     print("StrLen test 1 FAILED!")
 }
-; ----------------------------------------------------
-str text2 := ""
-; Empty string
-int len2 := text2.StrLen()
-; Expected: 0
+// ----------------------------------------------------
+str text2 = ""
+// Empty string
+int len2 = text2.StrLen()
+// Expected: 0
 print("Length of '' is: " . STR(len2))
 if (len2 != 0) {
     print("StrLen test 2 FAILED!")
 }
-; ----------------------------------------------------
-str text3 := "HTVM `nRocks!"
-; Contains a newline
-int len3 := StrLen(text3)
-; Expected: 12 (newline is one char)
-print("Length of 'HTVM `nRocks!' is: " . STR(len3))
+// ----------------------------------------------------
+str text3 = "HTVM \nRocks!"
+// Contains a newline
+int len3 = StrLen(text3)
+// Expected: 12 (newline is one char)
+print("Length of 'HTVM \nRocks!' is: " . STR(len3))
 if (len3 != 12) {
     print("StrLen test 3 FAILED!")
 }
@@ -5606,25 +5606,25 @@ Converts all uppercase characters in a string to lowercase. Non-alphabetic chara
 Here is how to use it:
 
 ```htvm
-str text1 := "HeLlO, WoRlD!"
-str lower1 := StrLower(text1)
-; Expected: 'hello, world!'
+str text1 = "HeLlO, WoRlD!"
+str lower1 = StrLower(text1)
+// Expected: 'hello, world!'
 print("StrLower('" . text1 . "') = '" . lower1 . "'")
 if (lower1 != "hello, world!") {
     print("StrLower test 1 FAILED!")
 }
-; ----------------------------------------------------
-str text2 := "HTVM ROCKS 123!"
-str lower2 := text2.StrLower
-; Expected: 'htvm rocks 123!'
+// ----------------------------------------------------
+str text2 = "HTVM ROCKS 123!"
+str lower2 = text2.StrLower
+// Expected: 'htvm rocks 123!'
 print("StrLower('" . text2 . "') = '" . lower2 . "'")
 if (lower2 != "htvm rocks 123!") {
     print("StrLower test 2 FAILED!")
 }
-; ----------------------------------------------------
-str text3 := "already lowercase"
-str lower3 := StrLower(text3)
-; Expected: 'already lowercase'
+// ----------------------------------------------------
+str text3 = "already lowercase"
+str lower3 = StrLower(text3)
+// Expected: 'already lowercase'
 print("StrLower('" . text3 . "') = '" . lower3 . "'")
 if (lower3 != "already lowercase") {
     print("StrLower test 3 FAILED!")
@@ -5648,43 +5648,43 @@ Replaces all occurrences of a `find` substring within an `originalString` with a
 Here is how to use it:
 
 ```htvm
-str original1 := "Hello World, Hello HTVM!"
-str find1 := "Hello"
-str replace1 := "Greetings"
-str result1 := StrReplace(original1, find1, replace1)
+str original1 = "Hello World, Hello HTVM!"
+str find1 = "Hello"
+str replace1 = "Greetings"
+str result1 = StrReplace(original1, find1, replace1)
 print("Replacing '" . find1 . "' in '" . original1 . "' with '" . replace1 . "': '" . result1 . "'")
-; Expected: 'Greetings World, Greetings HTVM!'
+// Expected: 'Greetings World, Greetings HTVM!'
 if (result1 != "Greetings World, Greetings HTVM!") {
     print("StrReplace test 1 FAILED!")
 }
-; ----------------------------------------------------
-str original2 := "one two three two one"
-str find2 := "two"
-str replace2 := "2"
-str result2 := original2.StrReplace(find2, replace2)
+// ----------------------------------------------------
+str original2 = "one two three two one"
+str find2 = "two"
+str replace2 = "2"
+str result2 = original2.StrReplace(find2, replace2)
 print("Replacing '" . find2 . "' in '" . original2 . "' with '" . replace2 . "': '" . result2 . "'")
-; Expected: 'one 2 three 2 one'
+// Expected: 'one 2 three 2 one'
 if (result2 != "one 2 three 2 one") {
     print("StrReplace test 2 FAILED!")
 }
-; ----------------------------------------------------
-str original3 := "No change needed"
-str find3 := "XYZ"
-str replace3 := "ABC"
-str result3 := StrReplace(original3, find3, replace3)
+// ----------------------------------------------------
+str original3 = "No change needed"
+str find3 = "XYZ"
+str replace3 = "ABC"
+str result3 = StrReplace(original3, find3, replace3)
 print("Replacing '" . find3 . "' in '" . original3 . "' (not found): '" . result3 . "'")
-; Expected: 'No change needed'
+// Expected: 'No change needed'
 if (result3 != "No change needed") {
     print("StrReplace test 3 FAILED!")
 }
-; ----------------------------------------------------
-str original4 := "Remove this"
-str find4 := " this"
-str replace4 := ""
-; Replace with empty string to delete
-str result4 := StrReplace(original4, find4, replace4)
+// ----------------------------------------------------
+str original4 = "Remove this"
+str find4 = " this"
+str replace4 = ""
+// Replace with empty string to delete
+str result4 = StrReplace(original4, find4, replace4)
 print("Deleting '" . find4 . "' from '" . original4 . "': '" . result4 . "'")
-; Expected: 'Remove'
+// Expected: 'Remove'
 if (result4 != "Remove") {
     print("StrReplace test 4 (deletion) FAILED!")
 }
@@ -5707,46 +5707,46 @@ Splits an `inputStr` by a `delimiter` and returns the Nth part (1-based index `n
 Here is how to use it:
 
 ```htvm
-str data1 := "apple,banana,cherry,date"
-str delimiter1 := ","
-int partNum1 := 2
-str fruit1 := StrSplit(data1, delimiter1, partNum1)
-; Expected: 'banana'
+str data1 = "apple,banana,cherry,date"
+str delimiter1 = ","
+int partNum1 = 2
+str fruit1 = StrSplit(data1, delimiter1, partNum1)
+// Expected: 'banana'
 print("Part " . STR(partNum1) . " of '" . data1 . "' with delimiter '" . delimiter1 . "' is: '" . fruit1 . "'")
 if (fruit1 != "banana") {
     print("StrSplit test 1 FAILED!")
 }
-; ----------------------------------------------------
-int partNum2 := 4
-str fruit2 := data1.StrSplit(delimiter1, partNum2)
-; Expected: 'date'
+// ----------------------------------------------------
+int partNum2 = 4
+str fruit2 = data1.StrSplit(delimiter1, partNum2)
+// Expected: 'date'
 print("Part " . STR(partNum2) . " is: '" . fruit2 . "'")
 if (fruit2 != "date") {
     print("StrSplit test 2 FAILED!")
 }
-; ----------------------------------------------------
-int partNum3 := 1
-str fruit3 := StrSplit(data1, delimiter1, partNum3)
-; Expected: 'apple'
+// ----------------------------------------------------
+int partNum3 = 1
+str fruit3 = StrSplit(data1, delimiter1, partNum3)
+// Expected: 'apple'
 print("Part " . STR(partNum3) . " is: '" . fruit3 . "'")
 if (fruit3 != "apple") {
     print("StrSplit test 3 FAILED!")
 }
-; ----------------------------------------------------
-; Out of bounds
-int partNum4 := 5
-str fruit4 := StrSplit(data1, delimiter1, partNum4)
-; Expected: '' (empty string)
+// ----------------------------------------------------
+// Out of bounds
+int partNum4 = 5
+str fruit4 = StrSplit(data1, delimiter1, partNum4)
+// Expected: '' (empty string)
 print("Part " . STR(partNum4) . " (out of bounds) is: '" . fruit4 . "'")
 if (fruit4 != "") {
     print("StrSplit test 4 (out of bounds) FAILED! Got: " . fruit4)
 }
-; ----------------------------------------------------
-str data2 := "one;-;two;-;three"
-str delimiter2 := ";-;"
-int partNum5 := 3
-str item5 := StrSplit(data2, delimiter2, partNum5)
-; Expected: 'three'
+// ----------------------------------------------------
+str data2 = "one;-;two;-;three"
+str delimiter2 = ";-;"
+int partNum5 = 3
+str item5 = StrSplit(data2, delimiter2, partNum5)
+// Expected: 'three'
 print("Part " . STR(partNum5) . " of '" . data2 . "' with delimiter '" . delimiter2 . "' is: '" . item5 . "'")
 if (item5 != "three") {
     print("StrSplit test 5 FAILED!")
@@ -5770,33 +5770,33 @@ Converts a string to title case, where the first letter of each word is capitali
 Here is how to use it:
 
 ```htvm
-str text1 := "hello world example"
-str title1 := StrTitleCase(text1)
-; Expected: 'Hello World Example'
+str text1 = "hello world example"
+str title1 = StrTitleCase(text1)
+// Expected: 'Hello World Example'
 print("Title case of '" . text1 . "': '" . title1 . "'")
 if (title1 != "Hello World Example") {
     print("StrTitleCase test 1 FAILED!")
 }
-; ----------------------------------------------------
-str text2 := "HTVM is AWESOME"
-str title2 := text2.StrTitleCase
-; Expected: 'Htvm Is Awesome'
+// ----------------------------------------------------
+str text2 = "HTVM is AWESOME"
+str title2 = text2.StrTitleCase
+// Expected: 'Htvm Is Awesome'
 print("Title case of '" . text2 . "': '" . title2 . "'")
 if (title2 != "Htvm Is Awesome") {
     print("StrTitleCase test 2 FAILED!")
 }
-; ----------------------------------------------------
-str text3 := "Already Title Case"
-str title3 := StrTitleCase(text3)
-; Expected: 'Already Title Case'
+// ----------------------------------------------------
+str text3 = "Already Title Case"
+str title3 = StrTitleCase(text3)
+// Expected: 'Already Title Case'
 print("Title case of '" . text3 . "': '" . title3 . "'")
 if (title3 != "Already Title Case") {
     print("StrTitleCase test 3 FAILED!")
 }
-; ----------------------------------------------------
-str text4 := " leading space"
-str title4 := StrTitleCase(text4)
-; Expected: ' Leading Space'
+// ----------------------------------------------------
+str text4 = " leading space"
+str title4 = StrTitleCase(text4)
+// Expected: ' Leading Space'
 print("Title case of '" . text4 . "': '" . title4 . "'")
 if (title4 != " Leading Space") {
     print("StrTitleCase test 4 FAILED!")
@@ -5820,35 +5820,35 @@ Removes a specified number of characters (`numChars`) from the beginning (left s
 Here is how to use it:
 
 ```htvm
-str text1 := "HelloHTVM"
-int charsToTrim1 := 5
-str result1 := StringTrimLeft(text1, charsToTrim1)
-; Expected: 'HTVM'
+str text1 = "HelloHTVM"
+int charsToTrim1 = 5
+str result1 = StringTrimLeft(text1, charsToTrim1)
+// Expected: 'HTVM'
 print("Trimming " . STR(charsToTrim1) . " chars from left of '" . text1 . "': '" . result1 . "'")
 if (result1 != "HTVM") {
     print("StringTrimLeft test 1 FAILED!")
 }
-; ----------------------------------------------------
-str text2 := "Goodbye"
-int charsToTrim2 := 3
-str result2 := text2.StringTrimLeft(charsToTrim2)
-; Expected: 'dbye'
+// ----------------------------------------------------
+str text2 = "Goodbye"
+int charsToTrim2 = 3
+str result2 = text2.StringTrimLeft(charsToTrim2)
+// Expected: 'dbye'
 print("Trimming " . STR(charsToTrim2) . " chars from left of '" . text2 . "': '" . result2 . "'")
 if (result2 != "dbye") {
     print("StringTrimLeft test 2 FAILED!")
 }
-; ----------------------------------------------------
-str text3 := "Short"
-int charsToTrim3 := 10
-; More than length
-str result3 := StringTrimLeft(text3, charsToTrim3)
-; Expected: '' (or "Short", behavior might vary)
-; For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.
+// ----------------------------------------------------
+str text3 = "Short"
+int charsToTrim3 = 10
+// More than length
+str result3 = StringTrimLeft(text3, charsToTrim3)
+// Expected: '' (or "Short", behavior might vary)
+// For HTVM, typically it results in the same string if trim count exceeds length but it depends on the implementation.
 print("Trimming " . STR(charsToTrim3) . " chars from left of '" . text3 . "': '" . result3 . "'")
-; ----------------------------------------------------
-int charsToTrim4 := 0
-str result4 := StringTrimLeft(text1, charsToTrim4)
-; Expected: 'HelloHTVM'
+// ----------------------------------------------------
+int charsToTrim4 = 0
+str result4 = StringTrimLeft(text1, charsToTrim4)
+// Expected: 'HelloHTVM'
 print("Trimming " . STR(charsToTrim4) . " chars from left of '" . text1 . "': '" . result4 . "'")
 if (result4 != "HelloHTVM") {
     print("StringTrimLeft test 4 (zero trim) FAILED!")
@@ -5872,34 +5872,34 @@ Removes a specified number of characters (`numChars`) from the end (right side) 
 Here is how to use it:
 
 ```htvm
-str text1 := "HTVMHello"
-int charsToTrim1 := 5
-str result1 := StringTrimRight(text1, charsToTrim1)
-; Expected: 'HTVM'
+str text1 = "HTVMHello"
+int charsToTrim1 = 5
+str result1 = StringTrimRight(text1, charsToTrim1)
+// Expected: 'HTVM'
 print("Trimming " . STR(charsToTrim1) . " chars from right of '" . text1 . "': '" . result1 . "'")
 if (result1 != "HTVM") {
     print("StringTrimRight test 1 FAILED!")
 }
-; ----------------------------------------------------
-str text2 := "Welcome"
-int charsToTrim2 := 3
-str result2 := text2.StringTrimRight(charsToTrim2)
-; Expected: 'Welc'
+// ----------------------------------------------------
+str text2 = "Welcome"
+int charsToTrim2 = 3
+str result2 = text2.StringTrimRight(charsToTrim2)
+// Expected: 'Welc'
 print("Trimming " . STR(charsToTrim2) . " chars from right of '" . text2 . "': '" . result2 . "'")
 if (result2 != "Welc") {
     print("StringTrimRight test 2 FAILED!")
 }
-; ----------------------------------------------------
-str text3 := "Tiny"
-int charsToTrim3 := 10
-; More than length
-str result3 := StringTrimRight(text3, charsToTrim3)
-; Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.
+// ----------------------------------------------------
+str text3 = "Tiny"
+int charsToTrim3 = 10
+// More than length
+str result3 = StringTrimRight(text3, charsToTrim3)
+// Expected: "Tiny" it will not Trim since it exceeds the character limit. But it depends on the language.
 print("Trimming " . STR(charsToTrim3) . " chars from right of '" . text3 . "': '" . result3 . "'")
-; ----------------------------------------------------
-int charsToTrim4 := 0
-str result4 := StringTrimRight(text1, charsToTrim4)
-; Expected: 'HTVMHello'
+// ----------------------------------------------------
+int charsToTrim4 = 0
+str result4 = StringTrimRight(text1, charsToTrim4)
+// Expected: 'HTVMHello'
 print("Trimming " . STR(charsToTrim4) . " chars from right of '" . text1 . "': '" . result4 . "'")
 if (result4 != "HTVMHello") {
     print("StringTrimRight test 4 (zero trim) FAILED!")
@@ -5923,52 +5923,52 @@ Extracts a substring from a string. `startPos` is the 1-based starting position.
 Here is how to use it:
 
 ```htvm
-str text := "Hello, HTVM World!"
-; ----------------------------------------------------
-; Example 1: Basic substring
-int start1 := 8
-int len1 := 4
-str sub1 := SubStr(text, start1, len1)
+str text = "Hello, HTVM World!"
+// ----------------------------------------------------
+// Example 1: Basic substring
+int start1 = 8
+int len1 = 4
+str sub1 = SubStr(text, start1, len1)
 print("SubStr('" . text . "', " . STR(start1) . ", " . STR(len1) . ") = '" . sub1 . "'")
-; Expected: 'HTVM'
+// Expected: 'HTVM'
 if (sub1 != "HTVM") {
     print("SubStr test 1 FAILED!")
 }
-; ----------------------------------------------------
-; Example 2: Substring to end
-int start2 := 13
-str sub2 := text.SubStr(start2)
+// ----------------------------------------------------
+// Example 2: Substring to end
+int start2 = 13
+str sub2 = text.SubStr(start2)
 print("SubStr('" . text . "', " . STR(start2) . ") = '" . sub2 . "'")
-; Expected: 'World!'
+// Expected: 'World!'
 if (sub2 != "World!") {
     print("SubStr test 2 FAILED!")
 }
-; ----------------------------------------------------
-; Example 3: Negative start position
-int start3 := -6
-str sub3 := SubStr(text, start3)
+// ----------------------------------------------------
+// Example 3: Negative start position
+int start3 = -6
+str sub3 = SubStr(text, start3)
 print("SubStr('" . text . "', " . STR(start3) . ") = '" . sub3 . "'")
-; Expected: 'World!'
+// Expected: 'World!'
 if (sub3 != "World!") {
     print("SubStr test 3 FAILED!")
 }
-; ----------------------------------------------------
-; Example 4: Negative start and specific length
-int start4 := -6
-int len4 := 5
-str sub4 := SubStr(text, start4, len4)
+// ----------------------------------------------------
+// Example 4: Negative start and specific length
+int start4 = -6
+int len4 = 5
+str sub4 = SubStr(text, start4, len4)
 print("SubStr('" . text . "', " . STR(start4) . ", " . STR(len4) . ") = '" . sub4 . "'")
-; Expected: 'World'
+// Expected: 'World'
 if (sub4 != "World") {
     print("SubStr test 4 FAILED!")
 }
-; ----------------------------------------------------
-; Example 5: Start position 1
-int start5 := 1
-int len5 := 5
-str sub5 := SubStr(text, start5, len5)
+// ----------------------------------------------------
+// Example 5: Start position 1
+int start5 = 1
+int len5 = 5
+str sub5 = SubStr(text, start5, len5)
 print("SubStr('" . text . "', " . STR(start5) . ", " . STR(len5) . ") = '" . sub5 . "'")
-; Expected: 'Hello'
+// Expected: 'Hello'
 if (sub5 != "Hello") {
     print("SubStr test 5 FAILED!")
 }
@@ -5991,38 +5991,38 @@ Removes all leading and trailing whitespace (spaces, tabs, newlines, etc.) from 
 Here is how to use it:
 
 ```htvm
-str text1 := "   Hello, HTVM!   "
-str trimmed1 := Trim(text1)
+str text1 = "   Hello, HTVM!   "
+str trimmed1 = Trim(text1)
 print("Original 1: '" . text1 . "'")
 print("Trimmed 1 : '" . trimmed1 . "'")
-; Expected: 'Hello, HTVM!'
+// Expected: 'Hello, HTVM!'
 if (trimmed1 != "Hello, HTVM!") {
     print("Trim test 1 FAILED! Oh noes!")
 }
-; ----------------------------------------------------
-str text2 := "`t`n  HTVM Rocks! `n`r"
-str trimmed2 := text2.Trim()
+// ----------------------------------------------------
+str text2 = "\t\n  HTVM Rocks! \n\r"
+str trimmed2 = text2.Trim()
 print("Original 2: '" . text2 . "' (has tabs/newlines)")
 print("Trimmed 2 : '" . trimmed2 . "'")
-; Expected: 'HTVM Rocks!'
+// Expected: 'HTVM Rocks!'
 if (trimmed2 != "HTVM Rocks!") {
     print("Trim test 2 FAILED! Oh noes!")
 }
-; ----------------------------------------------------
-str text3 := "   "
-str trimmed3 := text3.Trim
+// ----------------------------------------------------
+str text3 = "   "
+str trimmed3 = text3.Trim
 print("Original 3: '" . text3 . "' (only spaces)")
 print("Trimmed 3 : '" . trimmed3 . "'")
-; Expected: ''
+// Expected: ''
 if (trimmed3 != "") {
     print("Trim test 3 FAILED! Oh noes!")
 }
-; ----------------------------------------------------
-str text4 := "NoSpaces"
-str trimmed4 := Trim(text4)
+// ----------------------------------------------------
+str text4 = "NoSpaces"
+str trimmed4 = Trim(text4)
 print("Original 4: '" . text4 . "'")
 print("Trimmed 4 : '" . trimmed4 . "'")
-; Expected: 'NoSpaces'
+// Expected: 'NoSpaces'
 if (trimmed4 != "NoSpaces") {
     print("Trim test 4 FAILED! Oh noes!")
 }
@@ -6045,29 +6045,29 @@ Counts the occurrences of a specific character (`theChar`) or a substring within
 Here is how to use it:
 
 ```htvm
-str text1 := "hello world, hello htvm"
-str charToCount1 := "h"
-int count1 := countChars(text1, charToCount1)
+str text1 = "hello world, hello htvm"
+str charToCount1 = "h"
+int count1 = countChars(text1, charToCount1)
 print("Count of '" . charToCount1 . "' in '" . text1 . "' is: " . STR(count1))
-; Expected: 3
+// Expected: 3
 if (count1 != 3) {
     print("countChars test 1 (single char) FAILED! Expected 2, Got: " . STR(count1))
 }
-; ----------------------------------------------------
-str text2 := "banana"
-str charToCount2 := "a"
-int count2 := text2.countChars(charToCount2)
+// ----------------------------------------------------
+str text2 = "banana"
+str charToCount2 = "a"
+int count2 = text2.countChars(charToCount2)
 print("Count of '" . charToCount2 . "' in '" . text2 . "' is: " . STR(count2))
-; Expected: 3
+// Expected: 3
 if (count2 != 3) {
     print("countChars test 2 FAILED!")
 }
-; ----------------------------------------------------
-str text4 := "no_such_char_here"
-str charToCount4 := "z"
-int count4 := countChars(text4, charToCount4)
+// ----------------------------------------------------
+str text4 = "no_such_char_here"
+str charToCount4 = "z"
+int count4 = countChars(text4, charToCount4)
 print("Count of '" . charToCount4 . "' in '" . text4 . "' is: " . STR(count4))
-; Expected: 0
+// Expected: 0
 if (count4 != 0) {
     print("countChars test 4 FAILED!")
 }
@@ -6090,19 +6090,19 @@ if (count4 != 0) {
 Here is how to use it:
 
 ```htvm
-; This function is JavaScript-specific and relies on browser environment.
-; The example shows conceptual usage. To test, run in a browser with a URL like:
-; http://example.com?name=Alice&topic=HTVM&mode=test
-; This is not really possible to test
-; This how you might use it:
-str params := getUrlParams()
-; Expected (if URL was ?name=Alice&project=HTVM&version=2): "Alice&HTVM&2" or similar
-; Then you can do this:
-; Example
-params := "Alice&HTVM&2"
-; Loop over the params
+// This function is JavaScript-specific and relies on browser environment.
+// The example shows conceptual usage. To test, run in a browser with a URL like:
+// http://example.com?name=Alice&topic=HTVM&mode=test
+// This is not really possible to test
+// This how you might use it:
+str params = getUrlParams()
+// Expected (if URL was ?name=Alice&project=HTVM&version=2): "Alice&HTVM&2" or similar
+// Then you can do this:
+// Example
+params = "Alice&HTVM&2"
+// Loop over the params
 Loop, Parse, params, "&" {
-    ; print each value
+    // print each value
     print(A_LoopField)
 }
 ```
@@ -6124,9 +6124,9 @@ Sorts an array of strings in ascending order. It typically removes duplicate val
 Here is how to use it:
 
 ```htvm
-arr str unsortedArr1 := ["Charlie", "Alpha", "Bravo", "alpha"]
+arr str unsortedArr1 = ["Charlie", "Alpha", "Bravo", "alpha"]
 arr str sortedArr1
-sortedArr1 := sortArr(unsortedArr1)
+sortedArr1 = sortArr(unsortedArr1)
 print("Original Array 1: ")
 Loop, % unsortedArr1.size() {
     print("  " . unsortedArr1[A_Index])
@@ -6135,16 +6135,16 @@ print("Sorted Unique Array 1: ")
 Loop, % sortedArr1.size() {
     print("  " . sortedArr1[A_Index])
 }
-; Expected (case-sensitive): ["Alpha", "Bravo", "Charlie", "alpha"]
+// Expected (case-sensitive): ["Alpha", "Bravo", "Charlie", "alpha"]
 if (sortedArr1.size() != 4 or sortedArr1[0] != "Alpha" or sortedArr1[1] != "Bravo" or sortedArr1[2] != "Charlie" or sortedArr1[3] != "alpha") {
     print("sortArr test 1 FAILED!")
 }
-; ----------------------------------------------------
+// ----------------------------------------------------
 print("--------------------")
-arr str unsortedArr2 := ["10", "2", "100", "1", "2"]
+arr str unsortedArr2 = ["10", "2", "100", "1", "2"]
 arr str sortedArr2
-sortedArr2 := unsortedArr2.sortArr()
-; Alternative call
+sortedArr2 = unsortedArr2.sortArr()
+// Alternative call
 print("Original Array 2: ")
 Loop, % unsortedArr2.size() {
     print("  " . unsortedArr2[A_Index])
@@ -6153,7 +6153,7 @@ print("Sorted Unique Array 2 (lexicographical): ")
 Loop, % sortedArr2.size() {
     print("  " . sortedArr2[A_Index])
 }
-; Expected (lexicographical, unique): ["1", "10", "100", "2"]
+// Expected (lexicographical, unique): ["1", "10", "100", "2"]
 if (sortedArr2.size() != 4 or sortedArr2[0] != "1" or sortedArr2[1] != "10" or sortedArr2[2] != "100" or sortedArr2[3] != "2") {
     print("sortArr test 2 FAILED!")
 }
@@ -6176,10 +6176,10 @@ Sorts an array of strings primarily by their length in descending order (longest
 Here is how to use it:
 
 ```htvm
-arr str arr1 := ["a", "bb", "ccc", "dddd", "eeeee"]
-; Should already be sorted by length descending
+arr str arr1 = ["a", "bb", "ccc", "dddd", "eeeee"]
+// Should already be sorted by length descending
 arr str sorted1
-sorted1 := sortArrByLenOnly(arr1)
+sorted1 = sortArrByLenOnly(arr1)
 print("Original Array 1: eeeee, dddd, ccc, bb, a")
 print("Sorted by Length Desc 1: ")
 Loop, % sorted1.size() {
@@ -6188,19 +6188,19 @@ Loop, % sorted1.size() {
 if (sorted1[0] != "eeeee" or sorted1[4] != "a") {
     print("sortArrByLenOnly test 1 FAILED!")
 }
-; ----------------------------------------------------
+// ----------------------------------------------------
 print("--------------------")
-arr str arr2 := ["short", "longer_word", "tiny", "very_long_length"]
+arr str arr2 = ["short", "longer_word", "tiny", "very_long_length"]
 arr str sorted2
-sorted2 := arr2.sortArrByLenOnly()
+sorted2 = arr2.sortArrByLenOnly()
 print("Original Array 2: short, longer_word, tiny, very_long_length")
 print("Sorted by Length Desc 2: ")
 Loop, % sorted2.size() {
     print("  " . sorted2[A_Index])
 }
-; Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)
-str expectedOrderStart := "very_long_length"
-str expectedOrderEnd := "tiny"
+// Expected: very_long_length, longer_word, short, tiny (order of same-length items may vary but probably alphabetically)
+str expectedOrderStart = "very_long_length"
+str expectedOrderEnd = "tiny"
 if (sorted2[0] != expectedOrderStart or sorted2[3] != expectedOrderEnd) {
     print("sortArrByLenOnly test 2 FAILED! Check start/end elements.")
 }
@@ -6247,62 +6247,62 @@ Retrieves various system-related, time-related, or environment-specific built-in
 Here is how to use it:
 
 ```htvm
-; ==== Built-in Variables for BuildInVars() ====
-; A_ScreenWidth  - Width of the window screen (browser only)
-; A_ScreenHeight - Height of the window screen (browser only)
-; A_LastKey      - Last key pressed by the user (browser only)
-; A_TimeIdle     - Time the user has been idle (in ms or seconds)
-; A_TickCount    - Current tick count (ms since the start)
-; A_Now          - Local datetime string (full, locale-based)
-; A_YYYY         - 4-digit current year
-; A_MM           - 2-digit current month (01–12)
-; A_DD           - 2-digit current day of month (01–31)
-; A_MMMM         - Full month name (e.g. January)
-; A_MMM          - Abbreviated month name (e.g. Jan)
-; A_DDDD         - Full day name (e.g. Monday)
-; A_DDD          - Abbreviated day name (e.g. Mon)
-; A_Hour         - Current hour (00–23)
-; A_Min          - Current minute (00–59)
-; A_Sec          - Current second (00–59)
-; A_Space        - Space character (" ")
-; A_Tab          - Tab character ("\t")
-; ==========================================================
-; Some behavior may vary depending on the target language!!!
-; Make sure to test your code thoroughly!!!
-; ==========================================================
-; Examples:
-str currentYear := BuildInVars("A_YYYY")
+// ==== Built-in Variables for BuildInVars() ====
+// A_ScreenWidth  - Width of the window screen (browser only)
+// A_ScreenHeight - Height of the window screen (browser only)
+// A_LastKey      - Last key pressed by the user (browser only)
+// A_TimeIdle     - Time the user has been idle (in ms or seconds)
+// A_TickCount    - Current tick count (ms since the start)
+// A_Now          - Local datetime string (full, locale-based)
+// A_YYYY         - 4-digit current year
+// A_MM           - 2-digit current month (01–12)
+// A_DD           - 2-digit current day of month (01–31)
+// A_MMMM         - Full month name (e.g. January)
+// A_MMM          - Abbreviated month name (e.g. Jan)
+// A_DDDD         - Full day name (e.g. Monday)
+// A_DDD          - Abbreviated day name (e.g. Mon)
+// A_Hour         - Current hour (00–23)
+// A_Min          - Current minute (00–59)
+// A_Sec          - Current second (00–59)
+// A_Space        - Space character (" ")
+// A_Tab          - Tab character ("\t")
+// ==========================================================
+// Some behavior may vary depending on the target language!!!
+// Make sure to test your code thoroughly!!!
+// ==========================================================
+// Examples:
+str currentYear = BuildInVars("A_YYYY")
 print("Current Year (A_YYYY): " . currentYear)
-; ----------------------------------------------------
-str currentMonth := BuildInVars("A_MMMM")
+// ----------------------------------------------------
+str currentMonth = BuildInVars("A_MMMM")
 print("Current Month (A_MMMM): " . currentMonth)
 if (StrLen(currentMonth) < 3) {
     print("BuildInVars A_MMMM test FAILED! Month name too short.")
 }
-; ----------------------------------------------------
-str tabChar := BuildInVars("A_Tab")
+// ----------------------------------------------------
+str tabChar = BuildInVars("A_Tab")
 print("Space char (A_Tab): '" . tabChar . "'")
-; ----------------------------------------------------
-; Browser-specific example (will return empty or error in non-browser environments)
-str screenWidth := BuildInVars("A_ScreenWidth")
+// ----------------------------------------------------
+// Browser-specific example (will return empty or error in non-browser environments)
+str screenWidth = BuildInVars("A_ScreenWidth")
 print("Screen Width (A_ScreenWidth): " . screenWidth)
-if (HTVM_getLang_HTVM() = "js" and screenWidth = "") {
+if (HTVM_getLang_HTVM() == "js" and screenWidth == "") {
     print("BuildInVars A_ScreenWidth test needs a browser!")
 }
-; ----------------------------------------------------
-str tickCount1 := BuildInVars("A_TickCount")
+// ----------------------------------------------------
+str tickCount1 = BuildInVars("A_TickCount")
 print("TickCount 1: " . STR(tickCount1))
 await Sleep(100)
-str tickCount2 := BuildInVars("A_TickCount")
+str tickCount2 = BuildInVars("A_TickCount")
 print("TickCount 2 (after 100ms sleep): " . STR(tickCount2))
-; This will never be perfectly 100 because:
-; 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.
-; 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).
-; 3. Some overhead is added due to:
-;    - Executing BuildInVars("A_TickCount") before and after.
-;    - Interpreter/runtime processing.
-;    - Internal event loop mechanics if async is involved.
-; 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).
+// This will never be perfectly 100 because:
+// 1. Awaiting Sleep(100) requests a **minimum** delay of 100ms, not an exact one.
+// 2. The actual sleep time depends on the timing resolution of the environment or runtime (e.g. JavaScript timers, OS scheduler).
+// 3. Some overhead is added due to:
+//    - Executing BuildInVars("A_TickCount") before and after.
+//    - Interpreter/runtime processing.
+//    - Internal event loop mechanics if async is involved.
+// 4. On some systems or browsers, sleep may overshoot significantly (e.g. 101–130ms).
 if (INT(tickCount2) <= INT(tickCount1)) {
     print("BuildInVars A_TickCount test FAILED! Ticks did not increase.")
 }
@@ -6326,20 +6326,20 @@ Here is how to use it:
 
 ```htvm
 print("Program is starting...")
-; Set to true to test, false to continue
-bool shouldExit := true
-if (shouldExit = true) {
+// Set to true to test, false to continue
+bool shouldExit = true
+if (shouldExit == true) {
     print("Preparing to exit...")
-    ; Note: The following line will only execute if ExitApp is NOT called or is unavailable.
-    ; In a successful ExitApp call, "This line should not print..." will not appear.
-    if (HTVM_getLang_HTVM() = "js") {
-        ; ExitApp not typically available in a browser
+    // Note: The following line will only execute if ExitApp is NOT called or is unavailable.
+    // In a successful ExitApp call, "This line should not print..." will not appear.
+    if (HTVM_getLang_HTVM() == "js") {
+        // ExitApp not typically available in a browser
         print("ExitApp is not available in this JavaScript environment. Skipping exit.")
     }
     else {
         print("Calling ExitApp()...")
         ExitApp()
-        ; Test assertion
+        // Test assertion
         print("This line SHOULD NOT PRINT if ExitApp worked!")
     }
 }
@@ -6363,22 +6363,22 @@ Returns a string indicating the current target language HTVM is configured to tr
 Here is how to use it:
 
 ```htvm
-str currentLang := HTVM_getLang_HTVM()
+str currentLang = HTVM_getLang_HTVM()
 print("Current HTVM target language is: " . currentLang)
-if (currentLang = "js") {
+if (currentLang == "js") {
     print("This code is specific to JavaScript.")
 }
-else if (currentLang = "py") {
+else if (currentLang == "py") {
     print("This part runs if the target is Python.")
 }
-else if (currentLang = "cpp") {
+else if (currentLang == "cpp") {
     print("C++ specific logic here.")
 }
 else {
     print("Running in or targeting another language: " . currentLang)
 }
-; Test: The function should return a non-empty string.
-if (StrLen(currentLang) = 0) {
+// Test: The function should return a non-empty string.
+if (StrLen(currentLang) == 0) {
     print("HTVM_getLang_HTVM test FAILED! Returned empty string.")
 }
 else {
@@ -6404,24 +6404,24 @@ Here is how to use it:
 
 ```htvm
 print("Starting sleep test...")
-str startTime := BuildInVars("A_TickCount")
+str startTime = BuildInVars("A_TickCount")
 print("Start TickCount: " . STR(startTime))
-; Sleep for 1 second (1000 milliseconds)
-int duration := 1000
+// Sleep for 1 second (1000 milliseconds)
+int duration = 1000
 await Sleep(duration)
-str endTime := BuildInVars("A_TickCount")
+str endTime = BuildInVars("A_TickCount")
 print("End TickCount: " . STR(endTime))
-int elapsed := INT(endTime) - INT(startTime)
+int elapsed = INT(endTime) - INT(startTime)
 print("Elapsed time: " . STR(elapsed) . " ms")
-; Test if elapsed time is approximately the sleep duration
-; Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)
+// Test if elapsed time is approximately the sleep duration
+// Allow for some overhead (e.g., +/- 200ms for system timing inaccuracies)
 if (elapsed >= (duration - 200) and elapsed <= (duration + 2000)) {
     print("Sleep test PASSED! (Elapsed time is close to " . STR(duration) . "ms)")
 }
 else {
     print("Sleep test FAILED! Elapsed: " . STR(elapsed) . "ms, Expected around: " . STR(duration) . "ms")
 }
-; ----------------------------------------------------
+// ----------------------------------------------------
 print("--- Another sleep for 500ms ---")
 await Sleep(500)
 print("Woke up after 500ms.")
@@ -6474,38 +6474,38 @@ Appends `content` (string) to a file specified by `path` (string). Creates the f
 Here is how to use it:
 
 ```htvm
-; This example assumes a non-browser environment where file system access is permitted.
-str filePath := "test_append.txt"
-str content1 := "First line for test_append.txt`n"
-bool success1 := FileAppend(content1, filePath)
+// This example assumes a non-browser environment where file system access is permitted.
+str filePath = "test_append.txt"
+str content1 = "First line for test_append.txt\n"
+bool success1 = FileAppend(content1, filePath)
 print("Append 1 to '" . filePath . "' success: " . STR(success1))
-if (success1 = false and HTVM_getLang_HTVM() != "js") {
+if (success1 == false and HTVM_getLang_HTVM() != "js") {
     print("FileAppend test 1 FAILED!")
 }
-; ----------------------------------------------------
-str content2 := "Second line, appended.`n"
-bool success2 := FileAppend(content2, filePath)
+// ----------------------------------------------------
+str content2 = "Second line, appended.\n"
+bool success2 = FileAppend(content2, filePath)
 print("Append 2 to '" . filePath . "' success: " . STR(success2))
-if (success2 = false and HTVM_getLang_HTVM() != "js") {
+if (success2 == false and HTVM_getLang_HTVM() != "js") {
     print("FileAppend test 2 FAILED!")
 }
-; ----------------------------------------------------
-; Optionally, read back and verify (if FileRead is available and working)
-if (FileExist(filePath) = true and HTVM_getLang_HTVM() != "js") {
-    str fileContent := FileRead(filePath)
-    print("Content of '" . filePath . "':`n" . fileContent)
-    str expectedContent := content1 . content2
+// ----------------------------------------------------
+// Optionally, read back and verify (if FileRead is available and working)
+if (FileExist(filePath) == true and HTVM_getLang_HTVM() != "js") {
+    str fileContent = FileRead(filePath)
+    print("Content of '" . filePath . "':\n" . fileContent)
+    str expectedContent = content1 . content2
     if (Trim(fileContent) != Trim(expectedContent)) {
         print("FileAppend content verification FAILED!")
     }
     else {
         print("FileAppend content verification PASSED.")
     }
-    ; Clean up the test file
+    // Clean up the test file
     FileDelete(filePath)
     print("Test file '" . filePath . "' deleted.")
 }
-else if (HTVM_getLang_HTVM() = "js") {
+else if (HTVM_getLang_HTVM() == "js") {
     print("FileAppend is not available in standard JS. Use FileAppendJs for browser downloads.")
 }
 ```
@@ -6527,15 +6527,15 @@ else if (HTVM_getLang_HTVM() = "js") {
 Here is how to use it:
 
 ```htvm
-; This function is specific to JavaScript running in a web browser.
-if (HTVM_getLang_HTVM() = "js") {
+// This function is specific to JavaScript running in a web browser.
+if (HTVM_getLang_HTVM() == "js") {
     print("Attempting to trigger download using FileAppendJs...")
-    str fileContent := "This is content for the downloaded file.`n"
-    str fileName := "downloaded_by_htvm.txt"
+    str fileContent = "This is content for the downloaded file.\n"
+    str fileName = "downloaded_by_htvm.txt"
     FileAppendJs(fileContent, fileName)
     print("FileAppendJs called. If in a browser, a download for '" . fileName . "' should have started.")
     print("Note: This is a 'save as' operation, not a true append to an existing local file.")
-    ; No direct way to "test" success other than observing browser behavior.
+    // No direct way to "test" success other than observing browser behavior.
 }
 else {
     print("FileAppendJs is only for JavaScript browser environments. Skipping test.")
@@ -6559,19 +6559,19 @@ Creates a new directory specified by `path` (string). If the directory already e
 Here is how to use it:
 
 ```htvm
-; This example assumes a non-browser environment.
-str dirPath := "test_htvm_dir"
+// This example assumes a non-browser environment.
+str dirPath = "test_htvm_dir"
 print("Attempting to create directory: '" . dirPath . "'")
-if (HTVM_getLang_HTVM() = "js") {
+if (HTVM_getLang_HTVM() == "js") {
     print("FileCreateDir is not available in standard JS. Skipping test.")
 }
 else {
     FileCreateDir(dirPath)
-    if (FileExist(dirPath) = true) {
+    if (FileExist(dirPath) == true) {
         print("Directory '" . dirPath . "' created or already existed. PASSED.")
-        ; Clean up
+        // Clean up
         FileRemoveDir(dirPath)
-        if (FileExist(dirPath) = false) {
+        if (FileExist(dirPath) == false) {
             print("Test directory '" . dirPath . "' cleaned up successfully.")
         }
         else {
@@ -6581,16 +6581,16 @@ else {
     else {
         print("FileCreateDir test FAILED! Directory not found after creation attempt.")
     }
-    ; ----------------------------------------------------
-    str nestedDirPath := "parent_dir/child_dir"
+    // ----------------------------------------------------
+    str nestedDirPath = "parent_dir/child_dir"
     print("Attempting to create nested directory: '" . nestedDirPath . "'")
-    ; Behavior for non-existent 'parent_dir' varies.
+    // Behavior for non-existent 'parent_dir' varies.
     FileCreateDir(nestedDirPath)
-    if (FileExist(nestedDirPath) = true) {
+    if (FileExist(nestedDirPath) == true) {
         print("Nested directory '" . nestedDirPath . "' creation attempt finished. Check if it exists.")
-        ; Try to clean up child
+        // Try to clean up child
         FileRemoveDir(nestedDirPath)
-        ; Try to clean up parent
+        // Try to clean up parent
         FileRemoveDir("parent_dir")
     }
     else {
@@ -6616,19 +6616,19 @@ Deletes a file specified by `path` (string). Returns a boolean indicating succes
 Here is how to use it:
 
 ```htvm
-; This example assumes a non-browser environment.
-str filePath := "file_to_delete.txt"
-if (HTVM_getLang_HTVM() = "js") {
+// This example assumes a non-browser environment.
+str filePath = "file_to_delete.txt"
+if (HTVM_getLang_HTVM() == "js") {
     print("FileDelete is not available in standard JS. Skipping test.")
 }
 else {
-    ; Create a dummy file to delete
+    // Create a dummy file to delete
     FileAppend("Temporary content.", filePath)
-    if (FileExist(filePath) = true) {
+    if (FileExist(filePath) == true) {
         print("Dummy file '" . filePath . "' created for deletion test.")
-        bool deleteSuccess := FileDelete(filePath)
+        bool deleteSuccess = FileDelete(filePath)
         print("Deletion of '" . filePath . "' success: " . STR(deleteSuccess))
-        if (deleteSuccess = true and FileExist(filePath) = false) {
+        if (deleteSuccess == true and FileExist(filePath) == false) {
             print("FileDelete test PASSED.")
         }
         else {
@@ -6638,11 +6638,11 @@ else {
     else {
         print("Could not create dummy file for FileDelete test.")
     }
-    ; Test deleting a non-existent file
-    str nonExistentFile := "surely_this_does_not_exist.txt"
-    bool deleteNonExistentSuccess := FileDelete(nonExistentFile)
+    // Test deleting a non-existent file
+    str nonExistentFile = "surely_this_does_not_exist.txt"
+    bool deleteNonExistentSuccess = FileDelete(nonExistentFile)
     print("Attempting to delete non-existent file '" . nonExistentFile . "'. Success: " . STR(deleteNonExistentSuccess))
-    if (deleteNonExistentSuccess = false) {
+    if (deleteNonExistentSuccess == false) {
         print("FileDelete non-existent file test PASSED (reported failure as expected).")
     }
     else {
@@ -6668,48 +6668,48 @@ Checks if a file or directory exists at the specified `path` (string). Returns `
 Here is how to use it:
 
 ```htvm
-; This example assumes a non-browser environment.
-; Placeholder, will attempt to use the script's own file if GetParams works.
-str nonExistentPath := "this_path_should_not_exist_12345.xyz"
-if (HTVM_getLang_HTVM() = "js") {
+// This example assumes a non-browser environment.
+// Placeholder, will attempt to use the script's own file if GetParams works.
+str nonExistentPath = "this_path_should_not_exist_12345.xyz"
+if (HTVM_getLang_HTVM() == "js") {
     print("FileExist is not available in standard JS. Skipping test.")
 }
 else {
-    ; Try to get path of the current script or a known file for a positive test
-    ; This part is a bit tricky without knowing the execution context.
-    ; For a simple test, we'll create and check a temporary file.
-    str tempFileForExistTest := "temp_exist_test.txt"
+    // Try to get path of the current script or a known file for a positive test
+    // This part is a bit tricky without knowing the execution context.
+    // For a simple test, we'll create and check a temporary file.
+    str tempFileForExistTest = "temp_exist_test.txt"
     FileAppend("check", tempFileForExistTest)
-    bool check1 := FileExist(tempFileForExistTest)
+    bool check1 = FileExist(tempFileForExistTest)
     print("FileExist('" . tempFileForExistTest . "') = " . STR(check1))
-    if (check1 = true) {
+    if (check1 == true) {
         print("FileExist test 1 (existing file) PASSED.")
     }
     else {
         print("FileExist test 1 (existing file) FAILED!")
     }
-    ; Cleanup
+    // Cleanup
     FileDelete(tempFileForExistTest)
-    bool check2 := FileExist(nonExistentPath)
+    bool check2 = FileExist(nonExistentPath)
     print("FileExist('" . nonExistentPath . "') = " . STR(check2))
-    if (check2 = false) {
+    if (check2 == false) {
         print("FileExist test 2 (non-existent path) PASSED.")
     }
     else {
         print("FileExist test 2 (non-existent path) FAILED!")
     }
-    ; Test with a directory
-    str tempDirForExistTest := "temp_dir_exist_test"
+    // Test with a directory
+    str tempDirForExistTest = "temp_dir_exist_test"
     FileCreateDir(tempDirForExistTest)
-    bool check3 := FileExist(tempDirForExistTest)
+    bool check3 = FileExist(tempDirForExistTest)
     print("FileExist('" . tempDirForExistTest . "' as directory) = " . STR(check3))
-    if (check3 = true) {
+    if (check3 == true) {
         print("FileExist test 3 (existing directory) PASSED.")
     }
     else {
         print("FileExist test 3 (existing directory) FAILED!")
     }
-    ; Cleanup
+    // Cleanup
     FileRemoveDir(tempDirForExistTest)
 }
 ```
@@ -6731,23 +6731,23 @@ Reads the entire content of a file specified by `path` (string) and returns it a
 Here is how to use it:
 
 ```htvm
-; This example assumes a non-browser environment.
-str filePath := "test_read_file.txt"
-str fileContentToWrite := "Hello from HTVM FileRead test!`nLine 2."
-if (HTVM_getLang_HTVM() = "js") {
+// This example assumes a non-browser environment.
+str filePath = "test_read_file.txt"
+str fileContentToWrite = "Hello from HTVM FileRead test!\nLine 2."
+if (HTVM_getLang_HTVM() == "js") {
     print("FileRead is not available in standard JS. Skipping test.")
 }
 else {
-    ; Create a file with known content
+    // Create a file with known content
     FileAppend(fileContentToWrite, filePath)
-    if (FileExist(filePath) = true) {
+    if (FileExist(filePath) == true) {
         print("Test file '" . filePath . "' created with content.")
-        str readContent := FileRead(filePath)
-        print("Content read from '" . filePath . "':`n" . readContent)
-        ; Normalize newlines for comparison as different OS might handle them differently.
-        str normalizedRead := StrReplace(Trim(readContent), "`r`n", "`n")
-        str normalizedExpected := StrReplace(Trim(fileContentToWrite), "`r`n", "`n")
-        if (normalizedRead = normalizedExpected) {
+        str readContent = FileRead(filePath)
+        print("Content read from '" . filePath . "':\n" . readContent)
+        // Normalize newlines for comparison as different OS might handle them differently.
+        str normalizedRead = StrReplace(Trim(readContent), "\r\n", "\n")
+        str normalizedExpected = StrReplace(Trim(fileContentToWrite), "\r\n", "\n")
+        if (normalizedRead == normalizedExpected) {
             print("FileRead test PASSED.")
         }
         else {
@@ -6755,7 +6755,7 @@ else {
             print("Expected: '" . normalizedExpected . "'")
             print("Got     : '" . normalizedRead . "'")
         }
-        ; Cleanup
+        // Cleanup
         FileDelete(filePath)
     }
     else {
@@ -6781,18 +6781,18 @@ Removes a directory specified by `path` (string). If the directory contains file
 Here is how to use it:
 
 ```htvm
-; This example assumes a non-browser environment.
-str dirPath := "dir_to_remove"
-if (HTVM_getLang_HTVM() = "js") {
+// This example assumes a non-browser environment.
+str dirPath = "dir_to_remove"
+if (HTVM_getLang_HTVM() == "js") {
     print("FileRemoveDir is not available in standard JS. Skipping test.")
 }
 else {
-    ; Test 1: Remove an empty directory
+    // Test 1: Remove an empty directory
     FileCreateDir(dirPath)
-    if (FileExist(dirPath) = true) {
+    if (FileExist(dirPath) == true) {
         print("Directory '" . dirPath . "' created for removal test.")
         FileRemoveDir(dirPath)
-        if (FileExist(dirPath) = false) {
+        if (FileExist(dirPath) == false) {
             print("FileRemoveDir test 1 (empty dir) PASSED.")
         }
         else {
@@ -6803,21 +6803,21 @@ else {
         print("Could not create directory for FileRemoveDir test 1.")
     }
     print("--------------------")
-    ; Test 2: Attempt to remove a directory that might have content (behavior can vary)
-    str nestedDirPath := "parent_for_remove/child_for_remove"
-    ; Creates parent/child potentially
+    // Test 2: Attempt to remove a directory that might have content (behavior can vary)
+    str nestedDirPath = "parent_for_remove/child_for_remove"
+    // Creates parent/child potentially
     FileCreateDir(nestedDirPath)
     FileAppend("dummy", nestedDirPath . "/file.txt")
-    if (FileExist(nestedDirPath) = true) {
+    if (FileExist(nestedDirPath) == true) {
         print("Nested directory with file created: '" . nestedDirPath . "'")
-        ; Attempt to remove parent
+        // Attempt to remove parent
         FileRemoveDir("parent_for_remove")
-        if (FileExist("parent_for_remove") = false) {
+        if (FileExist("parent_for_remove") == false) {
             print("FileRemoveDir test 2 (potentially non-empty parent) PASSED (removed).")
         }
         else {
             print("FileRemoveDir test 2 (potentially non-empty parent) FAILED or partially failed. Check if 'parent_for_remove' still exists.")
-            ; Cleanup if needed and possible
+            // Cleanup if needed and possible
             FileRemoveDir(nestedDirPath)
             FileRemoveDir("parent_for_remove")
         }
@@ -6871,35 +6871,35 @@ Retrieves command-line arguments passed to the script. Returns them as a single 
 Here is how to use it:
 
 ```htvm
-; This function's output depends on how the script is executed with command-line arguments.
-; For testing, you would run the compiled HTVM script like:
-; (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt
-str allParams := ""
-if (HTVM_getLang_HTVM() = "js") {
+// This function's output depends on how the script is executed with command-line arguments.
+// For testing, you would run the compiled HTVM script like:
+// (e.g., if Python) python your_script.py arg1 "argument two" path/to/a/file.txt
+str allParams = ""
+if (HTVM_getLang_HTVM() == "js") {
     print("GetParams is typically not applicable in standard JS browser environments. Skipping direct test.")
 }
 else {
     print("Retrieving command line parameters...")
-    allParams := GetParams()
-    if (allParams = "") {
+    allParams = GetParams()
+    if (allParams == "") {
         print("No command line parameters were provided to the script, or function not fully supported in this context.")
     }
     else {
         print("Command Line Parameters Received:")
         print(allParams)
         print("--- End of Parameters ---")
-        ; A simple "test" is to check if it returned something if args were expected.
-        ; This requires manual verification by running with args.
+        // A simple "test" is to check if it returned something if args were expected.
+        // This requires manual verification by running with args.
         print("GetParams test: Review the output above. If you passed arguments, they should appear here.")
     }
 }
-; Example of how you might parse it in HTVM if it returns newline-separated args:
+// Example of how you might parse it in HTVM if it returns newline-separated args:
 arr str paramsArray
 if (allParams != "") {
-    Loop, Parse, allParams, `n, `r {
+    Loop, Parse, allParams, \n, \r {
         print("Param " . STR(A_Index + 1) . ": " . A_LoopField)
         if (A_LoopField != "") {
-            paramsArray.add(A_LoopField)
+            paramsArray.push(A_LoopField)
         }
     }
     print("Parsed first param (if any): " . paramsArray[0])
@@ -6923,32 +6923,32 @@ Executes a system command (shell command) and returns its standard output as a s
 Here is how to use it:
 
 ```htvm
-; This function is highly dependent on the OS and environment.
-; Not available in browser JS.
-str command := ""
-if (HTVM_getLang_HTVM() = "js") {
+// This function is highly dependent on the OS and environment.
+// Not available in browser JS.
+str command = ""
+if (HTVM_getLang_HTVM() == "js") {
     print("RunCMD is not available in standard JS browser environments. Skipping test.")
 }
 else {
-    command := ""
-    ; Assuming isWindows() built-in exists and works
-    bool isWin := isWindows()
-    if (isWin = true) {
-        command := "echo Hello from HTVM on Windows"
+    command = ""
+    // Assuming isWindows() built-in exists and works
+    bool isWin = isWindows()
+    if (isWin == true) {
+        command = "echo Hello from HTVM on Windows"
     }
     else {
-        ; Single quotes for Unix echo
-        command := "echo Hello from HTVM on Unix-like"
+        // Single quotes for Unix echo
+        command = "echo Hello from HTVM on Unix-like"
     }
     print("Executing command: " . command)
-    str output := RunCMD(command)
+    str output = RunCMD(command)
     print("Output from command:")
-    ; Trim to remove trailing newline from echo
+    // Trim to remove trailing newline from echo
     print(Trim(output))
-    if (isWin = true and Trim(output) = "Hello from HTVM on Windows") {
+    if (isWin == true and Trim(output) == "Hello from HTVM on Windows") {
         print("RunCMD test (Windows echo) PASSED.")
     }
-    else if (isWin = false and Trim(output) = "Hello from HTVM on Unix-like") {
+    else if (isWin == false and Trim(output) == "Hello from HTVM on Unix-like") {
         print("RunCMD test (Unix echo) PASSED.")
     }
     else if (command != "") {
@@ -6957,17 +6957,17 @@ else {
     else {
         print("RunCMD test skipped as command was empty.")
     }
-    ; Example of a command that might list files (OS-dependent)
-    str listCommand := ""
-    if (isWin = true) {
-        listCommand := "dir /b"
+    // Example of a command that might list files (OS-dependent)
+    str listCommand = ""
+    if (isWin == true) {
+        listCommand = "dir /b"
     }
     else {
-        listCommand := "ls -a"
+        listCommand = "ls -a"
     }
     print("---")
     print("Attempting to list files with: " . listCommand)
-    str fileListOutput := RunCMD(listCommand)
+    str fileListOutput = RunCMD(listCommand)
     print("File list output (first 200 chars): " . SubStr(fileListOutput, 1, 200) . "...")
     if (StrLen(fileListOutput) > 0) {
         print("RunCMD (list files) seems to have executed and produced output.")
@@ -6995,16 +6995,16 @@ Asynchronously fetches data from a given `url` (string). It's typically used for
 Here is how to use it:
 
 ```htvm
-; This function is asynchronous.
+// This function is asynchronous.
 async func void performApiCall() {
-    ; Public test API
-    str apiUrl := "https://jsonplaceholder.typicode.com/todos/1"
+    // Public test API
+    str apiUrl = "https://jsonplaceholder.typicode.com/todos/1"
     print("Fetching data from: " . apiUrl)
-    ; In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),
-    ; you might need an 'await' keyword if HTVM supports it directly for this function,
-    ; or handle it via callbacks/promises depending on the target language details.
-    ; For this example, we'll assume direct await is possible or handled by HTVM.
-    str responseData := await getDataFromAPI(apiUrl)
+    // In HTVM, if the function is async (like getDataFromAPI often is for JS/Python),
+    // you might need an 'await' keyword if HTVM supports it directly for this function,
+    // or handle it via callbacks/promises depending on the target language details.
+    // For this example, we'll assume direct await is possible or handled by HTVM.
+    str responseData = await getDataFromAPI(apiUrl)
     if (responseData != "") {
         print("API Response Data (raw):")
         print(responseData)
@@ -7032,12 +7032,12 @@ Here is how to use it:
 
 ```htvm
 print("Starting input test...")
-str namePrompt := "Please enter your name: "
-str userName := input(namePrompt)
+str namePrompt = "Please enter your name: "
+str userName = input(namePrompt)
 if (userName != "") {
     print("Hello, " . userName . "! You entered: '" . userName . "'")
-    ; Simple check
-    if (userName = "TestUser") {
+    // Simple check
+    if (userName == "TestUser") {
         print("Input test with 'TestUser' PASSED.")
     }
     else {
@@ -7046,20 +7046,20 @@ if (userName != "") {
 }
 else {
     print("No input received or input was empty.")
-    ; Specifically empty
-    if (userName = "") {
+    // Specifically empty
+    if (userName == "") {
         print("Input test (empty input) PASSED observation.")
     }
     else {
         print("Input test (empty input) FAILED observation, unexpected value for empty input.")
     }
 }
-; ------------------------------------------------
-str agePrompt := "Enter your age: "
-str ageStr := input(agePrompt)
+// ------------------------------------------------
+str agePrompt = "Enter your age: "
+str ageStr = input(agePrompt)
 if (ageStr != "") {
-    ; Assuming INT() can handle conversion
-    int ageNum := INT(ageStr)
+    // Assuming INT() can handle conversion
+    int ageNum = INT(ageStr)
     print("You entered age: " . STR(ageNum))
     if (ageNum > 0) {
         print("Age input seems valid.")
@@ -7087,46 +7087,46 @@ The `print` function is a versatile utility for outputting data to the standard 
 Here is how to use it:
 
 ```htvm
-; Example 1: Printing a string
-str message := "Hello, HTVM!"
-; Should print: Hello, HTVM!
+// Example 1: Printing a string
+str message = "Hello, HTVM!"
+// Should print: Hello, HTVM!
 print(message)
 print("--------------------")
-; ----------------------------------------------------
-; Example 2: Printing an integer
-int count := 100
-; Should print: 100
+// ----------------------------------------------------
+// Example 2: Printing an integer
+int count = 100
+// Should print: 100
 print(count)
 print("--------------------")
-; ----------------------------------------------------
-; Example 3: Printing a float
-float piApprox := 3.14159
-; Should print: 3.14159
+// ----------------------------------------------------
+// Example 3: Printing a float
+float piApprox = 3.14159
+// Should print: 3.14159
 print(piApprox)
 print("--------------------")
-; ----------------------------------------------------
-; Example 4: Printing a boolean (true)
-bool isActive := true
-; Should print: 1 (or true, depending on language)
+// ----------------------------------------------------
+// Example 4: Printing a boolean (true)
+bool isActive = true
+// Should print: 1 (or true, depending on language)
 print(isActive)
 print("--------------------")
-; ----------------------------------------------------
-; Example 5: Printing a boolean (false)
-bool isDone := false
-; Should print: 0 (or false, depending on language)
+// ----------------------------------------------------
+// Example 5: Printing a boolean (false)
+bool isDone = false
+// Should print: 0 (or false, depending on language)
 print(isDone)
 print("--------------------")
-; ----------------------------------------------------
-; Example 6: Printing concatenated string and number
-str label := "Score: "
-int score := 42
-; Should print: Score: 42
+// ----------------------------------------------------
+// Example 6: Printing concatenated string and number
+str label = "Score: "
+int score = 42
+// Should print: Score: 42
 print(label . STR(score))
 print("--------------------")
-; ----------------------------------------------------
-; Test: Printing a null-like value (if HTVM has 'null' keyword and print handles it)
-str nullVar := null
-; Behavior for null depends on language (e.g. "null", "", error)
+// ----------------------------------------------------
+// Test: Printing a null-like value (if HTVM has 'null' keyword and print handles it)
+str nullVar = null
+// Behavior for null depends on language (e.g. "null", "", error)
 print(nullVar)
 ```
 
@@ -7167,52 +7167,52 @@ print(nullVar)
 Here is how to use it:
 
 ```htvm
-; Initial player position
-int playerX := 10
-int playerY := 10
-; -------------------------------------
-; Function to handle arrow key presses and move the player
+// Initial player position
+int playerX = 10
+int playerY = 10
+// -------------------------------------
+// Function to handle arrow key presses and move the player
 func  onArrowKeyPress(key) {
     print("You pressed: " . key)
-    if (key = "arrowup") {
-        playerY := playerY - 5
+    if (key == "arrowup") {
+        playerY = playerY - 5
     }
-    else if (key = "arrowdown") {
-        playerY := playerY + 5
+    else if (key == "arrowdown") {
+        playerY = playerY + 5
     }
-    else if (key = "arrowleft") {
-        playerX := playerX - 5
+    else if (key == "arrowleft") {
+        playerX = playerX - 5
     }
-    else if (key = "arrowright") {
-        playerX := playerX + 5
+    else if (key == "arrowright") {
+        playerX = playerX + 5
     }
     guiControl p"gui1" id:"player" xplayerX+"px" yplayerY+"px"
 }
-; -------------------------------------
-; Function to reset player position to default
+// -------------------------------------
+// Function to reset player position to default
 func  resetPos() {
-    playerX := 10
-    playerY := 10
+    playerX = 10
+    playerY = 10
     guiControl p"gui1" id:"player" xplayerX+"px" yplayerY+"px"
 }
-; -------------------------------------
-; Button0 click action
+// -------------------------------------
+// Button0 click action
 Button0:
     MsgBox, HI
 subout
-; -------------------------------------
-; GUI setup with player button
+// -------------------------------------
+// GUI setup with player button
 main
 gui p"gui1" x50% y50% w500 h500
 gui p"gui1" id:"player" button xplayerX+"px" yplayerY+"px" w50 h50
-; -------------------------------------
-; Arrow key hotkeys to move player
+// -------------------------------------
+// Arrow key hotkeys to move player
 MakeHotKey("arrowup", onArrowKeyPress)
 MakeHotKey("arrowdown", onArrowKeyPress)
 MakeHotKey("arrowleft", onArrowKeyPress)
 MakeHotKey("arrowright", onArrowKeyPress)
-; -------------------------------------
-; Hotkey to reset position
+// -------------------------------------
+// Hotkey to reset position
 MakeHotKey("Alt+R", resetPos)
 ```
 
@@ -7233,15 +7233,15 @@ Checks if the current operating system is Windows. Returns `true` if the OS is i
 Here is how to use it:
 
 ```htvm
-bool runningOnWindows := isWindows()
-if (runningOnWindows = true) {
+bool runningOnWindows = isWindows()
+if (runningOnWindows == true) {
     print("This script is running on a Windows system.")
 }
 else {
     print("This script is NOT running on a Windows system (or function not fully supported in this env).")
 }
-; Test: The function should return a boolean.
-if (runningOnWindows = true or runningOnWindows = false) {
+// Test: The function should return a boolean.
+if (runningOnWindows == true or runningOnWindows == false) {
     print("isWindows test PASSED (returned a boolean). Current value: " . STR(runningOnWindows))
 }
 else {
@@ -7294,17 +7294,17 @@ Icons: +16=Error, +32=Question, +48=Warning, +64=Info.
 Here is how to use it:
 
 ```htvm
-; This function is JavaScript-specific and relies on a browser environment with SweetAlert2.
+// This function is JavaScript-specific and relies on a browser environment with SweetAlert2.
 async func  RunMsgBoxTests() {
     await MsgBox("This is a simple OK message.", "Test 1")
-    ; 48 = Warning Icon
+    // 48 = Warning Icon
     await MsgBox("Proceed with caution!", "Test 3: Warning Icon", 48)
-    ; Timeout 2s
+    // Timeout 2s
     await MsgBox("This will auto-close in 2 seconds.", "Test 5: Timeout", 0, 2)
     print("MsgBox tests complete. Check browser for dialogs.")
 }
 main
-if (HTVM_getLang_HTVM() = "js") {
+if (HTVM_getLang_HTVM() == "js") {
     print("MsgBox tests will attempt to show dialogs if in a browser.")
     await RunMsgBoxTests()
 }
@@ -7354,49 +7354,49 @@ Returns a Promise that resolves with the plain text response from the backend. U
 Here is how to use it:
 
 ```htvm
-; This function is JavaScript-specific for frontend-backend communication.
-; It requires a running backend server that responds to the specified endpoints.
-; -----------------------
-; --- OSP Struct for state (Recommended) ---
+// This function is JavaScript-specific for frontend-backend communication.
+// It requires a running backend server that responds to the specified endpoints.
+// -----------------------
+// --- OSP Struct for state (Recommended) ---
 struct InputState {
-    prop str currentText := ""
+    prop str currentText = ""
 }
-; --- Callbacks ---
-; -----------------------
-; Default for edit
+// --- Callbacks ---
+// -----------------------
+// Default for edit
 Edit0:
-    ; No 'global' needed for JS target
-    InputState.currentText := A_Value
+    // No 'global' needed for JS target
+    InputState.currentText = A_Value
 subout
-; -----------------------
-; Callback for first button
+// -----------------------
+// Callback for first button
 ButtonHello:
-    str respHello := await callBackend("/hello", InputState.currentText)
-    ; Use SPACE separation for guicontrol
+    str respHello = await callBackend("/hello", InputState.currentText)
+    // Use SPACE separation for guicontrol
     guicontrol id:"responseText" value:respHello
 subout
-; -----------------------
-; Callback for second button
+// -----------------------
+// Callback for second button
 ButtonProcess:
-    str respProcess := await callBackend("/processData", InputState.currentText)
-    ; Use SPACE separation for guicontrol
+    str respProcess = await callBackend("/processData", InputState.currentText)
+    // Use SPACE separation for guicontrol
     guicontrol id:"responseText" value:respProcess
 subout
-; -----------------------
-; --- GUI Setup ---
+// -----------------------
+// --- GUI Setup ---
 main
-; Prepare string vars only where needed, hardcode simple ones
-str placeholderText := "Enter data..."
-str btn1Text := "Call Hello"
-str btn2Text := "Call Process"
-str initialResponse := "Response..."
-str editId := "inputEdit"
-str helloBtnId := "helloBtn"
-str processBtnId := "processBtn"
-str responseTextId := "responseText"
-str whiteColor := "white"
-; Use SPACE separation for GUI options
-; Uses Edit0
+// Prepare string vars only where needed, hardcode simple ones
+str placeholderText = "Enter data..."
+str btn1Text = "Call Hello"
+str btn2Text = "Call Process"
+str initialResponse = "Response..."
+str editId = "inputEdit"
+str helloBtnId = "helloBtn"
+str processBtnId = "processBtn"
+str responseTextId = "responseText"
+str whiteColor = "white"
+// Use SPACE separation for GUI options
+// Uses Edit0
 gui edit id:editId x10 y10 w200 h30 placeholder:placeholderText
 gui button id:helloBtnId x10 y50 w95 h30 value:btn1Text callback:ButtonHello
 gui button id:processBtnId x115 y50 w95 h30 value:btn2Text callback:ButtonProcess
