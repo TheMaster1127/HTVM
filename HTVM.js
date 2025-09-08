@@ -8275,7 +8275,11 @@ function initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToF
             //print("DEBUG: " . A_LoopField)
             temp = StringTrimRight(Trim(A_LoopField148), 1);
             if (langToConvertTo == "js") {
-                out += Trim(keyWordAsync) + " " + Trim(keyWordFunc) + " " + Trim(temp) + "(A_Id, A_Event, A_Value )" + Chr(10) + "{" + Chr(10);
+                if (useCurlyBraces == "on") {
+                    out += Trim(keyWordAsync) + " " + Trim(keyWordFunc) + " " + Trim(temp) + "(A_Id, A_Event, A_Value )" + Chr(10) + "{" + Chr(10);
+                } else {
+                    out += Trim(keyWordAsync) + " " + Trim(keyWordFunc) + " " + Trim(temp) + "(A_Id, A_Event, A_Value )" + Chr(10) + Chr(10);
+                }
             }
             else if (langToConvertTo == "py") {
                 initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction_WAS_IN_PYTHON = 1;
@@ -8283,7 +8287,11 @@ function initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToF
                 if (firstTimePythonIn == 1) {
                     out += Trim(keyWordComment) + " added the HTVM_custom_port()" + Chr(10) + Trim(keyWordComment) + " added the HTVM_register()" + Chr(10) + Trim(keyWordComment) + " added the HTVM_init()" + Chr(10) + Trim(keyWordFunc) + " " + Trim(temp) + "(A_Input=" + Chr(34) + "" + Chr(34) + " )" + Chr(10) + "{" + Chr(10);
                 } else {
-                    out += Trim(keyWordFunc) + " " + Trim(temp) + "(A_Input=" + Chr(34) + "" + Chr(34) + " )" + Chr(10) + "{" + Chr(10);
+                    if (useCurlyBraces == "on") {
+                        out += Trim(keyWordFunc) + " " + Trim(temp) + "(A_Input=" + Chr(34) + "" + Chr(34) + " )" + Chr(10) + "{" + Chr(10);
+                    } else {
+                        out += Trim(keyWordFunc) + " " + Trim(temp) + "(A_Input=" + Chr(34) + "" + Chr(34) + " )" + Chr(10) + Chr(10);
+                    }
                 }
             } else {
                 out += "!!!NOT POISBLE ONLY POSIBLE IN JS AND PY!!!" + Chr(10);
@@ -8375,7 +8383,11 @@ function initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToF
             out += "HTVM_custom_port(" + temp1 + ")" + Chr(10);
         }
         else if (Trim(StrLower(A_LoopField148)) == "subout") {
-            out += "}" + Chr(10);
+            if (useCurlyBraces == "on") {
+                out += "}" + Chr(10);
+            } else {
+                out += keyWordEnd + Chr(10);
+            }
         } else {
             out += A_LoopField148 + Chr(10);
         }

@@ -11264,7 +11264,13 @@ if (RegExMatch(Trim(A_LoopField), "^[a-zA-Z_][a-zA-Z0-9_]*:$")) and (isLineAcons
 temp := StringTrimRight(Trim(A_LoopField), 1)
 if (langToConvertTo = "js")
 {
+if (useCurlyBraces = "on") {
 out .= Trim(keyWordAsync) . " " . Trim(keyWordFunc) . " " . Trim(temp) . "(A_Id, A_Event, A_Value )" . Chr(10) . "{" . Chr(10)
+}
+else {
+out .= Trim(keyWordAsync) . " " . Trim(keyWordFunc) . " " . Trim(temp) . "(A_Id, A_Event, A_Value )" . Chr(10) . Chr(10)
+}
+
 }
 else if (langToConvertTo = "py")
 {
@@ -11277,7 +11283,13 @@ out .= Trim(keyWordComment) . " added the HTVM_custom_port()" . Chr(10) . Trim(k
 }
 else
 {
+if (useCurlyBraces = "on") {
 out .= Trim(keyWordFunc) . " " . Trim(temp) . "(A_Input=" . Chr(34) . "" . Chr(34) . " )" . Chr(10) . "{" . Chr(10)
+}
+else {
+out .= Trim(keyWordFunc) . " " . Trim(temp) . "(A_Input=" . Chr(34) . "" . Chr(34) . " )" . Chr(10) . Chr(10)
+}
+
 }
 }
 else
@@ -11404,7 +11416,13 @@ out .= "HTVM_custom_port(" . temp1 . ")" . Chr(10)
 }
 else if (Trim(StrLower(A_LoopField)) = "subout")
 {
+if (useCurlyBraces = "on") {
 out .= "}" . Chr(10)
+}
+else {
+out .= keyWordEnd . Chr(10)
+}
+
 }
 else
 {
