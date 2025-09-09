@@ -278,7 +278,7 @@ HTVM main.htvm HTVM-instructions.txt htvm HTVM-instructions2.txt
      ```  
      For Linux:  
      ```bash
-     ./HHTVM main.htvm HTVM-instructions.txt js
+     ./HTVM main.htvm HTVM-instructions.txt js
      ```  
 
 ### And so on HTVM can convert to 15 languages `cpp`, `py`, `js`, `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, `htvm` or yourExtension
@@ -1492,6 +1492,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
