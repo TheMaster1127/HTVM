@@ -1,4 +1,2 @@
 TODO.txt
-1. Make the YouTube video titled "HTVM: The Future of Programming"
-2. Make the HTVM version 2.0.0 the official release on github.
-3. Begin HTVM v3
+1. Begin HTVM v3
