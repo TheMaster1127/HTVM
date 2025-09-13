@@ -9,8 +9,8 @@
     <img src="https://img.shields.io/badge/Discord-Join%20Server-5865F2?logo=discord&style=for-the-badge" alt="Join our Discord Server">
   </a>
   &nbsp;
-  <a href="#">
-    <img src="https://img.shields.io/badge/Launch%20Video-%28Coming%20Soon%29-red?logo=youtube&style=for-the-badge" alt="Watch the Launch Video (Coming Soon)">
+  <a href="https://www.youtube.com/watch?v=iUqT3Vr62fU">
+    <img src="https://img.shields.io/badge/Watch%20on-YouTube-red?logo=youtube&style=for-the-badge" alt="Watch on YouTube">
   </a>
 </p>
 
@@ -1492,6 +1492,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
