@@ -7,7 +7,7 @@
 ---
 
 ### **1. Package the HT-IDE**
--   `[ ]` Build Electron to generate standalone executables for all platforms to **eliminate the NPM requirement for users.**
+-   `[✅]` Build Electron to generate standalone executables for all platforms to **eliminate the NPM requirement for users.**
 
 ### **2. Implement the HTVM Hook API ("The Freedom API")**
 -   `[ ]` Architect and implement the core API with stable hook points in the parser and transpiler.
@@ -90,7 +90,7 @@
 
 #### 0/23 Done!
 
-1.  `[ ]` IDE Packaging
+1.  `[✅]` IDE Packaging
 2.  `[ ]` HTVM Hook API
 3.  `[ ]` HTVM Debugger
 4.  `[ ]` Total Syntax Configuration
@@ -136,3 +136,4 @@
 16. `[ ]` Introducing The HTVM Marketplace: Share and Discover HTVM Plugins! (v2.14)
 17. `[ ]` HTVM V2 to V3 Converter (v2.15)
 18. `[ ]` HTVM v3: The Future of Programming is Here.
+
