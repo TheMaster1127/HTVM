@@ -434,15 +434,11 @@ Regenerate `DOCUMENTATION.md` or `DOCUMENTATION.html` using:
 
 **A powerful, multi-language desktop IDE with a custom-built transpiler, integrated terminal, debugger, and extensive customization options, all powered by Electron and Node.js.**
 
-
-
 ---
 
 ## Table of Contents
 
 - [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation & Running](#installation--running)
 - [Core Features](#core-features)
   - [1. File & Project Management](#1-file--project-management)
     - [File Explorer](#file-explorer)
@@ -465,11 +461,12 @@ Regenerate `DOCUMENTATION.md` or `DOCUMENTATION.html` using:
     - [Instruction Set Management](#instruction-set-management)
     - [HTVM Line Mapper](#htvm-line-mapper)
   - [5. Code Execution & Debugging](#5-code-execution--debugging)
-    - [Running Files](#running-files)
+    - [Running Files & Using Property Files](#running-files--using-property-files)
     - [Built-in JavaScript Debugger](#built-in-javascript-debugger)
     - [HTML Output Panel](#html-output-panel)
   - [6. Built-in Web Server](#6-built-in-web-server)
-  - [7. Extensive Customization](#7-extensive-customization)
+  - [7. HTVM Plugin API ("The Freedom API")](#7-htvm-plugin-api-the-freedom-api)
+  - [8. Extensive Customization](#8-extensive-customization)
     - [General Settings](#general-settings)
     - [UI Theme Editor](#ui-theme-editor)
     - [Syntax Color Editor](#syntax-color-editor)
@@ -483,117 +480,33 @@ Regenerate `DOCUMENTATION.md` or `DOCUMENTATION.html` using:
 
 ## Getting Started
 
-### Prerequisites
+There are two ways to get started with HT-IDE: downloading a pre-built release or running from the source code.
 
-To run the HT-IDE from the source code, you will need [Node.js](https://nodejs.org/) installed on your system, which includes the `npm` package manager.
+### Method 1: Download a Release (Recommended for Users)
 
-### Installation & Running
+This is the easiest way to use HT-IDE. No setup is required.
 
-Clone this repository [https://github.com/TheMaster1127/HT-IDE/](https://github.com/TheMaster1127/HT-IDE/), then go to the `Desktop` directory where the files are located:
+1.  Go to the **[GitHub Releases Page](https://github.com/TheMaster1127/HT-IDE/releases)**.
+2.  Download the correct file for your operating system:
+    *   **Windows:** Download the `.exe` installer or the portable `.exe`.
+    *   **Linux:** Download the `.AppImage` (recommended for most distributions) or the `.deb` file (for Ubuntu/Debian).
+3.  Run the downloaded file to start the IDE.
 
-**Navigate to the HT-IDE folder**
+### Method 2: Running from Source Code (for Developers)
 
-```bash
-cd HT-IDE
-```
+This method is for those who want to contribute to the project or modify the code.
 
-**Then navigate to the Desktop folder**
-
-```bash
-cd Desktop
-```
-
----
-
-### 1. **Ensure Node.js and npm are Installed**
-
-The HT-IDE requires **Node.js** and **npm** to run.
-
-If either **Node.js** or **npm** is not installed, follow the installation steps below.
-
-#### **Installing Node.js and npm**
-
-- **Windows**: Download the prebuilt installer from the official Node.js website:  
-  [https://nodejs.org/en/download/prebuilt-installer](https://nodejs.org/en/download/prebuilt-installer)
-
-- **Linux**:  
-  1. Open your terminal and update your package index:
-     ```bash
-     sudo apt update
-     ```
-  2. Install Node.js and npm using your package manager:
-     ```bash
-     sudo apt install nodejs npm
-     ```
-
-   > **Note**: Ensure you are using a terminal with `sudo` privileges to install the packages.
-
----
-
-#### **Check if Node.js is Installed**
-
-To check if **Node.js** is installed, use the following command:
-
-```bash
-node --version
-```
-
-If Node.js is installed, this will display the version number, for example:
-
-```
-v20.11.0
-```
-
-The specific version doesn't matter as long as it's compatible.
-
-#### **Check if npm is Installed**
-
-npm is a package manager that comes with Node.js. To check if **npm** is installed, use the following command:
-
-```bash
-npm --version
-```
-
-If npm is installed, this will display the version number, for example:
-
-```
-10.2.4
-```
-
-Again, the specific version doesn't matter as long as it's compatible.
-
----
-
-### 2. **Install Project Dependencies**
-
-In the `IDE` directory, install the required dependencies using npm:
-
-```bash
-npm install
-```
-
-This will install all the necessary packages listed in the `package.json` file.
-
-> **Note**: You only need to run `npm install` **once** during the initial setup. After the dependencies are installed, you don't need to run it again unless you pull changes from the repository that update the dependencies.
-
----
-
-### 3. **Start the HT-IDE**
-
-Once the dependencies are installed, you can launch the HT-IDE using:
-
-```bash
-npm start
-```
-
-This will open the Electron application, providing the HT-IDE interface.
-
----
-
-#### **Troubleshooting**:
-
-- If you encounter issues with `npm install` or `npm start`, make sure that **Node.js** and **npm** are correctly installed.
-- On **Linux**, if you run into permission errors during installation, prepend `sudo` to the `npm install` or `npm start` commands (e.g., `sudo npm install`).
+1.  **Prerequisites:** Ensure you have [Node.js](https://nodejs.org/) installed on your system.
+2.  **Clone the repository** or download the source code.
+3.  **Open a terminal** in the `/Desktop` directory of the project.
+4.  **Install dependencies** by running the command:
+    ```bash
+    npm install
+    ```
+5.  **Launch the application** with the command:
+    ```bash
+    npm start
+    ```
 
 ---
 
@@ -704,14 +617,19 @@ HT-IDE is built around its unique **HTVM** engine.
 
 ### 5. Code Execution & Debugging
 
-#### Running Files
+#### Running Files & Using Property Files
 The behavior of the **▶ Run** button (`Ctrl+Enter` or `F5`) is context-aware:
--   **.js:** Executes the file directly using Node.js, with output in the terminal.
--   **.htvm:** Transpiles the file to the selected target language. If the target is JS, it will also execute it.
+-   **.js:** Executes the file directly using Node.js.
+-   **.htvm:** Transpiles the file to the selected target language and executes it if the target is JS.
 -   **.html:** Renders the file in a dedicated HTML Output panel within the IDE.
--   **Other Files:** The IDE will look for a corresponding `.htpr` (run) or `.htpc` (compile) "property file" in the `property files` directory. This allows you to define custom build and run commands for any language (e.g., C++, Python, Go).
+-   **Other Files (C++, Python, etc.):** The IDE will look for a corresponding `.htpr` (run) or `.htpc` (compile) "property file" to execute custom commands.
 
-HT-IDE uses property files with the extensions `.htpc` and `.htpr` for compiling and running your code. These files provide the commands needed to execute or compile your code based on the file type (e.g., `.cpp`, `.py`, `.js` or more...). The files are located in the `/property files/` folder in the IDE, and you can create your own property files for different languages.
+**How to Use Property Files:**
+
+The power of HT-IDE comes from its ability to run any language using simple text files. The application ships with a default set of property files, but you can create your own or modify the existing ones.
+
+1.  On the first run, HT-IDE creates a personal, editable copy of the default `property files` folder in your user data directory.
+2.  You can create new `.htpr` and `.htpc` files in this folder, or edit the existing ones to customize the run/compile behavior for any language. The IDE will always use the files from this user-specific folder.
 
 ---
 
@@ -752,7 +670,7 @@ Here's how the syntax works in these property files:
   - `%FILENAME%`: Full file path of the file being processed
   - `%ONLYFILENAME%`: The filename without its extension
   - `%DIRFULLPATH%`: The full directory path of the file
-
+ 
 - **Comments**:
   - Use `;` to write comments.
 
@@ -800,7 +718,13 @@ g++ "%ONLYFILENAME%.cpp" "-o" "%ONLYFILENAME%"
 -   All requests (`GET`, `POST`, etc.) are automatically logged to the terminal that was active when the server was started, showing status codes and response times.
 -   Click the **⏹ Stop Server** button to terminate it.
 
-### 7. Extensive Customization
+### 7. HTVM Plugin API ("The Freedom API")
+HT-IDE now features a powerful plugin system that allows developers to extend and redefine the HTVM language itself.
+-   **Discover & Install:** Click the **Plugins** button in the sidebar to open the Plugin Manager. From here, you can browse the official **HTVM Marketplace** for community-created plugins.
+-   **Activate & Manage:** Install plugins with a single click and activate the one you want to use for your current workspace. Only one plugin can be active at a time, allowing you to completely change the behavior of the transpiler.
+-   **Create Your Own:** The plugin system is built on a simple but powerful JavaScript-based "Hook API". Check out the official [htvm-marketplace repository](https://github.com/TheMaster1127/htvm-marketplace) for documentation and examples on how to create and submit your own plugins.
+
+### 8. Extensive Customization
 
 Nearly every aspect of the IDE's appearance and behavior can be changed. Access these options via the **Settings** button.
 
@@ -845,6 +769,82 @@ HT-IDE features Discord Rich Presence, which automatically shows your current st
 | Toggle Sidebar | `Ctrl + B` | |
 | Zoom In | `Ctrl + =` | |
 | Zoom Out | `Ctrl + -` | |
+
+---
+
+## Project Structure
+<details>
+<summary>Click to view the project's directory structure</summary>
+
+```
+╔═════════════════════════════════════════════════════════════════════════════╗
+║                      HT-IDE Electron Project Structure                      ║
+╚═════════════════════════════════════════════════════════════════════════════╝
+[HT-IDE_ROOT]/
+├── 📦 package.json             // Defines the project, dependencies (Electron), and scripts.
+├── 📦 package-lock.json        // Locks dependency versions for consistent installs.
+│
+├── 🚀 electron_main.js         // The main process entry point for the desktop app (Node.js backend).
+├── 🌉 preload.js                // Securely bridges the backend (Node.js) and frontend.
+│
+├── 🌐 HT-IDE.html               // The main application skeleton (Renderer Process UI).
+├── 🎨 style.css                 // All visual styling, colors, and layout.
+│
+├── 📜 HTVM.js                   // The core compiler engine. (HTVM)
+├── 📜 htvm-mode.js              // Ace Editor syntax highlighting rules for .htvm files.
+├── 📜 htvm_completions.js       // Autocomplete data for the editor.
+│
+├── 📝 README.md                 // Project description and instructions.
+├── 📝 LICENCE                   // The project's license file.
+├── 🖼️ icon.png                   // The application and browser tab icon.
+│
+├── 📁 node_modules/             // Directory for all project dependencies (managed by npm).
+│
+├── 📁 property files/           // For custom compile/run commands (.htpc, .htpr).
+│
+├── 📁 js/                       // All application logic (Renderer), loaded in order.
+│   ├── 📜 0_htvm_io.js            // Defines the global `FileRead` function for compiler imports and plugin hooks.
+│   ├── 📜 0_storage_init.js       // Intercepts localStorage calls and redirects them to the backend.
+│   ├── 📜 1_state.js              // Global variables (the app's central memory).
+│   ├── 📜 2_autocomplete_keywords.js   // All autocomplete keywords for non HTVM langs.
+│   ├── 📜 2_config_and_utils.js   // Shared "toolbox" and configuration data.
+│   ├── 📜 2_config_and_utils_reset_htvm.js   // The function to reset the HTVM vars.
+│   ├── 📜 3_ui.js                 // Renders and updates the UI (file list, tabs).
+│   ├── 📜 4_filesystem.js         // Manages file system calls via the preload bridge.
+│   ├── 📜 5_editor.js             // Controls the Ace Editor and file sessions (the "Brain").
+│   ├── 📜 6_htvm.js               // Integrates your HTVM engine with the IDE.
+│   ├── 📜 7_modals_1.js           // Logic for Core modals (Session, Settings).
+│   ├── 📜 7_modals_2.js           // Logic for Instruction Set modals.
+│   ├── 📜 7_modals_3.js           // Logic for the Debugger modal.
+│   ├── 📜 7_modals_4_plugins.js   // Logic for the Plugin Manager modal.
+│   └── 📜 8_main.js               // App entry point, wires everything together (the "Conductor").
+│
+└── 📁 images/                   // Icons for the language selector dropdown.
+    ├── 🖼️ ahk.png
+    ├── 🖼️ cpp.png
+    ├── 🖼️ csharp.png
+    ├── 🖼️ dart.png
+    ├── 🖼️ go.png
+    ├── 🖼️ groovy.png
+    ├── 🖼️ java.png
+    ├── 🖼️ js.png
+    ├── 🖼️ kotlin.png
+    ├── 🖼️ lua.png
+    ├── 🖼️ nim.png
+    ├── 🖼️ python.png
+    ├── 🖼️ ruby.png
+    ├── 🖼️ swift.png
+    └── 🖼️ ts.png
+```
+
+</details>
+
+---
+
+## License
+
+This project is licensed under the GNU General Public License v3.0. Please see the `LICENSE` file in the root directory of the repository for the full license text.
+
 
 ---
 
@@ -1492,6 +1492,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
