@@ -87,7 +87,7 @@
 #### **2/22 Done!**
 
 1.  `[✅]` IDE Packaging
-2.  `[almost]` HTVM Plugin API & Marketplace
+2.  `[50%]` HTVM Plugin API & Marketplace
 3.  `[ ]` HTVM Debugger
 4.  `[ ]` Total Syntax Configuration
 5.  `[ ]` GUI Enhancements
@@ -130,4 +130,5 @@
 15. `[ ]` HTVM: AI-Assisted Language Generation is Here (v2.13)
 16. `[ ]` HTVM V2 to V3 Converter (v2.14)
 17. `[ ]` HTVM v3: The Future of Programming is Here.
+
 
