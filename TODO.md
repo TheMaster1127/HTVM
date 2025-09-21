@@ -88,7 +88,7 @@
 
 ### **HTVM V3 To-Do List (In Order)**
 
-#### 0/23 Done!
+#### 1/23 Done!
 
 1.  `[✅]` IDE Packaging
 2.  `[ ]` HTVM Hook API
@@ -136,4 +136,5 @@
 16. `[ ]` Introducing The HTVM Marketplace: Share and Discover HTVM Plugins! (v2.14)
 17. `[ ]` HTVM V2 to V3 Converter (v2.15)
 18. `[ ]` HTVM v3: The Future of Programming is Here.
+
 
