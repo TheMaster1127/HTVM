@@ -13,7 +13,7 @@
 -   `[✅]` Architect and implement the core API with stable hook points in the parser and transpiler.
 -   `[✅]` Create the `htvm-marketplace` GitHub repository and contribution guidelines.
 -   `[✅]` Build the "Plugin Manager" feature into the IDE, including fetching from the marketplace, installing, and managing plugins.
--   **YouTube Release (v2.1):** "HTVM's New Plugin API & Marketplace: Build Your Own Syntax! (v2.1 Update & Tutorial)"
+-   `[ ]`  **YouTube Release (v2.1):** "HTVM's New Plugin API & Marketplace: Build Your Own Syntax! (v2.1 Update & Tutorial)"
 
 ### **3. Implement the HTVM Debugger**
 -   `[ ]` Build the debugger within the HT-IDE by injecting `input()` calls at breakpoints to display variable states.
@@ -87,7 +87,7 @@
 #### **2/22 Done!**
 
 1.  `[✅]` IDE Packaging
-2.  `[✅]` HTVM Plugin API & Marketplace
+2.  `[almost]` HTVM Plugin API & Marketplace
 3.  `[ ]` HTVM Debugger
 4.  `[ ]` Total Syntax Configuration
 5.  `[ ]` GUI Enhancements
@@ -130,3 +130,4 @@
 15. `[ ]` HTVM: AI-Assisted Language Generation is Here (v2.13)
 16. `[ ]` HTVM V2 to V3 Converter (v2.14)
 17. `[ ]` HTVM v3: The Future of Programming is Here.
+
