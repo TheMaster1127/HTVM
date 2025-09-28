@@ -1,0 +1,22 @@
+
+int globalIntVartest123 := 425
+
+func test(int var1234 := 54) {
+global globalIntVartest123
+int testFunc1 := 69
+int testFunc2 := 692
+
+int testFunc3 := 6923
+
+print(var1234)
+}
+
+main
+
+int var1 := 5
+int var2 := 6
+str shakdaz := "swdesfdg"
+int var3 := 7
+print("Hello world")
+
+test()

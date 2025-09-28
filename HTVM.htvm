@@ -14,6 +14,7 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program. If not, see <https://www.gnu.org/licenses/>.
 ; ------------------------------------------------------------------------
+include "HTVM_API.htvm"
 str str0 := "nothing"
 str str00 := "nothing"
 str str1 := ""
@@ -4649,6 +4650,9 @@ if (langToConvertTo = "nim")
 {
 expression := StrReplace(expression, "HTVM--Fix-Nim-TheConcat-NOT--Working--AA", "&")
 }
+
+
+expression := htvm_hook12(expression)
 
 return expression
 }
@@ -12607,6 +12611,159 @@ return true
 return false
 }
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+func str debugger_HTVM(str code, int didWeUseMainInCode) {
+
+
+
+
+    ; --- Declarations at the top ---
+    str out := ""
+    str debugData := ""
+    str allVarsGlobal := ""
+    int allVarsFuncSeen := 0
+    str allVars := ""           ; all variables seen so far, separated by newline
+    str allVarsTemp := ""
+    str allVarsTemp2 := ""
+    str varName := ""
+    int counterDebugger := 0
+    int onceInt := 0
+
+if (didWeUseMainInCode = 0) {
+
+
+    ; --- Parse code line by line ---
+    Loop, Parse, code, `n, `r {
+    
+        ; Breakpoint trigger
+        if (Trim(A_LoopField) = "debuger--aJHCBAKCAhtvmnHTVM--ACJAKHBaSSshad88sjhb-DEBUGER--HTVM--sjcvas") {
+
+            ; Build debug output for Python by looping over all seen variables
+            debugData := ""
+            Loop, Parse, allVars, `n, `r {
+                if (Trim(A_LoopField) != "") {
+                    debugData .= Chr(34) . Trim(A_LoopField) . ": " . Chr(34) . " + STR(" . Trim(A_LoopField) . ") + Chr(10) + "
+                }
+            }
+
+            ; Remove trailing " + Chr(10) + " if debugData is not empty
+            if (debugData != "") {
+                StringTrimRight, debugData, debugData, 10
+            }
+
+            counterDebugger++
+
+            ; Add breakpoint input
+            if (Trim(debugData) = "") {
+                out .= StrReplace("input(" . Chr(34) . "(PRESS ENTER TO CONTINUE) - Breakpoint: " . STR(counterDebugger) . Chr(34) . " + Chr(10) + " . Chr(34) . "============================================" . Chr(34) . " + Chr(10) + " . Chr(34) . "NO VARIABLES!!!" . Chr(34) . " + Chr(10))" . Chr(10), ") + )", "))")
+            } else {
+                out .= StrReplace("input(" . Chr(34) . "(PRESS ENTER TO CONTINUE) - Breakpoint: " . STR(counterDebugger) . Chr(34) . " + Chr(10) + " . Chr(34) . "============================================" . Chr(34) . " + Chr(10) + " . debugData . ")" . Chr(10), ") + )", "))")
+            }
+        }
+        else {
+            ; Detect assignments and store variable names
+            if (InStr(A_LoopField, " " . keyWordAssign . " ")) {
+                allVarsTemp := Trim(StrSplit(A_LoopField, keyWordAssign, 1))
+                Loop, Parse, allVarsTemp, " " {
+                    allVarsTemp2 := Trim(A_LoopField)
+                }
+
+                ; Only add new variable if not already tracked
+                if (InStr(allVars, allVarsTemp2) = 0) {
+                    allVars .= allVarsTemp2 . Chr(10)
+                }
+            }
+
+            ; Keep original code line
+            out .= A_LoopField . Chr(10)
+        }
+    }
+
+    ; Remove last newline
+    StringTrimRight, out, out, 1
+    
+    
+}
+else {
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+    ; --- Parse code line by line ---
+    Loop, Parse, code, `n, `r {
+    
+        if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc)) or (StrLower(Trim(A_LoopField)) = StrLower(keyWordMainLabel)) {
+            onceInt++
+            if (onceInt = 1) {
+            allVarsGlobal := allVars
+            }
+            allVars := ""
+            allVarsFuncSeen := 1
+        }
+
+        ; Breakpoint trigger
+        if (Trim(A_LoopField) = "debuger--aJHCBAKCAhtvmnHTVM--ACJAKHBaSSshad88sjhb-DEBUGER--HTVM--sjcvas") {
+
+            ; Build debug output for Python by looping over all seen variables
+            debugData := ""
+            allVars := allVarsGlobal . Chr(10) . allVars 
+            Loop, Parse, allVars, `n, `r {
+                if (Trim(A_LoopField) != "") {
+                    debugData .= Chr(34) . Trim(A_LoopField) . ": " . Chr(34) . " + STR(" . Trim(A_LoopField) . ") + Chr(10) + "
+                }
+            }
+
+            ; Remove trailing " + Chr(10) + " if debugData is not empty
+            if (debugData != "") {
+                StringTrimRight, debugData, debugData, 10
+            }
+
+            counterDebugger++
+
+            ; Add breakpoint input
+            if (Trim(debugData) = "") {
+                out .= StrReplace("input(" . Chr(34) . "(PRESS ENTER TO CONTINUE) - Breakpoint: " . STR(counterDebugger) . Chr(34) . " + Chr(10) + " . Chr(34) . "============================================" . Chr(34) . " + Chr(10) + " . Chr(34) . "NO VARIABLES!!!" . Chr(34) . " + Chr(10))" . Chr(10), ") + )", "))")
+            } else {
+                out .= StrReplace("input(" . Chr(34) . "(PRESS ENTER TO CONTINUE) - Breakpoint: " . STR(counterDebugger) . Chr(34) . " + Chr(10) + " . Chr(34) . "============================================" . Chr(34) . " + Chr(10) + " . debugData . ")" . Chr(10), ") + )", "))")
+            }
+        }
+        else {
+            ; Detect assignments and store variable names
+            if (InStr(A_LoopField, " " . keyWordAssign . " ")) {
+                allVarsTemp := Trim(StrSplit(A_LoopField, keyWordAssign, 1))
+                Loop, Parse, allVarsTemp, " " {
+                    allVarsTemp2 := Trim(A_LoopField)
+                }
+
+                ; Only add new variable if not already tracked
+                if (InStr(allVars, allVarsTemp2) = 0) {
+                    allVars .= allVarsTemp2 . Chr(10)
+                }
+            }
+
+            ; Keep original code line
+            out .= A_LoopField . Chr(10)
+        }
+    }
+
+    ; Remove last newline
+    StringTrimRight, out, out, 1
+    
+    
+
+
+}
+    
+    return out
+}
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -12623,7 +12780,13 @@ func str compiler(str htCode, str allInstructionFile, str mode, str langToConver
 {
 
 
+
+htCode := htvm_hook11(htCode)
+
 str instructions := allInstructionFile
+
+
+instructions += Chr(10) . Chr(10) . htvm_hook10("")
 
 str FIXFIX_allInstructionFile := ""
 arr str FIXFIX_allInstructionFile_ARR
@@ -14247,7 +14410,9 @@ inProgarmmingBlock := 1
 }
 else
 {
+if (SubStr(Trim(A_LoopField), 1, 8) != "#plugin#") {
 programmingBlocksTemp .= A_LoopField . Chr(10)
+}
 }
 
 }
@@ -14282,6 +14447,7 @@ StringTrimRight, code, programmingBlocksTemp, 1
 ; keyWordInclude
 ; keyWordInclude
 ; keyWordInclude
+
 
 ; --- HTVM Include Directive Processor ---
 ;
@@ -15079,7 +15245,7 @@ StringTrimRight, code, semiColonForOneLinerOut, 1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
+code := htvm_hook1(code)
 
 
 if (langToConvertTo = langFileExtension_2)
@@ -15151,7 +15317,7 @@ code := when_patternMatching_HELP_HTVMtoHTVM(code)
 ; when
 }
 
-
+code := htvm_hook2(code)
 
 if (useCurlyBraces = "on")
 {
@@ -15288,6 +15454,9 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+code := htvm_hook3(code)
+
 ; name: subroutine/func for GUI and backend
 if (langToConvertTo != langFileExtension_2)
 {
@@ -15315,7 +15484,7 @@ code := guiParser(code)
 ; GUI
 ; GUI
 }
-
+code := htvm_hook4(code)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -15546,7 +15715,20 @@ fullLangAllOperators_HELP := GETfullLangAllOperators_HELP()
 if (isNotHTVMfile2 = 0)
 {
 
+code := htvm_hook5(code)
 
+Loop, Parse, code, `n, `r
+{
+
+if (StrLower(Trim(A_LoopField)) = StrLower(keyWordMainLabel))
+{
+didWeUseMainLabel := 1
+}
+}
+if (langToConvertTo != langFileExtension_2) {
+code := debugger_HTVM(code, didWeUseMainLabel)
+didWeUseMainLabel := 0
+}
 
 Loop, Parse, code, `n, `r
 {
@@ -15662,12 +15844,16 @@ if (langToConvertTo != langFileExtension_2)
 code := OSP(code)
 code := StrReplace(code, "}_HTVM-OSP-HTVM-OSP-REMOVE-OSP-HTVMv2--OSP", "}")
 code := StrReplace(code, "{_HTVM-OSP-HTVM-OSP-REMOVE-OSP-HTVMv2--OSP", "{")
+
 }
+
+
 
 htCode := ""
 ;print("=======UP==========")
 ;print(code)
 ;print("=======DOWN==========")
+code := htvm_hook6(code)
 Loop, Parse, code, `n, `r
 {
 lineDone := 0
@@ -26349,6 +26535,10 @@ htCode := StrReplace(htCode, "HTVM--cnavisdofbuvsesdivdidufg79wregwewaeosd8ges7d
 }
 
 
+
+
+code := htvm_hook7(code)
+
 }
 
 str jsHTMLdownCode := "</script>" . Chr(10) . "</body>" . Chr(10) . "</html>"
@@ -26537,7 +26727,7 @@ if (size_htCodeFixRubyGlobalVars_EXPOSED != 0) {
 ;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;
 
-
+code := htvm_hook8(code)
 
 availableFuncsInHTVMInHTVM := ""
 saveAllArrayVarNamesSoWeCanDoAfix := ""
@@ -26650,7 +26840,7 @@ htCode := htCode . Chr(10) . Chr(10) . "if __name__ == " . Chr(34) . "__main__" 
 initializeBackendAndGUIInteractionWithLabelSubroutineLikeButConvertsToFunction_WAS_IN_PYTHON := 0
 
 
-
+code := htvm_hook9(code)
 ;print(htCode)
 return htCode
 }

@@ -1,0 +1,241 @@
+
+___cpp start
+std::string htvm_hook1(std::string code) {
+    // THIS IS THE FIRST AND UPPER HOOK AFTER STRINGS PROGRAMMING BLOCKS AND IMPORTS AND COMMENTS HANDLEING
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook2(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook3(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook4(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook5(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook6(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook7(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook8(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook9(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook10(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook11(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook12(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook13(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook14(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook15(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook16(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook17(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook18(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook19(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook20(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook21(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook22(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook23(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook24(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook25(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook26(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook27(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook28(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook29(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
+
+___cpp start
+std::string htvm_hook30(std::string code) {
+    // code here or call your own functions
+    
+    return code;
+}
+___cpp end
