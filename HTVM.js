@@ -19518,9 +19518,4 @@ function HTVMv2() {
         //print("JS")
     }
 }
-async function main() {
-    HTVMv2();
-    
-
-}
-main();
+HTVMv2();
