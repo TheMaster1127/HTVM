@@ -239,3 +239,8 @@ std::string htvm_hook30(std::string code) {
     return code;
 }
 ___cpp end
+
+
+___js start
+function htvm_hook1(code) { return code } function htvm_hook2(code) { return code } function htvm_hook3(code) { return code } function htvm_hook4(code) { return code } function htvm_hook5(code) { return code } function htvm_hook6(code) { return code } function htvm_hook7(code) { return code } function htvm_hook8(code) { return code } function htvm_hook9(code) { return code } function htvm_hook10(code) { return code } function htvm_hook11(code) { return code } function htvm_hook12(code) { return code } function htvm_hook13(code) { return code } function htvm_hook14(code) { return code } function htvm_hook15(code) { return code } function htvm_hook16(code) { return code } function htvm_hook17(code) { return code } function htvm_hook18(code) { return code } function htvm_hook19(code) { return code } function htvm_hook20(code) { return code } function htvm_hook21(code) { return code } function htvm_hook22(code) { return code } function htvm_hook23(code) { return code } function htvm_hook24(code) { return code } function htvm_hook25(code) { return code } function htvm_hook26(code) { return code } function htvm_hook27(code) { return code } function htvm_hook28(code) { return code } function htvm_hook29(code) { return code } function htvm_hook30(code) { return code }
+___js end

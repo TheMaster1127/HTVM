@@ -12617,9 +12617,6 @@ return false
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 func str debugger_HTVM(str code, int didWeUseMainInCode) {
 
-
-
-
     ; --- Declarations at the top ---
     str out := ""
     str debugData := ""
@@ -12631,6 +12628,7 @@ func str debugger_HTVM(str code, int didWeUseMainInCode) {
     str varName := ""
     int counterDebugger := 0
     int onceInt := 0
+    int wasIN := 0
 
 if (didWeUseMainInCode = 0) {
 
@@ -12666,14 +12664,27 @@ if (didWeUseMainInCode = 0) {
         else {
             ; Detect assignments and store variable names
             if (InStr(A_LoopField, " " . keyWordAssign . " ")) {
-                allVarsTemp := Trim(StrSplit(A_LoopField, keyWordAssign, 1))
-                Loop, Parse, allVarsTemp, " " {
-                    allVarsTemp2 := Trim(A_LoopField)
-                }
+                Loop, Parse, A_LoopField, "," {
+                    allVarsTemp := Trim(StrSplit(A_LoopField, keyWordAssign, 1))
+                    Loop, Parse, allVarsTemp, " " {
+                        allVarsTemp2 := Trim(A_LoopField)
+                    }
+                    
+    
+                    ; Only add new variable if not already tracked
 
-                ; Only add new variable if not already tracked
-                if (InStr(allVars, allVarsTemp2) = 0) {
-                    allVars .= allVarsTemp2 . Chr(10)
+wasIN := 0
+; Only add new variable if not already tracked
+
+Loop, Parse, allVars, `n, `r {
+if (Trim(A_LoopField) = Trim(allVarsTemp2)) {
+wasIN := 1
+}
+}
+
+                if (wasIN = 0) {
+                    allVars .= Trim(allVarsTemp2) . Chr(10)
+                }
                 }
             }
 
@@ -12712,7 +12723,9 @@ else {
 
             ; Build debug output for Python by looping over all seen variables
             debugData := ""
-            allVars := allVarsGlobal . Chr(10) . allVars 
+            if (langToConvertTo != "py") and (langToConvertTo != "ahk") {
+                allVars := allVarsGlobal . Chr(10) . allVars 
+            }
             Loop, Parse, allVars, `n, `r {
                 if (Trim(A_LoopField) != "") {
                     debugData .= Chr(34) . Trim(A_LoopField) . ": " . Chr(34) . " + STR(" . Trim(A_LoopField) . ") + Chr(10) + "
@@ -12736,14 +12749,27 @@ else {
         else {
             ; Detect assignments and store variable names
             if (InStr(A_LoopField, " " . keyWordAssign . " ")) {
-                allVarsTemp := Trim(StrSplit(A_LoopField, keyWordAssign, 1))
-                Loop, Parse, allVarsTemp, " " {
-                    allVarsTemp2 := Trim(A_LoopField)
-                }
+                Loop, Parse, A_LoopField, "," {
+                    allVarsTemp := Trim(StrSplit(A_LoopField, keyWordAssign, 1))
+                    Loop, Parse, allVarsTemp, " " {
+                        allVarsTemp2 := Trim(A_LoopField)
+                    }
+                    
+    
+                    ; Only add new variable if not already tracked
 
-                ; Only add new variable if not already tracked
-                if (InStr(allVars, allVarsTemp2) = 0) {
-                    allVars .= allVarsTemp2 . Chr(10)
+wasIN := 0
+; Only add new variable if not already tracked
+
+Loop, Parse, allVars, `n, `r {
+if (Trim(A_LoopField) = Trim(allVarsTemp2)) {
+wasIN := 1
+}
+}
+
+                if (wasIN = 0) {
+                    allVars .= Trim(allVarsTemp2) . Chr(10)
+                }
                 }
             }
 
