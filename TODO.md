@@ -11,7 +11,7 @@
 ### **Core Engine & Parser Enhancements**
 *Fundamental upgrades that expand the power and flexibility of the HTVM engine.*
 
--   `[50%]` **Finalize the Plugin API & Marketplace ("The Freedom API")**
+-   `[✅]` **Finalize the Plugin API & Marketplace ("The Freedom API")**
     -   *Objective:* Solidify the hook system and establish the community marketplace, empowering users to extend HTVM's syntax.
 
 -   `[ ]` **Achieve Total Syntax Configuration**
