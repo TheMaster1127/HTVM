@@ -20,9 +20,6 @@
 -   `[ ]` **Implement Static One-Time Inference (SOTI)**
     -   *Objective:* Introduce optional static typing without the boilerplate, allowing for greater type safety and performance when targeting static languages.
 
--   `[ ]` **Build the Advanced Alias Engine**
-    -   *Objective:* Allow for infinite keyword aliasing via `.htvmprofile`, making the IDE and parser fully aware of a developer's personal vocabulary.
-
 -   `[ ]` **Architect & Implement Native Map/Dictionary Support**
     -   *Objective:* Design a core, customizable syntax for key-value pairs (maps, dictionaries, hashmaps) and ensure it can be transpiled effectively to all target languages.
 
@@ -92,6 +89,7 @@
 
 -   `[ ]` **Produce the HTVM v3.0 Launch Video**
     -   *Objective:* Create and release the definitive video that introduces the vision and capabilities of the completed V3 release: **"HTVM v3: The Future of Programming is Here."**
+
 
 
 
