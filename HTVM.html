@@ -1,3 +1,31 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HTVM</title>
+        <style>
+            body {
+                background-color: #202020;
+                font-family:
+                    "Open Sans",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    Oxygen-Sans,
+                    Ubuntu,
+                    Cantarell,
+                    "Helvetica Neue",
+                    Helvetica,
+                    Arial,
+                    sans-serif;
+            }
+        </style>
+
+</head>
+    <body>
+<script>
 
 
 function LoopParseFunc(varString, delimiter1="", delimiter2="") {
@@ -9490,13 +9518,11 @@ function liner_htvm_construct(code) {
             inLinerAllVarsSetUp++;
             inLinerOnce++;
             if (inLinerOnce == 1) {
-                if (inLinerAllVarsSetUp == 1) {
-                    if (seenLiner == 1) {
-                        out += Trim(keyWordINT) + " A_SUCCESS " + Trim(keyWordAssign) + " 0" + Chr(10);
-                        out += Trim(keyWordINT) + " A_SUCCESS_WEIGHTED " + Trim(keyWordAssign) + " 0" + Chr(10);
-                        out += Trim(keyWordINT) + " A_TOTAL_WEIGHT " + Trim(keyWordAssign) + " atatattatatwwwwwwwww__hasbscvasvas_HTVM_jsabvasbaaatatata" + Chr(10);
-                        out += Trim(keyWordBOOL) + " A_SUCCESS_ALL " + Trim(keyWordAssign) + " " + keyWordFalse + Chr(10);
-                    }
+                if (inLinerAllVarsSetUp == 1 && seenLiner == 1) {
+                    out += Trim(keyWordINT) + " A_SUCCESS " + Trim(keyWordAssign) + " 0" + Chr(10);
+                    out += Trim(keyWordINT) + " A_SUCCESS_WEIGHTED " + Trim(keyWordAssign) + " 0" + Chr(10);
+                    out += Trim(keyWordINT) + " A_TOTAL_WEIGHT " + Trim(keyWordAssign) + " atatattatatwwwwwwwww__hasbscvasvas_HTVM_jsabvasbaaatatata" + Chr(10);
+                    out += Trim(keyWordBOOL) + " A_SUCCESS_ALL " + Trim(keyWordAssign) + " " + keyWordFalse + Chr(10);
                 } else {
                     if (seenLiner == 1) {
                         out += "A_SUCCESS " + Trim(keyWordAssign) + " 0" + Chr(10);
@@ -9506,21 +9532,19 @@ function liner_htvm_construct(code) {
                     }
                 }
             }
-            if (InStr(A_LoopField192, ": ")) {
-                if (seenLiner == 1) {
-                    weight = Trim(StrSplit(A_LoopField192, ":", 1));
-                    ALoopField = Trim(StrSplit(A_LoopField192, ":", 2));
-                    ATOTALWEIGHT += INT(weight);
-                }
+            if (InStr(A_LoopField192, ": ") && seenLiner == 1) {
+                weight = Trim(StrSplit(A_LoopField192, ":", 1));
+                ALoopField = Trim(StrSplit(A_LoopField192, ":", 2));
+                ATOTALWEIGHT += INT(weight);
             } else {
-                weight = "1";
-                ATOTALWEIGHT++;
-                ALoopField = Trim(A_LoopField192);
+                if (seenLiner == 1) {
+                    weight = "1";
+                    ATOTALWEIGHT++;
+                    ALoopField = Trim(A_LoopField192);
+                }
             }
             if (seenLiner == 1) {
                 out += Trim(keyWordIF) + " (" + ALoopField + ")" + Chr(10) + "{" + Chr(10) + "A_SUCCESS" + keyWordInc + Chr(10) + "A_SUCCESS_WEIGHTED " + Trim(keyWordAssignAdd) + " " + weight + Chr(10) + "}" + Chr(10);
-            } else {
-                out += A_LoopField192 + Chr(10);
             }
         } else {
             if (SubStr(Trim(StrLower(A_LoopField192)), 1, 6) != "liner " && Trim(StrLower(A_LoopField192)) != "subout") {
@@ -9532,15 +9556,11 @@ function liner_htvm_construct(code) {
             seenLiner = 1;
             inLinerOnce = 0;
         }
-        if (Trim(StrLower(A_LoopField192)) == "subout") {
+        if (Trim(StrLower(A_LoopField192)) == "subout" && seenLiner == 1) {
+            inLiner = 0;
             out = StrReplace(out, "atatattatatwwwwwwwww__hasbscvasvas_HTVM_jsabvasbaaatatata", STR(ATOTALWEIGHT));
-            if (seenLiner == 1) {
-                inLiner = 0;
-                ATOTALWEIGHT = 0;
-                out += Trim(keyWordIF) + " (A_SUCCESS_WEIGHTED " + Trim(keyWordEqual) + " A_TOTAL_WEIGHT)" + Chr(10) + "{" + Chr(10) + "A_SUCCESS_ALL " + Trim(keyWordAssign) + " " + keyWordTrue + Chr(10) + "}" + Chr(10);
-            } else {
-                out += A_LoopField192 + Chr(10);
-            }
+            ATOTALWEIGHT = 0;
+            out += Trim(keyWordIF) + " (A_SUCCESS_WEIGHTED " + Trim(keyWordEqual) + " A_TOTAL_WEIGHT)" + Chr(10) + "{" + Chr(10) + "A_SUCCESS_ALL " + Trim(keyWordAssign) + " " + keyWordTrue + Chr(10) + "}" + Chr(10);
         }
     }
     out = StringTrimRight(out, 1);
@@ -19617,3 +19637,6 @@ async function main() {
 
 }
 main();
+</script>
+</body>
+</html>
