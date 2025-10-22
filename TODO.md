@@ -62,8 +62,8 @@
 -   `[ ]` **Implement Major GUI Enhancements**
     -   *Objective:* Expand the GUI command set with new controls and capabilities, building upon the new Total Syntax Configuration system.
 
--   `[ ]` **Implement New Language Constructs (Liner & Flowcall)**
-    -   *Objective:* Build the planned weighted conditional block (`Liner`) and the named-input block (`Flowcall`) to offer new ways to express complex logic.
+-   `[✅]` **Implement New Language Constructs (Liner)**
+    -   *Objective:* Build the planned weighted conditional block (`Liner`) which offers new ways to express complex logic.
 
 ---
 
@@ -92,5 +92,6 @@
 
 -   `[ ]` **Produce the HTVM v3.0 Launch Video**
     -   *Objective:* Create and release the definitive video that introduces the vision and capabilities of the completed V3 release: **"HTVM v3: The Future of Programming is Here."**
+
 
 
