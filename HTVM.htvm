@@ -12790,6 +12790,87 @@ wasIN := 1
 }
 
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+func str liner_htvm_construct(str code) {
+str out := ""
+print(code)
+
+str ALoopField := ""
+str weight := ""
+int inLiner := 0
+int inLinerOnce := 0
+int inLinerAllVarsSetUp := 0
+int ATOTALWEIGHT := 0
+Loop, Parse, code, `n, `r {
+
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, 6) != "liner ") and (Trim(StrLower(A_LoopField)) != "subout") and (inLiner = 1) {
+
+inLinerAllVarsSetUp++
+inLinerOnce++
+if (inLinerOnce = 1) {
+if (inLinerAllVarsSetUp = 1) {
+out .= Trim(keyWordINT) . " A_SUCCESS " . Trim(keyWordAssign) . " 0" . Chr(10)
+out .= Trim(keyWordINT) . " A_SUCCESS_WEIGHTED " . Trim(keyWordAssign) . " 0" . Chr(10)
+out .= Trim(keyWordINT) . " A_TOTAL_WEIGHT " . Trim(keyWordAssign) . " atatattatatwwwwwwwww__hasbscvasvas_HTVM_jsabvasbaaatatata" . Chr(10)
+out .= Trim(keyWordBOOL) . " A_SUCCESS_ALL " . Trim(keyWordAssign) . " " . keyWordFalse . Chr(10)
+}
+else {
+out .= "A_SUCCESS " . Trim(keyWordAssign) . " 0" . Chr(10)
+out .= "A_SUCCESS_WEIGHTED " . Trim(keyWordAssign) . " 0" . Chr(10)
+out .= "A_TOTAL_WEIGHT " . Trim(keyWordAssign) . " atatattatatwwwwwwwww__hasbscvasvas_HTVM_jsabvasbaaatatata" . Chr(10)
+out .= "A_SUCCESS_ALL " . Trim(keyWordAssign) . " " . keyWordFalse . Chr(10)
+}
+}
+if (InStr(A_LoopField, ": ")) {
+weight := Trim(StrSplit(A_LoopField, ":", 1))
+ALoopField := Trim(StrSplit(A_LoopField, ":", 2))
+ATOTALWEIGHT += INT(weight)
+}
+else {
+weight := "1"
+ATOTALWEIGHT++
+ALoopField := Trim(A_LoopField)
+}
+
+
+out .= Trim(keyWordIF) . " (" . ALoopField . ")" . Chr(10) . "{" . Chr(10) . "A_SUCCESS" . keyWordInc . Chr(10) . "A_SUCCESS_WEIGHTED " . Trim(keyWordAssignAdd) . " " . weight . Chr(10) . "}" . Chr(10)
+}
+else {
+if (SubStr(Trim(StrLower(A_LoopField)), 1, 6) != "liner ") and (Trim(StrLower(A_LoopField)) != "subout") {
+out .= A_LoopField . Chr(10)
+}
+}
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "liner ") {
+inLiner := 1
+inLinerOnce := 0
+}
+
+if (Trim(StrLower(A_LoopField)) = "subout") {
+inLiner := 0
+out := StrReplace(out, "atatattatatwwwwwwwww__hasbscvasvas_HTVM_jsabvasbaaatatata", STR(ATOTALWEIGHT))
+ATOTALWEIGHT := 0
+out .= Trim(keyWordIF) . " (A_SUCCESS_WEIGHTED " . Trim(keyWordEqual) . " A_TOTAL_WEIGHT)" . Chr(10) . "{" . Chr(10) . "A_SUCCESS_ALL " . Trim(keyWordAssign) . " " . keyWordTrue . Chr(10) . "}" . Chr(10)
+}
+
+
+}
+StringTrimRight, out, out, 1
+return out
+}
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -15273,6 +15354,13 @@ StringTrimRight, code, semiColonForOneLinerOut, 1
 
 code := htvm_hook1(code)
 
+
+if (langToConvertTo != langFileExtension_2)
+{
+
+code := liner_htvm_construct(code)
+
+}
 
 if (langToConvertTo = langFileExtension_2)
 {
