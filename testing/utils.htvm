@@ -1,0 +1,5 @@
+; in utils.htvm
+func str read(object) {
+    ; some generic HTVM read logic
+    return "read from " . object
+}

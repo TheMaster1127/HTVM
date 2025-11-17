@@ -1,0 +1,8 @@
+include "utils.htvm"
+
+main
+    f := open("my_file.txt", "r")
+    content := f.read() ; Parser sees '.read', checks symbol table.
+                       ; It IS now in the list!
+                       ; The parser now INCORRECTLY rewrites this to:
+                       ; read(f)

@@ -16,7 +16,7 @@ Visit the HTVM project here: [HTVM GitHub Repository](https://github.com/TheMast
 
 ## 🚀 Getting Started
 
-To use **<MyCustomLang>**, simply follow the rules defined in the `HTVM-instructions.txt` file and refer to the documentation for supported features and syntax.
+To use **<MyCustomLang>**, simply use the `HTVM-instructions.txt` file when using HTVM and refer to the documentation for supported features and syntax.
 
 ## 🌐 Syntax Highlighting
 
