@@ -12799,6 +12799,7 @@ wasIN := 1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
 func str liner_htvm_construct(str code) {
     str out := ""
     print(code)
@@ -12811,6 +12812,16 @@ func str liner_htvm_construct(str code) {
     int ATOTALWEIGHT := 0
     int seenLiner := 0
 
+    int linerExist := 0
+    Loop, Parse, code, `n, `r {
+    if (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "liner ") {
+    linerExist := 1
+    }
+    }
+    if (linerExist = 0) {
+    return code
+    }
+
     Loop, Parse, code, `n, `r {
 
         if (SubStr(Trim(StrLower(A_LoopField)), 1, 6) != "liner ") and (Trim(StrLower(A_LoopField)) != "subout") {
@@ -12819,12 +12830,11 @@ func str liner_htvm_construct(str code) {
             inLinerOnce++
             if (inLinerOnce = 1) {
                 if (inLinerAllVarsSetUp = 1) {
-                if (seenLiner = 1) {
                     out .= Trim(keyWordINT) . " A_SUCCESS " . Trim(keyWordAssign) . " 0" . Chr(10)
                     out .= Trim(keyWordINT) . " A_SUCCESS_WEIGHTED " . Trim(keyWordAssign) . " 0" . Chr(10)
                     out .= Trim(keyWordINT) . " A_TOTAL_WEIGHT " . Trim(keyWordAssign) . " atatattatatwwwwwwwww__hasbscvasvas_HTVM_jsabvasbaaatatata" . Chr(10)
                     out .= Trim(keyWordBOOL) . " A_SUCCESS_ALL " . Trim(keyWordAssign) . " " . keyWordFalse . Chr(10)
-                }
+
                 }
                 else {
                     if (seenLiner = 1) {
@@ -12835,19 +12845,20 @@ func str liner_htvm_construct(str code) {
                     }
                 }
             }
-            if (InStr(A_LoopField, ": ")) {
-                            if (seenLiner = 1) {
-                weight := Trim(StrSplit(A_LoopField, ":", 1))
-                ALoopField := Trim(StrSplit(A_LoopField, ":", 2))
-                ATOTALWEIGHT += INT(weight)
+            if (inLiner = 1) { 
+                if (InStr(A_LoopField, ": ")) {
+                                if (seenLiner = 1) {
+                    weight := Trim(StrSplit(A_LoopField, ":", 1))
+                    ALoopField := Trim(StrSplit(A_LoopField, ":", 2))
+                    ATOTALWEIGHT += INT(weight)
+                    }
+                }
+                else {
+                    weight := "1"
+                    ATOTALWEIGHT++
+                    ALoopField := Trim(A_LoopField)
                 }
             }
-            else {
-                weight := "1"
-                ATOTALWEIGHT++
-                ALoopField := Trim(A_LoopField)
-            }
-
             if (seenLiner = 1) {
                 out .= Trim(keyWordIF) . " (" . ALoopField . ")" . Chr(10) . "{" . Chr(10) . "A_SUCCESS" . keyWordInc . Chr(10) . "A_SUCCESS_WEIGHTED " . Trim(keyWordAssignAdd) . " " . weight . Chr(10) . "}" . Chr(10)
             }
@@ -12873,6 +12884,7 @@ func str liner_htvm_construct(str code) {
             inLiner := 0
 
             ATOTALWEIGHT := 0
+            seenLiner := 0
             out .= Trim(keyWordIF) . " (A_SUCCESS_WEIGHTED " . Trim(keyWordEqual) . " A_TOTAL_WEIGHT)" . Chr(10) . "{" . Chr(10) . "A_SUCCESS_ALL " . Trim(keyWordAssign) . " " . keyWordTrue . Chr(10) . "}" . Chr(10)
         }
         else {
@@ -12897,6 +12909,109 @@ func str liner_htvm_construct(str code) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+func str FIX_addSimpleStructs(str line) {
+if (langToConvertTo = langFileExtension_2)
+{
+line := StrReplace(line, "struct_HTVM_jjsabdvkjhsdbvkjsdbvksdjbgsdkbhqwiesdfvhbfuewskdvgkusdbfgvsekdlgbsewidgbsewkufbg-HTVM", Trim(keyWordStruct_2))
+}
+return line
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+func str addSimpleStructs(str line) {
+
+str out := ""
+int isIn := 0
+int doseItHaveType := 0
+
+arr str furtre 
+Loop, Parse, line, `n, `r {
+furtre.add(A_LoopField)
+}
+furtre.add(" ")
+
+Loop, Parse, line, `n, `r {
+
+if (SubStr(Trim(A_LoopField), 1, StrLen(keyWordStruct)) != keyWordStruct) and (Trim(StrLower(A_LoopField)) != "subout") and (isIn = 1) {
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+str1 := Trim(StrSplit(A_LoopField, ":", 1))
+str2 := Trim(StrSplit(A_LoopField, ":", 2))
+
+str4 := ""
+str5 := ""
+doseItHaveType := 0
+Loop, Parse, str1, " " {
+if (A_Index = 1) {
+doseItHaveType := 1
+}
+str4 := A_LoopField
+}
+
+if (doseItHaveType = 1) {
+
+str5 := Trim(StringTrimRight(str1, StrLen(str4)))
+
+str3 := Trim(keyWordProp) . " " . str5 . " " . str4 . " " . Trim(keyWordAssign) . " " . str2
+
+}
+else {
+if (RegExMatch(str2, "^[+-]?\d+$")) {
+str3 := Trim(keyWordProp) . " " . Trim(keyWordINT) . " " . str1 . " " . Trim(keyWordAssign) . " " . str2
+}
+else if (RegExMatch(str2, "^[+-]?\d+\.\d+$")) {
+str3 := Trim(keyWordProp) . " " . Trim(keyWordFLOAT) . " " . str1 . " " . Trim(keyWordAssign) . " " . str2
+}
+else if (InStr(str2, "ihuiuuhuuhtheidFor--asds")) {
+str3 := Trim(keyWordProp) . " " . Trim(keyWordSTR) . " " . str1 . " " . Trim(keyWordAssign) . " " . str2
+}
+else {
+str3 := Trim(keyWordProp) . " " . Trim(keyWordINT) . " " . str1 . " " . Trim(keyWordAssign) . " " . str2
+}
+}
+
+
+out .= str3 . Chr(10)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+}
+else if (SubStr(Trim(A_LoopField), 1, StrLen(keyWordStruct)) = keyWordStruct) and (furtre[A_Index + 1] != "{") {
+isIn := 1
+
+if (langToConvertTo = langFileExtension_2)
+{
+
+out .= StrReplace(A_LoopField, Trim(keyWordStruct), "struct_HTVM_jjsabdvkjhsdbvkjsdbvksdjbgsdkbhqwiesdfvhbfuewskdvgkusdbfgvsekdlgbsewidgbsewkufbg-HTVM") . Chr(10) . "{" . Chr(10)
+}
+else {
+out .= A_LoopField . Chr(10) . "{" . Chr(10)
+}
+
+}
+else if (Trim(StrLower(A_LoopField)) = "subout") and (isIn = 1) {
+isIn := 0
+
+out .= "}" . Chr(10)
+}
+else {
+out .= A_LoopField . Chr(10)
+}
+
+}
+
+    StringTrimRight, out, out, 1
+    return out
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 func str compiler(str htCode, str allInstructionFile, str mode, str langToConvertToParam := "")
 {
@@ -15585,7 +15700,7 @@ StringTrimRight, code, htCodeOutFixEnd, 1
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 code := htvm_hook3(code)
-
+code := addSimpleStructs(code)
 ; name: subroutine/func for GUI and backend
 if (langToConvertTo != langFileExtension_2)
 {
@@ -26588,6 +26703,7 @@ correctLang := 0
 
 if (isNotHTVMfile2 = 0)
 {
+htCode := FIX_addSimpleStructs(htCode)
 if (langToConvertTo = "ahk")
 {
 htCode := RegExReplace(htCode, "\bStrSplit\b", "AHK_StrSplit_AHK")

@@ -1,8 +1,76 @@
-include "utils.htvm"
+struct myOwn
+    var1: 5
+    var2: 6.54
+subout
+
+struct myOwn2
+    int var1: 5
+    float var2: 6.54
+subout
+
+struct myOwn3
+    var1: 5
+    float var2: 6.54
+subout
+
+
+struct myOwn4
+    int var1: 5
+    var2: 6.54
+subout
+
+
+struct myOwn5
+    int var1: 5
+    var2: "hello"
+subout
+
 
 main
-    f := open("my_file.txt", "r")
-    content := f.read() ; Parser sees '.read', checks symbol table.
-                       ; It IS now in the list!
-                       ; The parser now INCORRECTLY rewrites this to:
-                       ; read(f)
+
+print(myOwn.var1)
+
+
+; ===================================
+; HTVM: LINER Demo – Game Fight Eligibility
+; ===================================
+
+; --- Variables ---
+bool hasStrongWeapon := true
+bool hasShield := false
+int health := 75
+int gold := 120
+bool isBuffed := true
+bool enemyNearby := true
+
+; --- LINER Block for Fight Eligibility ---
+Liner FightEligibility
+    5: hasStrongWeapon       ; must have a strong weapon
+    2: hasShield             ; optional shield
+    3: health > 50           ; health must be above 50
+    1: gold >= 100           ; enough gold to pay fee
+    2: isBuffed              ; player is buffed
+    3: enemyNearby           ; enemy is present
+subout
+
+; --- Output Results ---
+print("=== Fight Eligibility Evaluation ===")
+print("Raw success count: " . STR(A_SUCCESS))
+print("Weighted success: " . STR(A_SUCCESS_WEIGHTED))
+print("Total possible weight: " . STR(A_TOTAL_WEIGHT))
+print("All passed? " . STR(A_SUCCESS_ALL))
+
+; --- Single-condition LINER example ---
+Liner SingleCheck
+    hasShield
+subout
+
+print("=== Single-condition Check ===")
+print("Raw success count: " . STR(A_SUCCESS))
+print("Weighted success: " . STR(A_SUCCESS_WEIGHTED))
+print("Total possible weight: " . STR(A_TOTAL_WEIGHT))
+print("All passed? " . STR(A_SUCCESS_ALL))
+
+
+
+print(myOwn.var2)

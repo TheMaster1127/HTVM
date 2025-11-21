@@ -1,0 +1,23 @@
+struct myOwn {
+    prop int var1 := 5
+    prop float var2 := 6.54
+}
+struct myOwn2 {
+    prop int var1 := 5
+    prop float var2 := 6.54
+}
+struct myOwn3 {
+    prop int var1 := 5
+    prop float var2 := 6.54
+}
+struct myOwn4 {
+    prop int var1 := 5
+    prop float var2 := 6.54
+}
+struct myOwn5 {
+    prop int var1 := 5
+    prop str var2 := "hello"
+}
+main
+print(myOwn.var1)
+print(myOwn.var2)
