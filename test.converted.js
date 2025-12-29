@@ -5,19 +5,17 @@ function print(value) {
 }
 
 
-var myOwn_var1 = 5;
-var myOwn_var2 = 6.54;
-var myOwn2_var1 = 5;
-var myOwn2_var2 = 6.54;
-var myOwn3_var1 = 5;
-var myOwn3_var2 = 6.54;
-var myOwn4_var1 = 5;
-var myOwn4_var2 = 6.54;
-var myOwn5_var1 = 5;
-var myOwn5_var2 = "hello";
 async function main() {
-    print(myOwn_var1);
-    print(myOwn_var2);
+    var x = 15;
+    // WASEDRFG  AWSEDRF SEDF
+    if (x == 5) {
+        print("The value is five.");
+    }
+    else if (x >= 10 && x <= 20) {
+        print("The value is between 10 and 20.");
+    } else {
+        print("Unknown value.");
+    }
     
 
 }

@@ -1,0 +1,1319 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HTVM</title>
+        <style>
+            body {
+                background-color: #202020;
+                font-family:
+                    "Open Sans",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    Oxygen-Sans,
+                    Ubuntu,
+                    Cantarell,
+                    "Helvetica Neue",
+                    Helvetica,
+                    Arial,
+                    sans-serif;
+            }
+        </style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+    <body>
+<script>
+
+
+function MsgBox(text, title = " ", value = 0, timeout = null) {
+    return new Promise((resolve) => {
+        // Define default options for the message box
+        let defaultOptions = {
+            title: title || " ", // Default title is empty
+            text: text || "Press OK to continue.", // Default text if not provided
+            showCancelButton: false, // Default is to not show Cancel button
+            showDenyButton: false, // Default is to not show Deny button
+            confirmButtonText: "OK", // Default text for OK button
+            focusConfirm: true, // Default focus on OK button
+        };
+        let numOriginal = value;
+        let num = numOriginal;
+        let done1 = 0;
+        let done2 = 0;
+        let done3 = 0;
+        let AIndex = 0;
+        for (AIndex = 1; AIndex <= 1; AIndex++) {
+            // Handle special case for value adjustments
+            if (num >= 262144) {
+                num = num - 262144;
+                numOriginal = numOriginal - 262144;
+            }
+            if (num >= 256 && num < 500) {
+                num = num - 256;
+                done3 = 256;
+            }
+            if (num >= 512) {
+                num = num - 512;
+                done3 = 512;
+            }
+            if (num == 0) {
+                done1 = 0;
+                break;
+            }
+            if (num <= 6) {
+                done1 = num;
+                break;
+            }
+            if (num >= 64 && num < 64 * 2) {
+                done2 = 64;
+                if (num == 64) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 64;
+                    break;
+                }
+            }
+            if (num >= 48 && num < 63) {
+                done2 = 48;
+                if (num == 48) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 48;
+                    break;
+                }
+            }
+            if (num >= 32 && num < 47) {
+                done2 = 32;
+                if (num == 32) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 32;
+                    break;
+                }
+            }
+            if (num >= 16 && num < 30) {
+                done2 = 16;
+                if (num == 16) {
+                    done1 = 0;
+                    break;
+                } else {
+                    done1 = num - 16;
+                    break;
+                }
+            }
+        }
+        let doneAdded = done1 + done2 + done3;
+        if (doneAdded !== numOriginal) {
+            // displayMessage("The calc was wrong!");
+        } else {
+            // displayMessage("num was: " + numOriginal + "\ndone1: " + done1 + "\ndone2: " + done2 + "\ndone3: " + done3);
+        }
+        // Parse the value to determine the options for the message box
+        if (done1 === 1) defaultOptions.showCancelButton = true;
+        if (done1 === 3) {
+            defaultOptions.showCancelButton = true;
+            defaultOptions.showDenyButton = true;
+        }
+        if (done1 === 4) {
+            defaultOptions.showDenyButton = true;
+        }
+        if (done1 === 5) {
+            defaultOptions.showCancelButton = true;
+        }
+        if (done2 === 16) defaultOptions.icon = "error";
+        if (done2 === 32) defaultOptions.icon = "question";
+        if (done2 === 48) defaultOptions.icon = "warning";
+        if (done2 === 64) defaultOptions.icon = "info";
+        if (done3 === 256) defaultOptions.focusDeny = true;
+        if (done3 === 512) defaultOptions.focusCancel = true;
+        // Set timeout if provided
+        if (timeout) {
+            defaultOptions.timer = timeout * 1000; // Convert timeout to milliseconds
+        }
+        // Display the message box with the constructed options
+        Swal.fire(defaultOptions).then((result) => {
+            if (result.isConfirmed) {
+                resolve("OK");
+            } else if (result.isDenied) {
+                resolve("No");
+            } else {
+                resolve("Cancel");
+            }
+        });
+    });
+}
+
+/**
+ * GUI System State
+ * Stores references to elements, counters, and layout information.
+ */
+const guiState = {
+    initialized: false,
+    backgroundDiv: null,
+    elements: {}, // Stores all GUI elements keyed by their ID { id: { elementRef, type, parentId, properties, children?, lastAutoPosChildElement? ... } }
+    elementCounters: {}, // Stores counters for generating default IDs { div: 0, button: 0, text: 0, ... }
+    lastAutoPosElement: { // For the top-level grid layout system
+        id: null,
+        x: 0, // Pixel value
+        y: 0, // Pixel value
+        width: 0, // Pixel value
+        height: 0 // Pixel value
+    },
+    currentZIndex: 0, // For default z-index generation for top-level guiAdd divs
+    autoPosGap: 20, // Gap for automatic grid layout
+    idsInUse: new Set() // Keep track of all manually set and generated IDs
+};
+/**
+ * Generates a unique default ID for an element type.
+ * @param {string} elementType - The type of the element (e.g., 'div', 'button', 'text').
+ * @returns {string} A unique ID (e.g., 'button0', 'text1').
+ */
+function generateDefaultId(elementType) {
+    if (guiState.elementCounters[elementType] === undefined) {
+        guiState.elementCounters[elementType] = 0;
+    }
+    let id;
+    do {
+        id = `${elementType}${guiState.elementCounters[elementType]++}`;
+    } while (guiState.idsInUse.has(id)); // Ensure uniqueness
+    guiState.idsInUse.add(id);
+    return id;
+}
+/**
+ * Parses a CSS property string (like '10px' or '50%') into value and unit.
+ * Assumes 'px' if no unit is provided for numbers. Returns null for 'auto' or invalid.
+ * @param {string | number | null} value - The value to parse.
+ * @param {string} [defaultUnit='px'] - The default unit if only a number is given.
+ * @returns {{value: number, unit: string} | null} - Parsed value and unit or null if not parsable numerically.
+ */
+function parseCssValue(value, defaultUnit = 'px') {
+    if (value === null || value === undefined) return null;
+    if (typeof value === 'number') {
+        return { value: value, unit: defaultUnit };
+    }
+    if (typeof value === 'string') {
+        const trimmedValue = value.trim().toLowerCase();
+        if (trimmedValue === 'auto') {
+            return null; // Cannot parse 'auto' numerically
+        }
+        const match = trimmedValue.match(/^(\d*\.?\d+)\s*([a-z%]*)$/);
+        if (match) {
+            const num = parseFloat(match[1]);
+            const unit = match[2] || defaultUnit;
+            return { value: num, unit: unit };
+        }
+    }
+    // Allow number 0 specifically
+    if (value === 0) {
+        return { value: 0, unit: defaultUnit };
+    }
+    // console.warn(`Could not parse CSS value numerically: ${value}`); // Reduce noise
+    return null; // Indicate parsing failure
+}
+/**
+ * Applies raw CSS string to an element.
+ * @param {HTMLElement} element - The element to apply styles to.
+ * @param {string | null} rawCss - The raw CSS string (e.g., "color: red; font-weight: bold;").
+ */
+function applyRawCss(element, rawCss) {
+    if (typeof rawCss === 'string' && rawCss.trim() !== '') {
+        const styles = rawCss.split(';');
+        styles.forEach(style => {
+            if (style.trim() !== '') {
+                const [property, value] = style.split(':').map(s => s.trim());
+                if (property && value) {
+                    const camelCaseProperty = property.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+                    try {
+                        // Special handling for common properties that might have existing values cleared
+                        if (element.style[camelCaseProperty] !== undefined) {
+                             element.style[camelCaseProperty] = value;
+                        } else {
+                             // Use setProperty for custom properties or less common ones
+                             element.style.setProperty(property, value);
+                        }
+                    } catch (e) {
+                        console.warn(`Failed to apply raw CSS style: ${property}:${value}`, e);
+                    }
+                }
+            }
+        });
+    }
+}
+/**
+ * Parses the border string ("size color" or "size|color"). Prefers CSS standard space separation.
+ * @param {string | null} borderString
+ * @param {string} [defaultSize='1px'] - Default border size
+ * @param {string} [defaultColor='transparent'] - Default border color
+ * @returns {{ size: string, style: string, color: string } | null}
+ */
+function parseBorder(borderString, defaultSize = '1px', defaultColor = 'transparent') {
+    if (borderString === null || borderString === undefined || String(borderString).trim() === '') return null;
+    const str = String(borderString);
+    // Prioritize pipe, then space
+    const parts = str.includes('|') ? str.split('|').map(s => s.trim()) : str.split(/\s+/).map(s => s.trim());
+    // Basic parsing: assumes size [style] color or just size or size color
+    let size = defaultSize;
+    let style = 'solid';
+    let color = defaultColor;
+    if (parts.length === 1) {
+        // Is it a color or a size? Assume size if it looks like a CSS unit value
+        if (parseCssValue(parts[0])) {
+            size = parts[0];
+        } else {
+            color = parts[0]; // Assume it's a color name/hex
+        }
+    } else if (parts.length === 2) {
+        // Assume "size color" or "size style" or "style color" - prioritize size/color
+        // If first part looks like size, assume "size color"
+        if (parseCssValue(parts[0])) {
+             size = parts[0];
+             color = parts[1];
+        } else { // Assume "style color" or "color size"? Less common, default to size/color interpretation
+            size = parts[0]; // May not be a valid size, CSS handles it
+            color = parts[1];
+        }
+    } else if (parts.length >= 3) {
+        size = parts[0];
+        style = parts[1]; // Add style parsing if needed
+        color = parts[2];
+    }
+    // Ensure size has a unit if it's just a number string that's not 0
+     const parsedSize = parseCssValue(size, 'px');
+     if (parsedSize && parsedSize.unit === 'px' && String(size) === String(parsedSize.value) && parsedSize.value !== 0) {
+         size = `${parsedSize.value}px`;
+     }
+    return { size: size, style: style, color: color };
+}
+// ==========================================================================
+// HELPER: APPLY ENABLED/DISABLED STYLES (REVISED FOR CURSOR)
+// ==========================================================================
+/**
+ * Applies visual and functional styles based on the element's effective enabled state.
+ * @param {HTMLElement} element - The DOM element.
+ * @param {string} elementType - The type of the element ('button', 'text', 'div', etc.).
+ * @param {boolean} isEffectivelyEnabled - The calculated enabled state (considering parent).
+ * @param {object} properties - The element's stored properties (needed for callback check).
+ */
+function _applyEnabledStyles(element, elementType, isEffectivelyEnabled, properties) {
+    // Visual indication (Opacity applies universally)
+    element.style.opacity = isEffectivelyEnabled ? '1' : '0.5';
+    // Functional indication (Pointer events & Cursor)
+    if (elementType === 'div') {
+        // --- Container DIV Specific Logic ---
+        if (!isEffectivelyEnabled) {
+            // Disabled Container:
+            // - Apply 'not-allowed' cursor via class.
+            // - *DO NOT* set pointer-events: none, so hover for cursor works.
+            // - Interaction is blocked because children will have pointer-events: none.
+            element.classList.add('gui-container-disabled');
+            // Ensure pointer-events is not 'none' if previously set
+            if (element.style.pointerEvents === 'none') {
+                 element.style.pointerEvents = 'auto'; // Or '', restore default behaviour
+            }
+        } else {
+            // Enabled Container:
+            // - Remove class.
+            // - Restore default pointer events.
+            // - Reset cursor (let children define theirs).
+            element.classList.remove('gui-container-disabled');
+            element.style.pointerEvents = ''; // Default browser handling
+            element.style.cursor = '';
+        }
+    } else {
+        // --- Child Element Specific Logic ---
+        element.style.pointerEvents = isEffectivelyEnabled ? 'auto' : 'none';
+        // Specific disabled attribute for form elements
+        if (element.tagName === 'BUTTON' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA' || element.tagName === 'INPUT') {
+            element.disabled = !isEffectivelyEnabled;
+        }
+        // Cursor for child elements
+        element.style.cursor = ''; // Reset first
+        if (isEffectivelyEnabled) {
+            // Set appropriate cursor only if enabled
+            const isInteractive = (
+                ['button', 'toggle', 'picture', 'dropdown'].includes(elementType) ||
+                ((elementType === 'rectangle' || elementType === 'circle') && properties?.callback)
+            );
+            if (isInteractive) {
+                element.style.cursor = 'pointer';
+            } else if (elementType === 'text') {
+                element.style.cursor = 'default';
+            } else if (elementType === 'edit'){
+                element.style.cursor = 'text';
+            }
+        } else {
+            // Child element is effectively disabled
+            element.style.cursor = 'default'; // Use 'default' cursor for disabled children
+        }
+    }
+}
+// ==========================================================================
+// GUI INIT FUNCTION
+// ==========================================================================
+/**
+ * Initializes the main GUI background layer.
+ * @param {string | null} [backgroundColor=null] - Background color (hex). Defaults to '#202020'.
+ * @param {string | null} [centerText=null] - Text to display in the center. Defaults to null (no text).
+ */
+function guiInit(backgroundColor = null, centerText = null) {
+    if (guiState.initialized) {
+        console.warn("GUI already initialized. Re-initializing.");
+        if (guiState.backgroundDiv && guiState.backgroundDiv.parentNode) {
+            guiState.backgroundDiv.parentNode.removeChild(guiState.backgroundDiv);
+        }
+        // Reset state if re-initializing cleanly
+        Object.keys(guiState.elements).forEach(id => {
+             if (guiState.elements[id].elementRef && guiState.elements[id].elementRef.parentNode) {
+                 guiState.elements[id].elementRef.parentNode.removeChild(guiState.elements[id].elementRef);
+             }
+        });
+        guiState.elements = {};
+        guiState.elementCounters = {};
+        guiState.lastAutoPosElement = { id: null, x: 0, y: 0, width: 0, height: 0 };
+        guiState.currentZIndex = 0;
+        guiState.idsInUse.clear();
+    }
+    const finalBgColor = backgroundColor === null ? '#202020' : backgroundColor; // Match body style bg
+    const bgDiv = document.createElement('div');
+    bgDiv.id = 'gui-background';
+    bgDiv.style.position = 'fixed';
+    bgDiv.style.top = '0';
+    bgDiv.style.left = '0';
+    bgDiv.style.width = '100vw';
+    bgDiv.style.height = '100vh';
+    bgDiv.style.backgroundColor = finalBgColor;
+    bgDiv.style.zIndex = '-1'; // Behind other content
+    bgDiv.style.overflow = 'hidden'; // Prevent scrollbars
+    if (typeof centerText === 'string' && centerText.trim() !== '') {
+        const textElement = document.createElement('div');
+        textElement.textContent = centerText;
+        textElement.style.position = 'absolute';
+        textElement.style.top = '50%';
+        textElement.style.left = '50%';
+        textElement.style.transform = 'translate(-50%, -50%)';
+        textElement.style.color = 'white'; // Default color
+        textElement.style.fontSize = '20px'; // Default size
+        textElement.style.fontFamily = 'sans-serif'; // Default font
+        textElement.style.textAlign = 'center';
+        textElement.style.pointerEvents = 'none'; // Ignore clicks
+        bgDiv.appendChild(textElement);
+    }
+    document.body.appendChild(bgDiv);
+    guiState.backgroundDiv = bgDiv;
+    guiState.initialized = true;
+    console.log("GUI Initialized.");
+}
+
+// ==========================================================================
+// GUI ADD FUNCTION (Adds top-level DIVs)
+// ==========================================================================
+/**
+ * Adds or updates a main GUI container element (div).
+ * If ID exists, updates the element (enters edit mode).
+ * If x and y are null during creation, uses automatic grid layout.
+ *
+ * @param {object} options - Configuration options for the element.
+ * @param {string | number | null} [options.id=null] - Element ID. Auto-generated if null. Reuses if existing.
+ * @param {string | number | null} [options.x=null] - Left position ('50px', '50%'). Defaults to auto grid layout on create, center on update if null.
+ * @param {string | number | null} [options.y=null] - Top position ('50px', '50%'). Defaults to auto grid layout on create, center on update if null.
+ * @param {string | number | null} [options.width='50%'] - Width ('100px', '50%').
+ * @param {string | number | null} [options.height='50%'] - Height ('100px', '50%').
+ * @param {number | string | null} [options.zIndex=null] - Stacking order. Auto-increments if null during creation. Defaults to 'auto'.
+ * @param {string | null} [options.backgroundColor=null] - Background color (hex). Defaults to transparent.
+ * @param {number | string | null} [options.rounding=10] - Border radius ('px' or '%'). Null or < 0 for no rounding. Default 10px.
+ * @param {string | null} [options.border=null] - Border style ("size [style] color", e.g., "1px white"). Null for no border.
+ * @param {string | null} [options.rawCss=null] - Additional raw CSS string.
+ * @param {boolean | null} [options.isDeleting=false] - If true, removes the element.
+ * @param {boolean | null} [options.isEnabled=true] - If false, visually disables the element (opacity, pointer-events) AND ITS CHILDREN.
+ * @param {boolean | null} [options.isVisible=true] - If false, hides the element (display: none).
+ */
+function guiAdd({
+    id = null,
+    x = null,
+    y = null,
+    width = '45%', // Default for guiAdd
+    height = '45%', // Default for guiAdd
+    zIndex = null, // Default to null -> auto-increment or keep existing
+    backgroundColor = "#121212",
+    rounding = 10, // Default rounding 10px for guiAdd
+    border = null, // Default no border for guiAdd
+    rawCss = null,
+    isDeleting = false,
+    isEnabled = true, // Default to enabled
+    isVisible = true
+} = {}) {
+    if (!guiState.initialized) {
+        console.error("GUI Add Error: guiInit() must be called first.");
+        return;
+    }
+    let elementId = id;
+    let isEditMode = false;
+    let existingElementData = null;
+    // --- ID Handling ---
+    if (elementId === null) {
+        elementId = generateDefaultId('div'); // Default type is div for guiAdd
+    } else {
+        elementId = String(elementId);
+        if (guiState.elements[elementId]) {
+            isEditMode = true;
+            existingElementData = guiState.elements[elementId];
+             if (existingElementData.type !== 'div') {
+                 console.warn(`GUI Add Warning: Attempting to update element '${elementId}' which is not a 'div' using guiAdd. Use guiControl or guiAddElement.`);
+                 // Allow update for flexibility, but warn.
+             }
+        } else {
+            if (guiState.idsInUse.has(elementId)) {
+                console.warn(`GUI Add: Provided ID ${elementId} collides with a previously generated or used ID. Behaviour might be unexpected.`);
+            }
+            guiState.idsInUse.add(elementId);
+        }
+    }
+    // --- Deleting ---
+    if (isDeleting) {
+        if (isEditMode) {
+            // Recursively delete children first (cleaner state)
+            if (existingElementData.children) {
+                Object.keys(existingElementData.children).forEach(childId => {
+                     // Use guiControl for proper deletion logic of children if needed,
+                     // but simpler to just remove element and data here
+                     const childData = existingElementData.children[childId];
+                     if (childData && childData.elementRef && childData.elementRef.parentNode) {
+                         childData.elementRef.parentNode.removeChild(childData.elementRef);
+                     }
+                     guiState.idsInUse.delete(childId);
+                     // No need to delete from parent's children map, as parent is being deleted
+                });
+            }
+            const elRef = existingElementData.elementRef;
+            if (elRef && elRef.parentNode) {
+                elRef.parentNode.removeChild(elRef);
+            }
+            delete guiState.elements[elementId];
+            guiState.idsInUse.delete(elementId);
+            if (guiState.lastAutoPosElement.id === elementId) {
+                 guiState.lastAutoPosElement = { id: null, x: 0, y: 0, width: 0, height: 0 };
+            }
+            console.log(`GUI Add: Deleted element ID: ${elementId} and its children.`);
+        } else {
+            if (id !== null) {
+                 console.warn(`GUI Add: Attempted to delete non-existent element ID: ${elementId}`);
+            }
+        }
+        return; // Stop execution after deletion
+    }
+    let divElement;
+    let properties = {};
+    let oldIsEnabled = true; // Assume true initially or from existing state
+    if (isEditMode) {
+        divElement = existingElementData.elementRef;
+        properties = { ...existingElementData.properties }; // Clone properties for modification
+        oldIsEnabled = properties.isEnabled; // Capture old state before potential update
+    } else {
+        divElement = document.createElement('div');
+        divElement.id = elementId;
+        divElement.style.position = 'absolute';
+        divElement.style.boxSizing = 'border-box';
+        divElement.style.overflow = 'hidden'; // Prevent content spill by default
+        properties = {};
+        // Initialize children map and layout tracker for new elements
+        guiState.elements[elementId] = { // Temporarily add to state for children iteration later
+            elementRef: divElement,
+            type: 'div',
+            parentId: null,
+            properties: properties, // Reference, will be updated
+            children: {},
+            lastAutoPosChildElement: { x: 0, y: 0, width: 0, height: 0 }
+        };
+    }
+    // --- Apply Properties (Create or Edit) ---
+    // Visibility (Apply early)
+    const finalIsVisible = isVisible !== null ? isVisible : (isEditMode ? properties.isVisible : true);
+    divElement.style.display = finalIsVisible ? '' : 'none';
+    properties.isVisible = finalIsVisible;
+    // Size (Width, Height)
+    const finalWidth = width !== null ? String(width) : (isEditMode ? properties.width : '50%');
+    const finalHeight = height !== null ? String(height) : (isEditMode ? properties.height : '50%');
+    divElement.style.width = finalWidth;
+    divElement.style.height = finalHeight;
+    properties.width = finalWidth;
+    properties.height = finalHeight;
+    // Position (X, Y)
+    let finalX = x !== null ? String(x) : (isEditMode ? properties.x : null);
+    let finalY = y !== null ? String(y) : (isEditMode ? properties.y : null);
+    let needsCenteringTransform = false;
+    let isAutoLayout = false;
+    if (finalX === null && finalY === null && !isEditMode) {
+        isAutoLayout = true;
+        const last = guiState.lastAutoPosElement;
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        let currentW_px = 0;
+        let currentH_px = 0;
+        let wasAddedTemporarily = false;
+        if (!document.body.contains(divElement)) {
+            divElement.style.visibility = 'hidden'; divElement.style.left = '-9999px';
+            document.body.appendChild(divElement); wasAddedTemporarily = true;
+        }
+        currentW_px = divElement.offsetWidth;
+        currentH_px = divElement.offsetHeight;
+        if (wasAddedTemporarily) {
+            document.body.removeChild(divElement);
+            divElement.style.visibility = ''; divElement.style.left = '';
+        }
+         if (currentW_px <= 0) {
+              const parsedW = parseCssValue(finalWidth);
+              currentW_px = parsedW ? ((parsedW.unit === '%') ? (screenWidth * parsedW.value / 100) : parsedW.value) : 200;
+         }
+         if (currentH_px <= 0) {
+              const parsedH = parseCssValue(finalHeight);
+              currentH_px = parsedH ? ((parsedH.unit === '%') ? (screenHeight * parsedH.value / 100) : parsedH.value) : 100;
+         }
+        if (last.id !== null && guiState.elements[last.id]) {
+            let nextX = last.x + last.width + guiState.autoPosGap;
+            let nextY = last.y;
+            if (nextX + currentW_px > screenWidth - guiState.autoPosGap) {
+                nextX = guiState.autoPosGap;
+                nextY = last.y + last.height + guiState.autoPosGap;
+            }
+            finalX = nextX + 'px';
+            finalY = nextY + 'px';
+        } else {
+            finalX = guiState.autoPosGap + 'px';
+            finalY = guiState.autoPosGap + 'px';
+        }
+        guiState.lastAutoPosElement = {
+            id: elementId, x: parseFloat(finalX), y: parseFloat(finalY),
+            width: currentW_px, height: currentH_px
+        };
+    } else if (!isAutoLayout && (finalX === null || finalY === null || String(finalX).includes('%') || String(finalY).includes('%'))) {
+         finalX = finalX ?? (isEditMode ? properties.x : '50%');
+         finalY = finalY ?? (isEditMode ? properties.y : '50%');
+         needsCenteringTransform = true;
+    }
+    divElement.style.left = finalX !== null ? String(finalX) : '';
+    divElement.style.top = finalY !== null ? String(finalY) : '';
+    properties.x = finalX;
+    properties.y = finalY;
+    divElement.style.transform = needsCenteringTransform ? `translate(-50%, -50%)` : '';
+    // Z-Index
+    let finalZIndex = zIndex !== null ? String(zIndex) : (isEditMode ? properties.zIndex : null);
+    if (finalZIndex === null && !isEditMode) {
+        finalZIndex = String(guiState.currentZIndex++);
+    } else if (finalZIndex === null && isEditMode) {
+         finalZIndex = properties.zIndex;
+    }
+    divElement.style.zIndex = finalZIndex ?? 'auto';
+    properties.zIndex = finalZIndex;
+    // Background Color
+    const finalBgColor = backgroundColor !== null ? backgroundColor : (isEditMode ? properties.backgroundColor : null);
+    divElement.style.backgroundColor = finalBgColor || 'transparent';
+    properties.backgroundColor = finalBgColor;
+    // Rounding
+    const finalRounding = rounding !== null ? rounding : (isEditMode ? properties.rounding : 10);
+    if (finalRounding !== null) {
+         if (typeof finalRounding === 'string' && finalRounding.includes('%')) {
+            divElement.style.borderRadius = finalRounding;
+         } else if (!isNaN(parseFloat(finalRounding)) && parseFloat(finalRounding) >= 0) {
+             divElement.style.borderRadius = `${parseFloat(finalRounding)}px`;
+         } else {
+             divElement.style.borderRadius = '0px';
+         }
+    } else {
+        divElement.style.borderRadius = '0px';
+    }
+    properties.rounding = finalRounding;
+    // Border
+    const finalBorder = border !== null ? border : (isEditMode ? properties.border : null);
+    const parsedBorder = parseBorder(finalBorder);
+    divElement.style.border = parsedBorder ? `${parsedBorder.size} ${parsedBorder.style} ${parsedBorder.color}` : 'none';
+    properties.border = finalBorder;
+    // Raw CSS
+    const finalRawCss = rawCss !== null ? rawCss : (isEditMode ? properties.rawCss : null);
+    applyRawCss(divElement, finalRawCss);
+    properties.rawCss = finalRawCss;
+    // Enabled State (Store intent, apply effective state below)
+    const finalIsEnabled = isEnabled !== null ? isEnabled : (isEditMode ? properties.isEnabled : true);
+    properties.isEnabled = finalIsEnabled; // Store the element's own intended state
+    // Apply enabled styles to the div itself
+    _applyEnabledStyles(divElement, 'div', finalIsEnabled, properties); // Pass its own properties
+    // --- Cascade Enabled State to Children (Only if state changed) ---
+    const enabledStateChanged = finalIsEnabled !== oldIsEnabled;
+    // Ensure we are referencing the correct element data, especially if just created
+    const currentElementData = guiState.elements[elementId];
+    if (enabledStateChanged && currentElementData && currentElementData.children) {
+        // console.log(`Cascading isEnabled=${finalIsEnabled} from ${elementId} to children`);
+        Object.values(currentElementData.children).forEach(childData => {
+            if (childData && childData.elementRef) {
+                // Calculate child's effective state: its own state AND parent's new state
+                const childEffectiveEnabled = childData.properties.isEnabled && finalIsEnabled;
+                // Apply styles based on the *effective* state, passing child's properties
+                _applyEnabledStyles(childData.elementRef, childData.type, childEffectiveEnabled, childData.properties);
+            }
+        });
+    }
+    // --- Add to DOM and State (if new) ---
+    if (!isEditMode) {
+        document.body.appendChild(divElement); // Add to body
+        // Update the properties in the already created state entry
+        guiState.elements[elementId].properties = properties;
+    } else {
+         // Update state for edited element (properties already updated)
+         existingElementData.properties = properties; // Ensure update if reference changed
+    }
+}
+
+// ==========================================================================
+// GUI ADD ELEMENT FUNCTION (MODIFIED to handle optional parentId)
+// ==========================================================================
+/**
+ * Adds or updates an element (button, text, etc.).
+ * If parentId is provided, adds inside that container.
+ * If parentId is NOT provided, adds directly to the main background.
+ * Handles effective enabled state based on parent (if any).
+ * Uses global auto-layout if no parentId AND no x/y provided.
+ * Uses parent's auto-layout if parentId is provided AND no x/y provided.
+ *
+ * @param {object} options - Configuration options for the element.
+ * @param {string | number | null} [options.parentId=null] - ID of the parent container (optional). If null/omitted, adds to background.
+ * @param {string} options.elementType - Required type of element ('button', 'text', etc.).
+ * @param {string | number | null} [options.id=null] - Element ID. Auto-generated if null. Reuses if existing (within parent or globally if no parent).
+ * @param {string | number | null} [options.x=null] - Left position. Relative to parent if parentId given, otherwise absolute. Auto-layout if null.
+ * @param {string | number | null} [options.y=null] - Top position. Relative to parent if parentId given, otherwise absolute. Auto-layout if null.
+ * @param {string | number | null} [options.width=null] - Width. Defaults vary by elementType.
+ * @param {string | number | null} [options.height=null] - Height. Defaults vary by elementType.
+ * @param {number | string | null} [options.zIndex=null] - Stacking order. Auto-increments globally if null & no parentId. Defaults 'auto' inside parent.
+ * @param {any} [options.value=null] - Content/state (text, URL, boolean, options string). Defaults vary.
+ * @param {string | null} [options.placeholder=null] - Placeholder text (for 'edit').
+ * @param {function | string | null} [options.callback=null] - Interaction callback function or name.
+ * @param {string | null} [options.backgroundColor=null] - Background color. Defaults vary.
+ * @param {string | null} [options.color=null] - Text color. Defaults vary.
+ * @param {number | string | null} [options.rounding=null] - Border radius. Defaults vary.
+ * @param {string | null} [options.border=null] - Border style. Defaults vary.
+ * @param {string | null} [options.rawCss=null] - Additional raw CSS string.
+ * @param {number | null} [options.size=null] - Font size (for text-based elements). Defaults vary.
+ * @param {boolean | null} [options.isDeleting=false] - If true, removes the element.
+ * @param {boolean | null} [options.isEnabled=true] - Element's own intended enabled state.
+ * @param {boolean | null} [options.isVisible=true] - Visibility (display: none).
+ */
+function guiAddElement({
+    // Core Identification & Placement
+    id = null,
+    parentId = null, // <<< MADE OPTIONAL (default null)
+    elementType, // Required
+    x = null,
+    y = null,
+    zIndex = null, // Handled differently if top-level
+    // Dimensions
+    width = null,
+    height = null,
+    size = null, // Font size
+    // Content & State
+    value = null,
+    placeholder = null,
+    isEnabled = true, // Element's own desired state
+    isVisible = true,
+    // Styling
+    backgroundColor = null,
+    color = null,
+    rounding = null,
+    border = null,
+    rawCss = null,
+    // Interaction & Deletion
+    callback = null,
+    isDeleting = false
+} = {}) { // <<< Added default empty object for destructuring
+    // --- INITIAL CHECKS ---
+    if (!guiState.initialized) {
+        console.error("GUI Add Element Error: guiInit() must be called first.");
+        return;
+    }
+    const validElementTypes = ['button', 'text', 'edit', 'picture', 'toggle', 'rectangle', 'circle', 'video', 'dropdown', 'iframe'];
+    if (!elementType || !validElementTypes.includes(elementType)) {
+        console.error(`GUI Add Element Error: Invalid or missing elementType. Must be one of: ${validElementTypes.join(', ')}`); return;
+    }
+    // --- DETERMINE PARENT CONTEXT ---  <<< NEW SECTION >>>
+    let parentData = null;
+    let parentElement = null;
+    let parentIdStr = parentId !== null ? String(parentId) : null; // Keep track if a parent was intended
+    let isTopLevelElement = false; // Flag if added directly to background
+    if (parentIdStr !== null) {
+        // Parent ID provided: Validate and get parent data/element (Original Logic)
+        if (!guiState.elements[parentIdStr] || guiState.elements[parentIdStr].type !== 'div') {
+            console.error(`GUI Add Element Error: Parent container with ID '${parentIdStr}' not found or is not a div.`); return;
+        }
+        parentData = guiState.elements[parentIdStr];
+        parentElement = parentData.elementRef;
+        isTopLevelElement = false;
+    } else {
+        // No parent ID provided: Use background div
+        parentElement = guiState.backgroundDiv;
+        parentData = null; // No structured parent data in guiState.elements for the background itself
+        isTopLevelElement = true;
+        if (!parentElement) {
+            // This check prevents adding to background if guiInit wasn't called
+            console.error("GUI Add Element Error: Cannot add element without parentId because guiInit() has not been called or backgroundDiv is missing.");
+            return;
+        }
+    }
+    // --- END NEW SECTION ---
+    // --- ID Handling --- <<< MODIFIED >>>
+    let elementId = id;
+    let isEditMode = false;
+    let existingElementData = null;
+    let oldIsEnabled = true; // For checking change later
+    if (elementId === null) {
+        elementId = generateDefaultId(elementType); // Global uniqueness check happens here
+    } else {
+        elementId = String(elementId);
+        // Check for existing element: either in parent's children OR in global state if top-level
+        if (!isTopLevelElement && parentData.children && parentData.children[elementId]) {
+            // Existing child element within the specified parent
+            isEditMode = true;
+            existingElementData = parentData.children[elementId];
+            if (existingElementData.type !== elementType) {
+                 console.warn(`GUI Add Element Warning: Attempting to change elementType for child ID '${elementId}' from '${existingElementData.type}' to '${elementType}'.`);
+            }
+        } else if (isTopLevelElement && guiState.elements[elementId]) {
+            // Existing top-level element (could be a div OR a non-div added previously without parentId)
+            existingElementData = guiState.elements[elementId];
+            // Prevent controlling divs with guiAddElement, guide user to guiAdd/guiControl
+            if (existingElementData.type === 'div') {
+                 console.warn(`GUI Add Element Warning: Attempting to control a 'div' element '${elementId}' using guiAddElement. Use guiAdd or guiControl instead.`);
+                 return; // Stop execution to prevent incorrect control
+            }
+             if (existingElementData.type !== elementType) {
+                 console.warn(`GUI Add Element Warning: Attempting to change elementType for top-level element ID '${elementId}' from '${existingElementData.type}' to '${elementType}'.`);
+             }
+            isEditMode = true; // It exists globally and is not a div
+        } else {
+             // New element ID, ensure it's globally unique before adding
+             if (guiState.idsInUse.has(elementId)) {
+                 // Warn about collision, specifying context
+                 const locationMsg = isTopLevelElement ? "globally" : `for parent ${parentIdStr}`;
+                 console.warn(`GUI Add Element: Provided ID ${elementId} ${locationMsg} collides with a previously generated or used ID.`);
+             }
+             // Add to the global set regardless of where it will be stored in the state tree
+             guiState.idsInUse.add(elementId);
+        }
+        // Capture old state if editing an existing element
+        if(isEditMode && existingElementData) {
+             oldIsEnabled = existingElementData.properties.isEnabled;
+             // No automatic type change handling here beyond the warning above
+        }
+    }
+     // --- Deleting --- <<< MODIFIED >>>
+    if (isDeleting) {
+        // We only proceed with deletion if we found the element in edit mode
+        if (isEditMode && existingElementData) {
+            const elRef = existingElementData.elementRef;
+            if (elRef && elRef.parentNode) {
+                elRef.parentNode.removeChild(elRef); // Remove from DOM
+            }
+            // Remove from state: either parent's children or global state
+            if (!isTopLevelElement) {
+                delete parentData.children[elementId]; // Remove from parent's children map
+            } else {
+                delete guiState.elements[elementId]; // Remove from global elements map
+                 // Recalculate global last auto-pos element if the deleted one was the last
+                if (guiState.lastAutoPosElement.id === elementId) {
+                    // Simple reset - a more complex recalculation might be needed for perfect layout
+                    guiState.lastAutoPosElement = { id: null, x: 0, y: 0, width: 0, height: 0 };
+                }
+            }
+            guiState.idsInUse.delete(elementId); // Free up the ID
+            const locationMsg = isTopLevelElement ? "globally" : `from parent ${parentIdStr}`;
+            console.log(`GUI Add Element: Deleted element ID: ${elementId} ${locationMsg}`);
+        } else {
+            // Only warn if an explicit ID was given for deletion but not found
+            if (id !== null) {
+                 console.warn(`GUI Add Element: Attempted to delete non-existent element ID: ${elementId}`);
+            }
+        }
+        return; // Stop execution after deletion attempt
+    }
+    // --- Element Creation / Property Setup --- <<< MODIFIED to use existingElementData for edit mode >>>
+    let element;
+    let properties = {};
+    if (isEditMode) {
+        element = existingElementData.elementRef;
+        properties = { ...existingElementData.properties }; // Clone existing properties for modification
+    } else {
+        // Create the actual DOM element based on type
+        // ... (switch statement for element creation, exactly as before, assigns to 'element') ...
+        switch (elementType) {
+             case 'button': element = document.createElement('button'); element.style.textAlign = 'center'; element.style.padding = '5px'; break;
+             case 'text': element = document.createElement('p'); element.style.margin = '0'; element.style.padding = '0'; element.style.userSelect = 'none'; break;
+             case 'edit': element = document.createElement('textarea'); element.style.resize = 'none'; element.style.padding = '5px'; element.style.fontFamily = 'inherit'; element.style.fontSize = 'inherit'; break;
+             case 'picture': element = document.createElement('img'); element.style.objectFit = 'contain'; element.style.display = 'block'; element.style.userSelect = 'none'; element.style.maxWidth = '100%'; element.style.maxHeight = '100%'; break;
+             case 'toggle': element = document.createElement('div'); element.classList.add('gui-toggle'); element.style.position = 'relative'; element.style.overflow = 'hidden'; element.style.transition = 'background-color 0.3s'; element.style.userSelect = 'none'; const slider = document.createElement('div'); slider.classList.add('gui-toggle-slider'); slider.style.position = 'absolute'; slider.style.backgroundColor = 'white'; slider.style.borderRadius = '50%'; slider.style.transition = 'transform 0.3s ease'; element.appendChild(slider); break;
+             case 'rectangle': element = document.createElement('div'); element.style.userSelect = 'none'; break;
+             case 'circle': element = document.createElement('div'); element.style.userSelect = 'none'; break;
+             case 'video': element = document.createElement('iframe'); element.setAttribute('frameborder', '0'); element.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'); element.setAttribute('allowfullscreen', ''); element.setAttribute('referrerpolicy','strict-origin-when-cross-origin'); break;
+             case 'dropdown': element = document.createElement('select'); element.style.padding = '5px'; element.style.fontFamily = 'inherit'; element.style.fontSize = 'inherit'; break;
+             case 'iframe': element = document.createElement('iframe'); element.setAttribute('frameborder', '0'); element.setAttribute('referrerpolicy','strict-origin-when-cross-origin'); break;
+             default: console.warn("GUI Add Element: Unknown element type fallback:", elementType); element = document.createElement('div'); break;
+        }
+        element.id = elementId;
+        element.style.position = 'absolute'; // All elements are absolutely positioned
+        element.style.boxSizing = 'border-box';
+        properties = {}; // Start fresh properties for new element
+    }
+    // --- Element Type Specific Defaults --- <<< MOVED definition up, logic remains similar >>>
+    let defaultWidth, defaultHeight, defaultBgColor, defaultColor, defaultRounding, defaultBorder, defaultValue, defaultPlaceholder, defaultFontSize, defaultZIndex = 'auto'; // default zIndex for children
+    // Assign defaults based on elementType (same switch as before, just getting values)
+     switch (elementType) {
+         case 'button': defaultWidth = '100px'; defaultHeight = '30px'; defaultBgColor = '#4CAF50'; defaultColor = 'white'; defaultRounding = 5; defaultValue = `Button`; defaultBorder = null; defaultFontSize = 14; break;
+         case 'text': defaultWidth = 'auto'; defaultHeight = 'auto'; defaultColor = 'white'; defaultBgColor = 'transparent'; defaultRounding = 0; defaultValue = `Text`; defaultBorder = null; defaultFontSize = 16; break;
+         case 'edit': defaultWidth = '150px'; defaultHeight = '30px'; defaultBgColor = 'white'; defaultColor = 'black'; defaultRounding = 3; defaultValue = ''; defaultPlaceholder = ''; defaultBorder = '1px solid #ccc'; defaultFontSize = 14; break;
+         case 'picture': defaultWidth = 'auto'; defaultHeight = 'auto'; defaultBgColor = 'transparent'; defaultRounding = 0; defaultValue = null; defaultBorder = null; break;
+         case 'toggle': defaultWidth = '60px'; defaultHeight = '30px'; defaultBgColor = '#ccc'; defaultRounding = 15; defaultValue = false; defaultBorder = null; break;
+         case 'rectangle': defaultWidth = '100px'; defaultHeight = '50px'; defaultBgColor = '#555'; defaultRounding = 0; defaultBorder = null; break;
+         case 'circle': defaultWidth = '50px'; defaultHeight = '50px'; defaultBgColor = '#555'; defaultRounding = '50%'; defaultBorder = null; break;
+         case 'video': defaultWidth = '320px'; defaultHeight = '180px'; defaultRounding = 0; defaultBorder = null; defaultValue = ''; break;
+         case 'dropdown': defaultWidth = '150px'; defaultHeight = '30px'; defaultRounding = 3; defaultBorder = '1px solid #ccc'; defaultColor = 'black'; defaultBgColor = 'white'; defaultValue = ''; defaultFontSize = 14; break;
+         case 'iframe': defaultWidth = '300px'; defaultHeight = '200px'; defaultRounding = 0; defaultBorder = '1px solid #ccc'; defaultValue = ''; break;
+         default: defaultWidth = 'auto'; defaultHeight = 'auto'; defaultBgColor = 'transparent'; defaultColor = 'white'; defaultRounding = 0; defaultBorder = null; defaultValue = ''; defaultFontSize = 14; break; // Generic fallback defaults
+    }
+    // --- Apply Common Properties (Merging Options, Defaults, Existing) ---
+    // 1. Visibility (Apply early for measurement)
+    const finalIsVisible = isVisible !== null ? isVisible : (isEditMode ? properties.isVisible : true);
+    properties.isVisible = finalIsVisible; // Store intent
+    // 2. Size (Width, Height)
+    const finalWidth = width !== null ? String(width) : (isEditMode ? properties.width : defaultWidth);
+    const finalHeight = height !== null ? String(height) : (isEditMode ? properties.height : defaultHeight);
+    element.style.width = finalWidth !== null ? finalWidth : '';
+    element.style.height = finalHeight !== null ? finalHeight : '';
+    properties.width = finalWidth;
+    properties.height = finalHeight;
+    // 3. Position (X, Y) - Handles different auto-layout contexts <<< MODIFIED >>>
+    let finalX = x !== null ? String(x) : (isEditMode ? properties.x : null);
+    let finalY = y !== null ? String(y) : (isEditMode ? properties.y : null);
+    let isAutoLayout = false;
+    let needsCenteringTransform = false; // Flag for applying translate(-50%, -50%)
+    if (finalX === null && finalY === null && !isEditMode) { // Only apply auto-layout on creation
+        isAutoLayout = true;
+        // Temporarily add to parent (could be background or a div) to measure
+        let currentW_px = 0, currentH_px = 0, wasAddedTemporarily = false;
+        // Ensure element is displayable for measurement, even if finalIsVisible is false
+        const originalDisplay = element.style.display;
+        if (!parentElement.contains(element)) {
+             element.style.visibility = 'hidden'; element.style.display = ''; // Ensure display for offsetWidth/Height
+             element.style.position = 'absolute'; element.style.left = '-9999px';
+             parentElement.appendChild(element); wasAddedTemporarily = true;
+        }
+        currentW_px = element.offsetWidth;
+        currentH_px = element.offsetHeight;
+        if (wasAddedTemporarily) { parentElement.removeChild(element); element.style.visibility = ''; element.style.left = ''; }
+        element.style.display = originalDisplay; // Restore original intended display
+        // Fallback size calculation if measurement failed (e.g., parent not visible yet)
+        if (currentW_px <= 0) { const parsedW = parseCssValue(finalWidth); const parentWidthPx = parentElement.clientWidth || window.innerWidth; currentW_px = parsedW ? ((parsedW.unit === '%') ? (parentWidthPx * parsedW.value / 100) : parsedW.value) : (parseCssValue(defaultWidth)?.value || 100); }
+        if (currentH_px <= 0) { const parsedH = parseCssValue(finalHeight); const parentHeightPx = parentElement.clientHeight || window.innerHeight; currentH_px = parsedH ? ((parsedH.unit === '%') ? (parentHeightPx * parsedH.value / 100) : parsedH.value) : (parseCssValue(defaultHeight)?.value || 30); }
+        if (isTopLevelElement) {
+            // *** Use GLOBAL auto-layout ***
+            const last = guiState.lastAutoPosElement; // Use global tracker
+            const screenWidth = window.innerWidth;
+            if (last.id !== null && guiState.elements[last.id]) { // Check if there WAS a previous element
+                let nextX = last.x + last.width + guiState.autoPosGap;
+                let nextY = last.y;
+                 // Wrap condition based on screen width
+                 if (nextX + currentW_px > screenWidth - guiState.autoPosGap) {
+                    nextX = guiState.autoPosGap;
+                    nextY = last.y + last.height + guiState.autoPosGap; // Simple wrap Y based on last element height
+                }
+                finalX = nextX + 'px';
+                finalY = nextY + 'px';
+            } else { // First top-level auto-positioned element
+                finalX = guiState.autoPosGap + 'px';
+                finalY = guiState.autoPosGap + 'px';
+            }
+            // Update GLOBAL tracker
+            guiState.lastAutoPosElement = { id: elementId, x: parseFloat(finalX), y: parseFloat(finalY), width: currentW_px, height: currentH_px };
+        } else {
+            // *** Use PARENT's auto-layout ***
+             if (!parentData.lastAutoPosChildElement) { parentData.lastAutoPosChildElement = { x: 0, y: 0, width: 0, height: 0 }; } // Initialize if needed
+            const last = parentData.lastAutoPosChildElement;
+            const parentWidthPx = parentElement.clientWidth; // Use actual parent width for wrapping
+            let nextX = 0; let nextY = 0;
+            if (last && last.width > 0 ) { // Check if there WAS a previous auto-pos child in this parent
+                nextX = last.x + last.width + guiState.autoPosGap; nextY = last.y;
+                // Wrap condition within the PARENT
+                if (parentWidthPx > 0 && (nextX + currentW_px > parentWidthPx - guiState.autoPosGap)) {
+                    nextX = guiState.autoPosGap; nextY = last.y + last.height + guiState.autoPosGap;
+                }
+            } else { // First auto-pos child in this parent
+                 nextX = guiState.autoPosGap; nextY = guiState.autoPosGap;
+            }
+            finalX = nextX + 'px'; finalY = nextY + 'px';
+            // Update PARENT'S tracker
+            parentData.lastAutoPosChildElement = { x: nextX, y: nextY, width: currentW_px, height: currentH_px };
+        }
+    } else if (!isAutoLayout && (finalX === null || finalY === null || String(finalX).includes('%') || String(finalY).includes('%'))) {
+         // Centering logic (applies whether top-level or child if % or null used, unless explicit px given for both)
+         finalX = finalX ?? (isEditMode ? properties.x : '50%'); // Default to 50% for centering if null
+         finalY = finalY ?? (isEditMode ? properties.y : '50%'); // Default to 50% for centering if null
+         needsCenteringTransform = true; // Assume centering needed
+         // Avoid transform if specific pixel values are given for BOTH x and y
+         if(parseCssValue(finalX)?.unit !== '%' && parseCssValue(finalY)?.unit !== '%'){
+             needsCenteringTransform = false;
+         }
+    }
+    element.style.left = finalX !== null ? String(finalX) : '';
+    element.style.top = finalY !== null ? String(finalY) : '';
+    properties.x = finalX;
+    properties.y = finalY;
+    element.style.transform = needsCenteringTransform ? `translate(-50%, -50%)` : ''; // Apply centering transform if needed
+    // 4. Apply final display state now positioning is done
+    element.style.display = finalIsVisible ? '' : 'none';
+    // 5. Z-Index <<< MODIFIED >>>
+    let finalZIndex = zIndex !== null ? String(zIndex) : (isEditMode ? properties.zIndex : null);
+    if (finalZIndex === null && !isEditMode) {
+         // Assign z-index from global counter ONLY for new top-level elements
+         if (isTopLevelElement) {
+             finalZIndex = String(guiState.currentZIndex++);
+         } else {
+             finalZIndex = defaultZIndex; // Use element's default ('auto') for children
+         }
+    } else if (finalZIndex === null && isEditMode) {
+         // Keep existing z-index if null is passed during an update
+         finalZIndex = properties.zIndex;
+    }
+    element.style.zIndex = finalZIndex ?? 'auto'; // Fallback to auto
+    properties.zIndex = finalZIndex;
+    // 6. Value / Content / Source / Placeholder (Logic mostly unchanged)
+    const finalValue = value !== null ? value : (isEditMode ? properties.value : defaultValue);
+    properties.value = finalValue; // Always store the final value intent
+    const finalPlaceholder = placeholder !== null ? placeholder : (isEditMode ? properties.placeholder : defaultPlaceholder);
+    properties.placeholder = finalPlaceholder; // Store placeholder intent
+    // Apply value based on type (logic largely unchanged, added checks for element existence)
+    if (elementType === 'edit' && element) {
+        element.value = finalValue !== null ? String(finalValue) : '';
+        element.placeholder = finalPlaceholder !== null ? String(finalPlaceholder) : '';
+    } else if ((elementType === 'button' || elementType === 'text') && element) {
+        element.textContent = finalValue !== null ? String(finalValue) : '';
+    } else if (elementType === 'picture' && element) {
+        const newSrc = finalValue !== null ? String(finalValue) : '';
+        if (element.src !== newSrc) element.src = newSrc;
+        element.alt = elementId; // Use ID as alt text
+        element.onerror = () => { console.warn(`GUI Picture Error: Failed to load image for ID '${elementId}' from src: ${element.src}`); element.style.border = '1px dashed red'; };
+    } else if ((elementType === 'video' || elementType === 'iframe') && element) {
+        let srcUrl = finalValue !== null ? String(finalValue) : '';
+        // YouTube embed conversion (only for video type)
+        if(elementType === 'video') {
+             const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+             const match = srcUrl.match(youtubeRegex);
+             if (match && match[1]) {
+                 srcUrl = `https://www.youtube.com/embed/${match[1]}`;
+             }
+        }
+        // Set src only if changed
+        if (element.src !== srcUrl) {
+             element.src = srcUrl;
+        }
+    } else if (elementType === 'dropdown' && element) {
+        const optionsString = finalValue !== null ? String(finalValue) : '';
+        const options = optionsString.split('|').map(opt => opt.trim()).filter(opt => opt !== '');
+        // Determine selected value - prioritize current element.value if options change slightly, then stored, then first option
+         let targetSelectedValue = null;
+         const currentElementValue = element.value; // Value currently selected in the DOM element
+         const storedSelectedValue = properties.selectedValue; // Value we intended last time
+         if (options.includes(currentElementValue)) { // If current DOM value is still valid
+              targetSelectedValue = currentElementValue;
+         } else if (options.includes(storedSelectedValue)) { // If previous stored value is still valid
+              targetSelectedValue = storedSelectedValue;
+         } else if (options.length > 0) { // Otherwise, default to first new option
+              targetSelectedValue = options[0];
+         }
+         // Rebuild options only if they have actually changed
+         let optionsChanged = false;
+         if (element.options.length !== options.length) {
+              optionsChanged = true;
+         } else {
+              for (let i = 0; i < options.length; i++) {
+                   if (!element.options[i] || element.options[i].value !== options[i]) {
+                        optionsChanged = true;
+                        break;
+                   }
+              }
+         }
+         if (optionsChanged) {
+              element.innerHTML = ''; // Clear existing options
+              options.forEach(optText => {
+                   const option = document.createElement('option');
+                   option.value = optText;
+                   option.textContent = optText;
+                   element.appendChild(option);
+              });
+         }
+         properties.selectedValue = targetSelectedValue; // Store the intended selection
+         if (targetSelectedValue !== null) {
+              element.value = targetSelectedValue; // Apply selection to the DOM element
+         } else if (element.options.length > 0) {
+             element.selectedIndex = -1; // Deselect if target is null
+         }
+    } else if (elementType === 'toggle' && element) {
+         // Ensure stored value is strictly boolean
+         properties.value = finalValue === true || String(finalValue).toLowerCase() === 'true';
+         element.dataset.value = properties.value; // Use data attribute for state visualization if needed
+    }
+    // 7. Background Color
+    const finalBgColor = backgroundColor !== null ? backgroundColor : (isEditMode ? properties.backgroundColor : defaultBgColor);
+     if (elementType !== 'toggle') { // Toggle background is handled based on state later
+        element.style.backgroundColor = finalBgColor || ''; // Use default or transparent if null/empty
+     }
+    properties.backgroundColor = finalBgColor; // Store base color (used by toggle for off state)
+    // 8. Text Color
+    const finalColor = color !== null ? color : (isEditMode ? properties.color : defaultColor);
+    element.style.color = finalColor || '';
+    properties.color = finalColor;
+    // 9. Font Size
+    const finalFontSize = size !== null ? size : (isEditMode ? properties.size : defaultFontSize);
+    if (['text', 'button', 'edit', 'dropdown'].includes(elementType) && finalFontSize !== null) {
+        element.style.fontSize = `${parseFloat(finalFontSize)}px`;
+        properties.size = finalFontSize;
+    } else {
+         // Clear font size if explicitly set back to null during edit
+         if (isEditMode && properties.size !== null && size === null) { element.style.fontSize = ''; }
+         properties.size = finalFontSize; // Store null if cleared
+    }
+    // 10. Rounding
+    const finalRounding = rounding !== null ? rounding : (isEditMode ? properties.rounding : defaultRounding);
+     if (finalRounding !== null) {
+          if (elementType === 'circle') { element.style.borderRadius = '50%'; } // Force circle
+          else if (typeof finalRounding === 'string' && finalRounding.includes('%')) { element.style.borderRadius = finalRounding; }
+          else if (!isNaN(parseFloat(finalRounding)) && parseFloat(finalRounding) >= 0) { element.style.borderRadius = `${parseFloat(finalRounding)}px`; }
+          else { element.style.borderRadius = '0px'; } // Default to 0 if invalid
+     } else { element.style.borderRadius = '0px'; } // Default to 0 if null
+    properties.rounding = finalRounding;
+    // 11. Border
+    const finalBorder = border !== null ? border : (isEditMode ? properties.border : defaultBorder);
+    const parsedBorder = parseBorder(finalBorder);
+    element.style.border = parsedBorder ? `${parsedBorder.size} ${parsedBorder.style} ${parsedBorder.color}` : 'none';
+    properties.border = finalBorder;
+    // 12. Raw CSS (Apply last before enabled state/visual updates)
+    const finalRawCss = rawCss !== null ? rawCss : (isEditMode ? properties.rawCss : null);
+    applyRawCss(element, finalRawCss); // Applies the new styles
+    properties.rawCss = finalRawCss;
+    // 13. Enabled State (Store intent, calculate effective state) <<< MODIFIED >>>
+    const finalIsEnabled = isEnabled !== null ? isEnabled : (isEditMode ? properties.isEnabled : true);
+    properties.isEnabled = finalIsEnabled; // Store the element's own intended state
+    // Calculate effective state based on self AND parent (if exists)
+    // Assume background (parent if isTopLevelElement) is always enabled
+    const parentIsEnabled = !isTopLevelElement ? parentData.properties.isEnabled : true;
+    const effectiveIsEnabled = finalIsEnabled && parentIsEnabled;
+    // Apply styles based on the EFFECTIVE state
+    // This happens *before* toggle visual update, as toggle needs correct dimensions/opacity
+    _applyEnabledStyles(element, elementType, effectiveIsEnabled, properties);
+    // --- Special Visual Updates (Toggle - after styles applied) ---
+    if (elementType === 'toggle') {
+         const slider = element.querySelector('.gui-toggle-slider');
+         if (slider) {
+             const isOn = properties.value; // Use the processed boolean value
+             const offBg = properties.backgroundColor || defaultBgColor || '#ccc'; // Use stored base color for off state
+             const onBg = '#4CAF50'; // Hardcoded 'on' color
+             element.style.backgroundColor = isOn ? onBg : offBg; // Set background based on state
+             // Measure and position slider (only if visible and dimensions are valid)
+             // Use effective visibility for this check
+             const computedStyle = window.getComputedStyle(element);
+             if(computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden') {
+                 let needsMeasure = !parentElement.contains(element); // Check if attached for measurement
+                 if (needsMeasure) { element.style.visibility = 'hidden'; parentElement.appendChild(element); }
+                 const elementHeightPx = element.clientHeight; const elementWidthPx = element.clientWidth;
+                 if (elementHeightPx > 0 && elementWidthPx > 0) {
+                      const padding = 4; const sliderSize = Math.max(1, elementHeightPx - padding); // Ensure size is at least 1px
+                      slider.style.height = `${sliderSize}px`; slider.style.width = `${sliderSize}px`;
+                      slider.style.left = `${padding / 2}px`; slider.style.bottom = `${padding / 2}px`;
+                      // Calculate max translation distance correctly
+                      const maxTranslate = Math.max(0, elementWidthPx - sliderSize - padding);
+                      const sliderTranslateX = isOn ? maxTranslate : 0;
+                      slider.style.transform = `translateX(${sliderTranslateX}px)`;
+                 } else {
+                      console.warn(`GUI Toggle Warning: Cannot accurately size slider for toggle '${elementId}' (measured height/width is zero).`);
+                      // Apply fallback size based on defaults if measurement fails
+                      const fallbackH = parseCssValue(finalHeight)?.value || parseCssValue(defaultHeight)?.value || 30; const sliderSize = Math.max(1, fallbackH - 4); slider.style.height = `${sliderSize}px`; slider.style.width = `${sliderSize}px`;
+                 }
+                 if (needsMeasure) { parentElement.removeChild(element); element.style.visibility = ''; }
+             } else {
+                 // If not visible, set a fallback size without positioning
+                 const fallbackH = parseCssValue(finalHeight)?.value || parseCssValue(defaultHeight)?.value || 30; const sliderSize = Math.max(1, fallbackH - 4); slider.style.height = `${sliderSize}px`; slider.style.width = `${sliderSize}px`;
+                 slider.style.transform = 'translateX(0px)'; // Reset position
+             }
+         } else if(!isEditMode && element) { // Check element exists for new toggles
+              console.error(`GUI Toggle Error: Could not find .gui-toggle-slider for new toggle '${elementId}'.`);
+         }
+    }
+    // 14. Callback / Event Listener <<< MODIFIED >>>
+    const finalCallback = callback !== null ? callback : (isEditMode ? properties.callback : null);
+    properties.callback = finalCallback; // Store the callback reference/name
+    // Remove previous listener before adding a new one (important for updates)
+    const listenerInfo = element.__guiListenerInfo;
+    if (listenerInfo) { element.removeEventListener(listenerInfo.type, listenerInfo.handler); element.__guiListenerInfo = null; }
+    let eventType = null; let eventListener = null;
+    if (finalCallback) {
+        // Resolve callback function (either direct reference or name string)
+        const callbackFunction = (typeof finalCallback === 'function') ? finalCallback : window[finalCallback];
+        if (typeof callbackFunction === 'function') {
+            const currentElementId = elementId; // Capture ID for the closure
+            const currentParentIdStr = parentIdStr; // <<< Capture parent ID status for the closure >>>
+            const eventHandlerWrapper = (event) => {
+                 // <<< Get current element and parent data AT EVENT TIME >>>
+                 let elementDataNow = null;
+                 let parentDataNow = null; // Will be null if top-level
+                 if (currentParentIdStr !== null && guiState.elements[currentParentIdStr]) {
+                      // It's a child element, get parent and then child data
+                      parentDataNow = guiState.elements[currentParentIdStr];
+                      elementDataNow = parentDataNow?.children?.[currentElementId];
+                 } else {
+                      // It's a top-level element, get directly from global state
+                      elementDataNow = guiState.elements[currentElementId];
+                 }
+                 // If element data was somehow removed between adding listener and event firing
+                 if (!elementDataNow) {
+                     console.warn(`Callback for ${currentElementId} triggered, but element data not found in state.`);
+                     return;
+                 }
+                 // Check the effective enabled state AT THE TIME OF THE EVENT
+                 const currentParentIsEnabled = parentDataNow ? (parentDataNow.properties?.isEnabled ?? true) : true; // Assume background enabled
+                 const elementIsEnabled = elementDataNow.properties?.isEnabled ?? true; // Default to true if property missing
+                 if (elementIsEnabled && currentParentIsEnabled) { // Check BOTH states
+                     try {
+                         // Logic to update state and call user function based on type
+                         if (elementType === 'edit') {
+                             const newValue = event.target.value;
+                             elementDataNow.properties.value = newValue; // Update state
+                             callbackFunction(currentElementId, event, newValue);
+                         } else if (elementType === 'dropdown') {
+                             const newValue = event.target.value;
+                              elementDataNow.properties.selectedValue = newValue; // Update selected state
+                             callbackFunction(currentElementId, event, newValue);
+                         } else if (elementType === 'toggle') {
+                             const newState = !elementDataNow.properties.value; // Calculate new state
+                             elementDataNow.properties.value = newState; // Update state first
+                             element.dataset.value = newState; // Update data attribute
+                             // Update toggle visuals immediately within the handler for responsiveness
+                             const slider = element.querySelector('.gui-toggle-slider');
+                             const offBg = elementDataNow.properties.backgroundColor || defaultBgColor || '#ccc';
+                             const onBg = '#4CAF50';
+                             element.style.backgroundColor = newState ? onBg : offBg;
+                             if (slider) {
+                                 const elementHeightPx = element.clientHeight; const elementWidthPx = element.clientWidth; const padding = 4; const sliderSize = Math.max(1, elementHeightPx - padding);
+                                 const maxTranslate = Math.max(0, elementWidthPx - sliderSize - padding);
+                                 const sliderTranslateX = newState ? maxTranslate : 0;
+                                 slider.style.transform = `translateX(${sliderTranslateX}px)`;
+                              }
+                             callbackFunction(currentElementId, event, newState); // Call user callback AFTER state/visuals updated
+                         } else { // Button, Picture, Rectangle, Circle
+                              callbackFunction(currentElementId, event, "null");
+                         }
+                     } catch (e) {
+                         console.error(`Error executing callback for element ${currentElementId}:`, e);
+                     }
+                 } else {
+                      // Interaction blocked due to disabled state
+                      // console.log(`Interaction blocked for ${currentElementId} (elementEnabled: ${elementIsEnabled}, parentEnabled: ${currentParentIsEnabled})`);
+                      event.preventDefault(); // Prevent default actions if needed (like form submission if inside form)
+                      event.stopPropagation(); // Stop event bubbling
+                 }
+            };
+            // Determine event type based on element
+            if (['button', 'picture', 'rectangle', 'circle', 'toggle'].includes(elementType)) { eventType = 'click'; }
+            else if (elementType === 'edit') { eventType = 'input'; }
+            else if (elementType === 'dropdown') { eventType = 'change'; }
+            // Add the listener if an event type was determined
+            if (eventType) {
+                 eventListener = eventHandlerWrapper;
+                 element.addEventListener(eventType, eventListener);
+                 // Store listener info on the element itself for easy removal later
+                 element.__guiListenerInfo = { type: eventType, handler: eventListener };
+            }
+        } else if (typeof finalCallback === 'string' && finalCallback.trim() !== ''){
+            // Warn if callback name provided but function not found globally
+            console.warn(`GUI Add Element Warning: Callback function name '${finalCallback}' for ID '${elementId}' was not found globally.`);
+        }
+    }
+    // --- Add to Parent DOM and State (if new) --- <<< MODIFIED >>>
+    if (!isEditMode) {
+        // Append to the correct parent element (background or container div)
+        parentElement.appendChild(element);
+        // Store state in the correct location with correct parentId reference
+        const elementStateData = {
+            elementRef: element,
+            type: elementType,
+            parentId: parentIdStr, // <<< Store null if top-level, actual parentId if child >>>
+            properties: properties,
+            // Note: Non-container elements don't have .children or .lastAutoPosChildElement props added here
+        };
+        if (isTopLevelElement) {
+            // Add to global elements map if it has no parent container
+            guiState.elements[elementId] = elementStateData;
+        } else {
+            // Add to parent's children map if it has a parent container
+            if (!parentData.children) parentData.children = {}; // Ensure children map exists on parent data
+            parentData.children[elementId] = elementStateData;
+        }
+    } else {
+         // Update properties in the existing state data reference (already done by cloning earlier)
+         // Ensure the reference in the state tree points to the updated properties object
+         existingElementData.properties = properties;
+    }
+}
+
+
+guiInit("#202020", "");
+guiAdd({ x:"0px", y:"0px", width:"100%", height:"100%", id:"div0", backgroundColor:"#202020", rounding:0 });
+var A_SUCCESS = 0;
+var A_SUCCESS_WEIGHTED = 0;
+var A_TOTAL_WEIGHT = 1;
+var A_SUCCESS_ALL = false;
+async function Button0(A_Id, A_Event, A_Value) {
+    var var1 = true;
+    if (var1 == true) {
+        A_SUCCESS = 0;
+        A_SUCCESS_WEIGHTED = 0;
+        A_TOTAL_WEIGHT = 1;
+        A_SUCCESS_ALL = false;
+        if (var1) {
+            A_SUCCESS++;
+            A_SUCCESS_WEIGHTED += 1;
+        }
+        if (A_SUCCESS_WEIGHTED == A_TOTAL_WEIGHT) {
+            A_SUCCESS_ALL = true;
+        }
+        A_SUCCESS = 0;
+        A_SUCCESS_WEIGHTED = 0;
+        A_TOTAL_WEIGHT = 1;
+        A_SUCCESS_ALL = false;
+        if (var1) {
+            A_SUCCESS++;
+            A_SUCCESS_WEIGHTED += 1;
+        }
+        if (A_SUCCESS_WEIGHTED == A_TOTAL_WEIGHT) {
+            A_SUCCESS_ALL = true;
+        }
+        A_SUCCESS = 0;
+        A_SUCCESS_WEIGHTED = 0;
+        A_TOTAL_WEIGHT = 1;
+        A_SUCCESS_ALL = false;
+        if (var1) {
+            A_SUCCESS++;
+            A_SUCCESS_WEIGHTED += 1;
+        }
+        if (A_SUCCESS_WEIGHTED == A_TOTAL_WEIGHT) {
+            A_SUCCESS_ALL = true;
+        }
+    }
+    MsgBox( "hi");
+}
+async function main() {
+    guiAddElement({ elementType: 'button', x:"50px", y:"50px", callback:"Button0", parentId:"div0" });
+
+}
+main();
+</script>
+</body>
+</html>

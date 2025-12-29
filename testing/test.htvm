@@ -72,5 +72,4 @@ print("Total possible weight: " . STR(A_TOTAL_WEIGHT))
 print("All passed? " . STR(A_SUCCESS_ALL))
 
 
-
 print(myOwn.var2)

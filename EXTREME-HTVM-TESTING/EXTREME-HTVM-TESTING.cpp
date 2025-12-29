@@ -1,3 +1,13 @@
+#if __has_include("srell.hpp")
+    #include "srell.hpp"
+    #define USE_POWERFUL_REGEX 1
+    #pragma message("SUCCESS: Compiling with powerful SRELL regex engine. Lookbehinds will work.")
+#else
+    #include <regex>
+    #define USE_POWERFUL_REGEX 0
+    #pragma message("WARNING: srell.hpp not found. Falling back to limited std::regex. Lookbehinds will NOT work.")
+#endif
+
 #include <algorithm>
 #include <any>
 #include <cstdint>
@@ -11,11 +21,19 @@
 #include <type_traits>
 #include <vector>
 
-// Print function for const char* specifically
+// Print function for const char*
 void print(const char* value) {
-    std::cout << std::string(value) << std::endl;  // Convert const char* to std::string
+    std::cout << std::string(value) << std::endl;
 }
-// Print function that converts all types to string if needed
+// Handle signed 8-bit integers
+void print(int8_t value) {
+    std::cout << static_cast<int>(value) << std::endl;
+}
+// Handle unsigned 8-bit integers
+void print(uint8_t value) {
+    std::cout << static_cast<unsigned int>(value) << std::endl;
+}
+// Generic print function fallback
 template <typename T>
 void print(const T& value) {
     std::cout << value << std::endl;
@@ -43,6 +61,9 @@ std::string STR(bool value) {
 }
 std::string STR(const char* value) {
     return std::string(value);
+}
+std::string STR(const std::string& value) {
+    return value;
 }
 
 int Random(int min, int max) {
@@ -80,10 +101,6 @@ std::string SubStr(const std::string& str, int startPos, int length = -1) {
     // Extract the substring
     result = str.substr(startPos, length);
     return result;
-}
-
-int Mod(int dividend, int divisor) {
-    return dividend % divisor;
 }
 
 void HTVM_Append(std::vector<std::string>& arr, const std::string& value) {
@@ -204,7 +221,7 @@ std::string GenerateGibberishName(int minLen, int maxLen) {
         return "gib_err";
     }
     name += SubStr(firstChars, Random(1, StrLen(firstChars)), 1);
-    for (int A_Index1 = 0; A_Index1 < (len - 1) + 0; A_Index1++) {
+    for (int A_Index1 = 0; A_Index1 < (len - 1); A_Index1++) {
         name += SubStr(otherChars, Random(1, StrLen(otherChars)), 1);
     }
     return name;
@@ -230,7 +247,7 @@ std::string GenerateOperatorGibberishName(std::string prefix, int minTotalLen, i
     if (remainingLen <= 0 && minTotalLen > 0) {
         remainingLen = 1;
     }
-    for (int A_Index2 = 0; A_Index2 < remainingLen + 0; A_Index2++) {
+    for (int A_Index2 = 0; A_Index2 < remainingLen; A_Index2++) {
         name += SubStr(validChars, Random(1, StrLen(validChars)), 1);
     }
     return name;
@@ -274,10 +291,14 @@ std::vector<std::string> GenerateLoopVariableNames(int generationMode = 0) {
     std::string loopFieldNameFinal = "";
     std::vector<std::string> returnArray;
     if (generationMode == 0 && Random(1, 100) <= 10) {
+        // Special Mode 0 case: 10% chance both are default
         indexNameFinal = "A_Index";
         loopFieldNameFinal = "A_LoopField";
     } else {
+        // For A_Index: In Mode 0, 10% default, 70% sane (of remaining 90%), 20% gibberish (of remaining 90%)
+        // probSaneOfRemainingMode0 for A_Index: (70 / (100-10)) * 100 = ~77.7 -> 78
         indexNameFinal = GenerateKeywordVariant("A_Index", global_SaneIndexNames, generationMode, "", 2, 20, 10, 78);
+        // For A_LoopField: In Mode 0, 10% default, 70% sane (of remaining 90%), 20% gibberish (of remaining 90%)
         loopFieldNameFinal = GenerateKeywordVariant("A_LoopField", global_SaneLoopFieldNames, generationMode, "", 2, 20, 10, 78);
     }
     HTVM_Append(returnArray, indexNameFinal);
@@ -288,6 +309,7 @@ std::vector<std::string> GenerateIncrementDecrementKeywords(int generationMode =
     std::vector<std::string> returnArray;
     std::string incrementKeyword = "";
     std::string decrementKeyword = "";
+    // probSaneOfRemainingMode0 for Inc/Dec: (30 / (100-50)) * 100 = 60
     incrementKeyword = GenerateKeywordVariant("++", global_SaneIncrementKeywords, generationMode, "+", 2, 20, 50, 60);
     decrementKeyword = GenerateKeywordVariant("--", global_SaneDecrementKeywords, generationMode, "-", 2, 20, 50, 60);
     HTVM_Append(returnArray, incrementKeyword);
@@ -298,6 +320,7 @@ std::vector<std::string> GenerateTernaryOperators(int generationMode = 0) {
     std::vector<std::string> returnArray;
     std::string ternary1Keyword = "";
     std::string ternary2Keyword = "";
+    // probSaneOfRemainingMode0 for Ternary: (30 / (100-50)) * 100 = 60
     ternary1Keyword = GenerateKeywordVariant("?", global_SaneTernary1Keywords, generationMode, "", 2, 20, 50, 60);
     ternary2Keyword = GenerateKeywordVariant(":", global_SaneTernary2Keywords, generationMode, "", 2, 20, 50, 60);
     HTVM_Append(returnArray, ternary1Keyword);
@@ -306,11 +329,15 @@ std::vector<std::string> GenerateTernaryOperators(int generationMode = 0) {
 }
 std::vector<std::string> GenerateAllAssignmentOperators(int generationMode = 0) {
     std::vector<std::string> operatorKeywords;
+    // Default operators and their corresponding SANE keyword arrays
     std::vector<std::string> defaults = {"=", "+=", ".=", "-=", "*=", "/=", "%=", "<<=", ">>=", ">>>=", "&=", "|=", "^="};
     std::vector<std::string> saneArrays_Names = {"global_SaneAssignKeywords", "global_SaneAssignAddKeywords", "global_SaneAssignConcatKeywords", "global_SaneAssignSubKeywords", "global_SaneAssignMulKeywords", "global_SaneAssignDivKeywords", "global_SaneAssignModKeywords", "global_SaneAssignShiftLeftKeywords", "global_SaneAssignShiftRightKeywords", "global_SaneAssignUShiftRightKeywords", "global_SaneAssignBitAndKeywords", "global_SaneAssignBitOrKeywords", "global_SaneAssignBitXorKeywords"};
-    for (int A_Index3 = 0; A_Index3 < HTVM_Size(defaults) + 0; A_Index3++) {
+    // This is a hack because HTVM doesn't have arrays of arrays or direct function array calls.
+    // We'll manually select the correct global sane array in the loop.
+    for (int A_Index3 = 0; A_Index3 < HTVM_Size(defaults); A_Index3++) {
         std::string currentDefault = defaults[A_Index3];
         std::vector<std::string> currentSaneArray;
+        // Manual dispatch to select the correct global sane array
         if (A_Index3 == 0) {
             currentSaneArray = global_SaneAssignKeywords;
         }
@@ -350,6 +377,8 @@ std::vector<std::string> GenerateAllAssignmentOperators(int generationMode = 0) 
         else if (A_Index3 == 12) {
             currentSaneArray = global_SaneAssignBitXorKeywords;
         }
+        // Default probabilities for Mode 0 for assignment operators (50% default, 30% sane, 20% gibberish)
+        // probSaneOfRemainingMode0: (30 / (100-50)) * 100 = 60
         int gibMinLen = StrLen(currentDefault);
         if (gibMinLen == 0) {
             gibMinLen = 2;
@@ -362,7 +391,7 @@ std::vector<std::string> GenerateAllAssignmentOperators(int generationMode = 0) 
 std::vector<std::string> GenerateRandomizedStates() {
     int numStates = 13;
     std::vector<std::string> states;
-    for (int A_Index4 = 0; A_Index4 < numStates + 0; A_Index4++) {
+    for (int A_Index4 = 0; A_Index4 < numStates; A_Index4++) {
         HTVM_Append(states, "off");
     }
     int randomPick_c2 = Random(0, 1);
@@ -400,7 +429,7 @@ std::vector<std::string> GenerateRandomizedStates() {
         }
     }
     std::vector<int> remainingIndices = {2, 3, 7, 8, 9, 10, 11, 12};
-    for (int A_Index5 = 0; A_Index5 < HTVM_Size(remainingIndices) + 0; A_Index5++) {
+    for (int A_Index5 = 0; A_Index5 < HTVM_Size(remainingIndices); A_Index5++) {
         int currentIndexInLoop = A_Index5;
         int idxToSet = remainingIndices[currentIndexInLoop];
         int randomPick_remaining = Random(0, 1);
@@ -413,6 +442,7 @@ std::vector<std::string> GenerateRandomizedStates() {
     return states;
 }
 int main(int argc, char* argv[]) {
+    // --- Demonstrate Loop Variable Names with Modes ---
     print("--- Generating Loop Variable Name Variants (Mode Test) ---");
     std::vector<std::string> loopNames;
     print("Mode 0 (Randomized):");
@@ -433,6 +463,7 @@ int main(int argc, char* argv[]) {
     print("A_Index = A_Index");
     print("A_LoopField = A_LoopField");
     print(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
+    // --- Demonstrate Increment/Decrement Keywords with Modes ---
     print("--- Generating Increment/Decrement Keyword Variants (Mode Test) ---");
     std::vector<std::string> opKeywords;
     print("Mode 0 (Randomized):");
@@ -450,6 +481,7 @@ int main(int argc, char* argv[]) {
     opKeywords = GenerateIncrementDecrementKeywords(3);
     print("  Increment = '" + opKeywords[0] + "', Decrement = '" + opKeywords[1] + "'");
     print("-------------------------------------");
+    // --- Demonstrate Ternary Operators with Modes ---
     print("--- Generating Ternary Operator Variants (Mode Test) ---");
     std::vector<std::string> ternaryOps;
     print("Mode 0 (Randomized):");
@@ -467,41 +499,44 @@ int main(int argc, char* argv[]) {
     ternaryOps = GenerateTernaryOperators(3);
     print("  Op1 = '" + ternaryOps[0] + "', Op2 = '" + ternaryOps[1] + "'");
     print("-------------------------------------");
+    // --- Demonstrate Assignment Operator Keywords with Modes ---
     print("--- Generating Assignment Operator Keyword Variants (Mode Test) ---");
     std::vector<std::string> assignmentOpsGenerated;
     std::vector<std::string> defaultOperatorSymbols = {"=", "+=", ".=", "-=", "*=", "/=", "%=", "<<=", ">>=", ">>>=", "&=", "|=", "^="};
     print("Mode 0 (Randomized):");
     assignmentOpsGenerated = GenerateAllAssignmentOperators(0);
-    for (int A_Index6 = 0; A_Index6 < HTVM_Size(assignmentOpsGenerated) + 0; A_Index6++) {
+    for (int A_Index6 = 0; A_Index6 < HTVM_Size(assignmentOpsGenerated); A_Index6++) {
         print("  " + defaultOperatorSymbols[A_Index6] + " -> '" + assignmentOpsGenerated[A_Index6] + "'");
     }
     assignmentOpsGenerated = GenerateAllAssignmentOperators();
     print("Mode 0 (Randomized - 2nd call):");
-    for (int A_Index7 = 0; A_Index7 < HTVM_Size(assignmentOpsGenerated) + 0; A_Index7++) {
+    for (int A_Index7 = 0; A_Index7 < HTVM_Size(assignmentOpsGenerated); A_Index7++) {
         print("  " + defaultOperatorSymbols[A_Index7] + " -> '" + assignmentOpsGenerated[A_Index7] + "'");
     }
     print("Mode 1 (Defaults):");
     assignmentOpsGenerated = GenerateAllAssignmentOperators(1);
-    for (int A_Index8 = 0; A_Index8 < HTVM_Size(assignmentOpsGenerated) + 0; A_Index8++) {
+    for (int A_Index8 = 0; A_Index8 < HTVM_Size(assignmentOpsGenerated); A_Index8++) {
         print("  " + defaultOperatorSymbols[A_Index8] + " -> '" + assignmentOpsGenerated[A_Index8] + "'");
     }
     print("Mode 2 (Random Sane):");
     assignmentOpsGenerated = GenerateAllAssignmentOperators(2);
-    for (int A_Index9 = 0; A_Index9 < HTVM_Size(assignmentOpsGenerated) + 0; A_Index9++) {
+    for (int A_Index9 = 0; A_Index9 < HTVM_Size(assignmentOpsGenerated); A_Index9++) {
         print("  " + defaultOperatorSymbols[A_Index9] + " -> '" + assignmentOpsGenerated[A_Index9] + "'");
     }
     print("Mode 3 (Gibberish):");
     assignmentOpsGenerated = GenerateAllAssignmentOperators(3);
-    for (int A_Index10 = 0; A_Index10 < HTVM_Size(assignmentOpsGenerated) + 0; A_Index10++) {
+    for (int A_Index10 = 0; A_Index10 < HTVM_Size(assignmentOpsGenerated); A_Index10++) {
         print("  " + defaultOperatorSymbols[A_Index10] + " -> '" + assignmentOpsGenerated[A_Index10] + "'");
     }
     print("-------------------------------------");
+    // --- GenerateRandomizedStates Output (Unchanged) ---
     std::vector<std::string> outArrFromStates;
     outArrFromStates = GenerateRandomizedStates();
     print("--- Output from GenerateRandomizedStates (Unchanged Function) ---");
-    for (int A_Index11 = 0; A_Index11 < HTVM_Size(outArrFromStates) + 0; A_Index11++) {
+    for (int A_Index11 = 0; A_Index11 < HTVM_Size(outArrFromStates); A_Index11++) {
         print("State " + STR(A_Index11) + ": " + outArrFromStates[A_Index11]);
     }
     print(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
+
     return 0;
 }

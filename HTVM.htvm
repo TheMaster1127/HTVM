@@ -12396,9 +12396,27 @@ return out . theCode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+
+
+func bool formatHTVMtoHTVMsubout_HELP2(str line, str furtre) {
+
+if (SubStr(Trim(line), 1, StrLen(keyWordStruct)) = keyWordStruct) and (InStr(furtre, " " . Trim(keyWordAssign) . " ") = false)
+{
+return true
+}
+return false
+}
+
 func str formatHTVMtoHTVMsubout(str theCode) {
 str out := ""
 int inside := 0
+
+arr str furtre
+Loop, Parse, theCode, `n, `r {
+furtre.add(A_LoopField)
+}
+furtre.add(" ")
+
 Loop, Parse, theCode, `n, `r {
 
 
@@ -12413,7 +12431,7 @@ out .= formatHTVMtoHTVMsubout_HELP(A_LoopField, inside) . Chr(10)
 else {
 out .= A_LoopField . Chr(10)
 }
-if (RegExMatch(A_LoopField, "\bwhen\b")) or (RegExMatch(A_LoopField, "\bwehn\b")) or (RegExMatch(Trim(A_LoopField), "^\s*[a-zA-Z_][a-zA-Z0-9_]*:\s*$")) {
+if (RegExMatch(A_LoopField, "\bwhen\b")) or (formatHTVMtoHTVMsubout_HELP2(A_LoopField, furtre[A_Index + 1]) = true) or (RegExMatch(A_LoopField, "\bwehn\b")) or (RegExMatch(StrLower(A_LoopField), "\bliner\b")) or (RegExMatch(Trim(A_LoopField), "^\s*[a-zA-Z_][a-zA-Z0-9_]*:\s*$")) {
 inside++
 }
 
@@ -12816,6 +12834,7 @@ func str liner_htvm_construct(str code) {
     Loop, Parse, code, `n, `r {
     if (SubStr(Trim(StrLower(A_LoopField)), 1, 6) = "liner ") {
     linerExist := 1
+    break
     }
     }
     if (linerExist = 0) {
@@ -12926,7 +12945,6 @@ func str addSimpleStructs(str line) {
 str out := ""
 int isIn := 0
 int doseItHaveType := 0
-
 arr str furtre 
 Loop, Parse, line, `n, `r {
 furtre.add(A_LoopField)
@@ -12938,6 +12956,13 @@ Loop, Parse, line, `n, `r {
 if (SubStr(Trim(A_LoopField), 1, StrLen(keyWordStruct)) != keyWordStruct) and (Trim(StrLower(A_LoopField)) != "subout") and (isIn = 1) {
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+if (SubStr(Trim(A_LoopField), 1, StrLen(keyWordProp)) = keyWordProp) {
+out .= A_LoopField . Chr(10)
+}
+else {
+
+
 str1 := Trim(StrSplit(A_LoopField, ":", 1))
 str2 := Trim(StrSplit(A_LoopField, ":", 2))
 
@@ -12975,6 +13000,7 @@ str3 := Trim(keyWordProp) . " " . Trim(keyWordINT) . " " . str1 . " " . Trim(key
 
 
 out .= str3 . Chr(10)
+}
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -13011,6 +13037,74 @@ out .= A_LoopField . Chr(10)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+func str forHTVMconstruct(str code) {
+
+str out := ""
+int isIn := 0
+
+; maybe i dont need furtre idk but i will keep it for now
+arr str furtre 
+
+
+
+int forExist := 0
+Loop, Parse, code, `n, `r {
+    if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen("for ")) = "for ") {
+        forExist := 1
+        break
+    }
+}
+
+if (forExist = 0) {
+    return code
+}
+
+Loop, Parse, code, `n, `r {
+furtre.add(A_LoopField)
+}
+furtre.add(" ")
+
+Loop, Parse, code, `n, `r {
+
+if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen("for ")) != "for ") and (Trim(StrLower(A_LoopField)) != "forend") and (Trim(StrLower(A_LoopField)) != "endfor") and (isIn > 0) {
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+out .= A_LoopField . Chr(10)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+}
+else if (SubStr(Trim(StrLower(A_LoopField)), 1, StrLen("for ")) = "for ") {
+isIn++
+
+out .= A_LoopField . Chr(10)
+}
+else if (Trim(StrLower(A_LoopField)) = "endfor") or (Trim(StrLower(A_LoopField)) = "forend") and (isIn > 0) {
+isIn--
+
+out .= "}" . Chr(10)
+}
+else {
+out .= A_LoopField . Chr(10)
+}
+
+}
+
+    StringTrimRight, out, out, 1
+    return out
+}
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 
 func str compiler(str htCode, str allInstructionFile, str mode, str langToConvertToParam := "")
@@ -15489,6 +15583,7 @@ if (langToConvertTo != langFileExtension_2)
 {
 
 code := liner_htvm_construct(code)
+code := forHTVMconstruct(code)
 
 }
 
