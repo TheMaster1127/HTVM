@@ -6,7 +6,7 @@
 
 ---
 
--   `[ ]` **Refactor the Documentation System**
+-   `[✅]` **Refactor the Documentation System**
     -   *Objective:* Refactor the way documentation is written and managed internally. The goal is to move away from the current hardcoded approach to a more modular system, making it significantly easier to add new documentation as features are developed.
 
 -   `[ ]` **Implement the HTVM Debugger**
@@ -53,3 +53,4 @@
 
 -   `[ ]` **Focus on Core Language Targets & Introduce Oryx**
     -   *Objective:* Focus on three languages and remove the rest. We will only focus on JavaScript, Python, and C++. This enhances quality and maintainability. Introduce Oryx as a fourth target, an interpreter designed for advanced insane debugging capabilities.
+
