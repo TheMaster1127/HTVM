@@ -1,15 +1,15 @@
 alliance Movable {
     crew Vehicles {
-        struct Car {
+        struct Car 
             prop int door := 4
             prop int fuel := 100
             prop bool hasFUEL := true
-        }
-        struct Bike {
+        subout
+        struct Bike
             prop bool hasGears := true
             prop int energy := 100
             prop bool hasENERGY := true
-        }
+        subout
 
         proc void move(this) {
             global Movable.Vehicles.Car.fuel
@@ -38,20 +38,20 @@ alliance Movable {
     }
     
     crew settings {
-        struct GeneralSettings {
+        struct GeneralSettings
             prop str difficulty := "normal"
             prop int volume := 50
             prop str resolution := "1920x1080"
-        }
-        struct AudioSettings {
+        subout
+        struct AudioSettings
             prop int masterVolume := 70
             prop int musicVolume := 50
             prop int sfxVolume := 40
-        }
-        struct DisplaySettings {
+        subout
+        struct DisplaySettings
             prop bool fullscreen := true
             prop str aspectRatio := "16:9"
-        }
+        subout
     }
     
     crew actions {
@@ -97,12 +97,12 @@ alliance Movable {
     }
 
     crew array {
-        struct name {
+        struct name
             prop arr str prop1
             prop arr str prop2
             prop arr str prop3
             prop arr str prop4
-        }
+        subout
     }
     
 }

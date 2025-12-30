@@ -1,11 +1,11 @@
 alliance Movable {
     crew Vehicles {
-        struct Car {
+        struct Car
             prop int fuel := 100
-        }
-        struct Bike {
+        subout
+        struct Bike
             prop int energy := 100
-        }
+        subout
         ; Proc using 'this' to know which struct called it
         ; 'this' will hold "Movable.Vehicles.Car" or "Movable.Vehicles.Bike"
         proc void checkStatus(this) { 

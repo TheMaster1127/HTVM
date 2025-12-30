@@ -1,15 +1,15 @@
 alliance Game {
     crew Audio {
 	; This is Game.Audio.Settings
-        struct Settings {
+        struct Settings
             prop int volume := 80
-        }
+        subout
     }
     crew Video {
 	; This is Game.Video.Settings - no collision!
-        struct Settings {
+        struct Settings
             prop str resolution := "1920x1080"
-        }
+        subout
     }
 }
 ; Access using the full path

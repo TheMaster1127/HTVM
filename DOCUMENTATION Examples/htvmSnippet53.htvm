@@ -1,8 +1,8 @@
 ; OSP Struct for state
-struct FormData {
+struct FormData
   prop str firstName := ""
   prop str lastName := ""
-}
+subout
 
 ; Callbacks
 Edit0: ; Default for first edit

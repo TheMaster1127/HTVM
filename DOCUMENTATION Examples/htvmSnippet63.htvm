@@ -1,7 +1,7 @@
 ; --- OSP Struct for state (Recommended) ---
-struct InputState {
+struct InputState
     prop str currentText := ""
-}
+subout
 ; --- Callbacks ---
 ; -----------------------
 ; Default for edit

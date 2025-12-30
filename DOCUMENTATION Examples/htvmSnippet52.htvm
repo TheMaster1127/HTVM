@@ -1,7 +1,7 @@
 ; Define an OSP struct to hold GUI state
-struct UserInput {
+struct UserInput
   prop str name := ""
-}
+subout
 
 ; Callback for the edit field (default name Edit0)
 Edit0:

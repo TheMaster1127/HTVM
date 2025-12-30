@@ -1,9 +1,9 @@
 ; Example of a simple, standalone struct
-struct Configuration {
+struct Configuration
     prop str theme := "dark"
     prop int fontSize := 12
     prop bool spellCheck := true
-}
+subout
 
 ; Accessing its properties later
 ; Access using the struct name as the path

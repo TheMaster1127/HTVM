@@ -1,9 +1,9 @@
 ; --- OSP Struct for state ---
-struct AppState {
+struct AppState
     prop str toggleState := "On"
     prop str selectedObject := ""
     prop bool errorInDropdown := false
-}
+subout
 ; --- Callbacks ---
 ToggleCallback:
   AppState.toggleState := A_Value ? "On" : "Off"

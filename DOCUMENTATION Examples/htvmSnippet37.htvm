@@ -1,7 +1,7 @@
 crew someCrew {
-    struct someStruct {
+    struct someStruct
         prop str someText := ""
-    }
+    subout
     proc str someProc(this) {
         print(this)
         return this
