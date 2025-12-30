@@ -214,7 +214,7 @@ HTVM <yourCodeFileName.yourExtension> <HTVM-instructions.txt> <LangToTranspileTo
   - `HTVM-instructions.txt`: Instructions file for transpilation.  
   - Specify the target language (`cpp`, `py`, `js`, `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, `htvm` or <yourExtension>) directly in the command.
 - **Optional**:  
-  - Another HTVM instruction file so when you are converting to another HTVM lang you must alos tell HTVM what is the syntax of the targer HTVM lang.
+  - Another HTVM instruction file so when you are converting to another HTVM lang you must always tell HTVM what is the syntax of the targer HTVM lang.
 
 **Example**:  
 ```bash
@@ -1492,6 +1492,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
