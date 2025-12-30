@@ -21,8 +21,8 @@
 -   `[ ]` **Build The Definitive `For` Construct**
     -   *Objective:* Create a powerful polymorphic iteration engine that can intelligently loop over any data type (strings, arrays, maps, ranges) with a consistent syntax.
 
--   `[ ]` **Establish Explicit-by-Default Behavior with Optional Implicitness**
-    -   *Objective:* Refactor language constructs to be explicit by default (e.g., `Loop, i, 5`) for maximum clarity, while retaining the implicit syntax (`Loop, 5`) as a configurable option. The HTVM-to-HTVM converter will translate implicit forms to their explicit counterparts.
+-   `[ ]` **Document the `Liner` Construct**
+    -   *Objective:* Add clear documentation for the `Liner` construct.
 
 -   `[ ]` **Enhance the GUI System**
     -   *Objective:* The primary goal is to make all GUI-related keywords (e.g., `gui`, `button`) fully configurable via the instruction file, removing all hardcoded elements. This also includes adding new features and capabilities to the GUI system.
@@ -53,4 +53,5 @@
 
 -   `[ ]` **Focus on Core Language Targets & Introduce Oryx**
     -   *Objective:* Focus on three languages and remove the rest. We will only focus on JavaScript, Python, and C++. This enhances quality and maintainability. Introduce Oryx as a fourth target, an interpreter designed for advanced insane debugging capabilities.
+
 
