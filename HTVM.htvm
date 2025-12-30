@@ -12398,15 +12398,6 @@ return out . theCode
 
 
 
-func bool formatHTVMtoHTVMsubout_HELP2(str line, str furtre) {
-
-if (SubStr(Trim(line), 1, StrLen(keyWordStruct)) = keyWordStruct) and (InStr(furtre, " " . Trim(keyWordAssign) . " ") = false)
-{
-return true
-}
-return false
-}
-
 func str formatHTVMtoHTVMsubout(str theCode) {
 str out := ""
 int inside := 0
@@ -12431,7 +12422,7 @@ out .= formatHTVMtoHTVMsubout_HELP(A_LoopField, inside) . Chr(10)
 else {
 out .= A_LoopField . Chr(10)
 }
-if (RegExMatch(A_LoopField, "\bwhen\b")) or (formatHTVMtoHTVMsubout_HELP2(A_LoopField, furtre[A_Index + 1]) = true) or (RegExMatch(A_LoopField, "\bwehn\b")) or (RegExMatch(StrLower(A_LoopField), "\bliner\b")) or (RegExMatch(Trim(A_LoopField), "^\s*[a-zA-Z_][a-zA-Z0-9_]*:\s*$")) {
+if (RegExMatch(A_LoopField, "\bwhen\b")) or (RegExMatch(A_LoopField, "\bwehn\b")) or (RegExMatch(StrLower(A_LoopField), "\bliner\b")) or (RegExMatch(Trim(A_LoopField), "^\s*[a-zA-Z_][a-zA-Z0-9_]*:\s*$")) {
 inside++
 }
 

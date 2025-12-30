@@ -9595,12 +9595,6 @@ std::string formatHTVMtoHTVMsubout_HELP(std::string theCode, int padding) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-bool formatHTVMtoHTVMsubout_HELP2(std::string line, std::string furtre) {
-    if (SubStr(Trim(line), 1, StrLen(keyWordStruct)) == keyWordStruct && InStr(furtre, " " + Trim(keyWordAssign) + " ") == false) {
-        return true;
-    }
-    return false;
-}
 std::string formatHTVMtoHTVMsubout(std::string theCode) {
     std::string out = "";
     int inside = 0;
@@ -9622,7 +9616,7 @@ std::string formatHTVMtoHTVMsubout(std::string theCode) {
         } else {
             out += A_LoopField177 + Chr(10);
         }
-        if (RegExMatch(A_LoopField177, "\\bwhen\\b") || formatHTVMtoHTVMsubout_HELP2(A_LoopField177, furtre[A_Index177 + 1]) == true || RegExMatch(A_LoopField177, "\\bwehn\\b") || RegExMatch(StrLower(A_LoopField177), "\\bliner\\b") || RegExMatch(Trim(A_LoopField177), "^\\s*[a-zA-Z_][a-zA-Z0-9_]*:\\s*$")) {
+        if (RegExMatch(A_LoopField177, "\\bwhen\\b") || RegExMatch(A_LoopField177, "\\bwehn\\b") || RegExMatch(StrLower(A_LoopField177), "\\bliner\\b") || RegExMatch(Trim(A_LoopField177), "^\\s*[a-zA-Z_][a-zA-Z0-9_]*:\\s*$")) {
             inside++;
         }
     }
