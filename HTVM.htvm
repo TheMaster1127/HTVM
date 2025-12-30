@@ -12638,6 +12638,12 @@ func str debugger_HTVM(str code, int didWeUseMainInCode) {
     int counterDebugger := 0
     int onceInt := 0
     int wasIN := 0
+    str temp_filter_func := ""
+    str temp_filter_func2 := ""
+    str temp_filter_func3 := ""
+    int temp_filter_func_int1 := 0
+    int temp_filter_func_int2 := 0
+    int temp_filter_func_int3 := 0
 
 if (didWeUseMainInCode = 0) {
 
@@ -12670,17 +12676,26 @@ if (didWeUseMainInCode = 0) {
                 out .= StrReplace("input(" . Chr(34) . "(PRESS ENTER TO CONTINUE) - Breakpoint: " . STR(counterDebugger) . Chr(34) . " + Chr(10) + " . Chr(34) . "============================================" . Chr(34) . " + Chr(10) + " . debugData . ")" . Chr(10), ") + )", "))")
             }
         }
-        else {
-            ; Detect assignments and store variable names
-            if (InStr(A_LoopField, " " . keyWordAssign . " ")) {
-                Loop, Parse, A_LoopField, "," {
-                    allVarsTemp := Trim(StrSplit(A_LoopField, keyWordAssign, 1))
-                    Loop, Parse, allVarsTemp, " " {
-                        allVarsTemp2 := Trim(A_LoopField)
-                    }
-                    
-    
-                    ; Only add new variable if not already tracked
+else {
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Detect assignments and store variable names
+if (InStr(A_LoopField, " " . keyWordAssign . " ")) {
+Loop, Parse, A_LoopField, "," {
+allVarsTemp := Trim(StrSplit(A_LoopField, keyWordAssign, 1))
+
+if (InStr(A_LoopField, ": ")) {
+allVarsTemp2 := Trim(StrSplit(A_LoopField, ":", 1))
+}
+else {
+Loop, Parse, allVarsTemp, " " {
+allVarsTemp2 := Trim(A_LoopField)
+}            
+}
+
+
+; Only add new variable if not already tracked
 
 wasIN := 0
 ; Only add new variable if not already tracked
@@ -12691,15 +12706,19 @@ wasIN := 1
 }
 }
 
-                if (wasIN = 0) {
-                    allVars .= Trim(allVarsTemp2) . Chr(10)
-                }
-                }
-            }
+if (wasIN = 0) {
+allVars .= Trim(allVarsTemp2) . Chr(10)
+}
+}
+}
 
-            ; Keep original code line
-            out .= A_LoopField . Chr(10)
-        }
+; Keep original code line
+out .= A_LoopField . Chr(10)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+}
     }
 
     ; Remove last newline
@@ -12708,6 +12727,7 @@ wasIN := 1
     
 }
 else {
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -12756,16 +12776,97 @@ else {
             }
         }
         else {
-            ; Detect assignments and store variable names
-            if (InStr(A_LoopField, " " . keyWordAssign . " ")) {
-                Loop, Parse, A_LoopField, "," {
-                    allVarsTemp := Trim(StrSplit(A_LoopField, keyWordAssign, 1))
-                    Loop, Parse, allVarsTemp, " " {
-                        allVarsTemp2 := Trim(A_LoopField)
-                    }
-                    
-    
-                    ; Only add new variable if not already tracked
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Detect func args and store variable names
+if (SubStr(StrLower(Trim(A_LoopField)), 1, StrLen(StrLower(keyWordFunc))) = StrLower(keyWordFunc)) {
+temp_filter_func := ""
+temp_filter_func2 := ""
+temp_filter_func3 := ""
+temp_filter_func_int1 := 0
+temp_filter_func_int2 := 0
+temp_filter_func_int3 := 0
+
+
+Loop, Parse, A_LoopField {
+
+if (temp_filter_func_int1 = 1) {
+
+if (temp_filter_func_int2 <= 0) {
+temp_filter_func .= A_LoopField
+}
+
+if (A_LoopField = "(") {
+temp_filter_func_int2++
+}
+if (A_LoopField = ")") {
+temp_filter_func_int2--
+}
+
+
+}
+
+if (A_LoopField = "(") {
+temp_filter_func_int1 := 1
+}
+
+}
+
+temp_filter_func2 := ""
+temp_filter_func3 := ""
+temp_filter_func_int1 := 0
+temp_filter_func_int2 := 0
+temp_filter_func_int3 := 0
+
+Loop, Parse, temp_filter_func, "," {
+if (InStr(A_LoopField, " " . keyWordAssign . " ") = false) { 
+
+if (InStr(A_LoopField, ":")) {
+allVarsTemp2 := Trim(StrSplit(A_LoopField, ":", 1))
+}
+else {
+Loop, Parse, A_LoopField, " " {
+allVarsTemp2 := Trim(A_LoopField)
+}
+}
+
+}
+allVarsTemp2 := Trim(StrReplace(allVarsTemp2, ")", ""))
+allVarsTemp2 := Trim(StrReplace(allVarsTemp2, "(", ""))
+
+; Only add new variable if not already tracked
+wasIN := 0
+; Only add new variable if not already tracked
+
+Loop, Parse, allVars, `n, `r {
+if (Trim(A_LoopField) = Trim(allVarsTemp2)) {
+wasIN := 1
+}
+}
+
+if (wasIN = 0) {
+allVars .= Trim(allVarsTemp2) . Chr(10)
+}
+}
+;;;;;;;;;;      
+}
+; Detect assignments and store variable names
+if (InStr(A_LoopField, " " . keyWordAssign . " ")) {
+Loop, Parse, A_LoopField, "," {
+allVarsTemp := Trim(StrSplit(A_LoopField, keyWordAssign, 1))
+
+if (InStr(A_LoopField, ": ")) {
+allVarsTemp2 := Trim(StrSplit(A_LoopField, ":", 1))
+}
+else {
+Loop, Parse, allVarsTemp, " " {
+allVarsTemp2 := Trim(A_LoopField)
+}            
+}
+
+
+; Only add new variable if not already tracked
 
 wasIN := 0
 ; Only add new variable if not already tracked
@@ -12776,14 +12877,52 @@ wasIN := 1
 }
 }
 
-                if (wasIN = 0) {
-                    allVars .= Trim(allVarsTemp2) . Chr(10)
-                }
-                }
-            }
+if (wasIN = 0) {
+allVars .= Trim(allVarsTemp2) . Chr(10)
+}
+}
+}
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Detect global for python and store variable names
+if (SubStr(StrLower(A_LoopField), 1, StrLen(StrLower(keyWordGlobal))) = StrLower(keyWordGlobal)) and (langToConvertTo = "py") {
+Loop, Parse, A_LoopField, "," {
 
-            ; Keep original code line
-            out .= A_LoopField . Chr(10)
+
+allVarsTemp := Trim(A_LoopField)
+if (InStr(Trim(A_LoopField), " ")) {
+allVarsTemp2 := Trim(StrSplit(A_LoopField, " ", 2))
+}
+else {
+allVarsTemp2 := Trim(A_LoopField)            
+}
+
+
+; Only add new variable if not already tracked
+
+wasIN := 0
+; Only add new variable if not already tracked
+
+Loop, Parse, allVars, `n, `r {
+if (Trim(A_LoopField) = Trim(allVarsTemp2)) {
+wasIN := 1
+}
+}
+
+if (wasIN = 0) {
+allVars .= Trim(allVarsTemp2) . Chr(10)
+}
+
+
+}
+}
+
+; Keep original code line
+out .= A_LoopField . Chr(10)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         }
     }
 
@@ -12791,6 +12930,12 @@ wasIN := 1
     StringTrimRight, out, out, 1
     
     
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 }
