@@ -1241,7 +1241,7 @@ Explore how to define and use functions for modular and reusable code. Functions
 
 ### **HTVM Functions**  
 
-Functions in HTVM allow you to create reusable pieces of code. A function is defined using the `func` keyword, followed by the return type, the function name, and its parameters
+Functions in HTVM allow you to create reusable pieces of code. A function is defined using the `func` keyword, followed by the return type, the function name, and its parameters.
 
 #### **Defining a Function**
 

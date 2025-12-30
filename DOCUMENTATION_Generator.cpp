@@ -2173,9 +2173,9 @@ for (size_t i = 0; i < features.size(); ++i) {
 sentence += ".";
     std::string funcSentence = "";
     if (on_usePrefixTypeForTypeDefinition == "on") {
-        funcSentence = "in HTVM allow you to create reusable pieces of code. A function is defined using the " + Chr(96) + doc_funcKeyWord + Chr(96) + " keyword, followed by the return type, the function name, and its parameters";
+        funcSentence = "in HTVM allow you to create reusable pieces of code. A function is defined using the " + Chr(96) + doc_funcKeyWord + Chr(96) + " keyword, followed by the return type, the function name, and its parameters.";
     } else {
-        funcSentence = "in HTVM are simple to use. They follow a structure where the " + Chr(96) + doc_funcKeyWord + Chr(96) + " keyword is used first, followed by the function name, its parameters, and the return type";
+        funcSentence = "in HTVM are simple to use. They follow a structure where the " + Chr(96) + doc_funcKeyWord + Chr(96) + " keyword is used first, followed by the function name, its parameters, and the return type.";
     }
     std::string hlepComments1 = "";
     std::string hlepComments2 = "";
