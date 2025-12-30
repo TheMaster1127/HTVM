@@ -1,6 +1,5 @@
 # HTVM Documentation
 
-
 1. [Introduction](#introduction-to-htvm)  
 Understand why HTVM is the future of programming.
 
@@ -51,7 +50,6 @@ This is all of your syntax.
 
 17. [Built-in Functions](#built-in-functions)  
 Explore the wide range of built-in functions categorized for ease of use.
-
 ---
 
 ## Introduction to HTVM
@@ -877,6 +875,7 @@ finally {
     print("Finally block executed")
 }
 
+
 ```
 
 ### Advanced String Features
@@ -919,6 +918,7 @@ print("Multiline F-String:")
 print(order_summary)
 print("=========================")
 
+
 ```
 
 #### Summary: The Power of Advanced Strings
@@ -932,7 +932,6 @@ These advanced string features (`f`, `mls`, `fmls`) significantly enhance HTVM's
 This level of string handling flexibility is a testament to HTVM's design philosophy: providing powerful, convenient tools that adapt to the programmer's needs, ultimately making development faster and more enjoyable. It's another step towards making HTVM the future of simplified, yet powerful, programming.
 
 ---
-
 
 ### Programming Blocks
 
@@ -952,6 +951,7 @@ ___cpp start
 // Write C++ code here
 ___cpp end
 
+
 ```
 
 #### **Multiple-Language Programming Block**
@@ -969,6 +969,7 @@ ___cpp end
 ___js start
 // Write JavaScript code here
 ___js end
+
 
 ```
 
@@ -1005,7 +1006,6 @@ HTVM will:
 - Display the libraries and built-in functions that need to be included.
 
 ---
-
 
 ### Variables
 
@@ -1061,6 +1061,7 @@ print(myDouble)
 print(myChar)
 print(myText)
 print(myBool)
+
 
 ```
 
@@ -1131,6 +1132,7 @@ Example:
 ```htvm
 const int x = 10
 
+
 ```
 
 - If converting to **C++**, this becomes `const int x = 10;`
@@ -1159,6 +1161,7 @@ myNumber += 10
 ___py end
 // Will print 15 in Python
 print(myNumber)
+
 
 ```
 
@@ -1193,6 +1196,7 @@ ___py start
 print(sharedNumber)  # ❌ This won't work because Python can't access C++ variables
 ___py end
 
+
 ```
 
 To fix this, you need to **manually synchronize values** in each programming block.
@@ -1209,6 +1213,7 @@ Example of bad practice:
 
 ```htvm
 uint32 myUnsigned = 500
+
 
 ```
 
@@ -1228,7 +1233,6 @@ uint32 myUnsigned = 500
 
 ---
 
-
 ### Functions
 
 [Go back](#htvm-documentation)
@@ -1237,7 +1241,7 @@ Explore how to define and use functions for modular and reusable code. Functions
 
 ### **HTVM Functions**  
 
-Functions in HTVM allow you to create reusable pieces of code. A function is defined using the `func` keyword, followed by the return type, the function name, and its parameters.
+Functions in HTVM allow you to create reusable pieces of code. A function is defined using the `func` keyword, followed by the return type, the function name, and its parameters
 
 #### **Defining a Function**
 
@@ -1246,6 +1250,7 @@ func int add(int a, int b) {
     return a + b
 }
 
+
 ```
 
 ```htvm
@@ -1253,12 +1258,14 @@ func str addStringPlusInt(str a, int b) {
     return a . STR(b)
 }
 
+
 ```
 
 ```htvm
 func void greet() {
     print("Hello, world!")
 }
+
 
 ``` 
 
@@ -1276,6 +1283,7 @@ func str funcName1(int paramVar1, str paramVar2 = "", bool paramVar3 = false, fl
 // This is where the main function will start. It's just a label, so don't worry.
 main
 print(funcName1(5))
+
 
 ```
 
@@ -1296,6 +1304,7 @@ func void greet() {
 // You can just use this label, and it's all handled for you
 main
 greet()
+
 
 ```
 
@@ -1432,6 +1441,7 @@ someCrew.someProc(someCrew.someStruct.someText)
 // and you are inside an if statement or other places,
 // don't use only 1 ( use both ().
 
+
 ```
 
 ---
@@ -1455,7 +1465,6 @@ This feature enhances HTVM's usability by providing developers with multiple way
 
 ---
 
-
 ### Pattern Matching
 
 [Go back](#htvm-documentation)
@@ -1477,6 +1486,7 @@ when x
     "png", "jpeg", "gif" -> print("It's an image.")
     else print("Unknown value.")
 subout
+
 
 ```
 
@@ -1502,6 +1512,7 @@ when x
     else print("Some other number.")
 subout
 
+
 ```
 
 ### Block Structures and `subout`
@@ -1526,6 +1537,7 @@ wehn user_role
     // Marks the end of this 'wehn' block
 subout
 
+
 ```
 
 ### A Showcase of Pattern Types and Examples
@@ -1543,6 +1555,7 @@ when lang
     else print("Some other language.")
 subout
 
+
 ```
 
 #### 2. Range Matching
@@ -1555,6 +1568,7 @@ when temperature
     21..35 -> print("Warm")
     else print("Extreme temperature!")
 subout
+
 
 ```
 
@@ -1576,6 +1590,7 @@ when
     else print("Starts with a consonant.")
 subout
 
+
 ```
 
 #### 4. Matching with Function Calls or Expressions
@@ -1595,6 +1610,7 @@ int y = 5
 when x + y
     10 -> print("The sum is 10.")
 subout
+
 
 ```
 
@@ -1620,6 +1636,7 @@ wehn user_status
     print("User status is unknown.")
 subout
 
+
 ```
 
 #### 6. Input Validation Example
@@ -1635,6 +1652,7 @@ when
     else
     print("Error: Input is not a valid number.")
 subout
+
 
 ```
 
@@ -1658,6 +1676,7 @@ when player_state
     print("Unknown player state.")
 subout
 
+
 ```
 
 ### Summary
@@ -1675,7 +1694,6 @@ subout
 *   **Embrace Nesting:** Don't be afraid to nest `when` blocks. It is often much cleaner and more readable than deeply nested `if` statements or complex boolean logic.
 
 ---
-
 
 ### Arrays
 
@@ -1718,6 +1736,7 @@ Example (Dynamic Language):
 // In (e.g., JavaScript, Python), this will be inferred as an array of integers
 arr myArray = [1, 2, 3, 4]
 
+
 ```
 
 ---
@@ -1749,6 +1768,7 @@ myArray.push(4)
 // myArray is now [1, 2, 3, 4]
 print(myArray)
 
+
 ```
 
 2. **`.pop()`**  
@@ -1761,6 +1781,7 @@ myArray.pop()
 // myArray is now [1, 2, 3]
 print(myArray)
 
+
 ```
 
 3. **`.size()`**  
@@ -1771,6 +1792,7 @@ Example:
 arr int myArray = [1, 2, 3]
 // returns 3
 print(myArray.size())
+
 
 ```
 
@@ -1784,6 +1806,7 @@ myArray.insert(1, 4)
 // myArray is now [1, 4, 2, 3]
 print(myArray)
 
+
 ```
 
 5. **`.rm()`**  
@@ -1796,6 +1819,7 @@ myArray.rm(2)
 // myArray is now [1, 2, 4]
 print(myArray)
 
+
 ```
 
 6. **`.indexOf()`**  
@@ -1806,6 +1830,7 @@ Example:
 arr int myArray = [1, 2, 3, 2]
 print(myArray.indexOf(2))
 // returns 1
+
 
 ```
 
@@ -1822,6 +1847,7 @@ myArray.rm(1)
 myArray.insert(1, 5)
 // Output: [1, 5, 3, 4]
 print(myArray)
+
 
 ```
 
@@ -1858,6 +1884,7 @@ ___py end
 // Will print: [1, 2, 3, 4] if converted to python otherwise it will print [1, 2, 3]
 print(myArray)
 
+
 ```
 
 This will convert to:
@@ -1879,6 +1906,7 @@ Example:
 ```htvm
 // In JavaScript, this will be an array with mixed types, but HTVM won't warn you
 arr int myArray = [1, "two", 3]
+
 
 ```
 
@@ -1915,6 +1943,8 @@ Loop, % myArray.size() {
 // 2
 // 3
 
+
+
 ```
 
 If you want immutability or similar behavior, you must handle it manually within programming blocks or by controlling logic in your code.
@@ -1942,6 +1972,7 @@ ___py end
 // If converted to another language, it will print: [1, 2, 3]
 print(myArray)
 
+
 ```
 
 You’ll need to manually synchronize arrays between programming blocks if needed.
@@ -1961,8 +1992,6 @@ You’ll need to manually synchronize arrays between programming blocks if neede
 #### ⚠️ WARNING: We can't use nested arrays or multiline arrays (like arrays inside arrays or 2D/3D arrays). To achieve that, use a programming block.
 
 ---
-
-
 
 
 
@@ -2010,6 +2039,7 @@ Loop, 10 {
     print(A_Index)
 }
 
+
 ```
 
 In this loop, `A_Index` is used to track the current iteration number. The `continue` keyword is used to skip even numbers, so only odd numbers will be printed.
@@ -2030,6 +2060,7 @@ Loop, Parse, someText, " " {
     print(A_LoopField)
 }
 
+
 ```
 
 In this example, the loop iterates over each word in the string `someText`, which is delimited by spaces. The `A_LoopField` holds the current word from the string.
@@ -2043,6 +2074,7 @@ Loop, Parse, multiLineText, \n {
     // Output each line of text
     print(A_LoopField)
 }
+
 
 ```
 
@@ -2058,6 +2090,7 @@ Loop, Parse, textWithCarriageReturn, \r {
     print(A_LoopField)
 }
 
+
 ```
 
 In this case, the text is delimited by carriage returns, and each line is printed separately.
@@ -2072,6 +2105,7 @@ Loop, Parse, mixedText, " ", \n {
     print(A_LoopField)
 }
 
+
 ```
 
 This example uses both a space and a new line as delimiters to split the string into tokens.
@@ -2085,6 +2119,7 @@ Loop, Parse, word {
     // Output each character
     print(A_LoopField)
 }
+
 
 ```
 
@@ -2111,6 +2146,7 @@ Loop {
     }
 }
 
+
 ```
 
 Here, the loop runs indefinitely, printing the current value of `A_Index`. When `A_Index` reaches 5, the loop breaks. You can also use `continue` to skip iterations as needed.
@@ -2132,6 +2168,7 @@ while (var1 == false) {
 }
 print("we are outside the while loop")
 
+
 ```
 
 In this example, the `while` loop runs once because the condition is initially true, then changes `var1` to true, causing the loop to terminate.
@@ -2150,6 +2187,7 @@ Loop, % arr123.size() {
     print(arr123[A_Index])
 }
 
+
 ```
 
 In this case, the loop iterates through each element of the array `arr123` using `A_Index` to reference the array's index.
@@ -2167,6 +2205,7 @@ Loop, % var1 {
     // Output the current iteration
     print(A_Index)
 }
+
 
 ```
 
@@ -2220,6 +2259,7 @@ Loop, Parse, var1, " " {
     print(A_Index)
     ::continue
 }
+
 
 ```
 
@@ -2315,8 +2355,6 @@ Each of these loops is intuitive and makes it easy to handle a variety of loopin
 
 ---
 
-
-
 ### Comments
 
 [Go back](#htvm-documentation)
@@ -2333,6 +2371,7 @@ Comments are essential for writing clear and maintainable code. They allow you t
 
 ```htvm
 // ✅ This comment will convert to any HTVM language or target language conversion.
+
 ```
 
 **💡 Tip:** Standalone comments are **ideal** when you need your notes to **convert** correctly across different languages and maintain clarity for others who may work with your code.
@@ -2393,8 +2432,6 @@ print("some text") // ❌ is comment will disappear when converting to another H
 
 ---
 
-
-
 ### GUI (Graphical User Interface with HTVM)
 
 [Go back](#htvm-documentation)
@@ -2404,8 +2441,6 @@ print("some text") // ❌ is comment will disappear when converting to another H
 The GUI feature in HTVM allows for the creation of graphical user interfaces specifically for **web browsers (JavaScript)**. It generates the necessary HTML and JavaScript code. It **does not** support creating native GUIs for Python, C++, or other desktop environments. Using these commands when targeting non-JS languages will not work.
 
 HTVM's GUI system lets you build interfaces with elements like buttons, text, edit fields, pictures, and more, using a simplified, flexible syntax designed for efficiency and fewer keystrokes. HTVM handles the basic HTML page setup implicitly when GUI commands are present.
-
-
 
 ### GUI Commands
 
@@ -2542,6 +2577,7 @@ subout
 main
 gui button x50% y50%
 
+
 ```
 
 ### Options & Aliases 
@@ -2605,6 +2641,7 @@ gui pid:"Gui1" text ww y27.5% d"Edit box text will be updated here..." css:"text
 gui pid:"Gui1" edit x50% y45% ph:"Type something..."
 gui pid:"Gui1" button x50% y65%
 
+
 ```
 
 ### Callbacks and State Management
@@ -2650,6 +2687,7 @@ gui edit x:editX_px y:editY_px w:editW_px h:editH_px placeholder:placeholderText
 // Button uses explicit callback ShowNameButton. Use SPACE separation.
 gui button x:btnX_px y:btnY_px w:btnW_px h:btnH_px value:btnText callback:ShowNameButton id:"greetButton"
 
+
 ```
 
 **Callback Parameters:** `A_Id`, `A_Value`, `A_Event` provide context within the callback label.
@@ -2693,6 +2731,7 @@ gui text x:"10px" y:"100px" w:"150px" h:"30px" value:lNameLabel color:whiteColor
 gui edit x:"10px" y:"130px" w:"150px" h:"30px" placeholder:lNamePlaceholder id:"lastNameEdit"
 gui button x:"10px" y:"200px" w:"155px" h:"45px" value:btnText callback:ButtonOK id:"sendButton"
 
+
 ```
 
 **Example 2: Sized Container (Hardcoded)**
@@ -2706,6 +2745,7 @@ gui id:containerId width:"500px" height:"700px" backgroundColor:"#121212"
 // Add elements inside, hardcoding simple positions/sizes
 gui text parentId:containerId x:"10px" y:"10px" value:"This text is inside" color:"white"
 gui button parentId:containerId x:"10px" y:"60px" width:"80%" height:"50px" value:"Wide Button"
+
 
 ```
 
@@ -2760,6 +2800,7 @@ Loop, % columns {
     currentX = currentX + btnWidth + gap
     currentY = startY
 }
+
 
 ```
 
@@ -2826,6 +2867,7 @@ gui dropdown x210 y10 h30 value:dropdownOptions id:dropdownId callback:DropdownC
 gui button x10 y50 w140 h40 value:saveBtnText id:saveBtnId callback:SaveButtonCallback
 gui picture x10 y150 id:imageId value:initialImageUrl
 
+
 ```
 
 **Example 5: Using `rawCss` for Styling**
@@ -2852,6 +2894,7 @@ parentId:panelId
 x20 y20 w150 h40
 id:buttonId value:buttonText rawCss:buttonStyles
 ]
+
 
 ```
 
@@ -2915,6 +2958,7 @@ gui pid:"Gui1" eedit, i"sliderValueText" x50% y125 d:sliderValue
 gui pid:"Gui1" button x50% y225 d"Update Text"
 gui pid:"Gui1" button x50% y325 d"Increase" callback:IncrementSlider
 gui pid:"Gui1" button x50% y425 d"Decrease" callback:DecrementSlider
+
 
 ```
 
@@ -3146,6 +3190,7 @@ gui {
 UpdateStatusDisplay()
 // --- End of Main ---
 
+
 ```
 
 ### Summary
@@ -3155,7 +3200,6 @@ HTVM's GUI system offers a simplified yet powerful way to build graphical user i
 The `gui` and `guicontrol` features allows developers to focus on interface logic and layout using their custom HTVM syntax, bridging the gap between high-level design and functional web UIs.
 
 ---
-
 
 
 
