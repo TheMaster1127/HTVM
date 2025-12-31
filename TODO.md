@@ -15,7 +15,7 @@
 -   `[✅]` **Implement True Structs with Instancing**
     -   *Objective:* Evolve structs from static namespaces into instantiable objects. The `instance` keyword will create a complete, independent copy of the struct's definition, enabling more complex data patterns.
 
--   `[ ]` **Document the `Liner` Construct**
+-   `[✅]` **Document the `Liner` Construct**
     -   *Objective:* Add clear documentation for the `Liner` construct.
 
 -   `[ ]` **Enhance the GUI System**
@@ -44,6 +44,7 @@
 
 -   `[ ]` **Focus on Core Language Targets**
     -   *Objective:* Focus on three languages and remove the rest. We will only focus on JavaScript, Python, and C++. This enhances quality and maintainability.
+
 
 
 
