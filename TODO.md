@@ -30,9 +30,6 @@
 -   `[ ]` **Add a New HIDDEN Language Target**
     -   *Objective:* Extend the transpiler to support **C**.
 
--   `[ ]` **Implement Optional Type Safety**
-    -   *Objective:* Add a new, optional toggle for enforcing type safety throughout a project. This also includes implementing Static One-Time Inference (SOTI), where the engine can infer a variable's type from its initial assignment if one is not explicitly provided.
-
 -   `[ ]` **Introduce the `#define` Meta-Programming Directive**
     -   *Objective:* Implement a `#define` directive that allows developers to reconfigure HTVM's syntax (keywords, block styles, and many other syntactic elements) directly from within a source file. This directive will be executed once at the beginning of the parsing step, meaning keywords cannot be changed midway through the code. This also includes a specific, hardcoded directive (`#define_programming_block_delimiter`) to safely customize the block delimiter characters for programming blocks.
 
@@ -47,6 +44,7 @@
 
 -   `[ ]` **Focus on Core Language Targets & Introduce Oryx**
     -   *Objective:* Focus on three languages and remove the rest. We will only focus on JavaScript, Python, and C++. This enhances quality and maintainability. Introduce Oryx as a fourth target, an interpreter designed for advanced insane debugging capabilities.
+
 
 
 
