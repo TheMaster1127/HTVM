@@ -12,7 +12,7 @@
 -   `[✅]` **Implement the HTVM Debugger**
     -   *Objective:* Build the integrated debugger that uses injected `input()` calls to provide state inspection directly within the IDE's workflow.
     
--   `[ ]` **Implement True Structs with Instancing**
+-   `[✅]` **Implement True Structs with Instancing**
     -   *Objective:* Evolve structs from static namespaces into instantiable objects. The `instance` keyword will create a complete, independent copy of the struct's definition, enabling more complex data patterns.
 
 -   `[ ]` **Build The Definitive `For` Construct**
@@ -50,6 +50,7 @@
 
 -   `[ ]` **Focus on Core Language Targets & Introduce Oryx**
     -   *Objective:* Focus on three languages and remove the rest. We will only focus on JavaScript, Python, and C++. This enhances quality and maintainability. Introduce Oryx as a fourth target, an interpreter designed for advanced insane debugging capabilities.
+
 
 
 
