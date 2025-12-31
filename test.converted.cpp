@@ -40,39 +40,36 @@ void print(const T& value) {
 int main(int argc, char* argv[]) {
     int A_SUCCESS = 0;
     int A_SUCCESS_WEIGHTED = 0;
-    int A_TOTAL_WEIGHT = 4;
+    int A_TOTAL_WEIGHT = 15;
     bool A_SUCCESS_ALL = false;
     bool hasMagicKey = true;
     int level = 20;
     int mana = 100;
     bool isCursed = false;
-    // ------------------
+    // -----------------
     A_SUCCESS = 0;
     A_SUCCESS_WEIGHTED = 0;
-    A_TOTAL_WEIGHT = 4;
+    A_TOTAL_WEIGHT = 15;
     A_SUCCESS_ALL = false;
     if (hasMagicKey) {
         A_SUCCESS++;
-        A_SUCCESS_WEIGHTED += 1;
+        A_SUCCESS_WEIGHTED += 10;
     }
     if (level > 15) {
         A_SUCCESS++;
-        A_SUCCESS_WEIGHTED += 1;
+        A_SUCCESS_WEIGHTED += 3;
     }
     if (mana > 50) {
         A_SUCCESS++;
-        A_SUCCESS_WEIGHTED += 1;
-    }
-    if (!isCursed) {
-        A_SUCCESS++;
-        A_SUCCESS_WEIGHTED += 1;
+        A_SUCCESS_WEIGHTED += 2;
     }
     if (A_SUCCESS_WEIGHTED == A_TOTAL_WEIGHT) {
         A_SUCCESS_ALL = true;
     }
-    // ------------------
-    if (A_SUCCESS_ALL) {
-        print("The ancient barrier dissolves...");
+    // -----------------------------------------------------
+    // The A_ variables are automatically calculated for you
+    if (A_SUCCESS_WEIGHTED >= 12) {
+        print("The barrier is weakened!");
     }
     
 
