@@ -2,5 +2,6 @@ testing/*.exe
 *.exe
 HTVM-v1-DEPRECATED/*.exe
 .vscode/*
+EXTREME-HTVM-TESTING/
 HTVM
 DOCUMENTATION_Generator
