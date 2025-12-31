@@ -42,8 +42,8 @@
 -   `[ ]` **Implement the "AI Language Creator"**
     -   *Objective:* Engineer the LLM prompt and IDE interface to allow users to generate a base `HTVM-instructions.txt` file from a plain English description of their desired language.
 
--   `[ ]` **Focus on Core Language Targets & Introduce Oryx**
-    -   *Objective:* Focus on three languages and remove the rest. We will only focus on JavaScript, Python, and C++. This enhances quality and maintainability. Introduce Oryx as a fourth target, an interpreter designed for advanced insane debugging capabilities.
+-   `[ ]` **Focus on Core Language Targets**
+    -   *Objective:* Focus on three languages and remove the rest. We will only focus on JavaScript, Python, and C++. This enhances quality and maintainability.
 
 
 
