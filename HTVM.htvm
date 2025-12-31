@@ -12898,7 +12898,7 @@ else {
 allVarsTemp2 := Trim(A_LoopField)            
 }
 
-
+allVarsTemp2 := Trim(StrReplace(allVarsTemp2, ";", ""))
 ; Only add new variable if not already tracked
 
 wasIN := 0
@@ -13077,11 +13077,43 @@ return line
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 func str addSimpleStructs(str line) {
+    ; --- All variable declarations at function scope ---
+    str instance_directives_buffer := ""
+    str current_line := ""
+    str parts := ""
+    str blueprintName := ""
+    str instanceName := ""
+    str out := ""
+    int isIn := 0
+    int doseItHaveType := 0
+    arr str furtre 
+    str str1 := ""
+    str str2 := ""
+    str str3 := ""
+    str str4 := ""
+    str str5 := ""
+    str struct_body_buffer := ""
+    str target_blueprint_line := ""
+    bool is_recording := false
+    int brace_depth := 0
+    str final_output := ""
+    str code_before_main := ""
+    str code_from_main := ""
+    int main_pos := 0
+    str generated_instances_code := ""
 
-str out := ""
-int isIn := 0
-int doseItHaveType := 0
-arr str furtre 
+    ; --- STAGE 1: DIRECTIVE COLLECTION ---
+    Loop, Parse, line, `n, `r {
+        current_line := Trim(A_LoopField)
+        if (SubStr(current_line, 1, StrLen("instance ")) = "instance ") {
+            parts := Trim(SubStr(current_line, StrLen("instance ") + 1))
+            blueprintName := Trim(StrSplit(parts, " as ", 1))
+            instanceName := Trim(StrSplit(parts, " as ", 2))
+            instance_directives_buffer .= blueprintName . "|" . instanceName . Chr(10)
+        }
+    }
+    
+    
 Loop, Parse, line, `n, `r {
 furtre.add(A_LoopField)
 }
@@ -13166,7 +13198,76 @@ out .= A_LoopField . Chr(10)
 }
 
     StringTrimRight, out, out, 1
-    return out
+    
+    
+    
+    
+
+    ; --- STAGE 3: REPLICATION ENGINE (POST-PROCESSING) ---
+    ; This now generates the instance code but does not append it directly.
+    Loop, Parse, instance_directives_buffer, `n, `r {
+        if (A_LoopField = "") {
+            continue 
+        }
+        blueprintName := StrSplit(A_LoopField, "|", 1)
+        instanceName := StrSplit(A_LoopField, "|", 2)
+        target_blueprint_line := Trim(keyWordStruct) . " " . blueprintName
+        struct_body_buffer := ""
+        is_recording := false
+        brace_depth := 0
+
+        Loop, Parse, out, `n, `r {
+            current_line := A_LoopField
+            if (is_recording = true) {
+                if (Trim(current_line) = "{") {
+                    brace_depth++ 
+                }
+                else if (Trim(current_line) = "}") { 
+                    brace_depth-- 
+                }
+                if (brace_depth = 0) { 
+                    is_recording := false
+                    break 
+                }
+                struct_body_buffer .= current_line . Chr(10)
+            } else {
+                if (Trim(current_line) = target_blueprint_line) { 
+                    is_recording := true 
+                } 
+            }
+        }
+        generated_instances_code .= Chr(10) . Trim(keyWordStruct) . " " . instanceName . Chr(10) . Chr(10) . struct_body_buffer . "}" . Chr(10)
+    }
+    
+    ; --- STAGE 4: INJECTION ---
+    main_pos := InStr(out, keyWordMainLabel)
+    if (main_pos > 0) {
+        ; Split the code at 'main'
+        code_before_main := SubStr(out, 1, main_pos - 1)
+        code_from_main := SubStr(out, main_pos)
+        ; Recombine with the generated instances in the middle.
+        final_output := code_before_main . generated_instances_code . code_from_main
+    } else {
+        ; If 'main' isn't found, append at the end (fallback).
+        final_output := out . generated_instances_code
+    }
+
+
+str final_output_temp := ""
+
+Loop, Parse, final_output, `n, `r {
+if (SubStr(Trim(A_LoopField), 1, StrLen("instance ")) != "instance ") {
+    final_output_temp .= A_LoopField . Chr(10)
+}
+}
+
+    StringTrimRight, final_output, final_output_temp, 1
+    
+    
+    return final_output
+    
+
+
 }
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

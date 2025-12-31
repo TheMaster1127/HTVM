@@ -1,28 +1,17 @@
+; test_instance.htvm
 
-
-int gloabal_var1 := 777777
-int gloabal_var2 := 7777778
-func str test1(str var1) {
-global gloabal_var1, gloabal_var2
-int var_test1 := 7854
-; breakpoint was here
-return var1
-}
-
-func str test2(str var1) {
-global gloabal_var2
-int var_test2 := 6556
-var_test2 := 6556
-; breakpoint was here
-return var1
+struct Player
+{
+    prop int health := 100
+    prop int mana := 50
 }
 
 main
-test1("wased")
-test2("wasedderfg")
-int var1 := 0
-; breakpoint was here
-Loop, 5 {
-var1++
-print(var1)
-}
+    instance Player as hero
+    instance Player as goblin
+
+    hero.health := 200
+    goblin.health := 30
+
+    print("Hero health is: " . hero.health)
+    print("Goblin health is: " . goblin.health)
