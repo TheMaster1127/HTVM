@@ -1569,9 +1569,9 @@ In this example, we're checking if a player can open a legendary treasure chest.
 
 ---
 
-#### **Example 4: Replacing Complex `if` Statements**
+#### **Example 4: Replacing Complex Weighted Logic**
 
-`Liner` can dramatically simplify and improve the readability of code that would otherwise require a long chain of `and` operators in an `if` statement.
+This example shows how `Liner` drastically cleans up code that requires manual weighted scoring.
 
 **Before (The Old, Cluttered Way):**
 ```htvm
@@ -1584,7 +1584,7 @@ In this example, we're checking if a player can open a legendary treasure chest.
 %%%htvmSnippet88%%%
 
 ```
-Both code blocks achieve the same result, but the `Liner` version is far easier to read, debug, and modify. Each condition is neatly separated, making the logic immediately obvious.
+The `Liner` version is superior in every way. It's more readable, less error-prone (no manual score tracking or total weight calculation), and the logic is self-contained. Adding or removing conditions is trivial in the `Liner` block, whereas it requires careful modification of multiple lines in the manual approach.
 
 ### **Conclusion**
 

@@ -2,23 +2,19 @@
 str username := "TheMaster1127"
 str password := "password123"
 ; User left this blank
-str email := "" 
+str email := ""
 bool agreedToTerms := true
-
+; --------------------------
 Liner RegistrationValidation
-    ; Username length is important
-    5: StrLen(username) >= 4        
-    ; Password security is important
-    5: StrLen(password) >= 8        
-    ; Email is optional but preferred
-    1: email != ""                  
-    ; Agreeing to terms is mandatory
+    5: StrLen(username) >= 4
+    5: StrLen(password) >= 8
+    1: email != ""
     10: agreedToTerms               
 subout
-
+; --------------------------------------
 print("--- Form Validation Results ---")
-print("Weighted Score: " . A_SUCCESS_WEIGHTED . " / " . A_TOTAL_WEIGHT)
-
+print("Weighted Score: " . STR(A_SUCCESS_WEIGHTED) . " / " . STR(A_TOTAL_WEIGHT))
+; ------------------
 if (A_SUCCESS_ALL) {
     print("Status: Registration complete and perfect!")
 } else if (A_SUCCESS_WEIGHTED >= 20) {

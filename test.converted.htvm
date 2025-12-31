@@ -1,17 +1,10 @@
-; test_instance.htvm
-
-struct Player
-{
-    prop int health := 100
-    prop int mana := 50
+bool hasMagicKey := true
+int level := 20
+int mana := 100
+bool isCursed := false
+; -----------------------------------------------------------
+if (hasMagicKey and level > 15 and mana > 50 and !isCursed) {
+    print("The ancient barrier dissolves...")
 }
 
-main
-    instance Player as hero
-    instance Player as goblin
 
-    hero.health := 200
-    goblin.health := 30
-
-    print("Hero health is: " . hero.health)
-    print("Goblin health is: " . goblin.health)

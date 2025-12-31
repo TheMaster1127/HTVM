@@ -2,14 +2,14 @@ bool hasMagicKey := true
 int level := 20
 int mana := 100
 bool isCursed := false
-
+; -----------------
 Liner BarrierCheck
-    hasMagicKey
-    level > 15
-    mana > 50
-    !isCursed
+    10: hasMagicKey
+    3: level > 15
+    2: mana > 50
 subout
-
-if (A_SUCCESS_ALL) {
-    print("The ancient barrier dissolves...")
+; -----------------------------------------------------
+; The A_ variables are automatically calculated for you
+if (A_SUCCESS_WEIGHTED >= 12) {
+    print("The barrier is weakened!")
 }

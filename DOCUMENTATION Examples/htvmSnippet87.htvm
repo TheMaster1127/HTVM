@@ -2,7 +2,24 @@ bool hasMagicKey := true
 int level := 20
 int mana := 100
 bool isCursed := false
-
-if (hasMagicKey and level > 15 and mana > 50 and !isCursed) {
-    print("The ancient barrier dissolves...")
+; ----------------------
+; Manually track the score
+int weighted_score := 0
+; Must be manually calculated (10 + 3 + 2)
+int total_weight := 15 
+; ----------------------
+; A series of tedious if statements
+if (hasMagicKey) {
+    weighted_score += 10
+}
+if (level > 15) {
+    weighted_score += 3
+}
+if (mana > 50) {
+    weighted_score += 2
+}
+; ----------------------
+; Final check
+if (weighted_score >= 12) {
+    print("The barrier is weakened!")
 }

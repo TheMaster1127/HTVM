@@ -3,17 +3,17 @@ bool tookOutTrash := true
 bool fedTheCat := true
 bool checkedMail := false
 bool wateredPlants := true
-
+; ---------------
 Liner DailyChores
     tookOutTrash
     fedTheCat
     checkedMail
     wateredPlants
 subout
-
+; ---------------------------------
 print("--- Daily Chore Report ---")
-print("Tasks Completed: " . A_SUCCESS . " out of " . A_TOTAL_WEIGHT)
-
+print("Tasks Completed: " . STR(A_SUCCESS) . " out of " . STR(A_TOTAL_WEIGHT))
+; ---------------------------------
 if (A_SUCCESS_ALL) {
     print("Result: All chores done!")
 } else {
