@@ -1,0 +1,21 @@
+; --- State Variables for Daily Chores ---
+bool tookOutTrash := true
+bool fedTheCat := true
+bool checkedMail := false
+bool wateredPlants := true
+
+Liner DailyChores
+    tookOutTrash
+    fedTheCat
+    checkedMail
+    wateredPlants
+subout
+
+print("--- Daily Chore Report ---")
+print("Tasks Completed: " . A_SUCCESS . " out of " . A_TOTAL_WEIGHT)
+
+if (A_SUCCESS_ALL) {
+    print("Result: All chores done!")
+} else {
+    print("Result: Still have tasks to do.")
+}

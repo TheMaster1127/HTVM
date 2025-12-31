@@ -1,0 +1,15 @@
+bool hasMagicKey := true
+int level := 20
+int mana := 100
+bool isCursed := false
+
+Liner BarrierCheck
+    hasMagicKey
+    level > 15
+    mana > 50
+    !isCursed
+subout
+
+if (A_SUCCESS_ALL) {
+    print("The ancient barrier dissolves...")
+}

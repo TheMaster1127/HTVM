@@ -1,0 +1,8 @@
+bool hasMagicKey := true
+int level := 20
+int mana := 100
+bool isCursed := false
+
+if (hasMagicKey and level > 15 and mana > 50 and !isCursed) {
+    print("The ancient barrier dissolves...")
+}

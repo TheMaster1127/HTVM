@@ -1,0 +1,26 @@
+; --- Player and World State ---
+bool hasLegendaryKey := true
+int playerLevel := 55
+bool isNightTime := false
+bool hasGuildBuff := true
+
+Liner ChestOpeningCheck
+    ; The key is absolutely mandatory
+    10: hasLegendaryKey
+    ; A high level is a standard requirement (default weight 1)
+    playerLevel >= 50
+    ; A small bonus condition (default weight 1)
+    isNightTime
+    ; A nice-to-have guild buff (weight 2)
+    2: hasGuildBuff
+subout
+
+print("--- Treasure Chest Check ---")
+print("Raw Successes: " . A_SUCCESS)
+print("Weighted Score: " . A_SUCCESS_WEIGHTED . " / " . A_TOTAL_WEIGHT)
+
+if (A_SUCCESS_WEIGHTED >= 11) {
+    print("Result: The chest creaks open!")
+} else {
+    print("Result: The chest remains sealed.")
+}

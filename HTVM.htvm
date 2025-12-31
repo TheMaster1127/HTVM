@@ -13075,7 +13075,6 @@ return line
 }
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 func str addSimpleStructs(str line) {
     ; --- All variable declarations at function scope ---
     str instance_directives_buffer := ""

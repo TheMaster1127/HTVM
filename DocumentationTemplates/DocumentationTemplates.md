@@ -21,34 +21,37 @@ Explore how to define and use functions for modular and reusable code.
 7. [Pattern Matching](#pattern-matching)  
 HTVM provides a flexible and minimalist `when` block for pattern matching. It is designed to be highly intuitive, allowing you to write complex conditional logic with the least possible syntax and elegantly eliminating the verbosity of traditional `if-else` chains.
 
-8. [Arrays](#arrays)  
+8. [Liner](#liner)  
+The `Liner` construct is a unique and powerful feature in HTVM designed for evaluating a series of boolean conditions in a clean, readable block.
+
+9. [Arrays](#arrays)  
 Dive into working with arrays, one of the most essential data structures in HTVM.
 
-9. [Loops](#loops)  
+10. [Loops](#loops)  
 Master the looping structures available in HTVM, such as the standard loop and infinite loops.
 
-10. [Comments](#comments)  
+11. [Comments](#comments)  
 Add clarity to your code by using comments to document and explain your code.
 
-11. [GUI (Graphical User Interface with HTVM)](#gui-graphical-user-interface-with-htvm)  
+12. [GUI (Graphical User Interface with HTVM)](#gui-graphical-user-interface-with-htvm)  
 Learn how to the GUI feature in HTVM that allows for the creation of graphical user interfaces specifically for **web browsers (JavaScript)**.
 
-12. [Backend in HTVM](#backend-in-htvm)  
+13. [Backend in HTVM](#backend-in-htvm)  
 Learn how to use HTVM's Backend functionality that generates **Python** code using **Flask**.
 
-13. [Error Handling](#error-handling)  
+14. [Error Handling](#error-handling)  
 Understand how to manage errors and handle exceptions in HTVM to make your programs more robust.
 
-14. [Include](#include)  
+15. [Include](#include)  
 Discover how to include external files and resources in your HTVM project for enhanced functionality.
 
-15. [Commands](#commands)  
+16. [Commands](#commands)  
 Commands in HTVM are a simplified way to perform actions, similar to functions, but with a more compact, direct, and concise syntax for better efficiency.
 
-16. [All Syntax](#all-syntax)  
+17. [All Syntax](#all-syntax)  
 This is all of your syntax.
 
-17. [Built-in Functions](#built-in-functions)  
+18. [Built-in Functions](#built-in-functions)  
 Explore the wide range of built-in functions categorized for ease of use.
 
 ============&&&1&&&============
@@ -1466,7 +1469,128 @@ The `gui` and `guicontrol` features allows developers to focus on interface logi
 ---
 ============&&&10&&&============
 ============***11***============
+### Liner
 
+[Go back](#htvm-documentation)
+
+### **The `Liner` Construct: A Weighted Condition Evaluator**
+
+The `Liner` construct is a unique and powerful feature in HTVM designed for evaluating a series of boolean conditions in a clean, readable block. It acts as a "truthiness accumulator," calculating both a simple count and a weighted score of how many conditions in the list evaluate to `true`.
+
+This is an ideal tool for scenarios where you need to check multiple prerequisites, such as game achievements, form validation, or AI decision-making, and get a quantifiable measure of success.
+
+**Liner Block Start** = `Liner`
+
+**Liner Block End** = `subout`
+
+### **Syntax**
+
+A `Liner` block starts with the `Liner` keyword followed by an optional name, and ends with `subout`. Inside the block, you list one condition per line.
+
+Each condition can optionally be prefixed with a `weight:` to contribute to a weighted score. If no weight is provided, it defaults to `1`.
+
+```htvm
+Liner [OptionalName]
+    "A condition with an explicit weight"
+    [weight1]: [condition1]
+    [weight2]: [condition2]
+    "A condition with a default weight of 1"
+    [condition3] 
+subout
+```
+
+### **Contextual `A_` Variables**
+
+After a `Liner` block is executed, the following global `A_` variables are populated with the results of the evaluation. **These variables are reset before each new `Liner` block runs.**
+
+| Variable             | Description                                                                                              |
+| :------------------- | :------------------------------------------------------------------------------------------------------- |
+| `A_SUCCESS`          | An integer representing the raw count of conditions that evaluated to `true`.               |
+| `A_SUCCESS_WEIGHTED` | An integer representing the sum of the weights of all conditions that evaluated to `true`. |
+| `A_TOTAL_WEIGHT`     | An integer representing the sum of all possible weights for every condition listed in the block.         |
+| `A_SUCCESS_ALL`      | A boolean that is `true` only if **every single condition** in the block was met.           |
+
+### **Comprehensive Examples**
+
+The true power of the `Liner` construct is in its versatility. Below are several examples demonstrating its use in different scenarios, from simple checklists to replacing complex conditional logic.
+
+#### **Example 1: Basic Daily Checklist (No Weights)**
+
+The simplest use of `Liner` is as a raw counter for completed tasks. Here, we're just checking off daily chores. The default weight for each item is `1`.
+```htvm
+%%%htvmSnippet84%%%
+
+```
+**Expected Output:**
+*   `A_SUCCESS`: `3`
+*   `A_TOTAL_WEIGHT`: `4`
+*   `A_SUCCESS_ALL`: `false`
+
+---
+
+#### **Example 2: Form Validation with Weights**
+
+Here, `Liner` is used to validate a user registration form. Some fields are critical (high weight), while others are optional (low weight). This allows for nuanced validation logic.
+
+```htvm
+%%%htvmSnippet85%%%
+
+```
+**Expected Output:**
+*   `A_SUCCESS_WEIGHTED`: `20` (5 for username + 5 for password + 10 for terms)
+*   `A_TOTAL_WEIGHT`: `21`
+*   `A_SUCCESS_ALL`: `false` (because email is empty)
+*   The final status will be "Registration successful."
+
+---
+
+#### **Example 3: Mixing Weighted and Unweighted Conditions**
+
+You can freely mix conditions with explicit weights and those without. Any condition without a specified weight automatically defaults to a weight of `1`. This is useful for scenarios with a mix of high-priority and standard-priority checks.
+
+In this example, we're checking if a player can open a legendary treasure chest.
+
+```htvm
+%%%htvmSnippet86%%%
+
+```
+**Execution Analysis:**
+*   `hasLegendaryKey` is `true` (Weight 10) -> **Success**
+*   `playerLevel >= 50` is `true` (Default Weight 1) -> **Success**
+*   `isNightTime` is `false` (Default Weight 1) -> Failure
+*   `hasGuildBuff` is `true` (Weight 2) -> **Success**
+
+**Expected Output:**
+*   `A_SUCCESS`: `3`
+*   `A_SUCCESS_WEIGHTED`: `13` (10 + 1 + 2)
+*   `A_TOTAL_WEIGHT`: `14` (10 + 1 + 1 + 2)
+*   `A_SUCCESS_ALL`: `false`
+*   The final result will be "The chest creaks open!" because the weighted score of 13 is greater than or equal to the required 11.
+
+---
+
+#### **Example 4: Replacing Complex `if` Statements**
+
+`Liner` can dramatically simplify and improve the readability of code that would otherwise require a long chain of `and` operators in an `if` statement.
+
+**Before (The Old, Cluttered Way):**
+```htvm
+%%%htvmSnippet87%%%
+
+```
+
+**After (The Clean, `Liner` Way):**
+```htvm
+%%%htvmSnippet88%%%
+
+```
+Both code blocks achieve the same result, but the `Liner` version is far easier to read, debug, and modify. Each condition is neatly separated, making the logic immediately obvious.
+
+### **Conclusion**
+
+The `Liner` construct provides a clean, declarative syntax for a common but complex programming pattern. By abstracting the counting and weighting logic into the language itself, it allows you to write more expressive and maintainable code, perfectly embodying the HTVM philosophy of solving real-world problems with elegant, developer-centric tools.
+
+---
 ============&&&11&&&============
 ============***12***============
 
