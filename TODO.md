@@ -15,13 +15,8 @@
 -   `[✅]` **Implement True Structs with Instancing**
     -   *Objective:* Evolve structs from static namespaces into instantiable objects. The `instance` keyword will create a complete, independent copy of the struct's definition, enabling more complex data patterns.
 
--   `[ ]` **Implement Code Formatting Configuration**
-    -   *Objective:* Allow users to define code formatting rules (tabs vs. spaces) in the instruction file. These rules will be used by the HTVM formatter and the HTVM-to-HTVM conversion process.
-
--   `[ ]` **Add a New HIDDEN Language Target**
-    -   *Objective:* Extend the transpiler to support **C**.
-
 -   `[ ]` **Focus on Core Language Targets**
     -   *Objective:* Focus on three languages and remove the rest. We will only focus on JavaScript, Python, and C++. This enhances quality and maintainability.
+
 
 
