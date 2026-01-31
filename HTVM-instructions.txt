@@ -3966,36 +3966,6 @@ description: null
 // GUI ADD ELEMENT FUNCTION (MODIFIED to handle optional parentId)
 // ==========================================================================
 
-/**
- * Adds or updates an element (button, text, etc.).
- * If parentId is provided, adds inside that container.
- * If parentId is NOT provided, adds directly to the main background.
- * Handles effective enabled state based on parent (if any).
- * Uses global auto-layout if no parentId AND no x/y provided.
- * Uses parent's auto-layout if parentId is provided AND no x/y provided.
- *
- * @param {object} options - Configuration options for the element.
- * @param {string | number | null} [options.parentId=null] - ID of the parent container (optional). If null/omitted, adds to background.
- * @param {string} options.elementType - Required type of element ('button', 'text', etc.).
- * @param {string | number | null} [options.id=null] - Element ID. Auto-generated if null. Reuses if existing (within parent or globally if no parent).
- * @param {string | number | null} [options.x=null] - Left position. Relative to parent if parentId given, otherwise absolute. Auto-layout if null.
- * @param {string | number | null} [options.y=null] - Top position. Relative to parent if parentId given, otherwise absolute. Auto-layout if null.
- * @param {string | number | null} [options.width=null] - Width. Defaults vary by elementType.
- * @param {string | number | null} [options.height=null] - Height. Defaults vary by elementType.
- * @param {number | string | null} [options.zIndex=null] - Stacking order. Auto-increments globally if null & no parentId. Defaults 'auto' inside parent.
- * @param {any} [options.value=null] - Content/state (text, URL, boolean, options string). Defaults vary.
- * @param {string | null} [options.placeholder=null] - Placeholder text (for 'edit').
- * @param {function | string | null} [options.callback=null] - Interaction callback function or name.
- * @param {string | null} [options.backgroundColor=null] - Background color. Defaults vary.
- * @param {string | null} [options.color=null] - Text color. Defaults vary.
- * @param {number | string | null} [options.rounding=null] - Border radius. Defaults vary.
- * @param {string | null} [options.border=null] - Border style. Defaults vary.
- * @param {string | null} [options.rawCss=null] - Additional raw CSS string.
- * @param {number | null} [options.size=null] - Font size (for text-based elements). Defaults vary.
- * @param {boolean | null} [options.isDeleting=false] - If true, removes the element.
- * @param {boolean | null} [options.isEnabled=true] - Element's own intended enabled state.
- * @param {boolean | null} [options.isVisible=true] - Visibility (display: none).
- */
 function guiAddElement({
     // Core Identification & Placement
     id = null,
@@ -4758,6 +4728,16 @@ function guiControl(controlOptions) {
             parentId: parentId // Pass the validated parentId context (null or string)
         });
     }
+    
+// --- Focus Handling ---
+if (controlOptions.focus === true) {
+    // Grab the actual DOM element (assuming element has id matching elementId)
+    const element = document.getElementById(elementId);
+    if (element && typeof element.focus === 'function') {
+        element.focus();
+    }
+}
+
 }
 
 
