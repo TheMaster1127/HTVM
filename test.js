@@ -21,21 +21,17 @@ function STR(value) {
 }
 
 
-var Enemy_health = 50;
-var Enemy_damage = 10;
-var goblin1_health = 50;
-var goblin1_damage = 10;
-var goblin2_health = 50;
-var goblin2_damage = 10;
-var goblin3_health = 50;
-var goblin3_damage = 10;
+var Player_health = 100;
+var Player_mana = 50;
+var hero_health = 100;
+var hero_mana = 50;
+var goblin_health = 100;
+var goblin_mana = 50;
 async function main() {
-    goblin1_health = 40;
-    goblin2_health = 55;
-    goblin3_health = 50;
-    print("Goblin 1 Health: " + STR(goblin1_health));
-    print("Goblin 2 Health: " + STR(goblin2_health));
-    print("Goblin 3 Health: " + STR(goblin3_health));
+    hero_health = 200;
+    goblin_health = 30;
+    print("Hero health: " + STR(hero_health));
+    print("Goblin health: " + STR(goblin_health));
     
 
 }

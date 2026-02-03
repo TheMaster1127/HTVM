@@ -64,17 +64,13 @@ std::string STR(const std::string& value) {
 }
 
 
-int hero_health = 100;
-int hero_mana = 50;
-int goblin_health = 100;
-int goblin_mana = 50;
+int Player_health = 100;
+int Player_mana = 50;
 int hero_health = 100;
 int hero_mana = 50;
 int goblin_health = 100;
 int goblin_mana = 50;
 int main(int argc, char* argv[]) {
-    int Player_health = 100;
-    int Player_mana = 50;
     hero_health = 200;
     goblin_health = 30;
     print("Hero health: " + STR(hero_health));
