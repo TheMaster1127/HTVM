@@ -13115,6 +13115,25 @@ func str addSimpleStructs(str line) {
         }
     }
     
+str line_fix_end := ""
+int line_fix_end_IS_IN := 0
+Loop, Parse, line, `n, `r {
+
+if (Trim(StrLower(A_LoopField)) = "subout") or (Trim(StrLower(A_LoopField)) = keyWordEnd) and (line_fix_end_IS_IN = 1) {
+line_fix_end .= "subout" . Chr(10)
+line_fix_end_IS_IN := 0
+}
+else if (SubStr(Trim(A_LoopField), 1, StrLen(keyWordStruct)) = keyWordStruct) {
+line_fix_end_IS_IN := 1
+line_fix_end .= A_LoopField . Chr(10)
+}
+else {
+line_fix_end .= A_LoopField . Chr(10)
+}
+
+}
+
+StringTrimRight, line, line_fix_end, 1
     
 Loop, Parse, line, `n, `r {
 furtre.add(A_LoopField)
@@ -13213,14 +13232,27 @@ if (langToConvertTo = langFileExtension_2)
 out .= StrReplace(A_LoopField, Trim(keyWordStruct), "struct_HTVM_jjsabdvkjhsdbvkjsdbvksdjbgsdkbhqwiesdfvhbfuewskdvgkusdbfgvsekdlgbsewidgbsewkufbg-HTVM") . Chr(10) . "{" . Chr(10)
 }
 else {
+if (useEnd = "on") {
+out .= A_LoopField . Chr(10)
+}
+else {
 out .= A_LoopField . Chr(10) . "{" . Chr(10)
+}
+
 }
 
 }
 else if (Trim(StrLower(A_LoopField)) = "subout") and (isIn = 1) {
 isIn := 0
 
+if (useEnd = "on") {
+out .= keyWordEnd . Chr(10)
+}
+else {
 out .= "}" . Chr(10)
+}
+
+
 }
 else {
 out .= A_LoopField . Chr(10)
@@ -13247,6 +13279,36 @@ out .= A_LoopField . Chr(10)
         is_recording := false
         brace_depth := 0
 
+        if (useEnd = "on") {
+        
+        
+        
+                Loop, Parse, out, `n, `r {
+            current_line := A_LoopField
+            if (is_recording = true) {
+                if (SubStr(Trim(current_line), 1, StrLen(keyWordStruct)) = keyWordStruct) {
+                    brace_depth++ 
+                }
+                else if (Trim(current_line) = keyWordEnd) { 
+                    brace_depth-- 
+                }
+                if (brace_depth = 0) { 
+                    is_recording := false
+                    break 
+                }
+                struct_body_buffer .= current_line . Chr(10)
+            } else {
+                if (Trim(current_line) = target_blueprint_line) { 
+                    is_recording := true 
+                } 
+            }
+        }
+        
+        
+        
+        }
+        else {
+
         Loop, Parse, out, `n, `r {
             current_line := A_LoopField
             if (is_recording = true) {
@@ -13267,7 +13329,19 @@ out .= A_LoopField . Chr(10)
                 } 
             }
         }
+        
+        }
+        
+        
+        
+        if (useEnd = "on") {
+        generated_instances_code .= Chr(10) . Trim(keyWordStruct) . " " . instanceName . Chr(10) . Chr(10) . struct_body_buffer . keyWordEnd . Chr(10)
+}
+else {
         generated_instances_code .= Chr(10) . Trim(keyWordStruct) . " " . instanceName . Chr(10) . Chr(10) . struct_body_buffer . "}" . Chr(10)
+}
+        
+
     }
     
 if (langToConvertTo != langFileExtension_2) {

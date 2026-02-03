@@ -1,13 +1,11 @@
-
 struct Player
-    health: 100
-    mana: 50
-subout
-
+    prop int health = 100
+    prop int mana = 50
+end
 main
-    instance Player as hero
-    instance Player as goblin
-    hero.health := 200
-    goblin.health := 30
-    print("Hero health: " . STR(hero.health))
-    print("Goblin health: " . STR(goblin.health))
+instance Player as hero
+instance Player as goblin
+hero.health = 200
+goblin.health = 30
+print("Hero health: " . STR(hero.health))
+print("Goblin health: " . STR(goblin.health))
