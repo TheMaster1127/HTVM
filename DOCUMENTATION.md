@@ -4,7 +4,7 @@
 Understand why HTVM is the future of programming.
 
 2. [OSP (Ordinal Struct Programming)](#osp-ordinal-struct-programming)  
-Learn about OSP (Ordinal Struct Programming) a new way to use Structs.
+Learn about OSP (Ordinal Struct Programming) a simple way to use Structs.
 
 3. [How Your Language Looks Like](#how-your-language-looks-like)  
 Get to know how HTVM code is structured and its syntax style.
@@ -463,318 +463,678 @@ HTVM **isn’t just another programming tool. It’s a revolution.**
 
 ---
 
-## OSP (Ordinal Struct Programming)
+# OSP (Ordinal Struct Programming)
 
 [Go back](#htvm-documentation)
 
-OSP (Ordinal Struct Programming) is HTVM's built-in approach for organizing data and related procedures using hierarchical namespaces and explicit path-based access. It focuses on **ordinal** positioning – meaning the unique location of structures within the defined hierarchy (`alliance`, `crew`). This feature offers an alternative for structuring code, particularly for those who prefer direct data manipulation and clear, absolute referencing over features like inheritance or encapsulation found in traditional OOP.
+OSP is HTVM's built-in system for organizing data using **structs** and **instances**. It provides a clean, developer-friendly way to define data structures and create multiple independent copies of them with minimal syntax.
 
-### What is a `struct` in HTVM OSP?
+---
 
-At its core, a `struct` in HTVM OSP is similar to structs in languages like C: it's a way to **group related data fields together under a single name**.
+## Table of Contents
 
--   **Definition:** You define a struct using the `struct` keyword.
--   **Properties:** Inside a struct, you define its data fields using the `prop` keyword. Each `prop` holds a piece of data (like an integer, string, boolean, or even an array).
--   **Access:** Crucially, you *always* access struct properties using their **full, absolute path** starting from the top level (or the struct name if defined standalone). For example: `MyAlliance.MyCrew.MyStruct.myProp`.
--   **Global Nature:** Structs defined in OSP are globally accessible from any point in the code below their definition, using their full path.
+1. [Structs: The Basics](#structs-the-basics)
+2. [Type Inference](#type-inference)
+3. [Instances: Creating Data](#instances-creating-data)
+4. [Arrays in Structs](#arrays-in-structs)
+5. [Organization with `crew` and `alliance`](#organization-with-crew-and-alliance)
+6. [Syntax Styles: New vs. Old](#syntax-styles-new-vs-old)
+7. [The Formatter (Optional Tool)](#the-formatter-optional-tool)
+8. [Complete Examples](#complete-examples)
+9. [Common Patterns](#common-patterns)
+
+---
+
+## Structs: The Basics
+
+A `struct` is a container for related data. You define it once, then create multiple independent **instances** of it.
+
+**Basic struct definition:**
 
 ```htvm
-// Example of a simple, standalone struct
-struct Configuration {
-    prop str theme = "dark"
-    prop int fontSize = 12
-    prop bool spellCheck = true
-}
-// Accessing its properties later
-// Access using the struct name as the path
-print(Configuration.theme)
-// Modifying a property
-Configuration.fontSize = 14
-
+struct Player
+    health: 100
+    mana: 50
+subout
 ```
 
-### Optional Hierarchy: `alliance` and `crew`
+This defines a struct named `Player` with two properties: `health` and `mana`, both initialized to their respective values.
 
-While you can define simple `struct`s directly, OSP provides optional hierarchical keywords (`alliance` and `crew`) for better organization, especially in larger projects:
+**Key rule:** Always close a struct with `subout` (curly braces are `NOT` allowed for the new syntax with `subout`).
 
--   **`alliance`**: The top-level organizational container.
--   **`crew`**: A sub-level container within an `alliance` (or potentially nested within other crews, though nesting isn't shown in examples).
+---
 
-**Why use hierarchy?**
+## Type Inference
 
--   **Organization:** Group related structs and procedures together logically (e.g., all UI elements in a `GUI` crew, all vehicle data in a `Vehicles` crew).
--   **Avoiding Name Collisions:** If you had two different concepts both needing a `struct` named `Settings`, you could place them in different crews (e.g., `Audio.Settings` and `Video.Settings`) allowing them to coexist without conflict. Using `alliance` and `crew` acts like creating namespaces.
+When you use the new syntax (colon-style with `subout`), HTVM automatically infers types from the initial values:
 
-Most of the time, for simpler data organization, you might just need standalone `struct`s. Use `alliance` and `crew` when you need the extra structure to avoid naming hurdles and keep related components neatly grouped.
+- **`int`** ← inferred from numeric values (e.g., `100`, `50`)
+- **`str`** ← inferred from string values (e.g., `"hello"`)
+- **`float`** ← inferred from floating-point values (e.g., `3.14`, `2.5`)
+
+**Examples of inference:**
+
+```htvm
+struct Character
+    name: "Warrior"           // Inferred as str
+    level: 5                  // Inferred as int
+    experience: 1250.75       // Inferred as float
+subout
+```
+
+### What About Booleans and Arrays?
+
+**Booleans and arrays are NOT inferred.** You must use the `prop` keyword explicitly for these types:
+
+```htvm
+struct Player
+    health: 100              // Inferred as int
+    prop bool isAlive        // Must use prop for bool
+    prop arr str inventory   // Must use prop for arrays
+subout
+```
+
+---
+
+## Instances: Creating Data
+
+⚠️ **CRITICAL BEFORE YOU START:** If you plan to use `instance` anywhere in your code, **NEVER use `crew` or `alliance` in that project.** Mixing them causes bugs. You must choose one approach: either instances with standalone structs, OR crews/alliances for organization (no instances at all).
+
+An **instance** is an independent copy of a struct with its own data. You create instances using the `instance` keyword:
+
+**Basic instance creation:**
+
+```htvm
+struct Player
+    health: 100
+    mana: 50
+subout
+
+main
+    instance Player as hero
+    instance Player as goblin
+    hero.health = 200
+    goblin.health = 30
+    print("Hero health: " . STR(hero.health))
+    print("Goblin health: " . STR(goblin.health))
+```
+
+**How it works:**
+
+- `instance Player as hero` creates a new variable `hero` with all of `Player`'s properties
+- Each instance is **completely independent** — modifying `hero.health` does NOT affect `goblin.health`
+- All instances are **globally accessible** by their name (below the point of creation)
+- Instance names become global variables that hold the struct's data
+
+---
+
+## Arrays in Structs
+
+Arrays must be declared using the `prop` keyword. You cannot use type inference for arrays.
+
+**Declaring array properties:**
+
+```htvm
+struct Inventory
+    prop arr str items
+    prop arr int quantities
+subout
+
+main
+    instance Inventory as backpack
+    backpack.items.push("sword")
+    backpack.items.push("shield")
+    backpack.quantities.push(1)
+    backpack.quantities.push(1)
+```
+
+**Array methods:**
+
+- **`.push(value)`** or **`.push(value)`** — Add an item to the array (both work the same)
+- **`.size()`** — Get the array length
+- **`[index]`** — Access element by index (zero-based)
+
+**Complete array example:**
+
+```htvm
+struct Player
+    health: 100
+    prop arr str spells
+subout
+
+main
+    instance Player as wizard
+    wizard.spells.push("Fireball")
+    wizard.spells.push("Ice Storm")
+    wizard.spells.push("Lightning")
+    
+    Loop, % wizard.spells.size() {
+        print(wizard.spells[A_Index])
+    }
+```
+
+---
+
+## Organization with `crew` and `alliance`
+
+For larger projects, you can organize structs using `crew` and `alliance` containers:
+
+- **`alliance`** — Top-level organizational container
+- **`crew`** — Sub-container within an alliance (or standalone)
+
+**Purpose:** Group related structs logically and avoid naming conflicts.
+
+**Important:** Crew and alliance use `{}` syntax, not `subout`.
+
+**Using `crew`:**
+
+```htvm
+crew Audio {
+    struct Settings
+        volume: 80
+        pitch: 1.0
+    subout
+}
+
+main
+    // Access the struct's default properties directly
+    Audio.Settings.volume = 100
+    print("Audio volume: " . STR(Audio.Settings.volume))
+```
+
+**Using `alliance`:**
 
 ```htvm
 alliance Game {
-    crew Audio {
-        // This is Game.Audio.Settings
-        struct Settings {
-            prop int volume = 80
-        }
+    crew Entities {
+        struct Player
+            health: 100
+            mana: 50
+        subout
     }
-    crew Video {
-        // This is Game.Video.Settings - no collision!
-        struct Settings {
-            prop str resolution = "1920x1080"
-        }
-    }
-}
-// Access using the full path
-print(Game.Audio.Settings.volume)
-print(Game.Video.Settings.resolution)
-
-```
-
-### Procedures (`proc`)
-
-Procedures are functions defined within the OSP hierarchy (`alliance` or `crew`) using the `proc` keyword. They are intended to perform actions related to the structs within their hierarchy.
-
--   **Association:** Defining a `proc` inside an `alliance` or `crew` links it semantically to that part of the hierarchy.
--   **Global Access:** Like structs, `proc`s are globally accessible via their full path (e.g., `MyAlliance.MyCrew.myProc`).
--   **Context (`this` Keyword):** Procedures can optionally accept a special parameter named `this` to understand *which* struct (identified by its path string) initiated the call.
-
-### The `this` Keyword (Procedure Context)
-
-The `this` keyword in OSP (Ordinal) is **different** from `this` in traditional OOP.
-
--   **Purpose:** It serves as an **optional input parameter for `proc`s**. When a `proc` is called with a struct's path string, `this` holds that **literal string value** inside the `proc`.
--   **Usage:** It allows a `proc` to perform different actions based on *which* struct path was passed to it. This is typically checked using simple string comparison (`if (this == "MyAlliance.MyCrew.MyStruct")`).
--   **Mechanism:** You must explicitly pass the **full path of the struct as a string** when calling the `proc` if you intend for that `proc` to use the `this` context.
--   **Limitation:** This string-based approach is explicit but requires careful maintenance. If you rename a `struct` or change the hierarchy, you **must** update all the corresponding string literals used in `proc` calls and within the `proc`'s `if/else if` checks. It doesn't automatically track the struct itself.
-
-```htvm
-alliance Movable {
-    crew Vehicles {
-        struct Car {
-            prop int fuel = 100
-        }
-        struct Bike {
-            prop int energy = 100
-        }
-        // Proc using 'this' to know which struct called it
-        // 'this' will hold "Movable.Vehicles.Car" or "Movable.Vehicles.Bike"
-        proc void checkStatus(this) {
-            if (this == "Movable.Vehicles.Car") {
-                // Still use full path for access
-                print("Checking Car fuel: " . Movable.Vehicles.Car.fuel)
-            }
-            else if (this == "Movable.Vehicles.Bike") {
-                // Still use full path
-                print("Checking Bike energy: " . Movable.Vehicles.Bike.energy)
-            }
-            else {
-                print("Unknown vehicle type passed to checkStatus: " . this)
-            }
-        }
+    
+    crew UI {
+        struct Button
+            x: 0
+            y: 0
+            label: "Click me"
+        subout
     }
 }
+
 main
-// Calling the proc with the context string
-Movable.Vehicles.checkStatus("Movable.Vehicles.Car")
-Movable.Vehicles.checkStatus("Movable.Vehicles.Bike")
-
+    // Access struct properties using their full path
+    Game.Entities.Player.health = 200
+    Game.UI.Button.label = "Start Game"
+    print("Player health: " . STR(Game.Entities.Player.health))
 ```
 
-### Key Rules Recap
+### ⚠️ CRITICAL: Never Mix Crew/Alliance with Instances
 
-1.  **Full Path Access:** Always use the full, absolute path to access `struct` properties (e.g., `Alliance.Crew.Struct.prop`).
-2.  **`this` is Context String:** The `this` keyword, when used in a `proc`, holds the *path string* passed during the call. It's only valid inside `proc`s and requires explicit string comparison for conditional logic.
+**If you use `instance` in your code, you CANNOT use `crew` or `alliance` anywhere in that same project.** This applies even to standalone structs. Mixing them causes bugs.
 
-### Arrays in Structs
+You must choose ONE approach:
+- **Option A:** Use standalone structs + instances (NO crews/alliances anywhere)
+- **Option B:** Use crews/alliances for organization (NO instances anywhere)
 
-Arrays can be defined as properties within structs just like any other data type:
-
+**This causes bugs:**
 ```htvm
-struct name {
-    prop arr str prop1
-    prop arr str prop2
-    prop arr str prop3
-    prop arr str prop4
+crew Audio {
+    struct Settings
+        volume: 80
+    subout
 }
 
+struct Player
+    health: 100
+subout
+
+main
+    // DON'T mix them like this
+    instance Player as hero  // This will cause bugs if you have crew/alliance
+    Audio.Settings.volume = 100
 ```
 
-### Summary of OSP (Ordinal Struct Programming)
+**Option A (instances only):**
+```htvm
+struct Player
+    health: 100
+subout
 
--   **Organizes** code using optional `alliance`/`crew` hierarchies and `struct` data containers.
--   **Emphasizes** explicit, **ordinal** (position-based) access via mandatory **full paths**.
--   Uses `struct` for data aggregation and `proc` for associated procedures within the hierarchy.
--   Offers an optional `this` keyword for `proc`s to receive the **calling struct's path as a string**, enabling context-specific actions via string comparison.
--   Provides **global accessibility** for all defined structs and procs via their full paths.
--   Serves as an **alternative structure** within HTVM, focusing on explicitness and hierarchy, potentially avoiding certain OOP complexities but introducing verbosity and reliance on string paths for context.
+struct Settings
+    volume: 80
+subout
+
+main
+    instance Player as hero
+    instance Settings as config
+```
+
+**Option B (crew/alliance only):**
+```htvm
+crew Audio {
+    struct Settings
+        volume: 80
+    subout
+}
+
+crew Game {
+    struct Player
+        health: 100
+    subout
+}
+
+main
+    // Access properties directly, no instances
+    Game.Player.health = 200
+    Audio.Settings.volume = 100
+```
 
 ---
 
-## Note:
+## Syntax Styles: New vs. Old
 
-### Never use underscores when naming things in OSP. Otherwise, you can use them, but be cautious because underscores can be unstable.
+HTVM supports two syntax styles. You can use them separately or mix them in the same struct.
+
+### New Style (Inference with `subout`):
+
+```htvm
+struct Player
+    health: 100
+    mana: 50
+    name: "Hero"
+subout
+```
+
+Clean, minimal, types inferred automatically.
+
+### Old Style (Explicit with `prop` and `{}`):
+
+```htvm
+struct Player {
+    prop int health = 100
+    prop int mana = 50
+    prop str name = "Hero"
+}
+```
+
+Verbose, but explicit types.
+
+### Mixed Style:
+
+```htvm
+struct Player
+    health: 100
+    name: "Hero"
+    prop bool isAlive
+    prop arr str inventory
+subout
+```
+
+Use inference for simple types, `prop` for complex ones.
 
 ---
 
-#### Example of OSP (Ordinal Struct Programming)
+## The Formatter (Optional Tool)
 
+The formatter is a **code beautification tool**. It is **completely optional** and does NOT affect compilation.
+
+**What the formatter does:**
+
+- Converts new syntax (`health: 100` with `subout`) to old syntax (`prop int health = 100` with `{}`)
+- Adds explicit types to all properties
+- Removes indentation from `main` blocks (standard formatting)
+- Keeps instance declarations clean and unchanged
+
+**Using the formatter:**
+
+In HT-IDE, press `Ctrl+Shift+F` to format your code.
+
+**Important:** You do NOT need to use the formatter. Your code compiles the same way with or without formatting.
+
+### ⚠️ Important: You Don't Have to Convert Everything
+
+After formatting, **you do NOT have to convert every struct back to inference syntax.** The old syntax with `{}` and `prop` keywords works fine and compiles without any issues.
+
+**You can:**
+- Keep some structs in old syntax (`{}` with `prop`)
+- Convert only the structs you want to inference syntax
+- Mix both syntaxes in the same file
+
+**Example: Mixed syntax in one file:**
 ```htvm
-alliance Movable {
-    crew Vehicles {
-        struct Car {
-            prop int door = 4
-            prop int fuel = 100
-            prop bool hasFUEL = true
-        }
-        struct Bike {
-            prop bool hasGears = true
-            prop int energy = 100
-            prop bool hasENERGY = true
-        }
-        proc void move(this) {
-            global Movable.Vehicles.Car.fuel
-            global Movable.Vehicles.Car.hasFUEL
-            global Movable.Vehicles.Bike.energy
-            global Movable.Vehicles.Bike.hasENERGY
-            if (this == "Movable.Vehicles.Car") {
-                if (Movable.Vehicles.Car.fuel > 0) {
-                    print("The car is driving.")
-                    Movable.Vehicles.Car.fuel = Movable.Vehicles.Car.fuel - 10
-                }
-                else {
-                    print("The car is out of fuel.")
-                    Movable.Vehicles.Car.hasFUEL = false
-                }
-            }
-            else if (this == "Movable.Vehicles.Bike") {
-                if (Movable.Vehicles.Bike.energy > 0) {
-                    print("The bike is pedaling.")
-                    Movable.Vehicles.Bike.energy = Movable.Vehicles.Bike.energy - 5
-                }
-                else {
-                    print("The bike is out of energy.")
-                    Movable.Vehicles.Bike.hasENERGY = false
-                }
-            }
-        }
-    }
-    crew settings {
-        struct GeneralSettings {
-            prop str difficulty = "normal"
-            prop int volume = 50
-            prop str resolution = "1920x1080"
-        }
-        struct AudioSettings {
-            prop int masterVolume = 70
-            prop int musicVolume = 50
-            prop int sfxVolume = 40
-        }
-        struct DisplaySettings {
-            prop bool fullscreen = true
-            prop str aspectRatio = "16:9"
-        }
-    }
-    crew actions {
-        // General Settings Procs
-        proc void resetGeneralSettings(this) {
-            Movable.settings.GeneralSettings.difficulty = STR("normal")
-            Movable.settings.GeneralSettings.volume = 50
-            Movable.settings.GeneralSettings.resolution = STR("1920x1080")
-            print("General settings reset to default.")
-        }
-        proc void printGeneralSettings(this) {
-            print("General Settings:")
-            print("Difficulty: " . Movable.settings.GeneralSettings.difficulty)
-            print("Volume: " . STR(Movable.settings.GeneralSettings.volume))
-            print("Resolution: " . Movable.settings.GeneralSettings.resolution)
-        }
-        // Audio Settings Procs
-        proc void resetAudioSettings(this) {
-            Movable.settings.AudioSettings.masterVolume = 70
-            Movable.settings.AudioSettings.musicVolume = 50
-            Movable.settings.AudioSettings.sfxVolume = 40
-            print("Audio settings reset to default.")
-        }
-        proc void printAudioSettings(this) {
-            print("Audio Settings:")
-            print("Master Volume: " . STR(Movable.settings.AudioSettings.masterVolume))
-            print("Music Volume: " . STR(Movable.settings.AudioSettings.musicVolume))
-            print("SFX Volume: " . STR(Movable.settings.AudioSettings.sfxVolume))
-        }
-        // Display Settings Procs
-        proc void resetDisplaySettings(this) {
-            Movable.settings.DisplaySettings.fullscreen = true
-            Movable.settings.DisplaySettings.aspectRatio = STR("16:9")
-            print("Display settings reset to default.")
-        }
-        proc void printDisplaySettings(this) {
-            print("Display Settings:")
-            print("Fullscreen: " . STR(Movable.settings.DisplaySettings.fullscreen))
-            print("Aspect Ratio: " . Movable.settings.DisplaySettings.aspectRatio)
-        }
-    }
-    crew array {
-        struct name {
-            prop arr str prop1
-            prop arr str prop2
-            prop arr str prop3
-            prop arr str prop4
-        }
-    }
-}
-main
-// Test vehicle movement
-while (Movable.Vehicles.Car.hasFUEL == true) and (Movable.Vehicles.Bike.hasENERGY == true) {
-    Movable.Vehicles.move("Movable.Vehicles.Car")
-    Movable.Vehicles.move("Movable.Vehicles.Bike")
-    print("=====================================")
-}
-// Test settings manipulation
-Movable.settings.GeneralSettings.difficulty = STR("hard")
-Movable.settings.GeneralSettings.volume = 80
-Movable.settings.GeneralSettings.resolution = STR("2560x1440")
-Movable.settings.AudioSettings.masterVolume = 90
-Movable.settings.AudioSettings.musicVolume = 60
-Movable.settings.AudioSettings.sfxVolume = 50
-Movable.settings.DisplaySettings.fullscreen = false
-Movable.settings.DisplaySettings.aspectRatio = STR("21:9")
-Movable.actions.printGeneralSettings()
-Movable.actions.printAudioSettings()
-Movable.actions.printDisplaySettings()
-Movable.actions.resetGeneralSettings()
-Movable.actions.resetAudioSettings()
-Movable.actions.resetDisplaySettings()
-Movable.actions.printGeneralSettings()
-Movable.actions.printAudioSettings()
-Movable.actions.printDisplaySettings()
-// Test array manipulation
-Movable.array.name.prop1.push("1text1")
-Movable.array.name.prop1.push("1text2")
-Movable.array.name.prop1.push("1text3")
-Movable.array.name.prop2.push("2text1")
-Movable.array.name.prop2.push("2text2")
-Movable.array.name.prop2.push("2text3")
-Movable.array.name.prop3.push("3text1")
-Movable.array.name.prop3.push("3text2")
-Movable.array.name.prop3.push("3text3")
-Movable.array.name.prop4.push("4text1")
-Movable.array.name.prop4.push("4text2")
-Movable.array.name.prop4.push("4text3")
-// Loop over and print
-Loop, % Movable.array.name.prop1.size() {
-    print(Movable.array.name.prop1[A_Index])
-}
-Loop, % Movable.array.name.prop2.size() {
-    print(Movable.array.name.prop2[A_Index])
-}
-Loop, % Movable.array.name.prop3.size() {
-    print(Movable.array.name.prop3[A_Index])
-}
-Loop, % Movable.array.name.prop4.size() {
-    print(Movable.array.name.prop4[A_Index])
+// Old style (formatted) — perfectly fine to leave as-is
+struct Audio {
+    prop int volume = 80
+    prop float pitch = 1.0
 }
 
+// New style (inference) — you converted this one
+struct Player
+    health: 100
+    mana: 50
+subout
+
+// Another old style — no need to convert
+struct Settings {
+    prop str theme = "dark"
+}
 ```
 
-OSP (Ordinal Struct Programming) provides a structured, path-based approach to organizing data and procedures within HTVM, emphasizing explicit referencing.
+Both syntaxes compile identically. Convert only when you want to, not because you have to.
+
+**If you want to selectively convert a struct back to new syntax:**
+
+1. Remove the opening `{` and closing `}`
+2. Add `subout` at the bottom
+3. *Optional:* Remove `prop` keywords and explicit types (or keep them — both work)
+
+Example of converting back:
+```htvm
+// Before (formatted style)
+struct Player {
+    prop int health = 100
+    prop int mana = 50
+}
+
+// After (new inference style, prop removed)
+struct Player
+    health: 100
+    mana: 50
+subout
+```
+
+Or keep `prop` if you prefer (both are valid):
+
+```htvm
+// New style with prop kept
+struct Player
+    prop int health = 100
+    prop int mana = 50
+subout
+```
+
+**Bottom line:** Don't feel obligated to rewrite all your structs. The formatter output works fine as-is.
+
+---
+
+## Complete Examples
+
+### Example 1: Simple Character System
+
+```htvm
+struct Character
+    name: "Adventurer"
+    level: 1
+    experience: 0.0
+    prop bool isAlive
+subout
+
+main
+    instance Character as hero
+    instance Character as enemy
+    
+    hero.level = 10
+    hero.experience = 5000.5
+    enemy.level = 5
+    
+    print("Hero: " . hero.name . " (Level " . STR(hero.level) . ")")
+    print("Enemy: " . enemy.name . " (Level " . STR(enemy.level) . ")")
+    print("Experience: " . STR(hero.experience))
+```
+
+### Example 2: Inventory System
+
+```htvm
+struct Item
+    name: "Sword"
+    value: 50
+subout
+
+struct Player
+    name: "Warrior"
+    gold: 1000
+    prop arr str inventory
+subout
+
+main
+    instance Player as adventurer
+    
+    adventurer.inventory.push("Iron Sword")
+    adventurer.inventory.push("Shield")
+    adventurer.inventory.push("Health Potion")
+    
+    print("Inventory:")
+    Loop, % adventurer.inventory.size() {
+        print("  - " . adventurer.inventory[A_Index])
+    }
+```
+
+### Example 3: Multiple Standalone Structs
+
+```htvm
+struct Weapon
+    name: "Sword"
+    damage: 25
+    durability: 100
+subout
+
+struct Character
+    health: 100
+    mana: 50
+    strength: 15
+subout
+
+main
+    instance Character as player
+    instance Weapon as sword
+    
+    player.health = 75
+    sword.damage = 30
+    
+    print("Player Health: " . STR(player.health))
+    print("Weapon Damage: " . STR(sword.damage))
+```
+
+### Example 4: Arrays with Multiple Properties
+
+```htvm
+struct GameState
+    currentLevel: 1
+    prop arr str achievements
+    prop arr int scores
+    prop arr str playerNames
+subout
+
+main
+    instance GameState as game
+    
+    game.achievements.push("First Kill")
+    game.achievements.push("Level 10")
+    game.achievements.push("Boss Defeated")
+    
+    game.scores.push(1000)
+    game.scores.push(2500)
+    game.scores.push(5000)
+    
+    game.playerNames.push("Hero")
+    game.playerNames.push("Villain")
+    game.playerNames.push("NPC")
+    
+    print("=== Achievements ===")
+    Loop, % game.achievements.size() {
+        print(game.achievements[A_Index])
+    }
+    
+    print("=== Scores ===")
+    Loop, % game.scores.size() {
+        print("Score: " . STR(game.scores[A_Index]))
+    }
+```
+
+---
+
+## Common Patterns
+
+### Pattern 1: Default Values with Instances
+
+```htvm
+struct Player
+    health: 100
+    mana: 50
+subout
+
+main
+    instance Player as hero
+    instance Player as goblin
+    // Both start with default values
+    print("Hero: " . STR(hero.health))  // 100
+    print("Goblin: " . STR(goblin.health)) // 100
+    // Then customize independently
+    hero.health = 150
+    goblin.health = 50
+```
+
+### Pattern 2: Mixed Property Types
+
+```htvm
+struct Settings
+    volume: 75              // int
+    theme: "dark"          // str
+    brightness: 0.85       // float
+    prop bool soundEnabled  // bool
+    prop arr str languages // array
+subout
+```
+
+### Pattern 3: Array Properties with Multiple Instances
+
+```htvm
+struct Player
+    name: "Hero"
+    prop arr str inventory
+    prop arr int stats
+subout
+
+main
+    instance Player as hero
+    instance Player as companion
+    
+    hero.inventory.push("Sword")
+    hero.inventory.push("Shield")
+    
+    companion.inventory.push("Dagger")
+    companion.stats.push(100)
+    companion.stats.push(50)
+```
+
+### Pattern 4: Multiple Instances of the Same Struct
+
+```htvm
+struct Enemy
+    health: 50
+    damage: 10
+subout
+
+main
+    instance Enemy as goblin1
+    instance Enemy as goblin2
+    instance Enemy as goblin3
+    
+    goblin1.health = 40
+    goblin2.health = 55
+    goblin3.health = 50
+    
+    print("Goblin 1 Health: " . STR(goblin1.health))
+    print("Goblin 2 Health: " . STR(goblin2.health))
+    print("Goblin 3 Health: " . STR(goblin3.health))
+```
+
+---
+
+### Instance Independence
+
+Each instance is a **completely independent copy** of the struct. Modifying one instance does NOT affect others.
+
+```htvm
+struct Item
+    name: "Sword"
+    quantity: 1
+subout
+
+main
+    instance Item as item1
+    instance Item as item2
+    
+    item1.quantity = 5
+    print(item2.quantity)  // Still 1, not affected
+```
+
+### No Constructor Arguments
+
+You cannot pass initial values when creating an instance. All instances start with the struct's default values, which you can then modify.
+
+```htvm
+// This does NOT work:
+// instance Player as hero with health = 200
+
+// Instead, do this:
+instance Player as hero
+hero.health = 200
+```
+
+### Type Inference Limitations
+
+Remember: **Only `int`, `str`, and `float` are inferred.** Everything else requires `prop`.
+
+```htvm
+struct Example
+    count: 42              // OK — inferred as int
+    text: "hello"          // OK — inferred as str
+    ratio: 3.14            // OK — inferred as float
+    prop bool flag         // Required — bool is not inferred
+    prop arr str list      // Required — arrays are not inferred
+subout
+```
+
+---
+
+## Summary
+
+### The Golden Rule
+
+**If you use `instance`, you CANNOT use `crew` or `alliance` anywhere in your project. Choose one approach.**
+
+### Basic Rules
+
+- **Structs** define data templates
+- **Instances** create independent copies of standalone structs only
+- **Type inference** keeps code clean (int, str, float only)
+- **`prop`** keyword required for booleans, arrays, and explicit typing
+- **`crew`/`alliance`** organize structs hierarchically (never with instances)
+- **Formatter** is optional and just beautifies code
+- **Scope** Only the global scope. If you define a struct inside a function or in main, it will not work and will cause issues.
+- **Instances are completely independent**
+
+### Critical Syntax Rules
+
+1. **Curly braces are NOT allowed** when using new inference syntax with `subout`
+2. **Never mix crew/alliance with instances** — pick one approach for your entire project
+3. **Type inference** only works for `int`, `str`, `float` — everything else needs `prop`
+
+### Quick Decision Guide
+
+**Use instances if:**
+- You need multiple independent copies of data
+- You only use standalone structs
+- You have NO crews/alliances in your project
+
+**Use crews/alliances if:**
+- You need to organize structs hierarchically
+- You don't need multiple independent copies
+- You'll never use the `instance` keyword
+
+That's OSP! Simple, powerful, and ready for production.
 
 ---
 

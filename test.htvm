@@ -1,0 +1,30 @@
+
+func void myFunc() {
+struct Player
+    health: 100
+    mana: 50
+subout
+    instance Player as hero
+    instance Player as goblin
+    hero.health := 2000
+    goblin.health := 300myFunc()
+    print("Hero health: " . STR(hero.health))
+    print("Goblin health: " . STR(goblin.health))
+
+}
+
+main
+struct Player
+    health: 100
+    mana: 50
+subout
+    instance Player as hero
+    instance Player as goblin
+    hero.health := 200
+    goblin.health := 30
+    print("Hero health: " . STR(hero.health))
+    print("Goblin health: " . STR(goblin.health))
+
+
+
+myFunc()

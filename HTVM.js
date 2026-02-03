@@ -3895,6 +3895,7 @@ function FixRubyGlobalVars(line) {
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 function propHELP(line, lineOspHelpLine) {
+    lineDone = 0;
     if (lineOspHelpLine == "no-no") {
         lineOspHelpLine = "";
     }
@@ -5516,6 +5517,8 @@ function propHELP(line, lineOspHelpLine) {
                     //;;;
                 }
                 htCodeOUTOUT += str4 + Chr(10);
+            } else {
+                htCodeOUTOUT += A_LoopField91 + Chr(10);
             }
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; vars
             //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; vars
@@ -9778,18 +9781,36 @@ function addSimpleStructs(line) {
                 }
                 if (doseItHaveType == 1) {
                     str5 = Trim(StringTrimRight(str1, StrLen(str4)));
-                    str3 = Trim(keyWordProp) + " " + str5 + " " + str4 + " " + Trim(keyWordAssign) + " " + str2;
-                } else {
-                    if (RegExMatch(str2, "^[+-]?\\d+$")) {
-                        str3 = Trim(keyWordProp) + " " + Trim(keyWordINT) + " " + str1 + " " + Trim(keyWordAssign) + " " + str2;
-                    }
-                    else if (RegExMatch(str2, "^[+-]?\\d+\\.\\d+$")) {
-                        str3 = Trim(keyWordProp) + " " + Trim(keyWordFLOAT) + " " + str1 + " " + Trim(keyWordAssign) + " " + str2;
-                    }
-                    else if (InStr(str2, "ihuiuuhuuhtheidFor--asds")) {
-                        str3 = Trim(keyWordProp) + " " + Trim(keyWordSTR) + " " + str1 + " " + Trim(keyWordAssign) + " " + str2;
+                    if (usePrefixTypeForTypeDefinition == "on") {
+                        str3 = Trim(keyWordProp) + " " + str5 + " " + str4 + " " + Trim(keyWordAssign) + " " + str2;
                     } else {
-                        str3 = Trim(keyWordProp) + " " + Trim(keyWordINT) + " " + str1 + " " + Trim(keyWordAssign) + " " + str2;
+                        str3 = Trim(keyWordProp) + " " + str4 + ": " + str5 + " " + Trim(keyWordAssign) + " " + str2;
+                    }
+                } else {
+                    if (usePrefixTypeForTypeDefinition == "on") {
+                        if (RegExMatch(str2, "^[+-]?\\d+$")) {
+                            str3 = Trim(keyWordProp) + " " + Trim(keyWordINT) + " " + str1 + " " + Trim(keyWordAssign) + " " + str2;
+                        }
+                        else if (RegExMatch(str2, "^[+-]?\\d+\\.\\d+$")) {
+                            str3 = Trim(keyWordProp) + " " + Trim(keyWordFLOAT) + " " + str1 + " " + Trim(keyWordAssign) + " " + str2;
+                        }
+                        else if (InStr(str2, "ihuiuuhuuhtheidFor--asds")) {
+                            str3 = Trim(keyWordProp) + " " + Trim(keyWordSTR) + " " + str1 + " " + Trim(keyWordAssign) + " " + str2;
+                        } else {
+                            str3 = Trim(keyWordProp) + " " + Trim(keyWordINT) + " " + str1 + " " + Trim(keyWordAssign) + " " + str2;
+                        }
+                    } else {
+                        if (RegExMatch(str2, "^[+-]?\\d+$")) {
+                            str3 = Trim(keyWordProp) + " " + str1 + ": " + Trim(keyWordINT) + " " + Trim(keyWordAssign) + " " + str2;
+                        }
+                        else if (RegExMatch(str2, "^[+-]?\\d+\\.\\d+$")) {
+                            str3 = Trim(keyWordProp) + " " + str1 + ": " + Trim(keyWordFLOAT) + " " + Trim(keyWordAssign) + " " + str2;
+                        }
+                        else if (InStr(str2, "ihuiuuhuuhtheidFor--asds")) {
+                            str3 = Trim(keyWordProp) + " " + str1 + ": " + Trim(keyWordSTR) + " " + Trim(keyWordAssign) + " " + str2;
+                        } else {
+                            str3 = Trim(keyWordProp) + " " + str1 + ": " + Trim(keyWordINT) + " " + Trim(keyWordAssign) + " " + str2;
+                        }
                     }
                 }
                 out += str3 + Chr(10);
@@ -9851,27 +9872,33 @@ function addSimpleStructs(line) {
         }
         generated_instances_code += Chr(10) + Trim(keyWordStruct) + " " + instanceName + Chr(10) + Chr(10) + struct_body_buffer + "}" + Chr(10);
     }
-    // --- STAGE 4: INJECTION ---
-    main_pos = InStr(out, keyWordMainLabel);
-    if (main_pos > 0) {
-        // Split the code at 'main'
-        code_before_main = SubStr(out, 1, main_pos - 1);
-        code_from_main = SubStr(out, main_pos);
-        // Recombine with the generated instances in the middle.
-        final_output = code_before_main + generated_instances_code + code_from_main;
-    } else {
-        // If 'main' isn't found, append at the end (fallback).
-        final_output = out + generated_instances_code;
-    }
-    var final_output_temp = "";
-    let items207 = LoopParseFunc(final_output, "\n", "\r");
-    for (let A_Index207 = 0; A_Index207 < items207.length; A_Index207++) {
-        const A_LoopField207 = items207[A_Index207 - 0];
-        if (SubStr(Trim(A_LoopField207), 1, StrLen("instance ")) != "instance ") {
-            final_output_temp += A_LoopField207 + Chr(10);
+    if (langToConvertTo != langFileExtension_2) {
+        // --- STAGE 4: INJECTION ---
+        main_pos = InStr(out, keyWordMainLabel);
+        if (main_pos > 0) {
+            // Split the code at 'main'
+            code_before_main = SubStr(out, 1, main_pos - 1);
+            code_from_main = SubStr(out, main_pos);
+            // Recombine with the generated instances in the middle.
+            final_output = code_before_main + generated_instances_code + code_from_main;
+        } else {
+            // If 'main' isn't found, append at the end (fallback).
+            final_output = out + generated_instances_code;
         }
     }
-    final_output = StringTrimRight(final_output_temp, 1);
+    var final_output_temp = "";
+    if (langToConvertTo != langFileExtension_2) {
+        let items207 = LoopParseFunc(final_output, "\n", "\r");
+        for (let A_Index207 = 0; A_Index207 < items207.length; A_Index207++) {
+            const A_LoopField207 = items207[A_Index207 - 0];
+            if (SubStr(Trim(A_LoopField207), 1, StrLen("instance ")) != "instance ") {
+                final_output_temp += A_LoopField207 + Chr(10);
+            }
+        }
+        final_output = StringTrimRight(final_output_temp, 1);
+    } else {
+        final_output = out;
+    }
     return final_output;
 }
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -137,15 +137,16 @@
                         { token: "string", regex: "'.*?'" },
                         { token: "constant.numeric", regex: "\\b-?[0-9]+(?:\\.[0-9]+)?\\b" },
                         { token: "functions", regex: cleanAndBuild(allFunctionNamesString3) + "(?=\\()" },
-                        { token: "keyword", regex: cleanAndBuild(htvmKeywords_temp) + "|\\bsubout\\b|\\bwhen\\b|\\bwehn\\b" },
+                        { token: "keyword", regex: cleanAndBuild(htvmKeywords_temp) + "|\\bsubout\\b|\\bwhen\\b|\\instance\\b|\\bwehn\\b" },
                         { token: "BuildInFunc", regex: cleanAndBuild(builtInVars_temp) },
                         { token: "command", regex: cleanAndBuildComma(builtInCommands_temp) + "|\\bendpoint(?=,)\\b|\\bfileinit(?=,)\\b|\\bport(?=,)\\b" },
                         { token: "arrayMethods", regex: "\\." + cleanAndBuild(arrayMethods_temp) },
                         { token: "static_types", regex: cleanAndBuild(staticTypes_temp) + "|" + "\\b(?:" + "[Gg][Uu][Ii]" + "|" + "[Gg][Uu][Ii][Cc][Oo][Nn][Tt][Rr][Oo][Ll]" + ")\\b" },
                         { token: "programmingBlocksAndImport", regex: cleanAndBuild(programmingBlocksAndImport_temp) },
                         { token: "trueANDfalse", regex: cleanAndBuild(htvm_trueFalseGlobalNull_temp) + "|\\bin\\b" },
-                        { token: "guiOptions", regex: regexGuiOptions },
-                        { token: "operators", regex: final_word_operators }
+                        { token: "guiOptions", regex: regexGuiOptions + "|\\bas\\b" },
+                        { token: "operators", regex: final_word_operators },
+                        { token: "operators", regex: final_symbol_operators }
                     ],
                     comment_block: [{ token: "comment.block", regex: (htvm_commentClose2_temp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') || "\\*/"), next: "start" }, { defaultToken: "comment.block" }]
                 };

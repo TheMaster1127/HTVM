@@ -4919,7 +4919,7 @@ return line
 
 func str propHELP(str line, str lineOspHelpLine)
 {
-
+lineDone := 0
 if (lineOspHelpLine = "no-no")
 {
 lineOspHelpLine := ""
@@ -7477,6 +7477,9 @@ str4 := str2 . " " . str12 . " " . str6 . ";"
 
 
 htCodeOUTOUT .= str4 . Chr(10)
+}
+else {
+htCodeOUTOUT .= A_LoopField . Chr(10)
 }
 
 
@@ -13146,11 +13149,20 @@ str4 := A_LoopField
 if (doseItHaveType = 1) {
 
 str5 := Trim(StringTrimRight(str1, StrLen(str4)))
-
+if (usePrefixTypeForTypeDefinition = "on") {
 str3 := Trim(keyWordProp) . " " . str5 . " " . str4 . " " . Trim(keyWordAssign) . " " . str2
+}
+else {
+str3 := Trim(keyWordProp) . " " . str4 . ": " . str5 . " " . Trim(keyWordAssign) . " " . str2
+}
+
 
 }
 else {
+
+if (usePrefixTypeForTypeDefinition = "on") {
+
+
 if (RegExMatch(str2, "^[+-]?\d+$")) {
 str3 := Trim(keyWordProp) . " " . Trim(keyWordINT) . " " . str1 . " " . Trim(keyWordAssign) . " " . str2
 }
@@ -13163,6 +13175,26 @@ str3 := Trim(keyWordProp) . " " . Trim(keyWordSTR) . " " . str1 . " " . Trim(key
 else {
 str3 := Trim(keyWordProp) . " " . Trim(keyWordINT) . " " . str1 . " " . Trim(keyWordAssign) . " " . str2
 }
+
+}
+else {
+
+
+if (RegExMatch(str2, "^[+-]?\d+$")) {
+str3 := Trim(keyWordProp) . " " . str1 . ": " . Trim(keyWordINT) . " " . Trim(keyWordAssign) . " " . str2
+}
+else if (RegExMatch(str2, "^[+-]?\d+\.\d+$")) {
+str3 := Trim(keyWordProp) . " " . str1 . ": " . Trim(keyWordFLOAT) . " " . Trim(keyWordAssign) . " " . str2
+}
+else if (InStr(str2, "ihuiuuhuuhtheidFor--asds")) {
+str3 := Trim(keyWordProp) . " " . str1 . ": " . Trim(keyWordSTR) . " " . Trim(keyWordAssign) . " " . str2
+}
+else {
+str3 := Trim(keyWordProp) . " " . str1 . ": " . Trim(keyWordINT) . " " . Trim(keyWordAssign) . " " . str2
+}
+
+}
+
 }
 
 
@@ -13238,6 +13270,7 @@ out .= A_LoopField . Chr(10)
         generated_instances_code .= Chr(10) . Trim(keyWordStruct) . " " . instanceName . Chr(10) . Chr(10) . struct_body_buffer . "}" . Chr(10)
     }
     
+if (langToConvertTo != langFileExtension_2) {
     ; --- STAGE 4: INJECTION ---
     main_pos := InStr(out, keyWordMainLabel)
     if (main_pos > 0) {
@@ -13250,18 +13283,22 @@ out .= A_LoopField . Chr(10)
         ; If 'main' isn't found, append at the end (fallback).
         final_output := out . generated_instances_code
     }
-
+}
 
 str final_output_temp := ""
-
+if (langToConvertTo != langFileExtension_2) {
 Loop, Parse, final_output, `n, `r {
 if (SubStr(Trim(A_LoopField), 1, StrLen("instance ")) != "instance ") {
     final_output_temp .= A_LoopField . Chr(10)
 }
-}
 
+}
     StringTrimRight, final_output, final_output_temp, 1
-    
+
+}
+else {
+final_output := out
+}
     
     return final_output
     
