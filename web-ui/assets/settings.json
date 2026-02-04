@@ -1358,7 +1358,7 @@
           "default": "cpp",
           "description": {
             "header": "Default Target Language",
-            "body": "The default programming language HTVM will transpile the code into if not specified otherwise. Choose from the 15 supported languages (e.g., cpp, py, js, etc.).\n\nExample Customizations:\n- `cpp`\n- `py`\n- `js`\n- `go`\n- `lua`\n\nDefaults to: **`cpp`**"
+            "body": "The default programming language HTVM will transpile the code into if not specified otherwise. Choose from the 3 supported languages (e.g., cpp, py, and js).\n\nExample Customizations:\n- `cpp`\n- `py`\n- `js`\n\nDefaults to: **`cpp`**. In the IDE, you can still choose another language; it's just that we need at least something specified here."
           }
         },
         {
@@ -1545,3 +1545,4 @@
     }
   ]
 }
+
