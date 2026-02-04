@@ -1391,7 +1391,7 @@
           "type": "toggle",
           "description": {
             "header": "Use Curly Braces for Blocks",
-            "body": "Enable this to use `{` and `}` (or custom equivalents defined by `keyWordCurlyBraceOpen`/`Close`) to define code blocks. Mutually exclusive with 'Use End Keyword' and 'Use Pythonic Colon Syntax'.\n\nDefaults to: **`on`**"
+            "body": "Enable this to use `{` and `}` (or custom equivalents defined by `keyWordCurlyBraceOpen`/`Close`) to define code blocks. Mutually exclusive with 'Use End Keyword'.\n\nDefaults to: **`on`**"
           },
           "dependencies": [
             {"id": 150, "action": "off"}
@@ -1545,4 +1545,5 @@
     }
   ]
 }
+
 
