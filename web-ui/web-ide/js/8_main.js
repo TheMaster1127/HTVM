@@ -9,7 +9,7 @@ async function applyAndSetHotkeys() {
     }
 
     const customHotkeys = await dbGet('customHotkeys') || {};
-    
+
     // Merge custom hotkeys with defaults
     const activeHotkeys = {};
     for (const id in hotkeyConfig) {
@@ -68,17 +68,23 @@ async function applyAndSetHotkeys() {
     await updateHotkeyTitles();
 }
 
+async function applyHtvmLanguageFilter() {
+    const showUnofficial = await dbGet('showUnofficialLangs') === true;
+    document.body.classList.toggle('limit-htvm-languages', !showUnofficial);
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     // --- Initialization ---
     IDE_ID = getIdeId();
     langTools = ace.require("ace/ext/language_tools");
-    
+
     // --- DEXIE MIGRATION: Database setup is the very first step ---
     setupDatabase(IDE_ID);
 
-    // Apply custom themes and colors before editor initialization
+    // Apply custom themes, colors, AND language filter before editor initialization
     await applyEditorColorSettings();
     await applyUiThemeSettings();
+    await applyHtvmLanguageFilter();
 
     // Initialize core components
     editor = ace.edit("editor");
@@ -95,11 +101,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Load HTVM definitions and instruction sets
     await initializeInstructionSetManagement();
-    
+
     // Check for instruction set and start onboarding if necessary.
     const instructionList = await dbGet(instructionSetKeys.list) || [];
     let shouldShowPrompt = false;
-    
+
     if (instructionList.length === 0) {
         // Condition 1: No instruction sets exist at all.
         shouldShowPrompt = true;
@@ -130,7 +136,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (keybindingMode !== 'normal') {
         editor.setKeyboardHandler(`ace/keyboard/${keybindingMode}`);
     }
-    
+
     setupGutterEvents();
 
     // --- Event Listeners ---
@@ -146,7 +152,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('htvm-to-htvm-btn').onclick = openHtvmToHtvmModal;
     document.getElementById('export-import-btn').onclick = openExportImportModal;
     document.getElementById('open-folder-btn').onclick = () => alert("This feature is for the desktop version.");
-    
+
     const toggleBtn = document.getElementById('main-toggle-sidebar-btn');
     const sidebar = document.querySelector('.sidebar');
     const backdrop = document.getElementById('sidebar-backdrop');
@@ -202,7 +208,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Apply custom hotkeys on startup
     await applyAndSetHotkeys();
-    
+
     // Resizers
     initResizer(document.getElementById('sidebar-resizer'), document.querySelector('.sidebar'), 'sidebarWidth', 'x');
     initResizer(document.getElementById('terminal-resizer'), document.getElementById('terminal-container'), 'terminalHeight', 'y');
@@ -223,7 +229,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const sidebarWidth = await dbGet('sidebarWidth'); if (sidebarWidth) document.querySelector('.sidebar').style.width = sidebarWidth;
     const terminalHeight = await dbGet('terminalHeight'); if (terminalHeight) document.getElementById('terminal-container').style.height = terminalHeight;
     const outputWidth = await dbGet('outputPanelWidth'); if (outputWidth) document.getElementById('output-panel').style.width = outputWidth;
-    
+
     if (await dbGet('sidebarCollapsed') === true) {
         document.querySelector('.sidebar').classList.add('collapsed');
     } else {
@@ -292,7 +298,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (tooltip) tooltip.style.display = 'none';
             return;
         }
-        
+
         const pos = e.getDocumentPosition();
         const token = editor.session.getTokenAt(pos.row, pos.column);
 

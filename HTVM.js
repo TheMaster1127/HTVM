@@ -9753,21 +9753,23 @@ function addSimpleStructs(line) {
     }
     var line_fix_end = "";
     var line_fix_end_IS_IN = 0;
-    let items202 = LoopParseFunc(line, "\n", "\r");
-    for (let A_Index202 = 0; A_Index202 < items202.length; A_Index202++) {
-        const A_LoopField202 = items202[A_Index202 - 0];
-        if (Trim(StrLower(A_LoopField202)) == "subout" || Trim(StrLower(A_LoopField202)) == keyWordEnd && line_fix_end_IS_IN == 1) {
-            line_fix_end += "subout" + Chr(10);
-            line_fix_end_IS_IN = 0;
+    if (useEnd == "on") {
+        let items202 = LoopParseFunc(line, "\n", "\r");
+        for (let A_Index202 = 0; A_Index202 < items202.length; A_Index202++) {
+            const A_LoopField202 = items202[A_Index202 - 0];
+            if (Trim(StrLower(A_LoopField202)) == "subout" || Trim(StrLower(A_LoopField202)) == keyWordEnd && line_fix_end_IS_IN == 1) {
+                line_fix_end += "subout" + Chr(10);
+                line_fix_end_IS_IN = 0;
+            }
+            else if (SubStr(Trim(A_LoopField202), 1, StrLen(keyWordStruct)) == keyWordStruct) {
+                line_fix_end_IS_IN = 1;
+                line_fix_end += A_LoopField202 + Chr(10);
+            } else {
+                line_fix_end += A_LoopField202 + Chr(10);
+            }
         }
-        else if (SubStr(Trim(A_LoopField202), 1, StrLen(keyWordStruct)) == keyWordStruct) {
-            line_fix_end_IS_IN = 1;
-            line_fix_end += A_LoopField202 + Chr(10);
-        } else {
-            line_fix_end += A_LoopField202 + Chr(10);
-        }
+        line = StringTrimRight(line_fix_end, 1);
     }
-    line = StringTrimRight(line_fix_end, 1);
     let items203 = LoopParseFunc(line, "\n", "\r");
     for (let A_Index203 = 0; A_Index203 < items203.length; A_Index203++) {
         const A_LoopField203 = items203[A_Index203 - 0];

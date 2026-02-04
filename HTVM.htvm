@@ -13117,6 +13117,9 @@ func str addSimpleStructs(str line) {
     
 str line_fix_end := ""
 int line_fix_end_IS_IN := 0
+
+        if (useEnd = "on") {
+
 Loop, Parse, line, `n, `r {
 
 if (Trim(StrLower(A_LoopField)) = "subout") or (Trim(StrLower(A_LoopField)) = keyWordEnd) and (line_fix_end_IS_IN = 1) {
@@ -13134,6 +13137,8 @@ line_fix_end .= A_LoopField . Chr(10)
 }
 
 StringTrimRight, line, line_fix_end, 1
+
+}
     
 Loop, Parse, line, `n, `r {
 furtre.add(A_LoopField)

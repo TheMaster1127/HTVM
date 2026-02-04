@@ -10193,21 +10193,23 @@ std::string addSimpleStructs(std::string line) {
     }
     std::string line_fix_end = "";
     int line_fix_end_IS_IN = 0;
-    std::vector<std::string> items202 = LoopParseFunc(line, "\n", "\r");
-    for (size_t A_Index202 = 0; A_Index202 < items202.size(); A_Index202++) {
-        std::string A_LoopField202 = items202[A_Index202 - 0];
-        if (Trim(StrLower(A_LoopField202)) == "subout" || Trim(StrLower(A_LoopField202)) == keyWordEnd && line_fix_end_IS_IN == 1) {
-            line_fix_end += "subout" + Chr(10);
-            line_fix_end_IS_IN = 0;
+    if (useEnd == "on") {
+        std::vector<std::string> items202 = LoopParseFunc(line, "\n", "\r");
+        for (size_t A_Index202 = 0; A_Index202 < items202.size(); A_Index202++) {
+            std::string A_LoopField202 = items202[A_Index202 - 0];
+            if (Trim(StrLower(A_LoopField202)) == "subout" || Trim(StrLower(A_LoopField202)) == keyWordEnd && line_fix_end_IS_IN == 1) {
+                line_fix_end += "subout" + Chr(10);
+                line_fix_end_IS_IN = 0;
+            }
+            else if (SubStr(Trim(A_LoopField202), 1, StrLen(keyWordStruct)) == keyWordStruct) {
+                line_fix_end_IS_IN = 1;
+                line_fix_end += A_LoopField202 + Chr(10);
+            } else {
+                line_fix_end += A_LoopField202 + Chr(10);
+            }
         }
-        else if (SubStr(Trim(A_LoopField202), 1, StrLen(keyWordStruct)) == keyWordStruct) {
-            line_fix_end_IS_IN = 1;
-            line_fix_end += A_LoopField202 + Chr(10);
-        } else {
-            line_fix_end += A_LoopField202 + Chr(10);
-        }
+        line = StringTrimRight(line_fix_end, 1);
     }
-    line = StringTrimRight(line_fix_end, 1);
     std::vector<std::string> items203 = LoopParseFunc(line, "\n", "\r");
     for (size_t A_Index203 = 0; A_Index203 < items203.size(); A_Index203++) {
         std::string A_LoopField203 = items203[A_Index203 - 0];

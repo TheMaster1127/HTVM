@@ -254,6 +254,9 @@ body.preload * { transition: none !important; }
 .dropdown { display: none; position: absolute; background-color: #202020; min-width: 160px; border: 1px solid #333; box-shadow: 0 8px 16px rgba(0,0,0,0.2); z-index: 1001; border-radius: 5px; }
 .dropdown-item { padding: 8px 10px; cursor: pointer; display: flex; align-items: center; color: #e0e0e0; }
 .dropdown-item:hover { background-color: #303030; }
+body.limit-htvm-languages .dropdown-item.unofficial {
+    display: none;
+}
 .toggle-switch-label { display: flex; align-items: center; gap: 6px; font-size: 0.85em; cursor: pointer; }
 #editor-container { flex-grow: 1; position: relative; min-height: 100px; background-color: var(--ace-background); }
 #editor { position: absolute; top: 0; right: 0; bottom: 0; left: 0; font-size: 14px; }

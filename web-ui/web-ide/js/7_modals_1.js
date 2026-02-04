@@ -124,6 +124,7 @@ function captureSettingsState() {
         state.autocompleteMaster = container.querySelector('#autocomplete-master-checkbox').checked;
         state.autocompleteKeywords = container.querySelector('#autocomplete-keywords-checkbox').checked;
         state.autocompleteLocal = container.querySelector('#autocomplete-local-checkbox').checked;
+        state.showUnofficialLangs = container.querySelector('#show-unofficial-langs-checkbox').checked; // Capture new state
         return state;
     } catch (e) {
         console.error("Could not capture settings state, elements might not be in DOM.", e);
@@ -160,7 +161,7 @@ async function openSettingsModal(initialState = null) {
                     <button id="customize-theme-btn" style="margin-top: 5px; padding: 8px; background-color: var(--btn-new-file-bg); color: var(--btn-new-file-text); font-weight: var(--btn-new-file-text-bold);">Customize UI Theme</button>
                     <h4 style="margin-top:20px;">Syntax Highlighting (HTVM mostly)</h4>
                     <div><label><input type="checkbox" id="syntax-highlighting-master-checkbox"> Enable Syntax Highlighting</label></div>
-                    <div style="padding-left: 20px;"><label><input type="checkbox" id="symbol-operator-highlighting-checkbox"> Highlight Symbol Operators (e.g., =, ++, *)</label></div>
+                    <div style="display: none; padding-left: 20px;"><label><input type="checkbox" id="symbol-operator-highlighting-checkbox"> Highlight Symbol Operators (e.g., =, ++, *)</label></div>
                     <button id="customize-colors-btn" style="margin-top: 10px; padding: 8px; background-color: var(--btn-new-file-bg); color: var(--btn-new-file-text); font-weight: var(--btn-new-file-text-bold);">Customize Syntax Colors</button>
                     <p style="font-size:0.8em; color:#aaa; margin-top:5px;">Color changes may affect other languages.</p>
                 </div>
@@ -176,7 +177,13 @@ async function openSettingsModal(initialState = null) {
                 </div>
             </div>
             <div class="settings-column" style="flex: 1; padding-left: 20px; border-left: 1px solid #333; min-width: 220px;">
-                 <h4>Hotkeys</h4>
+                 <h4>HTVM</h4>
+                 <div>
+                    <label>
+                        <input type="checkbox" id="show-unofficial-langs-checkbox"> Show Unsupported Targets
+                    </label>
+                 </div>
+                 <h4 style="margin-top:20px;">Hotkeys</h4>
                  <div id="hotkey-display-list">${await renderHotkeyDisplayList()}</div>
                  <button id="customize-hotkeys-btn" style="margin-top: 15px; padding: 8px; background-color: var(--btn-new-file-bg); color: var(--btn-new-file-text); font-weight: var(--btn-new-file-text-bold);">Customize Hotkeys</button>
             </div>
@@ -186,6 +193,7 @@ async function openSettingsModal(initialState = null) {
     
     const initialSyntaxEnabled = await dbGet('syntaxHighlightingEnabled') !== false;
     const initialHighlightOperators = await dbGet('highlightSymbolOperators') !== false;
+    const initialShowUnofficial = await dbGet('showUnofficialLangs') === true;
 
     // Load initial values from DB / editor state
     document.getElementById('font-size-input').value = editor.getFontSize();
@@ -200,6 +208,8 @@ async function openSettingsModal(initialState = null) {
     document.getElementById('autocomplete-master-checkbox').checked = await dbGet('autocomplete-master') !== false;
     document.getElementById('autocomplete-keywords-checkbox').checked = await dbGet('autocomplete-keywords') !== false;
     document.getElementById('autocomplete-local-checkbox').checked = await dbGet('autocomplete-local') !== false;
+    const showUnofficialCheckbox = document.getElementById('show-unofficial-langs-checkbox');
+    showUnofficialCheckbox.checked = initialShowUnofficial;
 
     // If a state was passed in (i.e., returning from a sub-modal), apply it.
     if (initialState) {
@@ -214,40 +224,71 @@ async function openSettingsModal(initialState = null) {
         if (initialState.autocompleteMaster !== undefined) document.getElementById('autocomplete-master-checkbox').checked = initialState.autocompleteMaster;
         if (initialState.autocompleteKeywords !== undefined) document.getElementById('autocomplete-keywords-checkbox').checked = initialState.autocompleteKeywords;
         if (initialState.autocompleteLocal !== undefined) document.getElementById('autocomplete-local-checkbox').checked = initialState.autocompleteLocal;
+        if (initialState.showUnofficialLangs !== undefined) showUnofficialCheckbox.checked = initialState.showUnofficialLangs;
     }
+
+    // Add warning logic for the new checkbox
+    showUnofficialCheckbox.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            const confirmed = confirm(
+                "WARNING:\n\n" +
+                "Languages other than JavaScript, Python, and C++ are experimental and not officially supported.\n\n" +
+                "Their output may be incorrect or incomplete. Use them at your own risk.\n\n" +
+                "Do you wish to proceed?"
+            );
+            if (!confirmed) {
+                e.target.checked = false;
+            }
+        }
+    });
 
     // Setup sub-modal buttons to pass the current state forward
     document.getElementById('customize-colors-btn').onclick = () => openSyntaxColorModal(captureSettingsState());
     document.getElementById('customize-theme-btn').onclick = () => openThemeEditorModal(captureSettingsState());
     document.getElementById('customize-hotkeys-btn').onclick = () => openHotkeyEditorModal(captureSettingsState());
 
-
     document.getElementById('modal-ok-btn').onclick = async () => {
-        editor.setFontSize(parseInt(document.getElementById('font-size-input').value, 10)); await dbSet('fontSize', editor.getFontSize());
+        // --- Apply settings immediately to editor ---
+        editor.setFontSize(parseInt(document.getElementById('font-size-input').value, 10));
         const keybinding = document.querySelector('input[name="keybinding-mode"]:checked').value;
-        await dbSet('keybindingMode', keybinding);
         editor.setKeyboardHandler(keybinding === 'normal' ? null : `ace/keyboard/${keybinding}`);
-        editor.setBehavioursEnabled(document.getElementById('auto-pair-checkbox').checked); await dbSet('autoPair', editor.getBehavioursEnabled());
-        editor.setShowPrintMargin(document.getElementById('print-margin-checkbox').checked); await dbSet('showPrintMargin', editor.getShowPrintMargin());
-        editor.setOption('printMargin', parseInt(document.getElementById('print-margin-column-input').value, 10) || 80); await dbSet('printMarginColumn', editor.getOption('printMargin'));
+        editor.setBehavioursEnabled(document.getElementById('auto-pair-checkbox').checked);
+        editor.setShowPrintMargin(document.getElementById('print-margin-checkbox').checked);
+        editor.setOption('printMargin', parseInt(document.getElementById('print-margin-column-input').value, 10) || 80);
+
+        // --- Get new values for all settings ---
+        const newSyntaxEnabled = document.getElementById('syntax-highlighting-master-checkbox').checked;
+        const newHighlightOperators = document.getElementById('symbol-operator-highlighting-checkbox').checked;
+        const newShowUnofficial = showUnofficialCheckbox.checked;
+        
+        // --- Save ALL settings to DB unconditionally ---
+        await dbSet('fontSize', editor.getFontSize());
+        await dbSet('keybindingMode', keybinding);
+        await dbSet('autoPair', editor.getBehavioursEnabled());
+        await dbSet('showPrintMargin', editor.getShowPrintMargin());
+        await dbSet('printMarginColumn', editor.getOption('printMargin'));
         await dbSet('clearTerminalOnRun', document.getElementById('clear-terminal-on-run-checkbox').checked);
         await dbSet('autocomplete-master', document.getElementById('autocomplete-master-checkbox').checked);
         await dbSet('autocomplete-keywords', document.getElementById('autocomplete-keywords-checkbox').checked);
         await dbSet('autocomplete-local', document.getElementById('autocomplete-local-checkbox').checked);
+        await dbSet('showUnofficialLangs', newShowUnofficial);
+        await dbSet('syntaxHighlightingEnabled', newSyntaxEnabled);
+        await dbSet('highlightSymbolOperators', newHighlightOperators);
+        
+        // --- Determine if a reload is needed ---
+        const needsReload = (initialSyntaxEnabled !== newSyntaxEnabled) || 
+                              (initialHighlightOperators !== newHighlightOperators) ||
+                              (initialShowUnofficial !== newShowUnofficial);
 
-        const newSyntaxEnabled = document.getElementById('syntax-highlighting-master-checkbox').checked;
-        const newHighlightOperators = document.getElementById('symbol-operator-highlighting-checkbox').checked;
-        const needsReload = (initialSyntaxEnabled !== newSyntaxEnabled) || (initialHighlightOperators !== newHighlightOperators);
+        overlay.style.display = 'none';
 
+        // --- Prompt for reload only if necessary, AFTER saving and closing modal ---
         if (needsReload) {
-            if (confirm("Some syntax highlighting settings have changed. A reload is required for them to take full effect. Your work will be saved.\n\nReload now?")) {
-                await dbSet('syntaxHighlightingEnabled', newSyntaxEnabled);
-                await dbSet('highlightSymbolOperators', newHighlightOperators);
+            if (confirm("Some settings have changed that require a reload to take full effect. Your work will be saved.\n\nReload now?")) {
                 await window.onbeforeunload();
                 window.location.reload();
             }
         }
-        overlay.style.display = 'none';
     };
     overlay.style.display = 'flex';
 }

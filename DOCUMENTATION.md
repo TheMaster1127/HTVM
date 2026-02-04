@@ -59,7 +59,7 @@ Explore the wide range of built-in functions categorized for ease of use.
 HTVM is a revolutionary tool designed to replace traditional programming. With HTVM, you can create your own programming language directly [here](https://themaster1127.github.io/HTVM/).
 
 
-HTVM offers **extensive syntax customization**, giving you the freedom to tailor the language structure to your own preferences. Almost all of these customizations can be converted into 15 languages, providing flexibility while keeping things simple.
+HTVM offers **extensive syntax customization**, giving you the freedom to tailor the language structure to your own preferences. Almost all of these customizations can be converted into 3 languages: JavaScript, Python, and C++. Providing flexibility while keeping things simple.
 
 ## Customization Features
 
