@@ -26,8 +26,7 @@ function reorganizeBoxes() {
     });
     
     columnElements.forEach(column => container.appendChild(column));
-    document.getElementById("sw-5")?.remove();
-    document.getElementById("sw-8")?.remove();
+    [...document.querySelectorAll('.setting-name')].filter(p => ['keyWordProc','keyWordThis'].includes(p.textContent.trim())).forEach(p => (p.nextElementSibling?.remove(), p.remove()));
     document.getElementById("sw-155")?.remove();
 };
 
@@ -158,3 +157,4 @@ function applyConfig(){
 
 
 export {applyConfig, registerMenu, reorganizeBoxes}
+
