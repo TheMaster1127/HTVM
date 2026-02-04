@@ -26,6 +26,8 @@ function reorganizeBoxes() {
     });
     
     columnElements.forEach(column => container.appendChild(column));
+    document.getElementById("sw-5")?.remove();
+    document.getElementById("sw-8")?.remove();
     document.getElementById("sw-155")?.remove();
 };
 
@@ -153,5 +155,6 @@ function applyConfig(){
 
     })
 }
+
 
 export {applyConfig, registerMenu, reorganizeBoxes}
