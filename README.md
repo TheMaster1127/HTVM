@@ -18,9 +18,9 @@
 
 HTVM is a revolutionary system that empowers **you to design your own programming language** with **fully customizable syntax**, tailored precisely to your needs and approach.
 
-Write code using your personalized keywords, operators, and structure, and HTVM's powerful engine will **generate equivalent code** for **15 distinct target languages**:
+Write code using your personalized keywords, operators, and structure, and HTVM's powerful engine will **generate equivalent code** for **3 distinct target languages**:
 
-**C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript, and Groovy.**
+**JavaScript, Python and C++.**
 
 HTVM aims to make programming faster, more accessible, more personalized, and ultimately, more powerful by putting you in control of the language itself.
 
@@ -90,7 +90,7 @@ Alright, let's make this crystal clear.
 
 HTVM is **not** a general-purpose transpiler that lets you convert between existing languages. You **cannot** use HTVM to convert Python to JavaScript, JavaScript to C++, or any other combination like that. If you have a Python script and want to turn it into JavaScript, **HTVM is not what you're looking for.**  
 
-Similarly, you **cannot** take existing code from languages like Python, Java, or C# and convert it to HTVM. That’s simply not how HTVM works. **HTVM is its own thing**—it’s a language that has its own syntax, which can be customized to your liking, and that syntax is what gets converted into other languages.  
+Similarly, you **cannot** take existing code from languages like Python, JavaScript, or C++ and convert it to HTVM. That’s simply not how HTVM works. **HTVM is its own thing**—it’s a language that has its own syntax, which can be customized to your liking, and that syntax is what gets converted into other languages.  
 
 However, what **is** possible is converting **HTVM to HTVM**—meaning, you can have different custom syntaxes within HTVM and convert between them. You can do this directly in the **IDE**. That’s something no other system really does. But again, **HTVM does not translate between standard programming languages—it only translates its own customizable syntax to these languages.** 
 
@@ -100,9 +100,9 @@ However, what **is** possible is converting **HTVM to HTVM**—meaning, you can 
 
 [Go Back To The Table of Contents ](#table-of-contents)
 
-HTVM is **a revolutionary, next-level programming system** that lets you define your own syntax and then convert that syntax into **fifteen different programming languages**:  
+HTVM is **a revolutionary, next-level programming system** that lets you define your own syntax and then convert that syntax into **3 different programming languages**:  
 
-**C++, Python, JavaScript, Go, Lua, C#, Java, Kotlin, Ruby, Nim, AutoHotKey, Swift, Dart, TypeScript, and Groovy.**  
+**JavaScript, Python and C++.**  
 
 It’s not just a transpiler—it’s an entire **ecosystem** that allows you to **create your own language, structure it however you want, and then generate real-world code in multiple target languages.**  
 
@@ -117,7 +117,6 @@ HTVM **isn’t just about converting your custom language to multiple targets—
 ### 🌐 OSP: Ordinal Struct Programming
 
 HTVM features **OSP (Ordinal Struct Programming)**, its unique built-in methodology for structuring code. It uses hierarchical namespaces (`alliance`, `crew`) and data containers (`struct`) with mandatory full-path access.
--   OSP provides an alternative way to organize data and related procedures (`proc`), emphasizing explicitness and clear structure, which can be beneficial for managing project components without relying on traditional OOP features like inheritance.
 -   For a detailed explanation, see the **[OSP (Ordinal Struct Programming) Documentation](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#osp-ordinal-struct-programming)**.
 -   Or, build your own HTVM language using the [HTVM Syntax Configurator Website](https://themaster1127.github.io/HTVM/web-ui/), and the specific documentation for your language, including OSP details, will be generated. Then you can read about OSP.
 
@@ -164,7 +163,7 @@ Once you've customized your language, click the **IDE** button to enter a fully-
 - **Autocomplete** for a faster coding experience.  
 - **Run Code** to execute your code directly in JavaScript, just like writing inside an HTML file and seeing the output in the console.  
 
-You can also **convert your code to any of the 15 supported programming languages**, but only JavaScript can be executed directly on the website. For other languages, you need to copy the output and run it locally.
+You can also **convert your code to any of the 3 supported programming languages**, but only JavaScript can be executed directly on the website. For other languages, you need to copy the output and run it locally.
 
 ### Step 4: Build Your Language
 
@@ -281,7 +280,7 @@ HTVM main.htvm HTVM-instructions.txt htvm HTVM-instructions2.txt
      ./HTVM main.htvm HTVM-instructions.txt js
      ```  
 
-### And so on HTVM can convert to 15 languages `cpp`, `py`, `js`, `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, `htvm` or yourExtension
+### And so on HTVM can convert to 3 languages: JavaScript, Python, and C++. There are other languages available like `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, but they are deprecated, unsupported, contain bugs, and if you encounter issues or bugs with those unsupported languages, do not report them. Use those languages at your own risk. You have been warned.
 
 --- 
 
@@ -868,7 +867,7 @@ HTVM was born out of a frustration with the limitations and complexities inheren
 HTVM is fundamentally a **meta-programming system** and **language workbench** designed for:
 
 1.  **Creating Custom Programming Languages:** Its primary purpose is to let users define their *own* syntax, keywords, operators, and overall language structure.
-2.  **Multi-Target Code Generation:** Translating code written in a user's custom HTVM language into 15 different standard programming languages (C++, Python, JS, etc.).
+2.  **Multi-Target Code Generation:** Translating code written in a user's custom HTVM language into 3 different standard programming languages (C++, Python and JS.). HTVM can convert to 3 languages: JavaScript, Python, and C++. There are other languages available like `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, but they are deprecated, unsupported, contain bugs, and if you encounter issues or bugs with those unsupported languages, do not report them. Use those languages at your own risk. You have been warned.
 3.  **Simplifying Development:** Making coding more intuitive and potentially faster by allowing personalized syntax and aiming to reduce library import boilerplate through built-in functions. You can add your own, too.
 4.  **Exploring New Methodology For Structuring Code:** Introducing concepts like OSP (Ordinal Struct Programming) as alternatives to traditional approaches.
 5.  **Bridging Abstraction and Native Code:** Providing [Programming Blocks](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#programming-blocks) as a mechanism to include target-specific code seamlessly when HTVM's abstractions aren't enough or native features are required.
@@ -917,7 +916,7 @@ HTVM is particularly well-suited for:
 
 While powerful, HTVM might not be the *best* fit for *every* scenario:
 
-1.  **Professionals (10-15+ years) Highly Optimized in Standard Languages:** If you're extremely fluent and fast in multiple standard languages, adopting HTVM *might* initially feel different. It *could* slow you down temporarily. **However,** once comfortable, the ability to generate code for 15 languages, the focus on fewer keystrokes, and custom abstraction *could significantly speed up* your development, especially for multi-target projects or where standard verbosity is a pain. It really depends on what you're doing and if you leverage HTVM's strengths.
+1.  **Professionals (10-15+ years) Highly Optimized in Standard Languages:** If you're extremely fluent and fast in multiple standard languages, adopting HTVM *might* initially feel different. It *could* slow you down temporarily. **However,** once comfortable, the ability to generate code for 3 languages, the focus on fewer keystrokes, and custom abstraction *could significantly speed up* your development, especially for multi-target projects or where standard verbosity is a pain. It really depends on what you're doing and if you leverage HTVM's strengths.
 2.  **If You Need Seamless Integration with Mature Ecosystems *Instantly*:** Projects heavily reliant on specific, complex native frameworks or tooling *might* require some integration effort with the generated code. You use the target language's tools, but there's an abstraction layer.
 3.  **For Extreme, Low-Level Performance Optimization:** While generated code performance depends on the target language, scenarios requiring hand-tuned, cycle-critical optimization *might* be better served by direct native coding.
 4.  **In Large Teams Without a Shared HTVM Standard *or Workflow*:** The customization power *could* lead to fragmentation *if* a team doesn't agree on a workflow. **However, HTVM enables a powerful solution:** team members can code in their *own* preferred HTVM syntax locally. Before pushing to a shared repo, they convert their code to an agreed-upon *standard team HTVM syntax*. Anyone pulling can then read the standard or convert it back to their own preference. This allows both individual freedom and team consistency.
@@ -927,7 +926,7 @@ While powerful, HTVM might not be the *best* fit for *every* scenario:
 
 Okay, let's address this head-on. Some might think, "Why bother with HTVM's custom stuff if I can just dump native code into [Programming Blocks](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#programming-blocks)?" Honestly, if that's all you do, you're missing the entire point of HTVM. Blocks are awesome, but they're the *escape hatch*, the *supplement*, not the main event. You use them when you absolutely *need* a specific native library HTVM doesn't cover yet, or for that tiny, hyper-optimized performance bit, or maybe for something HTVM just hasn't built-in yet.
 
-The *real* power, the reason HTVM exists, is writing the bulk of your logic in *your* clean, custom HTVM syntax and letting it generate code for 15 languages. If you just fill your files with programming blocks, you're basically just using HTVM as a weird preprocessor, throwing away the simplicity and multi-target magic. Use the HTVM language first, blocks second. There's literally no reason *not* to use HTVM's core features if you're using HTVM; blocks are just there for when you hit the edges.
+The *real* power, the reason HTVM exists, is writing the bulk of your logic in *your* clean, custom HTVM syntax and letting it generate code for 3 languages. If you just fill your files with programming blocks, you're basically just using HTVM as a weird preprocessor, throwing away the simplicity and multi-target magic. Use the HTVM language first, blocks second. There's literally no reason *not* to use HTVM's core features if you're using HTVM; blocks are just there for when you hit the edges.
 
 ---
 
@@ -937,12 +936,12 @@ The *real* power, the reason HTVM exists, is writing the bulk of your logic in *
 
 While developing HTVM, we anticipate potential questions and concerns. Here are some common points and the creator's perspective on how HTVM addresses them:
 
-1.  **Concern: Feasibility and Complexity Across 15 Languages**
-    *   *The Question:* Reliably mapping *any* custom syntax to 15 target languages, handling their nuances (type systems, error handling, standard libraries, concurrency models, idioms), seems extraordinarily difficult. How can HTVM ensure correct, idiomatic code without excessive bugs?
+1.  **Concern: Feasibility and Complexity Across all Languages**
+    *   *The Question:* Reliably mapping *any* custom syntax to 3 target languages, handling their nuances (type systems, error handling, standard libraries, concurrency models, idioms), seems extraordinarily difficult. How can HTVM ensure correct, idiomatic code without excessive bugs?
     *   **The Creator's Perspective:** This is indeed the core challenge, but it's managed strategically.
         *   **Bootstrapping:** HTVM is bootstrapped to C++ and JavaScript, ensuring the core engine's logic is sound and tested in two key environments.
         *   **Daily Use & Testing:** As the creator, I use HTVM daily. Bugs are found and fixed constantly, making the system increasingly robust. Bugs are actually rare now and typically minor.
-        *   **Pragmatic Mapping:** HTVM doesn't try to magically map *every* conceivable language feature perfectly across all 15 targets if it's impractical or leads to fragile code. Some complex or highly language-specific constructs (like complex switch cases or nuanced error handling in Go/Lua) are intentionally *not* directly mapped.
+        *   **Pragmatic Mapping:** HTVM doesn't try to magically map *every* conceivable language feature perfectly across all 3 targets if it's impractical or leads to fragile code. Some complex or highly language-specific constructs (like complex switch cases or nuanced error handling in Go/Lua) are intentionally *not* directly mapped, thats why they are unsupported.
         *   **Programming Blocks as a Solution:** For cases where direct mapping is impossible or undesirable, **[Programming Blocks](https://github.com/TheMaster1127/HTVM/blob/main/DOCUMENTATION.md#programming-blocks)** are the *designed* solution. They allow users to leverage native code precisely when needed, acknowledging language differences rather than trying to force an imperfect universal abstraction.
         *   **Simplicity Focus:** HTVM prioritizes a powerful *core* set of customizable features that *can* be reliably translated.
 
@@ -965,6 +964,8 @@ While developing HTVM, we anticipate potential questions and concerns. Here are 
 
         Furthermore, the HTVM engine is built with a **trace-back algorithm** designed specifically to map generated code lines back to their origin in the HTVM source file, bridging the debugging gap directly.
 
+        And most importantly, I've built a simple debugger to HTVM where you can use breakpoints and in the target language you'll be able to see the variables, local and global. It's not perfect, it doesn't support arrays, but it's better than nothing.
+
 
 4.  **Concern: Leaky Abstractions & Performance**
     *   *The Question:* Will generated code be performant? Does it leverage target language strengths, or is it generic? Does over-reliance on Programming Blocks defeat the purpose?
@@ -982,17 +983,17 @@ While developing HTVM, we anticipate potential questions and concerns. Here are 
     *   **The Creator's Perspective:** Correct. OSP (Ordinal Struct Programming) is a distinct concept detailed in the main HTVM documentation (which is generated based on your custom language configuration). The README serves as an overview and links to deeper resources.
 
 7.  **Concern: Maintenance Burden**
-    *   *The Question:* Maintaining correct transpilation for 15 evolving languages seems like a massive task.
+    *   *The Question:* Maintaining correct transpilation for 3 evolving languages seems like a massive task.
     *   **The Creator's Perspective:** It's significant, but manageable:
         *   **Bootstrapping:** Ensures the core C++/JS targets stay robustly maintained.
-        *   **Practical Usage:** Most users will target only one language at a time and only some handful of users will handle 2 or even more languages at a time for a given project. Maintenance can be prioritized based on usage and reported issues. It's not typically necessary for all 15 to be perfectly up-to-the-minute simultaneously for every user.
+        *   **Practical Usage:** Most users will target only one language at a time and only some handful of users will handle 2 or even more languages at a time for a given project. Maintenance can be prioritized based on usage and reported issues. It's not typically necessary for all 3 to be perfectly up-to-the-minute simultaneously for every user.
 
 8.  **Concern: Hype vs. Reality**
     *   *The Question:* The enthusiastic tone ("revolution," "insane") sets very high expectations for an unfinished project.
     *   **The Creator's Perspective:** The enthusiasm is genuine, born from using HTVM and believing in its potential to solve real problems and offer unprecedented flexibility. While ambitious, the claims are based on the implemented design, the bootstrapped foundation, and the clear path forward. The "insanity" refers to the level of customization and multi-target power, which is truly unique.
 
-9.  **Concern: "Reliably transpiling to 15 different languages is impossible. How can HTVM handle the massive differences in concurrency, type systems, and standard libraries?"**
-    *   **The Question:** How can HTVM possibly generate idiomatic code for Go's `goroutines`, JavaScript's `async/await`, and C++'s threading from a single syntax? It seems like a classic "leaky abstraction" that will fail in the real world.
+9.  **Concern: "Reliably transpiling to 3 different languages is impossible. How can HTVM handle the massive differences in type systems, and standard libraries?"**
+    *   **The Question:** How can HTVM possibly generate idiomatic code for JavaScript's `async/await`, and C++'s threading from a single syntax? It seems like a classic "leaky abstraction" that will fail in the real world.
     *   **The Creator's Perspective: This is a fundamental misunderstanding of HTVM's philosophy.**
         HTVM is **not** designed to be a magical, universal abstraction layer for every feature in every language. That *would* be impossible. Instead, HTVM is designed as a **hybrid system** that provides a hyper-efficient core language for the 90% of code that is common (loops, variables, functions, control flow), while seamlessly delegating platform-specific tasks to the native language.
 
@@ -1067,7 +1068,7 @@ HTVM provides high-level abstractions and built-ins to simplify common tasks. Ho
 There's increasing talk about AI writing code or even creating languages. Some might wonder, "Can't AI just do what HTVM does?" or say "AI can do that!" The answer is definitively **No**, especially at scale and with the level of personalized control HTVM offers.
 
 *   **Structured, Consistent Generation:** HTVM translates your custom syntax into target languages based on **defined, repeatable rules** stored in your `HTVM-instructions.txt`. This ensures consistent, predictable, and debuggable output every time. Current AI code generation, while impressive, often lacks this rigid consistency. Asking an AI to translate the same complex logic multiple times might yield slightly different, potentially less reliable results.
-*   **Scalability and Reliability:** Imagine asking an AI to translate a million-line project written in your custom HTVM syntax into 15 different languages, ensuring perfect feature parity and correctness across all targets. The computational cost, potential for hallucinated errors, and lack of verifiable consistency make this **impractical, unreliable and straight-up impossible** with today's AI. HTVM, built on a deterministic engine, handles this conversion reliably, no matter the project size.
+*   **Scalability and Reliability:** Imagine asking an AI to translate a million-line project written in your custom HTVM syntax into 3 different languages, ensuring perfect feature parity and correctness across all targets. The computational cost, potential for hallucinated errors, and lack of verifiable consistency make this **impractical, unreliable and straight-up impossible** with today's AI. HTVM, built on a deterministic engine, handles this conversion reliably, no matter the project size.
 *   **Deep User-Defined Syntax:** AI *might* generate *a* language, but it cannot intuit the deeply personalized, nuanced syntax *you* design with HTVM. HTVM allows you to meticulously craft every keyword, operator, and structure to fit *your specific cognitive model*. You build the language; HTVM just makes it work everywhere. AI generates based on patterns; HTVM generates based on *your explicit design*.
 *   **Beyond Simple Generation:** HTVM isn't just about generating code. It's an ecosystem with an IDE, syntax highlighting tailored *to your rules*, and built-in features like OSP and Programming Blocks. It provides a complete workbench for *your* language, something far beyond simple AI code generation prompts.
 
@@ -1082,7 +1083,9 @@ There's increasing talk about AI writing code or even creating languages. Some m
 
 ### HTVM: Customizable Syntax for Your Needs
 
-HTVM offers **extensive syntax customization**, giving you the freedom to tailor the language structure to your own preferences. Almost all of these customizations can be converted into 15 languages, providing flexibility while keeping things simple.
+HTVM offers **extensive syntax customization**, giving you the freedom to tailor the language structure to your own preferences. Almost all of these customizations can be converted into 3 languages, providing flexibility while keeping things simple. 
+
+HTVM can convert to 3 languages: JavaScript, Python, and C++. There are other languages available like `go`, `lua`, `cs`, `java`, `kt`, `rb`, `nim`, `ahk`, `swift`, `dart`, `ts`, `groovy`, but they are deprecated, unsupported, contain bugs, and if you encounter issues or bugs with those unsupported languages, do not report them. Use those languages at your own risk. You have been warned.
 
 ## Customization Features
 
@@ -1478,9 +1481,9 @@ And if that wasn’t enough, there are **Reverse Programming Blocks**—which al
 ### **The Future of Programming**  
 HTVM **isn’t just a transpiler—it’s the future of programming.**  
 
-This is a system that allows **anyone** to create their own syntax, define how they want their language to behave, and then generate fully functional code in fifteen different programming languages. No more being stuck with a single syntax or workflow—**HTVM lets you build programming your way.**  
+This is a system that allows **anyone** to create their own syntax, define how they want their language to behave, and then generate fully functional code in 3 different programming languages. No more being stuck with a single syntax or workflow—**HTVM lets you build programming your way.**  
 
-Think about it. If you had to manually convert HTVM to fifteen different languages, it would take months just for a single feature. But **HTVM automates that entire process**—**once your syntax is defined, your language works across all targets instantly.**  
+Think about it. If you had to manually convert HTVM to 3 different languages, it would take months just for a single feature. But **HTVM automates that entire process**—**once your syntax is defined, your language works across all targets instantly.**  
 
 ### **HTVM – The Future of Programming**  
 This level of customization **doesn’t exist anywhere else.** No other system gives you this much control over how your language looks and feels. You’re not just writing code—you’re **designing your own programming experience.**  
@@ -1492,6 +1495,7 @@ HTVM isn’t just powerful—it’s **insane.** This is how programming should b
 ---
 
 HTVM **isn’t just another programming tool. It’s a revolution.**
+
 
 
 
