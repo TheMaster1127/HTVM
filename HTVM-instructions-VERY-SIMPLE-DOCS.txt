@@ -3,10 +3,10 @@ langFileExtension
 commands
 keyWordAlliance
 keyWordCrew
-keyWordProc
+keyWordProc !!! DEPRECATED !!! DO NOT USE !!!
 keyWordStruct
 keyWordProp
-keyWordThis
+keyWordThis !!! DEPRECATED !!! DO NOT USE !!!
 keyWordInclude
 keyWordCodeInTheTranspiledLangStart
 keyWordCodeInTheTranspiledLangEnd
