@@ -124,7 +124,7 @@
                 const final_symbol_operators = cleanAndBuild(symbol_operators_temp, false);
 
                 const gui_option_tokens1 = ["i", "v", "id", "elementId", "eid", "p", "parentId", "pid", "divId", "x", "xPos", "xCoord", "y", "yPos", "yCoord", "w", "width", "wight", "widh", "h", "height", "hight", "heigth", "z", "zIndex", "z-index", "d", "value", "val", "displayValue", "q", "placeholder", "plc", "ph", "grayText", "g", "f", "callback", "func", "fn", "call", "o", "backgroundColor", "bgColor", "bg", "bgc", "c", "color", "clr", "r", "rounding", "round", "rnd", "b", "border", "boder", "outline", "l", "rawCss", "css", "style", "luxury", "s", "size", "sz", "a", "isEnabled", "isEnb", "u", "isVisible", "isVsb", "n", "isDeleting", "del", "remove", "rm", "focus"];
-                const gui_option_tokens2 = ["button", "text", "edit", "picture", "toggle", "rectangle", "circle", "video", "dropdown", "iframe"];
+                const gui_option_tokens2 = ["button", "text", "edit", "picture", "toggle", "rectangle", "circle", "video", "dropdown", "iframe", "as"];
                 const gui_option_pattern1 = gui_option_tokens1.map(gui_option_toCaseInsensitivePattern).join('|');
                 const gui_option_pattern2 = gui_option_tokens2.map(gui_option_toCaseInsensitivePattern).join('|');
                 const regexGuiOptions = new RegExp(`\\b(?:${gui_option_pattern1})(?=:)|\\b(?:${gui_option_pattern2})\\b`);
@@ -144,7 +144,7 @@
                         { token: "static_types", regex: cleanAndBuild(staticTypes_temp) + "|" + "\\b(?:" + "[Gg][Uu][Ii]" + "|" + "[Gg][Uu][Ii][Cc][Oo][Nn][Tt][Rr][Oo][Ll]" + ")\\b" },
                         { token: "programmingBlocksAndImport", regex: cleanAndBuild(programmingBlocksAndImport_temp) },
                         { token: "trueANDfalse", regex: cleanAndBuild(htvm_trueFalseGlobalNull_temp) + "|\\bin\\b" },
-                        { token: "guiOptions", regex: regexGuiOptions + "|\\bas\\b" },
+                        { token: "guiOptions", regex: regexGuiOptions },
                         { token: "operators", regex: final_word_operators },
                         { token: "operators", regex: final_symbol_operators }
                     ],
