@@ -11144,7 +11144,7 @@ name: StrLower
 libs: null
 description: string~~~Converts all uppercase characters in a string to lowercase. Non-alphabetic characters are unaffected.~~~Here is how to use it:~~~```htvm~~~str text1 := "HeLlO, WoRlD!"~~~str lower1 := StrLower(text1)~~~; Expected: 'hello, world!'~~~print("StrLower('" . text1 . "') = '" . lower1 . "'")~~~if (lower1 != "hello, world!") {~~~    print("StrLower test 1 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text2 := "HTVM ROCKS 123!"~~~str lower2 := text2.StrLower~~~; Expected: 'htvm rocks 123!'~~~print("StrLower('" . text2 . "') = '" . lower2 . "'")~~~if (lower2 != "htvm rocks 123!") {~~~    print("StrLower test 2 FAILED!")~~~}~~~; ----------------------------------------------------~~~str text3 := "already lowercase"~~~str lower3 := StrLower(text3)~~~; Expected: 'already lowercase'~~~print("StrLower('" . text3 . "') = '" . lower3 . "'")~~~if (lower3 != "already lowercase") {~~~    print("StrLower test 3 FAILED!")~~~}~~~```~~~
 fun StrLower(str: String): String {
-    return str.toLowerCase()
+    return str.lowercase() 
 }
 funcEND======================funcEND==============
 func======================func==============
