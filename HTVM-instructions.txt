@@ -5280,7 +5280,6 @@ std::string GetParams() {
     return result;
 }
 
-
 void HTclang_HTclang_HTclang() {
     std::string params = Trim(GetParams());
     if (params == "") {
