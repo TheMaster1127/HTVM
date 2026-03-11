@@ -5239,7 +5239,6 @@ function HTVM_getLang_HTVM() {
 }
 funcEND======================funcEND==============
 
-
 func======================func==============
 lang: cpp
 name: HTclang_HTclang_HTclang
