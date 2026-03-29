@@ -27786,7 +27786,6 @@ FileDelete(StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConve
 FileAppend(OUTCODE, StringTrimRight(argCODEfile, StrLen(langFileExtension)) . langToConvertTo)
 }
 
-
 }
 
 if (HTVM_getLang_HTVM() = "js")
